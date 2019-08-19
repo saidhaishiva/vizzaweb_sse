@@ -111,6 +111,7 @@ export class AegonTermLifeComponent implements OnInit {
   public icicMsg : any;
   public ecsaMsg : any;
   public adbsaMsg : any;
+  public adbsaMsg1 : any;
   public dbsaMsg : any;
   public husMsg : any;
   public wifeMsg : any;
@@ -159,18 +160,18 @@ export class AegonTermLifeComponent implements OnInit {
 
     this.apponiteeList = false;
     this.settings= this.appSettings.settings;
-    const observable = this.keyUp
-        .map(value => event)
-        .debounceTime(200)
-        .distinctUntilChanged()
-        .flatMap((search) => {
-          return Observable.of(search).delay(200);
-        })
-        .subscribe((data) => {
-          console.log(data, 'data');
-          this.getAnnual('annaulIncome');
-
-        });
+    // const observable = this.keyUp
+    //     .map(value => event)
+    //     .debounceTime(200)
+    //     .distinctUntilChanged()
+    //     .flatMap((search) => {
+    //       return Observable.of(search).delay(200);
+    //     })
+    //     .subscribe((data) => {
+    //       console.log(data, 'data');
+    //       this.getAnnual('annaulIncome');
+    //
+    //     });
 
     const observable1 = this.keyUp
         .map(value => event)
@@ -270,11 +271,7 @@ export class AegonTermLifeComponent implements OnInit {
 
     });
 
-    this.errorMsg1 = '';
-    this.errorMsg2 = '';
-    this.errorMsg3 = '';
-    this.errorMsg4 = '';
-    this.errorMsg = '';
+
   }
 
   ngOnInit() {
@@ -450,6 +447,7 @@ export class AegonTermLifeComponent implements OnInit {
         console.log(dob , 'dob');
         if (selectedDate.length == 10) {
           this.proposerAge = this.ageCalculate(dob);
+          this.getPremium('dob');
           // sessionStorage.proposerAge = this.proposerAge;
 
         }
@@ -459,6 +457,7 @@ export class AegonTermLifeComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
           this.proposerAge = this.ageCalculate(dob);
+          this.getPremium('dob');
           // sessionStorage.insuredAgePA = this.proposerAge;
 
         }
@@ -475,24 +474,183 @@ export class AegonTermLifeComponent implements OnInit {
   //     this.personal.controls['incomeError'].patchValue('Annual Income should be 2 Lakhs and above');
   //   }
   // }
-
-  validateAccidental(event:any){
-    console.log(this.personal.controls['deathBenefitSA'].value, 'err');
-    if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP') {
-      if (this.personal.controls['deathBenefitSA'].value > 30000000) {
-        this.annualError = ' Maximum Accidental Death Benefit should be 30000000';
-      } else {
-        if (((this.personal.controls['adbrSumAssured'].value) <= (this.personal.controls['deathBenefitSA'].value)) && (this.personal.controls['adbrSumAssured'].value >= 50000)) {
-          console.log(this.personal.controls['adbrSumAssured'].value,'this.personal.controls[\'adbrSumAssured\'].value')
-          this.annualError = '';
-        } else {
-          this.annualError = 'ADB sum assured should be between 50000 to Base SA ';
-        }
+  //
+  // validateAccidental(event:any){
+  //   console.log(this.personal.controls['deathBenefitSA'].value, 'err');
+  //   if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP') {
+  //     if (this.personal.controls['deathBenefitSA'].value > 30000000) {
+  //       this.annualError = ' Maximum Accidental Death Benefit should be 30000000';
+  //     } else {
+  //       if (((this.personal.controls['adbrSumAssured'].value) <= (this.personal.controls['deathBenefitSA'].value)) && (this.personal.controls['adbrSumAssured'].value >= 50000)) {
+  //         console.log(this.personal.controls['adbrSumAssured'].value,'this.personal.controls[\'adbrSumAssured\'].value')
+  //         this.annualError = '';
+  //       } else {
+  //         this.annualError = 'ADB sum assured should be between 50000 to Base SA ';
+  //       }
+  //     }
+  //   }
+  validateAnnual(annualIncome){
+    if(annualIncome!= '')
+    {
+      if(annualIncome >= 200000){
+        this.annaulIncomeMsg = '';
+        this.errorMsg = '';
+        this.getAnnual('annaulIncome');
+      }else{
+        this.annaulIncomeMsg = 'Minimum AnnualIncome Should be 2Lac';
+        this.errorMsg = 'Minimum AnnualIncome Should be 2Lac';
       }
+
+    }else{
+      this.annaulIncomeMsg = 'Annual Income should not be Empty';
+      this.errorMsg = 'Annual Income should not be Empty';
+    }
+
     }
 
 
+  validateaAmount(event){
+    console.log(this.personal.controls.adbrSumAssured.value,'value of adbrSumAssure');
+    if (this.personal.controls.adbrSumAssured.value > this.personal.controls.deathBenefitSA.value){
+      this.adbsaMsg1 = 'ADB SA should be min. 50000 and max. 3Cr. or equal to Base SA';
+      this.errorMsg = 'ADB SA should be min. 50000 and max. 3Cr. or equal to Base SA ';
+    }else{
+      this.adbsaMsg1='';
+      this.errorMsg='';
     }
+  }
+
+
+    //AddOn Funcion's
+  deathBenefitSA(sumInsured){
+    sumInsured = parseInt(sumInsured);
+    if(sumInsured!= '')
+    {
+      if(sumInsured >= 2500000){
+        if(sumInsured % 1000 == 0)
+        {
+        this.dbsaMsg = '';
+        this.errorMsg = '';
+        this.getPremium('dbsa');
+      }
+      else{
+        this.dbsaMsg = 'Value must be multiple of 1,000';
+        this.errorMsg = 'Value must be multiple of 1,000';
+      }
+      }else{
+        this.dbsaMsg = 'Minimum Sum Assured Should be 25Lac';
+        this.errorMsg = 'Minimum Sum Assured Should be 25Lac';
+      }
+
+    }else{
+      this.dbsaMsg = 'Sum Assured should not be Empty';
+      this.errorMsg = 'Sum Assured should not be Empty';
+    }
+  }
+
+
+  adbrSumAssured(sumInsured){
+    sumInsured = parseInt(sumInsured);
+    let adbsumInsured = parseInt(this.personal.controls['deathBenefitSA'].value);
+    if(sumInsured!= '')
+    {
+      if(sumInsured >= 50000 && sumInsured <= adbsumInsured){
+        if(sumInsured % 1000 == 0)
+        {
+          if(sumInsured > 30000000)
+          {
+            this.adbsaMsg = 'The maximum eligibility of this rider is 3 Cr';
+            this.errorMsg = 'The maximum eligibility of this rider is 3 Cr';
+          }
+          else
+          {
+            this.adbsaMsg = '';
+            this.errorMsg = '';
+            this.getPremium('adbsa');
+          }
+        }
+        else{
+          this.adbsaMsg = 'Value must be multiple of 1,000';
+          this.errorMsg = 'Value must be multiple of 1,000';
+        }
+      }else{
+        this.adbsaMsg = 'ADB SA should be min. 50000 and max. 3Cr. or equal to Base SA ';
+        this.errorMsg = 'ADB SA should be min. 50000 and max. 3Cr. or equal to Base SA ';
+      }
+
+    }else{
+      this.adbsaMsg = 'Rider should not be Empty';
+      this.errorMsg = 'Rider should not be Empty';
+    }
+  }
+
+
+  enchancedCISA(sumInsured){
+    sumInsured = parseInt(sumInsured);
+    let adbsumInsured = parseInt(this.personal.controls['deathBenefitSA'].value);
+    if(sumInsured!= '')
+    {
+      if(sumInsured >= 500000 && sumInsured <= 5000000){
+        if(sumInsured % 1000 == 0) {
+          if(sumInsured > adbsumInsured)
+          {
+            this.ecsaMsg = 'Enhance CI rider sum assured should be between 5Lac to 50 Lac or Base SA';
+            this.errorMsg = 'Enhance CI rider sum assured should be between 5Lac to 50 Lac or Base SA';
+          }
+          else {
+            this.ecsaMsg = '';
+            this.errorMsg = '';
+            this.getPremium('ecsa');
+          }
+        }
+        else{
+          this.ecsaMsg = 'Value must be multiple of 1,000';
+          this.errorMsg = 'Value must be multiple of 1,000';
+        }
+      }else{
+        this.ecsaMsg = 'Enhance CI rider sum assured should be between 5Lac to 50 Lac or Base SA';
+        this.errorMsg = 'Enhance CI rider sum assured should be between 5Lac to 50 Lac or Base SA';
+      }
+
+    }else{
+      this.ecsaMsg = 'Rider should not be Empty';
+      this.errorMsg = 'Rider should not be Empty';
+    }
+  }
+
+  icirSumAssured(sumInsured){
+    sumInsured = parseInt(sumInsured);
+    let adbsumInsured = parseInt(this.personal.controls['deathBenefitSA'].value);
+    if(sumInsured!= '')
+    {
+      if(sumInsured >= 500000 && sumInsured <= 5000000){
+        if(sumInsured % 1000 == 0) {
+        if(sumInsured > adbsumInsured)
+        {
+          this.icicMsg = 'Basic Critical Illness Benefit rider sum assured should be between 5Lac to 50 Lac or Base SA';
+          this.errorMsg = 'Basic Critical Illness Benefit rider sum assured should be between 5Lac to 50 Lac or Base SA';
+        }
+        else {
+          this.icicMsg = '';
+          this.errorMsg = '';
+          this.getPremium('icic');
+        }
+        }
+        else{
+          this.ecsaMsg = 'Value must be multiple of 1,000';
+          this.errorMsg = 'Value must be multiple of 1,000';
+        }
+      }else{
+        this.icicMsg = 'Basic Critical Illness Benefit rider sum assured should be between 5Lac to 50 Lac or Base SA';
+        this.errorMsg = 'Basic Critical Illness Benefit rider sum assured should be between 5Lac to 50 Lac or Base SA';
+      }
+    }else{
+      this.icicMsg = 'Rider should not be Empty';
+      this.errorMsg = 'Rider should not be Empty';
+    }
+  }
+
+
     validatesuminsured(){
       if (this.personal.controls['deathBenefitSA'].value >= 2500000){
       this.sumError = ''
@@ -862,18 +1020,14 @@ export class AegonTermLifeComponent implements OnInit {
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
 
-          if(this.annualData) {
-            if (this.premiumData) {
-
-              stepper.next();
-              this.topScroll();
-
-            } else {
-              this.toastr.error(this.errorMsg);
-            }
-          }else {
-            this.toastr.error(this.errorAnnaulMsg);
-          }
+        if(this.errorMsg == '')
+        {
+          stepper.next();
+          this.topScroll();
+        }
+        else {
+          this.toastr.error(this.errorMsg);
+        }
 
         } else {
         this.toastr.error('Proposer age should be 18 or above');
@@ -1309,6 +1463,7 @@ export class AegonTermLifeComponent implements OnInit {
                   this.dbsaAnnualMsg = '';
                   this.errorAnnaulMsg = '';
                   this.annaulIncomeMsg = '';
+                  this.qulMsg = '';
 
         }else
           {
@@ -1329,6 +1484,10 @@ export class AegonTermLifeComponent implements OnInit {
             else if(successData.type == 'annaulIncome')
             {
               this.annaulIncomeMsg = successData.ErrorObject;
+            }
+            else if(successData.type == 'qul')
+            {
+              this.qulMsg = successData.ErrorObject;
             }
             else
             {

@@ -12,6 +12,7 @@ import {ValidationService} from '../../shared/services/validation.service';
 import {Subject} from 'rxjs';
 import {Observable} from 'rxjs';
 import {ClearSessionTermlifeService} from '../../shared/services/clear-session-termlife.service';
+import {TermViewKeyfeaturesComponent} from './term-view-keyfeatures/term-view-keyfeatures.component';
 
 @Component({
   selector: 'app-term-life-premium-list',
@@ -326,6 +327,17 @@ export class TermLifePremiumListComponent implements OnInit {
 
 
         }
+    }
+    // view key features details
+    viewKeyList(value) {
+        console.log(value, 'value');
+        let dialogRef = this.dialog.open(TermViewKeyfeaturesComponent, {
+            width: '1500px', data: {productId : value.product_id, productName: value.product_name, productLogo: value.company_logo}
+        });
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+        });
+
     }
 }
 

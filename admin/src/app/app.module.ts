@@ -16,7 +16,8 @@ import { MatDialogModule} from '@angular/material';
 import { PdfViewerModule} from 'ng2-pdf-viewer';
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { TruncatePipe} from './shared/limitTo';
-import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -115,6 +116,11 @@ import { EdittestimonialComponent } from './pages/testimonial/edittestimonial/ed
 import { CareerListComponent } from './pages/career-list/career-list.component';
 import { PathPopupComponent } from './pages/career-list/path-popup/path-popup.component';
 import { MetaDetailsComponent } from './pages/meta-details/meta-details.component';
+import { AddMetaDetailComponent } from './pages/meta-details/add-meta-detail/add-meta-detail.component';
+import { EditMetaDetailComponent } from './pages/meta-details/edit-meta-detail/edit-meta-detail.component';
+import { ComponentComponent } from './pages/component/component.component';
+import { AddComponentComponent } from './pages/component/add-component/add-component.component';
+import { EditComponentComponent } from './pages/component/edit-component/edit-component.component';
 
 @NgModule({
     imports: [
@@ -137,7 +143,7 @@ import { MetaDetailsComponent } from './pages/meta-details/meta-details.componen
         NgxPaginationModule,
         PdfViewerModule,
         QuillModule,
-
+        MatChipsModule,
         routing
     ],
     declarations: [
@@ -214,6 +220,11 @@ import { MetaDetailsComponent } from './pages/meta-details/meta-details.componen
         CareerListComponent,
         PathPopupComponent,
         MetaDetailsComponent,
+        AddMetaDetailComponent,
+        EditMetaDetailComponent,
+        ComponentComponent,
+        AddComponentComponent,
+        EditComponentComponent,
     ],
     providers: [
         AppSettings,
