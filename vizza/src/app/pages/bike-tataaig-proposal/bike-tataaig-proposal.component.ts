@@ -238,6 +238,10 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.validation.space(event);
     }
 
+    onpaste(event: any) {
+        this.validation.paste(event);
+    }
+
     firstname(event) {
         this.proposer.controls['driveFirstname'].patchValue(event.target.value);
     }
