@@ -257,7 +257,7 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   onpaste(event: any) {
-    event.preventDefault();
+      this.validation.paste(event);
   }
 
   firstname(event) {
