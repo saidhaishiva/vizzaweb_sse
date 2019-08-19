@@ -53,7 +53,7 @@
               </th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Key Feature1</th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Key Feature2</th>
-              <th class="col-md-1" style="padding: 15px 5px !important;">Compare</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">Details</th>
 
               <th class="col-md-1" style="padding: 15px 5px !important;">Premium ( &#8377; )</th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Buy </th>
@@ -87,7 +87,7 @@
               <td class="col-md-1 text-center">  -
               </td>
               <td class="col-md-1 text-center">
-                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
+                <!--<p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i>Compare</button></p>-->
                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
               </td>

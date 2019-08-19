@@ -130,6 +130,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public valid: any;
   public settings: any;
   public webhost: any;
+  // public weburl:any;
   public nomineeData: any;
   public showAppointee: boolean;
   public dopDateError: any;
@@ -237,6 +238,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.valid = false;
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
+    // this.weburl = this.config.getHostTerm();
     this.nomineeDetails = [];
     this.taxRequired = '';
     this.step = 0;
