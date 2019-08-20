@@ -41,14 +41,15 @@
                   [selected]="selected"
                   [selectionType]="'checkbox'">
 
-            <ngx-datatable-column name="Title">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.title}}
-              </ng-template>
-            </ngx-datatable-column>
+
             <ngx-datatable-column name="Component">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 {{row.component}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Title">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.title}}
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Keyword">
@@ -63,10 +64,10 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Action">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <i class="material-icons"  (click)="edit(row)" style="cursor: pointer" >
+                <i class="material-icons mr-2"  (click)="edit(row)" style="cursor: pointer; color: #0288d1; font-size: 27px;" >
                   edit
                 </i>
-                <i class="material-icons" (click)="delete(row)" style="cursor: pointer" >
+                <i class="material-icons" (click)="delete(row)" style="cursor: pointer; color: #FF0000; font-size: 27px;" >
                   delete
                 </i>
               </ng-template>
