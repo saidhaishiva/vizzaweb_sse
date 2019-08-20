@@ -46,11 +46,9 @@ export class HdfcTermLifeComponent implements OnInit {
 
   public personal: FormGroup;
   public nomineeDetail: FormGroup;
-  public appointeeDetails: FormGroup;
   public proposerAge: any;
   public nomineeAge: any;
   public dateError: any;
-  public dateError1: any;
   public incomeError: any;
   public webhost: any;
   public today: any;
@@ -688,73 +686,54 @@ export class HdfcTermLifeComponent implements OnInit {
     this.nomineeDetail['controls'].apincode.updateValueAndValidity();
 
   }
- // addEventNominee(event) {
- //    if (event.value != null) {
- //      let selectedDate = '';
- //      this.nomineeAge = '';
- //      let dob = '';
- //      if (typeof event.value._i == 'string') {
- //        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
- //        if (pattern.test(event.value._i) && event.value._i.length == 10) {
- //          this.dateErrorNominee = '';
- //        } else {
- //          this.dateErrorNominee = 'Enter Valid Date';
- //        }
- //        selectedDate = event.value._i;
- //        dob = this.datepipe.transform(event.value, 'y-MM-dd');
- //        if (selectedDate.length == 10) {
- //          this.proposerAge = this.ageCalculate(dob);
- //          console.log(this.nomineeAge, ' this.nomineeAg');
- //
- //        }
- //
- //      } else if (typeof event.value._i == 'object') {
- //        dob = this.datepipe.transform(event.value, 'y-MM-dd');
- //        if (dob.length == 10) {
- //          this.nomineeAge = this.ageCalculate(dob);
- //          console.log(this.nomineeAge, 'nomineeAge')
- //
- //        }
- //        this.dateError = '';
- //      }
- //      sessionStorage.nomineeAge = this.nomineeAge;
- //
- //    }
- //  }
 
-  addDatepropo(event) {
-    if (event.value != null) {
-      let selectedDate = '';
-      this.nomineeAge = '';
-      let dob = '';
-      if (typeof event.value._i == 'string') {
-        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-        if (pattern.test(event.value._i) && event.value._i.length == 10) {
-          this.dateError1 = '';
-        } else {
-          this.dateError1 = 'Enter Valid Date';
-        }
-        selectedDate = event.value._i;
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        if (selectedDate.length == 10) {
-          this.nomineeAge = this.ageCalculate(dob);
-          console.log(this.nomineeAge, ' this.nomineeAg');
+  sameAddress(value:any){
+    if (this.personal.controls['isAddressSame'].value) {
+      console.log(this.personal.controls['isAddressSame'].value,'ifff');
+      this.inputReadonly = true;
+      this.personal.controls['chouseno'].patchValue(this.personal.controls['houseno'].value);
+      this.personal.controls['cstreet'].patchValue(this.personal.controls['street'].value);
+      this.personal.controls['clandmark'].patchValue(this.personal.controls['landmark'].value);
+      this.personal.controls['ccity'].patchValue(this.personal.controls['city'].value);
+      this.personal.controls['cstate'].patchValue(this.personal.controls['state'].value);
+      this.personal.controls['cpincode'].patchValue(this.personal.controls['pincode'].value);
+      this.personal.controls['ccountry'].patchValue(this.personal.controls['country'].value);
+      // this.cityList = JSON.parse(sessionStorage.citycList);
+      // sessionStorage.cityList = JSON.stringify(this.cityList);
 
-        }
 
-      } else if (typeof event.value._i == 'object') {
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        if (dob.length == 10) {
-          this.nomineeAge = this.ageCalculate(dob);
-          console.log(this.nomineeAge, 'age')
+    } else {
+      this.inputReadonly = false;
+      this.personal.controls['chouseno'].patchValue('');
+      this.personal.controls['cstreet'].patchValue('');
+      this.personal.controls['clandmark'].patchValue('');
+      this.personal.controls['ccity'].patchValue('');
+      this.personal.controls['cstate'].patchValue('');
+      this.personal.controls['cpincode'].patchValue('');
+      this.personal.controls['ccountry'].patchValue('');
+      // if (sessionStorage.cityList != '' && sessionStorage.cityList != undefined) {
+      //   this.cityList = JSON.parse(sessionStorage.cityList);
+      // } else {
+      //   this.cityList = {};
+      // }
+    }
 
-        }
-        this.dateError1 = '';
-      }
-      sessionStorage.nomineeAge = this.nomineeAge;
+  }
+
+  typeAddressDeatils() {
+    if (this.personal.controls['isAddressSame'].value) {
+      this.personal.controls['chouseno'].setValue(this.personal.controls['houseno'].value);
+      this.personal.controls['cstreet'].setValue(this.personal.controls['street'].value);
+      this.personal.controls['clandmark'].setValue(this.personal.controls['landmark'].value);
+      this.personal.controls['ccity'].setValue(this.personal.controls['city'].value);
+      this.personal.controls['cstate'].setValue(this.personal.controls['state'].value);
+      this.personal.controls['cpincode'].setValue(this.personal.controls['pincode'].value);
+      this.personal.controls['ccountry'].setValue(this.personal.controls['country'].value);
+      // this.cityList = JSON.parse(sessionStorage.citycList);
 
     }
   }
+
 
   // AGE VALIDATION
   ageCalculate(dob) {
