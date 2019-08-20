@@ -146,6 +146,7 @@ export class AegonTermLifeComponent implements OnInit {
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
           this.redirectUrl = this.summaryData.redirectLink;
+          console.log(this.redirectUrl, 'this.redirectUrl');
           this.requestedUrl = this.summaryData.bilink;
           this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
           this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
@@ -326,6 +327,13 @@ export class AegonTermLifeComponent implements OnInit {
     this.personal.controls['cPincode'].patchValue(this.enquiryFromDetials.pincode);
     this.personal.controls['smoker'].patchValue(this.enquiryFromDetials.smoker);
 
+
+  }
+  uploadvalid() {
+
+      console.log('11111111doc');
+      window.open(this.redirectUrl,'_top')
+      console.log('22222');
 
   }
 

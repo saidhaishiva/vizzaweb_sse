@@ -766,11 +766,20 @@
               </div>
               <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
               <hr>
-              <div class="row">
-                <div class="col-md-12 text-center">
+              <!--<div class="row">-->
+                <!--<div class="col-md-12 text-center">-->
                   <!--<a href="{{summaryData.redirectLink}}">Pay Now</a>-->
-                    <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" routerLink="['{{summaryData.redirectLink}}']">Pay Now</button>
+                    <!--<button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>-->
+                  <!--<button mat-raised-button color="primaryBlue" [disabled]="!declaration" routerLink="['{{'redirectUrl'}}']">Pay Now</button>-->
+                <!--</div>-->
+              <!--</div>-->
+              <div class="col-md-12">
+                <div class="proposal-buttom text-center w-100">
+                  <form action={{redirectUrl}}  method='POST' #form>
+                    <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                    <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
+                    <button mat-raised-button color="primaryBlue"  [disabled]="!declaration" (click)="uploadvalid()">Pay Now</button>
+                  </form>
                 </div>
               </div>
             </section>
