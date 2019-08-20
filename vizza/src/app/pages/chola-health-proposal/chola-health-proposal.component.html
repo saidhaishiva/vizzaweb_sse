@@ -228,7 +228,7 @@
 
                           <div class="col-md-4">
                             <mat-form-field class="w-100"  [ngStyle]="{'pointer-events':  i == 0  ? 'none' : 'none' }">
-                              <mat-select placeholder="Relationship with Proposer" (change)="changeRelationShipList(i)" formControlName="personalrelationship"  required  >
+                              <mat-select placeholder="Relationship with Proposer" (change)="changeRelationShipList(i)" formControlName="personalrelationship" disabled required  >
                                 <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>

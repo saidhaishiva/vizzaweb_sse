@@ -154,6 +154,10 @@ export class ValidationService {
             }
         }
     }
+
+    paste(event: any) {
+        event.preventDefault();
+    }
 }
 
 
