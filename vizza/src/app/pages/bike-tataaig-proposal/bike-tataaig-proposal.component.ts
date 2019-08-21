@@ -178,7 +178,6 @@ export class BikeTataaigProposalComponent implements OnInit {
     ngOnInit() {
         this.getGenderlist();
         // this.getNamelist();
-        this.getRelationList();
         this.coverdriveList();
         this.sessionData();
         this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
@@ -252,7 +251,30 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     maritial() {
         this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
+        const data = {
+            'platform': 'web',
+            'marital_status': this.proposer.controls['maritalStatus'].value == 'single' ? 'Y' : 'N',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        };
+        this.bikeinsurance.RelationList(data).subscribe(
+            (successData) => {
+                this.nomineeRelationSuccess(successData);
+            },
+            (error) => {
+                this.nomineeRelationFailure(error);
+            }
+        );
     }
+
+    nomineeRelationSuccess(successData) {
+        this.relationlist = successData.ResponseObject;
+    }
+
+    nomineeRelationFailure(error) {
+
+    }
+
 
     addEvent(event: any) {
         if (event.value != null) {
@@ -415,32 +437,6 @@ export class BikeTataaigProposalComponent implements OnInit {
     //     this.previouspolicy.controls['preNamevalue'].patchValue(this.preNamelist[this.previouspolicy.controls['preName'].value]);
     //     console.log(this.previouspolicy.controls['preNamevalue'].value,'name');
     // }
-
-    //Nominee RelationList
-    getRelationList() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-        };
-        this.bikeinsurance.RelationList(data).subscribe(
-            (successData) => {
-                this.nomineeRelationSuccess(successData);
-            },
-            (error) => {
-                this.nomineeRelationFailure(error);
-            }
-        );
-    }
-
-    nomineeRelationSuccess(successData) {
-        this.relationlist = successData.ResponseObject;
-    }
-
-    nomineeRelationFailure(error) {
-
-    }
-
 
     financiertype(event: any) {
         console.log(event.length, 'length');
