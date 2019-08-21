@@ -42,7 +42,6 @@ export class EditMetaDetailComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       this.metaid = params.id;
     });
-
     console.log(this.metaid,'ddd');
 
     this.metaDetail = this.fb.group({
@@ -97,8 +96,7 @@ export class EditMetaDetailComponent implements OnInit {
       'keyword': this.keyItems,
       'descrition': this.metaDetail.controls['description'].value,
       'id': this.metaid,
-
-    }
+    };
     console.log(data);
     this.branchservice.metaDetailEdit(data).subscribe(
         (successData) => {
@@ -126,7 +124,7 @@ export class EditMetaDetailComponent implements OnInit {
       'role_id': this.auth.getAdminRoleId(),
       'adminid': this.auth.getAdminId(),
       'id': this.metaid
-    }
+    };
     console.log(data, 'fghjk');
     this.branchservice.metaDetail(data).subscribe(
         (successData) => {
@@ -139,16 +137,18 @@ export class EditMetaDetailComponent implements OnInit {
   }
   public updateSuccess(successData) {
     if (successData.IsSuccess) {
-      this.items =[];
       this.editcenter = successData.ResponseObject[0];
       let names = this.editcenter.keyword;
       this.nameArr = names.split(',');
-      // this.editKey = this.keyEdiItems;
       this.metaDetail.controls['component'].setValue(this.editcenter.component);
       this.metaDetail.controls['title'].setValue(this.editcenter.title);
       this.metaDetail.controls['description'].setValue(this.editcenter.descrition);
       for(let i=0; i<= this.nameArr.length; i++) {
+        if(names == ''){
+          this.nameArr = null;
+        } else {
         this.items.push({name:this.nameArr[i].trim()});
+        }
       }
     }
   }
