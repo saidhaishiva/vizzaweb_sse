@@ -16,6 +16,7 @@ import {Subject} from 'rxjs/Subject';
 import {HealthService} from '../../shared/services/health.service';
 import {ClearSessionService} from '../../shared/services/clear-session.service';
 import {ActivatedRoute} from '@angular/router';
+import {MetaService} from '../../shared/services/meta.service';
 
 
 @Component({
@@ -78,6 +79,7 @@ export class HealthInsuranceComponent implements OnInit {
     sbtn: boolean;
     hideChild : any;
     checkAge : any;
+    metaTitle : any;
 
 
     allCompanyList : any;
@@ -91,9 +93,10 @@ export class HealthInsuranceComponent implements OnInit {
     getSumInsureId : any;
     sumInsuredAmount : any;
     healthProceed : any;
+    metaHealth : any;
 
     private keyUp = new Subject<string>();
-    constructor(public route: ActivatedRoute,public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService, public session: ClearSessionService) {
+    constructor(public route: ActivatedRoute,public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService, public session: ClearSessionService, public meta: MetaService) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if(window.innerWidth < 787){
@@ -160,8 +163,35 @@ export class HealthInsuranceComponent implements OnInit {
             this.secondPage = true;
         }
         this.count = 0;
+        this.metaList();
     }
 
+    public metaList() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'component_name': 'Health Insurance'
+        };
+        this.meta.metaDetail(data).subscribe(
+            (successData) => {
+                this.metaDetailSuccess(successData);
+            },
+            (error) => {
+                this.metaDetailFailure(error);
+            }
+        );
+    }
+    public metaDetailSuccess(successData) {
+      console.log(successData.ResponseObject);
+      this.metaHealth = successData.ResponseObject;
+      this.metaTitle = this.metaHealth[0].title;
+      console.log(this.metaHealth[0].title, 'titl')
+    }
+    public metaDetailFailure(error) {
+        console.log(error);
+    }
 
 
     numberOnly(event): boolean {

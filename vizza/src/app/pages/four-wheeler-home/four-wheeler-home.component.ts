@@ -16,6 +16,7 @@ import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import {FourWheelerEnquirypopupComponent} from './four-wheeler-enquirypopup/four-wheeler-enquirypopup.component';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ClearSessionMotorService} from '../../shared/services/clear-session-motor.service';
+import {MetaService} from '../../shared/services/meta.service';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -67,8 +68,10 @@ export class FourWheelerHomeComponent implements OnInit {
   public expiry: boolean;
   public previousDate: boolean;
   public showSelf: boolean;
+  public metaCar: any;
+  public metaTitle: any;
 
-  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService) {
+  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService) {
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
     if (window.innerWidth < 787) {
@@ -113,8 +116,34 @@ export class FourWheelerHomeComponent implements OnInit {
     this.getpreviousCompany();
     this.getCityLists();
     this.sessionData();
+    this.metaList();
+  }
 
-
+  public metaList() {
+    const data = {
+      'platform': 'web',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'component_name': 'Motor Car'
+    };
+    this.meta.metaDetail(data).subscribe(
+        (successData) => {
+          this.metaDetailSuccess(successData);
+        },
+        (error) => {
+          this.metaDetailFailure(error);
+        }
+    );
+  }
+  public metaDetailSuccess(successData) {
+    console.log(successData.ResponseObject);
+    this.metaCar = successData.ResponseObject;
+    this.metaTitle = this.metaCar[0].title;
+    console.log(this.metaCar[0].title, 'titl')
+  }
+  public metaDetailFailure(error) {
+    console.log(error);
   }
 
   setSession() {
