@@ -18,6 +18,7 @@ import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { TruncatePipe} from './shared/limitTo';
 import { QuillModule } from 'ngx-quill';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatCardModule} from '@angular/material/card';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -144,6 +145,7 @@ import { EditComponentComponent } from './pages/component/edit-component/edit-co
         PdfViewerModule,
         QuillModule,
         MatChipsModule,
+        MatCardModule,
         routing
     ],
     declarations: [

@@ -17,6 +17,7 @@ import {ViewProductDetailsComponent} from './view-product-details/view-product-d
 import {DatePipe} from '@angular/common';
 import {ClearSessionPaService} from '../../shared/services/clear-session-pa.service';
 import {ValidationService} from '../../shared/services/validation.service';
+import {MetaService} from '../../shared/services/meta.service';
 
 @Component({
   selector: 'app-personal-accident-home',
@@ -86,8 +87,10 @@ export class PersonalaccidentComponent implements OnInit {
     public professionerr: any;
     public checkAllStatus: any;
     public paProceed: boolean;
+    metaPa : any;
+    metaTitle : any;
 
-    constructor(public appSettings: AppSettings, public clearSession: ClearSessionPaService, public validation: ValidationService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
+    constructor(public appSettings: AppSettings, public clearSession: ClearSessionPaService, public validation: ValidationService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService, public meta: MetaService) {
 
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
@@ -158,6 +161,34 @@ export class PersonalaccidentComponent implements OnInit {
         this.route.params.forEach((params) => {
             this.productName = params.id;
         });
+        this.metaList();
+    }
+
+    public metaList() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'component_name': 'Personal Accident'
+        };
+        this.meta.metaDetail(data).subscribe(
+            (successData) => {
+                this.metaDetailSuccess(successData);
+            },
+            (error) => {
+                this.metaDetailFailure(error);
+            }
+        );
+    }
+    public metaDetailSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.metaPa = successData.ResponseObject;
+        this.metaTitle = this.metaPa[0].title;
+        console.log(this.metaPa[0].title, 'titl')
+    }
+    public metaDetailFailure(error) {
+        console.log(error);
     }
 
     reset() {

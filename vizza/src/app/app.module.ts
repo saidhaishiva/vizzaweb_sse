@@ -340,6 +340,7 @@ import { LiabilityInsuranceActComponent } from './pages/liability-insurance-act/
 import { GolfersPolicyComponent } from './pages/golfers-policy/golfers-policy.component';
 import { FiedlityPolicyComponent } from './pages/fiedlity-policy/fiedlity-policy.component';
 import { TermViewKeyfeaturesComponent} from './pages/term-life-premium-list/term-view-keyfeatures/term-view-keyfeatures.component';
+import {MetaService} from './shared/services/meta.service';
 
 @NgModule({
     imports: [
@@ -680,6 +681,7 @@ import { TermViewKeyfeaturesComponent} from './pages/term-life-premium-list/term
         ClearSessionMotorService,
         ClearSessionFourwheelerService,
         ClearSessionTermlifeService,
+        MetaService,
 
         { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
         { provide: OverlayContainer, useClass: CustomOverlayContainer }

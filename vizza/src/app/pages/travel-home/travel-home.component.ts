@@ -15,6 +15,7 @@ import * as moment from 'moment';
 import {TravelService} from '../../shared/services/travel.service';
 import {PersonalInsurer} from '../personal-accident-home/personal-accident-home.component';
 import { ValidationService} from '../../shared/services/validation.service';
+import {MetaService} from '../../shared/services/meta.service';
 
 
 export const MY_FORMATS = {
@@ -114,8 +115,10 @@ export class TravelHomeComponent implements OnInit {
     public enquiryDetails: any;
     public studentDuration: boolean;
     public travelProceed: boolean;
+    metaTravel : any;
+    metaTitle : any;
 
-    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute) {
+    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute, public meta: MetaService) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if(window.innerWidth < 787){
@@ -200,7 +203,36 @@ export class TravelHomeComponent implements OnInit {
         this.Student10BTn = true;
         this.count = 0;
         this.sessionData();
+        this.metaList();
     }
+
+    public metaList() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'component_name': 'Travel'
+        };
+        this.meta.metaDetail(data).subscribe(
+            (successData) => {
+                this.metaDetailSuccess(successData);
+            },
+            (error) => {
+                this.metaDetailFailure(error);
+            }
+        );
+    }
+    public metaDetailSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.metaTravel = successData.ResponseObject;
+        this.metaTitle = this.metaTravel[0].title;
+        console.log(this.metaTravel[0].title, 'titl')
+    }
+    public metaDetailFailure(error) {
+        console.log(error);
+    }
+
     selfDetails() {
         this.selfArray = [
             {name: 'Self', age: '', disabled: false, checked: false, required: true, error: ''}

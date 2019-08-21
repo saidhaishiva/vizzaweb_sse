@@ -11,6 +11,8 @@ import {LifeViewDetailsComponent} from './life-view-details/life-view-details.co
 import {LifeCompareNowComponent} from './life-compare-now/life-compare-now.component';
 import {LifeCallBackComponent} from './life-call-back/life-call-back.component';
 import {AppSettings} from '../../app.settings';
+import {AuthService} from '../../shared/services/auth.service';
+import {MetaService} from '../../shared/services/meta.service';
 
 @Component({
   selector: 'app-endowment-life-insurance',
@@ -32,10 +34,12 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
     public LifeProductlistAll: any;
     public LifeKeyFeature: any;
     public listAll: any;
+    public metaLifeEndow: any;
+    public metaTitle: any;
     // firstPage: any;
     //     // secondPage: any;
 
-    constructor(public fb: FormBuilder, public lifeservices: LifeService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog,public appSettings : AppSettings) {
+    constructor(public fb: FormBuilder, public lifeservices: LifeService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog,public appSettings : AppSettings, public auth: AuthService, public meta: MetaService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
@@ -44,7 +48,6 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
   ngOnInit() {
 
       this.insurerLists = [];
-
       this.getDetails();
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
@@ -52,7 +55,35 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
           this.productName = params.id;
 
       });
+      this.metaList();
   }
+
+    public metaList() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'component_name': 'Life Insurance - Endowment'
+        };
+        this.meta.metaDetail(data).subscribe(
+            (successData) => {
+                this.metaDetailSuccess(successData);
+            },
+            (error) => {
+                this.metaDetailFailure(error);
+            }
+        );
+    }
+    public metaDetailSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.metaLifeEndow = successData.ResponseObject;
+        this.metaTitle = this.metaLifeEndow[0].title;
+        console.log(this.metaLifeEndow[0].title, 'titl')
+    }
+    public metaDetailFailure(error) {
+        console.log(error);
+    }
 
     public getDetails() {
         const data = {
