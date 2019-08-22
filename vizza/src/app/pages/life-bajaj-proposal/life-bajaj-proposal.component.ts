@@ -2081,6 +2081,7 @@ samerelationShip(){
       "product_id": this.lifePremiumList.product_id,
       "suminsured_amount":  sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
+          "term": this.lifePremiumList.policy_term,
       "insurer_proposer": {
         "title": this.proposer.controls['title'].value,
         "firstName": this.proposer.controls['firstName'].value,
