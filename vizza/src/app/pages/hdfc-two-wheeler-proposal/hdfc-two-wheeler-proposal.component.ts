@@ -213,13 +213,13 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         });
         this.BankDetails = this.fb.group({
             // banknamelist:[''],
-            Bankname: ['', Validators.required],
-            Branch: ['', Validators.required],
+            // Bankname: ['', Validators.required],
+            // Branch: ['', Validators.required],
             Payertype: ['', Validators.required],
             paymentmode: ['', Validators.required],
             refrenceno: ['', Validators.required],
             Paymentdate: ['', Validators.required],
-            Banknamevalue: ['']
+            // Banknamevalue: ['']
 
 
         });
@@ -646,13 +646,13 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         if (sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined) {
             this.getstepper4 = JSON.parse(sessionStorage.stepper4Details);
             this.BankDetails = this.fb.group({
-                Bankname: this.getstepper4.Bankname,
-                Branch: this.getstepper4.Branch,
+                // Bankname: this.getstepper4.Bankname,
+                // Branch: this.getstepper4.Branch,
                 paymentmode: this.getstepper4.paymentmode,
                 Payertype: this.getstepper4.Payertype,
                 refrenceno: this.getstepper4.refrenceno,
                 Paymentdate: this.datepipe.transform(this.getstepper4.Paymentdate, 'y-MM-dd'),
-                Banknamevalue: this.getstepper4.Banknamevalue,
+                // Banknamevalue: this.getstepper4.Banknamevalue,
                 // banknamelist: this.getstepper4.banknamelist,
             });
         }
