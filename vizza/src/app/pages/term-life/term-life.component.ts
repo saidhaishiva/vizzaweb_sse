@@ -73,9 +73,9 @@ export class TermLifeComponent implements OnInit {
         this.TermLife = this.fb.group({
             'lifedob': ['', Validators.required],
             'lifeGender': ['', Validators.required],
-            'lifeBenefitTerm': ['', Validators.required],
-            'lifePolicy': ['', Validators.required],
-            'lifePayment': ['', Validators.required],
+            'lifeBenefitTerm':'',
+            'lifePolicy': '',
+            'lifePayment': '',
             'lifePincode': ['', Validators.compose([Validators.required])],
             'lifesmoker' : false
         });
@@ -278,8 +278,8 @@ export class TermLifeComponent implements OnInit {
                         'age': sessionStorage.lifeEnqAge,
                         'dob': this.datepipe.transform(this.TermLife.controls.lifedob.value, 'y-MM-dd'),
                         'gender': this.TermLife.controls.lifeGender.value,
-                        'policy_paying_term': this.TermLife.controls.lifePolicy.value,
-                        'benefit_term': this.TermLife.controls.lifeBenefitTerm.value,
+                        'policy_paying_term': '',
+                        'benefit_term': '',
                         'payment_mode': this.TermLife.controls.lifePayment.value,
                         'smoker': this.TermLife.controls.lifesmoker.value,
                         'pincode': this.TermLife.controls.lifePincode.value
