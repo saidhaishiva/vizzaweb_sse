@@ -11,12 +11,24 @@
               </div>
               <div class="col-md-6">
                 <mat-form-field class="w-100">
+                  <input matInput placeholder="Path" formControlName="path"  >
+                  <mat-error *ngIf="metaDetail.controls.path.errors?.required">Path is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
                   <input matInput placeholder="Title" formControlName="title"  >
                   <mat-error *ngIf="metaDetail.controls.title.errors?.required">Title is required</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-6">
-                 <mat-form-field class="example-chip-list w-100">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Description" formControlName="description"  >
+                  <mat-error *ngIf="metaDetail.controls.description.errors?.required">Description is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="example-chip-list w-100">
                   <mat-chip-list #chipList aria-label="Fruit selection">
                     <mat-chip *ngFor="let item of items" [selectable]="selectable"
                               [removable]="removable" (removed)="remove(item)">
@@ -31,15 +43,6 @@
                   </mat-chip-list>
                 </mat-form-field>
               </div>
-              <div class="col-md-6">
-                <mat-form-field class="w-100">
-                  <input matInput placeholder="Description" formControlName="description"  >
-                  <mat-error *ngIf="metaDetail.controls.description.errors?.required">Description is required</mat-error>
-                </mat-form-field>
-              </div>
-              <!--<div class="col-md-12">-->
-                <!--<quill-editor  formControlName="content"></quill-editor>-->
-              <!--</div>-->
             </div>
         <div class="row">
           <div class="col-md-12 text-center" style="margin-top: 20px;">
