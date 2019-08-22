@@ -615,19 +615,19 @@
                                       <!--<input matInput placeholder="Bank Name" formControlName="banknamelist" autocomplete="off" (keyup)="dropdownForBank($event.target.value,'bank')"required  >-->
                                   <!--</mat-form-field>-->
                               <!--</div>-->
-                                          <div class="col-md-3 mt-3">
-                                              <mat-form-field class="w-100" >
-                                                  <mat-select placeholder="Bank Name" formControlName="Bankname"  (change)="changebankname()" required>
-                                                      <mat-option *ngFor="let bank of bankList | keys" value="{{bank.key}}" > {{bank.value}} </mat-option>
-                                                  </mat-select>
-                                                  <mat-error *ngIf="BankDetails.controls.Bankname.errors?.required">Bank Name is Required</mat-error>
-                                              </mat-form-field>
-                                          </div>
-                                          <div class="col-md-3 mt-3">
-                                              <mat-form-field class="w-100">
-                                                  <input matInput placeholder="Bank Branch Name" formControlName="Branch" autocomplete="off" required  >
-                                              </mat-form-field>
-                                          </div>
+                                          <!--<div class="col-md-3 mt-3">-->
+                                              <!--<mat-form-field class="w-100" >-->
+                                                  <!--<mat-select placeholder="Bank Name" formControlName="Bankname"  (change)="changebankname()" required>-->
+                                                      <!--<mat-option *ngFor="let bank of bankList | keys" value="{{bank.key}}" > {{bank.value}} </mat-option>-->
+                                                  <!--</mat-select>-->
+                                                  <!--<mat-error *ngIf="BankDetails.controls.Bankname.errors?.required">Bank Name is Required</mat-error>-->
+                                              <!--</mat-form-field>-->
+                                          <!--</div>-->
+                                          <!--<div class="col-md-3 mt-3">-->
+                                              <!--<mat-form-field class="w-100">-->
+                                                  <!--<input matInput placeholder="Bank Branch Name" formControlName="Branch" autocomplete="off" required  >-->
+                                              <!--</mat-form-field>-->
+                                          <!--</div>-->
                                           <div class="col-md-3 mt-3">
                                               <mat-form-field class="w-100">
                                                   <mat-select placeholder="Payment Mode" formControlName="paymentmode" required >
