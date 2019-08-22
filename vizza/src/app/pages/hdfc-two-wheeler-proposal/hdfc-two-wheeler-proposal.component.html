@@ -97,9 +97,10 @@
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PAN Number" formControlName="personalPan" minlength="10" class="text-uppercase" (keypress)="idValidate($event)" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" autocomplete="off">
-                          <!--<mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
+                          <input matInput placeholder="PAN Number" formControlName="personalPan" minlength="10" class="text-uppercase" (keypress)="idValidate($event)" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" autocomplete="off" required>
+                          <mat-error *ngIf="proposer.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="proposer.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
+                          <mat-error *ngIf="proposer.controls.personalPan.errors?.required"> Enter Valid PAN Number </mat-error>
                         </mat-form-field>
                       </div>
                         <!--<div class="col-md-3 mt-3">-->
@@ -471,7 +472,8 @@
                                       </div>
                                       <div class="col-md-3 ">
                                           <mat-form-field class="w-100">
-                                              <mat-select placeholder="Biofuel Type" formControlName="biofuel"  >
+                                              <mat-select placeholder="Biofuel Type" formControlName="biofuel" (change)="bioFuelValidation($event)" >
+                                                  <mat-option value=""></mat-option>
                                                   <mat-option value="LPG">LPG</mat-option>
                                                   <mat-option value="CNG">CNG</mat-option>
                                               </mat-select>
@@ -479,24 +481,25 @@
                                       </div>
                                       <div class="col-md-3">
                                           <mat-form-field class="w-100">
-                                              <input matInput placeholder="Biofuel Kit Price" maxlength="8" formControlName="biofuelkit" autocomplete="off" (keypress)="numberValidate($event)"  >
-                                              <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
+                                              <mat-placeholder>Biofuel Kit Price<span class="error" *ngIf="addOns.controls['biofuel'].value!='' ">*</span></mat-placeholder>
+                                              <input matInput  rows="2" maxlength="8" formControlName="biofuelkit"   maxlength="30"  (keypress)="numberValidate($event)" autocomplete="off">
+                                              <mat-error *ngIf="addOns.controls.biofuelkit.errors?.required">PA cover is Required</mat-error>
 
                                           </mat-form-field>
                                       </div>
                                       <div class="col-md-3 ">
                                           <mat-form-field class="w-100">
-                                              <mat-select placeholder="AntiTheft Discflag" [(ngModel)]="selected" formControlName="Antitheftdiscflag"  >
-                                                  <mat-option value="false">false</mat-option>
-                                                  <mat-option value="true">true</mat-option>
+                                              <mat-select placeholder="AntiTheft Discflag" [(ngModel)]="antitheftdisc" formControlName="Antitheftdiscflag"  >
+                                                  <mat-option value="false">NO</mat-option>
+                                                  <mat-option value="true">YES</mat-option>
                                               </mat-select>
                                           </mat-form-field>
                                       </div>
                                       <div class="col-md-3 ">
                                           <mat-form-field class="w-100">
                                               <mat-select placeholder="Handicap DiscFlag" [(ngModel)]="handicapdic" formControlName="HandicapDiscFlag"  >
-                                                  <mat-option value="false">false</mat-option>
-                                                  <mat-option value="true">true</mat-option>
+                                                  <mat-option value="false">NO</mat-option>
+                                                  <mat-option value="true">YES</mat-option>
                                               </mat-select>
                                           </mat-form-field>
                                       </div>
@@ -518,9 +521,28 @@
                                       <div class="col-md-3 mt-1">
                                           <mat-checkbox formControlName="OtherLoadDiscRate"  ><strong> Other LoadDisc Rate </strong></mat-checkbox>
                                       </div>
+                                      <div class="col-md-3 mt-1">
+                                          <mat-checkbox formControlName="pacover" (change)="ONcheck($event)"><strong> Personal Accident Cover </strong></mat-checkbox>
+                                      </div>
 
                                       <div class="col-md-12 mt-2">
                                           <h6 class="color-blue"> NOMINEE DETAILS </h6>
+                                      </div>
+                                      <div class="col-md-3">
+                                          <mat-form-field class="w-100">
+                                              <mat-placeholder>PersonalAccident Cover Name<span class="error" *ngIf="addOns.controls['pacover'].value ">*</span></mat-placeholder>
+                                              <input matInput  rows="2"  formControlName="pacovername"   maxlength="30"  (keypress)="nameValidate($event)" autocomplete="off">
+                                              <mat-error *ngIf="addOns.controls.pacovername.errors?.required">PA cover is Required</mat-error>
+
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="col-md-3">
+                                          <mat-form-field class="w-100">
+                                              <mat-placeholder>PersonalAccident Sum Insure<span class="error" *ngIf="addOns.controls['pacover'].value ">*</span></mat-placeholder>
+                                              <input matInput  rows="2"  formControlName="pasuminsured"   maxlength="30"  (keypress)="numberValidate($event)" autocomplete="off">
+                                              <mat-error *ngIf="addOns.controls.pasuminsured.errors?.required">PA suminsure is Required</mat-error>
+
+                                          </mat-form-field>
                                       </div>
                                       <div class="col-md-3">
                                           <mat-form-field class="w-100">
@@ -588,6 +610,11 @@
                                   <div class="col-md-12 mt-3">
                                           <h6 class="color-blue"> BANK DETAILS </h6>
                                   </div>
+                              <!--<div class="col-md-3 mt-3">-->
+                                  <!--<mat-form-field class="w-100">-->
+                                      <!--<input matInput placeholder="Bank Name" formControlName="banknamelist" autocomplete="off" (keyup)="dropdownForBank($event.target.value,'bank')"required  >-->
+                                  <!--</mat-form-field>-->
+                              <!--</div>-->
                                           <div class="col-md-3 mt-3">
                                               <mat-form-field class="w-100" >
                                                   <mat-select placeholder="Bank Name" formControlName="Bankname"  (change)="changebankname()" required>
@@ -629,10 +656,10 @@
                                           </div>
                                           <div class="col-md-3 mt-3">
                                               <mat-form-field class="w-100">
-                                                  <input matInput [matDatepicker]="picker4" [min]="gggg" [max]="gggg" placeholder="Payment Date(DD/MM/YYYY)" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"  formControlName="Paymentdate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
+                                                  <input matInput [matDatepicker]="picker4" [min]="gggg" [max]="gggg" placeholder="Payment Date(DD/MM/YYYY)" (dateInput)="addEvent($event,'bank')" (dateChange)="addEvent($event,'bank')"  formControlName="Paymentdate" (dateInput)="addEvent($event,'bank')" (dateChange)="addEvent($event,'bank')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
                                                   <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                                                   <mat-datepicker #picker4></mat-datepicker>
-                                                  <mat-error *ngIf="proposer.controls.dob.errors?.required">Payment date is required</mat-error>
+                                                  <mat-error *ngIf="BankDetails.controls.Paymentdate.errors?.required">Payment date is required</mat-error>
                                               </mat-form-field>
                                               <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
                                           </div>
