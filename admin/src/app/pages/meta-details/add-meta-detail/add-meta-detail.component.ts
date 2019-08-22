@@ -37,6 +37,7 @@ export class AddMetaDetailComponent implements OnInit {
   constructor(public config: ConfigurationService, public auth: AuthService, public fb: FormBuilder,public common: CommonService,private toastr: ToastrService, public datepipe: DatePipe, public router: Router,  public branchservice: BranchService) {
     this.metaDetail = this.fb.group({
       component: ['', Validators.required],
+      path: ['', Validators.required],
       title: ['', Validators.required],
       keyword: ['', Validators.required],
       description: ['', Validators.required]
@@ -84,6 +85,7 @@ export class AddMetaDetailComponent implements OnInit {
       'adminid': this.auth.getAdminId(),
       'component': this.metaDetail.controls['component'].value,
       'title': this.metaDetail.controls['title'].value,
+      'path': this.metaDetail.controls['path'].value,
       'keyword': this.keyItems,
       'descrition': this.metaDetail.controls['description'].value
     }
