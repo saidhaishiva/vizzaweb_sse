@@ -15,6 +15,7 @@ import { TermLifeCommonService } from '../../shared/services/term-life-common.se
 import * as moment from 'moment';
 import { Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
+import {MetaService} from '../../shared/services/meta.service';
 
 
 @Component({
@@ -44,8 +45,10 @@ export class TermLifeComponent implements OnInit {
     public lifeEnqAge: any;
     public webhost: any;
     public settings: Settings;
+    public metaTermLife: any;
+    public metaTitle: any;
 
-    constructor(public fb: FormBuilder, public router: Router,public commonservices: CommonService, public datepipe: DatePipe,public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService,public appSettings: AppSettings) {
+    constructor(public fb: FormBuilder, public router: Router,public commonservices: CommonService, public datepipe: DatePipe,public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService,public appSettings: AppSettings, public meta: MetaService) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if(window.innerWidth < 787){
@@ -97,7 +100,36 @@ export class TermLifeComponent implements OnInit {
             this.productName = params.id;
         });
         this.sessionData();
+        this.metaList();
     }
+
+    public metaList() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'component_name': 'Life Insurance-Term'
+        };
+        this.meta.metaDetail(data).subscribe(
+            (successData) => {
+                this.metaDetailSuccess(successData);
+            },
+            (error) => {
+                this.metaDetailFailure(error);
+            }
+        );
+    }
+    public metaDetailSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.metaTermLife = successData.ResponseObject;
+        this.metaTitle = this.metaTermLife[0].title;
+        console.log(this.metaTermLife[0].title, 'titl')
+    }
+    public metaDetailFailure(error) {
+        console.log(error);
+    }
+
     sessionData() {
         if(sessionStorage.enquiryFormData != '' && sessionStorage.enquiryFormData !=undefined) {
             let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);

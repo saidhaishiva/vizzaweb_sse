@@ -108,7 +108,7 @@ export class LearningcenterService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'policyrenewal/ListMedia';
+        const url = this.configurationService.getHostHome() + 'policyrenewal/ListMedia';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

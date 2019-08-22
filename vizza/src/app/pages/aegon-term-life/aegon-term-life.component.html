@@ -377,14 +377,32 @@
                           <p><strong>Premium</strong><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.baseCiPremium}}</p>
                         </div>
                       </div>
-                      <div class="row addressBox" *ngIf = "lifePremiumList.benefit_option == 'LP'||lifePremiumList.benefit_option == 'LH'||lifePremiumList.benefit_option == 'LHP'">
-                        <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'LP'||lifePremiumList.benefit_option == 'LH'||lifePremiumList.benefit_option == 'LHP'">
-                          <p><strong>Wop Enhanced Critical Illness Benefit</strong></p>
+
+                      <div class="row addressBox" *ngIf = "lifePremiumList.benefit_option == 'LP'">
+                        <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'LP'">
+                          <p><strong>WoP on Permanent Disability due to Accident</strong></p>
                         </div>
-                        <div class="col-md-4 ml-5" *ngIf = "lifePremiumList.benefit_option == 'LP'||lifePremiumList.benefit_option == 'LH'||lifePremiumList.benefit_option == 'LHP'">
+                        <div class="col-md-4 ml-5" *ngIf = "lifePremiumList.benefit_option == 'LP'">
                           <p><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.wopPremium}}</p>
                         </div>
                       </div>
+                      <div class="row addressBox" *ngIf = "lifePremiumList.benefit_option == 'LH'">
+                        <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'LH'">
+                          <p><strong>WoP on Basic Critical Illness Benefit</strong></p>
+                        </div>
+                        <div class="col-md-4 ml-5" *ngIf = "lifePremiumList.benefit_option == 'LH'">
+                          <p><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.wopPremium}}</p>
+                        </div>
+                      </div>
+                      <div class="row addressBox" *ngIf = "lifePremiumList.benefit_option == 'LHP'">
+                        <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'LHP'">
+                          <p><strong>WoP on Enhanced Critical Illness Benefit</strong></p>
+                        </div>
+                        <div class="col-md-4 ml-5" *ngIf = "lifePremiumList.benefit_option == 'LHP'">
+                          <p><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.wopPremium}}</p>
+                        </div>
+                      </div>
+
                       <div class="row addressBox">
                         <div class="col-md-4">
                           <p><strong>Total Premium</strong></p>

@@ -91,6 +91,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public epayoutOption: any;
   public epayoutMonth: any;
   public eHeightInches: any;
+  public ehealthStatus: any;
   public eWeightChanged: any;
   public weightList: any;
   public ePolicyCategory: any;
@@ -298,7 +299,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       naturedutyName: '',
       employerAddr: ['', Validators.compose([Validators.required])],
       annualIncome: ['', Validators.compose([Validators.required])],
-      taxResidence: '',
+      taxResidence: ['', Validators.compose([Validators.required])],
 
     });
 
@@ -359,7 +360,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       naturedutyName: '',
       employerAddr: ['', Validators.compose([Validators.required])],
       annualIncome: ['', Validators.compose([Validators.required])],
-      taxResidence: '',
+      taxResidence: ['', Validators.compose([Validators.required])],
       isPoliticallyExposed: false,
       specification: '',
       isCriminal: 'No',
@@ -422,11 +423,14 @@ export class EdelweissTermLifeComponent implements OnInit {
         diagnosedDetails:  '',
         receivedTreatment2: 'No',
         aidsDetails: '',
-        // healthInformation: '',
+        healthInformation: '',
         drugsInd: 'No',
         drugsDetails: '',
         alcoholInd: 'No',
         alcoholDetails: '',
+        alcoholBeer: '',
+        alcoholliquar: '',
+        alcoholWine: '',
         tobaccoInd: 'No',
         tobaccoDetails: '',
         tobaccoStopInd: '',
@@ -555,6 +559,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.setbdutyList();
     this.geteHeightFeet();
     this.geteHeightInches();
+    this.getHealthStaus();
     this.getPolicyOption();
     this.getpayoutOption();
     this.geteWeightChanged();
@@ -574,6 +579,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteOtherDocumentProof();
     this.geteidLifeProof();
     this.getesalereqProof();
+    this.geteAlcoholDetails();
     this.sessionData();
     this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
     let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
@@ -2165,6 +2171,76 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
+  diseaseReq() {
+
+    if (this.medicalDetail.controls['healthInformation'].value == true) {
+      for (let i = 0; i < this.medicalDetail['controls'].medicalQuestions['controls'].length; i++) {
+
+        if (i != 0) {
+        }
+
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.value);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(this.datepipe.transform(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.value, 'y-MM-dd'));
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.value);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.value);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.value);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(this.datepipe.transform(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.value, 'y-MM-dd'));
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.value);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.value);
+
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.setValidators([Validators.required]);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.setValidators([Validators.required]);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.setValidators([Validators.required]);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.setValidators([Validators.required]);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.setValidators([Validators.required]);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.setValidators([Validators.required]);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.setValidators([Validators.required]);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.setValidators([Validators.required]);
+      }
+
+    } else if (this.medicalDetail.controls['healthInformation'].value == false) {
+      for (let i = 0; i < this.medicalDetail['controls'].medicalQuestions['controls'].length; i++) {
+
+        if (i != 0) {
+        }
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue('');
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue('');
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue('');
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue('');
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue('');
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue('');
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue('');
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue('');
+
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.setValidators(null);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.setValidators(null);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.setValidators(null);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.setValidators(null);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.setValidators(null);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.setValidators(null);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.setValidators(null);
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.setValidators(null);
+      }
+
+
+    }
+    for (let i = 0; i < this.medicalDetail['controls'].medicalQuestions['controls'].length; i++) {
+
+      if (i != 0) {
+      }
+      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.updateValueAndValidity();
+      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.updateValueAndValidity();
+      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.updateValueAndValidity();
+      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.updateValueAndValidity();
+      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.updateValueAndValidity();
+      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.updateValueAndValidity();
+      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.updateValueAndValidity();
+      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.updateValueAndValidity();
+
+
+    }
+  }
+
   changeMaritalReq() {
 
     if (this.proposer.controls['maritalStatus'].value == 'M') {
@@ -2197,8 +2273,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.proposer.controls['sdob'].patchValue('');
       this.proposer.controls['semailId'].patchValue('');
       this.proposer.controls['smobileNo'].patchValue('');
-      this.proposer.controls['isSmokerSpouse'].patchValue('');
-      this.proposer.controls['isStaffSpouse'].patchValue('');
+      this.proposer.controls['isSmokerSpouse'].patchValue('No');
+      this.proposer.controls['isStaffSpouse'].patchValue('No');
       this.proposer.controls['relationSpouseProposer'].patchValue('');
 
       this.proposer.controls['stitle'].setValidators(null);
@@ -2259,8 +2335,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['sdob'].patchValue('');
       this.insureArray.controls['semailId'].patchValue('');
       this.insureArray.controls['smobileNo'].patchValue('');
-      this.insureArray.controls['isSmokerSpouse'].patchValue('');
-      this.insureArray.controls['isStaffSpouse'].patchValue('');
+      this.insureArray.controls['isSmokerSpouse'].patchValue('No');
+      this.insureArray.controls['isStaffSpouse'].patchValue('No');
       this.insureArray.controls['relationSpouseProposer'].patchValue('');
 
       this.insureArray.controls['stitle'].setValidators(null);
@@ -4399,8 +4475,34 @@ console.log(this.proposalId,'proposalId');
       this.eHeightInches = successData.ResponseObject;
     }
   }
-
   public geteHeightInchesFailure(error) {
+  }
+
+  getHealthStaus() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.geteHealthStaus(data).subscribe(
+        (successData) => {
+          this.geteHealthStausSuccess(successData);
+        },
+        (error) => {
+          this.geteHealthStausFailure(error);
+        }
+    );
+  }
+
+  public geteHealthStausSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.ehealthStatus = successData.ResponseObject;
+    }
+  }
+
+  public geteHealthStausFailure(error) {
   }
 
   geteWeightChanged() {
@@ -5262,7 +5364,7 @@ console.log(this.proposalId,'proposalId');
           }
         }
 
-        // this.medicalDetail.controls['healthInformation'].patchValue(getMedicalDetail.healthInformation);
+        this.medicalDetail.controls['healthInformation'].patchValue(getMedicalDetail.healthInformation);
 
         this.medicalDetail.controls['travelOutsideIndia'].patchValue(getMedicalDetail.travelOutsideIndia);
         this.medicalDetail.controls['pilot'].patchValue(getMedicalDetail.pilot);
@@ -5272,6 +5374,9 @@ console.log(this.proposalId,'proposalId');
         this.medicalDetail.controls['drugsDetails'].patchValue(getMedicalDetail.drugsDetails);
         this.medicalDetail.controls['alcoholInd'].patchValue(getMedicalDetail.alcoholInd);
         this.medicalDetail.controls['alcoholDetails'].patchValue(getMedicalDetail.alcoholDetails);
+        this.medicalDetail.controls['alcoholBeer'].patchValue(getMedicalDetail.alcoholBeer);
+        this.medicalDetail.controls['alcoholliquar'].patchValue(getMedicalDetail.alcoholliquar);
+        this.medicalDetail.controls['alcoholWine'].patchValue(getMedicalDetail.alcoholWine);
         this.medicalDetail.controls['tobaccoInd'].patchValue(getMedicalDetail.tobaccoInd);
         this.medicalDetail.controls['tobaccoDetails'].patchValue(getMedicalDetail.tobaccoDetails);
         this.medicalDetail.controls['tobaccoStopInd'].patchValue(getMedicalDetail.tobaccoStopInd);

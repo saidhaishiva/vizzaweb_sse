@@ -47,6 +47,11 @@
                 {{row.component}}
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="Path">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.path}}
+              </ng-template>
+            </ngx-datatable-column>
             <ngx-datatable-column name="Title">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 {{row.title}}
@@ -72,14 +77,9 @@
                 </i>
               </ng-template>
             </ngx-datatable-column>
-
           </ngx-datatable>
-
-
         </div>
       </div>
-
     </div>
   </div>
-
 </section>

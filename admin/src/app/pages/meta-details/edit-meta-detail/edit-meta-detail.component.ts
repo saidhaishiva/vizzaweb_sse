@@ -47,6 +47,7 @@ export class EditMetaDetailComponent implements OnInit {
     this.metaDetail = this.fb.group({
       component: ['', Validators.required],
       title: ['', Validators.required],
+      path: ['', Validators.required],
       keyword: ['', Validators.required],
       description: ['', Validators.required]
     });
@@ -93,6 +94,7 @@ export class EditMetaDetailComponent implements OnInit {
       'adminid': this.auth.getAdminId(),
       'component': this.metaDetail.controls['component'].value,
       'title': this.metaDetail.controls['title'].value,
+      'path': this.metaDetail.controls['path'].value,
       'keyword': this.keyItems,
       'descrition': this.metaDetail.controls['description'].value,
       'id': this.metaid,
@@ -141,6 +143,7 @@ export class EditMetaDetailComponent implements OnInit {
       let names = this.editcenter.keyword;
       this.nameArr = names.split(',');
       this.metaDetail.controls['component'].setValue(this.editcenter.component);
+      this.metaDetail.controls['path'].setValue(this.editcenter.path);
       this.metaDetail.controls['title'].setValue(this.editcenter.title);
       this.metaDetail.controls['description'].setValue(this.editcenter.descrition);
       for(let i=0; i<= this.nameArr.length; i++) {
