@@ -190,8 +190,8 @@ export class AegonTermLifeComponent implements OnInit {
 
     this.personal = this.fb.group({
       title: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['',Validators.compose([Validators.required, Validators.maxLength(25)])],
+      lastName: ['', Validators.compose([Validators.required, Validators.maxLength(25)])],
       middleName: '',
       gender: ['', Validators.required],
       dob: ['', Validators.required],
@@ -1828,7 +1828,7 @@ export class AegonTermLifeComponent implements OnInit {
           "suminsured_Amount":sessionStorage.selectedAmountTravel,
           "policy_id": this.getEnquiryDetials.policy_id,
           "benefitOption": this.lifePremiumList.benefit_option,
-          "term": this.lifePremiumList.policy_term,
+          "termDetails": this.lifePremiumList.policy_term,
           "personalInformation": {
             "tittle": this.personal.controls['title'].value,
             "firstName": this.personal.controls['firstName'].value,

@@ -81,6 +81,7 @@ export class HdfcTermLifeComponent implements OnInit {
   public fhDiseaseHdfcList: any;
   public frequencyPayHdfcList: any;
   public genderListHdfcList: any;
+  public maritalListHdfcList: any;
   public heightListHdfcList: any;
   public impairmentHdfcList: any;
   public impairmentEver2HdfcList: any;
@@ -197,13 +198,13 @@ export class HdfcTermLifeComponent implements OnInit {
       eduqual: ['', Validators.required],
       nationality: ['', Validators.required],
       residentstatus: ['', Validators.required],
-      ishdfcempflg: ['', Validators.required],
-      exstngcustflg: ['', Validators.required],
-      isdisabledflg: ['', Validators.required],
-      pepflg: ['', Validators.required],
-      dematflg: ['', Validators.required],
-      smokerstatusflg: ['', Validators.required],
-      historyofconviction: ['', Validators.required],
+      ishdfcempflg: 'N',
+      exstngcustflg: 'N',
+      isdisabledflg: 'N',
+      pepflg: 'N',
+      dematflg: 'N',
+      smokerstatusflg: 'N',
+      historyofconviction: 'N',
       houseno: ['', Validators.required],
       street: ['', Validators.required],
       landmark: ['', Validators.required],
@@ -296,6 +297,7 @@ export class HdfcTermLifeComponent implements OnInit {
     this.getfrequencyPayHdfc();
     this.getfundOptionHdfc();
     this.getgenderListHdfc();
+    this.getmaritalListHdfc();
     this.getheightListHdfc();
     this.getimpairmentHdfc();
     this.getimpairmentEver2Hdfc();
@@ -435,7 +437,7 @@ export class HdfcTermLifeComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (selectedDate.length == 10) {
           this.proposerAge = this.ageCalculate(dob);
-          console.log(this.proposerAge, ' this.nomineeAg');
+          console.log(this.proposerAge, ' this.proposerAge');
 
         }
 
@@ -495,6 +497,7 @@ export class HdfcTermLifeComponent implements OnInit {
       }
       if ( i == 0){
         sessionStorage.nomineAge = this.getAge;
+        console.log(this.getAge,'getaage');
       }
 
       if ( i != 0){
@@ -538,7 +541,7 @@ export class HdfcTermLifeComponent implements OnInit {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.setValidators([Validators.required]);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].apincode.setValidators([Validators.required]);
       } else {
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(false);
+        // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(false);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].afirstnm.setValidators(null);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alastnm.setValidators(null);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].agender.setValidators(null);
@@ -765,17 +768,17 @@ export class HdfcTermLifeComponent implements OnInit {
     sessionStorage.stepper1 = '';
     sessionStorage.stepper1 = JSON.stringify(value);
     // console.log(this.personal.valid, 'checked');
-    stepper.next();
-    this.topScroll();
-    // if(this.personal.valid) {
-    //   if(sessionStorage.proposerAge >= 18){
-    //
-    //
-    //   } else {
-    //     this.toastr.error('Proposer age should be 18 or above');
-    //
-    //   }
-    // }
+
+    if(this.personal.valid) {
+      if(sessionStorage.proposerAge >= 18){
+
+        stepper.next();
+        this.topScroll();
+      } else {
+        this.toastr.error('Proposer age should be 18 or above');
+
+      }
+    }
 
   }
 
@@ -1544,6 +1547,31 @@ getgenderListHdfc() {
     }
   }
   public genderListHdfcFailure(error) {
+  }
+
+getmaritalListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.maritalListHdfc(data).subscribe(
+        (successData) => {
+          this.maritalListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.maritalListHdfcFailure(error);
+        }
+    );
+  }
+
+  public maritalListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.maritalListHdfcList = successData.ResponseObject;
+    }
+  }
+  public maritalListHdfcFailure(error) {
   }
 
 getheightListHdfc() {
