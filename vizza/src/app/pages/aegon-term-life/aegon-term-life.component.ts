@@ -306,14 +306,14 @@ export class AegonTermLifeComponent implements OnInit {
     sessionStorage.proposerAge = this.proposerAge;
     if(this.enquiryFromDetials.gender == 'm')
     {
-      this.personal.controls['title'].patchValue('MR');
+      this.personal.controls['title'].patchValue('Mr');
      if(this.personal.controls['gender'].value == 'm'){
        this.personal.controls['gender'].patchValue('m');
      } else{
        this.personal.controls['gender'].patchValue('f');
      }
     }else if(this.enquiryFromDetials.gender == 'f'){
-      this.personal.controls['title'].patchValue('MS');
+      this.personal.controls['title'].patchValue('Ms');
 
     }
     this.personal.controls['adbrSumAssured'].patchValue (50000);
