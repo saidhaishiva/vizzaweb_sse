@@ -237,7 +237,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.buyBikeDetails = JSON.parse(sessionStorage.enquiryFormData);
 // this.summaryData=JSON.parse(sessionStorage.summaryData);
-// console.log(this.summaryData,'sum');
         let stringToSplit;
         stringToSplit = this.vehicledata.vehicle_no;
         let x = stringToSplit.slice(0, 2);
@@ -274,30 +273,29 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             let regno = '';
             regno = this.datepipe.transform('2019-03-01', 'y-MM-dd');
             this.RegDateage = this.regdatecalculate(regno);
-            console.log(this.RegDateage);
+
 
 
         }
     }
-    dropdownForBank(value,type){
-
-        if(value.length >'5'&& type =='bank'){
-            console.log('iii');
-            const data = {
-                'platform': 'web',
-                'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-                'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-            };
-            this.bikeInsurance.hdfcGetBankNameList(data).subscribe(
-                (successData) => {
-                    this.banksuccess(successData);
-                },
-                (error) => {
-                    this.failureSuccess(error);
-                }
-            );
-        }
-    }
+    // dropdownForBank(value,type){
+    //
+    //     if(value.length >'5'&& type =='bank'){
+    //         const data = {
+    //             'platform': 'web',
+    //             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    //         };
+    //         this.bikeInsurance.hdfcGetBankNameList(data).subscribe(
+    //             (successData) => {
+    //                 this.banksuccess(successData);
+    //             },
+    //             (error) => {
+    //                 this.failureSuccess(error);
+    //             }
+    //         );
+    //     }
+    // }
 
     //service
 
@@ -431,6 +429,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     changeextensioncountry() {
         this.addOns.controls['extentioncountryvalue'].patchValue(this.countryList[this.addOns.controls['extentioncountry'].value]);
+        console.log(this.addOns.controls['extentioncountryvalue'].value);
     }
 
 
@@ -999,7 +998,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 },
                 'Policy_Details': {
                     'PolicyStartDate': this.tommarrow,
-                    'PreviousPolicyEndDate': '',
+                    'PreviousPolicyEndDate':this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y') ,
                     'ProposalDate': this.tod,
 
                     // "AgreementType": "",
@@ -1010,7 +1009,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'PreviousPolicy_PolicyEndDate': this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y'),
                     'PreviousPolicy_PolicyNo': this.vechicle.controls['previouspolicyno'].value,
                     'PreviousPolicy_PolicyClaim': this.vechicle.controls['previouspolicyclaim'].value,
-                    'BusinessType_Mandatary': 'Roll Over',
+                    'BusinessType_Mandatary': this.RegDateage,
                     // "VehicleModelCode": "17586",
                     'DateofDeliveryOrRegistration': this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y'),
                     'YearOfManufacture': this.vechicle.controls['manufactureyear'].value,
@@ -1023,7 +1022,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 'Req_TW': {
                     'ExtensionCountryCode': this.addOns.controls['extentioncountry'].value,
                     'POLICY_TENURE': this.addOns.controls['policytenture'].value,
-                    'ExtensionCountryName': '',
+                    'ExtensionCountryName': this.addOns.controls['extentioncountryvalue'].value,
                     'Effectivedrivinglicense': this.addOns.controls['drivinglicence'].value,
                     'Paiddriver': this.addOns.controls['IsPaidDriver'].value == true ? '1' : '0',
                     'BiFuelType': this.addOns.controls['biofuel'].value,
@@ -1035,16 +1034,20 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'Owner_Driver_Appointee_Name': this.addOns.controls['appointeename'].value,
                     'Owner_Driver_Appointee_Relationship': this.addOns.controls['appointeerelation'].value,
                     'IsZeroDept_Cover': this.addOns.controls['zerodept'].value == 'true' ? '1' : '0',
-                    'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == true ? '1' : '0',
-                    'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == true ? '1' : '0',
+                    'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value =='' ?'0':this.addOns.controls['ElecticalAccessoryIDV'].value,
+                    'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value=='' ?'0':this.addOns.controls['NonElecticalAccessoryIDV'].value,
                     'IsLimitedtoOwnPremises': this.addOns.controls['IsLimitedtoOwnPremises'].value == true ? '1' : '0',
                     'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
                     'AntiTheftDiscFlag': this.addOns.controls['Antitheftdiscflag'].value,
                     'HandicapDiscFlag': this.addOns.controls['HandicapDiscFlag'].value,
                     'UnnamedPersonSI': this.addOns.controls['pasuminsured'].value,
                     'NoofUnnamedPerson': this.addOns.controls['pacovername'].value
-                },
-                // 'Payment_Details': {
+                }
+
+
+
+
+            // 'Payment_Details': {
                 //     // "GC_PaymentID": "",
                 //     // "BANK_NAME":  this.BankDetails.controls['Bankname'].value,
                 //     // "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
@@ -1064,11 +1067,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.bikeInsurance.proposalHdfc(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData, stepper);
-                console.log(successData, 'succc');
             },
             (error) => {
                 console.log(error);
-                this.proposalFailure(error);
+
             }
         );
 
@@ -1122,10 +1124,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
         let dd = today.getDate() - birthDate.getDate();
-        if (m < 6) {
-            this.regvalue = 'New';
-        }
         if (m > 6) {
+            this.regvalue = 'New Vehicle';
+        }
+        if (m < 6) {
             this.regvalue = 'Rollover';
 
         }
