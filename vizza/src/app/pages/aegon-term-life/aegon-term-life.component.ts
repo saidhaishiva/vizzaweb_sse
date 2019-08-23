@@ -1828,7 +1828,7 @@ export class AegonTermLifeComponent implements OnInit {
           "suminsured_Amount":sessionStorage.selectedAmountTravel,
           "policy_id": this.getEnquiryDetials.policy_id,
           "benefitOption": this.lifePremiumList.benefit_option,
-          "termDetails": this.lifePremiumList.policy_term,
+          "term": this.lifePremiumList.termDetrails,
           "personalInformation": {
             "tittle": this.personal.controls['title'].value,
             "firstName": this.personal.controls['firstName'].value,
