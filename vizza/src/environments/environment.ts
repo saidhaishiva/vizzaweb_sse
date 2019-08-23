@@ -16,6 +16,7 @@ export const environment = {
     apiHostMotor: 'http://13.127.24.123/vizza/api/index.php/mtw/',
     apiHostMotorFour: 'http://13.127.24.123/vizza/api/index.php/mfw/',
     apiHostmiscproduct: 'http://13.127.24.123/vizza/api/index.php/misc_product/',
+    apiHostedelweisspos: 'http://13.127.24.123/vizza/api/index.php/edelweiss_pos/',
     webHost: 'http://localhost:4209',
     imgUrl:  'http://13.127.24.123/vizza',
     travelInsurance: true,
