@@ -182,7 +182,8 @@ import {FiedlityPolicyComponent} from './pages/fiedlity-policy/fiedlity-policy.c
 import {ErectionRiskPolicyComponent} from './pages/erection-risk-policy/erection-risk-policy.component';
 import {HdfcTwoWheelerPaymentComponent} from './pages/hdfc-two-wheeler-payment/hdfc-two-wheeler-payment.component';
 import {HdfcCarPaymentSuccessComponent} from './pages/hdfc-car-payment-success/hdfc-car-payment-success.component';
-import { EdelweissPosComponent } from './pages/edelweiss-pos/edelweiss-pos.component';
+import {EdelweissPosComponent} from './pages/edelweiss-pos/edelweiss-pos.component';
+import {EdelweissposPremiumListComponent} from './edelweisspos-premium-list/edelweisspos-premium-list.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -361,9 +362,7 @@ export const routes: Routes = [
             { path: 'hdfc-two-wheeler-payment/:status/:proId', component: HdfcTwoWheelerPaymentComponent, data: { breadcrumb: 'hdfc-two-wheeler-payment'} },
             { path: 'hdfc-car-payment-success/:status/:proId', component: HdfcCarPaymentSuccessComponent, data: { breadcrumb: 'hdfc-car-payment-success'} },
             { path: 'edelweiss-pos', component: EdelweissPosComponent, data:{breadcrumb: 'Edelweiss pos Insurance'}},
-
-
-
+            { path: 'edelweiss-premium-list', component: EdelweissposPremiumListComponent, data: { breadcrumb: 'Edelweiss Premium'} },
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },

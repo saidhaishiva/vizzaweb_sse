@@ -17,12 +17,14 @@ export class ConfigurationService {
   apiHostMotor: string = environment.apiHostMotor;
   apiHostmiscproduct: string = environment.apiHostmiscproduct;
   apiHostMotorFour: string = environment.apiHostMotorFour;
+  apiHostEdelweissPos: string = environment.apiHostEdelweissPos;
   apiHostLife: string = environment.apiHostLife;
   paAccident: boolean = environment.paAccident;
   travelInsurance: boolean = environment.travelInsurance;
   healthInsurance: boolean = environment.healthInsurance;
   termLifeInsurance: boolean = environment.healthInsurance;
   motorInsurance: boolean = environment.motorInsurance;
+
 
   webHost: string = environment.webHost;
   imgUrl: string = environment.imgUrl;
@@ -55,8 +57,7 @@ export class ConfigurationService {
     this.termLifeInsurance = this.termLifeInsurance;
     this.motorInsurance = this.motorInsurance;
     this.apiHostmiscproduct = this.apiHostmiscproduct;
-
-
+    this.apiHostEdelweissPos = this.apiHostEdelweissPos;
   }
     // getHost() {
     //     return this.apiHost;
@@ -115,5 +116,8 @@ export class ConfigurationService {
     }
     getmiscproduct() {
       return this.apiHostmiscproduct;
+    }
+    getedelweisspos() {
+      return this.apiHostEdelweissPos;
     }
 }
