@@ -42,6 +42,17 @@ export class TermLifeCommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getTermChangeList(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'productlist/change_term' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     getProductList(data,list) {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
@@ -873,6 +884,16 @@ export class TermLifeCommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    geteHealthStaus(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/healthStaus';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getepayoutMonthOption(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -1402,6 +1423,17 @@ export class TermLifeCommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostTerm() + 'hdfc/gender_list';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    maritalListHdfc(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'hdfc/marital_status_list';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

@@ -13,6 +13,7 @@ import {Subject} from 'rxjs';
 import {Observable} from 'rxjs';
 import {ClearSessionTermlifeService} from '../../shared/services/clear-session-termlife.service';
 import {TermViewKeyfeaturesComponent} from './term-view-keyfeatures/term-view-keyfeatures.component';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-term-life-premium-list',
@@ -24,6 +25,7 @@ export class TermLifePremiumListComponent implements OnInit {
     allCompanyList: any;
     filterCompany: any;
     webhost: any;
+    public form: FormGroup;
     productListArray: any;
     allProductLists: any;
     setAllProductLists: any;
@@ -32,9 +34,15 @@ export class TermLifePremiumListComponent implements OnInit {
     selectedAmountTravel: any;
     enquiryFromDetials: any;
     dethBenfit: any;
+    lifePremiumList: any;
+    totalpremiumTerm: any;
+    termLists: any;
+    selected: any;
+    termListDetails: any;
     checkAllStatus: boolean;
+    changepremiumList: boolean;
     public keyUp = new Subject<string>();
-  constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService,public clearSession: ClearSessionTermlifeService) {
+  constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService,public clearSession: ClearSessionTermlifeService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
@@ -50,6 +58,7 @@ export class TermLifePremiumListComponent implements OnInit {
       sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
       this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
       this.clearSession.clearSessiontermData();
+      this.changepremiumList = false;
       // once user typing stoped after calling function
       const observable = this.keyUp
           .map(value => event)
@@ -62,11 +71,29 @@ export class TermLifePremiumListComponent implements OnInit {
               console.log(data, 'data');
               this.updateSumInsured();
           });
+         this.form= this.fb.group({
+             termlists:''
+         });
+      this.form = this.fb.group({
+          'items' : this.fb.array([
+              this.formarr()
+          ])
+      });
+
+      // this.form.controls['termlists'].setValue(this.default, {onlySelf: true});
+
   }
   ngOnInit() {
       this.getCompanyList();
       this.sessionData();
+      // this.form.controls['termlists'].setValue(this.allProductLists[0].term[0]);
+
   }
+    formarr() {
+        return this.fb.group({
+            termlists: '',
+        });
+    }
     sessionData() {
         if(sessionStorage.getEnquiryDetials != '' && sessionStorage.getEnquiryDetials !=undefined) {
           this.getEnquiryDetials  = JSON.parse(sessionStorage.getEnquiryDetials);
@@ -76,9 +103,14 @@ export class TermLifePremiumListComponent implements OnInit {
         }
         if(sessionStorage.allProductLists != '' && sessionStorage.allProductLists !=undefined) {
             this.allProductLists  = JSON.parse(sessionStorage.allProductLists);
+
+
         }
         if(sessionStorage.selectedAmountTravel != '' && sessionStorage.selectedAmountTravel !=undefined) {
             this.selectedAmountTravel  = sessionStorage.selectedAmountTravel;
+        }
+        if(sessionStorage.lifePremiumList != '' && sessionStorage.lifePremiumList !=undefined) {
+            this.lifePremiumList  = sessionStorage.lifePremiumList;
         }
         if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
             this.filterCompany = JSON.parse(sessionStorage.filterCompany);
@@ -94,6 +126,7 @@ export class TermLifePremiumListComponent implements OnInit {
     numberValidate(event: any) {
         this.validation.numberValidate(event);
     }
+
     getCompanyList() {
     const data = {
         'platform': 'web',
@@ -168,16 +201,22 @@ export class TermLifePremiumListComponent implements OnInit {
             for (let i = 0; i < this.allProductLists.length; i++) {
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
+                this.allProductLists[i].termDetrails = this.allProductLists[i].term[0];
+                console.log(this.allProductLists[i].termDetrails)
                 this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
                 this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
                 let dob = this.datepipe.transform(this.allProductLists[i].dob, 'y-MM-dd');
                 this.allProductLists[i].age = this.ageCalculate(dob);
+                // this.form['control'].items['controls'][i]['controls'].termlists.patchValue('40');
+                // console.log( this.form.controls['termlists'].value, 'fghj');
                 // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
                 //this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
             }
             this.setAllProductLists = this.allProductLists;
             sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
             sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
+            // this.form.controls['termlists'].setValue('10');
+            // console.log(this.form.controls['termlists'].value, 'kkkkk');
             // if(this.allProductLists.length > 0) {
             //     this.enquiryDetails.sum_insured_amount = this.allProductLists[0].sum_insured_amount;
             // }
@@ -204,6 +243,8 @@ export class TermLifePremiumListComponent implements OnInit {
         this.getProductList(this.allCompanyList, this.selectedAmountTravel);
 
     }
+
+
     // filter by product
     filterByProducts() {
         if(this.filterCompany.includes('All')){
@@ -337,6 +378,60 @@ export class TermLifePremiumListComponent implements OnInit {
         dialogRef.disableClose = true;
         dialogRef.afterClosed().subscribe(result => {
         });
+
+    }
+    lifeTermChange(plists, index){
+        console.log(this.allProductLists, 'allProductListssssssss');
+        console.log(plists, 'value');
+        console.log(index, 'index');
+        // console.log(this.termLists+'-'+index, 'termListstermLists');
+        let benefit;
+        let cover;
+
+        // this.termLists = plists.term[index];
+      if(plists.company_id == '6'){
+          cover = plists.cover;
+      }
+      if(plists.company_id == '9'){
+          benefit = plists.benefit_option;
+      }
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'policy_id': this.getEnquiryDetials.policy_id,
+            'sum_assured': this.selectedAmountTravel,
+            'benefit_option': benefit ? benefit : '',//Aegon
+            'company_id': plists.company_id,
+            'term':  plists.termDetrails,
+            'product_id': plists.product_id,
+            'cover': cover ? cover: ''//Bajaj
+        };
+        console.log(data,'data');
+        this.settings.loadingSpinner = true;
+        this.life.getTermChangeList(data).subscribe(
+            (successData) => {
+                this.termChangeSuccess(successData,plists,index);
+            },
+            (error) => {
+                this.termChangeFailure(error);
+            });
+    }
+    public termChangeSuccess(successData, plists, index){
+        if (successData.IsSuccess == true) {
+            this.settings.loadingSpinner = false;
+            this.termListDetails = successData.ResponseObject;
+                  this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
+                  this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
+
+              console.log(this.allProductLists, 'allProductLists');
+            }
+            console.log(plists, 'plists');
+
+        }
+
+    public termChangeFailure(error){
 
     }
 }

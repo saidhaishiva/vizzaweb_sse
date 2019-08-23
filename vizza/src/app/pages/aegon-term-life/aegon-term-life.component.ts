@@ -190,8 +190,8 @@ export class AegonTermLifeComponent implements OnInit {
 
     this.personal = this.fb.group({
       title: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['',Validators.compose([Validators.required, Validators.maxLength(25)])],
+      lastName: ['', Validators.compose([Validators.required, Validators.maxLength(25)])],
       middleName: '',
       gender: ['', Validators.required],
       dob: ['', Validators.required],
@@ -1828,6 +1828,7 @@ export class AegonTermLifeComponent implements OnInit {
           "suminsured_Amount":sessionStorage.selectedAmountTravel,
           "policy_id": this.getEnquiryDetials.policy_id,
           "benefitOption": this.lifePremiumList.benefit_option,
+          "termDetails": this.lifePremiumList.policy_term,
           "personalInformation": {
             "tittle": this.personal.controls['title'].value,
             "firstName": this.personal.controls['firstName'].value,
@@ -1898,11 +1899,11 @@ export class AegonTermLifeComponent implements OnInit {
             "wcir": "NO"
           },
           "addons_itermplus": {
-            "adbrSumAssured":this.personal.controls['adbrSumAssured'].value,
+            "adbrSumAssured":this.personal.controls['adbrSumAssured'].value == 'L' || this.personal.controls['adbrSumAssured'].value == 'LP'? this.personal.controls['adbrSumAssured'].value : '0',
             "deathBenefitSA": this.personal.controls['deathBenefitSA'].value,
             "deathBenefitTISA": this.personal.controls['deathBenefitTISA'].value,
-            "enchancedCISA":this.personal.controls['enchancedCISA'].value,
-            "icirSumAssured": this.personal.controls['icirSumAssured'].value
+            "enchancedCISA":this.personal.controls['enchancedCISA'].value == 'LHP' ? this.personal.controls['enchancedCISA'].value : '0',
+            "icirSumAssured": this.personal.controls['icirSumAssured'].value == 'LH' ? this.personal.controls['icirSumAssured'].value : '0'
           }
         };
 
