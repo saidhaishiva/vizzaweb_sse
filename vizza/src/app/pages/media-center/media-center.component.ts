@@ -64,6 +64,7 @@ export class MediaCenterComponent implements OnInit {
         // this.router.navigate(['/viewmedia']);
         let dialogRef = this.dialog.open(ViewmediaComponent, {
             width: '1000px',
+            height: '900px'
         });
 
     }
