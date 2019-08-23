@@ -135,7 +135,7 @@ export class TermViewKeyfeaturesComponent implements OnInit {
       // this.id = getIndex;
       this.id1 = 0;
     } else if (index == 2) {
-      this.selectedClaimDetails = 'form1';
+      this.selectedClaimDetails = 'form2';
       const getIndex = this.getKeyList.findIndex( list => list.type == 2);
       this.id = getIndex;
     }
