@@ -387,6 +387,7 @@ export class TermLifePremiumListComponent implements OnInit {
         // console.log(this.termLists+'-'+index, 'termListstermLists');
         let benefit;
         let cover;
+        let productname;
 
         // this.termLists = plists.term[index];
       if(plists.company_id == '6'){
@@ -394,6 +395,9 @@ export class TermLifePremiumListComponent implements OnInit {
       }
       if(plists.company_id == '9'){
           benefit = plists.benefit_option;
+      }
+      if(plists.company_id == '5'){
+          productname = plists.productname;
       }
         const data = {
             'platform': 'web',
@@ -406,7 +410,8 @@ export class TermLifePremiumListComponent implements OnInit {
             'company_id': plists.company_id,
             'term':  plists.termDetrails,
             'product_id': plists.product_id,
-            'cover': cover ? cover: ''//Bajaj
+            'cover': cover ? cover: '',//Bajaj
+            'hdfc': productname ? productname :''
         };
         console.log(data,'data');
         this.settings.loadingSpinner = true;

@@ -487,6 +487,16 @@
 
                                           </mat-form-field>
                                       </div>
+                                      <div class="col-md-3">
+                                          <mat-form-field class="w-100">
+                                              <input matInput placeholder="Electical AccessoryIDV" rows="2"  formControlName="ElecticalAccessoryIDV"   maxlength="5"  (keypress)="numberValidate($event)" autocomplete="off">
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="col-md-3">
+                                          <mat-form-field class="w-100">
+                                              <input matInput placeholder="Non Electical AccessoryIDV" rows="2"  formControlName="NonElecticalAccessoryIDV"   maxlength="5"  (keypress)="numberValidate($event)" autocomplete="off">
+                                          </mat-form-field>
+                                      </div>
                                       <div class="col-md-3 ">
                                           <mat-form-field class="w-100">
                                               <mat-select placeholder="AntiTheft Discflag" [(ngModel)]="antitheftdisc" formControlName="Antitheftdiscflag"  >
@@ -509,12 +519,7 @@
                                       <div class="col-md-3 ">
                                           <mat-checkbox formControlName="zerodept"  ><strong> Is zerodept Cover </strong></mat-checkbox>
                                       </div>
-                                      <div class="col-md-3 ">
-                                          <mat-checkbox formControlName="ElecticalAccessoryIDV"  ><strong> Electical AccessoryIDV </strong></mat-checkbox>
-                                      </div>
-                                      <div class="col-md-3 ">
-                                          <mat-checkbox formControlName="NonElecticalAccessoryIDV"  ><strong>Non Electical AccessoryIDV </strong></mat-checkbox>
-                                      </div>
+
                                       <div class="col-md-3 ">
                                           <mat-checkbox formControlName="IsLimitedtoOwnPremises"  ><strong> Is Limited   </strong></mat-checkbox>
                                       </div>

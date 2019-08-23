@@ -76,6 +76,7 @@ export class TermLifeComponent implements OnInit {
         this.TermLife = this.fb.group({
             'lifedob': ['', Validators.required],
             'lifeGender': ['', Validators.required],
+            'lifeannualIncome': ['', Validators.required],
             'lifeBenefitTerm':'',
             'lifePolicy': '',
             'lifePayment': '',
@@ -140,7 +141,8 @@ export class TermLifeComponent implements OnInit {
                 lifePolicy: enquiryFormData.lifePolicy,
                 lifePayment: enquiryFormData.lifePayment,
                 lifePincode: enquiryFormData.lifePincode,
-                lifesmoker : enquiryFormData.lifesmoker
+                lifesmoker : enquiryFormData.lifesmoker,
+                lifeannualIncome : enquiryFormData.lifeannualIncome
             });
         }
         if(sessionStorage.pincodeErrors != '' && sessionStorage.pincodeErrors !=undefined) {
@@ -207,6 +209,7 @@ export class TermLifeComponent implements OnInit {
                 'pincode': this.TermLifeapp.controls['pincode'].value,
                 'product_name': this.TermLifeapp.controls['insurance'].value,
                 'appointment_with': this.TermLifeapp.controls['appointmentwith'].value,
+                // 'annualIncome': this.TermLifeapp.controls['annualIncome'].value,
 
             };
 
@@ -314,7 +317,9 @@ export class TermLifeComponent implements OnInit {
                         'benefit_term': '',
                         'payment_mode': this.TermLife.controls.lifePayment.value,
                         'smoker': this.TermLife.controls.lifesmoker.value,
-                        'pincode': this.TermLife.controls.lifePincode.value
+                        'pincode': this.TermLife.controls.lifePincode.value,
+                        'annualIncome': this.TermLife.controls.lifeannualIncome.value
+
                     };
                     console.log(data, 'dattttaaaaa');
                     this.commontermlyf.productListEnquiry(data).subscribe(

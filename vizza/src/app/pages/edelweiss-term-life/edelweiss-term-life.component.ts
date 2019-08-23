@@ -3299,6 +3299,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       "pos_status":  this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "product_id": this.lifePremiumList.product_id,
+      "term": this.lifePremiumList.termDetrails,
       "suminsured_amount": sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
