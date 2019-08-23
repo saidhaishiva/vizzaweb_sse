@@ -386,7 +386,6 @@ export class EdelweissPosComponent implements OnInit {
             'policy_paying_term': this.edelweisspos.controls['edelpolicy'].value,
             'benefit_term': this.edelweisspos.controls['edelpremium'].value,
             'payment_mode': this.edelweisspos.controls['edelPayment'].value,
-            'smoker': this.edelweisspos.controls['edelsmoker'].value,
             'pincode': this.edelweisspos.controls['edelPincode'].value
           };
           console.log(data, 'dattttaaaaa');
