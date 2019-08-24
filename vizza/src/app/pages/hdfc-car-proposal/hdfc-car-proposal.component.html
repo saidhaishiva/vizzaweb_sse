@@ -95,16 +95,16 @@
                             <mat-error *ngIf="proposer.controls.personalPan.errors?.required"> Enter Valid PAN Number </mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3 mt-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Unique Id Number"  (keypress)="nameValidate($event)"   maxlength="10" formControlName="uniqueid" autocomplete="off">
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3 mt-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Lg Code"  (keypress)="nameValidate($event)"   maxlength="10" formControlName="Lgcode" autocomplete="off">
-                          </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-3 mt-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Unique Id Number"  (keypress)="nameValidate($event)"   maxlength="10" formControlName="uniqueid" autocomplete="off">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3 mt-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Lg Code"  (keypress)="nameValidate($event)"   maxlength="10" formControlName="Lgcode" autocomplete="off">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
                           <div class="row" fxLayoutAlign="center center">
                               <div class="col-md-6">
                                   <div class="box-card addressBox">
@@ -366,7 +366,7 @@
                                         </div>
                                         <div class="col-md-4 mt-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput [matDatepicker]="picker2" [max]="today" placeholder="Previous Policy EndDate(DD/MM/YYYY)"   formControlName="previousenddate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
+                                                <input matInput [matDatepicker]="picker2" [max]="tod" placeholder="Previous Policy EndDate(DD/MM/YYYY)"   formControlName="previousenddate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
                                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker2></mat-datepicker>
                                                 <mat-error *ngIf="vechicle.controls.previousenddate.errors?.required">previous Policy Endate is required</mat-error>
@@ -486,17 +486,17 @@
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Number Of Drivers" formControlName="numdrivers" autocomplete="off" (keypress)="numberValidate($event)"  >
+                                                <input matInput placeholder="Number Of Drivers" formControlName="numdrivers" autocomplete="off" maxlength="2" (keyup)="validationforadons('','')" (keypress)="numberValidate($event)"  >
                                                 <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
 
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3 ">
+                                        <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <mat-select placeholder="Paid Driver SI"  formControlName="paiddriversi"  >
-                                                    <mat-option value="0">0</mat-option>
-                                                    <mat-option value="true">true</mat-option>
-                                                </mat-select>
+                                                <mat-placeholder>Paid Driver SI<span class="error" *ngIf="addOns.controls['numdrivers'].value !=''">*</span></mat-placeholder>
+                                                <input matInput  formControlName="paiddriversi" autocomplete="off" (keypress)="numberValidate($event)"  >
+                                                <mat-error *ngIf="addOns.controls.paiddriversi.errors?.required">Paid DriverSi is required</mat-error>
+
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3">
@@ -514,13 +514,14 @@
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="NoofUnnamedPerson" ><strong> NoofUnnamedPerson </strong></mat-checkbox>
+                                            <mat-checkbox formControlName="NoofUnnamedPerson" (change)="validationforadons($event,'unamed')"><strong> No of UnnamedPerson </strong></mat-checkbox>
                                         </div>
 
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="UnnamedPersonSI" formControlName="UnnamedPersonSI" autocomplete="off" (keypress)="numberValidate($event)"  >
-                                                <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
+                                                <mat-placeholder>UnnamedPersonSI<span class="error" *ngIf="addOns.controls['NoofUnnamedPerson'].value !=''">*</span></mat-placeholder>
+                                                <input matInput  formControlName="UnnamedPersonSI" autocomplete="off" (keypress)="numberValidate($event)"  >
+                                                <mat-error *ngIf="addOns.controls.UnnamedPersonSI.errors?.required  ">UnnamedPersonSI is required</mat-error>
 
                                             </mat-form-field>
                                         </div>
@@ -546,20 +547,22 @@
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="NoofnamedPerson" ><strong> NoofnamedPerson </strong></mat-checkbox>
+                                            <mat-checkbox formControlName="NoofnamedPerson" (change)="validationforadons($event,'named')"><strong> No of namedPerson </strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="PersonName" formControlName="namedPerson" autocomplete="off" (keypress)="numberValidate($event)"  >
-                                                <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
+                                                <mat-placeholder>PersonName<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
+                                                <input matInput  formControlName="namedPerson" autocomplete="off" (keypress)="numberValidate($event)"  >
+                                                <mat-error *ngIf="addOns.controls.namedPerson.errors?.required  ">Person Name Is Required</mat-error>
 
                                             </mat-form-field>
                                         </div>
 
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="namedPersonSI" formControlName="namedPersonSI" autocomplete="off" (keypress)="numberValidate($event)"  >
-                                                <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
+                                                <mat-placeholder>NamedPersonSI<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
+                                                <input matInput  formControlName="namedPersonSI" autocomplete="off" (keypress)="numberValidate($event)"  >
+                                                <mat-error *ngIf="addOns.controls.namedPersonSI.errors?.required  ">Named Person SI is required</mat-error>
 
                                             </mat-form-field>
                                         </div>
@@ -691,19 +694,19 @@
                                 <div class="col-md-12 mt-3">
                                     <h6 class="color-blue"> BANK DETAILS </h6>
                                 </div>
-                                <div class="col-md-3 mt-3">
-                                    <mat-form-field class="w-100" >
-                                        <mat-select placeholder="Bank Name" formControlName="Bankname"  (change)="changebankname()" required>
-                                            <mat-option *ngFor="let bank of bankList | keys" value="{{bank.key}}" > {{bank.value}} </mat-option>
-                                        </mat-select>
-                                        <mat-error *ngIf="BankDetails.controls.Bankname.errors?.required">Bank Name is Required</mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3 mt-3">
-                                    <mat-form-field class="w-100">
-                                        <input matInput placeholder="Bank Branch Name" formControlName="Branch" autocomplete="off" required  >
-                                    </mat-form-field>
-                                </div>
+                                <!--<div class="col-md-3 mt-3">-->
+                                    <!--<mat-form-field class="w-100" >-->
+                                        <!--<mat-select placeholder="Bank Name" formControlName="Bankname"  (change)="changebankname()" required>-->
+                                            <!--<mat-option *ngFor="let bank of bankList | keys" value="{{bank.key}}" > {{bank.value}} </mat-option>-->
+                                        <!--</mat-select>-->
+                                        <!--<mat-error *ngIf="BankDetails.controls.Bankname.errors?.required">Bank Name is Required</mat-error>-->
+                                    <!--</mat-form-field>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-3 mt-3">-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<input matInput placeholder="Bank Branch Name" formControlName="Branch" autocomplete="off" required  >-->
+                                    <!--</mat-form-field>-->
+                                <!--</div>-->
                                 <div class="col-md-3 mt-3">
                                     <mat-form-field class="w-100">
                                         <mat-select placeholder="Payment Mode" formControlName="paymentmode" required >
