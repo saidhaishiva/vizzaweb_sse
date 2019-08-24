@@ -326,6 +326,7 @@ export class AegonTermLifeComponent implements OnInit {
     this.getnomineerelationship();
     this.personal.controls['cPincode'].patchValue(this.enquiryFromDetials.pincode);
     this.personal.controls['smoker'].patchValue(this.enquiryFromDetials.smoker);
+    this.personal.controls['annualIncome'].patchValue(this.enquiryFromDetials.annualIncome);
 
 
   }
@@ -366,6 +367,9 @@ export class AegonTermLifeComponent implements OnInit {
   // Number validation
   numberValidate(event: any) {
     this.validation.numberValidate(event);
+  }
+  addressValidate(event: any){
+    this.validation.addressValidate(event);
   }
 
   // height weight validation
@@ -1050,6 +1054,16 @@ export class AegonTermLifeComponent implements OnInit {
         console.log(this.errorMsg, 'Next Button Error');
         if(this.errorMsg == '')
         {
+          this.icicMsg = '';
+          this.ecsaMsg = '';
+          this.adbsaMsg = '';
+          this.dbsaMsg = '';
+          this.husMsg = '';
+          this.wifeMsg = '';
+          this.smokerMsg = '';
+          this.qulMsg = '';
+          this.dobMsg = '';
+          this.titleMsg = '';
           stepper.next();
           this.topScroll();
         }
@@ -1319,6 +1333,42 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   getPremium(type) {
+    if(sessionStorage.proposerAge >= 18){
+      this.validateAnnual(this.personal.controls['annualIncome'].value,2);
+      this.deathBenefitSA(this.personal.controls['deathBenefitSA'].value,2);
+      if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP')
+      {
+        this.adbrSumAssured(this.personal.controls['adbrSumAssured'].value,2);
+      }
+      else if(this.lifePremiumList.benefit_option == 'LHP')
+      {
+        this.enchancedCISA(this.personal.controls['enchancedCISA'].value,2);
+      }
+      else if(this.lifePremiumList.benefit_option == 'LH')
+      {
+        this.icirSumAssured(this.personal.controls['icirSumAssured'].value,2);
+      }
+      console.log(this.errorMsg, 'Next Button Error');
+      if(this.errorMsg == '')
+      {
+        this.icicMsg = '';
+        this.ecsaMsg = '';
+        this.adbsaMsg = '';
+        this.dbsaMsg = '';
+        this.husMsg = '';
+        this.wifeMsg = '';
+        this.smokerMsg = '';
+        this.qulMsg = '';
+        this.dobMsg = '';
+        this.titleMsg = '';
+      }
+      else {
+        this.toastr.error(this.errorMsg);
+      }
+
+    } else {
+      this.toastr.error('Proposer age should be 18 or above');
+    }
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id":  this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -1366,14 +1416,17 @@ export class AegonTermLifeComponent implements OnInit {
       }
 
     }
-    this.TermLifeService.getPremium(data).subscribe(
-        (successData) => {
-          this.premiumSuccess(successData);
-        },
-        (error) => {
-          this.premiumFailure(error);
-        }
-    );
+    if(this.errorMsg == '')
+    {
+      this.TermLifeService.getPremium(data).subscribe(
+          (successData) => {
+            this.premiumSuccess(successData);
+          },
+          (error) => {
+            this.premiumFailure(error);
+          }
+      );
+    }
   }
 
   public premiumSuccess(successData) {
@@ -1899,11 +1952,11 @@ export class AegonTermLifeComponent implements OnInit {
             "wcir": "NO"
           },
           "addons_itermplus": {
-            "adbrSumAssured":this.personal.controls['adbrSumAssured'].value == 'L' || this.personal.controls['adbrSumAssured'].value == 'LP'? this.personal.controls['adbrSumAssured'].value : '0',
+            "adbrSumAssured":this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP'? this.personal.controls['adbrSumAssured'].value : '0',
             "deathBenefitSA": this.personal.controls['deathBenefitSA'].value,
             "deathBenefitTISA": this.personal.controls['deathBenefitTISA'].value,
-            "enchancedCISA":this.personal.controls['enchancedCISA'].value == 'LHP' ? this.personal.controls['enchancedCISA'].value : '0',
-            "icirSumAssured": this.personal.controls['icirSumAssured'].value == 'LH' ? this.personal.controls['icirSumAssured'].value : '0'
+            "enchancedCISA":this.lifePremiumList.benefit_option == 'LHP' ? this.personal.controls['enchancedCISA'].value : '0',
+            "icirSumAssured": this.lifePremiumList.benefit_option == 'LH' ? this.personal.controls['icirSumAssured'].value : '0'
           }
         };
 
