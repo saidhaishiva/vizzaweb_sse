@@ -104,9 +104,9 @@ export class EdelweissPosComponent implements OnInit {
     });
     this.sessionData();
     this.metaList();
-    // this.getsuminsuredlist();
-    // this.premiumlist();
-    // this.policylist();
+    this.getsuminsuredlist();
+    this.premiumlist();
+    this.policylist();
   }
 
   public metaList() {
@@ -236,71 +236,71 @@ export class EdelweissPosComponent implements OnInit {
     console.log(error);
   }
 
-  // getsuminsuredlist() {
-  //   const data = {
-  //     'platform': 'web',
-  //   };
-  //   this.commonservices.suminsuredlist(data).subscribe(
-  //       (successData) => {
-  //         this.suminsuredlistSuccess(successData);
-  //
-  //       },
-  //       (error) => {
-  //         this.suminsuredlistFailure(error);
-  //       });
-  // }
-  //
-  // public suminsuredlistSuccess(successData) {
-  //   this.suminsuredvalue = successData.ResponseObject;
-  //   console.log(this.suminsuredvalue,'dd');
-  // }
-  // public suminsuredlistFailure(error) {
-  //   console.log(error);
-  // }
-  //
-  // premiumlist() {
-  //   const data = {
-  //     'platform': 'web',
-  //   };
-  //   this.commonservices.premiumlist(data).subscribe(
-  //       (successData) => {
-  //         this.premiumlistSuccess(successData);
-  //
-  //       },
-  //       (error) => {
-  //         this.premiumlistFailure(error);
-  //       });
-  // }
-  //
-  // public premiumlistSuccess(successData) {
-  //   this.premiumdata = successData.ResponseObject;
-  //   console.log(this.suminsuredvalue,'dd');
-  // }
-  // public premiumlistFailure(error) {
-  //   console.log(error);
-  // }
-  //
-  // policylist() {
-  //   const data = {
-  //     'platform': 'web',
-  //   };
-  //   this.commonservices.policylist(data).subscribe(
-  //       (successData) => {
-  //         this.policylistSuccess(successData);
-  //
-  //       },
-  //       (error) => {
-  //         this.policylistFailure(error);
-  //       });
-  // }
-  //
-  // public policylistSuccess(successData) {
-  //   this.policydata = successData.ResponseObject;
-  //   console.log(this.suminsuredvalue,'dd');
-  // }
-  // public policylistFailure(error) {
-  //   console.log(error);
-  // }
+  getsuminsuredlist() {
+    const data = {
+      'platform': 'web',
+    };
+    this.commonservices.suminsuredlist(data).subscribe(
+        (successData) => {
+          this.suminsuredlistSuccess(successData);
+
+        },
+        (error) => {
+          this.suminsuredlistFailure(error);
+        });
+  }
+
+  public suminsuredlistSuccess(successData) {
+    this.suminsuredvalue = successData.ResponseObject;
+    console.log(this.suminsuredvalue,'dd');
+  }
+  public suminsuredlistFailure(error) {
+    console.log(error);
+  }
+
+  premiumlist() {
+    const data = {
+      'platform': 'web',
+    };
+    this.commonservices.premiumlist(data).subscribe(
+        (successData) => {
+          this.premiumlistSuccess(successData);
+
+        },
+        (error) => {
+          this.premiumlistFailure(error);
+        });
+  }
+
+  public premiumlistSuccess(successData) {
+    this.premiumdata = successData.ResponseObject;
+    console.log(this.suminsuredvalue,'dd');
+  }
+  public premiumlistFailure(error) {
+    console.log(error);
+  }
+
+  policylist() {
+    const data = {
+      'platform': 'web',
+    };
+    this.commonservices.policylist(data).subscribe(
+        (successData) => {
+          this.policylistSuccess(successData);
+
+        },
+        (error) => {
+          this.policylistFailure(error);
+        });
+  }
+
+  public policylistSuccess(successData) {
+    this.policydata = successData.ResponseObject;
+    console.log(this.suminsuredvalue,'dd');
+  }
+  public policylistFailure(error) {
+    console.log(error);
+  }
 
   getPincodeDetails(pin) {
     const data = {
@@ -364,60 +364,60 @@ export class EdelweissPosComponent implements OnInit {
     });
     dialogRef.disableClose = true;
   }
-  // productListEnquiry(value) {
-  //   sessionStorage.enquiryFormData = JSON.stringify(value);
-  //   console.log(this.edelweisspos.valid, 'this.TermLife.valid');
-  //   if(this.edelweisspos.valid) {
-  //     let valid = false;
-  //     if(this.pincodeErrors == false) {
-  //       valid = true;
-  //     }
-  //     if(valid) {
-  //       if (sessionStorage.edelEnqAge >= 18) {
-  //         const data = {
-  //           'platform': 'web',
-  //           'created_by': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-  //           'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-  //           'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-  //           'sum_assured_id': this.edelweisspos.controls['edelsuminsure'].value,
-  //           'age': sessionStorage.edelEnqAge,
-  //           'dob': this.datepipe.transform(this.edelweisspos.controls['edeldob'].value, 'y-MM-dd'),
-  //           'gender': this.edelweisspos.controls['edelGender'].value,
-  //           'policy_paying_term': this.edelweisspos.controls['edelpolicy'].value,
-  //           'benefit_term': this.edelweisspos.controls['edelpremium'].value,
-  //           'payment_mode': this.edelweisspos.controls['edelPayment'].value,
-  //           'pincode': this.edelweisspos.controls['edelPincode'].value
-  //         };
-  //         console.log(data, 'dattttaaaaa');
-  //         this.commonservices.edelweissenquiry(data).subscribe(
-  //             (successData) => {
-  //               this.edelweissenquirySuccess(successData, data);
-  //             },
-  //             (error) => {
-  //               this.edelweissenquiryFailure(error);
-  //             }
-  //         );
-  //       } else {
-  //         this.toastr.error('Age should be 18 or above');
-  //       }
-  //     }
-  //   } else {
-  //     this.toastr.error('Please fill the all mandatory fields');
-  //   }
-  // }
-  // edelweissenquirySuccess(successData, data) {
-  //   console.log(successData);
-  //   if (successData.IsSuccess) {
-  //     sessionStorage.enquiryFromDetials = JSON.stringify(data);
-  //     sessionStorage.getEnquiryDetials = JSON.stringify(successData.ResponseObject);
-  //     this.router.navigate(['/edelweiss-premium-list']);
-  //   } else {
-  //     this.toastr.error(successData.ErrorObject);
-  //   }
-  // }
-  // edelweissenquiryFailure(error) {
-  //   console.log(error)
-  // }
+  productListEnquiry(value) {
+    sessionStorage.enquiryFormData = JSON.stringify(value);
+    console.log(this.edelweisspos.valid, 'this.TermLife.valid');
+    if(this.edelweisspos.valid) {
+      let valid = false;
+      if(this.pincodeErrors == false) {
+        valid = true;
+      }
+      if(valid) {
+        if (sessionStorage.edelEnqAge >= 18) {
+          const data = {
+            'platform': 'web',
+            'created_by': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'sum_assured_id': this.edelweisspos.controls['edelsuminsure'].value,
+            'age': sessionStorage.edelEnqAge,
+            'dob': this.datepipe.transform(this.edelweisspos.controls['edeldob'].value, 'y-MM-dd'),
+            'gender': this.edelweisspos.controls['edelGender'].value,
+            'policy_paying_term': this.edelweisspos.controls['edelpolicy'].value,
+            'benefit_term': this.edelweisspos.controls['edelpremium'].value,
+            'payment_mode': this.edelweisspos.controls['edelPayment'].value,
+            'pincode': this.edelweisspos.controls['edelPincode'].value
+          };
+          console.log(data, 'dattttaaaaa');
+          this.commonservices.edelweissenquiry(data).subscribe(
+              (successData) => {
+                this.edelweissenquirySuccess(successData, data);
+              },
+              (error) => {
+                this.edelweissenquiryFailure(error);
+              }
+          );
+        } else {
+          this.toastr.error('Age should be 18 or above');
+        }
+      }
+    } else {
+      this.toastr.error('Please fill the all mandatory fields');
+    }
+  }
+  edelweissenquirySuccess(successData, data) {
+    console.log(successData);
+    if (successData.IsSuccess) {
+      sessionStorage.enquiryFromDetials = JSON.stringify(data);
+      sessionStorage.getEnquiryDetials = JSON.stringify(successData.ResponseObject);
+      this.router.navigate(['/edelweiss-premium-list']);
+    } else {
+      this.toastr.error(successData.ErrorObject);
+    }
+  }
+  edelweissenquiryFailure(error) {
+    console.log(error)
+  }
 
 }
 @Component({
