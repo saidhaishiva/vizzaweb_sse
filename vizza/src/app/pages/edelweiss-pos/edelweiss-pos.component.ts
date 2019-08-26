@@ -28,7 +28,6 @@ import {MetaService} from '../../shared/services/meta.service';
 })
 export class EdelweissPosComponent implements OnInit {
 
-  public TermLifeapp: FormGroup;
   public edelweisspos: FormGroup;
   public setDate: any;
   public age: any;
@@ -65,17 +64,6 @@ export class EdelweissPosComponent implements OnInit {
     }
     let today  = new Date();
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    this.TermLifeapp = this.fb.group({
-      'appdate': ['', Validators.required],
-      'apptime': null,
-      'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      'contactperson': ['', Validators.compose([Validators.required])],
-      'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
-      'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-      'pincode': ['', Validators.compose([Validators.required])],
-      'insurance': ['', Validators.compose([Validators.required])],
-      'appointmentwith': ['', Validators.compose([Validators.required])],
-    });
     this.edelweisspos = this.fb.group({
       'edelsuminsure': ['', Validators.required],
       'edeldob': ['', Validators.required],
@@ -92,7 +80,6 @@ export class EdelweissPosComponent implements OnInit {
 
   ngOnInit() {
     sessionStorage.enquiryFromDetials = '';
-    sessionStorage.filterCompany = '';
     sessionStorage.getEnquiryDetials = '';
     sessionStorage.allProductLists = '';
     this.show = this.config.getTermLife();
@@ -103,29 +90,11 @@ export class EdelweissPosComponent implements OnInit {
       this.productName = params.id;
     });
     this.sessionData();
-    this.metaList();
     this.getsuminsuredlist();
     this.premiumlist();
     this.policylist();
   }
 
-  public metaList() {
-    const data = {
-      'platform': 'web',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'component_name': 'Life Insurance-Term'
-    };
-    this.meta.metaDetail(data).subscribe(
-        (successData) => {
-          this.metaDetailSuccess(successData);
-        },
-        (error) => {
-          this.metaDetailFailure(error);
-        }
-    );
-  }
   public metaDetailSuccess(successData) {
     console.log(successData.ResponseObject);
     this.metaTermLife = successData.ResponseObject;
@@ -198,43 +167,6 @@ export class EdelweissPosComponent implements OnInit {
     }
     return age;
   }
-  TermLifeKeeper(values) {
-    if (this.TermLifeapp.valid) {
-      console.log(values,'sasdasd');
-      const data = {
-        'platform': 'web',
-        'product_type': 'offline',
-        'appointment_date': this.setDate,
-        'appointment_time': this.TermLifeapp.controls['apptime'].value,
-        'company_name': this.TermLifeapp.controls['name'].value,
-        'customer_mobile': this.TermLifeapp.controls['mobile'].value,
-        'customer_email': this.TermLifeapp.controls['email'].value,
-        'contact_person' : this.TermLifeapp.controls['contactperson'].value,
-        'pincode': this.TermLifeapp.controls['pincode'].value,
-        'product_name': this.TermLifeapp.controls['insurance'].value,
-        'appointment_with': this.TermLifeapp.controls['appointmentwith'].value,
-
-      };
-
-      this.commonservices.setFixAppointment(data).subscribe(
-          (successData) => {
-            this.fixAppointmentSuccess(successData);
-          },
-          (error) => {
-            this.fixAppointmentFailure(error);
-          }
-      );
-    }
-  }
-  fixAppointmentSuccess(successData) {
-    console.log(successData);
-  }
-  fixAppointmentFailure(error) {
-    console.log(error);
-  }
-  getComapnyListFailure(error) {
-    console.log(error);
-  }
 
   getsuminsuredlist() {
     const data = {
@@ -252,7 +184,6 @@ export class EdelweissPosComponent implements OnInit {
 
   public suminsuredlistSuccess(successData) {
     this.suminsuredvalue = successData.ResponseObject;
-    console.log(this.suminsuredvalue,'dd');
   }
   public suminsuredlistFailure(error) {
     console.log(error);
