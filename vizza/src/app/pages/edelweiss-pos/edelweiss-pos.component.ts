@@ -4961,7 +4961,7 @@ export class EdelweissPosComponent implements OnInit {
       this.proposalNextList = successData.ResponseObject;
       this.proposalFormPdf = this.proposalNextList.path;
       console.log(this.proposalFormPdf,'this.proposalFormPdf');
-      let dialogRef = this.dialog.open(EdelweissOpt, {
+      let dialogRef = this.dialog.open(EdelweissposOpt, {
         width: '400px'
       });
       dialogRef.disableClose = true;
@@ -5581,7 +5581,7 @@ export class EdelweissPosComponent implements OnInit {
 
 }
 @Component({
-  selector: ' edelweissopt ',
+  selector: ' edelweissposopt ',
   template: `
     <div class="container">
       <div class="row">
@@ -5603,11 +5603,11 @@ export class EdelweissPosComponent implements OnInit {
     </div>
   `
 })
-export class EdelweissOpt {
+export class EdelweissposOpt {
   otpCode: any;
 
   constructor(
-      public dialogRef: MatDialogRef<EdelweissOpt>,
+      public dialogRef: MatDialogRef<EdelweissposOpt>,
       @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
     this.otpCode = '';
 
