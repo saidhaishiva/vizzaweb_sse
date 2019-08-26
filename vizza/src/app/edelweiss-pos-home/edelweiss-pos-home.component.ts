@@ -51,6 +51,15 @@ export class EdelweissPosHomeComponent implements OnInit {
   public policydata: any;
 
   constructor(public fb: FormBuilder, public router: Router, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog, public config: ConfigurationService, public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService, public appSettings: AppSettings, public meta: MetaService) {
+    this.edelweisspos = this.fb.group({
+      edelsuminsure: '' ,
+      edeldob: ['', Validators.required],
+      edelGender: ['', Validators.required],
+      edelpolicy: '',
+      edelpremium: '',
+      edelPayment: '',
+      edelPincode: ['', Validators.required]
+    })
   }
 
   ngOnInit() {

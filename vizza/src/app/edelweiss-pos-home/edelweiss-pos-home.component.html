@@ -22,112 +22,6 @@
       </div>
     </div>
 
-    <!--<div *ngIf="!show" class="col-md-6 col-sm-12 col-xs-12">-->
-    <!--<div class="card">-->
-    <!--<div class="card-block AllFormView">-->
-    <!--<mat-card class="p-4" style="background: linear-gradient(to top, #97CA48 0%, #54C2CC 100%) !important; color:#fff;">-->
-    <!--<h2 class="w-100 text-center">Let us assist you</h2>-->
-    <!--<form [formGroup]="TermLifeapp">-->
-
-    <!--<div class="row">-->
-    <!--<div class="col-md-12">-->
-    <!--<mat-form-field class="w-100">-->
-    <!--<mat-select placeholder="Insurance Type" formControlName="insurance" required>-->
-    <!--<mat-option value="shopkeepers">Shopkeepers</mat-option>-->
-    <!--<mat-option value="marine">Marine Cargo Policy</mat-option>-->
-    <!--<mat-option value="money">Money Insurance</mat-option>-->
-    <!--<mat-option value="fire">Fire Policy</mat-option>-->
-    <!--<mat-option value="burglary">Burglary Policy</mat-option>-->
-    <!--<mat-option value="machinery">Machinery Breakdown Policy</mat-option>-->
-    <!--<mat-option value="electronics">Electronics Equiptment Policy</mat-option>-->
-    <!--<mat-option value="contractors">Contractors All Risk Policy</mat-option>-->
-    <!--<mat-option value="house-holders">House Holders Policy</mat-option>-->
-    <!--<mat-option value="public-liability">Public Liability</mat-option>-->
-    <!--<mat-option value="professional">Professional Indemnity Policy</mat-option>-->
-    <!--<mat-option value="workmen-compensation">Workmen Compensation</mat-option>-->
-    <!--</mat-select>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.insurance.errors?.required">Insurance Type is required</mat-error>-->
-    <!--</mat-form-field>-->
-    <!--</div>-->
-    <!--<div class="col-md-12">-->
-    <!--<mat-form-field class="w-100">-->
-    <!--<input matInput placeholder="Company Name" formControlName="name" required>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.name.errors?.required">Company Name is required</mat-error>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.name.hasError('minlength')">Company Name isn't long enough, minimum of 3 characters</mat-error>-->
-
-    <!--<mat-icon matSuffix>person</mat-icon>-->
-    <!--</mat-form-field>-->
-    <!--</div>-->
-    <!--<div class="col-md-12">-->
-    <!--<mat-form-field class="w-100">-->
-    <!--<input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="data($event)" required>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>-->
-    <!--<mat-icon matSuffix>person</mat-icon>-->
-    <!--</mat-form-field>-->
-    <!--</div>-->
-    <!--<div class="col-md-12">-->
-    <!--<mat-form-field class="w-100">-->
-    <!--<input matInput placeholder="Mobile" formControlName="mobile" (keypress)="keyPress($event)" required minlength="10" maxlength="10">-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.mobile.errors?.required">Mobile number is required</mat-error>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.mobile.hasError('pattern')">Enter valid Mobile Number</mat-error>-->
-    <!--<mat-icon matSuffix>call</mat-icon>-->
-    <!--</mat-form-field>-->
-    <!--</div>-->
-    <!--<div class="col-md-12">-->
-    <!--<mat-form-field class="w-100">-->
-    <!--<input matInput placeholder="Email" formControlName="email" required>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.email.errors?.required">Email is required</mat-error>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-    <!--<mat-icon matSuffix>email</mat-icon>-->
-    <!--</mat-form-field>-->
-    <!--</div>-->
-    <!--<div class="col-md-12">-->
-    <!--<mat-form-field class="w-100">-->
-    <!--<input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6" maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.pincode.errors?.required">Pincode is required</mat-error>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.pincode.hasError('required')">Pincode required</mat-error>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.pincode.hasError('pattern')">Enter Valid Pin</mat-error>-->
-    <!--<mat-icon matSuffix>place</mat-icon>-->
-    <!--</mat-form-field>-->
-    <!--</div>-->
-    <!--<div class="col-md-12">-->
-    <!--<mat-form-field class="w-100">-->
-    <!--<mat-select placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>-->
-    <!--<mat-option value="call">Call</mat-option>-->
-    <!--<mat-option value="meetinperson">Meet in Person</mat-option>-->
-    <!--</mat-select>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.appointmentwith.errors?.required">Appointment is required</mat-error>-->
-    <!--</mat-form-field>-->
-    <!--</div>-->
-    <!--<div class="col-md-6">-->
-    <!--<mat-form-field class="w-100">-->
-    <!--<input matInput [matDatepicker]="picker" placeholder="Appointment Date(DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>-->
-    <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-    <!--<mat-datepicker #picker></mat-datepicker>-->
-    <!--</mat-form-field>-->
-    <!--</div>-->
-    <!--<div class="col-md-6">-->
-    <!--<mat-form-field class="w-100">-->
-    <!--<input matInput type="time" atp-time-picker formControlName="apptime" required />-->
-    <!--<mat-error *ngIf="TermLifeapp.controls.apptime.errors?.required">Appointment Time is required</mat-error>-->
-    <!--</mat-form-field>-->
-    <!--</div>-->
-    <!--<div class="col-md-12 text-center mt-3">-->
-    <!--<button mat-button type="submit" style="color:#fff; Background:#B12900; border: 1px solid #fff;" [disabled]="(!TermLifeapp.valid ) || (!pincodeErrors)" (click)="TermLifeKeeper(TermLifeapp.value)">Submit</button>-->
-    <!--<button mat-button type="reset" style="color: #000; position: absolute; right: 10px"><i class="material-icons">refresh</i> Reset</button>-->
-    <!--</div>-->
-
-    <!--</div>-->
-    <!--</form>-->
-    <!--</mat-card>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
     <div *ngIf="show" class="col-md-6 col-sm-12 col-xs-12 AllFormView">
       <div class="card">
         <div class="card-block">
@@ -139,7 +33,7 @@
                   <mat-select placeholder="Suminsured Amount" formControlName="edelsuminsure" required>
                     <mat-option *ngFor="let sumamount of suminsuredvalue | keys" value="{{sumamount.key}}">{{sumamount.value}}</mat-option>
                   </mat-select>
-                  <mat-error *ngIf="edelweisspos.controls.edelGender.errors?.required">Gender is required</mat-error>
+                  <mat-error *ngIf="edelweisspos.controls.edelsuminsure.errors?.required">Gender is required</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-12">
@@ -202,83 +96,5 @@
         </div>
       </div>
     </div>
-    <!--<div class="flex-p" >-->
-    <!--<table class="table health-table table-scroll healthScroll">-->
-    <!--<thead>-->
-    <!--<tr>-->
-    <!--<th class="col-md-2">-->
-    <!--<mat-form-field class="w-100">-->
-    <!--<mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>-->
-    <!--<mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>-->
-    <!--<mat-option value="All" >Select All</mat-option>-->
-
-    <!--<mat-select-trigger>-->
-    <!--{{filterCompany ? filterCompany[0] : ''}}-->
-    <!--<span *ngIf="filterCompany.length > 1" class="example-additional-selection">-->
-    <!--(+{{filterCompany.length - 1}} {{filterCompany.length === 2 ? 'other' : 'others'}})-->
-    <!--</span>-->
-    <!--</mat-select-trigger>-->
-
-    <!--<mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>-->
-    <!--</mat-select>-->
-    <!--</mat-form-field>-->
-    <!--</th>-->
-    <!--<th class="sun-insured healthScroll col-md-1">-->
-    <!--<mat-form-field >-->
-    <!--<mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>-->
-    <!--<mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">-->
-    <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>-->
-    <!--</mat-select>-->
-    <!--</mat-form-field>-->
-    <!--</th>-->
-    <!--<th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Copay</th>-->
-    <!--<th class="col-md-2 font-weight-bold" style="padding: 15px 5px !important;">Pre Existing Disease</th>-->
-    <!--<th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Pre Hospitalization</th>-->
-    <!--<th class="col-md-2 font-weight-bold" style="padding: 15px 5px !important;">Post Hospitalization</th>-->
-    <!--<th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Compare</th>-->
-    <!--<th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Premium ( &#8377; )</th>-->
-    <!--<th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Buy</th>-->
-    <!--</tr>-->
-    <!--</thead>-->
-    <!--<tbody>-->
-    <!--&lt;!&ndash;<tr class="" *ngFor="let plists of allProductLists | orderBy : 'premium_amount';let i = index" [hidden]="changeSuninsuredAmount != getSumInsureId" >&ndash;&gt;-->
-    <!--<tr class="" *ngFor="let plists of allProductLists;let i = index" [hidden]="changeSuninsuredAmount != getSumInsureId" >-->
-    <!--<td align="center"  class="col-md-2 text-center">-->
-    <!--<img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">-->
-    <!--<p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>-->
-    <!--</td>-->
-    <!--<td  class="col-md-1">-->
-    <!--<p class="mt-4">&#8377; {{plists.suminsured_amount_format}}</p>-->
-    <!--</td>-->
-    <!--<td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3" class="col-md-1">-->
-    <!--<p class="text-center mt-4">{{keys.key_features_value}}</p>-->
-    <!--</td>-->
-    <!--<td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 0 || i == 2 || i == 3" class="col-md-2">-->
-    <!--<p class="text-center mt-4">{{keys.key_features_value}}</p>-->
-    <!--</td>-->
-    <!--<td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 0 || i == 3" class="col-md-1">-->
-    <!--<p class="text-center mt-4">{{keys.key_features_value}}</p>-->
-    <!--</td>-->
-    <!--<td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0" class="col-md-2">-->
-    <!--<p class="text-center mt-4">{{keys.key_features_value}}</p>-->
-    <!--</td>-->
-    <!--<td class="col-md-1 text-center">-->
-    <!--<p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)">Add to Compare</button></p>-->
-    <!--<p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>-->
-    <!--<p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>-->
-    <!--</td>-->
-    <!--<td class="col-md-1">-->
-    <!--<p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>-->
-    <!--<p class="text-center change-p">(Including GST)</p>-->
-    <!--</td>-->
-    <!--<td class="col-md-1">-->
-    <!--<p class="mt-4"><button mat-raised-button color="accent" (click)="buyProduct(plists)">Buy</button></p>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--</tbody>-->
-    <!--</table>-->
-    <!--</div>-->
-
-    <!--</div>-->
   </div>
 </div>
