@@ -644,6 +644,7 @@ import { EdelweissposOpt } from './pages/edelweiss-pos/edelweiss-pos.component';
         EdelweissPosComponent,
         EdelweissposPremiumListComponent,
         EdelweissPosHomeComponent,
+        EdelweissposOpt
     ],
 
     providers: [
