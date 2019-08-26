@@ -582,56 +582,80 @@ export class CommonService {
             .catch(this.handleError);
     }
 
-    // // edelweiss pos
-    // suminsuredlist(data) {
-    //     const json = JSON.stringify(data);
-    //     const token = this.authService.getAccessToken();
-    //     const httpOptions = {
-    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-    //     };
-    //     const url = this.configurationService.getedelweisspos() + 'productlist/sumAssured' ;
-    //     return this.http.post(url, json, httpOptions)
-    //         .map(this.extractData)
-    //         .catch(this.handleError);
-    // }
     // edelweiss pos
-    // premiumlist(data) {
-    //     const json = JSON.stringify(data);
-    //     const token = this.authService.getAccessToken();
-    //     const httpOptions = {
-    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-    //     };
-    //     const url = this.configurationService.getedelweisspos() + 'productlist/premiumTerm' ;
-    //     return this.http.post(url, json, httpOptions)
-    //         .map(this.extractData)
-    //         .catch(this.handleError);
-    // }
+    suminsuredlist(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'productlist/sumAssured' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // edelweiss pos
+    premiumlist(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'productlist/premiumTerm' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
-    // // edelweiss pos
-    // policylist(data) {
-    //     const json = JSON.stringify(data);
-    //     const token = this.authService.getAccessToken();
-    //     const httpOptions = {
-    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-    //     };
-    //     const url = this.configurationService.getedelweisspos() + 'productlist/policyTerm' ;
-    //     return this.http.post(url, json, httpOptions)
-    //         .map(this.extractData)
-    //         .catch(this.handleError);
-    // }
+    // edelweiss pos
+    policylist(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'productlist/policyTerm' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
-    // // edelweiss pos
-    // edelweissenquiry(data) {
-    //     const json = JSON.stringify(data);
-    //     const token = this.authService.getAccessToken();
-    //     const httpOptions = {
-    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-    //     };
-    //     const url = this.configurationService.getedelweisspos() + 'productlist/enquiry' ;
-    //     return this.http.post(url, json, httpOptions)
-    //         .map(this.extractData)
-    //         .catch(this.handleError);
-    // }
+    // edelweiss pos
+    edelweissenquiry(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'productlist/enquiry' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //edelweiss premium company
+    getComapnyList(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'productlist/company' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getProductList(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'productlist/index' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
     private extractData(res: Response) {
         const body = res;
