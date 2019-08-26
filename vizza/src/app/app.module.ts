@@ -343,6 +343,7 @@ import { TermViewKeyfeaturesComponent} from './pages/term-life-premium-list/term
 import {MetaService} from './shared/services/meta.service';
 import { EdelweissPosComponent } from './pages/edelweiss-pos/edelweiss-pos.component';
 import { EdelweissposPremiumListComponent } from './edelweisspos-premium-list/edelweisspos-premium-list.component';
+import { EdelweissPosHomeComponent } from './edelweiss-pos-home/edelweiss-pos-home.component';
 
 @NgModule({
     imports: [
@@ -641,6 +642,7 @@ import { EdelweissposPremiumListComponent } from './edelweisspos-premium-list/ed
         FiedlityPolicyComponent,
         EdelweissPosComponent,
         EdelweissposPremiumListComponent,
+        EdelweissPosHomeComponent,
     ],
 
     providers: [

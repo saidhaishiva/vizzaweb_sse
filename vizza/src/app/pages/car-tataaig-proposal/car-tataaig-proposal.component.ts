@@ -270,6 +270,20 @@ export class CarTataaigProposalComponent implements OnInit {
 
   maritial() {
     this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
+    const data = {
+      'platform': 'web',
+      'marital_status': this.proposer.controls['maritalStatus'].value == 'single' ? 'Y' : 'N',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    };
+    this.carinsurance.RelationList(data).subscribe(
+        (successData) => {
+          this.nomineeRelationSuccess(successData);
+        },
+        (error) => {
+          this.nomineeRelationFailure(error);
+        }
+    );
   }
 
 
