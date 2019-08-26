@@ -344,6 +344,7 @@ import {MetaService} from './shared/services/meta.service';
 import { EdelweissPosComponent } from './pages/edelweiss-pos/edelweiss-pos.component';
 import { EdelweissposPremiumListComponent } from './edelweisspos-premium-list/edelweisspos-premium-list.component';
 import { EdelweissPosHomeComponent } from './edelweiss-pos-home/edelweiss-pos-home.component';
+import { EdelweissposOpt } from './pages/edelweiss-pos/edelweiss-pos.component';
 
 @NgModule({
     imports: [
@@ -697,7 +698,7 @@ import { EdelweissPosHomeComponent } from './edelweiss-pos-home/edelweiss-pos-ho
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,EdelweissOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent, ViewKeyfeaturesComponent,BajajGoal,TermViewKeyfeaturesComponent
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,EdelweissOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent, ViewKeyfeaturesComponent,BajajGoal,TermViewKeyfeaturesComponent,EdelweissposOpt
     ]
 })
 export class AppModule { }
