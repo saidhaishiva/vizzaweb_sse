@@ -373,7 +373,7 @@
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="NCB %" formControlName="ncb" maxlength="3" (keypress)="numberValidate($event)"  required>
+                          <input matInput placeholder="NCB %" formControlName="ncb" maxlength="3" (keypress)="numberValidate($event)" readonly required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4 mt-3">
@@ -600,21 +600,21 @@
                   </form>
               </mat-accordion>
           </mat-step>
-          <mat-step [stepControl]="">
-              <ng-template matStepLabel> BANK DETAILS</ng-template>
-              <mat-accordion class="w-100 float-left">
-                  <form [formGroup]="BankDetails">
-                      <mat-expansion-panel expanded>
-                          <mat-expansion-panel-header>
-                              <mat-panel-title>
-                                  BANK DETAILS
-                              </mat-panel-title>
-                          </mat-expansion-panel-header>
-                          <div class="row mt-1" >
-                              <!--<div class="box-card pt-3">-->
-                                  <div class="col-md-12 mt-3">
-                                          <h6 class="color-blue"> BANK DETAILS </h6>
-                                  </div>
+          <!--<mat-step [stepControl]="">-->
+              <!--<ng-template matStepLabel> BANK DETAILS</ng-template>-->
+              <!--<mat-accordion class="w-100 float-left">-->
+                  <!--<form [formGroup]="BankDetails">-->
+                      <!--<mat-expansion-panel expanded>-->
+                          <!--<mat-expansion-panel-header>-->
+                              <!--<mat-panel-title>-->
+                                  <!--BANK DETAILS-->
+                              <!--</mat-panel-title>-->
+                          <!--</mat-expansion-panel-header>-->
+                          <!--<div class="row mt-1" >-->
+                              <!--&lt;!&ndash;<div class="box-card pt-3">&ndash;&gt;-->
+                                  <!--<div class="col-md-12 mt-3">-->
+                                          <!--<h6 class="color-blue"> BANK DETAILS </h6>-->
+                                  <!--</div>-->
                               <!--<div class="col-md-3 mt-3">-->
                                   <!--<mat-form-field class="w-100">-->
                                       <!--<input matInput placeholder="Bank Name" formControlName="banknamelist" autocomplete="off" (keyup)="dropdownForBank($event.target.value,'bank')"required  >-->
@@ -633,51 +633,51 @@
                                                   <!--<input matInput placeholder="Bank Branch Name" formControlName="Branch" autocomplete="off" required  >-->
                                               <!--</mat-form-field>-->
                                           <!--</div>-->
-                                          <div class="col-md-3 mt-3">
-                                              <mat-form-field class="w-100">
-                                                  <mat-select placeholder="Payment Mode" formControlName="paymentmode" required >
-                                                      <mat-option value="C">Cheque</mat-option>
-                                                      <mat-option value="CL">Credit Limit</mat-option>
-                                                      <mat-option value="CD">CD Balance</mat-option>
-                                                      <mat-option value="EP">Electronic Bank Payment</mat-option>
-                                                      <mat-option value="FT">Fund Transfer</mat-option>
-                                                  </mat-select>
-                                                  <mat-error *ngIf="BankDetails.controls.paymentmode.errors?.required">Payment Mode is Required</mat-error>
-                                              </mat-form-field>
-                                          </div>
-                                          <div class="col-md-3 mt-3">
-                                              <mat-form-field class="w-100">
-                                                  <mat-select placeholder="Payer Type" formControlName="Payertype" required>
-                                                      <mat-option value="DEALER">DEALER</mat-option>
-                                                      <mat-option value="CUSTOMER">CUSTOMER</mat-option>
-                                                  </mat-select>
-                                                  <mat-error *ngIf="BankDetails.controls.Payertype.errors?.required">Payer type is Required</mat-error>
-                                              </mat-form-field>
-                                          </div>
-                                          <div class="col-md-3 mt-3">
-                                              <mat-form-field class="w-100">
-                                                  <input matInput placeholder="Reference Number" formControlName="refrenceno" autocomplete="off" maxlength="15" required  >
-                                              </mat-form-field>
-                                          </div>
-                                          <div class="col-md-3 mt-3">
-                                              <mat-form-field class="w-100">
-                                                  <input matInput [matDatepicker]="picker4" [min]="gggg" [max]="gggg" placeholder="Payment Date(DD/MM/YYYY)" (dateInput)="addEvent($event,'bank')" (dateChange)="addEvent($event,'bank')"  formControlName="Paymentdate" (dateInput)="addEvent($event,'bank')" (dateChange)="addEvent($event,'bank')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
-                                                  <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-                                                  <mat-datepicker #picker4></mat-datepicker>
-                                                  <mat-error *ngIf="BankDetails.controls.Paymentdate.errors?.required">Payment date is required</mat-error>
-                                              </mat-form-field>
-                                              <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
-                                          </div>
+                                          <!--<div class="col-md-3 mt-3">-->
+                                              <!--<mat-form-field class="w-100">-->
+                                                  <!--<mat-select placeholder="Payment Mode" formControlName="paymentmode" required >-->
+                                                      <!--<mat-option value="C">Cheque</mat-option>-->
+                                                      <!--<mat-option value="CL">Credit Limit</mat-option>-->
+                                                      <!--<mat-option value="CD">CD Balance</mat-option>-->
+                                                      <!--<mat-option value="EP">Electronic Bank Payment</mat-option>-->
+                                                      <!--<mat-option value="FT">Fund Transfer</mat-option>-->
+                                                  <!--</mat-select>-->
+                                                  <!--<mat-error *ngIf="BankDetails.controls.paymentmode.errors?.required">Payment Mode is Required</mat-error>-->
+                                              <!--</mat-form-field>-->
+                                          <!--</div>-->
+                                          <!--<div class="col-md-3 mt-3">-->
+                                              <!--<mat-form-field class="w-100">-->
+                                                  <!--<mat-select placeholder="Payer Type" formControlName="Payertype" required>-->
+                                                      <!--<mat-option value="DEALER">DEALER</mat-option>-->
+                                                      <!--<mat-option value="CUSTOMER">CUSTOMER</mat-option>-->
+                                                  <!--</mat-select>-->
+                                                  <!--<mat-error *ngIf="BankDetails.controls.Payertype.errors?.required">Payer type is Required</mat-error>-->
+                                              <!--</mat-form-field>-->
+                                          <!--</div>-->
+                                          <!--<div class="col-md-3 mt-3">-->
+                                              <!--<mat-form-field class="w-100">-->
+                                                  <!--<input matInput placeholder="Reference Number" formControlName="refrenceno" autocomplete="off" maxlength="15" required  >-->
+                                              <!--</mat-form-field>-->
+                                          <!--</div>-->
+                                          <!--<div class="col-md-3 mt-3">-->
+                                              <!--<mat-form-field class="w-100">-->
+                                                  <!--<input matInput [matDatepicker]="picker4" [min]="gggg" [max]="gggg" placeholder="Payment Date(DD/MM/YYYY)" (dateSelect)="addEvent($event,'bank')" (dateChange)="addEvent($event,'bank')"  (click)="addEvent($event,'bank')"  formControlName="Paymentdate" (dateInput)="addEvent($event,'bank')"    minlength="10"  maxlength="10"   autocomplete="off"  required >-->
+                                                  <!--<mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>-->
+                                                  <!--<mat-datepicker #picker4></mat-datepicker>-->
+                                                  <!--<mat-error *ngIf="BankDetails.controls.Paymentdate.errors?.required">Payment date is required</mat-error>-->
+                                              <!--</mat-form-field>-->
+                                              <!--<div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>-->
+                                          <!--</div>-->
                               <!--</div>-->
-                          </div>
-                          <div class="proposal-buttom mt-3 text-right w-100">
-                              <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
-                              <button mat-raised-button  color="primaryBlue" (click)="nextTab(stepper,BankDetails.value,'stepper4')"  >Next</button>
-                          </div>
-                      </mat-expansion-panel>
-                  </form>
-              </mat-accordion>
-          </mat-step>
+                          <!--</div>-->
+                          <!--<div class="proposal-buttom mt-3 text-right w-100">-->
+                              <!--<button mat-button matStepperPrevious (click)="topScroll()">Back</button>-->
+                              <!--<button mat-raised-button  color="primaryBlue" (click)="nextTab(stepper,BankDetails.value,'stepper4')"  >Next</button>-->
+                          <!--</div>-->
+                      <!--</mat-expansion-panel>-->
+                  <!--</form>-->
+              <!--</mat-accordion>-->
+          <!--</mat-step>-->
 
           <mat-step [stepControl]="">
               <ng-template matStepLabel>SUMMARY</ng-template>
@@ -784,29 +784,29 @@
                           </div>
                       </div>
                   </section>
-                  <section >
-                      <h5 class="mt-3 sub-title"> BANK DETAILS </h5>
-                      <div class="row box-card">
-                          <div class="col-md-6">
-                              <div class="p-3 mt-2">
-                                  <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Bank Name :</strong>{{bankFormData.Banknamevalue}}</li>
-                                      <li class="list-group-item"><strong>Branch Name :</strong>{{bankFormData.Branch}}</li>
-                                      <li class="list-group-item"><strong>Payer Type :</strong>{{bankFormData.Payertype}}</li>
-                                      <li class="list-group-item"><strong>Reference Number :</strong>{{bankFormData.refrenceno}}</li>
-                                      <li class="list-group-item"><strong>Payment Date :</strong>{{bankFormData.Paymentdate | date: 'dd/MM/yyyy'}}</li>
-                                      <li class="list-group-item" ><strong>Payment Mode :</strong>{{bankFormData.paymentmode}}</li>
+                  <!--<section >-->
+                      <!--<h5 class="mt-3 sub-title"> BANK DETAILS </h5>-->
+                      <!--<div class="row box-card">-->
+                          <!--<div class="col-md-6">-->
+                              <!--<div class="p-3 mt-2">-->
+                                  <!--<ul class="m-0 list-group">-->
+                                      <!--<li class="list-group-item"><strong>Bank Name :</strong>{{bankFormData.Banknamevalue}}</li>-->
+                                      <!--<li class="list-group-item"><strong>Branch Name :</strong>{{bankFormData.Branch}}</li>-->
+                                      <!--<li class="list-group-item"><strong>Payer Type :</strong>{{bankFormData.Payertype}}</li>-->
+                                      <!--<li class="list-group-item"><strong>Reference Number :</strong>{{bankFormData.refrenceno}}</li>-->
+                                      <!--<li class="list-group-item"><strong>Payment Date :</strong>{{bankFormData.Paymentdate | date: 'dd/MM/yyyy'}}</li>-->
+                                      <!--<li class="list-group-item" ><strong>Payment Mode :</strong>{{bankFormData.paymentmode}}</li>-->
                                       <!--<mat-option value="C">Cheque</mat-option>-->
                                       <!--<mat-option value="CL">Credit Limit</mat-option>-->
                                       <!--<mat-option value="CD">CD Balance</mat-option>-->
                                       <!--<mat-option value="EP">Electronic Bank Payment</mat-option>-->
                                       <!--<mat-option value="FT">Fund Transfer</mat-option>-->
 
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                  </section>
+                                  <!--</ul>-->
+                              <!--</div>-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</section>-->
                   <p class="mt-2 pl-3">
                       <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>
                   </p>
