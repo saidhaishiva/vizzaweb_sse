@@ -21,23 +21,20 @@ import {CommonService} from '../shared/services/common.service';
 export class EdelweissposPremiumListComponent implements OnInit {
   public settings: Settings;
   allCompanyList: any;
-  filterCompany: any;
   webhost: any;
   public form: FormGroup;
-  productListArray: any;
   allProductLists: any;
   setAllProductLists: any;
   getEnquiryDetials: any;
   compareArray: any;
   selectedAmountTravel: any;
   enquiryFromDetials: any;
-  dethBenfit: any;
   lifePremiumList: any;
   selected: any;
   termListDetails: any;
   checkAllStatus: boolean;
-  changepremiumList: boolean;
-  public keyUp = new Subject<string>();
+  public suminsuredvalue: any;
+  public getEnquiryid: any;
 
   constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonService: CommonService, public config: ConfigurationService, public validation: ValidationService) {
     this.settings = this.appSettings.settings;
@@ -46,10 +43,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
     this.settings.sidenavIsPinned = false;
     this.webhost = this.config.getimgUrl();
     this.compareArray = [];
-    this.dethBenfit = sessionStorage.deathBenefitSA;
     sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
-    this.changepremiumList = false;
-    // once user typing stoped after calling function
 
     this.form = this.fb.group({
       termlists: ''
@@ -57,9 +51,36 @@ export class EdelweissposPremiumListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getsuminsuredlist();
     this.getCompanyList();
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
+    this.getEnquiryid = JSON.parse(sessionStorage.getEnquiryDetials);
   }
+
+  getsuminsuredlist() {
+    const data = {
+      'platform': 'web',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    };
+    this.commonService.suminsuredlist(data).subscribe(
+        (successData) => {
+          this.suminsuredlistSuccess(successData);
+
+        },
+        (error) => {
+          this.suminsuredlistFailure(error);
+        });
+  }
+
+  public suminsuredlistSuccess(successData) {
+    this.suminsuredvalue = successData.ResponseObject;
+  }
+  public suminsuredlistFailure(error) {
+    console.log(error);
+  }
+
 
   getCompanyList() {
     const data = {
@@ -80,11 +101,8 @@ export class EdelweissposPremiumListComponent implements OnInit {
   public companyListSuccess(successData) {
     console.log(successData.ResponseObject);
     if (successData.IsSuccess) {
-      if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
-        console.log('inn');
-        this.getProductList();
-      }
-
+      this.allCompanyList = successData.ResponseObject;
+      this.getProductList();
     }
   }
 
@@ -99,7 +117,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'policy_id': this.getEnquiryDetials.policy_id,
+      'policy_id': this.getEnquiryid.enquiry_id,
       'sum_assured': this.enquiryFromDetials.sum_assured_id,
       'company_id': '14',
     };
@@ -118,15 +136,6 @@ export class EdelweissposPremiumListComponent implements OnInit {
     this.settings.loadingSpinner = false;
     console.log(successData, 'successData');
     if (successData) {
-      for (let i = 0; i < successData.length; i++) {
-        if (successData[i].IsSuccess) {
-          let policylists = successData[i].ResponseObject;
-          this.productListArray.push(policylists.productlist);
-        }
-        this.allProductLists = [].concat.apply([], this.productListArray);
-      }
-      console.log(this.allProductLists, 'all');
-      this.setAllProductLists = this.allProductLists;
       sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
       sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
     }
@@ -269,22 +278,22 @@ export class EdelweissposPremiumListComponent implements OnInit {
   //         this.termChangeFailure(error);
   //       });
 // }
-  public termChangeSuccess(successData, plists, index){
-    if (successData.IsSuccess == true) {
-      this.settings.loadingSpinner = false;
-      this.termListDetails = successData.ResponseObject;
-      this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
-      this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
-
-      console.log(this.allProductLists, 'allProductLists');
-    }
-    console.log(plists, 'plists');
-
-  }
-
-  public termChangeFailure(error){
-
-  }
+//   public termChangeSuccess(successData, plists, index){
+//     if (successData.IsSuccess == true) {
+//       this.settings.loadingSpinner = false;
+//       this.termListDetails = successData.ResponseObject;
+//       this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
+//       this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
+//
+//       console.log(this.allProductLists, 'allProductLists');
+//     }
+//     console.log(plists, 'plists');
+//
+//   }
+//
+//   public termChangeFailure(error){
+//
+//   }
 }
 
 @Component({
