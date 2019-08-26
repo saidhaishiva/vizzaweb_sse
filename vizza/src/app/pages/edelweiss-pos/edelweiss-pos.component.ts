@@ -171,6 +171,9 @@ export class EdelweissPosComponent implements OnInit {
   getsuminsuredlist() {
     const data = {
       'platform': 'web',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
     };
     this.commonservices.suminsuredlist(data).subscribe(
         (successData) => {
@@ -192,6 +195,9 @@ export class EdelweissPosComponent implements OnInit {
   premiumlist() {
     const data = {
       'platform': 'web',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
     };
     this.commonservices.premiumlist(data).subscribe(
         (successData) => {
@@ -214,6 +220,9 @@ export class EdelweissPosComponent implements OnInit {
   policylist() {
     const data = {
       'platform': 'web',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
     };
     this.commonservices.policylist(data).subscribe(
         (successData) => {
