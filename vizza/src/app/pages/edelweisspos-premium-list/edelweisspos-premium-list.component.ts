@@ -1,13 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {AuthService} from '../shared/services/auth.service';
-import {ConfigurationService} from '../shared/services/configuration.service';
-import {Settings} from '../app.settings.model';
-import {AppSettings} from '../app.settings';
+import {Component,OnInit} from '@angular/core';
+import {AuthService} from '../../shared/services/auth.service';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {Settings} from '../../app.settings.model';
+import {AppSettings} from '../../app.settings';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
-import {ValidationService} from '../shared/services/validation.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CommonService} from '../shared/services/common.service';
+import {ValidationService} from '../../shared/services/validation.service';
+import {FormBuilder} from '@angular/forms';
+import {CommonService} from '../../shared/services/common.service';
 
 @Component({
   selector: 'app-edelweisspos-premium-list',
