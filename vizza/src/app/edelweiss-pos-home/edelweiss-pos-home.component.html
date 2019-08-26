@@ -59,7 +59,7 @@
                   <mat-select placeholder="Policy Term" formControlName="edelpolicy">
                     <mat-option *ngFor="let policy of policydata | keys" value="{{policy.key}}">{{policy.value}}</mat-option>
                   </mat-select>
-                  <mat-error *ngIf="edelweisspos.controls.edelpolicy.errors?.required">Benefit Term is required</mat-error>
+                  <mat-error *ngIf="edelweisspos.controls.edelpolicy.errors?.required">policy Term is required</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-12">

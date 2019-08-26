@@ -199,7 +199,6 @@ export class EdelweissPosHomeComponent implements OnInit {
 
   public premiumlistSuccess(successData) {
     this.premiumdata = successData.ResponseObject;
-    console.log(this.suminsuredvalue, 'dd');
   }
 
   public premiumlistFailure(error) {
