@@ -666,11 +666,12 @@
                                                      </mat-form-field>
                                                 </div>
 
-                                                <div class="col-md-4"><mat-form-field class="w-100">
-                                                    <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  formControlName="npincode" autocomplete="off" required (input)="getPostal($event.target.value,'personal')" [readonly]="this.personal.controls['isAddressSame'].value">
-                                                    <!--<mat-error *ngIf="personal.controls.pPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
-                                                    <!--<mat-error *ngIf="personal.controls.pPincode.hasError('required')">Pincode is required</mat-error>-->
-                                                    <!--<mat-error *ngIf="personal.controls.pPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
+
+                                                <div class="col-md-6"><mat-form-field class="w-100">
+                                                    <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" required formControlName="npincode" autocomplete="off"  (input)="getPostal($event.target.value,'nominee')"  >
+                                                    <!--<mat-error *ngIf="nomineeDetail.controls.pincode.hasError('minlength')">Pincode should be 6 digits</mat-error>-->
+                                                    <!--<mat-error *ngIf="nomineeDetail.controls.pincode.hasError('required')">Pincode is required</mat-error>-->
+                                                    <!--<mat-error *ngIf="nomineeDetail.controls.pincode.hasError('pattern')">Enter Valid  Pincode</mat-error>-->
                                                 </mat-form-field></div>
 
 
@@ -693,15 +694,15 @@
                                                     </mat-form-field>
                                                 </div>
 
-                                                <div class="col-md-4">
-                                                <mat-form-field class="w-100">
-                                                <mat-select placeholder="Country" formControlName="nrelationship" autocomplete="off" required >
-                                                <mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.value'>
-                                                {{list.value}}
-                                                </mat-option>
-                                                </mat-select>
+                                                <!--<div class="col-md-4">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                <!--<mat-select placeholder="Country" formControlName="nrelationship" autocomplete="off" required >-->
+                                                <!--<mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.value'>-->
+                                                <!--{{list.value}}-->
+                                                <!--</mat-option>-->
+                                                <!--</mat-select>-->
                                                 <!--<mat-error *ngIf="personal.controls.country.errors?.required">country is required</mat-error>-->
-                                                </mat-form-field></div>
+                                                <!--</mat-form-field></div>-->
                                                 <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                 <input matInput placeholder="Mobile Number" formControlName="nmobilenum" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)" >
@@ -774,7 +775,7 @@
                                             </div>
 
                                             <div class="col-md-4"><mat-form-field class="w-100">
-                                                <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  formControlName="apincode" autocomplete="off" required (input)="getPostal($event.target.value,'personal')" [readonly]="this.personal.controls['isAddressSame'].value">
+                                                <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  formControlName="apincode" autocomplete="off" required (input)="getPostal($event.target.value,'personal')" >
                                                 <!--<mat-error *ngIf="personal.controls.pPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                                                 <!--<mat-error *ngIf="personal.controls.pPincode.hasError('required')">Pincode is required</mat-error>-->
                                                 <!--<mat-error *ngIf="personal.controls.pPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
