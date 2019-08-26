@@ -341,9 +341,9 @@ import { GolfersPolicyComponent } from './pages/golfers-policy/golfers-policy.co
 import { FiedlityPolicyComponent } from './pages/fiedlity-policy/fiedlity-policy.component';
 import { TermViewKeyfeaturesComponent} from './pages/term-life-premium-list/term-view-keyfeatures/term-view-keyfeatures.component';
 import {MetaService} from './shared/services/meta.service';
+import {EdelweissPosHomeComponent} from './pages/edelweiss-pos-home/edelweiss-pos-home.component';
+import {EdelweissposPremiumListComponent} from './pages/edelweisspos-premium-list/edelweisspos-premium-list.component';
 import { EdelweissPosComponent } from './pages/edelweiss-pos/edelweiss-pos.component';
-import { EdelweissposPremiumListComponent } from './edelweisspos-premium-list/edelweisspos-premium-list.component';
-import { EdelweissPosHomeComponent } from './edelweiss-pos-home/edelweiss-pos-home.component';
 import { EdelweissposOpt } from './pages/edelweiss-pos/edelweiss-pos.component';
 
 @NgModule({
@@ -641,9 +641,9 @@ import { EdelweissposOpt } from './pages/edelweiss-pos/edelweiss-pos.component';
         LiabilityInsuranceActComponent,
         GolfersPolicyComponent,
         FiedlityPolicyComponent,
-        EdelweissPosComponent,
-        EdelweissposPremiumListComponent,
         EdelweissPosHomeComponent,
+        EdelweissposPremiumListComponent,
+        EdelweissPosComponent,
         EdelweissposOpt
     ],
 
