@@ -5584,7 +5584,7 @@ export class EdelweissPosComponent implements OnInit {
   selector: ' edelweissposopt ',
   template: `
     <div class="container">
-      <div class="row"> 
+      <div class="row">
         <div class="col-md-12 text-center w-100">
           <mat-form-field class="w-50">
             <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
