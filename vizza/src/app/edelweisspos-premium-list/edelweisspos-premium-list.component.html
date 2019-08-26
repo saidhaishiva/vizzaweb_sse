@@ -1,3 +1,116 @@
-<p>
-  edelweisspos-premium-list works!
-</p>
+<div class="row " id="" fxLayoutAlign="center start">
+  <div class="col-sm-12">
+    <div fxLayout="column" class="life-product-list">
+      <div [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <h4 style="cursor: pointer" ><img src="assets/img/term-life-insurance.png" class="logo-size">EdelweissPos Insurance</h4>
+            </div>
+          </div>
+        </div>
+        <div class="flex-p ">
+          <table class="table health-table table-scroll termLifeScroll">
+            <thead>
+            <tr>
+              <th class="col-md-3">
+                <mat-form-field class="w-100">
+                  <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
+                  <mat-select (change)="filterByProducts()" multiple>
+                    <mat-option *ngFor="let list of allCompanyList" value="{{list.company_name}}" [disabled]="checkAllStatus">{{list.company_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+              <th class="sun-insured col-md-1">
+                <mat-form-field class="w-100">
+                  <mat-placeholder class="myclass font-weight-bold" >Sum Insured</mat-placeholder>
+                  <mat-select>
+                    <mat-option *ngfor></mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!--</mat-form-field>-->
+              </th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">
+                <mat-form-field class="w-100">
+                  <mat-placeholder class="myclass font-weight-bold" >Policy Term </mat-placeholder>
+                  <mat-select [(ngModel)]="selectedAmountTravel" autocomplete="off" (keypress)="numberValidate($event)" >
+                    <mat-option></mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+              <th class="col-sm-2" style="padding: 15px 5px !important;">Premium Termth>
+              <th class="col-md-1" style="padding: 15px 5px !important;">Payment</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">Compare</th>
+              <th class="col-md-2" style="padding: 15px 5px !important;">Premium  ( &#8377; )</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">Buy </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  *ngFor="let plists of allProductLists;let i = index">
+
+              <td align="center"  class="col-md-3 text-center">
+                <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
+                <p  *ngIf="plists.product_id != 87 && plists.product_id != 86" class="pTitle" matTooltip="{{plists.product_display_name}}">{{plists.product_display_name | titlecase }}</p>
+                <p *ngIf="plists.product_id == 87 || plists.product_id == 86" class="pTitle" style="margin-bottom: 0rem;" matTooltip="{{plists.product_name}}">{{plists.product_name| titlecase }}</p>
+                <p *ngIf="plists.product_id == 87 || plists.product_id == 86" class="pTitle" style="margin-bottom: 0rem;" matTooltip="{{plists.product_uin_number}}">{{plists.product_uin_number | uppercase }}</p>
+              </td>
+
+              <td class="col-md-1 text-center">
+                <p class="mt-4">&#8377; {{plists.sum_insured_amount}}</p>
+              </td>
+              <td class="col-md-1 text-center">
+                <p class="mt-4">{{plists.CoverageAge}}</p>
+              </td>
+              <td class="col-md-2 text-center" >
+                <mat-form-field class="w-75">
+                  <mat-select placeholder="Term List" (change)="lifeTermChange(plists, i)" [value]="plists.termDetrails" [(ngModel)]="plists.termDetrails" >
+                    <mat-option   *ngFor="let termList of plists.term;let i = index"  [value]="termList">{{termList}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+              </td>
+              <td class="col-md-1 text-center">
+                <p class="mt-4">{{plists.payment_mode | titlecase}}</p>
+              </td>
+              <td class="col-md-1 text-center">
+                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
+                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
+                <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
+              </td>
+              <td class="col-md-2">
+                <p class="text-center change-p mt-2" ><strong>&#8377; {{plists.totalpremium}} / {{plists.payment_mode | titlecase}}</strong></p>
+                <p class="text-center change-p">(Including GST)</p>
+              </td>
+              <td class="col-md-1">
+                <p class="mt-4"><button mat-raised-button color="accent" (click)="buyProduct(plists)">Buy</button></p>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row compar-fix" *ngIf="compareArray != ''">
+  <div class="text-right closeBtnClass">
+    <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
+  </div>
+  <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
+    <div fxLayout="column" class="flex-p">
+      <mat-card class="custom-card compare-icon text-center">
+        <div class="text-right closeBtnClass">
+          <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
+        </div>
+        <mat-card-content class="p-0">
+          <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
+          <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
+    <!--<button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>-->
+  </div>
+</div>
