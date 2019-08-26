@@ -1339,7 +1339,9 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       }
 
-    }
+    } else {
+    this.toastr.error('please enter field is required');
+  }
   }
   // Insure Details
   edelweissInsureDetails(stepper: MatStepper, value) {
@@ -1362,6 +1364,8 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.toastr.error('Insurer Age should be 18 or above');
 
       }
+    } else {
+      this.toastr.error('please enter field is required');
     }
 
   }
@@ -3303,8 +3307,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       "suminsured_amount": sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
-        "policyTerm":this.enquiryFormData.lifeBenefitTerm,
-        "premiumPayingTerm":this.enquiryFormData.lifePolicy,
+        "policyTerm":this.lifePremiumList.termDetrails,
+        "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
         "frequency":this.enquiryFormData.lifePayment,
         "sumAssured": sessionStorage.selectedAmountTravel,
         "planOption": this.insureArray.controls['planOption'].value,
@@ -3716,6 +3720,9 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
 
     console.log(data, ' fileeee');
+    console.log(this.enquiryFormData.lifeBenefitTerm,'this.enquiryFormData.lifeBenefitTerm')
+    console.log(this.enquiryFormData.lifePolicy,'this.enquiryFormData.lifePolicy')
+    console.log(this.medicalDetail.controls['adventurousActivities'].value,'medicalDetailadventurousActivities')
     this.settings.loadingSpinner = true;
       this.termService.edelweissProposalCreation(data).subscribe(
         (successData) => {
