@@ -52,7 +52,7 @@ export class EdelweissPosHomeComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog, public config: ConfigurationService, public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService, public appSettings: AppSettings, public meta: MetaService) {
     this.edelweisspos = this.fb.group({
-      edelsuminsure: '' ,
+      edelsuminsure: '',
       edeldob: ['', Validators.required],
       edelGender: ['', Validators.required],
       edelpolicy: '',
@@ -224,7 +224,6 @@ export class EdelweissPosHomeComponent implements OnInit {
 
   public policylistSuccess(successData) {
     this.policydata = successData.ResponseObject;
-    console.log(this.suminsuredvalue, 'dd');
   }
 
   public policylistFailure(error) {
@@ -295,13 +294,6 @@ export class EdelweissPosHomeComponent implements OnInit {
     this.validation.numberValidate(event);
   }
 
-  TermLifeInsurer() {
-    const dialogRef = this.dialog.open(TermLifeInsurer, {
-      width: '1200px',
-    });
-    dialogRef.disableClose = true;
-  }
-
   productListEnquiry(value) {
     sessionStorage.enquiryFormData = JSON.stringify(value);
     console.log(this.edelweisspos.valid, 'this.TermLife.valid');
@@ -357,38 +349,5 @@ export class EdelweissPosHomeComponent implements OnInit {
 
   edelweissenquiryFailure(error) {
     console.log(error)
-  }
-}
-
-@Component({
-  selector: 'termlifeinsurer',
-  template: `
-        <div class="container">
-        <div  class="row text-justify">
-
-            <div class="col-sm-2">
-            </div>
-            <div class="col-sm-8">
-                <h4 class="text-center" style="color: #9ECB3B "><img src="assets/img/term-life-insurance.png" class="logo-size"> About Term Life Insurance</h4>
-            </div>
-            <div class="col-sm-2 text-right">
-                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
-            </div>
-            <p>Term Insurance policies otherwise called as Protection plans only cover the risk of death for the specific period of policy. In case of death of insured during the policy period, the suminsured is paid to the nominated person in the policy.</p>
-            <p>There is no payment paid if the insured survives after the maturity of term insurance. The term insurance is a pure life insurance and acts as a complete security to the policy holders nominees.</p>
-            <p>If a house has been purchased on loan that can be secured by a term insurance, children education can be secured by a term insurance, in other words if planned well in the unfortunate event of death the nominees continue to live in the same life style we provided when we are alive. The Premium rates are very low in this plan since it covers the riskonly. Premium can be paid Single or yearly or half yearly.</p>
-            <p>In whole life plans also the risk of death alone can be covered and the nominee receives the sum insured. This premium can also be paid as quarterly or half yearly or annual mode.</p>
-         </div>
-        </div>`,
-})
-export class TermLifeInsurer {
-
-  constructor(
-      public dialogRef: MatDialogRef<TermLifeInsurer>,
-      @Inject(MAT_DIALOG_DATA) public data: any) {
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 }
