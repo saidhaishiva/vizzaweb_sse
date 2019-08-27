@@ -63,8 +63,7 @@ export class MediaCenterComponent implements OnInit {
         sessionStorage.newsLetterContent = JSON.stringify(val);
         // this.router.navigate(['/viewmedia']);
         let dialogRef = this.dialog.open(ViewmediaComponent, {
-            width: '1000px',
-            height: '900px'
+            width: '900px',
         });
 
     }

@@ -4,29 +4,50 @@
     <!--</div>-->
 
 <!--</div>-->
-<div class="text-right">
-    <button mat-mini-fab class="close-dialog-btn">
-        <i class="material-icons text-right" (click)="onNoClick()">close</i>
-    </button>
+<!--<div class="text-right">-->
+    <!--<button mat-mini-fab class="close-dialog-btn">-->
+        <!--<i class="material-icons text-right" (click)="onNoClick()">close</i>-->
+    <!--</button>-->
+<!--</div>-->
+
+<!--<div class="container">-->
+    <!--<mat-card class="mt-viwe-profile1">-->
+
+        <!--&lt;!&ndash;<mat-card-header>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<div fxFlex="100" class="flex-p" fxLayoutAlign="start center">&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;<mat-card-title>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span style="color:#3dccb1d6 !important">News Letter Content</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</mat-card-title>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+        <!--&lt;!&ndash;</mat-card-header>&ndash;&gt;-->
+
+        <!--<mat-card-content  fxLayoutAlign="space-between center" class="f-size">-->
+            <!--<div [innerHtml]="details.content">-->
+            <!--</div>-->
+        <!--</mat-card-content>-->
+        <!--<p class="text-left pl-3 text-color">{{details.refrence_by}} {{details.refrence_date | date:'dd-MMM-yy'}}</p>-->
+
+
+    <!--</mat-card>-->
+<!--</div>div-->
+<div class="text-right mt-2">
+    <!--<mat-card-header class="text-right">-->
+         <button mat-mini-fab class="close-dialog-btn">
+            <i class="material-icons text-right" (click)="onNoClick()">close</i>
+        </button>
+    <!--</mat-card-header>-->
 </div>
-
 <div class="container">
-    <mat-card class="mt-viwe-profile1">
+    <mat-card class="mt-viwe-profile1" [style.overflow]="'auto'" [style.height.px]="'300'">
+        <mat-card-content fxLayoutAlign="space-between center" class="f-size">
+        <div [innerHtml]="details.content">
+        </div>
 
-        <!--<mat-card-header>-->
-            <!--&lt;!&ndash;<div fxFlex="100" class="flex-p" fxLayoutAlign="start center">&ndash;&gt;-->
-                <!--<mat-card-title>-->
-                    <!--<span style="color:#3dccb1d6 !important">News Letter Content</span>-->
-                <!--</mat-card-title>-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-        <!--</mat-card-header>-->
-        <mat-card-content  fxLayoutAlign="space-between center" class="f-size" >
-            <div [innerHtml]="details.content">
-            </div>
-        </mat-card-content>
-        <p class="text-left pl-3 text-color">{{details.refrence_by}} {{details.refrence_date | date:'dd-MMM-yy'}}</p>
-
-
+    </mat-card-content>
     </mat-card>
+<mat-card-footer>
+    <div>
+    </div>
+</mat-card-footer>
 </div>

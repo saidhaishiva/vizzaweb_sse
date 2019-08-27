@@ -1,20 +1,18 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from '../shared/services/common.service';
-import {ConfigurationService} from '../shared/services/configuration.service';
+import {CommonService} from '../../shared/services/common.service';
+import {ConfigurationService} from '../../shared/services/configuration.service';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS} from '@angular/material';
-import {ValidationService} from '../shared/services/validation.service';
+import {MatDialog, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS} from '@angular/material';
+import {ValidationService} from '../../shared/services/validation.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import { MY_FORMATS} from '../pages/edelweiss-term-life/edelweiss-term-life.component';
-import  { AuthService } from '../shared/services/auth.service';
-import { TermLifeCommonService } from '../shared/services/term-life-common.service';
+import {MY_FORMATS} from '../edelweiss-term-life/edelweiss-term-life.component';
+import {AuthService} from '../../shared/services/auth.service';
 import * as moment from 'moment';
-import { Settings} from '../app.settings.model';
-import {AppSettings} from '../app.settings';
-import {MetaService} from '../shared/services/meta.service';
+import {Settings} from '../../app.settings.model';
+import {AppSettings} from '../../app.settings';
 
 
 
@@ -44,13 +42,12 @@ export class EdelweissPosHomeComponent implements OnInit {
   public edelEnqAge: any;
   public webhost: any;
   public settings: Settings;
-  public metaTermLife: any;
   public metaTitle: any;
   public suminsuredvalue: any;
   public premiumdata: any;
   public policydata: any;
 
-  constructor(public fb: FormBuilder, public router: Router, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog, public config: ConfigurationService, public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService, public appSettings: AppSettings, public meta: MetaService) {
+  constructor(public fb: FormBuilder, public router: Router, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public config: ConfigurationService, public validation: ValidationService, public auth: AuthService, public appSettings: AppSettings) {
     this.edelweisspos = this.fb.group({
       edelsuminsure: '',
       edeldob: ['', Validators.required],
@@ -77,17 +74,6 @@ export class EdelweissPosHomeComponent implements OnInit {
     this.getsuminsuredlist();
     this.premiumlist();
     this.policylist();
-  }
-
-  public metaDetailSuccess(successData) {
-    console.log(successData.ResponseObject);
-    this.metaTermLife = successData.ResponseObject;
-    this.metaTitle = this.metaTermLife[0].title;
-    console.log(this.metaTermLife[0].title, 'titl')
-  }
-
-  public metaDetailFailure(error) {
-    console.log(error);
   }
 
   sessionData() {

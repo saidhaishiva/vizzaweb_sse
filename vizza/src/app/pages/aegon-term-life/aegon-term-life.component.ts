@@ -1018,11 +1018,11 @@ export class AegonTermLifeComponent implements OnInit {
     if (this.personal.controls['isAddressSame'].value) {
       this.personal.controls['pAddress1'].setValue(this.personal.controls['cAddress1'].value);
       this.personal.controls['pAddress2'].setValue(this.personal.controls['cAddress2'].value);
+      this.personal.controls['pPincode'].setValue(this.personal.controls['cPincode'].value);
+      this.personal.controls['pState'].setValue(this.personal.controls['cState'].value);
       this.personal.controls['pCity'].setValue(this.personal.controls['cCity'].value);
       this.personal.controls['pCityName'].setValue(this.personal.controls['cCityName'].value);
-      this.personal.controls['pState'].setValue(this.personal.controls['cState'].value);
-      this.personal.controls['pPincode'].setValue(this.personal.controls['cPincode'].value);
-      this.cityList = JSON.parse(sessionStorage.citycList);
+      // this.cityList = JSON.parse(sessionStorage.citycList);
 
     }
   }
