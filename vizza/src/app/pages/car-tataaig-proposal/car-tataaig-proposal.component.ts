@@ -724,7 +724,6 @@ export class CarTataaigProposalComponent implements OnInit {
         } else {
           this.toastr.error('Policy No should not be empty');
         }
-
       }
     }
   }
@@ -733,7 +732,11 @@ export class CarTataaigProposalComponent implements OnInit {
     sessionStorage.tatacarnominee = '';
     sessionStorage.tatacarnominee = JSON.stringify(value);
     if (this.nominee.valid) {
-      this.QuoteList(stepper);
+      if (this.nominee.controls['nomineeAge'].value >= 18) {
+        this.QuoteList(stepper);
+      }else{
+        this.toastr.error('Nominee Age should Be 18 or above');
+      }
     }
   }
 
