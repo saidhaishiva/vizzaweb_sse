@@ -98,11 +98,6 @@ export class AegonTermLifeComponent implements OnInit {
   public premiumData: any;
   public annualData: any;
   public errorMsg: any;
-  public errorMsg1: any;
-  public errorMsg2: any;
-  public errorMsg3: any;
-  public errorMsg4: any;
-  public errorMsg5: any;
   public errAnnual: any;
   public minDate: any;
   public sameComAddress: any;
@@ -339,7 +334,7 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   changeGender() {
-    if (this.personal.controls['title'].value == 'MR'){
+    if (this.personal.controls['title'].value == 'Mr'){
       this.personal.controls['gender'].patchValue('m');
     } else {
       this.personal.controls['gender'].patchValue('f');
@@ -459,9 +454,11 @@ export class AegonTermLifeComponent implements OnInit {
         console.log(dob , 'dob');
         if (selectedDate.length == 10) {
           this.proposerAge = this.ageCalculate(dob);
+          console.log(this.proposerAge,'Proposar Age');
+          sessionStorage.proposerAge = this.proposerAge;
+          this.getAnnual('dob');
           this.getPremium('dob');
           // sessionStorage.proposerAge = this.proposerAge;
-
         }
 
       } else if (typeof event.value._i == 'object') {
@@ -501,6 +498,16 @@ export class AegonTermLifeComponent implements OnInit {
   //       }
   //     }
   //   }
+
+
+  // changeGender() {
+  //   if (this.ProposerPa.controls['proposerPaTitle'].value == 'Mr') {
+  //     this.ProposerPa.controls['proposerPaGender'].patchValue('MALE');
+  //   } else {
+  //     this.ProposerPa.controls['proposerPaGender'].patchValue('FEMALE');
+  //   }
+  // }
+
   validateAnnual(annualIncome,type){
     if(annualIncome!= '')
     {
@@ -1037,37 +1044,34 @@ export class AegonTermLifeComponent implements OnInit {
     console.log(this.personal.valid, 'checked');
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
-        this.validateAnnual(this.personal.controls['annualIncome'].value,2);
-        this.deathBenefitSA(this.personal.controls['deathBenefitSA'].value,2);
-        if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP')
-        {
-          this.adbrSumAssured(this.personal.controls['adbrSumAssured'].value,2);
-        }
-        else if(this.lifePremiumList.benefit_option == 'LHP')
-        {
-          this.enchancedCISA(this.personal.controls['enchancedCISA'].value,2);
-        }
-        else if(this.lifePremiumList.benefit_option == 'LH')
-        {
-          this.icirSumAssured(this.personal.controls['icirSumAssured'].value,2);
-        }
-        console.log(this.errorMsg, 'Next Button Error');
-        if(this.errorMsg == '')
-        {
-          this.icicMsg = '';
-          this.ecsaMsg = '';
-          this.adbsaMsg = '';
-          this.dbsaMsg = '';
-          this.husMsg = '';
-          this.wifeMsg = '';
-          this.smokerMsg = '';
-          this.qulMsg = '';
-          this.dobMsg = '';
-          this.titleMsg = '';
-          stepper.next();
-          this.topScroll();
-        }
-        else {
+        if(this.errorMsg == '') {
+          this.validateAnnual(this.personal.controls['annualIncome'].value, 2);
+          this.deathBenefitSA(this.personal.controls['deathBenefitSA'].value, 2);
+          if (this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP') {
+            this.adbrSumAssured(this.personal.controls['adbrSumAssured'].value, 2);
+          } else if (this.lifePremiumList.benefit_option == 'LHP') {
+            this.enchancedCISA(this.personal.controls['enchancedCISA'].value, 2);
+          } else if (this.lifePremiumList.benefit_option == 'LH') {
+            this.icirSumAssured(this.personal.controls['icirSumAssured'].value, 2);
+          }
+          console.log(this.errorMsg, 'Next Button Error');
+          if (this.errorMsg == '') {
+            this.icicMsg = '';
+            this.ecsaMsg = '';
+            this.adbsaMsg = '';
+            this.dbsaMsg = '';
+            this.husMsg = '';
+            this.wifeMsg = '';
+            this.smokerMsg = '';
+            this.qulMsg = '';
+            this.dobMsg = '';
+            this.titleMsg = '';
+            stepper.next();
+            this.topScroll();
+          } else {
+            this.toastr.error(this.errorMsg);
+          }
+        } else {
           this.toastr.error(this.errorMsg);
         }
 
@@ -1333,6 +1337,7 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   getPremium(type) {
+    this.errorMsg='';
     if(sessionStorage.proposerAge >= 18){
       this.validateAnnual(this.personal.controls['annualIncome'].value,2);
       this.deathBenefitSA(this.personal.controls['deathBenefitSA'].value,2);
@@ -1378,6 +1383,7 @@ export class AegonTermLifeComponent implements OnInit {
       "suminsured_Amount":this.personal.controls['deathBenefitSA'].value,
       "policy_id": this.getEnquiryDetials.policy_id,
       "benefitOption": this.lifePremiumList.benefit_option,
+      "term": this.lifePremiumList.termDetrails,
       "type":type,
       "personalInformation": {
 
@@ -1508,29 +1514,31 @@ export class AegonTermLifeComponent implements OnInit {
 
 
   getAnnual(type){
+      if(this.personal.controls['employeeType'].value != '' && this.personal.controls['qualifiction'].value != '' && this.personal.controls['annualIncome'].value != '')
+      {
         const data = {
-            'platform': 'web',
-            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-            'age':sessionStorage.proposerAge,
-            'emp_type' :this.personal.controls['employeeType'].value,
-            'education' : this.personal.controls['qualifiction'].value,
-            'type':type,
-            'nationality' :'Indian',
-            'annual_income':this.personal.controls['annualIncome'].value,
-            'sum_assured':this.personal.controls['deathBenefitSA'].value
+          'platform': 'web',
+          'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+          'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+          'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+          'age':sessionStorage.proposerAge,
+          'emp_type' :this.personal.controls['employeeType'].value,
+          'education' : this.personal.controls['qualifiction'].value,
+          'type':type,
+          'nationality' :'Indian',
+          'annual_income':this.personal.controls['annualIncome'].value,
+          'sum_assured':this.personal.controls['deathBenefitSA'].value
         }
-
-            this.TermLifeService.getAnnuallist(data).subscribe(
-                (successData) => {
-                    this.getAnnuallistSuccess(successData);
-                },
-                (error) => {
-                    this.getAnnuallistFailure(error);
-                }
-            );
-            console.log(data,'datapin')
+        this.TermLifeService.getAnnuallist(data).subscribe(
+            (successData) => {
+              this.getAnnuallistSuccess(successData);
+            },
+            (error) => {
+              this.getAnnuallistFailure(error);
+            }
+        );
+        console.log(data,'datapin')
+      }
     }
              public getAnnuallistSuccess(successData){
                 if (successData.IsSuccess) {
@@ -1544,14 +1552,15 @@ export class AegonTermLifeComponent implements OnInit {
                   this.errorAnnaulMsg = '';
                   this.annaulIncomeMsg = '';
                   this.qulMsg = '';
-
+                  this.errorMsg = '';
         }else
           {
+            this.errorMsg = successData.ErrorObject;
             this.annualData = false;
             this.errorAnnaulMsg = successData.ErrorObject;
             if(successData.type == 'dob')
             {
-              this.dobAnnualMsg = successData.ErrorObject;
+              //this.dobAnnualMsg = successData.ErrorObject;
             }
             else if(successData.type == 'dbsa')
             {
