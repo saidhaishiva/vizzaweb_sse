@@ -87,6 +87,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public tod: any;
     public financeTypeTrue: boolean;
     public financeTypeName: boolean;
+    public companylogo: any;
+    public currentStep: any;
 
 
     public financiercodevalue: any;
@@ -101,8 +103,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if (params.stepper == true || params.stepper == 'true') {
-                stepperindex = 4;
+                stepperindex = 3;
                 if (sessionStorage.summaryDatabikeHdfc != '' && sessionStorage.summaryDatabikeHdfc != undefined) {
+                    console.log('pggsssssssssssssssssssssssssss');
                     this.summaryData = JSON.parse(sessionStorage.summaryDatabikeHdfc);
                     this.PaymentRedirect = this.summaryData.PaymentRedirect;
                     this.PaymentReturn = this.summaryData.PaymentReturn;
@@ -114,6 +117,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 }
             }
         });
+        console.log(stepperindex, 'stepperindex');
+        this.currentStep = stepperindex;
         this.Setting = appsetting.settings;
         this.webhost = this.config.getimgUrl();
         this.Setting.HomeSidenavUserBlock = false;
@@ -262,6 +267,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         console.log(this.buyBikeDetails,'bjsjjhjdhj');
         // this.vehicledetails = JSON.parse(sessionStorage.bikeListDetails);
         this.vehicleidv = JSON.parse(sessionStorage.buyProductDetails);
+        this.companylogo=this.vehicleidv.company_logo;
         console.log(this.vehicleidv.Comprehensive_premium, 'idv');
         this.vechicle.controls['vehiclemodel'].patchValue(this.vehicledata.vehicle_model);
         this.vechicle.controls['Vehicleregdate'].patchValue(this.datepipe.transform(this.vehicledata.registration_date, 'y-MM-dd'));
@@ -437,7 +443,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     sameaspermenant(event) {
         console.log(event);
         if (event.checked == true) {
-            console.log(this.proposer.controls['citycom'].value);
 
             this.proposer.controls['address'].patchValue(this.proposer.controls['address4'].value);
             this.proposer.controls['address2'].patchValue(this.proposer.controls['address5'].value);
@@ -487,7 +492,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             }
         }
         if (type == 'stepper2') {
-            console.log('wwwww');
             sessionStorage.stepper2Details = '';
             sessionStorage.stepper2Details = JSON.stringify(value);
             this.addOns.controls['NomineeName'].patchValue('');
@@ -548,7 +552,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         }
         if (sessionStorage.company != '' && sessionStorage.company != undefined) {
             this.companyList = JSON.parse(sessionStorage.company);
-            console.log('innnworld');
         }
 
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -733,7 +736,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     // }
 
     changeValidation(event) {
-        console.log('call');
 
         if (event.checked == true) {
             this.financeTypeTrue = true;
@@ -755,7 +757,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.vechicle.controls['Agreement'].updateValueAndValidity();
         this.vechicle.controls['financiercode'].updateValueAndValidity();
         this.vechicle.controls['fibranchname'].updateValueAndValidity();
-        console.log('c');
     }
 
 
@@ -892,7 +893,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     typeAddressDeatils() {
 
         if (this.proposer.controls['issameascmmunication'].value) {
-            console.log('uueyye');
             //     this.citypermanent = JSON.parse(sessionStorage.personalCitys);
             this.proposer.controls['address'].setValue(this.proposer.controls['address4'].value);
             this.proposer.controls['address2'].setValue(this.proposer.controls['address5'].value);
@@ -908,7 +908,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
 
     Regdate($event) {
-        console.log('innn too');
         if ($event.value != '') {
             let regno = '';
             regno = this.datepipe.transform($event.value, 'y-MM-dd');
@@ -1160,7 +1159,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.toastr.error('IDV Should Not Less Than 7000');
         }
     }
-
+    alternatecontact(){
+        if(this.proposer.controls['mobile'].value==this.proposer.controls['alternateContact'].value){
+        }
+    }
     //
 
     topScroll() {
