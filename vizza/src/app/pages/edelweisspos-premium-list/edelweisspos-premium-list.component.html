@@ -17,7 +17,7 @@
                 <mat-form-field class="w-100">
                   <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
                   <mat-select multiple>
-                    <mat-option *ngFor="let list of allCompanyList" value="{{list.company_name}}" [disabled]="checkAllStatus">{{list.company_name}}</mat-option>
+                    <mat-option *ngFor="let list of allCompanyList" value="{{list.company_name}}">{{list.company_name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </th>
