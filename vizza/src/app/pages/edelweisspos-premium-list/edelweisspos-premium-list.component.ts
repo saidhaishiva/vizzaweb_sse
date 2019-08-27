@@ -155,8 +155,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
     console.log(error);
   }
 
-  public getProductList(): void {
-    let sum_amount = '';
+  public getProductList() {
     const data = {
       'platform': 'web',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
