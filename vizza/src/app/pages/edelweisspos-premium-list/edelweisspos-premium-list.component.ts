@@ -47,7 +47,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
     this.getsuminsuredlist();
     this.getCompanyList();
     this.policylist();
-    this.premiumlist();
+    // this.premiumlist();
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     this.getEnquiryid = JSON.parse(sessionStorage.getEnquiryDetials);
   }
@@ -96,37 +96,36 @@ export class EdelweissposPremiumListComponent implements OnInit {
 
   public policylistSuccess(successData) {
     this.policyterm = successData.ResponseObject;
-    console.log(this.suminsuredvalue, 'dd');
   }
 
   public policylistFailure(error) {
     console.log(error);
   }
 
-  premiumlist() {
-    const data = {
-      'platform': 'web',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
-    };
-    this.commonService.premiumlist(data).subscribe(
-        (successData) => {
-          this.premiumlistSuccess(successData);
-
-        },
-        (error) => {
-          this.premiumlistFailure(error);
-        });
-  }
-
-  public premiumlistSuccess(successData) {
-    this.premiumterm = successData.ResponseObject;
-  }
-
-  public premiumlistFailure(error) {
-    console.log(error);
-  }
+  // premiumlist() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+  //     'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+  //     'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
+  //   };
+  //   this.commonService.premiumlist(data).subscribe(
+  //       (successData) => {
+  //         this.premiumlistSuccess(successData);
+  //
+  //       },
+  //       (error) => {
+  //         this.premiumlistFailure(error);
+  //       });
+  // }
+  //
+  // public premiumlistSuccess(successData) {
+  //   this.premiumterm = successData.ResponseObject;
+  // }
+  //
+  // public premiumlistFailure(error) {
+  //   console.log(error);
+  // }
 
   getCompanyList() {
     const data = {
@@ -156,8 +155,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
     console.log(error);
   }
 
-  public getProductList(): void {
-    let sum_amount = '';
+  public getProductList() {
     const data = {
       'platform': 'web',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,

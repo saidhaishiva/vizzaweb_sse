@@ -616,7 +616,11 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikenominee = '';
         sessionStorage.tatabikenominee = JSON.stringify(value);
         if (this.nominee.valid) {
-            this.QuoteList(stepper);
+            if (this.nominee.controls['nomineeAge'].value >= 18) {
+                this.QuoteList(stepper);
+            }else{
+                this.toastr.error('Nominee Age should Be 18 or above');
+            }
         }
     }
 

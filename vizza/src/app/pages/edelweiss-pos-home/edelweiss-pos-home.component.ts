@@ -48,6 +48,19 @@ export class EdelweissPosHomeComponent implements OnInit {
   public policydata: any;
 
   constructor(public fb: FormBuilder, public router: Router, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public config: ConfigurationService, public validation: ValidationService, public auth: AuthService, public appSettings: AppSettings) {
+    this.settings = this.appSettings.settings;
+    this.webhost = this.config.getimgUrl();
+    if(window.innerWidth < 787){
+      this.settings.HomeSidenavUserBlock = false;
+      this.settings.sidenavIsOpened = false;
+      this.settings.sidenavIsPinned = false;
+    }else{
+      this.settings.HomeSidenavUserBlock = true;
+      this.settings.sidenavIsOpened = true;
+      this.settings.sidenavIsPinned = true;
+    }
+    let today  = new Date();
+    this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     this.edelweisspos = this.fb.group({
       edelsuminsure: '',
       edeldob: ['', Validators.required],
@@ -299,8 +312,8 @@ export class EdelweissPosHomeComponent implements OnInit {
             'age': sessionStorage.edelEnqAge,
             'dob': this.datepipe.transform(this.edelweisspos.controls['edeldob'].value, 'y-MM-dd'),
             'gender': this.edelweisspos.controls['edelGender'].value,
-            'policy_paying_term': this.edelweisspos.controls['edelpolicy'].value,
-            'benefit_term': this.edelweisspos.controls['edelpremium'].value,
+            'policy_paying_term': this.edelweisspos.controls['edelpremium'].value,
+            'benefit_term': this.edelweisspos.controls['edelpolicy'].value,
             'payment_mode': this.edelweisspos.controls['edelPayment'].value,
             'pincode': this.edelweisspos.controls['edelPincode'].value
           };
