@@ -276,8 +276,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       isSmokerSpouse: 'No',
       isStaffSpouse: 'No',
       employeeCodeSpouse: '',
-      relationSpouseProposer: '',
-      relationSpouseProposerName: '',
+      relationSpouseProposer: '3',
+      relationSpouseProposerName: 'Spouse',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -337,8 +337,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       isSmokerSpouse: 'No',
       isStaffSpouse: 'No',
       employeeCodeSpouse: '',
-      relationSpouseInsurer: '',
-      relationSpouseInsurerName: '',
+      relationSpouseInsurer: '3',
+      relationSpouseInsurerName: 'Spouse',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -2279,7 +2279,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.proposer.controls['smobileNo'].patchValue('');
       this.proposer.controls['isSmokerSpouse'].patchValue('No');
       this.proposer.controls['isStaffSpouse'].patchValue('No');
-      this.proposer.controls['relationSpouseProposer'].patchValue('');
+      this.proposer.controls['relationSpouseProposer'].patchValue('3');
 
       this.proposer.controls['stitle'].setValidators(null);
       this.proposer.controls['sfirstName'].setValidators(null);
@@ -2319,7 +2319,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['smobileNo'].patchValue(this.insureArray.controls['smobileNo'].value);
       this.insureArray.controls['isSmokerSpouse'].patchValue(this.insureArray.controls['isSmokerSpouse'].value);
       this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
-      this.insureArray.controls['relationSpouseProposer'].patchValue(this.insureArray.controls['relationSpouseProposer'].value);
+      this.insureArray.controls['relationSpouseInsurer'].patchValue(this.insureArray.controls['relationSpouseInsurer'].value);
 
       this.insureArray.controls['stitle'].setValidators([Validators.required]);
       this.insureArray.controls['sfirstName'].setValidators([Validators.required]);
@@ -2330,7 +2330,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['smobileNo'].setValidators([Validators.required]);
       this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
       this.insureArray.controls['isStaffSpouse'].setValidators([Validators.required]);
-      this.insureArray.controls['relationSpouseProposer'].setValidators([Validators.required]);
+      this.insureArray.controls['relationSpouseInsurer'].setValidators([Validators.required]);
     } else {
       this.insureArray.controls['stitle'].patchValue('');
       this.insureArray.controls['sfirstName'].patchValue('');
@@ -2341,7 +2341,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['smobileNo'].patchValue('');
       this.insureArray.controls['isSmokerSpouse'].patchValue('No');
       this.insureArray.controls['isStaffSpouse'].patchValue('No');
-      this.insureArray.controls['relationSpouseProposer'].patchValue('');
+      this.insureArray.controls['relationSpouseInsurer'].patchValue('3');
 
       this.insureArray.controls['stitle'].setValidators(null);
       this.insureArray.controls['sfirstName'].setValidators(null);
@@ -2352,7 +2352,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['smobileNo'].setValidators(null);
       this.insureArray.controls['isSmokerSpouse'].setValidators(null);
       this.insureArray.controls['isStaffSpouse'].setValidators(null);
-      this.insureArray.controls['relationSpouseProposer'].setValidators(null);
+      this.insureArray.controls['relationSpouseInsurer'].setValidators(null);
 
     }
     this.insureArray.controls['employeeCode'].updateValueAndValidity();
@@ -2365,7 +2365,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['smobileNo'].updateValueAndValidity();
     this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
     this.insureArray.controls['isStaffSpouse'].updateValueAndValidity();
-    this.insureArray.controls['relationSpouseProposer'].updateValueAndValidity();
+    this.insureArray.controls['relationSpouseInsurer'].updateValueAndValidity();
 
   }
 
@@ -3303,6 +3303,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       "pos_status":  this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "product_id": this.lifePremiumList.product_id,
+      "sub_product_id": this.lifePremiumList.sub_product_id,
       "term": this.lifePremiumList.termDetrails,
       "suminsured_amount": sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,

@@ -512,7 +512,7 @@
                                                        <mat-option value="Indian">Indian</mat-option>
                                                        <mat-option value="Others">Others</mat-option>
                                                    </mat-select>
-                                                   <mat-error *ngIf="proposer.controls.nationality.errors?.required">Nationality is required</mat-error>
+                                                   <mat-error *ngIf="insureArray.controls.nationality.errors?.required">Nationality is required</mat-error>
                                                </mat-form-field>
                                            </div>
 
@@ -2789,7 +2789,7 @@
                        <div class="row mt-3">
                            <div class="col-md-12 box-card pt-3 pb-3" >
                                <form [formGroup]="documentDetail">
-                               <div class="row">
+                               <div class="row" *ngIf="this.insureArray.controls['investing'].value != 'SELF'">
 
                                    <div class="col-md-12 mb-4">
                                        <h5>Life Assured</h5>
