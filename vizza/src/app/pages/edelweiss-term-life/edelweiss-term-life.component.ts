@@ -1340,7 +1340,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
 
     } else {
-    this.toastr.error('please enter field is required');
+    this.toastr.error('please enter all the Mandatory field ');
   }
   }
   // Insure Details
@@ -1365,7 +1365,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       }
     } else {
-      this.toastr.error('please enter field is required');
+      this.toastr.error('please enter all the Mandatory field');
     }
 
   }
@@ -5599,7 +5599,7 @@ console.log(this.proposalId,'proposalId');
             <div class="row">
                 <div class="col-md-12 text-center w-100">
                     <mat-form-field class="w-50">
-                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
+                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)"  autocomplete="off" >
                     </mat-form-field>
                 </div>
                 <!--<div class="col-md-12">-->
