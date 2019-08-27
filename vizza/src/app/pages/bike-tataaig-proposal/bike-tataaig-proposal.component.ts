@@ -269,6 +269,7 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     nomineeRelationSuccess(successData) {
         this.relationlist = successData.ResponseObject;
+        sessionStorage.relation = JSON.stringify(this.relationlist);
     }
 
     nomineeRelationFailure(error) {
@@ -629,6 +630,9 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     sessionData() {
+        if(sessionStorage.relation != '' && sessionStorage.relation != undefined) {
+            this.relationlist = JSON.parse(sessionStorage.relation );
+        }
         if (sessionStorage.tatabikeproposer != '' && sessionStorage.tatabikeproposer != undefined) {
             this.getstepper1 = JSON.parse(sessionStorage.tatabikeproposer);
             this.proposer = this.fb.group({

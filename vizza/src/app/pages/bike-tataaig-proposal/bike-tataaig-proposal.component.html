@@ -272,7 +272,8 @@
                         <div class="col-md-4" [ngStyle]="{'pointer-events': premium != 'Comprehensive_premium' ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" (change)="covervalue()" required>
-                              <mat-option *ngFor="let cover of coverlist | keys" value="{{cover.key}}">{{cover.value}}</mat-option>
+                              <mat-option  value="ODD01">Yes</mat-option>
+                              <mat-option *ngFor="let cover of coverlist | keys" [hidden]="cover.key =='ODD01'" value="{{cover.key}}">{{cover.value}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="vehicle.controls.coverdrive.errors?.required">PACover_for_OwnerDriver is Required</mat-error>
                           </mat-form-field>
@@ -517,7 +518,8 @@
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE TYPE:</strong> {{vehicalFormData.banktype}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE NAME:</strong> {{vehicalFormData.bankName}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
-                        <li class="list-group-item"><strong>PACover for OwnerDriver:</strong> {{vehicalFormData.coverdrivevalue}} </li>
+                        <li class="list-group-item" *ngIf="vehicle.controls['coverdrivevalue'].value == 'None'"><strong>PACover for OwnerDriver:</strong> Yes </li>
+                        <li class="list-group-item" *ngIf="vehicle.controls['coverdrivevalue'].value != 'None'"><strong>PACover for OwnerDriver:</strong> {{vehicalFormData.coverdrivevalue}} </li>
                         <li class="list-group-item" *ngIf="vehicalFormData.Associationmember != '' && vehicalFormData.Associationmember == true"><strong>Automobile Association Membership:</strong><span *ngIf="vehicalFormData.Associationmember == true">Yes</span></li>
                         <!--<li class="list-group-item" *ngIf="vehicalFormData.Voluntary != '' && vehicalFormData.Voluntary == true"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary == true">Yes</span></li>-->
                         <li class="list-group-item" *ngIf="vehicalFormData.Antitheft != '' && vehicalFormData.Antitheft == true"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft== true">Yes</span></li>
