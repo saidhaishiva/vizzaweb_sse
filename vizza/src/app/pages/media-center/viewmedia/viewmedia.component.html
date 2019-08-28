@@ -33,13 +33,13 @@
 <!--</div>div-->
 <div class="text-right mt-2">
     <!--<mat-card-header class="text-right">-->
-         <button mat-mini-fab class="close-dialog-btn">
-            <i class="material-icons text-right" (click)="onNoClick()">close</i>
-        </button>
+    <i class="material-icons mb-4" (click)="onNoClick()">
+        close
+    </i>
+
     <!--</mat-card-header>-->
 </div>
-<div class="container">
-    <mat-card class="mt-viwe-profile1" [style.overflow]="'auto'" [style.height.px]="'300'">
+    <mat-card class="mt-viwe-profile1" [style.overflow]="'auto'" [style.height.px]="'400'">
         <mat-card-content fxLayoutAlign="space-between center" class="f-size">
         <div [innerHtml]="details.content">
         </div>
@@ -50,4 +50,3 @@
     <div>
     </div>
 </mat-card-footer>
-</div>

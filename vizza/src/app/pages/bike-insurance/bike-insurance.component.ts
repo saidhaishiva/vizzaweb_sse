@@ -221,7 +221,7 @@ export class BikeInsuranceComponent implements OnInit {
 
             if (typeof event.value._i == 'string') {
                 if (type == 'regitser') {
-                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    if (pattern.test(event.value._i) && event.value._i.length == 10 && this.bikeInsurance.controls['registrationDateNew'].value >= this.minDate) {
                         this.dobError = '';
                     } else {
                         this.dobError = 'Enter Valid Date';
@@ -438,6 +438,7 @@ export class BikeInsuranceComponent implements OnInit {
                 this.bikeInsurance.controls['registrationDateNew'].setValidators([Validators.required]);
                 this.bikeInsurance.controls['city'].setValidators([Validators.required]);
                 this.bikeInsurance.controls['registrationDate'].setValidators(null);
+                this.bikeInsurance.controls['registrationDate'].patchValue('');
                 this.bikeInsurance.controls['previousPolicyExpiry'].setValidators(null);
                 this.bikeInsurance.controls['previousPolicyStart'].setValidators(null);
                 this.bikeInsurance.controls['previousCompany'].setValidators(null);
@@ -457,9 +458,10 @@ export class BikeInsuranceComponent implements OnInit {
             this.bikeInsurance.controls['registrationDate'].setValidators([Validators.required]);
             this.bikeInsurance.controls['city'].setValidators(null);
             this.bikeInsurance.controls['registrationDateNew'].setValidators(null);
+            this.bikeInsurance.controls['registrationDateNew'].patchValue('');
             this.bikeInsurance.controls['previousPolicyExpiry'].setValidators([Validators.required]);
             this.bikeInsurance.controls['previousPolicyStart'].setValidators([Validators.required]);
-            this.bikeInsurance.controls['vehicalNumber'].setValidators([Validators.required]);
+            this.bikeInsurance.controls['vehicalNumber'].setValidators(Validators.compose([ Validators.minLength(9), Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
             this.bikeInsurance.controls['previousCompany'].setValidators([Validators.required]);
             this.bikeInsurance.controls['previousClaim'].setValidators([Validators.required]);
             this.bikeInsurance.controls['city'].patchValue('');
