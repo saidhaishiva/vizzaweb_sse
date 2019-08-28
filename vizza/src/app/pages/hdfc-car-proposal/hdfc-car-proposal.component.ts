@@ -1010,7 +1010,7 @@ console.log(this.vehicleidv.Idv);
             this.regvalue = 'New Vehicle';
         }
         if (m < 6) {
-            this.regvalue = 'Rollover';
+            this.regvalue = 'Roll Over';
 
         }
         return this.regvalue;
