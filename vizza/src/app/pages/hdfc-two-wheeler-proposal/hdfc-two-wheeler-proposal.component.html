@@ -36,18 +36,18 @@
                       <!--</div>-->
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="firstName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="firstName" maxlength="25" (keypress)="nameValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.firstName.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Middle Name" formControlName="middleName" (keypress)="nameValidate($event)" >
+                          <input matInput placeholder="Middle Name" formControlName="middleName"  maxlength="25" (keypress)="nameValidate($event)" >
                         </mat-form-field>
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastName" (keypress)="nameValidate($event)" required>
+                          <input matInput placeholder="Last Name" formControlName="lastName"  maxlength="25"(keypress)="nameValidate($event)" required>
                           <mat-error *ngIf="proposer.controls.lastName.errors?.required">last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -70,7 +70,7 @@
                         <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
                       </div>
                       <div class="col-md-3 mt-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" required>
+                        <input matInput placeholder="Email ID"   formControlName="email" maxlength="50" autocomplete="off" required>
                         <mat-error *ngIf="proposer.controls.email.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="proposer.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                       </mat-form-field>
@@ -311,14 +311,14 @@
                           <input matInput placeholder="Vechicle Model" formControlName="vehiclemodel" (keypress)="numberValidate($event)" readonly required>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3 ">
+                      <div class="col-md-3 " *ngIf="regvalue !='New Vehicle'" >
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker1" placeholder="Vehicle Registration Date(DD/MM/YYYY)"   formControlName="Vehicleregdate" readonly  (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off" required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" *ngIf="regvalue !='New Vehicle'" >
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Registration No" formControlName="regno" (keypress)="numberValidate($event)" readonly required>
                         </mat-form-field>
@@ -362,10 +362,10 @@
                                 <mat-error *ngIf="vechicle.controls.fibranchname.errors?.required">Branch name is required</mat-error>
                             </mat-form-field>
                         </div>
-                      <div class="col-md-12 mt-3">
+                      <div class="col-md-12 mt-3" *ngIf="regvalue !='New Vehicle'">
                         <h6 class="color-blue"> PREVIOUS POLICY DETAILS </h6>
                       </div>
-                      <div class="col-md-3 mt-3">
+                      <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                       <mat-form-field class="w-100" >
                         <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" required>
                           <mat-option *ngFor="let company of companyList | keys" value="{{company.key}}" > {{company.value}} </mat-option>
@@ -373,12 +373,12 @@
                         <mat-error *ngIf="vechicle.controls.Previouscompany.errors?.required">previous company is required</mat-error>
                       </mat-form-field>
                       </div>
-                      <div class="col-md-3 mt-3">
+                      <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="NCB %" formControlName="ncb" maxlength="3" (keypress)="numberValidate($event)" readonly required>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4 mt-3">
+                      <div class="col-md-4 mt-3" *ngIf="regvalue !='New Vehicle'">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker2" [max]="today" placeholder="Previous Policy EndDate(DD/MM/YYYY)"  formControlName="previousenddate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -386,12 +386,12 @@
                           <mat-error *ngIf="vechicle.controls.previousenddate.errors?.required">previous Policy Endate is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3 mt-3">
+                      <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Previous Policy No" formControlName="previouspolicyno" maxlength="20"  required>
                         </mat-form-field>
                       </div>
-                        <div class="col-md-3 mt-3">
+                        <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Previous Policy claim" formControlName="previouspolicyclaim" maxlength="20" readonly required>
                         </mat-form-field>
@@ -709,8 +709,8 @@
                                       <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.email != ''"><strong>Email Id:</strong> {{proposerFormData.email}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.mobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
-                                      <h4 class="color-blue">COMMUNICATION ADDRESS</h4>
-                                      <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address4}}</li>
+                                      <h4 class="color-blue mt-2">COMMUNICATION ADDRESS</h4>
+                                      <li class="list-group-item mt-1"><strong>Address 1:</strong> {{proposerFormData.address4}}</li>
                                       <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.address5}}</li>
                                       <li class="list-group-item" ><strong>PIN code:</strong> {{proposerFormData.pincode1}}</li>
                                       <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.citycom}}</li>

@@ -184,7 +184,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
       if (typeof event.value._i == 'string') {
         if (type == 'regitser') {
-          if (pattern.test(event.value._i) && event.value._i.length == 10) {
+          if (pattern.test(event.value._i) && event.value._i.length == 10 && this.fourWheeler.controls['registrationDateNew'].value >= this.minDate) {
             this.dobError = '';
           } else {
             this.dobError = 'Enter Valid Date';
@@ -443,7 +443,8 @@ export class FourWheelerHomeComponent implements OnInit {
       this.fourWheeler.controls['previousPolicyExpiry'].setValidators([Validators.required]);
       this.fourWheeler.controls['previousClaim'].setValidators([Validators.required]);
       this.fourWheeler.controls['previousPolicyStart'].setValidators([Validators.required]);
-      this.fourWheeler.controls['vehicalNumber'].setValidators([Validators.required]);
+      this.fourWheeler.controls['vehicalNumber'].setValidators(Validators.compose([ Validators.minLength(10), Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
+
       this.fourWheeler.controls['previousCompany'].setValidators([Validators.required]);
       // this.fourWheeler.controls['registrationDate'].patchValue('');
       this.fourWheeler.controls['city'].patchValue('');

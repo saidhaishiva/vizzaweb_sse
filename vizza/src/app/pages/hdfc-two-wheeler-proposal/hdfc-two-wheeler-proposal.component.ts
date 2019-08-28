@@ -105,7 +105,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             if (params.stepper == true || params.stepper == 'true') {
                 stepperindex = 3;
                 if (sessionStorage.summaryDatabikeHdfc != '' && sessionStorage.summaryDatabikeHdfc != undefined) {
-                    console.log('pggsssssssssssssssssssssssssss');
                     this.summaryData = JSON.parse(sessionStorage.summaryDatabikeHdfc);
                     this.PaymentRedirect = this.summaryData.PaymentRedirect;
                     this.PaymentReturn = this.summaryData.PaymentReturn;
@@ -241,6 +240,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.buyBikeDetails = JSON.parse(sessionStorage.enquiryFormData);
+
 // this.summaryData=JSON.parse(sessionStorage.summaryData);
         let stringToSplit;
         stringToSplit = this.vehicledata.vehicle_no;
@@ -278,7 +278,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.vechicle.controls['previousenddate'].patchValue(this.datepipe.transform(this.vehicledata.previous_policy_expiry_date, 'y-MM-dd'));
         if (this.vechicle.controls['Vehicleregdate'].value) {
             let regno = '';
-            regno = this.datepipe.transform('2019-03-01', 'y-MM-dd');
+            regno = this.datepipe.transform(this.datepipe.transform(this.vehicledata.registration_date), 'yyyy-MM-dd');
             this.RegDateage = this.regdatecalculate(regno);
 
 
@@ -1003,22 +1003,22 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 },
                 'Policy_Details': {
                     'PolicyStartDate': this.tommarrow,
-                    'PreviousPolicyEndDate':this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y') ,
+                    'PreviousPolicyEndDate':this.regvalue !='New Vehicle'?this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y'):'' ,
                     'ProposalDate': this.tod,
 
                     // "AgreementType": "",
                     // "FinancierCode": "",
                     // "BranchName": "",
-                    'PreviousPolicy_CorporateCustomerId_Mandatary': this.vechicle.controls['Previouscompany'].value,
-                    'PreviousPolicy_NCBPercentage': this.vechicle.controls['ncb'].value,
-                    'PreviousPolicy_PolicyEndDate': this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y'),
-                    'PreviousPolicy_PolicyNo': this.vechicle.controls['previouspolicyno'].value,
-                    'PreviousPolicy_PolicyClaim': this.vechicle.controls['previouspolicyclaim'].value,
+                    'PreviousPolicy_CorporateCustomerId_Mandatary':this.regvalue !='New Vehicle'? this.vechicle.controls['Previouscompany'].value:'',
+                    'PreviousPolicy_NCBPercentage':this.regvalue !='New Vehicle'? this.vechicle.controls['ncb'].value:'',
+                    'PreviousPolicy_PolicyEndDate':this.regvalue !='New Vehicle'?  this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y'):'',
+                    'PreviousPolicy_PolicyNo':this.regvalue !='New Vehicle'?  this.vechicle.controls['previouspolicyno'].value:'',
+                    'PreviousPolicy_PolicyClaim':this.regvalue !='New Vehicle'?  this.vechicle.controls['previouspolicyclaim'].value:'',
                     'BusinessType_Mandatary': this.RegDateage,
                     // "VehicleModelCode": "17586",
-                    'DateofDeliveryOrRegistration': this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y'),
+                    'DateofDeliveryOrRegistration':this.regvalue !='New Vehicle'? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y'):'New',
                     'YearOfManufacture': this.vechicle.controls['manufactureyear'].value,
-                    'Registration_No': this.vechicle.controls['regno'].value,
+                    'Registration_No':this.regvalue !='New Vehicle'? this.vechicle.controls['regno'].value:'New',
                     'EngineNumber': this.vechicle.controls['engine'].value,
                     'ChassisNumber': this.vechicle.controls['chassis'].value,
                     // "RTOLocationCode": "22189",
@@ -1124,15 +1124,22 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
 
     regdatecalculate(regno) {
+        console.log(regno);
         let today = new Date();
         let birthDate = new Date(regno);
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
         let dd = today.getDate() - birthDate.getDate();
-        if (m > 6) {
+        console.log(age,'age');
+        console.log(m,'month');
+        console.log(dd,'date');
+        console.log(birthDate,'bithdatree');
+        if (age < 1 || m < 6 ) {
             this.regvalue = 'New Vehicle';
+            console.log('log');
         }
-        if (m < 6) {
+        if (age > 1 || m >6) {
+            console.log('roll');
             this.regvalue = 'Roll Over';
 
         }
