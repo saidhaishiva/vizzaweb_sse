@@ -1,0 +1,115 @@
+<!--<div class="row " id="" fxLayoutAlign="center start">-->
+  <!--<div class="col-sm-12">-->
+    <!--<div fxLayout="column" class="life-product-list">-->
+      <!--<div>-->
+        <!--<div class="col-md-12">-->
+          <!--<div class="row">-->
+            <!--<div class="col-md-6">-->
+              <!--<h4 style="cursor: pointer"><img src="assets/img/term-life-insurance.png" class="logo-size">EdelweissPos Insurance</h4>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="flex-p ">-->
+          <!--<table class="table health-table table-scroll termLifeScroll">-->
+            <!--<thead>-->
+            <!--<tr>-->
+              <!--<th class="col-md-2">-->
+                <!--<mat-form-field class="w-100">-->
+                  <!--<mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>-->
+                  <!--<mat-select multiple>-->
+                    <!--<mat-option *ngFor="let list of allCompanyList" value="{{list.company_name}}">{{list.company_name}}</mat-option>-->
+                  <!--</mat-select>-->
+                <!--</mat-form-field>-->
+              <!--</th>-->
+              <!--<th class="sun-insured col-md-1">-->
+                <!--<mat-form-field class="w-100">-->
+                  <!--<mat-placeholder class="myclass font-weight-bold">Sum Insured</mat-placeholder>-->
+                  <!--<mat-select>-->
+                    <!--<mat-option *ngFor="let suminsure of suminsuredvalue | keys" value="{{suminsure.key}}">{{suminsure.value}}</mat-option>-->
+                  <!--</mat-select>-->
+                <!--</mat-form-field>-->
+
+                <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+              <!--</th>-->
+              <!--<th class="col-md-1" style="padding: 15px 5px !important;">Cover Age</th>-->
+              <!--<th class="col-md-2" style="padding: 15px 5px !important;">Policy Term</th>-->
+              <!--<th class="col-sm-2" style="padding: 15px 5px !important;">Premium Paying Term</th>-->
+              <!--<th class="col-md-1" style="padding: 15px 5px !important;">Payment</th>-->
+              <!--&lt;!&ndash;<th class="col-md-1" style="padding: 15px 5px !important;">Compare</th>&ndash;&gt;-->
+              <!--<th class="col-md-2" style="padding: 15px 5px !important;">Premium ( &#8377; )</th>-->
+              <!--<th class="col-md-1" style="padding: 15px 5px !important;">Buy </th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr>-->
+              <!--<td align="center" class="col-md-2 text-center">-->
+                <!--<img class="mt-1" src="{{webhost + '/' + companylist.company_logo}}">-->
+                <!--<p *ngIf="productid == 111" class="pTitle" matTooltip="{{companylist.product_display_name}}">{{companylist.product_display_name | titlecase }}</p>-->
+              <!--</td>-->
+
+              <!--<td class="col-md-1 text-center">-->
+                <!--<p class="mt-4">&#8377; {{companylist.sum_insured_amount}}</p>-->
+              <!--</td>-->
+              <!--<td class="col-md-1 text-center">-->
+                <!--<p class="mt-4">{{companylist.CoverageAge}}</p>-->
+              <!--</td>-->
+              <!--<td class="col-md-2 text-center">-->
+                <!--<mat-form-field class="w-75">-->
+                  <!--<mat-select placeholder="Policy Term">-->
+                    <!--<mat-option *ngFor="let policy of policyterm | keys" [value]="policy.key">{{policy.value}}</mat-option>-->
+                  <!--</mat-select>-->
+                <!--</mat-form-field>-->
+              <!--</td>-->
+              <!--<td class="col-md-2 text-center">-->
+                <!--<mat-form-field class="w-75">-->
+                  <!--<mat-select placeholder="Premium Paying Term">-->
+                    <!--<mat-option *ngFor="let termList of companylist.term;let i = index" [value]="termList">{{termList}}</mat-option>-->
+                  <!--</mat-select>-->
+                <!--</mat-form-field>-->
+              <!--</td>-->
+              <!--<td class="col-md-1 text-center">-->
+                <!--<p class="mt-4">{{companylist.payment_mode | titlecase}}</p>-->
+              <!--</td>-->
+              <!--&lt;!&ndash;<td class="col-md-1 text-center">&ndash;&gt;-->
+              <!--&lt;!&ndash;<p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="companylist.compare"  (click)="addCompare(companylist,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>&ndash;&gt;-->
+              <!--&lt;!&ndash;<p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="companylist.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>&ndash;&gt;-->
+              <!--&lt;!&ndash;<p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(companylist)"><strong>View Details</strong></p>&ndash;&gt;-->
+              <!--&lt;!&ndash;</td>&ndash;&gt;-->
+              <!--<td class="col-md-2">-->
+                <!--<p class="text-center change-p mt-2"><strong>&#8377; {{companylist.totalpremium}} / {{companylist.payment_mode | titlecase}}</strong></p>-->
+                <!--<p class="text-center change-p">(Including GST)</p>-->
+              <!--</td>-->
+              <!--<td class="col-md-1">-->
+                <!--<p class="mt-4">-->
+                  <!--<button mat-raised-button color="accent" (click)="buyProduct(companylist)">Buy</button>-->
+                <!--</p>-->
+              <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+          <!--</table>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash;<div class="row compar-fix" *ngIf="compareArray != ''">&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="text-right closeBtnClass">&ndash;&gt;-->
+<!--&lt;!&ndash;<mat-icon (click)="removeAllCompare(i)">close</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div style="width: 250px" *ngFor="let clists of compareArray; let i = index">&ndash;&gt;-->
+<!--&lt;!&ndash;<div fxLayout="column" class="flex-p">&ndash;&gt;-->
+<!--&lt;!&ndash;<mat-card class="custom-card compare-icon text-center">&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="text-right closeBtnClass">&ndash;&gt;-->
+<!--&lt;!&ndash;<mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<mat-card-content class="p-0">&ndash;&gt;-->
+<!--&lt;!&ndash;<p class="color-green mb-0 text-center">{{clists.product_name}}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;<img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >&ndash;&gt;-->
+<!--&lt;!&ndash;</mat-card-content>&ndash;&gt;-->
+<!--&lt;!&ndash;</mat-card>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->

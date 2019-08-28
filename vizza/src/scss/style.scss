@@ -649,6 +649,15 @@ a:hover {
   }
 
 }
+//.mediaScroll{
+//  ::-webkit-scrollbar-thumb:vertical {
+//    background-color: #93acb6 !important;
+//  }
+//  ::-webkit-scrollbar-track {
+//    background-color: #cfcfcf !important;
+//  }
+//
+//}
 
 #product-list{
   .mat-tab-header, .mat-tab-nav-bar {
@@ -3186,6 +3195,7 @@ fieldset {
   -moz-border-radius: 33px !important;
   border-radius: 27px !important;
   box-shadow: 1px 4px #D5D8DF;
+  height: 200px;
   //.head-card {
   //  margin-top: 13px !important;
   //}
@@ -3222,6 +3232,9 @@ fieldset {
 
   }
   p {
+    color: #000000;
+  }
+  ul {
     color: #000000;
   }
 }
@@ -4379,7 +4392,7 @@ fieldset {
     height: 44px !important;
     border-right: 1px solid #ffffff;
   }
-  .mat-select-value-text {
+  th .mat-select-value-text {
     color: #ffffff !important;
   }
 
@@ -4454,10 +4467,10 @@ fieldset {
     .myclass{
       color: #ffffff !important;
     }
-    .mat-select-arrow{
+    th .mat-select-arrow{
       color: #ffffff !important;
     }
-    .mat-form-field-underline{
+    th .mat-form-field-underline{
       background-color:#ffffff !important;
     }
     .sun-insured{

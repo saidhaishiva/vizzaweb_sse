@@ -81,6 +81,7 @@ export class HdfcTermLifeComponent implements OnInit {
   public fhDiseaseHdfcList: any;
   public frequencyPayHdfcList: any;
   public genderListHdfcList: any;
+  public maritalListHdfcList: any;
   public heightListHdfcList: any;
   public impairmentHdfcList: any;
   public impairmentEver2HdfcList: any;
@@ -197,13 +198,13 @@ export class HdfcTermLifeComponent implements OnInit {
       eduqual: ['', Validators.required],
       nationality: ['', Validators.required],
       residentstatus: ['', Validators.required],
-      ishdfcempflg: ['', Validators.required],
-      exstngcustflg: ['', Validators.required],
-      isdisabledflg: ['', Validators.required],
-      pepflg: ['', Validators.required],
-      dematflg: ['', Validators.required],
-      smokerstatusflg: ['', Validators.required],
-      historyofconviction: ['', Validators.required],
+      ishdfcempflg: 'N',
+      exstngcustflg: 'N',
+      isdisabledflg: 'N',
+      pepflg: 'N',
+      dematflg: 'N',
+      smokerstatusflg: 'N',
+      historyofconviction: 'N',
       houseno: ['', Validators.required],
       street: ['', Validators.required],
       landmark: ['', Validators.required],
@@ -296,6 +297,7 @@ export class HdfcTermLifeComponent implements OnInit {
     this.getfrequencyPayHdfc();
     this.getfundOptionHdfc();
     this.getgenderListHdfc();
+    this.getmaritalListHdfc();
     this.getheightListHdfc();
     this.getimpairmentHdfc();
     this.getimpairmentEver2Hdfc();
@@ -435,7 +437,7 @@ export class HdfcTermLifeComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (selectedDate.length == 10) {
           this.proposerAge = this.ageCalculate(dob);
-          console.log(this.proposerAge, ' this.nomineeAg');
+          console.log(this.proposerAge, ' this.proposerAge');
 
         }
 
@@ -495,6 +497,7 @@ export class HdfcTermLifeComponent implements OnInit {
       }
       if ( i == 0){
         sessionStorage.nomineAge = this.getAge;
+        console.log(this.getAge,'getaage');
       }
 
       if ( i != 0){
@@ -538,7 +541,7 @@ export class HdfcTermLifeComponent implements OnInit {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.setValidators([Validators.required]);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].apincode.setValidators([Validators.required]);
       } else {
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(false);
+        // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(false);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].afirstnm.setValidators(null);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alastnm.setValidators(null);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].agender.setValidators(null);
@@ -765,17 +768,17 @@ export class HdfcTermLifeComponent implements OnInit {
     sessionStorage.stepper1 = '';
     sessionStorage.stepper1 = JSON.stringify(value);
     // console.log(this.personal.valid, 'checked');
-    stepper.next();
-    this.topScroll();
-    // if(this.personal.valid) {
-    //   if(sessionStorage.proposerAge >= 18){
-    //
-    //
-    //   } else {
-    //     this.toastr.error('Proposer age should be 18 or above');
-    //
-    //   }
-    // }
+
+    if(this.personal.valid) {
+      if(sessionStorage.proposerAge >= 18){
+
+        stepper.next();
+        this.topScroll();
+      } else {
+        this.toastr.error('Proposer age should be 18 or above');
+
+      }
+    }
 
   }
 
@@ -816,18 +819,10 @@ export class HdfcTermLifeComponent implements OnInit {
         nominee2ageval = true;
       }
     }
-    // console.log(sessionStorage.appointeeAge,' appointeeAge11232 ');
-    //
-    // console.log(nominee2ageval, 'nominee2ageval');
-    // console.log(nomineeValid, 'nomineeVLID');
-    // console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
-    // console.log(this.nomineeDetails.valid,'this.nomineeDetails.valid')
+
     if (this.nomineeDetail.controls.itemsNominee.valid) {
       if (!nomineeValid || !nominee2ageval) {
-        // console.log(!nomineeValid,'111nomineeValid');
-        // console.log(nomineeValid,'2222nomineeValid');
-        // console.log(!nominee2ageval,'nominee2ageval111');
-        // console.log(nominee2ageval,'nominee2ageval33333333');
+
 
         if (appointeeAge ) {
           // console.log(appointeeAge,'appointeeAgeentry')
@@ -841,8 +836,9 @@ export class HdfcTermLifeComponent implements OnInit {
           // console.log('2222');
         }
       } else {
-        stepper.next();
-        this.topScroll();
+        // stepper.next();
+        // this.topScroll();
+        this.proposal(stepper);
       }
     }
   }
@@ -1544,6 +1540,31 @@ getgenderListHdfc() {
     }
   }
   public genderListHdfcFailure(error) {
+  }
+
+getmaritalListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.maritalListHdfc(data).subscribe(
+        (successData) => {
+          this.maritalListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.maritalListHdfcFailure(error);
+        }
+    );
+  }
+
+  public maritalListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.maritalListHdfcList = successData.ResponseObject;
+    }
+  }
+  public maritalListHdfcFailure(error) {
   }
 
 getheightListHdfc() {
@@ -2576,6 +2597,260 @@ getweightListHdfc() {
 
   }
 
+
+  proposal(stepper) {
+    const data = {
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "platform": "web",
+      "lifeassured": {
+        "partyseqid": "LA_0",
+        "partytype": "PRT_INDIV",
+        "personalinfo": {
+          "title": "TITL_MR",
+          "firstnm": "Termlife",
+          "lastnm": "testing",
+          "gender": "GEN_M",
+          "dob": "11/09/1993",
+          "fathernm": "Father",
+          "maritalstatus": "MAR_SIN",
+          "eduqual": "EDU_QUAL_BA",
+          "nationality": "NATION_IND_CD",
+          "residentstatus": "RESS_RI",
+          "birthplace": "Mumbai",
+          "nriflg": "N"
+        },
+        "additionalinfo": {
+          "ishdfcempflg": "N",
+          "exstngcustflg": "N",
+          "isdisabledflg": "N",
+          "pepflg": "N",
+          "dematflg": "N",
+          "smokerstatusflg": "N",
+          "historyofconviction": "N"
+        },
+        "addressinfo": [{
+          "addresstype": "ADD_PMNT",
+          "addressdetails": {
+            "houseno": "houseno",
+            "street": "street",
+            "landmark": "landmark",
+            "city": "CTY_MUMB21",
+            "state": "MAHA",
+            "pincode": "400011",
+            "country": "CNTRY_IND"
+          }
+        },
+          {
+            "addresstype": "ADD_CORSP",
+            "addressdetails": {
+              "houseno": "houseno",
+              "street": "street",
+              "landmark": "landmark",
+              "city": "CTY_MUMB21",
+              "state": "MAHA",
+              "pincode": "400011",
+              "country": "CNTRY_IND"
+            }
+          }
+        ],
+        "contactdetails": [{
+          "contype": "CONT_MOBNO",
+          "countrycode": "91",
+          "contactval": "9999999999"
+        },
+          {
+            "contype": "CONT_EMAIL",
+            "contactval": "Termlife@tester.com"
+          }
+        ],
+        "commpreference": {
+          "expdurofstay": "MTH1YR",
+          "prfdcommaddr": "ADD_CORSP",
+          "prfdcommmode": "CALL",
+          "prfdcommlang": "LANG_ENG"
+        },
+        "employmentdetails": {
+          "occutype": "OCCT_SALR",
+          "employernm": "TCS",
+          "annualincm": "9000000",
+          "natureofoccu": "Others",
+          "employeraddr": {
+            "addrline": "rretret"
+          }
+        },
+        "existingulip": {
+          "existulipflag": "N"
+        },
+        "fundsource": {
+          "sourcetype": "FUND_SRC_SLRY",
+          "fundpcntg": "100"
+        }
+      },
+      "nominee": [{
+        "partyseqid": "NOMINEE_0",
+        "partytype": "PRT_INDIV",
+        "personalinfo": {
+          "title": "TITL_MRS",
+          "firstnm": "nominee",
+          "lastnm": "test",
+          "gender": "GEN_F",
+          "dob": "26/10/1988",
+          "maritalstatus": "MAR_MRD"
+        },
+        "additionalinfo": {
+          "entitlepctg": "50"
+        },
+        "addressinfo": {
+          "addresstype": "ADD_PMNT",
+          "addressdetails": {
+            "houseno": "19",
+            "street": "PJ Towers",
+            "landmark": "Dalal Street",
+            "city": "CTY_MUMB21",
+            "state": "MAHA",
+            "pincode": "400011",
+            "country": "CNTRY_IND"
+          }
+        },
+        "relationshipinfo": {
+          "relatedparty": "LA_0",
+          "relationship": "RNMLA_SIS_CD"
+        },
+        "contactdetails": {
+          "contype": "CONT_MOBNO",
+          "contactval": "9988001456"
+        }
+      },
+        {
+          "partyseqid": "NOMINEE_1",
+          "partytype": "PRT_INDIV",
+          "personalinfo": {
+            "title": "TITL_MR",
+            "firstnm": "Sachin",
+            "lastnm": "Kher",
+            "gender": "GEN_M",
+            "dob": "26/10/2013",
+            "maritalstatus": "MAR_MRD"
+          },
+          "additionalinfo": {
+            "entitlepctg": "50"
+          },
+          "addressinfo": {
+            "addresstype": "ADD_PMNT",
+            "addressdetails": {
+              "houseno": "19",
+              "street": "PJ Towers",
+              "landmark": "Dalal Street",
+              "city": "CTY_MUMB21",
+              "state": "MAHA",
+              "pincode": "400011",
+              "country": "CNTRY_IND"
+            }
+          },
+          "relationshipinfo": {
+            "relatedparty": "LA_0",
+            "relationship": "RNMLA_NEPH_CD"
+          }
+        }
+      ],
+      "appointee": {
+        "partyseqid": "APPOINTEE_0",
+        "partytype": "PRT_INDIV",
+        "personalinfo": {
+          "title": "TITL_MR",
+          "firstnm": "Sushant",
+          "lastnm": "Kher",
+          "gender": "GEN_M",
+          "dob": "26/10/1983",
+          "maritalstatus": "MAR_MRD"
+        },
+        "addressinfo": {
+          "addresstype": "ADD_PMNT",
+          "addressdetails": {
+            "houseno": "houseno",
+            "street": "street",
+            "landmark": "landmark",
+            "city": "CTY_MUMB21",
+            "state": "MAHA",
+            "pincode": "400011",
+            "country": "CNTRY_IND"
+          }
+        },
+        "relationshipinfo": {
+          "relatedparty": "NOMINEE_1",
+          "relationship": "RAPNM_UNCL_CD"
+        }
+      },
+      "proposer": {
+        "partysameas": "LA_0"
+      },
+      "payor": {
+        "partysameas": "LA_0"
+      }
+    };
+    //     "ckyc":
+    // {
+    //   "ckycno": "",
+    //     "fathernmtitle": "TITL_MR",
+    //     "fatherfirstnm": "Test",
+    //     "fathermiddlenm": "S",
+    //     "fatherlastnm": "Dear",
+    //     "mothernmtitle": "TITL_MRS",
+    //     "motherfirstnm": "yas",
+    //     "mothermiddlenm": "P",
+    //     "motherlastnm": "devi",
+    //     "maritalstatus": "MAR_MRD",
+    //     "cersaipostedflag": [
+    //   "",
+    //   "N"
+    // ],
+    //     "spousenmtitle": "TITL_MR",
+    //     "spousefirstnm": "rajababu",
+    //     "spousemiddlenm": "s",
+    //     "spouselastnm": "kumar",
+    //     "occutype": "OCCT_SALR",
+    //     "catofoccupation": "Service - Private Sector",
+    //     "countryofbirth": "CNTRY_IND"
+    // }
+
+
+  this.settings.loadingSpinner = true;
+  this.TermLifeService.getProposalhdfc(data).subscribe(
+(successData) => {
+  this.setProposalSuccess(successData, stepper);
+},
+(error) => {
+  this.setProposalFailure(error);
+}
+);
+
+}
+public setProposalSuccess(successData, stepper) {
+  this.settings.loadingSpinner = false;
+  if (successData.IsSuccess == true) {
+    stepper.next();
+    this.topScroll();
+    this.toastr.success('BI Generated Sucessfully!!');
+    this.summaryData = successData.ResponseObject;
+    this.requestedUrl = this.summaryData.bilink;
+    this.redirectUrl = this.summaryData.redirectLink;
+    sessionStorage.summaryData = JSON.stringify(this.summaryData);
+    this.proposalId = this.summaryData.ProposalId;
+    this.proposerFormData = this.personal.value;
+    this.nomineeFormData = this.nomineeDetail.value;
+    sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+    sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+    // sessionStorage.hdfc_proposal_id = this.proposalId;
+
+
+  } else {
+    this.toastr.error(successData.ErrorObject);
+  }
+}
+public setProposalFailure(error) {
+}
 
 
 }

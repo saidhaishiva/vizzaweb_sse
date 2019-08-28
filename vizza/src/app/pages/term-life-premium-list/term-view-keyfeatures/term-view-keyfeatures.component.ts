@@ -135,7 +135,7 @@ export class TermViewKeyfeaturesComponent implements OnInit {
       // this.id = getIndex;
       this.id1 = 0;
     } else if (index == 2) {
-      this.selectedClaimDetails = 'form1';
+      this.selectedClaimDetails = 'form2';
       const getIndex = this.getKeyList.findIndex( list => list.type == 2);
       this.id = getIndex;
     }
@@ -183,54 +183,54 @@ export class TermViewKeyfeaturesComponent implements OnInit {
     this.selectedClaimDetails = value;
   }
 
-  // readUrl(event: any) {
-  //   this.size = event.srcElement.files[0].size;
-  //   console.log(this.size);
-  //   if (event.target.files && event.target.files[0]) {
-  //     const reader = new FileReader();
-  //
-  //     reader.onload = (event: any) => {
-  //       this.getUrl1 = [];
-  //       this.url = event.target.result;
-  //       this.getUrl = this.url.split(',');
-  //       this.getUrl1.push(this.url.split(','));
-  //       this.onUploadFinished(this.getUrl);
-  //
-  //     };
-  //     reader.readAsDataURL(event.target.files[0]);
-  //   }
-  //
-  // }
-  // onUploadFinished(event) {
-  //   this.getUrl = event[1];
-  //   const data1 = {
-  //     'platform': 'web',
-  //     'flag':'healthInsurance',
-  //     'uploadtype': 'single',
-  //     'images': this.getUrl,
-  //   };
-  //   console.log(data1, 'dfdfdsfdsfdsfds');
-  //   this.common.fileUpload(data1).subscribe(
-  //       (successData) => {
-  //         this.fileUploadSuccess(successData);
-  //       },
-  //       (error) => {
-  //         this.fileUploadFailure(error);
-  //       }
-  //   );
-  // }
-  // public fileUploadSuccess(successData) {
-  //   if (successData.IsSuccess == true) {
-  //     this.fileUploadPath = successData.ResponseObject.imagePath;
-  //
-  //
-  //   } else {
-  //     this.toastr.error(successData.ErrorObject, 'Failed');
-  //   }
-  // }
-  // public fileUploadFailure(error) {
-  //   console.log(error);
-  // }
+  readUrl(event: any) {
+    this.size = event.srcElement.files[0].size;
+    console.log(this.size);
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.getUrl1 = [];
+        this.url = event.target.result;
+        this.getUrl = this.url.split(',');
+        this.getUrl1.push(this.url.split(','));
+        this.onUploadFinished(this.getUrl);
+
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+  }
+  onUploadFinished(event) {
+    this.getUrl = event[1];
+    const data1 = {
+      'platform': 'web',
+      'flag':'healthInsurance',
+      'uploadtype': 'single',
+      'images': this.getUrl,
+    };
+    console.log(data1, 'dfdfdsfdsfdsfds');
+    this.common.fileUpload(data1).subscribe(
+        (successData) => {
+          this.fileUploadSuccess(successData);
+        },
+        (error) => {
+          this.fileUploadFailure(error);
+        }
+    );
+  }
+  public fileUploadSuccess(successData) {
+    if (successData.IsSuccess == true) {
+      this.fileUploadPath = successData.ResponseObject.imagePath;
+
+
+    } else {
+      this.toastr.error(successData.ErrorObject, 'Failed');
+    }
+  }
+  public fileUploadFailure(error) {
+    console.log(error);
+  }
   // public contactDetails(): void {
   //   if (this.form.valid) {
   //     const data = {

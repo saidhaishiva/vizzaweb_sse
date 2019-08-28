@@ -98,11 +98,6 @@ export class AegonTermLifeComponent implements OnInit {
   public premiumData: any;
   public annualData: any;
   public errorMsg: any;
-  public errorMsg1: any;
-  public errorMsg2: any;
-  public errorMsg3: any;
-  public errorMsg4: any;
-  public errorMsg5: any;
   public errAnnual: any;
   public minDate: any;
   public sameComAddress: any;
@@ -190,8 +185,8 @@ export class AegonTermLifeComponent implements OnInit {
 
     this.personal = this.fb.group({
       title: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['',Validators.compose([Validators.required, Validators.maxLength(25)])],
+      lastName: ['', Validators.compose([Validators.required, Validators.maxLength(25)])],
       middleName: '',
       gender: ['', Validators.required],
       dob: ['', Validators.required],
@@ -306,14 +301,14 @@ export class AegonTermLifeComponent implements OnInit {
     sessionStorage.proposerAge = this.proposerAge;
     if(this.enquiryFromDetials.gender == 'm')
     {
-      this.personal.controls['title'].patchValue('MR');
+      this.personal.controls['title'].patchValue('Mr');
      if(this.personal.controls['gender'].value == 'm'){
        this.personal.controls['gender'].patchValue('m');
      } else{
        this.personal.controls['gender'].patchValue('f');
      }
     }else if(this.enquiryFromDetials.gender == 'f'){
-      this.personal.controls['title'].patchValue('MS');
+      this.personal.controls['title'].patchValue('Ms');
 
     }
     this.personal.controls['adbrSumAssured'].patchValue (50000);
@@ -326,6 +321,7 @@ export class AegonTermLifeComponent implements OnInit {
     this.getnomineerelationship();
     this.personal.controls['cPincode'].patchValue(this.enquiryFromDetials.pincode);
     this.personal.controls['smoker'].patchValue(this.enquiryFromDetials.smoker);
+    this.personal.controls['annualIncome'].patchValue(this.enquiryFromDetials.annualIncome);
 
 
   }
@@ -338,7 +334,7 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   changeGender() {
-    if (this.personal.controls['title'].value == 'MR'){
+    if (this.personal.controls['title'].value == 'Mr'){
       this.personal.controls['gender'].patchValue('m');
     } else {
       this.personal.controls['gender'].patchValue('f');
@@ -366,6 +362,9 @@ export class AegonTermLifeComponent implements OnInit {
   // Number validation
   numberValidate(event: any) {
     this.validation.numberValidate(event);
+  }
+  addressValidate(event: any){
+    this.validation.addressValidate(event);
   }
 
   // height weight validation
@@ -455,9 +454,11 @@ export class AegonTermLifeComponent implements OnInit {
         console.log(dob , 'dob');
         if (selectedDate.length == 10) {
           this.proposerAge = this.ageCalculate(dob);
+          console.log(this.proposerAge,'Proposar Age');
+          sessionStorage.proposerAge = this.proposerAge;
+          this.getAnnual('dob');
           this.getPremium('dob');
           // sessionStorage.proposerAge = this.proposerAge;
-
         }
 
       } else if (typeof event.value._i == 'object') {
@@ -497,6 +498,16 @@ export class AegonTermLifeComponent implements OnInit {
   //       }
   //     }
   //   }
+
+
+  // changeGender() {
+  //   if (this.ProposerPa.controls['proposerPaTitle'].value == 'Mr') {
+  //     this.ProposerPa.controls['proposerPaGender'].patchValue('MALE');
+  //   } else {
+  //     this.ProposerPa.controls['proposerPaGender'].patchValue('FEMALE');
+  //   }
+  // }
+
   validateAnnual(annualIncome,type){
     if(annualIncome!= '')
     {
@@ -1014,11 +1025,11 @@ export class AegonTermLifeComponent implements OnInit {
     if (this.personal.controls['isAddressSame'].value) {
       this.personal.controls['pAddress1'].setValue(this.personal.controls['cAddress1'].value);
       this.personal.controls['pAddress2'].setValue(this.personal.controls['cAddress2'].value);
+      this.personal.controls['pPincode'].setValue(this.personal.controls['cPincode'].value);
+      this.personal.controls['pState'].setValue(this.personal.controls['cState'].value);
       this.personal.controls['pCity'].setValue(this.personal.controls['cCity'].value);
       this.personal.controls['pCityName'].setValue(this.personal.controls['cCityName'].value);
-      this.personal.controls['pState'].setValue(this.personal.controls['cState'].value);
-      this.personal.controls['pPincode'].setValue(this.personal.controls['cPincode'].value);
-      this.cityList = JSON.parse(sessionStorage.citycList);
+      // this.cityList = JSON.parse(sessionStorage.citycList);
 
     }
   }
@@ -1033,27 +1044,34 @@ export class AegonTermLifeComponent implements OnInit {
     console.log(this.personal.valid, 'checked');
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
-        this.validateAnnual(this.personal.controls['annualIncome'].value,2);
-        this.deathBenefitSA(this.personal.controls['deathBenefitSA'].value,2);
-        if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP')
-        {
-          this.adbrSumAssured(this.personal.controls['adbrSumAssured'].value,2);
-        }
-        else if(this.lifePremiumList.benefit_option == 'LHP')
-        {
-          this.enchancedCISA(this.personal.controls['enchancedCISA'].value,2);
-        }
-        else if(this.lifePremiumList.benefit_option == 'LH')
-        {
-          this.icirSumAssured(this.personal.controls['icirSumAssured'].value,2);
-        }
-        console.log(this.errorMsg, 'Next Button Error');
-        if(this.errorMsg == '')
-        {
-          stepper.next();
-          this.topScroll();
-        }
-        else {
+        if(this.errorMsg == '') {
+          this.validateAnnual(this.personal.controls['annualIncome'].value, 2);
+          this.deathBenefitSA(this.personal.controls['deathBenefitSA'].value, 2);
+          if (this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP') {
+            this.adbrSumAssured(this.personal.controls['adbrSumAssured'].value, 2);
+          } else if (this.lifePremiumList.benefit_option == 'LHP') {
+            this.enchancedCISA(this.personal.controls['enchancedCISA'].value, 2);
+          } else if (this.lifePremiumList.benefit_option == 'LH') {
+            this.icirSumAssured(this.personal.controls['icirSumAssured'].value, 2);
+          }
+          console.log(this.errorMsg, 'Next Button Error');
+          if (this.errorMsg == '') {
+            this.icicMsg = '';
+            this.ecsaMsg = '';
+            this.adbsaMsg = '';
+            this.dbsaMsg = '';
+            this.husMsg = '';
+            this.wifeMsg = '';
+            this.smokerMsg = '';
+            this.qulMsg = '';
+            this.dobMsg = '';
+            this.titleMsg = '';
+            stepper.next();
+            this.topScroll();
+          } else {
+            this.toastr.error(this.errorMsg);
+          }
+        } else {
           this.toastr.error(this.errorMsg);
         }
 
@@ -1319,6 +1337,43 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   getPremium(type) {
+    this.errorMsg='';
+    if(sessionStorage.proposerAge >= 18){
+      this.validateAnnual(this.personal.controls['annualIncome'].value,2);
+      this.deathBenefitSA(this.personal.controls['deathBenefitSA'].value,2);
+      if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP')
+      {
+        this.adbrSumAssured(this.personal.controls['adbrSumAssured'].value,2);
+      }
+      else if(this.lifePremiumList.benefit_option == 'LHP')
+      {
+        this.enchancedCISA(this.personal.controls['enchancedCISA'].value,2);
+      }
+      else if(this.lifePremiumList.benefit_option == 'LH')
+      {
+        this.icirSumAssured(this.personal.controls['icirSumAssured'].value,2);
+      }
+      console.log(this.errorMsg, 'Next Button Error');
+      if(this.errorMsg == '')
+      {
+        this.icicMsg = '';
+        this.ecsaMsg = '';
+        this.adbsaMsg = '';
+        this.dbsaMsg = '';
+        this.husMsg = '';
+        this.wifeMsg = '';
+        this.smokerMsg = '';
+        this.qulMsg = '';
+        this.dobMsg = '';
+        this.titleMsg = '';
+      }
+      else {
+        this.toastr.error(this.errorMsg);
+      }
+
+    } else {
+      this.toastr.error('Proposer age should be 18 or above');
+    }
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id":  this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -1328,6 +1383,7 @@ export class AegonTermLifeComponent implements OnInit {
       "suminsured_Amount":this.personal.controls['deathBenefitSA'].value,
       "policy_id": this.getEnquiryDetials.policy_id,
       "benefitOption": this.lifePremiumList.benefit_option,
+      "term": this.lifePremiumList.termDetrails,
       "type":type,
       "personalInformation": {
 
@@ -1366,14 +1422,17 @@ export class AegonTermLifeComponent implements OnInit {
       }
 
     }
-    this.TermLifeService.getPremium(data).subscribe(
-        (successData) => {
-          this.premiumSuccess(successData);
-        },
-        (error) => {
-          this.premiumFailure(error);
-        }
-    );
+    if(this.errorMsg == '')
+    {
+      this.TermLifeService.getPremium(data).subscribe(
+          (successData) => {
+            this.premiumSuccess(successData);
+          },
+          (error) => {
+            this.premiumFailure(error);
+          }
+      );
+    }
   }
 
   public premiumSuccess(successData) {
@@ -1455,29 +1514,31 @@ export class AegonTermLifeComponent implements OnInit {
 
 
   getAnnual(type){
+      if(this.personal.controls['employeeType'].value != '' && this.personal.controls['qualifiction'].value != '' && this.personal.controls['annualIncome'].value != '')
+      {
         const data = {
-            'platform': 'web',
-            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-            'age':sessionStorage.proposerAge,
-            'emp_type' :this.personal.controls['employeeType'].value,
-            'education' : this.personal.controls['qualifiction'].value,
-            'type':type,
-            'nationality' :'Indian',
-            'annual_income':this.personal.controls['annualIncome'].value,
-            'sum_assured':this.personal.controls['deathBenefitSA'].value
+          'platform': 'web',
+          'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+          'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+          'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+          'age':sessionStorage.proposerAge,
+          'emp_type' :this.personal.controls['employeeType'].value,
+          'education' : this.personal.controls['qualifiction'].value,
+          'type':type,
+          'nationality' :'Indian',
+          'annual_income':this.personal.controls['annualIncome'].value,
+          'sum_assured':this.personal.controls['deathBenefitSA'].value
         }
-
-            this.TermLifeService.getAnnuallist(data).subscribe(
-                (successData) => {
-                    this.getAnnuallistSuccess(successData);
-                },
-                (error) => {
-                    this.getAnnuallistFailure(error);
-                }
-            );
-            console.log(data,'datapin')
+        this.TermLifeService.getAnnuallist(data).subscribe(
+            (successData) => {
+              this.getAnnuallistSuccess(successData);
+            },
+            (error) => {
+              this.getAnnuallistFailure(error);
+            }
+        );
+        console.log(data,'datapin')
+      }
     }
              public getAnnuallistSuccess(successData){
                 if (successData.IsSuccess) {
@@ -1491,14 +1552,15 @@ export class AegonTermLifeComponent implements OnInit {
                   this.errorAnnaulMsg = '';
                   this.annaulIncomeMsg = '';
                   this.qulMsg = '';
-
+                  this.errorMsg = '';
         }else
           {
+            this.errorMsg = successData.ErrorObject;
             this.annualData = false;
             this.errorAnnaulMsg = successData.ErrorObject;
             if(successData.type == 'dob')
             {
-              this.dobAnnualMsg = successData.ErrorObject;
+              //this.dobAnnualMsg = successData.ErrorObject;
             }
             else if(successData.type == 'dbsa')
             {
@@ -1828,7 +1890,7 @@ export class AegonTermLifeComponent implements OnInit {
           "suminsured_Amount":sessionStorage.selectedAmountTravel,
           "policy_id": this.getEnquiryDetials.policy_id,
           "benefitOption": this.lifePremiumList.benefit_option,
-          "term": this.lifePremiumList.policy_term,
+          "term": this.lifePremiumList.termDetrails,
           "personalInformation": {
             "tittle": this.personal.controls['title'].value,
             "firstName": this.personal.controls['firstName'].value,
@@ -1899,11 +1961,11 @@ export class AegonTermLifeComponent implements OnInit {
             "wcir": "NO"
           },
           "addons_itermplus": {
-            "adbrSumAssured":this.personal.controls['adbrSumAssured'].value == 'L' || this.personal.controls['adbrSumAssured'].value == 'LP'? this.personal.controls['adbrSumAssured'].value : '0',
+            "adbrSumAssured":this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP'? this.personal.controls['adbrSumAssured'].value : '0',
             "deathBenefitSA": this.personal.controls['deathBenefitSA'].value,
             "deathBenefitTISA": this.personal.controls['deathBenefitTISA'].value,
-            "enchancedCISA":this.personal.controls['enchancedCISA'].value == 'LHP' ? this.personal.controls['enchancedCISA'].value : '0',
-            "icirSumAssured": this.personal.controls['icirSumAssured'].value == 'LH' ? this.personal.controls['icirSumAssured'].value : '0'
+            "enchancedCISA":this.lifePremiumList.benefit_option == 'LHP' ? this.personal.controls['enchancedCISA'].value : '0',
+            "icirSumAssured": this.lifePremiumList.benefit_option == 'LH' ? this.personal.controls['icirSumAssured'].value : '0'
           }
         };
 

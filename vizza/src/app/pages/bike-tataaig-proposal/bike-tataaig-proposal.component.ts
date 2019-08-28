@@ -269,6 +269,7 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     nomineeRelationSuccess(successData) {
         this.relationlist = successData.ResponseObject;
+        sessionStorage.relation = JSON.stringify(this.relationlist);
     }
 
     nomineeRelationFailure(error) {
@@ -616,7 +617,11 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikenominee = '';
         sessionStorage.tatabikenominee = JSON.stringify(value);
         if (this.nominee.valid) {
-            this.QuoteList(stepper);
+            if (this.nominee.controls['nomineeAge'].value >= 18) {
+                this.QuoteList(stepper);
+            }else{
+                this.toastr.error('Nominee Age should Be 18 or above');
+            }
         }
     }
 
@@ -625,6 +630,9 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     sessionData() {
+        if(sessionStorage.relation != '' && sessionStorage.relation != undefined) {
+            this.relationlist = JSON.parse(sessionStorage.relation );
+        }
         if (sessionStorage.tatabikeproposer != '' && sessionStorage.tatabikeproposer != undefined) {
             this.getstepper1 = JSON.parse(sessionStorage.tatabikeproposer);
             this.proposer = this.fb.group({

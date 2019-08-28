@@ -270,6 +270,20 @@ export class CarTataaigProposalComponent implements OnInit {
 
   maritial() {
     this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
+    const data = {
+      'platform': 'web',
+      'marital_status': this.proposer.controls['maritalStatus'].value == 'single' ? 'Y' : 'N',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    };
+    this.carinsurance.RelationList(data).subscribe(
+        (successData) => {
+          this.nomineeRelationSuccess(successData);
+        },
+        (error) => {
+          this.nomineeRelationFailure(error);
+        }
+    );
   }
 
 
@@ -710,7 +724,6 @@ export class CarTataaigProposalComponent implements OnInit {
         } else {
           this.toastr.error('Policy No should not be empty');
         }
-
       }
     }
   }
@@ -719,7 +732,11 @@ export class CarTataaigProposalComponent implements OnInit {
     sessionStorage.tatacarnominee = '';
     sessionStorage.tatacarnominee = JSON.stringify(value);
     if (this.nominee.valid) {
-      this.QuoteList(stepper);
+      if (this.nominee.controls['nomineeAge'].value >= 18) {
+        this.QuoteList(stepper);
+      }else{
+        this.toastr.error('Nominee Age should Be 18 or above');
+      }
     }
   }
 

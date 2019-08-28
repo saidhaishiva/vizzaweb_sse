@@ -59,6 +59,7 @@ export class HdfcCarProposalComponent implements OnInit {
     public getstepper1: any;
     public getstepper2: any;
     public getstepper3: any;
+    public getstepper4: any;
     public financeList: any;
     public countryList: any;
     public tommarrow: any;
@@ -75,6 +76,8 @@ export class HdfcCarProposalComponent implements OnInit {
     public vehicledata: any;
     public carEquiryId: any;
     public vehicleidv: any;
+    public regvalue: any;
+    public RegDateage: any;
 
   constructor(public fb: FormBuilder,public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe ,public Fourwheeler: FourWheelerService) {
       this.Setting = appsetting.settings;
@@ -116,12 +119,12 @@ export class HdfcCarProposalComponent implements OnInit {
           sameAsAddress: [''],
           address4: ['', Validators.required],
           address5: ['', Validators.required],
-          address6: ['', Validators.required],
+          address6: [''],
           pincode1: ['', Validators.required],
           issameascmmunication: [''],
           titlevalue:[''],
-          uniqueid:[''],
-          Lgcode:[''],
+          // uniqueid:[''],
+          // Lgcode:[''],
 
           gender: ['', Validators.required],
           email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -185,15 +188,18 @@ export class HdfcCarProposalComponent implements OnInit {
           IsEMIprotector_Cover:[''],
           EAW:[''],
           NoofUnnamedPerson:[''],
+          namedPerson:[''],
+          noOfEmi:[''],
+          EMIamount:['']
       });
       this.BankDetails = this.fb.group({
-          Bankname: ['', Validators.required],
-          Branch: ['', Validators.required],
+          // Bankname: ['', Validators.required],
+          // Branch: ['', Validators.required],
           Payertype: ['', Validators.required],
           paymentmode: ['', Validators.required],
           refrenceno: ['', Validators.required],
           Paymentdate: ['', Validators.required],
-          Banknamevalue: ['']
+          // Banknamevalue: ['']
 
 
       });
@@ -221,6 +227,14 @@ export class HdfcCarProposalComponent implements OnInit {
       this.vechicle.controls['Previouscompany'].patchValue(this.vehicledata.prev_insurance_name);
       this.vechicle.controls['ncb'].patchValue(this.vehicledata.ncb_percent);
       this.vechicle.controls['previousenddate'].patchValue(this.datepipe.transform(this.vehicledata.previous_policy_expiry_date, 'y-MM-dd'));
+      if (this.vechicle.controls['Vehicleregdate'].value) {
+          let regno = '';
+          regno = this.datepipe.transform('2019-03-01', 'y-MM-dd');
+          this.RegDateage = this.regdatecalculate(regno);
+
+
+
+      }
 
   }
 
@@ -269,9 +283,7 @@ export class HdfcCarProposalComponent implements OnInit {
         this.vechicle.controls['fibranchname'].updateValueAndValidity();
     }
 
-    proposerpincodeListFailure(error) {
 
-    }
     addEvent(event, type) {
         if (event.value != null) {
             let selectedDate = '';
@@ -421,6 +433,63 @@ export class HdfcCarProposalComponent implements OnInit {
         }
 
     }
+    typeAddressDeatils() {
+
+        if (this.proposer.controls['issameascmmunication'].value) {
+            console.log('uueyye');
+            //     this.citypermanent = JSON.parse(sessionStorage.personalCitys);
+            this.proposer.controls['address'].setValue(this.proposer.controls['address4'].value);
+            this.proposer.controls['address2'].setValue(this.proposer.controls['address5'].value);
+            this.proposer.controls['address3'].setValue(this.proposer.controls['address6'].value);
+            this.proposer.controls['pincode'].setValue(this.proposer.controls['pincode1'].value);
+            this.proposer.controls['districtpermanent'].setValue(this.proposer.controls['districtcom'].value);
+            this.proposer.controls['citypermanent'].setValue(this.proposer.controls['citycom'].value);
+            this.proposer.controls['statepermanent'].setValue(this.proposer.controls['statecom'].value);
+            this.proposer.controls['landmarkpermanent'].setValue(this.proposer.controls['landmarkcom'].value);
+
+            // this.proposer.controls['residenceState'].setValue(this.proposer.controls['personalState'].value);
+        }
+    }
+    validationforadons(event,value){
+      console.log(event);
+      if(this.addOns.controls['numdrivers'].value !=''){
+          this.addOns.controls['paiddriversi'].setValidators([Validators.required]);
+          this.addOns.controls['paiddriversi'].updateValueAndValidity();
+
+      }else if(this.addOns.controls['numdrivers'].value ==''){
+          this.addOns.controls['paiddriversi'].patchValue('');
+          this.addOns.controls['paiddriversi'].setValidators(null);
+          this.addOns.controls['paiddriversi'].updateValueAndValidity();
+      }if(event.checked==true && value =='unamed'){
+          console.log('rr');
+            this.addOns.controls['UnnamedPersonSI'].setValidators([Validators.required]);
+            this.addOns.controls['UnnamedPersonSI'].updateValueAndValidity();
+        }else if(event.checked==false && value =='unamed') {
+            this.addOns.controls['UnnamedPersonSI'].patchValue('');
+            this.addOns.controls['UnnamedPersonSI'].setValidators(null);
+            this.addOns.controls['UnnamedPersonSI'].updateValueAndValidity();
+        }if(event.checked==true && value =='named'){
+          console.log('gg');
+            this.addOns.controls['namedPerson'].setValidators([Validators.required]);
+            this.addOns.controls['namedPerson'].updateValueAndValidity();
+            this.addOns.controls['namedPersonSI'].setValidators([Validators.required]);
+            this.addOns.controls['namedPersonSI'].updateValueAndValidity();
+        }else if(event.checked==false && value =='named'){
+            this.addOns.controls['namedPerson'].patchValue('');
+            this.addOns.controls['namedPerson'].setValidators(null);
+            this.addOns.controls['namedPerson'].updateValueAndValidity();
+            this.addOns.controls['namedPersonSI'].patchValue('');
+            this.addOns.controls['namedPersonSI'].setValidators(null);
+            this.addOns.controls['namedPersonSI'].updateValueAndValidity();
+        }
+    }
+ChangeGender(){
+    if (this.proposer.controls['title'].value == 'Mr') {
+        this.proposer.controls['gender'].patchValue('MALE');
+    } else {
+        this.proposer.controls['gender'].patchValue('FEMALE');
+    }
+}
 
     public banksuccess(successData) {
         this.bankList = successData.ResponseObject;
@@ -445,9 +514,9 @@ export class HdfcCarProposalComponent implements OnInit {
 
     }
 
-    changebankname() {
-        this.BankDetails.controls['Banknamevalue'].patchValue(this.bankList[this.BankDetails.controls['Bankname'].value]);
-    }
+    // changebankname() {
+    //     this.BankDetails.controls['Banknamevalue'].patchValue(this.bankList[this.BankDetails.controls['Bankname'].value]);
+    // }
     changeextensioncountry() {
         this.addOns.controls['extentioncountryvalue'].patchValue(this.countryList[this.addOns.controls['extentioncountry'].value]);
     }
@@ -480,6 +549,9 @@ export class HdfcCarProposalComponent implements OnInit {
                 }
             );
         }
+    }
+    proposerpincodeListFailure(error) {
+
     }
 
     proposerpincodeListSuccess(successData, type) {
@@ -643,8 +715,8 @@ export class HdfcCarProposalComponent implements OnInit {
                 districtpermanent: this.getstepper1.districtpermanent,
                 landmarkpermanent: this.getstepper1.landmarkpermanent,
                 titlevalue: this.getstepper1.titlevalue,
-                uniqueid: this.getstepper1.uniqueid,
-                Lgcode: this.getstepper1.Lgcode,
+                // uniqueid: this.getstepper1.uniqueid,
+                // Lgcode: this.getstepper1.Lgcode,
 
             })
         }
@@ -714,7 +786,24 @@ export class HdfcCarProposalComponent implements OnInit {
                 EAW:this.getstepper3.EAW,
                 NoofUnnamedPerson:this.getstepper3.NoofUnnamedPerson,
                 numdrivers:this.getstepper3.numdrivers,
+                namedPerson:this.getstepper3.namedPerson,
+                noOfEmi:this.getstepper3.noOfEmi,
+                EMIamount:this.getstepper3.EMIamount,
+
             })
+        }
+        if (sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined) {
+            this.getstepper4 = JSON.parse(sessionStorage.stepper4Details);
+            this.BankDetails = this.fb.group({
+                // Bankname: this.getstepper4.Bankname,
+                // Branch: this.getstepper4.Branch,
+                paymentmode: this.getstepper4.paymentmode,
+                Payertype: this.getstepper4.Payertype,
+                refrenceno: this.getstepper4.refrenceno,
+                Paymentdate: this.datepipe.transform(this.getstepper4.Paymentdate, 'y-MM-dd'),
+                // Banknamevalue: this.getstepper4.Banknamevalue,
+                // banknamelist: this.getstepper4.banknamelist,
+            });
         }
     }
 
@@ -735,6 +824,7 @@ export class HdfcCarProposalComponent implements OnInit {
             console.log(regno, 'reg');
             console.log(this.addOns.controls['ElecticalAccessoryIDV'].value, 'check');
         }
+console.log(this.vehicleidv.Idv);
         const data={
 
             "platform": "web",
@@ -793,7 +883,7 @@ export class HdfcCarProposalComponent implements OnInit {
                     "PreviousPolicy_PolicyEndDate": this.datepipe.transform(this.vechicle.controls['previousenddate'].value,'dd/MM/y'),
                     "PreviousPolicy_PolicyNo": this.vechicle.controls['previouspolicyno'].value,
                     "PreviousPolicy_PolicyClaim": this.vechicle.controls['previouspolicyclaim'].value,
-                    "BusinessType_Mandatary": "Roll Over",
+                    "BusinessType_Mandatary": this.RegDateage ,
                     "VehicleModelCode": "26114",
                     "DateofDeliveryOrRegistration": this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value,'dd/MM/y'),
                     "YearOfManufacture": this.vechicle.controls['manufactureyear'].value,
@@ -801,29 +891,29 @@ export class HdfcCarProposalComponent implements OnInit {
                     "EngineNumber": this.vechicle.controls['engine'].value,
                     "ChassisNumber": this.vechicle.controls['chassis'].value,
                     // "RTOLocationCode": "10406",
-                    "Vehicle_IDV": this.vehicleidv
+                    "Vehicle_IDV": this.vehicleidv.Idv
             },
 
             "Req_PvtCar": {
-                "POSP_CODE": [],
+                "POSP_CODE": '',
                     "POLICY_TENURE": "1",
                     "ExtensionCountryCode": this.addOns.controls['extentioncountry'].value,
-                    "ExtensionCountryName": [],
-                    "BreakIN_ID": [],
+                    "ExtensionCountryName": this.addOns.controls['extentioncountryvalue'].value,
+                    "BreakIN_ID": '',
                     "Effectivedrivinglicense": this.addOns.controls['drivinglicence'].value,
                     "NumberOfEmployees": "0",
                     "BiFuelType": this.addOns.controls['biofuel'].value,
                     "BiFuel_Kit_Value": this.addOns.controls['biofuelkit'].value,
                     "LLPaiddriver": this.addOns.controls['IsPaidDriver'].value==true ?'1':'0',
-                    "PAPaiddriverSI":this.addOns.controls['paiddriversi'].value ==true ?'1':'0' ,
+                    "PAPaiddriverSI":this.addOns.controls['paiddriversi'].value  ,
                     "Owner_Driver_Nominee_Name": this.addOns.controls['NomineeName'].value,
                     "Owner_Driver_Nominee_Age": this.addOns.controls['NomineeAge'].value,
                     "Owner_Driver_Nominee_Relationship": this.addOns.controls['nomineeRelation'].value,
                     "Owner_Driver_Appointee_Name": this.addOns.controls['appointeename'].value,
                     "Owner_Driver_Appointee_Relationship": this.addOns.controls['appointeerelation'].value,
                     "IsZeroDept_Cover": this.addOns.controls['zerodept'].value=='true' ?'1':'0',
-                    "ElecticalAccessoryIDV":  this.addOns.controls['ElecticalAccessoryIDV'].value ==true ?'1':'0',
-                    "NonElecticalAccessoryIDV": this.addOns.controls['NonElecticalAccessoryIDV'].value==true ?'1':'0',
+                    "ElecticalAccessoryIDV":  this.addOns.controls['ElecticalAccessoryIDV'].value =='' ?'0':this.addOns.controls['ElecticalAccessoryIDV'].value,
+                    "NonElecticalAccessoryIDV": this.addOns.controls['NonElecticalAccessoryIDV'].value=='' ?'0':this.addOns.controls['NonElecticalAccessoryIDV'].value,
                     "OtherLoadDiscRate": this.addOns.controls['OtherLoadDiscRate'].value==true ?'1':'0',
                     "AntiTheftDiscFlag": this.addOns.controls['Antitheftdiscflag'].value,
                     "HandicapDiscFlag": this.addOns.controls['HandicapDiscFlag'].value,
@@ -836,32 +926,32 @@ export class HdfcCarProposalComponent implements OnInit {
                     "IsEAW_Cover": this.addOns.controls['EAW'].value ==true ?'1':'0',
                     "IsEAAdvance_Cover": this.addOns.controls['IsEAAdvance_Cover'].value ==true ?'1':'0',
                     "IsTowing_Cover": this.addOns.controls['IsNCBProtection'].value ==true ?'1':'0',
-                    "Towing_Limit": [],
+                    "Towing_Limit": '',
                     "IsEMIProtector_Cover": this.addOns.controls['IsEMIprotector_Cover'].value ==true ?'1':'0',
-                    "NoOfEmi": [],
+                    "NoOfEmi": this.addOns.controls['noOfEmi'].value,
                     "EMIAmount": "0",
                     "NoofUnnamedPerson":this.addOns.controls['NoofUnnamedPerson'].value ==true ?'1':'0' ,
-                    "UnnamedPersonSI": this.addOns.controls['UnnamedPersonSI'].value,
+                    "UnnamedPersonSI": this.addOns.controls['UnnamedPersonSI'].value ,
                     "Voluntary_Excess_Discount":this.addOns.controls['VoluntaryExcessDiscount'].value ,
                     "IsLimitedtoOwnPremises": this.addOns.controls['IsLimitedtoOwnPremises'].value==true ?'1':'0',
                     "TPPDLimit": this.addOns.controls['TPPDLimit'].value,
                     "NoofnamedPerson": this.addOns.controls['NoofnamedPerson'].value==true ?'1':'0',
-                    "namedPersonSI": this.addOns.controls['UnnamedPersonSI'].value==true ?'1':'0',
-                    "NamedPersons": [],
-                    "AutoMobile_Assoication_No": [],
+                    "namedPersonSI": this.addOns.controls['namedPersonSI'].value,
+                    "NamedPersons": this.addOns.controls['namedPerson'].value,
+                    "AutoMobile_Assoication_No": '',
                     "CPA_Tenure": "1"
             },
-            "Payment_Details": {
-                "GC_PaymentID": [],
-                    "BANK_NAME": this.BankDetails.controls['Bankname'].value,
-                    "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
-                    "PAYMENT_MODE_CD":this.BankDetails.controls['paymentmode'].value ,
-                    "PAYER_TYPE": this.BankDetails.controls['Payertype'].value,
-                    "PAYMENT_AMOUNT": "25176",
-                    "INSTRUMENT_NUMBER": this.BankDetails.controls['refrenceno'].value,
-                    "PAYMENT_DATE": this.datepipe.transform(this.BankDetails.controls['Paymentdate'].value,'dd/MM/y')
-
-        }
+        //     "Payment_Details": {
+        //         "GC_PaymentID": [],
+        //             // "BANK_NAME": this.BankDetails.controls['Bankname'].value,
+        //             // "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
+        //             "PAYMENT_MODE_CD":this.BankDetails.controls['paymentmode'].value ,
+        //             "PAYER_TYPE": this.BankDetails.controls['Payertype'].value,
+        //             "PAYMENT_AMOUNT": "25176",
+        //             "INSTRUMENT_NUMBER": this.BankDetails.controls['refrenceno'].value,
+        //             "PAYMENT_DATE": this.datepipe.transform(this.BankDetails.controls['Paymentdate'].value,'dd/MM/y')
+        //
+        // }
         }
 
         };
@@ -908,6 +998,23 @@ export class HdfcCarProposalComponent implements OnInit {
         }
 
     proposalFailure(error){
+
+    }
+    regdatecalculate(regno) {
+        let today = new Date();
+        let birthDate = new Date(regno);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate() - birthDate.getDate();
+        if (m > 6) {
+            this.regvalue = 'New Vehicle';
+        }
+        if (m < 6) {
+            this.regvalue = 'Rollover';
+
+        }
+        return this.regvalue;
+
 
     }
     idvinput(idv){
