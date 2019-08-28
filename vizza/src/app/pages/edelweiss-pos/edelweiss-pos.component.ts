@@ -531,9 +531,9 @@ export class EdelweissPosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-    this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    // this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    // this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     // this.geteGender();
     this.geteTitle();
@@ -577,27 +577,27 @@ export class EdelweissPosComponent implements OnInit {
     this.getesalereqProof();
     this.geteAlcoholDetails();
     this.sessionData();
-    this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
-    let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
+    this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.edeldob, 'y-MM-dd'));
+    let dob = this.datepipe.transform(this.enquiryFromDetials.edeldob, 'y-MM-dd');
     this.proposerAge = this.ageCalculate(dob);
     sessionStorage.proposerAge = this.proposerAge;
     // this.proposer.controls['age'].patchValue(this.proposerAge);
-    this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+    this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.edelgender == 'f' ? 'Female' : 'Male');
 
     // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
 
-    if (this.enquiryFromDetials.gender == 'm') {
+    if (this.enquiryFromDetials.edelgender == 'm') {
       this.proposer.controls['title'].patchValue('1');
       // if (this.enquiryFromDetials.gender == 'm') {
       //   this.proposer.controls['gender'].patchValue('Male');
       // } else {
       //   this.proposer.controls['gender'].patchValue('Female');
       // }
-    } else if (this.enquiryFromDetials.gender == 'f') {
+    } else if (this.enquiryFromDetials.edelgender == 'f') {
       this.proposer.controls['title'].patchValue('2');
 
     }
-    this.proposer.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
+    this.proposer.controls['currPincode'].patchValue(this.enquiryFromDetials.edelpincode);
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
   }
 
@@ -2071,7 +2071,7 @@ export class EdelweissPosComponent implements OnInit {
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
-      "policy_id": this.getEnquiryDetials.policy_id,
+      // "policy_id": this.getEnquiryDetials.policy_id,
       "policyNo": this.summaryData.policy_no,
       "transactionId": this.summaryData.receipt_no,
       "Prop": this.ageProposalPath.concat(  this.addressProposalPath, this.idProposalPath, this.kycProposalPath, this.documentProposalPath, this.proposalProPath,  this.salesReqProposalPath, this.incomeProofProposalPath, this.PhotographProPath),
@@ -3293,14 +3293,14 @@ export class EdelweissPosComponent implements OnInit {
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status":  this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
-      "product_id": this.lifePremiumList.product_id,
-      "term": this.lifePremiumList.termDetrails,
+      // "product_id": this.lifePremiumList.product_id,
+      // "term": this.lifePremiumList.termDetrails,
       "suminsured_amount": sessionStorage.selectedAmountTravel,
-      "policy_id": this.getEnquiryDetials.policy_id,
+      // "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
-        "policyTerm":this.enquiryFormData.lifeBenefitTerm,
-        "premiumPayingTerm":this.enquiryFormData.lifePolicy,
-        "frequency":this.enquiryFormData.lifePayment,
+        // "policyTerm":this.enquiryFormData.lifeBenefitTerm,
+        // "premiumPayingTerm":this.enquiryFormData.lifePolicy,
+        // "frequency":this.enquiryFormData.lifePayment,
         "sumAssured": sessionStorage.selectedAmountTravel,
         "planOption": this.insureArray.controls['planOption'].value,
         "riderDetails": {
@@ -3771,7 +3771,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteTitle(data).subscribe(
+    this.common.geteTitle(data).subscribe(
         (successData) => {
           this.geteTitleSuccess(successData);
         },
@@ -3798,7 +3798,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteGender(data).subscribe(
+    this.common.geteGender(data).subscribe(
         (successData) => {
           this.geteGenderSuccess(successData);
         },
@@ -3825,7 +3825,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteMaritalStatus(data).subscribe(
+    this.common.geteMaritalStatus(data).subscribe(
         (successData) => {
           this.geteMaritalStatusSuccess(successData);
         },
@@ -3851,7 +3851,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteInvesting(data).subscribe(
+    this.common.geteInvesting(data).subscribe(
         (successData) => {
           this.geteInvestingSuccess(successData);
         },
@@ -4088,7 +4088,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteAgeProof(data).subscribe(
+    this.common.geteAgeProof(data).subscribe(
         (successData) => {
           this.geteAgeProofSuccess(successData);
         },
@@ -4195,7 +4195,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteQualification(data).subscribe(
+    this.common.geteQualification(data).subscribe(
         (successData) => {
           this.geteQualificationSuccess(successData);
         },
@@ -4935,7 +4935,7 @@ export class EdelweissPosComponent implements OnInit {
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "product_id": "112",
-      "policy_id": this.getEnquiryDetials.policy_id,
+      // "policy_id": this.getEnquiryDetials.policy_id,
       "transaction_id":this.summaryData.receipt_no,
       "policy_no":this.summaryData.policy_no,
     };
@@ -5626,19 +5626,19 @@ export class EdelweissposOpt {
     let summaryData = JSON.parse(sessionStorage.summaryData);
     summaryData = summaryData;
     console.log(summaryData, '44444444')
-    let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
-    console.log(getEnquiryDetials, '11111111')
-    let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    console.log(enquiryFormData, '22222222')
-    let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-    console.log(lifePremiumList, '333333333')
+    // let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    // console.log(getEnquiryDetials, '11111111')
+    // let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    // console.log(enquiryFormData, '22222222')
+    // let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    // console.log(lifePremiumList, '333333333')
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
-      "product_id": lifePremiumList.product_id,
-      "policy_id": getEnquiryDetials.policy_id,
+      // "product_id": lifePremiumList.product_id,
+      // "policy_id": getEnquiryDetials.policy_id,
       "transaction_id": summaryData.receipt_no,
       "otp": this.otpCode
     }
