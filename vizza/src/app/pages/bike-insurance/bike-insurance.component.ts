@@ -220,6 +220,7 @@ export class BikeInsuranceComponent implements OnInit {
             dob = this.datepipe.transform(event.value, 'y-MM-dd');
 
             if (typeof event.value._i == 'string') {
+                console.log('in');
                 if (type == 'regitser') {
                     if (pattern.test(event.value._i) && event.value._i.length == 10 && this.bikeInsurance.controls['registrationDateNew'].value >= this.minDate) {
                         this.dobError = '';
@@ -228,11 +229,17 @@ export class BikeInsuranceComponent implements OnInit {
                     }
                 }
             } else if (typeof event.value._i == 'object') {
-                if (dob.length == 10) {
-                    this.dobError = '';
+                this.dobError = '';
 
+                if (type == 'regitser') {
+                    this.dobError = '';
+                    console.log('out');
+                    if (pattern.test(event.value._i) && event.value._i.length == 10 && this.bikeInsurance.controls['registrationDateNew'].value >= this.minDate) {
+                        this.dobError = '';
+                    }
                 }
             }
+            console.log(this.dobError, 'this.dobError');
         }
     }
 
