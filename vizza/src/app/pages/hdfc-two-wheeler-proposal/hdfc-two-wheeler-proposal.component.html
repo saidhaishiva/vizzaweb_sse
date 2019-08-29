@@ -85,10 +85,11 @@
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Alternate Contact"   (keyup)="alternatecontact()"  maxlength="12" formControlName="alternateContact" autocomplete="off">
-                            <mat-error>Enter Valid  Mobile Number</mat-error>
+                          <input matInput placeholder="Telephone Number"   (keyup)="alternatecontact($event.target.value)"  maxlength="17" formControlName="alternateContact" autocomplete="off">
+                            <mat-hint font-size="10px" >Telephone number should be in the format of areacode-telephone number example(044-1234567)</mat-hint>
 
                         </mat-form-field>
+                          <div class="error mt-1"  *ngIf="altererror != ''">{{altererror}}</div>
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
@@ -124,13 +125,13 @@
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Address 1" rows="2" formControlName="address4"  (keyup)="typeAddressDeatils()" autocomplete="off" maxlength="30" required>
-                                  <mat-error *ngIf="proposer.controls.address.errors?.required">Address is required</mat-error>
+                                  <mat-error *ngIf="proposer.controls.address4.errors?.required">Address is required</mat-error>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Address 2" rows="2" formControlName="address5" maxlength="30" (keyup)="typeAddressDeatils()"  autocomplete="off" required>
-                                  <mat-error *ngIf="proposer.controls.address2.errors?.required">Address2 is required</mat-error>
+                                  <mat-error *ngIf="proposer.controls.address5.errors?.required">Address2 is required</mat-error>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-12">
@@ -140,11 +141,13 @@
                               </div>
                               <div class="col-md-6">
                                 <mat-form-field class="w-100">
-                                  <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}" (keyup)="typeAddressDeatils()"  minlength="6" maxlength="6" formControlName="pincode1"  (input)="getPostalCode($event.target.value,'comm')" autocomplete="off" required>
-                                  <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                                  <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode required</mat-error>
-                                  <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                                  <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}" (keyup)="typeAddressDeatils()" (keypress)="typeAddressDeatils()"(input)="typeAddressDeatils()" minlength="6" maxlength="6" formControlName="pincode1"  (input)="getPostalCode($event.target.value,'comm')" autocomplete="off" required>
+                                  <mat-error *ngIf="proposer.controls.pincode1.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                  <mat-error *ngIf="proposer.controls.pincode1.hasError('required')">Pincode required</mat-error>
+                                  <mat-error *ngIf="proposer.controls.pincode1.hasError('pattern')">Enter Valid  Pin</mat-error>
                                 </mat-form-field>
+                                  <div class="error" *ngIf="pinerror != ''">{{pinerror}}</div>
+
                               </div>
                               <div class="col-md-6">
                                 <mat-form-field class="w-100">
@@ -184,7 +187,7 @@
                               <!--</div>-->
                               <div class="col-md-6">
                                 <mat-form-field class="w-100">
-                                  <input matInput placeholder="LandMark" formControlName="landmarkcom" (keyup)="typeAddressDeatils()" autocomplete="off" >
+                                  <input matInput placeholder="LandMark" maxlength="40" formControlName="landmarkcom" (keyup)="typeAddressDeatils()" autocomplete="off" >
                                 </mat-form-field>
                               </div>
                             </div>
@@ -262,7 +265,7 @@
                                 </div>
                               <div class="col-md-6">
                                 <mat-form-field class="w-100">
-                                  <input matInput placeholder="LandMark" formControlName="landmarkpermanent"  autocomplete="off" >
+                                  <input matInput placeholder="LandMark" maxlength="40" formControlName="landmarkpermanent"  autocomplete="off" >
                                 </mat-form-field>
                             </div>
                             </div>
@@ -523,17 +526,17 @@
                                       </div>
 
                                       <div class="col-md-3 ">
-                                          <mat-checkbox formControlName="IsLimitedtoOwnPremises"  ><strong> Is Limited   </strong></mat-checkbox>
+                                          <mat-checkbox formControlName="IsLimitedtoOwnPremises"  ><strong> Is Limited to Own Premises  </strong></mat-checkbox>
                                       </div>
                                       <div class="col-md-3 mt-1">
-                                          <mat-checkbox formControlName="OtherLoadDiscRate"  ><strong> Other LoadDisc Rate </strong></mat-checkbox>
+                                          <mat-checkbox formControlName="OtherLoadDiscRate"  ><strong> Other Load Disc Rate </strong></mat-checkbox>
                                       </div>
                                       <div class="col-md-3 mt-1">
                                           <mat-checkbox formControlName="pacover" (change)="ONcheck($event)"><strong> Personal Accident Cover </strong></mat-checkbox>
                                       </div>
                                       <div class="col-md-3">
                                           <mat-form-field class="w-100" [hidden]="addOns.controls['pacover'].value==''">
-                                              <mat-placeholder>PersonalAccident Cover Name<span class="error"  *ngIf="addOns.controls['pacover'].value ">*</span></mat-placeholder>
+                                              <mat-placeholder>Personal Accident Cover Name<span class="error"  *ngIf="addOns.controls['pacover'].value ">*</span></mat-placeholder>
                                               <input matInput  rows="2"  formControlName="pacovername"   maxlength="30"  (keypress)="nameValidate($event)" autocomplete="off">
                                               <mat-error *ngIf="addOns.controls.pacovername.errors?.required" >PA cover is Required</mat-error>
 
@@ -541,7 +544,7 @@
                                       </div>
                                       <div class="col-md-3">
                                           <mat-form-field class="w-100" [hidden]="addOns.controls['pacover'].value==''">
-                                              <mat-placeholder>PersonalAccident Sum Insure<span class="error" [hidden]="addOns.controls['pacover'].value==''" *ngIf="addOns.controls['pacover'].value ">*</span></mat-placeholder>
+                                              <mat-placeholder>Personal Accident Sum Insure<span class="error" [hidden]="addOns.controls['pacover'].value==''" *ngIf="addOns.controls['pacover'].value ">*</span></mat-placeholder>
                                               <input matInput  rows="2"  formControlName="pasuminsured"   maxlength="30"  (keypress)="numberValidate($event)" autocomplete="off">
                                               <mat-error *ngIf="addOns.controls.pasuminsured.errors?.required" >PA suminsure is Required</mat-error>
 
@@ -709,7 +712,7 @@
                                       <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.email != ''"><strong>Email Id:</strong> {{proposerFormData.email}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.mobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
-                                      <h4 class="color-blue mt-2">COMMUNICATION ADDRESS</h4>
+                                      <h4 class="color-blue mt-3">COMMUNICATION ADDRESS</h4>
                                       <li class="list-group-item mt-1"><strong>Address 1:</strong> {{proposerFormData.address4}}</li>
                                       <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.address5}}</li>
                                       <li class="list-group-item" ><strong>PIN code:</strong> {{proposerFormData.pincode1}}</li>
@@ -784,16 +787,17 @@
                                       <li class="list-group-item"><strong>Extension County  :</strong>{{previousFormData.extentioncountryvalue}}</li>
                                       <li class="list-group-item"><strong>Anti Theft Disc  :</strong>{{previousFormData.Antitheftdiscflag}}</li>
                                       <li class="list-group-item"><strong>Handicap Disc  :</strong>{{previousFormData.HandicapDiscFlag}}</li>
-                                      <li class="list-group-item"><strong>Is Effective Driving Licence  :</strong>{{previousFormData.drivinglicence=='true'?'true':'false'}}</li>
+                                      <li class="list-group-item"><strong>Is Effective Driving Licence  :</strong>{{previousFormData.drivinglicence=='true'?'Yes':'No'}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.ElecticalAccessoryIDV !=''"><strong>Electrical Accessory IDV  :</strong>{{previousFormData.ElecticalAccessoryIDV}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.NonElecticalAccessoryIDV !=''"><strong>Non Electical Accessory IDV :</strong>{{previousFormData.NonElecticalAccessoryIDV}}</li>
-                                      <li class="list-group-item"><strong>Other Load DiscRate  :</strong>{{previousFormData.OtherLoadDiscRate=='true'?'true':'false'}}</li>
-                                      <li class="list-group-item"><strong>Is Paid Driver  :</strong>{{previousFormData.IsPaidDriver=='true'?'true':'false'}}</li>
+                                      <li class="list-group-item"><strong>Other Load DiscRate  :</strong>{{previousFormData.OtherLoadDiscRate=='true'?'Yes':'No'}}</li>
+                                      <li class="list-group-item"><strong>Is Paid Driver  :</strong>{{previousFormData.IsPaidDriver=='true'?'Yes':'No'}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.policytenture !=''"><strong>policy tenure  :</strong>{{previousFormData.policytenture}}</li>
-                                      <li class="list-group-item"><strong>Pa cover  :</strong>{{previousFormData.pacover=='true'?'true':'false'}}</li>
+                                      <li class="list-group-item"><strong>Pa cover  :</strong>{{previousFormData.pacover=='true'?'Yes':'No'}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.biofuel !=''"><strong>Bio Fuel  :</strong>{{previousFormData.biofuel}}</li>
                                       <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>Bio Fuel kit Price :</strong>{{previousFormData.biofuelkit}}</li>
-                                      <li class="list-group-item"><strong>Is Limitedto OwnPremises  :</strong>{{previousFormData.IsLimitedtoOwnPremises=='true'?'true':'false'}}</li>
+                                      <li class="list-group-item"><strong>Is Limited to Own Premises  :</strong>{{previousFormData.IsLimitedtoOwnPremises=='true'?'Yes':'No'}}</li>
+                                      <li class="list-group-item"><strong>Is zerodept Cover  :</strong>{{previousFormData.zerodept=='true'?'Yes':'No'}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.pacover !=''" ><strong>Pa Cover  :</strong>{{previousFormData.pacover}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.pacovername !=''"><strong>Pa Cover Name  :</strong>{{previousFormData.pacovername}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.pasuminsured !=''"><strong>Pa Sum Insurance  :</strong>{{previousFormData.pasuminsured}}</li>

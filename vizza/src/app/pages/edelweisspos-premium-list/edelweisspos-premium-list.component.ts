@@ -33,6 +33,12 @@ export class EdelweissposPremiumListComponent implements OnInit {
   public premiumterm: any;
   public companylist: any;
   public productid: any;
+  public companylogo: any;
+  public suminsure: any;
+  public CoverageAge: any;
+  public payment_mode: any;
+  public totalpremium: any;
+  public productname: any;
 
   constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public commonService: CommonService, public config: ConfigurationService, public validation: ValidationService) {
     this.settings = this.appSettings.settings;
@@ -47,7 +53,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
     this.getsuminsuredlist();
     this.getCompanyList();
     this.policylist();
-    // this.premiumlist();
+    this.premiumlist();
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     this.getEnquiryid = JSON.parse(sessionStorage.getEnquiryDetials);
   }
@@ -102,30 +108,30 @@ export class EdelweissposPremiumListComponent implements OnInit {
     console.log(error);
   }
 
-  // premiumlist() {
-  //   const data = {
-  //     'platform': 'web',
-  //     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-  //     'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-  //     'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
-  //   };
-  //   this.commonService.premiumlist(data).subscribe(
-  //       (successData) => {
-  //         this.premiumlistSuccess(successData);
-  //
-  //       },
-  //       (error) => {
-  //         this.premiumlistFailure(error);
-  //       });
-  // }
-  //
-  // public premiumlistSuccess(successData) {
-  //   this.premiumterm = successData.ResponseObject;
-  // }
-  //
-  // public premiumlistFailure(error) {
-  //   console.log(error);
-  // }
+  premiumlist() {
+    const data = {
+      'platform': 'web',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
+    };
+    this.commonService.premiumlist(data).subscribe(
+        (successData) => {
+          this.premiumlistSuccess(successData);
+
+        },
+        (error) => {
+          this.premiumlistFailure(error);
+        });
+  }
+
+  public premiumlistSuccess(successData) {
+    this.premiumterm = successData.ResponseObject;
+  }
+
+  public premiumlistFailure(error) {
+    console.log(error);
+  }
 
   getCompanyList() {
     const data = {
@@ -181,7 +187,12 @@ export class EdelweissposPremiumListComponent implements OnInit {
     console.log(successData, 'successData');
     if (successData) {
       this.productid = successData.ResponseObject.policy_id;
-      this.companylist = successData.ResponseObject.productlist[0];
+      this.companylogo = successData.ResponseObject.productlist[0].company_logo;
+      this.suminsure =  successData.ResponseObject.productlist[0].sum_insured_amount;
+      this.CoverageAge =  successData.ResponseObject.productlist[0].CoverageAge;
+      this.payment_mode =  successData.ResponseObject.productlist[0].payment_mode;
+      this.totalpremium =  successData.ResponseObject.productlist[0].totalpremium;
+      this.productname =  successData.ResponseObject.productlist[0].product_display_name;
     }
   }
 
