@@ -860,7 +860,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
 
             console.log(g, 'jj');
-            this.pinerror='Please Fill Valid Pincode';
+            this.pinerror='';
 
             if (type == 'proposer') {
                 this.proposerPinList = successData.ResponseObject;
