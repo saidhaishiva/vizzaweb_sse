@@ -1416,7 +1416,7 @@ export class AegonTermLifeComponent implements OnInit {
       "addons_itermplus": {
         "adbrSumAssured":this.personal.controls['adbrSumAssured'].value,
         "deathBenefitSA": this.personal.controls['deathBenefitSA'].value,
-        "deathBenefitTISA": this.personal.controls['deathBenefitTISA'].value,
+        "deathBenefitTISA": this.personal.controls['deathBenefitSA'].value,
         "enchancedCISA":this.personal.controls['enchancedCISA'].value,
         "icirSumAssured": this.personal.controls['icirSumAssured'].value
       }
@@ -1963,7 +1963,7 @@ export class AegonTermLifeComponent implements OnInit {
           "addons_itermplus": {
             "adbrSumAssured":this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP'? this.personal.controls['adbrSumAssured'].value : '0',
             "deathBenefitSA": this.personal.controls['deathBenefitSA'].value,
-            "deathBenefitTISA": this.personal.controls['deathBenefitTISA'].value,
+            "deathBenefitTISA": this.personal.controls['deathBenefitSA'].value,
             "enchancedCISA":this.lifePremiumList.benefit_option == 'LHP' ? this.personal.controls['enchancedCISA'].value : '0',
             "icirSumAssured": this.lifePremiumList.benefit_option == 'LH' ? this.personal.controls['icirSumAssured'].value : '0'
           }

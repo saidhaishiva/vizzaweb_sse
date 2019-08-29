@@ -65,10 +65,10 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <mat-form-field class="w-100 text-left">
-                                            <input matInput placeholder="Vehicle No"  class="text-uppercase" formControlName="vehicalNumber" maxlength="10" minlength="9"   (keypress)="idValidate($event)" (keyup)="setSession()" [required]="typeList != 'new'">
+                                            <input matInput placeholder="Vehicle No"  class="text-uppercase" formControlName="vehicalNumber"    (keypress)="idValidate($event)" (keyup)="setSession()" (input)="vehicaleValidate()" [required]="typeList != 'new'">
                                             <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
                                             <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Enter Vaild Vehicle Number </mat-error>
-                                            <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 10 characters</mat-error>
+                                            <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>-->
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-12">
