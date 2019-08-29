@@ -189,6 +189,11 @@ export class FourWheelerHomeComponent implements OnInit {
           } else {
             this.dobError = 'Enter Valid Date';
           }
+        } else if (typeof event.value._i == 'object') {
+          if (dob.length == 10) {
+            this.dobError = '';
+
+          }
         }
       }
     }
@@ -418,50 +423,140 @@ export class FourWheelerHomeComponent implements OnInit {
   getType(event) {
     console.log(event, 'value');
     this.typeList = '';
-    if (event == 0) {
-      this.typeList = 'new';
-      this.fourWheeler.controls['registrationDateNew'].setValidators([Validators.required]);
-      this.fourWheeler.controls['registrationDate'].setValidators(null);
-      this.fourWheeler.controls['city'].setValidators([Validators.required]);
-      this.fourWheeler.controls['previousPolicyExpiry'].setValidators(null);
-      this.fourWheeler.controls['previousPolicyStart'].setValidators(null);
-      this.fourWheeler.controls['previousCompany'].setValidators(null);
-      this.fourWheeler.controls['vehicalNumber'].setValidators(null);
-      this.fourWheeler.controls['previousCompany'].patchValue('');
-      this.fourWheeler.controls['previousPolicyStart'].patchValue('');
-      this.fourWheeler.controls['previousPolicyExpiry'].patchValue('');
-      this.fourWheeler.controls['ncb'].patchValue('');
-      this.fourWheeler.controls['previousClaim'].patchValue('');
-      this.fourWheeler.controls['vehicalNumber'].patchValue('');
-      console.log(this.typeList, '0');
-    } else {
-      this.typeList = 'other';
-      console.log(this.typeList, '1');
-      this.fourWheeler.controls['registrationDate'].setValidators([Validators.required]);
-      this.fourWheeler.controls['registrationDateNew'].setValidators(null);
-      this.fourWheeler.controls['city'].setValidators(null);
-      this.fourWheeler.controls['previousPolicyExpiry'].setValidators([Validators.required]);
-      this.fourWheeler.controls['previousClaim'].setValidators([Validators.required]);
-      this.fourWheeler.controls['previousPolicyStart'].setValidators([Validators.required]);
-      this.fourWheeler.controls['vehicalNumber'].setValidators(Validators.compose([ Validators.minLength(10), Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
+    // if (event == 0) {
+    //   this.typeList = 'new';
+    //   this.fourWheeler.controls['registrationDateNew'].setValidators([Validators.required]);
+    //   this.fourWheeler.controls['registrationDate'].setValidators(null);
+    //   this.fourWheeler.controls['city'].setValidators([Validators.required]);
+    //   this.fourWheeler.controls['previousPolicyExpiry'].setValidators(null);
+    //   this.fourWheeler.controls['previousPolicyStart'].setValidators(null);
+    //   this.fourWheeler.controls['previousCompany'].setValidators(null);
+    //   this.fourWheeler.controls['vehicalNumber'].setValidators(null);
+    //   this.fourWheeler.controls['previousCompany'].patchValue('');
+    //   this.fourWheeler.controls['previousPolicyStart'].patchValue('');
+    //   this.fourWheeler.controls['previousPolicyExpiry'].patchValue('');
+    //   this.fourWheeler.controls['ncb'].patchValue('');
+    //   this.fourWheeler.controls['previousClaim'].patchValue('');
+    //   this.fourWheeler.controls['vehicalNumber'].patchValue('');
+    //   console.log(this.typeList, '0');
+    // } else {
+    //   this.typeList = 'other';
+    //   console.log(this.typeList, '1');
+    //   this.fourWheeler.controls['registrationDate'].setValidators([Validators.required]);
+    //   this.fourWheeler.controls['registrationDateNew'].setValidators(null);
+    //   this.fourWheeler.controls['city'].setValidators(null);
+    //   this.fourWheeler.controls['previousPolicyExpiry'].setValidators([Validators.required]);
+    //   this.fourWheeler.controls['previousClaim'].setValidators([Validators.required]);
+    //   this.fourWheeler.controls['previousPolicyStart'].setValidators([Validators.required]);
+    //   this.fourWheeler.controls['vehicalNumber'].setValidators(Validators.compose([ Validators.minLength(10), Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
+    //
+    //   this.fourWheeler.controls['previousCompany'].setValidators([Validators.required]);
+    //   // this.fourWheeler.controls['registrationDate'].patchValue('');
+    //   this.fourWheeler.controls['city'].patchValue('');
+    // }
+    // this.fourWheeler.controls['registrationDate'].updateValueAndValidity();
+    // this.fourWheeler.controls['registrationDateNew'].updateValueAndValidity();
+    // this.fourWheeler.controls['city'].updateValueAndValidity();
+    // this.fourWheeler.controls['ncb'].updateValueAndValidity();
+    // this.fourWheeler.controls['previousClaim'].updateValueAndValidity();
+    // this.fourWheeler.controls['previousPolicyExpiry'].updateValueAndValidity();
+    // this.fourWheeler.controls['previousPolicyStart'].updateValueAndValidity();
+    // this.fourWheeler.controls['previousCompany'].updateValueAndValidity();
+    // this.fourWheeler.controls['vehicalNumber'].updateValueAndValidity();
 
-      this.fourWheeler.controls['previousCompany'].setValidators([Validators.required]);
-      // this.fourWheeler.controls['registrationDate'].patchValue('');
-      this.fourWheeler.controls['city'].patchValue('');
-    }
-    this.fourWheeler.controls['registrationDate'].updateValueAndValidity();
+
+  if (event == 0) {
+  this.typeList = 'new';
+  console.log(this.typeList,'0');
+  this.fourWheeler.controls['registrationDateNew'].setValidators([Validators.required]);
+
+
+  this.fourWheeler.controls['city'].setValidators([Validators.required]);
+
+  this.fourWheeler.controls['registrationDate'].setValidators(null);
+  this.fourWheeler.controls['registrationDate'].patchValue('');
+
+  this.fourWheeler.controls['previousPolicyExpiry'].setValidators(null);
+  this.fourWheeler.controls['previousPolicyExpiry'].patchValue('');
+
+  this.fourWheeler.controls['previousPolicyStart'].setValidators(null);
+  this.fourWheeler.controls['previousPolicyStart'].patchValue('');
+
+  this.fourWheeler.controls['previousCompany'].setValidators(null);
+  this.fourWheeler.controls['previousCompany'].patchValue('');
+
+  this.fourWheeler.controls['vehicalNumber'].setValidators(null);
+  this.fourWheeler.controls['vehicalNumber'].patchValue('');
+
+  this.fourWheeler.controls['previousCompany'].setValidators(null);
+  this.fourWheeler.controls['previousCompany'].patchValue('');
+
+  this.fourWheeler.controls['vehicalNumber'].setValidators(null);
+  this.fourWheeler.controls['vehicalNumber'].patchValue('');
+
+
+  this.fourWheeler.controls['previousClaim'].setValidators(null);
+  this.fourWheeler.controls['previousClaim'].patchValue('');
+
+
+  this.fourWheeler.controls['registrationDateNew'].updateValueAndValidity();
+  this.fourWheeler.controls['city'].updateValueAndValidity();
+  this.fourWheeler.controls['registrationDate'].updateValueAndValidity();
+  this.fourWheeler.controls['previousPolicyExpiry'].updateValueAndValidity();
+  this.fourWheeler.controls['previousPolicyStart'].updateValueAndValidity();
+  this.fourWheeler.controls['previousCompany'].updateValueAndValidity();
+  this.fourWheeler.controls['vehicalNumber'].updateValueAndValidity();
+  this.fourWheeler.controls['previousCompany'].updateValueAndValidity();
+  this.fourWheeler.controls['vehicalNumber'].updateValueAndValidity();
+  this.fourWheeler.controls['previousClaim'].updateValueAndValidity();
+
+
+
+} else if(event == 1) {
+    this.typeList = 'other';
+    console.log(this.typeList, '1');
+    this.fourWheeler.controls['registrationDate'].setValidators([Validators.required]);
+
+    this.fourWheeler.controls['city'].setValidators(null);
+    this.fourWheeler.controls['city'].patchValue('');
+
+
+    this.fourWheeler.controls['registrationDateNew'].setValidators(null);
+    this.fourWheeler.controls['registrationDateNew'].patchValue('');
+
+    this.fourWheeler.controls['previousPolicyExpiry'].setValidators([Validators.required]);
+
+    this.fourWheeler.controls['previousPolicyStart'].setValidators([Validators.required]);
+
+    this.fourWheeler.controls['vehicalNumber'].setValidators(Validators.compose([Validators.minLength(9), Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
+
+    this.fourWheeler.controls['previousCompany'].setValidators([Validators.required]);
+
+    this.fourWheeler.controls['previousClaim'].setValidators([Validators.required]);
+
     this.fourWheeler.controls['registrationDateNew'].updateValueAndValidity();
     this.fourWheeler.controls['city'].updateValueAndValidity();
-    this.fourWheeler.controls['ncb'].updateValueAndValidity();
-    this.fourWheeler.controls['previousClaim'].updateValueAndValidity();
+    this.fourWheeler.controls['registrationDate'].updateValueAndValidity();
     this.fourWheeler.controls['previousPolicyExpiry'].updateValueAndValidity();
     this.fourWheeler.controls['previousPolicyStart'].updateValueAndValidity();
     this.fourWheeler.controls['previousCompany'].updateValueAndValidity();
-    this.fourWheeler.controls['vehicalNumber'].updateValueAndValidity();
-
+    this.fourWheeler.controls['previousClaim'].updateValueAndValidity();
   }
+}
+  vehicaleValidate(){
+    console.log(this.fourWheeler.controls['vehicalNumber'].value.length, 'this.fourWheeler.controls[\'vehicalNumber\'].value.length');
+    if(this.fourWheeler.controls['vehicalNumber'].value.length == 9){
+      console.log('in');
+      this.fourWheeler.controls['vehicalNumber'].setValidators(Validators.compose([Validators.pattern('[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{5}')]));
+      this.fourWheeler.controls['vehicalNumber'].updateValueAndValidity();
 
+    } else if(this.fourWheeler.controls['vehicalNumber'].value.length == 10) {
+      console.log('out');
+      this.fourWheeler.controls['vehicalNumber'].setValidators(Validators.compose([Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
+      this.fourWheeler.controls['vehicalNumber'].updateValueAndValidity();
 
+    }
+  }
   CarInsurer() {
     const dialogRef = this.dialog.open(CarInsurer, {
       width: '1200px',

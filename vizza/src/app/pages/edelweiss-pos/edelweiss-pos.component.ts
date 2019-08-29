@@ -532,7 +532,7 @@ export class EdelweissPosComponent implements OnInit {
 
   ngOnInit() {
     // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    // this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     // this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     // this.geteGender();
@@ -1323,7 +1323,6 @@ export class EdelweissPosComponent implements OnInit {
         if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined ) {
           stepper.next();
           this.sameAsInsure();
-
         }
         else {
           this.toastr.error('Spouse Age should be 18 or above');
@@ -3790,24 +3789,6 @@ export class EdelweissPosComponent implements OnInit {
   public geteTitleFailure(error) {
   }
 
-  geteGender() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-
-    }
-    this.common.geteGender(data).subscribe(
-        (successData) => {
-          this.geteGenderSuccess(successData);
-        },
-        (error) => {
-          this.geteGenderFailure(error);
-        }
-    );
-  }
-
   public geteGenderSuccess(successData) {
     if (successData.IsSuccess) {
       this.egender = successData.ResponseObject;
@@ -3823,8 +3804,7 @@ export class EdelweissPosComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-
-    }
+    };
     this.common.geteMaritalStatus(data).subscribe(
         (successData) => {
           this.geteMaritalStatusSuccess(successData);
@@ -3849,8 +3829,7 @@ export class EdelweissPosComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-
-    }
+    };
     this.common.geteInvesting(data).subscribe(
         (successData) => {
           this.geteInvestingSuccess(successData);
@@ -3874,7 +3853,7 @@ export class EdelweissPosComponent implements OnInit {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    }
+    };
     this.termService.bdutyListEdelweiss(data).subscribe(
         (successData) => {
           this.setRelationshipSuccess(successData);
@@ -3901,7 +3880,7 @@ export class EdelweissPosComponent implements OnInit {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    }
+    };
     this.termService.alcoholDetailsEdelweiss(data).subscribe(
         (successData) => {
           this.setAlcoholDetailsSuccess(successData);
@@ -3927,7 +3906,7 @@ export class EdelweissPosComponent implements OnInit {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    }
+    };
     this.termService.tobaccoDetailEdelweiss(data).subscribe(
         (successData) => {
           this.setTobaccoDetailSuccess(successData);
@@ -3955,7 +3934,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.termService.getePremiumTerm(data).subscribe(
         (successData) => {
           this.getePremiumTermSuccess(successData);
@@ -3981,7 +3960,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.termService.getePolicyTerm(data).subscribe(
         (successData) => {
           this.getePolicyTermSuccess(successData);
@@ -4007,7 +3986,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.termService.getPremiumList(data).subscribe(
         (successData) => {
           this.getPremiumSuccess(successData);
@@ -4033,7 +4012,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.termService.geteFrequency(data).subscribe(
         (successData) => {
           this.geteFrequencySuccess(successData);
@@ -4060,7 +4039,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.termService.geteStaff(data).subscribe(
         (successData) => {
           this.geteStaffSuccess(successData);
@@ -4087,7 +4066,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.common.geteAgeProof(data).subscribe(
         (successData) => {
           this.geteAgeProofSuccess(successData);
@@ -4114,7 +4093,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.termService.geteIdProof(data).subscribe(
         (successData) => {
           this.geteIdProofSuccess(successData);
@@ -4168,7 +4147,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.termService.geteAddressProof(data).subscribe(
         (successData) => {
           this.geteAddressProofSuccess(successData);
@@ -4194,7 +4173,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.common.geteQualification(data).subscribe(
         (successData) => {
           this.geteQualificationSuccess(successData);
@@ -4220,7 +4199,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.termService.getepolicyStatus(data).subscribe(
         (successData) => {
           this.getepolicyStatusSuccess(successData);
@@ -4246,7 +4225,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
+    };
     this.termService.geteacceptanceTerm(data).subscribe(
         (successData) => {
           this.geteacceptanceTermSuccess(successData);
@@ -4272,8 +4251,8 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
-    this.termService.geteState(data).subscribe(
+    };
+    this.common.geteState(data).subscribe(
         (successData) => {
           this.geteStateSuccess(successData);
         },
@@ -4298,8 +4277,8 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
-    this.termService.geteemploymentType(data).subscribe(
+    };
+    this.common.geteemploymentType(data).subscribe(
         (successData) => {
           this.geteemploymentTypeSuccess(successData);
         },
@@ -4324,8 +4303,8 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    }
-    this.termService.geteDuty(data).subscribe(
+    };
+    this.common.geteDuty(data).subscribe(
         (successData) => {
           this.geteDutySuccess(successData);
         },
