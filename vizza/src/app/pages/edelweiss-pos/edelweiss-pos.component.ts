@@ -532,7 +532,7 @@ export class EdelweissPosComponent implements OnInit {
 
   ngOnInit() {
     // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    // this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     // this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     // this.geteGender();
@@ -1323,7 +1323,6 @@ export class EdelweissPosComponent implements OnInit {
         if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined ) {
           stepper.next();
           this.sameAsInsure();
-
         }
         else {
           this.toastr.error('Spouse Age should be 18 or above');
@@ -3788,23 +3787,6 @@ export class EdelweissPosComponent implements OnInit {
   }
 
   public geteTitleFailure(error) {
-  }
-
-  geteGender() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-    };
-    this.common.geteGender(data).subscribe(
-        (successData) => {
-          this.geteGenderSuccess(successData);
-        },
-        (error) => {
-          this.geteGenderFailure(error);
-        }
-    );
   }
 
   public geteGenderSuccess(successData) {

@@ -39,6 +39,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
   public payment_mode: any;
   public totalpremium: any;
   public productname: any;
+  public productvalue: any;
 
   constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public commonService: CommonService, public config: ConfigurationService, public validation: ValidationService) {
     this.settings = this.appSettings.settings;
@@ -188,11 +189,13 @@ export class EdelweissposPremiumListComponent implements OnInit {
     if (successData) {
       this.productid = successData.ResponseObject.policy_id;
       this.companylogo = successData.ResponseObject.productlist[0].company_logo;
-      this.suminsure =  successData.ResponseObject.productlist[0].sum_insured_amount;
-      this.CoverageAge =  successData.ResponseObject.productlist[0].CoverageAge;
-      this.payment_mode =  successData.ResponseObject.productlist[0].payment_mode;
-      this.totalpremium =  successData.ResponseObject.productlist[0].totalpremium;
-      this.productname =  successData.ResponseObject.productlist[0].product_display_name;
+      this.suminsure = successData.ResponseObject.productlist[0].sum_insured_amount;
+      this.CoverageAge = successData.ResponseObject.productlist[0].CoverageAge;
+      this.payment_mode = successData.ResponseObject.productlist[0].payment_mode;
+      this.totalpremium = successData.ResponseObject.productlist[0].totalpremium;
+      this.productname = successData.ResponseObject.productlist[0].product_display_name;
+      this.productvalue = successData.ResponseObject.productlist[0];
+      sessionStorage.lifePremiumList = JSON.stringify(this.productvalue);
     }
   }
 
@@ -214,6 +217,9 @@ export class EdelweissposPremiumListComponent implements OnInit {
   }
 
   buyProduct(value) {
-    this.router.navigate(['/edelweiss-pos']);
+    console.log(value, 'vlitss');
+    if (this.productvalue.company_id == 14) {
+      this.router.navigate(['/edelweiss-pos']);
+    }
   }
 }
