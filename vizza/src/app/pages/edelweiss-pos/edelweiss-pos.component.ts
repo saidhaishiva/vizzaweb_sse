@@ -13,6 +13,7 @@ import {TermLifeCommonService} from '../../shared/services/term-life-common.serv
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -184,7 +185,7 @@ export class EdelweissPosComponent implements OnInit {
   public otpGenList: any;
   public enquiryFromDetials:any;
 
-  constructor( public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+  constructor( public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
     this.requestedUrl = '';
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -275,8 +276,8 @@ export class EdelweissPosComponent implements OnInit {
       isSmokerSpouse: 'No',
       isStaffSpouse: 'No',
       employeeCodeSpouse: '',
-      relationSpouseProposer: '',
-      relationSpouseProposerName: '',
+      relationSpouseProposer: '3',
+      relationSpouseProposerName: 'Spouse',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -336,8 +337,8 @@ export class EdelweissPosComponent implements OnInit {
       isSmokerSpouse: 'No',
       isStaffSpouse: 'No',
       employeeCodeSpouse: '',
-      relationSpouseInsurer: '',
-      relationSpouseInsurerName: '',
+      relationSpouseInsurer: '3',
+      relationSpouseInsurerName: 'Spouse',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -527,13 +528,16 @@ export class EdelweissPosComponent implements OnInit {
       proposalPA: '',
       salereqPA: '',
       kycPA: '',
+
+
     });
+
   }
 
   ngOnInit() {
-    // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-    // this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     // this.geteGender();
     this.geteTitle();
@@ -577,28 +581,29 @@ export class EdelweissPosComponent implements OnInit {
     this.getesalereqProof();
     this.geteAlcoholDetails();
     this.sessionData();
-    this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.edeldob, 'y-MM-dd'));
-    let dob = this.datepipe.transform(this.enquiryFromDetials.edeldob, 'y-MM-dd');
+    this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
     this.proposerAge = this.ageCalculate(dob);
     sessionStorage.proposerAge = this.proposerAge;
     // this.proposer.controls['age'].patchValue(this.proposerAge);
-    this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.edelgender == 'f' ? 'Female' : 'Male');
+    this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
 
     // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
 
-    if (this.enquiryFromDetials.edelgender == 'm') {
+    if (this.enquiryFromDetials.gender == 'm') {
       this.proposer.controls['title'].patchValue('1');
       // if (this.enquiryFromDetials.gender == 'm') {
       //   this.proposer.controls['gender'].patchValue('Male');
       // } else {
       //   this.proposer.controls['gender'].patchValue('Female');
       // }
-    } else if (this.enquiryFromDetials.edelgender == 'f') {
+    } else if (this.enquiryFromDetials.gender == 'f') {
       this.proposer.controls['title'].patchValue('2');
 
     }
-    this.proposer.controls['currPincode'].patchValue(this.enquiryFromDetials.edelpincode);
+    this.proposer.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
+
   }
 
   initItemRows() {
@@ -1323,6 +1328,7 @@ export class EdelweissPosComponent implements OnInit {
         if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined ) {
           stepper.next();
           this.sameAsInsure();
+
         }
         else {
           this.toastr.error('Spouse Age should be 18 or above');
@@ -1333,6 +1339,8 @@ export class EdelweissPosComponent implements OnInit {
 
       }
 
+    } else {
+      this.toastr.error('please enter all the Mandatory field ');
     }
   }
   // Insure Details
@@ -1356,6 +1364,8 @@ export class EdelweissPosComponent implements OnInit {
         this.toastr.error('Insurer Age should be 18 or above');
 
       }
+    } else {
+      this.toastr.error('please enter all the Mandatory field');
     }
 
   }
@@ -2070,7 +2080,7 @@ export class EdelweissPosComponent implements OnInit {
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
-      // "policy_id": this.getEnquiryDetials.policy_id,
+      "policy_id": this.getEnquiryDetials.policy_id,
       "policyNo": this.summaryData.policy_no,
       "transactionId": this.summaryData.receipt_no,
       "Prop": this.ageProposalPath.concat(  this.addressProposalPath, this.idProposalPath, this.kycProposalPath, this.documentProposalPath, this.proposalProPath,  this.salesReqProposalPath, this.incomeProofProposalPath, this.PhotographProPath),
@@ -2269,7 +2279,7 @@ export class EdelweissPosComponent implements OnInit {
       this.proposer.controls['smobileNo'].patchValue('');
       this.proposer.controls['isSmokerSpouse'].patchValue('No');
       this.proposer.controls['isStaffSpouse'].patchValue('No');
-      this.proposer.controls['relationSpouseProposer'].patchValue('');
+      this.proposer.controls['relationSpouseProposer'].patchValue('3');
 
       this.proposer.controls['stitle'].setValidators(null);
       this.proposer.controls['sfirstName'].setValidators(null);
@@ -2309,7 +2319,7 @@ export class EdelweissPosComponent implements OnInit {
       this.insureArray.controls['smobileNo'].patchValue(this.insureArray.controls['smobileNo'].value);
       this.insureArray.controls['isSmokerSpouse'].patchValue(this.insureArray.controls['isSmokerSpouse'].value);
       this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
-      this.insureArray.controls['relationSpouseProposer'].patchValue(this.insureArray.controls['relationSpouseProposer'].value);
+      this.insureArray.controls['relationSpouseInsurer'].patchValue(this.insureArray.controls['relationSpouseInsurer'].value);
 
       this.insureArray.controls['stitle'].setValidators([Validators.required]);
       this.insureArray.controls['sfirstName'].setValidators([Validators.required]);
@@ -2320,7 +2330,7 @@ export class EdelweissPosComponent implements OnInit {
       this.insureArray.controls['smobileNo'].setValidators([Validators.required]);
       this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
       this.insureArray.controls['isStaffSpouse'].setValidators([Validators.required]);
-      this.insureArray.controls['relationSpouseProposer'].setValidators([Validators.required]);
+      this.insureArray.controls['relationSpouseInsurer'].setValidators([Validators.required]);
     } else {
       this.insureArray.controls['stitle'].patchValue('');
       this.insureArray.controls['sfirstName'].patchValue('');
@@ -2331,7 +2341,7 @@ export class EdelweissPosComponent implements OnInit {
       this.insureArray.controls['smobileNo'].patchValue('');
       this.insureArray.controls['isSmokerSpouse'].patchValue('No');
       this.insureArray.controls['isStaffSpouse'].patchValue('No');
-      this.insureArray.controls['relationSpouseProposer'].patchValue('');
+      this.insureArray.controls['relationSpouseInsurer'].patchValue('3');
 
       this.insureArray.controls['stitle'].setValidators(null);
       this.insureArray.controls['sfirstName'].setValidators(null);
@@ -2342,7 +2352,7 @@ export class EdelweissPosComponent implements OnInit {
       this.insureArray.controls['smobileNo'].setValidators(null);
       this.insureArray.controls['isSmokerSpouse'].setValidators(null);
       this.insureArray.controls['isStaffSpouse'].setValidators(null);
-      this.insureArray.controls['relationSpouseProposer'].setValidators(null);
+      this.insureArray.controls['relationSpouseInsurer'].setValidators(null);
 
     }
     this.insureArray.controls['employeeCode'].updateValueAndValidity();
@@ -2355,7 +2365,7 @@ export class EdelweissPosComponent implements OnInit {
     this.insureArray.controls['smobileNo'].updateValueAndValidity();
     this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
     this.insureArray.controls['isStaffSpouse'].updateValueAndValidity();
-    this.insureArray.controls['relationSpouseProposer'].updateValueAndValidity();
+    this.insureArray.controls['relationSpouseInsurer'].updateValueAndValidity();
 
   }
 
@@ -3292,14 +3302,15 @@ export class EdelweissPosComponent implements OnInit {
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status":  this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
-      // "product_id": this.lifePremiumList.product_id,
-      // "term": this.lifePremiumList.termDetrails,
+      "product_id": this.lifePremiumList.product_id,
+      "sub_product_id": this.lifePremiumList.sub_product_id,
+      "term": this.lifePremiumList.termDetrails,
       "suminsured_amount": sessionStorage.selectedAmountTravel,
-      // "policy_id": this.getEnquiryDetials.policy_id,
+      "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
-        // "policyTerm":this.enquiryFormData.lifeBenefitTerm,
-        // "premiumPayingTerm":this.enquiryFormData.lifePolicy,
-        // "frequency":this.enquiryFormData.lifePayment,
+        "policyTerm":this.lifePremiumList.termDetrails,
+        "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
+        "frequency":this.enquiryFormData.lifePayment,
         "sumAssured": sessionStorage.selectedAmountTravel,
         "planOption": this.insureArray.controls['planOption'].value,
         "riderDetails": {
@@ -3710,6 +3721,9 @@ export class EdelweissPosComponent implements OnInit {
     }
 
     console.log(data, ' fileeee');
+    console.log(this.enquiryFormData.lifeBenefitTerm,'this.enquiryFormData.lifeBenefitTerm')
+    console.log(this.enquiryFormData.lifePolicy,'this.enquiryFormData.lifePolicy')
+    console.log(this.medicalDetail.controls['adventurousActivities'].value,'medicalDetailadventurousActivities')
     this.settings.loadingSpinner = true;
     this.termService.edelweissProposalCreation(data).subscribe(
         (successData) => {
@@ -3770,7 +3784,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.common.geteTitle(data).subscribe(
+    this.termService.geteTitle(data).subscribe(
         (successData) => {
           this.geteTitleSuccess(successData);
         },
@@ -3789,6 +3803,24 @@ export class EdelweissPosComponent implements OnInit {
   public geteTitleFailure(error) {
   }
 
+  geteGender() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.geteGender(data).subscribe(
+        (successData) => {
+          this.geteGenderSuccess(successData);
+        },
+        (error) => {
+          this.geteGenderFailure(error);
+        }
+    );
+  }
+
   public geteGenderSuccess(successData) {
     if (successData.IsSuccess) {
       this.egender = successData.ResponseObject;
@@ -3804,8 +3836,9 @@ export class EdelweissPosComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-    };
-    this.common.geteMaritalStatus(data).subscribe(
+
+    }
+    this.termService.geteMaritalStatus(data).subscribe(
         (successData) => {
           this.geteMaritalStatusSuccess(successData);
         },
@@ -3829,8 +3862,9 @@ export class EdelweissPosComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-    };
-    this.common.geteInvesting(data).subscribe(
+
+    }
+    this.termService.geteInvesting(data).subscribe(
         (successData) => {
           this.geteInvestingSuccess(successData);
         },
@@ -3853,7 +3887,7 @@ export class EdelweissPosComponent implements OnInit {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    };
+    }
     this.termService.bdutyListEdelweiss(data).subscribe(
         (successData) => {
           this.setRelationshipSuccess(successData);
@@ -3880,7 +3914,7 @@ export class EdelweissPosComponent implements OnInit {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    };
+    }
     this.termService.alcoholDetailsEdelweiss(data).subscribe(
         (successData) => {
           this.setAlcoholDetailsSuccess(successData);
@@ -3906,7 +3940,7 @@ export class EdelweissPosComponent implements OnInit {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    };
+    }
     this.termService.tobaccoDetailEdelweiss(data).subscribe(
         (successData) => {
           this.setTobaccoDetailSuccess(successData);
@@ -3934,7 +3968,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
+    }
     this.termService.getePremiumTerm(data).subscribe(
         (successData) => {
           this.getePremiumTermSuccess(successData);
@@ -3960,7 +3994,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
+    }
     this.termService.getePolicyTerm(data).subscribe(
         (successData) => {
           this.getePolicyTermSuccess(successData);
@@ -3986,7 +4020,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
+    }
     this.termService.getPremiumList(data).subscribe(
         (successData) => {
           this.getPremiumSuccess(successData);
@@ -4012,7 +4046,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
+    }
     this.termService.geteFrequency(data).subscribe(
         (successData) => {
           this.geteFrequencySuccess(successData);
@@ -4039,7 +4073,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
+    }
     this.termService.geteStaff(data).subscribe(
         (successData) => {
           this.geteStaffSuccess(successData);
@@ -4066,8 +4100,8 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
-    this.common.geteAgeProof(data).subscribe(
+    }
+    this.termService.geteAgeProof(data).subscribe(
         (successData) => {
           this.geteAgeProofSuccess(successData);
         },
@@ -4093,7 +4127,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
+    }
     this.termService.geteIdProof(data).subscribe(
         (successData) => {
           this.geteIdProofSuccess(successData);
@@ -4147,7 +4181,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
+    }
     this.termService.geteAddressProof(data).subscribe(
         (successData) => {
           this.geteAddressProofSuccess(successData);
@@ -4173,8 +4207,8 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
-    this.common.geteQualification(data).subscribe(
+    }
+    this.termService.geteQualification(data).subscribe(
         (successData) => {
           this.geteQualificationSuccess(successData);
         },
@@ -4199,7 +4233,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
+    }
     this.termService.getepolicyStatus(data).subscribe(
         (successData) => {
           this.getepolicyStatusSuccess(successData);
@@ -4225,7 +4259,7 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
+    }
     this.termService.geteacceptanceTerm(data).subscribe(
         (successData) => {
           this.geteacceptanceTermSuccess(successData);
@@ -4251,8 +4285,8 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
-    this.common.geteState(data).subscribe(
+    }
+    this.termService.geteState(data).subscribe(
         (successData) => {
           this.geteStateSuccess(successData);
         },
@@ -4277,8 +4311,8 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
-    this.common.geteemploymentType(data).subscribe(
+    }
+    this.termService.geteemploymentType(data).subscribe(
         (successData) => {
           this.geteemploymentTypeSuccess(successData);
         },
@@ -4303,8 +4337,8 @@ export class EdelweissPosComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
-    };
-    this.common.geteDuty(data).subscribe(
+    }
+    this.termService.geteDuty(data).subscribe(
         (successData) => {
           this.geteDutySuccess(successData);
         },
@@ -4914,7 +4948,7 @@ export class EdelweissPosComponent implements OnInit {
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "product_id": "112",
-      // "policy_id": this.getEnquiryDetials.policy_id,
+      "policy_id": this.getEnquiryDetials.policy_id,
       "transaction_id":this.summaryData.receipt_no,
       "policy_no":this.summaryData.policy_no,
     };
@@ -5562,36 +5596,34 @@ export class EdelweissPosComponent implements OnInit {
 @Component({
   selector: ' edelweissposopt ',
   template: `
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center w-100">
-          <mat-form-field class="w-50">
-            <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
-          </mat-form-field>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                    <mat-form-field class="w-50">
+                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)"  autocomplete="off" >
+                    </mat-form-field>
+                </div>
+                <!--<div class="col-md-12">-->
+                    <!--<div class="proposal-buttom mb-3 text-center w-100">-->
+                        <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
         </div>
-        <!--<div class="col-md-12">-->
-        <!--<div class="proposal-buttom mb-3 text-center w-100">-->
-        <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
-        <!--</div>-->
-        <!--</div>-->
-      </div>
-    </div>
-    <div mat-dialog-actions style="justify-content: center">
-      <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>
-      <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
-    </div>
-  `
+        <div mat-dialog-actions style="justify-content: center">
+          <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>
+          <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
+        </div>
+    `
 })
 export class EdelweissposOpt {
   otpCode: any;
-
   constructor(
       public dialogRef: MatDialogRef<EdelweissposOpt>,
       @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
     this.otpCode = '';
 
   }
-
   // // Number validation
   // numberValidate(event: any) {
   //   this.validation.numberValidate(event);
@@ -5604,22 +5636,22 @@ export class EdelweissposOpt {
   otpEdVal() {
     let summaryData = JSON.parse(sessionStorage.summaryData);
     summaryData = summaryData;
-    console.log(summaryData, '44444444')
-    // let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
-    // console.log(getEnquiryDetials, '11111111')
-    // let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    // console.log(enquiryFormData, '22222222')
-    // let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-    // console.log(lifePremiumList, '333333333')
+    console.log(summaryData,'44444444')
+    let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    console.log(getEnquiryDetials,'11111111')
+    let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    console.log(enquiryFormData,'22222222')
+    let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    console.log(lifePremiumList,'333333333')
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
-      // "product_id": lifePremiumList.product_id,
-      // "policy_id": getEnquiryDetials.policy_id,
+      "product_id": lifePremiumList.product_id,
+      "policy_id": getEnquiryDetials.policy_id,
       "transaction_id": summaryData.receipt_no,
-      "otp": this.otpCode
+      "otp":this.otpCode
     }
     console.log(data, '999999999');
     this.termService.edelweissOtp(data).subscribe(
