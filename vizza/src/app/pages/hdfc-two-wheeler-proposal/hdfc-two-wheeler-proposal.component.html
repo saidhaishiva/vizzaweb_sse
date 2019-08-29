@@ -85,7 +85,7 @@
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Telephone Number"   (keyup)="alternatecontact($event.target.value)"  maxlength="17" formControlName="alternateContact" autocomplete="off">
+                          <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)"  maxlength="17" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
                             <mat-hint font-size="10px" >Telephone number should be in the format of areacode-telephone number example(044-1234567)</mat-hint>
 
                         </mat-form-field>
@@ -225,6 +225,8 @@
                                   <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode required</mat-error>
                                   <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                 </mat-form-field>
+                                  <div class="error" *ngIf="pinerrorpermanent != ''">{{pinerrorpermanent}}</div>
+
                               </div>
                               <div class="col-md-6">
                                 <mat-form-field class="w-100">
@@ -323,7 +325,7 @@
                       </div>
                       <div class="col-md-3" *ngIf="regvalue !='New Vehicle'" >
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Registration No" formControlName="regno" (keypress)="numberValidate($event)" readonly required>
+                          <input matInput placeholder="Registration No" formControlName="regno" (keypress)="numberValidate($event)" readonly [required]="regvalue !='New Vehicle'">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -785,8 +787,8 @@
                               <div class="p-3 mt-2">
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Extension County  :</strong>{{previousFormData.extentioncountryvalue}}</li>
-                                      <li class="list-group-item"><strong>Anti Theft Disc  :</strong>{{previousFormData.Antitheftdiscflag}}</li>
-                                      <li class="list-group-item"><strong>Handicap Disc  :</strong>{{previousFormData.HandicapDiscFlag}}</li>
+                                      <li class="list-group-item"><strong>Anti Theft Disc  :</strong>{{previousFormData.Antitheftdiscflag=='true'?'Yes':'No'}}</li>
+                                      <li class="list-group-item"><strong>Handicap Disc  :</strong>{{previousFormData.HandicapDiscFlag=='true'?'Yes':'No'}}</li>
                                       <li class="list-group-item"><strong>Is Effective Driving Licence  :</strong>{{previousFormData.drivinglicence=='true'?'Yes':'No'}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.ElecticalAccessoryIDV !=''"><strong>Electrical Accessory IDV  :</strong>{{previousFormData.ElecticalAccessoryIDV}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.NonElecticalAccessoryIDV !=''"><strong>Non Electical Accessory IDV :</strong>{{previousFormData.NonElecticalAccessoryIDV}}</li>

@@ -92,6 +92,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public currentStep: any;
     public altererror: any;
     public pinerror: any;
+    public pinerrorpermanent: any;
 
 
     public financiercodevalue: any;
@@ -252,16 +253,16 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         let oo = stringToSplit.slice(5, 6);
         let w = '';
         let z = stringToSplit.slice(4, 6);
-        if (!isNaN(oo)) {
-            let j = stringToSplit.slice(4, 5);
-            w = stringToSplit.slice(5);
-            this.vehicledata.vehicle_no = x.concat('-', y, '-', j, '-', w);
-
-        } else {
+        // if (!isNaN(oo)) {
+        //     let j = stringToSplit.slice(4, 5);
+        //     w = stringToSplit.slice(5);
+        //     this.vehicledata.vehicle_no = x.concat('-', y, '-', j, '-', w);
+        //
+        // } else {
             w = stringToSplit.slice(6);
             this.vehicledata.vehicle_no = x.concat('-', y, '-', z, '-', w);
 
-        }
+        // }
         console.log(this.vehicledata, 'iie');
         this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
@@ -458,7 +459,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             // this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
             console.log(sessionStorage.proposerAge, 'rr');
             console.log(this.proposer.valid, 'valid');
-            if (this.proposer.valid && this.altererror=='') {
+            if (this.proposer.valid) {
                 if (sessionStorage.proposerAge >= 18) {
                     stepper.next();
                     this.topScroll();
@@ -845,7 +846,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             let distrct = new Array();
             console.log(this.cityarray, 'cityarry');
             for (i = 0; i < this.cityarray.length; i++) {
-                g.push(this.cityarray[i]['txt_pincode_locality']);
+                if(g.indexOf(g) === -1){
+                    g.push(this.cityarray[i]['txt_pincode_locality']);
+                }
                 console.log(distrct[i]);
                 if (this.cityarray[i]['txt_city_district'] != distrct[i]) {
                     distrct.push(this.cityarray[i]['txt_city_district']);
@@ -893,6 +896,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 this.proposer.controls['citycom'].patchValue('');
                 if(this.proposer.controls['issameascmmunication'].value){
                     console.log('ppp');
+                    this.pinerrorpermanent='Please Fill Valid Pincode';
                     sessionStorage.cityarray='';
                     this.cityarray = {};
                     sessionStorage.districtarray='';
@@ -916,6 +920,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     typeAddressDeatils() {
 
         if (this.proposer.controls['issameascmmunication'].value) {
+            this.pinerrorpermanent='';
             console.log('inn');
             //     this.citypermanent = JSON.parse(sessionStorage.personalCitys);
             this.proposer.controls['address'].setValue(this.proposer.controls['address4'].value);
@@ -953,20 +958,21 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             let oo = stringToSplit.slice(5, 6);
             let w = '';
             let z = stringToSplit.slice(4, 6);
-            if (!isNaN(oo)) {
-                let j = stringToSplit.slice(4, 5);
-                w = stringToSplit.slice(5);
-                let regno = x.concat('-', y, '-', j, '-', w);
-                this.vechicle.controls['regno'].patchValue(regno);
-
-
-            } else {
+            // if (!isNaN(oo)) {
+            //     let j = stringToSplit.slice(4, 5);
+            //     w = stringToSplit.slice(5);
+            //     let regno = x.concat('-', y, '-', j, '-', w);
+            //     this.vechicle.controls['regno'].patchValue(regno);
+            //
+            //
+            // } else
+            //     {
                 w = stringToSplit.slice(6);
                 let regno = x.concat('-', y, '-', z, '-', w);
                 this.vechicle.controls['regno'].patchValue(regno);
 
 
-            }
+            // }
 
             // let x = stringToSplit.slice(0, 2);
             // let y = stringToSplit.slice(2, 4);
@@ -1190,15 +1196,20 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.toastr.error('IDV Should Not Less Than 7000');
         }
     }
-    alternatecontact(value){
+    alternatecontact(value,event){
+        console.log(event);
         if(this.proposer.controls['mobile'].value==value){
            this.altererror='Enter Alternate Contact';
         }else if(this.proposer.controls['mobile'].value!=value){
             this.altererror='';
-        }if(value.search('-')==-1){
+        }if(value.search('-')==-1 && value!='' ){
             this.altererror=' "-" should be enter after the area code ';
-        }if(value.search('-')>5){
+        } else if(value.search('-')!=-1){
+            this.altererror='';
+        }if(value.search('-')>5 && value!=''){
             this.altererror=' Enter Valid Area Code ';
+        }else if(value.search('-')!>5){
+            this.altererror='';
         }
     }
     //
