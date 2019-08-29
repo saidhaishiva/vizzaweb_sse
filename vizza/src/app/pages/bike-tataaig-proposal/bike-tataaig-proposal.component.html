@@ -252,7 +252,7 @@
                         <div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
                           <mat-form-field class="w-100">
                               <mat-placeholder>Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                            <input  matInput formControlName="bankName" (keypress)="nameValidate($event);financiertype($event.target.value)"  [matAutocomplete]="auto">
+                            <input  matInput formControlName="bankName" (keypress)="nameValidate($event)" (keyup)="financiertype($event.target.value)"  [matAutocomplete]="auto">
                             <mat-autocomplete #auto="matAutocomplete">
                               <mat-option *ngFor="let bank of banklist | keys" value="{{bank.key}}">{{bank.value}}</mat-option>
                             </mat-autocomplete>

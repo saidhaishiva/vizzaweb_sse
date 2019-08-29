@@ -11,10 +11,8 @@ import { AuthService} from '../../shared/services/auth.service';
 import { DatePipe} from '@angular/common';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import { ActivatedRoute } from '@angular/router';
-import {isUpperCase} from 'tslint/lib/utils';
 
-
-export const MY_FORMATS = {
+    export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
     },
@@ -78,8 +76,9 @@ export class BikeTataaigProposalComponent implements OnInit {
     public coverlist: any;
     public agecount: any;
     public premium: any;
+    public config: any;
 
-    constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public config: ConfigurationService, public route: ActivatedRoute) {
+    constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public configr: ConfigurationService, public route: ActivatedRoute) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if (params.stepper == true || params.stepper == 'true') {
@@ -98,7 +97,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         });
         this.currentStep = stepperindex;
         this.settings = this.appSettings.settings;
-        this.webhost = this.config.getimgUrl();
+        this.webhost = this.configr.getimgUrl();
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
@@ -201,6 +200,11 @@ export class BikeTataaigProposalComponent implements OnInit {
         // if (this.enquiryFormData.business_type != '1') {
         //     this.previouspolicy.controls['preflag'].patchValue('Y');
         // }
+        this.config = {
+            displayKey: "bankName", //if objects array passed which key to be displayed defaults to description
+            search: true,
+            limitTo: 5
+        };
     }
 
     nameValidate(event: any) {
@@ -461,6 +465,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             }
         }
     }
+
 
     FinanceSuccess(successData) {
         this.banklist = successData.ResponseObject;
