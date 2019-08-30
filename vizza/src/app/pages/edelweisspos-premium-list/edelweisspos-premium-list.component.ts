@@ -43,6 +43,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
   public policy: any;
   public premium: any;
   public changepremium: any;
+  public sumamount: any;
 
   constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public commonService: CommonService, public config: ConfigurationService, public validation: ValidationService) {
     this.settings = this.appSettings.settings;
@@ -62,6 +63,8 @@ export class EdelweissposPremiumListComponent implements OnInit {
     this.getEnquiryid = JSON.parse(sessionStorage.getEnquiryDetials);
     this.policy =  this.enquiryFromDetials.benefit_term;
     this.premium = this.enquiryFromDetials.policy_paying_term;
+    this.sumamount = this.enquiryFromDetials.sum_assured_id;
+    console.log(this.sumamount, 'theyak');
   }
 
   getsuminsuredlist() {
@@ -221,14 +224,14 @@ export class EdelweissposPremiumListComponent implements OnInit {
     return age;
   }
 
-  changeterm(event: any,type) {
+  changeterm() {
     const data = {
       'platform': 'web',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'policy_id': this.getEnquiryid.enquiry_id,
-      'sum_assured': this.enquiryFromDetials.sum_assured_id,
+      'sum_assured': this.sumamount,
       'company_id': '14',
       'term': this.policy,
       "payment_term": this.premium,
@@ -236,7 +239,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
     };
     this.commonService.changetermlist(data).subscribe(
         (successData) => {
-          this.changepremium = successData;
+          this.totalpremium = successData.ResponseObject.totalpremium;
           console.log(this.changepremium, 'katrku');
         },
         (error) => {
