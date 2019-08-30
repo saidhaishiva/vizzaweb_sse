@@ -12,6 +12,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ClearSessionService} from '../../shared/services/clear-session.service';
+import {MetaService} from '../../shared/services/meta.service';
 
 export const MY_FORMATS = {
     parse: {
@@ -54,8 +55,11 @@ export class HomeComponent implements OnInit {
     today: any;
     maxDate: any;
     dateError: any;
+    metaHome: any;
+    metaTitle: any;
 
-    constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe ,public session: ClearSessionService, public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
+    constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe ,public session: ClearSessionService, public appSettings: AppSettings, public toastr: ToastrService,
+                public config: ConfigurationService, public common: CommonService, public dialog: MatDialog, public meta: MetaService) {
         // this.form =  this.fb.group({
         //     'insurename': ['', Validators.compose([Validators.required])],
         //     'startdate': ['', Validators.compose([Validators.required])],
@@ -150,6 +154,34 @@ export class HomeComponent implements OnInit {
 
 
         this.testimonialList();
+        this.metaList();
+    }
+
+    public metaList() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'component_name': 'Home'
+        };
+        this.meta.metaDetail(data).subscribe(
+            (successData) => {
+                this.metaDetailSuccess(successData);
+            },
+            (error) => {
+                this.metaDetailFailure(error);
+            }
+        );
+    }
+    public metaDetailSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.metaHome = successData.ResponseObject;
+        this.metaTitle = this.metaHome[0].title;
+        console.log(this.metaHome[0].title, 'titl')
+    }
+    public metaDetailFailure(error) {
+        console.log(error);
     }
 
 
