@@ -309,7 +309,7 @@ export class CommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHostPos() + 'pos/register' ;
+        const url = this.configurationService.getHostPos() + 'action/register' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
