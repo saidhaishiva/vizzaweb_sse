@@ -11,6 +11,7 @@ import {DatePipe} from '@angular/common';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Settings} from '../../app.settings.model';
+import {errorSymbol} from '@angular/compiler-cli/src/metadata/evaluator';
 
 export const MY_FORMATS = {
     parse: {
@@ -89,6 +90,14 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public financeTypeName: boolean;
     public companylogo: any;
     public currentStep: any;
+    public altererror: any;
+    public pinerror: any;
+    public pinerrorpermanent: any;
+    public response: any;
+    public personalCitys: any;
+    public residenceCitys: any;
+    public personaldistricts: any;
+    public residenceDistricts: any;
 
 
     public financiercodevalue: any;
@@ -249,16 +258,16 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         let oo = stringToSplit.slice(5, 6);
         let w = '';
         let z = stringToSplit.slice(4, 6);
-        if (!isNaN(oo)) {
-            let j = stringToSplit.slice(4, 5);
-            w = stringToSplit.slice(5);
-            this.vehicledata.vehicle_no = x.concat('-', y, '-', j, '-', w);
-
-        } else {
+        // if (!isNaN(oo)) {
+        //     let j = stringToSplit.slice(4, 5);
+        //     w = stringToSplit.slice(5);
+        //     this.vehicledata.vehicle_no = x.concat('-', y, '-', j, '-', w);
+        //
+        // } else {
             w = stringToSplit.slice(6);
             this.vehicledata.vehicle_no = x.concat('-', y, '-', z, '-', w);
 
-        }
+        // }
         console.log(this.vehicledata, 'iie');
         this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
@@ -440,31 +449,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
 
 
-    sameaspermenant(event) {
-        console.log(event);
-        if (event.checked == true) {
 
-            this.proposer.controls['address'].patchValue(this.proposer.controls['address4'].value);
-            this.proposer.controls['address2'].patchValue(this.proposer.controls['address5'].value);
-            this.proposer.controls['address3'].patchValue(this.proposer.controls['address6'].value);
-            this.proposer.controls['pincode'].patchValue(this.proposer.controls['pincode1'].value);
-            this.proposer.controls['statepermanent'].patchValue(this.proposer.controls['statecom'].value);
-            this.proposer.controls['citypermanent'].patchValue(this.proposer.controls['citycom'].value);
-            this.proposer.controls['districtpermanent'].patchValue(this.proposer.controls['districtcom'].value);
-            this.proposer.controls['landmarkpermanent'].patchValue(this.proposer.controls['landmarkcom'].value);
-        } else if (event.checked != true) {
-            this.proposer.controls['address'].patchValue('');
-            this.proposer.controls['address2'].patchValue('');
-            this.proposer.controls['address3'].patchValue('');
-            this.proposer.controls['pincode'].patchValue('');
-            this.proposer.controls['statepermanent'].patchValue('');
-            this.proposer.controls['citypermanent'].patchValue('');
-            this.proposer.controls['districtpermanent'].patchValue('');
-            this.proposer.controls['landmarkpermanent'].patchValue('');
-
-        }
-
-    }
 
     //
     //stepper
@@ -544,10 +529,17 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
 
     sessionData() {
-        if (sessionStorage.citylist != '' && sessionStorage.citylist != undefined) {
+        if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+            this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+        }if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+            this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+        }if (sessionStorage.personaldistricts != '' && sessionStorage.personaldistricts != undefined) {
+            this.personaldistricts = JSON.parse(sessionStorage.personaldistricts);
+        }if (sessionStorage.residenceDistricts != '' && sessionStorage.residenceDistricts != undefined) {
+            this.residenceDistricts = JSON.parse(sessionStorage.residenceDistricts);
+        }if (sessionStorage.citylist != '' && sessionStorage.citylist != undefined) {
             this.cityarray = JSON.parse(sessionStorage.citylist);
-        }
-        if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
+        }if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
             this.districtarray = JSON.parse(sessionStorage.districtlist);
         }
         if (sessionStorage.company != '' && sessionStorage.company != undefined) {
@@ -672,7 +664,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
         }
         else if (this.addOns.controls['NomineeName'].value == '') {
-            console.log('setvalid');
             this.addOns.controls['NomineeAge'].patchValue('');
             this.addOns.controls['NomineeAge'].setValidators(null);
             this.addOns.controls['NomineeAge'].updateValueAndValidity();
@@ -699,14 +690,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
     ONcheck(event){
         if(event.checked == true){
-            console.log(event,'e');
             this.addOns.controls['pacovername'].setValidators([Validators.required]);
             this.addOns.controls['pacovername'].updateValueAndValidity();
             this.addOns.controls['pasuminsured'].setValidators([Validators.required]);
             this.addOns.controls['pasuminsured'].updateValueAndValidity();
 
         }else if(event.checked == false){
-            console.log('pp');
             this.addOns.controls['pacovername'].patchValue('');
             this.addOns.controls['pacovername'].setValidators(null);
             this.addOns.controls['pacovername'].updateValueAndValidity();
@@ -816,7 +805,47 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             }
         }
     }
+    sameaspermenant(event) {
+        console.log(event);
+        if (event.checked == true) {
 
+            this.proposer.controls['address'].patchValue(this.proposer.controls['address4'].value);
+            this.proposer.controls['address2'].patchValue(this.proposer.controls['address5'].value);
+            this.proposer.controls['address3'].patchValue(this.proposer.controls['address6'].value);
+            this.proposer.controls['pincode'].patchValue(this.proposer.controls['pincode1'].value);
+            this.proposer.controls['statepermanent'].patchValue(this.proposer.controls['statecom'].value);
+            this.proposer.controls['citypermanent'].patchValue(this.proposer.controls['citycom'].value);
+            this.proposer.controls['districtpermanent'].patchValue(this.proposer.controls['districtcom'].value);
+            this.proposer.controls['landmarkpermanent'].patchValue(this.proposer.controls['landmarkcom'].value);
+            this.personalCitys = JSON.parse(sessionStorage.residenceCitys);
+            sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+            this.personaldistricts = JSON.parse(sessionStorage.residenceDistricts);
+            sessionStorage.personaldistricts = JSON.stringify( this.personaldistricts);
+
+
+        } else if (event.checked != true) {
+            this.proposer.controls['address'].patchValue('');
+            this.proposer.controls['address2'].patchValue('');
+            this.proposer.controls['address3'].patchValue('');
+            this.proposer.controls['pincode'].patchValue('');
+            this.proposer.controls['statepermanent'].patchValue('');
+            this.proposer.controls['citypermanent'].patchValue('');
+            this.proposer.controls['districtpermanent'].patchValue('');
+            this.proposer.controls['landmarkpermanent'].patchValue('');
+            if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+                this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+            } else {
+                this.personalCitys = {};
+            }if(sessionStorage.personaldistricts != '' && sessionStorage.personaldistricts != undefined){
+                this.personaldistricts = JSON.parse(sessionStorage.personaldistricts);
+
+            }else{
+                this.personaldistricts = {};
+            }
+
+        }
+
+    }
     getPostalCode(pin, type) {
         const data = {
             'platform': 'web',
@@ -836,20 +865,20 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     proposerpincodeListSuccess(successData, type) {
         if (successData.IsSuccess) {
-            this.cityarray = successData.ResponseObject;
+            this.response = successData.ResponseObject;
             var i;
             let g = new Array();
             let distrct = new Array();
-            console.log(this.cityarray, 'cityarry');
-            for (i = 0; i < this.cityarray.length; i++) {
-
-                g.push(this.cityarray[i]['txt_pincode_locality']);
-                console.log(distrct[i]);
-                if (this.cityarray[i]['txt_city_district'] != distrct[i]) {
-                    // distrct.push(this.cityarray[i])
-                    distrct.push(this.cityarray[i]['txt_city_district']);
+            console.log(this.response, 'cityarry');
+            for (i = 0; i < this.response.length; i++) {
+                if(g.indexOf(this.response[i]['txt_pincode_locality']) == -1){
+                        // g.push(Array.from(new Set(this.cityarray[i]['txt_pincode_locality']))) ;
+                    g.push(this.response[i]['txt_pincode_locality']);
                 }
-                // distrct.push(this.cityarray[i]['txt_city_district']);
+                console.log(distrct[i]);
+                if (distrct.indexOf(this.response[i]['txt_city_district']) == -1) {
+                    distrct.push(this.response[i]['txt_city_district']);
+                }
 
             }
             this.cityarray = g;
@@ -857,33 +886,72 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.districtarray = distrct;
             sessionStorage.districtlist = JSON.stringify(distrct);
             console.log(sessionStorage.districtlist, 'session');
+            this.pinerror='';
 
-
-            console.log(g, 'jj');
             if (type == 'proposer') {
                 this.proposerPinList = successData.ResponseObject;
                 this.proposer.controls['statepermanent'].patchValue(this.proposerPinList[0].txt_state);
                 this.proposer.controls['districtpermanent'].patchValue(this.proposerPinList[0].txt_city_district);
                 this.proposer.controls['citypermanent'].patchValue(this.proposerPinList[0].txt_pincode_locality);
-            } else if (type == 'comm') {
+                this.personalCitys = this.cityarray;
+                this.personaldistricts = this.districtarray;
+                sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+                sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
+
+            }else if (type == 'comm') {
                 this.proposerComList = successData.ResponseObject;
                 this.proposer.controls['statecom'].patchValue(this.proposerComList[0].txt_state);
                 this.proposer.controls['districtcom'].patchValue(this.proposerComList[0].txt_city_district);
                 this.proposer.controls['citycom'].patchValue(this.proposerComList[0].txt_pincode_locality);
+                this.residenceCitys = this.cityarray;
+                this.residenceDistricts = this.districtarray;
+                sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
+                sessionStorage.residenceDistricts = JSON.stringify(this.residenceDistricts);
+                if(this.proposer.controls['issameascmmunication'].value == true){
+                }
+
             }
         } else if (successData.IsSuccess != true) {
             this.toastr.error('Please Fill Valid Pincode');
+            this.pinerror='Please Fill Valid Pincode';
             if (type == 'proposer') {
-                this.proposer.controls['proposerState'].patchValue('');
-                this.proposer.controls['proposerDistrict'].patchValue('');
-                this.proposer.controls['proposerCity'].patchValue('');
-            } else if (type == 'prepolicy') {
-                this.previouspolicy.controls['preState'].patchValue('');
-                this.previouspolicy.controls['preDistrict'].patchValue('');
-                this.previouspolicy.controls['preCity'].patchValue('');
+                console.log('varchar');
+                sessionStorage.personalCitys='';
+                this.personalCitys = {};
+                sessionStorage.personaldistricts='';
+                this.personaldistricts = {};
+                this.proposer.controls['statepermanent'].patchValue('');
+                this.proposer.controls['districtpermanent'].patchValue('');
+                this.proposer.controls['citypermanent'].patchValue('');
+
+            } else if (type == 'comm') {
+                sessionStorage.residenceCitys='';
+                this.residenceCitys = {};
+                sessionStorage.residenceDistricts='';
+                this.residenceDistricts = {};
+                this.proposer.controls['statecom'].patchValue('');
+                this.proposer.controls['districtcom'].patchValue('');
+                this.proposer.controls['citycom'].patchValue('');
+                if(this.proposer.controls['issameascmmunication'].value == true){
+                    this.pinerrorpermanent='Please Fill Valid Pincode';
+                    console.log('iiiiiii');
+                    sessionStorage.cityarray='';
+                    this.cityarray = {};
+                    sessionStorage.districtarray='';
+                    this.districtarray = {};
+                    this.proposer.controls['statepermanent'].setValue('');
+                    this.proposer.controls['districtpermanent'].setValue('');
+                    this.proposer.controls['citypermanent'].setValue('');
+                }
             }
         }
     }
+    contains(v){
+        for (var i = 0; i < v.length; i++) {
+            if (this[i] === v) return true;
+        }
+        return false;
+    };
 
 
     proposerpincodeListFailure(error) {
@@ -892,7 +960,11 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     typeAddressDeatils() {
 
-        if (this.proposer.controls['issameascmmunication'].value) {
+        if (this.proposer.controls['issameascmmunication'].value==true) {
+            console.log(this.proposer.controls['issameascmmunication'].value,'wheree');
+            this.pinerrorpermanent='';
+            sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+            sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
             //     this.citypermanent = JSON.parse(sessionStorage.personalCitys);
             this.proposer.controls['address'].setValue(this.proposer.controls['address4'].value);
             this.proposer.controls['address2'].setValue(this.proposer.controls['address5'].value);
@@ -929,20 +1001,21 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             let oo = stringToSplit.slice(5, 6);
             let w = '';
             let z = stringToSplit.slice(4, 6);
-            if (!isNaN(oo)) {
-                let j = stringToSplit.slice(4, 5);
-                w = stringToSplit.slice(5);
-                let regno = x.concat('-', y, '-', j, '-', w);
-                this.vechicle.controls['regno'].patchValue(regno);
-
-
-            } else {
+            // if (!isNaN(oo)) {
+            //     let j = stringToSplit.slice(4, 5);
+            //     w = stringToSplit.slice(5);
+            //     let regno = x.concat('-', y, '-', j, '-', w);
+            //     this.vechicle.controls['regno'].patchValue(regno);
+            //
+            //
+            // } else
+            //     {
                 w = stringToSplit.slice(6);
                 let regno = x.concat('-', y, '-', z, '-', w);
                 this.vechicle.controls['regno'].patchValue(regno);
 
 
-            }
+            // }
 
             // let x = stringToSplit.slice(0, 2);
             // let y = stringToSplit.slice(2, 4);
@@ -1166,8 +1239,20 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.toastr.error('IDV Should Not Less Than 7000');
         }
     }
-    alternatecontact(){
-        if(this.proposer.controls['mobile'].value==this.proposer.controls['alternateContact'].value){
+    alternatecontact(value,event){
+        console.log(event);
+        if(this.proposer.controls['mobile'].value==value){
+           this.altererror='Enter Alternate Contact';
+        }else if(this.proposer.controls['mobile'].value!=value){
+            this.altererror='';
+        }if(value.search('-')==-1 && value!='' ){
+            this.altererror=' "-" should be enter after the area code ';
+        } else if(value.search('-')!=-1){
+            this.altererror='';
+        }if(value.search('-')>5 && value!=''){
+            this.altererror=' Enter Valid Area Code ';
+        }else if(value.search('-')!>5){
+            this.altererror='';
         }
     }
     //

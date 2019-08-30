@@ -220,6 +220,7 @@ export class BikeInsuranceComponent implements OnInit {
             dob = this.datepipe.transform(event.value, 'y-MM-dd');
 
             if (typeof event.value._i == 'string') {
+                console.log('in');
                 if (type == 'regitser') {
                     if (pattern.test(event.value._i) && event.value._i.length == 10 && this.bikeInsurance.controls['registrationDateNew'].value >= this.minDate) {
                         this.dobError = '';
@@ -227,7 +228,18 @@ export class BikeInsuranceComponent implements OnInit {
                         this.dobError = 'Enter Valid Date';
                     }
                 }
+            } else if (typeof event.value._i == 'object') {
+                this.dobError = '';
+
+                if (type == 'regitser') {
+                    this.dobError = '';
+                    console.log('out');
+                    if (pattern.test(event.value._i) && event.value._i.length == 10 && this.bikeInsurance.controls['registrationDateNew'].value >= this.minDate) {
+                        this.dobError = '';
+                    }
+                }
             }
+            console.log(this.dobError, 'this.dobError');
         }
     }
 
@@ -436,49 +448,97 @@ export class BikeInsuranceComponent implements OnInit {
             this.typeList = 'new';
             console.log(this.typeList,'0');
                 this.bikeInsurance.controls['registrationDateNew'].setValidators([Validators.required]);
-                this.bikeInsurance.controls['city'].setValidators([Validators.required]);
-                this.bikeInsurance.controls['registrationDate'].setValidators(null);
-                this.bikeInsurance.controls['registrationDate'].patchValue('');
-                this.bikeInsurance.controls['previousPolicyExpiry'].setValidators(null);
-                this.bikeInsurance.controls['previousPolicyStart'].setValidators(null);
-                this.bikeInsurance.controls['previousCompany'].setValidators(null);
-                this.bikeInsurance.controls['vehicalNumber'].setValidators(null);
-                this.bikeInsurance.controls['previousCompany'].patchValue('');
-                this.bikeInsurance.controls['previousPolicyStart'].patchValue('');
-                this.bikeInsurance.controls['previousPolicyExpiry'].patchValue('');
-                this.bikeInsurance.controls['vehicalNumber'].patchValue('');
-                this.bikeInsurance.controls['registrationDate'].patchValue('');
-                this.bikeInsurance.controls['previousClaim'].patchValue('');
+
+
+            this.bikeInsurance.controls['city'].setValidators([Validators.required]);
+
+            this.bikeInsurance.controls['registrationDate'].setValidators(null);
+            this.bikeInsurance.controls['registrationDate'].patchValue('');
+
+            this.bikeInsurance.controls['previousPolicyExpiry'].setValidators(null);
+            this.bikeInsurance.controls['previousPolicyExpiry'].patchValue('');
+
+            this.bikeInsurance.controls['previousPolicyStart'].setValidators(null);
+            this.bikeInsurance.controls['previousPolicyStart'].patchValue('');
+
+            this.bikeInsurance.controls['previousCompany'].setValidators(null);
+            this.bikeInsurance.controls['previousCompany'].patchValue('');
+
+            this.bikeInsurance.controls['vehicalNumber'].setValidators(null);
+            this.bikeInsurance.controls['vehicalNumber'].patchValue('');
+
+            this.bikeInsurance.controls['previousCompany'].setValidators(null);
+            this.bikeInsurance.controls['previousCompany'].patchValue('');
+
+            this.bikeInsurance.controls['vehicalNumber'].setValidators(null);
+            this.bikeInsurance.controls['vehicalNumber'].patchValue('');
+
+
+            this.bikeInsurance.controls['previousClaim'].setValidators(null);
+            this.bikeInsurance.controls['previousClaim'].patchValue('');
+
+
+            this.bikeInsurance.controls['registrationDateNew'].updateValueAndValidity();
+            this.bikeInsurance.controls['city'].updateValueAndValidity();
+            this.bikeInsurance.controls['registrationDate'].updateValueAndValidity();
+            this.bikeInsurance.controls['previousPolicyExpiry'].updateValueAndValidity();
+            this.bikeInsurance.controls['previousPolicyStart'].updateValueAndValidity();
+            this.bikeInsurance.controls['previousCompany'].updateValueAndValidity();
+            this.bikeInsurance.controls['vehicalNumber'].updateValueAndValidity();
+            this.bikeInsurance.controls['previousClaim'].updateValueAndValidity();
 
 
 
-        } else {
+        } else if(event == 1) {
             this.typeList = 'other';
             console.log(this.typeList,'1');
+
             this.bikeInsurance.controls['registrationDate'].setValidators([Validators.required]);
+
+            // this.bikeInsurance.controls['vehicalNumber'].setValidators(Validators.compose([Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
+
+            this.bikeInsurance.controls['previousPolicyExpiry'].setValidators([Validators.required]);
+
+            this.bikeInsurance.controls['previousPolicyStart'].setValidators([Validators.required]);
+
+
+            this.bikeInsurance.controls['previousCompany'].setValidators([Validators.required]);
+
+            this.bikeInsurance.controls['previousClaim'].setValidators([Validators.required]);
             this.bikeInsurance.controls['city'].setValidators(null);
+            this.bikeInsurance.controls['city'].patchValue('');
+
+
             this.bikeInsurance.controls['registrationDateNew'].setValidators(null);
             this.bikeInsurance.controls['registrationDateNew'].patchValue('');
-            this.bikeInsurance.controls['previousPolicyExpiry'].setValidators([Validators.required]);
-            this.bikeInsurance.controls['previousPolicyStart'].setValidators([Validators.required]);
-            this.bikeInsurance.controls['vehicalNumber'].setValidators(Validators.compose([ Validators.minLength(9), Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
-            this.bikeInsurance.controls['previousCompany'].setValidators([Validators.required]);
-            this.bikeInsurance.controls['previousClaim'].setValidators([Validators.required]);
-            this.bikeInsurance.controls['city'].patchValue('');
-            this.bikeInsurance.controls['registrationDate'].patchValue('');
+
+            this.bikeInsurance.controls['registrationDateNew'].updateValueAndValidity();
+            this.bikeInsurance.controls['city'].updateValueAndValidity();
+            this.bikeInsurance.controls['registrationDate'].updateValueAndValidity();
+            this.bikeInsurance.controls['previousPolicyExpiry'].updateValueAndValidity();
+            this.bikeInsurance.controls['previousPolicyStart'].updateValueAndValidity();
+            this.bikeInsurance.controls['previousCompany'].updateValueAndValidity();
+            this.bikeInsurance.controls['previousClaim'].updateValueAndValidity();
 
         }
 
-        this.bikeInsurance.controls['registrationDate'].updateValueAndValidity();
-        this.bikeInsurance.controls['registrationDateNew'].updateValueAndValidity();
-        this.bikeInsurance.controls['city'].updateValueAndValidity();
-        this.bikeInsurance.controls['previousPolicyExpiry'].updateValueAndValidity();
-        this.bikeInsurance.controls['previousPolicyStart'].updateValueAndValidity();
-        this.bikeInsurance.controls['previousCompany'].updateValueAndValidity();
-        this.bikeInsurance.controls['vehicalNumber'].updateValueAndValidity();
-        this.bikeInsurance.controls['ncb'].updateValueAndValidity();
-        this.bikeInsurance.controls['previousClaim'].updateValueAndValidity();
 
+
+
+    }
+    vehicaleValidate(){
+        console.log(this.bikeInsurance.controls['vehicalNumber'].value.length, 'this.bikeInsurance.controls[\'vehicalNumber\'].value.length');
+        if(this.bikeInsurance.controls['vehicalNumber'].value.length == 9){
+            console.log('in');
+            this.bikeInsurance.controls['vehicalNumber'].setValidators(Validators.compose([Validators.pattern('[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{5}')]));
+            this.bikeInsurance.controls['vehicalNumber'].updateValueAndValidity();
+
+        } else if(this.bikeInsurance.controls['vehicalNumber'].value.length == 10) {
+            console.log('out');
+            this.bikeInsurance.controls['vehicalNumber'].setValidators(Validators.compose([Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
+            this.bikeInsurance.controls['vehicalNumber'].updateValueAndValidity();
+
+        }
     }
     bikeinsurer(){
         const dialogRef = this.dialog.open(BikeInsurer, {

@@ -13,6 +13,7 @@ import {TermLifeCommonService} from '../../shared/services/term-life-common.serv
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -184,7 +185,7 @@ export class EdelweissPosComponent implements OnInit {
   public otpGenList: any;
   public enquiryFromDetials:any;
 
-  constructor( public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+  constructor( public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
     this.requestedUrl = '';
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -275,8 +276,8 @@ export class EdelweissPosComponent implements OnInit {
       isSmokerSpouse: 'No',
       isStaffSpouse: 'No',
       employeeCodeSpouse: '',
-      relationSpouseProposer: '',
-      relationSpouseProposerName: '',
+      relationSpouseProposer: '3',
+      relationSpouseProposerName: 'Spouse',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -336,8 +337,8 @@ export class EdelweissPosComponent implements OnInit {
       isSmokerSpouse: 'No',
       isStaffSpouse: 'No',
       employeeCodeSpouse: '',
-      relationSpouseInsurer: '',
-      relationSpouseInsurerName: '',
+      relationSpouseInsurer: '3',
+      relationSpouseInsurerName: 'Spouse',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -527,7 +528,10 @@ export class EdelweissPosComponent implements OnInit {
       proposalPA: '',
       salereqPA: '',
       kycPA: '',
+
+
     });
+
   }
 
   ngOnInit() {
@@ -599,6 +603,7 @@ export class EdelweissPosComponent implements OnInit {
     }
     this.proposer.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
+
   }
 
   initItemRows() {
@@ -1334,6 +1339,8 @@ export class EdelweissPosComponent implements OnInit {
 
       }
 
+    } else {
+      this.toastr.error('please enter all the Mandatory field ');
     }
   }
   // Insure Details
@@ -1357,6 +1364,8 @@ export class EdelweissPosComponent implements OnInit {
         this.toastr.error('Insurer Age should be 18 or above');
 
       }
+    } else {
+      this.toastr.error('please enter all the Mandatory field');
     }
 
   }
@@ -2270,7 +2279,7 @@ export class EdelweissPosComponent implements OnInit {
       this.proposer.controls['smobileNo'].patchValue('');
       this.proposer.controls['isSmokerSpouse'].patchValue('No');
       this.proposer.controls['isStaffSpouse'].patchValue('No');
-      this.proposer.controls['relationSpouseProposer'].patchValue('');
+      this.proposer.controls['relationSpouseProposer'].patchValue('3');
 
       this.proposer.controls['stitle'].setValidators(null);
       this.proposer.controls['sfirstName'].setValidators(null);
@@ -2310,7 +2319,7 @@ export class EdelweissPosComponent implements OnInit {
       this.insureArray.controls['smobileNo'].patchValue(this.insureArray.controls['smobileNo'].value);
       this.insureArray.controls['isSmokerSpouse'].patchValue(this.insureArray.controls['isSmokerSpouse'].value);
       this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
-      this.insureArray.controls['relationSpouseProposer'].patchValue(this.insureArray.controls['relationSpouseProposer'].value);
+      this.insureArray.controls['relationSpouseInsurer'].patchValue(this.insureArray.controls['relationSpouseInsurer'].value);
 
       this.insureArray.controls['stitle'].setValidators([Validators.required]);
       this.insureArray.controls['sfirstName'].setValidators([Validators.required]);
@@ -2321,7 +2330,7 @@ export class EdelweissPosComponent implements OnInit {
       this.insureArray.controls['smobileNo'].setValidators([Validators.required]);
       this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
       this.insureArray.controls['isStaffSpouse'].setValidators([Validators.required]);
-      this.insureArray.controls['relationSpouseProposer'].setValidators([Validators.required]);
+      this.insureArray.controls['relationSpouseInsurer'].setValidators([Validators.required]);
     } else {
       this.insureArray.controls['stitle'].patchValue('');
       this.insureArray.controls['sfirstName'].patchValue('');
@@ -2332,7 +2341,7 @@ export class EdelweissPosComponent implements OnInit {
       this.insureArray.controls['smobileNo'].patchValue('');
       this.insureArray.controls['isSmokerSpouse'].patchValue('No');
       this.insureArray.controls['isStaffSpouse'].patchValue('No');
-      this.insureArray.controls['relationSpouseProposer'].patchValue('');
+      this.insureArray.controls['relationSpouseInsurer'].patchValue('3');
 
       this.insureArray.controls['stitle'].setValidators(null);
       this.insureArray.controls['sfirstName'].setValidators(null);
@@ -2343,7 +2352,7 @@ export class EdelweissPosComponent implements OnInit {
       this.insureArray.controls['smobileNo'].setValidators(null);
       this.insureArray.controls['isSmokerSpouse'].setValidators(null);
       this.insureArray.controls['isStaffSpouse'].setValidators(null);
-      this.insureArray.controls['relationSpouseProposer'].setValidators(null);
+      this.insureArray.controls['relationSpouseInsurer'].setValidators(null);
 
     }
     this.insureArray.controls['employeeCode'].updateValueAndValidity();
@@ -2356,7 +2365,7 @@ export class EdelweissPosComponent implements OnInit {
     this.insureArray.controls['smobileNo'].updateValueAndValidity();
     this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
     this.insureArray.controls['isStaffSpouse'].updateValueAndValidity();
-    this.insureArray.controls['relationSpouseProposer'].updateValueAndValidity();
+    this.insureArray.controls['relationSpouseInsurer'].updateValueAndValidity();
 
   }
 
@@ -3294,12 +3303,13 @@ export class EdelweissPosComponent implements OnInit {
       "pos_status":  this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "product_id": this.lifePremiumList.product_id,
+      "sub_product_id": this.lifePremiumList.sub_product_id,
       "term": this.lifePremiumList.termDetrails,
       "suminsured_amount": sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
-        "policyTerm":this.enquiryFormData.lifeBenefitTerm,
-        "premiumPayingTerm":this.enquiryFormData.lifePolicy,
+        "policyTerm":this.lifePremiumList.termDetrails,
+        "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
         "frequency":this.enquiryFormData.lifePayment,
         "sumAssured": sessionStorage.selectedAmountTravel,
         "planOption": this.insureArray.controls['planOption'].value,
@@ -3711,8 +3721,11 @@ export class EdelweissPosComponent implements OnInit {
     }
 
     console.log(data, ' fileeee');
+    console.log(this.enquiryFormData.lifeBenefitTerm,'this.enquiryFormData.lifeBenefitTerm')
+    console.log(this.enquiryFormData.lifePolicy,'this.enquiryFormData.lifePolicy')
+    console.log(this.medicalDetail.controls['adventurousActivities'].value,'medicalDetailadventurousActivities')
     this.settings.loadingSpinner = true;
-    this.termService.edelweissProposalCreation(data).subscribe(
+    this.common.edelweissposProposalCreation(data).subscribe(
         (successData) => {
           this.setEdelProposalSuccess(successData, stepper);
         },
@@ -5583,36 +5596,34 @@ export class EdelweissPosComponent implements OnInit {
 @Component({
   selector: ' edelweissposopt ',
   template: `
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center w-100">
-          <mat-form-field class="w-50">
-            <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
-          </mat-form-field>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                    <mat-form-field class="w-50">
+                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)"  autocomplete="off" >
+                    </mat-form-field>
+                </div>
+                <!--<div class="col-md-12">-->
+                    <!--<div class="proposal-buttom mb-3 text-center w-100">-->
+                        <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
         </div>
-        <!--<div class="col-md-12">-->
-        <!--<div class="proposal-buttom mb-3 text-center w-100">-->
-        <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
-        <!--</div>-->
-        <!--</div>-->
-      </div>
-    </div>
-    <div mat-dialog-actions style="justify-content: center">
-      <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>
-      <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
-    </div>
-  `
+        <div mat-dialog-actions style="justify-content: center">
+          <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>
+          <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
+        </div>
+    `
 })
 export class EdelweissposOpt {
   otpCode: any;
-
   constructor(
       public dialogRef: MatDialogRef<EdelweissposOpt>,
       @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
     this.otpCode = '';
 
   }
-
   // // Number validation
   // numberValidate(event: any) {
   //   this.validation.numberValidate(event);
@@ -5625,13 +5636,13 @@ export class EdelweissposOpt {
   otpEdVal() {
     let summaryData = JSON.parse(sessionStorage.summaryData);
     summaryData = summaryData;
-    console.log(summaryData, '44444444')
+    console.log(summaryData,'44444444')
     let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
-    console.log(getEnquiryDetials, '11111111')
+    console.log(getEnquiryDetials,'11111111')
     let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    console.log(enquiryFormData, '22222222')
+    console.log(enquiryFormData,'22222222')
     let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-    console.log(lifePremiumList, '333333333')
+    console.log(lifePremiumList,'333333333')
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -5640,7 +5651,7 @@ export class EdelweissposOpt {
       "product_id": lifePremiumList.product_id,
       "policy_id": getEnquiryDetials.policy_id,
       "transaction_id": summaryData.receipt_no,
-      "otp": this.otpCode
+      "otp":this.otpCode
     }
     console.log(data, '999999999');
     this.termService.edelweissOtp(data).subscribe(

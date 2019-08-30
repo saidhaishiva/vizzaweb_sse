@@ -512,7 +512,7 @@
                           <mat-option value="Indian">Indian</mat-option>
                           <mat-option value="Others">Others</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="proposer.controls.nationality.errors?.required">Nationality is required</mat-error>
+                        <mat-error *ngIf="insureArray.controls.nationality.errors?.required">Nationality is required</mat-error>
                       </mat-form-field>
                     </div>
 
@@ -1679,7 +1679,7 @@
                   <div class="row" *ngIf="lifePremiumList.product_id=='112'" >
                     <div class="col-md-12 ">
                       <h6 class="color-blue p-3">For female lives</h6>
-                      <div class="col-md-6" *ngIf="proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2' && lifePremiumList.product_id=='112' ">
+                      <div class="col-md-12" *ngIf="proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2' && lifePremiumList.product_id=='112' ">
                         <mat-radio-group formControlName="pregnantInd" (change)="ispregnantInd()" >
                           <p>Are you Pregnant?  </p>
                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2789,7 +2789,7 @@
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
                   <form [formGroup]="documentDetail">
-                    <div class="row">
+                    <div class="row" *ngIf="this.insureArray.controls['investing'].value != 'SELF'">
 
                       <div class="col-md-12 mb-4">
                         <h5>Life Assured</h5>

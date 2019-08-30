@@ -134,7 +134,7 @@
             </thead>
             <tbody>
             <!--<tr class="" *ngFor="let plists of allProductLists | orderBy : 'premium_amount';let i = index" [hidden]="changeSuninsuredAmount != getSumInsureId" >-->
-            <tr class="" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId"
+            <tr class="" *ngFor="let plists of allProductLists | orderBy : 'premium_amount_format';let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId"
             >
               <td align="center"  class="col-md-2 text-center">
                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
