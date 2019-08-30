@@ -582,10 +582,9 @@ export class CommonService {
             .catch(this.handleError);
     }
 
-    // edelweiss pos home
+    // edelweiss pos home sumamount
     suminsuredlist(data) {
         const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -594,10 +593,9 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // edelweiss pos home
+    // edelweiss pos home premium
     premiumlist(data) {
         const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -607,10 +605,9 @@ export class CommonService {
             .catch(this.handleError);
     }
 
-    // edelweiss pos home
+    // edelweiss pos home policy
     policylist(data) {
         const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -620,10 +617,9 @@ export class CommonService {
             .catch(this.handleError);
     }
 
-    // edelweiss pos premium
+    // edelweiss pos premium enquiry
     edelweissenquiry(data) {
         const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -632,10 +628,9 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // edelweiss pos premium
+    // edelweiss pos premium company
     getComapnyList(data) {
         const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -645,10 +640,9 @@ export class CommonService {
             .catch(this.handleError);
     }
 
-    // edelweiss pos premium
+    // edelweiss pos premium product
     getProductList(data) {
         const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -657,7 +651,18 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-     // edelweiss pos
+    // edelweiss pos premium change premium
+    changetermlist(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'productlist/change_term' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+     // edelweiss pos title
     geteTitle(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -668,6 +673,7 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    //maritallist
     geteMaritalStatus(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -678,6 +684,7 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    //investing list
     geteInvesting(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -688,6 +695,7 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    //ageproof
     geteAgeProof(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -698,6 +706,7 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    // qualification
     geteQualification(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -708,6 +717,7 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    //state
     geteState(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -718,6 +728,7 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    // employee type
     geteemploymentType(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -728,12 +739,24 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    //business list
     geteDuty(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getedelweisspos() + 'edelweiss/duty';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    //proposal creation
+    edelweissposProposalCreation(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/bigeneration';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
