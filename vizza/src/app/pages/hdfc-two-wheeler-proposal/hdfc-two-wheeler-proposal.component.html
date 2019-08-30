@@ -165,7 +165,7 @@
                                 <mat-form-field class="w-100" >
                                     <mat-placeholder>City<span class="error" *ngIf="proposer.controls['citycom'].value == ''">*</span></mat-placeholder>
                                     <mat-select  formControlName="citycom"  (change)="typeAddressDeatils()" >
-                                        <mat-option *ngFor="let city of cityarray | keys" value="{{city.value}}" > {{city.value}} </mat-option>
+                                        <mat-option *ngFor="let city of residenceCitys | keys" value="{{city.value}}" > {{city.value}} </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="proposer.controls.citycom.errors?.required">city is required</mat-error>
                                 </mat-form-field>
@@ -174,7 +174,7 @@
                                     <mat-form-field class="w-100" >
                                         <mat-placeholder>district<span class="error" *ngIf="proposer.controls['districtcom'].value == ''">*</span></mat-placeholder>
                                         <mat-select  formControlName="districtcom" (change)="typeAddressDeatils()" >
-                                            <mat-option *ngFor="let district of districtarray | keys" value="{{district.value}}" > {{district.value}} </mat-option>
+                                            <mat-option *ngFor="let district of residenceDistricts | keys" value="{{district.value}}" > {{district.value}} </mat-option>
                                         </mat-select>
                                         <mat-error *ngIf="proposer.controls.districtcom.errors?.required">district  is required</mat-error>
                                     </mat-form-field>
@@ -251,7 +251,7 @@
                                     <mat-form-field class="w-100" >
                                         <mat-placeholder>City<span class="error" *ngIf="proposer.controls['citypermanent'].value == ''">*</span></mat-placeholder>
                                         <mat-select  formControlName="citypermanent"   >
-                                            <mat-option *ngFor="let city of cityarray | keys" value="{{city.value}}" > {{city.value}} </mat-option>
+                                            <mat-option *ngFor="let city of personalCitys | keys" value="{{city.value}}" > {{city.value}} </mat-option>
                                         </mat-select>
                                         <mat-error *ngIf="proposer.controls.citypermanent.errors?.required">city is required</mat-error>
                                     </mat-form-field>
@@ -260,7 +260,7 @@
                                     <mat-form-field class="w-100" >
                                         <mat-placeholder>district<span class="error" *ngIf="proposer.controls['districtpermanent'].value == ''">*</span></mat-placeholder>
                                         <mat-select  formControlName="districtpermanent"  >
-                                            <mat-option *ngFor="let district of districtarray | keys" value="{{district.value}}" > {{district.value}} </mat-option>
+                                            <mat-option *ngFor="let district of personaldistricts | keys" value="{{district.value}}" > {{district.value}} </mat-option>
                                         </mat-select>
                                         <mat-error *ngIf="proposer.controls.districtpermanent.errors?.required">District is required</mat-error>
                                     </mat-form-field>
@@ -372,7 +372,7 @@
                       </div>
                       <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                       <mat-form-field class="w-100" >
-                        <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" required>
+                        <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" [required]="regvalue !='New Vehicle'">
                           <mat-option *ngFor="let company of companyList | keys" value="{{company.key}}" > {{company.value}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="vechicle.controls.Previouscompany.errors?.required">previous company is required</mat-error>
@@ -380,12 +380,12 @@
                       </div>
                       <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="NCB %" formControlName="ncb" maxlength="3" (keypress)="numberValidate($event)" readonly required>
+                          <input matInput placeholder="NCB %" formControlName="ncb" maxlength="3" (keypress)="numberValidate($event)" readonly [required]="regvalue !='New Vehicle'">
                         </mat-form-field>
                       </div>
                       <div class="col-md-4 mt-3" *ngIf="regvalue !='New Vehicle'">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker2" [max]="today" placeholder="Previous Policy EndDate(DD/MM/YYYY)"  formControlName="previousenddate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker2" [max]="today" placeholder="Previous Policy EndDate(DD/MM/YYYY)"  formControlName="previousenddate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  [required]="regvalue !='New Vehicle'" >
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2></mat-datepicker>
                           <mat-error *ngIf="vechicle.controls.previousenddate.errors?.required">previous Policy Endate is required</mat-error>
@@ -393,12 +393,12 @@
                       </div>
                       <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Previous Policy No" formControlName="previouspolicyno" maxlength="20"  required>
+                          <input matInput placeholder="Previous Policy No" formControlName="previouspolicyno" maxlength="20"  [required]="regvalue !='New Vehicle'">
                         </mat-form-field>
                       </div>
                         <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Previous Policy claim" formControlName="previouspolicyclaim" maxlength="20" readonly required>
+                          <input matInput placeholder="Previous Policy claim" formControlName="previouspolicyclaim" maxlength="20" readonly [required]="regvalue !='New Vehicle'">
                         </mat-form-field>
                       </div>
                         <!--<div class="col-md-3 mt-3">-->
@@ -414,7 +414,7 @@
                         <!--</div>-->
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" (input)="idvinput($event.target.value)"  required>
+                          <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" (input)="idvinput($event.target.value)"  [required]="regvalue !='New Vehicle'">
                         </mat-form-field>
                       </div>
                 </div>

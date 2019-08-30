@@ -162,7 +162,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             landmarkcom: [''],
             alternateContact: [''],
             gstNumber: [''],
-            personalPan: ['',Validators.required],
+            personalPan: ['', Validators.required],
             sameAsAddress: [''],
             address4: ['', Validators.required],
             address5: ['', Validators.required],
@@ -220,19 +220,19 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             NonElecticalAccessoryIDV: [''],
             IsLimitedtoOwnPremises: [''],
             OtherLoadDiscRate: [''],
-            pacovername:[''],
-            pasuminsured:[''],
-            pacover:[''],
+            pacovername: [''],
+            pasuminsured: [''],
+            pacover: [''],
         });
         // this.BankDetails = this.fb.group({
-            // banknamelist:[''],
-            // Bankname: ['', Validators.required],
-            // Branch: ['', Validators.required],
-            // Payertype: ['', Validators.required],
-            // paymentmode: ['', Validators.required],
-            // refrenceno: ['', Validators.required],
-            // Paymentdate: ['', Validators.required],
-            // Banknamevalue: ['']
+        // banknamelist:[''],
+        // Bankname: ['', Validators.required],
+        // Branch: ['', Validators.required],
+        // Payertype: ['', Validators.required],
+        // paymentmode: ['', Validators.required],
+        // refrenceno: ['', Validators.required],
+        // Paymentdate: ['', Validators.required],
+        // Banknamevalue: ['']
 
 
         // });
@@ -246,6 +246,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.financiername();
         this.extensioncountry();
         this.sessionData();
+        this.validationForNew();
         this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.buyBikeDetails = JSON.parse(sessionStorage.enquiryFormData);
@@ -264,8 +265,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         //     this.vehicledata.vehicle_no = x.concat('-', y, '-', j, '-', w);
         //
         // } else {
-            w = stringToSplit.slice(6);
-            this.vehicledata.vehicle_no = x.concat('-', y, '-', z, '-', w);
+        w = stringToSplit.slice(6);
+        this.vehicledata.vehicle_no = x.concat('-', y, '-', z, '-', w);
 
         // }
         console.log(this.vehicledata, 'iie');
@@ -273,10 +274,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
         console.log(this.vehicledata.previous_claim_YN, 'llll');
         this.vechicle.controls['previouspolicyclaim'].patchValue(this.buyBikeDetails.previous_claim_YN == '1' ? 'YES' : 'NO');
-        console.log(this.buyBikeDetails,'bjsjjhjdhj');
+        console.log(this.buyBikeDetails, 'bjsjjhjdhj');
         // this.vehicledetails = JSON.parse(sessionStorage.bikeListDetails);
         this.vehicleidv = JSON.parse(sessionStorage.buyProductDetails);
-        this.companylogo=this.vehicleidv.company_logo;
+        this.companylogo = this.vehicleidv.company_logo;
         console.log(this.vehicleidv.Comprehensive_premium, 'idv');
         this.vechicle.controls['vehiclemodel'].patchValue(this.vehicledata.vehicle_model);
         this.vechicle.controls['Vehicleregdate'].patchValue(this.datepipe.transform(this.vehicledata.registration_date, 'y-MM-dd'));
@@ -289,11 +290,15 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             let regno = '';
             regno = this.datepipe.transform(this.datepipe.transform(this.vehicledata.registration_date), 'yyyy-MM-dd');
             this.RegDateage = this.regdatecalculate(regno);
-
-
-
+        }
+        console.log(this.vehicledata.type,'vee');
+        if (this.vehicledata.type == 'new') {
+            this.regvalue = 'New Vehicle';
+        } else {
+            this.regvalue = 'Roll Over';
         }
     }
+
     // dropdownForBank(value,type){
     //
     //     if(value.length >'5'&& type =='bank'){
@@ -448,7 +453,27 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         console.log(this.addOns.controls['extentioncountryvalue'].value);
     }
 
+    validationForNew() {
+        console.log(this.regvalue, 'value');
+        if (this.regvalue == 'New Vehicle') {
+            console.log('vinoyth');
+            this.addOns.controls['Previouscompany'].setValidators([]);
+            this.addOns.controls['regno'].setValidators([]);
+            this.addOns.controls['Vehicleregdate'].setValidators([]);
+            this.addOns.controls['ncb'].setValidators([]);
+            this.addOns.controls['previousenddate'].setValidators([]);
+            this.addOns.controls['previouspolicyno'].setValidators([]);
+            this.addOns.controls['previouspolicyclaim'].setValidators([]);
+            this.addOns.controls['Previouscompany'].updateValueAndValidity();
+            this.addOns.controls['ncb'].updateValueAndValidity();
+            this.addOns.controls['previousenddate'].updateValueAndValidity();
+            this.addOns.controls['previouspolicyno'].updateValueAndValidity();
+            this.addOns.controls['previouspolicyclaim'].updateValueAndValidity();
+            this.addOns.controls['Vehicleregdate'].updateValueAndValidity();
+            this.addOns.controls['regno'].updateValueAndValidity();
+        }
 
+    }
 
 
     //
@@ -531,15 +556,20 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     sessionData() {
         if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
             this.personalCitys = JSON.parse(sessionStorage.personalCitys);
-        }if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+        }
+        if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
             this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
-        }if (sessionStorage.personaldistricts != '' && sessionStorage.personaldistricts != undefined) {
+        }
+        if (sessionStorage.personaldistricts != '' && sessionStorage.personaldistricts != undefined) {
             this.personaldistricts = JSON.parse(sessionStorage.personaldistricts);
-        }if (sessionStorage.residenceDistricts != '' && sessionStorage.residenceDistricts != undefined) {
+        }
+        if (sessionStorage.residenceDistricts != '' && sessionStorage.residenceDistricts != undefined) {
             this.residenceDistricts = JSON.parse(sessionStorage.residenceDistricts);
-        }if (sessionStorage.citylist != '' && sessionStorage.citylist != undefined) {
+        }
+        if (sessionStorage.citylist != '' && sessionStorage.citylist != undefined) {
             this.cityarray = JSON.parse(sessionStorage.citylist);
-        }if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
+        }
+        if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
             this.districtarray = JSON.parse(sessionStorage.districtlist);
         }
         if (sessionStorage.company != '' && sessionStorage.company != undefined) {
@@ -643,8 +673,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         //         // Bankname: this.getstepper4.Bankname,
         //         // Branch: this.getstepper4.Branch,
         //         paymentmode: this.getstepper4.paymentmode,
-                // Payertype: this.getstepper4.Payertype,
-                // refrenceno: this.getstepper4.refrenceno,
+        // Payertype: this.getstepper4.Payertype,
+        // refrenceno: this.getstepper4.refrenceno,
         //         // Paymentdate: this.datepipe.transform(this.getstepper4.Paymentdate, 'y-MM-dd'),
         //         // Banknamevalue: this.getstepper4.Banknamevalue,
         //         // banknamelist: this.getstepper4.banknamelist,
@@ -688,14 +718,15 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.addOns.controls['appointeerelation'].updateValueAndValidity();
         }
     }
-    ONcheck(event){
-        if(event.checked == true){
+
+    ONcheck(event) {
+        if (event.checked == true) {
             this.addOns.controls['pacovername'].setValidators([Validators.required]);
             this.addOns.controls['pacovername'].updateValueAndValidity();
             this.addOns.controls['pasuminsured'].setValidators([Validators.required]);
             this.addOns.controls['pasuminsured'].updateValueAndValidity();
 
-        }else if(event.checked == false){
+        } else if (event.checked == false) {
             this.addOns.controls['pacovername'].patchValue('');
             this.addOns.controls['pacovername'].setValidators(null);
             this.addOns.controls['pacovername'].updateValueAndValidity();
@@ -705,11 +736,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
         }
     }
-    bioFuelValidation(event){
-        if(this.addOns.controls['biofuel'].value!=''){
+
+    bioFuelValidation(event) {
+        if (this.addOns.controls['biofuel'].value != '') {
             this.addOns.controls['biofuelkit'].setValidators([Validators.required]);
             this.addOns.controls['biofuelkit'].updateValueAndValidity();
-        }else {
+        } else {
             this.addOns.controls['biofuelkit'].patchValue('');
             this.addOns.controls['biofuelkit'].setValidators(null);
             this.addOns.controls['biofuelkit'].updateValueAndValidity();
@@ -765,7 +797,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     } else if (type == 'nominee') {
                         this.personalDobError = '';
                     }
-                        // else if (type == 'bank'&& this.BankDetails.controls['Paymentdate'].value._i!=this.tod) {
+                    // else if (type == 'bank'&& this.BankDetails.controls['Paymentdate'].value._i!=this.tod) {
                     //     this.personalDobError = 'Enter todays Date';
                     // } else if (type == 'bank'&& this.BankDetails.controls['Paymentdate'].value._i == this.tod) {
                     //     console.log('ii');
@@ -780,7 +812,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                         this.personalDobError = 'Enter Valid Dob';
                     } else if (type == 'insurer') {
                         this.personalDobError = 'Enter Valid Dob';
-                    }else if (type == 'bank') {
+                    } else if (type == 'bank') {
                         this.personalDobError = 'Enter Valid Date';
                     }
                 }
@@ -805,10 +837,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             }
         }
     }
+
     sameaspermenant(event) {
         console.log(event);
         if (event.checked == true) {
-
+            this.pinerrorpermanent = '';
+            console.log(sessionStorage.residenceCitys);
             this.proposer.controls['address'].patchValue(this.proposer.controls['address4'].value);
             this.proposer.controls['address2'].patchValue(this.proposer.controls['address5'].value);
             this.proposer.controls['address3'].patchValue(this.proposer.controls['address6'].value);
@@ -820,7 +854,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.personalCitys = JSON.parse(sessionStorage.residenceCitys);
             sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
             this.personaldistricts = JSON.parse(sessionStorage.residenceDistricts);
-            sessionStorage.personaldistricts = JSON.stringify( this.personaldistricts);
+            sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
 
 
         } else if (event.checked != true) {
@@ -836,16 +870,18 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 this.personalCitys = JSON.parse(sessionStorage.personalCitys);
             } else {
                 this.personalCitys = {};
-            }if(sessionStorage.personaldistricts != '' && sessionStorage.personaldistricts != undefined){
+            }
+            if (sessionStorage.personaldistricts != '' && sessionStorage.personaldistricts != undefined) {
                 this.personaldistricts = JSON.parse(sessionStorage.personaldistricts);
 
-            }else{
+            } else {
                 this.personaldistricts = {};
             }
 
         }
 
     }
+
     getPostalCode(pin, type) {
         const data = {
             'platform': 'web',
@@ -871,11 +907,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             let distrct = new Array();
             console.log(this.response, 'cityarry');
             for (i = 0; i < this.response.length; i++) {
-                if(g.indexOf(this.response[i]['txt_pincode_locality']) == -1){
-                        // g.push(Array.from(new Set(this.cityarray[i]['txt_pincode_locality']))) ;
+                if (g.indexOf(this.response[i]['txt_pincode_locality']) == -1) {
+                    // g.push(Array.from(new Set(this.cityarray[i]['txt_pincode_locality']))) ;
                     g.push(this.response[i]['txt_pincode_locality']);
                 }
-                console.log(distrct[i]);
                 if (distrct.indexOf(this.response[i]['txt_city_district']) == -1) {
                     distrct.push(this.response[i]['txt_city_district']);
                 }
@@ -885,10 +920,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             sessionStorage.citylist = JSON.stringify(g);
             this.districtarray = distrct;
             sessionStorage.districtlist = JSON.stringify(distrct);
-            console.log(sessionStorage.districtlist, 'session');
-            this.pinerror='';
 
             if (type == 'proposer') {
+                this.pinerrorpermanent = '';
                 this.proposerPinList = successData.ResponseObject;
                 this.proposer.controls['statepermanent'].patchValue(this.proposerPinList[0].txt_state);
                 this.proposer.controls['districtpermanent'].patchValue(this.proposerPinList[0].txt_city_district);
@@ -898,8 +932,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
                 sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
 
-            }else if (type == 'comm') {
+            } else if (type == 'comm') {
+                this.pinerror = '';
                 this.proposerComList = successData.ResponseObject;
+                console.log(this.proposerComList, 'com');
                 this.proposer.controls['statecom'].patchValue(this.proposerComList[0].txt_state);
                 this.proposer.controls['districtcom'].patchValue(this.proposerComList[0].txt_city_district);
                 this.proposer.controls['citycom'].patchValue(this.proposerComList[0].txt_pincode_locality);
@@ -907,38 +943,52 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 this.residenceDistricts = this.districtarray;
                 sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
                 sessionStorage.residenceDistricts = JSON.stringify(this.residenceDistricts);
-                if(this.proposer.controls['issameascmmunication'].value == true){
-                }
+                if (this.proposer.controls['issameascmmunication'].value == true) {
+                    this.personalCitys = this.cityarray;
+                    this.personaldistricts = this.districtarray;
+                    console.log(this.proposer.controls['citycom'].value, 'vvvv');
+                    this.proposer.controls['statepermanent'].setValue(this.proposer.controls['statecom'].value);
+                    this.proposer.controls['citypermanent'].setValue(this.proposer.controls['citycom'].value);
+                    this.proposer.controls['districtpermanent'].setValue(this.proposer.controls['districtcom'].value);
+                    sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+                    sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
 
+                }
             }
         } else if (successData.IsSuccess != true) {
             this.toastr.error('Please Fill Valid Pincode');
-            this.pinerror='Please Fill Valid Pincode';
             if (type == 'proposer') {
+                this.pinerrorpermanent = 'Please Fill Valid Pincode';
                 console.log('varchar');
-                sessionStorage.personalCitys='';
+                sessionStorage.personalCitys = '';
                 this.personalCitys = {};
-                sessionStorage.personaldistricts='';
+                sessionStorage.personaldistricts = '';
                 this.personaldistricts = {};
                 this.proposer.controls['statepermanent'].patchValue('');
                 this.proposer.controls['districtpermanent'].patchValue('');
                 this.proposer.controls['citypermanent'].patchValue('');
 
             } else if (type == 'comm') {
-                sessionStorage.residenceCitys='';
+                this.pinerror = 'Please Fill Valid Pincode';
+                sessionStorage.residenceCitys = '';
                 this.residenceCitys = {};
-                sessionStorage.residenceDistricts='';
+                sessionStorage.residenceDistricts = '';
                 this.residenceDistricts = {};
+                console.log(this.residenceDistricts, 'resss');
                 this.proposer.controls['statecom'].patchValue('');
                 this.proposer.controls['districtcom'].patchValue('');
                 this.proposer.controls['citycom'].patchValue('');
-                if(this.proposer.controls['issameascmmunication'].value == true){
-                    this.pinerrorpermanent='Please Fill Valid Pincode';
+                if (this.proposer.controls['issameascmmunication'].value == true) {
+                    this.pinerrorpermanent = 'Please Fill Valid Pincode';
                     console.log('iiiiiii');
-                    sessionStorage.cityarray='';
+                    sessionStorage.cityarray = '';
                     this.cityarray = {};
-                    sessionStorage.districtarray='';
+                    sessionStorage.districtarray = '';
                     this.districtarray = {};
+                    sessionStorage.personalCitys = '';
+                    this.personalCitys = {};
+                    sessionStorage.personaldistricts = '';
+                    this.personaldistricts = {};
                     this.proposer.controls['statepermanent'].setValue('');
                     this.proposer.controls['districtpermanent'].setValue('');
                     this.proposer.controls['citypermanent'].setValue('');
@@ -946,7 +996,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             }
         }
     }
-    contains(v){
+
+    contains(v) {
         for (var i = 0; i < v.length; i++) {
             if (this[i] === v) return true;
         }
@@ -959,10 +1010,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
 
     typeAddressDeatils() {
-
-        if (this.proposer.controls['issameascmmunication'].value==true) {
-            console.log(this.proposer.controls['issameascmmunication'].value,'wheree');
-            this.pinerrorpermanent='';
+        if (this.proposer.controls['issameascmmunication'].value == true) {
+            console.log(this.proposer.controls['issameascmmunication'].value, 'wheree');
+            this.pinerrorpermanent = '';
             sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
             sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
             //     this.citypermanent = JSON.parse(sessionStorage.personalCitys);
@@ -991,7 +1041,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     createproposal(stepper: MatStepper) {
 
 
-
         let stringToSplit;
         stringToSplit = this.vechicle.controls['regno'].value;
         var pos = stringToSplit.search('-');
@@ -1010,9 +1059,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             //
             // } else
             //     {
-                w = stringToSplit.slice(6);
-                let regno = x.concat('-', y, '-', z, '-', w);
-                this.vechicle.controls['regno'].patchValue(regno);
+            w = stringToSplit.slice(6);
+            let regno = x.concat('-', y, '-', z, '-', w);
+            this.vechicle.controls['regno'].patchValue(regno);
 
 
             // }
@@ -1076,22 +1125,22 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 },
                 'Policy_Details': {
                     'PolicyStartDate': this.tommarrow,
-                    'PreviousPolicyEndDate':this.regvalue !='New Vehicle'?this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y'):'' ,
+                    'PreviousPolicyEndDate': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y') : '',
                     'ProposalDate': this.tod,
 
                     // "AgreementType": "",
                     // "FinancierCode": "",
                     // "BranchName": "",
-                    'PreviousPolicy_CorporateCustomerId_Mandatary':this.regvalue !='New Vehicle'? this.vechicle.controls['Previouscompany'].value:'',
-                    'PreviousPolicy_NCBPercentage':this.regvalue !='New Vehicle'? this.vechicle.controls['ncb'].value:'',
-                    'PreviousPolicy_PolicyEndDate':this.regvalue !='New Vehicle'?  this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y'):'',
-                    'PreviousPolicy_PolicyNo':this.regvalue !='New Vehicle'?  this.vechicle.controls['previouspolicyno'].value:'',
-                    'PreviousPolicy_PolicyClaim':this.regvalue !='New Vehicle'?  this.vechicle.controls['previouspolicyclaim'].value:'',
+                    'PreviousPolicy_CorporateCustomerId_Mandatary': this.regvalue != 'New Vehicle' ? this.vechicle.controls['Previouscompany'].value : '',
+                    'PreviousPolicy_NCBPercentage': this.regvalue != 'New Vehicle' ? this.vechicle.controls['ncb'].value : '',
+                    'PreviousPolicy_PolicyEndDate': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y') : '',
+                    'PreviousPolicy_PolicyNo': this.regvalue != 'New Vehicle' ? this.vechicle.controls['previouspolicyno'].value : '',
+                    'PreviousPolicy_PolicyClaim': this.regvalue != 'New Vehicle' ? this.vechicle.controls['previouspolicyclaim'].value : '',
                     'BusinessType_Mandatary': this.RegDateage,
                     // "VehicleModelCode": "17586",
-                    'DateofDeliveryOrRegistration':this.regvalue !='New Vehicle'? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y'):'New',
+                    'DateofDeliveryOrRegistration': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y') : 'New',
                     'YearOfManufacture': this.vechicle.controls['manufactureyear'].value,
-                    'Registration_No':this.regvalue !='New Vehicle'? this.vechicle.controls['regno'].value:'New',
+                    'Registration_No': this.regvalue != 'New Vehicle' ? this.vechicle.controls['regno'].value : 'New',
                     'EngineNumber': this.vechicle.controls['engine'].value,
                     'ChassisNumber': this.vechicle.controls['chassis'].value,
                     // "RTOLocationCode": "22189",
@@ -1112,8 +1161,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'Owner_Driver_Appointee_Name': this.addOns.controls['appointeename'].value,
                     'Owner_Driver_Appointee_Relationship': this.addOns.controls['appointeerelation'].value,
                     'IsZeroDept_Cover': this.addOns.controls['zerodept'].value == 'true' ? '1' : '0',
-                    'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value =='' ?'0':this.addOns.controls['ElecticalAccessoryIDV'].value,
-                    'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value=='' ?'0':this.addOns.controls['NonElecticalAccessoryIDV'].value,
+                    'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
+                    'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
                     'IsLimitedtoOwnPremises': this.addOns.controls['IsLimitedtoOwnPremises'].value == true ? '1' : '0',
                     'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
                     'AntiTheftDiscFlag': this.addOns.controls['Antitheftdiscflag'].value,
@@ -1123,9 +1172,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 },
 
 
-
-
-            // 'Payment_Details': {
+                // 'Payment_Details': {
                 //      "GC_PaymentID": "",
                 //     "BANK_NAME":  this.BankDetails.controls['Bankname'].value,
                 //      "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
@@ -1203,15 +1250,15 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
         let dd = today.getDate() - birthDate.getDate();
-        console.log(age,'age');
-        console.log(m,'month');
-        console.log(dd,'date');
-        console.log(birthDate,'bithdatree');
-        if (age < 1 || m < 6 ) {
+        console.log(age, 'age');
+        console.log(m, 'month');
+        console.log(dd, 'date');
+        console.log(birthDate, 'bithdatree');
+        if (age < 1 || m < 6) {
             this.regvalue = 'New Vehicle';
             console.log('log');
         }
-        if (age > 1 || m >6) {
+        if (age > 1 || m > 6) {
             console.log('roll');
             this.regvalue = 'Roll Over';
 
@@ -1239,22 +1286,27 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.toastr.error('IDV Should Not Less Than 7000');
         }
     }
-    alternatecontact(value,event){
+
+    alternatecontact(value, event) {
         console.log(event);
-        if(this.proposer.controls['mobile'].value==value){
-           this.altererror='Enter Alternate Contact';
-        }else if(this.proposer.controls['mobile'].value!=value){
-            this.altererror='';
-        }if(value.search('-')==-1 && value!='' ){
-            this.altererror=' "-" should be enter after the area code ';
-        } else if(value.search('-')!=-1){
-            this.altererror='';
-        }if(value.search('-')>5 && value!=''){
-            this.altererror=' Enter Valid Area Code ';
-        }else if(value.search('-')!>5){
-            this.altererror='';
+        if (this.proposer.controls['mobile'].value == value) {
+            console.log('ooo');
+            this.altererror = 'Enter Alternate Contact';
+        } else if (this.proposer.controls['mobile'].value != value) {
+            this.altererror = '';
+        }
+        if (value.search('-') == -1 && value != '') {
+            this.altererror = ' "-" should be enter after the area code ';
+        } else if (value.search('-') != -1) {
+            this.altererror = '';
+        }
+        if (value.search('-') > 5 && value != '') {
+            this.altererror = ' Enter Valid Area Code ';
+        } else if (value.search('-')! > 5) {
+            this.altererror = '';
         }
     }
+
     //
 
     topScroll() {
