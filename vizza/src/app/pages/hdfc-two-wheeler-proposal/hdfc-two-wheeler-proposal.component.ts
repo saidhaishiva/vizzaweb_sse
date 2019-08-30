@@ -93,6 +93,11 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public altererror: any;
     public pinerror: any;
     public pinerrorpermanent: any;
+    public response: any;
+    public personalCitys: any;
+    public residenceCitys: any;
+    public personaldistricts: any;
+    public residenceDistricts: any;
 
 
     public financiercodevalue: any;
@@ -524,10 +529,17 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
 
     sessionData() {
-        if (sessionStorage.citylist != '' && sessionStorage.citylist != undefined) {
+        if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+            this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+        }if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+            this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+        }if (sessionStorage.personaldistricts != '' && sessionStorage.personaldistricts != undefined) {
+            this.personaldistricts = JSON.parse(sessionStorage.personaldistricts);
+        }if (sessionStorage.residenceDistricts != '' && sessionStorage.residenceDistricts != undefined) {
+            this.residenceDistricts = JSON.parse(sessionStorage.residenceDistricts);
+        }if (sessionStorage.citylist != '' && sessionStorage.citylist != undefined) {
             this.cityarray = JSON.parse(sessionStorage.citylist);
-        }
-        if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
+        }if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
             this.districtarray = JSON.parse(sessionStorage.districtlist);
         }
         if (sessionStorage.company != '' && sessionStorage.company != undefined) {
@@ -652,7 +664,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
         }
         else if (this.addOns.controls['NomineeName'].value == '') {
-            console.log('setvalid');
             this.addOns.controls['NomineeAge'].patchValue('');
             this.addOns.controls['NomineeAge'].setValidators(null);
             this.addOns.controls['NomineeAge'].updateValueAndValidity();
@@ -679,14 +690,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
     ONcheck(event){
         if(event.checked == true){
-            console.log(event,'e');
             this.addOns.controls['pacovername'].setValidators([Validators.required]);
             this.addOns.controls['pacovername'].updateValueAndValidity();
             this.addOns.controls['pasuminsured'].setValidators([Validators.required]);
             this.addOns.controls['pasuminsured'].updateValueAndValidity();
 
         }else if(event.checked == false){
-            console.log('pp');
             this.addOns.controls['pacovername'].patchValue('');
             this.addOns.controls['pacovername'].setValidators(null);
             this.addOns.controls['pacovername'].updateValueAndValidity();
@@ -808,6 +817,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].patchValue(this.proposer.controls['citycom'].value);
             this.proposer.controls['districtpermanent'].patchValue(this.proposer.controls['districtcom'].value);
             this.proposer.controls['landmarkpermanent'].patchValue(this.proposer.controls['landmarkcom'].value);
+            this.personalCitys = JSON.parse(sessionStorage.residenceCitys);
+            sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+            this.personaldistricts = JSON.parse(sessionStorage.residenceDistricts);
+            sessionStorage.personaldistricts = JSON.stringify( this.personaldistricts);
+
+
         } else if (event.checked != true) {
             this.proposer.controls['address'].patchValue('');
             this.proposer.controls['address2'].patchValue('');
@@ -817,6 +832,16 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].patchValue('');
             this.proposer.controls['districtpermanent'].patchValue('');
             this.proposer.controls['landmarkpermanent'].patchValue('');
+            if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+                this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+            } else {
+                this.personalCitys = {};
+            }if(sessionStorage.personaldistricts != '' && sessionStorage.personaldistricts != undefined){
+                this.personaldistricts = JSON.parse(sessionStorage.personaldistricts);
+
+            }else{
+                this.personaldistricts = {};
+            }
 
         }
 
@@ -840,18 +865,19 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     proposerpincodeListSuccess(successData, type) {
         if (successData.IsSuccess) {
-            this.cityarray = successData.ResponseObject;
+            this.response = successData.ResponseObject;
             var i;
             let g = new Array();
             let distrct = new Array();
-            console.log(this.cityarray, 'cityarry');
-            for (i = 0; i < this.cityarray.length; i++) {
-                if(g.indexOf(g) === -1){
-                    g.push(this.cityarray[i]['txt_pincode_locality']);
+            console.log(this.response, 'cityarry');
+            for (i = 0; i < this.response.length; i++) {
+                if(g.indexOf(this.response[i]['txt_pincode_locality']) == -1){
+                        // g.push(Array.from(new Set(this.cityarray[i]['txt_pincode_locality']))) ;
+                    g.push(this.response[i]['txt_pincode_locality']);
                 }
                 console.log(distrct[i]);
-                if (this.cityarray[i]['txt_city_district'] != distrct[i]) {
-                    distrct.push(this.cityarray[i]['txt_city_district']);
+                if (distrct.indexOf(this.response[i]['txt_city_district']) == -1) {
+                    distrct.push(this.response[i]['txt_city_district']);
                 }
 
             }
@@ -860,9 +886,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.districtarray = distrct;
             sessionStorage.districtlist = JSON.stringify(distrct);
             console.log(sessionStorage.districtlist, 'session');
-
-
-            console.log(g, 'jj');
             this.pinerror='';
 
             if (type == 'proposer') {
@@ -870,40 +893,52 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 this.proposer.controls['statepermanent'].patchValue(this.proposerPinList[0].txt_state);
                 this.proposer.controls['districtpermanent'].patchValue(this.proposerPinList[0].txt_city_district);
                 this.proposer.controls['citypermanent'].patchValue(this.proposerPinList[0].txt_pincode_locality);
-            } else if (type == 'comm') {
+                this.personalCitys = this.cityarray;
+                this.personaldistricts = this.districtarray;
+                sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+                sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
+
+            }else if (type == 'comm') {
                 this.proposerComList = successData.ResponseObject;
                 this.proposer.controls['statecom'].patchValue(this.proposerComList[0].txt_state);
                 this.proposer.controls['districtcom'].patchValue(this.proposerComList[0].txt_city_district);
                 this.proposer.controls['citycom'].patchValue(this.proposerComList[0].txt_pincode_locality);
+                this.residenceCitys = this.cityarray;
+                this.residenceDistricts = this.districtarray;
+                sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
+                sessionStorage.residenceDistricts = JSON.stringify(this.residenceDistricts);
+                if(this.proposer.controls['issameascmmunication'].value == true){
+                }
+
             }
         } else if (successData.IsSuccess != true) {
             this.toastr.error('Please Fill Valid Pincode');
             this.pinerror='Please Fill Valid Pincode';
-            console.log('pp');
             if (type == 'proposer') {
                 console.log('varchar');
-                sessionStorage.cityarray='';
-                this.cityarray = {};
-                sessionStorage.districtarray='';
-                this.districtarray = {};
+                sessionStorage.personalCitys='';
+                this.personalCitys = {};
+                sessionStorage.personaldistricts='';
+                this.personaldistricts = {};
                 this.proposer.controls['statepermanent'].patchValue('');
                 this.proposer.controls['districtpermanent'].patchValue('');
                 this.proposer.controls['citypermanent'].patchValue('');
 
             } else if (type == 'comm') {
+                sessionStorage.residenceCitys='';
+                this.residenceCitys = {};
+                sessionStorage.residenceDistricts='';
+                this.residenceDistricts = {};
                 this.proposer.controls['statecom'].patchValue('');
                 this.proposer.controls['districtcom'].patchValue('');
                 this.proposer.controls['citycom'].patchValue('');
-                if(this.proposer.controls['issameascmmunication'].value){
-                    console.log('ppp');
+                if(this.proposer.controls['issameascmmunication'].value == true){
                     this.pinerrorpermanent='Please Fill Valid Pincode';
+                    console.log('iiiiiii');
                     sessionStorage.cityarray='';
                     this.cityarray = {};
                     sessionStorage.districtarray='';
                     this.districtarray = {};
-                    this.proposer.controls['statecom'].patchValue('');
-                    this.proposer.controls['districtcom'].patchValue('');
-                    this.proposer.controls['citycom'].patchValue('');
                     this.proposer.controls['statepermanent'].setValue('');
                     this.proposer.controls['districtpermanent'].setValue('');
                     this.proposer.controls['citypermanent'].setValue('');
@@ -911,6 +946,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             }
         }
     }
+    contains(v){
+        for (var i = 0; i < v.length; i++) {
+            if (this[i] === v) return true;
+        }
+        return false;
+    };
 
 
     proposerpincodeListFailure(error) {
@@ -919,9 +960,11 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     typeAddressDeatils() {
 
-        if (this.proposer.controls['issameascmmunication'].value) {
+        if (this.proposer.controls['issameascmmunication'].value==true) {
+            console.log(this.proposer.controls['issameascmmunication'].value,'wheree');
             this.pinerrorpermanent='';
-            console.log('inn');
+            sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+            sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
             //     this.citypermanent = JSON.parse(sessionStorage.personalCitys);
             this.proposer.controls['address'].setValue(this.proposer.controls['address4'].value);
             this.proposer.controls['address2'].setValue(this.proposer.controls['address5'].value);

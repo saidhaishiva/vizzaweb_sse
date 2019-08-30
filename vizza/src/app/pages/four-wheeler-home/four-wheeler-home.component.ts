@@ -190,10 +190,16 @@ export class FourWheelerHomeComponent implements OnInit {
             this.dobError = 'Enter Valid Date';
           }
         } else if (typeof event.value._i == 'object') {
-          if (dob.length == 10) {
+          this.dobError = '';
+
+          if (type == 'regitser') {
             this.dobError = '';
 
+            if (pattern.test(event.value._i) && event.value._i.length == 10 && this.fourWheeler.controls['registrationDateNew'].value >= this.minDate) {
+              this.dobError = '';
+            }
           }
+
         }
       }
     }
