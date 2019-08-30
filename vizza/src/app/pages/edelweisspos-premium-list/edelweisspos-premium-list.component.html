@@ -55,14 +55,14 @@
               </td>
               <td class="col-md-2 text-center">
                 <mat-form-field class="w-75">
-                  <mat-select placeholder="Policy Term">
+                  <mat-select placeholder="Policy Term" [(value)]="policy" (change)="changeterm($event,'policy')">
                     <mat-option *ngFor="let policy of policyterm | keys" [value]="policy.key">{{policy.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </td>
               <td class="col-md-2 text-center">
                 <mat-form-field class="w-75">
-                  <mat-select placeholder="Premium Paying Term">
+                  <mat-select placeholder="Premium Paying Term" [(value)]="premium" (change)="changeterm($event,'premium')">
                     <mat-option *ngFor="let termList of premiumterm | keys" value="{{termList.key}}">{{termList.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
