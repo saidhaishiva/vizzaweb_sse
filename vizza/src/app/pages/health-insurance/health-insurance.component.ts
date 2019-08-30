@@ -637,12 +637,18 @@ export class HealthInsuranceComponent implements OnInit {
             }
             this.changeSuninsuredAmount = "4";
             this.allProductLists = [].concat.apply([], this.productListArray);
+            console.log(typeof this.allProductLists[0].premium_amount, 'oooooo');
+            console.log(typeof this.allProductLists[1].premium_amount, 'oooooo');
+
         }
         for (let i = 0; i < this.allProductLists.length; i++) {
             this.allProductLists[i].compare = false;
             this.allProductLists[i].shortlist = false;
             this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
             this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
+            // allll.sort();
+            // console.log(allll, 'allll');
+
         }
         sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
         sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
@@ -1108,6 +1114,7 @@ export class HealthInsuranceComponent implements OnInit {
                 this.allPolicyDetails = policylists;
                 this.changedTabDetails = policylists[0];
                 this.allPolicyDetails = policylists;
+
                 sessionStorage.allPolicyDetails = JSON.stringify(policylists);
                 sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
             }

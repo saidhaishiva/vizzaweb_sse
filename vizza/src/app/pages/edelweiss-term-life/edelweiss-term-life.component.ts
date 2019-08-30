@@ -384,7 +384,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       einsureAccNo: 'No',
       epolicy1: 'No',
       insureRepository: '',
-      planOption: 'No',
+      // planOption: 'No',
       workSiteFlag: 'No',
       investmentStrategy: '',
       risingStar: 'No',
@@ -414,6 +414,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail = this.fb.group({
         travelOutsideIndia: 'No',
         pilot: 'No',
+        activity: 'No',
         adventurousActivities: '',
         adventurousActivitiesName: '',
         adventurousActivitiesDetails: '',
@@ -578,6 +579,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getekycProof();
     this.geteOtherDocumentProof();
     this.geteidLifeProof();
+    this.geteTobaccoDetail();
     this.getesalereqProof();
     this.geteAlcoholDetails();
     this.sessionData();
@@ -2714,6 +2716,21 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.medicalDetail.controls['drugsDetails'].updateValueAndValidity();
 
   }
+    isactivity() {
+
+        if (this.medicalDetail.controls['activity'].value == 'Yes') {
+            this.medicalDetail.controls['adventurousActivities'].patchValue(this.medicalDetail.controls['adventurousActivities'].value);
+
+            this.medicalDetail.controls['adventurousActivities'].setValidators([Validators.required]);
+        } else {
+            this.medicalDetail.controls['adventurousActivities'].patchValue('');
+
+            this.medicalDetail.controls['adventurousActivities'].setValidators(null);
+
+        }
+        this.medicalDetail.controls['adventurousActivities'].updateValueAndValidity();
+
+    }
   isalcoholInd() {
 
     if (this.medicalDetail.controls['alcoholInd'].value == 'Yes') {
@@ -3312,7 +3329,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
         "frequency":this.enquiryFormData.lifePayment,
         "sumAssured": sessionStorage.selectedAmountTravel,
-        "planOption": this.insureArray.controls['planOption'].value,
+        "planOption": "",
         "riderDetails": {
           "workSiteFlag": this.insureArray.controls['workSiteFlag'].value,
           "investmentStrategy":this.insureArray.controls['investmentStrategy'].value,
@@ -5214,6 +5231,7 @@ console.log(this.proposalId,'proposalId');
         investing: this.getStepper2.investing,
         title: this.getStepper2.title,
         titleName: this.getStepper2.titleName,
+        activity: this.getStepper2.activity,
         adventurousActivitiesName: this.getStepper2.adventurousActivitiesName,
         firstName: this.getStepper2.firstName,
         midName: this.getStepper2.midName,
@@ -5292,7 +5310,7 @@ console.log(this.proposalId,'proposalId');
         einsureAccNo: this.getStepper2.einsureAccNo,
         epolicy1: this.getStepper2.epolicy1,
         insureRepository: this.getStepper2.insureRepository,
-        planOption:  this.getStepper2.planOption,
+        // planOption:  this.getStepper2.planOption,
         workSiteFlag:  this.getStepper2.workSiteFlag,
         investmentStrategy: this.getStepper2.investmentStrategy,
         risingStar:  this.getStepper2.risingStar,
@@ -5377,6 +5395,7 @@ console.log(this.proposalId,'proposalId');
 
         this.medicalDetail.controls['travelOutsideIndia'].patchValue(getMedicalDetail.travelOutsideIndia);
         this.medicalDetail.controls['pilot'].patchValue(getMedicalDetail.pilot);
+        this.medicalDetail.controls['activity'].patchValue(getMedicalDetail.activity);
         this.medicalDetail.controls['adventurousActivities'].patchValue(getMedicalDetail.adventurousActivities);
         this.medicalDetail.controls['adventurousActivitiesDetails'].patchValue(getMedicalDetail.adventurousActivitiesDetails);
         this.medicalDetail.controls['drugsInd'].patchValue(getMedicalDetail.drugsInd);
