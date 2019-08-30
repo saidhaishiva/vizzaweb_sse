@@ -11,6 +11,8 @@ import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MetaService} from '../../shared/services/meta.service';
+import {AuthService} from '../../shared/services/auth.service';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -43,8 +45,11 @@ export class CareerLiabilityPolicyComponent implements OnInit {
   public response: any;
   public pincodeErrors: any;
   public webhost: any;
+  public metaCareer: any;
+  public metaTitle: any;
   public settings: Settings;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public config: ConfigurationService,public appSettings: AppSettings) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,
+              public config: ConfigurationService,public appSettings: AppSettings, public meta: MetaService, public auth: AuthService) {
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
     if(window.innerWidth < 787){
@@ -75,9 +80,37 @@ export class CareerLiabilityPolicyComponent implements OnInit {
     this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
     this.route.params.forEach((params) => {
       this.productName = params.id;
-
     });
+    this.metaList();
   }
+
+  public metaList() {
+    const data = {
+      'platform': 'web',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'component_name': ' Career Liability Policy'
+    };
+    this.meta.metaDetail(data).subscribe(
+        (successData) => {
+          this.metaDetailSuccess(successData);
+        },
+        (error) => {
+          this.metaDetailFailure(error);
+        }
+    );
+  }
+  public metaDetailSuccess(successData) {
+    console.log(successData.ResponseObject);
+    this.metaCareer = successData.ResponseObject;
+    this.metaTitle = this.metaCareer[0].title;
+    console.log(this.metaCareer[0].title, 'titl')
+  }
+  public metaDetailFailure(error) {
+    console.log(error);
+  }
+
   addEvent(event) {
     this.selectDate = event.value;
     this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');

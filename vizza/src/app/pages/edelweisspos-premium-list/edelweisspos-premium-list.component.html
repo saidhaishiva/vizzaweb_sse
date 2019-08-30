@@ -16,7 +16,7 @@
               <th class="col-md-2">
                 <mat-form-field class="w-100">
                   <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
-                  <mat-select multiple>
+                  <mat-select>
                     <mat-option *ngFor="let list of allCompanyList" value="{{list.company_name}}">{{list.company_name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -24,7 +24,7 @@
               <th class="sun-insured col-md-1">
                 <mat-form-field class="w-100">
                   <mat-placeholder class="myclass font-weight-bold">Sum Insured</mat-placeholder>
-                  <mat-select>
+                  <mat-select [(value)]="sumamount" (change)="changeterm()">
                     <mat-option *ngFor="let suminsure of suminsuredvalue | keys" value="{{suminsure.key}}">{{suminsure.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -55,14 +55,14 @@
               </td>
               <td class="col-md-2 text-center">
                 <mat-form-field class="w-75">
-                  <mat-select placeholder="Policy Term">
+                  <mat-select placeholder="Policy Term" [(value)]="policy" (change)="changeterm()">
                     <mat-option *ngFor="let policy of policyterm | keys" [value]="policy.key">{{policy.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </td>
               <td class="col-md-2 text-center">
                 <mat-form-field class="w-75">
-                  <mat-select placeholder="Premium Paying Term">
+                  <mat-select placeholder="Premium Paying Term" [(value)]="premium" (change)="changeterm()">
                     <mat-option *ngFor="let termList of premiumterm | keys" value="{{termList.key}}">{{termList.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>

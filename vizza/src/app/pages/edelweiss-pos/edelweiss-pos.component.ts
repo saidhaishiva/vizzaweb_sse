@@ -3725,7 +3725,7 @@ export class EdelweissPosComponent implements OnInit {
     console.log(this.enquiryFormData.lifePolicy,'this.enquiryFormData.lifePolicy')
     console.log(this.medicalDetail.controls['adventurousActivities'].value,'medicalDetailadventurousActivities')
     this.settings.loadingSpinner = true;
-    this.termService.edelweissProposalCreation(data).subscribe(
+    this.common.edelweissposProposalCreation(data).subscribe(
         (successData) => {
           this.setEdelProposalSuccess(successData, stepper);
         },
