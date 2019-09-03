@@ -367,6 +367,7 @@ export class HdfcTermLifeComponent implements OnInit {
           astate: ['', Validators.required],
           acountry: ['', Validators.required],
           apincode: ['', Validators.required],
+          nomineeAgeVal: '',
           appointeeDobValidError:'',
           nomineeDobValidError:'',
             showAppointee: false,
@@ -580,48 +581,48 @@ export class HdfcTermLifeComponent implements OnInit {
 
       }
     }
-    //  else if(type == 'appointee') {
-    //
-    //   if (event.value != null) {
-    //     let selectedDate = '';
-    //     let dob = '';
-    //     let dob_days = '';
-    //     this.getAge = '';
-    //     this.getDays;
-    //     dob = this.datepipe.transform(event.value, 'y-MM-dd');
-    //     dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
-    //
-    //     if (typeof event.value._i == 'string') {
-    //       const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-    //       if (pattern.test(event.value._i) && event.value._i.length == 10) {
-    //         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
-    //
-    //       } else {
-    //         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('Enter Valid DOB');
-    //       }
-    //
-    //       selectedDate = event.value._i;
-    //
-    //       if (selectedDate.length == 10) {
-    //         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
-    //         this.getAge = this.ageCalculate(dob);
-    //         this.getDays = this.ageCalculate(dob_days);
-    //         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(dob);
-    //
-    //       }
-    //
-    //     }
-    //     else if (typeof event.value._i == 'object') {
-    //       if (dob.length == 10) {
-    //         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
-    //         this.getAge = this.ageCalculate(dob);
-    //         this.getDays = this.ageCalculateInsurer(dob_days);
-    //       }
-    //     }
-    //   }
-    //   sessionStorage.appointeeAge = this.getAge;
-    //
-    // }
+     else if(type == 'appointee') {
+
+      if (event.value != null) {
+        let selectedDate = '';
+        let dob = '';
+        let dob_days = '';
+        this.getAge = '';
+        this.getDays;
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+
+        if (typeof event.value._i == 'string') {
+          const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+          if (pattern.test(event.value._i) && event.value._i.length == 10) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+
+          } else {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('Enter Valid DOB');
+          }
+
+          selectedDate = event.value._i;
+
+          if (selectedDate.length == 10) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+            this.getAge = this.ageCalculate(dob);
+            this.getDays = this.ageCalculate(dob_days);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aDob.patchValue(dob);
+
+          }
+
+        }
+        else if (typeof event.value._i == 'object') {
+          if (dob.length == 10) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+            this.getAge = this.ageCalculate(dob);
+            this.getDays = this.ageCalculateInsurer(dob_days);
+          }
+        }
+      }
+      sessionStorage.appointeeAge = this.getAge;
+  console.log( sessionStorage.appointeeAge, ' sessionStorage.appointeeAge');
+    }
   }
 
   appointeeAgeValid(event: any, i) {
@@ -804,7 +805,7 @@ export class HdfcTermLifeComponent implements OnInit {
     }
 
     //
-    // console.log(sessionStorage.appointeeAge,'appointeeAge11222');
+    console.log(sessionStorage.appointeeAge,'appointeeAge11222');
     // console.log(sessionStorage.appointeeAge2,'appointeeAge2233');
 
     // nominee 2 age validation
@@ -822,20 +823,20 @@ export class HdfcTermLifeComponent implements OnInit {
       if (!nomineeValid || !nominee2ageval) {
 
 
+        if (appointeeAge ) {
+          console.log(appointeeAge,'appointeeAgeentry')
+          stepper.next();
+          this.topScroll();
+          this.proposal(stepper);
+
+        } else {
+          this.toastr.error('Appointee Age should be greater than 18.');
+          // console.log('2222');
+
+        }
+      } else {
         stepper.next();
         this.topScroll();
-        // if (appointeeAge ) {
-        //   // console.log(appointeeAge,'appointeeAgeentry')
-        //
-        //     // console.log(appointeeAge2,'falseApp');
-        //
-        // } else {
-        //   this.toastr.error('Appointee Age should be greater than 18.');
-        //   // console.log('2222');
-        // }
-      } else {
-        // stepper.next();
-        // this.topScroll();
         this.proposal(stepper);
       }
     }
@@ -2476,6 +2477,7 @@ getweightListHdfc() {
       this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
       this.personal = this.fb.group({
 
+
         title: this.getStepper1.title,
         firstnm: this.getStepper1.firstnm,
         lastnm: this.getStepper1.lastnm,
@@ -2540,6 +2542,8 @@ getweightListHdfc() {
 
 
       });
+      console.log( this.getStepper1, ' this.getStepper1')
+      console.log( this.personal, ' this.personal')
 
     }
 
@@ -2550,19 +2554,19 @@ getweightListHdfc() {
     if (sessionStorage.stepper3Details!= '' && sessionStorage.stepper3Details != undefined) {
 
       let getStepper3 = JSON.parse(sessionStorage.stepper3Details);
-      // this.nomineeDetail['controls'].afirstnm.patchValue(getStepper3.afirstnm);
-      // this.nomineeDetail['controls'].alastnm.patchValue(getStepper3.alastnm);
-      // this.nomineeDetail['controls'].aDob.patchValue(this.datepipe.transform(getStepper3.aDob, 'y-MM-dd'));
-      // this.nomineeDetail['controls'].agender.patchValue(getStepper3.agender);
-      // this.nomineeDetail['controls'].ahouseno.patchValue(getStepper3.ahouseno);
-      // this.nomineeDetail['controls'].astreet.patchValue(getStepper3.astreet);
-      // this.nomineeDetail['controls'].alandmark.patchValue(getStepper3.alandmark);
-      // this.nomineeDetail['controls'].acity.patchValue(getStepper3.acity);
-      // this.nomineeDetail['controls'].astate.patchValue(getStepper3.astate);
-      // this.nomineeDetail['controls'].acountry.patchValue(getStepper3.acountry);
-      // this.nomineeDetail['controls'].astreet.patchValue(getStepper3.astreet);
-      // this.nomineeDetail['controls'].apincode.patchValue(getStepper3.apincode);
-      // this.nomineeDetail['controls'].showAppointee.patchValue(getStepper3.showAppointee);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].afirstnm.patchValue(getStepper3.afirstnm);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alastnm.patchValue(getStepper3.alastnm);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aDob.patchValue(this.datepipe.transform(getStepper3.aDob, 'y-MM-dd'));
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].agender.patchValue(getStepper3.agender);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ahouseno.patchValue(getStepper3.ahouseno);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astreet.patchValue(getStepper3.astreet);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alandmark.patchValue(getStepper3.alandmark);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acity.patchValue(getStepper3.acity);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astate.patchValue(getStepper3.astate);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.patchValue(getStepper3.acountry);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astreet.patchValue(getStepper3.astreet);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].apincode.patchValue(getStepper3.apincode);
+      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(getStepper3.showAppointee);
 
       if (getStepper3.itemsNominee.length > 1) {
         this.addNominee(event);
@@ -2586,6 +2590,19 @@ getweightListHdfc() {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(getStepper3.itemsNominee[i].nstate);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(getStepper3.itemsNominee[i].ncountry);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].npincode.patchValue(getStepper3.itemsNominee[i].npincode);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].afirstnm.patchValue(getStepper3.afirstnm);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alastnm.patchValue(getStepper3.alastnm);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aDob.patchValue(this.datepipe.transform(getStepper3.aDob, 'y-MM-dd'));
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].agender.patchValue(getStepper3.agender);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ahouseno.patchValue(getStepper3.ahouseno);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astreet.patchValue(getStepper3.astreet);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alandmark.patchValue(getStepper3.alandmark);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acity.patchValue(getStepper3.acity);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astate.patchValue(getStepper3.astate);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.patchValue(getStepper3.acountry);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astreet.patchValue(getStepper3.astreet);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].apincode.patchValue(getStepper3.apincode);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(getStepper3.showAppointee);
 
       }
     }
