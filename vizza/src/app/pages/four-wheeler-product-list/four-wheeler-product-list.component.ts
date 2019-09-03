@@ -9,6 +9,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import { ClearSessionFourwheelerService } from '../../shared/services/clear-session-fourwheeler.service';
 import { MatDialog } from '@angular/material';
+import { ViewdetailsComponent } from '../health-insurance/viewdetails/viewdetails.component';
 
 @Component({
   selector: 'app-four-wheeler-product-list',
@@ -260,17 +261,17 @@ export class FourWheelerProductListComponent implements OnInit {
     }
   }
 
-  // // view key features details
-  // viewKeyList(value) {
-  //   console.log(value, 'value');
-  //   let dialogRef = this.dialog.open(, {
-  //     width: '1500px', data: {productId : value.product_id, productName: value.product_name, productLogo: value.company_logo}
-  //   });
-  //   dialogRef.disableClose = true;
-  //   dialogRef.afterClosed().subscribe(result => {
-  //   });
-  //
-  // }
+  // view key features details
+  viewKeyList(value) {
+    console.log(value, 'value');
+    let dialogRef = this.dialog.open( ViewdetailsComponent, {
+      width: '1500px', data: {productId : value.product_id, productName: value.product_name, productLogo: value.company_logo}
+    });
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+  }
 
 
   buyProduct(value) {
