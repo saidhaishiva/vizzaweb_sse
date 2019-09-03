@@ -185,7 +185,6 @@ export class HealthInsuranceComponent implements OnInit {
     }
     public metaDetailSuccess(successData) {
       this.metaHealth = successData.ResponseObject[0];
-
     }
     public metaDetailFailure(error) {
         console.log(error);
@@ -1339,12 +1338,16 @@ export class HealthInsuranceComponent implements OnInit {
             }
     }
 
-    healthInsurer(){
-        const dialogRef = this.dialog.open(HealthInsurer, {
-            width: '1200px',
-        });
-        dialogRef.disableClose = true;
-    }
+    // healthInsurer(){
+    //     // const dialogRef = this.dialog.open(HealthInsurer, {
+    //     //     width: '1200px',
+    //     // });
+    //     // dialogRef.disableClose = true;
+    //     this.knowMoreHealth = true;
+    // }
+    // onNoClick(){
+    //     this.knowMoreHealth = false;
+    // }
     headinghealthinsurance(){
         this.firstPage = true;
         this.secondPage = false;
@@ -1353,165 +1356,165 @@ export class HealthInsuranceComponent implements OnInit {
 }
 
 
-@Component({
-    selector: 'healthinsurer',
-    template: `        
-        <div class="row">
-            <div class="col-sm-12 text-right">
-                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
-            </div>
-            <div class="col-sm-12">
-                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
-            </div>
-            
-        </div>
-        <div mat-dialog-content>
-            <mat-accordion>
-
-            <mat-expansion-panel class="mb-3" [expanded]='true'>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    HEALTH INSURANCE- WHAT YOU SHOULD KNOW
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            Health Insurance is a must for dealing with the wellness of your finances when you or your dependent family member is hospitalised. Health Insurance to a great extent covers the expenses incurred due to accident/health and sickness related procedures at the hospital as impatient. Certain day care proceedures are also covered and the list differs from insurer to insurer.
-
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="mb-3">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    UTILISING THE HEALTH INSURANCE POLICY
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>On payment of premium to the insurer a health insurance policy is issued by the insurer along with the policy terms and conditions. An identity card is also issued by the allocated Third Party Administrator ( TPA ). This identity card along with an approved photo identity card like Aadhar, PAN, DL should be produced at the hospital for availing cashless facility. </p>
-            <p>You must remember that the TPA is only a facilitator and TPA’s are not empowered to reject claims.</p>
-            <p>It is a must that you should read the terms and conditions of the policy and if the terms and conditions are not in line with what was assured at the time of sales or you feel that this policy is not what you required, you can cancel the policy within the free look period and get a full refund of the premium.</p>
-            <p>There are certain exclusions in all health insurance policies and the exclusions vary from insurer to insurer and policy to policy. The exclusions are specifically mentioned in the policy.</p>
-            <strong>The most common exclusions and salient features to be borne in mind are :</strong>
-            <ol><li>Remember a full 24 hour hospitalization is a prime requisite for a hospitalization claim unless the particular procedure has been listed as a day care procedure by the insurer. A discharge with a few minutes short of 24 hours hospitalization could result in repudiation of the claim.</li>
-                <li>First 30 days from the date of commencement of the policy. No hospitalization claims are payable except in the unfortunate event of an accident hospitalization. This exclusion is not applicable for renewals if renewed prior to the expiry of the existing policy.</li>
-                <li>Pre-existing illnesses are generally excluded for a specific period. This exclusion is not applicable where the existing policy holder has completed the requisite period with any insurer and the policy is a continuation without any break in period and portability has been accepted by the insurer.</li>
-                <li>Although there is a grace time for renewing the policy you must be aware of the fact that all hospitalisations during the grace period are excluded from the coverage. Any illness acquired during this period will be excluded on renewal.</li>
-                <li>Certain diseases / illnesses get covered after completion of a particular period of continuous renewal 2 years / 3 years / 4 years. This is specifically mentioned in the policy.</li>
-                <li>You must be aware of the fact that the Hospital / Nursing home has to be registered with the local authorities and according to the located city there is a minimum number of beds stipulated. Further the hospital should have a fully equipped operation theater, nurses and doctors available round the clock.</li>
-                <li>The unfortunate event of hospitalization could be a planned hospitalization which is after several visits to the doctors a procedure might have to be done under 24/7 monitoring by the medical team or it could be an emergency unplanned hospitalization. Under both the circumstances the eligible policy benefits can be obtained by utilizing the cashless or reimbursement process.</li>
-                <li>In every hospitalization procedure it is a foregone fact that there will be a pre hospitalization expenditure and after discharge certain post hospitalization expenditure. Generally both the pre and post hospitalization expenses  do not come under the cashless process and has to be claimed as a reimbursement. You must remember that all expenses must be supported by the relevant prescription and bill along with the original report for diagnostic materials. Normally all insurance policies give a 30 day coverage for pre hospitalization expenses and a 60 day period for post hospitalization expenses. Remember there are variations from insurer to insurer according to the opted policy. All claims are payable up to the sum insured limit only. Please remember there might be sub limits or cash / percentage limitations in procedures which are charged by the hospitals on a package basis. Only relevant ( to the procedure at the hospital and disease) medical expenses are covered in the pre and post hospitalization.</li></ol>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="mb-3">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    CASHLESS HOSPITALIZATION PROCESS
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            For you to claim your Insurance by the Cashless Hospitalization manner, you must use any of the hospitals that fall under the network of hospitals registered with that insurer or the Third Party Administrator ( TPA).  All you have to do is to present a physical proof of the health insurance policy you availed or the identity card provided by the insurer / TPA of the insurance along with an approved photo identity of the policy holder as well as of the insured person undergoing the treatment and you will be able to avail the benefits of Cashless treatment and hospitalization. Original identity cards have to be shown for verification and immediate return.
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="mb-3">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    REIMBURSEMENT CLAIM PROCESS
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>Insurers settle claims on a reimbursement basis. This happens when the hospital that you’re being treated in is not a part of the network of hospitals or the insured would have preferred to pay and claim later with the insurer including pre and post hospitalization expenses or the admissibility of the claim due to coverage eligibility and such other valid reasons. It must be remembered that the denial of cashless benefit does not mean denial of the claim itself. Insurer is the only authorized person to reject a claim and not the TPA.</p>
-            <strong>These are a few documents that are mandatory for the reimbursement claim process:</strong>
-            <ul><li>A completed Claim Form with the treating doctors certificate.</li>
-                <li>Discharge summary giving complete details with DOA and DOD (with time).</li>
-                <li>All medicine purchases should be accompanied by prescription and bill.</li>
-                <li>Investigation Reports in original to be accompanied by original Prescriptions and Bill.</li>
-                <li>In case of accidents, the FIR or Medico Legal Certificate is mandatory. </li></ul>
-           </mat-expansion-panel>
-
-         <mat-expansion-panel class="mb-3">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    NO CLAIM BONUS AND LIFE TIME RENEWABILITY
-                 </mat-panel-title>
-             </mat-expansion-panel-header>
-             <p>No Claim Bonus (NCB) is the benefit accrued to an insured for not making any claims during the previous policy period.  As per current norms it ranges from 20% on the premium and progressively increases to a maximum of 50%. The No claim bonus facility slabs varies amongst the insurers. Some of the insurers give a no claim discount in the premium for the subsequent year and every claim free year this discount percentage is increased. In the event of a claim the discount is lost for the subsequent renewal. Some of the insurers provide the no claim bonus as an additional sum insured which is lost in the event of a claim for the next renewal.</p>
-             <p>Opening up of the insurance market has facilitated a wide range of products which are lifelong renewable. It is vital for you to go for a policy that offers protection for a very long time, especially during old age. This is the reason why most of the health insurance plans come out with the facility of lifelong renewability. Just to keep your policy active, you have to renew the same at end of every policy year, before expiry date to maintain continuity of risk.</p>
-         </mat-expansion-panel>       
-
-        <mat-expansion-panel class="mb-3">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    DAY CARE PROCEDURES
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>As mentioned earlier coverage for  procedures which can be completed  in less than 24 hours and discharge of the patient can be on the same day are called Day Care Proceedures. These procedures might be done under local or general anesthesia and there is no need for the patient to remain admitted in the hospital. It is essential that for the claim to be approved it should be listed in the approved list of day care proceedures. Please verify the list of approved day care proceedures of your insurer.</p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="mb-3">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    SPECIAL PLANS AND SPECIAL POLICIES FOR ALL CITIZENS
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>It is never too late to opt for a health insurance policy. Health insurance plans are designed for medical treatments to all individuals. The increasing medical costs have facilitated top up policies which come to the rescue of the policy holder when a sudden huge medical expenses come up.</p>
-            <p>Policies are now available in the market for Cancer Care, Diabetes, Cardiac Care, Critical illness and Senior Citizens also. The terms and conditions of the respective insurer applies but the variety and choice of products in health care insurance is abundant.  Some of the critical illness care policies even have the facility of lump sum reimbursement.</p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="mb-3">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    FREE MEDICAL CHECKUPS
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>Reimbursement of the cost of medical check-up at the end of a block of every three / four renewal years, if there are no claims reported during the block. To motivate all policyholders towards a healthy life, at times some insurers offer a free medical check-up facility. </p>
-            <p>Reimbursement of Ambulance charges is an additional benefit offered by most of the health insurance policies. Some policies in the market offer the facility of Air Ambulance too.</p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="mb-3">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    RESTORATION OF SUM INSURED
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>This is an add-on option that comes with certain health insurance plans. In case the sum insured is exhausted during a policy year, auto restoration comes in and insurer will reinstate the sum insured. </p>
-            <p>Some policies have an option to increase the coverage during the policy term. </p>
-            <p>Normally the health insurance policies come with a room rent cap or at times with a co – pay option. The market has policies which has no cap on room rent and co-pay. The advantage of not having a room rent cap is that it facilitates the insured to utilize the available room and it gives the advantage of no proportionate deductions. It means, if there is a room rent cap in a policy and the insured opts for a room for which the insured pays a rent higher than the eligible room rent the claim amount is also reduced proportionately.</p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="mb-3">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    VIZZA BENEFITS
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>Whether you need health insurance for yourself, your business, or your family, we at Vizza Insurance Broking Services Pvt. Ltd. have a wide range of choices. We help you to find the right health insurance with the right insurer. As a licensed IRDA Broker we work with all insurers and thus we make it easy for individuals to get various  quotes from all insurers, view plan options and provide various permutations and combinations.  Our site is integrated with the health insurance marketplace, making it a one-stop destination for shopping and purchasing the best suitable individual coverage from all insurers.</p>
-            <strong>ADVANTAGE VIZZA:</strong>
-            <ol><li>We analyze your requirement based on your age, dependents, fund allocation and IT benefit.</li>
-                <li>We get quotes for the products available in the market.</li>
-                <li>We analyse the quotes and present you the three best suitable products and the three best quotes. </li>
-                <li>We suggest the options based on coverage and pricing.</li>
-                <li>We place the policy with the insurer of your choice.</li>
-                <li>We ensure that the policy issued is as per the terms and conditions proposed.</li>
-                <li>We recheck with you prior to the completion of the free look period.</li>
-                <li>A senior official guides you at the time of a claim. Our end to end quality support is assured at all times.</li>
-                <li>We ensure that the claim is settled according to the TAT.</li>
-                <li>We follow the same procedure at the time of renewal.</li>
-                <li>We also tailor make policies as per the corporate requirements.</li>
-                <li>The entire online process is seamless. </li>
-                <li>We update you with the latest developments in the market.</li>
-                <li>We are your one stop contact for all your health insurance needs.</li></ol>
-        </mat-expansion-panel>
-
-
-    </mat-accordion>
-    </div>`,
-})
-export class HealthInsurer {
-
-    constructor(
-        public dialogRef: MatDialogRef<HealthInsurer>,
-        @Inject(MAT_DIALOG_DATA) public data: any) {}
-
-        onNoClick(): void {
-        this.dialogRef.close();
-    }
-
-}
+// @Component({
+//     selector: 'healthinsurer',
+//     template: `
+//         <div class="row">
+//             <div class="col-sm-12 text-right">
+//                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+//             </div>
+//             <div class="col-sm-12">
+//                 <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
+//             </div>
+//
+//         </div>
+//         <div mat-dialog-content>
+//             <mat-accordion>
+//
+//             <mat-expansion-panel class="mb-3" [expanded]='true'>
+//             <mat-expansion-panel-header>
+//                 <mat-panel-title>
+//                     HEALTH INSURANCE- WHAT YOU SHOULD KNOW
+//                 </mat-panel-title>
+//             </mat-expansion-panel-header>
+//             Health Insurance is a must for dealing with the wellness of your finances when you or your dependent family member is hospitalised. Health Insurance to a great extent covers the expenses incurred due to accident/health and sickness related procedures at the hospital as impatient. Certain day care proceedures are also covered and the list differs from insurer to insurer.
+//
+//         </mat-expansion-panel>
+//
+//         <mat-expansion-panel class="mb-3">
+//             <mat-expansion-panel-header>
+//                 <mat-panel-title>
+//                     UTILISING THE HEALTH INSURANCE POLICY
+//                 </mat-panel-title>
+//             </mat-expansion-panel-header>
+//             <p>On payment of premium to the insurer a health insurance policy is issued by the insurer along with the policy terms and conditions. An identity card is also issued by the allocated Third Party Administrator ( TPA ). This identity card along with an approved photo identity card like Aadhar, PAN, DL should be produced at the hospital for availing cashless facility. </p>
+//             <p>You must remember that the TPA is only a facilitator and TPA’s are not empowered to reject claims.</p>
+//             <p>It is a must that you should read the terms and conditions of the policy and if the terms and conditions are not in line with what was assured at the time of sales or you feel that this policy is not what you required, you can cancel the policy within the free look period and get a full refund of the premium.</p>
+//             <p>There are certain exclusions in all health insurance policies and the exclusions vary from insurer to insurer and policy to policy. The exclusions are specifically mentioned in the policy.</p>
+//             <strong>The most common exclusions and salient features to be borne in mind are :</strong>
+//             <ol><li>Remember a full 24 hour hospitalization is a prime requisite for a hospitalization claim unless the particular procedure has been listed as a day care procedure by the insurer. A discharge with a few minutes short of 24 hours hospitalization could result in repudiation of the claim.</li>
+//                 <li>First 30 days from the date of commencement of the policy. No hospitalization claims are payable except in the unfortunate event of an accident hospitalization. This exclusion is not applicable for renewals if renewed prior to the expiry of the existing policy.</li>
+//                 <li>Pre-existing illnesses are generally excluded for a specific period. This exclusion is not applicable where the existing policy holder has completed the requisite period with any insurer and the policy is a continuation without any break in period and portability has been accepted by the insurer.</li>
+//                 <li>Although there is a grace time for renewing the policy you must be aware of the fact that all hospitalisations during the grace period are excluded from the coverage. Any illness acquired during this period will be excluded on renewal.</li>
+//                 <li>Certain diseases / illnesses get covered after completion of a particular period of continuous renewal 2 years / 3 years / 4 years. This is specifically mentioned in the policy.</li>
+//                 <li>You must be aware of the fact that the Hospital / Nursing home has to be registered with the local authorities and according to the located city there is a minimum number of beds stipulated. Further the hospital should have a fully equipped operation theater, nurses and doctors available round the clock.</li>
+//                 <li>The unfortunate event of hospitalization could be a planned hospitalization which is after several visits to the doctors a procedure might have to be done under 24/7 monitoring by the medical team or it could be an emergency unplanned hospitalization. Under both the circumstances the eligible policy benefits can be obtained by utilizing the cashless or reimbursement process.</li>
+//                 <li>In every hospitalization procedure it is a foregone fact that there will be a pre hospitalization expenditure and after discharge certain post hospitalization expenditure. Generally both the pre and post hospitalization expenses  do not come under the cashless process and has to be claimed as a reimbursement. You must remember that all expenses must be supported by the relevant prescription and bill along with the original report for diagnostic materials. Normally all insurance policies give a 30 day coverage for pre hospitalization expenses and a 60 day period for post hospitalization expenses. Remember there are variations from insurer to insurer according to the opted policy. All claims are payable up to the sum insured limit only. Please remember there might be sub limits or cash / percentage limitations in procedures which are charged by the hospitals on a package basis. Only relevant ( to the procedure at the hospital and disease) medical expenses are covered in the pre and post hospitalization.</li></ol>
+//         </mat-expansion-panel>
+//
+//         <mat-expansion-panel class="mb-3">
+//             <mat-expansion-panel-header>
+//                 <mat-panel-title>
+//                     CASHLESS HOSPITALIZATION PROCESS
+//                 </mat-panel-title>
+//             </mat-expansion-panel-header>
+//             For you to claim your Insurance by the Cashless Hospitalization manner, you must use any of the hospitals that fall under the network of hospitals registered with that insurer or the Third Party Administrator ( TPA).  All you have to do is to present a physical proof of the health insurance policy you availed or the identity card provided by the insurer / TPA of the insurance along with an approved photo identity of the policy holder as well as of the insured person undergoing the treatment and you will be able to avail the benefits of Cashless treatment and hospitalization. Original identity cards have to be shown for verification and immediate return.
+//         </mat-expansion-panel>
+//
+//         <mat-expansion-panel class="mb-3">
+//             <mat-expansion-panel-header>
+//                 <mat-panel-title>
+//                     REIMBURSEMENT CLAIM PROCESS
+//                 </mat-panel-title>
+//             </mat-expansion-panel-header>
+//             <p>Insurers settle claims on a reimbursement basis. This happens when the hospital that you’re being treated in is not a part of the network of hospitals or the insured would have preferred to pay and claim later with the insurer including pre and post hospitalization expenses or the admissibility of the claim due to coverage eligibility and such other valid reasons. It must be remembered that the denial of cashless benefit does not mean denial of the claim itself. Insurer is the only authorized person to reject a claim and not the TPA.</p>
+//             <strong>These are a few documents that are mandatory for the reimbursement claim process:</strong>
+//             <ul><li>A completed Claim Form with the treating doctors certificate.</li>
+//                 <li>Discharge summary giving complete details with DOA and DOD (with time).</li>
+//                 <li>All medicine purchases should be accompanied by prescription and bill.</li>
+//                 <li>Investigation Reports in original to be accompanied by original Prescriptions and Bill.</li>
+//                 <li>In case of accidents, the FIR or Medico Legal Certificate is mandatory. </li></ul>
+//            </mat-expansion-panel>
+//
+//          <mat-expansion-panel class="mb-3">
+//             <mat-expansion-panel-header>
+//                 <mat-panel-title>
+//                     NO CLAIM BONUS AND LIFE TIME RENEWABILITY
+//                  </mat-panel-title>
+//              </mat-expansion-panel-header>
+//              <p>No Claim Bonus (NCB) is the benefit accrued to an insured for not making any claims during the previous policy period.  As per current norms it ranges from 20% on the premium and progressively increases to a maximum of 50%. The No claim bonus facility slabs varies amongst the insurers. Some of the insurers give a no claim discount in the premium for the subsequent year and every claim free year this discount percentage is increased. In the event of a claim the discount is lost for the subsequent renewal. Some of the insurers provide the no claim bonus as an additional sum insured which is lost in the event of a claim for the next renewal.</p>
+//              <p>Opening up of the insurance market has facilitated a wide range of products which are lifelong renewable. It is vital for you to go for a policy that offers protection for a very long time, especially during old age. This is the reason why most of the health insurance plans come out with the facility of lifelong renewability. Just to keep your policy active, you have to renew the same at end of every policy year, before expiry date to maintain continuity of risk.</p>
+//          </mat-expansion-panel>
+//
+//         <mat-expansion-panel class="mb-3">
+//             <mat-expansion-panel-header>
+//                 <mat-panel-title>
+//                     DAY CARE PROCEDURES
+//                 </mat-panel-title>
+//             </mat-expansion-panel-header>
+//             <p>As mentioned earlier coverage for  procedures which can be completed  in less than 24 hours and discharge of the patient can be on the same day are called Day Care Proceedures. These procedures might be done under local or general anesthesia and there is no need for the patient to remain admitted in the hospital. It is essential that for the claim to be approved it should be listed in the approved list of day care proceedures. Please verify the list of approved day care proceedures of your insurer.</p>
+//         </mat-expansion-panel>
+//
+//         <mat-expansion-panel class="mb-3">
+//             <mat-expansion-panel-header>
+//                 <mat-panel-title>
+//                     SPECIAL PLANS AND SPECIAL POLICIES FOR ALL CITIZENS
+//                 </mat-panel-title>
+//             </mat-expansion-panel-header>
+//             <p>It is never too late to opt for a health insurance policy. Health insurance plans are designed for medical treatments to all individuals. The increasing medical costs have facilitated top up policies which come to the rescue of the policy holder when a sudden huge medical expenses come up.</p>
+//             <p>Policies are now available in the market for Cancer Care, Diabetes, Cardiac Care, Critical illness and Senior Citizens also. The terms and conditions of the respective insurer applies but the variety and choice of products in health care insurance is abundant.  Some of the critical illness care policies even have the facility of lump sum reimbursement.</p>
+//         </mat-expansion-panel>
+//
+//         <mat-expansion-panel class="mb-3">
+//             <mat-expansion-panel-header>
+//                 <mat-panel-title>
+//                     FREE MEDICAL CHECKUPS
+//                 </mat-panel-title>
+//             </mat-expansion-panel-header>
+//             <p>Reimbursement of the cost of medical check-up at the end of a block of every three / four renewal years, if there are no claims reported during the block. To motivate all policyholders towards a healthy life, at times some insurers offer a free medical check-up facility. </p>
+//             <p>Reimbursement of Ambulance charges is an additional benefit offered by most of the health insurance policies. Some policies in the market offer the facility of Air Ambulance too.</p>
+//         </mat-expansion-panel>
+//
+//         <mat-expansion-panel class="mb-3">
+//             <mat-expansion-panel-header>
+//                 <mat-panel-title>
+//                     RESTORATION OF SUM INSURED
+//                 </mat-panel-title>
+//             </mat-expansion-panel-header>
+//             <p>This is an add-on option that comes with certain health insurance plans. In case the sum insured is exhausted during a policy year, auto restoration comes in and insurer will reinstate the sum insured. </p>
+//             <p>Some policies have an option to increase the coverage during the policy term. </p>
+//             <p>Normally the health insurance policies come with a room rent cap or at times with a co – pay option. The market has policies which has no cap on room rent and co-pay. The advantage of not having a room rent cap is that it facilitates the insured to utilize the available room and it gives the advantage of no proportionate deductions. It means, if there is a room rent cap in a policy and the insured opts for a room for which the insured pays a rent higher than the eligible room rent the claim amount is also reduced proportionately.</p>
+//         </mat-expansion-panel>
+//
+//         <mat-expansion-panel class="mb-3">
+//             <mat-expansion-panel-header>
+//                 <mat-panel-title>
+//                     VIZZA BENEFITS
+//                 </mat-panel-title>
+//             </mat-expansion-panel-header>
+//             <p>Whether you need health insurance for yourself, your business, or your family, we at Vizza Insurance Broking Services Pvt. Ltd. have a wide range of choices. We help you to find the right health insurance with the right insurer. As a licensed IRDA Broker we work with all insurers and thus we make it easy for individuals to get various  quotes from all insurers, view plan options and provide various permutations and combinations.  Our site is integrated with the health insurance marketplace, making it a one-stop destination for shopping and purchasing the best suitable individual coverage from all insurers.</p>
+//             <strong>ADVANTAGE VIZZA:</strong>
+//             <ol><li>We analyze your requirement based on your age, dependents, fund allocation and IT benefit.</li>
+//                 <li>We get quotes for the products available in the market.</li>
+//                 <li>We analyse the quotes and present you the three best suitable products and the three best quotes. </li>
+//                 <li>We suggest the options based on coverage and pricing.</li>
+//                 <li>We place the policy with the insurer of your choice.</li>
+//                 <li>We ensure that the policy issued is as per the terms and conditions proposed.</li>
+//                 <li>We recheck with you prior to the completion of the free look period.</li>
+//                 <li>A senior official guides you at the time of a claim. Our end to end quality support is assured at all times.</li>
+//                 <li>We ensure that the claim is settled according to the TAT.</li>
+//                 <li>We follow the same procedure at the time of renewal.</li>
+//                 <li>We also tailor make policies as per the corporate requirements.</li>
+//                 <li>The entire online process is seamless. </li>
+//                 <li>We update you with the latest developments in the market.</li>
+//                 <li>We are your one stop contact for all your health insurance needs.</li></ol>
+//         </mat-expansion-panel>
+//
+//
+//     </mat-accordion>
+//     </div>`,
+// })
+// export class HealthInsurer {
+//
+//     constructor(
+//         public dialogRef: MatDialogRef<HealthInsurer>,
+//         @Inject(MAT_DIALOG_DATA) public data: any) {}
+//
+//         onNoClick(): void {
+//         this.dialogRef.close();
+//     }
+//
+// }
 
 
 @Component({

@@ -149,10 +149,7 @@ export class BikeInsuranceComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaBike = successData.ResponseObject;
-        this.metaTitle = this.metaBike[0].title;
-        console.log(this.metaBike[0].title, 'titl')
+        this.metaBike = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

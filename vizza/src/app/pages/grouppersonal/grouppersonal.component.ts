@@ -103,10 +103,7 @@ export class GrouppersonalComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaGroupPa = successData.ResponseObject;
-        this.metaTitle = this.metaGroupPa[0].title;
-        console.log(this.metaGroupPa[0].title, 'titl')
+        this.metaGroupPa = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

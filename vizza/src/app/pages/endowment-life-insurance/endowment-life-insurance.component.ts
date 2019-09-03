@@ -76,10 +76,7 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaLifeEndow = successData.ResponseObject;
-        this.metaTitle = this.metaLifeEndow[0].title;
-        console.log(this.metaLifeEndow[0].title, 'titl')
+        this.metaLifeEndow = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

@@ -101,10 +101,7 @@ export class GrouptermComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaGroupTerm = successData.ResponseObject;
-        this.metaTitle = this.metaGroupTerm[0].title;
-        console.log(this.metaGroupTerm[0].title, 'titl')
+        this.metaGroupTerm = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

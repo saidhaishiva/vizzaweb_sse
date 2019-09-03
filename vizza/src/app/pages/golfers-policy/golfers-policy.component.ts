@@ -102,10 +102,7 @@ export class GolfersPolicyComponent implements OnInit {
     );
   }
   public metaDetailSuccess(successData) {
-    console.log(successData.ResponseObject);
-    this.metaGolfers = successData.ResponseObject;
-    this.metaTitle = this.metaGolfers[0].title;
-    console.log(this.metaGolfers[0].title, 'titl')
+    this.metaGolfers = successData.ResponseObject[0];
   }
   public metaDetailFailure(error) {
     console.log(error);

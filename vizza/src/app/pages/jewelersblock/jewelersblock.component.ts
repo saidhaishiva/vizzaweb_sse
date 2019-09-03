@@ -102,10 +102,7 @@ export class JewelersblockComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaJewelersBlock = successData.ResponseObject;
-        this.metaTitle = this.metaJewelersBlock[0].title;
-        console.log(this.metaJewelersBlock[0].title, 'titl')
+        this.metaJewelersBlock = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);
