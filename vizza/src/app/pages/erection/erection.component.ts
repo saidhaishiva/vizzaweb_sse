@@ -5,6 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
+import {MetaService} from '../../shared/services/meta.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-erection',
@@ -20,7 +22,11 @@ export class ErectionComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService) {
+    public metaErection: any;
+    public metaTitle: any;
+
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,
+              public toastr: ToastrService, public meta: MetaService, public auth: AuthService) {
       this.erecapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
@@ -40,9 +46,37 @@ export class ErectionComponent implements OnInit {
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.route.params.forEach((params) => {
           this.productName = params.id;
-
       });
+      this.metaList();
   }
+
+    public metaList() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'component_name': '  Erection All Risk Policy'
+        };
+        this.meta.metaDetail(data).subscribe(
+            (successData) => {
+                this.metaDetailSuccess(successData);
+            },
+            (error) => {
+                this.metaDetailFailure(error);
+            }
+        );
+    }
+    public metaDetailSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.metaErection = successData.ResponseObject;
+        this.metaTitle = this.metaErection[0].title;
+        console.log(this.metaErection[0].title, 'titl')
+    }
+    public metaDetailFailure(error) {
+        console.log(error);
+    }
+
     addEvent(event) {
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');

@@ -10,6 +10,8 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
+import {MetaService} from '../../shared/services/meta.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 export const MY_FORMATS = {
     parse: {
@@ -42,9 +44,12 @@ export class GrouptermComponent implements OnInit {
     public response: any;
     public pincodeErrors: any;
     public webhost: any;
+    public metaGroupTerm: any;
+    public metaTitle: any;
     public settings: Settings;
 
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public dialog: MatDialog,public config: ConfigurationService,public appSettings: AppSettings) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public dialog: MatDialog,public config: ConfigurationService,
+              public appSettings: AppSettings, public meta: MetaService, public auth: AuthService) {
       this.settings = this.appSettings.settings;
       this.webhost = this.config.getimgUrl();
       if(window.innerWidth < 787){
@@ -74,9 +79,37 @@ export class GrouptermComponent implements OnInit {
       this.setDate = Date.now();
       this.route.params.forEach((params) => {
           this.productName = params.id;
-
       });
+      this.metaList();
   }
+
+    public metaList() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'component_name': 'Group Term Life'
+        };
+        this.meta.metaDetail(data).subscribe(
+            (successData) => {
+                this.metaDetailSuccess(successData);
+            },
+            (error) => {
+                this.metaDetailFailure(error);
+            }
+        );
+    }
+    public metaDetailSuccess(successData) {
+        console.log(successData.ResponseObject);
+        this.metaGroupTerm = successData.ResponseObject;
+        this.metaTitle = this.metaGroupTerm[0].title;
+        console.log(this.metaGroupTerm[0].title, 'titl')
+    }
+    public metaDetailFailure(error) {
+        console.log(error);
+    }
+
     addEvent(event) {
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
