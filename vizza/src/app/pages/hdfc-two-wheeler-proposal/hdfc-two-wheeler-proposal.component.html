@@ -144,7 +144,7 @@
                                   <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}" (keyup)="typeAddressDeatils()" (keypress)="typeAddressDeatils()"(input)="typeAddressDeatils()" minlength="6" maxlength="6" formControlName="pincode1"  (input)="getPostalCode($event.target.value,'comm')" autocomplete="off" required>
                                   <mat-error *ngIf="proposer.controls.pincode1.hasError('minlength')">Pin should be 6 digits</mat-error>
                                   <mat-error *ngIf="proposer.controls.pincode1.hasError('required')">Pincode required</mat-error>
-                                  <mat-error *ngIf="proposer.controls.pincode1.hasError('pattern')">Enter Valid  Pin</mat-error>
+                                  <!--<mat-error *ngIf="proposer.controls.pincode1.hasError('pattern')">Enter Valid  Pin</mat-error>-->
                                 </mat-form-field>
                                   <div class="error" *ngIf="pinerror != ''">{{pinerror}}</div>
 
@@ -286,7 +286,7 @@
         </mat-step>
 
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>VEHICLE DETAILS/PREVIOUS POLICY</ng-template>
+          <ng-template matStepLabel>{{regvalue !='New Vehicle'?'VECHILE DETAILS/PREVIOUS POLICY DETAILS':'VECHILE DETAILS'}}</ng-template>
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="vechicle">
               <mat-expansion-panel expanded>
@@ -372,7 +372,7 @@
                       </div>
                       <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                       <mat-form-field class="w-100" >
-                        <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" [required]="regvalue !='New Vehicle'">
+                        <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" required>
                           <mat-option *ngFor="let company of companyList | keys" value="{{company.key}}" > {{company.value}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="vechicle.controls.Previouscompany.errors?.required">previous company is required</mat-error>
@@ -412,11 +412,11 @@
 
                             <!--</mat-form-field>-->
                         <!--</div>-->
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" (input)="idvinput($event.target.value)"  [required]="regvalue !='New Vehicle'">
-                        </mat-form-field>
-                      </div>
+                      <!--<div class="col-md-3 mt-3">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" (input)="idvinput($event.target.value)"  [required]="regvalue !='New Vehicle'">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
                 </div>
                   </div>
                 </div>
@@ -800,9 +800,9 @@
                                       <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>Bio Fuel kit Price :</strong>{{previousFormData.biofuelkit}}</li>
                                       <li class="list-group-item"><strong>Is Limited to Own Premises  :</strong>{{previousFormData.IsLimitedtoOwnPremises=='true'?'Yes':'No'}}</li>
                                       <li class="list-group-item"><strong>Is zerodept Cover  :</strong>{{previousFormData.zerodept=='true'?'Yes':'No'}}</li>
-                                      <li class="list-group-item" *ngIf="previousFormData.pacover !=''" ><strong>Pa Cover  :</strong>{{previousFormData.pacover}}</li>
-                                      <li class="list-group-item" *ngIf="previousFormData.pacovername !=''"><strong>Pa Cover Name  :</strong>{{previousFormData.pacovername}}</li>
-                                      <li class="list-group-item" *ngIf="previousFormData.pasuminsured !=''"><strong>Pa Sum Insurance  :</strong>{{previousFormData.pasuminsured}}</li>
+                                      <li class="list-group-item" *ngIf="previousFormData.pacover !=''" ><strong>PA Cover  :</strong>{{previousFormData.pacover}}</li>
+                                      <li class="list-group-item" *ngIf="previousFormData.pacovername !=''"><strong>PA Cover Name  :</strong>{{previousFormData.pacovername}}</li>
+                                      <li class="list-group-item" *ngIf="previousFormData.pasuminsured !=''"><strong>PA Sum Insurance  :</strong>{{previousFormData.pasuminsured}}</li>
                                   </ul>
                               </div>
                           </div>
