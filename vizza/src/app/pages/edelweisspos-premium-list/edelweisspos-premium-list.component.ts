@@ -65,6 +65,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
     this.premium = this.enquiryFromDetials.policy_paying_term;
     this.sumamount = this.enquiryFromDetials.sum_assured_id;
     console.log(this.sumamount, 'theyak');
+    sessionStorage.sumamount =  this.sumamount;
   }
 
   getsuminsuredlist() {
