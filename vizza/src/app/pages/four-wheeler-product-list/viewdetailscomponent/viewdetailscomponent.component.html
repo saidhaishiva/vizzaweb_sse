@@ -1,3 +1,391 @@
-<p>
-  viewdetailscomponent works!
-</p>
+<div class="container p-0">
+  <div class="row mb-3" >
+    <div class="col-sm-6 text-left">
+      <h4 style="margin-left: 35px;"><img src="{{webhost + '/' + productLogo}}"> {{productName}}</h4>
+    </div>
+
+    <div class="col-sm-6 text-right">
+      <mat-icon (click)="onNoClick()" style="cursor: pointer">cancel</mat-icon>
+    </div>
+  </div>
+
+  <div id="view-details" class="container-fluid p-0">
+    <div class="healthScroll">
+      <div fxLayout="column">
+        <div class="container">
+
+          <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)">
+            <mat-tab>
+              <ng-template mat-tab-label class="border border-dark">
+                <mat-icon >vpn_key</mat-icon>
+                KEY POLICY FEATURES
+              </ng-template>
+              <div class="row">
+                <!--mobile view-->
+                <div class="row">
+                  <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
+                    <mat-accordion class="w-100">
+                      <div mat-dialog-content >
+                        <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [expanded]="i === 0" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" >
+                          <mat-expansion-panel-header  class="nav-item" *ngIf="keys.type == 1 || keys.type == 0" >
+                            <mat-panel-title style="height: 40px;"  >
+                              <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
+                            <div class="row" *ngIf="id === i">
+                              <div class="col-md-12">
+                                <div fxLayoutAlign="left start">
+                                  <div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>
+                                </div>
+                                <p style="color: #000;text-align: right; font-size: 13px;">*Note: As per insurer issued Brochure</p>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-expansion-panel>
+                      </div>
+                    </mat-accordion>
+                  </div>
+                </div>
+
+
+
+                <!--disktop view-->
+                <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block">
+                  <div class="row">
+                    <div class="col-md-3 pl-0 pr-1 bg-color">
+                      <div mat-dialog-content >
+                        <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
+                          <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'">
+                            <i class="material-icons">keyboard_arrow_right</i>
+                            <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                          </mat-list-item>
+                        </mat-nav-list>
+                      </div>
+                    </div>
+                    <div class="col-md-9" [style.background-color]="bgColor == 'true' ? '#dc6e97' : '#d81b60'" ><br>
+                      <div mat-dialog-content>
+                        <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
+                          <div fxLayoutAlign="center center" class="well" *ngIf="id === i">
+                            <h4>{{keys.kf_name}}</h4>
+                          </div>
+                          <div class="row" *ngIf="id === i">
+                            <div class="col-md-12">
+                              <div fxLayoutAlign="left start">
+                                <div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>
+                              </div>
+                              <p style="color: #000;text-align: right; font-size: 13px;">*Note: As per insurer issued Brochure</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </mat-tab>
+            <mat-tab>
+              <ng-template mat-tab-label class="border border-dark">
+                <mat-icon >assignment</mat-icon>
+                PRODUCT DOCUMENTS
+              </ng-template>
+              <div class="row">
+                <!--disktop view-->
+                <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block">
+                  <div class="row">
+                    <div class="col-md-3 pl-0 pr-1 bg-color">
+                      <div mat-dialog-content >
+                        <mat-nav-list *ngFor="let keys of productDocLists;let i = index">
+                          <mat-list-item *ngIf="keys.status == 1 || keys.status == 0" class="nav-item" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? '#e8ccdb' : '#d81b60'">
+                            <i class="material-icons">keyboard_arrow_right</i>
+                            <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                          </mat-list-item>
+                        </mat-nav-list>
+                      </div>
+                    </div>
+                    <div class="col-md-9" style="background-color:#dc6e97 !important;"><br>
+                      <div>
+                        <div class="h-100" *ngFor="let keys of productDocLists;let i = index">
+                          <div fxLayoutAlign="center center" class="well" *ngIf="id1 == i">
+                            <h4>{{keys.product_name}}</h4>
+                          </div>
+                          <div class="row" *ngIf="id1 == i">
+                            <div class="text-center w-100 mb-3">
+                              <iframe [src]="webhost +'/'+ keys.kf_path | safe" width="100%" height="430" ></iframe>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div>
+              <!--mobile view-->
+              <ng-template mat-tab-label class="border border-dark">
+                <mat-icon >assignment</mat-icon>
+                PRODUCT DOCUMENTS
+              </ng-template>
+              <div class="row">
+                <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
+                  <div mat-dialog-content >
+                    <mat-accordion class="w-100">
+                      <mat-expansion-panel *ngFor="let keys of productDocLists;let i = index" [expanded]="i == 0" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? '#e8ccdb' : '#d81b60'" >
+                        <mat-expansion-panel-header class="heigt">
+                          <mat-panel-title *ngIf="keys.status == 1 || keys.status == 0" class="nav-item">
+                            <!--{{i}}klklkl-->
+                            <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <div class="h-100" *ngFor="let keys of productDocLists;let i = index">
+                          <div fxLayoutAlign="center center" class="well" *ngIf="id1 == i">
+                            <h4>{{keys.product_name}}</h4>
+                          </div>
+                          <div class="row" *ngIf="id1 == i">
+                            <div class="text-center w-100 mb-3">
+                              <iframe [src]="webhost +'/'+ keys.kf_path | safe" width="100%" height="430" style="overflow-y: scroll;" ></iframe>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </div>
+              </div>
+
+
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label class="border border-dark">
+                <mat-icon>assignment</mat-icon>
+                CLAIM DETAILS
+              </ng-template>
+              <div class="row">
+                <!--disktop view-->
+                <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block">
+                  <div class="row">
+                    <div class="col-md-3 pl-0 pr-1 bg-color">
+                      <div mat-dialog-content >
+
+                        <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
+                          <mat-list-item *ngIf="keys.type == 2" class="nav-item" (click)="selectClaim('form1')" [style.background-color]="selectedClaimDetails == 'form1' ? '#dc6e97' : '#e8ccdb'">
+                            <i class="material-icons">keyboard_arrow_right</i>
+                            <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                          </mat-list-item>
+                        </mat-nav-list>
+                        <mat-nav-list>
+                          <mat-list-item (click)="selectClaim('form2')" [style.background-color]="selectedClaimDetails == 'form2' ? '#dc6e97' : '#e8ccdb'">
+                            <i class="material-icons">keyboard_arrow_right</i>
+                            <a matLine  style="font-weight: bold !important;" >Vizza Assistance</a>
+                          </mat-list-item>
+                        </mat-nav-list>
+                      </div>
+                    </div>
+
+                    <div class="col-md-9" style="background-color:#dc6e97; height:510px;"><br>
+                      <div mat-dialog-content>
+                        <div *ngIf="selectedClaimDetails == 'form1'">
+                          <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
+                            <div fxLayoutAlign="center center" class="well" *ngIf="id === i">
+                              <h4 *ngIf="keys.type == 2">{{keys.kf_name}}</h4>
+                            </div>
+                            <div class="row" *ngIf="keys.type == 2">
+                              <div class="col-md-12" *ngIf="id === i">
+                                <div fxLayoutAlign="left start">
+                                  <div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="selectedClaimDetails == 'form2'">
+                          <div class="h-100">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <h5 class="custom-head text-uppercase">CONTACT DETAILS</h5>
+                                <p>
+                                  To get more information, contact us following below address and phone number. We are always willing to support you whenever you need.
+                                </p>
+                                <div class="footer-widget footer-contact">
+                                  <p fxLayoutAlign="start start"><span class="pe-7s-call" ><i class="material-icons">stay_primary_portrait</i>&nbsp; </span>+91 9047078809</p>
+                                  <p fxLayoutAlign="start start"><span class="pe-7s-call" ><i class="material-icons">phone</i>&nbsp; </span>(044) 42691341</p>
+                                  <p fxLayoutAlign="start start"><span class="pe-7s-mail-open-file"><i class="material-icons">email</i>&nbsp;</span><a  href="mailto:info@vizzafin.com">info@vizzafin.com</a></p>
+                                  <p fxLayoutAlign="start start"><span class="pe-7s-map-2"><i class="material-icons">location_on</i>&nbsp; </span>Vizza Insurance Broking Services Pvt. Ltd <p>
+
+
+
+                                  <h4>Head Office:</h4>
+                                  Ground Floor, No.G-A,<br> Sridev Complex, NO 65, <br>CIT Nagar First main road, <br>Chennai -35
+                                  <!--   <p><b><a href="https://www.google.co.in/maps/place/Sathankulam,+Tamil+Nadu+628704/@8.4426272,77.9078325,17.75z/data=!4m2!3m1!1s0x3b047865cdb41d31:0xb20923183ee569b1" target="_blank"> Branch Office: <a></b> </br>
+                                     8A/4, Daniel Complex, Nagerkoil Road, </br>
+                                     Sathankulam- 626 704, Tuticorin District.</br>
+                                     </p> -->
+
+                                </div>
+                              </div>
+                              <div class="col-md-8">
+                                <h5 class="custom-head text-uppercase">SEND US A MESSAGE</h5>
+                                <p>We will get back to you at the earliest.</p>
+                                <div class="space-top-35"></div>
+                                <mat-card>
+                                  <form [formGroup]="form"  (ngSubmit)="contactDetails()">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <mat-form-field class="w-100">
+                                          <input matInput placeholder="Name" formControlName="name" (keypress)="nameValidate($event)" required>
+                                          <mat-error *ngIf="form.controls.name.errors?.required">name is required</mat-error>
+                                        </mat-form-field>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <mat-form-field class="w-100">
+                                          <input matInput placeholder="Email" formControlName="email" required>
+                                          <mat-error *ngIf="form.controls.email.errors?.required">email is required</mat-error>
+                                          <mat-error *ngIf="form.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                                        </mat-form-field>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <mat-form-field  class="w-100">
+                                          <input matInput placeholder="Subject" formControlName="subject" (keypress)="idValidate($event)" required>
+                                          <mat-error *ngIf="form.controls.subject.errors?.required">subject is required</mat-error>
+                                        </mat-form-field>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-12" >
+                                        <mat-form-field class="w-100">
+                                          <textarea cols="20" rows="5" matInput placeholder="Your Message *" formControlName="message"  (keypress)="idValidate($event)"></textarea>
+                                          <mat-error *ngIf="form.controls.message.errors?.required">message is required</mat-error>
+                                        </mat-form-field>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="custom-file" >
+                                        <input type="file" class="custom-file-input" (change)="readUrl($event)" formControlName="profile" aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label"></label>
+                                      </div>
+                                      <div class="row w-100">
+                                        <div class="col-md-12">
+                                          <div *ngIf="fileUploadPath != ''">
+                                            <span class="imageclose mr-2"><img src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                      <div class="col-md-12 text-center">
+                                        <button mat-raised-button color="primary">Submit</button>
+                                      </div>
+                                    </div>
+                                    <div id="js-contact-result" data-success-msg="Thank you. We will be in touch soon." data-error-msg="Oops. Something went wrong."></div>
+                                  </form>
+                                </mat-card>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--mobile view-->
+                <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
+                  <div mat-dialog-content >
+                    <mat-accordion class="w-100">
+                      <mat-expansion-panel expanded style="background: #dc6e97">
+                        <mat-expansion-panel-header  class="heigt" >
+                          <mat-panel-title >
+                        <span *ngFor="let keys of getKeyList;let i = index">
+                          <a *ngIf="keys.type == 2" matLine  style="    font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                        </span>
+
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
+                          <div class="row" *ngIf="keys.type == 2">
+                            <div class="col-md-12" *ngIf="id === i">
+                              <div fxLayoutAlign="left start">
+                                <div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </div>
+              </div>
+
+              <!--<div class="row">-->
+
+              <!--<div class="col-md-12" style="background-color:#428bb5;" ><br>-->
+              <!--<div class="container" *ngFor="let keys of getKeyList;let i = index">-->
+              <!--<div *ngIf="keys.type == 2" fxLayoutAlign="center center" class="well">-->
+              <!--<h4>{{keys.kf_name}}</h4>-->
+              <!--</div>-->
+              <!--<div class="row" *ngIf="keys.type == 2">-->
+              <!--<div class="col-md-12">-->
+              <!--<div fxLayoutAlign="left start">-->
+              <!--&lt;!&ndash;<p class="text-justify">{{keys.kf_details}}</p>&ndash;&gt;-->
+              <!--<div class="text-justify" [innerHtml]="keys.kf_details"> </div>-->
+
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
+            </mat-tab>
+
+
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--mobile view-->
+<!--<mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)">-->
+<!--<mat-tab>-->
+<!--<ng-template mat-tab-label class="border border-dark">-->
+<!--<mat-icon >vpn_key</mat-icon>-->
+<!--KEY POLICY FEATURES-->
+<!--</ng-template>-->
+<!--<mat-accordion class="w-100">-->
+<!--<mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i == 0">-->
+<!--<mat-expansion-panel-header class="heigt">-->
+<!--<mat-panel-title style="height: 40px;" *ngIf="keys.type == 1 || keys.type == 0" class="nav-item">-->
+<!--<a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>-->
+<!--</mat-panel-title>-->
+<!--</mat-expansion-panel-header>-->
+<!--<div class="h-100" *ngFor="let keys of getKeyList;let i = index">-->
+<!--<div class="row" *ngIf="id === i">-->
+<!--<div class="col-md-12">-->
+<!--<div fxLayoutAlign="left start">-->
+<!--<div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>-->
+<!--</div>-->
+<!--<p style="color: #000;text-align: right; font-size: 13px;">*Note: As per insurer issued Brochure</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</mat-expansion-panel>-->
+<!--</mat-accordion>-->
+<!--</mat-tab>-->
+<!--</mat-tab-group>-->
+
+<style>
+  .container {
+    padding: 0;
+  }
+</style>
