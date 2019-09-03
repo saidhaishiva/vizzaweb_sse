@@ -122,10 +122,7 @@ export class TermLifeComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaTermLife = successData.ResponseObject;
-        this.metaTitle = this.metaTermLife[0].title;
-        console.log(this.metaTermLife[0].title, 'titl')
+        this.metaTermLife = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

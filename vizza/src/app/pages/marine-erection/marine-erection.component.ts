@@ -101,10 +101,7 @@ export class MarineErectionComponent implements OnInit {
     );
   }
   public metaDetailSuccess(successData) {
-    console.log(successData.ResponseObject);
-    this.metaMarine = successData.ResponseObject;
-    this.metaTitle = this.metaMarine[0].title;
-    console.log(this.metaMarine[0].title, 'titl')
+    this.metaMarine = successData.ResponseObject[0];
   }
   public metaDetailFailure(error) {
     console.log(error);

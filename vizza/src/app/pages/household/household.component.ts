@@ -104,10 +104,7 @@ export class HouseholdComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaHouseHold = successData.ResponseObject;
-        this.metaTitle = this.metaHouseHold[0].title;
-        console.log(this.metaHouseHold[0].title, 'titl')
+        this.metaHouseHold = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

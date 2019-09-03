@@ -102,10 +102,7 @@ export class LiftPolicyComponent implements OnInit {
     );
   }
   public metaDetailSuccess(successData) {
-    console.log(successData.ResponseObject);
-    this.metaLift = successData.ResponseObject;
-    this.metaTitle = this.metaLift[0].title;
-    console.log(this.metaLift[0].title, 'titl')
+    this.metaLift = successData.ResponseObject[0];
   }
   public metaDetailFailure(error) {
     console.log(error);

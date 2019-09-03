@@ -103,10 +103,7 @@ export class FireComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaFire = successData.ResponseObject;
-        this.metaTitle = this.metaFire[0].title;
-        console.log(this.metaFire[0].title, 'titl')
+        this.metaFire = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

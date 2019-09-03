@@ -101,10 +101,7 @@ export class ElectronicsComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaElectronics = successData.ResponseObject;
-        this.metaTitle = this.metaElectronics[0].title;
-        console.log(this.metaElectronics[0].title, 'titl')
+        this.metaElectronics = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

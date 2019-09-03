@@ -80,7 +80,7 @@ import { StarHealthProposalComponent } from './pages/star-health-proposal/star-h
 import { ProposalmessageComponent } from './pages/star-health-proposal/proposalmessage/proposalmessage.component';
 import { HealthInsuranceComponent } from './pages/health-insurance/health-insurance.component';
 import { GroupmembersAlert} from './pages/health-insurance/health-insurance.component';
-import { HealthInsurer} from './pages/health-insurance/health-insurance.component';
+// import { HealthInsurer} from './pages/health-insurance/health-insurance.component';
 import { ComparelistComponent} from './pages/health-insurance/comparelist/comparelist.component';
 import { GrouppopupComponent} from './pages/health-insurance/grouppopup/grouppopup.component';
 import { ConfirmpasswordComponent } from './pages/confirmpassword/confirmpassword.component';
@@ -482,7 +482,7 @@ import { ViewdetailscomponentComponent } from './pages/four-wheeler-product-list
         ErectionComponent,
         HealthComponent,
         ReligarePaymentSuccessComponent,
-        HealthInsurer,
+        // HealthInsurer,
         PersonalInsurer,
         DmRegisterComponent,
         DmLoginComponent,
@@ -698,7 +698,7 @@ import { ViewdetailscomponentComponent } from './pages/four-wheeler-product-list
     ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,
         DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,EdelweissOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent, ViewKeyfeaturesComponent,BajajGoal,TermViewKeyfeaturesComponent,EdelweissposOpt,ViewdetailscomponentComponent

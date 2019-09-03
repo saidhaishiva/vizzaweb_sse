@@ -104,10 +104,7 @@ export class WorkmenComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaWorkman = successData.ResponseObject;
-        this.metaTitle = this.metaWorkman[0].title;
-        console.log(this.metaWorkman[0].title, 'titl')
+        this.metaWorkman = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

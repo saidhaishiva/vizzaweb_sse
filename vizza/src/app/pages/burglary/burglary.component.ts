@@ -103,10 +103,7 @@ export class BurglaryComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaBurglary = successData.ResponseObject;
-        this.metaTitle = this.metaBurglary[0].title;
-        console.log(this.metaBurglary[0].title, 'titl')
+        this.metaBurglary = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);
