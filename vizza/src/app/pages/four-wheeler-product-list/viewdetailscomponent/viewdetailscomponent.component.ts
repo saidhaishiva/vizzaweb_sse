@@ -8,7 +8,8 @@ import {AppSettings} from '../../../app.settings';
 import {ConfigurationService} from '../../../shared/services/configuration.service';
 import {HealthService} from '../../../shared/services/health.service';
 import {ToastrService} from 'ngx-toastr';
-import {BikeInsuranceService} from '../../../shared/services/bike-insurance.service';
+import {FourWheelerService} from '../../../shared/services/four-wheeler.service';
+
 @Component({
   selector: 'app-viewdetailscomponent',
   templateUrl: './viewdetailscomponent.component.html',
@@ -43,7 +44,7 @@ export class ViewdetailscomponentComponent implements OnInit {
   scheme: any;
 
   constructor(public dialogRef: MatDialogRef<ViewdetailscomponentComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService, public validation: ValidationService, public appSettings: AppSettings, public config: ConfigurationService, public common: BikeInsuranceService, public fb: FormBuilder, public toastr: ToastrService) {
+              @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService, public validation: ValidationService, public appSettings: AppSettings, public config: ConfigurationService, public common: FourWheelerService, public fb: FormBuilder, public toastr: ToastrService) {
   }
 
   ngOnInit() {
