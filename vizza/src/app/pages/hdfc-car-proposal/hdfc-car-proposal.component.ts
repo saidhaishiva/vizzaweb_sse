@@ -59,7 +59,7 @@ export class HdfcCarProposalComponent implements OnInit {
     public getstepper1: any;
     public getstepper2: any;
     public getstepper3: any;
-    public getstepper4: any;
+    // public getstepper4: any;
     public financeList: any;
     public countryList: any;
     public tommarrow: any;
@@ -193,7 +193,7 @@ export class HdfcCarProposalComponent implements OnInit {
           appointeename: [''],
           appointeerelation: [''],
           extentioncountryvalue: [''],
-          IsPaidDriver: [''],
+          // IsPaidDriver: [''],
           zerodept: [''],
           ElecticalAccessoryIDV: [''],
           NonElecticalAccessoryIDV: [''],
@@ -223,10 +223,10 @@ export class HdfcCarProposalComponent implements OnInit {
       this.BankDetails = this.fb.group({
           // Bankname: ['', Validators.required],
           // Branch: ['', Validators.required],
-          Payertype: ['', Validators.required],
-          paymentmode: ['', Validators.required],
-          refrenceno: ['', Validators.required],
-          Paymentdate: ['', Validators.required],
+          // Payertype: ['', Validators.required],
+          // paymentmode: ['', Validators.required],
+          // refrenceno: ['', Validators.required],
+          // Paymentdate: ['', Validators.required],
           // Banknamevalue: ['']
 
 
@@ -793,26 +793,27 @@ ChangeGender(){
 
 
             if (this.addOns.valid) {
-                stepper.next();
+                this.createproposal(stepper);
                 this.topScroll();
 
+                // stepper.next();
             }else{
                 this.toastr.error('Please fill the Mandatory Fields')
 
             }
         }
-        if(type == 'stepper4'){
-            sessionStorage.stepper4Details='';
-            sessionStorage.stepper4Details=JSON.stringify(value);
-
-            // console.log(this.proposerFormData,'form');
-            // console.log(this.proposerFormData.title,'titt');
-            console.log('inn');
-            if(this.BankDetails.valid){
-                this.createproposal(stepper);
-                this.topScroll();
-            }
-        }
+        // if(type == 'stepper4'){
+        //     sessionStorage.stepper4Details='';
+        //     sessionStorage.stepper4Details=JSON.stringify(value);
+        //
+        //     // console.log(this.proposerFormData,'form');
+        //     // console.log(this.proposerFormData.title,'titt');
+        //     console.log('inn');
+        //     if(this.BankDetails.valid){
+        //         this.createproposal(stepper);
+        //         this.topScroll();
+        //     }
+        // }
 
 
     }
@@ -877,8 +878,9 @@ ChangeGender(){
             })
         }
         if (sessionStorage.company != '' && sessionStorage.company != undefined) {
-            this.companyList = JSON.parse(sessionStorage.company)
+            this.companyList = JSON.parse(sessionStorage.company);
             console.log('innnworld');
+            console.log(this.companyList,'uvv');
         }
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             this.getstepper2 = JSON.parse(sessionStorage.stepper2Details);
@@ -920,7 +922,7 @@ ChangeGender(){
                 appointeename: this.getstepper3.appointeename,
                 appointeerelation: this.getstepper3.appointeerelation,
                 extentioncountryvalue: this.getstepper3.extentioncountryvalue,
-                IsPaidDriver: this.getstepper3.IsPaidDriver,
+                // IsPaidDriver: this.getstepper3.IsPaidDriver,
                 zerodept: this.getstepper3.zerodept,
                 ElecticalAccessoryIDV: this.getstepper3.ElecticalAccessoryIDV,
                 NonElecticalAccessoryIDV: this.getstepper3.NonElecticalAccessoryIDV,
@@ -948,19 +950,19 @@ ChangeGender(){
 
             })
         }
-        if (sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined) {
-            this.getstepper4 = JSON.parse(sessionStorage.stepper4Details);
-            this.BankDetails = this.fb.group({
-                // Bankname: this.getstepper4.Bankname,
-                // Branch: this.getstepper4.Branch,
-                paymentmode: this.getstepper4.paymentmode,
-                Payertype: this.getstepper4.Payertype,
-                refrenceno: this.getstepper4.refrenceno,
-                Paymentdate: this.datepipe.transform(this.getstepper4.Paymentdate, 'y-MM-dd'),
-                // Banknamevalue: this.getstepper4.Banknamevalue,
-                // banknamelist: this.getstepper4.banknamelist,
-            });
-        }
+        // if (sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined) {
+        //     this.getstepper4 = JSON.parse(sessionStorage.stepper4Details);
+        //     this.BankDetails = this.fb.group({
+        //         // Bankname: this.getstepper4.Bankname,
+        //         // Branch: this.getstepper4.Branch,
+        //         // paymentmode: this.getstepper4.paymentmode,
+        //         // Payertype: this.getstepper4.Payertype,
+        //         // refrenceno: this.getstepper4.refrenceno,
+        //         // Paymentdate: this.datepipe.transform(this.getstepper4.Paymentdate, 'y-MM-dd'),
+        //         // Banknamevalue: this.getstepper4.Banknamevalue,
+        //         // banknamelist: this.getstepper4.banknamelist,
+        //     });
+        // }
     }
 
     createproposal(stepper){
@@ -1061,7 +1063,7 @@ console.log(this.vehicleidv.Idv);
                     "NumberOfEmployees": "0",
                     "BiFuelType": this.addOns.controls['biofuel'].value,
                     "BiFuel_Kit_Value": this.addOns.controls['biofuelkit'].value,
-                    "LLPaiddriver":this.addOns.controls['IsPaidDriver'].value==true ?'1':'0',
+                    "LLPaiddriver":this.addOns.controls['numdrivers'].value ,
                     "PAPaiddriverSI":this.addOns.controls['paiddriversi'].value  ,
                     "Owner_Driver_Nominee_Name": this.addOns.controls['NomineeName'].value,
                     "Owner_Driver_Nominee_Age": this.addOns.controls['NomineeAge'].value,
