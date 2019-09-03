@@ -189,7 +189,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             ncb: ['', Validators.required],
             previousenddate: ['', Validators.required],
             previouspolicyno: ['', Validators.required],
-            vechicleidv: ['', Validators.required],
+            // vechicleidv: ['', Validators.required],
             Financetype: false,
             Agreement: [''],
             financiercode: [''],
@@ -246,7 +246,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.financiername();
         this.extensioncountry();
         this.sessionData();
-        this.validationForNew();
         this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.buyBikeDetails = JSON.parse(sessionStorage.enquiryFormData);
@@ -293,12 +292,15 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         }
         console.log(this.vehicledata.type,'vee');
         if (this.vehicledata.type == 'new') {
+            console.log('into ve');
             this.regvalue = 'New Vehicle';
+            this.validationForNew(this.regvalue);
+            console.log(this.regvalue,'picasoo');
         } else {
             this.regvalue = 'Roll Over';
+            this.validationForNew(this.regvalue);
         }
     }
-
     // dropdownForBank(value,type){
     //
     //     if(value.length >'5'&& type =='bank'){
@@ -453,24 +455,24 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         console.log(this.addOns.controls['extentioncountryvalue'].value);
     }
 
-    validationForNew() {
-        console.log(this.regvalue, 'value');
-        if (this.regvalue == 'New Vehicle') {
+    validationForNew(value) {
+        console.log(value, 'valuecore');
+        if (value == 'New Vehicle') {
             console.log('vinoyth');
-            this.addOns.controls['Previouscompany'].setValidators([]);
-            this.addOns.controls['regno'].setValidators([]);
-            this.addOns.controls['Vehicleregdate'].setValidators([]);
-            this.addOns.controls['ncb'].setValidators([]);
-            this.addOns.controls['previousenddate'].setValidators([]);
-            this.addOns.controls['previouspolicyno'].setValidators([]);
-            this.addOns.controls['previouspolicyclaim'].setValidators([]);
-            this.addOns.controls['Previouscompany'].updateValueAndValidity();
-            this.addOns.controls['ncb'].updateValueAndValidity();
-            this.addOns.controls['previousenddate'].updateValueAndValidity();
-            this.addOns.controls['previouspolicyno'].updateValueAndValidity();
-            this.addOns.controls['previouspolicyclaim'].updateValueAndValidity();
-            this.addOns.controls['Vehicleregdate'].updateValueAndValidity();
-            this.addOns.controls['regno'].updateValueAndValidity();
+            this.vechicle.controls['Previouscompany'].setValidators(null);
+            this.vechicle.controls['Previouscompany'].updateValueAndValidity();
+            this.vechicle.controls['regno'].setValidators(null);
+            this.vechicle.controls['Vehicleregdate'].setValidators(null);
+            this.vechicle.controls['ncb'].setValidators(null);
+            this.vechicle.controls['previousenddate'].setValidators(null);
+            this.vechicle.controls['previouspolicyno'].setValidators(null);
+            this.vechicle.controls['previouspolicyclaim'].setValidators(null);
+            this.vechicle.controls['ncb'].updateValueAndValidity();
+            this.vechicle.controls['previousenddate'].updateValueAndValidity();
+            this.vechicle.controls['previouspolicyno'].updateValueAndValidity();
+            this.vechicle.controls['previouspolicyclaim'].updateValueAndValidity();
+            this.vechicle.controls['Vehicleregdate'].updateValueAndValidity();
+            this.vechicle.controls['regno'].updateValueAndValidity();
         }
 
     }
@@ -491,8 +493,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             console.log(this.proposer.valid, 'valid');
             if (this.proposer.valid) {
                 if (sessionStorage.proposerAge >= 18) {
-                    stepper.next();
-                    this.topScroll();
+                    if( this.altererror==''){
+                        stepper.next();
+                        this.topScroll();
+                    }
+
+
                 } else {
                     this.toastr.error('Proposer Age should be greater than 18.');
                 }
@@ -631,7 +637,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 ncb: this.getstepper2.ncb,
                 previousenddate: this.datepipe.transform(this.getstepper2.previousenddate, 'y-MM-dd'),
                 previouspolicyno: this.getstepper2.previouspolicyno,
-                vechicleidv: this.getstepper2.vechicleidv,
+                // vechicleidv: this.getstepper2.vechicleidv,
                 Previouscompanyvalue: this.getstepper2.Previouscompanyvalue,
                 financiercodevalue: this.getstepper2.financiercodevalue,
                 previouspolicyclaim: this.getstepper2.previouspolicyclaim,
@@ -1138,9 +1144,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'PreviousPolicy_PolicyClaim': this.regvalue != 'New Vehicle' ? this.vechicle.controls['previouspolicyclaim'].value : '',
                     'BusinessType_Mandatary': this.RegDateage,
                     // "VehicleModelCode": "17586",
-                    'DateofDeliveryOrRegistration': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y') : 'New',
+                    'DateofDeliveryOrRegistration': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y') : this.tod ,
                     'YearOfManufacture': this.vechicle.controls['manufactureyear'].value,
-                    'Registration_No': this.regvalue != 'New Vehicle' ? this.vechicle.controls['regno'].value : 'New',
+                    'Registration_No': this.regvalue != 'New Vehicle' ? this.vechicle.controls['regno'].value : '',
                     'EngineNumber': this.vechicle.controls['engine'].value,
                     'ChassisNumber': this.vechicle.controls['chassis'].value,
                     // "RTOLocationCode": "22189",
@@ -1281,11 +1287,11 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         return age;
     }
 
-    idvinput(idv) {
-        if (idv < 7000) {
-            this.toastr.error('IDV Should Not Less Than 7000');
-        }
-    }
+    // idvinput(idv) {
+    //     if (idv < 7000) {
+    //         this.toastr.error('IDV Should Not Less Than 7000');
+    //     }
+    // }
 
     alternatecontact(value, event) {
         console.log(event);
@@ -1296,7 +1302,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.altererror = '';
         }
         if (value.search('-') == -1 && value != '') {
-            this.altererror = ' "-" should be enter after the area code ';
+            this.altererror = 'Enter Valued Format Of Telephone Number';
+            this.altererror = 'Format of the Telephone number is 044-1234567';
         } else if (value.search('-') != -1) {
             this.altererror = '';
         }
@@ -1304,6 +1311,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.altererror = ' Enter Valid Area Code ';
         } else if (value.search('-')! > 5) {
             this.altererror = '';
+        }if(this.altererror!=''){
+
         }
     }
 

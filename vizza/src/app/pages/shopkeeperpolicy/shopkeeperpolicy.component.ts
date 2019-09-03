@@ -105,10 +105,7 @@ export class ShopkeeperpolicyComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaShopKeeper = successData.ResponseObject;
-        this.metaTitle = this.metaShopKeeper[0].title;
-        console.log(this.metaShopKeeper[0].title, 'titl')
+        this.metaShopKeeper = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

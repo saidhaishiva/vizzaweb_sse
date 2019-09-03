@@ -68,10 +68,7 @@ export class ErectionComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaErection = successData.ResponseObject;
-        this.metaTitle = this.metaErection[0].title;
-        console.log(this.metaErection[0].title, 'titl')
+        this.metaErection = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

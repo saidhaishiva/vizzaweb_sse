@@ -103,10 +103,7 @@ export class MarinecargoComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaMarineCargo = successData.ResponseObject;
-        this.metaTitle = this.metaMarineCargo[0].title;
-        console.log(this.metaMarineCargo[0].title, 'titl')
+        this.metaMarineCargo = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

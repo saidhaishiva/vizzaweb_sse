@@ -137,10 +137,7 @@ export class FourWheelerHomeComponent implements OnInit {
     );
   }
   public metaDetailSuccess(successData) {
-    console.log(successData.ResponseObject);
-    this.metaCar = successData.ResponseObject;
-    this.metaTitle = this.metaCar[0].title;
-    console.log(this.metaCar[0].title, 'titl')
+    this.metaCar = successData.ResponseObject[0];
   }
   public metaDetailFailure(error) {
     console.log(error);

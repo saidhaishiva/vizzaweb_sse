@@ -102,10 +102,7 @@ export class ProfessionalIndemnityPolicyComponent implements OnInit {
     );
   }
   public metaDetailSuccess(successData) {
-    console.log(successData.ResponseObject);
-    this.metaProf = successData.ResponseObject;
-    this.metaTitle = this.metaProf[0].title;
-    console.log(this.metaProf[0].title, 'titl')
+    this.metaProf = successData.ResponseObject[0];
   }
   public metaDetailFailure(error) {
     console.log(error);
