@@ -345,6 +345,7 @@ import {EdelweissPosHomeComponent} from './pages/edelweiss-pos-home/edelweiss-po
 import {EdelweissposPremiumListComponent} from './pages/edelweisspos-premium-list/edelweisspos-premium-list.component';
 import { EdelweissPosComponent } from './pages/edelweiss-pos/edelweiss-pos.component';
 import { EdelweissposOpt } from './pages/edelweiss-pos/edelweiss-pos.component';
+import { ViewdetailscomponentComponent } from './pages/four-wheeler-product-list/viewdetailscomponent/viewdetailscomponent.component';
 
 @NgModule({
     imports: [
@@ -644,7 +645,8 @@ import { EdelweissposOpt } from './pages/edelweiss-pos/edelweiss-pos.component';
         EdelweissPosHomeComponent,
         EdelweissposPremiumListComponent,
         EdelweissPosComponent,
-        EdelweissposOpt
+        EdelweissposOpt,
+        ViewdetailscomponentComponent
     ],
 
     providers: [

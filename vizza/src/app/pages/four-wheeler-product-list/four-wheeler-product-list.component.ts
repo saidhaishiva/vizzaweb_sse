@@ -8,6 +8,7 @@ import {BikeInsuranceService} from '../../shared/services/bike-insurance.service
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import { ClearSessionFourwheelerService } from '../../shared/services/clear-session-fourwheeler.service';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-four-wheeler-product-list',
@@ -34,7 +35,8 @@ export class FourWheelerProductListComponent implements OnInit {
   vehicledetailsfw: any;
   carListDetails: any;
   initialProductListfw: any;
-  constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public fwService: FourWheelerService, public config: ConfigurationService, public clearsession: ClearSessionFourwheelerService) {
+
+  constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public fwService: FourWheelerService, public config: ConfigurationService, public clearsession: ClearSessionFourwheelerService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
@@ -52,13 +54,14 @@ export class FourWheelerProductListComponent implements OnInit {
     console.log(type, 'type');
     console.log(bussiness, 'bussiness');
     console.log(this.carListDetails, 'carListDetails');
-    if(this.carListDetails.business_type =='1'){
-      this.policyTerm ='3';
+    if (this.carListDetails.business_type == '1') {
+      this.policyTerm = '3';
     } else {
-      this.policyTerm ='1';
+      this.policyTerm = '1';
     }
     console.log(this.policyTerm, '  this.policyTerm');
   }
+
   ngOnInit() {
     this.getCompanyList();
     this.fwEnquiryId = sessionStorage.fwEnquiryId;
@@ -66,6 +69,7 @@ export class FourWheelerProductListComponent implements OnInit {
 
 
   }
+
   sessionData() {
     if (sessionStorage.getEnquiryDetials != '' && sessionStorage.getEnquiryDetials != undefined) {
       this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
@@ -89,6 +93,7 @@ export class FourWheelerProductListComponent implements OnInit {
       }
     }
   }
+
   getCompanyList() {
     const data = {
       'platform': 'web',
@@ -107,6 +112,7 @@ export class FourWheelerProductListComponent implements OnInit {
     );
 
   }
+
   public companyListSuccess(successData) {
     // console.log(successData.ResponseObjeallProductListsct);
     if (successData.IsSuccess) {
@@ -123,6 +129,7 @@ export class FourWheelerProductListComponent implements OnInit {
 
     }
   }
+
   public companyListFailure(error) {
     console.log(error);
   }
@@ -137,11 +144,11 @@ export class FourWheelerProductListComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'enquiry_id': this.fwEnquiryId,
-      'company_id':''
+      'company_id': ''
 
     };
     this.settings.loadingSpinner = true;
-    this.fwService.getPremieumList(data,companyList).subscribe(
+    this.fwService.getPremieumList(data, companyList).subscribe(
         (successData) => {
           this.getProductListSuccess(successData);
         },
@@ -150,11 +157,12 @@ export class FourWheelerProductListComponent implements OnInit {
         }
     );
   }
+
   public getProductListSuccess(successData) {
     this.settings.loadingSpinner = false;
     console.log(successData, 'successData');
     if (successData) {
-      for(let i = 0; i < successData.length; i++) {
+      for (let i = 0; i < successData.length; i++) {
         if (successData[i].IsSuccess) {
           let policylists = successData[i].ResponseObject;
           this.productListArray.push(policylists.productlist);
@@ -170,7 +178,7 @@ export class FourWheelerProductListComponent implements OnInit {
         // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
         //this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
       }
-      if(this.carListDetails.business_type =='1'){
+      if (this.carListDetails.business_type == '1') {
         this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '3');
       } else {
         this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');
@@ -181,27 +189,31 @@ export class FourWheelerProductListComponent implements OnInit {
 
     }
   }
+
   public getProductListFailure(error) {
     this.settings.loadingSpinner = false;
     console.log(error, 'error');
   }
+
   ageCalculate(dob) {
     let today = new Date();
     let birthDate = new Date(dob);
     let age = today.getFullYear() - birthDate.getFullYear();
     let m = today.getMonth() - birthDate.getMonth();
-    let dd = today.getDate()- birthDate.getDate();
-    if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
-      age = age-1;
+    let dd = today.getDate() - birthDate.getDate();
+    if (m < 0 || m == 0 && today.getDate() < birthDate.getDate()) {
+      age = age - 1;
     }
     return age;
   }
-  updateSumInsured(){
+
+  updateSumInsured() {
 
   }
+
   // filter by product
   filterByProducts() {
-    if(this.filterCompany.includes('All')){
+    if (this.filterCompany.includes('All')) {
       this.checkAllStatus = true;
       this.allProductLists = this.setAllProductLists;
       let all = ['All'];
@@ -209,14 +221,12 @@ export class FourWheelerProductListComponent implements OnInit {
         all.push(this.allCompanyList[i].company_name);
       }
       this.filterCompany = all;
-    }
-    else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
+    } else if (!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length) {
       console.log('sec');
       this.checkAllStatus = false;
       this.allProductLists = [];
       this.filterCompany = [];
-    }
-    else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
+    } else if (!this.filterCompany.includes('All') && this.filterCompany.length > 0) {
       console.log('third');
       this.checkAllStatus = false;
       let cmpy = [];
@@ -228,7 +238,7 @@ export class FourWheelerProductListComponent implements OnInit {
         }
       }
       this.allProductLists = cmpy;
-    } else if(this.filterCompany.length == 0){
+    } else if (this.filterCompany.length == 0) {
       console.log('frth');
       this.checkAllStatus = false;
       this.allProductLists = [];
@@ -238,35 +248,45 @@ export class FourWheelerProductListComponent implements OnInit {
     sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
   }
-  premiumlist(){
+
+  premiumlist() {
     sessionStorage.packageListFw = this.compherhensive;
     console.log(this.allProductLists, 'hgfdhj');
-     if(this.carListDetails.business_type =='1'){
+    if (this.carListDetails.business_type == '1') {
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '3');
-    } else{
+    } else {
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');
 
     }
   }
 
+  // // view key features details
+  // viewKeyList(value) {
+  //   console.log(value, 'value');
+  //   let dialogRef = this.dialog.open(, {
+  //     width: '1500px', data: {productId : value.product_id, productName: value.product_name, productLogo: value.company_logo}
+  //   });
+  //   dialogRef.disableClose = true;
+  //   dialogRef.afterClosed().subscribe(result => {
+  //   });
+  //
+  // }
 
 
   buyProduct(value) {
-    console.log(value,'value');
-    sessionStorage.buyFourwheelerProductDetails =  JSON.stringify(value);
+    console.log(value, 'value');
+    sessionStorage.buyFourwheelerProductDetails = JSON.stringify(value);
     if (value.company_id == 7) {
-      this.router.navigate(['/four-wheeler-shriram'  + '/' + false]);
+      this.router.navigate(['/four-wheeler-shriram' + '/' + false]);
+    } else if (value.company_id == 12) {
+      this.router.navigate(['/royal-sundaram-fourwheeler-proposal' + '/' + false]);
+    } else if (value.company_id == 3) {
+      this.router.navigate(['/reliance-fourwheeler-motor-proposal' + '/' + false]);
+    } else if (value.company_id == 13) {
+      this.router.navigate(['/car-tataaig-proposal' + '/' + false]);
+    } else if (value.company_id == 5) {
+      this.router.navigate(['/hdfc-car-proposal' + '/' + false]);
     }
-    else if (value.company_id == 12){
-      this.router.navigate(['/royal-sundaram-fourwheeler-proposal'  + '/' + false]);
-    }else if (value.company_id ==3){
-      this.router.navigate(['/reliance-fourwheeler-motor-proposal' + '/'+ false]);
-    }else if(value.company_id == 13){
-      this.router.navigate(['/car-tataaig-proposal'+ '/' + false]);
-    }else if(value.company_id == 5){
-      this.router.navigate(['/hdfc-car-proposal'+ '/' + false]);
-    }
-
-
   }
 }
+
