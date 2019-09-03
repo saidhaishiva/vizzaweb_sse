@@ -1,7 +1,7 @@
-      <!--new-->
-      <title>{{metaTitle}}</title>
-      <meta name="keywords" [content]=metaHealth.keyword />
-      <meta name="description" [content]=metaHealth.descrition />
+<!--new-->
+<title>{{metaTitle}}</title>
+<meta name="keywords" [content]=metaHealth.keyword />
+<meta name="description" [content]=metaHealth.descrition />
 
 <div class="container dashboard h-100 d-none d-sm-none d-md-none d-lg-block" fxLayoutAlign="start start" *ngIf="firstPage">
   <div class="row my-flex-card">
@@ -12,7 +12,7 @@
           <img src="assets/img/health-Insurance-inner.png" class="w-100">
           <div class="aboutContent">
             <h4>About Health Insurance</h4>
-            <p style="text-align: left;">Illness is expensive, Better protect your savings..… <a style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;" href="#knowMoreShow">Know More</a></p>
+            <p style="text-align: left;">Illness is expensive, Better protect your savings..… <button class="btn btn-sm" (click)="healthInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
           </div>
         </div>
       </div>
@@ -176,28 +176,28 @@
   </div>
 </div>
 <div class="d-none d-sm-none d-md-none d-lg-block d-xl-block">
-<div class="row compar-fix" *ngIf="compareArray != ''">
-  <div class="text-right closeBtnClass">
-    <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
-  </div>
-  <div style="width: 340px" *ngFor="let clists of compareArray; let i = index">
-    <div fxLayout="column" class="flex-p">
-      <mat-card class="custom-card compare-icon text-center">
-        <div class="text-right closeBtnClass">
-          <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
-        </div>
-        <mat-card-content class="p-0">
-          <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
-          <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
+  <div class="row compar-fix" *ngIf="compareArray != ''">
+    <div class="text-right closeBtnClass">
+      <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
+    </div>
+    <div style="width: 340px" *ngFor="let clists of compareArray; let i = index">
+      <div fxLayout="column" class="flex-p">
+        <mat-card class="custom-card compare-icon text-center">
+          <div class="text-right closeBtnClass">
+            <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
+          </div>
+          <mat-card-content class="p-0">
+            <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
+            <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
 
-        </mat-card-content>
-      </mat-card>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
+      <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
     </div>
   </div>
-  <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
-    <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
-  </div>
-</div>
 </div>
 
 <!--<form action="http://localhost:4203/#/paymentSuccess"  method='POST' enctype='text/plain' #form>-->
@@ -220,9 +220,9 @@
 <!--Mobile firstpage-->
 <div class="container dashboard h-100 d-block d-sm-block d-md-block d-lg-none d-xl-none" fxLayoutAlign="start start" *ngIf="firstPage">
   <div class="row my-flex-card">
-      <h3 class="w-100 text-center color-pink mb-3"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>
+    <h3 class="w-100 text-center color-pink mb-3"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>
 
-      <p class="w-100 text-center"><button class="btn btn-sm" (click)="healthInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
+    <p class="w-100 text-center"><button class="btn btn-sm" (click)="healthInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
 
     <div class="col-md-12 col-sm-12 col-12" >
       <mat-card class="p-4" style="background: linear-gradient(to top, #A4AEDD 0%, #F285C0 100%) !important;">
@@ -276,145 +276,145 @@
         <h5 class="color-pink" style="cursor: pointer" ><img src="assets/img/Health-Insurance.png" class="logo-size"> <span (click)="headinghealthinsurance()"> Health Insurance</span> </h5>
       </div>
       <div class="col-12 col-md-12">
-      <mat-tab-group #tabGroup class="col-12 w-100" [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event, 'purchase')">
-        <mat-tab class="headerColor" *ngFor="let lists of groupList;let pi = index"  (click)="changeTab()">
-          <ng-template matTabLabel *ngIf="lists.status == 0">
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                 width="20" height="80"
-                 viewBox="0 0 24 24"
-            ><g id="surface1"><path style=" " d="M 12 5 C 9.789063 5 8 6.789063 8 9 C 8 11.210938 9.789063 13 12 13 C 14.210938 13 16 11.210938 16 9 C 16 6.789063 14.210938 5 12 5 Z M 4.5 6 C 3.121094 6 2 7.121094 2 8.5 C 2 9.878906 3.121094 11 4.5 11 C 5.878906 11 7 9.878906 7 8.5 C 7 7.121094 5.878906 6 4.5 6 Z M 19.5 6 C 18.121094 6 17 7.121094 17 8.5 C 17 9.878906 18.121094 11 19.5 11 C 20.878906 11 22 9.878906 22 8.5 C 22 7.121094 20.878906 6 19.5 6 Z M 12 7 C 13.105469 7 14 7.894531 14 9 C 14 10.105469 13.105469 11 12 11 C 10.894531 11 10 10.105469 10 9 C 10 7.894531 10.894531 7 12 7 Z M 4.5 13 C 1.082031 13 0 15.65625 0 15.65625 L 0 17 L 4.0625 17 L 4.09375 16.9375 C 4.144531 16.824219 5.015625 14.894531 7.34375 13.78125 C 6.660156 13.339844 5.726563 13 4.5 13 Z M 19.5 13 C 18.273438 13 17.339844 13.339844 16.65625 13.78125 C 18.984375 14.894531 19.855469 16.824219 19.90625 16.9375 L 19.9375 17 L 24 17 L 24 15.65625 C 24 15.65625 22.917969 13 19.5 13 Z M 12 14 C 6.683594 14 5 18 5 18 L 5 20 L 19 20 L 19 18 C 19 18 17.316406 14 12 14 Z M 12 16 C 15.433594 16 16.53125 18 16.53125 18 L 7.46875 18 C 7.46875 18 8.609375 16 12 16 Z "></path></g></svg>
-            <p class="ml-2 mt-3" >{{lists.name | uppercase}}</p>
-          </ng-template>
-          <ng-template matTabLabel *ngIf="lists.status == 1" style="background-color: green !important; pointer-events: none !important;">
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                 width="48" height="48"
-                 viewBox="0 0 192 192"
-                 style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,192v-192h192v192z" fill="none"></path><g id="Layer_1"><path d="M149.6,164h-107.2c-4,0 -7.2,-2.8 -8,-6.4l-14.4,-73.6h152l-14.8,73.6c-0.8,3.6 -4,6.4 -7.6,6.4z" fill="#388e3c"></path><path d="M101.6,22.4c-3.2,-3.2 -8,-3.2 -11.2,0l-48,48c-3.2,3.2 -3.2,8 0,11.2c1.6,1.6 3.6,2.4 5.6,2.4c2,0 4,-0.8 5.6,-2.4l48,-48c3.2,-3.2 3.2,-8 0,-11.2z" fill="#2e7d32"></path><path d="M149.6,70.4l-48,-48c-3.2,-3.2 -8,-3.2 -11.2,0c-3.2,3.2 -3.2,8 0,11.2l48,48c1.6,1.6 3.6,2.4 5.6,2.4c2,0 4,-0.8 5.6,-2.4c3.2,-3.2 3.2,-8 0,-11.2z" fill="#1b5e20"></path><path d="M172,92h-152c-4.4,0 -8,-3.6 -8,-8v-8c0,-4.4 3.6,-8 8,-8h152c4.4,0 8,3.6 8,8v8c0,4.4 -3.6,8 -8,8z" fill="#4caf50"></path><path d="M100,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M116,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M68,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M84,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M137.656,106.352c-1.532,-1.532 -3.576,-2.344 -5.66,-2.344c-1.032,0 -2.068,0.2 -3.06,0.608c-2.988,1.24 -4.936,4.156 -4.936,7.392v51.992h25.6c3.6,0 6.8,-2.8 7.6,-6.4l5.308,-26.396z" fill="#2e7d32"></path><rect x="17.77239" y="44.9465" transform="rotate(-23.12937) scale(3.99991,3.99991)" width="3.018" height="14.841" fill="#bdbdbd"></rect><path d="M132,112.008v68l20,-20h28z" fill="#bdbdbd"></path><path d="M132,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path></g></g></svg>                    <p class="ml-2 mt-3" >{{lists.name | uppercase}} (Purchased)</p>
-          </ng-template>
-        </mat-tab>
-      </mat-tab-group>
+        <mat-tab-group #tabGroup class="col-12 w-100" [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event, 'purchase')">
+          <mat-tab class="headerColor" *ngFor="let lists of groupList;let pi = index"  (click)="changeTab()">
+            <ng-template matTabLabel *ngIf="lists.status == 0">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                   width="20" height="80"
+                   viewBox="0 0 24 24"
+              ><g id="surface1"><path style=" " d="M 12 5 C 9.789063 5 8 6.789063 8 9 C 8 11.210938 9.789063 13 12 13 C 14.210938 13 16 11.210938 16 9 C 16 6.789063 14.210938 5 12 5 Z M 4.5 6 C 3.121094 6 2 7.121094 2 8.5 C 2 9.878906 3.121094 11 4.5 11 C 5.878906 11 7 9.878906 7 8.5 C 7 7.121094 5.878906 6 4.5 6 Z M 19.5 6 C 18.121094 6 17 7.121094 17 8.5 C 17 9.878906 18.121094 11 19.5 11 C 20.878906 11 22 9.878906 22 8.5 C 22 7.121094 20.878906 6 19.5 6 Z M 12 7 C 13.105469 7 14 7.894531 14 9 C 14 10.105469 13.105469 11 12 11 C 10.894531 11 10 10.105469 10 9 C 10 7.894531 10.894531 7 12 7 Z M 4.5 13 C 1.082031 13 0 15.65625 0 15.65625 L 0 17 L 4.0625 17 L 4.09375 16.9375 C 4.144531 16.824219 5.015625 14.894531 7.34375 13.78125 C 6.660156 13.339844 5.726563 13 4.5 13 Z M 19.5 13 C 18.273438 13 17.339844 13.339844 16.65625 13.78125 C 18.984375 14.894531 19.855469 16.824219 19.90625 16.9375 L 19.9375 17 L 24 17 L 24 15.65625 C 24 15.65625 22.917969 13 19.5 13 Z M 12 14 C 6.683594 14 5 18 5 18 L 5 20 L 19 20 L 19 18 C 19 18 17.316406 14 12 14 Z M 12 16 C 15.433594 16 16.53125 18 16.53125 18 L 7.46875 18 C 7.46875 18 8.609375 16 12 16 Z "></path></g></svg>
+              <p class="ml-2 mt-3" >{{lists.name | uppercase}}</p>
+            </ng-template>
+            <ng-template matTabLabel *ngIf="lists.status == 1" style="background-color: green !important; pointer-events: none !important;">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                   width="48" height="48"
+                   viewBox="0 0 192 192"
+                   style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,192v-192h192v192z" fill="none"></path><g id="Layer_1"><path d="M149.6,164h-107.2c-4,0 -7.2,-2.8 -8,-6.4l-14.4,-73.6h152l-14.8,73.6c-0.8,3.6 -4,6.4 -7.6,6.4z" fill="#388e3c"></path><path d="M101.6,22.4c-3.2,-3.2 -8,-3.2 -11.2,0l-48,48c-3.2,3.2 -3.2,8 0,11.2c1.6,1.6 3.6,2.4 5.6,2.4c2,0 4,-0.8 5.6,-2.4l48,-48c3.2,-3.2 3.2,-8 0,-11.2z" fill="#2e7d32"></path><path d="M149.6,70.4l-48,-48c-3.2,-3.2 -8,-3.2 -11.2,0c-3.2,3.2 -3.2,8 0,11.2l48,48c1.6,1.6 3.6,2.4 5.6,2.4c2,0 4,-0.8 5.6,-2.4c3.2,-3.2 3.2,-8 0,-11.2z" fill="#1b5e20"></path><path d="M172,92h-152c-4.4,0 -8,-3.6 -8,-8v-8c0,-4.4 3.6,-8 8,-8h152c4.4,0 8,3.6 8,8v8c0,4.4 -3.6,8 -8,8z" fill="#4caf50"></path><path d="M100,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M116,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M68,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M84,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M137.656,106.352c-1.532,-1.532 -3.576,-2.344 -5.66,-2.344c-1.032,0 -2.068,0.2 -3.06,0.608c-2.988,1.24 -4.936,4.156 -4.936,7.392v51.992h25.6c3.6,0 6.8,-2.8 7.6,-6.4l5.308,-26.396z" fill="#2e7d32"></path><rect x="17.77239" y="44.9465" transform="rotate(-23.12937) scale(3.99991,3.99991)" width="3.018" height="14.841" fill="#bdbdbd"></rect><path d="M132,112.008v68l20,-20h28z" fill="#bdbdbd"></path><path d="M132,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path></g></g></svg>                    <p class="ml-2 mt-3" >{{lists.name | uppercase}} (Purchased)</p>
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
       </div>
     </div>
   </div>
 
   <div class="pt-0">
-  <div class="sticky-top mt-4" style="z-index: 1;">
-    <mat-card style="background-color: antiquewhite;">
-<div class="row">
-  <div class="col-6" >
-    <mat-form-field  class="w-100">
-      <mat-placeholder class="myclass font-weight-bold" style="color: #000000;">Filter by company</mat-placeholder>
-      <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
-        <mat-option value="All" >Select All</mat-option>
+    <div class="sticky-top mt-4" style="z-index: 1;">
+      <mat-card style="background-color: antiquewhite;">
+        <div class="row">
+          <div class="col-6" >
+            <mat-form-field  class="w-100">
+              <mat-placeholder class="myclass font-weight-bold" style="color: #000000;">Filter by company</mat-placeholder>
+              <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
+                <mat-option value="All" >Select All</mat-option>
 
-        <mat-select-trigger>
-          {{filterCompany ? filterCompany[0] : ''}}
-          <span *ngIf="filterCompany.length > 1" class="example-additional-selection">
+                <mat-select-trigger>
+                  {{filterCompany ? filterCompany[0] : ''}}
+                  <span *ngIf="filterCompany.length > 1" class="example-additional-selection">
                         (+{{filterCompany.length - 1}} {{filterCompany.length === 2 ? 'other' : 'others'}})
                       </span>
-        </mat-select-trigger>
+                </mat-select-trigger>
 
-        <mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <div class="col-6">
-    <!--<mat-form-field  class="w-100">-->
-    <!--<mat-placeholder class="myclass font-weight-bold w-100" style="color: #000000" matTooltip="Lacs">Sum insured</mat-placeholder>-->
-    <!--<mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">-->
-      <!--<mat-option style="overflow-y: scroll;" *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>-->
-    <!--</mat-select>-->
-  <!--</mat-form-field>-->
-      <mat-form-field class="w-100">
-          <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
-          <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
-              <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
-          </mat-select>
-      </mat-form-field>
-  </div>
-</div>
-  </mat-card>
-  </div>
-
-  <mat-card *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
-    <div class="row mt-3" >
-      <div class="col-6 col-md-6">
-        <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
-        <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
-      </div>
-      <div class="col-3 col-md-3">
-        <p style="margin-bottom: 0rem !important;">Sum Insured</p>
-        <div>
-          <p style="font-size: 10px!important; font-weight: bold;"> &#8377; {{plists.suminsured_amount_format}} </p>
-        </div>
-      </div>
-      <div class="col-3 col-md-3">
-        <p style="margin-bottom: 0rem !important;">Premium /yr</p>
-        <div>
-          <p style="font-size: 10px!important; font-weight: bold;">&#8377;  {{plists.premium_amount_format}}</p>
-          <p style="font-size: 10px!important;">(Including GST)</p>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-10 col-10">
-        <h5>Main Features</h5>
-        <ul style="list-style: none;">
-          <li>Co-pay:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3">{{keys.key_features_value}}</a></li>
-          <li>Pre Existing Disease:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 0 || i == 2 || i == 3">{{keys.key_features_value}}</a></li>
-          <li>Pre Hospitalization:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 0 || i == 3">{{keys.key_features_value}}</a></li>
-          <li>Post Hospitalization:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0">{{keys.key_features_value}}</a></li>
-        </ul>
-      </div>
-      <!--<div class="col-md-2 col-2">-->
-        <!--<ul style="list-style: none;" >-->
-          <!--<li style=" font-size: 5px !important;"><i class="material-icons">-->
-            <!--help_outline-->
-          <!--</i></li>-->
-          <!--<li><i class="material-icons">-->
-            <!--help_outline-->
-          <!--</i></li>-->
-          <!--<li><i class="material-icons">-->
-            <!--help_outline-->
-          <!--</i></li>-->
-          <!--<li><i class="material-icons">-->
-            <!--help_outline-->
-          <!--</i></li>-->
-        <!--</ul>-->
-      <!--</div>-->
-    </div>
-
-    <div class="row">
-      <div class="col-4 pr-0"><button mat-raised-button class="w-100" [disabled]="plists.compare"  (click)="addCompare(plists,i)">Compare</button></div>
-      <div class="col-4 p-0"><button mat-raised-button  class="w-100" style="cursor: pointer;" (click)="viewKeyList(plists)">See Details</button></div>
-      <div class="col-4 pl-0"><button mat-raised-button  class="w-100" color="accent"(click)="buyProduct(plists)">Buy Now</button></div>
-    </div>
-
-  </mat-card>
-  <div class="d-block d-sm-block d-md-block d-lg-none d-xl-none" style="margin-top: 10px !important;" >
-  <div class="row compar-mobile" *ngIf="compareArray != ''">
-
-    <!--<div class="text-right closeBtnClass">-->
-      <!--<mat-icon (click)="removeAllCompare(i)">close</mat-icon>-->
-    <!--</div>-->
-    <div class="col-4" *ngFor="let clists of compareArray; let i = index">
-      <div fxLayout="column" class="flex-p">
-        <mat-card class="custom-card compare-icon text-center pr-3">
-          <div class="text-right closeBtnClass">
-            <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
+                <mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-          <mat-card-content class="p-0 col">
-            <!--<p class="color-green-mobile mb-0 text-center">{{clists.product_name}}</p>-->
-            <img  src="{{webhost + '/' + clists.company_logo}}" class="w-100" >
-          </mat-card-content>
-        </mat-card>
+          <div class="col-6">
+            <!--<mat-form-field  class="w-100">-->
+            <!--<mat-placeholder class="myclass font-weight-bold w-100" style="color: #000000" matTooltip="Lacs">Sum insured</mat-placeholder>-->
+            <!--<mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">-->
+            <!--<mat-option style="overflow-y: scroll;" *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>-->
+            <!--</mat-select>-->
+            <!--</mat-form-field>-->
+            <mat-form-field class="w-100">
+              <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
+              <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
+                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <mat-card *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
+      <div class="row mt-3" >
+        <div class="col-6 col-md-6">
+          <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
+          <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
+        </div>
+        <div class="col-3 col-md-3">
+          <p style="margin-bottom: 0rem !important;">Sum Insured</p>
+          <div>
+            <p style="font-size: 10px!important; font-weight: bold;"> &#8377; {{plists.suminsured_amount_format}} </p>
+          </div>
+        </div>
+        <div class="col-3 col-md-3">
+          <p style="margin-bottom: 0rem !important;">Premium /yr</p>
+          <div>
+            <p style="font-size: 10px!important; font-weight: bold;">&#8377;  {{plists.premium_amount_format}}</p>
+            <p style="font-size: 10px!important;">(Including GST)</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-10">
+          <h5>Main Features</h5>
+          <ul style="list-style: none;">
+            <li>Co-pay:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3">{{keys.key_features_value}}</a></li>
+            <li>Pre Existing Disease:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 0 || i == 2 || i == 3">{{keys.key_features_value}}</a></li>
+            <li>Pre Hospitalization:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 0 || i == 3">{{keys.key_features_value}}</a></li>
+            <li>Post Hospitalization:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0">{{keys.key_features_value}}</a></li>
+          </ul>
+        </div>
+        <!--<div class="col-md-2 col-2">-->
+        <!--<ul style="list-style: none;" >-->
+        <!--<li style=" font-size: 5px !important;"><i class="material-icons">-->
+        <!--help_outline-->
+        <!--</i></li>-->
+        <!--<li><i class="material-icons">-->
+        <!--help_outline-->
+        <!--</i></li>-->
+        <!--<li><i class="material-icons">-->
+        <!--help_outline-->
+        <!--</i></li>-->
+        <!--<li><i class="material-icons">-->
+        <!--help_outline-->
+        <!--</i></li>-->
+        <!--</ul>-->
+        <!--</div>-->
+      </div>
+
+      <div class="row">
+        <div class="col-4 pr-0"><button mat-raised-button class="w-100" [disabled]="plists.compare"  (click)="addCompare(plists,i)">Compare</button></div>
+        <div class="col-4 p-0"><button mat-raised-button  class="w-100" style="cursor: pointer;" (click)="viewKeyList(plists)">See Details</button></div>
+        <div class="col-4 pl-0"><button mat-raised-button  class="w-100" color="accent"(click)="buyProduct(plists)">Buy Now</button></div>
+      </div>
+
+    </mat-card>
+    <div class="d-block d-sm-block d-md-block d-lg-none d-xl-none" style="margin-top: 10px !important;" >
+      <div class="row compar-mobile" *ngIf="compareArray != ''">
+
+        <!--<div class="text-right closeBtnClass">-->
+        <!--<mat-icon (click)="removeAllCompare(i)">close</mat-icon>-->
+        <!--</div>-->
+        <div class="col-4" *ngFor="let clists of compareArray; let i = index">
+          <div fxLayout="column" class="flex-p">
+            <mat-card class="custom-card compare-icon text-center pr-3">
+              <div class="text-right closeBtnClass">
+                <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
+              </div>
+              <mat-card-content class="p-0 col">
+                <!--<p class="color-green-mobile mb-0 text-center">{{clists.product_name}}</p>-->
+                <img  src="{{webhost + '/' + clists.company_logo}}" class="w-100" >
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <div class="col text-center" *ngIf="compareArray != ''">
+          <button  class="mt-5" mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
+        </div>
       </div>
     </div>
-    <div class="col text-center" *ngIf="compareArray != ''">
-      <button  class="mt-5" mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
-    </div>
-    </div>
-  </div>
   </div>
 </section>
 
@@ -717,3 +717,4 @@
 <!--</div>-->
 <!--&lt;!&ndash;<button mat-raised-button color="primary"  (click)="form.submit()">Pay Now</button>&ndash;&gt;-->
 <!--</form>-->
+
