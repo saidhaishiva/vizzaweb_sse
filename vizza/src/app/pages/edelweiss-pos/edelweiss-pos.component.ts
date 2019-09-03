@@ -3304,9 +3304,9 @@ export class EdelweissPosComponent implements OnInit {
       "platform": "web",
       "product_id": this.lifePremiumList.product_id,
       "sub_product_id": this.lifePremiumList.sub_product_id,
-      "term": this.lifePremiumList.termDetrails,
-      "suminsured_amount": sessionStorage.selectedAmountTravel,
-      "policy_id": this.getEnquiryDetials.policy_id,
+      "term": this.lifePremiumList.term,
+      "suminsured_amount": sessionStorage.sumamount,
+      "policy_id": this.getEnquiryDetials.enquiry_id,
       "productDetails":{
         "policyTerm":this.lifePremiumList.termDetrails,
         "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
