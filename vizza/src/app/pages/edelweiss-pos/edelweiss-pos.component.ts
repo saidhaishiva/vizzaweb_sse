@@ -2091,7 +2091,7 @@ export class EdelweissPosComponent implements OnInit {
     console.log(data, 'dattattatata');
     console.log(this.ageProofPath.concat(this.ageProposalPath,this.addressProofPath, this.addressProposalPath, this.idProofPath,this.idProposalPath,this.incomeProofProposalPath, this.kycProofPath,this.kycProposalPath, this.documentProofPath,this.documentProposalPath, this.proposalProofPath,this.proposalProPath, this.salesReqProofPath,this.salesReqProposalPath, this.incomeProofPath, this.PhotographPath, this.PhotographProPath), 'resultttttttt');
 
-    this.termService.edelweissFileUpload(data).subscribe(
+    this.common.edelweissFileUpload(data).subscribe(
         (successData) => {
           this.fileUploadSuccess(successData);
         },
@@ -3304,14 +3304,14 @@ export class EdelweissPosComponent implements OnInit {
       "platform": "web",
       "product_id": this.lifePremiumList.product_id,
       "sub_product_id": this.lifePremiumList.sub_product_id,
-      "term": this.lifePremiumList.termDetrails,
-      "suminsured_amount": sessionStorage.selectedAmountTravel,
-      "policy_id": this.getEnquiryDetials.policy_id,
+      "term": this.lifePremiumList.term,
+      "suminsured_amount": sessionStorage.sumamount,
+      "policy_id": this.getEnquiryDetials.enquiry_id,
       "productDetails":{
-        "policyTerm":this.lifePremiumList.termDetrails,
+        "policyTerm":this.lifePremiumList.term,
         "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
-        "frequency":this.enquiryFormData.lifePayment,
-        "sumAssured": sessionStorage.selectedAmountTravel,
+        "frequency":this.enquiryFromDetials.payment_mode,
+        "sumAssured": sessionStorage.sumamount,
         "planOption": this.insureArray.controls['planOption'].value,
         "riderDetails": {
           "workSiteFlag": this.insureArray.controls['workSiteFlag'].value,
@@ -3784,7 +3784,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteTitle(data).subscribe(
+    this.common.geteTitle(data).subscribe(
         (successData) => {
           this.geteTitleSuccess(successData);
         },
@@ -3811,7 +3811,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteGender(data).subscribe(
+    this.common.geteGender(data).subscribe(
         (successData) => {
           this.geteGenderSuccess(successData);
         },
@@ -3838,7 +3838,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteMaritalStatus(data).subscribe(
+    this.common.geteMaritalStatus(data).subscribe(
         (successData) => {
           this.geteMaritalStatusSuccess(successData);
         },
@@ -3864,7 +3864,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteInvesting(data).subscribe(
+    this.common.geteInvesting(data).subscribe(
         (successData) => {
           this.geteInvestingSuccess(successData);
         },
@@ -3888,7 +3888,7 @@ export class EdelweissPosComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     }
-    this.termService.bdutyListEdelweiss(data).subscribe(
+    this.common.bdutyListEdelweiss(data).subscribe(
         (successData) => {
           this.setRelationshipSuccess(successData);
         },
@@ -3915,7 +3915,7 @@ export class EdelweissPosComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     }
-    this.termService.alcoholDetailsEdelweiss(data).subscribe(
+    this.common.alcoholDetailsEdelweiss(data).subscribe(
         (successData) => {
           this.setAlcoholDetailsSuccess(successData);
         },
@@ -3941,7 +3941,7 @@ export class EdelweissPosComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     }
-    this.termService.tobaccoDetailEdelweiss(data).subscribe(
+    this.common.tobaccoDetailEdelweiss(data).subscribe(
         (successData) => {
           this.setTobaccoDetailSuccess(successData);
         },
@@ -3969,7 +3969,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.getePremiumTerm(data).subscribe(
+    this.common.getePremiumTerm(data).subscribe(
         (successData) => {
           this.getePremiumTermSuccess(successData);
         },
@@ -3995,7 +3995,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.getePolicyTerm(data).subscribe(
+    this.common.getePolicyTerm(data).subscribe(
         (successData) => {
           this.getePolicyTermSuccess(successData);
         },
@@ -4013,32 +4013,32 @@ export class EdelweissPosComponent implements OnInit {
 
   public getePolicyTermFailure(error) {
   }
-  getPremiumList() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-
-    }
-    this.termService.getPremiumList(data).subscribe(
-        (successData) => {
-          this.getPremiumSuccess(successData);
-        },
-        (error) => {
-          this.getPremiumFailure(error);
-        }
-    );
-  }
-
-  public getPremiumSuccess(successData) {
-    if (successData.IsSuccess) {
-      this.payingTermList = successData.ResponseObject;
-    }
-  }
-
-  public getPremiumFailure(error) {
-  }
+  // getPremiumList() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+  //
+  //   }
+  //   this.termService.getPremiumList(data).subscribe(
+  //       (successData) => {
+  //         this.getPremiumSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.getPremiumFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // public getPremiumSuccess(successData) {
+  //   if (successData.IsSuccess) {
+  //     this.payingTermList = successData.ResponseObject;
+  //   }
+  // }
+  //
+  // public getPremiumFailure(error) {
+  // }
   geteFrequency() {
     const data = {
       'platform': 'web',
@@ -4047,7 +4047,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteFrequency(data).subscribe(
+    this.common.geteFrequency(data).subscribe(
         (successData) => {
           this.geteFrequencySuccess(successData);
         },
@@ -4074,7 +4074,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteStaff(data).subscribe(
+    this.common.geteStaff(data).subscribe(
         (successData) => {
           this.geteStaffSuccess(successData);
         },
@@ -4101,7 +4101,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteAgeProof(data).subscribe(
+    this.common.geteAgeProof(data).subscribe(
         (successData) => {
           this.geteAgeProofSuccess(successData);
         },
@@ -4128,7 +4128,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteIdProof(data).subscribe(
+    this.common.geteIdProof(data).subscribe(
         (successData) => {
           this.geteIdProofSuccess(successData);
         },
@@ -4182,7 +4182,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteAddressProof(data).subscribe(
+    this.common.geteAddressProof(data).subscribe(
         (successData) => {
           this.geteAddressProofSuccess(successData);
         },
@@ -4208,7 +4208,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteQualification(data).subscribe(
+    this.common.geteQualification(data).subscribe(
         (successData) => {
           this.geteQualificationSuccess(successData);
         },
@@ -4234,7 +4234,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.getepolicyStatus(data).subscribe(
+    this.common.getepolicyStatus(data).subscribe(
         (successData) => {
           this.getepolicyStatusSuccess(successData);
         },
@@ -4260,7 +4260,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteacceptanceTerm(data).subscribe(
+    this.common.geteacceptanceTerm(data).subscribe(
         (successData) => {
           this.geteacceptanceTermSuccess(successData);
         },
@@ -4286,7 +4286,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteState(data).subscribe(
+    this.common.geteState(data).subscribe(
         (successData) => {
           this.geteStateSuccess(successData);
         },
@@ -4312,7 +4312,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteemploymentType(data).subscribe(
+    this.common.geteemploymentType(data).subscribe(
         (successData) => {
           this.geteemploymentTypeSuccess(successData);
         },
@@ -4338,7 +4338,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteDuty(data).subscribe(
+    this.common.geteDuty(data).subscribe(
         (successData) => {
           this.geteDutySuccess(successData);
         },
@@ -4364,7 +4364,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteHeightFeet(data).subscribe(
+    this.common.geteHeightFeet(data).subscribe(
         (successData) => {
           this.geteHeightFeetSuccess(successData);
         },
@@ -4391,7 +4391,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.getepolicyOption(data).subscribe(
+    this.common.getepolicyOption(data).subscribe(
         (successData) => {
           this.getepolicyOptionSuccess(successData);
         },
@@ -4417,7 +4417,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.getepayoutOption(data).subscribe(
+    this.common.getepayoutOption(data).subscribe(
         (successData) => {
           this.getepayoutOptionSuccess(successData);
         },
@@ -4443,7 +4443,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.getepayoutMonthOption(data).subscribe(
+    this.common.getepayoutMonthOption(data).subscribe(
         (successData) => {
           this.getpayoutMonthSuccess(successData);
         },
@@ -4469,7 +4469,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteHeightInches(data).subscribe(
+    this.common.geteHeightInches(data).subscribe(
         (successData) => {
           this.geteHeightInchesSuccess(successData);
         },
@@ -4495,7 +4495,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteHealthStaus(data).subscribe(
+    this.common.geteHealthStaus(data).subscribe(
         (successData) => {
           this.geteHealthStausSuccess(successData);
         },
@@ -4522,7 +4522,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.WeightCdedelweiss(data).subscribe(
+    this.common.WeightCdedelweiss(data).subscribe(
         (successData) => {
           this.geteWeightChangedsSuccess(successData);
         },
@@ -4549,7 +4549,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteChangedWeightCds(data).subscribe(
+    this.common.geteChangedWeightCds(data).subscribe(
         (successData) => {
           this.geteChangedWeightChangeSuccess(successData);
         },
@@ -4576,7 +4576,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.getePolicyCategory(data).subscribe(
+    this.common.getePolicyCategory(data).subscribe(
         (successData) => {
           this.getePolicyCategorySuccess(successData);
         },
@@ -4603,7 +4603,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.edelweissActivities(data).subscribe(
+    this.common.edelweissActivities(data).subscribe(
         (successData) => {
           this.getedelweissActivitiesSuccess(successData);
         },
@@ -4629,7 +4629,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteNomineeRelation(data).subscribe(
+    this.common.geteNomineeRelation(data).subscribe(
         (successData) => {
           this.geteNomineeRelationSuccess(successData);
         },
@@ -4656,7 +4656,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.geteInsuranceRepository(data).subscribe(
+    this.common.geteInsuranceRepository(data).subscribe(
         (successData) => {
           this.geteInsuranceRepositorySuccess(successData);
         },
@@ -4683,7 +4683,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.getTopUpRate(data).subscribe(
+    this.common.getTopUpRate(data).subscribe(
         (successData) => {
           this.getetopUpRateSuccess(successData);
         },
@@ -4710,7 +4710,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.edelweissDocumentProof(data).subscribe(
+    this.common.edelweissDocumentProof(data).subscribe(
         (successData) => {
           this.geteDocumentProofSuccess(successData);
         },
@@ -4737,7 +4737,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.edelweissIncomeProof(data).subscribe(
+    this.common.edelweissIncomeProof(data).subscribe(
         (successData) => {
           this.geteIncomeProofSuccess(successData);
         },
@@ -4764,7 +4764,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.edelweissProposalProof(data).subscribe(
+    this.common.edelweissProposalProof(data).subscribe(
         (successData) => {
           this.geteProposalProofSuccess(successData);
         },
@@ -4790,7 +4790,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.edelweissAgeProof(data).subscribe(
+    this.common.edelweissAgeProof(data).subscribe(
         (successData) => {
           this.geteAgeDocProofSuccess(successData);
         },
@@ -4818,7 +4818,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.edelweissAddressProof(data).subscribe(
+    this.common.edelweissAddressProof(data).subscribe(
         (successData) => {
           this.geteAddressProofDocSuccess(successData);
         },
@@ -4843,7 +4843,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.edelweissKYCProof(data).subscribe(
+    this.common.edelweissKYCProof(data).subscribe(
         (successData) => {
           this.geteKycProofDocSuccess(successData);
         },
@@ -4868,7 +4868,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.edelweissidDocProof(data).subscribe(
+    this.common.edelweissidDocProof(data).subscribe(
         (successData) => {
           this.geteIdProofDocSuccess(successData);
         },
@@ -4893,7 +4893,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.edelweissOtherDocProof(data).subscribe(
+    this.common.edelweissOtherDocProof(data).subscribe(
         (successData) => {
           this.geteOtherDocSuccess(successData);
         },
@@ -4918,7 +4918,7 @@ export class EdelweissPosComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
 
     }
-    this.termService.edelweissSalesReqProof(data).subscribe(
+    this.common.edelweissSalesReqProof(data).subscribe(
         (successData) => {
           this.geteSalesReqProofDocSuccess(successData);
         },
@@ -4948,12 +4948,12 @@ export class EdelweissPosComponent implements OnInit {
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "product_id": "112",
-      "policy_id": this.getEnquiryDetials.policy_id,
+      "policy_id": this.getEnquiryDetials.enquiry_id,
       "transaction_id":this.summaryData.receipt_no,
       "policy_no":this.summaryData.policy_no,
     };
     this.settings.loadingSpinner = true;
-    this.termService.edelweissDownloadPdf(data).subscribe(
+    this.common.edelweissDownloadPdf(data).subscribe(
         (successData) => {
           this.ProposalNextSuccess(successData,stepper);
         },
@@ -5113,7 +5113,7 @@ export class EdelweissPosComponent implements OnInit {
       'ifsc_code': ifsc
     }
     if(ifsc.length == 11) {
-      this.termService.ifscEdelweissDetails(data).subscribe(
+      this.common.ifscEdelweissDetails(data).subscribe(
           (successData) => {
             this.ifscSuccess(successData);
           },
@@ -5654,7 +5654,7 @@ export class EdelweissposOpt {
       "otp":this.otpCode
     }
     console.log(data, '999999999');
-    this.termService.edelweissOtp(data).subscribe(
+    this.common.edelweissOtp(data).subscribe(
         (successData) => {
           this.otpValidationListSuccess(successData);
         },
