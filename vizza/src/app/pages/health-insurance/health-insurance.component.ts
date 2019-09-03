@@ -266,6 +266,8 @@ export class HealthInsuranceComponent implements OnInit {
         if (sessionStorage.setAllProductLists != undefined && sessionStorage.setAllProductLists != '') {
             this.setAllProductLists = JSON.parse(sessionStorage.setAllProductLists);
             this.sumInsuredAmount = this.setAllProductLists[0].suminsured_amount;
+            this.setAllProductLists.sort((a,b) => a.premium_amount - b.premium_amount);
+
         }
         if (sessionStorage.changedTabDetails != undefined && sessionStorage.changedTabDetails != '') {
             this.changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
@@ -637,6 +639,7 @@ export class HealthInsuranceComponent implements OnInit {
             }
             this.changeSuninsuredAmount = "4";
             this.allProductLists = [].concat.apply([], this.productListArray);
+
             console.log(typeof this.allProductLists[0].premium_amount, 'oooooo');
             console.log(typeof this.allProductLists[1].premium_amount, 'oooooo');
 
@@ -650,9 +653,12 @@ export class HealthInsuranceComponent implements OnInit {
             // console.log(allll, 'allll');
 
         }
+        this.allProductLists.sort((a,b) => a.premium_amount - b.premium_amount);
         sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
         sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
         this.setAllProductLists = this.allProductLists;
+        this.setAllProductLists.sort((a,b) => a.premium_amount - b.premium_amount);
+
         sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
         if(this.allProductLists.length > 1) {
              this.sumInsuredAmount = this.allProductLists[0].suminsured_amount;
@@ -800,9 +806,12 @@ export class HealthInsuranceComponent implements OnInit {
             this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
             this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
         }
+
         this.getSumInsureId = successData[0].ResponseObject[0].group_suminsured_id;
         sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
         this.setAllProductLists = this.allProductLists;
+        this.setAllProductLists.sort((a,b) => a.premium_amount - b.premium_amount);
+
         sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
         if(this.allProductLists.length > 1) {
             this.sumInsuredAmount = this.allProductLists[0].suminsured_amount;
@@ -1069,6 +1078,7 @@ export class HealthInsuranceComponent implements OnInit {
             for(let j = 0; j < this.filterCompany.length; j++) {
                 if(this.filterCompany[j] == this.allCompanyList[i].company_name) {
                     getCompanyCount.push({company_id : this.allCompanyList[i].company_id, company_name : this.allCompanyList[i].company_name});
+
                 }
             }
         }
@@ -1126,6 +1136,7 @@ export class HealthInsuranceComponent implements OnInit {
             this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
             this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
         }
+        this.allProductLists.sort((a,b) => a.premium_amount - b.premium_amount);
         this.getSumInsureId = successData[0].ResponseObject[0].group_suminsured_id;
         sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
         sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});

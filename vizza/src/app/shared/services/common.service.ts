@@ -582,7 +582,7 @@ export class CommonService {
             .catch(this.handleError);
     }
 
-    // edelweiss pos home sumamount
+    // edelweisspos homepage
     suminsuredlist(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -593,7 +593,6 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // edelweiss pos home premium
     premiumlist(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -604,8 +603,6 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
-    // edelweiss pos home policy
     policylist(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -617,7 +614,7 @@ export class CommonService {
             .catch(this.handleError);
     }
 
-    // edelweiss pos premium enquiry
+    // edelweisspos premiumpage
     edelweissenquiry(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -628,7 +625,7 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // edelweiss pos premium company
+    // edelweisspos premium
     getComapnyList(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -639,8 +636,6 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
-    // edelweiss pos premium product
     getProductList(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -651,7 +646,6 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // edelweiss pos premium change premium
     changetermlist(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -662,7 +656,9 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-     // edelweiss pos title
+
+
+    //edelweiss-term-life
     geteTitle(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -673,7 +669,16 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    //maritallist
+    geteGender(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/gender';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     geteMaritalStatus(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -684,7 +689,6 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    //investing list
     geteInvesting(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -695,7 +699,76 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    //ageproof
+    bdutyListEdelweiss(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/duty';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    alcoholDetailsEdelweiss(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/alcohol';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    tobaccoDetailEdelweiss(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/tobacco';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getePremiumTerm(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/premiumTerm';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getePolicyTerm(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/policyTerm';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteFrequency(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/frequency';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteStaff(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/staff';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     geteAgeProof(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -706,7 +779,26 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    // qualification
+    geteIdProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/idProof';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteAddressProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/addressProof';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     geteQualification(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -717,7 +809,27 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    //state
+    getepolicyStatus(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/policyStatus';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteacceptanceTerm(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/acceptanceTerm';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
     geteState(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -728,7 +840,16 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    // employee type
+    ifscEdelweissDetails(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'bajaj/ifsc_code';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     geteemploymentType(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -739,7 +860,6 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    //business list
     geteDuty(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -750,13 +870,277 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    //proposal creation
+    geteHeightFeet(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/heightFeet';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteHeightInches(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/heightInches';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteHealthStaus(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/healthStaus';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getepayoutMonthOption(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/payoutMonths';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    WeightCdedelweiss(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/changeInWeight';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteChangedWeightCds(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/changeInWeightReason';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getePolicyCategory(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/policyCategory';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
+    getepolicyOption(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/policyOption';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getepayoutOption(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/payoutOption';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteNomineeRelation(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/nomineeRelationship';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteInsuranceRepository(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/insuranceRepository';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getTopUpRate(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/topUpRate';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     edelweissposProposalCreation(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getedelweisspos() + 'edelweiss/bigeneration';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // document upload Edelweiss
+    edelweissDocumentProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/otherDoc';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissIncomeProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/incomeProof';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissProposalProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/proposalForm';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissAddressProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/addressProofDoc';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissAgeProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/ageProofDoc';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissSalesReqProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/salesRequirementDoc';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissKYCProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/kycDoc';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissidDocProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/identityProofDoc';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissOtherDocProof(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/otherDoc';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissFileUpload(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/doc_upload';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissActivities(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/activities';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    fileUploadEdelweiss(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/contentType';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    edelweissDownloadPdf(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/DocDownload';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissOtp(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getedelweisspos() + 'edelweiss/verify_otp';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
