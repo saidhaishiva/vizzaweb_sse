@@ -3308,10 +3308,10 @@ export class EdelweissPosComponent implements OnInit {
       "suminsured_amount": sessionStorage.sumamount,
       "policy_id": this.getEnquiryDetials.enquiry_id,
       "productDetails":{
-        "policyTerm":this.lifePremiumList.termDetrails,
+        "policyTerm":this.lifePremiumList.term,
         "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
-        "frequency":this.enquiryFormData.lifePayment,
-        "sumAssured": sessionStorage.selectedAmountTravel,
+        "frequency":this.enquiryFromDetials.payment_mode,
+        "sumAssured": sessionStorage.sumamount,
         "planOption": this.insureArray.controls['planOption'].value,
         "riderDetails": {
           "workSiteFlag": this.insureArray.controls['workSiteFlag'].value,
