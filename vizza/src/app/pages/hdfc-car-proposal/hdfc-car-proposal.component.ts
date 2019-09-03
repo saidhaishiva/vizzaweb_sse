@@ -78,8 +78,36 @@ export class HdfcCarProposalComponent implements OnInit {
     public vehicleidv: any;
     public regvalue: any;
     public RegDateage: any;
+    public ProposalId: any;
+    public currentStep: any;
+    public personalCitys: any;
+    public personaldistricts: any;
+    public pinerrorpermanent: any;
+    public response: any;
+    public residenceCitys: any;
+    public residenceDistricts: any;
+    public pinerror: any;
+    public altererror: any;
 
   constructor(public fb: FormBuilder,public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe ,public Fourwheeler: FourWheelerService) {
+      let stepperindex = 0;
+      this.route.params.forEach((params) => {
+          if (params.stepper == true || params.stepper == 'true') {
+              stepperindex = 3;
+              if (sessionStorage.summaryDatabikeHdfc != '' && sessionStorage.summaryDatabikeHdfc != undefined) {
+                  this.summaryData = JSON.parse(sessionStorage.summaryDatabikeHdfc);
+                  this.PaymentRedirect = this.summaryData.PaymentRedirect;
+                  this.PaymentReturn = this.summaryData.PaymentReturn;
+                  this.proposerFormData = JSON.parse(sessionStorage.stepper1Details);
+                  this.vehicalFormData = JSON.parse(sessionStorage.stepper2Details);
+                  this.previousFormData = JSON.parse(sessionStorage.stepper3Details);
+                  // this.bankFormData = JSON.parse(sessionStorage.stepper4Details);
+                  this.ProposalId = sessionStorage.hdfcBikeproposalID;
+              }
+          }
+      });
+      this.currentStep = stepperindex;
+
       this.Setting = appsetting.settings;
       this.webhost = this.config.getimgUrl();
       this.Setting.HomeSidenavUserBlock = false;
@@ -115,7 +143,7 @@ export class HdfcCarProposalComponent implements OnInit {
           landmarkcom: [''],
           alternateContact: [''],
           gstNumber: [''],
-          personalPan: [''],
+          personalPan: ['',Validators.required],
           sameAsAddress: [''],
           address4: ['', Validators.required],
           address5: ['', Validators.required],
@@ -216,11 +244,28 @@ export class HdfcCarProposalComponent implements OnInit {
       this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
       this.carEquiryId = sessionStorage.fwEnquiryId;
       this.vehicleidv=JSON.parse(sessionStorage.buyFourwheelerProductDetails);
+      let stringToSplit;
+      stringToSplit = this.vehicledata.vehicle_no;
+      let x = stringToSplit.slice(0, 2);
+      let y = stringToSplit.slice(2, 4);
+      let oo = stringToSplit.slice(5, 6);
+      let w = '';
+      let z = stringToSplit.slice(4, 6);
+      // if (!isNaN(oo)) {
+      //     let j = stringToSplit.slice(4, 5);
+      //     w = stringToSplit.slice(5);
+      //     this.vehicledata.vehicle_no = x.concat('-', y, '-', j, '-', w);
+      //
+      // } else {
+      w = stringToSplit.slice(6);
+      this.vehicledata.vehicle_no = x.concat('-', y, '-', z, '-', w);
+
 
       // this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
       this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
       this.vechicle.controls['vehiclemodel'].patchValue(this.vehicledata.vehicle_model);
+      this.vechicle.controls['previouspolicyclaim'].patchValue(this.vehicledata.previous_claim_YN == '1' ? 'YES' : 'NO');
       this.vechicle.controls['Vehicleregdate'].patchValue(this.datepipe.transform(this.vehicledata.registration_date, 'y-MM-dd'));
       this.vechicle.controls['regno'].patchValue(this.vehicledata.vehicle_no);
       this.vechicle.controls['manufactureyear'].patchValue(this.vehicledata.manu_yr);
@@ -229,20 +274,49 @@ export class HdfcCarProposalComponent implements OnInit {
       this.vechicle.controls['previousenddate'].patchValue(this.datepipe.transform(this.vehicledata.previous_policy_expiry_date, 'y-MM-dd'));
       if (this.vechicle.controls['Vehicleregdate'].value) {
           let regno = '';
-          regno = this.datepipe.transform('2019-03-01', 'y-MM-dd');
+          regno = this.datepipe.transform(this.datepipe.transform(this.vehicledata.registration_date), 'yyyy-MM-dd');
           this.RegDateage = this.regdatecalculate(regno);
-
-
-
       }
+      if (this.vehicledata.type == 'new') {
+          console.log('into ve');
+          this.regvalue = 'New Vehicle';
+          this.validationForNew(this.regvalue);
+          console.log(this.regvalue,'picasoo');
+      } else {
+          this.regvalue = 'Roll Over';
+          this.validationForNew(this.regvalue);
+      }
+      this.altererror='';
 
   }
 
-    sameaspermenant(event){
+    validationForNew(value) {
+        console.log(value, 'valuecore');
+        if (value == 'New Vehicle') {
+            console.log('vinoyth');
+            this.vechicle.controls['Previouscompany'].setValidators(null);
+            this.vechicle.controls['Previouscompany'].updateValueAndValidity();
+            this.vechicle.controls['regno'].setValidators(null);
+            this.vechicle.controls['Vehicleregdate'].setValidators(null);
+            this.vechicle.controls['ncb'].setValidators(null);
+            this.vechicle.controls['previousenddate'].setValidators(null);
+            this.vechicle.controls['previouspolicyno'].setValidators(null);
+            this.vechicle.controls['previouspolicyclaim'].setValidators(null);
+            this.vechicle.controls['ncb'].updateValueAndValidity();
+            this.vechicle.controls['previousenddate'].updateValueAndValidity();
+            this.vechicle.controls['previouspolicyno'].updateValueAndValidity();
+            this.vechicle.controls['previouspolicyclaim'].updateValueAndValidity();
+            this.vechicle.controls['Vehicleregdate'].updateValueAndValidity();
+            this.vechicle.controls['regno'].updateValueAndValidity();
+        }
+
+    }
+
+    sameaspermenant(event) {
         console.log(event);
         if (event.checked == true) {
-            console.log(this.proposer.controls['citycom'].value);
-
+            this.pinerrorpermanent = '';
+            console.log(sessionStorage.residenceCitys);
             this.proposer.controls['address'].patchValue(this.proposer.controls['address4'].value);
             this.proposer.controls['address2'].patchValue(this.proposer.controls['address5'].value);
             this.proposer.controls['address3'].patchValue(this.proposer.controls['address6'].value);
@@ -251,6 +325,12 @@ export class HdfcCarProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].patchValue(this.proposer.controls['citycom'].value);
             this.proposer.controls['districtpermanent'].patchValue(this.proposer.controls['districtcom'].value);
             this.proposer.controls['landmarkpermanent'].patchValue(this.proposer.controls['landmarkcom'].value);
+            this.personalCitys = JSON.parse(sessionStorage.residenceCitys);
+            sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+            this.personaldistricts = JSON.parse(sessionStorage.residenceDistricts);
+            sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
+
+
         } else if (event.checked != true) {
             this.proposer.controls['address'].patchValue('');
             this.proposer.controls['address2'].patchValue('');
@@ -260,11 +340,21 @@ export class HdfcCarProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].patchValue('');
             this.proposer.controls['districtpermanent'].patchValue('');
             this.proposer.controls['landmarkpermanent'].patchValue('');
+            if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+                this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+            } else {
+                this.personalCitys = {};
+            }
+            if (sessionStorage.personaldistricts != '' && sessionStorage.personaldistricts != undefined) {
+                this.personaldistricts = JSON.parse(sessionStorage.personaldistricts);
+
+            } else {
+                this.personaldistricts = {};
+            }
 
         }
 
-    }
-    check(event) {
+    }    check(event) {
         console.log(event);
         if (event.checked == true) {
             this.vechicle.controls['Agreement'].setValidators([Validators.required]);
@@ -434,9 +524,11 @@ export class HdfcCarProposalComponent implements OnInit {
 
     }
     typeAddressDeatils() {
-
-        if (this.proposer.controls['issameascmmunication'].value) {
-            console.log('uueyye');
+        if (this.proposer.controls['issameascmmunication'].value == true) {
+            console.log(this.proposer.controls['issameascmmunication'].value, 'wheree');
+            this.pinerrorpermanent = '';
+            sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+            sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
             //     this.citypermanent = JSON.parse(sessionStorage.personalCitys);
             this.proposer.controls['address'].setValue(this.proposer.controls['address4'].value);
             this.proposer.controls['address2'].setValue(this.proposer.controls['address5'].value);
@@ -556,53 +648,98 @@ ChangeGender(){
 
     proposerpincodeListSuccess(successData, type) {
         if (successData.IsSuccess) {
-            console.log(successData, 'ss');
-
-            this.cityarray=successData.ResponseObject;
+            this.response = successData.ResponseObject;
             var i;
-            let g= new Array();
-            let distrct=new Array();
-            console.log(this.cityarray,'cityarry');
-            for (i = 0; i < this.cityarray.length; i++) {
-
-                g.push(this.cityarray[i]['txt_pincode_locality']);
-                console.log(distrct[i]);
-                if(this.cityarray[i]['txt_city_district'] != distrct[i]){
-                    // distrct.push(this.cityarray[i])
-                    distrct.push(this.cityarray[i]['txt_city_district']);
+            let g = new Array();
+            let distrct = new Array();
+            console.log(this.response, 'cityarry');
+            for (i = 0; i < this.response.length; i++) {
+                if (g.indexOf(this.response[i]['txt_pincode_locality']) == -1) {
+                    // g.push(Array.from(new Set(this.cityarray[i]['txt_pincode_locality']))) ;
+                    g.push(this.response[i]['txt_pincode_locality']);
                 }
-                // distrct.push(this.cityarray[i]['txt_city_district']);
+                if (distrct.indexOf(this.response[i]['txt_city_district']) == -1) {
+                    distrct.push(this.response[i]['txt_city_district']);
+                }
 
             }
-            this.cityarray=g;
-            sessionStorage.citylist=JSON.stringify(g);
-            this.districtarray=distrct;
-            sessionStorage.districtlist=JSON.stringify(distrct);
-            console.log(sessionStorage.districtlist,'session');
+            this.cityarray = g;
+            sessionStorage.citylist = JSON.stringify(g);
+            this.districtarray = distrct;
+            sessionStorage.districtlist = JSON.stringify(distrct);
 
-
-            console.log(g,'jj');
             if (type == 'proposer') {
+                this.pinerrorpermanent = '';
                 this.proposerPinList = successData.ResponseObject;
                 this.proposer.controls['statepermanent'].patchValue(this.proposerPinList[0].txt_state);
                 this.proposer.controls['districtpermanent'].patchValue(this.proposerPinList[0].txt_city_district);
                 this.proposer.controls['citypermanent'].patchValue(this.proposerPinList[0].txt_pincode_locality);
+                this.personalCitys = this.cityarray;
+                this.personaldistricts = this.districtarray;
+                sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+                sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
+
             } else if (type == 'comm') {
+                this.pinerror = '';
                 this.proposerComList = successData.ResponseObject;
+                console.log(this.proposerComList, 'com');
                 this.proposer.controls['statecom'].patchValue(this.proposerComList[0].txt_state);
                 this.proposer.controls['districtcom'].patchValue(this.proposerComList[0].txt_city_district);
                 this.proposer.controls['citycom'].patchValue(this.proposerComList[0].txt_pincode_locality);
+                this.residenceCitys = this.cityarray;
+                this.residenceDistricts = this.districtarray;
+                sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
+                sessionStorage.residenceDistricts = JSON.stringify(this.residenceDistricts);
+                if (this.proposer.controls['issameascmmunication'].value == true) {
+                    this.personalCitys = this.cityarray;
+                    this.personaldistricts = this.districtarray;
+                    console.log(this.proposer.controls['citycom'].value, 'vvvv');
+                    this.proposer.controls['statepermanent'].setValue(this.proposer.controls['statecom'].value);
+                    this.proposer.controls['citypermanent'].setValue(this.proposer.controls['citycom'].value);
+                    this.proposer.controls['districtpermanent'].setValue(this.proposer.controls['districtcom'].value);
+                    sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+                    sessionStorage.personaldistricts = JSON.stringify(this.personaldistricts);
+
+                }
             }
         } else if (successData.IsSuccess != true) {
             this.toastr.error('Please Fill Valid Pincode');
             if (type == 'proposer') {
-                this.proposer.controls['proposerState'].patchValue('');
-                this.proposer.controls['proposerDistrict'].patchValue('');
-                this.proposer.controls['proposerCity'].patchValue('');
-            } else if (type == 'prepolicy') {
-                this.previouspolicy.controls['preState'].patchValue('');
-                this.previouspolicy.controls['preDistrict'].patchValue('');
-                this.previouspolicy.controls['preCity'].patchValue('');
+                this.pinerrorpermanent = 'Please Fill Valid Pincode';
+                console.log('varchar');
+                sessionStorage.personalCitys = '';
+                this.personalCitys = {};
+                sessionStorage.personaldistricts = '';
+                this.personaldistricts = {};
+                this.proposer.controls['statepermanent'].patchValue('');
+                this.proposer.controls['districtpermanent'].patchValue('');
+                this.proposer.controls['citypermanent'].patchValue('');
+
+            } else if (type == 'comm') {
+                this.pinerror = 'Please Fill Valid Pincode';
+                sessionStorage.residenceCitys = '';
+                this.residenceCitys = {};
+                sessionStorage.residenceDistricts = '';
+                this.residenceDistricts = {};
+                console.log(this.residenceDistricts, 'resss');
+                this.proposer.controls['statecom'].patchValue('');
+                this.proposer.controls['districtcom'].patchValue('');
+                this.proposer.controls['citycom'].patchValue('');
+                if (this.proposer.controls['issameascmmunication'].value == true) {
+                    this.pinerrorpermanent = 'Please Fill Valid Pincode';
+                    console.log('iiiiiii');
+                    sessionStorage.cityarray = '';
+                    this.cityarray = {};
+                    sessionStorage.districtarray = '';
+                    this.districtarray = {};
+                    sessionStorage.personalCitys = '';
+                    this.personalCitys = {};
+                    sessionStorage.personaldistricts = '';
+                    this.personaldistricts = {};
+                    this.proposer.controls['statepermanent'].setValue('');
+                    this.proposer.controls['districtpermanent'].setValue('');
+                    this.proposer.controls['citypermanent'].setValue('');
+                }
             }
         }
     }
@@ -620,9 +757,13 @@ ChangeGender(){
             console.log(this.proposer.valid,'valid');
             if (this.proposer.valid) {
                 if (sessionStorage.proposerAge >= 18) {
-                    stepper.next();
-                    this.topScroll();
-                } else {
+                    if( this.altererror==''){
+                        stepper.next();
+                        this.topScroll();
+                    }
+
+
+                }else {
                     this.toastr.error('Proposer Age should be greater than 18.')
                 }
             } else {
@@ -676,11 +817,26 @@ ChangeGender(){
 
     }
     sessionstorage(){
+        if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+            this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+        }
+        if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+            this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+        }
+        if (sessionStorage.personaldistricts != '' && sessionStorage.personaldistricts != undefined) {
+            this.personaldistricts = JSON.parse(sessionStorage.personaldistricts);
+        }
+        if (sessionStorage.residenceDistricts != '' && sessionStorage.residenceDistricts != undefined) {
+            this.residenceDistricts = JSON.parse(sessionStorage.residenceDistricts);
+        }
         if (sessionStorage.citylist != '' && sessionStorage.citylist != undefined) {
-            this.cityarray = JSON.parse(sessionStorage.citylist)
+            this.cityarray = JSON.parse(sessionStorage.citylist);
         }
         if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
-            this.districtarray = JSON.parse(sessionStorage.districtlist)
+            this.districtarray = JSON.parse(sessionStorage.districtlist);
+        }
+        if (sessionStorage.company != '' && sessionStorage.company != undefined) {
+            this.companyList = JSON.parse(sessionStorage.company);
         }
 
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -878,16 +1034,17 @@ console.log(this.vehicleidv.Idv);
                     "AgreementType": [],
                     "FinancierCode": [],
                     "BranchName": [],
-                    "PreviousPolicy_CorporateCustomerId_Mandatary": this.vechicle.controls['Previouscompany'].value ,
-                    "PreviousPolicy_NCBPercentage": this.vechicle.controls['ncb'].value,
-                    "PreviousPolicy_PolicyEndDate": this.datepipe.transform(this.vechicle.controls['previousenddate'].value,'dd/MM/y'),
-                    "PreviousPolicy_PolicyNo": this.vechicle.controls['previouspolicyno'].value,
-                    "PreviousPolicy_PolicyClaim": this.vechicle.controls['previouspolicyclaim'].value,
+                    "PreviousPolicy_CorporateCustomerId_Mandatary": this.regvalue != 'New Vehicle' ? this.vechicle.controls['Previouscompany'].value : '' ,
+                    "PreviousPolicy_NCBPercentage":this.regvalue != 'New Vehicle' ? this.vechicle.controls['ncb'].value : '',
+                    "PreviousPolicy_PolicyEndDate": this.tommarrow,
+                        // this.datepipe.transform(this.vechicle.controls['previousenddate'].value,'dd/MM/y'),
+                    "PreviousPolicy_PolicyNo": this.regvalue != 'New Vehicle' ? this.vechicle.controls['previouspolicyno'].value : '',
+                    "PreviousPolicy_PolicyClaim": this.regvalue != 'New Vehicle' ? this.vechicle.controls['previouspolicyclaim'].value : '',
                     "BusinessType_Mandatary": this.RegDateage ,
                     "VehicleModelCode": "26114",
-                    "DateofDeliveryOrRegistration": this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value,'dd/MM/y'),
+                    "DateofDeliveryOrRegistration": this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y') : this.tod ,
                     "YearOfManufacture": this.vechicle.controls['manufactureyear'].value,
-                    "Registration_No": this.vechicle.controls['regno'].value,
+                    "Registration_No": this.regvalue != 'New Vehicle' ? this.vechicle.controls['regno'].value : '',
                     "EngineNumber": this.vechicle.controls['engine'].value,
                     "ChassisNumber": this.vechicle.controls['chassis'].value,
                     // "RTOLocationCode": "10406",
@@ -896,7 +1053,7 @@ console.log(this.vehicleidv.Idv);
 
             "Req_PvtCar": {
                 "POSP_CODE": '',
-                    "POLICY_TENURE": "1",
+                    "POLICY_TENURE":this.addOns.controls['policytenture'].value,
                     "ExtensionCountryCode": this.addOns.controls['extentioncountry'].value,
                     "ExtensionCountryName": this.addOns.controls['extentioncountryvalue'].value,
                     "BreakIN_ID": '',
@@ -904,7 +1061,7 @@ console.log(this.vehicleidv.Idv);
                     "NumberOfEmployees": "0",
                     "BiFuelType": this.addOns.controls['biofuel'].value,
                     "BiFuel_Kit_Value": this.addOns.controls['biofuelkit'].value,
-                    "LLPaiddriver": this.addOns.controls['IsPaidDriver'].value==true ?'1':'0',
+                    "paiddriversi": this.addOns.controls['IsPaidDriver'].value==true ?'1':'0',
                     "PAPaiddriverSI":this.addOns.controls['paiddriversi'].value  ,
                     "Owner_Driver_Nominee_Name": this.addOns.controls['NomineeName'].value,
                     "Owner_Driver_Nominee_Age": this.addOns.controls['NomineeAge'].value,
@@ -912,8 +1069,8 @@ console.log(this.vehicleidv.Idv);
                     "Owner_Driver_Appointee_Name": this.addOns.controls['appointeename'].value,
                     "Owner_Driver_Appointee_Relationship": this.addOns.controls['appointeerelation'].value,
                     "IsZeroDept_Cover": this.addOns.controls['zerodept'].value=='true' ?'1':'0',
-                    "ElecticalAccessoryIDV":  this.addOns.controls['ElecticalAccessoryIDV'].value =='' ?'0':this.addOns.controls['ElecticalAccessoryIDV'].value,
-                    "NonElecticalAccessoryIDV": this.addOns.controls['NonElecticalAccessoryIDV'].value=='' ?'0':this.addOns.controls['NonElecticalAccessoryIDV'].value,
+                     'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
+                    'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
                     "OtherLoadDiscRate": this.addOns.controls['OtherLoadDiscRate'].value==true ?'1':'0',
                     "AntiTheftDiscFlag": this.addOns.controls['Antitheftdiscflag'].value,
                     "HandicapDiscFlag": this.addOns.controls['HandicapDiscFlag'].value,
@@ -929,7 +1086,7 @@ console.log(this.vehicleidv.Idv);
                     "Towing_Limit": '',
                     "IsEMIProtector_Cover": this.addOns.controls['IsEMIprotector_Cover'].value ==true ?'1':'0',
                     "NoOfEmi": this.addOns.controls['noOfEmi'].value,
-                    "EMIAmount": "0",
+                    "EMIAmount": this.addOns.controls['EMIamount'].value,
                     "NoofUnnamedPerson":this.addOns.controls['NoofUnnamedPerson'].value ==true ?'1':'0' ,
                     "UnnamedPersonSI": this.addOns.controls['UnnamedPersonSI'].value ,
                     "Voluntary_Excess_Discount":this.addOns.controls['VoluntaryExcessDiscount'].value ,
@@ -970,6 +1127,7 @@ console.log(this.vehicleidv.Idv);
     proposalSuccess(successData,stepper){
         this.Setting.loadingSpinner = false;
         this.proposerFormData = this.proposer.value;
+        console.log(this.proposerFormData);
         if (successData.IsSuccess) {
             stepper.next();
             this.toastr.success('Proposal created successfully!!');
@@ -1000,6 +1158,29 @@ console.log(this.vehicleidv.Idv);
     proposalFailure(error){
 
     }
+    alternatecontact(value, event) {
+        console.log(event);
+        if (this.proposer.controls['mobile'].value == value) {
+            console.log('ooo');
+            this.altererror = 'Enter Alternate Contact';
+        } else if (this.proposer.controls['mobile'].value != value) {
+            this.altererror = '';
+        }
+        if (value.search('-') == -1 && value != '') {
+            this.altererror = 'Enter Valued Format Of Telephone Number';
+            this.altererror = 'Format of the Telephone number is 044-1234567';
+        } else if (value.search('-') != -1) {
+            this.altererror = '';
+        }
+        if (value.search('-') > 5 && value != '') {
+            this.altererror = ' Enter Valid Area Code ';
+        } else if (value.search('-')! > 5) {
+            this.altererror = '';
+        }if(this.altererror!=''){
+
+        }
+    }
+
     regdatecalculate(regno) {
         let today = new Date();
         let birthDate = new Date(regno);
