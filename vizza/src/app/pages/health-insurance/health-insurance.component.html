@@ -1,7 +1,7 @@
       <!--new-->
-      <title>{{metaTitle}}</title>
-      <meta name="keywords" content=metaHealth.keyword />
-      <meta name="description" content=metaHealth.descrition />
+      <title>{{metaHealth.title}}</title>
+      <meta name="keywords" [content]= metaHealth.keyword />
+      <meta name="description" content= {{metaHealth.descrition}} />
 
 <div class="container dashboard h-100 d-none d-sm-none d-md-none d-lg-block" fxLayoutAlign="start start" *ngIf="firstPage">
   <div class="row my-flex-card">

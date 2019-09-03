@@ -184,10 +184,8 @@ export class HealthInsuranceComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-      console.log(successData.ResponseObject);
-      this.metaHealth = successData.ResponseObject;
-      this.metaTitle = this.metaHealth[0].title;
-      console.log(this.metaHealth[0].title, 'titl')
+      this.metaHealth = successData.ResponseObject[0];
+
     }
     public metaDetailFailure(error) {
         console.log(error);
