@@ -535,6 +535,7 @@
                                                     <mat-option value="750">750</mat-option>
                                                     <mat-option value="1000">1000</mat-option>
                                                     <mat-option value="1500">1500</mat-option>
+                                                    <mat-option value="3000">3000</mat-option>
                                                     <mat-option value="5000">5000</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -554,7 +555,7 @@
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Person Name<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
-                                                <input matInput  formControlName="namedPerson" autocomplete="off" maxlength="25" (keypress)="numberValidate($event)"  >
+                                                <input matInput  formControlName="namedPerson" autocomplete="off" maxlength="25" (keypress)="nameValidate($event)"  >
                                                 <mat-error *ngIf="addOns.controls.namedPerson.errors?.required  ">Person Name Is Required</mat-error>
 
                                             </mat-form-field>
@@ -563,7 +564,7 @@
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Named Person SI<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
-                                                <input matInput  formControlName="namedPersonSI" autocomplete="off" (keypress)="nameValidate($event)"  >
+                                                <input matInput  formControlName="namedPersonSI" autocomplete="off" (keypress)="numberValidate($event)"  >
                                                 <mat-error *ngIf="addOns.controls.namedPersonSI.errors?.required  ">Named Person SI is required</mat-error>
 
                                             </mat-form-field>
