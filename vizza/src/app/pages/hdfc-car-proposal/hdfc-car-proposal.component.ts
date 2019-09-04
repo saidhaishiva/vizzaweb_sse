@@ -94,8 +94,9 @@ export class HdfcCarProposalComponent implements OnInit {
       this.route.params.forEach((params) => {
           if (params.stepper == true || params.stepper == 'true') {
               stepperindex = 3;
-              if (sessionStorage.summaryDatabikeHdfc != '' && sessionStorage.summaryDatabikeHdfc != undefined) {
-                  this.summaryData = JSON.parse(sessionStorage.summaryDatabikeHdfc);
+              if (sessionStorage.summaryDatacarHdfc != '' && sessionStorage.summaryDatacarHdfc != undefined) {
+                  this.summaryData = JSON.parse(sessionStorage.summaryDatacarHdfc);
+                  console.log(this.summaryData);
                   this.PaymentRedirect = this.summaryData.PaymentRedirect;
                   this.PaymentReturn = this.summaryData.PaymentReturn;
                   this.proposerFormData = JSON.parse(sessionStorage.stepper1Details);
