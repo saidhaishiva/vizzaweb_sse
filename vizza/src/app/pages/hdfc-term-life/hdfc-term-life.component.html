@@ -359,7 +359,7 @@
                         </mat-form-field></div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Employer Name" formControlName="employernm" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)">
+                            <input matInput placeholder="Employer Name" formControlName="employernm" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)">
                             <mat-error *ngIf="personal.controls.employernm.errors?.required">Employer Name is required</mat-error>
                             <!--<input type="number" oninput="validity.valid||(value ='50000000');"  step="1000" />-->
                           </mat-form-field>
@@ -603,6 +603,17 @@
                                                     <button mat-raised-button color="accent" style="line-height: 28px;width: 90px;font-size: 10px;adding: 0 0px;" *ngIf="i==1" (click)="removeNominee($event,i)">
                                                         <i class="material-icons" style="margin-top: -2px; font-size: 17px">delete</i> Remove</button>
                                                 </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <mat-select placeholder="Title" formControlName="ntitle"  autocomplete="off"   >
+                                                            <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.value'>
+                                                                {{list.value}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <!--<mat-error *ngIf="personal.controls.mothernmtitle.errors?.required">Title is required</mat-error>-->
+                                                    </mat-form-field>
+                                                </div>
+
 
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
@@ -712,15 +723,17 @@
                                                     </mat-form-field>
                                                 </div>
 
-                                                <!--<div class="col-md-4">-->
-                                                <!--<mat-form-field class="w-100">-->
-                                                <!--<mat-select placeholder="Country" formControlName="nrelationship" autocomplete="off" required >-->
-                                                <!--<mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.value'>-->
-                                                <!--{{list.value}}-->
-                                                <!--</mat-option>-->
-                                                <!--</mat-select>-->
-                                                <!--<mat-error *ngIf="personal.controls.country.errors?.required">country is required</mat-error>-->
-                                                <!--</mat-form-field></div>-->
+
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <mat-select placeholder="Relationship" formControlName="nrelationship" autocomplete="off" required  >
+                                                            <mat-option *ngFor="let list of relationAppointeeHdfcList | keys" [value]= 'list.value'>
+                                                                {{list.value}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <!--<mat-error *ngIf="nomineeDetail.controls.maritalstatus.errors?.required">Marital Status is required</mat-error>-->
+                                                    </mat-form-field>
+                                                </div>
                                                 <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                 <input matInput placeholder="Mobile Number" formControlName="nmobilenum" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)" >
@@ -763,6 +776,17 @@
                                                     </mat-form-field>
                                                     <p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value}}</p>
                                                 </div>
+                                                    <div class="col-md-4"  *ngIf="i ==0">
+                                                        <mat-form-field class="w-100">
+                                                            <mat-placeholder>Relationship with Nominee<span class="error" >*</span></mat-placeholder>
+                                                                <mat-select  formControlName="arelationship"  >
+
+                                                                <mat-option *ngFor="let list of relationAppointeeHdfcList | keys" [value]= 'list.value'>
+                                                                    {{list.value}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                            <!--<mat-error *ngIf="nomineeDetail.controls.country.errors?.required">country is required</mat-error>-->
+                                                        </mat-form-field></div>
                                                 <div class="col-md-4" *ngIf="i ==0">
                                                     <mat-form-field class="w-100" >
                                                         <mat-placeholder> House No <span class="error" >*</span></mat-placeholder>
