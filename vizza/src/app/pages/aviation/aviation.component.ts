@@ -101,10 +101,7 @@ export class AviationComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaAviation = successData.ResponseObject;
-        this.metaTitle = this.metaAviation[0].title;
-        console.log(this.metaAviation[0].title, 'titl')
+        this.metaAviation = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

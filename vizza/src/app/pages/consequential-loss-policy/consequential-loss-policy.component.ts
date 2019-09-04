@@ -102,10 +102,7 @@ export class ConsequentialLossPolicyComponent implements OnInit {
     );
   }
   public metaDetailSuccess(successData) {
-    console.log(successData.ResponseObject);
-    this.metaConsequentialLoss = successData.ResponseObject;
-    this.metaTitle = this.metaConsequentialLoss[0].title;
-    console.log(this.metaConsequentialLoss[0].title, 'titl')
+    this.metaConsequentialLoss = successData.ResponseObject[0];
   }
   public metaDetailFailure(error) {
     console.log(error);

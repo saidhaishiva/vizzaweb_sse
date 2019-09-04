@@ -224,10 +224,7 @@ export class TravelHomeComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaTravel = successData.ResponseObject;
-        this.metaTitle = this.metaTravel[0].title;
-        console.log(this.metaTravel[0].title, 'titl')
+        this.metaTravel = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

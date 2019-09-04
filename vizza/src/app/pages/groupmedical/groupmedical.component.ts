@@ -103,10 +103,7 @@ export class GroupmedicalComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaGroupHealth = successData.ResponseObject;
-        this.metaTitle = this.metaGroupHealth[0].title;
-        console.log(this.metaGroupHealth[0].title, 'titl')
+        this.metaGroupHealth = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

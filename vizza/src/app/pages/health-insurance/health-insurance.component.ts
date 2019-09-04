@@ -20,9 +20,9 @@ import {MetaService} from '../../shared/services/meta.service';
 
 
 @Component({
-  selector: 'app-health-insurance',
-  templateUrl: './health-insurance.component.html',
-  styleUrls: ['./health-insurance.component.scss']
+    selector: 'app-health-insurance',
+    templateUrl: './health-insurance.component.html',
+    styleUrls: ['./health-insurance.component.scss']
 })
 export class HealthInsuranceComponent implements OnInit {
 
@@ -184,10 +184,7 @@ export class HealthInsuranceComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-      console.log(successData.ResponseObject);
-      this.metaHealth = successData.ResponseObject;
-      this.metaTitle = this.metaHealth[0].title;
-      console.log(this.metaHealth[0].title, 'titl')
+        this.metaHealth = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);
@@ -295,25 +292,25 @@ export class HealthInsuranceComponent implements OnInit {
             // }
 
 
-                // this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
-                // let index = sessionStorage.changedTabIndex;
-                // for (let i = 0; i < this.setArray.length; i++) {
-                //     this.setArray[i].auto = false;
-                // }
-                // this.getArray = this.insuranceLists[index].family_members;
-                // for (let i = 0; i < this.setArray.length; i++) {
-                //     for (let j = 0; j < this.getArray.length; j++) {
-                //         if (this.setArray[i].name == this.getArray[j].type) {
-                //             this.setArray[i].auto = true;
-                //         }
-                //         if (this.setArray[i].checked && this.setArray[i].age != '') {
-                //             this.setArray[i].error = '';
-                //         }
-                //
-                //     }
-                // }
-                // this.tabIndex = index;
-                // this.filterCompany = this.allCompanyList;
+            // this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
+            // let index = sessionStorage.changedTabIndex;
+            // for (let i = 0; i < this.setArray.length; i++) {
+            //     this.setArray[i].auto = false;
+            // }
+            // this.getArray = this.insuranceLists[index].family_members;
+            // for (let i = 0; i < this.setArray.length; i++) {
+            //     for (let j = 0; j < this.getArray.length; j++) {
+            //         if (this.setArray[i].name == this.getArray[j].type) {
+            //             this.setArray[i].auto = true;
+            //         }
+            //         if (this.setArray[i].checked && this.setArray[i].age != '') {
+            //             this.setArray[i].error = '';
+            //         }
+            //
+            //     }
+            // }
+            // this.tabIndex = index;
+            // this.filterCompany = this.allCompanyList;
         }
 
         if (sessionStorage.shortListCount != undefined && sessionStorage.shortListCount != '') {
@@ -661,7 +658,7 @@ export class HealthInsuranceComponent implements OnInit {
 
         sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
         if(this.allProductLists.length > 1) {
-             this.sumInsuredAmount = this.allProductLists[0].suminsured_amount;
+            this.sumInsuredAmount = this.allProductLists[0].suminsured_amount;
         }
 
         // old
@@ -738,16 +735,16 @@ export class HealthInsuranceComponent implements OnInit {
     public getSumInsuredAmountFailure(error) {
     }
     onSelectedIndexChange(index) {
-            sessionStorage.changedTabIndex = index;
-            this.productListArray = [];
-            this.allProductLists = [];
-            if(this.groupDetails.family_groups[index].status == 0) {
-                // for(let i = 0; i < this.allCompanyList.length; i++) {
-                //     this.updateTabPolicy(this.allCompanyList[i].company_id, this.groupDetails.family_groups[index].name, this.groupDetails, index);
-                // }
-                this.updateTabPolicy(this.allCompanyList, this.groupDetails.family_groups[index].name, this.groupDetails, index);
+        sessionStorage.changedTabIndex = index;
+        this.productListArray = [];
+        this.allProductLists = [];
+        if(this.groupDetails.family_groups[index].status == 0) {
+            // for(let i = 0; i < this.allCompanyList.length; i++) {
+            //     this.updateTabPolicy(this.allCompanyList[i].company_id, this.groupDetails.family_groups[index].name, this.groupDetails, index);
+            // }
+            this.updateTabPolicy(this.allCompanyList, this.groupDetails.family_groups[index].name, this.groupDetails, index);
 
-            }
+        }
     }
     updateTabPolicy(company, gName, value, index) {
         this.finalData = [];
@@ -1016,7 +1013,7 @@ export class HealthInsuranceComponent implements OnInit {
 
     // filter by product
     filterByProducts() {
-       // this.insuranceLists = [];
+        // this.insuranceLists = [];
         let index = sessionStorage.changedTabIndex;
         if(this.filterCompany.includes('All')){
             this.checkAllStatus = true;
@@ -1194,151 +1191,151 @@ export class HealthInsuranceComponent implements OnInit {
             }
         }
         this.checkAge = Math.max.apply(null, ages);
-            if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() == 3)) {
-                let dialogRef = this.dialog.open(PosstatusAlert, {
-                    width: '700px',
-                });
-                dialogRef.disableClose = true;
-                dialogRef.afterClosed().subscribe(result => {
-                    if (result) {
-                        sessionStorage.buyProductdetails = JSON.stringify(value);
-                        if (value.product_id <= 5) {
-                            this.router.navigate(['/religare-health-proposal' + '/' + false]);
-                        } else if (value.product_id == 11) {
-                            if (this.checkAge <= 45) {
-                                if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
-                                    this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
-                                } else if (this.checkAge < 18) {
-                                    this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
+        if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() == 3)) {
+            let dialogRef = this.dialog.open(PosstatusAlert, {
+                width: '700px',
+            });
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    sessionStorage.buyProductdetails = JSON.stringify(value);
+                    if (value.product_id <= 5) {
+                        this.router.navigate(['/religare-health-proposal' + '/' + false]);
+                    } else if (value.product_id == 11) {
+                        if (this.checkAge <= 45) {
+                            if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
+                                this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
+                            } else if (this.checkAge < 18) {
+                                this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
 
-                                } else {
-                                    let dialogRef = this.dialog.open(RelainceAgeMin, {
-                                        width: '1600px',
-                                    });
-                                    dialogRef.disableClose = true;
-                                    dialogRef.afterClosed()
-                                }
                             } else {
-                                let dialogRef = this.dialog.open(RelainceAgeMax, {
+                                let dialogRef = this.dialog.open(RelainceAgeMin, {
                                     width: '1600px',
                                 });
                                 dialogRef.disableClose = true;
                                 dialogRef.afterClosed()
                             }
-
-                        } else if (value.product_id == 12 || value.product_id == 13) {
-                            this.router.navigate(['/appollo-munich-health'  + '/' + false]);
-
-                        } else if (value.product_id >= 17 && value.product_id <= 20) {
-                            this.router.navigate(['/hdfc-insurance'  + '/' + false]);
-                        } else if (value.product_id == 51 || value.product_id == 21) {
-                            this.router.navigate(['/bajaj'  + '/' + false]);
-                        } else if (value.product_id == 77) {
-                            this.router.navigate(['/iffco'  + '/' + false]);
-                        } else if (value.product_id == 90 || value.product_id == 91) {
-                            this.router.navigate(['/chola-health-proposal'  + '/' + false]);
                         } else {
-                            this.router.navigate(['/proposal'  + '/' + false]);
-                        }
-
-                    } else {
-                    }
-                });
-            } else {
-                sessionStorage.buyProductdetails = JSON.stringify(value);
-                if (value.product_id <= 5) {
-                    let ageValid = true;
-                    for(let i=0; i < this.changedTabDetails.family_members.length; i++){
-                        if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 26) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age <= 26)){
-                            ageValid = false;
-                        }
-                    }
-                    if (!ageValid) {
-                        let dialogRef = this.dialog.open(AgeValidate, {
-                            width: '500px',
-                        });
-                        dialogRef.disableClose = true;
-                        dialogRef.afterClosed().subscribe(result => {
-                            if(result == true){
-                                this.router.navigate(['/religare-health-proposal'  + '/' + false]);
-                            } else {
-                            }
-                        });
-                    } else {
-                        this.router.navigate(['/religare-health-proposal'  + '/' + false]);
-
-                    }
-
-                } else if (value.product_id == 11) {
-
-                    if (this.checkAge <= 45) {
-                        if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
-                            this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
-                        } else if (this.checkAge < 18) {
-                            this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
-                        } else {
-                            let dialogRef = this.dialog.open(RelainceAgeMin, {
+                            let dialogRef = this.dialog.open(RelainceAgeMax, {
                                 width: '1600px',
                             });
                             dialogRef.disableClose = true;
                             dialogRef.afterClosed()
-                            // this.toast.error('Any Eligible Person above the age of 18 to 45 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: abc@gmail.com');
                         }
+
+                    } else if (value.product_id == 12 || value.product_id == 13) {
+                        this.router.navigate(['/appollo-munich-health'  + '/' + false]);
+
+                    } else if (value.product_id >= 17 && value.product_id <= 20) {
+                        this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                    } else if (value.product_id == 51 || value.product_id == 21) {
+                        this.router.navigate(['/bajaj'  + '/' + false]);
+                    } else if (value.product_id == 77) {
+                        this.router.navigate(['/iffco'  + '/' + false]);
+                    } else if (value.product_id == 90 || value.product_id == 91) {
+                        this.router.navigate(['/chola-health-proposal'  + '/' + false]);
                     } else {
-                        // this.toast.error('Any Eligible Person above the age of 46 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: abc@gmail.com');
-                        let dialogRef = this.dialog.open(RelainceAgeMax, {
+                        this.router.navigate(['/proposal'  + '/' + false]);
+                    }
+
+                } else {
+                }
+            });
+        } else {
+            sessionStorage.buyProductdetails = JSON.stringify(value);
+            if (value.product_id <= 5) {
+                let ageValid = true;
+                for(let i=0; i < this.changedTabDetails.family_members.length; i++){
+                    if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 26) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age <= 26)){
+                        ageValid = false;
+                    }
+                }
+                if (!ageValid) {
+                    let dialogRef = this.dialog.open(AgeValidate, {
+                        width: '500px',
+                    });
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed().subscribe(result => {
+                        if(result == true){
+                            this.router.navigate(['/religare-health-proposal'  + '/' + false]);
+                        } else {
+                        }
+                    });
+                } else {
+                    this.router.navigate(['/religare-health-proposal'  + '/' + false]);
+
+                }
+
+            } else if (value.product_id == 11) {
+
+                if (this.checkAge <= 45) {
+                    if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
+                        this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
+                    } else if (this.checkAge < 18) {
+                        this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
+                    } else {
+                        let dialogRef = this.dialog.open(RelainceAgeMin, {
                             width: '1600px',
                         });
                         dialogRef.disableClose = true;
                         dialogRef.afterClosed()
+                        // this.toast.error('Any Eligible Person above the age of 18 to 45 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: abc@gmail.com');
                     }
-
-
-                } else if (value.product_id == 12 || value.product_id == 13) {
-                    this.router.navigate(['/appollo-munich-health'  + '/' + false]);
-
-                } else if (value.product_id >= 17 && value.product_id <= 20) {
-                    let ageValid = true;
-                        for(let i=0; i < this.changedTabDetails.family_members.length; i++){
-                            if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age < 22) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age < 22)){
-                                ageValid = false;
-                            }
-                         }
-                        if (!ageValid) {
-                            let dialogRef = this.dialog.open(AgeValidate, {
-                                width: '500px',
-                            });
-                            dialogRef.disableClose = true;
-                            dialogRef.afterClosed().subscribe(result => {
-                                if(result == true){
-                                    this.router.navigate(['/hdfc-insurance'  + '/' + false]);
-                                } else {
-                                }
-                            });
-
-                        //     dialogRef.afterClosed().subscribe(agevalue => {
-                        //         // if(agevalue){
-                        //         //     this.router.navigate(['/hdfc-insurance'  + '/' + false]);
-                        //         //
-                        //         // }
-                        // });
-                        } else {
-                            this.router.navigate(['/hdfc-insurance'  + '/' + false]);
-
-                        }
-
-
-                } else if (value.product_id == 51 || value.product_id == 21) {
-                    this.router.navigate(['/bajaj' + '/' + false]);
-
-                } else if (value.product_id == 77) {
-                        this.router.navigate(['/iffco'  + '/' + false]);
-                } else if (value.product_id == 90 || value.product_id == 91) {
-                    this.router.navigate(['/chola-health-proposal'  + '/' + false]);
                 } else {
-                    this.router.navigate(['/proposal'  + '/' + false]);
+                    // this.toast.error('Any Eligible Person above the age of 46 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: abc@gmail.com');
+                    let dialogRef = this.dialog.open(RelainceAgeMax, {
+                        width: '1600px',
+                    });
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed()
                 }
+
+
+            } else if (value.product_id == 12 || value.product_id == 13) {
+                this.router.navigate(['/appollo-munich-health'  + '/' + false]);
+
+            } else if (value.product_id >= 17 && value.product_id <= 20) {
+                let ageValid = true;
+                for(let i=0; i < this.changedTabDetails.family_members.length; i++){
+                    if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age < 22) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age < 22)){
+                        ageValid = false;
+                    }
+                }
+                if (!ageValid) {
+                    let dialogRef = this.dialog.open(AgeValidate, {
+                        width: '500px',
+                    });
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed().subscribe(result => {
+                        if(result == true){
+                            this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                        } else {
+                        }
+                    });
+
+                    //     dialogRef.afterClosed().subscribe(agevalue => {
+                    //         // if(agevalue){
+                    //         //     this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                    //         //
+                    //         // }
+                    // });
+                } else {
+                    this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+
+                }
+
+
+            } else if (value.product_id == 51 || value.product_id == 21) {
+                this.router.navigate(['/bajaj' + '/' + false]);
+
+            } else if (value.product_id == 77) {
+                this.router.navigate(['/iffco'  + '/' + false]);
+            } else if (value.product_id == 90 || value.product_id == 91) {
+                this.router.navigate(['/chola-health-proposal'  + '/' + false]);
+            } else {
+                this.router.navigate(['/proposal'  + '/' + false]);
             }
+        }
     }
 
     healthInsurer(){
@@ -1509,7 +1506,7 @@ export class HealthInsurer {
         public dialogRef: MatDialogRef<HealthInsurer>,
         @Inject(MAT_DIALOG_DATA) public data: any) {}
 
-        onNoClick(): void {
+    onNoClick(): void {
         this.dialogRef.close();
     }
 
@@ -1637,7 +1634,7 @@ export class AgeValidate {
     constructor(
         public dialogRef: MatDialogRef<AgeValidate>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
-       let msg = JSON.parse(sessionStorage.buyProductdetails);
+        let msg = JSON.parse(sessionStorage.buyProductdetails);
         this.agemsg = msg.childmsg;
 
     }

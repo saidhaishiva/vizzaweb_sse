@@ -182,10 +182,7 @@ export class PersonalaccidentComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaPa = successData.ResponseObject;
-        this.metaTitle = this.metaPa[0].title;
-        console.log(this.metaPa[0].title, 'titl')
+        this.metaPa = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

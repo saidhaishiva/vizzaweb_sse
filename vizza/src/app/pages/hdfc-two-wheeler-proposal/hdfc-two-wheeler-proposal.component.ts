@@ -1082,7 +1082,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             // let regno = x.concat('-', y, '-', z, '-', w);
 
         }
-        console.log(this.tommarrow);
+        console.log(this.RegDateage);
         console.log(this.tod);
         console.log(this.companyList[this.vechicle.controls['Previouscompany'].value]);
 

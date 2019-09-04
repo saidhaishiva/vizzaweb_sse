@@ -102,10 +102,7 @@ export class CareerLiabilityPolicyComponent implements OnInit {
     );
   }
   public metaDetailSuccess(successData) {
-    console.log(successData.ResponseObject);
-    this.metaCareer = successData.ResponseObject;
-    this.metaTitle = this.metaCareer[0].title;
-    console.log(this.metaCareer[0].title, 'titl')
+    this.metaCareer = successData.ResponseObject[0];
   }
   public metaDetailFailure(error) {
     console.log(error);

@@ -103,10 +103,7 @@ export class ContractorsComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaContractor = successData.ResponseObject;
-        this.metaTitle = this.metaContractor[0].title;
-        console.log(this.metaContractor[0].title, 'titl')
+        this.metaContractor = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);

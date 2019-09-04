@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row apolloMunichProposal mb-4">
       <div class="col-md-12">
-        <mat-horizontal-stepper #stepper>
+        <mat-horizontal-stepper #stepper [selectedIndex]="currentStep">
           <mat-step [stepControl]="">
             <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
             <mat-accordion class="w-100 float-left">
@@ -535,6 +535,7 @@
                                                     <mat-option value="750">750</mat-option>
                                                     <mat-option value="1000">1000</mat-option>
                                                     <mat-option value="1500">1500</mat-option>
+                                                    <mat-option value="3000">3000</mat-option>
                                                     <mat-option value="5000">5000</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -554,7 +555,7 @@
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Person Name<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
-                                                <input matInput  formControlName="namedPerson" autocomplete="off" maxlength="25" (keypress)="numberValidate($event)"  >
+                                                <input matInput  formControlName="namedPerson" autocomplete="off" maxlength="25" (keypress)="nameValidate($event)"  >
                                                 <mat-error *ngIf="addOns.controls.namedPerson.errors?.required  ">Person Name Is Required</mat-error>
 
                                             </mat-form-field>
@@ -568,13 +569,13 @@
 
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3">
-                                            <mat-form-field class="w-100">
-                                                <input matInput placeholder="Number Of Drivers" formControlName="IsPaidDriver" autocomplete="off"  maxlength="10" (keypress)="numberValidate($event)"  >
-                                                <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
+                                        <!--<div class="col-md-3">-->
+                                            <!--<mat-form-field class="w-100">-->
+                                                <!--<input matInput placeholder="Number Of Drivers" formControlName="IsPaidDriver" autocomplete="off"  maxlength="10" (keypress)="numberValidate($event)"  >-->
+                                                <!--&lt;!&ndash;<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>&ndash;&gt;-->
 
-                                            </mat-form-field>
-                                        </div>
+                                            <!--</mat-form-field>-->
+                                        <!--</div>-->
                                         <div class="col-md-3 mt-1">
                                             <mat-checkbox formControlName="IsEMIprotector_Cover" ><strong> Is EMI Protector_Cover</strong></mat-checkbox>
                                         </div>
@@ -582,8 +583,8 @@
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="NO of EMI"  formControlName="noOfEmi"  >
                                                     <mat-option value="1emi">1 EMI</mat-option>
-                                                    <mat-option value="2 emi">2 EMI</mat-option>
-                                                    <mat-option value="3 emi">3 EMI</mat-option>
+                                                    <mat-option value="2emi">2 EMI</mat-option>
+                                                    <mat-option value="3emi">3 EMI</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -686,21 +687,21 @@
                     </form>
                 </mat-accordion>
             </mat-step>
-            <mat-step [stepControl]="">
-                <ng-template matStepLabel> BANK DETAILS</ng-template>
-                <mat-accordion class="w-100 float-left">
-                    <form [formGroup]="BankDetails">
-                        <mat-expansion-panel expanded>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    BANK DETAILS
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <div class="row mt-1" >
-                                <!--<div class="box-card pt-3">-->
-                                <div class="col-md-12 mt-3">
-                                    <h6 class="color-blue"> BANK DETAILS </h6>
-                                </div>
+            <!--<mat-step [stepControl]="">-->
+                <!--<ng-template matStepLabel> BANK DETAILS</ng-template>-->
+                <!--<mat-accordion class="w-100 float-left">-->
+                    <!--<form [formGroup]="BankDetails">-->
+                        <!--<mat-expansion-panel expanded>-->
+                            <!--<mat-expansion-panel-header>-->
+                                <!--<mat-panel-title>-->
+                                    <!--BANK DETAILS-->
+                                <!--</mat-panel-title>-->
+                            <!--</mat-expansion-panel-header>-->
+                            <!--<div class="row mt-1" >-->
+                                <!--&lt;!&ndash;<div class="box-card pt-3">&ndash;&gt;-->
+                                <!--<div class="col-md-12 mt-3">-->
+                                    <!--<h6 class="color-blue"> BANK DETAILS </h6>-->
+                                <!--</div>-->
                                 <!--<div class="col-md-3 mt-3">-->
                                     <!--<mat-form-field class="w-100" >-->
                                         <!--<mat-select placeholder="Bank Name" formControlName="Bankname"  (change)="changebankname()" required>-->
@@ -714,51 +715,51 @@
                                         <!--<input matInput placeholder="Bank Branch Name" formControlName="Branch" autocomplete="off" required  >-->
                                     <!--</mat-form-field>-->
                                 <!--</div>-->
-                                <div class="col-md-3 mt-3">
-                                    <mat-form-field class="w-100">
-                                        <mat-select placeholder="Payment Mode" formControlName="paymentmode" required >
-                                            <mat-option value="C">Cheque</mat-option>
-                                            <mat-option value="CL">Credit Limit</mat-option>
-                                            <mat-option value="CD">CD Balance</mat-option>
-                                            <mat-option value="EP">Electronic Bank Payment</mat-option>
-                                            <mat-option value="FT">Fund Transfer</mat-option>
-                                        </mat-select>
-                                        <mat-error *ngIf="BankDetails.controls.paymentmode.errors?.required">Payment Mode is Required</mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3 mt-3">
-                                    <mat-form-field class="w-100">
-                                        <mat-select placeholder="Payer Type" formControlName="Payertype" required>
-                                            <mat-option value="DEALER">DEALER</mat-option>
-                                            <mat-option value="CUSTOMER">CUSTOMER</mat-option>
-                                        </mat-select>
-                                        <mat-error *ngIf="BankDetails.controls.Payertype.errors?.required">Payer type is Required</mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3 mt-3">
-                                    <mat-form-field class="w-100">
-                                        <input matInput placeholder="Reference Number" formControlName="refrenceno" autocomplete="off" required  >
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3 mt-3">
-                                    <mat-form-field class="w-100">
-                                        <input matInput [matDatepicker]="picker4" [min]="todaydate" [max]="todaydate" placeholder="Payment Date(DD/MM/YYYY)" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"  formControlName="Paymentdate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
-                                        <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker4></mat-datepicker>
-                                        <mat-error *ngIf="proposer.controls.dob.errors?.required">Payment date is required</mat-error>
-                                    </mat-form-field>
-                                    <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
-                                </div>
+                                <!--<div class="col-md-3 mt-3">-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<mat-select placeholder="Payment Mode" formControlName="paymentmode" required >-->
+                                            <!--<mat-option value="C">Cheque</mat-option>-->
+                                            <!--<mat-option value="CL">Credit Limit</mat-option>-->
+                                            <!--<mat-option value="CD">CD Balance</mat-option>-->
+                                            <!--<mat-option value="EP">Electronic Bank Payment</mat-option>-->
+                                            <!--<mat-option value="FT">Fund Transfer</mat-option>-->
+                                        <!--</mat-select>-->
+                                        <!--<mat-error *ngIf="BankDetails.controls.paymentmode.errors?.required">Payment Mode is Required</mat-error>-->
+                                    <!--</mat-form-field>-->
                                 <!--</div>-->
-                            </div>
-                            <div class="proposal-buttom mt-3 text-right w-100">
-                                <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
-                                <button mat-raised-button  color="primaryBlue" (click)="nextTab(stepper,BankDetails.value,'stepper4')"  >Next</button>
-                            </div>
-                        </mat-expansion-panel>
-                    </form>
-                </mat-accordion>
-            </mat-step>
+                                <!--<div class="col-md-3 mt-3">-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<mat-select placeholder="Payer Type" formControlName="Payertype" required>-->
+                                            <!--<mat-option value="DEALER">DEALER</mat-option>-->
+                                            <!--<mat-option value="CUSTOMER">CUSTOMER</mat-option>-->
+                                        <!--</mat-select>-->
+                                        <!--<mat-error *ngIf="BankDetails.controls.Payertype.errors?.required">Payer type is Required</mat-error>-->
+                                    <!--</mat-form-field>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-3 mt-3">-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<input matInput placeholder="Reference Number" formControlName="refrenceno" autocomplete="off" required  >-->
+                                    <!--</mat-form-field>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-3 mt-3">-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<input matInput [matDatepicker]="picker4" [min]="todaydate" [max]="todaydate" placeholder="Payment Date(DD/MM/YYYY)" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"  formControlName="Paymentdate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >-->
+                                        <!--<mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>-->
+                                        <!--<mat-datepicker #picker4></mat-datepicker>-->
+                                        <!--<mat-error *ngIf="proposer.controls.dob.errors?.required">Payment date is required</mat-error>-->
+                                    <!--</mat-form-field>-->
+                                    <!--<div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>-->
+                                <!--</div>-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--</div>-->
+                            <!--<div class="proposal-buttom mt-3 text-right w-100">-->
+                                <!--<button mat-button matStepperPrevious (click)="topScroll()">Back</button>-->
+                                <!--<button mat-raised-button  color="primaryBlue" (click)="nextTab(stepper,BankDetails.value,'stepper4')"  >Next</button>-->
+                            <!--</div>-->
+                        <!--</mat-expansion-panel>-->
+                    <!--</form>-->
+                <!--</mat-accordion>-->
+            <!--</mat-step>-->
             <mat-step [stepControl]="">
                 <ng-template matStepLabel>SUMMARY</ng-template>
                 <section class="summary-details" *ngIf="summaryData">
@@ -768,6 +769,7 @@
                         </div>
                         <div class="col-md-8">
                             <ul class="summary-head">
+                                <li><span>IDV : </span><span><i class="fas fa-rupee-sign"></i>{{vehicleidv.Idv}}</span></li>
                                 <li><span>Insurer : </span><img src="{{webhost + '/' + vehicleidv.company_logo}}" class="img-thumbnail" style="width: 55px;" /> </li>
                                 <li><span>Premium : </span><span><i class="fas fa-rupee-sign"></i>{{summaryData.premium}}</span></li>
                                 <li></li>
@@ -865,27 +867,47 @@
                                         <li class="list-group-item" *ngIf="previousFormData.NonElecticalAccessoryIDV !=''"><strong>Non Electical Accessory IDV :</strong>{{previousFormData.NonElecticalAccessoryIDV}}</li>
                                         <li class="list-group-item"><strong>Other Load DiscRate  :</strong>{{previousFormData.OtherLoadDiscRate=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item"><strong>Is Paid Driver  :</strong>{{previousFormData.IsPaidDriver=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.paiddriversi !=''"><strong>Paid Driver Sum Insure  :</strong>{{previousFormData.paiddriversi}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.policytenture !=''"><strong>policy tenure  :</strong>{{previousFormData.policytenture}}</li>
                                         <li class="list-group-item"><strong>Pa cover  :</strong>{{previousFormData.pacover=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.biofuel !=''"><strong>Bio Fuel  :</strong>{{previousFormData.biofuel}}</li>
                                         <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>Bio Fuel kit Price :</strong>{{previousFormData.biofuelkit}}</li>
                                         <li class="list-group-item"><strong>Is Limited to Own Premises  :</strong>{{previousFormData.IsLimitedtoOwnPremises=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item"><strong>Is zerodept Cover  :</strong>{{previousFormData.zerodept=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.pacover !=''" ><strong>Pa Cover  :</strong>{{previousFormData.pacover}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.pacovername !=''"><strong>Pa Cover Name  :</strong>{{previousFormData.pacovername}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.pasuminsured !=''"><strong>Pa Sum Insurance  :</strong>{{previousFormData.pasuminsured}}</li>
+                                        <li class="list-group-item"><strong>Is NCB Protection  :</strong>{{previousFormData.IsNCBProtection=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item"><strong>Is RTI cover  :</strong>{{previousFormData.IsRTIcover=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item"><strong>Is COC cover  :</strong>{{previousFormData.IsCOCcover=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item"><strong>Is Engine and Gear Cover  :</strong>{{previousFormData.engineandgear=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item"><strong>Is Loss of Use Down TimeProt_Cover  :</strong>{{previousFormData.downtimeprotector=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item"><strong>Is EA cover :</strong>{{previousFormData.IsEAAdvance_Cover=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item"><strong>Is EAW cover :</strong>{{previousFormData.EAW=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item"><strong>Is EAAdvance_Cover :</strong>{{previousFormData.IsEAAdvance_Cover=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item"><strong>Is Towing_Cover :</strong>{{previousFormData.IsNCBProtection=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item"><strong>Is EMI Protector_Cover :</strong>{{previousFormData.IsEMIprotector_Cover=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.noOfEmi !=''"><strong>No Of Emi :</strong>{{previousFormData.noOfEmi}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.EMIAmount !=''"><strong>EMI Amount :</strong>{{previousFormData.EMIAmount}}</li>
+                                        <li class="list-group-item" ><strong>No of Unnamed Person :</strong>{{previousFormData.NoofUnnamedPerson=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.UnnamedPersonSI !=''"><strong>Unnamed Person SI :</strong>{{previousFormData.UnnamedPersonSI}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.VoluntaryExcessDiscount !=''"><strong>Voluntary Excess Discount :</strong>{{previousFormData.VoluntaryExcessDiscount}}</li>
+                                        <li class="list-group-item"><strong>Is Limited to OwnPremises :</strong>{{previousFormData.IsLimitedtoOwnPremises=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.TPPDLimit !=''"><strong>TPPD Limit :</strong>{{previousFormData.TPPDLimit}}</li>
+                                        <li class="list-group-item"><strong>No of NamedPerson :</strong>{{previousFormData.NoofnamedPerson=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.namedPersonSI !=''"><strong>Named Person SI :</strong>{{previousFormData.namedPersonSI}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.namedPerson !=''"><strong>Named Person :</strong>{{previousFormData.namedPerson}}</li>
+                                        <!--<li class="list-group-item" *ngIf="previousFormData.pacover !=''" ><strong>Pa Cover  :</strong>{{previousFormData.pacover}}</li>-->
+                                        <!--<li class="list-group-item" *ngIf="previousFormData.pacovername !=''"><strong>Pa Cover Name  :</strong>{{previousFormData.pacovername}}</li>-->
+                                        <!--<li class="list-group-item" *ngIf="previousFormData.pasuminsured !=''"><strong>Pa Sum Insurance  :</strong>{{previousFormData.pasuminsured}}</li>-->
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </section>
                     <section >
-                        <h5 class="mt-3 sub-title" > NOMINEE DETAILS </h5>
+                        <h5 class="mt-3 sub-title" *ngIf="previousFormData.NomineeName !=''&& previousFormData.nomineeRelation !=''" > NOMINEE DETAILS </h5>
                         <div class="row box-card">
                             <div class="col-md-6">
                                 <div class="p-3 mt-2">
                                     <ul class="m-0 list-group">
-                                        <li class="list-group-item"><strong>Extension County  :</strong>{{previousFormData.extentioncountryvalue}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.NomineeName !=''" ><strong>NomineeName :</strong>{{previousFormData.NomineeName}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.NomineeAge !=''"><strong>NomineeAge:</strong> {{previousFormData.NomineeAge}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.nomineeRelation !=''"><strong>nomineeRelation:</strong> {{previousFormData.nomineeRelation}}</li>
@@ -897,24 +919,24 @@
                             </div>
                         </div>
                     </section>
-                    <section >
-                        <h5 class="mt-3 sub-title"> BANK DETAILS </h5>
-                        <div class="row box-card">
-                            <div class="col-md-6">
-                                <div class="p-3 mt-2">
-                                    <ul class="m-0 list-group">
-                                        <li class="list-group-item"><strong>Bank Name :</strong>{{bankFormData.Banknamevalue}}</li>
-                                        <li class="list-group-item"><strong>Branch Name :</strong>{{bankFormData.Branch}}</li>
-                                        <li class="list-group-item"><strong>Payer Type :</strong>{{bankFormData.Payertype}}</li>
-                                        <li class="list-group-item"><strong>Reference Number :</strong>{{bankFormData.refrenceno}}</li>
-                                        <li class="list-group-item"><strong>Payment Date :</strong>{{bankFormData.Paymentdate | date: 'dd/MM/yyyy'}}</li>
-                                        <li class="list-group-item"><strong>Payment Mode :</strong>{{bankFormData.paymentmode}}</li>
+                    <!--<section >-->
+                        <!--<h5 class="mt-3 sub-title"> BANK DETAILS </h5>-->
+                        <!--<div class="row box-card">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<div class="p-3 mt-2">-->
+                                    <!--<ul class="m-0 list-group">-->
+                                        <!--<li class="list-group-item"><strong>Bank Name :</strong>{{bankFormData.Banknamevalue}}</li>-->
+                                        <!--<li class="list-group-item"><strong>Branch Name :</strong>{{bankFormData.Branch}}</li>-->
+                                        <!--<li class="list-group-item"><strong>Payer Type :</strong>{{bankFormData.Payertype}}</li>-->
+                                        <!--<li class="list-group-item"><strong>Reference Number :</strong>{{bankFormData.refrenceno}}</li>-->
+                                        <!--<li class="list-group-item"><strong>Payment Date :</strong>{{bankFormData.Paymentdate | date: 'dd/MM/yyyy'}}</li>-->
+                                        <!--<li class="list-group-item"><strong>Payment Mode :</strong>{{bankFormData.paymentmode}}</li>-->
 
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                                    <!--</ul>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</section>-->
                     <p class="mt-2 pl-3">
                         <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>
                     </p>

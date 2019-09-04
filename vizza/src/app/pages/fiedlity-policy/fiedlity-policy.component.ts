@@ -102,10 +102,7 @@ export class FiedlityPolicyComponent implements OnInit {
     );
   }
   public metaDetailSuccess(successData) {
-    console.log(successData.ResponseObject);
-    this.metaFiedility = successData.ResponseObject;
-    this.metaTitle = this.metaFiedility[0].title;
-    console.log(this.metaFiedility[0].title, 'titl')
+    this.metaFiedility = successData.ResponseObject[0];
   }
   public metaDetailFailure(error) {
     console.log(error);

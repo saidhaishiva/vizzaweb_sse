@@ -102,10 +102,7 @@ export class BankersComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
-        console.log(successData.ResponseObject);
-        this.metaBankers = successData.ResponseObject;
-        this.metaTitle = this.metaBankers[0].title;
-        console.log(this.metaBankers[0].title, 'titl')
+        this.metaBankers = successData.ResponseObject[0];
     }
     public metaDetailFailure(error) {
         console.log(error);
