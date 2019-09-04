@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row apolloMunichProposal mb-4">
       <div class="col-md-12">
-        <mat-horizontal-stepper #stepper>
+        <mat-horizontal-stepper #stepper [selectedIndex]="currentStep">
           <mat-step [stepControl]="">
             <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
             <mat-accordion class="w-100 float-left">
