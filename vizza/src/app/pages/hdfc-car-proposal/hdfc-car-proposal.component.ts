@@ -246,7 +246,7 @@ export class HdfcCarProposalComponent implements OnInit {
       this.carEquiryId = sessionStorage.fwEnquiryId;
       this.vehicleidv=JSON.parse(sessionStorage.buyFourwheelerProductDetails);
       let stringToSplit;
-      stringToSplit = this.vehicledata.vehicle_no;
+      stringToSplit = this.vehicledata.vehicle_no.toUpperCase();
       let x = stringToSplit.slice(0, 2);
       let y = stringToSplit.slice(2, 4);
       let oo = stringToSplit.slice(5, 6);
@@ -969,7 +969,7 @@ ChangeGender(){
 
     createproposal(stepper){
         let stringToSplit ;
-        stringToSplit=this.vechicle.controls['regno'].value;
+        stringToSplit=this.vechicle.controls['regno'].value.toUpperCase();
         var pos = stringToSplit.search("-");
         console.log(pos,'pos');
         if(pos==-1) {
@@ -1172,7 +1172,6 @@ console.log(this.vehicleidv.Idv);
         }
         if (value.search('-') == -1 && value != '') {
             this.altererror = 'Enter Valued Format Of Telephone Number';
-            this.altererror = 'Format of the Telephone number is 044-1234567';
         } else if (value.search('-') != -1) {
             this.altererror = '';
         }
@@ -1180,8 +1179,6 @@ console.log(this.vehicleidv.Idv);
             this.altererror = ' Enter Valid Area Code ';
         } else if (value.search('-')! > 5) {
             this.altererror = '';
-        }if(this.altererror!=''){
-
         }
     }
 
