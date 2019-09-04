@@ -583,8 +583,8 @@
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="NO of EMI"  formControlName="noOfEmi"  >
                                                     <mat-option value="1emi">1 EMI</mat-option>
-                                                    <mat-option value="2 emi">2 EMI</mat-option>
-                                                    <mat-option value="3 emi">3 EMI</mat-option>
+                                                    <mat-option value="2emi">2 EMI</mat-option>
+                                                    <mat-option value="3emi">3 EMI</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -769,6 +769,7 @@
                         </div>
                         <div class="col-md-8">
                             <ul class="summary-head">
+                                <li><span>IDV : </span><span><i class="fas fa-rupee-sign"></i>{{vehicleidv.Idv}}</span></li>
                                 <li><span>Insurer : </span><img src="{{webhost + '/' + vehicleidv.company_logo}}" class="img-thumbnail" style="width: 55px;" /> </li>
                                 <li><span>Premium : </span><span><i class="fas fa-rupee-sign"></i>{{summaryData.premium}}</span></li>
                                 <li></li>
@@ -866,7 +867,7 @@
                                         <li class="list-group-item" *ngIf="previousFormData.NonElecticalAccessoryIDV !=''"><strong>Non Electical Accessory IDV :</strong>{{previousFormData.NonElecticalAccessoryIDV}}</li>
                                         <li class="list-group-item"><strong>Other Load DiscRate  :</strong>{{previousFormData.OtherLoadDiscRate=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item"><strong>Is Paid Driver  :</strong>{{previousFormData.IsPaidDriver=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Paid Driver Sum Insure  :</strong>{{previousFormData.paiddriversi}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.paiddriversi !=''"><strong>Paid Driver Sum Insure  :</strong>{{previousFormData.paiddriversi}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.policytenture !=''"><strong>policy tenure  :</strong>{{previousFormData.policytenture}}</li>
                                         <li class="list-group-item"><strong>Pa cover  :</strong>{{previousFormData.pacover=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.biofuel !=''"><strong>Bio Fuel  :</strong>{{previousFormData.biofuel}}</li>
@@ -883,16 +884,16 @@
                                         <li class="list-group-item"><strong>Is EAAdvance_Cover :</strong>{{previousFormData.IsEAAdvance_Cover=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item"><strong>Is Towing_Cover :</strong>{{previousFormData.IsNCBProtection=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item"><strong>Is EMI Protector_Cover :</strong>{{previousFormData.IsEMIprotector_Cover=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>No Of Emi :</strong>{{previousFormData.noOfEmi}}</li>
-                                        <li class="list-group-item"><strong>EMI Amount :</strong>{{previousFormData.EMIAmount}}</li>
-                                        <li class="list-group-item"><strong>No of Unnamed Person :</strong>{{previousFormData.NoofUnnamedPerson=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Unnamed PersonSI :</strong>{{previousFormData.UnnamedPersonSI}}</li>
-                                        <li class="list-group-item"><strong>Voluntary Excess Discount :</strong>{{previousFormData.VoluntaryExcessDiscount}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.noOfEmi !=''"><strong>No Of Emi :</strong>{{previousFormData.noOfEmi}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.EMIAmount !=''"><strong>EMI Amount :</strong>{{previousFormData.EMIAmount}}</li>
+                                        <li class="list-group-item" ><strong>No of Unnamed Person :</strong>{{previousFormData.NoofUnnamedPerson=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.UnnamedPersonSI !=''"><strong>Unnamed Person SI :</strong>{{previousFormData.UnnamedPersonSI}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.VoluntaryExcessDiscount !=''"><strong>Voluntary Excess Discount :</strong>{{previousFormData.VoluntaryExcessDiscount}}</li>
                                         <li class="list-group-item"><strong>Is Limited to OwnPremises :</strong>{{previousFormData.IsLimitedtoOwnPremises=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>TPPD Limit :</strong>{{previousFormData.TPPDLimit}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.TPPDLimit !=''"><strong>TPPD Limit :</strong>{{previousFormData.TPPDLimit}}</li>
                                         <li class="list-group-item"><strong>No of NamedPerson :</strong>{{previousFormData.NoofnamedPerson=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Named PersonSI :</strong>{{previousFormData.namedPersonSI}}</li>
-                                        <li class="list-group-item"><strong>Named Person :</strong>{{previousFormData.namedPerson}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.namedPersonSI !=''"><strong>Named Person SI :</strong>{{previousFormData.namedPersonSI}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.namedPerson !=''"><strong>Named Person :</strong>{{previousFormData.namedPerson}}</li>
                                         <!--<li class="list-group-item" *ngIf="previousFormData.pacover !=''" ><strong>Pa Cover  :</strong>{{previousFormData.pacover}}</li>-->
                                         <!--<li class="list-group-item" *ngIf="previousFormData.pacovername !=''"><strong>Pa Cover Name  :</strong>{{previousFormData.pacovername}}</li>-->
                                         <!--<li class="list-group-item" *ngIf="previousFormData.pasuminsured !=''"><strong>Pa Sum Insurance  :</strong>{{previousFormData.pasuminsured}}</li>-->
