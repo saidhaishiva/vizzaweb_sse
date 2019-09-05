@@ -300,6 +300,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.regvalue = 'Roll Over';
             this.validationForNew(this.regvalue);
         }
+        this.altererror='';
+
     }
     // dropdownForBank(value,type){
     //
@@ -493,12 +495,11 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             console.log(this.proposer.valid, 'valid');
             if (this.proposer.valid) {
                 if (sessionStorage.proposerAge >= 18) {
+
                     if( this.altererror==''){
                         stepper.next();
                         this.topScroll();
                     }
-
-
                 } else {
                     this.toastr.error('Proposer Age should be greater than 18.');
                 }
@@ -510,10 +511,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         if (type == 'stepper2') {
             sessionStorage.stepper2Details = '';
             sessionStorage.stepper2Details = JSON.stringify(value);
-            this.addOns.controls['NomineeName'].patchValue('');
-            this.addOns.controls['NomineeAge'].patchValue('');
-            this.addOns.controls['appointeename'].patchValue('');
-            this.addOns.controls['appointeerelation'].patchValue('');
+            // this.addOns.controls['NomineeName'].patchValue('');
+            // this.addOns.controls['NomineeAge'].patchValue('');
+            // this.addOns.controls['appointeename'].patchValue('');
+            // this.addOns.controls['appointeerelation'].patchValue('');
             if (this.vechicle.valid) {
                 stepper.next();
                 this.topScroll();
@@ -1303,7 +1304,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         }
         if (value.search('-') == -1 && value != '') {
             this.altererror = 'Enter Valued Format Of Telephone Number';
-            this.altererror = 'Format of the Telephone number is 044-1234567';
+            if(value > 7 ){
+                this.altererror = 'Enter Valued Format Of Telephone Number';
+
+            }else{
+                this.altererror='';
+            }
         } else if (value.search('-') != -1) {
             this.altererror = '';
         }
@@ -1311,8 +1317,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.altererror = ' Enter Valid Area Code ';
         } else if (value.search('-')! > 5) {
             this.altererror = '';
-        }if(this.altererror!=''){
-
         }
     }
 

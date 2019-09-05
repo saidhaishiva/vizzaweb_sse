@@ -78,7 +78,7 @@
                           <div class="col-md-3 mt-3">
                               <mat-form-field class="w-100">
                                   <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)"  maxlength="17" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
-                                  <mat-hint font-size="10px" >Telephone number should be in the format of areacode-telephone number example(044-1234567)</mat-hint>
+                                  <mat-hint font-size="10px" >Format of the Telephone number is 044-1234567</mat-hint>
 
                               </mat-form-field>
                               <div class="error mt-1"  *ngIf="altererror != ''">{{altererror}}</div>
@@ -846,7 +846,7 @@
                                         <li class="list-group-item"><strong>Previous Ncb:</strong> {{vehicalFormData.ncb}}</li>
                                         <li class="list-group-item"><strong>Previous Policy End Date:</strong> {{vehicalFormData.previousenddate | date: 'dd/MM/yyyy'}}</li>
                                         <li class="list-group-item"><strong>Previous Policy NO:</strong> {{vehicalFormData.previouspolicyno}}</li>
-                                        <li class="list-group-item"><strong>Vechicle idv:</strong> {{vehicalFormData.vechicleidv}}</li>
+                                        <li class="list-group-item"><strong>Vechicle idv:</strong> {{vehicleidv.Idv}}</li>
                                         <li class="list-group-item"><strong>Previous Policy  Claim:</strong> {{vehicalFormData.previouspolicyclaim}}</li>
                                     </ul>
                                 </div>
