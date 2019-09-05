@@ -40,6 +40,7 @@
                             <mat-error *ngIf="personal.controls.lastnm.errors?.required">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
+
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Gender" formControlName="gender" autocomplete="off" required  >
@@ -97,7 +98,12 @@
                             <mat-error *ngIf="personal.controls.nationality.errors?.required">Nationality is required</mat-error>
                           </mat-form-field>
                         </div>
-
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Birth Place" formControlName="birthplace" class="textFieldd" (keypress)="nameValidate($event)" autocomplete="off" required >
+                                  <mat-error *ngIf="personal.controls.birthplace.errors?.required">Birth place is required</mat-error>
+                              </mat-form-field>
+                          </div>
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
@@ -135,6 +141,13 @@
                         <div class="col-md-3">
                           <mat-radio-group formControlName="pepflg" required>
                             <p>pep Flag <span class="error" >*</span></p>
+                            <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="N">No</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                          <div class="col-md-3">
+                          <mat-radio-group formControlName="nriflg" required>
+                            <p>NRI Flag <span class="error" >*</span></p>
                             <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
@@ -281,13 +294,13 @@
                       <div class="col-md-12">
                         <h6 class="color-blue">Contact Details</h6>
                       </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Country Code" formControlName="countrycode" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)">
-                            <mat-error *ngIf="personal.controls.countrycode.errors?.required">Country Code is required</mat-error>
-                            <!--<input type="number" oninput="validity.valid||(value ='50000000');"  step="1000" />-->
-                          </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Country Code" formControlName="countrycode" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)">-->
+                            <!--<mat-error *ngIf="personal.controls.countrycode.errors?.required">Country Code is required</mat-error>-->
+                            <!--&lt;!&ndash;<input type="number" oninput="validity.valid||(value ='50000000');"  step="1000" />&ndash;&gt;-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Mobile Number" formControlName="mobilenum" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)" >
@@ -508,7 +521,7 @@
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Mother Title" formControlName="spousenmtitle" autocomplete="off"   >
+                                  <mat-select placeholder="Title" formControlName="spousenmtitle" autocomplete="off"   >
                                       <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.value'>
                                           {{list.value}}
                                       </mat-option>
@@ -742,7 +755,20 @@
                                                 </div>
 
                                                 <div class="row" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value">
-                                                <div class="col-md-4" *ngIf="i ==0">
+
+                                                    <div class="col-md-4"  *ngIf="i ==0">
+                                                        <mat-form-field class="w-100">
+                                                            <mat-placeholder>Title<span class="error" >*</span></mat-placeholder>
+                                                            <mat-select  formControlName="atitle"  >
+
+                                                                <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.value'>
+                                                                    {{list.value}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                            <!--<mat-error *ngIf="nomineeDetail.controls.country.errors?.required">country is required</mat-error>-->
+                                                        </mat-form-field></div>
+
+                                                    <div class="col-md-4" *ngIf="i ==0">
                                                     <mat-form-field class="w-100" >
                                                         <mat-placeholder> First Name <span class="error">*</span></mat-placeholder>
                                                         <input matInput formControlName="afirstnm"  (keypress)="nameValidate($event)" autocomplete="off">
@@ -765,6 +791,17 @@
                                                         </mat-select>
                                                     </mat-form-field>
                                                 </div>
+                                                    <div class="col-md-4"  *ngIf="i ==0">
+                                                        <mat-form-field class="w-100">
+                                                            <mat-placeholder>Marital Status<span class="error" >*</span></mat-placeholder>
+                                                            <mat-select  formControlName="amaritalstatus"  >
+
+                                                                <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.value'>
+                                                                    {{list.value}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                            <!--<mat-error *ngIf="nomineeDetail.controls.country.errors?.required">country is required</mat-error>-->
+                                                        </mat-form-field></div>
                                                 <div class="col-md-4" *ngIf="i ==0">
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder >Appointee DOB (DD/MM/YYYY)<span class="error">*</span></mat-placeholder>
@@ -884,6 +921,7 @@
                                     <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                                     <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
                                     <li class="list-group-item"><strong>Father Name:</strong> {{proposerFormData.fathernm}}</li>
+                                    <li class="list-group-item"><strong>Birth place:</strong> {{proposerFormData.birthplace}}</li>
                                     <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
                                     <!--<li class="list-group-item" *ngIf="proposerFormData.alterMobile != '' && proposerFormData.alterMobile != undefined"><strong>Alternate Mobile:</strong> {{proposerFormData.alterMobile}}</li>-->
                                     <!--<li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationListName}}</li>-->
@@ -898,34 +936,7 @@
                                     <li class="list-group-item"><strong>Demat flag:</strong> {{proposerFormData.dematflg}}</li>
                                     <li class="list-group-item"><strong>Smoker Status flag:</strong> {{proposerFormData.smokerstatusflg}}</li>
                                     <li class="list-group-item"><strong>History of conviction:</strong> {{proposerFormData.historyofconviction}}</li>
-                                    <li class="list-group-item"><strong>House no:</strong> {{proposerFormData.houseno}}</li>
-                                    <li class="list-group-item"><strong>Street:</strong> {{proposerFormData.street}}</li>
-                                    <li class="list-group-item"><strong>Landmark:</strong> {{proposerFormData.landmark}}</li>
-                                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.city}}</li>
-                                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
-                                    <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
-                                    <li class="list-group-item"><strong>country:</strong> {{proposerFormData.country}}</li>
-                                    <li class="list-group-item"><strong>House No:</strong> {{proposerFormData.chouseno}}</li>
-                                    <li class="list-group-item"><strong>Street:</strong> {{proposerFormData.cstreet}}</li>
-                                    <li class="list-group-item"><strong>LandMark:</strong> {{proposerFormData.clandmark}}</li>
-                                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.ccity}}</li>
-                                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.cstate}}</li>
-                                    <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.cpincode}}</li>
-                                    <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.ccountry}}</li>
-                                    <li class="list-group-item"><strong>Country Code:</strong> {{proposerFormData.countrycode}}</li>
-                                    <li class="list-group-item"><strong>Mobile number:</strong> {{proposerFormData.mobilenum}}</li>
-                                    <li class="list-group-item"><strong>expdur of stay:</strong> {{proposerFormData.expdurofstay}}</li>
-                                    <li class="list-group-item"><strong>Preffered communcation address:</strong> {{proposerFormData.prfdcommaddr}}</li>
-                                    <li class="list-group-item"><strong>Preffered communcation mode:</strong> {{proposerFormData.prfdcommmode}}</li>
-                                    <li class="list-group-item"><strong>Preffered communcation language:</strong> {{proposerFormData.prfdcommlang}}</li>
-                                    <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
-                                    <li class="list-group-item"><strong>Employer Name:</strong> {{proposerFormData.employernm}}</li>
-                                    <li class="list-group-item"><strong>Annual income:</strong> {{proposerFormData.annualincm}}</li>
-                                    <li class="list-group-item"><strong>Nature of occupation:</strong> {{proposerFormData.natureofoccu}}</li>
-                                    <li class="list-group-item"><strong>Address line:</strong> {{proposerFormData.addrline}}</li>
-                                    <li class="list-group-item"><strong>Exist ulip flag:</strong> {{proposerFormData.existulipflag}}</li>
-                                    <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
-                                    <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
+
 
 
 
@@ -938,9 +949,15 @@
                             <div class="p-3">
                                 <h6 class="color-blue">FAMILY DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>Father Name:</strong> {{proposerFormData.fatherName}}</li>
-                                    <li class="list-group-item"><strong>Mother Name:</strong> {{proposerFormData.motherName}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.spouseBirthPlace!=''"><strong>Spouse Place Of Birth:</strong> {{proposerFormData.spouseBirthPlace}}</li>
+
+                                    <li class="list-group-item"><strong>Country Code:</strong> {{proposerFormData.countrycode}}</li>
+                                    <li class="list-group-item"><strong>Mobile number:</strong> {{proposerFormData.mobilenum}}</li>
+                                    <li class="list-group-item"><strong>expdur of stay:</strong> {{proposerFormData.expdurofstay}}</li>
+                                    <li class="list-group-item"><strong>Preffered communcation address:</strong> {{proposerFormData.prfdcommaddr}}</li>
+                                    <li class="list-group-item"><strong>Preffered communcation mode:</strong> {{proposerFormData.prfdcommmode}}</li>
+                                    <li class="list-group-item"><strong>Preffered communcation language:</strong> {{proposerFormData.prfdcommlang}}</li>
+
+                                    <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -948,79 +965,40 @@
                             <div class="p-3">
                                 <h6 class="color-blue mt-4"></h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item" *ngIf="proposerFormData.spouseName!=''"><strong>Spouse Name:</strong> {{proposerFormData.spouseName}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.spouseDob!='' && proposerFormData.spouseDob != null"><strong>Spouse Date Of Birth:</strong> {{proposerFormData.spouseDob | date: 'dd/MM/yyyy'}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <h6 class="color-blue">COMMUNICATION DETAILS</h6>
-                                <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>Door Number:</strong> {{proposerFormData.comDoorNo}}</li>
-                                    <li class="list-group-item"><strong>Building Number:</strong> {{proposerFormData.comBuildingNumber}}</li>
-                                    <li class="list-group-item"><strong>Plot Number / Street Name:</strong> {{proposerFormData.comPlotNumber}}</li>
-                                    <li class="list-group-item"><strong>Landmark:</strong> {{proposerFormData.comLandmark}}</li>
-                                    <li class="list-group-item"><strong>Place:</strong> {{proposerFormData.comPlace}}</li>
-                                    <li class="list-group-item"><strong>District:</strong> {{proposerFormData.comDistrict}}</li>
-                                    <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
-                                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
-                                </ul>
+                                    <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
+                                    <li class="list-group-item"><strong>Employer Name:</strong> {{proposerFormData.employernm}}</li>
+                                    <li class="list-group-item"><strong>Annual income:</strong> {{proposerFormData.annualincm}}</li>
+                                    <li class="list-group-item"><strong>Nature of occupation:</strong> {{proposerFormData.natureofoccu}}</li>
+                                    <li class="list-group-item"><strong>Address line:</strong> {{proposerFormData.addrline}}</li>
+                                    <li class="list-group-item"><strong>Exist ulip flag:</strong> {{proposerFormData.existulipflag}}</li>
+                                    <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li> </ul>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="p-3">
                                 <h6 class="color-blue">RESIDENCY DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>Door Number:</strong> {{proposerFormData.perDoorNo}}</li>
-                                    <li class="list-group-item"><strong>Building Number:</strong> {{proposerFormData.perBuildingNumber}}</li>
-                                    <li class="list-group-item"><strong>Plot Number / Street Name:</strong> {{proposerFormData.perPlotNumber}}</li>
-                                    <li class="list-group-item"><strong>Landmark:</strong> {{proposerFormData.perLandmark}}</li>
-                                    <li class="list-group-item"><strong>Place:</strong> {{proposerFormData.perPlace}}</li>
-                                    <li class="list-group-item"><strong>District:</strong> {{proposerFormData.perDistrict}}</li>
-                                    <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.rpincode}}</li>
-                                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.rstate}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6" *ngIf="proposerFormData.department != '' || proposerFormData.officeName !='' || proposerFormData.officeAddress1 !='' || proposerFormData.officeAddress2 !='' || proposerFormData.officeAddress3 !='' || proposerFormData.officeDistrict !='' || proposerFormData.officeState !='' || proposerFormData.officePincode !='' || proposerFormData.officeNumber !='' ">
-                            <div class="p-3">
-                                <h6 class="color-blue">OFFICE DETAILS</h6>
-                                <ul class="m-0 list-group">
-                                    <li class="list-group-item" *ngIf="proposerFormData.department != ''"><strong>Department:</strong> {{proposerFormData.department}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.officeName !=''"><strong>Office Name:</strong> {{proposerFormData.officeName}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.officeAddress1 !=''"><strong>Office Address1:</strong> {{proposerFormData.officeAddress1}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.officeAddress2 !=''"><strong>Office Address2:</strong> {{proposerFormData.officeAddress2}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.officeAddress3 !=''"><strong>Office Address3:</strong> {{proposerFormData.officeAddress3}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6" *ngIf="proposerFormData.department != '' || proposerFormData.officeName !='' || proposerFormData.officeAddress1 !='' || proposerFormData.officeAddress2 !='' || proposerFormData.officeAddress3 !='' || proposerFormData.officeDistrict !='' || proposerFormData.officeState !='' || proposerFormData.officePincode !='' || proposerFormData.officeNumber !='' ">
-                            <div class="p-3">
-                                <h6 class="color-blue mt-4"></h6>
-                                <ul class="m-0 list-group">
-                                    <li class="list-group-item" *ngIf="proposerFormData.officeDistrict !=''"><strong>Office District:</strong> {{proposerFormData.officeDistrict}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.officeState !=''"><strong>Office State:</strong> {{proposerFormData.officeState}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.officePincode !=''"><strong>Office Pincode:</strong> {{proposerFormData.officePincode}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.officeNumber !=''"><strong>Office Number:</strong> {{proposerFormData.officeNumber}}</li>
+                                    <li class="list-group-item"><strong>House no:</strong> {{proposerFormData.houseno}}</li>
+                                    <li class="list-group-item"><strong>Street:</strong> {{proposerFormData.street}}</li>
+                                    <li class="list-group-item"><strong>Landmark:</strong> {{proposerFormData.landmark}}</li>
+                                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.city}}</li>
+                                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
+                                    <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
+                                    <li class="list-group-item"><strong>country:</strong> {{proposerFormData.country}}</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="p-3">
-                                <h6 class="color-blue">OTHER DETAILS</h6>
+                                <h6 class="color-blue"> COMMUNICATION DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>Address Proof:</strong> {{proposerFormData.addressProofName}}</li>
-                                    <li class="list-group-item"><strong>Id Proof:</strong> {{proposerFormData.idProofName}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <h6 class="color-blue mt-4"></h6>
-                                <ul class="m-0 list-group">
-                                    <li class="list-group-item" *ngIf="proposerFormData.incomeProofName !=''"><strong>Income Proof:</strong> {{proposerFormData.incomeProofName}}</li>
-                                    <li class="list-group-item"><strong>Age Proof:</strong> {{proposerFormData.ageProofName}}</li>
+                                    <li class="list-group-item"><strong>House No:</strong> {{proposerFormData.chouseno}}</li>
+                                    <li class="list-group-item"><strong>Street:</strong> {{proposerFormData.cstreet}}</li>
+                                    <li class="list-group-item"><strong>LandMark:</strong> {{proposerFormData.clandmark}}</li>
+                                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.ccity}}</li>
+                                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.cstate}}</li>
+                                    <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.cpincode}}</li>
+                                    <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.ccountry}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -1031,51 +1009,22 @@
 
 
 
-                    <h5 class="mt-3 sub-title">BANK DETAILS </h5>
-                    <div class="row box-card">
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="bankDetailFormData != 'OTHER'"><strong>Bank Name:</strong> {{bankDetailFormData.bankName}}</li>
-                                            <li class="list-group-item" *ngIf="bankDetailFormData == 'OTHER'"><strong>Bank Name:</strong> {{bankDetailFormData.otherName}}</li>
-                                            <li class="list-group-item" *ngIf="bankDetailFormData.accountHolderName!=''"><strong>Account Holder Name:</strong> {{bankDetailFormData.accountHolderName}}</li>
-                                            <li class="list-group-item" *ngIf="bankDetailFormData.branchName!=''"><strong>Branch Name:</strong> {{bankDetailFormData.branchName}}</li>
-                                            <li class="list-group-item" *ngIf="bankDetailFormData.accountNo!=''"><strong>Account No:</strong> {{bankDetailFormData.accountNo}}</li>
-                                            <li class="list-group-item" *ngIf="bankDetailFormData.accountType!=''"><strong>Account Type:</strong> {{bankDetailFormData.accountType}}</li>
 
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="bankDetailFormData.ifscCode!=''"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode | uppercase}}</li>
-                                            <li class="list-group-item" *ngIf="bankDetailFormData.micrCode!=''"><strong>Micr Code:</strong> {{bankDetailFormData.micrCode}}</li>
-                                            <li class="list-group-item" *ngIf="bankDetailFormData.paymentMode!=''"><strong>Renewal Payment Mode:</strong> {{bankDetailFormData.paymentMode}}</li>
-                                            <li class="list-group-item" *ngIf="bankDetailFormData.bankProof!=''"><strong>Bank Proof:</strong> {{bankDetailFormData.bankProof}}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
-                    <div *ngFor="let item of nomineeDetailFormData; let i = index;">
+                    <div *ngFor="let item of nomineeFormData; let i = index;">
                         <div class="row box-card">
                             <div class="col-md-6">
                                 <div class="p-3">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item"><strong>Nominee Name:</strong> {{item.nnName}}</li>
-                                                <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
-                                                <li class="list-group-item"><strong>Nominee Relation:</strong> {{item.nRelation}}</li>
+                                                <li class="list-group-item"><strong>Nominee Name:</strong> {{item.ntitle}}</li>
+                                                    <li class="list-group-item"><strong>First Name:</strong> {{item.nfirstnm}}</li>
+                                                <li class="list-group-item"><strong>Last Name:</strong> {{item.nlastnm}}</li>
+                                                <li class="list-group-item"><strong>Gender:</strong> {{item.ngender}}</li>
+                                                <li class="list-group-item"><strong>Marital Status:</strong> {{item.nmaritalstatus}}</li>
+                                               <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1086,40 +1035,47 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" ><strong>Nominee Birth Place:</strong> {{item.nBirthPlace}}</li>
-                                                <li class="list-group-item" *ngIf="item.sharePercentage!=''"><strong>Share Percentage:</strong> {{item.sharePercentage}}</li>
+                                                <li class="list-group-item"><strong>House No:</strong> {{item.nhouseno}}</li>
+                                                <li class="list-group-item"><strong>Street:</strong> {{item.nstreet}}</li>
+                                                <li class="list-group-item"><strong>Land Mark:</strong> {{item.nlandmark}}</li>
+                                                <li class="list-group-item"><strong>City:</strong> {{item.ncity}}</li>
+                                                <li class="list-group-item"><strong>State:</strong> {{item.nstate}}</li>
+                                                <li class="list-group-item"><strong>Pincode:</strong> {{item.npincode}}</li>
+                                                <li class="list-group-item"><strong>Country:</strong> {{item.ncountry}}</li>
+                                                <li class="list-group-item"><strong>Relationship:</strong> {{item.nrelationship}}</li>
+                                                <li class="list-group-item"><strong>Mobile Number:</strong> {{item.nmobilenum}}</li>
 
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6" *ngIf="item.aName!='' && i==0">
+                            <div class="col-md-6" *ngIf=" i==0">
                                 <div class="p-3">
                                     <h6 class="color-blue text-left">APOINTEE DETAILS</h6>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="item.aName!=''"><strong>Appointee Name:</strong> {{item.aName}}</li>
-                                                <li class="list-group-item" *ngIf="item.appointeeDob!=''"><strong>Appointee Dob:</strong> {{item.appointeeDob | date: 'dd/MM/yyyy' }}</li>
+                                                <li class="list-group-item" *ngIf="item.atitle!=''"><strong>Appointee Name:</strong> {{item.atitle}}</li>
+                                                <li class="list-group-item" *ngIf="item.afirstnm!=''"><strong>Appointee Name:</strong> {{item.afirstnm}}</li>
+                                                <li class="list-group-item" *ngIf="item.alastnm!=''"><strong>Appointee Name:</strong> {{item.alastnm}}</li>
+                                                <li class="list-group-item" *ngIf="item.agender!=''"><strong>Appointee Name:</strong> {{item.agender}}</li>
+                                                <li class="list-group-item" *ngIf="item.amaritalstatus!=''"><strong>Appointee Name:</strong> {{item.amaritalstatus}}</li>
+                                                <li class="list-group-item" *ngIf="item.ahouseno!=''"><strong>Appointee Name:</strong> {{item.ahouseno}}</li>
+                                                <li class="list-group-item" *ngIf="item.astreet!=''"><strong>Appointee Name:</strong> {{item.astreet}}</li>
+                                                <li class="list-group-item" *ngIf="item.alandmark!=''"><strong>Appointee Name:</strong> {{item.alandmark}}</li>
+                                                <li class="list-group-item" *ngIf="item.acity!=''"><strong>Appointee Name:</strong> {{item.acity}}</li>
+                                                <li class="list-group-item" *ngIf="item.astate!=''"><strong>Appointee Name:</strong> {{item.astate}}</li>
+                                                <li class="list-group-item" *ngIf="item.apincode!=''"><strong>Appointee Name:</strong> {{item.apincode}}</li>
+                                                <li class="list-group-item" *ngIf="item.acountry!=''"><strong>Appointee Name:</strong> {{item.acountry}}</li>
+                                                <li class="list-group-item" *ngIf="item.arelationship!=''"><strong>Appointee Name:</strong> {{item.arelationship}}</li>
+                                                 <li class="list-group-item" *ngIf="item.aDob!=''"><strong>Appointee Dob:</strong> {{item.aDob | date: 'dd/MM/yyyy' }}</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6" *ngIf="item.appointeeRelationToNominee!='' && i==0">
-                                <div class="p-3">
-                                    <h6 class="color-blue mt-4"></h6>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="item.appointeeRelationToNominee!=''"><strong style="width: 235px">Appointee Relation To Nominee:</strong> {{item.appointeeRelationToNominee}}</li>
-                                                <li class="list-group-item" *ngIf="item.relationToInsured!=''"><strong>Relation To Insured:</strong> {{item.relationToInsured}}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 

@@ -196,10 +196,12 @@ export class HdfcTermLifeComponent implements OnInit {
       eduqual: ['', Validators.required],
       nationality: ['', Validators.required],
       residentstatus: ['', Validators.required],
+      birthplace: ['', Validators.required],
       ishdfcempflg: 'N',
       exstngcustflg: 'N',
       isdisabledflg: 'N',
       pepflg: 'N',
+      nriflg:'N',
       dematflg: 'N',
       smokerstatusflg: 'N',
       historyofconviction: 'N',
@@ -218,7 +220,7 @@ export class HdfcTermLifeComponent implements OnInit {
       cstate: ['', Validators.required],
       cpincode: ['', Validators.required],
       ccountry: ['', Validators.required],
-      countrycode: ['', Validators.required],
+      // countrycode: ['', Validators.required],
       mobilenum: ['', Validators.required],
       expdurofstay: ['', Validators.required],
       prfdcommaddr: ['', Validators.required],
@@ -356,10 +358,12 @@ export class HdfcTermLifeComponent implements OnInit {
           ncountry: ['', Validators.required],
           nDob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
           dateErrorNominee: '',
+          atitle:'',
           afirstnm:'',
             alastnm: '',
           agender: '',
           aDob: '',
+          amaritalstatus:'',
           ahouseno: '',
           astreet: '',
           alandmark:'',
@@ -516,10 +520,12 @@ export class HdfcTermLifeComponent implements OnInit {
           // console.log( this.nomineeDetail['controls'].showAppointee.patchValue(true),'  this.nomineeDetail[\'controls\'].itemsNominee[\'controls\'][i][\'controls\'].showAppointee.patchValue(true)')
 
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].showAppointee.patchValue(true);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.value);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.value);
@@ -530,10 +536,12 @@ export class HdfcTermLifeComponent implements OnInit {
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.value);
 
 
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.setValidators([Validators.required]);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.setValidators([Validators.required]);
@@ -548,6 +556,7 @@ export class HdfcTermLifeComponent implements OnInit {
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.setValidators(null);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.setValidators(null);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.setValidators(null);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.setValidators(null);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.setValidators(null);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.setValidators(null);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.setValidators(null);
@@ -558,10 +567,12 @@ export class HdfcTermLifeComponent implements OnInit {
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators(null);
 
 
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.patchValue('');
@@ -571,10 +582,12 @@ export class HdfcTermLifeComponent implements OnInit {
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue('');
         }
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.updateValueAndValidity();
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.updateValueAndValidity();
@@ -634,10 +647,12 @@ export class HdfcTermLifeComponent implements OnInit {
   appointeeAgeValid(event: any, i) {
     if (this.nomineeDetail['controls'].showAppointee.value == true ) {
 
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue(this.nomineeDetail['controls'].atitle.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue(this.nomineeDetail['controls'].afirstnm.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue(this.nomineeDetail['controls'].alastnm.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.patchValue(this.nomineeDetail['controls'].agender.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue(this.nomineeDetail['controls'].aDob.value);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.patchValue(this.nomineeDetail['controls'].amaritalstatus.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.patchValue(this.nomineeDetail['controls'].ahouseno.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue(this.nomineeDetail['controls'].astreet.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.patchValue(this.nomineeDetail['controls'].alandmark.value);
@@ -648,10 +663,12 @@ export class HdfcTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue(this.nomineeDetail['controls'].apincode.value);
 
 
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.setValidators([Validators.required]);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.setValidators([Validators.required]);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.setValidators([Validators.required]);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.setValidators([Validators.required]);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.setValidators([Validators.required]);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.setValidators([Validators.required]);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.setValidators([Validators.required]);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.setValidators([Validators.required]);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.setValidators([Validators.required]);
@@ -662,10 +679,12 @@ export class HdfcTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators([Validators.required]);
     } else {
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].showAppointee.patchValue(false);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.setValidators(null);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.setValidators(null);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.setValidators(null);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.setValidators(null);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.setValidators(null);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.setValidators(null);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.setValidators(null);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.setValidators(null);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.setValidators(null);
@@ -676,10 +695,12 @@ export class HdfcTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators(null);
 
 
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue('');
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.patchValue('');
@@ -689,10 +710,12 @@ export class HdfcTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue('');
     }
+    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.updateValueAndValidity();
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.updateValueAndValidity();
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.updateValueAndValidity();
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.updateValueAndValidity();
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.updateValueAndValidity();
+    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.updateValueAndValidity();
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.updateValueAndValidity();
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.updateValueAndValidity();
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.updateValueAndValidity();
@@ -2520,11 +2543,12 @@ getweightListHdfc() {
         cstate: this.getStepper1.cstate,
         cpincode: this.getStepper1.cpincode,
         ccountry: this.getStepper1.ccountry,
-        countrycode: this.getStepper1.countrycode,
+        // countrycode: this.getStepper1.countrycode,
         mobilenum: this.getStepper1.mobilenum,
         email: this.getStepper1.email,
         expdurofstay: this.getStepper1.expdurofstay,
         pepflg: this.getStepper1.pepflg,
+        nriflg: this.getStepper1.nriflg,
         prfdcommaddr: this.getStepper1.prfdcommaddr,
         prfdcommmode: this.getStepper1.prfdcommmode,
         prfdcommlang: this.getStepper1.prfdcommlang,
@@ -2553,6 +2577,7 @@ getweightListHdfc() {
         catofoccupation: this.getStepper1.catofoccupation,
         countryofbirth: this.getStepper1.countryofbirth,
         isAddressSame: this.getStepper1.isAddressSame,
+        birthplace: this.getStepper1.birthplace,
 
 
       });
@@ -2606,9 +2631,11 @@ getweightListHdfc() {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(getStepper3.itemsNominee[i].nstate);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(getStepper3.itemsNominee[i].ncountry);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].npincode.patchValue(getStepper3.itemsNominee[i].npincode);
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue(getStepper3.atitle);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue(getStepper3.afirstnm);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue(getStepper3.alastnm);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue(this.datepipe.transform(getStepper3.aDob, 'y-MM-dd'));
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.patchValue(getStepper3.amaritalstatus);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.patchValue(getStepper3.agender);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.patchValue(getStepper3.ahouseno);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue(getStepper3.astreet);
@@ -2633,12 +2660,53 @@ getweightListHdfc() {
 
 
   proposal(stepper) {
+    let nomineeDetail = [];
+    for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
+      nomineeDetail.push({
+
+        "partyseqid": "NOMINEE_0",
+        "partytype": "PRT_INDIV",
+        "personalinfo": {
+          "title": this.nomineeDetail.value.itemsNominee[i].ntitle,
+          "firstnm": this.nomineeDetail.value.itemsNominee[i].nfirstnm,
+          "lastnm": this.nomineeDetail.value.itemsNominee[i].nlastnm,
+          "gender": this.nomineeDetail.value.itemsNominee[i].ngender,
+          "dob": this.nomineeDetail.value.itemsNominee[i].nDob,
+          "maritalstatus": this.nomineeDetail.value.itemsNominee[i].nmaritalstatus
+        },
+        "additionalinfo": {
+          "entitlepctg": this.nomineeDetail.value.itemsNominee[i].entitlepctg
+        },
+        "addressinfo": {
+          "addresstype": "ADD_PMNT",
+          "addressdetails": {
+            "houseno":this.nomineeDetail.value.itemsNominee[i].nhouseno,
+            "street":this.nomineeDetail.value.itemsNominee[i].nstreet,
+            "landmark": this.nomineeDetail.value.itemsNominee[i].nlandmark,
+            "city": this.nomineeDetail.value.itemsNominee[i].ncity,
+            "state": this.nomineeDetail.value.itemsNominee[i].nstate,
+            "pincode": this.nomineeDetail.value.itemsNominee[i].npincode,
+            "country": this.nomineeDetail.value.itemsNominee[i].ncountry
+          }
+        },
+        "relationshipinfo": {
+          "relatedparty": "LA_0",
+          "relationship": this.nomineeDetail.value.itemsNominee[i].nrelationship
+        },
+        "contactdetails": {
+          "contype": "CONT_MOBNO",
+          "contactval":this.nomineeDetail.value.itemsNominee[i].nmobilenum
+        }
+
+
+      });
+    }
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "term": this.lifePremiumList.termDetrails,
-      "policy_id": "1089",
+      "policy_id":this.lifePremiumList.product_id,
       "appsubmission": {
 
           "applctndetails": {
@@ -2667,188 +2735,141 @@ getweightListHdfc() {
                 "premiumamnt": "346",
                 "paymntmethod": "MOP_ONLINE",
                 "magnumbenefit": "Life"
-          }
+          },
+          // "riderdetails": [
+          //   {
+          //     "ridernm": "RIDER_EXTRA_LIFE",
+          //     "ridersa": "20000000",
+          //     "riderpremiumamnt": "9828",
+          //     "riderterm": "35",
+          //     "riderppt": "35"
+          //   },
+          //   {
+          //     "ridernm": "RIDER_CRITICAL_ILLNESS",
+          //     "ridersa": "1000000",
+          //     "riderpremiumamnt": "3253",
+          //     "riderterm": "33",
+          //     "riderppt": "33"
+          //   }
+          // ]
         }
       },
       "lifeassured": {
         "partyseqid": "LA_0",
             "partytype": "PRT_INDIV",
             "personalinfo": {
-          "title": "TITL_MR",
-              "firstnm": "Termlife",
-              "lastnm": "testing",
-              "gender": "GEN_M",
-              "dob": "11/09/1993",
-              "fathernm": "Father",
-              "maritalstatus": "MAR_SIN",
-              "eduqual": "EDU_QUAL_BA",
-              "nationality": "NATION_IND_CD",
-              "residentstatus": "RESS_RI",
-              "birthplace": "Mumbai",
-              "nriflg": "N"
+              "title": this.personal.controls['title'].value,
+              "firstnm": this.personal.controls['firstnm'].value,
+              "lastnm": this.personal.controls['lastnm'].value,
+              "gender": this.personal.controls['gender'].value,
+              "dob": this.personal.controls['dob'].value,
+              "fathernm": this.personal.controls['fathernm'].value,
+              "maritalstatus": this.personal.controls['maritalstatus'].value,
+              "eduqual": this.personal.controls['eduqual'].value,
+              "nationality": this.personal.controls['nationality'].value,
+              "residentstatus": this.personal.controls['residentstatus'].value,
+              "birthplace": this.personal.controls['birthplace'].value,
+              "nriflg": this.personal.controls['nriflg'].value
         },
         "additionalinfo": {
-          "ishdfcempflg": "N",
-              "exstngcustflg": "N",
-              "isdisabledflg": "N",
-              "pepflg": "N",
-              "dematflg": "N",
-              "smokerstatusflg": "N",
-              "historyofconviction": "N"
+          "ishdfcempflg": this.personal.controls['ishdfcempflg'].value,
+              "exstngcustflg": this.personal.controls['exstngcustflg'].value,
+              "isdisabledflg": this.personal.controls['isdisabledflg'].value,
+              "pepflg": this.personal.controls['pepflg'].value,
+              "dematflg": this.personal.controls['dematflg'].value,
+              "smokerstatusflg": this.personal.controls['smokerstatusflg'].value,
+              "historyofconviction": this.personal.controls['historyofconviction'].value
         },
         "addressinfo": [{
           "addresstype": "ADD_PMNT",
           "addressdetails": {
-            "houseno": "houseno",
-            "street": "street",
-            "landmark": "landmark",
-            "city": "CTY_MUMB21",
-            "state": "MAHA",
-            "pincode": "400011",
-            "country": "CNTRY_IND"
+            "houseno": this.personal.controls['houseno'].value,
+            "street": this.personal.controls['street'].value,
+            "landmark": this.personal.controls['landmark'].value,
+            "city": this.personal.controls['city'].value,
+            "state": this.personal.controls['state'].value,
+            "pincode": this.personal.controls['pincode'].value,
+            "country": this.personal.controls['country'].value
           }
         },
           {
             "addresstype": "ADD_CORSP",
             "addressdetails": {
-              "houseno": "houseno",
-              "street": "street",
-              "landmark": "landmark",
-              "city": "CTY_MUMB21",
-              "state": "MAHA",
-              "pincode": "400011",
-              "country": "CNTRY_IND"
+              "houseno": this.personal.controls['chouseno'].value,
+              "street": this.personal.controls['cstreet'].value,
+              "landmark": this.personal.controls['clandmark'].value,
+              "city": this.personal.controls['ccity'].value,
+              "state": this.personal.controls['cstate'].value,
+              "pincode": this.personal.controls['cpincode'].value,
+              "country": this.personal.controls['ccountry'].value
             }
           }
         ],
             "contactdetails": [{
           "contype": "CONT_MOBNO",
           "countrycode": "91",
-          "contactval": "9999999999"
+          "contactval": this.personal.controls['mobilenum'].value
         },
           {
             "contype": "CONT_EMAIL",
-            "contactval": "Termlife@tester.com"
+            "contactval": this.personal.controls['email'].value
           }
         ],
             "commpreference": {
-          "expdurofstay": "MTH1YR",
-              "prfdcommaddr": "ADD_CORSP",
-              "prfdcommmode": "CALL",
-              "prfdcommlang": "LANG_ENG"
+          "expdurofstay": this.personal.controls['expdurofstay'].value,
+              "prfdcommaddr": this.personal.controls['prfdcommaddr'].value,
+              "prfdcommmode": this.personal.controls['prfdcommmode'].value,
+              "prfdcommlang":this.personal.controls['prfdcommlang'].value
         },
         "employmentdetails": {
-          "occutype": "OCCT_SALR",
-              "employernm": "TCS",
-              "annualincm": "9000000",
-              "natureofoccu": "Others",
+          "occutype": this.personal.controls['occutype'].value,
+              "employernm": this.personal.controls['employernm'].value,
+              "annualincm": this.personal.controls['annualincm'].value,
+              "natureofoccu": this.personal.controls['natureofoccu'].value,
               "employeraddr": {
-            "addrline": "rretret"
+            "addrline": this.personal.controls['addrline'].value
           }
         },
         "existingulip": {
-          "existulipflag": "N"
+          "existulipflag": this.personal.controls['existulipflag'].value
         },
         "fundsource": {
-          "sourcetype": "FUND_SRC_SLRY",
-              "fundpcntg": "100"
+          "sourcetype": this.personal.controls['sourcetype'].value,
+              "fundpcntg": this.personal.controls['fundpcntg'].value
         }
       },
-      "nominee": [{
-        "partyseqid": "NOMINEE_0",
-        "partytype": "PRT_INDIV",
-        "personalinfo": {
-          "title": "TITL_MRS",
-          "firstnm": "nominee",
-          "lastnm": "test",
-          "gender": "GEN_F",
-          "dob": "26/10/1988",
-          "maritalstatus": "MAR_MRD"
-        },
-        "additionalinfo": {
-          "entitlepctg": "50"
-        },
-        "addressinfo": {
-          "addresstype": "ADD_PMNT",
-          "addressdetails": {
-            "houseno": "19",
-            "street": "PJ Towers",
-            "landmark": "Dalal Street",
-            "city": "CTY_MUMB21",
-            "state": "MAHA",
-            "pincode": "400011",
-            "country": "CNTRY_IND"
-          }
-        },
-        "relationshipinfo": {
-          "relatedparty": "LA_0",
-          "relationship": "RNMLA_SIS_CD"
-        },
-        "contactdetails": {
-          "contype": "CONT_MOBNO",
-          "contactval": "9988001456"
-        }
-      },
-        {
-          "partyseqid": "NOMINEE_1",
+      "nominee": nomineeDetail,
+
+        "appointee": {
+          "partyseqid": "APPOINTEE_0",
           "partytype": "PRT_INDIV",
           "personalinfo": {
-            "title": "TITL_MR",
-            "firstnm": "Sachin",
-            "lastnm": "Kher",
-            "gender": "GEN_M",
-            "dob": "26/10/2013",
-            "maritalstatus": "MAR_MRD"
-          },
-          "additionalinfo": {
-            "entitlepctg": "50"
+            "title": this.nomineeDetail.value.itemsNominee[0].atitle,
+            "firstnm": this.nomineeDetail.value.itemsNominee[0].afirstnm,
+            "lastnm": this.nomineeDetail.value.itemsNominee[0].alastnm,
+            "gender":this.nomineeDetail.value.itemsNominee[0].agender,
+            "dob": this.nomineeDetail.value.itemsNominee[0].aDob,
+            "maritalstatus": this.nomineeDetail.value.itemsNominee[0].amaritalstatus
           },
           "addressinfo": {
             "addresstype": "ADD_PMNT",
             "addressdetails": {
-              "houseno": "19",
-              "street": "PJ Towers",
-              "landmark": "Dalal Street",
-              "city": "CTY_MUMB21",
-              "state": "MAHA",
-              "pincode": "400011",
-              "country": "CNTRY_IND"
+              "houseno": this.nomineeDetail.value.itemsNominee[0].ahouseno,
+              "street": this.nomineeDetail.value.itemsNominee[0].astreet,
+              "landmark": this.nomineeDetail.value.itemsNominee[0].alandmark,
+              "city": this.nomineeDetail.value.itemsNominee[0].acity,
+              "state": this.nomineeDetail.value.itemsNominee[0].astate,
+              "pincode":this.nomineeDetail.value.itemsNominee[0].apincode,
+              "country":this.nomineeDetail.value.itemsNominee[0].acountry
             }
           },
           "relationshipinfo": {
-            "relatedparty": "LA_0",
-            "relationship": "RNMLA_NEPH_CD"
-          }
-        }
-      ],
-          "appointee": {
-        "partyseqid": "APPOINTEE_0",
-            "partytype": "PRT_INDIV",
-            "personalinfo": {
-          "title": "TITL_MR",
-              "firstnm": "Sushant",
-              "lastnm": "Kher",
-              "gender": "GEN_M",
-              "dob": "26/10/1983",
-              "maritalstatus": "MAR_MRD"
-        },
-        "addressinfo": {
-          "addresstype": "ADD_PMNT",
-              "addressdetails": {
-            "houseno": "houseno",
-                "street": "street",
-                "landmark": "landmark",
-                "city": "CTY_MUMB21",
-                "state": "MAHA",
-                "pincode": "400011",
-                "country": "CNTRY_IND"
+            "relatedparty": "NOMINEE_1",
+            "relationship":this.nomineeDetail.value.itemsNominee[0].arelationship
           }
         },
-        "relationshipinfo": {
-          "relatedparty": "NOMINEE_1",
-              "relationship": "RAPNM_UNCL_CD"
-        }
-      },
+
+
       "proposer": {
         "partysameas": "LA_0"
       },
@@ -2858,26 +2879,26 @@ getweightListHdfc() {
     },
       "ckyc": {
       "ckycno": "",
-          "fathernmtitle": "TITL_MR",
-          "fatherfirstnm": "Test",
-          "fathermiddlenm": "S",
-          "fatherlastnm": "Dear",
-          "mothernmtitle": "TITL_MRS",
-          "motherfirstnm": "yas",
-          "mothermiddlenm": "P",
-          "motherlastnm": "devi",
-          "maritalstatus": "MAR_MRD",
+          "fathernmtitle": this.personal.controls['fathernmtitle'].value,
+          "fatherfirstnm": this.personal.controls['fatherfirstnm'].value,
+          "fathermiddlenm":this.personal.controls['fathermiddlenm'].value,
+          "fatherlastnm": this.personal.controls['fatherlastnm'].value,
+          "mothernmtitle": this.personal.controls['mothernmtitle'].value,
+          "motherfirstnm": this.personal.controls['motherfirstnm'].value,
+          "mothermiddlenm": this.personal.controls['mothermiddlenm'].value,
+          "motherlastnm": this.personal.controls['motherlastnm'].value,
+          "maritalstatus": this.personal.controls['mmaritalstatus'].value,
           "cersaipostedflag": [
         "",
         "N"
       ],
-          "spousenmtitle": "TITL_MR",
-          "spousefirstnm": "rajababu",
-          "spousemiddlenm": "s",
-          "spouselastnm": "kumar",
-          "occutype": "OCCT_SALR",
-          "catofoccupation": "Service - Private Sector",
-          "countryofbirth": "CNTRY_IND"
+          "spousenmtitle":this.personal.controls['spousenmtitle'].value,
+          "spousefirstnm": this.personal.controls['spousefirstnm'].value,
+          "spousemiddlenm": this.personal.controls['spousemiddlenm'].value,
+          "spouselastnm": this.personal.controls['spouselastnm'].value,
+          "occutype": this.personal.controls['occutypesp'].value,
+          "catofoccupation": this.personal.controls['catofoccupation'].value,
+          "countryofbirth": this.personal.controls['countryofbirth'].value
     }
     };
 
