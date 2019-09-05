@@ -94,15 +94,16 @@ export class HdfcCarProposalComponent implements OnInit {
       this.route.params.forEach((params) => {
           if (params.stepper == true || params.stepper == 'true') {
               stepperindex = 3;
-              if (sessionStorage.summaryDatabikeHdfc != '' && sessionStorage.summaryDatabikeHdfc != undefined) {
-                  this.summaryData = JSON.parse(sessionStorage.summaryDatabikeHdfc);
+              if (sessionStorage.summaryDatacarHdfc != '' && sessionStorage.summaryDatacarHdfc != undefined) {
+                  this.summaryData = JSON.parse(sessionStorage.summaryDatacarHdfc);
+                  console.log(this.summaryData);
                   this.PaymentRedirect = this.summaryData.PaymentRedirect;
                   this.PaymentReturn = this.summaryData.PaymentReturn;
                   this.proposerFormData = JSON.parse(sessionStorage.stepper1Details);
                   this.vehicalFormData = JSON.parse(sessionStorage.stepper2Details);
                   this.previousFormData = JSON.parse(sessionStorage.stepper3Details);
                   // this.bankFormData = JSON.parse(sessionStorage.stepper4Details);
-                  this.ProposalId = sessionStorage.hdfcBikeproposalID;
+                  this.ProposalId = sessionStorage.hdfccarproposalID;
               }
           }
       });
@@ -245,7 +246,7 @@ export class HdfcCarProposalComponent implements OnInit {
       this.carEquiryId = sessionStorage.fwEnquiryId;
       this.vehicleidv=JSON.parse(sessionStorage.buyFourwheelerProductDetails);
       let stringToSplit;
-      stringToSplit = this.vehicledata.vehicle_no;
+      stringToSplit = this.vehicledata.vehicle_no.toUpperCase();
       let x = stringToSplit.slice(0, 2);
       let y = stringToSplit.slice(2, 4);
       let oo = stringToSplit.slice(5, 6);
@@ -276,6 +277,7 @@ export class HdfcCarProposalComponent implements OnInit {
           let regno = '';
           regno = this.datepipe.transform(this.datepipe.transform(this.vehicledata.registration_date), 'yyyy-MM-dd');
           this.RegDateage = this.regdatecalculate(regno);
+          console.log(this.RegDateage,'empty');
       }
       if (this.vehicledata.type == 'new') {
           console.log('into ve');
@@ -775,10 +777,10 @@ ChangeGender(){
             console.log('wwwww');
             sessionStorage.stepper2Details = '';
             sessionStorage.stepper2Details = JSON.stringify(value);
-            this.addOns.controls['NomineeName'].patchValue('');
-            this.addOns.controls['NomineeAge'].patchValue('');
-            this.addOns.controls['appointeename'].patchValue('');
-            this.addOns.controls['appointeerelation'].patchValue('');
+            // this.addOns.controls['NomineeName'].patchValue('');
+            // this.addOns.controls['NomineeAge'].patchValue('');
+            // this.addOns.controls['appointeename'].patchValue('');
+            // this.addOns.controls['appointeerelation'].patchValue('');
             if (this.vechicle.valid) {
                 stepper.next();
                 this.topScroll();
@@ -967,7 +969,7 @@ ChangeGender(){
 
     createproposal(stepper){
         let stringToSplit ;
-        stringToSplit=this.vechicle.controls['regno'].value;
+        stringToSplit=this.vechicle.controls['regno'].value.toUpperCase();
         var pos = stringToSplit.search("-");
         console.log(pos,'pos');
         if(pos==-1) {
@@ -988,10 +990,10 @@ console.log(this.vehicleidv.Idv);
             "platform": "web",
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosUserId() : '4',
-            "pos_status": "0",
+            "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
             "enquiry_id": this.carEquiryId,
             "created_by": "",
-            "proposal_id": "",
+            "proposal_id":sessionStorage.hdfccarproposalID == '' || sessionStorage.hdfccarproposalID == undefined ? '' : sessionStorage.hdfccarproposalID,
             "motorproposalObj": {
             "Customer_Details": {
                 "GC_CustomerID": [],
@@ -1033,9 +1035,9 @@ console.log(this.vehicleidv.Idv);
             "Policy_Details": {
                 "PolicyStartDate": this.tommarrow,
                     "ProposalDate": this.tod,
-                    "AgreementType": [],
-                    "FinancierCode": [],
-                    "BranchName": [],
+                    "AgreementType": this.vechicle.controls['Agreement'].value,
+                    "FinancierCode": this.vechicle.controls['financiercode'].value,
+                    "BranchName":this.vechicle.controls['fibranchname'].value,
                     "PreviousPolicy_CorporateCustomerId_Mandatary": this.regvalue != 'New Vehicle' ? this.vechicle.controls['Previouscompany'].value : '' ,
                     "PreviousPolicy_NCBPercentage":this.regvalue != 'New Vehicle' ? this.vechicle.controls['ncb'].value : '',
                     "PreviousPolicy_PolicyEndDate": this.tommarrow,
@@ -1170,7 +1172,6 @@ console.log(this.vehicleidv.Idv);
         }
         if (value.search('-') == -1 && value != '') {
             this.altererror = 'Enter Valued Format Of Telephone Number';
-            this.altererror = 'Format of the Telephone number is 044-1234567';
         } else if (value.search('-') != -1) {
             this.altererror = '';
         }
@@ -1178,21 +1179,26 @@ console.log(this.vehicleidv.Idv);
             this.altererror = ' Enter Valid Area Code ';
         } else if (value.search('-')! > 5) {
             this.altererror = '';
-        }if(this.altererror!=''){
-
         }
     }
 
     regdatecalculate(regno) {
+        console.log(regno);
         let today = new Date();
         let birthDate = new Date(regno);
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
         let dd = today.getDate() - birthDate.getDate();
-        if (m > 6) {
+        console.log(age, 'age');
+        console.log(m, 'month');
+        console.log(dd, 'date');
+        console.log(birthDate, 'bithdatree');
+        if (age < 1 || m < 6) {
             this.regvalue = 'New Vehicle';
+            console.log('log');
         }
-        if (m < 6) {
+        if (age > 1 || m > 6) {
+            console.log('roll');
             this.regvalue = 'Roll Over';
 
         }
@@ -1200,6 +1206,7 @@ console.log(this.vehicleidv.Idv);
 
 
     }
+
     idvinput(idv){
         if(idv<7000){
             this.toastr.error('IDV Should Not Less Than 7000');
