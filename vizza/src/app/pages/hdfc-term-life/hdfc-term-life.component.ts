@@ -910,7 +910,7 @@ export class HdfcTermLifeComponent implements OnInit {
           this.addressHdfcListSuccess(successData);
         },
         (error) => {
-          this.addressHdfcListFailure(error);
+         this.addressHdfcListFailure(error);
         }
     );
   }
@@ -954,6 +954,22 @@ export class HdfcTermLifeComponent implements OnInit {
           console.log(this.personal.controls['city'].value,'this.city');
 
       }
+      else if(title == 'nominee')
+      {
+        for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountry.patchValue(this.response.CNTRY_IND);
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(this.response.TN);
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncity.patchValue(this.response.CTY_CHEN20);
+        }
+      }
+      else if(title == 'appointee')
+      {
+        for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.patchValue(this.response.CNTRY_IND);
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astate.patchValue(this.response.TN);
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acity.patchValue(this.response.CTY_CHEN20);
+        }
+      }
       sessionStorage.cityListHdfcList = JSON.stringify(this.cityListHdfcList);
 
     } else {
@@ -964,6 +980,24 @@ export class HdfcTermLifeComponent implements OnInit {
         this.personal.controls['city'].setValue('');
         this.personal.controls['state'].setValue('');
         this.personal.controls['country'].setValue('');
+
+      }
+      else if(title== 'nominee') {
+        sessionStorage.cityListHdfcList ='';
+        for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountry.setValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.setValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncity.setValue('');
+        }
+
+      }
+      else if(title== 'nominee') {
+        sessionStorage.cityListHdfcList ='';
+        for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.setValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astate.setValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acity.setValue('');
+        }
 
       }
     }

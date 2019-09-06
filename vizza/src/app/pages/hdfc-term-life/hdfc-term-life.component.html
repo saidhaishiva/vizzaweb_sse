@@ -19,7 +19,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="title" autocomplete="off" required  >
-                              <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.value'>
+                              <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
@@ -44,7 +44,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Gender" formControlName="gender" autocomplete="off" required  >
-                              <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.value'>
+                              <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
@@ -71,7 +71,7 @@
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="Marital Status" formControlName="maritalstatus" autocomplete="off" required  >
-                                      <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.value'>
+                                      <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
@@ -81,7 +81,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Education Qualification" formControlName="eduqual"  required>
-                              <mat-option *ngFor="let list of educationListHdfcList | keys" [value]= 'list.value'>
+                              <mat-option *ngFor="let list of educationListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
@@ -91,7 +91,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Nationality" formControlName="nationality"  required>
-                              <mat-option *ngFor="let list of nationalityListHdfcList | keys" [value]= 'list.value'>
+                              <mat-option *ngFor="let list of nationalityListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
@@ -108,7 +108,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Residential Status" formControlName="residentstatus" autocomplete="off" required>
-                              <mat-option *ngFor="let list of residentialStatusHdfcList | keys" [value]= 'list.value'>
+                              <mat-option *ngFor="let list of residentialStatusHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
@@ -322,7 +322,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Expected Duration Of Stay at the Correspondence address" formControlName="expdurofstay" autocomplete="off" >
-                            <mat-option *ngFor="let list of expectedStayHdfcList | keys" [value]= 'list.value'>
+                            <mat-option *ngFor="let list of expectedStayHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
@@ -331,7 +331,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Preferred Communication Address Type" formControlName="prfdcommaddr" autocomplete="off"  >
-                            <mat-option *ngFor="let list of addressHdfcList | keys" [value]= 'list.value'>
+                            <mat-option *ngFor="let list of addressHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
@@ -340,7 +340,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Preferred Communication Mode" formControlName="prfdcommmode" autocomplete="off" >
-                            <mat-option *ngFor="let list of communicationModeHdfcList | keys" [value]= 'list.value'>
+                            <mat-option *ngFor="let list of communicationModeHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
@@ -349,7 +349,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Preferred Communication Language" formControlName="prfdcommlang" autocomplete="off"  >
-                            <mat-option *ngFor="let list of prefferedLangHdfcList | keys" [value]= 'list.value'>
+                            <mat-option *ngFor="let list of prefferedLangHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
@@ -364,7 +364,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Occupation Type" formControlName="occutype" autocomplete="off" required >
-                            <mat-option *ngFor="let list of occupationTypeHdfcList | keys" [value]= 'list.value'>
+                            <mat-option *ngFor="let list of occupationTypeHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
@@ -387,7 +387,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Nature Of Occupation" formControlName="natureofoccu" autocomplete="off" >
-                            <mat-option *ngFor="let list of natureOfWorkHdfcList | keys" [value]= 'list.value'>
+                            <mat-option *ngFor="let list of natureOfWorkHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
@@ -400,7 +400,14 @@
                             <!--<input type="number" oninput="validity.valid||(value ='50000000');"  step="1000" />-->
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-radio-group formControlName="addrline" >-->
+                            <!--<p>Employer Address<span class="error" >*</span></p>-->
+                            <!--<mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>-->
+                            <!--<mat-radio-button value="N">No</mat-radio-button>-->
+                          <!--</mat-radio-group>-->
+                        <!--</div>-->
+                            <div class="col-md-3">
                           <mat-radio-group formControlName="existulipflag" >
                             <p>existulipflag<span class="error" >*</span></p>
                             <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
@@ -417,7 +424,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Source Type" formControlName="sourcetype" autocomplete="off"  >
-                            <mat-option *ngFor="let list of sourceOfFundHdfcList | keys" [value]= 'list.value'>
+                            <mat-option *ngFor="let list of sourceOfFundHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
@@ -442,7 +449,7 @@
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="Title" formControlName="fathernmtitle" autocomplete="off"   >
-                                      <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.value'>
+                                      <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
@@ -472,7 +479,7 @@
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="Mother Title" formControlName="mothernmtitle" class="textFieldd" autocomplete="off"   >
-                                      <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.value'>
+                                      <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
@@ -512,7 +519,7 @@
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="Marital Status" formControlName="mmaritalstatus" autocomplete="off" required  >
-                                      <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.value'>
+                                      <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
@@ -522,7 +529,7 @@
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="Title" formControlName="spousenmtitle" autocomplete="off"   >
-                                      <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.value'>
+                                      <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
@@ -551,7 +558,7 @@
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="occupation type sp" formControlName="occutypesp" autocomplete="off"   >
-                                      <mat-option *ngFor="let list of occupationTypeHdfcList | keys" [value]= 'list.value'>
+                                      <mat-option *ngFor="let list of occupationTypeHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
@@ -561,7 +568,7 @@
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="Cat of occupation" formControlName="catofoccupation" autocomplete="off"   >
-                                      <mat-option *ngFor="let list of occupationListHdfcList | keys" [value]= 'list.value'>
+                                      <mat-option *ngFor="let list of occupationListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
@@ -571,7 +578,7 @@
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="Country of birth" formControlName="countryofbirth" autocomplete="off"   >
-                                      <mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.value'>
+                                      <mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
@@ -619,7 +626,7 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
                                                         <mat-select placeholder="Title" formControlName="ntitle"  autocomplete="off"   >
-                                                            <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.value'>
+                                                            <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
                                                         </mat-select>
@@ -643,7 +650,7 @@
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
                                                         <mat-select placeholder="Gender" formControlName="ngender" autocomplete="off" required  >
-                                                            <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.value'>
+                                                            <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.key'>
                                                             {{list.value}}
                                                         </mat-option>
                                                     </mat-select>
@@ -676,7 +683,7 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
                                                         <mat-select placeholder="Marital Status" formControlName="nmaritalstatus" autocomplete="off" required  >
-                                                            <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.value'>
+                                                            <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
                                                         </mat-select>
@@ -710,7 +717,7 @@
 
 
                                                 <div class="col-md-4"><mat-form-field class="w-100">
-                                                    <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" required formControlName="npincode" autocomplete="off"  (input)="getPostal($event.target.value,'nominee')"  >
+                                                    <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" required formControlName="npincode" autocomplete="off"  (input)="getPostal($event.target.value,'nominee')" >
                                                     <!--<mat-error *ngIf="nomineeDetail.controls.pincode.hasError('minlength')">Pincode should be 6 digits</mat-error>-->
                                                     <!--<mat-error *ngIf="nomineeDetail.controls.pincode.hasError('required')">Pincode is required</mat-error>-->
                                                     <!--<mat-error *ngIf="nomineeDetail.controls.pincode.hasError('pattern')">Enter Valid  Pincode</mat-error>-->
@@ -740,7 +747,7 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
                                                         <mat-select placeholder="Relationship" formControlName="nrelationship" autocomplete="off" required  >
-                                                            <mat-option *ngFor="let list of relationAppointeeHdfcList | keys" [value]= 'list.value'>
+                                                            <mat-option *ngFor="let list of relationAppointeeHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
                                                         </mat-select>
@@ -761,7 +768,7 @@
                                                             <mat-placeholder>Title<span class="error" >*</span></mat-placeholder>
                                                             <mat-select  formControlName="atitle"  >
 
-                                                                <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.value'>
+                                                                <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}
                                                                 </mat-option>
                                                             </mat-select>
@@ -782,21 +789,24 @@
 
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-4"  *ngIf="i ==0">
-                                                    <mat-form-field class="w-100">
-                                                        <mat-placeholder>Gender<span class="error" >*</span></mat-placeholder>
-                                                        <mat-select  formControlName="agender"  >
-                                                            <mat-option value="Male">Male</mat-option>
-                                                            <mat-option value="Female">Female</mat-option>
-                                                        </mat-select>
-                                                    </mat-form-field>
-                                                </div>
+
+                                                    <div class="col-md-4"  *ngIf="i ==0">
+                                                        <mat-form-field class="w-100">
+                                                            <mat-placeholder>Gender<span class="error" >*</span></mat-placeholder>
+                                                            <mat-select  formControlName="agender"  >
+
+                                                                <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.key'>
+                                                                    {{list.value}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                            <!--<mat-error *ngIf="nomineeDetail.controls.country.errors?.required">country is required</mat-error>-->
+                                                        </mat-form-field></div>
                                                     <div class="col-md-4"  *ngIf="i ==0">
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Marital Status<span class="error" >*</span></mat-placeholder>
                                                             <mat-select  formControlName="amaritalstatus"  >
 
-                                                                <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.value'>
+                                                                <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}
                                                                 </mat-option>
                                                             </mat-select>
@@ -818,7 +828,7 @@
                                                             <mat-placeholder>Relationship with Nominee<span class="error" >*</span></mat-placeholder>
                                                                 <mat-select  formControlName="arelationship"  >
 
-                                                                <mat-option *ngFor="let list of relationAppointeeHdfcList | keys" [value]= 'list.value'>
+                                                                <mat-option *ngFor="let list of relationAppointeeHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}
                                                                 </mat-option>
                                                             </mat-select>
