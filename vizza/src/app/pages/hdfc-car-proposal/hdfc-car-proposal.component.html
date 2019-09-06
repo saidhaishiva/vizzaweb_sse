@@ -577,20 +577,24 @@
                                             <!--</mat-form-field>-->
                                         <!--</div>-->
                                         <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="IsEMIprotector_Cover" ><strong> Is EMI Protector_Cover</strong></mat-checkbox>
+                                            <mat-checkbox formControlName="IsEMIprotector_Cover" (change)="validationforEmi($event)"><strong> Is EMI Protector_Cover</strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3 ">
                                             <mat-form-field class="w-100">
-                                                <mat-select placeholder="NO of EMI"  formControlName="noOfEmi"  >
+                                                <mat-placeholder>NO of EMI<span class="error" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">*</span></mat-placeholder>
+                                                <mat-select   formControlName="noOfEmi"  >
                                                     <mat-option value="1emi">1 EMI</mat-option>
                                                     <mat-option value="2emi">2 EMI</mat-option>
                                                     <mat-option value="3emi">3 EMI</mat-option>
                                                 </mat-select>
+                                                <mat-error *ngIf="addOns.controls.noOfEmi.errors?.required  ">NO Of EMI Is Required</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="EMI Amount" formControlName="EMIamount" autocomplete="off" (keypress)="numberValidate($event)"  >
+                                                <mat-placeholder>EMI Amount<span class="error" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">*</span></mat-placeholder>
+                                                <input matInput  formControlName="EMIamount" autocomplete="off" (keypress)="numberValidate($event)"  >
+                                                <mat-error *ngIf="addOns.controls.EMIamount.errors?.required  ">EMI Amount Is Required</mat-error>
 
                                             </mat-form-field>
                                         </div>
@@ -885,7 +889,7 @@
                                         <li class="list-group-item"><strong>Is Towing_Cover :</strong>{{previousFormData.IsNCBProtection=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item"><strong>Is EMI Protector_Cover :</strong>{{previousFormData.IsEMIprotector_Cover=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.noOfEmi !=''"><strong>No Of Emi :</strong>{{previousFormData.noOfEmi}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.EMIAmount !=''"><strong>EMI Amount :</strong>{{previousFormData.EMIAmount}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.EMIamount !=''"><strong>EMI Amount :</strong>{{previousFormData.EMIamount}}</li>
                                         <li class="list-group-item" ><strong>No of Unnamed Person :</strong>{{previousFormData.NoofUnnamedPerson=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.UnnamedPersonSI !=''"><strong>Unnamed Person SI :</strong>{{previousFormData.UnnamedPersonSI}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.VoluntaryExcessDiscount !=''"><strong>Voluntary Excess Discount :</strong>{{previousFormData.VoluntaryExcessDiscount}}</li>
