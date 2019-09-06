@@ -98,6 +98,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public residenceCitys: any;
     public personaldistricts: any;
     public residenceDistricts: any;
+    public premiumType: any;
 
 
     public financiercodevalue: any;
@@ -115,6 +116,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 stepperindex = 3;
                 if (sessionStorage.summaryDatabikeHdfc != '' && sessionStorage.summaryDatabikeHdfc != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryDatabikeHdfc);
+                    this.premiumType = JSON.parse(sessionStorage.packae_list);
                     this.PaymentRedirect = this.summaryData.PaymentRedirect;
                     this.PaymentReturn = this.summaryData.PaymentReturn;
                     this.proposerFormData = JSON.parse(sessionStorage.stepper1Details);
@@ -282,7 +284,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.vechicle.controls['Vehicleregdate'].patchValue(this.datepipe.transform(this.vehicledata.registration_date, 'y-MM-dd'));
         this.vechicle.controls['regno'].patchValue(this.vehicledata.vehicle_no);
         this.vechicle.controls['manufactureyear'].patchValue(this.vehicledata.manu_yr);
-        this.vechicle.controls['Previouscompany'].patchValue(this.vehicledata.prev_insurance_name);
+        // this.vechicle.controls['Previouscompany'].patchValue(this.vehicledata.prev_insurance_name);
         this.vechicle.controls['ncb'].patchValue(this.vehicledata.ncb_percent);
         this.vechicle.controls['previousenddate'].patchValue(this.datepipe.transform(this.vehicledata.previous_policy_expiry_date, 'y-MM-dd'));
         if (this.vechicle.controls['Vehicleregdate'].value) {
@@ -413,7 +415,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     public companysucccess(successData) {
         this.companyList = successData.ResponseObject;
-        sessionStorage.company = JSON.stringify(this.companyList);
+        sessionStorage.companylist = JSON.stringify(this.companyList);
+        console.log(sessionStorage.companylist,'vvino');
 
     }
 
@@ -578,9 +581,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         }
         if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
             this.districtarray = JSON.parse(sessionStorage.districtlist);
-        }
-        if (sessionStorage.company != '' && sessionStorage.company != undefined) {
-            this.companyList = JSON.parse(sessionStorage.company);
+        }console.log(sessionStorage.companylist,'kkk');
+        if (sessionStorage.companylist != '' && sessionStorage.companylist != undefined) {
+            console.log(sessionStorage.companylist,'kkk');
+            this.companyList = JSON.parse(sessionStorage.companylist);
         }
 
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -1094,6 +1098,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
             'enquiry_id': this.bikeEnquiryId,
             'created_by': '',
+            "policy_type":this.premiumType=='ThridParty_premium'?'ThridParty_Premium':'Comprehensive_Premium',
             'proposal_id': sessionStorage.hdfcBikeproposalID == '' || sessionStorage.hdfcBikeproposalID == undefined ? '' : sessionStorage.hdfcBikeproposalID,
             'motorproposalObj': {
                 'Customer_Details': {
