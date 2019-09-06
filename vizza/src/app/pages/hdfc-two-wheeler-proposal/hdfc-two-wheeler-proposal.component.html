@@ -754,7 +754,7 @@
                                       <li class="list-group-item"><strong>Vechicle Model:</strong> {{vehicalFormData.vehiclemodel}} </li>
                                       <li class="list-group-item"><strong>Vechicle Manufacture year:</strong> {{vehicalFormData.manufactureyear}} </li>
                                       <li class="list-group-item"><strong>Vechicle Regsitration Date:</strong> {{vehicalFormData.Vehicleregdate | date: 'dd/MM/yyyy'}} </li>
-                                      <li class="list-group-item"><strong>Registered No:</strong> {{vehicalFormData.regno}} </li>
+                                      <li class="list-group-item" *ngIf="vehicalFormData.regno !=''"><strong>Registered No:</strong> {{vehicalFormData.regno}} </li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Agreement Type:</strong> {{vehicalFormData.Agreement}} </li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Financier Name:</strong> {{vehicalFormData.Financetype}} </li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Branch Name:</strong> {{vehicalFormData.fibranchname}} </li>
