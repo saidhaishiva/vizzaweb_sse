@@ -974,14 +974,14 @@
                                    </mat-radio-group>
                                </div>
 
-                           <div class="col-md-4  mt-2">
-                               <mat-form-field class="w-100">
-                                   <mat-select  placeholder="Policy Option" formControlName="policyOption" (change)="getPolicyOption()"  class="w-100" required>
-                                       <mat-option *ngFor="let list of epolicyOption | keys" [value]= list.key> {{list.value}} </mat-option>
-                                   </mat-select>
-                                   <mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Policy Option is required</mat-error>
-                               </mat-form-field>
-                           </div>
+                           <!--<div class="col-md-4  mt-2">-->
+                               <!--<mat-form-field class="w-100">-->
+                                   <!--<mat-select  placeholder="Policy Option" formControlName="policyOption" (change)="getPolicyOption()"  class="w-100" required>-->
+                                       <!--<mat-option *ngFor="let list of epolicyOption | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                   <!--</mat-select>-->
+                                   <!--<mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Policy Option is required</mat-error>-->
+                               <!--</mat-form-field>-->
+                           <!--</div>-->
                            <div class="col-md-4  mt-2">
                                <mat-form-field class="w-100">
                                    <input matInput placeholder="Additional Benefit" formControlName="additionalBenefit" maxlength="50" autocomplete="off" required  >
