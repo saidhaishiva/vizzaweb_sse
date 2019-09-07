@@ -221,7 +221,7 @@ export class HdfcTermLifeComponent implements OnInit {
       cpincode: ['', Validators.required],
       ccountry: ['', Validators.required],
       // countrycode: ['', Validators.required],
-      mobilenum: ['', Validators.required],
+      mobilenum: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       expdurofstay: ['', Validators.required],
       prfdcommaddr: ['', Validators.required],
       prfdcommmode: ['', Validators.required],
@@ -952,6 +952,7 @@ export class HdfcTermLifeComponent implements OnInit {
           console.log(this.personal.controls['state'].value,'this.state')
           this.personal.controls['city'].setValue(this.response.CTY_CHEN20);
           console.log(this.personal.controls['city'].value,'this.city');
+        // this.personal.controls['cityId'].setValue(this.response.CTY_CHEN20);
 
       }
       else if(title == 'nominee')
