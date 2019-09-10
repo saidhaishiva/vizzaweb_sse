@@ -299,9 +299,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.regvalue = 'Roll Over';
             this.validationForNew(this.regvalue);
         }
-        this.altererror='';
+        this.altererror = '';
 
     }
+
     // dropdownForBank(value,type){
     //
     //     if(value.length >'5'&& type =='bank'){
@@ -494,7 +495,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             if (this.proposer.valid) {
                 if (sessionStorage.proposerAge >= 18) {
 
-                    if( this.altererror==''){
+                    if (this.altererror == '') {
                         stepper.next();
                         this.topScroll();
                     }
@@ -576,9 +577,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         }
         if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
             this.districtarray = JSON.parse(sessionStorage.districtlist);
-        }console.log(sessionStorage.companylist,'kkk');
+        }
+        console.log(sessionStorage.companylist, 'kkk');
         if (sessionStorage.companylist != '' && sessionStorage.companylist != undefined) {
-            console.log(sessionStorage.companylist,'kkk');
+            console.log(sessionStorage.companylist, 'kkk');
             this.companyList = JSON.parse(sessionStorage.companylist);
         }
 
@@ -1091,7 +1093,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
             'enquiry_id': this.bikeEnquiryId,
             'created_by': '',
-            "policy_type":this.premiumType=='ThridParty_premium'?'ThridParty_Premium':'Comprehensive_Premium',
+            'policy_type': this.premiumType == 'ThridParty_premium' ? 'ThridParty_Premium' : 'Comprehensive_Premium',
             'proposal_id': sessionStorage.hdfcBikeproposalID == '' || sessionStorage.hdfcBikeproposalID == undefined ? '' : sessionStorage.hdfcBikeproposalID,
             'motorproposalObj': {
                 'Customer_Details': {
@@ -1143,7 +1145,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'PreviousPolicy_PolicyClaim': this.regvalue != 'New Vehicle' ? this.vechicle.controls['previouspolicyclaim'].value : '',
                     'BusinessType_Mandatary': this.RegDateage,
                     // "VehicleModelCode": "17586",
-                    'DateofDeliveryOrRegistration': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y') : this.tod ,
+                    'DateofDeliveryOrRegistration': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y') : this.tod,
                     'YearOfManufacture': this.vechicle.controls['manufactureyear'].value,
                     'Registration_No': this.regvalue != 'New Vehicle' ? this.vechicle.controls['regno'].value : '',
                     'EngineNumber': this.vechicle.controls['engine'].value,
@@ -1305,16 +1307,16 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         } else if (value.search('-') != -1) {
             this.altererror = '';
             console.log(value);
-            if(value.length < 8 ){
+            if (value.length < 8) {
                 this.altererror = 'Enter Valued Format Of Telephone Number';
 
-            }else{
-                this.altererror='';
+            } else {
+                this.altererror = '';
             }
         }
-        if (value.search('-') > 5 && value != '') {
+        if (value.search('-') > 8 && value != '') {
             this.altererror = ' Enter Valid Area Code ';
-        } else if (value.search('-')! > 5) {
+        } else if (value.search('-')! > 8) {
             this.altererror = '';
         }
     }
@@ -1339,6 +1341,18 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     idValidate(event: any) {
         this.validation.idValidate(event);
+    }
+
+    teleValidate(event: any) {
+
+        if (event.charCode !== 0) {
+            const pattern = /[0-9-]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+
+            }
+        }
     }
 }
 
