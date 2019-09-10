@@ -1020,7 +1020,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.AdditionalInfo3 = this.summaryData.AdditionalInfo3;
             this.ProductCd = this.summaryData.ProductCd;
             this.productcode = this.summaryData.productcode;
-            this.returnURL = this.requestDetails.returnURL;
+            this.returnURL = this.summaryData.returnURL;
             sessionStorage.personlData = JSON.stringify(this.personlData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.nomineeFromData = JSON.stringify(this.nomineeFromData);
