@@ -185,6 +185,7 @@ import {HdfcCarPaymentSuccessComponent} from './pages/hdfc-car-payment-success/h
 import {EdelweissPosHomeComponent} from './pages/edelweiss-pos-home/edelweiss-pos-home.component';
 import {EdelweissposPremiumListComponent} from './pages/edelweisspos-premium-list/edelweisspos-premium-list.component';
 import {EdelweissPosComponent} from './pages/edelweiss-pos/edelweiss-pos.component';
+import {EdelweissposPaymnetSuccessComponent} from './pages/edelweisspos-paymnet-success/edelweisspos-paymnet-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -371,7 +372,9 @@ export const routes: Routes = [
             { path: 'hdfc-car-payment-success/:status/:proId', component: HdfcCarPaymentSuccessComponent, data: { breadcrumb: 'hdfc-car-payment-success'} },
             { path: 'edelweiss-pos-home', component: EdelweissPosHomeComponent, data:{breadcrumb: 'Edelweiss pos Home'}},
             { path: 'edelweiss-premium-list', component: EdelweissposPremiumListComponent, data: { breadcrumb: 'Edelweiss Premium'} },
-            { path: 'edelweiss-pos', component: EdelweissPosComponent, data:{breadcrumb: 'Edelweiss pos Insurance'}},
+            { path: 'edelweiss-pos/:stepper', component: EdelweissPosComponent, data:{breadcrumb: 'Edelweiss pos Insurance'} },
+            { path: 'edelweisspos-payment-success/:status/:proId', component: EdelweissposPaymnetSuccessComponent, data: { breadcrumb: 'Edelweisspos payment'}},
+
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },

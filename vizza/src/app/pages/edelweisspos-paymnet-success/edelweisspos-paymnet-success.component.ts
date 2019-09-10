@@ -2,19 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import {Settings} from '../../app.settings.model';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
 import {MatDialog} from '@angular/material';
+import {CommonService} from '../../shared/services/common.service';
 
 @Component({
-  selector: 'app-edelweiss-term-life-payment-success',
-  templateUrl: './edelweiss-term-life-payment-success.component.html',
-  styleUrls: ['./edelweiss-term-life-payment-success.component.scss']
+  selector: 'app-edelweisspos-paymnet-success',
+  templateUrl: './edelweisspos-paymnet-success.component.html',
+  styleUrls: ['./edelweisspos-paymnet-success.component.scss']
 })
-export class EdelweissTermLifePaymentSuccessComponent implements OnInit {
-
+export class EdelweissposPaymnetSuccessComponent implements OnInit {
   public paymentStatus: any;
   public currenturl: any;
   public type: any;
@@ -27,8 +26,7 @@ export class EdelweissTermLifePaymentSuccessComponent implements OnInit {
   public proposal_form: any;
   public settings: Settings;
 
-
-  constructor(public config: ConfigurationService, public router: Router, public proposalservice: TermLifeCommonService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public router: Router, public proposalservice: CommonService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
 
     this.route.params.forEach((params) => {
@@ -40,10 +38,9 @@ export class EdelweissTermLifePaymentSuccessComponent implements OnInit {
 
   ngOnInit() {
   }
-
   retry() {
 
-    this.router.navigate(['/edelweiss-term-life' + '/' + true]);
+    this.router.navigate(['/edelweiss-pos' + '/' + true]);
   }
 
   DownloadPdf(type) {
@@ -52,9 +49,9 @@ export class EdelweissTermLifePaymentSuccessComponent implements OnInit {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-    }
+    };
     this.settings.loadingSpinner = true;
-    this.proposalservice.edelweissDownload(data).subscribe(
+    this.proposalservice.edelweissDownloadPdf(data).subscribe(
         (successData) => {
           this.downloadPdfSuccess(successData, type);
         },

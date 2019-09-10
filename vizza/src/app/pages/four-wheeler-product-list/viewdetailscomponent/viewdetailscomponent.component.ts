@@ -8,7 +8,8 @@ import {AppSettings} from '../../../app.settings';
 import {ConfigurationService} from '../../../shared/services/configuration.service';
 import {HealthService} from '../../../shared/services/health.service';
 import {ToastrService} from 'ngx-toastr';
-import {BikeInsuranceService} from '../../../shared/services/bike-insurance.service';
+import {FourWheelerService} from '../../../shared/services/four-wheeler.service';
+
 @Component({
   selector: 'app-viewdetailscomponent',
   templateUrl: './viewdetailscomponent.component.html',
@@ -43,7 +44,28 @@ export class ViewdetailscomponentComponent implements OnInit {
   scheme: any;
 
   constructor(public dialogRef: MatDialogRef<ViewdetailscomponentComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService, public validation: ValidationService, public appSettings: AppSettings, public config: ConfigurationService, public common: BikeInsuranceService, public fb: FormBuilder, public toastr: ToastrService) {
+              @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService, public validation: ValidationService, public appSettings: AppSettings, public config: ConfigurationService, public common: FourWheelerService, public fb: FormBuilder, public toastr: ToastrService) {
+    console.log(data, 'data');
+    this.productId = data.productId;
+    console.log(this.productId, 'this.productId');
+    this.productName = data.productName;
+    this.productLogo = data.productLogo;
+    this.webhost = this.config.getimgUrl();
+    this.testPath = '/uploads/religare1120002190099_1539679118.pdf';
+    // this.id = 0;
+    // this.value = '<p>List</p><ul><li>Test 1</li><li>Test 2</li><li>Test 3</li><li>Test 4</li></ul>';
+    this.settings = this.appSettings.settings;
+
+    this.fileUploadPath = '';
+
+    this.form = this.fb.group({
+      'name': ['', Validators.compose([Validators.required])],
+      'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      'subject': ['', Validators.compose([Validators.required])],
+      'message': ['', Validators.compose([Validators.required])],
+      'profile': ['', Validators.compose([Validators.required])]
+
+    });
   }
 
   ngOnInit() {
