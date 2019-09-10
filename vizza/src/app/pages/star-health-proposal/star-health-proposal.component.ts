@@ -15,7 +15,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 export const MY_FORMATS = {
     parse: {
@@ -86,7 +86,7 @@ export class StarHealthProposalComponent implements OnInit {
     public sumTitle: any;
     public sumPin: any;
     public sumAreaName: any;
-    public sumAreaNameComm: any;
+    public pos_status: any;
     public ageCheck: any;
     public getStepper1: any;
     public illnesStatus: any;
@@ -99,7 +99,7 @@ export class StarHealthProposalComponent implements OnInit {
     public previousinsurance: any;
     public ageRestriction: string;
     public insurerDobError: string;
-    public previousInsuranceStatus: any;
+    public requestInsuredDetails: any;
     public socialAnswer1: any;
     public socialAnswer2: any;
     public socialAnswer3: any;
@@ -114,21 +114,28 @@ export class StarHealthProposalComponent implements OnInit {
     nomineeFormData: any;
     relationshipListAppointe: any;
     relationshipListNomine: any;
+    requestDetails: any;
     total: number;
     public step: any;
     public gstListType: any;
+    public createdDate: any;
+    public payLaterr: any;
+    public status: any;
+    public proposal_Id: any;
+    public proposalNumber: any;
+    public stepperindex: any;
 
     public healthStarTrue0: boolean;
     public healthStarTrue1: boolean;
     public healthStarTrue2: boolean;
     public healthStarTrue3: boolean;
 
-    constructor(public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
-        let stepperindex = 0;
+        this.stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
-                stepperindex = 3;
+                this.stepperindex = 3;
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
@@ -137,11 +144,22 @@ export class StarHealthProposalComponent implements OnInit {
                     this.proposalId = this.summaryData.policy_id;
                     sessionStorage.proposalID = this.proposalId;
                 }
-
             }
+                this.status = params.stepper;
+                this.proposal_Id = params.proposalId;
+                if(this.proposal_Id != '' || this.proposal_Id != undefined ){
+                    this.payLaterr = true;
+                    console.log(this.proposal_Id, 'this.proposalId');
+                    console.log(this.status, 'this.proposalId');
+                    this.getBackRequest();
+                }
+                if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                    this.payLaterr = false;
+
+                }
+
         });
-        console.log(stepperindex, 'stepperindex');
-        this.currentStep = stepperindex;
+        this.currentStep = this.stepperindex;
         let today  = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.illnessCheck = false;
@@ -210,112 +228,109 @@ export class StarHealthProposalComponent implements OnInit {
         });
     }
     ngOnInit() {
-        this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        this.setDate = Date.now();
-        this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-        this.setOccupationList();
-        this.setRelationship();
-        this.appointeRelationship();
-        this.nomineRelationship();
-        this.gstIdList();
-        if (sessionStorage.changedTabDetails != '' || sessionStorage.changedTabDetails != undefined ) {
-            this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-        }
-        if (sessionStorage.familyMembers == '' || sessionStorage.familyMembers == undefined ) {
-            this.groupList();
+        if (this.payLaterr == true) {
+            this.stepperindex = 3;
+            console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
-            this.familyMembers  = JSON.parse(sessionStorage.familyMembers);
-        }
-        for (let i = 0; i < this.familyMembers.length; i++) {
-            if (this.familyMembers[i].type == 'Spouse') {
-                this.familyMembers[i].ins_gender = 'Female';
+            this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+            this.setDate = Date.now();
+            this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
+            this.setOccupationList();
+            this.setRelationship();
+            this.appointeRelationship();
+            this.nomineRelationship();
+            this.gstIdList();
+            if (sessionStorage.changedTabDetails != '' || sessionStorage.changedTabDetails != undefined) {
+                this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
             }
-            else if (this.familyMembers[i].type == 'Son') {
-                this.familyMembers[i].ins_gender = 'Male';
+            if (sessionStorage.familyMembers == '' || sessionStorage.familyMembers == undefined) {
+                this.groupList();
+            } else {
+                this.familyMembers = JSON.parse(sessionStorage.familyMembers);
             }
-            else if (this.familyMembers[i].type == 'Daughter') {
-                this.familyMembers[i].ins_gender = 'Female';
+            for (let i = 0; i < this.familyMembers.length; i++) {
+                if (this.familyMembers[i].type == 'Spouse') {
+                    this.familyMembers[i].ins_gender = 'Female';
+                } else if (this.familyMembers[i].type == 'Son') {
+                    this.familyMembers[i].ins_gender = 'Male';
+                } else if (this.familyMembers[i].type == 'Daughter') {
+                    this.familyMembers[i].ins_gender = 'Female';
+                } else if (this.familyMembers[i].type == 'Father') {
+                    this.familyMembers[i].ins_gender = 'Male';
+                } else if (this.familyMembers[i].type == 'Mother') {
+                    this.familyMembers[i].ins_gender = 'Female';
+                } else if (this.familyMembers[i].type == 'Father In Law') {
+                    this.familyMembers[i].ins_gender = 'Male';
+                } else if (this.familyMembers[i].type == 'Mother In Law') {
+                    this.familyMembers[i].ins_gender = 'Female';
+                } else if (this.familyMembers[i].type == 'Brother') {
+                    this.familyMembers[i].ins_gender = 'Male';
+                } else if (this.familyMembers[i].type == 'Sister') {
+                    this.familyMembers[i].ins_gender = 'Female';
+                }
             }
-            else if (this.familyMembers[i].type == 'Father') {
-                this.familyMembers[i].ins_gender = 'Male';
-            }
-            else if (this.familyMembers[i].type == 'Mother') {
-                this.familyMembers[i].ins_gender = 'Female';
-            }
-            else if (this.familyMembers[i].type == 'Father In Law') {
-                this.familyMembers[i].ins_gender = 'Male';
-            }
-            else if (this.familyMembers[i].type == 'Mother In Law') {
-                this.familyMembers[i].ins_gender = 'Female';
-            }
-            else if (this.familyMembers[i].type == 'Brother') {
-                this.familyMembers[i].ins_gender = 'Male';
-            }
-            else if (this.familyMembers[i].type == 'Sister') {
-                this.familyMembers[i].ins_gender = 'Female';
-            }
-        }
-        if (sessionStorage.nomineeDate == '' || sessionStorage.nomineeDate == undefined) {
-            this.nomineeDate = [{
-                nominee: [{
-                    nname: '',
-                    nage: '',
-                    nrelationship: '',
-                    nrelationshipName: '',
-                    nclaim: '',
-                    aname: '',
-                    aage: '',
-                    arelationship: '',
-                    arelationshipName: '',
-                    removeBtn: true,
-                    addBtn: true,
-                    ageSetting: false,
-                    colorStatus: 'red'
+            if (sessionStorage.nomineeDate == '' || sessionStorage.nomineeDate == undefined) {
+                this.nomineeDate = [{
+                    nominee: [{
+                        nname: '',
+                        nage: '',
+                        nrelationship: '',
+                        nrelationshipName: '',
+                        nclaim: '',
+                        aname: '',
+                        aage: '',
+                        arelationship: '',
+                        arelationshipName: '',
+                        removeBtn: true,
+                        addBtn: true,
+                        ageSetting: false,
+                        colorStatus: 'red'
 
-                }]
-            }];
-        } else {
-            this.nomineeDate = JSON.parse(sessionStorage.nomineeDate);
+                    }]
+                }];
+            } else {
+                this.nomineeDate = JSON.parse(sessionStorage.nomineeDate);
+            }
+            this.previousinsurance = [
+                'IFFCO TOKIO GeneralInsurance Co. Ltd.',
+                'Liberty GeneralInsurance Co. Ltd.',
+                'Shriram GeneralInsurance Co. Ltd.',
+                'Reliance GeneralInsurance Co. Ltd',
+                'DHFL GeneralInsurance Co. Ltd.',
+                'Bajaj Allianz Allianz GeneralInsurance Co. Ltd.',
+                'Edelweiss GeneralInsurance Co.Ltd.',
+                'Kotak Mahindra GeneralInsurance Co. Ltd.',
+                'Go Digit GeneralInsurance Co. Ltd.',
+                'Royal Sundaram GeneralInsurance Co. Ltd.',
+                'Exports Credit Guarantee of India Co. Ltd',
+                'The New India Assurance Co. Ltd.',
+                'Tata AIG GeneralInsurance Company Limited',
+                'National Insurance Co. Ltd.',
+                'Universal Sompo GeneralInsurance Co. Ltd.',
+                'Agriculture Insurance Company of India Ltd.',
+                'Acko GeneralInsurance Co. Ltd.',
+                'SBI GeneralInsurance Co. Ltd.',
+                'Bharti AXA GeneralInsurance Co. Ltd.',
+                'ICICI LOMBARD GeneralInsurance Co. Ltd.',
+                'Magma HDI GeneralInsurance Co. Ltd.',
+                'HDFC ERGO GeneralInsurance Co.Ltd.',
+                'United India Insurance Co. Ltd.',
+                'The Oriental Insurance Co. Ltd.',
+                'Future Generali India Insurance Co. Ltd.',
+                'Cholamandalam MS GeneralInsurance Co. Ltd.',
+                'Raheja QBE GeneralInsurance Co. Ltd.',
+                'Star Health & Allied Insurance Co.Ltd.',
+                'Apollo Munich Health Insurance Co. Ltd',
+                'Religare Health Insurance Co. Ltd',
+                'Max Bupa Health Insurance Co. Ltd',
+                'CIGNA TTK Health Insurance Co. Ltd.',
+                'Aditya Birla Health Insurance Co. Ltd.'
+            ];
+            this.personal.controls['socialStatus'].patchValue(false);
+            this.personal.controls['previousinsuranceChecked'].patchValue(false);
+            this.sessionData();
+            this.socialNo = '';
         }
-        this.previousinsurance = [
-            'IFFCO TOKIO GeneralInsurance Co. Ltd.',
-            'Liberty GeneralInsurance Co. Ltd.',
-            'Shriram GeneralInsurance Co. Ltd.',
-            'Reliance GeneralInsurance Co. Ltd',
-            'DHFL GeneralInsurance Co. Ltd.',
-            'Bajaj Allianz Allianz GeneralInsurance Co. Ltd.',
-            'Edelweiss GeneralInsurance Co.Ltd.',
-            'Kotak Mahindra GeneralInsurance Co. Ltd.',
-            'Go Digit GeneralInsurance Co. Ltd.',
-            'Royal Sundaram GeneralInsurance Co. Ltd.',
-            'Exports Credit Guarantee of India Co. Ltd',
-            'The New India Assurance Co. Ltd.',
-            'Tata AIG GeneralInsurance Company Limited',
-            'National Insurance Co. Ltd.',
-            'Universal Sompo GeneralInsurance Co. Ltd.',
-            'Agriculture Insurance Company of India Ltd.',
-            'Acko GeneralInsurance Co. Ltd.',
-            'SBI GeneralInsurance Co. Ltd.',
-            'Bharti AXA GeneralInsurance Co. Ltd.',
-            'ICICI LOMBARD GeneralInsurance Co. Ltd.',
-            'Magma HDI GeneralInsurance Co. Ltd.',
-            'HDFC ERGO GeneralInsurance Co.Ltd.',
-            'United India Insurance Co. Ltd.',
-            'The Oriental Insurance Co. Ltd.',
-            'Future Generali India Insurance Co. Ltd.',
-            'Cholamandalam MS GeneralInsurance Co. Ltd.',
-            'Raheja QBE GeneralInsurance Co. Ltd.',
-            'Star Health & Allied Insurance Co.Ltd.',
-            'Apollo Munich Health Insurance Co. Ltd',
-            'Religare Health Insurance Co. Ltd',
-            'Max Bupa Health Insurance Co. Ltd',
-            'CIGNA TTK Health Insurance Co. Ltd.',
-            'Aditya Birla Health Insurance Co. Ltd.'
-        ];
-        this.personal.controls['socialStatus'].patchValue(false);
-        this.personal.controls['previousinsuranceChecked'].patchValue(false);
-        this.sessionData();
-        this.socialNo = '';
     }
 
     setStep(index: number) {
@@ -1527,6 +1542,7 @@ export class StarHealthProposalComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposalId = this.summaryData.policy_id;
+           this.proposalNumber= this.summaryData.proposalNum;
             sessionStorage.proposalID = this.proposalId;
             this.personal.controls['personalOccupationName'].patchValue(this.occupationList[this.personal.controls['personalOccupation'].value]);
             if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined && !this.personal.controls['sameas'].value) {
@@ -1542,7 +1558,7 @@ export class StarHealthProposalComponent implements OnInit {
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
-
+            this.createdDate = new Date();
 
             stepper.next();
             this.topScroll();
@@ -1560,8 +1576,8 @@ export class StarHealthProposalComponent implements OnInit {
         const data = {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
-            'reference_id' :  this.summaryData.proposalNum,
-            'proposal_id': sessionStorage.proposalID,
+            'reference_id' : this.proposalNumber,
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposal_Id,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
@@ -1695,6 +1711,147 @@ export class StarHealthProposalComponent implements OnInit {
 //     public getCityIdSummFailure(error) {
 //         console.log(error);
 //     }
+    payLater() {
+        const data = [{
+            'platform': 'web',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'proposal_id' : this.proposalId,
+            'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'group_name':  this.getFamilyDetails.name,
+            'company_name': this.buyProductdetails.company_name,
+            'product_id': this.buyProductdetails.product_id,
+            'plan_name': this.buyProductdetails.product_name,
+            'proposalNum': this.summaryData.proposalNum,
+            'created-date': this.createdDate,
+            'paymentlink-date': '',
+            'policy_type_name': this.buyProductdetails.prod_shortform,
+            'policy_category': 'fresh',
+            'policy_started_on': '',
+            'policy_end_on': '',
+            'policy_period': '1',
+            'sum_insured_id': this.buyProductdetails.suminsured_id,
+            'sum_insured_amount': this.buyProductdetails.suminsured_amount,
+            'scheme_id': this.buyProductdetails.scheme,
+            'title': this.personalData.personalTitle,
+            'proposer_fname': this.personalData.personalFirstname,
+            'proposer_lname': this.personalData.personalLastname,
+            'proposer_email': this.personalData.personalEmail,
+            'proposer_mobile': this.personalData.personalMobile,
+            'proposer_alternate_mobile': this.personalData.personalAltnumber,
+            'proposer_res_address1': this.personalData.residenceAddress,
+            'proposer_res_address2': this.personalData.residenceAddress2,
+            'proposer_res_area': this.personalData.residenceArea.toString(),
+            'proposer_res_areaname':  this.personal.controls['residenceAreaName'].value,
+            'proposer_res_city': this.personalData.residenceCity.toString(),
+            'proposer_res_cityname': this.personal.controls['residenceCityName'].value,
+            'proposer_res_state': this.personalData.residenceState,
+            'proposer_res_pincode': this.personalData.residencePincode,
+            'proposer_comm_address1': this.personalData.personalAddress,
+            'proposer_comm_address2': this.personalData.personalAddress2,
+            'proposer_comm_area': this.personalData.personalArea.toString(),
+            'proposer_comm_areaname': this.personal.controls['personalAreaName'].value,
+            'proposer_comm_city': this.personalData.personalCity.toString(),
+            'proposer_comm_cityname': this.personal.controls['personalCityName'].value,
+            'proposer_comm_state': this.personalData.personalState,
+            'proposer_comm_pincode': this.personalData.personalPincode,
+            'prop_dob': this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd') ,
+            'prop_occupation': this.personalData.personalOccupation,
+            'prop_annual_income': this.personalData.personalIncome,
+            'prop_pan_no': this.personalData.personalPan.toUpperCase(),
+            'prop_aadhar_no': this.personalData.personalAadhar,
+            'gst_id_no': this.personalData.personalGst.toUpperCase(),
+            'gstType': this.personalData.personalgstIdType,
+            'exist_health_ins_covered_persons_details': '',
+            'have_eia_no': '1',
+            'eia_no': '',
+            'previous_medical_insurance': this.personalData.previousinsurance == 'No' ? '' : this.personalData.previousinsurance,
+            'critical_illness': 'NO',
+            'social_status': this.personalData.socialStatus == true || this.personalData.socialStatus == 'true' ? 1 : 0,
+            'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? '0' : this.personalData. socialAnswer1,
+            'social_status_disabled': this.personalData.socialAnswer2 == '' || this.personalData.socialAnswer2 == null ? '0' : this.personalData. socialAnswer2,
+            'social_status_informal': this.personalData.socialAnswer3 == '' || this.personalData.socialAnswer3  == null ? '0' : this.personalData. socialAnswer3 ,
+            'social_status_unorganized': this.personalData.socialAnswer4 == '' || this.personalData.socialAnswer4 == null ? '0' : this.personalData. socialAnswer4,
+            'nominee_name_one': this.nomineeDate[0].nominee[0].nname,
+            'nominee_age_one': this.nomineeDate[0].nominee[0].nage,
+            'nominee_relationship_one': this.nomineeDate[0].nominee[0].nrelationship,
+            'nominee_percentclaim_one': this.nomineeDate[0].nominee[0].nclaim,
+            'appointee_name_one': this.nomineeDate[0].nominee[0].aname,
+            'appointee_age_one': this.nomineeDate[0].nominee[0].aage,
+            'appointee_relationship_one': this.nomineeDate[0].nominee[0].arelationship,
+            'nominee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nname : '',
+            'nominee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nage : '',
+            'nominee_relationship_two': this.nomineeDate[0].nominee.length > 1 ?  this.nomineeDate[0].nominee[1].nrelationship : '',
+            'nominee_percentclaim_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].nclaim : '',
+            'appointee_name_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aname : '',
+            'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
+            'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'created_by': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'insured_details': this.familyMembers,
+            // 'payment': this.paymentGatewayData.payment_gateway_url
+        }];
 
+        console.log(data, 'payyyyy');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.proposalPayLater(data).subscribe(
+            (successData) => {
+                this.payLaterSuccess(successData);
+            },
+            (error) => {
+                this.payLaterFailure(error);
+            }
+        );
 
+    }
+    public payLaterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.toastr.success(successData.ResponseObject);
+            this.saveEdit();
+        } else {
+            // this.toastr.error('sorry!');
+        }
+    }
+
+    public payLaterFailure(successData) {
+    }
+    saveEdit(){
+        this.router.navigate(['/home']);
+
+    }
+    // get request
+    getBackRequest() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'proposal_id': this.proposal_Id
+        };
+        this.proposalservice.proposalGetRequest(data).subscribe(
+            (successData) => {
+                this.getBackResSuccess(successData);
+            },
+            (error) => {
+                this.getBackResFailure(error);
+            }
+        );
+    }
+
+    public getBackResSuccess(successData) {
+        if (successData.IsSuccess) {
+            let requestDetails = successData.ResponseObject;
+            this.proposalNumber = requestDetails[0].proposalNum;
+            this.pos_status = requestDetails[0].pos_status;
+            this.requestDetails = requestDetails[0];
+            this.requestInsuredDetails = this.requestDetails.insured_details;
+            // console.log(this.requestInsuredDetails, 'hgghjghjgjh');
+        } else {
+        }
+    }
+    public getBackResFailure(successData) {
+    }
+    paySuccess(){
+        window.location.href = this.requestDetails.payment;
+
+    }
 }

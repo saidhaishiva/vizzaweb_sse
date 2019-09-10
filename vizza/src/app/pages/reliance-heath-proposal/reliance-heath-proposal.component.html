@@ -1,4 +1,4 @@
-<section class="d-none d-sm-none d-xl-block d-lg-block d-md-none">
+<section class="d-none d-sm-none d-xl-block d-lg-block d-md-none" >
 <div class="container-fluid">
     <div class="row relianceHealthProposal">
         <div class="col-md-12">
@@ -920,6 +920,8 @@
                         </div>
                         <div class="col-md-6 mb-5 text-left">
                             <form action={{summaryData.RediretUrlLink}} method='post' #form>
+                                <!--<button mat-button class="mat-primaryBlue" (click)="payLater()">Pay Later</button>-->
+
                                 <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                             </form>
                         </div>
@@ -930,6 +932,209 @@
         </div>
     </div>
 </section>
+<!--<section class="d-none d-sm-none d-xl-block d-lg-block d-md-none" *ngIf="payLaterr == true">-->
+    <!--<div class="container-fluid">-->
+        <!--<div class="row relianceHealthProposal">-->
+            <!--<div class="col-md-12">-->
+                <!--<mat-horizontal-stepper  #stepper>-->
+                    <!--<mat-step [stepControl]="">-->
+                        <!--<ng-template matStepLabel>SUMMARY</ng-template>-->
+                        <!--<section class="summary-details" *ngIf="payLaterr == true">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-md-4">-->
+                                    <!--&lt;!&ndash;<h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.sum_insured_amount}}</span></h4>&ndash;&gt;-->
+                                <!--</div>-->
+                                <!--<div class="col-md-8 mt-2">-->
+                                    <!--&lt;!&ndash;<ul class="summary-head">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;<li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.Policy.NetPremiumPayable}}</span> /</li>&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;<li><span>Gross Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.Policy.GrossPremium}}</span> /</li>&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<h4><span style="font-size: 17px; color: #666;">Gross Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.gross_premium}}</span></h4>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;<li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.Policy.ServiceTax}}</span> </li>&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li></li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<section>-->
+                                <!--<h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>-->
+                                <!--<div class="row box-card">-->
+                                    <!--<div class="col-md-12">-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--<div class="p-3">-->
+                                            <!--<ul class="m-0 list-group">-->
+                                                <!--<li class="list-group-item"><strong>Name:</strong> {{requestDetails.ClientDetails.Salutation}}. {{requestDetails.ClientDetails.ForeName}} {{requestDetails.ClientDetails.MidName}} {{proposerFormData.LastName}}</li>-->
+                                                <!--<li class="list-group-item"><strong>D.O.B:</strong> {{requestDetails.ClientDetails.DOB | date: 'dd/MM/yyyy'}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Email Id:</strong> {{requestDetails.ClientDetails.Email}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Mobile Number:</strong> {{requestDetails.ClientDetails.MobileNo}}</li>-->
+                                                <!--<li class="list-group-item" *ngIf="requestDetails.ClientDetails.PhoneNo !=''"><strong>Phone Number:</strong> {{requestDetails.ClientDetails.PhoneNo}}</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--<div class="p-3">-->
+                                            <!--<ul class="m-0 list-group">-->
+                                                <!--<li class="list-group-item"><strong>Gender:</strong> {{requestDetails.ClientDetails.Gender}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Marital Status:</strong> {{requestDetails.ClientDetails.maritalStatusName}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Occupation:</strong> {{requestDetails.ClientDetails.occupationName}}</li>-->
+                                                <!--&lt;!&ndash;<li class="list-group-item"><strong>Nationality:</strong> {{requestDetails.ClientDetails.nationalityName}}</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.personalPan !=''"><strong>PAN Number:</strong> {{proposerFormData.personalPan | uppercase}}</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.serviceTax == 'No'"><strong>Is Service Tax Exemption  Applicable : </strong> NO</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.serviceTax == 'Yes'"><strong>Is Service Tax Exemption  Applicable : </strong> YES</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.ServicesTaxName != ''"><strong>Services Tax : </strong> {{proposerFormData.ServicesTaxName}} </li>&ndash;&gt;-->
+
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--<div class="p-3">-->
+                                            <!--<h6 class="color-blue">COMMUNICATION DETAILS</h6>-->
+                                            <!--<ul class="m-0 list-group">-->
+                                                <!--<li class="list-group-item"><strong>Address 1:</strong> {{requestPersonalInfo.CommunicationAddress.Address1}}</li>-->
+                                                <!--<li class="list-group-item" *ngIf="requestPersonalInfo.CommunicationAddress.Address2 !=''"><strong>Address 2:</strong> {{requestPersonalInfo.CommunicationAddress.Address2}}</li>-->
+                                                <!--<li class="list-group-item" *ngIf="requestPersonalInfo.CommunicationAddress.Address3 !=''"><strong>Address 3:</strong> {{requestPersonalInfo.CommunicationAddress.Address3}}</li>-->
+                                                <!--<li class="list-group-item" ><strong>Area:</strong> {{requestPersonalInfo.CommunicationAddress.personalAreaName}}</li>-->
+                                                <!--<li class="list-group-item"><strong>City:</strong> {{requestPersonalInfo.CommunicationAddress.personalCity}}</li>-->
+                                                <!--<li class="list-group-item"><strong>State:</strong> {{requestPersonalInfo.CommunicationAddress.personalState}}</li>-->
+                                                <!--<li class="list-group-item"><strong>District:</strong> {{requestPersonalInfo.CommunicationAddress.personalDistrict}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Country:</strong> India</li>-->
+                                                <!--<li class="list-group-item"><strong>PIN code:</strong> {{requestPersonalInfo.CommunicationAddress.personalPincode}}</li>-->
+                                                <!--<li class="list-group-item" *ngIf="requestPersonalInfo.CommunicationAddress.personalFax !=''"><strong>Fax:</strong> {{requestPersonalInfo.CommunicationAddress.personalFax}}</li>-->
+                                                <!--<li class="list-group-item" *ngIf="requestPersonalInfo.CommunicationAddress.personalNearestLandMark !=''"><strong>Nearest Landmark:</strong> {{requestPersonalInfo.CommunicationAddress.personalNearestLandMark}}</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--<div class=" p-3">-->
+                                            <!--<h6 class="color-blue">RESIDENCE DETAILS</h6>-->
+                                            <!--<ul class="m-0 list-group">-->
+                                                <!--<li class="list-group-item"><strong>Address 1:</strong> {{requestPersonalInfo.PermanentAddress.residenceAddress}}</li>-->
+                                                <!--<li class="list-group-item" *ngIf="requestPersonalInfo.PermanentAddress.residenceAddress2 !=''"><strong>Address 2:</strong> {{requestPersonalInfo.PermanentAddress.residenceAddress2}}</li>-->
+                                                <!--<li class="list-group-item" *ngIf="requestPersonalInfo.PermanentAddress.residenceAddress3 !=''"><strong>Address 3:</strong> {{requestPersonalInfo.PermanentAddress.residenceAddress3}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Area:</strong> {{requestPersonalInfo.PermanentAddress.residenceAreaName}}</li>-->
+                                                <!--<li class="list-group-item"><strong>City:</strong> {{requestPersonalInfo.PermanentAddress.residenceCity}}</li>-->
+                                                <!--<li class="list-group-item"><strong>State:</strong> {{requestPersonalInfo.PermanentAddress.residenceState}}</li>-->
+                                                <!--<li class="list-group-item"><strong>District:</strong> {{requestPersonalInfo.PermanentAddress.residenceDistrict}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Country:</strong> India</li>-->
+                                                <!--<li class="list-group-item"><strong>PIN code:</strong> {{requestPersonalInfo.PermanentAddress.residencePincode}}</li>-->
+                                                <!--<li class="list-group-item" *ngIf="requestPersonalInfo.PermanentAddress.residenceNearestLandMark !=''"><strong>Nearest Landmark:</strong> {{requestPersonalInfo.PermanentAddress.residenceNearestLandMark}}</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</section>-->
+
+                            <!--<section *ngFor="let item of requestInsuredDetails">-->
+                                <!--<h5 class="mt-3 sub-title">INSURED DETAILS FOR {{item.type | uppercase}} </h5>-->
+                                <!--<div class="row box-card">-->
+                                    <!--<div class="col-md-12">-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--<div class="p-3">-->
+                                            <!--<ul class="m-0 list-group">-->
+                                                <!--<li class="list-group-item"><strong>Name:</strong> {{item.Salutation}}. {{item.FirstName}}  {{item.LastName}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Gender:</strong> {{item.Gender}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Marital Status:</strong> {{item.MaritalStatusID}}</li>-->
+                                                <!--<li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd/MM/yyyy'}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Age:</strong> {{item.personalAge}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Occupation:</strong> {{item.OccupationID}}</li>-->
+                                                <!--<li class="list-group-item"><strong>Relationship:</strong> {{item.RelationshipWithProposerID}}</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--<div class="p-3">-->
+                                            <!--<ul class="m-0 list-group">-->
+                                                <!--<li class="list-group-item" *ngIf="item.IsExistingIllness == 'No'"><strong >Existing Illness :  </strong> No </li>-->
+                                                <!--<li class="list-group-item"  *ngIf="item.IsExistingIllness == 'Yes'"><strong >Existing Illness :  </strong> Yes </li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.IsInsuredConsumetobacco == 'No'"><strong>Insured Consume Tobacco : </strong> No</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.IsInsuredConsumetobacco == 'Yes'"><strong>Insured Consume Tobacco : </strong> Yes</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.HasAnyPreClaimOnInsured == 'No'"><strong>Has Any Pre Claim On Insured : </strong> No</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.HasAnyPreClaimOnInsured == 'Yes'"><strong>Has Any Pre Claim On Insured : </strong>Yes</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.HasAnyPreHealthInsuranceCancelled == 'No'"><strong>Has Any Pre Health Insurance Cancelled : </strong> No</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.HasAnyPreHealthInsuranceCancelled == 'Yes'"><strong>Has Any Pre Health Insurance Cancelled : </strong> Yes</li>-->
+
+                                                <!--&lt;!&ndash;<li class="list-group-item"><strong>Details Of Pre Claim On Insured : </strong> <span *ngIf="item.PreExistingDisease.DetailsOfPreClaimOnInsured == ''">Nil</span><span *ngIf="item.PreExistingDisease.DetailsOfPreClaimOnInsured != ''">{{item.PreExistingDisease.DetailsOfPreClaimOnInsured}}</span></li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].pre_existing_disease_name !=''"><strong>Disease:</strong> {{item.PreExistingDisease.DiseaseList[0].pre_existing_disease_name}}</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].SufferingSince !=''"><strong>Suffering Since : </strong> {{item.PreExistingDisease.DiseaseList[0].SufferingSince}}</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].OtherDisease !=''"><strong>Other Disease : </strong> {{item.PreExistingDisease.DiseaseList[0].OtherDisease}}</li>&ndash;&gt;-->
+
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</section>-->
+                            <!--<h5 class="mt-3 sub-title">PREVIOUS INSURANCE DETAILS </h5>-->
+                            <!--<div class="row box-card">-->
+                                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="previousInsuranceFromData.InsuranceCompName != ''"> <strong>Previous Insurance ID : </strong> {{previousInsuranceFromData.InsuranceCompName}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="previousInsuranceFromData.InsuranceCompName == ''"> <strong>Previous Insurance ID : </strong> Nil</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="previousInsuranceFromData.PreviousPolNo != ''"><strong>Previous Year Policy No : </strong> {{previousInsuranceFromData.PreviousPolNo}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="previousInsuranceFromData.PreviousPolNo == ''"><strong>Previous Year Policy No : </strong> Nil</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyStartDate != '' && previousInsuranceFromData.PolicyStartDate != null && previousInsuranceFromData.PolicyStartDate != undefined"><strong>Previous Year Start Date : </strong> {{previousInsuranceFromData.PolicyStartDate | date: 'dd/MM/yyyy'}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyStartDate == '' || previousInsuranceFromData.PolicyStartDate == null || previousInsuranceFromData.PolicyStartDate == undefined"><strong>Previous Year Start Date : </strong> Nil</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyEndDate != '' && previousInsuranceFromData.PolicyEndDate != null && previousInsuranceFromData.PolicyEndDate != undefined"><strong>Previous Year End Date : </strong> {{previousInsuranceFromData.PolicyEndDate | date: 'dd/MM/yyyy'}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="previousInsuranceFromData.PolicyEndDate == '' || previousInsuranceFromData.PolicyEndDate == null || previousInsuranceFromData.PolicyEndDate == undefined"><strong>Previous Year End Date : </strong> Nil</li>&ndash;&gt;-->
+
+                                                    <!--&lt;!&ndash;&lt;!&ndash;<li class="list-group-item" *ngIf="previousInsuranceFromData.PreviousInsuranceDetails.PrevYearPolicyEndDate != ''"><strong>Previous Year End Date : </strong> {{summaryData.PreviousInsuranceDetails.PrevYearPolicyEndDate | date: 'dd/MM/yyyy'}}</li>&ndash;&gt;&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;&lt;!&ndash;<li class="list-group-item" *ngIf="previousInsuranceFromData.PreviousInsuranceDetails.PrevYearPolicyEndDate == ''"><strong>Previous Year End Date : </strong> Nil</li>&ndash;&gt;&ndash;&gt;-->
+
+
+                                                <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--</div>-->
+                            <!--<h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>-->
+                            <!--<div class="row box-card">-->
+                                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item"><strong>Nominee name:</strong>{{nomineeFormData.nomineeTitle}}.{{nomineeFormData.nomineeFirstName}} {{nomineeFormData.nomineeMidName}} {{nomineeFormData.nomineeLastName}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="nomineeFormData.nomineeDob !=''"><strong>DOB:</strong> {{nomineeFormData.nomineeDob | date: 'dd/MM/yyyy'}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="nomineeFormData.nomineeRelationshipName !=''"><strong>Relationship with Insured:</strong> {{nomineeFormData.nomineeRelationshipName}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress !=''"><strong>Address 1:</strong> {{nomineeFormData.nomineeAddress}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress2 !=''"><strong>Address 2:</strong> {{nomineeFormData.nomineeAddress2}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress3 !=''"><strong>Address 3:</strong> {{nomineeFormData.nomineeAddress3}}</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;&lt;!&ndash;<li class="list-group-item" *ngIf="summaryData.NomineeDetails.NomineeAddress.NomineeRelationshipOther !=''"><strong>Relationship Other:</strong> {{summaryData.NomineeDetails.NomineeAddress.NomineeRelationshipOther}}</li>&ndash;&gt;&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item"><strong *ngIf="nomineeFormData.nomineeAreaName !=''">Area:</strong> {{nomineeFormData.nomineeAreaName}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="nomineeFormData.nearestLandMark !=''"><strong>LandMark:</strong> {{nomineeFormData.nearestLandMark}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item"><strong>City:</strong> {{nomineeFormData.nomineeCity}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item"><strong>District:</strong> {{nomineeFormData.nomineeDistrict}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item"><strong>State:</strong> {{nomineeFormData.nomineeState}}</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item"><strong>Country:</strong> India</li>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<li class="list-group-item" *ngIf="nomineeFormData.nomineePincode !=''"><strong>PIN code:</strong> {{nomineeFormData.nomineePincode}}</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</section>-->
+
+                    <!--</mat-step>-->
+                <!--</mat-horizontal-stepper>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
 
 <!--mobile view-->
 <section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">

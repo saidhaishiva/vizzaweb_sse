@@ -85,7 +85,7 @@
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)"  maxlength="17" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
+                          <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)" (keypress)="teleValidate($event)" maxlength="17" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
                             <mat-hint font-size="10px" >Format of the Telephone number is 044-1234567</mat-hint>
                             <mat-error *ngIf="proposer.controls.alternateContact.hasError('pattern')">Enter valid Telephone Number</mat-error>
 

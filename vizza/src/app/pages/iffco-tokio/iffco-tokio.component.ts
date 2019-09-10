@@ -14,7 +14,7 @@ import {CommonService} from '../../shared/services/common.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MomentDateAdapter } from '@angular/material-moment-adapter';
 import {Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 import {ValidationService} from '../../shared/services/validation.service';
 export const MY_FORMATS = {
@@ -73,6 +73,8 @@ export class IffcoTokioComponent implements OnInit {
     public dob: any;
     public minDate: any;
     public RediretUrlLink: any;
+    public requestInsuredDetails: any;
+
 
     public personalData: any;
 
@@ -117,24 +119,49 @@ export class IffcoTokioComponent implements OnInit {
     public xmlData: any;
     public nomineecityDetails: any;
     public nomineestateDetails: any;
+    public createdDate: any;
     public xmlString: any;
+    public status: any;
     public rentDetails: any;
+    public requestDetails: any;
     public numberValidateErr: boolean;
+    public payLaterr: any;
+    public redirect_url: any;
+    public partner_code: any;
+    public action_url: any;
+    public unique_code: any;
+    public response_url: any;
+    public stepperindex: any;
 
     public healthIffcoTrue0: boolean;
     public healthIffcoTrue1: boolean;
     public healthIffcoTrue2: boolean;
     public healthIffcoTrue3: boolean;
 
-    constructor(public proposalservice: HealthService, public datepipe: DatePipe, public validation: ValidationService, public route: ActivatedRoute, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService, public datepipe: DatePipe, public validation: ValidationService, public route: ActivatedRoute, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog, public router: Router,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
-        let stepperindex = 0;
+        this.stepperindex = 0;
         this.route.params.forEach((params) => {
             if (params.stepper == true) {
-                stepperindex = 2;
+                this.stepperindex = 2;
             }
+            this.status = params.stepper;
+            this.proposalId = params.proposalId;
+            if (this.proposalId != '' || this.proposalId != undefined) {
+                this.payLaterr = true;
+                console.log(this.proposalId, 'this.proposalId');
+                console.log(this.status, 'this.proposalId');
+                this.getBackRequest();
+            }
+            if (this.proposalId == undefined || this.proposalId == '') {
+                this.payLaterr = false;
+
+            }
+
+
         });
-        this.currentStep = stepperindex;
+
+        this.currentStep = this.stepperindex;
         this.sameValue = false;
 
         const minDate = new Date();
@@ -260,63 +287,63 @@ export class IffcoTokioComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.personalFormData, '1');
-        console.log(this.insuredFormData, '2');
-        console.log(this.nomineeFormData, '3');
-        this.numberValidateErr = false;
-        this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        console.log(this.buyProductdetails,'this.buyProductdetails');
-        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-        this.insurePersons = this.getFamilyDetails.family_members;
+        if (this.proposalId != '' || this.proposalId != undefined) {
+            this.stepperindex = 2;
+        } else {
+            console.log(this.payLaterr, 'this.payLaterrolll222');
+            this.numberValidateErr = false;
+            this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+            console.log(this.buyProductdetails, 'this.buyProductdetails');
+            this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+            this.insurePersons = this.getFamilyDetails.family_members;
 
 
-        this.insureArray = this.fb.group({
-            items: this.fb.array([])
-        });
+            this.insureArray = this.fb.group({
+                items: this.fb.array([])
+            });
 
-        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-            this.items = this.insureArray.get('items') as FormArray;
-            this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
-        }
-        for (let i = 0; i < this.insureArray.value.items.length; i++) {
-            if (this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.value == 'Self') {
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.setValidators([Validators.required]);
-            } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.value == 'Spouse') {
-                this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.setValidators([Validators.required]);
+            for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+                this.items = this.insureArray.get('items') as FormArray;
+                this.items.push(this.initItemRows());
+                this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
+            }
+            for (let i = 0; i < this.insureArray.value.items.length; i++) {
+                if (this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.value == 'Self') {
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.setValidators([Validators.required]);
+                } else if (this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.value == 'Spouse') {
+                    this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.setValidators([Validators.required]);
+
+                }
+
+                // if(this.insureArray[i].type == 'Son') {
+                //     this.insureArray['controls'].items['controls'][i]['controls'].title.patchValue('Mr');
+                //     this.insureArray['controls'].items['controls'][i]['controls'].proposerGender.patchValue('Male');
+                // } else if(this.insureArray[i].type == 'Daughter') {
+                //     this.insureArray['controls'].items['controls'][i]['controls'].title.patchValue('Ms');
+                //     this.insureArray['controls'].items['controls'][i]['controls'].proposerGender.patchValue('Female');
+                // }
 
             }
-
-            // if(this.insureArray[i].type == 'Son') {
-            //     this.insureArray['controls'].items['controls'][i]['controls'].title.patchValue('Mr');
-            //     this.insureArray['controls'].items['controls'][i]['controls'].proposerGender.patchValue('Male');
-            // } else if(this.insureArray[i].type == 'Daughter') {
-            //     this.insureArray['controls'].items['controls'][i]['controls'].title.patchValue('Ms');
-            //     this.insureArray['controls'].items['controls'][i]['controls'].proposerGender.patchValue('Female');
-            // }
-
-        }
-        if(this.buyProductdetails.product_name == "Family Health Protector Individual" && this.buyProductdetails.suminsured_amount >= 500000) {
-            this.proposer.controls['roomRentWaiver'].patchValue('Y');
-            this.rentDetails = false;
-        } else  if(this.buyProductdetails.product_name == "Family Health Protector Family" && this.buyProductdetails.suminsured_amount >= 700000) {
-            this.proposer.controls['roomRentWaiver'].patchValue('Y');
-            this.rentDetails = false;
-        } else {
-            this.proposer.controls['roomRentWaiver'].patchValue('');
-            this.rentDetails = true;
-                if(this.rentDetails == true){
+            if (this.buyProductdetails.product_name == "Family Health Protector Individual" && this.buyProductdetails.suminsured_amount >= 500000) {
+                this.proposer.controls['roomRentWaiver'].patchValue('Y');
+                this.rentDetails = false;
+            } else if (this.buyProductdetails.product_name == "Family Health Protector Family" && this.buyProductdetails.suminsured_amount >= 700000) {
+                this.proposer.controls['roomRentWaiver'].patchValue('Y');
+                this.rentDetails = false;
+            } else {
+                this.proposer.controls['roomRentWaiver'].patchValue('');
+                this.rentDetails = true;
+                if (this.rentDetails == true) {
                     this.proposer.controls['roomRentWaiver'].patchValue('N');
 
                 }
+            }
+            this.relationshipList();
+            this.occupationList();
+            this.stateList();
+            this.nomineestateList();
+            this.sessionData();
         }
-        this.relationshipList();
-        this.occupationList();
-        this.stateList();
-        this.nomineestateList();
-        this.sessionData();
-        console.log(this.proposer.controls['proposerState'].value, 'stateee');
-        console.log(this.nomineeDetails.controls['nomineeState'].value, 'nominee');
     }
 
 
@@ -816,7 +843,7 @@ export class IffcoTokioComponent implements OnInit {
         sessionStorage.stepper1IffcoDetails = JSON.stringify(value);
         if (this.proposer.valid) {
 
-            if ( this.proposer.controls['additionalFacts'].value == 'N' && this.proposer.controls['pastInsuranceDeclined'].value == 'N'){
+            if (this.proposer.controls['additionalFacts'].value == 'N' && this.proposer.controls['pastInsuranceDeclined'].value == 'N') {
                 if (sessionStorage.proposerAgeiffco >= 18 && sessionStorage.proposerAgeiffco <= 55) {
                     stepper.next();
                     this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
@@ -845,7 +872,7 @@ export class IffcoTokioComponent implements OnInit {
                 } else {
                     this.toastr.error('Proposer age should be  greater than 18 and lesser than equal to 55');
                 }
-            }else {
+            } else {
                 this.toastr.error('Since you have selected additionalFacts or pastInsuranceDeclined. You are not allowed to purchase this policy')
             }
 
@@ -856,6 +883,11 @@ export class IffcoTokioComponent implements OnInit {
 
     topScroll() {
         document.getElementById('main-content').scrollTop = 0;
+    }
+
+    saveEdit() {
+        this.router.navigate(['/home']);
+
     }
 
     iffcoInsureDetails(stepper: MatStepper, index, value) {
@@ -906,9 +938,9 @@ export class IffcoTokioComponent implements OnInit {
 
             if (!ageValidate.includes(1)) {
                 let preExiValid = this.insuredData.filter(data => data.PreExistingDisease == 'Y');
-                if(preExiValid.length > 0 ) {
+                if (preExiValid.length > 0) {
                     this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy. ');
-                }else{
+                } else {
                     stepper.next();
                     this.topScroll();
                     this.nextStep();
@@ -922,7 +954,7 @@ export class IffcoTokioComponent implements OnInit {
     }
 
     nomineeList(stepper: MatStepper, value) {
-        console.log(this.insureArray.value.items,'iteeeeeeeeee')
+        console.log(this.insureArray.value.items, 'iteeeeeeeeee')
         sessionStorage.nomineeData1 = '';
         sessionStorage.nomineeData1 = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
@@ -1051,6 +1083,11 @@ export class IffcoTokioComponent implements OnInit {
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.policy_id;
+            this.response_url = this.summaryData.RESPONSE_URL;
+            this.unique_code = this.summaryData.UNIQUE_QUOTEID;
+            this.partner_code = this.summaryData.PARTNER_CODE;
+            this.redirect_url = this.summaryData.redirect_url;
+            this.action_url = this.summaryData.ACTION_URL;
             sessionStorage.iffco_health_proposal_id = this.proposalId;
             console.log(this.proposalId, ' this.proposalId');
             console.log(sessionStorage.iffco_health_proposal_id, 'sessionStorage.iffco_health_proposal_id ');
@@ -1066,6 +1103,7 @@ export class IffcoTokioComponent implements OnInit {
             console.log(this.insuredFormData, 'insuredFormData');
             console.log(this.nomineeFormData, 'nomineeFormData');
             console.log(this.personalFormData, 'personalFormData');
+            this.createdDate = new Date();
             stepper.next();
             this.nextStep();
             this.topScroll();
@@ -1142,6 +1180,7 @@ export class IffcoTokioComponent implements OnInit {
         console.log(this.insureArray['controls'].items['controls'][i]['controls'].proposerInsureOccupationName, 'valueee');
 
     }
+
     setOccupation(type) {
         this.insureArray['controls'].items['controls'][0]['controls'].proposerInsureOccupationName.patchValue(this.occupationDetails[this.proposer.controls['proposerOccupation'].value]);
     }
@@ -1267,7 +1306,7 @@ export class IffcoTokioComponent implements OnInit {
             let getDob = this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(getDob);
 
-            if(this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
+            if (this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
                 this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('Age between 18 to 55');
             } else {
                 this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
@@ -1287,4 +1326,188 @@ export class IffcoTokioComponent implements OnInit {
         }
     }
 
-}
+    payLater() {
+        const data = {
+            'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'proposal_id': sessionStorage.iffco_health_proposal_id == '' || sessionStorage.iffco_health_proposal_id == undefined ? '' : sessionStorage.iffco_health_proposal_id,
+            'created-date': this.createdDate,
+            'paymentlink-date': '',
+            'product_id': this.buyProductdetails.product_id,
+            'plan_name': this.buyProductdetails.product_name,
+            'sum_insured_amount': this.buyProductdetails.suminsured_amount,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'platform': "web",
+            'group_name': this.getFamilyDetails.name,
+            'redirect_url': this.RediretUrlLink,
+            'action_url': this.summaryData.ACTION_URL,
+            'partner_code': this.summaryData.PARTNER_CODE,
+            'response_url': this.summaryData.RESPONSE_URL,
+            'unique_code': this.summaryData.UNIQUE_QUOTEID,
+            'company_name': 'Iffco-Tokiyo',
+            'Policy': {
+                'Product': this.buyProductdetails.product_name == 'Family Health Protector Family' ? 'FHP' : 'IHP',
+                'GrossPremium': this.buyProductdetails.base_premium,
+                'NetPremiumPayable': this.buyProductdetails.service_tax,
+                'ServiceTax': this.buyProductdetails.total_premium,
+                'PromoCode': "",
+                'NomineeName': this.nomineeData.nomineeFirstName,
+                'NomineeCity': this.nomineeData.nomineeCity,
+                'NomineeState': this.nomineeData.nomineeState,
+                'NomineePincode': this.nomineeData.nomineePincode,
+                'NomineeRelation': this.nomineeData.nomineeRelationship,
+                'CriticalIllness': this.proposer.controls['criticalIllness'].value,
+                'RoomRentWaiver': this.proposer.controls['roomRentWaiver'].value,
+                'AdditionalFacts': this.proposer.controls['additionalFacts'].value,
+                'PastInsuranceDeclined': this.proposer.controls['pastInsuranceDeclined'].value
+            },
+            "ListOfInsured": {
+                "Insured": this.insuredData,
+            },
+            "Contact": {
+                'DOB': this.proposer.controls['proposerDob'].value.toString(),
+                'PassPort': this.proposer.controls['proposerPassport'].value,
+                'PAN': this.proposer.controls['proposerPan'].value,
+                'Salutation': this.proposer.controls['proposerTitle'].value,
+                'FirstName': this.proposer.controls['proposerFirstname'].value,
+                'LastName': this.proposer.controls['proposerLastname'].value,
+                'Sex': this.proposer.controls['proposerGender'].value == 'Male' ? 'M' : 'F',
+                'AddressType': this.proposer.controls['typeAddress'].value,
+                'PinCode': this.proposer.controls['proposerPincode'].value,
+                'State': this.proposer.controls['proposerState'].value,
+                'StateName': this.proposer.controls['proposerStateName'].value,
+                'AddressLine1': this.proposer.controls['proposerAddress'].value,
+                'AddressLine2': this.proposer.controls['proposerAddress2'].value,
+                'FaxNo': this.proposer.controls['proposerFax'].value,
+                'Country': "IND",
+                'Occupation': this.proposer.controls['proposerOccupation'].value,
+                'OccupationName': this.proposer.controls['proposerOccupationName'].value,
+                'City': this.proposer.controls['proposerCity'].value,
+                'CityName': this.proposer.controls['proposerCityName'].value,
+                'Nationality': "IND",
+                'Married': this.proposer.controls['proposerMaritalStatus'].value,
+                'HomePhone': this.proposer.controls['proposerHomePhone'].value,
+                'OfficePhone': this.proposer.controls['proposerOfficePhone'].value,
+                'MobilePhone': this.proposer.controls['proposerMobile'].value,
+                'MailId': this.proposer.controls['proposerEmail'].value,
+                'AddressLine3': this.proposer.controls['proposerAddress3'].value,
+                'AddressLine4': this.proposer.controls['proposerAddress4'].value,
+                'EmergencyContactName': this.proposer.controls['proposerEmergencyName'].value,
+                'EmergencyContactMobile': this.proposer.controls['proposerEmergencyMobile'].value
+            }
+        };
+        console.log(data, 'payyyyy');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.proposalPayLater(data).subscribe(
+            (successData) => {
+                this.payLaterSuccess(successData);
+            },
+            (error) => {
+                this.payLaterFailure(error);
+            }
+        );
+
+    }
+
+    public payLaterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.toastr.success(successData.ResponseObject);
+            this.saveEdit();
+        } else {
+            // this.toastr.error('sorry!');
+        }
+    }
+
+    public payLaterFailure(successData) {
+    }
+
+    // get request
+    getBackRequest() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'proposal_id': this.proposalId
+        };
+        this.proposalservice.proposalGetRequest(data).subscribe(
+            (successData) => {
+                this.getBackResSuccess(successData);
+            },
+            (error) => {
+                this.getBackResFailure(error);
+            }
+        );
+    }
+
+    public getBackResSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.requestDetails = successData.ResponseObject;
+            this.requestInsuredDetails = this.requestDetails.ListOfInsured.Insured;
+            let proposerData = this.requestDetails.Contact;
+            let nomineeData = this.requestDetails.Policy;
+            this.redirect_url = this.requestDetails.redirect_url,
+                this.action_url = this.requestDetails.ACTION_URL,
+                this.partner_code = this.requestDetails.PARTNER_CODE,
+                this.response_url = this.requestDetails.RESPONSE_URL,
+                this.unique_code = this.requestDetails.UNIQUE_QUOTEID,
+                console.log(this.requestInsuredDetails, 'hgghjghjgjh');
+            //         this.proposer.controls['proposerDob'].patchValue(proposerData.DOB),
+            //         this.proposer.controls['proposerPassport'].patchValue(proposerData.PassPort),
+            //         this.proposer.controls['proposerPan'].patchValue(proposerData.PAN),
+            //         this.proposer.controls['proposerTitle'].patchValue(proposerData.Salutation),
+            //         this.proposer.controls['proposerFirstname'].patchValue(proposerData.FirstName),
+            //         this.proposer.controls['proposerLastname'].patchValue(proposerData.LastName),
+            //         this.proposer.controls['proposerGender'].patchValue(proposerData.Sex),
+            //         this.proposer.controls['typeAddress'].patchValue(proposerData.AddressType),
+            //         this.proposer.controls['proposerPincode'].patchValue(proposerData.PinCode),
+            //         this.proposer.controls['proposerState'].patchValue(proposerData.StateName),
+            //         this.proposer.controls['proposerStateName'].patchValue(proposerData.DOB),
+            //         this.proposer.controls['proposerAddress'].patchValue(proposerData.AddressLine1),
+            //         this.proposer.controls['proposerAddress2'].patchValue(proposerData.AddressLine2),
+            //         this.proposer.controls['proposerFax'].patchValue(proposerData.FaxNo),
+            //         this.proposer.controls['proposerOccupation'].patchValue(proposerData.OccupationName),
+            //         this.proposer.controls['proposerCity'].patchValue(proposerData.CityName),
+            //             this.proposer.controls['proposerMaritalStatus'].patchValue(proposerData.Married),
+            //         this.proposer.controls['proposerHomePhone'].patchValue(proposerData.HomePhone),
+            //         this.proposer.controls['proposerOfficePhone'].patchValue(proposerData.OfficePhone),
+            //         this.proposer.controls['proposerMobile'].patchValue(proposerData.MobilePhone),
+            //         this.proposer.controls['proposerEmail'].patchValue(proposerData.MailId),
+            //         this.proposer.controls['proposerAddress3'].patchValue(proposerData.AddressLine3),
+            //         this.proposer.controls['proposerAddress4'].patchValue(proposerData.AddressLine4),
+            //         this.proposer.controls['proposerEmergencyName'].patchValue(proposerData.EmergencyContactName),
+            //         this.proposer.controls['proposerEmergencyMobile'].patchValue(proposerData.EmergencyContactMobile),
+            //             this.nomineeDetails.controls['nomineeFirstName'].patchValue(nomineeData.NomineeName),
+            //             this.nomineeDetails.controls['nomineeRelationship'].patchValue(nomineeData.NomineeRelation),
+            //             this.nomineeDetails.controls['nomineePincode'].patchValue(nomineeData.NomineePincode),
+            //             this.nomineeDetails.controls['nomineeCity'].patchValue(nomineeData.NomineeCity),
+            //             this.nomineeDetails.controls['nomineeState'].patchValue(nomineeData.NomineeState)
+            //     for (let i=0; i <  this.requestInsuredDetails.length; i ++){
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerTitle.patchValue(this.requestInsuredDetails.Salutation);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerFirstname.patchValue(this.requestInsuredDetails.FirstName);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerLastname.patchValue(this.requestInsuredDetails.LastName);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(this.requestInsuredDetails.DateOfBirth);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.requestInsuredDetails.Age);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.patchValue(this.requestInsuredDetails.Occupation);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerGender.patchValue(this.requestInsuredDetails.Gender);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerRelationship.patchValue(this.requestInsuredDetails.RelationtoInsured);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerHeight.patchValue(this.requestInsuredDetails.Height);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerWeight.patchValue(this.requestInsuredDetails.Weight);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].Smoke.patchValue(this.requestInsuredDetails.Smoke);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].Alcohol.patchValue(this.requestInsuredDetails.Alcohol);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].Tobacco.patchValue(this.requestInsuredDetails.Tobacco);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].smokeQuantity.patchValue(this.requestInsuredDetails.SmokeQuantity);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].alcoholQuantity.patchValue(this.requestInsuredDetails.AlcoholQuantity);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].tobaccoQuantity.patchValue(this.requestInsuredDetails.TobaccoQuantity);
+            //                 this.insureArray['controls'].items['controls'][i]['controls'].PreExistingDisease.patchValue(this.requestInsuredDetails.PreExistingDisease);
+            //             }
+            // } else {
+            // }
+        }
+    }
+    public getBackResFailure(successData) {
+        }
+
+    }
+

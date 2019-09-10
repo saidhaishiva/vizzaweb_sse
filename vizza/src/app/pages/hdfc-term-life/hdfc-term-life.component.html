@@ -266,20 +266,20 @@
 
                               <div class="col-md-6">
                                   <mat-form-field class="w-100">
-                                      <input matInput placeholder="Country" formControlName="ccountry" autocomplete="off" (keypress)="nameValidate($event)" readonly>
-                                      <mat-error *ngIf="personal.controls.ccountry.errors?.required">country is required</mat-error>
+                                      <input matInput placeholder="Country" formControlName="ccountryName" autocomplete="off" (keypress)="nameValidate($event)" readonly>
+                                      <mat-error *ngIf="personal.controls.ccountryName.errors?.required">country is required</mat-error>
                                   </mat-form-field>
                               </div>
                               <div class="col-md-6">
                                   <mat-form-field class="w-100">
-                                      <input matInput placeholder="State" formControlName="cstate" autocomplete="off" (keypress)="nameValidate($event)"   readonly>
-                                      <mat-error *ngIf="personal.controls.cstate.errors?.required">State is required</mat-error>
+                                      <input matInput placeholder="State" formControlName="cstateName" autocomplete="off" (keypress)="nameValidate($event)"   readonly>
+                                      <mat-error *ngIf="personal.controls.cstateName.errors?.required">State is required</mat-error>
                                   </mat-form-field>
                               </div>
                               <div class="col-md-6">
                                   <mat-form-field class="w-100">
-                                      <input matInput placeholder="City" formControlName="ccity" autocomplete="off" (keypress)="nameValidate($event)" readonly>
-                                      <mat-error *ngIf="personal.controls.ccity.errors?.required">city is required</mat-error>
+                                      <input matInput placeholder="City" formControlName="ccityName" autocomplete="off" (keypress)="nameValidate($event)" readonly>
+                                      <mat-error *ngIf="personal.controls.ccityName.errors?.required">city is required</mat-error>
                                   </mat-form-field>
                               </div>
 
@@ -441,152 +441,152 @@
                       </div>
                     </div>
                     </div>
-                      <!--<div class="col-md-12 box-card pt-3">-->
-                      <!--<div class="row">-->
-                      <!--<div class="col-md-12">-->
-                        <!--<h6 class="color-blue">Family Details</h6>-->
-                      <!--</div>-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<mat-select placeholder="Title" formControlName="fathernmtitle" autocomplete="off"   >-->
-                                      <!--<mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>-->
-                                          <!--{{list.value}}-->
-                                      <!--</mat-option>-->
-                                  <!--</mat-select>-->
-                                  <!--<mat-error *ngIf="personal.controls.fathernmtitle.errors?.required">Title is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
+                      <div class="col-md-12 box-card pt-3">
+                      <div class="row">
+                      <div class="col-md-12">
+                        <h6 class="color-blue">Family Details</h6>
+                      </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <mat-select placeholder="Title" formControlName="fathernmtitle" autocomplete="off"   >
+                                      <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
+                                          {{list.value}}
+                                      </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="personal.controls.fathernmtitle.errors?.required">Title is required</mat-error>
+                              </mat-form-field>
+                          </div>
+
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="First Name" formControlName="fatherfirstnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                                  <mat-error *ngIf="personal.controls.fatherfirstnm.errors?.required">First Name is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Middle Name" formControlName="fathermiddlenm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                                  <mat-error *ngIf="personal.controls.fathermiddlenm.errors?.required">First Name is required</mat-error>
+                              </mat-form-field>
+                          </div>
+
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Last Name" formControlName="fatherlastnm" class="textFieldd" (keypress)="nameValidate($event)" autocomplete="off"  >
+                                  <mat-error *ngIf="personal.controls.fatherlastnm.errors?.required">Last Name is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <mat-select placeholder="Mother Title" formControlName="mothernmtitle" class="textFieldd" autocomplete="off"   >
+                                      <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
+                                          {{list.value}}
+                                      </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="personal.controls.mothernmtitle.errors?.required">Title is required</mat-error>
+                              </mat-form-field>
+                          </div>
+
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="First Name" formControlName="motherfirstnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                                  <mat-error *ngIf="personal.controls.motherfirstnm.errors?.required">First Name is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Middle Name" formControlName="mothermiddlenm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                                  <mat-error *ngIf="personal.controls.mothermiddlenm.errors?.required">First Name is required</mat-error>
+                              </mat-form-field>
+                          </div>
+
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Last Name" formControlName="motherlastnm" class="textFieldd" (keypress)="nameValidate($event)" autocomplete="off"  >
+                                  <mat-error *ngIf="personal.controls.motherlastnm.errors?.required">Last Name is required</mat-error>
+                              </mat-form-field>
+                          </div>
 
                           <!--<div class="col-md-3">-->
                               <!--<mat-form-field class="w-100">-->
-                                  <!--<input matInput placeholder="First Name" formControlName="fatherfirstnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >-->
-                                  <!--<mat-error *ngIf="personal.controls.fatherfirstnm.errors?.required">First Name is required</mat-error>-->
+                                  <!--<mat-select placeholder="Marital Status" formControlName="mmaritalstatus" >-->
+                                      <!--<mat-option value="m">Male</mat-option>-->
+                                      <!--<mat-option value="f">Female</mat-option>-->
+                                  <!--</mat-select>-->
+                                  <!--<mat-error *ngIf="personal.controls.mmaritalstatus.errors?.required">Gender is required</mat-error>-->
                               <!--</mat-form-field>-->
                           <!--</div>-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<input matInput placeholder="Middle Name" formControlName="fathermiddlenm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >-->
-                                  <!--<mat-error *ngIf="personal.controls.fathermiddlenm.errors?.required">First Name is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <mat-select placeholder="Marital Status" formControlName="mmaritalstatus" autocomplete="off" required  >
+                                      <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
+                                          {{list.value}}
+                                      </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="personal.controls.mmaritalstatus.errors?.required">Marital Status is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <mat-select placeholder="Title" formControlName="spousenmtitle" autocomplete="off"   >
+                                      <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
+                                          {{list.value}}
+                                      </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="personal.controls.spousenmtitle.errors?.required">Title is required</mat-error>
+                              </mat-form-field>
+                          </div>
 
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<input matInput placeholder="Last Name" formControlName="fatherlastnm" class="textFieldd" (keypress)="nameValidate($event)" autocomplete="off"  >-->
-                                  <!--<mat-error *ngIf="personal.controls.fatherlastnm.errors?.required">Last Name is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<mat-select placeholder="Mother Title" formControlName="mothernmtitle" class="textFieldd" autocomplete="off"   >-->
-                                      <!--<mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>-->
-                                          <!--{{list.value}}-->
-                                      <!--</mat-option>-->
-                                  <!--</mat-select>-->
-                                  <!--<mat-error *ngIf="personal.controls.mothernmtitle.errors?.required">Title is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<input matInput placeholder="First Name" formControlName="motherfirstnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >-->
-                                  <!--<mat-error *ngIf="personal.controls.motherfirstnm.errors?.required">First Name is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<input matInput placeholder="Middle Name" formControlName="mothermiddlenm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >-->
-                                  <!--<mat-error *ngIf="personal.controls.mothermiddlenm.errors?.required">First Name is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<input matInput placeholder="Last Name" formControlName="motherlastnm" class="textFieldd" (keypress)="nameValidate($event)" autocomplete="off"  >-->
-                                  <!--<mat-error *ngIf="personal.controls.motherlastnm.errors?.required">Last Name is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-
-                          <!--&lt;!&ndash;<div class="col-md-3">&ndash;&gt;-->
-                              <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                                  <!--&lt;!&ndash;<mat-select placeholder="Marital Status" formControlName="mmaritalstatus" >&ndash;&gt;-->
-                                      <!--&lt;!&ndash;<mat-option value="m">Male</mat-option>&ndash;&gt;-->
-                                      <!--&lt;!&ndash;<mat-option value="f">Female</mat-option>&ndash;&gt;-->
-                                  <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
-                                  <!--&lt;!&ndash;<mat-error *ngIf="personal.controls.mmaritalstatus.errors?.required">Gender is required</mat-error>&ndash;&gt;-->
-                              <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<mat-select placeholder="Marital Status" formControlName="mmaritalstatus" autocomplete="off" required  >-->
-                                      <!--<mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>-->
-                                          <!--{{list.value}}-->
-                                      <!--</mat-option>-->
-                                  <!--</mat-select>-->
-                                  <!--<mat-error *ngIf="personal.controls.mmaritalstatus.errors?.required">Marital Status is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<mat-select placeholder="Title" formControlName="spousenmtitle" autocomplete="off"   >-->
-                                      <!--<mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>-->
-                                          <!--{{list.value}}-->
-                                      <!--</mat-option>-->
-                                  <!--</mat-select>-->
-                                  <!--<mat-error *ngIf="personal.controls.spousenmtitle.errors?.required">Title is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<input matInput placeholder="First Name" formControlName="spousefirstnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >-->
-                                  <!--<mat-error *ngIf="personal.controls.spousefirstnm.errors?.required">First Name is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<input matInput placeholder="Middle Name" formControlName="spousemiddlenm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >-->
-                                  <!--<mat-error *ngIf="personal.controls.spousemiddlenm.errors?.required">First Name is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<input matInput placeholder="Last Name" formControlName="spouselastnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >-->
-                                  <!--<mat-error *ngIf="personal.controls.spouselastnm.errors?.required">First Name is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<mat-select placeholder="occupation type sp" formControlName="occutypesp" autocomplete="off"   >-->
-                                      <!--<mat-option *ngFor="let list of occupationTypeHdfcList | keys" [value]= 'list.key'>-->
-                                          <!--{{list.value}}-->
-                                      <!--</mat-option>-->
-                                  <!--</mat-select>-->
-                                  <!--<mat-error *ngIf="personal.controls.occutypesp.errors?.required">Title is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<mat-select placeholder="Cat of occupation" formControlName="catofoccupation" autocomplete="off"   >-->
-                                      <!--<mat-option *ngFor="let list of occupationListHdfcList | keys" [value]= 'list.key'>-->
-                                          <!--{{list.value}}-->
-                                      <!--</mat-option>-->
-                                  <!--</mat-select>-->
-                                  <!--<mat-error *ngIf="personal.controls.catofoccupation.errors?.required">Title is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-                          <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<mat-select placeholder="Country of birth" formControlName="countryofbirth" autocomplete="off"   >-->
-                                      <!--<mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.key'>-->
-                                          <!--{{list.value}}-->
-                                      <!--</mat-option>-->
-                                  <!--</mat-select>-->
-                                  <!--<mat-error *ngIf="personal.controls.countryofbirth.errors?.required">Country of birth is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                          <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="First Name" formControlName="spousefirstnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                                  <mat-error *ngIf="personal.controls.spousefirstnm.errors?.required">First Name is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Middle Name" formControlName="spousemiddlenm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                                  <mat-error *ngIf="personal.controls.spousemiddlenm.errors?.required">First Name is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Last Name" formControlName="spouselastnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                                  <mat-error *ngIf="personal.controls.spouselastnm.errors?.required">First Name is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <mat-select placeholder="occupation type sp" formControlName="occutypesp" autocomplete="off"   >
+                                      <mat-option *ngFor="let list of occupationTypeHdfcList | keys" [value]= 'list.key'>
+                                          {{list.value}}
+                                      </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="personal.controls.occutypesp.errors?.required">Title is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <mat-select placeholder="Cat of occupation" formControlName="catofoccupation" autocomplete="off"   >
+                                      <mat-option *ngFor="let list of occupationListHdfcList | keys" [value]= 'list.key'>
+                                          {{list.value}}
+                                      </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="personal.controls.catofoccupation.errors?.required">Title is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <mat-select placeholder="Country of birth" formControlName="countryofbirth" autocomplete="off"   >
+                                      <mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.key'>
+                                          {{list.value}}
+                                      </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="personal.controls.countryofbirth.errors?.required">Country of birth is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                    </div>
 
                     <div class="proposal-buttom mt-3 text-right w-100" style="margin-left: -34px;">
                       <!--<button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>-->
@@ -747,7 +747,7 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
                                                         <mat-select placeholder="Relationship" formControlName="nrelationship" autocomplete="off" required  >
-                                                            <mat-option *ngFor="let list of relationAppointeeHdfcList | keys" [value]= 'list.key'>
+                                                            <mat-option *ngFor="let list of nomineeLifeassuredListHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
                                                         </mat-select>
@@ -928,30 +928,44 @@
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}}.{{proposerFormData.firstnm}} {{proposerFormData.lastnm}} </li>
-                                    <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.gender}} </li>
-                                    <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
-                                    <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
-                                    <li class="list-group-item"><strong>Father Name:</strong> {{proposerFormData.fathernm}}</li>
-                                    <li class="list-group-item"><strong>Birth place:</strong> {{proposerFormData.birthplace}}</li>
-                                    <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
-                                    <!--<li class="list-group-item" *ngIf="proposerFormData.alterMobile != '' && proposerFormData.alterMobile != undefined"><strong>Alternate Mobile:</strong> {{proposerFormData.alterMobile}}</li>-->
-                                    <!--<li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationListName}}</li>-->
-                                    <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalstatus}}</li>
-                                    <!--<li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}}</li>-->
-                                    <li class="list-group-item"><strong>Education:</strong> {{proposerFormData.eduqual}}</li>
-                                    <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationality}}</li>
-                                    <li class="list-group-item"><strong>Resident Status:</strong> {{proposerFormData.residentstatus}}</li>
-                                    <li class="list-group-item"><strong>Is hdfc employee flag:</strong> {{proposerFormData.ishdfcempflg}}</li>
-                                    <li class="list-group-item"><strong>Existing customer flag:</strong> {{proposerFormData.exstngcustflg}}</li>
-                                    <li class="list-group-item"><strong>Pep flag:</strong> {{proposerFormData.pepflg}}</li>
-                                    <li class="list-group-item"><strong>Demat flag:</strong> {{proposerFormData.dematflg}}</li>
-                                    <li class="list-group-item"><strong>Smoker Status flag:</strong> {{proposerFormData.smokerstatusflg}}</li>
-                                    <li class="list-group-item"><strong>History of conviction:</strong> {{proposerFormData.historyofconviction}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Name:</strong>{{proposerFormData.title}}.{{proposerFormData.firstnm}} {{proposerFormData.lastnm}} </li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Gender:</strong> {{proposerFormData.gender}} </li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Mobile Number:</strong> {{proposerFormData.mobilenum}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Father Name:</strong> {{proposerFormData.fathernm}}</li>
 
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Birth place:</strong> {{proposerFormData.birthplace}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Email:</strong> {{proposerFormData.email}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Marital Status:</strong> {{proposerFormData.maritalstatus}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Education:</strong> {{proposerFormData.eduqual}}</li>
 
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Nationality:</strong> {{proposerFormData.nationality}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Resident Status:</strong> {{proposerFormData.residentstatus}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Is hdfc employee flag:</strong> {{proposerFormData.ishdfcempflg}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Smoker Status flag:</strong> {{proposerFormData.smokerstatusflg}}</li>
 
-
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" style=" width: 269px;"><strong>History of conviction:</strong> {{proposerFormData.historyofconviction}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Existing customer flag:</strong> {{proposerFormData.exstngcustflg}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Pep flag:</strong> {{proposerFormData.pepflg}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Demat flag:</strong> {{proposerFormData.dematflg}}</li>
 
                                 </ul>
                             </div>
@@ -961,15 +975,22 @@
                             <div class="p-3">
                                 <h6 class="color-blue">FAMILY DETAILS</h6>
                                 <ul class="m-0 list-group">
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Preffered communcation mode:</strong> {{proposerFormData.prfdcommmode}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Preffered communcation language:</strong> {{proposerFormData.prfdcommlang}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Preffered communcation mode:</strong> {{proposerFormData.prfdcommmode}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Preffered communcation language:</strong> {{proposerFormData.prfdcommlang}}</li>
 
-                                    <li class="list-group-item"><strong>Country Code:</strong> {{proposerFormData.countrycode}}</li>
-                                    <li class="list-group-item"><strong>Mobile number:</strong> {{proposerFormData.mobilenum}}</li>
-                                    <li class="list-group-item"><strong>expdur of stay:</strong> {{proposerFormData.expdurofstay}}</li>
-                                    <li class="list-group-item"><strong>Preffered communcation address:</strong> {{proposerFormData.prfdcommaddr}}</li>
-                                    <li class="list-group-item"><strong>Preffered communcation mode:</strong> {{proposerFormData.prfdcommmode}}</li>
-                                    <li class="list-group-item"><strong>Preffered communcation language:</strong> {{proposerFormData.prfdcommlang}}</li>
-
-                                    <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Employer Name:</strong> {{proposerFormData.employernm}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Annual income:</strong> {{proposerFormData.annualincm}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -977,26 +998,31 @@
                             <div class="p-3">
                                 <h6 class="color-blue mt-4"></h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
-                                    <li class="list-group-item"><strong>Employer Name:</strong> {{proposerFormData.employernm}}</li>
-                                    <li class="list-group-item"><strong>Annual income:</strong> {{proposerFormData.annualincm}}</li>
-                                    <li class="list-group-item"><strong>Nature of occupation:</strong> {{proposerFormData.natureofoccu}}</li>
-                                    <li class="list-group-item"><strong>Address line:</strong> {{proposerFormData.addrline}}</li>
-                                    <li class="list-group-item"><strong>Exist ulip flag:</strong> {{proposerFormData.existulipflag}}</li>
-                                    <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li> </ul>
+
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Nature of occupation:</strong> {{proposerFormData.natureofoccu}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Address line:</strong> {{proposerFormData.addrline}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Exist ulip flag:</strong> {{proposerFormData.existulipflag}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li> </ul>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="p-3">
                                 <h6 class="color-blue">RESIDENCY DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>House no:</strong> {{proposerFormData.houseno}}</li>
-                                    <li class="list-group-item"><strong>Street:</strong> {{proposerFormData.street}}</li>
-                                    <li class="list-group-item"><strong>Landmark:</strong> {{proposerFormData.landmark}}</li>
-                                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.city}}</li>
-                                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
-                                    <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
-                                    <li class="list-group-item"><strong>country:</strong> {{proposerFormData.country}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>House no:</strong> {{proposerFormData.houseno}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Street:</strong> {{proposerFormData.street}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Landmark:</strong> {{proposerFormData.landmark}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>City:</strong> {{proposerFormData.cityName}}</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                     <li class="list-group-item" style=" width: 269px;"><strong>State:</strong> {{proposerFormData.stateName}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>country:</strong> {{proposerFormData.countryName}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -1004,13 +1030,19 @@
                             <div class="p-3">
                                 <h6 class="color-blue"> COMMUNICATION DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>House No:</strong> {{proposerFormData.chouseno}}</li>
-                                    <li class="list-group-item"><strong>Street:</strong> {{proposerFormData.cstreet}}</li>
-                                    <li class="list-group-item"><strong>LandMark:</strong> {{proposerFormData.clandmark}}</li>
-                                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.ccity}}</li>
-                                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.cstate}}</li>
-                                    <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.cpincode}}</li>
-                                    <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.ccountry}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>House No:</strong> {{proposerFormData.chouseno}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Street:</strong> {{proposerFormData.cstreet}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>LandMark:</strong> {{proposerFormData.clandmark}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>City:</strong> {{proposerFormData.ccityName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" style=" width: 269px;"><strong>State:</strong> {{proposerFormData.cstateName}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Pincode:</strong> {{proposerFormData.cpincode}}</li>
+                                    <li class="list-group-item" style=" width: 269px;"><strong>Country:</strong> {{proposerFormData.ccountryName}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -1024,19 +1056,17 @@
 
 
                     <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
-                    <div *ngFor="let item of nomineeFormData; let i = index;">
+                    <div *ngFor="let item of nomineeFormData.itemsNominee; let i = index;">
                         <div class="row box-card">
                             <div class="col-md-6">
                                 <div class="p-3">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item"><strong>Nominee Name:</strong> {{item.ntitle}}</li>
-                                                    <li class="list-group-item"><strong>First Name:</strong> {{item.nfirstnm}}</li>
-                                                <li class="list-group-item"><strong>Last Name:</strong> {{item.nlastnm}}</li>
-                                                <li class="list-group-item"><strong>Gender:</strong> {{item.ngender}}</li>
-                                                <li class="list-group-item"><strong>Marital Status:</strong> {{item.nmaritalstatus}}</li>
-                                               <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>Nominee Name:</strong> {{item.ntitle}}</li>
+                                                    <li class="list-group-item" style=" width: 269px;"><strong>First Name:</strong> {{item.nfirstnm}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>Last Name:</strong> {{item.nlastnm}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>Gender:</strong> {{item.ngender}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1047,15 +1077,39 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item"><strong>House No:</strong> {{item.nhouseno}}</li>
-                                                <li class="list-group-item"><strong>Street:</strong> {{item.nstreet}}</li>
-                                                <li class="list-group-item"><strong>Land Mark:</strong> {{item.nlandmark}}</li>
-                                                <li class="list-group-item"><strong>City:</strong> {{item.ncity}}</li>
-                                                <li class="list-group-item"><strong>State:</strong> {{item.nstate}}</li>
-                                                <li class="list-group-item"><strong>Pincode:</strong> {{item.npincode}}</li>
-                                                <li class="list-group-item"><strong>Country:</strong> {{item.ncountry}}</li>
-                                                <li class="list-group-item"><strong>Relationship:</strong> {{item.nrelationship}}</li>
-                                                <li class="list-group-item"><strong>Mobile Number:</strong> {{item.nmobilenum}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>Marital Status:</strong> {{item.nmaritalstatus}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>House No:</strong> {{item.nhouseno}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>Street:</strong> {{item.nstreet}}</li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="m-0 list-group">
+                                                <li class="list-group-item" style=" width: 269px;"><strong>Land Mark:</strong> {{item.nlandmark}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>City:</strong> {{item.ncityName}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>State:</strong> {{item.nstateName}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>Pincode:</strong> {{item.npincode}}</li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="m-0 list-group">
+                                               <li class="list-group-item" style=" width: 269px;"><strong>Country:</strong> {{item.ncountryName}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>Relationship:</strong> {{item.nrelationship}}</li>
+                                                <li class="list-group-item" style=" width: 269px;"><strong>Mobile Number:</strong> {{item.nmobilenum}}</li>
 
                                             </ul>
                                         </div>
@@ -1068,20 +1122,43 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="item.atitle!=''"><strong>Appointee Name:</strong> {{item.atitle}}</li>
-                                                <li class="list-group-item" *ngIf="item.afirstnm!=''"><strong>Appointee Name:</strong> {{item.afirstnm}}</li>
-                                                <li class="list-group-item" *ngIf="item.alastnm!=''"><strong>Appointee Name:</strong> {{item.alastnm}}</li>
-                                                <li class="list-group-item" *ngIf="item.agender!=''"><strong>Appointee Name:</strong> {{item.agender}}</li>
-                                                <li class="list-group-item" *ngIf="item.amaritalstatus!=''"><strong>Appointee Name:</strong> {{item.amaritalstatus}}</li>
-                                                <li class="list-group-item" *ngIf="item.ahouseno!=''"><strong>Appointee Name:</strong> {{item.ahouseno}}</li>
-                                                <li class="list-group-item" *ngIf="item.astreet!=''"><strong>Appointee Name:</strong> {{item.astreet}}</li>
-                                                <li class="list-group-item" *ngIf="item.alandmark!=''"><strong>Appointee Name:</strong> {{item.alandmark}}</li>
-                                                <li class="list-group-item" *ngIf="item.acity!=''"><strong>Appointee Name:</strong> {{item.acity}}</li>
-                                                <li class="list-group-item" *ngIf="item.astate!=''"><strong>Appointee Name:</strong> {{item.astate}}</li>
-                                                <li class="list-group-item" *ngIf="item.apincode!=''"><strong>Appointee Name:</strong> {{item.apincode}}</li>
-                                                <li class="list-group-item" *ngIf="item.acountry!=''"><strong>Appointee Name:</strong> {{item.acountry}}</li>
-                                                <li class="list-group-item" *ngIf="item.arelationship!=''"><strong>Appointee Name:</strong> {{item.arelationship}}</li>
-                                                 <li class="list-group-item" *ngIf="item.aDob!=''"><strong>Appointee Dob:</strong> {{item.aDob | date: 'dd/MM/yyyy' }}</li>
+                                                <li class="list-group-item" *ngIf="item.atitle!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.atitle}}</li>
+                                                <li class="list-group-item" *ngIf="item.afirstnm!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.afirstnm}}</li>
+                                                <li class="list-group-item" *ngIf="item.alastnm!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.alastnm}}</li>
+                                                <li class="list-group-item" *ngIf="item.agender!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.agender}}</li>
+                                                <li class="list-group-item" *ngIf="item.amaritalstatus!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.amaritalstatus}}</li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" *ngIf=" i==0">
+                                <div class="p-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="m-0 list-group">
+                                                <li class="list-group-item" *ngIf="item.ahouseno!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.ahouseno}}</li>
+                                                <li class="list-group-item" *ngIf="item.astreet!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.astreet}}</li>
+                                                <li class="list-group-item" *ngIf="item.alandmark!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.alandmark}}</li>
+                                                <li class="list-group-item" *ngIf="item.acity!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.acityName}}</li>
+                                                <li class="list-group-item" *ngIf="item.astate!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.astateName}}</li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" *ngIf=" i==0">
+                                <div class="p-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="m-0 list-group">
+                                                <li class="list-group-item" *ngIf="item.apincode!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.apincode}}</li>
+                                                <li class="list-group-item" *ngIf="item.acountry!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.acountryName}}</li>
+                                                <li class="list-group-item" *ngIf="item.arelationship!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.arelationship}}</li>
+                                                <li class="list-group-item" *ngIf="item.aDob!=''" style=" width: 269px;"><strong>Appointee Dob:</strong> {{item.aDob | date: 'dd/MM/yyyy' }}</li>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -1097,24 +1174,33 @@
 
 
 
-                    <div>
+                    <!--<div>-->
                         <!--<p>https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102-->
                         <!--</p>-->
                         <!--<iframe src="https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102">-->
                         <!--</iframe>-->
-                        <pdf-viewer src="{{requestedUrl}}"
-                                    [render-text]="true"
-                                    style="display: block;"
-                        ></pdf-viewer>
-                    </div>
-                    <p class="mt-2 pl-3" *ngIf="proposalGenStatus">
-                        <mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct. <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span></mat-checkbox>
-                    </p>
+                        <!--<pdf-viewer src="{{redirectUrl}}"-->
+                                    <!--[render-text]="true"-->
+                                    <!--style="display: block;"-->
+                        <!--&gt;</pdf-viewer>-->
+                    <!--</div>-->
+                    <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
+
                     <hr>
-                    <div class="col-md-12" *ngIf="proposalGenStatus">
-                        <div class="proposal-buttom mb-3 text-center w-100">
-                            <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                            <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Next</button>
+                    <!--<div class="col-md-12" *ngIf="proposalGenStatus">-->
+                        <!--<div class="proposal-buttom mb-3 text-center w-100">-->
+                            <!--<button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
+                            <!--<button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Next</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="col-md-12">
+                        <div class="proposal-buttom text-center w-100">
+                            <form action={{redirectUrl}}  method='POST' #form>
+                                <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                                <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
+                                <button mat-raised-button color="primaryBlue"  [disabled]="!declaration" (click)="uploadvalid()">Pay Now</button>
+                            </form>
                         </div>
                     </div>
 
