@@ -103,6 +103,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public returnURL: any;
     public paymentmode: any;
     public email: any;
+    public pos_status: any;
     public hdfcMobileTrue0: boolean;
     public hdfcMobileTrue1: boolean;
     public hdfcMobileTrue2: boolean;
@@ -1019,7 +1020,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.AdditionalInfo3 = this.summaryData.AdditionalInfo3;
             this.ProductCd = this.summaryData.ProductCd;
             this.productcode = this.summaryData.productcode;
-            this.returnURL = this.requestDetails.returnURL;
+            this.returnURL = this.summaryData.returnURL;
             sessionStorage.personlData = JSON.stringify(this.personlData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.nomineeFromData = JSON.stringify(this.nomineeFromData);
@@ -1249,6 +1250,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
+            this.pos_status = this.requestDetails.pos_status;
             this.stepperindex = 3;
             this.requestCustomerDetails = this.requestDetails.InsuranceDetails.CustDetails;
             this.requestInsuredDetails = this.requestDetails.InsuranceDetails.Member.InsuredDetails;

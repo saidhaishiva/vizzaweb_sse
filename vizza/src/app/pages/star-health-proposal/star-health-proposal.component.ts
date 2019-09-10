@@ -86,7 +86,7 @@ export class StarHealthProposalComponent implements OnInit {
     public sumTitle: any;
     public sumPin: any;
     public sumAreaName: any;
-    public sumAreaNameComm: any;
+    public pos_status: any;
     public ageCheck: any;
     public getStepper1: any;
     public illnesStatus: any;
@@ -1841,6 +1841,7 @@ export class StarHealthProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             let requestDetails = successData.ResponseObject;
             this.proposalNumber = requestDetails[0].proposalNum;
+            this.pos_status = requestDetails[0].pos_status;
             this.requestDetails = requestDetails[0];
             this.requestInsuredDetails = this.requestDetails.insured_details;
             // console.log(this.requestInsuredDetails, 'hgghjghjgjh');

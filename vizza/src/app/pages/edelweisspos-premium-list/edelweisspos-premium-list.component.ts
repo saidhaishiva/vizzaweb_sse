@@ -238,12 +238,15 @@ export class EdelweissposPremiumListComponent implements OnInit {
       "payment_term": this.premium,
       "product_id": "112",
     };
+    this.settings.loadingSpinner = true;
     this.commonService.changetermlist(data).subscribe(
         (successData) => {
+          this.settings.loadingSpinner = false;
           this.totalpremium = successData.ResponseObject.totalpremium;
           console.log(this.changepremium, 'katrku');
         },
         (error) => {
+          this.settings.loadingSpinner = false;
           console.log(error);
         }
     )
