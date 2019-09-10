@@ -292,12 +292,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             regno = this.datepipe.transform(this.datepipe.transform(this.vehicledata.registration_date), 'yyyy-MM-dd');
             this.RegDateage = this.regdatecalculate(regno);
         }
-        console.log(this.vehicledata.type,'vee');
         if (this.vehicledata.type == 'new') {
-            console.log('into ve');
             this.regvalue = 'New Vehicle';
             this.validationForNew(this.regvalue);
-            console.log(this.regvalue,'picasoo');
         } else {
             this.regvalue = 'Roll Over';
             this.validationForNew(this.regvalue);
@@ -416,7 +413,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public companysucccess(successData) {
         this.companyList = successData.ResponseObject;
         sessionStorage.companylist = JSON.stringify(this.companyList);
-        console.log(sessionStorage.companylist,'vvino');
 
     }
 
@@ -463,7 +459,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     validationForNew(value) {
         console.log(value, 'valuecore');
         if (value == 'New Vehicle') {
-            console.log('vinoyth');
             this.vechicle.controls['Previouscompany'].setValidators(null);
             this.vechicle.controls['Previouscompany'].updateValueAndValidity();
             this.vechicle.controls['regno'].setValidators(null);
@@ -970,7 +965,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.toastr.error('Please Fill Valid Pincode');
             if (type == 'proposer') {
                 this.pinerrorpermanent = 'Please Fill Valid Pincode';
-                console.log('varchar');
                 sessionStorage.personalCitys = '';
                 this.personalCitys = {};
                 sessionStorage.personaldistricts = '';
@@ -991,7 +985,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 this.proposer.controls['citycom'].patchValue('');
                 if (this.proposer.controls['issameascmmunication'].value == true) {
                     this.pinerrorpermanent = 'Please Fill Valid Pincode';
-                    console.log('iiiiiii');
                     sessionStorage.cityarray = '';
                     this.cityarray = {};
                     sessionStorage.districtarray = '';
@@ -1302,21 +1295,22 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     alternatecontact(value, event) {
         console.log(event);
         if (this.proposer.controls['mobile'].value == value) {
-            console.log('ooo');
             this.altererror = 'Enter Alternate Contact';
         } else if (this.proposer.controls['mobile'].value != value) {
             this.altererror = '';
         }
         if (value.search('-') == -1 && value != '') {
             this.altererror = 'Enter Valued Format Of Telephone Number';
-            if(value > 7 ){
+
+        } else if (value.search('-') != -1) {
+            this.altererror = '';
+            console.log(value);
+            if(value.length < 8 ){
                 this.altererror = 'Enter Valued Format Of Telephone Number';
 
             }else{
                 this.altererror='';
             }
-        } else if (value.search('-') != -1) {
-            this.altererror = '';
         }
         if (value.search('-') > 5 && value != '') {
             this.altererror = ' Enter Valid Area Code ';
