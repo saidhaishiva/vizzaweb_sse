@@ -54,7 +54,7 @@ export class EdelweissTermLifePaymentSuccessComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
     }
     this.settings.loadingSpinner = true;
-    this.proposalservice.edelweissDownloadPdf(data).subscribe(
+    this.proposalservice.edelweissDownload(data).subscribe(
         (successData) => {
           this.downloadPdfSuccess(successData, type);
         },

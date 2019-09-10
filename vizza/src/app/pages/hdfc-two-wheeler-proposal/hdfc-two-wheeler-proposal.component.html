@@ -87,6 +87,7 @@
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)"  maxlength="17" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
                             <mat-hint font-size="10px" >Format of the Telephone number is 044-1234567</mat-hint>
+                            <mat-error *ngIf="proposer.controls.alternateContact.hasError('pattern')">Enter valid Telephone Number</mat-error>
 
                         </mat-form-field>
                           <div class="error mt-1"  *ngIf="altererror != ''">{{altererror}}</div>
@@ -754,7 +755,7 @@
                                       <li class="list-group-item"><strong>Vechicle Model:</strong> {{vehicalFormData.vehiclemodel}} </li>
                                       <li class="list-group-item"><strong>Vechicle Manufacture year:</strong> {{vehicalFormData.manufactureyear}} </li>
                                       <li class="list-group-item"><strong>Vechicle Regsitration Date:</strong> {{vehicalFormData.Vehicleregdate | date: 'dd/MM/yyyy'}} </li>
-                                      <li class="list-group-item"><strong>Registered No:</strong> {{vehicalFormData.regno}} </li>
+                                      <li class="list-group-item" *ngIf="vehicalFormData.regno !=''"><strong>Registered No:</strong> {{vehicalFormData.regno}} </li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Agreement Type:</strong> {{vehicalFormData.Agreement}} </li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Financier Name:</strong> {{vehicalFormData.Financetype}} </li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Branch Name:</strong> {{vehicalFormData.fibranchname}} </li>

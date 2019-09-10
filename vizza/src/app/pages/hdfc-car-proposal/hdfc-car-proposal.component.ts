@@ -88,6 +88,7 @@ export class HdfcCarProposalComponent implements OnInit {
     public residenceDistricts: any;
     public pinerror: any;
     public altererror: any;
+    public premiumType: any;
 
   constructor(public fb: FormBuilder,public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe ,public Fourwheeler: FourWheelerService) {
       let stepperindex = 0;
@@ -96,6 +97,7 @@ export class HdfcCarProposalComponent implements OnInit {
               stepperindex = 3;
               if (sessionStorage.summaryDatacarHdfc != '' && sessionStorage.summaryDatacarHdfc != undefined) {
                   this.summaryData = JSON.parse(sessionStorage.summaryDatacarHdfc);
+                  this.premiumType = JSON.parse(sessionStorage.packageListFw);
                   console.log(this.summaryData);
                   this.PaymentRedirect = this.summaryData.PaymentRedirect;
                   this.PaymentReturn = this.summaryData.PaymentReturn;
@@ -270,7 +272,7 @@ export class HdfcCarProposalComponent implements OnInit {
       this.vechicle.controls['Vehicleregdate'].patchValue(this.datepipe.transform(this.vehicledata.registration_date, 'y-MM-dd'));
       this.vechicle.controls['regno'].patchValue(this.vehicledata.vehicle_no);
       this.vechicle.controls['manufactureyear'].patchValue(this.vehicledata.manu_yr);
-      this.vechicle.controls['Previouscompany'].patchValue(this.vehicledata.prev_insurance_name);
+      // this.vechicle.controls['Previouscompany'].patchValue(this.vehicledata.prev_insurance_name);
       this.vechicle.controls['ncb'].patchValue(this.vehicledata.ncb_percent);
       this.vechicle.controls['previousenddate'].patchValue(this.datepipe.transform(this.vehicledata.previous_policy_expiry_date, 'y-MM-dd'));
       if (this.vechicle.controls['Vehicleregdate'].value) {
@@ -442,7 +444,7 @@ export class HdfcCarProposalComponent implements OnInit {
     }
     public companysucccess(successData) {
         this.companyList = successData.ResponseObject;
-        sessionStorage.company = JSON.stringify(this.companyList);
+        sessionStorage.companylist = JSON.stringify(this.companyList);
 
     }
     extensioncountry(){
@@ -577,6 +579,22 @@ export class HdfcCarProposalComponent implements OnInit {
             this.addOns.controls['namedPersonSI'].updateValueAndValidity();
         }
     }
+    validationforEmi(event){
+    if(event.checked==true) {
+        this.addOns.controls['noOfEmi'].setValidators([Validators.required]);
+        this.addOns.controls['noOfEmi'].updateValueAndValidity();
+        this.addOns.controls['EMIamount'].setValidators([Validators.required]);
+        this.addOns.controls['EMIamount'].updateValueAndValidity();
+    }else if(event.checked==false){
+        this.addOns.controls['noOfEmi'].patchValue('');
+        this.addOns.controls['noOfEmi'].setValidators(null);
+        this.addOns.controls['noOfEmi'].updateValueAndValidity();
+        this.addOns.controls['EMIamount'].patchValue('');
+        this.addOns.controls['EMIamount'].setValidators(null);
+        this.addOns.controls['EMIamount'].updateValueAndValidity();
+
+    }
+}
 ChangeGender(){
     if (this.proposer.controls['title'].value == 'Mr') {
         this.proposer.controls['gender'].patchValue('MALE');
@@ -838,8 +856,8 @@ ChangeGender(){
         if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
             this.districtarray = JSON.parse(sessionStorage.districtlist);
         }
-        if (sessionStorage.company != '' && sessionStorage.company != undefined) {
-            this.companyList = JSON.parse(sessionStorage.company);
+        if (sessionStorage.companylist != '' && sessionStorage.companylist != undefined) {
+            this.companyList = JSON.parse(sessionStorage.companylist);
         }
 
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -993,6 +1011,7 @@ console.log(this.vehicleidv.Idv);
             "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
             "enquiry_id": this.carEquiryId,
             "created_by": "",
+            "policy_type":this.premiumType=='ThridParty_premium'?'ThridParty_Premium':'Comprehensive_Premium',
             "proposal_id":sessionStorage.hdfccarproposalID == '' || sessionStorage.hdfccarproposalID == undefined ? '' : sessionStorage.hdfccarproposalID,
             "motorproposalObj": {
             "Customer_Details": {
