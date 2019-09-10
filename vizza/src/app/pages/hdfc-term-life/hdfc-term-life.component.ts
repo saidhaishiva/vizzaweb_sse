@@ -210,8 +210,11 @@ export class HdfcTermLifeComponent implements OnInit {
       landmark: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      pincode: ['', Validators.required],
       country: ['', Validators.required],
+      pincode: ['', Validators.required],
+      cityName: ['', Validators.required],
+      stateName: ['', Validators.required],
+      countryName: ['', Validators.required],
       isAddressSame: '',
       chouseno: ['', Validators.required],
       cstreet: ['', Validators.required],
@@ -221,7 +224,7 @@ export class HdfcTermLifeComponent implements OnInit {
       cpincode: ['', Validators.required],
       ccountry: ['', Validators.required],
       // countrycode: ['', Validators.required],
-      mobilenum: ['', Validators.required],
+      mobilenum: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       expdurofstay: ['', Validators.required],
       prfdcommaddr: ['', Validators.required],
       prfdcommmode: ['', Validators.required],
@@ -234,22 +237,22 @@ export class HdfcTermLifeComponent implements OnInit {
       existulipflag: 'N',
       sourcetype: ['', Validators.required],
       fundpcntg: ['', Validators.required],
-      fathernmtitle: ['', Validators.required],
-      fatherfirstnm: ['', Validators.required],
-      fathermiddlenm: ['', Validators.required],
-      fatherlastnm: ['', Validators.required],
-      mothernmtitle: ['', Validators.required],
-      motherfirstnm: ['', Validators.required],
-      mothermiddlenm: ['', Validators.required],
-      motherlastnm: ['', Validators.required],
-      mmaritalstatus: ['', Validators.required],
-      spousenmtitle: ['', Validators.required],
-      spousefirstnm: ['', Validators.required],
-      spousemiddlenm: ['', Validators.required],
-      spouselastnm: ['', Validators.required],
-      occutypesp: ['', Validators.required],
-      catofoccupation: ['', Validators.required],
-      countryofbirth: ['', Validators.required],
+      // fathernmtitle: ['', Validators.required],
+      // fatherfirstnm: ['', Validators.required],
+      // fathermiddlenm: ['', Validators.required],
+      // fatherlastnm: ['', Validators.required],
+      // mothernmtitle: ['', Validators.required],
+      // motherfirstnm: ['', Validators.required],
+      // mothermiddlenm: ['', Validators.required],
+      // motherlastnm: ['', Validators.required],
+      // mmaritalstatus: ['', Validators.required],
+      // spousenmtitle: ['', Validators.required],
+      // spousefirstnm: ['', Validators.required],
+      // spousemiddlenm: ['', Validators.required],
+      // spouselastnm: ['', Validators.required],
+      // occutypesp: ['', Validators.required],
+      // catofoccupation: ['', Validators.required],
+      // countryofbirth: ['', Validators.required],
 
     });
 
@@ -356,6 +359,10 @@ export class HdfcTermLifeComponent implements OnInit {
           nstate: ['', Validators.required],
           npincode: ['', Validators.required],
           ncountry: ['', Validators.required],
+          ncityName: ['', Validators.required],
+          nstateName: ['', Validators.required],
+          // npincode: ['', Validators.required],
+          ncountryName: ['', Validators.required],
           nDob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
           dateErrorNominee: '',
           atitle:'',
@@ -370,12 +377,15 @@ export class HdfcTermLifeComponent implements OnInit {
           acity: '',
           astate: '',
           acountry: '',
+          acityName: '',
+          astateName: '',
+          acountryName: '',
           arelationship:'',
           apincode: '',
           nomineeAgeVal: '',
           appointeeDobValidError:'',
           nomineeDobValidError:'',
-            showAppointee: false,
+          showAppointee: false,
 
 
         }
@@ -532,6 +542,9 @@ export class HdfcTermLifeComponent implements OnInit {
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.value);
+           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.value);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.value);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.value);
 
@@ -548,6 +561,9 @@ export class HdfcTermLifeComponent implements OnInit {
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.setValidators([Validators.required]);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.setValidators([Validators.required]);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.setValidators([Validators.required]);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.setValidators([Validators.required]);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators([Validators.required]);
         } else {
@@ -563,6 +579,9 @@ export class HdfcTermLifeComponent implements OnInit {
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.setValidators(null);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.setValidators(null);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.setValidators(null);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.setValidators(null);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.setValidators(null);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.setValidators(null);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.setValidators(null);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators(null);
 
@@ -579,6 +598,9 @@ export class HdfcTermLifeComponent implements OnInit {
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.patchValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.patchValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.patchValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue('');
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue('');
         }
@@ -594,6 +616,9 @@ export class HdfcTermLifeComponent implements OnInit {
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.updateValueAndValidity();
+         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.updateValueAndValidity();
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.updateValueAndValidity();
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.updateValueAndValidity();
 
@@ -659,6 +684,9 @@ export class HdfcTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.patchValue(this.nomineeDetail['controls'].acity.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.patchValue(this.nomineeDetail['controls'].astate.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.patchValue(this.nomineeDetail['controls'].acountry.value);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.value);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.value);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue(this.nomineeDetail['controls'].arelationship.value);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue(this.nomineeDetail['controls'].apincode.value);
 
@@ -675,6 +703,10 @@ export class HdfcTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.setValidators([Validators.required]);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.setValidators([Validators.required]);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.setValidators([Validators.required]);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.setValidators([Validators.required]);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.setValidators([Validators.required]);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.setValidators([Validators.required]);
+
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.setValidators([Validators.required]);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators([Validators.required]);
     } else {
@@ -691,6 +723,10 @@ export class HdfcTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.setValidators(null);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.setValidators(null);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.setValidators(null);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.setValidators(null);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.setValidators(null);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.setValidators(null);
+
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.setValidators(null);
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators(null);
 
@@ -707,6 +743,9 @@ export class HdfcTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.patchValue('');
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.patchValue('');
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.patchValue('');
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue('');
       this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue('');
     }
@@ -722,6 +761,10 @@ export class HdfcTermLifeComponent implements OnInit {
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.updateValueAndValidity();
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.updateValueAndValidity();
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.updateValueAndValidity();
+    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.updateValueAndValidity();
+    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.updateValueAndValidity();
+    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.updateValueAndValidity();
+
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.updateValueAndValidity();
     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.updateValueAndValidity();
 
@@ -740,10 +783,10 @@ export class HdfcTermLifeComponent implements OnInit {
       this.personal.controls['chouseno'].patchValue(this.personal.controls['houseno'].value);
       this.personal.controls['cstreet'].patchValue(this.personal.controls['street'].value);
       this.personal.controls['clandmark'].patchValue(this.personal.controls['landmark'].value);
-      this.personal.controls['ccity'].patchValue(this.personal.controls['city'].value);
-      this.personal.controls['cstate'].patchValue(this.personal.controls['state'].value);
+      this.personal.controls['ccity'].patchValue(this.personal.controls['cityName'].value);
+      this.personal.controls['cstate'].patchValue(this.personal.controls['stateName'].value);
       this.personal.controls['cpincode'].patchValue(this.personal.controls['pincode'].value);
-      this.personal.controls['ccountry'].patchValue(this.personal.controls['country'].value);
+      this.personal.controls['ccountry'].patchValue(this.personal.controls['countryName'].value);
       // this.cityList = JSON.parse(sessionStorage.citycList);
       // sessionStorage.cityList = JSON.stringify(this.cityList);
 
@@ -771,10 +814,10 @@ export class HdfcTermLifeComponent implements OnInit {
       this.personal.controls['chouseno'].setValue(this.personal.controls['houseno'].value);
       this.personal.controls['cstreet'].setValue(this.personal.controls['street'].value);
       this.personal.controls['clandmark'].setValue(this.personal.controls['landmark'].value);
-      this.personal.controls['ccity'].setValue(this.personal.controls['city'].value);
-      this.personal.controls['cstate'].setValue(this.personal.controls['state'].value);
+      this.personal.controls['ccity'].setValue(this.personal.controls['cityName'].value);
+      this.personal.controls['cstate'].setValue(this.personal.controls['stateName'].value);
       this.personal.controls['cpincode'].setValue(this.personal.controls['pincode'].value);
-      this.personal.controls['ccountry'].setValue(this.personal.controls['country'].value);
+      this.personal.controls['ccountry'].setValue(this.personal.controls['countryName'].value);
       // this.cityList = JSON.parse(sessionStorage.citycList);
 
     }
@@ -910,7 +953,7 @@ export class HdfcTermLifeComponent implements OnInit {
           this.addressHdfcListSuccess(successData);
         },
         (error) => {
-          this.addressHdfcListFailure(error);
+         this.addressHdfcListFailure(error);
         }
     );
   }
@@ -922,6 +965,54 @@ export class HdfcTermLifeComponent implements OnInit {
   }
   public addressHdfcListFailure(error) {
   }
+
+  getPostalCode(pin, title) {
+    const data = {
+      'platform': 'web',
+      'pin_code': pin
+    };
+    console.log(data,'jhgjh');
+    if (pin.length == 6) {
+      this.TermLifeService.getpincode(data).subscribe(
+          (successData) => {
+            this.pinProposerListSuccess(successData, pin);
+          },
+          (error) => {
+            this.pinProposerListFailure(error);
+          }
+      );
+    }
+  }
+
+  public pinProposerListSuccess(successData, pin) {
+    if (successData.IsSuccess) {
+      this.response = successData.ResponseObject;
+      console.log(pin,'jhgfdghj');
+      if(pin.length == '' || pin.length == 0 || pin.length != 6){
+        this.personal.controls['state'].patchValue('');
+        this.personal.controls['city'].patchValue('');
+      }
+      for(let key in this.response.state) {
+        this.personal.controls['state'].patchValue(key);
+        this.personal.controls['stateName'].patchValue(this.response['state'][key]);
+      }
+      for(let key in this.response.city) {
+        this.personal.controls['city'].patchValue(key);
+        this.personal.controls['cityName'].patchValue(this.response['city'][key]);
+      }
+
+    } else{
+      this.toastr.error(successData.ErrorObject);
+      this.personal.controls['state'].patchValue('');
+      this.personal.controls['city'].patchValue('');
+
+    }
+  }
+
+
+  public pinProposerListFailure(error) {
+  }
+
   getPostal(pin, title) {
     const data = {
       'platform': 'web',
@@ -946,13 +1037,69 @@ export class HdfcTermLifeComponent implements OnInit {
       if (title == 'personal') {
          // this.cityListHdfcList = this.response.city;
          //  console.log(this.cityListHdfcList,'this.CholaCityList')
-        this.personal.controls['country'].setValue(this.response.CNTRY_IND);
-        console.log(this.personal.controls['country'].value,'this.country');
-        this.personal.controls['state'].setValue(this.response.TN);
-          console.log(this.personal.controls['state'].value,'this.state')
-          this.personal.controls['city'].setValue(this.response.CTY_CHEN20);
-          console.log(this.personal.controls['city'].value,'this.city');
+        // this.personal.controls['country'].setValue(this.response.CNTRY_IND);
+        // console.log(this.personal.controls['country'].value,'this.country');
+        // this.personal.controls['state'].setValue(this.response.TN);
+        //   console.log(this.personal.controls['state'].value,'this.state')
+        //   this.personal.controls['city'].setValue(this.response.CTY_CHEN20);
+        //   console.log(this.personal.controls['city'].value,'this.city');
+        // this.personal.controls['cityId'].setValue(this.response.CTY_CHEN20);
 
+        for(let key in this.response.state) {
+          this.personal.controls['state'].patchValue(key);
+          this.personal.controls['stateName'].patchValue(this.response['state'][key]);
+        }
+        for(let key in this.response.city) {
+          this.personal.controls['city'].patchValue(key);
+          this.personal.controls['cityName'].patchValue(this.response['city'][key]);
+        }
+        for(let key in this.response.country) {
+          this.personal.controls['country'].patchValue(key);
+          this.personal.controls['countryName'].patchValue(this.response['country'][key]);
+        }
+
+      }
+      else if(title == 'nominee')
+      {
+        for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
+          // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountry.patchValue(this.response.CNTRY_IND);
+          // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(this.response.TN);
+          // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncity.patchValue(this.response.CTY_CHEN20);
+
+          for (let key in this.response.country) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountry.patchValue(key);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountryName.patchValue(this.response['country'][key]);
+          }
+          for (let key in this.response.city) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncity.patchValue(key);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncityName.patchValue(this.response['city'][key]);
+          }
+          for (let key in this.response.state) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(key);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstateName.patchValue(this.response['state'][key]);
+          }
+
+        }
+      }
+      else if(title == 'appointee')
+      {
+        for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
+          // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.patchValue(this.response.CNTRY_IND);
+          // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astate.patchValue(this.response.TN);
+          // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acity.patchValue(this.response.CTY_CHEN20);
+          for (let key in this.response.country) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.patchValue(key);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountryName.patchValue(this.response['country'][key]);
+          }
+          for (let key in this.response.state) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astate.patchValue(key);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astateName.patchValue(this.response['state'][key]);
+          }
+          for (let key in this.response.city) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acity.patchValue(key);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acityName.patchValue(this.response['city'][key]);
+          }
+        }
       }
       sessionStorage.cityListHdfcList = JSON.stringify(this.cityListHdfcList);
 
@@ -961,9 +1108,27 @@ export class HdfcTermLifeComponent implements OnInit {
       if (title == 'personal') {
         sessionStorage.cityListHdfcList = '';
         this.cityListHdfcList = {};
-        this.personal.controls['city'].setValue('');
-        this.personal.controls['state'].setValue('');
-        this.personal.controls['country'].setValue('');
+        this.personal.controls['cityName'].setValue('');
+        this.personal.controls['stateName'].setValue('');
+        this.personal.controls['countryName'].setValue('');
+
+      }
+      else if(title== 'nominee') {
+        sessionStorage.cityListHdfcList ='';
+        for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountryName.setValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstateName.setValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncityName.setValue('');
+        }
+
+      }
+      else if(title== 'nominee') {
+        sessionStorage.cityListHdfcList ='';
+        for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountryName.setValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astateName.setValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acityName.setValue('');
+        }
 
       }
     }
@@ -2534,6 +2699,9 @@ getweightListHdfc() {
         landmark: this.getStepper1.landmark,
         city: this.getStepper1.city,
         state: this.getStepper1.state,
+        stateName: this.getStepper1.stateName,
+        cityName: this.getStepper1.cityName,
+        countryName: this.getStepper1.countryName,
         pincode: this.getStepper1.pincode,
         country: this.getStepper1.country,
         chouseno: this.getStepper1.chouseno,
@@ -2560,22 +2728,22 @@ getweightListHdfc() {
         existulipflag: this.getStepper1.existulipflag,
         sourcetype: this.getStepper1.sourcetype,
         fundpcntg: this.getStepper1.fundpcntg,
-        fathernmtitle: this.getStepper1.fathernmtitle,
-        fatherfirstnm: this.getStepper1.fatherfirstnm,
-        fathermiddlenm: this.getStepper1.fathermiddlenm,
-        fatherlastnm: this.getStepper1.fatherlastnm,
-        mothernmtitle: this.getStepper1.mothernmtitle,
-        motherfirstnm: this.getStepper1.motherfirstnm,
-        mothermiddlenm: this.getStepper1.mothermiddlenm,
-        motherlastnm: this.getStepper1.motherlastnm,
-        mmaritalstatus: this.getStepper1.mmaritalstatus,
-        spousenmtitle: this.getStepper1.spousenmtitle,
-        spousefirstnm: this.getStepper1.spousefirstnm,
-        spousemiddlenm: this.getStepper1.spousemiddlenm,
-        spouselastnm: this.getStepper1.spouselastnm,
-        occutypesp: this.getStepper1.occutypesp,
-        catofoccupation: this.getStepper1.catofoccupation,
-        countryofbirth: this.getStepper1.countryofbirth,
+        // fathernmtitle: this.getStepper1.fathernmtitle,
+        // fatherfirstnm: this.getStepper1.fatherfirstnm,
+        // fathermiddlenm: this.getStepper1.fathermiddlenm,
+        // fatherlastnm: this.getStepper1.fatherlastnm,
+        // mothernmtitle: this.getStepper1.mothernmtitle,
+        // motherfirstnm: this.getStepper1.motherfirstnm,
+        // mothermiddlenm: this.getStepper1.mothermiddlenm,
+        // motherlastnm: this.getStepper1.motherlastnm,
+        // mmaritalstatus: this.getStepper1.mmaritalstatus,
+        // spousenmtitle: this.getStepper1.spousenmtitle,
+        // spousefirstnm: this.getStepper1.spousefirstnm,
+        // spousemiddlenm: this.getStepper1.spousemiddlenm,
+        // spouselastnm: this.getStepper1.spouselastnm,
+        // occutypesp: this.getStepper1.occutypesp,
+        // catofoccupation: this.getStepper1.catofoccupation,
+        // countryofbirth: this.getStepper1.countryofbirth,
         isAddressSame: this.getStepper1.isAddressSame,
         birthplace: this.getStepper1.birthplace,
 
@@ -2629,7 +2797,10 @@ getweightListHdfc() {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nlandmark.patchValue(getStepper3.itemsNominee[i].nlandmark);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncity.patchValue(getStepper3.itemsNominee[i].ncity);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(getStepper3.itemsNominee[i].nstate);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(getStepper3.itemsNominee[i].ncountry);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountry.patchValue(getStepper3.itemsNominee[i].ncountryNmae);
+       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncityName.patchValue(getStepper3.itemsNominee[i].ncityName);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstateName.patchValue(getStepper3.itemsNominee[i].nstateName);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountryName.patchValue(getStepper3.itemsNominee[i].ncountry);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].npincode.patchValue(getStepper3.itemsNominee[i].npincode);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue(getStepper3.atitle);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue(getStepper3.afirstnm);
@@ -2643,6 +2814,9 @@ getweightListHdfc() {
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.patchValue(getStepper3.acity);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.patchValue(getStepper3.astate);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.patchValue(getStepper3.acountry);
+         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.patchValue(getStepper3.acity);
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.patchValue(getStepper3.astate);
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.patchValue(getStepper3.acountry);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue(getStepper3.arelationship);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue(getStepper3.astreet);
         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue(getStepper3.apincode);
@@ -2877,29 +3051,29 @@ getweightListHdfc() {
         "partysameas": "LA_0"
       }
     },
-      "ckyc": {
-      "ckycno": "",
-          "fathernmtitle": this.personal.controls['fathernmtitle'].value,
-          "fatherfirstnm": this.personal.controls['fatherfirstnm'].value,
-          "fathermiddlenm":this.personal.controls['fathermiddlenm'].value,
-          "fatherlastnm": this.personal.controls['fatherlastnm'].value,
-          "mothernmtitle": this.personal.controls['mothernmtitle'].value,
-          "motherfirstnm": this.personal.controls['motherfirstnm'].value,
-          "mothermiddlenm": this.personal.controls['mothermiddlenm'].value,
-          "motherlastnm": this.personal.controls['motherlastnm'].value,
-          "maritalstatus": this.personal.controls['mmaritalstatus'].value,
-          "cersaipostedflag": [
-        "",
-        "N"
-      ],
-          "spousenmtitle":this.personal.controls['spousenmtitle'].value,
-          "spousefirstnm": this.personal.controls['spousefirstnm'].value,
-          "spousemiddlenm": this.personal.controls['spousemiddlenm'].value,
-          "spouselastnm": this.personal.controls['spouselastnm'].value,
-          "occutype": this.personal.controls['occutypesp'].value,
-          "catofoccupation": this.personal.controls['catofoccupation'].value,
-          "countryofbirth": this.personal.controls['countryofbirth'].value
-    }
+    //   "ckyc": {
+    //   "ckycno": "",
+    //       "fathernmtitle": this.personal.controls['fathernmtitle'].value,
+    //       "fatherfirstnm": this.personal.controls['fatherfirstnm'].value,
+    //       "fathermiddlenm":this.personal.controls['fathermiddlenm'].value,
+    //       "fatherlastnm": this.personal.controls['fatherlastnm'].value,
+    //       "mothernmtitle": this.personal.controls['mothernmtitle'].value,
+    //       "motherfirstnm": this.personal.controls['motherfirstnm'].value,
+    //       "mothermiddlenm": this.personal.controls['mothermiddlenm'].value,
+    //       "motherlastnm": this.personal.controls['motherlastnm'].value,
+    //       "maritalstatus": this.personal.controls['mmaritalstatus'].value,
+    //       "cersaipostedflag": [
+    //     "",
+    //     "N"
+    //   ],
+    //       "spousenmtitle":this.personal.controls['spousenmtitle'].value,
+    //       "spousefirstnm": this.personal.controls['spousefirstnm'].value,
+    //       "spousemiddlenm": this.personal.controls['spousemiddlenm'].value,
+    //       "spouselastnm": this.personal.controls['spouselastnm'].value,
+    //       "occutype": this.personal.controls['occutypesp'].value,
+    //       "catofoccupation": this.personal.controls['catofoccupation'].value,
+    //       "countryofbirth": this.personal.controls['countryofbirth'].value
+    // }
     };
 
   this.settings.loadingSpinner = true;
