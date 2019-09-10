@@ -185,6 +185,7 @@ export class HealthInsuranceComponent implements OnInit {
     }
     public metaDetailSuccess(successData) {
         this.metaHealth = successData.ResponseObject[0];
+        console.log(this.metaHealth,'metaHealth');
     }
     public metaDetailFailure(error) {
         console.log(error);
@@ -1200,13 +1201,13 @@ export class HealthInsuranceComponent implements OnInit {
                 if (result) {
                     sessionStorage.buyProductdetails = JSON.stringify(value);
                     if (value.product_id <= 5) {
-                        this.router.navigate(['/religare-health-proposal' + '/' + false]);
+                        this.router.navigate(['/religare-proposal' + '/' + false]);
                     } else if (value.product_id == 11) {
                         if (this.checkAge <= 45) {
                             if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
-                                this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
+                                this.router.navigate(['/reliance-heath'  + '/' + false]);
                             } else if (this.checkAge < 18) {
-                                this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
+                                this.router.navigate(['/reliance-heath'  + '/' + false]);
 
                             } else {
                                 let dialogRef = this.dialog.open(RelainceAgeMin, {
@@ -1224,18 +1225,18 @@ export class HealthInsuranceComponent implements OnInit {
                         }
 
                     } else if (value.product_id == 12 || value.product_id == 13) {
-                        this.router.navigate(['/appollo-munich-health'  + '/' + false]);
+                        this.router.navigate(['/appollo-health'  + '/' + false]);
 
                     } else if (value.product_id >= 17 && value.product_id <= 20) {
-                        this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                        this.router.navigate(['/hdfc-proposal'  + '/' + false]);
                     } else if (value.product_id == 51 || value.product_id == 21) {
-                        this.router.navigate(['/bajaj'  + '/' + false]);
+                        this.router.navigate(['/bajaj-health'  + '/' + false]);
                     } else if (value.product_id == 77) {
-                        this.router.navigate(['/iffco'  + '/' + false]);
+                        this.router.navigate(['/iffcoProposal'  + '/' + false]);
                     } else if (value.product_id == 90 || value.product_id == 91) {
                         this.router.navigate(['/chola-health-proposal'  + '/' + false]);
                     } else {
-                        this.router.navigate(['/proposal'  + '/' + false]);
+                        this.router.navigate(['/star-proposal'  + '/' + false]);
                     }
 
                 } else {
@@ -1257,12 +1258,12 @@ export class HealthInsuranceComponent implements OnInit {
                     dialogRef.disableClose = true;
                     dialogRef.afterClosed().subscribe(result => {
                         if(result == true){
-                            this.router.navigate(['/religare-health-proposal'  + '/' + false]);
+                            this.router.navigate(['/religare-proposal'  + '/' + false]);
                         } else {
                         }
                     });
                 } else {
-                    this.router.navigate(['/religare-health-proposal'  + '/' + false]);
+                    this.router.navigate(['/religare-proposal'  + '/' + false]);
 
                 }
 
@@ -1270,9 +1271,9 @@ export class HealthInsuranceComponent implements OnInit {
 
                 if (this.checkAge <= 45) {
                     if ((this.checkAge <= 45 && this.checkAge >=18 ) && value.suminsured_amount < 1200000) {
-                        this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
+                        this.router.navigate(['/reliance-heath'  + '/' + false]);
                     } else if (this.checkAge < 18) {
-                        this.router.navigate(['/reliance-heath-proposal'  + '/' + false]);
+                        this.router.navigate(['/reliance-heath'  + '/' + false]);
                     } else {
                         let dialogRef = this.dialog.open(RelainceAgeMin, {
                             width: '1600px',
@@ -1292,7 +1293,7 @@ export class HealthInsuranceComponent implements OnInit {
 
 
             } else if (value.product_id == 12 || value.product_id == 13) {
-                this.router.navigate(['/appollo-munich-health'  + '/' + false]);
+                this.router.navigate(['/appollo-health'  + '/' + false]);
 
             } else if (value.product_id >= 17 && value.product_id <= 20) {
                 let ageValid = true;
@@ -1320,20 +1321,20 @@ export class HealthInsuranceComponent implements OnInit {
                     //         // }
                     // });
                 } else {
-                    this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                    this.router.navigate(['/hdfc-proposal'  + '/' + false]);
 
                 }
 
 
             } else if (value.product_id == 51 || value.product_id == 21) {
-                this.router.navigate(['/bajaj' + '/' + false]);
+                this.router.navigate(['/bajaj-health' + '/' + false]);
 
             } else if (value.product_id == 77) {
-                this.router.navigate(['/iffco'  + '/' + false]);
+                this.router.navigate(['/iffcoProposal'  + '/' + false]);
             } else if (value.product_id == 90 || value.product_id == 91) {
                 this.router.navigate(['/chola-health-proposal'  + '/' + false]);
             } else {
-                this.router.navigate(['/proposal'  + '/' + false]);
+                this.router.navigate(['/star-proposal'  + '/' + false]);
             }
         }
     }

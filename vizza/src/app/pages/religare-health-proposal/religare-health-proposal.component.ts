@@ -15,7 +15,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 
 export const MY_FORMATS = {
@@ -80,7 +80,8 @@ export class ReligareHealthProposalComponent implements OnInit {
     public sumPin: any;
     public code: any;
     public sumAreaName: any;
-    public sumAreaNameComm: any;
+    public pos_status: any;
+    public requestInsuredDetails: any;
     public setDateAge: any;
     public personalAge: any;
     public occupationCode: any;
@@ -121,27 +122,34 @@ export class ReligareHealthProposalComponent implements OnInit {
     public objectKeys : any;
     public setAddonDefault : any;
     public sameRelationship : any;
-    religareListQuestions: any;
+    stepperindex: any;
     dobError: any;
     array: any;
     currentStep: any;
     proposerFormData: any;
     insuredFormData: any;
     nomineeFormData: any;
-    personalmedicalAge: any;
+    action: any;
+    proposalNum: any;
+    returnURL: any;
     genderStatus: any;
+    status: any;
+    proposal_Id: any;
+    createdDate: any;
+    requestDetails: any;
     public religareMobileTrue0: boolean;
     public religareMobileTrue1: boolean;
     public religareMobileTrue2: boolean;
     public religareMobileTrue3: boolean;
     public religareMobileTrue4: boolean;
+    public payLaterr: boolean;
 
-    constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public validation: ValidationService ,public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
-        let stepperindex = 0;
+        this.stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
-                stepperindex = 4;
+                this.stepperindex = 4;
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
@@ -152,8 +160,21 @@ export class ReligareHealthProposalComponent implements OnInit {
 
                 }
             }
+                this.status = params.stepper;
+                this.proposal_Id = params.proposalId;
+                if(this.proposal_Id != '' || this.proposal_Id != undefined ){
+                    this.payLaterr = true;
+                    console.log(this.proposal_Id, 'this.proposalId');
+                    console.log(this.status, 'this.proposalId');
+                    this.getBackRequest();
+                }
+                if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                    this.payLaterr = false;
+
+
+            }
         });
-        this.currentStep = stepperindex;
+        this.currentStep = this.stepperindex;
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;
@@ -268,109 +289,113 @@ export class ReligareHealthProposalComponent implements OnInit {
         );
     }
     ngOnInit() {
-        this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-        this.insurePersons = this.getFamilyDetails.family_members;
-        if(this.insurePersons.length < 2 && (this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5)) {
-            this.genderStatus = true;
+        if (this.payLaterr == true) {
+            console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
-            this.genderStatus = false;
-        }
-
-        if(this.buyProductdetails.product_id == 1) {
-            this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
-            this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
-        }
-        if(this.buyProductdetails.product_id != 1) {
-            this.nomineeDetails.get('religareNomineeName').setValidators(null);
-            this.nomineeDetails.get('religareRelationship').setValidators(null);
-        }
-        this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
-        this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
-
-        // this.setOccupationListCode();
-        this.religareQuestions();
-        // this.setOccupationList();
-        this.setRelationship();
-        if(this.buyProductdetails.product_id == 1) {
-            this.getAddon();
-            if(this.buyProductdetails.suminsured_amount == 300000.00){
-                this.setAddonDefault = false;
+            this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+            this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+            this.insurePersons = this.getFamilyDetails.family_members;
+            if (this.insurePersons.length < 2 && (this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5)) {
+                this.genderStatus = true;
+            } else {
+                this.genderStatus = false;
             }
-        }
-        this.insureArray = this.fb.group({
-            items: this.fb.array([])
-        });
-        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-            this.items = this.insureArray.get('items') as FormArray;
-            this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
-        }
 
-        if(this.buyProductdetails.product_name == '4' || this.buyProductdetails.product_name == '5 ') {
-            if (this.getFamilyDetails.family_members.length < 2) {
-                if (this.personal['controls'].personalTitle.value == 'MR') {
-                    this.insureSingle = false;
+            if (this.buyProductdetails.product_id == 1) {
+                this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
+                this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
+            }
+            if (this.buyProductdetails.product_id != 1) {
+                this.nomineeDetails.get('religareNomineeName').setValidators(null);
+                this.nomineeDetails.get('religareRelationship').setValidators(null);
+            }
+            this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
+            this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
 
-                } else if(this.personal['controls'].personalTitle.value == 'MS'){
-                    this.insureSingle = true;
+            // this.setOccupationListCode();
+            this.religareQuestions();
+            // this.setOccupationList();
+            this.setRelationship();
+            if (this.buyProductdetails.product_id == 1) {
+                this.getAddon();
+                if (this.buyProductdetails.suminsured_amount == 300000.00) {
+                    this.setAddonDefault = false;
                 }
             }
+            this.insureArray = this.fb.group({
+                items: this.fb.array([])
+            });
+            for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+                this.items = this.insureArray.get('items') as FormArray;
+                this.items.push(this.initItemRows());
+                this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
+            }
+
+            if (this.buyProductdetails.product_name == '4' || this.buyProductdetails.product_name == '5 ') {
+                if (this.getFamilyDetails.family_members.length < 2) {
+                    if (this.personal['controls'].personalTitle.value == 'MR') {
+                        this.insureSingle = false;
+
+                    } else if (this.personal['controls'].personalTitle.value == 'MS') {
+                        this.insureSingle = true;
+                    }
+                }
+            }
+
+            this.previousinsurance = [
+                'IFFCO TOKIO GeneralInsurance Co. Ltd.',
+                'Liberty GeneralInsurance Co. Ltd.',
+                'Shriram GeneralInsurance Co. Ltd.',
+                'Reliance GeneralInsurance Co. Ltd',
+                'DHFL GeneralInsurance Co. Ltd.',
+                'Bajaj Allianz Allianz GeneralInsurance Co. Ltd.',
+                'Edelweiss GeneralInsurance Co.Ltd.',
+                'Kotak Mahindra GeneralInsurance Co. Ltd.',
+                'Go Digit GeneralInsurance Co. Ltd.',
+                'Royal Sundaram GeneralInsurance Co. Ltd.',
+                'Exports Credit Guarantee of India Co. Ltd',
+                'The New India Assurance Co. Ltd.',
+                'Tata AIG GeneralInsurance Company Limited',
+                'National Insurance Co. Ltd.',
+                'Universal Sompo GeneralInsurance Co. Ltd.',
+                'Agriculture Insurance Company of India Ltd.',
+                'Acko GeneralInsurance Co. Ltd.',
+                'SBI GeneralInsurance Co. Ltd.',
+                'Bharti AXA GeneralInsurance Co. Ltd.',
+                'ICICI LOMBARD GeneralInsurance Co. Ltd.',
+                'Magma HDI GeneralInsurance Co. Ltd.',
+                'HDFC ERGO GeneralInsurance Co.Ltd.',
+                'United India Insurance Co. Ltd.',
+                'The Oriental Insurance Co. Ltd.',
+                'Future Generali India Insurance Co. Ltd.',
+                'Cholamandalam MS GeneralInsurance Co. Ltd.',
+                'Raheja QBE GeneralInsurance Co. Ltd.',
+                'Star Health & Allied Insurance Co.Ltd.',
+                'Apollo Munich Health Insurance Co. Ltd',
+                'Religare Health Insurance Co. Ltd',
+                'Max Bupa Health Insurance Co. Ltd',
+                'CIGNA TTK Health Insurance Co. Ltd.',
+                'Aditya Birla Health Insurance Co. Ltd.'
+            ];
+
+            this.sessionData();
+            this.setDate = Date.now();
+            this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
+            if (this.buyProductdetails.premium_amount >= 50000 || this.getFamilyDetails.family_members.type == 'Self') {
+                this.personal.get('personalPan').setValidators([Validators.compose([Validators.required, Validators.minLength(10)])]);
+            } else {
+                this.personal.get('personalPan').setValidators(null);
+            }
+            this.personal.get('personalPan').updateValueAndValidity();
+
+
+            // if(this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5){
+            //     if (this.getFamilyDetails.family_members.length < 2) {
+            //         this.changeGender();
+            //     }
+            // }
+
         }
-
-        this.previousinsurance = [
-            'IFFCO TOKIO GeneralInsurance Co. Ltd.',
-            'Liberty GeneralInsurance Co. Ltd.',
-            'Shriram GeneralInsurance Co. Ltd.',
-            'Reliance GeneralInsurance Co. Ltd',
-            'DHFL GeneralInsurance Co. Ltd.',
-            'Bajaj Allianz Allianz GeneralInsurance Co. Ltd.',
-            'Edelweiss GeneralInsurance Co.Ltd.',
-            'Kotak Mahindra GeneralInsurance Co. Ltd.',
-            'Go Digit GeneralInsurance Co. Ltd.',
-            'Royal Sundaram GeneralInsurance Co. Ltd.',
-            'Exports Credit Guarantee of India Co. Ltd',
-            'The New India Assurance Co. Ltd.',
-            'Tata AIG GeneralInsurance Company Limited',
-            'National Insurance Co. Ltd.',
-            'Universal Sompo GeneralInsurance Co. Ltd.',
-            'Agriculture Insurance Company of India Ltd.',
-            'Acko GeneralInsurance Co. Ltd.',
-            'SBI GeneralInsurance Co. Ltd.',
-            'Bharti AXA GeneralInsurance Co. Ltd.',
-            'ICICI LOMBARD GeneralInsurance Co. Ltd.',
-            'Magma HDI GeneralInsurance Co. Ltd.',
-            'HDFC ERGO GeneralInsurance Co.Ltd.',
-            'United India Insurance Co. Ltd.',
-            'The Oriental Insurance Co. Ltd.',
-            'Future Generali India Insurance Co. Ltd.',
-            'Cholamandalam MS GeneralInsurance Co. Ltd.',
-            'Raheja QBE GeneralInsurance Co. Ltd.',
-            'Star Health & Allied Insurance Co.Ltd.',
-            'Apollo Munich Health Insurance Co. Ltd',
-            'Religare Health Insurance Co. Ltd',
-            'Max Bupa Health Insurance Co. Ltd',
-            'CIGNA TTK Health Insurance Co. Ltd.',
-            'Aditya Birla Health Insurance Co. Ltd.'
-        ];
-
-        this.sessionData();
-        this.setDate = Date.now();
-        this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-        if(this.buyProductdetails.premium_amount >= 50000 || this.getFamilyDetails.family_members.type == 'Self') {
-            this.personal.get('personalPan').setValidators([Validators.compose([ Validators.required, Validators.minLength(10)])]);
-        } else{
-            this.personal.get('personalPan').setValidators(null);
-        }
-        this.personal.get('personalPan').updateValueAndValidity();
-
-
-        // if(this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5){
-        //     if (this.getFamilyDetails.family_members.length < 2) {
-        //         this.changeGender();
-        //     }
-        // }
-
     }
     // Dame validation
     nameValidate(event: any){
@@ -1701,10 +1726,13 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.proposerFormData = this.personal.value;
             this.insuredFormData = this.insureArray.value;
             this.nomineeFormData = this.nomineeDetails.value;
+           this.action =  this.summaryData.action,
+            this.proposalNum = this.summaryData.proposalNum,
+             this.returnURL = this.summaryData.returnURL,
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
-
+            this.createdDate = new Date();
             stepper.next();
             this.topScroll();
             this.nextStep();
@@ -1953,6 +1981,94 @@ export class ReligareHealthProposalComponent implements OnInit {
         }
     }
 
+    payLater(){
+        const data = {
+            'platform': 'web',
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId.toString(),
+            'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'group_name': this.getFamilyDetails.name,
+            'company_name': 'Religare',
+            'created-date': this.createdDate,
+            'action': this.summaryData.action,
+            'proposalNum': this.summaryData.proposalNum,
+            'returnURL': this.summaryData.returnURL,
+            'paymentlink-date': '',
+            'add_ons': this.setAddonDefault ? this.addonDetails.toString() : 'CAREWITHNCB',
+            'suminsured_amount': this.buyProductdetails.suminsured_amount,
+            'proposer_insurer_details': this.totalReligareData,
+            'product_id': this.buyProductdetails.product_id,
+            'plan_name': this.buyProductdetails.product_name,
+            'policy_term': this.buyProductdetails.product_id == 4 ? '3' : '1',
+            'scheme_id': this.buyProductdetails.scheme,
+            'terms_condition': '1',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
+            'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
+            'medical_status': this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+        };
+        console.log(data, 'payyyyy');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.proposalPayLater(data).subscribe(
+            (successData) => {
+                this.payLaterSuccess(successData);
+            },
+            (error) => {
+                this.payLaterFailure(error);
+            }
+        );
+
+    }
+    public payLaterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.toastr.success(successData.ResponseObject);
+            this.saveEdit();
+        } else {
+            // this.toastr.error('sorry!');
+        }
+    }
+
+    public payLaterFailure(successData) {
+    }
+    saveEdit(){
+        this.router.navigate(['/home']);
+
+    }
+    // get request
+    getBackRequest() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'proposal_id': this.proposal_Id
+        };
+        this.proposalservice.proposalGetRequest(data).subscribe(
+            (successData) => {
+                this.getBackResSuccess(successData);
+            },
+            (error) => {
+                this.getBackResFailure(error);
+            }
+        );
+    }
+
+    public getBackResSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.requestDetails = successData.ResponseObject;
+            this.pos_status =  this.requestDetails.pos_status;
+            this.action =  this.requestDetails.action;
+            this.proposalNum = this.requestDetails.proposalNum,
+            this.returnURL = this.requestDetails.returnURL,
+
+                this.requestInsuredDetails = this.requestDetails.proposer_insurer_details;
+            console.log(this.requestInsuredDetails, 'hgghjghjgjh');
+        } else {
+        }
+    }
+    public getBackResFailure(successData) {
+    }
 
 
 

@@ -15,7 +15,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material
 import {MomentDateAdapter } from '@angular/material-moment-adapter';
 import {Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 
 export const MY_FORMATS = {
@@ -86,7 +86,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     public questionEmpty: any;
     public proposerInsureData: any;
     public mobileNumber: any;
-    public  altmobileNumber: any;
+    public  requestPersonalInfo: any;
     public insurerData: any;
     public totalInsureDetails: any;
     public getStepper1: any;
@@ -130,7 +130,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     public previousEndtDateError: any;
     public previousInsuranceData: any;
     public getResAddressList: any;
-    public getComAddressList: any;
+    public requestInsuredDetails: any;
     public currentStep: any;
     public taxRequired: any;
     public sameRelationship : any;
@@ -138,21 +138,27 @@ export class RelianceHeathProposalComponent implements OnInit {
     public insuredFormData : any;
     public previousInsuranceFromData : any;
     public nomineeFormData : any;
+    public requestDetails : any;
+    public createdDate : any;
+    public status : any;
+    public proposal_Id : any;
+    public stepperindex : any;
 
     public healthRelianceTrue0: boolean;
     public healthRelianceTrue1: boolean;
     public healthRelianceTrue2: boolean;
     public healthRelianceTrue3: boolean;
     public healthRelianceTrue4: boolean;
+    public payLaterr: boolean;
 
     // public personalAge: any;
     public agecal: any;
     constructor(public proposalservice: HealthService,public route: ActivatedRoute, public datepipe: DatePipe,public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
-                public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
-        let stepperindex = 0;
+                public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string, public router: Router) {
+        this.stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
-                stepperindex = 4;
+               this.stepperindex = 4;
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.proposalId = this.summaryData.policy_id;
@@ -163,8 +169,20 @@ export class RelianceHeathProposalComponent implements OnInit {
                     sessionStorage.proposalID = this.proposalId;
                 }
             }
+                this.status = params.stepper;
+                this.proposal_Id = params.proposalId;
+                if(this.proposal_Id != '' || this.proposal_Id != undefined ){
+                    this.payLaterr = true;
+                    console.log(this.proposal_Id, 'this.proposalId');
+                    console.log(this.status, 'this.proposalId');
+                    this.getBackRequest();
+                }
+                if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                    this.payLaterr = false;
+
+                }
         });
-        this.currentStep = stepperindex;
+        this.currentStep = this.stepperindex;
         const minDate = new Date();
          this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.stopNext = false;
@@ -318,6 +336,10 @@ export class RelianceHeathProposalComponent implements OnInit {
         }
     }
     ngOnInit() {
+        if(this.payLaterr == true){
+            this.stepperindex = 4;
+            console.log(this.payLaterr, 'this.payLaterrolll');
+        } else {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
@@ -342,7 +364,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
     }
-
+}
 
     setStep(index: number) {
         this.step = index;
@@ -1720,6 +1742,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.previousInsuranceFromData = JSON.stringify(this.previousInsuranceFromData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+            this.createdDate = new Date();
             stepper.next();
             this.nextStep();
             this.topScroll();
@@ -1761,6 +1784,184 @@ export class RelianceHeathProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
 
+    payLater(){
+        const data = {
+            'ClientDetails': {
+                'ClientTypeID': '0',
+                'DOB': this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd'),
+                'Email': this.personalData.personalEmail,
+                'ForeName': this.personalData.personalFirstname,
+                'Gender': this.personalData.personalGender,
+                'LastName': this.personalData.personalLastname,
+                'MaritalStatusID': this.personalData.maritalStatus,
+                'MidName': this.personalData.personalMidname,
+                'MobileNo': this.personalData.personalMobile,
+                'Nationality': this.personalData.nationality,
+                'OccupationID': this.personalData.occupation,
+                'occupationName': this.personalData.occupationName,
+                'maritalStatusName': this.personalData.maritalStatusName,
+                'PhoneNo': this.personalData.personalPhone,
+                'Salutation': this.personalData.personalTitle == 'MR' ? "Mr." : "Ms.",
+                'ClientAddress': {
+                    'CommunicationAddress': {
+                        'Address1': this.personalData.personalAddress,
+                        'Address2': this.personalData.personalAddress2,
+                        'Address3': this.personalData.personalAddress3,
+                        'CityID': this.personalData.personalCityIdP,
+                        'personalCity': this.personalData.personalCity,
+                        'Country': this.personalData.personalCountry,
+                        'DistrictID': this.personalData.personalDistrictIdP,
+                        'personalDistrict': this.personalData.personalDistrict,
+                        'Email': this.personalData.personalEmail,
+                        'Fax': this.personalData.personalFax,
+                        'MobileNo': this.personalData.personalMobile,
+                        'NearestLandmark': this.personalData.personalNearestLandMark,
+                        'PanNo': this.personalData.personalPan,
+                        'PhoneNo': this.personalData.personalPhone,
+                        'Alternative': this.personalData.personalAltnumber,
+                        'Pincode': this.personalData.personalPincode,
+                        'AreaID': this.personalData.personalArea,
+                        'StateID': this.personalData.personalStateIdP,
+                        'personalState': this.personalData.personalState,
+                        'personalAreaName': this.personalData.personalAreaName,
+                    },
+                    'PermanentAddress': {
+                        'Address': {
+                            'Address1': this.personalData.residenceAddress,
+                            'Address2': this.personalData.residenceAddress2,
+                            'Address3': this.personalData.residenceAddress3,
+                            'CityID': this.personalData.personalCityIdR,
+                            'Country': this.personalData.personalCountry,
+                            'DistrictID': this.personalData.residenceDistrictIdR,
+                            'NearestLandmark': this.personalData.residenceNearestLandMark,
+                            'Pincode': this.personalData.residencePincode,
+                            'AreaID': this.personalData.residenceArea,
+                            'StateID': this.personalData.personalStateIdR,
+                            'residenceState': this.personalData.residenceState,
+                            'residenceAreaName': this.personalData.residenceAreaName,
+                            'residenceDistrict': this.personalData.residenceDistrict,
+                            'residenceCity': this.personalData.residenceCity,
 
+                        }
+                    }
+                }
+            },
+            'InsuredDetailsList': {
+                'InsuredDetail': this.totalInsureDetails
+            },
+            'Policy': {
+                'Tenure': '1'
+            },
+            'RiskDetails': {
+                'SumInsured': this.buyProductdetails.suminsured_amount,
+                'IsServiceTaxExemptionApplicable': this.personalData.serviceTax == 'Yes' ? 'true' : 'false',
+                'ServiceTaxExemptionID': this.personalData.ServicesTaxId,
+                'IsAnyEmployeeOfRelianceADAGroup': 'false',
+                'CompanyNameID': '',
+                'EmployeeCode': '',
+                'EmailID': '',
+                'Iscrosssell': 'false',
+                'CrossSellPolicyNo': '',
+            },
+            'NomineeDetails': {
+                'FirstName': this.nomineeData.nomineeFirstName,
+                'Salutation': this.nomineeData.nomineeTitle == 'MR' ? "Mr." : "Ms.",
+                'MiddleName': this.nomineeData.nomineeMidName,
+                'LastName': this.nomineeData.nomineeLastName,
+                'DOB': this.datepipe.transform(this.nomineeData.nomineeDob, 'y-MM-dd'),
+                'NomineeRelationshipID': this.nomineeData.nomineeRelationship,
+                'NomineeRelationshipOther': this.nomineeData.nomineeOtherRelationship,
+                'NomineeAddress': {
+                    'Address1': this.nomineeData.nomineeAddress,
+                    'Address2': this.nomineeData.nomineeAddress2,
+                    'Address3': this.nomineeData.nomineeAddress3,
+                    'CityID': this.nomineeData.nomineeCityId,
+                    'Country': this.nomineeData.nomineeCountry,
+                    'DistrictID': this.nomineeData.nomineeDistrictId,
+                    'NearestLandmark': this.nomineeData.nearestLandMark,
+                    'Pincode': this.nomineeData.nomineePincode,
+                    'AreaID': this.nomineeData.nomineeArea,
+                    'StateID': this.nomineeData.nomineeStateId
+                }
+            },
+
+            'LstHealthCoverDetails': '',
+            'PreviousInsuranceDetails': {
+                'PrevInsuranceID': this.previousInsuranceFrom.controls['InsuranceCompName'].value,
+                'PrevYearPolicyNo': this.previousInsuranceFrom.controls['PreviousPolNo'].value,
+                'PrevYearPolicyStartDate': this.datepipe.transform(this.previousInsuranceFrom.controls['PolicyStartDate'].value, 'y-MM-dd')  == null ? '' : this.previousInsuranceFrom.controls['PolicyStartDate'].value,
+                'PrevYearPolicyEndDate': this.datepipe.transform(this.previousInsuranceFrom.controls['PolicyEndDate'].value, 'y-MM-dd') == null ? '' : this.previousInsuranceFrom.controls['PolicyEndDate'].value
+            },
+            'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'product_id': this.buyProductdetails.product_id,
+            'plan_name': this.buyProductdetails.product_name,
+            'sum_insured_amount': this.buyProductdetails.suminsured_amount,
+            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString() : this.proposalId.toString(),
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'group_name': this.getFamilyDetails.name,
+            'created-date': this.createdDate,
+            'paymentlink-date': '',
+        };
+
+        console.log(data, 'payyyyy');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.proposalPayLater(data).subscribe(
+            (successData) => {
+                this.payLaterSuccess(successData);
+            },
+            (error) => {
+                this.payLaterFailure(error);
+            }
+        );
+
+    }
+    public payLaterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.toastr.success(successData.ResponseObject);
+            this.saveEdit();
+        } else {
+            // this.toastr.error('sorry!');
+        }
+    }
+
+    public payLaterFailure(successData) {
+    }
+    saveEdit(){
+        this.router.navigate(['/home']);
+
+    }
+    // get request
+    getBackRequest() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'proposal_id': this.proposal_Id
+        };
+        this.proposalservice.proposalGetRequest(data).subscribe(
+            (successData) => {
+                this.getBackResSuccess(successData);
+            },
+            (error) => {
+                this.getBackResFailure(error);
+            }
+        );
+    }
+
+    public getBackResSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.requestDetails = successData.ResponseObject;
+            this.requestPersonalInfo = this.requestDetails.ClientDetails.ClientAddress;
+
+            this.requestInsuredDetails = this.requestDetails.InsuredDetailsList.InsuredDetail;
+            // console.log(this.requestInsuredDetails, 'hgghjghjgjh');
+        } else {
+        }
+    }
+    public getBackResFailure(successData) {
+    }
 }
 

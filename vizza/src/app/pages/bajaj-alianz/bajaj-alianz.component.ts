@@ -15,7 +15,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 export const MY_FORMATS = {
     parse: {
@@ -71,13 +71,13 @@ export class BajajAlianzComponent implements OnInit {
     public setPincode: any;
     public insureMArea: any;
     public zonemessage: any;
-    // public grossAmountAge: any;
+    public requestDetails: any;
 
 
     public setDate: any;
     public setDateAge: any;
     public dob: any;
-    // public dobError: any;
+    public createdDate: any;
     public insureAge: any;
     public getFamilyDetails: any;
     public items: any;
@@ -100,9 +100,12 @@ export class BajajAlianzComponent implements OnInit {
     public insuredFormData: any;
     public healthBajajTrue0: boolean;
     public healthBajajTrue1: boolean;
+    public payLaterr: any;
+    public status: any;
+    public proposal_Id: any;
 
 
-    constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public common: CommonService, public validation: ValidationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
@@ -116,6 +119,20 @@ export class BajajAlianzComponent implements OnInit {
                     sessionStorage.bajaj_health_proposalid = this.proposalId;
                 }
             }
+            this.status = params.stepper;
+            this.proposal_Id = params.proposalId;
+            if(this.proposal_Id != '' || this.proposal_Id != undefined ){
+                this.payLaterr = true;
+                console.log(this.proposal_Id, 'this.proposalId');
+                console.log(this.status, 'this.proposalId');
+                this.getBackRequest();
+            }
+            if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                this.payLaterr = false;
+
+            }
+            console.log(this.payLaterr, 'cons');
+
         });
         this.currentStep = stepperindex;
         const minDate = new Date();
@@ -155,6 +172,9 @@ export class BajajAlianzComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.payLaterr == true) {
+            console.log(this.payLaterr, 'this.payLaterrolll');
+        } else {
         this.setOccupationList();
         this.relationshipListForInsured();
         this.relationshipListForNominee();
@@ -183,7 +203,7 @@ export class BajajAlianzComponent implements OnInit {
                 this.sameRelationship = this.insureArray['controls'].items['controls'][0]['controls'].insurerelationship.value;
             }
     }
-
+}
     setStep(index) {
         this.step = index;
     }
@@ -856,6 +876,8 @@ export class BajajAlianzComponent implements OnInit {
             this.RediretUrlLink = this.summaryData.payment_url;
             this.proposalId = this.summaryData.policy_id;
             sessionStorage.bajaj_health_proposalid = this.proposalId;
+            this.createdDate = new Date();
+
         } else{
             this.toastr.error(successData.ErrorObject);
         }
@@ -964,6 +986,115 @@ export class BajajAlianzComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.patchValue('');
 
         }
+    }
+    payLater(){
+        const data  = {
+            'platform': 'web',
+            'product_id': this.buyProductdetails.product_id,
+            'plan_name': this.buyProductdetails.product_name,
+            'sum_insured_amount': this.buyProductdetails.suminsured_amount,
+            'created-date': this.createdDate,
+            'paymentlink-date': '',
+            'proposal_id': sessionStorage.bajaj_health_proposalid ? sessionStorage.bajaj_health_proposalid.toString(): this.proposalId.toString(),
+            'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'company_name': 'bajajalianz',
+            'group_name': this.getFamilyDetails.name,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'transactionid': '',
+            'tycpdetails': {
+                'beforetitle': this.insureArray['controls'].items['controls'][0]['controls'].insureTitle.value,
+                'contact1': this.insureArray['controls'].items['controls'][0]['controls'].insureMobile.value,
+                'dateofbirth': this.datepipe.transform(this.insureArray['controls'].items['controls'][0]['controls'].insureDob.value, 'y-MM-dd'),
+                'sex': this.insureArray['controls'].items['controls'][0]['controls'].insureGender.value,
+                'telephone': this.insureArray['controls'].items['controls'][0]['controls'].insurePhone.value,
+                'email': this.insureArray['controls'].items['controls'][0]['controls'].insureEmail.value,
+                'firstname': this.insureArray['controls'].items['controls'][0]['controls'].insureName.value,
+                'surname': this.insureArray['controls'].items['controls'][0]['controls'].insureLastName.value,
+                'middlename': this.insureArray['controls'].items['controls'][0]['controls'].insuremiddleName.value
+            },
+            'tycpaddrlist': [{
+                'postcode': this.insureArray['controls'].items['controls'][0]['controls'].insurePincode.value,
+                'pan_india_cover':this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.value ? this.insureArray['controls'].items['controls'][0]['controls'].zoneCheck.value : '',
+                'addressline1': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress.value,
+                'addressline2': this.insureArray['controls'].items['controls'][0]['controls'].insureAddress2.value,
+                'areaname': this.insureArray['controls'].items['controls'][0]['controls'].insureArea.value,
+                'cityname': this.insureArray['controls'].items['controls'][0]['controls'].insureCity.value,
+                'countryname': 'INDIA',
+                'state': this.insureArray['controls'].items['controls'][0]['controls'].insureState.value
+            }],
+            'hcpdtpolcovobj':{
+                'polcovvolntrycp': this.insureArray['controls'].items['controls'][0]['controls'].insureCoPayment.value
+            },
+            'previnsdtls': {
+                'previnsname': this.insureArray['controls'].items['controls'][0]['controls'].insurePIName.value,
+                'previnsaddress': this.insureArray['controls'].items['controls'][0]['controls'].insurePIAddress.value,
+                'previnspolicyno': this.insureArray['controls'].items['controls'][0]['controls'].insurePINumber.value,
+                'prevpolicyexpirydate': this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value == null ? '' : this.insureArray['controls'].items['controls'][0]['controls'].insurePItDate.value,
+                'noofclaims': this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value == '' ? '0' : this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value || this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value == null ? '0' : this.insureArray['controls'].items['controls'][0]['controls'].insurePIClaims.value
+            },
+            'hcpdtmemlist': this.totalInsureDetails,
+            'hcpdtmemcovlist': [{
+                'memiptreatsi': this.buyProductdetails.suminsured_amount
+            }]
+        };
+
+        console.log(data, 'payyyyy');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.proposalPayLater(data).subscribe(
+            (successData) => {
+                this.payLaterSuccess(successData);
+            },
+            (error) => {
+                this.payLaterFailure(error);
+            }
+        );
+
+    }
+    public payLaterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.toastr.success(successData.ResponseObject);
+            this.saveEdit();
+        } else {
+            // this.toastr.error('sorry!');
+        }
+    }
+
+    public payLaterFailure(successData) {
+    }
+    saveEdit(){
+        this.router.navigate(['/home']);
+
+    }
+    // get request
+    getBackRequest() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'proposal_id': this.proposal_Id
+        };
+        this.proposalservice.proposalGetRequest(data).subscribe(
+            (successData) => {
+                this.getBackResSuccess(successData);
+            },
+            (error) => {
+                this.getBackResFailure(error);
+            }
+        );
+    }
+
+    public getBackResSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.requestDetails = successData.ResponseObject;
+            // this.requestInsuredDetails = this.requestDetails.ListOfInsured.Insured;
+            // console.log(this.requestInsuredDetails, 'hgghjghjgjh');
+        } else {
+        }
+    }
+    public getBackResFailure(successData) {
     }
 }
 
