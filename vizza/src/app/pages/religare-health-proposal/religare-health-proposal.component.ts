@@ -80,6 +80,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     public sumPin: any;
     public code: any;
     public sumAreaName: any;
+    public pos_status: any;
     public requestInsuredDetails: any;
     public setDateAge: any;
     public personalAge: any;
@@ -2056,6 +2057,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
+            this.pos_status =  this.requestDetails.pos_status;
             this.action =  this.requestDetails.action;
             this.proposalNum = this.requestDetails.proposalNum,
             this.returnURL = this.requestDetails.returnURL,

@@ -548,7 +548,7 @@
         </mat-step>
         <mat-step [stepControl]="">
           <ng-template matStepLabel>SUMMARY</ng-template>
-          <section class="summary-details" *ngIf="summaryData && payLaterr == false">
+          <section class="summary-details" *ngIf="summaryData">
             <div class="row">
               <div class="col-md-4"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
               <div class="col-md-8">
@@ -736,112 +736,112 @@
           </div>
 
           </section>
-          <section class="summary-details" *ngIf="summaryData && payLaterr == true">
-            <div class="row">
-              <!--<div class="col-md-4"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.suminsured_amount}}</span></h4></div>-->
-              <div class="col-md-8">
-                <ul class="summary-head">
-                  <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
-                  <!--<li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.servicetax}}</span> /</li>-->
-                  <!--<li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.total_premium}}</span> </li>-->
-                  <li></li>
-                </ul>
-              </div>
-            </div>
-            <section *ngFor="let item of requestInsuredDetails; let i = index;">
-              <!--<h5 class="mt-3 sub-title"><span *ngIf="i == 0">PROPOSER DETAILS</span> <span *ngIf="i != 0"> INSURED DETAILS FOR {{item.type | uppercase}} </span> </h5>-->
-              <div class="row box-card">
-                <div class="col-md-12">
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{item.title}}. {{item.proposer_fname}} {{item.proposer_lname  }}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{item.prop_dob | date: 'dd/MM/yyyy'}}</li>
-                      <li class="list-group-item"><strong>Gender:</strong> {{item.prop_gender}}</li>
-                      <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.relationship_cd}}</li>
-                      <!--<li class="list-group-item" *ngIf="item.prop_email_list[i].email"><strong>Email Id:</strong> {{item.prop_email_list[i].email}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
-                      <!--<li class="list-group-item" ><strong>Mobile Number:</strong> {{item.prop_contact_list[i].contact_no}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.personalAltnumber" ><strong>Alternate Number:</strong> {{item.personalAltnumber}}</li>-->
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <!--<li class="list-group-item" *ngIf="item.prop_identity_list[i].identity_number"><strong>PAN Number:</strong> {{item.prop_identity_list[i].identity_number | uppercase}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.prop_identity_list[i].identity_number"><strong>Aadhar Number:</strong> {{item.item.prop_identity_list[i].identity_number}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.prop_identity_list[i].identity_number"><strong>GST Number:</strong> {{item.item.prop_identity_list[i].identity_number | uppercase}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.weight && item.weight !=0 && i !=0"><strong>Weight:</strong> {{item.weight}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.height && item.height !=0 && i !=0"><strong>height:</strong> {{item.height}}</li>-->
-                    </ul>
-                  </div>
-                </div>
+          <!--<section class="summary-details" *ngIf="summaryData && payLaterr == true">-->
+            <!--<div class="row">-->
+              <!--&lt;!&ndash;<div class="col-md-4"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.suminsured_amount}}</span></h4></div>&ndash;&gt;-->
+              <!--<div class="col-md-8">-->
+                <!--<ul class="summary-head">-->
+                  <!--&lt;!&ndash;<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.servicetax}}</span> /</li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.total_premium}}</span> </li>&ndash;&gt;-->
+                  <!--<li></li>-->
+                <!--</ul>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<section *ngFor="let item of requestInsuredDetails; let i = index;">-->
+              <!--&lt;!&ndash;<h5 class="mt-3 sub-title"><span *ngIf="i == 0">PROPOSER DETAILS</span> <span *ngIf="i != 0"> INSURED DETAILS FOR {{item.type | uppercase}} </span> </h5>&ndash;&gt;-->
+              <!--<div class="row box-card">-->
+                <!--<div class="col-md-12">-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<div class="p-3">-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item"><strong>Name:</strong> {{item.title}}. {{item.proposer_fname}} {{item.proposer_lname  }}</li>-->
+                      <!--<li class="list-group-item"><strong>D.O.B:</strong> {{item.prop_dob | date: 'dd/MM/yyyy'}}</li>-->
+                      <!--<li class="list-group-item"><strong>Gender:</strong> {{item.prop_gender}}</li>-->
+                      <!--<li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.relationship_cd}}</li>-->
+                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.prop_email_list[i].email"><strong>Email Id:</strong> {{item.prop_email_list[i].email}}</li>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<li class="list-group-item" ><strong>Mobile Number:</strong> {{item.prop_contact_list[i].contact_no}}</li>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.personalAltnumber" ><strong>Alternate Number:</strong> {{item.personalAltnumber}}</li>&ndash;&gt;-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<div class="p-3">-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.prop_identity_list[i].identity_number"><strong>PAN Number:</strong> {{item.prop_identity_list[i].identity_number | uppercase}}</li>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.prop_identity_list[i].identity_number"><strong>Aadhar Number:</strong> {{item.item.prop_identity_list[i].identity_number}}</li>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.prop_identity_list[i].identity_number"><strong>GST Number:</strong> {{item.item.prop_identity_list[i].identity_number | uppercase}}</li>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.weight && item.weight !=0 && i !=0"><strong>Weight:</strong> {{item.weight}}</li>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.height && item.height !=0 && i !=0"><strong>height:</strong> {{item.height}}</li>&ndash;&gt;-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
 
-                <div class="col-md-6"  *ngIf="i == 0">
-                  <div class="p-3">
-                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong> {{item.proposer_comm_address1}}</li>
-                      <li class="list-group-item"><strong>Address 2:</strong> {{item.proposer_comm_address2}}</li>
-                      <li class="list-group-item"><strong>PIN code:</strong>  {{item.proposer_comm_pincode}}</li>
-                      <li class="list-group-item"><strong>City:</strong> {{item.proposer_comm_city}}</li>
-                      <li class="list-group-item"><strong>State:</strong> {{item.proposer_comm_state}}</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6"  *ngIf="i == 0">
-                  <div class=" p-3">
-                    <h6 class="color-blue">RESIDENCE DETAILS</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong> {{item.proposer_res_address1}}</li>
-                      <li class="list-group-item"><strong>Address 2:</strong> {{item.proposer_res_address2}}</li>
-                      <li class="list-group-item" ><strong>PIN code:</strong>  {{item.proposer_res_pincode}}</li>
-                      <li class="list-group-item" ><strong>City:</strong> {{item.proposer_res_city}}</li>
-                      <li class="list-group-item" ><strong>State:</strong> {{item.proposer_res_state}}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-
-            <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
-            <div class="row box-card">
-              <div class="col-md-6">
-                <div class="p-3">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <ul class="m-0 list-group">
-                        <!--<li class="list-group-item"><strong>Nominee name:</strong> <span *ngIf="requestDetails.nominee_name !=''">{{requestDetails.nominee_name}}</span> <span *ngIf="requestDetails.nominee_name ==''"> Nil</span></li>-->
-                      </ul>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="p-3">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with insured:</strong>
-                          <!--<span *ngIf="equestDetails.nominee_relationship !=''">{{requestDetails.nominee_relationship}}</span> <span *ngIf="requestDetails.nominee_relationship == '' || requestDetails.nominee_relationship == undefined"> Nil</span>-->
-                        </li>
-                      </ul>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
+                <!--<div class="col-md-6"  *ngIf="i == 0">-->
+                  <!--<div class="p-3">-->
+                    <!--<h6 class="color-blue">COMMUNICATION DETAILS</h6>-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item"><strong>Address 1:</strong> {{item.proposer_comm_address1}}</li>-->
+                      <!--<li class="list-group-item"><strong>Address 2:</strong> {{item.proposer_comm_address2}}</li>-->
+                      <!--<li class="list-group-item"><strong>PIN code:</strong>  {{item.proposer_comm_pincode}}</li>-->
+                      <!--<li class="list-group-item"><strong>City:</strong> {{item.proposer_comm_city}}</li>-->
+                      <!--<li class="list-group-item"><strong>State:</strong> {{item.proposer_comm_state}}</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6"  *ngIf="i == 0">-->
+                  <!--<div class=" p-3">-->
+                    <!--<h6 class="color-blue">RESIDENCE DETAILS</h6>-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item"><strong>Address 1:</strong> {{item.proposer_res_address1}}</li>-->
+                      <!--<li class="list-group-item"><strong>Address 2:</strong> {{item.proposer_res_address2}}</li>-->
+                      <!--<li class="list-group-item" ><strong>PIN code:</strong>  {{item.proposer_res_pincode}}</li>-->
+                      <!--<li class="list-group-item" ><strong>City:</strong> {{item.proposer_res_city}}</li>-->
+                      <!--<li class="list-group-item" ><strong>State:</strong> {{item.proposer_res_state}}</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</section>-->
 
 
-            </div>
+            <!--<h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>-->
+            <!--<div class="row box-card">-->
+              <!--<div class="col-md-6">-->
+                <!--<div class="p-3">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--&lt;!&ndash;<li class="list-group-item"><strong>Nominee name:</strong> <span *ngIf="requestDetails.nominee_name !=''">{{requestDetails.nominee_name}}</span> <span *ngIf="requestDetails.nominee_name ==''"> Nil</span></li>&ndash;&gt;-->
+                      <!--</ul>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-md-6">-->
+                <!--<div class="p-3">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Relationship with insured:</strong>-->
+                          <!--&lt;!&ndash;<span *ngIf="equestDetails.nominee_relationship !=''">{{requestDetails.nominee_relationship}}</span> <span *ngIf="requestDetails.nominee_relationship == '' || requestDetails.nominee_relationship == undefined"> Nil</span>&ndash;&gt;-->
+                        <!--</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+
+
+            <!--</div>-->
 
 
 
-          </section>
+          <!--</section>-->
 
 
 
@@ -856,7 +856,7 @@
                   <input type='hidden' name='returnURL' value={{returnURL}}/>
                 </div>
                 <button mat-button matStepperPrevious  (click)="topScroll()" *ngIf="payLaterr == false" >Back</button>
-                <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && requestDetails.pos_status != 0 ">Pay Later</button>
+                <!--<button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false">Pay Later</button>-->
                 <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
               </form>
 
