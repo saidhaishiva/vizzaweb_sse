@@ -121,6 +121,7 @@ export class IffcoTokioComponent implements OnInit {
     public nomineestateDetails: any;
     public createdDate: any;
     public xmlString: any;
+    public pos_status: any;
     public status: any;
     public rentDetails: any;
     public requestDetails: any;
@@ -131,6 +132,7 @@ export class IffcoTokioComponent implements OnInit {
     public action_url: any;
     public unique_code: any;
     public response_url: any;
+    public proposal_Id: any;
     public stepperindex: any;
 
     public healthIffcoTrue0: boolean;
@@ -146,16 +148,16 @@ export class IffcoTokioComponent implements OnInit {
                 this.stepperindex = 2;
             }
             this.status = params.stepper;
-            this.proposalId = params.proposalId;
-            if (this.proposalId != '' || this.proposalId != undefined) {
+            this.proposal_Id = params.proposalId;
+            if (this.proposal_Id != '' || this.proposal_Id != undefined) {
                 this.payLaterr = true;
-                console.log(this.proposalId, 'this.proposalId');
-                console.log(this.status, 'this.proposalId');
+                console.log(this.proposal_Id, 'this.proposal_Id');
+                console.log(this.status, 'this.proposal_Id');
                 this.getBackRequest();
             }
-            if (this.proposalId == undefined || this.proposalId == '') {
+            if (this.proposal_Id == undefined || this.proposal_Id == '') {
+                alert();
                 this.payLaterr = false;
-
             }
 
 
@@ -287,7 +289,7 @@ export class IffcoTokioComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.proposalId != '' || this.proposalId != undefined) {
+        if (this.payLaterr == true) {
             this.stepperindex = 2;
         } else {
             console.log(this.payLaterr, 'this.payLaterrolll222');
@@ -1429,7 +1431,7 @@ export class IffcoTokioComponent implements OnInit {
             'platform': 'web',
             'user_id': '0',
             'role_id': '4',
-            'proposal_id': this.proposalId
+            'proposal_id': this.proposal_Id
         };
         this.proposalservice.proposalGetRequest(data).subscribe(
             (successData) => {
@@ -1452,6 +1454,7 @@ export class IffcoTokioComponent implements OnInit {
                 this.partner_code = this.requestDetails.PARTNER_CODE,
                 this.response_url = this.requestDetails.RESPONSE_URL,
                 this.unique_code = this.requestDetails.UNIQUE_QUOTEID,
+                this.pos_status = this.requestDetails.pos_status,
                 console.log(this.requestInsuredDetails, 'hgghjghjgjh');
             //         this.proposer.controls['proposerDob'].patchValue(proposerData.DOB),
             //         this.proposer.controls['proposerPassport'].patchValue(proposerData.PassPort),
