@@ -18,7 +18,7 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="title" autocomplete="off" required  >
+                            <mat-select placeholder="Title" formControlName="title" (change)="changeTitle()" autocomplete="off" required  >
                               <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
@@ -43,12 +43,12 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Gender" formControlName="gender" autocomplete="off" required  >
+                            <mat-select placeholder="Gender" formControlName="gender" (change)="changeGender()" autocomplete="off" required  >
                               <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="personal.controls.gender.errors?.required">Title is required</mat-error>
+                            <mat-error *ngIf="personal.controls.gender.errors?.required">Gender is required</mat-error>
                           </mat-form-field>
                         </div>
 
@@ -70,7 +70,7 @@
                         </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Marital Status" formControlName="maritalstatus" autocomplete="off" required  >
+                                  <mat-select placeholder="Marital Status" formControlName="maritalstatus" (change)="changeMaritalStatus()" autocomplete="off" required  >
                                       <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -80,7 +80,7 @@
                           </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Education Qualification" formControlName="eduqual"  required>
+                            <mat-select placeholder="Education Qualification" formControlName="eduqual" (change)="changeQualification()" required>
                               <mat-option *ngFor="let list of educationListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Nationality" formControlName="nationality"  required>
+                            <mat-select placeholder="Nationality" formControlName="nationality" (change)="changeNationality()" required>
                               <mat-option *ngFor="let list of nationalityListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
@@ -107,7 +107,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Residential Status" formControlName="residentstatus" autocomplete="off" required>
+                            <mat-select placeholder="Residential Status" formControlName="residentstatus" (change)="changeResident()" autocomplete="off" required>
                               <mat-option *ngFor="let list of residentialStatusHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
@@ -321,7 +321,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Expected Duration Of Stay at the Correspondence address" formControlName="expdurofstay" autocomplete="off" >
+                          <mat-select placeholder="Expected Duration Of Stay at the Correspondence address" (change)="changeexp()" formControlName="expdurofstay" autocomplete="off" >
                             <mat-option *ngFor="let list of expectedStayHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -330,7 +330,7 @@
                         </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Preferred Communication Address Type" formControlName="prfdcommaddr" autocomplete="off"  >
+                          <mat-select placeholder="Preferred Communication Address Type" formControlName="prfdcommaddr" (change)="changeprfdcommaddr()" autocomplete="off"  >
                             <mat-option *ngFor="let list of addressHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -339,7 +339,7 @@
                         </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Preferred Communication Mode" formControlName="prfdcommmode" autocomplete="off" >
+                          <mat-select placeholder="Preferred Communication Mode" formControlName="prfdcommmode" (change)="changecommodename()" autocomplete="off" >
                             <mat-option *ngFor="let list of communicationModeHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -348,7 +348,7 @@
                         </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Preferred Communication Language" formControlName="prfdcommlang" autocomplete="off"  >
+                          <mat-select placeholder="Preferred Communication Language" formControlName="prfdcommlang" (change)="changeLang()" autocomplete="off"  >
                             <mat-option *ngFor="let list of prefferedLangHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -363,7 +363,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Occupation Type" formControlName="occutype" autocomplete="off" required >
+                          <mat-select placeholder="Occupation Type" formControlName="occutype" autocomplete="off" (change)="changeoccutype()" required >
                             <mat-option *ngFor="let list of occupationTypeHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -386,7 +386,7 @@
                         </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Nature Of Occupation" formControlName="natureofoccu" autocomplete="off" >
+                          <mat-select placeholder="Nature Of Occupation" formControlName="natureofoccu" (change)="changenatureOfOccu()" autocomplete="off" >
                             <mat-option *ngFor="let list of natureOfWorkHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -423,7 +423,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Source Type" formControlName="sourcetype" autocomplete="off"  >
+                          <mat-select placeholder="Source Type" formControlName="sourcetype" (change)="changesourcetype()" autocomplete="off"  >
                             <mat-option *ngFor="let list of sourceOfFundHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -432,13 +432,13 @@
                         </mat-form-field></div>
 
 
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Percentage Contribution" formControlName="fundpcntg" maxlength="50" autocomplete="off"  (keypress)="numberValidate($event)">
-                          <mat-error *ngIf="personal.controls.fundpcntg.errors?.required">Percentage Contribution is required</mat-error>
-                          <!--<input type="number" oninput="validity.valid||(value ='50000000');"  step="1000" />-->
-                        </mat-form-field>
-                      </div>
+                      <!--<div class="col-md-3">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Percentage Contribution" formControlName="fundpcntg" maxlength="50" autocomplete="off"  (keypress)="numberValidate($event)">-->
+                          <!--<mat-error *ngIf="personal.controls.fundpcntg.errors?.required">Percentage Contribution is required</mat-error>-->
+                          <!--&lt;!&ndash;<input type="number" oninput="validity.valid||(value ='50000000');"  step="1000" />&ndash;&gt;-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
                     </div>
                     </div>
                       <div class="col-md-12 box-card pt-3">
@@ -448,7 +448,7 @@
                       </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Title" formControlName="fathernmtitle" autocomplete="off"   >
+                                  <mat-select placeholder="Title" formControlName="fathernmtitle" autocomplete="off"  (change)="changefathernmtitle()" >
                                       <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -478,7 +478,7 @@
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Mother Title" formControlName="mothernmtitle" class="textFieldd" autocomplete="off"   >
+                                  <mat-select placeholder="Mother Title" formControlName="mothernmtitle" class="textFieldd" (change)="changemothernmtitle()" autocomplete="off"   >
                                       <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -518,7 +518,7 @@
                           <!--</div>-->
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Marital Status" formControlName="mmaritalstatus" autocomplete="off" required  >
+                                  <mat-select placeholder="Marital Status" formControlName="mmaritalstatus" autocomplete="off" (change)="changemmaritalstatus()" required  >
                                       <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -528,7 +528,7 @@
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Title" formControlName="spousenmtitle" autocomplete="off"   >
+                                  <mat-select placeholder="Title" formControlName="spousenmtitle" (change)="changespousenmtitle()" autocomplete="off"   >
                                       <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -557,7 +557,7 @@
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="occupation type sp" formControlName="occutypesp" autocomplete="off"   >
+                                  <mat-select placeholder="occupation type sp" formControlName="occutypesp" autocomplete="off" (change)="changeoccutypesp()"  >
                                       <mat-option *ngFor="let list of occupationTypeHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -567,7 +567,7 @@
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Cat of occupation" formControlName="catofoccupation" autocomplete="off"   >
+                                  <mat-select placeholder="Cat of occupation" formControlName="catofoccupation" autocomplete="off" (change)="changecatofoccupation()"  >
                                       <mat-option *ngFor="let list of occupationListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -577,7 +577,7 @@
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Country of birth" formControlName="countryofbirth" autocomplete="off"   >
+                                  <mat-select placeholder="Country of birth" formControlName="countryofbirth" autocomplete="off" (change)="changecountryofbirth()"  >
                                       <mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -625,7 +625,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Title" formControlName="ntitle"  autocomplete="off"   >
+                                                        <mat-select placeholder="Title" formControlName="ntitle"  autocomplete="off" (change)="geteNomineeTitle()"  >
                                                             <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
@@ -649,7 +649,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Gender" formControlName="ngender" autocomplete="off" required  >
+                                                        <mat-select placeholder="Gender" formControlName="ngender" autocomplete="off" required (change)="geteNomineeGender()" >
                                                             <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.key'>
                                                             {{list.value}}
                                                         </mat-option>
@@ -682,7 +682,7 @@
                                                 <!--</div>-->
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Marital Status" formControlName="nmaritalstatus" autocomplete="off" required  >
+                                                        <mat-select placeholder="Marital Status" formControlName="nmaritalstatus" autocomplete="off" required (change)="getenmaritalstatus()" >
                                                             <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
@@ -690,12 +690,12 @@
                                                         <!--<mat-error *ngIf="nomineeDetail.controls.maritalstatus.errors?.required">Marital Status is required</mat-error>-->
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <mat-form-field class="w-100">
-                                                        <input matInput placeholder="entitlement percentage" formControlName="entitlepctg" (keypress)="numberValidate($event)" required  autocomplete="off">
-                                                        <!--<mat-error *ngIf="nomineeDetail.invalid">Nominee Name is required</mat-error>-->
-                                                    </mat-form-field>
-                                                </div>
+                                                <!--<div class="col-md-4">-->
+                                                    <!--<mat-form-field class="w-100">-->
+                                                        <!--<input matInput placeholder="entitlement percentage" formControlName="entitlepctg" (keypress)="numberValidate($event)" required  autocomplete="off">-->
+                                                        <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.invalid">Nominee Name is required</mat-error>&ndash;&gt;-->
+                                                    <!--</mat-form-field>-->
+                                                <!--</div>-->
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="House No" formControlName="nhouseno" (keypress)="idValidate($event)" required  autocomplete="off">
@@ -746,7 +746,7 @@
 
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Relationship" formControlName="nrelationship" autocomplete="off" required  >
+                                                        <mat-select placeholder="Relationship" formControlName="nrelationship" autocomplete="off" required (change)="getenrelationship()" >
                                                             <mat-option *ngFor="let list of nomineeLifeassuredListHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
@@ -768,7 +768,7 @@
                                                     <div class="col-md-4"  *ngIf="i ==0">
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Title<span class="error" >*</span></mat-placeholder>
-                                                            <mat-select  formControlName="atitle"  >
+                                                            <mat-select  formControlName="atitle" (change)="geteatitle()"  >
 
                                                                 <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}
@@ -795,7 +795,7 @@
                                                     <div class="col-md-4"  *ngIf="i ==0">
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Gender<span class="error" >*</span></mat-placeholder>
-                                                            <mat-select  formControlName="agender"  >
+                                                            <mat-select  formControlName="agender" (change)="geteagender()" >
 
                                                                 <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}
@@ -806,7 +806,7 @@
                                                     <div class="col-md-4"  *ngIf="i ==0">
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Marital Status<span class="error" >*</span></mat-placeholder>
-                                                            <mat-select  formControlName="amaritalstatus"  >
+                                                            <mat-select  formControlName="amaritalstatus" (change)="geteamaritalstatus()" >
 
                                                                 <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}
@@ -828,7 +828,7 @@
                                                     <div class="col-md-4"  *ngIf="i ==0">
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Relationship with Nominee<span class="error" >*</span></mat-placeholder>
-                                                                <mat-select  formControlName="arelationship"  >
+                                                                <mat-select  formControlName="arelationship" (change)="geterelationAppointeeHdfcList()" >
 
                                                                 <mat-option *ngFor="let list of relationAppointeeHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}
@@ -928,11 +928,11 @@
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Name:</strong>{{proposerFormData.title}}.{{proposerFormData.firstnm}} {{proposerFormData.lastnm}} </li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Gender:</strong> {{proposerFormData.gender}} </li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Mobile Number:</strong> {{proposerFormData.mobilenum}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Father Name:</strong> {{proposerFormData.fathernm}}</li>
+                                    <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.titleName}}.{{proposerFormData.firstnm}} {{proposerFormData.lastnm}} </li>
+                                    <li class="list-group-item" ><strong>Gender:</strong> {{proposerFormData.genderName}} </li>
+                                    <li class="list-group-item" ><strong>Mobile Number:</strong> {{proposerFormData.mobilenum}}</li>
+                                    <li class="list-group-item" ><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
+                                    <li class="list-group-item" ><strong>Father Name:</strong> {{proposerFormData.fathernm}}</li>
 
                                 </ul>
                             </div>
@@ -940,10 +940,11 @@
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Birth place:</strong> {{proposerFormData.birthplace}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Email:</strong> {{proposerFormData.email}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Marital Status:</strong> {{proposerFormData.maritalstatus}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Education:</strong> {{proposerFormData.eduqual}}</li>
+                                    <li class="list-group-item"><strong>Birth place:</strong> {{proposerFormData.birthplace}}</li>
+                                    <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
+                                    <li class="list-group-item" ><strong>Marital Status:</strong> {{proposerFormData.maritalstatusName}}</li>
+                                    <li class="list-group-item"><strong>Education:</strong> {{proposerFormData.eduqualName}}</li>
+                                    <li class="list-group-item"><strong>Expected duration of stay Name:</strong> {{proposerFormData.expdurofstayName}}</li>
 
                                 </ul>
                             </div>
@@ -951,10 +952,10 @@
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Nationality:</strong> {{proposerFormData.nationality}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Resident Status:</strong> {{proposerFormData.residentstatus}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Is hdfc employee flag:</strong> {{proposerFormData.ishdfcempflg}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Smoker Status flag:</strong> {{proposerFormData.smokerstatusflg}}</li>
+                                    <li class="list-group-item" ><strong>Nationality:</strong> {{proposerFormData.nationalityName}}</li>
+                                    <li class="list-group-item" ><strong>Resident Status:</strong> {{proposerFormData.residentstatusName}}</li>
+                                    <li class="list-group-item" ><strong>Is hdfc employee flag:</strong> {{proposerFormData.ishdfcempflg}}</li>
+                                    <li class="list-group-item" ><strong>Smoker Status flag:</strong> {{proposerFormData.smokerstatusflg}}</li>
 
                                 </ul>
                             </div>
@@ -962,10 +963,10 @@
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item" style=" width: 269px;"><strong>History of conviction:</strong> {{proposerFormData.historyofconviction}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Existing customer flag:</strong> {{proposerFormData.exstngcustflg}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Pep flag:</strong> {{proposerFormData.pepflg}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Demat flag:</strong> {{proposerFormData.dematflg}}</li>
+                                    <li class="list-group-item" ><strong>History of conviction:</strong> {{proposerFormData.historyofconviction}}</li>
+                                    <li class="list-group-item" ><strong>Existing customer flag:</strong> {{proposerFormData.exstngcustflg}}</li>
+                                    <li class="list-group-item" ><strong>Pep flag:</strong> {{proposerFormData.pepflg}}</li>
+                                    <li class="list-group-item" ><strong>Demat flag:</strong> {{proposerFormData.dematflg}}</li>
 
                                 </ul>
                             </div>
@@ -975,11 +976,11 @@
                             <div class="p-3">
                                 <h6 class="color-blue">FAMILY DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Preffered communcation mode:</strong> {{proposerFormData.prfdcommmode}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Preffered communcation language:</strong> {{proposerFormData.prfdcommlang}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Preffered communcation mode:</strong> {{proposerFormData.prfdcommmode}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Preffered communcation language:</strong> {{proposerFormData.prfdcommlang}}</li>
+                                    <li class="list-group-item" ><strong>Preffered communcation Address:</strong> {{proposerFormData.prfdcommaddrName}}</li>
+                                    <li class="list-group-item" ><strong>Preffered communcation language:</strong> {{proposerFormData.prfdcommlangName}}</li>
+                                    <li class="list-group-item" ><strong>Occupation:</strong> {{proposerFormData.occutypeName}}</li>
+                                    <li class="list-group-item" ><strong>Preffered communcation mode:</strong> {{proposerFormData.prfdcommmodeName}}</li>
+                                    <li class="list-group-item" ><strong>Employer Name:</strong> {{proposerFormData.employernm}}</li>
 
                                 </ul>
                             </div>
@@ -987,32 +988,62 @@
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Employer Name:</strong> {{proposerFormData.employernm}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Annual income:</strong> {{proposerFormData.annualincm}}</li>
+                                    <li class="list-group-item" ><strong>Annual income:</strong> {{proposerFormData.annualincm}}</li>
+                                    <li class="list-group-item" ><strong>Nature of occupation:</strong> {{proposerFormData.natureofoccuName}}</li>
+                                    <li class="list-group-item" ><strong>Address line:</strong> {{proposerFormData.addrline}}</li>
+                                    <li class="list-group-item" ><strong>Exist ulip flag:</strong> {{proposerFormData.existulipflag}}</li>
+                                    <li class="list-group-item" ><strong>Occupation:</strong> {{proposerFormData.occutypeName}}</li>
+
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="p-3">
-                                <h6 class="color-blue mt-4"></h6>
+                                <h6 class="color-blue">FAMILY DETAILS</h6>
                                 <ul class="m-0 list-group">
+                                    <li class="list-group-item" ><strong>Father Title:</strong> {{proposerFormData.fathernmtitleName}}</li>
+                                    <li class="list-group-item" ><strong>Father First Name:</strong> {{proposerFormData.fatherfirstnm}}</li>
+                                    <li class="list-group-item" ><strong>Father Middle Name:</strong> {{proposerFormData.fathermiddlenm}}</li>
+                                    <li class="list-group-item" ><strong>Father Last Name:</strong> {{proposerFormData.fatherlastnm}}</li>
+                                    <li class="list-group-item" ><strong>Mother Title:</strong> {{proposerFormData.mmaritalstatusName}}</li>
 
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Nature of occupation:</strong> {{proposerFormData.natureofoccu}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Address line:</strong> {{proposerFormData.addrline}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Exist ulip flag:</strong> {{proposerFormData.existulipflag}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Occupation:</strong> {{proposerFormData.occutype}}</li> </ul>
+                                </ul>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" ><strong>Mother FirstName:</strong> {{proposerFormData.motherfirstnm}}</li>
+                                    <li class="list-group-item" ><strong>Mother Middle Name:</strong> {{proposerFormData.mothermiddlenm}}</li>
+                                    <li class="list-group-item" ><strong>Mother LastName:</strong> {{proposerFormData.motherlastnm}}</li>
+                                    <li class="list-group-item" ><strong>Marital Status:</strong> {{proposerFormData.mmaritalstatus}}</li>
+                                    <li class="list-group-item" ><strong>Spouse Title:</strong> {{proposerFormData.spousenmtitleName}}</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" ><strong>Spouse First Name:</strong> {{proposerFormData.spousefirstnm}}</li>
+                                    <li class="list-group-item" ><strong>Spouse Middle Name:</strong> {{proposerFormData.spousemiddlenm}}</li>
+                                    <li class="list-group-item" ><strong>Spouse Last Name:</strong> {{proposerFormData.spouselastnm}}</li>
+                                    <li class="list-group-item" ><strong>Occupation Type:</strong> {{proposerFormData.occutypespName}}</li>
+                                    <li class="list-group-item" ><strong>Categori of Occupation:</strong> {{proposerFormData.catofoccupationName}}</li>
+                                    <li class="list-group-item" ><strong>Country of birth:</strong> {{proposerFormData.countryofbirthName}}</li>
+
+                                </ul>
+                            </div>
+                        </div>
+
                         <div class="col-md-6">
                             <div class="p-3">
                                 <h6 class="color-blue">RESIDENCY DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item" style=" width: 269px;"><strong>House no:</strong> {{proposerFormData.houseno}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Street:</strong> {{proposerFormData.street}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Landmark:</strong> {{proposerFormData.landmark}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>City:</strong> {{proposerFormData.cityName}}</li>
+                                    <li class="list-group-item" ><strong>House no:</strong> {{proposerFormData.houseno}}</li>
+                                    <li class="list-group-item" ><strong>Street:</strong> {{proposerFormData.street}}</li>
+                                    <li class="list-group-item" ><strong>Landmark:</strong> {{proposerFormData.landmark}}</li>
+                                    <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.cityName}}</li>
 
                                 </ul>
                             </div>
@@ -1020,9 +1051,9 @@
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                     <li class="list-group-item" style=" width: 269px;"><strong>State:</strong> {{proposerFormData.stateName}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>country:</strong> {{proposerFormData.countryName}}</li>
+                                     <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.stateName}}</li>
+                                    <li class="list-group-item" ><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
+                                    <li class="list-group-item"><strong>country:</strong> {{proposerFormData.countryName}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -1030,22 +1061,35 @@
                             <div class="p-3">
                                 <h6 class="color-blue"> COMMUNICATION DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item" style=" width: 269px;"><strong>House No:</strong> {{proposerFormData.chouseno}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Street:</strong> {{proposerFormData.cstreet}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>LandMark:</strong> {{proposerFormData.clandmark}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>City:</strong> {{proposerFormData.ccityName}}</li>
+                                    <li class="list-group-item"><strong>House No:</strong> {{proposerFormData.chouseno}}</li>
+                                    <li class="list-group-item"><strong>Street:</strong> {{proposerFormData.cstreet}}</li>
+                                    <li class="list-group-item"><strong>LandMark:</strong> {{proposerFormData.clandmark}}</li>
+                                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.ccityName}}</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item" style=" width: 269px;"><strong>State:</strong> {{proposerFormData.cstateName}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Pincode:</strong> {{proposerFormData.cpincode}}</li>
-                                    <li class="list-group-item" style=" width: 269px;"><strong>Country:</strong> {{proposerFormData.ccountryName}}</li>
+                                    <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.cstateName}}</li>
+                                    <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.cpincode}}</li>
+                                    <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.ccountryName}}</li>
                                 </ul>
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <h6 class="color-blue"> FAMILY DETAILS</h6>
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item"><strong>House No:</strong> {{proposerFormData.chouseno}}</li>
+                                    <li class="list-group-item"><strong>Street:</strong> {{proposerFormData.cstreet}}</li>
+                                    <li class="list-group-item"><strong>LandMark:</strong> {{proposerFormData.clandmark}}</li>
+                                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.ccityName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
 
 
@@ -1063,10 +1107,10 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" style=" width: 269px;"><strong>Nominee Name:</strong> {{item.ntitle}}</li>
-                                                    <li class="list-group-item" style=" width: 269px;"><strong>First Name:</strong> {{item.nfirstnm}}</li>
-                                                <li class="list-group-item" style=" width: 269px;"><strong>Last Name:</strong> {{item.nlastnm}}</li>
-                                                <li class="list-group-item" style=" width: 269px;"><strong>Gender:</strong> {{item.ngender}}</li>
+                                                <li class="list-group-item"><strong>Nominee Name:</strong> {{item.ntitleName}}</li>
+                                                    <li class="list-group-item"><strong>First Name:</strong> {{item.nfirstnm}}</li>
+                                                <li class="list-group-item"><strong>Last Name:</strong> {{item.nlastnm}}</li>
+                                                <li class="list-group-item" ><strong>Gender:</strong> {{item.ngenderName}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1077,10 +1121,10 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" style=" width: 269px;"><strong>Marital Status:</strong> {{item.nmaritalstatus}}</li>
-                                                <li class="list-group-item" style=" width: 269px;"><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
-                                                <li class="list-group-item" style=" width: 269px;"><strong>House No:</strong> {{item.nhouseno}}</li>
-                                                <li class="list-group-item" style=" width: 269px;"><strong>Street:</strong> {{item.nstreet}}</li>
+                                                <li class="list-group-item" ><strong>Marital Status:</strong> {{item.nmaritalstatusName}}</li>
+                                                <li class="list-group-item"><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
+                                                <li class="list-group-item" ><strong>House No:</strong> {{item.nhouseno}}</li>
+                                                <li class="list-group-item" ><strong>Street:</strong> {{item.nstreet}}</li>
 
                                             </ul>
                                         </div>
@@ -1092,10 +1136,10 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" style=" width: 269px;"><strong>Land Mark:</strong> {{item.nlandmark}}</li>
-                                                <li class="list-group-item" style=" width: 269px;"><strong>City:</strong> {{item.ncityName}}</li>
-                                                <li class="list-group-item" style=" width: 269px;"><strong>State:</strong> {{item.nstateName}}</li>
-                                                <li class="list-group-item" style=" width: 269px;"><strong>Pincode:</strong> {{item.npincode}}</li>
+                                                <li class="list-group-item"><strong>Land Mark:</strong> {{item.nlandmark}}</li>
+                                                <li class="list-group-item"><strong>City:</strong> {{item.ncityName}}</li>
+                                                <li class="list-group-item"><strong>State:</strong> {{item.nstateName}}</li>
+                                                <li class="list-group-item"><strong>Pincode:</strong> {{item.npincode}}</li>
 
                                             </ul>
                                         </div>
@@ -1107,9 +1151,9 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                               <li class="list-group-item" style=" width: 269px;"><strong>Country:</strong> {{item.ncountryName}}</li>
-                                                <li class="list-group-item" style=" width: 269px;"><strong>Relationship:</strong> {{item.nrelationship}}</li>
-                                                <li class="list-group-item" style=" width: 269px;"><strong>Mobile Number:</strong> {{item.nmobilenum}}</li>
+                                               <li class="list-group-item"><strong>Country:</strong> {{item.ncountryName}}</li>
+                                                <li class="list-group-item"><strong>Relationship:</strong> {{item.nrelationshipName}}</li>
+                                                <li class="list-group-item"><strong>Mobile Number:</strong> {{item.nmobilenum}}</li>
 
                                             </ul>
                                         </div>
@@ -1122,11 +1166,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="item.atitle!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.atitle}}</li>
-                                                <li class="list-group-item" *ngIf="item.afirstnm!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.afirstnm}}</li>
-                                                <li class="list-group-item" *ngIf="item.alastnm!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.alastnm}}</li>
-                                                <li class="list-group-item" *ngIf="item.agender!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.agender}}</li>
-                                                <li class="list-group-item" *ngIf="item.amaritalstatus!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.amaritalstatus}}</li>
+                                                <li class="list-group-item" *ngIf="item.atitle!=''"><strong>Appointee Name:</strong> {{item.atitleName}}</li>
+                                                <li class="list-group-item" *ngIf="item.afirstnm!=''" ><strong>Appointee Name:</strong> {{item.afirstnm}}</li>
+                                                <li class="list-group-item" *ngIf="item.alastnm!=''" ><strong>Appointee Name:</strong> {{item.alastnm}}</li>
+                                                <li class="list-group-item" *ngIf="item.agender!=''" ><strong>Appointee Name:</strong> {{item.agenderName}}</li>
+                                                <li class="list-group-item" *ngIf="item.amaritalstatus!=''" ><strong>Appointee Name:</strong> {{item.amaritalstatusName}}</li>
 
                                             </ul>
                                         </div>
@@ -1138,11 +1182,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="item.ahouseno!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.ahouseno}}</li>
-                                                <li class="list-group-item" *ngIf="item.astreet!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.astreet}}</li>
-                                                <li class="list-group-item" *ngIf="item.alandmark!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.alandmark}}</li>
-                                                <li class="list-group-item" *ngIf="item.acity!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.acityName}}</li>
-                                                <li class="list-group-item" *ngIf="item.astate!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.astateName}}</li>
+                                                <li class="list-group-item" *ngIf="item.ahouseno!=''" ><strong>Appointee Name:</strong> {{item.ahouseno}}</li>
+                                                <li class="list-group-item" *ngIf="item.astreet!=''" ><strong>Appointee Name:</strong> {{item.astreet}}</li>
+                                                <li class="list-group-item" *ngIf="item.alandmark!=''" ><strong>Appointee Name:</strong> {{item.alandmark}}</li>
+                                                <li class="list-group-item" *ngIf="item.acity!=''" ><strong>Appointee Name:</strong> {{item.acityName}}</li>
+                                                <li class="list-group-item" *ngIf="item.astate!=''" ><strong>Appointee Name:</strong> {{item.astateName}}</li>
 
                                             </ul>
                                         </div>
@@ -1154,10 +1198,10 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="item.apincode!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.apincode}}</li>
-                                                <li class="list-group-item" *ngIf="item.acountry!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.acountryName}}</li>
-                                                <li class="list-group-item" *ngIf="item.arelationship!=''" style=" width: 269px;"><strong>Appointee Name:</strong> {{item.arelationship}}</li>
-                                                <li class="list-group-item" *ngIf="item.aDob!=''" style=" width: 269px;"><strong>Appointee Dob:</strong> {{item.aDob | date: 'dd/MM/yyyy' }}</li>
+                                                <li class="list-group-item" *ngIf="item.apincode!=''" ><strong>Appointee Name:</strong> {{item.apincode}}</li>
+                                                <li class="list-group-item" *ngIf="item.acountry!=''" ><strong>Appointee Name:</strong> {{item.acountryName}}</li>
+                                                <li class="list-group-item" *ngIf="item.arelationship!=''" ><strong>Appointee Name:</strong> {{item.arelationshipName}}</li>
+                                                <li class="list-group-item" *ngIf="item.aDob!=''" ><strong>Appointee Dob:</strong> {{item.aDob | date: 'dd/MM/yyyy' }}</li>
 
                                             </ul>
                                         </div>
