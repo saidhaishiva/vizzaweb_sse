@@ -103,14 +103,17 @@ export class BajajAlianzComponent implements OnInit {
     public payLaterr: any;
     public status: any;
     public proposal_Id: any;
+    public stepperindex: any;
+    public pos_status: any;
+
 
 
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public common: CommonService, public validation: ValidationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
-        let stepperindex = 0;
+        this.stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
-                stepperindex = 1;
+                this.stepperindex = 1;
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
@@ -134,7 +137,7 @@ export class BajajAlianzComponent implements OnInit {
             console.log(this.payLaterr, 'cons');
 
         });
-        this.currentStep = stepperindex;
+        this.currentStep = this.stepperindex;
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.stopNext = false;
@@ -173,6 +176,7 @@ export class BajajAlianzComponent implements OnInit {
 
     ngOnInit() {
         if (this.payLaterr == true) {
+            this.stepperindex = 1;
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
         this.setOccupationList();
@@ -1089,7 +1093,7 @@ export class BajajAlianzComponent implements OnInit {
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
-            // this.requestInsuredDetails = this.requestDetails.ListOfInsured.Insured;
+            this.pos_status = this.requestDetails.pos_status;
             // console.log(this.requestInsuredDetails, 'hgghjghjgjh');
         } else {
         }
