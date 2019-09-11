@@ -4,10 +4,10 @@
       <div *ngIf="paymentStatus == 'success'">
         <img src="assets/img/success.gif" alt="">
         <h5>Thank you! Your payment is processed successfully..</h5>
-        <p>Your Application Number {{applicationNo}}.</p>
+        <!--<p>Your Application Number {{applicationNo}}.</p>-->
 
         <!--<p>Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>-->
-        <button mat-raised-button color="primary" (click)="DownloadPdf('receipt')">Recipt</button>
+        <!--<button mat-raised-button color="primary" (click)="DownloadPdf('receipt')">Recipt</button>-->
         <button mat-raised-button color="primary" (click)="DownloadPdf('pdf')">PDF</button>
         <button mat-raised-button color="primary" (click)="DownloadPdf('proposl')">Proposal</button>
 

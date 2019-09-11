@@ -2176,6 +2176,41 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['employeeCode'].updateValueAndValidity();
 
   }
+  uploadReq() {
+
+    if (this.insureArray.controls['investing'].value == 'SELF') {
+      this.documentDetail.controls['addressLA'].patchValue(this.documentDetail.controls['addressLA'].value);
+      this.documentDetail.controls['incomeLA'].patchValue(this.documentDetail.controls['incomeLA'].value);
+      this.documentDetail.controls['identityLA'].patchValue(this.documentDetail.controls['identityLA'].value);
+      this.documentDetail.controls['ageLA'].patchValue(this.documentDetail.controls['ageLA'].value);
+      this.documentDetail.controls['documentLA'].patchValue(this.documentDetail.controls['documentLA'].value);
+
+      this.documentDetail.controls['addressLA'].setValidators([Validators.required]);
+      this.documentDetail.controls['incomeLA'].setValidators([Validators.required]);
+      this.documentDetail.controls['identityLA'].setValidators([Validators.required]);
+      this.documentDetail.controls['ageLA'].setValidators([Validators.required]);
+      this.documentDetail.controls['documentLA'].setValidators([Validators.required]);
+    } else {
+      this.documentDetail.controls['addressLA'].patchValue('');
+      this.documentDetail.controls['incomeLA'].patchValue('');
+      this.documentDetail.controls['identityLA'].patchValue('');
+      this.documentDetail.controls['ageLA'].patchValue('');
+      this.documentDetail.controls['documentLA'].patchValue('');
+
+      this.documentDetail.controls['addressLA'].setValidators(null);
+      this.documentDetail.controls['incomeLA'].setValidators(null);
+      this.documentDetail.controls['identityLA'].setValidators(null);
+      this.documentDetail.controls['ageLA'].setValidators(null);
+      this.documentDetail.controls['documentLA'].setValidators(null);
+
+    }
+    this.documentDetail.controls['addressLA'].updateValueAndValidity();
+    this.documentDetail.controls['incomeLA'].updateValueAndValidity();
+    this.documentDetail.controls['identityLA'].updateValueAndValidity();
+    this.documentDetail.controls['ageLA'].updateValueAndValidity();
+    this.documentDetail.controls['documentLA'].updateValueAndValidity();
+
+  }
 
   diseaseReq() {
 

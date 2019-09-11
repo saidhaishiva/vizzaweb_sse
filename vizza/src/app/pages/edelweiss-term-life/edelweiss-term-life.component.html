@@ -446,7 +446,7 @@
                                    <div class="col-md-6 box-card pt-3">
                                        <!--<mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure()" ><strong>Same as proposer</strong></mat-checkbox>-->
                                        <mat-form-field class="w-100">
-                                           <mat-select  placeholder="Are you investing for" formControlName="investing"  (change)="sameAsInsure()"  class="w-100" required >
+                                           <mat-select  placeholder="Are you investing for" formControlName="investing"  (change)="sameAsInsure();uploadReq()"  class="w-100" required >
                                                <mat-option *ngFor="let list of einvesting | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
                                            <mat-error *ngIf="insureArray.controls.investing.errors?.required">Investing is required</mat-error>
@@ -2819,13 +2819,14 @@
                                    <div class="col-md-4">
                                        <input matInput placeholder="Address Proof" readonly>
                                    </div>
-                                   <div class="col-md-4">
+                                   <div class="col-md-4" >
                                        <mat-form-field class="w-100">
-                                       <mat-select  placeholder="Address Proof" formControlName="addressLA" (change)="geteaddressDocProof()"  class="w-100" required>
-                                           <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                                       </mat-select>
-                                           <mat-error *ngIf="documentDetail.controls.addressLA.errors?.required">Address Proof is required</mat-error>
-
+                                           <mat-placeholder>Address Proof<span class="error" *ngIf="this.insureArray.controls['investing'].value != 'SELF'">*</span></mat-placeholder>
+                                           <mat-select formControlName="addressLA" autocomplete="off"  (change)="geteaddressDocProof()" >
+                                               <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= 'list.value'>
+                                                   {{list.value}}
+                                               </mat-option>
+                                           </mat-select>
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2840,15 +2841,25 @@
                                    <div class="col-md-4">
                                        <input matInput placeholder="Income Proof" readonly>
                                    </div>
-                                   <div class="col-md-4">
+                                   <div class="col-md-4" >
                                        <mat-form-field class="w-100">
-                                       <mat-select  placeholder="Income Proof" formControlName="incomeLA" (change)="geteIncomeProof()"  class="w-100" required>
-                                           <mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                                       </mat-select>
-                                        <mat-error *ngIf="documentDetail.controls.incomeLA.errors?.required">Income Proof is required</mat-error>
-
+                                           <mat-placeholder>Income Proof<span class="error" *ngIf="this.insureArray.controls['investing'].value != 'SELF'">*</span></mat-placeholder>
+                                           <mat-select formControlName="incomeLA" autocomplete="off"  (change)="geteIncomeProof()" >
+                                               <mat-option *ngFor="let list of eIncomeProof | keys" [value]= 'list.value'>
+                                                   {{list.value}}
+                                               </mat-option>
+                                           </mat-select>
                                        </mat-form-field>
                                    </div>
+                                   <!--<div class="col-md-4">-->
+                                       <!--<mat-form-field class="w-100">-->
+                                       <!--<mat-select  placeholder="Income Proof" formControlName="incomeLA" (change)="geteIncomeProof()"  class="w-100" required>-->
+                                           <!--<mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                       <!--</mat-select>-->
+                                        <!--<mat-error *ngIf="documentDetail.controls.incomeLA.errors?.required">Income Proof is required</mat-error>-->
+
+                                       <!--</mat-form-field>-->
+                                   <!--</div>-->
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
@@ -2861,15 +2872,26 @@
                                    <div class="col-md-4">
                                        <input matInput placeholder="Identity Proof" readonly>
                                    </div>
-                                   <div class="col-md-4">
+                                   <div class="col-md-4" >
                                        <mat-form-field class="w-100">
-                                       <mat-select  placeholder="Identity Proof" formControlName="identityLA" (change)="geteidLifeProof()"  class="w-100" required>
-                                           <mat-option *ngFor="let list of identityLifeProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                                       </mat-select>
-                                           <mat-error *ngIf="documentDetail.controls.identityLA.errors?.required">Identity Proof is required</mat-error>
-
+                                           <mat-placeholder>Identity Proof<span class="error" *ngIf="this.insureArray.controls['investing'].value != 'SELF'">*</span></mat-placeholder>
+                                           <mat-select formControlName="identityLA" autocomplete="off"  (change)="geteidLifeProof()" >
+                                               <mat-option *ngFor="let list of identityLifeProof | keys" [value]= 'list.value'>
+                                                   {{list.value}}
+                                               </mat-option>
+                                           </mat-select>
                                        </mat-form-field>
                                    </div>
+
+                                   <!--<div class="col-md-4">-->
+                                       <!--<mat-form-field class="w-100">-->
+                                       <!--<mat-select  placeholder="Identity Proof" formControlName="identityLA" (change)="geteidLifeProof()"  class="w-100" required>-->
+                                           <!--<mat-option *ngFor="let list of identityLifeProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                       <!--</mat-select>-->
+                                           <!--<mat-error *ngIf="documentDetail.controls.identityLA.errors?.required">Identity Proof is required</mat-error>-->
+
+                                       <!--</mat-form-field>-->
+                                   <!--</div>-->
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
@@ -2882,15 +2904,25 @@
                                    <div class="col-md-4">
                                        <input matInput placeholder="Age Proof" readonly>
                                    </div>
-                                   <div class="col-md-4">
+                                   <div class="col-md-4" >
                                        <mat-form-field class="w-100">
-                                       <mat-select  placeholder="Age Proof" formControlName="ageLA" (change)="geteageDocProof()"  class="w-100" required>
-                                           <mat-option *ngFor="let list of eageDocProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                                       </mat-select>
-                                           <mat-error *ngIf="documentDetail.controls.ageLA.errors?.required">Age Proof is required</mat-error>
-
+                                           <mat-placeholder>Age Proof<span class="error" *ngIf="this.insureArray.controls['investing'].value != 'SELF'">*</span></mat-placeholder>
+                                           <mat-select formControlName="ageLA" autocomplete="off"  (change)="geteageDocProof()" >
+                                               <mat-option *ngFor="let list of eageDocProof | keys" [value]= 'list.value'>
+                                                   {{list.value}}
+                                               </mat-option>
+                                           </mat-select>
                                        </mat-form-field>
                                    </div>
+                                   <!--<div class="col-md-4">-->
+                                       <!--<mat-form-field class="w-100">-->
+                                       <!--<mat-select  placeholder="Age Proof" formControlName="ageLA" (change)="geteageDocProof()"  class="w-100" required>-->
+                                           <!--<mat-option *ngFor="let list of eageDocProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                       <!--</mat-select>-->
+                                           <!--<mat-error *ngIf="documentDetail.controls.ageLA.errors?.required">Age Proof is required</mat-error>-->
+
+                                       <!--</mat-form-field>-->
+                                   <!--</div>-->
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
@@ -2904,15 +2936,25 @@
                                    <div class="col-md-4">
                                        <input matInput placeholder="Other Document" readonly>
                                    </div>
-                                   <div class="col-md-4">
+                                   <div class="col-md-4" >
                                        <mat-form-field class="w-100">
-                                       <mat-select  placeholder="Other Document" formControlName="documentLA" (change)="geteOtherDocumentProof()"  class="w-100" required>
-                                           <mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                                       </mat-select>
-                                           <mat-error *ngIf="documentDetail.controls.documentLA.errors?.required">Other Document is required</mat-error>
-
+                                           <mat-placeholder>Other Document<span class="error" *ngIf="this.insureArray.controls['investing'].value != 'SELF'">*</span></mat-placeholder>
+                                           <mat-select formControlName="documentLA" autocomplete="off"  (change)="geteOtherDocumentProof()" >
+                                               <mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= 'list.value'>
+                                                   {{list.value}}
+                                               </mat-option>
+                                           </mat-select>
                                        </mat-form-field>
                                    </div>
+                                   <!--<div class="col-md-4">-->
+                                       <!--<mat-form-field class="w-100">-->
+                                       <!--<mat-select  placeholder="Other Document" formControlName="documentLA" (change)="geteOtherDocumentProof()"  class="w-100" required>-->
+                                           <!--<mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                       <!--</mat-select>-->
+                                           <!--<mat-error *ngIf="documentDetail.controls.documentLA.errors?.required">Other Document is required</mat-error>-->
+
+                                       <!--</mat-form-field>-->
+                                   <!--</div>-->
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
