@@ -709,15 +709,14 @@
           <section class="summary-details" *ngIf="payLaterr == true">
             <div class="row">
               <div class="col-md-4">
-                <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.sum_insured_amount}}</span></h4>-->
+                  <div class="col-md-4"> <h4 class="mt-4">{{requestDetails.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.sum_insured_amount}}</span></h4></div>
               </div>
               <div class="col-md-8 mt-2">
                 <ul class="summary-head">
-                  <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
-                  <!--<li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.Policy.NetPremiumPayable}}</span> /</li>-->
-                  <!--<li><span>Gross Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.Policy.GrossPremium}}</span> /</li>-->
-                  <!--<h4><span style="font-size: 17px; color: #666;">Gross Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.gross_premium}}</span></h4>-->
-                  <!--<li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.Policy.ServiceTax}}</span> </li>-->
+                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                  <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.NetPremiumPayable}}</span> /</li>
+                  <li><span>Gross Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.Policy.GrossPremium}}</span> /</li>
+                  <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.Policy.ServiceTax}}</span> </li>
                   <li></li>
                 </ul>
               </div>
@@ -731,10 +730,10 @@
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{requestDetails.title}}.{{requestDetails.proposer_fname}} {{requestDetails.proposer_lname}}</li>
-                      <!--<li class="list-group-item"><strong>D.O.B:</strong> {{requestDetails[0].personalDob | date: 'dd/MM/yyyy'}}</li>-->
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{requestDetails.prop_dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Email Id:</strong> {{requestDetails.proposer_email}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong> {{requestDetails.proposer_mobile}}</li>
-                      <!--<li class="list-group-item" *ngIf="proposerFormData.personalAltnumber !=''"><strong>Alternate Number:</strong> {{proposerFormData.personalAltnumber}}</li>-->
+                      <li class="list-group-item" *ngIf="requestDetails.proposer_alternate_mobile !=''"><strong>Alternate Number:</strong> {{requestDetails.proposer_alternate_mobile}}</li>
 
                     </ul>
                   </div>
@@ -742,15 +741,15 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Marital Status:</strong> {{requestDetails.Contact.Married}}</li>&ndash;&gt;-->
-                      <!--<li class="list-group-item"  *ngIf="requestDetails.Contact.PassPort !=''"><strong>Pass Port:</strong> {{requestDetails.Contact.PassPort | uppercase}}</li>-->
-                      <!--<li class="list-group-item"  *ngIf="requestDetails.Contact.PAN !=''"><strong>PAN Number:</strong> {{requestDetails.Contact.PAN | uppercase}}</li>-->
-                      <!--<li class="list-group-item"><strong>Emergency Name:</strong> {{requestDetails.Contact.EmergencyContactName}}</li>-->
-                      <!--<li class="list-group-item"><strong>Emergency Mobile No:</strong> {{requestDetails.Contact.EmergencyContactMobile}}</li>-->
-                      <!--<li class="list-group-item"><strong>Past Insurance Declined:</strong><span *ngIf="requestDetails.Policy.PastInsuranceDeclined == 'N'">No</span><span *ngIf="requestDetails.Policy.PastInsuranceDeclined == 'Y'">Yes</span></li>-->
-                      <!--<li class="list-group-item"><strong>Room Rent Waiver:</strong><span *ngIf="requestDetails.Policy.RoomRentWaiver == 'N'">No</span><span *ngIf="requestDetails.Policy.RoomRentWaiver == 'Y'">Yes</span></li>-->
-                      <!--<li class="list-group-item"><strong>Critical Illness:</strong><span *ngIf="requestDetails.Policy.CriticalIllness == 'N'">No</span><span *ngIf="requestDetails.Policy.criticalIllness == 'Y'">Yes</span></li>-->
-                      <!--<li class="list-group-item"><strong>Additional Facts:</strong><span *ngIf="requestDetails.Policy.AdditionalFacts == 'N'">No</span><span *ngIf="requestDetails.Policy.AdditionalFacts == 'Y'">Yes</span></li>-->
+                      <!--<li class="list-group-item"><strong>Marital Status:</strong> {{requestDetails.Contact.Married}}</li>-->
+                      <li class="list-group-item"  *ngIf="requestDetails.Contact.PassPort !=''"><strong>Pass Port:</strong> {{requestDetails.Contact.PassPort | uppercase}}</li>
+                      <li class="list-group-item"  *ngIf="requestDetails.Contact.PAN !=''"><strong>PAN Number:</strong> {{requestDetails.Contact.PAN | uppercase}}</li>
+                      <li class="list-group-item"><strong>Emergency Name:</strong> {{requestDetails.Contact.EmergencyContactName}}</li>
+                      <li class="list-group-item"><strong>Emergency Mobile No:</strong> {{requestDetails.Contact.EmergencyContactMobile}}</li>
+                      <li class="list-group-item"><strong>Past Insurance Declined:</strong><span *ngIf="requestDetails.Policy.PastInsuranceDeclined == 'N'">No</span><span *ngIf="requestDetails.Policy.PastInsuranceDeclined == 'Y'">Yes</span></li>
+                      <li class="list-group-item"><strong>Room Rent Waiver:</strong><span *ngIf="requestDetails.Policy.RoomRentWaiver == 'N'">No</span><span *ngIf="requestDetails.Policy.RoomRentWaiver == 'Y'">Yes</span></li>
+                      <li class="list-group-item"><strong>Critical Illness:</strong><span *ngIf="requestDetails.Policy.CriticalIllness == 'N'">No</span><span *ngIf="requestDetails.Policy.criticalIllness == 'Y'">Yes</span></li>
+                      <li class="list-group-item"><strong>Additional Facts:</strong><span *ngIf="requestDetails.Policy.AdditionalFacts == 'N'">No</span><span *ngIf="requestDetails.Policy.AdditionalFacts == 'Y'">Yes</span></li>
                     </ul>
                   </div>
                 </div>
@@ -857,7 +856,7 @@
           <div class="row">
             <div class="col-md-12 text-center">
               <button mat-button matStepperPrevious (click)="topScroll()"  *ngIf="payLaterr == false">Back</button>
-              <button mat-button class="mat-primaryBlue" (click)="payLater()"  *ngIf="payLaterr == false">Pay Later</button>
+              <button mat-button class="mat-primaryBlue" (click)="payLater()"  *ngIf="payLaterr == false && pos_status != 0">Pay Later</button>
               <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="payNow();">Pay Now</button>
             </div>
           </div>

@@ -1723,6 +1723,7 @@ export class StarHealthProposalComponent implements OnInit {
             'plan_name': this.buyProductdetails.product_name,
             'proposalNum': this.summaryData.proposalNum,
             'created-date': this.createdDate,
+            'company_logo': this.buyProductdetails.company_logo,
             'paymentlink-date': '',
             'policy_type_name': this.buyProductdetails.prod_shortform,
             'policy_category': 'fresh',
