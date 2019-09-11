@@ -799,7 +799,7 @@
                           </div>
                           <div class="col-md-4" >
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="share Percentage"  formControlName="sharePercentage" (keypress)="numberValidate($event)"   autocomplete="off" required>
+                              <input matInput placeholder="share Percentage"  formControlName="sharePercentage" maxlength="3" (keypress)="numberValidate($event)"   autocomplete="off" required>
                               <mat-error *ngIf="nomineeDetails.invalid">sharePercentage is required</mat-error>
                             </mat-form-field>
                           </div>
