@@ -562,7 +562,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteHeightInches();
     this.getHealthStaus();
     this.getPolicyOption();
-    this.getpayoutOption();
+    // this.getpayoutOption();
     this.geteWeightChanged();
     this.changeWeightChanged();
     this.getePolicyCategory();
@@ -3366,7 +3366,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           }
         },
         "DeathBenefitOptions": {
-          "payoutOption": this.insureArray.controls['payoutOption'].value,
+          "payoutOption": "",
           "payoutPercentageIncome":this.insureArray.controls['payoutPercentageIncome'].value,
           "noOfMonths": this.insureArray.controls['noOfMonths'].value,
         }
@@ -4426,32 +4426,32 @@ console.log(this.proposalId,'proposalId');
 
   public getepolicyOptionFailure(error) {
   }
-  getpayoutOption() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-
-    }
-    this.termService.getepayoutOption(data).subscribe(
-        (successData) => {
-          this.getepayoutOptionSuccess(successData);
-        },
-        (error) => {
-          this.getepayoutOptionFailure(error);
-        }
-    );
-  }
-
-  public getepayoutOptionSuccess(successData) {
-    if (successData.IsSuccess) {
-      this.epayoutOption = successData.ResponseObject;
-    }
-  }
-
-  public getepayoutOptionFailure(error) {
-  }
+  // getpayoutOption() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+  //
+  //   }
+  //   this.termService.getepayoutOption(data).subscribe(
+  //       (successData) => {
+  //         this.getepayoutOptionSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.getepayoutOptionFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // public getepayoutOptionSuccess(successData) {
+  //   if (successData.IsSuccess) {
+  //     this.epayoutOption = successData.ResponseObject;
+  //   }
+  // }
+  //
+  // public getepayoutOptionFailure(error) {
+  // }
   getpayoutMonth() {
     const data = {
       'platform': 'web',

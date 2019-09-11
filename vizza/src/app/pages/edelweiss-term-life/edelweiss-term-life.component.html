@@ -940,7 +940,7 @@
                            </div>
 
                            <!--<div class="col-md-4" *ngIf="lifePremiumList.product_id=='112'">-->
-                               <!--<mat-radio-group formControlName="planOption" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <!--<mat-radio-group formControlName="planOption" >-->
                                    <!--<p>Plan Option</p>-->
                                    <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
                                    <!--<mat-radio-button value="No">No</mat-radio-button>-->
@@ -1094,14 +1094,14 @@
                                    <h6 class="color-blue">DEATH BENEFIT OPTIONS</h6>
                                </div>
 
-                               <div class="col-md-4">
-                                   <mat-form-field class="w-100">
-                                       <mat-select  placeholder="Payout Option" formControlName="payoutOption" (change)="getpayoutOption()"  class="w-100" required>
-                                           <mat-option *ngFor="let list of epayoutOption | keys" [value]= list.key> {{list.value}} </mat-option>
-                                       </mat-select>
-                                       <mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Payout Option is required</mat-error>
-                                   </mat-form-field>
-                               </div>
+                               <!--<div class="col-md-4">-->
+                                   <!--<mat-form-field class="w-100">-->
+                                       <!--<mat-select  placeholder="Payout Option" formControlName="payoutOption" (change)="getpayoutOption()"  class="w-100" required>-->
+                                           <!--<mat-option *ngFor="let list of epayoutOption | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                       <!--</mat-select>-->
+                                       <!--<mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Payout Option is required</mat-error>-->
+                                   <!--</mat-form-field>-->
+                               <!--</div>-->
 
                                <div class="col-md-4">
                                    <mat-form-field class="w-100">
@@ -2304,7 +2304,7 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.sumAssuredATPD != '' && lifePremiumList.product_id=='112'"><strong>SumAssured Of Accidental Total and Permanent Disability:</strong> {{insuredFormData.sumAssuredATPD}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.isHCB != '' && lifePremiumList.product_id=='112'"><strong>Hospital Cash Benefit:</strong> {{insuredFormData.isHCB}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.sumAssuredHCB != '' && lifePremiumList.product_id=='112'"><strong>SumAssured Of Hospital Cash Benefit:</strong> {{insuredFormData.sumAssuredHCB}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.payoutOption != '' && lifePremiumList.product_id=='112'"><strong>Payout Option:</strong> {{insuredFormData.payoutOption}}</li>
+                                       <!--<li class="list-group-item" *ngIf="insuredFormData.payoutOption != '' && lifePremiumList.product_id=='112'"><strong>Payout Option:</strong> {{insuredFormData.payoutOption}}</li>-->
                                        <li class="list-group-item" *ngIf="insuredFormData.payoutPercentageIncome != '' && lifePremiumList.product_id=='112'"><strong>Payout Percentage Income:</strong> {{insuredFormData.payoutPercentageIncome}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.noOfMonths != '' && lifePremiumList.product_id=='112'"><strong>No Of Months:</strong> {{insuredFormData.noOfMonths}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any application or proposal for life, health, accident or critical illness:</strong> {{insuredFormData.insureHistory}}</li>
