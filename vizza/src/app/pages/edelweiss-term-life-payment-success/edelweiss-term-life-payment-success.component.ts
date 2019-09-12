@@ -34,7 +34,7 @@ export class EdelweissTermLifePaymentSuccessComponent implements OnInit {
     this.route.params.forEach((params) => {
       this.paymentStatus = params.status;
       this.policyId = params.policyNo;
-      this.applicationNo = params.applicationNo;
+      // this.applicationNo = params.applicationNo;
     });
   }
 
