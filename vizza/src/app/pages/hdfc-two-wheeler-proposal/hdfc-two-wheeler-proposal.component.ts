@@ -101,6 +101,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public premiumType: any;
     public vehicleRegNumber: any;
     public vehicleRegNo: any;
+    public buyProductDetails: any;
 
 
     public financiercodevalue: any;
@@ -253,6 +254,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.buyBikeDetails = JSON.parse(sessionStorage.enquiryFormData);
+        this.buyProductDetails = JSON.parse(sessionStorage.buyProductDetails);
 
 // this.summaryData=JSON.parse(sessionStorage.summaryData);
         let stringToSplit;
@@ -1092,6 +1094,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             'policy_type': this.premiumType == 'ThridParty_premium' ? 'ThridParty_Premium' : 'Comprehensive_Premium',
             'proposal_id': sessionStorage.hdfcBikeproposalID == '' || sessionStorage.hdfcBikeproposalID == undefined ? '' : sessionStorage.hdfcBikeproposalID,
             'motorproposalObj': {
+                'TransactionID':this.buyProductDetails.TransactionID,
                 'Customer_Details': {
                     'Customer_FirstName': this.proposer.controls['firstName'].value,
                     'Customer_MiddleName': this.proposer.controls['middleName'].value,
