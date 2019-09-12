@@ -45,6 +45,7 @@ export const MY_FORMATS = {
 })
 
 export class AegonTermLifeComponent implements OnInit {
+
   public personal: FormGroup;
   public nominee: FormGroup;
   public proposerAge: any;
