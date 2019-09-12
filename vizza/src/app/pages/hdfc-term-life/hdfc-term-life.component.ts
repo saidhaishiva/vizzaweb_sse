@@ -200,6 +200,7 @@ export class HdfcTermLifeComponent implements OnInit {
       eduqual: ['', Validators.required],
       eduqualName: ['', Validators.required],
       nationality: ['', Validators.required],
+      nationalityName: ['', Validators.required],
       residentstatus: ['', Validators.required],
       residentstatusName: ['', Validators.required],
       birthplace: ['', Validators.required],
@@ -251,6 +252,7 @@ export class HdfcTermLifeComponent implements OnInit {
       addrline: ['', Validators.required],
       existulipflag: 'N',
       sourcetype: ['', Validators.required],
+      sourcetypeName: ['', Validators.required],
       // fundpcntg: ['', Validators.required],
       fathernmtitle: ['', Validators.required],
       fathernmtitleName: ['', Validators.required],
@@ -277,6 +279,7 @@ export class HdfcTermLifeComponent implements OnInit {
       countryofbirthName: ['', Validators.required],
 
     });
+
 
     this.nomineeDetail = this.fb.group({
 
@@ -367,13 +370,13 @@ export class HdfcTermLifeComponent implements OnInit {
         {
           rolecd: 'PRIMARY',
           ntitle: ['', Validators.required],
-          ntitleName: ['', Validators.required],
+          // ntitleName: ['', Validators.required],
           nfirstnm: ['', Validators.required],
           nlastnm: ['', Validators.required],
           ngender: ['', Validators.required],
-          ngenderName: ['', Validators.required],
+          // ngenderName: ['', Validators.required],
           nmaritalstatus: ['', Validators.required],
-          nmaritalstatusName: ['', Validators.required],
+          // nmaritalstatusName: ['', Validators.required],
           // entitlepctg: ['', Validators.required],
           nrelationship: ['', Validators.required],
           nmobilenum: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
@@ -391,14 +394,14 @@ export class HdfcTermLifeComponent implements OnInit {
           nDob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
           dateErrorNominee: '',
           atitle:'',
-          atitleName:'',
+          // atitleName:'',
           afirstnm:'',
             alastnm: '',
           agender: '',
-          agenderName: '',
+          // agenderName: '',
           aDob: '',
           amaritalstatus:'',
-          amaritalstatusName:'',
+          // amaritalstatusName:'',
           ahouseno: '',
           astreet: '',
           alandmark:'',
@@ -860,6 +863,7 @@ export class HdfcTermLifeComponent implements OnInit {
 
   changeTitle() {
     this.personal.controls['titleName'].patchValue(this.titleListHdfcList[this.personal.controls['title'].value]);
+    console.log( this.personal.controls['titleName'].value,' tittle')
   }
   changeGender() {
     this.personal.controls['genderName'].patchValue(this.genderListHdfcList[this.personal.controls['gender'].value]);
@@ -902,38 +906,38 @@ export class HdfcTermLifeComponent implements OnInit {
     this.personal.controls['occutypespName'].patchValue(this.occupationTypeHdfcList[this.personal.controls['occutypesp'].value]);
   }
 changecatofoccupation() {
-    this.personal.controls['catofoccupationName'].patchValue(this.occupationTypeHdfcList[this.personal.controls['catofoccupation'].value]);
+    this.personal.controls['catofoccupationName'].patchValue(this.occupationListHdfcList[this.personal.controls['catofoccupation'].value]);
   }
 changecountryofbirth() {
     this.personal.controls['countryofbirthName'].patchValue(this.countryListHdfcList[this.personal.controls['countryofbirth'].value]);
   }
-  geteNomineeTitle(i) {
-    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ntitleName.patchValue(this.titleListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ntitle.value] );
-  }
- geteNomineeGender(i) {
-    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ngenderName.patchValue(this.genderListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ngender.value] );
-  }
- getenmaritalstatus(i) {
-    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nmaritalstatusName.patchValue(this.maritalListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nmaritalstatus.value] );
-  }
- getenrelationship(i) {
-    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nrelationshipName.patchValue(this.nomineeLifeassuredListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nrelationship.value] );
-  }
- geteatitle(i) {
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitleName.patchValue(this.titleListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].atitle.value] );
-  }
-
-geteagender(i) {
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agenderName.patchValue(this.genderListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].agender.value] );
-  }
-
-geteamaritalstatus(i) {
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatusName.patchValue(this.titleListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].amaritalstatus.value] );
-  }
-
-geterelationAppointeeHdfcList(i) {
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationshipName.patchValue(this.relationAppointeeHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].arelationship.value] );
-  }
+//   geteNomineeTitle(i) {
+//     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ntitleName.patchValue(this.titleListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ntitle.value] );
+//   }
+//  geteNomineeGender(i) {
+//     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ngenderName.patchValue(this.genderListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ngender.value] );
+//   }
+//  getenmaritalstatus(i) {
+//     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nmaritalstatusName.patchValue(this.maritalListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nmaritalstatus.value] );
+//   }
+//  getenrelationship(i) {
+//     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nrelationshipName.patchValue(this.nomineeLifeassuredListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nrelationship.value] );
+//   }
+//  geteatitle(i) {
+//     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitleName.patchValue(this.titleListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].atitle.value] );
+//   }
+//
+// geteagender(i) {
+//     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agenderName.patchValue(this.genderListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].agender.value] );
+//   }
+//
+// geteamaritalstatus(i) {
+//     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatusName.patchValue(this.titleListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].amaritalstatus.value] );
+//   }
+//
+// geterelationAppointeeHdfcList(i) {
+//     this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationshipName.patchValue(this.relationAppointeeHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].arelationship.value] );
+//   }
 
 
 
@@ -952,7 +956,9 @@ geterelationAppointeeHdfcList(i) {
   }
 
   public personalDetails(stepper: MatStepper, value) {
+
     this.personalData = value;
+    // console.log(this.personal.controls['titleName'].value,'titlw nme')
     console.log(value, 'eeeeeeeeeee');
     sessionStorage.stepper1Details = '';
     sessionStorage.stepper1Details = JSON.stringify(value);
@@ -2804,15 +2810,21 @@ getweightListHdfc() {
 
 
         title: this.getStepper1.title,
+        titleName: this.getStepper1.titleName,
         firstnm: this.getStepper1.firstnm,
         lastnm: this.getStepper1.lastnm,
         gender: this.getStepper1.gender,
+        genderName: this.getStepper1.genderName,
         dob: this.getStepper1.dob,
         fathernm: this.getStepper1.fathernm,
         maritalstatus: this.getStepper1.maritalstatus,
+        maritalstatusName: this.getStepper1.maritalstatusName,
         eduqual: this.getStepper1.eduqual,
+        eduqualName: this.getStepper1.eduqualName,
         nationality: this.getStepper1.nationality,
+        nationalityName: this.getStepper1.nationalityName,
         residentstatus: this.getStepper1.residentstatus,
+        residentstatusName: this.getStepper1.residentstatusName,
         ishdfcempflg: this.getStepper1.ishdfcempflg,
         exstngcustflg: this.getStepper1.exstngcustflg,
         isdisabledflg: this.getStepper1.isdisabledflg,
@@ -3228,6 +3240,7 @@ public setProposalSuccess(successData, stepper) {
     this.proposalId = this.summaryData.ProposalId;
     this.proposerFormData = this.personal.value;
     this.nomineeFormData = this.nomineeDetail.value;
+    console.log(this.proposerFormData, 'this.proposerFormData');
     console.log(this.nomineeFormData, 'nomineeFormData');
     console.log(this.nomineeDetail.value, 'this.nomineeDetail.value');
     sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
