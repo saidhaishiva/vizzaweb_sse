@@ -89,6 +89,9 @@ export class HdfcCarProposalComponent implements OnInit {
     public pinerror: any;
     public altererror: any;
     public premiumType: any;
+    public vehicleRegNumber: any;
+    public vehicleRegNo: any;
+    public buyFourwheelerProductDetails: any;
 
   constructor(public fb: FormBuilder,public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe ,public Fourwheeler: FourWheelerService) {
       let stepperindex = 0;
@@ -247,6 +250,7 @@ export class HdfcCarProposalComponent implements OnInit {
       this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
       this.carEquiryId = sessionStorage.fwEnquiryId;
       this.vehicleidv=JSON.parse(sessionStorage.buyFourwheelerProductDetails);
+      this.buyFourwheelerProductDetails=JSON.parse(sessionStorage.buyFourwheelerProductDetails);
       let stringToSplit;
       stringToSplit = this.vehicledata.vehicle_no.toUpperCase();
       let x = stringToSplit.slice(0, 2);
@@ -254,15 +258,15 @@ export class HdfcCarProposalComponent implements OnInit {
       let oo = stringToSplit.slice(5, 6);
       let w = '';
       let z = stringToSplit.slice(4, 6);
-      // if (!isNaN(oo)) {
-      //     let j = stringToSplit.slice(4, 5);
-      //     w = stringToSplit.slice(5);
-      //     this.vehicledata.vehicle_no = x.concat('-', y, '-', j, '-', w);
-      //
-      // } else {
-      w = stringToSplit.slice(6);
-      this.vehicledata.vehicle_no = x.concat('-', y, '-', z, '-', w);
+      if (!isNaN(oo)) {
+          let j = stringToSplit.slice(4, 5);
+          w = stringToSplit.slice(5);
+          this.vehicleRegNumber = x.concat('-', y, '-', j, '-', w);
 
+      } else {
+          w = stringToSplit.slice(6);
+          this.vehicleRegNumber = x.concat('-', y, '-', z, '-', w);
+      }
 
       // this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
@@ -270,7 +274,7 @@ export class HdfcCarProposalComponent implements OnInit {
       this.vechicle.controls['vehiclemodel'].patchValue(this.vehicledata.vehicle_model);
       this.vechicle.controls['previouspolicyclaim'].patchValue(this.vehicledata.previous_claim_YN == '1' ? 'YES' : 'NO');
       this.vechicle.controls['Vehicleregdate'].patchValue(this.datepipe.transform(this.vehicledata.registration_date, 'y-MM-dd'));
-      this.vechicle.controls['regno'].patchValue(this.vehicledata.vehicle_no);
+      this.vechicle.controls['regno'].patchValue(this.vehicleRegNumber);
       this.vechicle.controls['manufactureyear'].patchValue(this.vehicledata.manu_yr);
       // this.vechicle.controls['Previouscompany'].patchValue(this.vehicledata.prev_insurance_name);
       this.vechicle.controls['ncb'].patchValue(this.vehicledata.ncb_percent);
@@ -987,7 +991,7 @@ ChangeGender(){
 
     createproposal(stepper){
         let stringToSplit ;
-        stringToSplit=this.vechicle.controls['regno'].value.toUpperCase();
+        stringToSplit=this.vehicledata.vehicle_no.toUpperCase();
         var pos = stringToSplit.search("-");
         console.log(pos,'pos');
         if(pos==-1) {
@@ -998,7 +1002,7 @@ ChangeGender(){
             let z = stringToSplit.slice(4, 6);
             let w = stringToSplit.slice(6);
             let regno = x.concat('-', y, '-', z, '-', w);
-            this.vechicle.controls['regno'].patchValue(regno);
+            this.vehicleRegNo=regno;
             console.log(regno, 'reg');
             console.log(this.addOns.controls['ElecticalAccessoryIDV'].value, 'check');
         }
@@ -1014,6 +1018,7 @@ console.log(this.vehicleidv.Idv);
             "policy_type":this.premiumType=='ThridParty_premium'?'ThridParty_Premium':'Comprehensive_Premium',
             "proposal_id":sessionStorage.hdfccarproposalID == '' || sessionStorage.hdfccarproposalID == undefined ? '' : sessionStorage.hdfccarproposalID,
             "motorproposalObj": {
+                'TransactionID':this.vehicleidv.TransactionID,
             "Customer_Details": {
                 "GC_CustomerID": [],
                     "Company_Name": [],
@@ -1067,7 +1072,7 @@ console.log(this.vehicleidv.Idv);
                     "VehicleModelCode": "26114",
                     "DateofDeliveryOrRegistration": this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y') : this.tod ,
                     "YearOfManufacture": this.vechicle.controls['manufactureyear'].value,
-                    "Registration_No": this.regvalue != 'New Vehicle' ? this.vechicle.controls['regno'].value : '',
+                    "Registration_No": this.regvalue != 'New Vehicle' ? this.vehicleRegNo : '',
                     "EngineNumber": this.vechicle.controls['engine'].value,
                     "ChassisNumber": this.vechicle.controls['chassis'].value,
                     // "RTOLocationCode": "10406",

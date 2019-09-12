@@ -7,8 +7,10 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {BranchService} from '../../shared/services/branch.service';
 import {MatDialog} from '@angular/material';
 import {Router} from '@angular/router';
-import {AddtestimonialComponent} from '../testimonial/addtestimonial/addtestimonial.component';
 import {PathPopupComponent} from './path-popup/path-popup.component';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { saveAs } from 'file-saver';
+import { ResponseType } from '@angular/http';
 
 @Component({
   selector: 'app-career-list',
@@ -33,7 +35,7 @@ export class CareerListComponent implements OnInit {
   img: any;
   statusList: any;
   statusValue: any;
-  constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog, public router: Router) {
+  constructor(public auth: AuthService, public http: HttpClient, private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog, public router: Router) {
   this.col = ['one'];
   this.list = false;
   }
@@ -108,10 +110,44 @@ export class CareerListComponent implements OnInit {
   path(i){
     this.list = true;
   }
-imageDownload(value){
-  let currenturl = this.config.getimgUrl();
-  window.open(currenturl + '/' + value.file_path, '_top');
+imageDownload() {
+  alert();
+  // let currenturl = this.config.getimgUrl();
+  // // window.open(currenturl + '/' + value.file_path, '_top');
+// public downloadCSVFile(){
+//     this.downloadPdf().subscribe(
+//         (res) => {
+//           saveAs(res,'test.pdf')
+//         }
+//     );
+//
+//
+//   }
+  this.downloadPdf().subscribe(
+      (res) => {
+        saveAs(res, 'test.pdf')
+      }
+  );
+}
 
+  public downloadPdf(){
+    let url= 'http://13.127.24.123/vizza/uploads/careers/GVvuUlv.pdf';
+  // const httpOptions = {
+  //   headers: new HttpHeaders({'Content-Type': 'application/pdf'})
+  // };
+  // return this.http.get(url , httpOptions)
+  // // return this.http.post(url , httpOptions).map(
+  // //     (res) => {
+  // //       saveAs(res, 'test.pdf')
+  // //
+  // //
+  // //     })
+    let headers = new Headers();
+    // headers.append('Authorization', 'JWT ' + localStorage.getItem('id_token'));
+    // return this.http.get(url,{  headers: headers, responseType: ResponseContentType.Blob }).map(
+    //     (res) => {
+    //       return new Blob([res.blob()], { type: 'application/pdf' })
+    //     })
 }
 // status DropDown
   getStatusDetails(){

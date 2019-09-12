@@ -99,6 +99,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public personaldistricts: any;
     public residenceDistricts: any;
     public premiumType: any;
+    public vehicleRegNumber: any;
+    public vehicleRegNo: any;
+    public buyProductDetails: any;
 
 
     public financiercodevalue: any;
@@ -251,25 +254,26 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.buyBikeDetails = JSON.parse(sessionStorage.enquiryFormData);
+        this.buyProductDetails = JSON.parse(sessionStorage.buyProductDetails);
 
 // this.summaryData=JSON.parse(sessionStorage.summaryData);
         let stringToSplit;
-        stringToSplit = this.vehicledata.vehicle_no;
+        stringToSplit = this.vehicledata.vehicle_no.toUpperCase();
         let x = stringToSplit.slice(0, 2);
         let y = stringToSplit.slice(2, 4);
         let oo = stringToSplit.slice(5, 6);
         let w = '';
         let z = stringToSplit.slice(4, 6);
-        // if (!isNaN(oo)) {
-        //     let j = stringToSplit.slice(4, 5);
-        //     w = stringToSplit.slice(5);
-        //     this.vehicledata.vehicle_no = x.concat('-', y, '-', j, '-', w);
-        //
-        // } else {
-        w = stringToSplit.slice(6);
-        this.vehicledata.vehicle_no = x.concat('-', y, '-', z, '-', w);
+        if (!isNaN(oo)) {
+            let j = stringToSplit.slice(4, 5);
+            w = stringToSplit.slice(5);
+            this.vehicleRegNumber = x.concat('-', y, '-', j, '-', w);
 
-        // }
+        } else {
+        w = stringToSplit.slice(6);
+        this.vehicleRegNumber = x.concat('-', y, '-', z, '-', w);
+
+        }
         console.log(this.vehicledata, 'iie');
         this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
@@ -282,7 +286,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         console.log(this.vehicleidv.Comprehensive_premium, 'idv');
         this.vechicle.controls['vehiclemodel'].patchValue(this.vehicledata.vehicle_model);
         this.vechicle.controls['Vehicleregdate'].patchValue(this.datepipe.transform(this.vehicledata.registration_date, 'y-MM-dd'));
-        this.vechicle.controls['regno'].patchValue(this.vehicledata.vehicle_no);
+        this.vechicle.controls['regno'].patchValue(this.vehicleRegNumber);
         this.vechicle.controls['manufactureyear'].patchValue(this.vehicledata.manu_yr);
         // this.vechicle.controls['Previouscompany'].patchValue(this.vehicledata.prev_insurance_name);
         this.vechicle.controls['ncb'].patchValue(this.vehicledata.ncb_percent);
@@ -490,7 +494,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             sessionStorage.stepper1Details = JSON.stringify(value);
             console.log(sessionStorage, 'storage');
             // this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
-            console.log(sessionStorage.proposerAge, 'rr');
             console.log(this.proposer.valid, 'valid');
             if (this.proposer.valid) {
                 if (sessionStorage.proposerAge >= 18) {
@@ -578,9 +581,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
             this.districtarray = JSON.parse(sessionStorage.districtlist);
         }
-        console.log(sessionStorage.companylist, 'kkk');
         if (sessionStorage.companylist != '' && sessionStorage.companylist != undefined) {
-            console.log(sessionStorage.companylist, 'kkk');
             this.companyList = JSON.parse(sessionStorage.companylist);
         }
 
@@ -954,7 +955,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 if (this.proposer.controls['issameascmmunication'].value == true) {
                     this.personalCitys = this.cityarray;
                     this.personaldistricts = this.districtarray;
-                    console.log(this.proposer.controls['citycom'].value, 'vvvv');
                     this.proposer.controls['statepermanent'].setValue(this.proposer.controls['statecom'].value);
                     this.proposer.controls['citypermanent'].setValue(this.proposer.controls['citycom'].value);
                     this.proposer.controls['districtpermanent'].setValue(this.proposer.controls['districtcom'].value);
@@ -1048,7 +1048,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
 
         let stringToSplit;
-        stringToSplit = this.vechicle.controls['regno'].value;
+        stringToSplit = this.vehicledata.vehicle_no.toUpperCase();
         var pos = stringToSplit.search('-');
         if (pos == -1) {
             let x = stringToSplit.slice(0, 2);
@@ -1067,10 +1067,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             //     {
             w = stringToSplit.slice(6);
             let regno = x.concat('-', y, '-', z, '-', w);
-            this.vechicle.controls['regno'].patchValue(regno);
-
-
-            // }
+           this.vehicleRegNo=regno;
+           // }
 
             // let x = stringToSplit.slice(0, 2);
             // let y = stringToSplit.slice(2, 4);
@@ -1096,6 +1094,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             'policy_type': this.premiumType == 'ThridParty_premium' ? 'ThridParty_Premium' : 'Comprehensive_Premium',
             'proposal_id': sessionStorage.hdfcBikeproposalID == '' || sessionStorage.hdfcBikeproposalID == undefined ? '' : sessionStorage.hdfcBikeproposalID,
             'motorproposalObj': {
+                'TransactionID':this.buyProductDetails.TransactionID,
                 'Customer_Details': {
                     'Customer_FirstName': this.proposer.controls['firstName'].value,
                     'Customer_MiddleName': this.proposer.controls['middleName'].value,
@@ -1147,7 +1146,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     // "VehicleModelCode": "17586",
                     'DateofDeliveryOrRegistration': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y') : this.tod,
                     'YearOfManufacture': this.vechicle.controls['manufactureyear'].value,
-                    'Registration_No': this.regvalue != 'New Vehicle' ? this.vechicle.controls['regno'].value : '',
+                    'Registration_No': this.regvalue != 'New Vehicle' ? this.vehicleRegNo : '',
                     'EngineNumber': this.vechicle.controls['engine'].value,
                     'ChassisNumber': this.vechicle.controls['chassis'].value,
                     // "RTOLocationCode": "22189",

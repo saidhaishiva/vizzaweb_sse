@@ -625,7 +625,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Title" formControlName="ntitle"  autocomplete="off" (change)="geteNomineeTitle()"  >
+                                                        <mat-select placeholder="Title" formControlName="ntitle"  autocomplete="off"   >
                                                             <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
@@ -649,7 +649,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Gender" formControlName="ngender" autocomplete="off" required (change)="geteNomineeGender()" >
+                                                        <mat-select placeholder="Gender" formControlName="ngender" autocomplete="off" required  >
                                                             <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.key'>
                                                             {{list.value}}
                                                         </mat-option>
@@ -682,7 +682,7 @@
                                                 <!--</div>-->
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Marital Status" formControlName="nmaritalstatus" autocomplete="off" required (change)="getenmaritalstatus()" >
+                                                        <mat-select placeholder="Marital Status" formControlName="nmaritalstatus" autocomplete="off" required  >
                                                             <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
@@ -746,7 +746,7 @@
 
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Relationship" formControlName="nrelationship" autocomplete="off" required (change)="getenrelationship()" >
+                                                        <mat-select placeholder="Relationship" formControlName="nrelationship" autocomplete="off" required  >
                                                             <mat-option *ngFor="let list of nomineeLifeassuredListHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
@@ -768,7 +768,7 @@
                                                     <div class="col-md-4"  *ngIf="i ==0">
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Title<span class="error" >*</span></mat-placeholder>
-                                                            <mat-select  formControlName="atitle" (change)="geteatitle()"  >
+                                                            <mat-select  formControlName="atitle"  >
 
                                                                 <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}
@@ -795,7 +795,7 @@
                                                     <div class="col-md-4"  *ngIf="i ==0">
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Gender<span class="error" >*</span></mat-placeholder>
-                                                            <mat-select  formControlName="agender" (change)="geteagender()" >
+                                                            <mat-select  formControlName="agender"  >
 
                                                                 <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}
@@ -806,7 +806,7 @@
                                                     <div class="col-md-4"  *ngIf="i ==0">
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Marital Status<span class="error" >*</span></mat-placeholder>
-                                                            <mat-select  formControlName="amaritalstatus" (change)="geteamaritalstatus()" >
+                                                            <mat-select  formControlName="amaritalstatus" >
 
                                                                 <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}
@@ -828,7 +828,7 @@
                                                     <div class="col-md-4"  *ngIf="i ==0">
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Relationship with Nominee<span class="error" >*</span></mat-placeholder>
-                                                                <mat-select  formControlName="arelationship" (change)="geterelationAppointeeHdfcList()" >
+                                                                <mat-select  formControlName="arelationship"  >
 
                                                                 <mat-option *ngFor="let list of relationAppointeeHdfcList | keys" [value]= 'list.key'>
                                                                     {{list.value}}

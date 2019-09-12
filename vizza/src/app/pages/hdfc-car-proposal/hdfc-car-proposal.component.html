@@ -28,18 +28,18 @@
                         </div>
                         <div class="col-md-3 mt-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="firstName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                            <input matInput placeholder="First Name" formControlName="firstName" maxlength="50" (keypress)="nameValidate($event)" autocomplete="off" required >
                             <mat-error *ngIf="proposer.controls.firstName.errors?.required">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3 mt-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Middle Name" formControlName="middleName" (keypress)="nameValidate($event)" >
+                            <input matInput placeholder="Middle Name" formControlName="middleName" maxlength="50" (keypress)="nameValidate($event)" >
                           </mat-form-field>
                         </div>
                         <div class="col-md-3 mt-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="lastName" (keypress)="nameValidate($event)" required>
+                            <input matInput placeholder="Last Name" formControlName="lastName" maxlength="50" (keypress)="nameValidate($event)" required>
                             <mat-error *ngIf="proposer.controls.lastName.errors?.required">last Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -62,7 +62,7 @@
                           <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
                         </div>
                         <div class="col-md-3 mt-3"><mat-form-field class="w-100">
-                          <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" required>
+                          <input matInput placeholder="Email ID"   formControlName="email" maxlength="100"  autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.email.errors?.required">Email ID is required</mat-error>
                           <mat-error *ngIf="proposer.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field>
@@ -564,7 +564,7 @@
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Named Person SI<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
-                                                <input matInput  formControlName="namedPersonSI" autocomplete="off" (keypress)="numberValidate($event)"  >
+                                                <input matInput  formControlName="namedPersonSI" maxlength="10" autocomplete="off" (keypress)="numberValidate($event)"  >
                                                 <mat-error *ngIf="addOns.controls.namedPersonSI.errors?.required  ">Named Person SI is required</mat-error>
 
                                             </mat-form-field>
@@ -593,7 +593,7 @@
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>EMI Amount<span class="error" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">*</span></mat-placeholder>
-                                                <input matInput  formControlName="EMIamount" autocomplete="off" (keypress)="numberValidate($event)"  >
+                                                <input matInput  formControlName="EMIamount" autocomplete="off" maxlength="10" (keypress)="numberValidate($event)"  >
                                                 <mat-error *ngIf="addOns.controls.EMIamount.errors?.required  ">EMI Amount Is Required</mat-error>
 
                                             </mat-form-field>
