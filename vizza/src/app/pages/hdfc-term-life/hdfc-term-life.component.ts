@@ -2815,7 +2815,7 @@ getweightListHdfc() {
         lastnm: this.getStepper1.lastnm,
         gender: this.getStepper1.gender,
         genderName: this.getStepper1.genderName,
-        dob: this.getStepper1.dob,
+        dob: this.datepipe.transform(this.getStepper1.dob, 'y-MM-dd'),
         fathernm: this.getStepper1.fathernm,
         maritalstatus: this.getStepper1.maritalstatus,
         maritalstatusName: this.getStepper1.maritalstatusName,
