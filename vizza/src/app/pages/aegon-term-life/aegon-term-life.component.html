@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" class="textFieldd" formControlName="lastName" (keypress)="nameValidate($event)" autocomplete="off" required minlength="2" maxlength="25">
+                            <input matInput placeholder="Last Name" class="textFieldd" formControlName="lastName" (keypress)="nameValidate($event)" autocomplete="off" required minlength="2"  maxlength="25">
                             <mat-error *ngIf="personal.controls.lastName.errors?.required">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -97,7 +97,24 @@
                             <mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Maritial Status is required</mat-error>
                           </mat-form-field>
                         </div>
+                        <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (change)="changeQualificationList();getAnnual('qul'); getPremium('qul')" required>
+                            <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
+                              {{list.value}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="personal.controls.qualifiction.errors?.required">Qualifiction is required</mat-error>
+                        </mat-form-field>
+                          <div class="error" *ngIf="qulMsg != ''">{{qulMsg}}</div>
 
+                        </div>
+                        <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Others'">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Qualifiction Other" formControlName="qualifictionOther" (keypress)="nameValidate($event)" maxlength="25"  autocomplete="off"  [required]="qualificationList" >
+                            <mat-error *ngIf="personal.controls.qualifictionOther.errors?.required">Qualifiction Other is required</mat-error>
+                          </mat-form-field>
+                        </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Employee Type" formControlName="employeeType" autocomplete="off" required (change)="changeEmpType()">
@@ -126,25 +143,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Qualification" formControlName="qualifiction"  (change)="changeQualificationList();getAnnual('qul');" required>
-                              <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
-                                {{list.value}}
-                              </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="personal.controls.qualifiction.errors?.required">Qualifiction is required</mat-error>
-                          </mat-form-field>
-                          <div class="error" *ngIf="qulMsg != ''">{{qulMsg}}</div>
-
-                        </div>
-                        <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Others'">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Qualifiction Other" formControlName="qualifictionOther" (keypress)="nameValidate($event)" maxlength="25"  autocomplete="off"  [required]="qualificationList" >
-                            <mat-error *ngIf="personal.controls.qualifictionOther.errors?.required">Qualifiction Other is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" (input)="validateAnnual(personal.controls['annualIncome'].value,1);" required autocomplete="off" min="100000"  maxlength="10">
+                            <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" (input)="validateAnnual(personal.controls['annualIncome'].value,1);deathBenefitSA(personal.controls['deathBenefitSA'].value,1);" required autocomplete="off" min="100000"  maxlength="10">
                             <mat-error *ngIf="personal.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                           </mat-form-field>
                           <div class="error" *ngIf="annaulIncomeMsg != ''">{{annaulIncomeMsg}}</div>
@@ -301,7 +300,7 @@
 
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Death Benefit SA" formControlName="deathBenefitSA" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event);" (input)="deathBenefitSA(personal.controls['deathBenefitSA'].value,1);"  >
+                            <input matInput placeholder="Death Benefit SA" formControlName="deathBenefitSA" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event);" (input)="deathBenefitSA(personal.controls['deathBenefitSA'].value,1);validateAnnual(personal.controls['annualIncome'].value,1); "  >
                             <mat-error *ngIf="personal.controls.deathBenefitSA.errors?.required">Death Benefit SA is required</mat-error>
                             <!--<input type="number" oninput="validity.valid||(value ='50000000');"  step="1000" />-->
 
