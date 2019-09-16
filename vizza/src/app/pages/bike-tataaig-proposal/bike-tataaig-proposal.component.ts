@@ -1,4 +1,4 @@
-    import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -77,6 +77,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public agecount: any;
     public premium: any;
     public config: any;
+    public productlist: any;
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public configr: ConfigurationService, public route: ActivatedRoute) {
         let stepperindex = 0;
@@ -142,14 +143,21 @@ export class BikeTataaigProposalComponent implements OnInit {
             Address: '',
             coverdrive: ['', Validators.required],
             coverdrivevalue: '',
-            Associationmember: '',
+            Associationmember: false,
+            Associationamount:'',
             // Voluntary: '',
-            Antitheft: '',
-            Tppdrestrict: '',
-            depreciation: '',
-            Consumableexpense: '',
-            Returninvoice: '',
-            Roadsideassistance: '',
+            Antitheft: false,
+            Antitheftamount:'',
+            Tppdrestrict: false,
+            Tppdrestrictamount:'',
+            depreciation: false,
+            depreciationamount:'',
+            Consumableexpense: false,
+            Consumableexpenseamount:'',
+            Returninvoice: false,
+            Returninvoiceamount:'',
+            Roadsideassistance: false,
+            Roadsideassistanceamount:'',
         });
 
         this.previouspolicy = this.fb.group({
@@ -322,6 +330,111 @@ export class BikeTataaigProposalComponent implements OnInit {
             age = age - 1;
         }
         return age;
+    }
+    amount_automobile() {
+        if (this.vehicle.controls['Associationmember'].value == true) {
+            this.vehicle.controls['Associationamount'].setValidators([Validators.required]);
+            this.vehicle.controls['Associationamount'].updateValueAndValidity();
+        } else {
+            this.vehicle.controls['Associationamount'].clearValidators();
+            this.vehicle.controls['Associationamount'].updateValueAndValidity();
+        }
+    }
+    chaneauto()
+    {
+        this.vehicle.controls['Antitheft'].patchValue(this.Quotelist.productlist.addons.Automobile_Association_Membership.value);
+        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+
+    }
+    amount_Antitheft() {
+        if (this.vehicle.controls['Antitheft'].value == true) {
+            this.vehicle.controls['Antitheftamount'].setValidators([Validators.required]);
+            this.vehicle.controls['Antitheftamount'].updateValueAndValidity();
+        } else {
+            this.vehicle.controls['Antitheftamount'].clearValidators();
+            this.vehicle.controls['Antitheftamount'].updateValueAndValidity();
+        }
+    }
+    chaneanti()
+    {
+        this.vehicle.controls['Antitheftamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
+        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+
+    }
+    // amount_Tppdrestrict() {
+    //     if (this.vehicle.controls['Tppdrestrict'].value == true) {
+    //         this.vehicle.controls['Tppdrestrictamount'].setValidators([Validators.required]);
+    //         this.vehicle.controls['Tppdrestrictamount'].updateValueAndValidity();
+    //     } else {
+    //         this.vehicle.controls['Tppdrestrictamount'].clearValidators();
+    //         this.vehicle.controls['Tppdrestrictamount'].updateValueAndValidity();
+    //     }
+    // }
+    // chanetpp()
+    // {
+    //     this.vehicle.controls['Tppdrestrictamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
+    //     console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+    //
+    // }
+    amount_depreciation() {
+        if (this.vehicle.controls['depreciation'].value == true) {
+            this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
+            this.vehicle.controls['depreciationamount'].updateValueAndValidity();
+        } else {
+            this.vehicle.controls['depreciationamount'].clearValidators();
+            this.vehicle.controls['depreciationamount'].updateValueAndValidity();
+        }
+    }
+    chanedepre()
+    {
+        this.vehicle.controls['depreciationamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
+        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+
+    }
+    amount_Consumableexpense() {
+        if (this.vehicle.controls['Consumableexpense'].value == true) {
+            this.vehicle.controls['Consumableexpenseamount'].setValidators([Validators.required]);
+            this.vehicle.controls['Consumableexpenseamount'].updateValueAndValidity();
+        } else {
+            this.vehicle.controls['Consumableexpenseamount'].clearValidators();
+            this.vehicle.controls['Consumableexpenseamount'].updateValueAndValidity();
+        }
+    }
+    chanecon()
+    {
+        this.vehicle.controls['Consumableexpenseamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
+        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+
+    }
+    amount_Returninvoice() {
+        if (this.vehicle.controls['Returninvoice'].value == true) {
+            this.vehicle.controls['Returninvoiceamount'].setValidators([Validators.required]);
+            this.vehicle.controls['Returninvoiceamount'].updateValueAndValidity();
+        } else {
+            this.vehicle.controls['Returninvoiceamount'].clearValidators();
+            this.vehicle.controls['Returninvoiceamount'].updateValueAndValidity();
+        }
+    }
+    chaneret()
+    {
+        this.vehicle.controls['Returninvoiceamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
+        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+
+    }
+    amount_Roadsideassistance() {
+        if (this.vehicle.controls['Roadsideassistance'].value == true) {
+            this.vehicle.controls['Roadsideassistanceamount'].setValidators([Validators.required]);
+            this.vehicle.controls['Roadsideassistanceamount'].updateValueAndValidity();
+        } else {
+            this.vehicle.controls['Roadsideassistanceamount'].clearValidators();
+            this.vehicle.controls['Roadsideassistanceamount'].updateValueAndValidity();
+        }
+    }
+    chaneroad()
+    {
+        this.vehicle.controls['Roadsideassistanceamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
+        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+
     }
 
     choosegen() {
@@ -680,13 +793,20 @@ export class BikeTataaigProposalComponent implements OnInit {
                 coverdrive: this.getstepper2.coverdrive,
                 coverdrivevalue: this.getstepper2.coverdrivevalue,
                 Associationmember: this.getstepper2.Associationmember,
+                Associationamount: this.getstepper2.Associationamount,
                 // Voluntary: this.getstepper2.Voluntary,
                 Antitheft: this.getstepper2.Antitheft,
+                Antitheftamount: this.getstepper2.Antitheftamount,
                 Tppdrestrict: this.getstepper2.Tppdrestrict,
+                Tppdrestrictamount: this.getstepper2.Tppdrestrictamount,
                 depreciation: this.getstepper2.depreciation,
+                depreciationamount: this.getstepper2.depreciationamount,
                 Consumableexpense: this.getstepper2.Consumableexpense,
+                Consumableexpenseamount: this.getstepper2.Consumableexpenseamount,
                 Returninvoice: this.getstepper2.Returninvoice,
+                Returninvoiceamount: this.getstepper2.Returninvoiceamount,
                 Roadsideassistance: this.getstepper2.Roadsideassistance,
+                Roadsideassistanceamount: this.getstepper2.Roadsideassistanceamount,
             })
         }
         if (sessionStorage.tatabikeprepolicy != '' && sessionStorage.tatabikeprepolicy != undefined) {
@@ -749,7 +869,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.Quotelist = successData.ResponseObject;
             console.log(this.Quotelist, 'quotationdata');
-            this.createproposal(stepper);
+            // this.createproposal(stepper);
         }
     }
 
