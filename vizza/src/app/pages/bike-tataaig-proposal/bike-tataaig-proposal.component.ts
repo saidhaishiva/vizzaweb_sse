@@ -66,6 +66,13 @@ export class BikeTataaigProposalComponent implements OnInit {
     public bikeEnquiryId: any;
     public banklist: any;
     public Quotelist: any;
+    public QuoteAss: any;
+    public QuoteAntitheft: any;
+    public QuoteThirdPartres:any;
+    public Quotedepreciation:any;
+    public QuoteConsumableexpense:any;
+    public QuoteReturninvoice:any;
+    public QuoteRoadsideassistance:any;
     public declaration: any;
     public PaymentRedirect: any;
     public PaymentReturn: any;
@@ -78,6 +85,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     public premium: any;
     public config: any;
     public productlist: any;
+
+
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public configr: ConfigurationService, public route: ActivatedRoute) {
         let stepperindex = 0;
@@ -183,6 +192,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.vehicle.controls['Associationmember'].value == false;
         this.getGenderlist();
         // this.getNamelist();
         this.coverdriveList();
@@ -332,6 +342,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         return age;
     }
     amount_automobile() {
+        console.log(this.vehicle.controls['Associationmember'].value,'required Asso')
         if (this.vehicle.controls['Associationmember'].value == true) {
             this.vehicle.controls['Associationamount'].setValidators([Validators.required]);
             this.vehicle.controls['Associationamount'].updateValueAndValidity();
@@ -342,8 +353,10 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chaneauto()
     {
-        this.vehicle.controls['Antitheft'].patchValue(this.Quotelist.productlist.addons.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Associationamount'].patchValue(this.QuoteAss);
+        // console.log(this.Quotelist.productlist.addons.Automobile_Association_Membership,'quoteValueeee')
+        console.log(this.QuoteAss,'quoteValueesssss')
+        // console.log( this.vehicle.controls['Associationamount'].value,'quoteListsss')
 
     }
     amount_Antitheft() {
@@ -361,21 +374,21 @@ export class BikeTataaigProposalComponent implements OnInit {
         console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
 
     }
-    // amount_Tppdrestrict() {
-    //     if (this.vehicle.controls['Tppdrestrict'].value == true) {
-    //         this.vehicle.controls['Tppdrestrictamount'].setValidators([Validators.required]);
-    //         this.vehicle.controls['Tppdrestrictamount'].updateValueAndValidity();
-    //     } else {
-    //         this.vehicle.controls['Tppdrestrictamount'].clearValidators();
-    //         this.vehicle.controls['Tppdrestrictamount'].updateValueAndValidity();
-    //     }
-    // }
-    // chanetpp()
-    // {
-    //     this.vehicle.controls['Tppdrestrictamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-    //     console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
-    //
-    // }
+    amount_Tppdrestrict() {
+        if (this.vehicle.controls['Tppdrestrict'].value == true) {
+            this.vehicle.controls['Tppdrestrictamount'].setValidators([Validators.required]);
+            this.vehicle.controls['Tppdrestrictamount'].updateValueAndValidity();
+        } else {
+            this.vehicle.controls['Tppdrestrictamount'].clearValidators();
+            this.vehicle.controls['Tppdrestrictamount'].updateValueAndValidity();
+        }
+    }
+    chanetpp()
+    {
+        this.vehicle.controls['Tppdrestrictamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
+        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+
+    }
     amount_depreciation() {
         if (this.vehicle.controls['depreciation'].value == true) {
             this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
@@ -432,7 +445,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chaneroad()
     {
-        this.vehicle.controls['Roadsideassistanceamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
+        this.vehicle.controls['Roadsideassistanceamount'].patchValue(this.QuoteAss.value);
         console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
 
     }
@@ -836,7 +849,9 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     QuoteList(stepper) {
+        console.log(this.vehicle.controls['Associationmember'].value, 'Associationmember');
         const data = {
+
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -869,6 +884,15 @@ export class BikeTataaigProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.Quotelist = successData.ResponseObject;
             console.log(this.Quotelist, 'quotationdata');
+            this.QuoteAss=this.Quotelist.productlist.addons.Automobile_Association_Membership;
+            this.QuoteAntitheft=this.Quotelist.productlist.addons.Anti_theft_device;
+            this.QuoteThirdPartres=this.Quotelist.productlist.addons.TPPD_Restricted;
+            this.Quotedepreciation=this.Quotelist.productlist.addons.Depreciation_ReImbursement;
+            this.QuoteConsumableexpense=this.Quotelist.productlist.addons.Consumables_expenses;
+            this.QuoteReturninvoice=this.Quotelist.productlist.addons.Return_to_Invoice;
+            this.QuoteRoadsideassistance=this.Quotelist.productlist.addons.Roadside_Assistance;
+            console.log(this.QuoteAss,'amount')
+
             // this.createproposal(stepper);
         }
     }
