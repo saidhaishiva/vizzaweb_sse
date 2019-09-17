@@ -4974,16 +4974,16 @@ export class EdelweissPosComponent implements OnInit {
       this.proposalNextList = successData.ResponseObject;
       this.proposalFormPdf = this.proposalNextList.path;
       console.log(this.proposalFormPdf,'this.proposalFormPdf');
-      let dialogRef = this.dialog.open(EdelweissposOpt, {
-        width: '400px'
-      });
-      dialogRef.disableClose = true;
-      dialogRef.afterClosed().subscribe(result => {
-        if(result) {
-
-        }
-
-      });
+      // let dialogRef = this.dialog.open(EdelweissposOpt, {
+      //   width: '400px'
+      // });
+      // dialogRef.disableClose = true;
+      // dialogRef.afterClosed().subscribe(result => {
+      //   if(result) {
+      //
+      //   }
+      //
+      // });
 
     } else {
       this.proposalGenStatus = true;
