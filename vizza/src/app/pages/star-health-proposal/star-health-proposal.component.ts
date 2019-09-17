@@ -105,7 +105,11 @@ export class StarHealthProposalComponent implements OnInit {
     public socialAnswer3: any;
     public socialAnswer4: any;
     public inputReadonly: any;
+    public requestDetailsss: any;
     public previousInsurence: any;
+    public premium: any;
+    public servicetax: any;
+    public total_premium: any;
     public nomineeNext: any;
     public sameRelationship: any;
     currentStep: any;
@@ -1554,6 +1558,8 @@ export class StarHealthProposalComponent implements OnInit {
             }
             this.proposerFormData = this.personal.value;
             this.insuredFormData = this.familyMembers;
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4;
+
             this.nomineeFormData = this.nomineeDate;
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
@@ -1576,8 +1582,8 @@ export class StarHealthProposalComponent implements OnInit {
         const data = {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
-            'reference_id' : this.proposalNumber,
-            'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposal_Id,
+            'reference_id' : this.summaryData.proposalNum,
+            'proposal_id': sessionStorage.proposalID,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
@@ -1723,7 +1729,10 @@ export class StarHealthProposalComponent implements OnInit {
             'plan_name': this.buyProductdetails.product_name,
             'proposalNum': this.summaryData.proposalNum,
             'created-date': this.createdDate,
-            'company_logo': this.buyProductdetails.company_logo,
+            'premium': this.summaryData.premium,
+            'servicetax': this.summaryData.servicetax,
+            'total_premium': this.summaryData.total_premium,
+            'company_logo': this.summaryData.company_logo,
             'paymentlink-date': '',
             'policy_type_name': this.buyProductdetails.prod_shortform,
             'policy_category': 'fresh',
@@ -1757,6 +1766,7 @@ export class StarHealthProposalComponent implements OnInit {
             'proposer_comm_pincode': this.personalData.personalPincode,
             'prop_dob': this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd') ,
             'prop_occupation': this.personalData.personalOccupation,
+            'prop_occupationName':  this.personal.controls['personalOccupationName'].value,
             'prop_annual_income': this.personalData.personalIncome,
             'prop_pan_no': this.personalData.personalPan.toUpperCase(),
             'prop_aadhar_no': this.personalData.personalAadhar,
@@ -1840,12 +1850,13 @@ export class StarHealthProposalComponent implements OnInit {
 
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
-            let requestDetails = successData.ResponseObject;
-            this.proposalNumber = requestDetails[0].proposalNum;
-            this.pos_status = requestDetails[0].pos_status;
-            this.requestDetails = requestDetails[0];
+            this.requestDetails = successData.ResponseObject;
+            console.log(this.requestDetails, 'requestDetailsrequestDetails');
+            this.proposalNumber = this.requestDetails[0].proposalNum;
+            this.pos_status = this.requestDetails[0].role_id;
+            console.log(this.pos_status , 'requestDetailsrequestDetails');
+            this.requestDetails = this.requestDetails[0];
             this.requestInsuredDetails = this.requestDetails.insured_details;
-            // console.log(this.requestInsuredDetails, 'hgghjghjgjh');
         } else {
         }
     }

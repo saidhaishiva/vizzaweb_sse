@@ -278,29 +278,75 @@
                             <mat-error *ngIf="vehicle.controls.coverdrive.errors?.required">PACover_for_OwnerDriver is Required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
-                          <mat-checkbox formControlName="Associationmember"><strong> Automobile_Association_Membership </strong></mat-checkbox>
+                        <div class="col-md-4" *ngIf="premium != 'ThridParty_premium'"  >
+                          <mat-checkbox formControlName="Associationmember" (change)="QuoteList();amount_automobile()"  (click)="chaneauto()" (keyup)="chaneauto()"  ><strong> Automobile_Association_Membership </strong></mat-checkbox>
                         </div>
-                        <!--<div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">-->
-                          <!--<mat-checkbox formControlName="Voluntary"><strong> Voluntary_Deductibles </strong></mat-checkbox>-->
-                        <!--</div>-->
-                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
-                          <mat-checkbox formControlName="Antitheft"><strong> Anti_theft_device </strong></mat-checkbox>
+                        <div class="col-md-4" *ngIf="vehicle.controls['Associationmember'].value ==true">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Amount" formControlName="Associationamount" [required]="vehicle.controls['Associationmember'].value == true" autocomplete="off">
+                            <!--<mat-error *ngIf="proposer.controls.ifYesGiveDetails.errors?.required">Details is required</mat-error>-->
+
+                          </mat-form-field>
                         </div>
-                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
-                          <mat-checkbox formControlName="Tppdrestrict"><strong> TPPD_Restricted </strong></mat-checkbox>
+                        <div class="col-md-4" *ngIf="premium != 'ThridParty_premium'" >
+                          <mat-checkbox formControlName="Antitheft" (change)="QuoteList()" (change)="amount_Antitheft()" (click)="chaneanti()" (keyup)="chaneanti()"><strong> Anti_theft_device </strong></mat-checkbox>
                         </div>
-                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
-                          <mat-checkbox formControlName="depreciation"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
+                        <div class="col-md-4" *ngIf="vehicle.controls['Antitheft'].value ==true">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Amount" formControlName="Antitheftamount"  [required]="vehicle.controls['Antitheft'].value == true" autocomplete="off">
+                            <!--<mat-error *ngIf="proposer.controls.ifYesGiveDetails.errors?.required">Details is required</mat-error>-->
+
+                          </mat-form-field>
                         </div>
-                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
-                          <mat-checkbox formControlName="Consumableexpense"><strong> Consumables_expenses </strong></mat-checkbox>
+                        <div class="col-md-4" *ngIf="premium != 'ThridParty_premium'" >
+                          <mat-checkbox formControlName="Tppdrestrict" (change)="QuoteList()" (click)="chanedepre()" (keyup)="chanedepre()" ><strong> TPPD_Restricted </strong></mat-checkbox>
                         </div>
-                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
-                          <mat-checkbox formControlName="Returninvoice"><strong> Return_to_Invoice </strong></mat-checkbox>
+                        <div class="col-md-4" *ngIf="vehicle.controls['Tppdrestrict'].value ==true">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Amount" formControlName="Tppdrestrictamount" [required]="vehicle.controls['Tppdrestrict'].value == true" autocomplete="off">
+                            <!--<mat-error *ngIf="proposer.controls.ifYesGiveDetails.errors?.required">Details is required</mat-error>-->
+
+                          </mat-form-field>
                         </div>
-                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
-                          <mat-checkbox formControlName="Roadsideassistance"><strong> Roadside_Assistance </strong></mat-checkbox>
+                        <div class="col-md-4" *ngIf="premium != 'ThridParty_premium'" >
+                          <mat-checkbox formControlName="depreciation" (click)="QuoteList()" (change)="amount_depreciation()" (click)="chanedepre()" (keyup)="chanedepre()"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4" *ngIf="vehicle.controls['depreciation'].value ==true">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Amount" formControlName="depreciationamount"  [required]="vehicle.controls['depreciation'].value == true" autocomplete="off">
+                            <!--<mat-error *ngIf="proposer.controls.ifYesGiveDetails.errors?.required">Details is required</mat-error>-->
+
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4" *ngIf="premium != 'ThridParty_premium'" >
+                          <mat-checkbox formControlName="Consumableexpense"  (change)="QuoteList()" (change)="amount_Consumableexpense()" (click)="chanecon()" (keyup)="chanecon()"><strong> Consumables_expenses </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4" *ngIf="vehicle.controls['Consumableexpense'].value ==true">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Amount" formControlName="Consumableexpenseamount"  [required]="vehicle.controls['Consumableexpense'].value == true" autocomplete="off">
+                            <!--<mat-error *ngIf="proposer.controls.ifYesGiveDetails.errors?.required">Details is required</mat-error>-->
+
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4" *ngIf="premium != 'ThridParty_premium'">
+                          <mat-checkbox formControlName="Returninvoice"  (change)="QuoteList()" (change)="amount_Returninvoice()" (click)="chaneret()" (keyup)="chaneret()"><strong> Return_to_Invoice </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4" *ngIf="vehicle.controls['Returninvoice'].value ==true">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Amount" formControlName="Returninvoiceamount"  [required]="vehicle.controls['Returninvoice'].value == true" autocomplete="off">
+                            <!--<mat-error *ngIf="proposer.controls.ifYesGiveDetails.errors?.required">Details is required</mat-error>-->
+
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4" *ngIf="premium != 'ThridParty_premium'" >
+                          <mat-checkbox formControlName="Roadsideassistance" (change)="QuoteList()" (change)="amount_Roadsideassistance()" (click)="chaneroad()" (keyup)="chaneroad()"><strong> Roadside_Assistance </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4" *ngIf="vehicle.controls['Roadsideassistance'].value ==true">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Amount" formControlName="Roadsideassistanceamount"  [required]="vehicle.controls['Roadsideassistance'].value == true" autocomplete="off">
+                            <!--<mat-error *ngIf="proposer.controls.ifYesGiveDetails.errors?.required">Details is required</mat-error>-->
+
+                          </mat-form-field>
                         </div>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
