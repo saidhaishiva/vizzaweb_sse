@@ -17,6 +17,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {ClearSessionPaService} from '../../shared/services/clear-session-pa.service';
 import {ClearSessionMotorService} from '../../shared/services/clear-session-motor.service';
 import {MetaService} from '../../shared/services/meta.service';
+import {Meta, Title} from '@angular/platform-browser';
 
 export const MY_FORMATS = {
     parse: {
@@ -71,8 +72,10 @@ export class BikeInsuranceComponent implements OnInit {
     public showSelf: boolean;
     public metaBike: any;
     public metaTitle: any;
+    public metaKeyword: any;
+    public metaDescription: any;
 
-    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService) {
+    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if (window.innerWidth < 787) {
@@ -150,9 +153,20 @@ export class BikeInsuranceComponent implements OnInit {
     }
     public metaDetailSuccess(successData) {
         this.metaBike = successData.ResponseObject[0];
+        this.metaTitle = this.metaBike.title;
+        this.metaKeyword = this.metaBike.keyword;
+        this.metaDescription = this.metaBike.descrition;
+        this.metaTag.addTags([
+            {name: 'keywords', content: this.metaKeyword},
+            {name: 'description', content: this.metaDescription},
+        ]);
+        this.setTitle();
     }
     public metaDetailFailure(error) {
         console.log(error);
+    }
+    public setTitle() {
+        this.titleService.setTitle( this.metaTitle );
     }
 
     setSession() {
