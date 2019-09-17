@@ -68,9 +68,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public IsCustomerAccepted: any;
     public getFamilyDetails: any;
     public arr: any;
-    public insurerDtails: any;
-    public proposalDtails: any;
-    public nomineeDtails: any;
+    public basePremium: any;
+    public serviceTax: any;
+    public totalPremium: any;
     public webhost: any;
     public sameAsinsure: any;
     public fullName: any;
@@ -137,9 +137,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             }
             if(this.proposalId == undefined || this.proposalId == '') {
                 this.payLaterr = false;
-
-
-
             }
             console.log(this.payLaterr, 'cons');
 
@@ -950,6 +947,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         for(let i=0; i < this.insurerData.items.length; i++) {
             this.insurerData.items[i].NomineeName = this.nomineeDetails.controls['nomineeName'].value;
             this.insurerData.items[i].NomineeRelationship = this.nomineeDetails.controls['nomineeRelationship'].value;
+            this.insurerData.items[i].nomineeRelationshipName = this.nomineeDetails.controls['nomineeRelationshipName'].value;
         }
             const data = {
                 'platform': 'web',
@@ -1021,6 +1019,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.ProductCd = this.summaryData.ProductCd;
             this.productcode = this.summaryData.productcode;
             this.returnURL = this.summaryData.returnURL;
+            this.basePremium = this.summaryData.basePremium;
+            this.serviceTax = this.summaryData.serviceTax;
+            this.totalPremium = this.summaryData.totalPremium;
             sessionStorage.personlData = JSON.stringify(this.personlData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.nomineeFromData = JSON.stringify(this.nomineeFromData);
@@ -1028,7 +1029,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.fullName = this.personlData.firstname +' '+ this.personlData.lastname;
             this.totalAmount = parseFloat(this.summaryData.totalPremium);
             this.paymentmode = this.personlData.paymentmode;
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
+
             this.email = this.personlData.email;
+            console.log(this.email, 'this.email');
             this.createdDate = new Date();
             stepper.next();
             this.nextStep();
@@ -1148,6 +1152,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         for(let i=0; i < this.insurerData.items.length; i++) {
             this.insurerData.items[i].NomineeName = this.nomineeDetails.controls['nomineeName'].value;
             this.insurerData.items[i].NomineeRelationship = this.nomineeDetails.controls['nomineeRelationship'].value;
+            this.insurerData.items[i].nomineeRelationshipName = this.nomineeDetails.controls['nomineeRelationshipName'].value;
         }
         const data = {
             'platform': 'web',
@@ -1158,6 +1163,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             'group_name': this.getFamilyDetails.name,
             'product_id': this.getHdfcHealthPremiumList.product_id,
             'plan_name': this.getHdfcHealthPremiumList.product_name,
+            'company_logo': this.getHdfcHealthPremiumList.company_logo,
             'PaymentActionUrl': this.summaryData.PaymentActionUrl,
             'ProposalNumber': this.summaryData.ProposalNumber,
             'AdditionalInfo1': this.summaryData.AdditionalInfo1,
@@ -1166,6 +1172,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             'ProductCd': this.summaryData.ProductCd,
             'productcode': this.summaryData.productcode,
             'returnURL': this.summaryData.returnURL,
+            'basePremium': this.summaryData.basePremium,
+            'serviceTax': this.summaryData.serviceTax,
+            'totalPremium': this.summaryData.totalPremium,
             'sum_insured_amount': this.getHdfcHealthPremiumList.suminsured_amount,
             'proposal_id': sessionStorage.hdfc_health_proposal_id == '' || sessionStorage.hdfc_health_proposal_id == undefined ? '' : sessionStorage.hdfc_health_proposal_id,
             'InsuranceDetails': {
@@ -1179,6 +1188,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                     'Address2': this.hdfcpersonalValues.address2,
                     'Address3': this.hdfcpersonalValues.address3,
                     'State': this.hdfcpersonalValues.state,
+                    'stateName': this.hdfcPersonal.controls['stateName'].value,
                     'City': this.hdfcpersonalValues.city,
                     'Pincode': this.hdfcpersonalValues.pincode,
                     'EmailId': this.hdfcpersonalValues.email,
@@ -1250,11 +1260,12 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
-            this.pos_status = this.requestDetails.pos_status;
+            this.pos_status = this.requestDetails.role_id;
+            console.log(this.pos_status, 'this.pos_status');
             this.stepperindex = 3;
             this.requestCustomerDetails = this.requestDetails.InsuranceDetails.CustDetails;
             this.requestInsuredDetails = this.requestDetails.InsuranceDetails.Member.InsuredDetails;
-            this.fullName = this.requestDetails.ApplFirstName +' '+ this.requestDetails.ApplLastName;
+            this.fullName = this.requestCustomerDetails.ApplFirstName +' '+ this.requestCustomerDetails.ApplLastName;
             this.totalAmount = parseFloat(this.requestDetails.sum_insured_amount);
             console.log(this.requestInsuredDetails, 'hgghjghjgjh');
             this.PaymentActionUrl = this.requestDetails.PaymentActionUrl;
@@ -1265,9 +1276,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.ProductCd = this.requestDetails.ProductCd;
             this.productcode = this.requestDetails.productcode;
             this.returnURL = this.requestDetails.returnURL;
-            this.paymentmode = this.requestDetails.paymentmode;
-            this.email = this.requestDetails.email;
-        } else {
+            this.paymentmode = this.requestDetails.InsuranceDetails.PaymentDetails.PaymentMode;
+            this.email = this.requestCustomerDetails.EmailId;
+            console.log(this.email, 'this.email');
+            console.log(this.paymentmode, 'this.paymentmode');
         }
     }
     public getBackResFailure(successData) {

@@ -12,6 +12,7 @@ import {AppSettings} from '../../app.settings';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {MetaService} from '../../shared/services/meta.service';
 import {AuthService} from '../../shared/services/auth.service';
+import {Meta, Title} from '@angular/platform-browser';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -46,10 +47,12 @@ export class FireComponent implements OnInit {
     public webhost: any;
     public metaFire: any;
     public metaTitle: any;
+    metaKeyword: any;
+    metaDescription: any;
     public settings: Settings;
 
   constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog,public config: ConfigurationService,
-              public appSettings: AppSettings, public meta: MetaService, public auth: AuthService) {
+              public appSettings: AppSettings, public meta: MetaService, public auth: AuthService, public metaTag: Meta, private titleService: Title) {
       this.settings = this.appSettings.settings;
       this.webhost = this.config.getimgUrl();
       if(window.innerWidth < 787){
@@ -104,9 +107,20 @@ export class FireComponent implements OnInit {
     }
     public metaDetailSuccess(successData) {
         this.metaFire = successData.ResponseObject[0];
+        this.metaTitle = this.metaFire.title;
+        this.metaKeyword = this.metaFire.keyword;
+        this.metaDescription = this.metaFire.descrition;
+        this.metaTag.addTags([
+            {name: 'keywords', content: this.metaKeyword},
+            {name: 'description', content: this.metaDescription},
+        ]);
+        this.setTitle();
     }
     public metaDetailFailure(error) {
         console.log(error);
+    }
+    public setTitle() {
+        this.titleService.setTitle( this.metaTitle );
     }
 
     addEvent(event) {

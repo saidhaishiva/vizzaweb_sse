@@ -17,6 +17,7 @@ import {HealthService} from '../../shared/services/health.service';
 import {ClearSessionService} from '../../shared/services/clear-session.service';
 import {ActivatedRoute} from '@angular/router';
 import {MetaService} from '../../shared/services/meta.service';
+import {Meta, Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -94,9 +95,11 @@ export class HealthInsuranceComponent implements OnInit {
     sumInsuredAmount : any;
     healthProceed : any;
     metaHealth : any;
+    metaKeyword: any;
+    metaDescription: any;
 
     private keyUp = new Subject<string>();
-    constructor(public route: ActivatedRoute,public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService, public session: ClearSessionService, public meta: MetaService) {
+    constructor(public route: ActivatedRoute,public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService, public session: ClearSessionService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if(window.innerWidth < 787){
@@ -186,9 +189,20 @@ export class HealthInsuranceComponent implements OnInit {
     public metaDetailSuccess(successData) {
         this.metaHealth = successData.ResponseObject[0];
         console.log(this.metaHealth,'metaHealth');
+        this.metaTitle = this.metaHealth.title;
+        this.metaKeyword = this.metaHealth.keyword;
+        this.metaDescription = this.metaHealth.descrition;
+        this.metaTag.addTags([
+            {name: 'keywords', content: this.metaKeyword},
+            {name: 'description', content: this.metaDescription},
+        ]);
+        this.setTitle();
     }
     public metaDetailFailure(error) {
         console.log(error);
+    }
+    public setTitle() {
+        this.titleService.setTitle( this.metaTitle );
     }
 
 
