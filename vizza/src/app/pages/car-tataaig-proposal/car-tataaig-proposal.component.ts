@@ -85,6 +85,7 @@ export class CarTataaigProposalComponent implements OnInit {
   public QTyreSecure: any;
   public QReturnInvoice: any;
   public QEngineSecure: any;
+  public quotationNo: any;
   public carProposerAge: any;
   public agecount: any;
   public premium: any;
@@ -208,7 +209,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.visible = false;
     this.getGenderlist();
     // this.getNamelist();
-    this.getRelationList();
+    // this.getRelationList();
     this.package();
     this.sessionData();
     this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
@@ -305,6 +306,14 @@ export class CarTataaigProposalComponent implements OnInit {
           this.nomineeRelationFailure(error);
         }
     );
+  }
+  nomineeRelationSuccess(successData) {
+    this.relationlist = successData.ResponseObject;
+    sessionStorage.relation = JSON.stringify(this.relationlist);
+  }
+
+  nomineeRelationFailure(error) {
+
   }
 
 
@@ -588,30 +597,30 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
 
-  //Nominee RelationList
-  getRelationList() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    };
-    this.carinsurance.RelationList(data).subscribe(
-        (successData) => {
-          this.nomineeRelationSuccess(successData);
-        },
-        (error) => {
-          this.nomineeRelationFailure(error);
-        }
-    );
-  }
-
-  nomineeRelationSuccess(successData) {
-    this.relationlist = successData.ResponseObject;
-  }
-
-  nomineeRelationFailure(error) {
-
-  }
+  // //Nominee RelationList
+  // getRelationList() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+  //   };
+  //   this.carinsurance.RelationList(data).subscribe(
+  //       (successData) => {
+  //         this.nomineeRelationSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.nomineeRelationFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // nomineeRelationSuccess(successData) {
+  //   this.relationlist = successData.ResponseObject;
+  // }
+  //
+  // nomineeRelationFailure(error) {
+  //
+  // }
 
   financiertype(event: any) {
     console.log(event.length,'length');
@@ -810,6 +819,9 @@ export class CarTataaigProposalComponent implements OnInit {
       this.QTyreSecure=this.Quotelist.productlist.addons.Tyre_Secure;
       this.QReturnInvoice=this.Quotelist.productlist.addons.Return_to_Invoice;
       this.QEngineSecure=this.Quotelist.productlist.addons.Engine_Secure;
+      this.quotationNo=this.Quotelist.productlist.quotation_no;
+      console.log(this.quotationNo,'quotationNoooo');
+
       this.depreciationChange();
       this.invoiceChange();
       this.keyReplacementChange();
@@ -1014,7 +1026,7 @@ export class CarTataaigProposalComponent implements OnInit {
       "proposal_id": sessionStorage.tatacarproposalID == '' || sessionStorage.tatacarproposalID == undefined ? '' : sessionStorage.tatacarproposalID,
       'package_type': this.premium,
       "motorproposalObj": {
-        "quotation_no": this.Quotelist.productlist.quotation_no,
+        "quotation_no": this.quotationNo,
         "pol_sdate": this.enquiryFormData.business_type == '1'? this.datepipe.transform(this.minDate,'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
         "sp_name": "Name",
         "sp_license": "Lino12345566",
