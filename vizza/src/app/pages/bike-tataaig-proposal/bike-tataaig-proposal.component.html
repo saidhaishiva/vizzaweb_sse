@@ -299,7 +299,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" *ngIf="premium != 'ThridParty_premium'" >
-                          <mat-checkbox formControlName="Tppdrestrict" (change)="QuoteList()" (click)="ThirdPartrestrict()" (keyup)="ThirdPartrestrict()" ><strong> TPPD_Restricted </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Tppdrestrict" (change)="QuoteList()" (click)="chanedepre()" (keyup)="chanedepre()" ><strong> TPPD_Restricted </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['Tppdrestrict'].value ==true">
                           <mat-form-field class="w-100">

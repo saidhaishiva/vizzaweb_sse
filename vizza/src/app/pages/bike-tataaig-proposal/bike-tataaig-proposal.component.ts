@@ -194,6 +194,13 @@ export class BikeTataaigProposalComponent implements OnInit {
     ngOnInit() {
         this.vehicle.controls['Associationmember'].value == false;
         this.getGenderlist();
+        // this.chaneauto();
+        // this.chaneanti();
+        // this.chanetpp();
+        // this.chanedepre();
+        // this.chanecon();
+        // this.chaneret();
+        // this.chaneroad();
         // this.getNamelist();
         this.coverdriveList();
         this.sessionData();
@@ -370,8 +377,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chaneanti()
     {
-        this.vehicle.controls['Antitheftamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Antitheftamount'].patchValue(this.QuoteAntitheft);
+        console.log(this.vehicle.controls['Antitheftamount'].value,'Antitheftamount')
 
     }
     amount_Tppdrestrict() {
@@ -385,8 +392,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chanetpp()
     {
-        this.vehicle.controls['Tppdrestrictamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Tppdrestrictamount'].patchValue(this.QuoteThirdPartres);
+        console.log(this.vehicle.controls['Tppdrestrictamount'].value,'Tppdrestrictamount')
 
     }
     amount_depreciation() {
@@ -400,8 +407,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chanedepre()
     {
-        this.vehicle.controls['depreciationamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['depreciationamount'].patchValue(this.Quotedepreciation);
+        console.log( this.vehicle.controls['depreciationamount'].value,'depreciationamount')
 
     }
     amount_Consumableexpense() {
@@ -415,8 +422,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chanecon()
     {
-        this.vehicle.controls['Consumableexpenseamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Consumableexpenseamount'].patchValue(this.QuoteConsumableexpense);
+        console.log(this.vehicle.controls['Consumableexpenseamount'].value,'Consumableexpenseamount')
 
     }
     amount_Returninvoice() {
@@ -430,8 +437,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chaneret()
     {
-        this.vehicle.controls['Returninvoiceamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Returninvoiceamount'].patchValue(this.QuoteReturninvoice);
+        console.log(this.vehicle.controls['Returninvoiceamount'].value,'Returninvoiceamount')
 
     }
     amount_Roadsideassistance() {
@@ -445,8 +452,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chaneroad()
     {
-        this.vehicle.controls['Roadsideassistanceamount'].patchValue(this.QuoteAss.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Roadsideassistanceamount'].patchValue(this.QuoteRoadsideassistance);
+        console.log(this.vehicle.controls['Roadsideassistanceamount'].value,'Roadsideassistanceamount')
 
     }
 
@@ -892,7 +899,13 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.QuoteReturninvoice=this.Quotelist.productlist.addons.Return_to_Invoice;
             this.QuoteRoadsideassistance=this.Quotelist.productlist.addons.Roadside_Assistance;
             console.log(this.QuoteAss,'amount')
-
+            this.chaneauto();
+            this.chaneanti();
+            this.chanetpp();
+            this.chanedepre();
+            this.chanecon();
+            this.chaneret();
+            this.chaneroad();
             // this.createproposal(stepper);
         }
     }
