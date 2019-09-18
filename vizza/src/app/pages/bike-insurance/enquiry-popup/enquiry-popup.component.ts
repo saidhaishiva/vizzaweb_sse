@@ -52,6 +52,7 @@
     public getDays : any;
     public rto : any;
     public maxDateValidate:any;
+    public getRegPolicyYear:any;
     public errorFutureDate:any;
     public manfactureErrorDate:any;
     public minDate:any;
@@ -304,23 +305,45 @@
 
     public typeFailure(error) {
     }
+
+
+    // manufactureYear(){
+    //   let start = new Date(this.vehicalDetails.controls['registrationDate'].value);
+    //   this.getRegPolicyYear = start.getFullYear();
+    //   let RegYear = start.getFullYear()-1;
+    //   let manStart = new Date(this.vehicalDetails.controls['manufactureYear'].value);
+    //   let getLength = manStart.getFullYear();
+    //   console.log( getLength,' getLength');
+    //   // if(getLength.length == 4) {
+    //     if(this.getRegPolicyYear <= getLength ){
+    //       alert('success')
+    //       this.manfactureErrorDate=true;
+    //       this.manfactureErrorDate='';
+    //       console.log(this.manfactureErrorDate,'manfactureErrorDate');
+    //     }else{
+    //       this.manfactureErrorDate=false;
+    //       alert('error inn');
+    //       console.log(this.manfactureErrorDate,'false man')
+    //       this.manfactureErrorDate='Manufacturing year should be equal to registration year or less than  Year of registration.';
+    //
+    //       // this.toastr.error("Manufacturing year should be equal to registration year or less than  Year of registration.");
+    //
+    //     }
+    //
+    //   }
+    //
+    // // }
+
     manufactureYear(){
       let start = new Date(this.vehicalDetails.controls['registrationDate'].value);
       let getRegPolicyYear = start.getFullYear();
       let RegYear = start.getFullYear()-1;
+      console.log(getRegPolicyYear,'getPolicyYear');
       let getLength = this.vehicalDetails.controls['manufactureYear'].value;
+      console.log(getLength, 'getLengthgetLength');
       if(getLength.length == 4) {
-        if(getRegPolicyYear > getLength ){
-        //   this.manfactureErrorDate=true;
-        //   this.manfactureErrorDate='';
-        // console.log(this.manfactureErrorDate,'manfactureErrorDate');
-        // }else{
-        //   this.manfactureErrorDate=false;
-        //   alert('error inn');
-        //   this.manfactureErrorDate='Manufacturing year should be equal to registration year or less than  Year of registration.';
-
-            this.toastr.error("Manufacturing year should be equal to registration year or less than  Year of registration.");
-
+        if(getRegPolicyYear < getLength ){
+          this.toastr.error("Manufacturing year should be equal to registration year or less than  Year of registration.");
         }
 
       }
