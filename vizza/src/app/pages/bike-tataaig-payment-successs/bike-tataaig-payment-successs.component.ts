@@ -19,6 +19,7 @@ export class BikeTataaigPaymentSuccesssComponent implements OnInit {
   public type: any;
   public path: any;
   public proposalId: any;
+  public policyNo: any;
   public settings: Settings;
 
   constructor(public config: ConfigurationService, public bikeService: BikeInsuranceService, public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
@@ -27,6 +28,7 @@ export class BikeTataaigPaymentSuccesssComponent implements OnInit {
       console.log(params);
       this.paymentStatus = params.status;
       this.proposalId = params.proId;
+      this.policyNo = params.policyNo;
     });
   }
 

@@ -51,6 +51,10 @@
     public config : any;
     public getDays : any;
     public rto : any;
+    public maxDateValidate:any;
+    public errorFutureDate:any;
+    public minDate:any;
+    public maxDate:any;
     public CityValid : boolean;
     constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
     public dialogRef: MatDialogRef<EnquiryPopupComponent>,
@@ -76,6 +80,11 @@
         'city': ['', Validators.required]
       });
         this.getDays = this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd');
+      const miniDate = new Date();
+      this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
+      this.maxDate = this.minDate;
+      // this.maxDateValidate  = new Date();
+      this.errorFutureDate = false;
         this.config = {
         displayKey: "city", //if objects array passed which key to be displayed defaults to description
         search: true,
@@ -306,13 +315,36 @@
       }
 
     }
-    enquiryQuation(value) {
-        if( this.vehicalDetails.controls['city'].value == ''){
-            this.CityValid = true;
-        } else {
-            this.CityValid = false;
 
+    maxDatechange(){
+      let start = new Date(this.vehicalDetails.controls['registrationDate'].value);
+      let getRegPolicyYear = start.getFullYear();
+      console.log(getRegPolicyYear,'registeryear');
+      this.maxDateValidate =this.maxDate.getFullYear();
+      console.log(this.maxDateValidate,'maxyear');
+
+      if(this.maxDateValidate > getRegPolicyYear){
+        // alert('futerror')
+        this.errorFutureDate=true;
+        // this.errorFutureDate ='Future Date is not Acceptable';
+      }else{
+        this.errorFutureDate=false;
+        // this.errorFutureDate='';
+      }
+
+    }
+    enquiryQuation(value) {
+      // if(this.errorFutureDate == false) {
+      //   console.log('innnnnnn');
+        if (this.vehicalDetails.controls['city'].value == '') {
+
+          this.CityValid = true;
+          console.log(this.CityValid,'cityvalid');
+        } else {
+          this.CityValid = false;
+          console.log(this.CityValid,'cityvalidfalse');
         }
+
       if(this.vehicalDetails.valid) {
           const data = {
         'platform': 'web',
@@ -351,20 +383,34 @@
             }
         );
       }
+      // }else {
+      //   console.log('outtttttt');
+      //   this.toastr.error('Future Date is not Acceptable');
+      // }
     }
     public enquirySuccess(successData){
       if (successData.IsSuccess) {
+
+
         this.QuotationList = successData.ResponseObject;
         sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
         this.ageCalculateInsurer('days');
           if(successData.status == true){
+            if(this.errorFutureDate == false) {
+              console.log(this.errorFutureDate,'inn');
             this.dialogRef.close();
             this.router.navigate(['/bikepremium']);
+          }
+          }else {
+            console.log('outtttttt');
+            this.toastr.error('Future Date is not Acceptable');
           }
       } else {
         this.toastr.error(successData.ErrorObject);
 
       }
+
+
     }
     public enquiryFailure(error) {
     }

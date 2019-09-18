@@ -19,6 +19,7 @@ export class CarTataaigPaymentSuccessComponent implements OnInit {
   public settings: Settings;
   public paymentStatus: any;
   public proposalId: any;
+  public policyNo: any;
   public type: any;
   public path: any;
   public currenturl: any;
@@ -29,6 +30,7 @@ export class CarTataaigPaymentSuccessComponent implements OnInit {
       console.log(params);
       this.paymentStatus = params.status;
       this.proposalId = params.proId;
+      this.policyNo = params.policyNo;
     });
   }
 
