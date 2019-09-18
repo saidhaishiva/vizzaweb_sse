@@ -11,7 +11,7 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title> PROPOSER DETAILS</mat-panel-title>
                 </mat-expansion-panel-header>
-                <div class="row mt-3">
+                <div class="row mt-3" *ngIf="payLaterr == false">
                   <div class="col-md-12 box-card pt-3">
                     <div class="row">
                       <div class="col-md-3">
@@ -140,10 +140,10 @@
                           <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                           <mat-radio-button value="N" *ngIf="rentDetails">No</mat-radio-button>
                         </mat-radio-group>
-                        <!--<p *ngIf="((buyProductdetails.product_name == 'Family Health Protector Individual') && (buyProductdetails.suminsured_amount >= 500000) && (payLaterr == false))">(Note: Additional charges will be levied if sum insured is less than 5L)-->
-                        <!--</p>-->
-                        <!--<p *ngIf="((buyProductdetails.product_name == 'Family Health Protector Family') && (buyProductdetails.suminsured_amount >= 700000) && (payLaterr == false))">(Note: Additional charges will be levied if sum insured is less than 7L)-->
-                        <!--</p>-->
+                        <p *ngIf="((buyProductdetails.product_name == 'Family Health Protector Individual') && (buyProductdetails.suminsured_amount >= 500000) && (payLaterr == false))">(Note: Additional charges will be levied if sum insured is less than 5L)
+                        </p>
+                        <p *ngIf="((buyProductdetails.product_name == 'Family Health Protector Family') && (buyProductdetails.suminsured_amount >= 700000) && (payLaterr == false))">(Note: Additional charges will be levied if sum insured is less than 7L)
+                        </p>
                       </div>
                       <div class="col-md-3">
                         <p>Additional Facts: <span class="error">*</span></p>
@@ -247,7 +247,7 @@
         </mat-step>
         <mat-step [stepControl]="">
           <ng-template matStepLabel >INSURED DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
+          <mat-accordion class="mt-4 w-100 float-left" *ngIf="payLaterr == false">
             <form [formGroup]="insureArray">
               <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
@@ -462,7 +462,7 @@
         </mat-step>
         <mat-step [stepControl]="">
           <ng-template matStepLabel>SUMMARY</ng-template>
-          <section class="summary-details" *ngIf="summaryData">
+          <section class="summary-details" *ngIf="summaryData && payLaterr == false">
             <div class="row">
               <div class="col-md-4">
                 <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
@@ -764,8 +764,8 @@
                   <input id="XMLDATA" type="hidden" value="{{xmlString}}" name="XML_DATA"><br/>
                   <input id="RESPONSEURL" type="hidden" value={{response_url}} name="RESPONSE_URL"><br/>
 
-                  <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
-                  <!--<button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && pos_status != '0'">Pay Later</button>-->
+                  <button mat-button matStepperPrevious (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
+                  <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false &&  pos_status == 3">Pay Later</button>
                   <button mat-raised-button class="mat-primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
 
                 </form>

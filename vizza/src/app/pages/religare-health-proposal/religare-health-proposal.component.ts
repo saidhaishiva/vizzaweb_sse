@@ -1738,6 +1738,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.nextStep();
             this.religareMobileTrue3 = false;
             this.religareMobileTrue4 = false;
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4;
 
         } else {
             this.toastr.error(successData.ErrorObject);
@@ -2057,10 +2058,10 @@ export class ReligareHealthProposalComponent implements OnInit {
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
-            this.pos_status =  this.requestDetails.pos_status;
+            this.pos_status =  this.requestDetails.role_id;
             this.action =  this.requestDetails.action;
-            this.proposalNum = this.requestDetails.proposalNum,
-            this.returnURL = this.requestDetails.returnURL,
+            this.proposalNum = this.requestDetails.proposalNum;
+            this.returnURL = this.requestDetails.returnURL;
 
                 this.requestInsuredDetails = this.requestDetails.proposer_insurer_details;
             console.log(this.requestInsuredDetails, 'hgghjghjgjh');

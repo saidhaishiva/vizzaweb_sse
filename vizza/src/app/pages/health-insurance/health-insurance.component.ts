@@ -1323,7 +1323,7 @@ export class HealthInsuranceComponent implements OnInit {
                     dialogRef.disableClose = true;
                     dialogRef.afterClosed().subscribe(result => {
                         if(result == true){
-                            this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+                            this.router.navigate(['/hdfc-proposal'  + '/' + false]);
                         } else {
                         }
                     });

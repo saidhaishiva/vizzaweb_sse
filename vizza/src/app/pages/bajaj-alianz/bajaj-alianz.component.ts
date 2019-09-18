@@ -105,6 +105,7 @@ export class BajajAlianzComponent implements OnInit {
     public proposal_Id: any;
     public stepperindex: any;
     public pos_status: any;
+    public requestList: any;
 
 
 
@@ -161,9 +162,9 @@ export class BajajAlianzComponent implements OnInit {
         this.step = 0;
         this.totalInsureDetails = [];
         this.arr = [];
-        this.insureArray = this.fb.group({
-
-        });
+        // this.insureArray = this.fb.group({
+        //
+        // });
     }
 
     insureChangeGender(index) {
@@ -881,6 +882,8 @@ export class BajajAlianzComponent implements OnInit {
             this.proposalId = this.summaryData.policy_id;
             sessionStorage.bajaj_health_proposalid = this.proposalId;
             this.createdDate = new Date();
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
+
 
         } else{
             this.toastr.error(successData.ErrorObject);
@@ -997,8 +1000,12 @@ export class BajajAlianzComponent implements OnInit {
             'product_id': this.buyProductdetails.product_id,
             'plan_name': this.buyProductdetails.product_name,
             'sum_insured_amount': this.buyProductdetails.suminsured_amount,
+            'company_logo': this.buyProductdetails.company_logo,
+            'premium': this.summaryData.premium,
+            'total_premium': this.summaryData.total_premium,
             'created-date': this.createdDate,
             'paymentlink-date': '',
+            'RediretUrlLink':this.summaryData.payment_url,
             'proposal_id': sessionStorage.bajaj_health_proposalid ? sessionStorage.bajaj_health_proposalid.toString(): this.proposalId.toString(),
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'company_name': 'bajajalianz',
@@ -1093,8 +1100,12 @@ export class BajajAlianzComponent implements OnInit {
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
-            this.pos_status = this.requestDetails.pos_status;
-            // console.log(this.requestInsuredDetails, 'hgghjghjgjh');
+            this.requestList = [];
+            this.requestList.push(this.requestDetails);
+            this.pos_status = this.requestDetails.role_id;
+            this.RediretUrlLink = this.requestList[0].RediretUrlLink;
+            console.log(this.requestList, 'hgghjghjgjh');
+            console.log(this.requestDetails, 'this.requestDetails');
         } else {
         }
     }

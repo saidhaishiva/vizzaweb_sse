@@ -156,7 +156,6 @@ export class IffcoTokioComponent implements OnInit {
                 this.getBackRequest();
             }
             if (this.proposal_Id == undefined || this.proposal_Id == '') {
-                alert();
                 this.payLaterr = false;
             }
 
@@ -1110,6 +1109,7 @@ export class IffcoTokioComponent implements OnInit {
             this.nextStep();
             this.topScroll();
             this.healthIffcoTrue3 = false;
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -1454,7 +1454,7 @@ export class IffcoTokioComponent implements OnInit {
                 this.partner_code = this.requestDetails.PARTNER_CODE,
                 this.response_url = this.requestDetails.RESPONSE_URL,
                 this.unique_code = this.requestDetails.UNIQUE_QUOTEID,
-                this.pos_status = this.requestDetails.pos_status,
+                this.pos_status = this.requestDetails.role_id,
                 console.log(this.requestInsuredDetails, 'hgghjghjgjh');
             //         this.proposer.controls['proposerDob'].patchValue(proposerData.DOB),
             //         this.proposer.controls['proposerPassport'].patchValue(proposerData.PassPort),
