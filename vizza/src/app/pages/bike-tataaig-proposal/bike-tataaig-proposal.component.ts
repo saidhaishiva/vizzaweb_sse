@@ -66,6 +66,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public bikeEnquiryId: any;
     public banklist: any;
     public Quotelist: any;
+    public quotationNo: any;
     public QuoteAss: any;
     public QuoteAntitheft: any;
     public QuoteThirdPartres:any;
@@ -756,7 +757,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikenominee = JSON.stringify(value);
         if (this.nominee.valid) {
             if (this.nominee.controls['nomineeAge'].value >= 18) {
-                this.QuoteList(stepper);
+                // this.QuoteList(stepper);
+                this.createproposal(stepper);
             }else{
                 this.toastr.error('Nominee Age should Be 18 or above');
             }
@@ -855,7 +857,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         }
     }
 
-    QuoteList(stepper) {
+    QuoteList() {
         console.log(this.vehicle.controls['Associationmember'].value, 'Associationmember');
         const data = {
 
@@ -879,7 +881,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         };
         this.bikeinsurance.QuoteList(data).subscribe(
             (successData) => {
-                this.QuoteSuccess(successData, stepper);
+                this.QuoteSuccess(successData );
             },
             (error) => {
                 this.QuoteFailure(error);
@@ -887,10 +889,12 @@ export class BikeTataaigProposalComponent implements OnInit {
         );
     }
 
-    QuoteSuccess(successData, stepper) {
+    QuoteSuccess(successData) {
         if (successData.IsSuccess) {
             this.Quotelist = successData.ResponseObject;
             console.log(this.Quotelist, 'quotationdata');
+            this.quotationNo=this.Quotelist.productlist.quotation_no;
+            console.log(this.quotationNo, 'quotationNo');
             this.QuoteAss=this.Quotelist.productlist.addons.Automobile_Association_Membership;
             this.QuoteAntitheft=this.Quotelist.productlist.addons.Anti_theft_device;
             this.QuoteThirdPartres=this.Quotelist.productlist.addons.TPPD_Restricted;
@@ -926,7 +930,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             "proposal_id": sessionStorage.tataBikeproposalID == '' || sessionStorage.tataBikeproposalID == undefined ? '' : sessionStorage.tataBikeproposalID,
             'package_type': this.premium,
             "motorproposalObj": {
-                "quotation_no": this.Quotelist.productlist.quotation_no,
+                "quotation_no": this.quotationNo,
                 "pol_sdate": this.enquiryFormData.business_type == '1' ? this.datepipe.transform(this.minDate, 'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
                 "sp_name": "Name",
                 "sp_license": "Lino12345566",

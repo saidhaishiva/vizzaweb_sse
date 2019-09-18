@@ -567,8 +567,10 @@
                         <li class="list-group-item" *ngIf="vehicle.controls['coverdrivevalue'].value == 'None'"><strong>PACover for OwnerDriver:</strong> Yes </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['coverdrivevalue'].value != 'None'"><strong>PACover for OwnerDriver:</strong> {{vehicalFormData.coverdrivevalue}} </li>
                         <li class="list-group-item" *ngIf="vehicalFormData.Associationmember != '' && vehicalFormData.Associationmember == true"><strong>Automobile Association Membership:</strong><span *ngIf="vehicalFormData.Associationmember == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Associationamount != ''"><strong>Automobile Association Amount:</strong> {{vehicalFormData.Associationamount}} </li>
                         <!--<li class="list-group-item" *ngIf="vehicalFormData.Voluntary != '' && vehicalFormData.Voluntary == true"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary == true">Yes</span></li>-->
                         <li class="list-group-item" *ngIf="vehicalFormData.Antitheft != '' && vehicalFormData.Antitheft == true"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft== true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Antitheftamount != '' "><strong>Anti_theft_device Amount:</strong>{{vehicalFormData.Antitheftamount}} </li>
                       </ul>
                     </div>
                   </div>
@@ -576,10 +578,15 @@
                     <div class="p-3">
                       <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrict != '' && vehicalFormData.Tppdrestrict == true"><strong>TPPD_Restricted:</strong><span *ngIf="vehicalFormData.Tppdrestrict == true">Yes</span></li>
-                          <li class="list-group-item" *ngIf="vehicalFormData.depreciation != '' && vehicalFormData.depreciation == true"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrictamount != '' "><strong>TPPD_Restricted Amount:</strong>{{vehicalFormData.Tppdrestrictamount}} </li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.depreciation != '' && vehicalFormData.depreciation == true"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.depreciationamount != '' "><strong>Depreciation_ReImbursement Amount:</strong>{{vehicalFormData.depreciationamount}} </li>
                         <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense != ''&& vehicalFormData.Consumableexpense == true"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpenseamount != '' "><strong>Consumables_expenses Amount:</strong>{{vehicalFormData.Consumableexpenseamount}} </li>
                         <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice != '' && vehicalFormData.Returninvoice == true"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoiceamount != '' "><strong>Return_to_Invoice Amount:</strong>{{vehicalFormData.Returninvoiceamount}} </li>
                         <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance != '' && vehicalFormData.Roadsideassistance == true"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistanceamount != '' "><strong>Roadside_Assistance Amount:</strong>{{vehicalFormData.Roadsideassistanceamount}} </li>
                       </ul>
                     </div>
                   </div>

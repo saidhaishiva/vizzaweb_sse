@@ -75,6 +75,17 @@ export class CarTataaigProposalComponent implements OnInit {
   public getstepper3: any;
   public getstepper4: any;
   public packagelist: any;
+  public QConsumableExpenses: any;
+  public QDepreciationReImb: any;
+  public QEmergencytransport: any;
+  public QKeyReplacement: any;
+  public QLossPersonalIDV: any;
+  public QRepairGlass: any;
+  public QRoadsideAssistance: any;
+  public QTyreSecure: any;
+  public QReturnInvoice: any;
+  public QEngineSecure: any;
+  public quotationNo: any;
   public carProposerAge: any;
   public agecount: any;
   public premium: any;
@@ -149,6 +160,7 @@ export class CarTataaigProposalComponent implements OnInit {
       package: ['', Validators.required],
       packagevalue: '',
       Depreciation: '',
+      DepreciationAmount: '',
       Allowance: '',
       Invoice: '',
       personaloss: '',
@@ -160,6 +172,16 @@ export class CarTataaigProposalComponent implements OnInit {
       Tyresecure: '',
       protectioncover: '',
       Roadside: '',
+      transportAmount: '',
+      RepairglassAmount: '',
+      personalossAmount: '',
+      roadsideAmount: '',
+      protectioncoverAmount: '',
+      tyresecureAmount: '',
+      consexpenceAmount: '',
+      enginesecureAmount: '',
+      keyReplacementAmount: '',
+      invoiceAmount: '',
     });
 
     this.previouspolicy = this.fb.group({
@@ -187,7 +209,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.visible = false;
     this.getGenderlist();
     // this.getNamelist();
-    this.getRelationList();
+    // this.getRelationList();
     this.package();
     this.sessionData();
     this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
@@ -284,6 +306,14 @@ export class CarTataaigProposalComponent implements OnInit {
           this.nomineeRelationFailure(error);
         }
     );
+  }
+  nomineeRelationSuccess(successData) {
+    this.relationlist = successData.ResponseObject;
+    sessionStorage.relation = JSON.stringify(this.relationlist);
+  }
+
+  nomineeRelationFailure(error) {
+
   }
 
 
@@ -490,7 +520,7 @@ export class CarTataaigProposalComponent implements OnInit {
       this.vehicle.controls['Enginesecure'].patchValue('');
       this.vehicle.controls['Consumableexpence'].patchValue('');
       this.vehicle.controls['Tyresecure'].patchValue('');
-      this.vehicle.controls['Roadside'].patchValue('');
+      this.vehicle.controls['Roadside'].patchValue(true);
     }else if(this.vehicle.controls['package'].value == '2'){
       this.visible = true;
       this.vehicle.controls['personaloss'].patchValue(true);
@@ -567,30 +597,30 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
 
-  //Nominee RelationList
-  getRelationList() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    };
-    this.carinsurance.RelationList(data).subscribe(
-        (successData) => {
-          this.nomineeRelationSuccess(successData);
-        },
-        (error) => {
-          this.nomineeRelationFailure(error);
-        }
-    );
-  }
-
-  nomineeRelationSuccess(successData) {
-    this.relationlist = successData.ResponseObject;
-  }
-
-  nomineeRelationFailure(error) {
-
-  }
+  // //Nominee RelationList
+  // getRelationList() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+  //   };
+  //   this.carinsurance.RelationList(data).subscribe(
+  //       (successData) => {
+  //         this.nomineeRelationSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.nomineeRelationFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // nomineeRelationSuccess(successData) {
+  //   this.relationlist = successData.ResponseObject;
+  // }
+  //
+  // nomineeRelationFailure(error) {
+  //
+  // }
 
   financiertype(event: any) {
     console.log(event.length,'length');
@@ -733,14 +763,14 @@ export class CarTataaigProposalComponent implements OnInit {
     sessionStorage.tatacarnominee = JSON.stringify(value);
     if (this.nominee.valid) {
       if (this.nominee.controls['nomineeAge'].value >= 18) {
-        this.QuoteList(stepper);
+        this.createproposal(stepper);
       }else{
         this.toastr.error('Nominee Age should Be 18 or above');
       }
     }
   }
 
-  QuoteList(stepper) {
+  QuoteList() {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -767,7 +797,7 @@ export class CarTataaigProposalComponent implements OnInit {
     console.log(data,'fullquote');
     this.carinsurance.QuoteList(data).subscribe(
         (successData) => {
-          this.QuoteSuccess(successData,stepper);
+          this.QuoteSuccess(successData);
         },
         (error) => {
           this.QuoteFailure(error);
@@ -775,17 +805,120 @@ export class CarTataaigProposalComponent implements OnInit {
     );
   }
 
-  QuoteSuccess(successData,stepper) {
+  QuoteSuccess(successData) {
     if (successData.IsSuccess) {
       this.Quotelist = successData.ResponseObject;
       console.log(this.Quotelist,'quotationdata');
-      this.createproposal(stepper);
+      this.QConsumableExpenses=this.Quotelist.productlist.addons.Consumables_expenses;
+      this.QDepreciationReImb=this.Quotelist.productlist.addons.Depreciation_reimbursement;
+      this.QEmergencytransport=this.Quotelist.productlist.addons.Emergency_transport_and_Hotel_expenses_IDV;
+      this.QKeyReplacement=this.Quotelist.productlist.addons.Key_Replacement;
+      this.QLossPersonalIDV=this.Quotelist.productlist.addons.Loss_of_Personal_belongings_IDV;
+      this.QRepairGlass=this.Quotelist.productlist.addons.Repair_Glass;
+      this.QRoadsideAssistance=this.Quotelist.productlist.addons.Roadside_Assistance;
+      this.QTyreSecure=this.Quotelist.productlist.addons.Tyre_Secure;
+      this.QReturnInvoice=this.Quotelist.productlist.addons.Return_to_Invoice;
+      this.QEngineSecure=this.Quotelist.productlist.addons.Engine_Secure;
+      this.quotationNo=this.Quotelist.productlist.quotation_no;
+      console.log(this.quotationNo,'quotationNoooo');
+
+      this.depreciationChange();
+      this.invoiceChange();
+      this.keyReplacementChange();
+      this.enginesecureChange();
+      this.consexpenceChange();
+      this.tyresecureChange();
+      // this.protectioncoverChange();
+      this.roadsideChange();
+      this.personalossChange();
+      this.RepairGlassChange();
+      this.transportAmountChange();
+      // this.createproposal(stepper);
     }
   }
 
   QuoteFailure(error) {
 
   }
+
+  depreciationChange()
+  {
+    this.vehicle.controls['DepreciationAmount'].patchValue(this.QDepreciationReImb);
+    // console.log(this.Quotelist.productlist.addons.Automobile_Association_Membership,'quoteValueeee')
+    console.log(this.QDepreciationReImb,'quoteValueesssss')
+    // console.log( this.vehicle.controls['Associationamount'].value,'quoteListsss')
+
+  }
+  invoiceChange()
+  {
+    this.vehicle.controls['invoiceAmount'].patchValue(this.QReturnInvoice);
+    console.log(this.QReturnInvoice,'quoteValueesssss')
+
+  }
+
+  keyReplacementChange()
+  {
+    this.vehicle.controls['keyReplacementAmount'].patchValue(this.QKeyReplacement);
+    // console.log(this.Quotelist.productlist.addons.Automobile_Association_Membership,'quoteValueeee')
+    console.log(this.QKeyReplacement,'quoteValueesssss')
+    // console.log( this.vehicle.controls['Associationamount'].value,'quoteListsss')
+
+  }
+
+  enginesecureChange()
+  {
+    this.vehicle.controls['enginesecureAmount'].patchValue(this.QEngineSecure);
+    console.log(this.QEngineSecure,'quoteValueesssss')
+    // console.log( this.vehicle.controls['Associationamount'].value,'quoteListsss')
+
+  }
+  consexpenceChange()
+  {
+    this.vehicle.controls['consexpenceAmount'].patchValue(this.QConsumableExpenses);
+    console.log(this.QConsumableExpenses,'quoteValueesssss')
+
+  }
+
+  tyresecureChange()
+  {
+    this.vehicle.controls['tyresecureAmount'].patchValue(this.QTyreSecure);
+    console.log(this.QTyreSecure,'quoteValueesssss')
+
+  }
+  // protectioncoverChange()
+  // {
+  //   this.vehicle.controls['protectioncoverAmount'].patchValue(this.QTyreSecure);
+  //   // console.log(this.Quotelist.productlist.addons.Automobile_Association_Membership,'quoteValueeee')
+  //   console.log(this.QTyreSecure,'quoteValueesssss')
+  //   // console.log( this.vehicle.controls['Associationamount'].value,'quoteListsss')
+  //
+  // }
+  roadsideChange()
+  {
+    this.vehicle.controls['roadsideAmount'].patchValue(this.QRoadsideAssistance);
+    console.log(this.QRoadsideAssistance,'quoteValueesssss')
+
+  }
+  personalossChange()
+  {
+    this.vehicle.controls['personalossAmount'].patchValue(this.QLossPersonalIDV);
+    console.log(this.QLossPersonalIDV,'quoteValueesssss')
+
+  }
+  RepairGlassChange()
+  {
+    this.vehicle.controls['RepairglassAmount'].patchValue(this.QRepairGlass);
+    console.log(this.QLossPersonalIDV,'quoteValueesssss')
+
+  }
+
+  transportAmountChange()
+  {
+    this.vehicle.controls['transportAmount'].patchValue(this.QEmergencytransport);
+    console.log(this.QEmergencytransport,'quoteValueesssss')
+
+  }
+
 
   sessionData() {
     if (sessionStorage.tatacarproposer != '' && sessionStorage.tatacarproposer != undefined) {
@@ -830,6 +963,7 @@ export class CarTataaigProposalComponent implements OnInit {
         package: this.getstepper2.package,
         packagevalue:  this.getstepper2.packagevalue,
         Depreciation: this.getstepper2.Depreciation,
+        DepreciationAmount: this.getstepper2.DepreciationAmount,
         Allowance: this.getstepper2.Allowance,
         Invoice: this.getstepper2.Invoice,
         personaloss: this.getstepper2.personaloss,
@@ -841,6 +975,16 @@ export class CarTataaigProposalComponent implements OnInit {
         Tyresecure: this.getstepper2.Tyresecure,
         protectioncover: this.getstepper2.protectioncover,
         Roadside: this.getstepper2.Roadside,
+        transportAmount: this.getstepper2.transportAmount,
+        RepairglassAmount: this.getstepper2.RepairglassAmount,
+        personalossAmount: this.getstepper2.personalossAmount,
+        roadsideAmount: this.getstepper2.roadsideAmount,
+        protectioncoverAmount: this.getstepper2.protectioncoverAmount,
+        tyresecureAmount: this.getstepper2.tyresecureAmount,
+        consexpenceAmount: this.getstepper2.consexpenceAmount,
+        enginesecureAmount: this.getstepper2.enginesecureAmount,
+        keyReplacementAmount: this.getstepper2.keyReplacementAmount,
+        invoiceAmount: this.getstepper2.invoiceAmount,
       });
       this.visible = true;
     }
@@ -882,7 +1026,7 @@ export class CarTataaigProposalComponent implements OnInit {
       "proposal_id": sessionStorage.tatacarproposalID == '' || sessionStorage.tatacarproposalID == undefined ? '' : sessionStorage.tatacarproposalID,
       'package_type': this.premium,
       "motorproposalObj": {
-        "quotation_no": this.Quotelist.productlist.quotation_no,
+        "quotation_no": this.quotationNo,
         "pol_sdate": this.enquiryFormData.business_type == '1'? this.datepipe.transform(this.minDate,'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
         "sp_name": "Name",
         "sp_license": "Lino12345566",

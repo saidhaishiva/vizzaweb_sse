@@ -13,6 +13,8 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ClearSessionService} from '../../shared/services/clear-session.service';
 import {MetaService} from '../../shared/services/meta.service';
+import {Meta} from '@angular/platform-browser'
+import {Title} from '@angular/platform-browser';
 
 export const MY_FORMATS = {
     parse: {
@@ -57,9 +59,11 @@ export class HomeComponent implements OnInit {
     dateError: any;
     metaHome: any;
     metaTitle: any;
+    metaKeyword: any;
+    metaDescription: any;
 
     constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe ,public session: ClearSessionService, public appSettings: AppSettings, public toastr: ToastrService,
-                public config: ConfigurationService, public common: CommonService, public dialog: MatDialog, public meta: MetaService) {
+                public config: ConfigurationService, public common: CommonService, public dialog: MatDialog, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
         // this.form =  this.fb.group({
         //     'insurename': ['', Validators.compose([Validators.required])],
         //     'startdate': ['', Validators.compose([Validators.required])],
@@ -72,6 +76,7 @@ export class HomeComponent implements OnInit {
         //     'insurecompanyname': ['',Validators.compose([Validators.required])],
         //     'paymentfrequeny': ['',Validators.compose([Validators.required])]
         // });
+        // this.metaTag.addTag({ name: 'keywords', content: this.metaHome.keyword[0] });
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if(window.innerWidth < 787){
@@ -155,6 +160,7 @@ export class HomeComponent implements OnInit {
 
         this.testimonialList();
         this.metaList();
+
     }
 
     public metaList() {
@@ -175,10 +181,22 @@ export class HomeComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
+        console.log(successData.ResponseObject,'hommeeecontent');
         this.metaHome = successData.ResponseObject[0];
+        this.metaTitle = this.metaHome.title;
+        this.metaKeyword = this.metaHome.keyword;
+        this.metaDescription = this.metaHome.descrition;
+        this.metaTag.addTags([
+            {name: 'keywords', content: this.metaKeyword},
+            {name: 'description', content: this.metaDescription},
+        ]);
+        this.setTitle();
     }
     public metaDetailFailure(error) {
         console.log(error);
+    }
+    public setTitle() {
+        this.titleService.setTitle( this.metaTitle );
     }
 
 

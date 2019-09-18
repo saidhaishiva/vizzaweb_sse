@@ -15,6 +15,7 @@ import * as moment from 'moment';
 import { Settings} from '../app.settings.model';
 import {AppSettings} from '../app.settings';
 import {MetaService} from '../shared/services/meta.service';
+import {Meta, Title} from '@angular/platform-browser';
 
 
 
@@ -46,11 +47,13 @@ export class EdelweissPosHomeComponent implements OnInit {
   public settings: Settings;
   public metaTermLife: any;
   public metaTitle: any;
+  metaKeyword: any;
+  metaDescription: any;
   public suminsuredvalue: any;
   public premiumdata: any;
   public policydata: any;
 
-  constructor(public fb: FormBuilder, public router: Router, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog, public config: ConfigurationService, public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService, public appSettings: AppSettings, public meta: MetaService) {
+  constructor(public fb: FormBuilder, public router: Router, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog, public config: ConfigurationService, public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService, public appSettings: AppSettings, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
     this.edelweisspos = this.fb.group({
       edelsuminsure: '',
       edeldob: ['', Validators.required],
@@ -81,13 +84,22 @@ export class EdelweissPosHomeComponent implements OnInit {
 
   public metaDetailSuccess(successData) {
     console.log(successData.ResponseObject);
-    this.metaTermLife = successData.ResponseObject;
-    this.metaTitle = this.metaTermLife[0].title;
-    console.log(this.metaTermLife[0].title, 'titl')
+    this.metaTermLife = successData.ResponseObject[0];
+    this.metaTitle = this.metaTermLife.title;
+    this.metaKeyword = this.metaTermLife.keyword;
+    this.metaDescription = this.metaTermLife.descrition;
+    this.metaTag.addTags([
+      {name: 'keywords', content: this.metaKeyword},
+      {name: 'description', content: this.metaDescription},
+    ]);
+    this.setTitle();
   }
 
   public metaDetailFailure(error) {
     console.log(error);
+  }
+  public setTitle() {
+    this.titleService.setTitle( this.metaTitle );
   }
 
   sessionData() {

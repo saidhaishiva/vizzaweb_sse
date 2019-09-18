@@ -16,6 +16,7 @@ import {TravelService} from '../../shared/services/travel.service';
 import {PersonalInsurer} from '../personal-accident-home/personal-accident-home.component';
 import { ValidationService} from '../../shared/services/validation.service';
 import {MetaService} from '../../shared/services/meta.service';
+import {Meta, Title} from '@angular/platform-browser';
 
 
 export const MY_FORMATS = {
@@ -117,8 +118,10 @@ export class TravelHomeComponent implements OnInit {
     public travelProceed: boolean;
     metaTravel : any;
     metaTitle : any;
+    metaKeyword: any;
+    metaDescription: any;
 
-    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute, public meta: MetaService) {
+    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if(window.innerWidth < 787){
@@ -225,9 +228,20 @@ export class TravelHomeComponent implements OnInit {
     }
     public metaDetailSuccess(successData) {
         this.metaTravel = successData.ResponseObject[0];
+        this.metaTitle = this.metaTravel.title;
+        this.metaKeyword = this.metaTravel.keyword;
+        this.metaDescription = this.metaTravel.descrition;
+        this.metaTag.addTags([
+            {name: 'keywords', content: this.metaKeyword},
+            {name: 'description', content: this.metaDescription},
+        ]);
+        this.setTitle();
     }
     public metaDetailFailure(error) {
         console.log(error);
+    }
+    public setTitle() {
+        this.titleService.setTitle( this.metaTitle );
     }
 
     selfDetails() {
