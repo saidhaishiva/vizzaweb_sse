@@ -1582,7 +1582,7 @@ export class StarHealthProposalComponent implements OnInit {
         const data = {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
-            'reference_id' : this.summaryData.proposalNum,
+            'reference_id' : this.proposalNumber,
             'proposal_id': sessionStorage.proposalID,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'

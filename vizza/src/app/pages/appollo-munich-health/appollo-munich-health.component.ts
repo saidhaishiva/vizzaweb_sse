@@ -15,7 +15,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 
 export const MY_FORMATS = {
@@ -122,9 +122,8 @@ export class AppolloMunichComponent implements OnInit {
     public nStateId: any;
     public nCityId: any;
     public nCountryId: any;
-    public pStateId: any;
-    public pCityId: any;
-    public pCountryId: any;
+    public pos_status: any;
+    public requestDetails: any;
     public proposalPArea: any;
     public proposalRArea: any;
     public nomineeAreaList: any;
@@ -135,7 +134,7 @@ export class AppolloMunichComponent implements OnInit {
     public maxDate: any;
     public RediretUrlLink: any;
     public stateCode: any;
-    public stateTitle: any;
+    public requestClientDetails: any;
     public nomineeAppolloDistrictList: any;
     public nomineeAppolloCityLis: any;
     public proposerProofNum: any;
@@ -145,7 +144,7 @@ export class AppolloMunichComponent implements OnInit {
     public titleCodeList: any;
     public iAppolloDistrictName: any;
     public iAppolloCityName: any;
-    public insurerAge: any;
+    public createdDate: any;
     public previousDetails: boolean;
     public dobErrorInsure: any;
     public dobErrorStartDate: any;
@@ -161,28 +160,32 @@ export class AppolloMunichComponent implements OnInit {
     public readonly: any;
     public readonlyproposer: any;
     public appolloQuestionsList: any;
-    public medicalquestion: any;
+    public proposerList: any;
     public sameRelationship : any;
     public proposerFormData : any;
     public insuredFormData : any;
     public nomineeFormData : any;
     currentStep: any;
     proofValid: any;
+    proposal_Id: any;
+    status: any;
+    stepperindex: any;
     public idlistValid: boolean;
     public nomineesame: boolean;
     public appolloMobileTrue0: boolean;
     public appolloMobileTrue1: boolean;
     public appolloMobileTrue2: boolean;
     public appolloMobileTrue3: boolean;
+    public payLaterr: boolean;
     public appolloMobileTrue4: boolean;
 
 
-    constructor(public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
-      let stepperindex = 0;
+      this.stepperindex = 0;
       this.route.params.forEach((params) => {
           if(params.stepper == true || params.stepper == 'true') {
-              stepperindex = 4;
+              this.stepperindex = 4;
               if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                   this.summaryData = JSON.parse(sessionStorage.summaryData);
                   this.RediretUrlLink = this.summaryData.PaymentURL;
@@ -192,9 +195,21 @@ export class AppolloMunichComponent implements OnInit {
                   this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
                   sessionStorage.appollo_health_proposal_id = this.proposalId;
               }
+              this.status = params.stepper;
+              this.proposal_Id = params.proposalId;
+              if(this.proposal_Id != '' || this.proposal_Id != undefined ){
+                  this.payLaterr = true;
+                  console.log(this.proposal_Id, 'this.proposalId');
+                  console.log(this.status, 'this.proposalId');
+                  this.getBackRequest();
+              }
+              if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                  this.payLaterr = false;
+
+              }
           }
       });
-      this.currentStep = stepperindex;
+      this.currentStep = this.stepperindex;
 
       const minDate = new Date();
       this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -307,38 +322,43 @@ export class AppolloMunichComponent implements OnInit {
 
   }
     ngOnInit() {
-        this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        this.enquiryId = sessionStorage.enquiryId;
-        this.groupName = sessionStorage.groupName;
-        this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-        this.insurePersons = this.getFamilyDetails.family_members;
-        // for(let i =0; i< this.insurePersons.length; i++){
-        //     this.insurepersonstype = this.insurePersons[i].type;
-        // }
-        this.setRelationship();
-        // this.setNomineeRelationship();
-        this.maritalStatus();
-        this.IdProofList();
-        this.AppolloState();
-        this.setOccupationList();
-        this.getPreviousInsure();
-        this.getProffession();
-        this.questionsList();
-        this.insureArray = this.fb.group({
-            items: this.fb.array([])
-        });
-        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-            this.items = this.insureArray.get('items') as FormArray;
-            this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
-        }
-        this.sessionData();
+        if (this.payLaterr == true) {
+            this.stepperindex = 4;
+            console.log(this.payLaterr, 'this.payLaterrolll');
+        } else {
+            this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+            this.enquiryId = sessionStorage.enquiryId;
+            this.groupName = sessionStorage.groupName;
+            this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+            this.insurePersons = this.getFamilyDetails.family_members;
+            // for(let i =0; i< this.insurePersons.length; i++){
+            //     this.insurepersonstype = this.insurePersons[i].type;
+            // }
+            this.setRelationship();
+            // this.setNomineeRelationship();
+            this.maritalStatus();
+            this.IdProofList();
+            this.AppolloState();
+            this.setOccupationList();
+            this.getPreviousInsure();
+            this.getProffession();
+            this.questionsList();
+            this.insureArray = this.fb.group({
+                items: this.fb.array([])
+            });
+            for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+                this.items = this.insureArray.get('items') as FormArray;
+                this.items.push(this.initItemRows());
+                this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
+            }
+            this.sessionData();
 
-        this.insureArray['controls'].items['controls'][0]['controls'].set_validator.patchValue(true);
+            this.insureArray['controls'].items['controls'][0]['controls'].set_validator.patchValue(true);
 
-        if(this.getFamilyDetails.family_members.length > 1){
-            if (this.insureArray['controls'].items['controls'][1]['controls'].type.value == 'Spouse') {
-                this.insureArray['controls'].items['controls'][1]['controls'].set_validator.patchValue(true);
+            if (this.getFamilyDetails.family_members.length > 1) {
+                if (this.insureArray['controls'].items['controls'][1]['controls'].type.value == 'Spouse') {
+                    this.insureArray['controls'].items['controls'][1]['controls'].set_validator.patchValue(true);
+                }
             }
         }
     }
@@ -2363,12 +2383,13 @@ export class AppolloMunichComponent implements OnInit {
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
-
             sessionStorage.appollo_health_proposal_id = this.proposalId;
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4;
+            this.createdDate = new Date();
+
 
             //mobile view
             this.appolloMobileTrue4 = false;
-
         }
         else{
             this.toastr.error(successData.ErrorObject);
@@ -2411,5 +2432,220 @@ export class AppolloMunichComponent implements OnInit {
     changeNomineegenderId(){
         this.nomineeDetails.controls['nomineeTitleName'].patchValue(this.titleCodeList[this.nomineeDetails.controls['nomineeTitle'].value]);
 
+    }
+    payLater() {
+        let clientData = this.totalInsureDetails.slice(1);
+        const data  = {
+            'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'product_id': this.buyProductdetails.product_id,
+            'plan_name': this.buyProductdetails.product_name,
+            'sum_insured_amount': this.buyProductdetails.suminsured_amount,
+            'created-date': this.createdDate,
+            'company_logo': this.buyProductdetails.company_logo,
+            'FinalPremium': this.summaryData.FinalPremium,
+            'Tax': this.summaryData.Tax,
+            'BasePremium': this.summaryData.BasePremium,
+            'proposal_id': sessionStorage.appollo_health_proposal_id == '' || sessionStorage.appollo_health_proposal_id == undefined ? '' : sessionStorage.appollo_health_proposal_id,
+            'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'group_name': this.getFamilyDetails.name,
+            'paymentlink-date': '',
+            'ProposalCaptureServiceRequest': {
+                'Prospect': {
+                    'Application': {
+                        'NomineeAddress': {
+                            'AddressLine1': this.nomineeData.nomineeAddress,
+                            'AddressLine2': this.nomineeData.nomineeAddress2 == null ? '' : this.nomineeData.nomineeAddress2,
+                            'AddressLine3': this.nomineeData.nomineeAddress3 == null ? '' : this.nomineeData.nomineeAddress3,
+                            'CountryCode': this.nomineeData.nomineeCountry == null ? '' : this.nomineeData.nomineeCountry,
+                            'District': this.nomineeData.nomineeDistrict == null ? '' : this.nomineeData.nomineeDistrict,
+                            'PinCode': this.nomineeData.nomineePincode,
+                            'StateCode': this.nomineeData.nomineeStateId,
+                            'TownCode': this.nomineeData.nomineeCity
+                        },
+                        'NomineeName': this.nomineeData.nomineeName,
+                        'NomineeTitleCode': this.nomineeData.nomineeTitle,
+                        'RelationToNomineeCode': this.nomineeData.nomineeRelationship,
+                        'Proposer': {
+                            'Address': {
+                                'Address': {
+                                    'AddressLine1': this.proposer.controls['proposerAddress'].value,
+                                    'AddressLine2': this.proposer.controls['proposerAddress2'].value == null ? '' : this.proposer.controls['proposerAddress2'].value,
+                                    'AddressLine3': this.proposer.controls['proposerAddress3'].value == null ? '' :this.proposer.controls['proposerAddress3'].value,
+                                    'CountryCode': this.proposer.controls['proposerCountry'].value == null ? '' : this.proposer.controls['proposerCountry'].value ,
+                                    'District': this.proposer.controls['proposerDistrict'].value == null ? '' : this.proposer.controls['proposerDistrict'].value,
+                                    'PinCode':this.proposer.controls['proposerPincode'].value,
+                                    'CityName':this.proposer.controls['proposerCityName'].value,
+                                    'DistrictName':this.proposer.controls['proposerDistrictName'].value,
+                                    'StateCode': this.proposer.controls['proposerStateIdP'].value,
+                                    'TownCode': this.proposer.controls['proposerCity'].value
+                                }
+                            },
+                            'BirthDate': this.datepipe.transform(this.proposerData.proposerDob, 'y-MM-dd'),
+                            'ClientCode': this.proposerData.ClientCode,
+                            'ContactInformation': {
+                                'ContactNumber': {
+                                    'ContactNumber': {
+                                        'Number':this.proposer.controls['proposerMobile'].value
+                                    }
+                                },
+                                'Email': this.proposer.controls['proposerEmail'].value
+                            },
+                            'FirstName': this.proposer.controls['proposerFirstname'].value,
+                            'GenderCode': this.proposer.controls['proposerGender'].value,
+                            'GstinNumber':this.proposer.controls['proposerGst'].value == null ? '':  this.proposer.controls['proposerGst'].value,
+                            'IDProofNumber': this.proposer.controls['proposerIdProofIdP'].value == null ? '':  this.proposer.controls['proposerIdProofIdP'].value ,
+                            'IDProofTypeCode': this.proposer.controls['proposerIdProof'].value == null ? '':  this.proposer.controls['proposerIdProof'].value,
+                            'LastName': this.proposer.controls['proposerLastname'].value == null ? '':  this.proposer.controls['proposerLastname'].value,
+                            'MaritalStatusCode': this.proposer.controls['maritalStatus'].value,
+                            'MiddleName': this.proposer.controls['proposerMidname'].value == null ? '':  this.proposer.controls['proposerMidname'].value,
+                            'RelationshipCode': this.proposer.controls['proposerrelationship'].value == null ? '': this.proposer.controls['proposerrelationship'].value,
+                            'TitleCode': this.proposer.controls['proposerTitle'].value
+                        }
+                    },
+
+                    'Client': {
+                        'Address': {
+                            'Address': {
+                                'AddressLine1': this.totalInsureDetails[0].Address.Address.AddressLine1,
+                                'AddressLine2': this.totalInsureDetails[0].Address.Address.AddressLine2 == null ? '' : this.totalInsureDetails[0].Address.Address.AddressLine2,
+                                'AddressLine3': this.totalInsureDetails[0].Address.Address.AddressLine3  == null ? '' : this.totalInsureDetails[0].Address.Address.AddressLine3,
+                                'CountryCode': 'IN',
+                                'District': this.totalInsureDetails[0].Address.Address.District == null ? '' : this.totalInsureDetails[0].Address.Address.District,
+                                'PinCode': this.totalInsureDetails[0].Address.Address.PinCode,
+                                'StateCode': this.totalInsureDetails[0].Address.Address.StateCode,
+                                'TownCode': this.totalInsureDetails[0].Address.Address.TownCode
+                            }
+                        },
+                        'Age': this.totalInsureDetails[0].Age,
+                        'AnnualIncome':this.totalInsureDetails[0].proposerAnnualIncome == undefined?  this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value : this.insureArray['controls'].items['controls'][0]['controls'].proposerAnnualIncome.value,
+                        'BirthDate': this.datepipe.transform(this.totalInsureDetails[0].BirthDate, 'y-MM-dd'),
+                        'ClientCode': 'PolicyHolder',
+                        'ContactInformation': {
+                            'ContactNumber': {
+                                'ContactNumber': {
+                                    'Number': this.totalInsureDetails[0].ContactInformation.ContactNumber.ContactNumber.Number
+                                }
+                            },
+                            'Email': this.totalInsureDetails[0].ContactInformation.Email
+                        },
+                        'Dependants': {
+                            'Client' : clientData
+                        },
+                        'FamilySize': this.totalInsureDetails[0].FamilySize,
+                        'FirstName': this.totalInsureDetails[0].FirstName,
+                        'GenderCode': this.totalInsureDetails[0].GenderCode,
+                        'GstinNumber': this.totalInsureDetails[0].GstinNumber == null ? '':  this.totalInsureDetails[0].GstinNumber,
+                        'Height': this.totalInsureDetails[0].Height,
+                        'IDProofNumber': this.totalInsureDetails[0].IDProofNumber == null ? '':  this.totalInsureDetails[0].IDProofNumber,
+                        'IDProofTypeCode': this.totalInsureDetails[0].IDProofTypeCode == null ? '':  this.totalInsureDetails[0].IDProofTypeCode,
+                        'LastName': this.totalInsureDetails[0].LastName,
+                        'MaritalStatusCode': this.totalInsureDetails[0].MaritalStatusCode,
+                        'MiddleName': this.totalInsureDetails[0].MiddleName == null ? '':  this.totalInsureDetails[0].MiddleName,
+                        'NationalityCode': this.totalInsureDetails[0].NationalityCode,
+                        // 'AnnualIncome':  this.totalInsureDetails[0].proposerAnnualIncome,
+                        'OccuptionCode': this.totalInsureDetails[0].OccuptionCode,
+                        'PreviousInsurer': {
+                            'InceptionDate': this.totalInsureDetails[0].PreviousInsurer.InceptionDate == null ? '' :  this.totalInsureDetails[0].PreviousInsurer.InceptionDate ,
+                            'EndDate': this.totalInsureDetails[0].PreviousInsurer.EndDate == null  ? '' : this.totalInsureDetails[0].PreviousInsurer.EndDate,
+                            'PreviousInsurerCode': this.totalInsureDetails[0].PreviousInsurer.PreviousInsurerCode,
+                            'PreviousPolicyNumber': this.totalInsureDetails[0].PreviousInsurer.PreviousPolicyNumber,
+                            'SumInsured': this.totalInsureDetails[0].PreviousInsurer.SumInsured,
+                            'QualifyingAmount': this.totalInsureDetails[0].PreviousInsurer.QualifyingAmount,
+                            'WaivePeriod': this.totalInsureDetails[0].PreviousInsurer.WaivePeriod,
+                            'Remarks': this.totalInsureDetails[0].PreviousInsurer.Remarks
+                        },
+
+                        'LifeStyleHabits': {
+                            'BeerBottle': this.totalInsureDetails[0].LifeStyleHabits.BeerBottle,
+                            'LiquorPeg': this.totalInsureDetails[0].LifeStyleHabits.LiquorPeg,
+                            'Pouches': this.totalInsureDetails[0].LifeStyleHabits.Pouches,
+                            'Smoking': this.totalInsureDetails[0].LifeStyleHabits.Smoking,
+                            'WineGlass': this.totalInsureDetails[0].LifeStyleHabits.WineGlass
+                        },
+                        'Product': {
+                            'Product': [{
+                                'ClientCode': 'PolicyHolder',
+                                'ProductCode': this.buyProductdetails.product_code,
+                                'SumAssured': this.buyProductdetails.suminsured_amount
+
+                            }]
+                        },
+                        'ProfessionCode': this.totalInsureDetails[0].ProfessionCode,
+                        'RelationshipCode': this.totalInsureDetails[0].RelationshipCode,
+                        'TitleCode': this.totalInsureDetails[0].TitleCode,
+                        'Weight': this.totalInsureDetails[0].Weight
+                    },
+                    'MedicalInformations': this.proposerData.MedicalInformations == null ? '': this.proposerData.MedicalInformations,
+                }
+            }
+
+
+        };
+
+        console.log(data, 'payyyyy');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.proposalPayLater(data).subscribe(
+            (successData) => {
+                this.payLaterSuccess(successData);
+            },
+            (error) => {
+                this.payLaterFailure(error);
+            }
+        );
+
+    }
+    public payLaterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.toastr.success(successData.ResponseObject);
+            this.saveEdit();
+        } else {
+            // this.toastr.error('sorry!');
+        }
+    }
+
+    public payLaterFailure(successData) {
+    }
+    saveEdit(){
+        this.router.navigate(['/home']);
+
+    }
+    // get request
+    getBackRequest() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'proposal_id': this.proposal_Id
+        };
+        this.proposalservice.proposalGetRequest(data).subscribe(
+            (successData) => {
+                this.getBackResSuccess(successData);
+            },
+            (error) => {
+                this.getBackResFailure(error);
+            }
+        );
+    }
+    public getBackResSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.requestDetails = successData.ResponseObject;
+            console.log(this.requestDetails, 'requestDetailsrequestDetails');
+            this.pos_status = this.requestDetails.role_id;
+            console.log(this.pos_status , 'requestDetailsrequestDetails');
+            this.proposerList = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Application.Proposer;
+            console.log(this.proposerList, 'asdadsd');
+            this.requestClientDetails = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Application.Client;
+            console.log(this.requestClientDetails, 'requestInsuredListrequestInsuredList');
+
+            let requestInsuredList = [];
+            requestInsuredList.push(this.requestDetails.ProposalCaptureServiceRequest.Prospect.Application.Client);
+            console.log(requestInsuredList, 'requestInsuredListrequestInsuredList');
+        } else {
+        }
+    }
+    public getBackResFailure(successData) {
     }
 }
