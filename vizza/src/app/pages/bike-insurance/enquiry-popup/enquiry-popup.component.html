@@ -19,7 +19,8 @@
         <mat-datepicker #picker1></mat-datepicker>
         <mat-error *ngIf="vehicalDetails.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
       </mat-form-field>
-      <!--<div class="'error" *ngIf="errorFutureDate" !='' && errorFutureDate != true">{{errorFutureDate}}</div>-->
+      <div class="error" *ngIf="errorFutureDate !='' && errorFutureDate != true">{{errorFutureDate}}</div>
+      <!--<div class="error" *ngIf="errorFutureDate !='' && errorFutureDate != true">{{errorFutureDate}}</div>-->
     </div>
     <div class="col-md-3" *ngIf="vehicalDetails.controls['bussiness'].value != '1' && vehicalDetails.controls['bussiness'].value != ''">
       <mat-form-field class="w-100">

@@ -2657,15 +2657,18 @@
               <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>
             </p>
             <hr>
+
             <div class="row">
               <div class="col-md-12 text-center">
-                <!--<form action={{requestedUrl}}  method='POST' #form>-->
+                <form action={{requestedUrl}}  method='POST' #form>
 
 
                 <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Pay Now</button>
+                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+
+                <!--<button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Pay Now</button>-->
                 <!--<button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>-->
-                <!--</form>-->
+                </form>
               </div>
             </div>
           </section>
@@ -2779,464 +2782,464 @@
         <!--&lt;!&ndash;<button mat-button class="secondary-bg-color" (click)="otpVal()" >Ok</button>&ndash;&gt;-->
         <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-        <mat-step [stepControl]="">
-          <ng-template matStepLabel>DOCUMENTS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
-            <mat-expansion-panel expanded>
-              <mat-expansion-panel-header>
-                <mat-panel-title>DOCUMENTS</mat-panel-title>
-              </mat-expansion-panel-header>
-              <div class="row mt-3">
-                <div class="col-md-12 box-card pt-3 pb-3" >
-                  <form [formGroup]="documentDetail">
-                    <div class="row" *ngIf="this.insureArray.controls['investing'].value != 'SELF'">
+        <!--<mat-step [stepControl]="">-->
+          <!--<ng-template matStepLabel>DOCUMENTS</ng-template>-->
+          <!--<mat-accordion class="mt-4 w-100 float-left">-->
+            <!--<mat-expansion-panel expanded>-->
+              <!--<mat-expansion-panel-header>-->
+                <!--<mat-panel-title>DOCUMENTS</mat-panel-title>-->
+              <!--</mat-expansion-panel-header>-->
+              <!--<div class="row mt-3">-->
+                <!--<div class="col-md-12 box-card pt-3 pb-3" >-->
+                  <!--<form [formGroup]="documentDetail">-->
+                    <!--<div class="row" *ngIf="this.insureArray.controls['investing'].value != 'SELF'">-->
 
-                      <div class="col-md-12 mb-4">
-                        <h5>Life Assured</h5>
-                        <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>
-                                        </span>
-                        </p>
-                      </div>
-
-
-
-                      <div class="col-md-4">
-                        <input matInput placeholder="Address Proof" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Address Proof" formControlName="addressLA" (change)="geteaddressDocProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.addressLA.errors?.required">Address Proof is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label"> Address Proof</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
-                      </div>
-                      <div class="col-md-4">
-                        <input matInput placeholder="Income Proof" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Income Proof" formControlName="incomeLA" (change)="geteIncomeProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.incomeLA.errors?.required">Income Proof is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label"> Income Proof</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{uploadIncomeProofName}}</p>
-                      </div>
-                      <div class="col-md-4">
-                        <input matInput placeholder="Identity Proof" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Identity Proof" formControlName="identityLA" (change)="geteidLifeProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of identityLifeProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.identityLA.errors?.required">Identity Proof is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label"> Identity Proof</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>
-                      </div>
-                      <div class="col-md-4">
-                        <input matInput placeholder="Age Proof" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Age Proof" formControlName="ageLA" (change)="geteageDocProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of eageDocProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.ageLA.errors?.required">Age Proof is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label"> Age Proof</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
-                      </div>
-
-                      <div class="col-md-4">
-                        <input matInput placeholder="Other Document" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Other Document" formControlName="documentLA" (change)="geteOtherDocumentProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.documentLA.errors?.required">Other Document is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'document_LifeAssured')"   aria-describedby="inputGroupFileAddon01"required >
-                            <label class="custom-file-label">Other Document</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{uploadDocumentProofName}}</p>
-                      </div>
-
-                      <div class="col-md-4">
-                        <input matInput placeholder="Proposal Form" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Proposal Form" formControlName="proposalLA" (change)="geteproposalProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of eproposalProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.proposalLA.errors?.required">Proposal Form is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'proposal_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label">Proposal Form</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{proposalProofName}}</p>
-                      </div>
-
-                      <div class="col-md-4">
-                        <input matInput placeholder="Sales Requirement" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Sales Requirement" formControlName="salereqLA" (change)="getesalereqProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.salereqLA.errors?.required">Sales Requirement is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'salesReq_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label">Sales Requirement</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{salesReqProofName}}</p>
-                      </div>
-                      <div class="col-md-4">
-                        <input matInput placeholder="KYC" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="KYC" formControlName="kycLA" (change)="getekycProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.kycLA.errors?.required">KYC is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'kyc_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label">KYC</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{kycProofName}}</p>
-                      </div>
-                      <div class="col-md-4">
-                        <input matInput placeholder="Recent Photo" readonly>
-                      </div>
-
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'photograph_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label">Recent Photo</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{photoProofName}}</p>
-                      </div>
-                    </div>
+                      <!--<div class="col-md-12 mb-4">-->
+                        <!--<h5>Life Assured</h5>-->
+                        <!--<p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>-->
+                                        <!--</span>-->
+                        <!--</p>-->
+                      <!--</div>-->
 
 
-                    <div class="row">
-                      <div class="col-md-12 mb-4">
-                        <h5>Proposer</h5>
-                        <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>
-                                        </span>
-                        </p>
-                      </div>
 
-                      <div class="col-md-4">
-                        <input matInput placeholder="Address Proof" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Address Proof" formControlName="addressPA" (change)="geteaddressDocProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.addressPA.errors?.required">Address Proof is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label"> Address Proof</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{uploadAddressProposal}}</p>
-                      </div>
-                      <div class="col-md-4">
-                        <input matInput placeholder="Income Proof" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Income Proof" formControlName="incomePA" (change)="geteIncomeProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.incomePA.errors?.required">Income Proof is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label"> Income Proof</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{uploadIncomeProposal}}</p>
-                      </div>
                       <!--<div class="col-md-4">-->
-                      <!--<input matInput placeholder="Income Proof" readonly>-->
+                        <!--<input matInput placeholder="Address Proof" readonly>-->
                       <!--</div>-->
                       <!--<div class="col-md-4">-->
-                      <!--<mat-form-field class="w-100">-->
-                      <!--<mat-select  placeholder="Income Proof" formControlName="incomePA" (change)="geteIncomeProof()"  class="w-100" required>-->
-                      <!--<mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                      <!--</mat-select>-->
-                      <!--<mat-error *ngIf="documentDetail.controls.incomePA.errors?.required">Income Proof is required</mat-error>-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Address Proof" formControlName="addressLA" (change)="geteaddressDocProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of eaddressDocProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.addressLA.errors?.required">Address Proof is required</mat-error>-->
 
-                      <!--</mat-form-field>-->
+                        <!--</mat-form-field>-->
                       <!--</div>-->
                       <!--<div class="col-md-4">-->
-                      <!--<div class="text-left w-100">-->
-                      <!--<div class="custom-file">-->
-                      <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_Proposal')"   aria-describedby="inputGroupFileAddon01" >-->
-                      <!--<label class="custom-file-label"> Income Proof</label>-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label"> Address Proof</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>-->
                       <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Income Proof" readonly>-->
                       <!--</div>-->
-                      <!--<p class="mt-2" style="color: green;">{{uploadIncomeProposal}}</p>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Income Proof" formControlName="incomeLA" (change)="geteIncomeProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.incomeLA.errors?.required">Income Proof is required</mat-error>-->
+
+                        <!--</mat-form-field>-->
                       <!--</div>-->
-                      <div class="col-md-4">
-                        <input matInput placeholder="Identity Proof" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Identity Proof" formControlName="identityPA" (change)="geteidLifeProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of identityLifeProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.identityPA.errors?.required">Identity Proof is required</mat-error>
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label"> Income Proof</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{uploadIncomeProofName}}</p>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Identity Proof" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Identity Proof" formControlName="identityLA" (change)="geteidLifeProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of identityLifeProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.identityLA.errors?.required">Identity Proof is required</mat-error>-->
 
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label"> Identity Proof</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{uploadIdProposal}}</p>
-                      </div>
-                      <div class="col-md-4">
-                        <input matInput placeholder="Age Proof" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Age Proof" formControlName="agePA" (change)="geteageDocProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of eageDocProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.agePA.errors?.required">Age Proof is required</mat-error>
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label"> Identity Proof</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Age Proof" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Age Proof" formControlName="ageLA" (change)="geteageDocProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of eageDocProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.ageLA.errors?.required">Age Proof is required</mat-error>-->
 
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label"> Age Proof</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{uploadAgeProposal}}</p>
-                      </div>
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label"> Age Proof</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>-->
+                      <!--</div>-->
 
-                      <div class="col-md-4">
-                        <input matInput placeholder="Other Document" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Other Document" formControlName="documentPA" (change)="geteOtherDocumentProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.documentPA.errors?.required">Other Document is required</mat-error>
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Other Document" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Other Document" formControlName="documentLA" (change)="geteOtherDocumentProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.documentLA.errors?.required">Other Document is required</mat-error>-->
 
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'document_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label">Other Document</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{uploadDocumentProposal}}</p>
-                      </div>
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'document_LifeAssured')"   aria-describedby="inputGroupFileAddon01"required >-->
+                            <!--<label class="custom-file-label">Other Document</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{uploadDocumentProofName}}</p>-->
+                      <!--</div>-->
 
-                      <div class="col-md-4">
-                        <input matInput placeholder="Proposal Form" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Proposal Form" formControlName="proposalPA" (change)="geteproposalProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of eproposalProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.proposalPA.errors?.required">Proposal Form is required</mat-error>
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Proposal Form" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Proposal Form" formControlName="proposalLA" (change)="geteproposalProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of eproposalProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.proposalLA.errors?.required">Proposal Form is required</mat-error>-->
 
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'proposal_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label">Proposal Form</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{proposalProProof}}</p>
-                      </div>
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'proposal_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label">Proposal Form</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{proposalProofName}}</p>-->
+                      <!--</div>-->
 
-                      <div class="col-md-4">
-                        <input matInput placeholder="Sales Requirement" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Sales Requirement" formControlName="salereqPA" (change)="getesalereqProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.salereqPA.errors?.required">Sales Requirement is required</mat-error>
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Sales Requirement" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Sales Requirement" formControlName="salereqLA" (change)="getesalereqProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.salereqLA.errors?.required">Sales Requirement is required</mat-error>-->
 
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'salesReq_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label">Sales Requirement</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{salesReqProposal}}</p>
-                      </div>
-                      <div class="col-md-4">
-                        <input matInput placeholder="KYC" readonly>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="KYC" formControlName="kycPA" (change)="getekycProof()"  class="w-100" required>
-                            <mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="documentDetail.controls.kycPA.errors?.required">KYC is required</mat-error>
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'salesReq_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label">Sales Requirement</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{salesReqProofName}}</p>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="KYC" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="KYC" formControlName="kycLA" (change)="getekycProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.kycLA.errors?.required">KYC is required</mat-error>-->
 
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'kyc_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label">KYC</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{kycProposal}}</p>
-                      </div>
-                      <div class="col-md-4">
-                        <input matInput placeholder="Recent Photo" readonly>
-                      </div>
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'kyc_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label">KYC</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{kycProofName}}</p>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Recent Photo" readonly>-->
+                      <!--</div>-->
 
-                      <div class="col-md-4">
-                        <div class="text-left w-100">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'photograph_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
-                            <label class="custom-file-label">Recent Photo</label>
-                          </div>
-                        </div>
-                        <p class="mt-2" style="color: green;">{{photoProposal}}</p>
-                      </div>
-
-                    </div>
-
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'photograph_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label">Recent Photo</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{photoProofName}}</p>-->
+                      <!--</div>-->
+                    <!--</div>-->
 
 
-                    <div class="row" *ngIf="documentPath">
-                      <div  class="col-md-3" *ngFor="let images of documentPath">
-                        <p class="color-blue">{{images.file_type | uppercase}}</p>
-                        <span class="imageclose mr-2" >
-                                        <img src="{{webhost + '/' + images.file_path}}" class="img-thumbnail" style="height:200px;width: 350px;"/>
-                                    </span>
-                      </div>
-                    </div>
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-12 mb-4">-->
+                        <!--<h5>Proposer</h5>-->
+                        <!--<p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>-->
+                                        <!--</span>-->
+                        <!--</p>-->
+                      <!--</div>-->
 
-                    <div class="row mt-2">
-                      <div class="col-md-6">
-                        <div class="proposal-buttom text-right w-100">
-                          <button mat-raised-button color="primaryBlue" (click)="uploadAll()">Upload</button>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="proposal-buttom text-left w-100">
-                          <form action={{requestedUrl}}  method='POST' #form>
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Address Proof" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Address Proof" formControlName="addressPA" (change)="geteaddressDocProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of eaddressDocProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.addressPA.errors?.required">Address Proof is required</mat-error>-->
 
-                            <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
-                            <button mat-raised-button color="primaryBlue"  (click)="uploadvalid()">Pay Now</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_Proposal')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label"> Address Proof</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{uploadAddressProposal}}</p>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Income Proof" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Income Proof" formControlName="incomePA" (change)="geteIncomeProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.incomePA.errors?.required">Income Proof is required</mat-error>-->
 
-                  </form>
-                </div>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </mat-step>
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_Proposal')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label"> Income Proof</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{uploadIncomeProposal}}</p>-->
+                      <!--</div>-->
+                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<input matInput placeholder="Income Proof" readonly>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<mat-select  placeholder="Income Proof" formControlName="incomePA" (change)="geteIncomeProof()"  class="w-100" required>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<mat-error *ngIf="documentDetail.controls.incomePA.errors?.required">Income Proof is required</mat-error>&ndash;&gt;-->
+
+                      <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="text-left w-100">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="custom-file">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_Proposal')"   aria-describedby="inputGroupFileAddon01" >&ndash;&gt;-->
+                      <!--&lt;!&ndash;<label class="custom-file-label"> Income Proof</label>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<p class="mt-2" style="color: green;">{{uploadIncomeProposal}}</p>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Identity Proof" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Identity Proof" formControlName="identityPA" (change)="geteidLifeProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of identityLifeProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.identityPA.errors?.required">Identity Proof is required</mat-error>-->
+
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_Proposal')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label"> Identity Proof</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{uploadIdProposal}}</p>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Age Proof" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Age Proof" formControlName="agePA" (change)="geteageDocProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of eageDocProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.agePA.errors?.required">Age Proof is required</mat-error>-->
+
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_Proposal')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label"> Age Proof</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{uploadAgeProposal}}</p>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Other Document" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Other Document" formControlName="documentPA" (change)="geteOtherDocumentProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.documentPA.errors?.required">Other Document is required</mat-error>-->
+
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'document_Proposal')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label">Other Document</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{uploadDocumentProposal}}</p>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Proposal Form" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Proposal Form" formControlName="proposalPA" (change)="geteproposalProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of eproposalProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.proposalPA.errors?.required">Proposal Form is required</mat-error>-->
+
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'proposal_Proposal')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label">Proposal Form</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{proposalProProof}}</p>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Sales Requirement" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Sales Requirement" formControlName="salereqPA" (change)="getesalereqProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.salereqPA.errors?.required">Sales Requirement is required</mat-error>-->
+
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'salesReq_Proposal')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label">Sales Requirement</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{salesReqProposal}}</p>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="KYC" readonly>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="KYC" formControlName="kycPA" (change)="getekycProof()"  class="w-100" required>-->
+                            <!--<mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="documentDetail.controls.kycPA.errors?.required">KYC is required</mat-error>-->
+
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'kyc_Proposal')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label">KYC</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{kycProposal}}</p>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4">-->
+                        <!--<input matInput placeholder="Recent Photo" readonly>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-4">-->
+                        <!--<div class="text-left w-100">-->
+                          <!--<div class="custom-file">-->
+                            <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'photograph_Proposal')"   aria-describedby="inputGroupFileAddon01" required>-->
+                            <!--<label class="custom-file-label">Recent Photo</label>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<p class="mt-2" style="color: green;">{{photoProposal}}</p>-->
+                      <!--</div>-->
+
+                    <!--</div>-->
+
+
+
+                    <!--<div class="row" *ngIf="documentPath">-->
+                      <!--<div  class="col-md-3" *ngFor="let images of documentPath">-->
+                        <!--<p class="color-blue">{{images.file_type | uppercase}}</p>-->
+                        <!--<span class="imageclose mr-2" >-->
+                                        <!--<img src="{{webhost + '/' + images.file_path}}" class="img-thumbnail" style="height:200px;width: 350px;"/>-->
+                                    <!--</span>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="row mt-2">-->
+                      <!--<div class="col-md-6">-->
+                        <!--<div class="proposal-buttom text-right w-100">-->
+                          <!--<button mat-raised-button color="primaryBlue" (click)="uploadAll()">Upload</button>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-6">-->
+                        <!--<div class="proposal-buttom text-left w-100">-->
+                          <!--<form action={{requestedUrl}}  method='POST' #form>-->
+
+                            <!--&lt;!&ndash;<form action={{proposalNextList.payment_link}}  method='post' #form>&ndash;&gt;-->
+                            <!--<button mat-raised-button color="primaryBlue"  (click)="uploadvalid()">Pay Now</button>-->
+                          <!--</form>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                  <!--</form>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</mat-expansion-panel>-->
+          <!--</mat-accordion>-->
+        <!--</mat-step>-->
 
       </mat-horizontal-stepper>
 

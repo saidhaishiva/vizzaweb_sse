@@ -307,6 +307,9 @@
       let getRegPolicyYear = start.getFullYear();
       let RegYear = start.getFullYear()-1;
       let getLength = this.vehicalDetails.controls['manufactureYear'].value;
+      console.log(getRegPolicyYear,'registerdate');
+      console.log(RegYear,'miniusvalue');
+      console.log(getLength,'manufact');
       if(getLength.length == 4) {
         if(getRegPolicyYear > getLength ){
           this.toastr.error("Manufacturing year should be equal to registration year or less than  Year of registration.");
@@ -317,20 +320,18 @@
     }
 
     maxDatechange(){
-      let start = new Date(this.vehicalDetails.controls['registrationDate'].value);
-      let getRegPolicyYear = start.getFullYear();
-      console.log(getRegPolicyYear,'registeryear');
+      let startDate = new Date(this.vehicalDetails.controls['registrationDate'].value);
+      let regPolicyYear = startDate.getFullYear();
+      console.log(regPolicyYear,'registeryear');
       this.maxDateValidate =this.maxDate.getFullYear();
       console.log(this.maxDateValidate,'maxyear');
 
-      if(this.maxDateValidate > getRegPolicyYear){
-        alert('failure  ');
+      if(this.maxDateValidate < regPolicyYear){
         this.errorFutureDate=true;
-        // this.errorFutureDate ='Future Date is not Acceptable';
+        this.errorFutureDate ='Future Year is not Acceptable';
       }else{
         this.errorFutureDate=false;
-        // this.errorFutureDate='';
-        alert('success');
+        this.errorFutureDate='';
       }
 
     }
@@ -397,16 +398,14 @@
         sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
         this.ageCalculateInsurer('days');
         // if(this.errorFutureDate == false) {
-          if(successData.status == true && this.errorFutureDate == false){
-
-              console.log(this.errorFutureDate,'inn');
+          if(successData.status == true && this.errorFutureDate=='') {
             this.dialogRef.close();
             this.router.navigate(['/bikepremium']);
           }
 
-      } else {
-        // this.toastr.error(successData.ErrorObject);
-          this.toastr.error('Future Date is not Acceptable');
+      } else  if(successData.status == true ){
+        this.toastr.error(successData.ErrorObject);
+        //   this.toastr.error('Future Date is not Acceptable');
 
       }
       // }else {
