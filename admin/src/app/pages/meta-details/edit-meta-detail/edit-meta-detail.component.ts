@@ -110,7 +110,6 @@ export class EditMetaDetailComponent implements OnInit {
     );
   }
   public editCenterSuccess(successData) {
-    alert('innn')
     if (successData.IsSuccess) {
       this.toastr.success(successData.ResponseObject);
       this.router.navigate(['/metaDetails']);

@@ -1527,7 +1527,7 @@
         SUMMARY DETAILS
         </mat-panel-title>
         </mat-expansion-panel-header>
-        <section class="summary-details" *ngIf="summaryData">
+        <section class="summary-details" *ngIf="summaryData && payLaterr == false">
         <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-12">
         <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
@@ -1715,9 +1715,215 @@
         </div>
         </div>
         </div>
-        <p class="pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
         </section>
-        <hr>
+          <section class="summary-details" *ngIf="summaryData && payLaterr == true">
+            <div class="row">
+              <div class="col-sm-12 col-xs-12 col-md-12">
+                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.sum_insured_amount}}</span></h4>
+                <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;">Insurer: &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;"></span></h4>-->
+                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.premium}}</span></h4>
+                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">GST: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.servicetax}}</span></h4>
+                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Total Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.total_premium}}</span></h4>
+              </div>
+            </div>
+            <div class="row box-card">
+              <div class="col-sm-12 col-xs-12 col-md-12">
+                <div class="p-3">
+                  <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
+                  <!--<h6 class="color-blue">PROPOSER DETAILS </h6>-->
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Name:</strong> {{requestDetails.title}}.{{requestDetails.proposer_fname}} {{requestDetails.proposer_lname}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{requestDetails.prop_dob | date: 'dd/MM/yyyy'}}</li>
+                    <li class="list-group-item"><strong>Email Id:</strong> {{requestDetails.proposer_email}}</li>
+                    <li class="list-group-item"><strong>Mobile Number:</strong> {{requestDetails.proposer_mobile}}</li>
+                    <li class="list-group-item" *ngIf="requestDetails.proposer_alternate_mobile !=''"><strong>Alternate Number:</strong> {{requestDetails.proposer_alternate_mobile}}</li>
+                    <li class="list-group-item" *ngIf="requestDetails.prop_occupation !=''"><strong>Occupation:</strong> {{requestDetails.prop_occupation}}</li>
+                    <li class="list-group-item" *ngIf="requestDetails.prop_annual_income !='' && requestDetails.prop_annual_income !=null"><strong>Annual Income:</strong> {{requestDetails.prop_annual_income | currency: 'INR'}}</li>
+                    <li class="list-group-item" *ngIf="requestDetails.prop_aadhar_no !='' && requestDetails.prop_aadhar_no !=null"><strong>Aadhar Number:</strong> {{requestDetails.prop_aadhar_no}}</li>
+                    <li class="list-group-item" *ngIf="requestDetails.prop_pan_no !='' && requestDetails.prop_pan_no !=null"><strong>PAN Number:</strong> {{requestDetails.prop_pan_no | uppercase}}</li>
+                    <li class="list-group-item" *ngIf="requestDetails.gst_id_no !='' && requestDetails.gst_id_no !=null"><strong>GST Number:</strong> {{requestDetails.gst_id_no | uppercase}}</li>
+                    <li class="list-group-item" *ngIf="requestDetails.insured_details !='' && requestDetails.insured_details !=null"><strong>Previous Medical Insurence:</strong> {{requestDetails.insured_details}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xs-12 col-md-12">
+                <div class="p-3">
+                  <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Address 1:</strong> {{requestDetails.proposer_comm_address1}}</li>
+                    <li class="list-group-item"><strong>Address 2:</strong> {{requestDetails.proposer_comm_address2}}</li>
+                    <li class="list-group-item"><strong>PIN code:</strong>  {{requestDetails.proposer_comm_pincode}}</li>
+                    <li class="list-group-item"><strong>City:</strong> {{requestDetails.proposer_comm_cityname}}</li>
+                    <li class="list-group-item"><strong>Area:</strong> {{requestDetails.proposer_comm_areaname}}</li>
+                    <li class="list-group-item"><strong>State:</strong> {{requestDetails.proposer_comm_state}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xs-12 col-md-12">
+                <div class=" p-3">
+                  <h6 class="color-blue">RESIDENCE DETAILS</h6>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item" ><strong>Address 1:</strong>
+                      <span *ngIf="requestDetails.proposer_res_address1 !=''">{{requestDetails.proposer_res_address1}}</span>
+                      <span *ngIf="requestDetails.proposer_res_address1 ==''">Nil</span>
+                    </li>
+                    <li class="list-group-item"><strong>Address 2:</strong>
+                      <span *ngIf="requestDetails.proposer_res_address2 !=''">{{requestDetails.proposer_res_address2}}</span>
+                      <span *ngIf="requestDetails.proposer_res_address2==''">Nil</span>
+                    </li>
+                    <li class="list-group-item"><strong>PIN code:</strong>
+                      <span *ngIf="requestDetails.proposer_res_pincode !=''">{{requestDetails.proposer_res_pincode}}</span>
+                      <span *ngIf="requestDetails.proposer_res_pincode ==''">Nil</span>
+                    </li>
+                    <li class="list-group-item"><strong>City:</strong>
+                      <span *ngIf="requestDetails.proposer_res_cityname!=''">{{requestDetails.proposer_res_cityname}}</span>
+                      <span *ngIf="requestDetails.proposer_res_cityname ==''">Nil</span>
+                    </li>
+                    <li class="list-group-item"><strong>Area:</strong>
+                      <span *ngIf="requestDetails.proposer_res_areaname !=''">{{requestDetails.proposer_res_areaname}}</span>
+                      <span *ngIf="requestDetails.proposer_res_areaname ==''">Nil</span>
+                    </li>
+                    <li class="list-group-item"><strong>State:</strong>
+                      <span *ngIf="requestDetails.proposer_res_state !=''">{{requestDetails.proposer_res_state}}</span>
+                      <span *ngIf="requestDetails.proposer_res_state ==''">Nil</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-xs-12 col-md-12">
+              <h6 class="color-blue mt-3">SOCIAL STATUS</h6>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12 col-md-12">
+                  <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
+                  <mat-button-toggle-group #group="matButtonToggleGroup">
+                    <mat-button-toggle value="1" [checked]="requestDetails.social_status_bpl == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="requestDetails.social_status_bpl == 0" disabled>No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+                <div class="col-sm-12 col-xs-12 col-md-12">
+                  <p>Please choose "Yes" if you are working in informal Sector</p>
+                  <mat-button-toggle-group #group="matButtonToggleGroup">
+                    <mat-button-toggle value="1" [checked]="requestDetails.social_status_disabled == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="requestDetails.social_status_disabled == 0" disabled>No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12 col-md-12">
+                  <p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>
+                  <mat-button-toggle-group #group="matButtonToggleGroup">
+                    <mat-button-toggle value="1" [checked]="requestDetails.social_status_informal == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="requestDetails.social_status_informal == 0" disabled>No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+                <div class="col-sm-12 col-xs-12 col-md-12">
+                  <p>Please Choose “Yes” if you are physical challenged person </p>
+                  <mat-button-toggle-group #group="matButtonToggleGroup">
+                    <mat-button-toggle value="1" [checked]="requestDetails.social_status_unorganized == 1" disabled>Yes</mat-button-toggle>
+                    <mat-button-toggle value="0" [checked]="requestDetails.social_status_unorganized == 0" disabled>No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+              </div>
+            </div>
+            <h5 class="mt-3 sub-title">INSURED DETAILS </h5>
+            <div class="row box-card" *ngFor="let list of requestInsuredDetails">">
+              <div class="col-sm-12 col-xs-12 col-md-12">
+                <div class="pl-3 pr-3 pt-0 pb-0 ">
+                  <h6 class="color-blue"> INSURED DETAILS FOR {{list.type | uppercase}}</h6>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Name:</strong> {{list.ins_name}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{list.ins_dob | date: 'dd/MM/yyyy'}}</li>
+                    <li class="list-group-item"><strong>Gender:</strong> {{list.ins_gender}}</li>
+                    <li class="list-group-item"><strong>Height:</strong> {{list.ins_height}}</li>
+                    <li class="list-group-item"><strong>Weight:</strong> {{list.ins_weight}}</li>
+                    <li class="list-group-item"><strong>Occupation:</strong> {{list.ins_occupation_name}}</li>
+                    <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{list.ins_relationship_name}}</li>
+                    <li class="list-group-item"><strong>Do you have any health problem: </strong> <span *ngIf="list.illness == 'true'">Yes</span> <span *ngIf="list.illness == 'false'">No</span></li>
+                    <li class="list-group-item" *ngIf="list.ins_illness"><strong>Illness:</strong> {{list.ins_illness}}</li>
+                    <!--<li *ngIf="this.buyProductdetails.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> <span *ngIf="list.ins_hospital_cash == '1'">Yes</span> <span *ngIf="list.ins_hospital_cash == '0'">No</span></li>-->
+                    <!--<li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>personal Accident Applicable:</strong> <span *ngIf="list.ins_personal_accident_applicable == '2'"> Yes</span> <span *ngIf="list.ins_personal_accident_applicable == '0'"> No</span></li>-->
+                    <!--<li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Manual Labour:</strong> {{list.ins_engage_manual_labour}}</li>-->
+                    <!--<li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Winter Sports:</strong> {{list.ins_engage_winter_sports}}</li>-->
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+            <div class="row box-card">
+              <div class="col-sm-12 col-xs-12 col-md-12">
+                <div class="pl-3 pr-3 pt-0 pb-0 " >
+                  <div class="row">
+                    <div class="col-sm-12 col-xs-12 col-md-12">
+                      <div class="p-3">
+                        <ul class="m-0 list-group">
+                          <li class="list-group-item">
+                            <strong>Name:</strong> <span *ngIf="requestDetails.nominee_name_one ==''"> Nil</span> <span *ngIf="requestDetails.nominee_name_one!=''">{{requestDetails.nominee_name_one}}</span>
+                          </li>
+                          <li class="list-group-item"><strong>Age:</strong>
+                            <span *ngIf="requestDetails.nominee_age_one ==''"> Nil</span> <span *ngIf="requestDetails.nominee_age_one !=''">{{requestDetails.nominee_age_one}}</span>
+                          </li>
+                          <li class="list-group-item">
+                            <strong>Relationship with insured:</strong>
+                            <span *ngIf="requestDetails.nominee_relationship_one !=''">{{requestDetails.nominee_relationship_one}}</span>
+                            <span *ngIf="requestDetails.nominee_relationship_one ==''">Nil</span>
+                          </li>
+                          <li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="requestDetails.nominee_percentclaim_one == '' || requestDetails.nominee_percentclaim_one == 0"> Nil</span> <span *ngIf="requestDetails.nominee_percentclaim_one != ''">{{requestDetails.nominee_percentclaim_one | limitTo : 3}}</span></li>
+                        </ul>
+                        <!--</ul>-->
+                      </div>
+                    </div>
+                    <!--<div class="col-sm-12 col-xs-12 col-md-12 ">-->
+                    <!--<div class="pl-3 pr-3 pt-0 pb-0 ">-->
+                    <!--<ul class="m-0 list-group">-->
+                    <!--<li class="list-group-item"><strong>Relationship with insured:</strong><span *ngIf="list.nrelationship !=''">{{list.nrelationship}}</span><span *ngIf="list.nrelationship ==''">Nil</span></li>-->
+                    <!--<li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="list.nclaim == '' || list.nclaim == 0"> Nil</span> <span *ngIf="list.nclaim != ''">{{list.nclaim | limitTo : 3}}</span></li>-->
+                    <!--</ul>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                  </div>
+                </div>
+
+                <!--<h5 class="mt-3 sub-title">APPOINTEE DETAILS </h5>-->
+
+                <div class="p-3">
+                  <div class="row">
+                    <div class="col-sm-12 col-xs-12 col-md-12">
+                      <div class="p-3">
+                        <ul class="m-0 list-group">
+                          <li class="list-group-item" *ngIf="requestDetails.appointee_name_one !=''"><strong>Appointiee Name:</strong> {{requestDetails.appointee_name_one}}</li>
+                          <li class="list-group-item" *ngIf="requestDetails.appointee_age_one !=''"><strong>Age:</strong> {{requestDetails.appointee_age_one}}</li>
+                          <li class="list-group-item" *ngIf="requestDetails.appointee_relationship_one !=''"><strong>Relationship with insured:</strong> {{requestDetails.appointee_relationship_one}}</li>
+                          <!--<li class="list-group-item" ><strong>% of Claim:</strong> <span *ngIf="list.nclaim == '' || list.nclaim == 0">Nil</span> <span *ngIf="list.nclaim != ''">{{list.nclaim | limitTo : 3}}</span></li>-->
+                          <li class="list-group-item">
+                            <strong>Name:</strong> <span *ngIf="requestDetails.nominee_name_two ==''"> Nil</span> <span *ngIf="requestDetails.nominee_name_two!=''">{{requestDetails.nominee_name_two}}</span>
+                          </li>
+                          <li class="list-group-item"><strong>Age:</strong>
+                            <span *ngIf="requestDetails.nominee_age_two ==''"> Nil</span> <span *ngIf="requestDetails.nominee_age_two !=''">{{requestDetails.nominee_age_two}}</span>
+                          </li>
+                          <li class="list-group-item">
+                            <strong>Relationship with insured:</strong>
+                            <span *ngIf="requestDetails.nominee_relationship_two !=''">
+                                                {{requestDetails.nominee_relationship_two}}
+                                              </span>
+                            <span *ngIf="requestDetails.nominee_relationship_two ==''">
+                                                  Nil
+                                              </span>
+                          </li>
+                          <li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="requestDetails.nominee_percentclaim_two == '' || requestDetails.nominee_percentclaim_two == 0"> Nil</span> <span *ngIf="requestDetails.nominee_percentclaim_two != ''">{{requestDetails.nominee_percentclaim_two | limitTo : 3}}</span></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <p class="pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
+          <hr>
         <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-12 text-center">
         <button mat-button color="warn" (click)="backAll()">Back</button>
