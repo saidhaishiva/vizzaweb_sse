@@ -53,6 +53,7 @@
     public rto : any;
     public maxDateValidate:any;
     public errorFutureDate:any;
+    public manfactureErrorDate:any;
     public minDate:any;
     public maxDate:any;
     public CityValid : boolean;
@@ -85,6 +86,7 @@
       this.maxDate = this.minDate;
       // this.maxDateValidate  = new Date();
       this.errorFutureDate = false;
+      this.manfactureErrorDate = false;
         this.config = {
         displayKey: "city", //if objects array passed which key to be displayed defaults to description
         search: true,
@@ -307,17 +309,25 @@
       let getRegPolicyYear = start.getFullYear();
       let RegYear = start.getFullYear()-1;
       let getLength = this.vehicalDetails.controls['manufactureYear'].value;
-      console.log(getRegPolicyYear,'registerdate');
-      console.log(RegYear,'miniusvalue');
-      console.log(getLength,'manufact');
       if(getLength.length == 4) {
         if(getRegPolicyYear > getLength ){
-          this.toastr.error("Manufacturing year should be equal to registration year or less than  Year of registration.");
+        //   this.manfactureErrorDate=true;
+        //   this.manfactureErrorDate='';
+        // console.log(this.manfactureErrorDate,'manfactureErrorDate');
+        // }else{
+        //   this.manfactureErrorDate=false;
+        //   alert('error inn');
+        //   this.manfactureErrorDate='Manufacturing year should be equal to registration year or less than  Year of registration.';
+
+            this.toastr.error("Manufacturing year should be equal to registration year or less than  Year of registration.");
+
         }
 
       }
 
     }
+
+
 
     maxDatechange(){
       let startDate = new Date(this.vehicalDetails.controls['registrationDate'].value);
@@ -398,14 +408,14 @@
         sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
         this.ageCalculateInsurer('days');
         // if(this.errorFutureDate == false) {
-          if(successData.status == true && this.errorFutureDate=='') {
+          if(successData.status == true && this.errorFutureDate=='' ) {
             this.dialogRef.close();
             this.router.navigate(['/bikepremium']);
           }
 
       } else  if(successData.status == true ){
         this.toastr.error(successData.ErrorObject);
-        //   this.toastr.error('Future Date is not Acceptable');
+        //   this.toastr.error('Please check');
 
       }
       // }else {
