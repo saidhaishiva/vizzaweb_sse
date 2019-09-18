@@ -324,12 +324,13 @@
       console.log(this.maxDateValidate,'maxyear');
 
       if(this.maxDateValidate > getRegPolicyYear){
-        // alert('futerror')
+        alert('failure  ');
         this.errorFutureDate=true;
         // this.errorFutureDate ='Future Date is not Acceptable';
       }else{
         this.errorFutureDate=false;
         // this.errorFutureDate='';
+        alert('success');
       }
 
     }
@@ -395,20 +396,23 @@
         this.QuotationList = successData.ResponseObject;
         sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
         this.ageCalculateInsurer('days');
-          if(successData.status == true){
-            if(this.errorFutureDate == false) {
+        // if(this.errorFutureDate == false) {
+          if(successData.status == true && this.errorFutureDate == false){
+
               console.log(this.errorFutureDate,'inn');
             this.dialogRef.close();
             this.router.navigate(['/bikepremium']);
           }
-          }else {
-            console.log('outtttttt');
-            this.toastr.error('Future Date is not Acceptable');
-          }
+
       } else {
-        this.toastr.error(successData.ErrorObject);
+        // this.toastr.error(successData.ErrorObject);
+          this.toastr.error('Future Date is not Acceptable');
 
       }
+      // }else {
+      //   console.log('outtttttt');
+      //   this.toastr.error('Future Date is not Acceptable');
+      // }
 
 
     }
