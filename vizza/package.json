@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --port= 4209",
+    "start": "ng serve --host 0.0.0.0 --port 4219",
     "lint": "ng lint",
     "test": "ng test --code-coverage",
     "build": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --target=production --environment=prod --aot --build-optimizer",
