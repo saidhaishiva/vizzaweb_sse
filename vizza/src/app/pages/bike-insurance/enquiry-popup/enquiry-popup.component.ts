@@ -343,7 +343,7 @@
       console.log(getLength, 'getLengthgetLength');
       if(getLength.length == 4) {
         if(getRegPolicyYear < getLength ){
-          this.toastr.error("Manufacturing year should be equal to registration year or less than  Year of registration.");
+          this.toastr.error("Manufacturing year should be equal to registration year or less than 1year from Registration year.");
         }
 
       }

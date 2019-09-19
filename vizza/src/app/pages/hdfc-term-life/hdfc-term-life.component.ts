@@ -2974,6 +2974,7 @@ getweightListHdfc() {
 
 
   proposal(stepper) {
+    console.log(this.lifePremiumList.termDetrails,'termproposal');
     let nomineeDetail = [];
     for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
       nomineeDetail.push({
@@ -3020,7 +3021,8 @@ getweightListHdfc() {
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "term": this.lifePremiumList.termDetrails,
-      "policy_id":this.getEnquiryDetials.policy_id,
+      "product_id": this.lifePremiumList.productname,
+      "policy_id": this.getEnquiryDetials.policy_id,
       "appsubmission": {
 
           "applctndetails": {
