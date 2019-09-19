@@ -20,6 +20,7 @@ export class CarTataaigPaymentSuccessComponent implements OnInit {
   public paymentStatus: any;
   public proposalId: any;
   public policyNo: any;
+  public carPolicyNo: any;
   public type: any;
   public path: any;
   public currenturl: any;
@@ -64,7 +65,8 @@ export class CarTataaigPaymentSuccessComponent implements OnInit {
 
   public getpolicyNoSuccess(successData) {
     if (successData.IsSuccess) {
-      this.policyNo = successData.ResponseObject.policy_number;
+      this.carPolicyNo = successData.ResponseObject;
+      this.policyNo = this.carPolicyNo.policy_number;
     }
   }
 

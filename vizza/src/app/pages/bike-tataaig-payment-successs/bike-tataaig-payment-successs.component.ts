@@ -20,6 +20,7 @@ export class BikeTataaigPaymentSuccesssComponent implements OnInit {
   public path: any;
   public proposalId: any;
   public policyNo: any;
+  public bikePolicyNo: any;
   public settings: Settings;
 
   constructor(public config: ConfigurationService, public bikeService: BikeInsuranceService, public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
@@ -61,7 +62,9 @@ export class BikeTataaigPaymentSuccesssComponent implements OnInit {
 
   public getpolicyNoSuccess(successData) {
     if (successData.IsSuccess) {
-      this.policyNo = successData.ResponseObject.policy_number;
+      this.bikePolicyNo = successData.ResponseObject;
+      this.policyNo = this.bikePolicyNo.policy_number;
+
     }
   }
 
