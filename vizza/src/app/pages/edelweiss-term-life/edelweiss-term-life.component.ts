@@ -2720,7 +2720,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.insureArray.controls['insureRepository'].setValidators([Validators.required]);
       } else {
         this.insureArray.controls['epolicy1'].patchValue('No');
-        this.insureArray.controls['insureRepository'].patchValue('');
+        this.insureArray.controls['insureRepository'].patchValue('NSDL Data Management Limited');
 
         this.insureArray.controls['provideAccNo'].setValidators(null);
         this.insureArray.controls['epolicy'].setValidators(null);
