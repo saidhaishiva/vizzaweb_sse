@@ -1403,7 +1403,7 @@
                   <div class="col-md-8 " *ngIf="medicalDetail.controls['medicalTreatment'].value == 'Yes'" >
                     <mat-form-field class="w-100">
                       <mat-placeholder>Medication Details<span class="error" >*</span></mat-placeholder>
-                      <input matInput  formControlName="medicationDetails"  autocomplete="off"  (keypress)="idValidate($event)" maxlength="45">
+                      <input matInput  formControlName="medicationDetails"  autocomplete="off"  (keypress)="addressValidate($event)" maxlength="45">
                     </mat-form-field>
                   </div>
 
@@ -1563,7 +1563,7 @@
                       <div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment2'].value == 'Yes'" >
                         <mat-form-field class="w-100">
                           <mat-placeholder>AIDS Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="aidsDetails"  autocomplete="off" (keypress)="idValidate($event)"  maxlength="45">
+                          <input matInput  formControlName="aidsDetails"  autocomplete="off" (keypress)="addressValidate($event)"  maxlength="45">
                         </mat-form-field>
                       </div>
                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
@@ -1626,7 +1626,7 @@
                       <div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment1'].value == 'Yes'" >
                         <mat-form-field class="w-100">
                           <mat-placeholder>Diagnosed Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="diagnosedDetails"  autocomplete="off" (keypress)="idValidate($event)"  maxlength="45">
+                          <input matInput  formControlName="diagnosedDetails"  autocomplete="off" (keypress)="addressValidate($event)"  maxlength="45">
                         </mat-form-field>
                       </div>
 
