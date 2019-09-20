@@ -408,6 +408,12 @@ export class EdelweissPosComponent implements OnInit {
       noOfMonths: '',
       payoutPercentageIncome: '',
       sameAsProposer: false,
+      medicalTreatment: 'No',
+      medicationDetails: '',
+      receivedTreatment2: 'No',
+      aidsDetails: '',
+      receivedTreatment1: 'No',
+      diagnosedDetails:  '',
 
     });
 
@@ -659,6 +665,12 @@ export class EdelweissPosComponent implements OnInit {
   }
   idValidate(event: any) {
     this.validation.idValidate(event);
+  }
+  addressValidate(event: any) {
+    this.validation.addressValidate(event);
+  }
+  employeeCode(event: any) {
+    this.validation.employeeCode(event);
   }
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
@@ -3046,48 +3058,48 @@ export class EdelweissPosComponent implements OnInit {
   }
   ismedicationInd() {
 
-    if (this.medicalDetail.controls['medicalTreatment'].value == 'Yes') {
-      this.medicalDetail.controls['medicationDetails'].patchValue(this.medicalDetail.controls['medicationDetails'].value);
+    if (this.insureArray.controls['medicalTreatment'].value == 'Yes') {
+      this.insureArray.controls['medicationDetails'].patchValue(this.insureArray.controls['medicationDetails'].value);
 
-      this.medicalDetail.controls['medicationDetails'].setValidators([Validators.required]);
+      this.insureArray.controls['medicationDetails'].setValidators([Validators.required]);
     } else {
-      this.medicalDetail.controls['medicationDetails'].patchValue('');
+      this.insureArray.controls['medicationDetails'].patchValue('');
 
-      this.medicalDetail.controls['medicationDetails'].setValidators(null);
+      this.insureArray.controls['medicationDetails'].setValidators(null);
 
     }
-    this.medicalDetail.controls['medicationDetails'].updateValueAndValidity();
+    this.insureArray.controls['medicationDetails'].updateValueAndValidity();
 
   }
   isdiagnosedInd() {
 
-    if (this.medicalDetail.controls['receivedTreatment1'].value == 'Yes') {
-      this.medicalDetail.controls['diagnosedDetails'].patchValue(this.medicalDetail.controls['diagnosedDetails'].value);
+    if (this.insureArray.controls['receivedTreatment1'].value == 'Yes') {
+      this.insureArray.controls['diagnosedDetails'].patchValue(this.insureArray.controls['diagnosedDetails'].value);
 
-      this.medicalDetail.controls['diagnosedDetails'].setValidators([Validators.required]);
+      this.insureArray.controls['diagnosedDetails'].setValidators([Validators.required]);
     } else {
-      this.medicalDetail.controls['diagnosedDetails'].patchValue('');
+      this.insureArray.controls['diagnosedDetails'].patchValue('');
 
-      this.medicalDetail.controls['diagnosedDetails'].setValidators(null);
+      this.insureArray.controls['diagnosedDetails'].setValidators(null);
 
     }
-    this.medicalDetail.controls['diagnosedDetails'].updateValueAndValidity();
+    this.insureArray.controls['diagnosedDetails'].updateValueAndValidity();
 
   }
 
   isaidsInd() {
 
-    if (this.medicalDetail.controls['receivedTreatment2'].value == 'Yes') {
-      this.medicalDetail.controls['aidsDetails'].patchValue(this.medicalDetail.controls['aidsDetails'].value);
+    if (this.insureArray.controls['receivedTreatment2'].value == 'Yes') {
+      this.insureArray.controls['aidsDetails'].patchValue(this.insureArray.controls['aidsDetails'].value);
 
-      this.medicalDetail.controls['aidsDetails'].setValidators([Validators.required]);
+      this.insureArray.controls['aidsDetails'].setValidators([Validators.required]);
     } else {
-      this.medicalDetail.controls['aidsDetails'].patchValue('');
+      this.insureArray.controls['aidsDetails'].patchValue('');
 
-      this.medicalDetail.controls['aidsDetails'].setValidators(null);
+      this.insureArray.controls['aidsDetails'].setValidators(null);
 
     }
-    this.medicalDetail.controls['aidsDetails'].updateValueAndValidity();
+    this.insureArray.controls['aidsDetails'].updateValueAndValidity();
 
   }
 
@@ -3163,6 +3175,26 @@ export class EdelweissPosComponent implements OnInit {
 
     }
     this.insureArray.controls['criminalDetails'].updateValueAndValidity();
+
+  }
+  isWeightReq() {
+
+    if (this.insureArray.controls['hasWeightChanged'].value == 'Gained' || this.insureArray.controls['hasWeightChanged'].value == 'Lost') {
+      this.insureArray.controls['inbetweenweight'].patchValue(this.insureArray.controls['inbetweenweight'].value);
+      this.insureArray.controls['weightChangedreason'].patchValue(this.insureArray.controls['weightChangedreason'].value);
+
+      this.insureArray.controls['inbetweenweight'].setValidators([Validators.required]);
+      this.insureArray.controls['weightChangedreason'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['inbetweenweight'].patchValue('');
+      this.insureArray.controls['weightChangedreason'].patchValue('');
+
+      this.insureArray.controls['inbetweenweight'].setValidators(null);
+      this.insureArray.controls['weightChangedreason'].setValidators(null);
+
+    }
+    this.insureArray.controls['inbetweenweight'].updateValueAndValidity();
+    this.insureArray.controls['weightChangedreason'].updateValueAndValidity();
 
   }
   isTopUpBenefit() {
@@ -3497,10 +3529,10 @@ export class EdelweissPosComponent implements OnInit {
           "ECGDetails":this.medicalDetail.controls['ECGDetails'].value,
           "admitInd":this.medicalDetail.controls['admitInd'].value  == 'Yes' ? 'Y' : 'N',
           "admitDetails":this.medicalDetail.controls['admitDetails'].value,
-          "medicationInd":this.medicalDetail.controls['medicalTreatment'].value  == 'Yes' ? 'Y' : 'N',
-          "medicationDetails":this.medicalDetail.controls['medicationDetails'].value,
-          "diagnosedInd":this.medicalDetail.controls['receivedTreatment1'].value  == 'Yes' ? 'Y' : 'N',
-          "diagnosedDetails":this.medicalDetail.controls['diagnosedDetails'].value,
+          "medicationInd":this.insureArray.controls['medicalTreatment'].value  == 'Yes' ? 'Y' : 'N',
+          "medicationDetails":this.insureArray.controls['medicationDetails'].value,
+          "diagnosedInd":this.insureArray.controls['receivedTreatment1'].value  == 'Yes' ? 'Y' : 'N',
+          "diagnosedDetails":this.insureArray.controls['diagnosedDetails'].value,
           "heartDieaseInd":this.medicalDetail.controls['heartDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "heartDieaseDetails":this.medicalDetail.controls['heartDieaseDetails'].value,
           "BPInd":"",
@@ -3527,8 +3559,8 @@ export class EdelweissPosComponent implements OnInit {
           "ENTDieaseDetails":"",
           "muscleDieaseInd":this.medicalDetail.controls['muscleDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "muscleDieaseDetails":this.medicalDetail.controls['muscleDieaseDetails'].value,
-          "aidsInd":this.medicalDetail.controls['receivedTreatment2'].value  == 'Yes' ? 'Y' : 'N',
-          "aidsDetails":this.medicalDetail.controls['aidsDetails'].value,
+          "aidsInd":this.insureArray.controls['receivedTreatment2'].value  == 'Yes' ? 'Y' : 'N',
+          "aidsDetails":this.insureArray.controls['aidsDetails'].value,
           "alcoholicInd":this.medicalDetail.controls['alcoholicInd'].value  == 'Yes' ? 'Y' : 'N',
           "alcoholicDetails":this.medicalDetail.controls['alcoholicDetails'].value,
           "otherIllnessInd":this.medicalDetail.controls['otherIllnessInd'].value  == 'Yes' ? 'Y' : 'N',
@@ -5321,7 +5353,14 @@ export class EdelweissPosComponent implements OnInit {
         insurerDobValidError: this.getStepper2.insurerDobValidError,
         ins_days: this.getStepper2.ins_days,
         ins_age: this.getStepper2.ins_age,
-        type: this.getStepper2.type,
+        medicalTreatment: this.getStepper2.medicalTreatment,
+        medicationDetails: this.getStepper2.medicationDetails,
+        receivedTreatment1: this.getStepper2.receivedTreatment1,
+        diagnosedDetails: this.getStepper2.diagnosedDetails,
+        receivedTreatment2: this.getStepper2.receivedTreatment2,
+        aidsDetails: this.getStepper2.aidsDetails,
+
+
       });
     }
     console.log(this.insureArray, ' stepper2 ');

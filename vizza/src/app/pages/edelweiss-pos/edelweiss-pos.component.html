@@ -94,7 +94,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100" >
                           <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  (keypress)="idValidate($event)" autocomplete="off" required>
-                          <mat-error *ngIf="proposer.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                          <!--<mat-error *ngIf="proposer.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
                           <mat-error *ngIf="proposer.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                           <mat-error *ngIf="proposer.controls.pan.errors?.required">PAN Number is required</mat-error>
                         </mat-form-field>
@@ -103,6 +103,8 @@
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Aadhaar No" formControlName="aadhaarNo" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" autocomplete="off"  required>
                           <mat-error *ngIf="proposer.controls.aadhaarNo.errors?.required">Aadhaar No is required</mat-error>
+                          <mat-error *ngIf="proposer.controls.aadhaarNo.hasError('minlength')">Aadhaar No isn't long enough, minimum of 12 characters</mat-error>
+
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
@@ -151,7 +153,7 @@
                       <div class="col-md-4" *ngIf="proposer.controls['isStaff'].value == 'Yes'" >
                         <mat-form-field class="w-100"  >
                           <mat-placeholder>Employee Code<span class="error"  *ngIf="proposer.controls['isStaff'].value == 'Yes'" >*</span></mat-placeholder>
-                          <input matInput   formControlName="employeeCode"   maxlength="10" autocomplete="off">
+                          <input matInput   formControlName="employeeCode" (keypress)="employeeCode($event)"  maxlength="10" autocomplete="off">
                         </mat-form-field>
                       </div>
 
@@ -227,7 +229,7 @@
                   <div class="col-md-4" *ngIf="proposer.controls['isStaffSpouse'].value == 'Yes' && proposer['controls'].maritalStatus.value == 'M'" >
                     <mat-form-field class="w-100"  >
                       <mat-placeholder>Employee Code<span class="error"  *ngIf="proposer.controls['isStaffSpouse'].value == 'Yes'" >*</span></mat-placeholder>
-                      <input matInput   formControlName="employeeCodeSpouse"   maxlength="10" autocomplete="off">
+                      <input matInput   formControlName="employeeCodeSpouse" (keypress)="employeeCode($event)"  maxlength="10" autocomplete="off">
                     </mat-form-field>
                   </div>
                   <div class="col-md-4 " *ngIf="proposer['controls'].maritalStatus.value == 'M'">
@@ -258,25 +260,25 @@
                       <div class="row">
                         <div class="col-md-12">
                           <mat-form-field class="w-100">
-                            <input maxlength="80" matInput placeholder="Address 1" formControlName="currAddr1" (keyup)="typeAddressDeatils()" autocomplete="off" required>
+                            <input maxlength="80" matInput placeholder="Address 1" formControlName="currAddr1" (keyup)="addressValidate()" (keypress)="addressValidate($event)" autocomplete="off" required>
 
                             <mat-error *ngIf="proposer.controls.currAddr1.errors?.required"> Address 1 is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-12">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Address 2" formControlName="currAddr2" maxlength="80" (keyup)="typeAddressDeatils()" required autocomplete="off" required >
+                            <input matInput placeholder="Address 2" formControlName="currAddr2" maxlength="80" (keyup)="typeAddressDeatils()" (keypress)="addressValidate($event)" required autocomplete="off" required >
                             <mat-error *ngIf="proposer.controls.currAddr2.errors?.required"> Address 2 is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-12">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Address 3" formControlName="currAddr3"  maxlength="80"  (keyup)="typeAddressDeatils()" autocomplete="off" >
+                            <input matInput placeholder="Address 3" formControlName="currAddr3"  maxlength="80"  (keyup)="typeAddressDeatils()"  (keypress)="addressValidate($event)" autocomplete="off" >
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" (keyup)="typeAddressDeatils()" required >
+                            <input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" (keyup)="typeAddressDeatils()" (keypress)="addressValidate($event)" required >
                             <mat-error *ngIf="proposer.controls.currCity.errors?.required"> City is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -314,24 +316,24 @@
 
                         <div class="col-md-12">
                           <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.proposer.controls['isCurrPerAddrSame'].value ? 'none' : ''}">
-                            <input matInput placeholder=" Address1" formControlName="perAddr1" maxlength="50"  required autocomplete="off"  >
+                            <input matInput placeholder=" Address1" formControlName="perAddr1" maxlength="50" (keypress)="addressValidate($event)"  required autocomplete="off"  >
                             <mat-error *ngIf="proposer.controls.perAddr1.errors?.required"> Address1 is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-12">
                           <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.proposer.controls['isCurrPerAddrSame'].value ? 'none' : ''}">
-                            <input matInput placeholder=" Address2" formControlName="perAddr2" maxlength="50"  autocomplete="off" required  >
+                            <input matInput placeholder=" Address2" formControlName="perAddr2" maxlength="50"  (keypress)="addressValidate($event)" autocomplete="off" required  >
                             <mat-error *ngIf="proposer.controls.perAddr2.errors?.required"> Address2 is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-12" [ngStyle]="{'pointer-events': this.proposer.controls['isCurrPerAddrSame'].value ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder=" Address3" formControlName="perAddr3" maxlength="50" autocomplete="off"  >
+                            <input matInput placeholder=" Address3" formControlName="perAddr3" maxlength="50"  (keypress)="addressValidate($event)" autocomplete="off"  >
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" [ngStyle]="{'pointer-events': this.proposer.controls['isCurrPerAddrSame'].value ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder=" City" formControlName="perCity" maxlength="50" autocomplete="off" required  >
+                            <input matInput placeholder=" City" formControlName="perCity" maxlength="50" autocomplete="off" (keypress)="addressValidate($event)" required  >
                             <mat-error *ngIf="proposer.controls.perCity.errors?.required"> City is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -358,7 +360,7 @@
 
                 <div class="row">
                   <div class="col-md-12 mt-2">
-                    <h6 class="color-blue">EMPLOYMENT</h6>
+                    <h6 class="color-blue">EMPLOYMENT DETAILS</h6>
                   </div>
                   <div class="col-md-4">
                     <mat-form-field class="w-100">
@@ -394,7 +396,7 @@
 
                   <div class="col-md-4">
                     <mat-form-field class="w-100">
-                      <input matInput placeholder="Address of employer" formControlName="employerAddr" maxlength="50" autocomplete="off" required  >
+                      <input matInput placeholder="Address of employer" formControlName="employerAddr" (keypress)="addressValidate($event)" maxlength="50" autocomplete="off" required  >
                       <mat-error *ngIf="proposer.controls.employerAddr.errors?.required"> Employer Address   is required</mat-error>
                     </mat-form-field>
                   </div>
@@ -526,7 +528,7 @@
                     <div class="col-md-4" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
                       <mat-form-field class="w-100" >
                         <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  (keypress)="idValidate($event)" autocomplete="off" >
-                        <mat-error *ngIf="insureArray.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                        <!--<mat-error *ngIf="insureArray.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
                         <mat-error *ngIf="insureArray.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         <mat-error *ngIf="insureArray.controls.pan.errors?.required">PAN Number is required</mat-error>
                       </mat-form-field>
@@ -535,6 +537,8 @@
                       <mat-form-field class="w-100">
                         <input matInput placeholder="Aadhaar No" formControlName="aadhaarNo" minlength="12"  maxlength="12" autocomplete="off" required (keypress)="numberValidate($event)" >
                         <mat-error *ngIf="insureArray.controls.aadhaarNo.errors?.required">Aadhaar No is required</mat-error>
+                        <mat-error *ngIf="proposer.controls.aadhaarNo.hasError('minlength')">Aadhaar No isn't long enough, minimum of 12 characters</mat-error>
+
                       </mat-form-field>
                     </div>
                     <div class="col-md-4" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
@@ -582,7 +586,7 @@
                     <div class="col-md-4" *ngIf="insureArray.controls['isStaff'].value == 'Yes'" >
                       <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}"  >
                         <mat-placeholder>Employee Code<span class="error"  *ngIf="insureArray.controls['isStaff'].value == 'Yes'" >*</span></mat-placeholder>
-                        <input matInput   formControlName="employeeCode"   maxlength="10" autocomplete="off">
+                        <input matInput   formControlName="employeeCode"  (keypress)="employeeCode($event)" maxlength="10" autocomplete="off">
                       </mat-form-field>
                     </div>
                   </div>
@@ -654,7 +658,7 @@
                     <div class="col-md-4" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" *ngIf="insureArray.controls['isStaffSpouse'].value == 'Yes' && insureArray['controls'].maritalStatus.value == 'M'" >
                       <mat-form-field class="w-100"  >
                         <mat-placeholder>Employee Code<span class="error"  *ngIf="proposer.controls['isStaffSpouse'].value == 'Yes'" >*</span></mat-placeholder>
-                        <input matInput   formControlName="employeeCodeSpouse"   maxlength="10" autocomplete="off">
+                        <input matInput   formControlName="employeeCodeSpouse"   maxlength="10"  (keypress)="employeeCode($event)" autocomplete="off">
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 " [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
@@ -678,24 +682,24 @@
                         <div class="row" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
                           <div class="col-md-12">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder=" Address 1" formControlName="currAddr1" maxlength="80" (keyup)="typeAddressDeatils1()" autocomplete="off" required >
+                              <input matInput placeholder=" Address 1" formControlName="currAddr1" maxlength="80" (keyup)="typeAddressDeatils1()"  (keypress)="addressValidate($event)" autocomplete="off" required >
                               <mat-error *ngIf="insureArray.controls.currAddr1.errors?.required"> Address 1 is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-12">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder=" Address 2" formControlName="currAddr2" maxlength="80" (keyup)="typeAddressDeatils1()" required autocomplete="off"  >
+                              <input matInput placeholder=" Address 2" formControlName="currAddr2" maxlength="80" (keyup)="typeAddressDeatils1()"  (keypress)="addressValidate($event)" required autocomplete="off"  >
                               <mat-error *ngIf="insureArray.controls.currAddr2.errors?.required"> Address 2 is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-12">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder=" Address 3" formControlName="currAddr3" (keyup)="typeAddressDeatils1()"  autocomplete="off"  >
+                              <input matInput placeholder=" Address 3" formControlName="currAddr3" (keyup)="typeAddressDeatils1()" (keypress)="addressValidate($event)" autocomplete="off"  >
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" (keyup)="typeAddressDeatils1()" required (keypress)="nameValidate($event);" >
+                              <input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" (keyup)="typeAddressDeatils1()" (keypress)="addressValidate($event)" required (keypress)="nameValidate($event);" >
                               <mat-error *ngIf="insureArray.controls.currCity.errors?.required"> City is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -731,24 +735,24 @@
 
                           <div class="col-md-12">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder=" Address 1" formControlName="perAddr1"  required autocomplete="off"  >
+                              <input matInput placeholder=" Address 1" formControlName="perAddr1" (keypress)="addressValidate($event)" required autocomplete="off"  >
                               <mat-error *ngIf="insureArray.controls.perAddr1.errors?.required"> Address 1 is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-12">
                             <mat-form-field class="w-100" >
-                              <input matInput placeholder=" Address 2" formControlName="perAddr2"  autocomplete="off" required (keypress)="nameValidate($event)" >
+                              <input matInput placeholder=" Address 2" formControlName="perAddr2"  autocomplete="off" required (keypress)="addressValidate($event)" >
                               <mat-error *ngIf="insureArray.controls.perAddr2.errors?.required"> Address 2 is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-12">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder=" Address 3" formControlName="perAddr3" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" >
+                              <input matInput placeholder=" Address 3" formControlName="perAddr3" maxlength="50" autocomplete="off"  (keypress)="addressValidate($event)" >
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
                             <mat-form-field class="w-100" >
-                              <input matInput placeholder="City" formControlName="perCity" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
+                              <input matInput placeholder="City" formControlName="perCity" maxlength="50" autocomplete="off" required (keypress)="addressValidate($event)" >
                               <mat-error *ngIf="insureArray.controls.perCity.errors?.required"> City is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -773,7 +777,7 @@
                   </div>
                   <div class="row p-3" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
                     <div class="col-md-12 ">
-                      <h6 class="color-blue">EMPLOYMENT</h6>
+                      <h6 class="color-blue">EMPLOYMENT DETAILS</h6>
                     </div>
                     <div class="col-md-4">
                       <mat-form-field class="w-100">
@@ -806,7 +810,7 @@
 
                     <div class="col-md-4">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Address of employer" formControlName="employerAddr" maxlength="50" autocomplete="off" required  >
+                        <input matInput placeholder="Address of employer" formControlName="employerAddr" maxlength="50" (keypress)="addressValidate($event)" autocomplete="off" required  >
                         <mat-error *ngIf="insureArray.controls.employerAddr.errors?.required">Employer Address   is required</mat-error>
                       </mat-form-field>
                     </div>
@@ -918,7 +922,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Change in weight past 6 months" formControlName="hasWeightChanged" (change)="geteWeightChanged()"  class="w-100">
+                          <mat-select  placeholder="Change in weight past 6 months" formControlName="hasWeightChanged" (change)="geteWeightChanged()" (change)="isWeightReq()" class="w-100">
                             <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>
@@ -939,13 +943,49 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-4" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="planOption" >
-                          <p>Plan Option</p>
+                      <h6 class="color-blue p-3 col-md-12">Within the past five years, have you: </h6>
+                      <div class="col-md-12" >
+                        <mat-radio-group formControlName="medicalTreatment" (change)="ismedicationInd()" >
+                          <p>Are you taking any medication at present or following a diet prescribed by a doctor? <span class="error" >*</span></p>
                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                           <mat-radio-button value="No">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
+                      <div class="col-md-8 " *ngIf="insureArray.controls['medicalTreatment'].value == 'Yes'" >
+                        <mat-form-field class="w-100">
+                          <mat-placeholder>Medication Details<span class="error" >*</span></mat-placeholder>
+                          <input matInput  formControlName="medicationDetails"  autocomplete="off"  (keypress)="addressValidate($event)" maxlength="45">
+                        </mat-form-field>
+                      </div>
+
+                      <h6 class="color-blue p-3 col-md-12">Have you ever sought an advice for the following?</h6>
+                      <div class="col-md-12">
+                        <mat-radio-group formControlName="receivedTreatment2" (change)="isaidsInd()" >
+                          <p>A test indicating the presence of HIV/AIDS, Hepatitis B or Hepatitis C<span class="error" >*</span></p>
+                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                          <mat-radio-button value="No">No</mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                      <div class="col-md-8 " *ngIf="insureArray.controls['receivedTreatment2'].value == 'Yes'" >
+                        <mat-form-field class="w-100">
+                          <mat-placeholder>AIDS Details<span class="error" >*</span></mat-placeholder>
+                          <input matInput  formControlName="aidsDetails"  autocomplete="off" (keypress)="addressValidate($event)"  maxlength="45">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-radio-group formControlName="receivedTreatment1" (change)="isdiagnosedInd()">
+                          <p>Have you ever been diagnosed or / received treatment for any heart, kidney, liver disease including Hepatitis B, cerebrovascular disease including stroke, paralysis, lung disease, cancer, tumor or physical deformity? </p>
+                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                          <mat-radio-button value="No">No</mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                      <div class="col-md-8 " *ngIf="insureArray.controls['receivedTreatment1'].value == 'Yes'" >
+                        <mat-form-field class="w-100">
+                          <mat-placeholder>Diagnosed Details<span class="error" >*</span></mat-placeholder>
+                          <input matInput  formControlName="diagnosedDetails"  autocomplete="off" (keypress)="addressValidate($event)"  maxlength="45">
+                        </mat-form-field>
+                      </div>
+
                     </div>
 
                     <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
@@ -1196,647 +1236,647 @@
           </mat-accordion>
         </mat-step>
 
-        <mat-step [stepControl]="">
-          <ng-template matStepLabel > QUESTIONNAIRES </ng-template>
-          <mat-accordion class="w-100 float-left">
-            <form [formGroup]="medicalDetail">
+        <!--<mat-step [stepControl]="">-->
+          <!--<ng-template matStepLabel > QUESTIONNAIRES </ng-template>-->
+          <!--<mat-accordion class="w-100 float-left">-->
+            <!--<form [formGroup]="medicalDetail">-->
 
-              <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                  <mat-panel-title> QUESTIONNAIRES </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="row mt-3">
-                  <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                    <mat-radio-group formControlName="travelOutsideIndia" >
-                      <p>Do you plan to live or travel outside india for more than 30 days?</p>
-                      <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                      <mat-radio-button value="No">No</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                  <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                    <mat-radio-group formControlName="pilot" >
-                      <p>Have you in the past 5 years flown as a pilot, co-pilot, pilot instructor, student pilot or do you intend to fly?</p>
-                      <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                      <mat-radio-button value="No">No</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                  <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                    <mat-form-field class="w-100">
-                      <mat-select  placeholder="Do you take part in any of the following activities " formControlName="adventurousActivities" (change)="isadventurous()" (change)="isadventurousName()"  multiple required  class="w-100">
-                        <mat-option *ngFor="let list of eAdActivity | keys" [value]= list.key> {{list.value}} </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="medicalDetail.controls.adventurousActivities.errors?.required">Adventurous Activities is required</mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-md-8 mt-2" *ngIf="medicalDetail.controls['adventurousActivities'].value == '9~' && lifePremiumList.product_id=='112'" >
-                    <mat-form-field class="w-100">
-                      <mat-placeholder>Adventurous Activities Details<span class="error" >*</span></mat-placeholder>
-                      <input matInput  formControlName="adventurousActivitiesDetails"    autocomplete="off"   maxlength="10">
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                    <mat-radio-group formControlName="drugsInd" (change)="isdrugsInd()"  >
-                      <p>Have you in the past used or do you use any habit forming drugs or narcotics or received any drug abstinence treatment?<span class="error" >*</span></p>
-                      <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                      <mat-radio-button value="No">No</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-
-                  <div class="col-md-8 " *ngIf="medicalDetail.controls['drugsInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                    <mat-form-field class="w-100">
-                      <mat-placeholder>Drugs Details<span class="error" >*</span></mat-placeholder>
-                      <input matInput  formControlName="drugsDetails"    autocomplete="off"   maxlength="45">
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                    <mat-radio-group formControlName="alcoholInd" (change)="isalcoholInd()"  >
-                      <p>Do you consume alcohol? If yes, details about consumption (per week) <span class="error" >*</span> </p>
-                      <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                      <mat-radio-button value="No">No</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-
-                  <div class="col-md-10 " *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                    <mat-form-field class="w-100">
-                      <mat-placeholder>Alcohol Details<span class="error" >*</span></mat-placeholder>
-                      <mat-select  formControlName="alcoholDetails"  (change)=" geteAlcoholDetails()" multiple >
-                        <mat-option *ngFor="let alcoholDets of eAlcoholDetails | keys" value="{{alcoholDets.key}}" > {{alcoholDets.value}} </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-
-
-                  <div class="col-md-4" *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes'">
-                    <!--<mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>-->
-
-                    <mat-form-field class="w-100" >
-                      <mat-select placeholder="Beer(pint per week)" formControlName="alcoholBeer"  >
-                        <mat-option value="1">1</mat-option>
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="3">3</mat-option>
-                        <mat-option value="4">4</mat-option>
-                        <mat-option value="5">5</mat-option>
-                        <mat-option value="6">6</mat-option>
-                        <mat-option value="7">7</mat-option>
-                        <mat-option value="8">8</mat-option>
-                        <mat-option value="9">9</mat-option>
-                        <mat-option value="10">Greater than 9</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-4" *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes'">
-                    <!--<mat-checkbox formControlName="insuredCheck1" >Wine Glass</mat-checkbox>-->
-                    <mat-form-field class="w-100">
-                      <mat-select placeholder="hard liquar(per week)" formControlName="alcoholliquar">
-                        <mat-option value="1">1</mat-option>
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="3">3</mat-option>
-                        <mat-option value="4">4</mat-option>
-                        <mat-option value="5">5</mat-option>
-                        <mat-option value="6">6</mat-option>
-                        <mat-option value="7">Greater than 6</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-4" *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes'">
-                    <!--<mat-checkbox formControlName="insuredCheck2" (change)="checkHabits($event, 'beer')">Beer Bottle</mat-checkbox>-->
-                    <mat-form-field class="w-100" >
-                      <mat-select placeholder="Wine(glass per week)" formControlName="alcoholWine" >
-                        <mat-option value="1">1</mat-option>
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="3">3</mat-option>
-                        <mat-option value="4">4</mat-option>
-                        <mat-option value="5">5</mat-option>
-                        <mat-option value="6">6</mat-option>
-                        <mat-option value="7">7</mat-option>
-                        <mat-option value="8">8</mat-option>
-                        <mat-option value="9">9</mat-option>
-                        <mat-option value="10">10</mat-option>
-                        <mat-option value="11">Greater than 11</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                    <mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" >
-                      <p>Do you smoke or consume tobacco in any form e.g(paan,tobacco,gutka) or have done so in the past 12 months? <span class="error" >*</span></p>
-                      <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                      <mat-radio-button value="No">No</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                  <div class="col-md-4 " *ngIf="medicalDetail.controls['tobaccoInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                    <mat-form-field class="w-100">
-                      <mat-placeholder>Tobacco Details<span class="error" >*</span></mat-placeholder>
-                      <mat-select  formControlName="tobaccoDetails"  (change)=" geteTobaccoDetail()" >
-                        <mat-option *ngFor="let tobaccoDets of eTobaccoDetails | keys" value="{{tobaccoDets.key}}" > {{tobaccoDets.value}} </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-4" *ngIf="medicalDetail.controls['tobaccoInd'].value == 'Yes' && lifePremiumList.product_id=='112'">
-                    <mat-radio-group formControlName="tobaccoStopInd" (change)="istobaccoStopInd()" >
-                      <p>Did you stop tobacco consumption (in any form)? <span class="error" >*</span> </p>
-                      <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                      <mat-radio-button value="No">No</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                  <div class="col-md-4 " *ngIf="medicalDetail.controls['tobaccoStopInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                    <mat-form-field class="w-100">
-                      <mat-placeholder>Reason For Stopping <span class="error" >*</span></mat-placeholder>
-                      <input matInput  formControlName="tobaccoStopDetails"    autocomplete="off"   maxlength="45">
-                    </mat-form-field>
-                  </div>
-
-                  <div class="row" >
-                    <div class="col-md-12 mt-2">
-                      <h6 class="color-blue p-3">Within the past five years, have you: </h6>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="consultDoctorInd" (change)="isconsultDoctorInd()" >
-                          <p>Consulted any doctor or other health practitioner,except for common cold/influenza lasting less than four days  <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['consultDoctorInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Consulting Doctor Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="consultDoctorDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="ECGInd" (change)="isECGInd()" >
-                          <p>Had ECG, X-rays, blood test or any other tests done <span class="error" >*</span> </p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['ECGInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>ECG Details<span class="error" >*</span></mat-placeholder>
-
-                          <input matInput  formControlName="ECGDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="admitInd" (change)="isadmitInd()" >
-                          <p>Been attended by or admitted/advised to be admitted to any hospital/medical facility or availed leave on medical grounds<span class="error" >*</span> </p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['admitInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Admit Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="admitDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-12" >
-                    <mat-radio-group formControlName="medicalTreatment" (change)="ismedicationInd()" >
-                      <p>Are you taking any medication at present or following a diet prescribed by a doctor? <span class="error" >*</span></p>
-                      <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                      <mat-radio-button value="No">No</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                  <div class="col-md-8 " *ngIf="medicalDetail.controls['medicalTreatment'].value == 'Yes'" >
-                    <mat-form-field class="w-100">
-                      <mat-placeholder>Medication Details<span class="error" >*</span></mat-placeholder>
-                      <input matInput  formControlName="medicationDetails"  autocomplete="off"  (keypress)="addressValidate($event)" maxlength="45">
-                    </mat-form-field>
-                  </div>
-
-                  <div class="row"  >
-                    <div class="col-md-12 mt-2">
-                      <h6 class="color-blue p-3">Have you ever sought an advice for the following?</h6>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="heartDieaseInd" (change)="isheartDieaseInd()" >
-                          <p>Any disorder of the heart <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['heartDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Heart Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="heartDieaseDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="respiratoryDieaseInd" (change)="isrespiratoryDieaseInd()" >
-                          <p>Any other respiratory or lung trouble <span class="error" >*</span> </p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['respiratoryDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Respiratory Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="respiratoryDieaseDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="diabetesInd" (change)="isdiabetesInd()" >
-                          <p>Diabetes or sugar in the urine ? <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['diabetesInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Diabetes Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="diabetesDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="kidneyDieaseInd" (change)="iskidneyDieaseInd()" >
-                          <p>Disease or disorder of kidneys, bladder, prostrate or reproductive organs <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['kidneyDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Kidney Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="kidneyDieaseDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="digestiveDieaseInd" (change)="isdigestiveDieaseInd()" >
-                          <p>Any disorder of the digestive system, gall bladder or liver <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['digestiveDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Digestive Disease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="digestiveDieaseDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="cancerDieaseInd" (change)="iscancerDieaseInd()" >
-                          <p>Cancer, enlarged gland, growth or tumor, chemotherapy or radiotherapy of any kind? <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8" *ngIf="medicalDetail.controls['cancerDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Cancer Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="cancerDieaseDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="tropicalDieaseInd" (change)="istropicalDieaseInd()" >
-                          <p>Tropical Diease? <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['tropicalDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Tropical Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="tropicalDieaseDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="thyroidDieaseInd" (change)="isthyroidDieaseInd()" >
-                          <p>Thyroid Diease? <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['thyroidDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Thyroid Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="thyroidDieaseDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="bloodDieaseInd" (change)="isbloodDieaseInd()" >
-                          <p>Anemia, bleeding or any other disorder of the blood <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['bloodDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Blood Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="bloodDieaseDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="nervousDieaseInd" (change)="isnervousDieaseInd()" >
-                          <p>Any nervous or neurological disorder <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['nervousDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Nervous Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="nervousDieaseDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="muscleDieaseInd" (change)="ismuscleDieaseInd()" >
-                          <p>Disorder or disease of muscle, bones, joints, limbs, spine <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['muscleDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Muscle Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="muscleDieaseDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12">
-                        <mat-radio-group formControlName="receivedTreatment2" (change)="isaidsInd()" >
-                          <p>A test indicating the presence of HIV/AIDS, Hepatitis B or Hepatitis C<span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment2'].value == 'Yes'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>AIDS Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="aidsDetails"  autocomplete="off" (keypress)="addressValidate($event)"  maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="alcoholicInd" (change)="isalcoholicInd()" >
-                          <p>Excessive alcohol consumption or to stop drinking or received alcohol abstinence treatment<span class="error" >*</span> </p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['alcoholicInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Alcoholic Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="alcoholicDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="otherIllnessInd" (change)="isotherIllnessInd()" >
-                          <p>Any other illness, disorder, operation, disability? <span class="error" >*</span></p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['otherIllnessInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Other Illness Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="otherIllnessDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-
-                    </div>
-                  </div>
-
-
-
-
-                  <div class="row" >
-                    <div class="col-md-12 mt-2">
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="deformityInd" (change)="isdeformityInd()" >
-                          <p>Any deformity or physical abnormality? </p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-12 " *ngIf="medicalDetail.controls['deformityInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Deformity Diease Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="deformityDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-
-
-                      <div class="col-md-12">
-                        <mat-radio-group formControlName="receivedTreatment1" (change)="isdiagnosedInd()">
-                          <p>Have you ever been diagnosed or / received treatment for any heart, kidney, liver disease including Hepatitis B, cerebrovascular disease including stroke, paralysis, lung disease, cancer, tumor or physical deformity? </p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment1'].value == 'Yes'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Diagnosed Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="diagnosedDetails"  autocomplete="off" (keypress)="addressValidate($event)"  maxlength="45">
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="symptomsInd" (change)="issymptomsInd()">
-                          <p>Any health related complaints or symptoms for which a physician has not been consulted or treatment received?</p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Symptoms Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="symptomsDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="isHospitalized" (change)="isHospitalizedMed()" >
-                          <p>Have you ever been hospitalized for this condition?  </p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8 " *ngIf="medicalDetail.controls['isHospitalized'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Hospitalized Date (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
-                          <input matInput [matDatepicker]="picker9" [max]="minDate"   (keypress)="dobValidate($event)"  formControlName="hospitalizedDate" (dateInput)="addEventMedical($event,i,'medical')" (dateChange)="addEventMedical($event,i,'medical')" autocomplete="off" maxlength="10" minlength="10" required>
-                          <mat-datepicker-toggle matSuffix [for]="picker9"></mat-datepicker-toggle>
-                          <mat-datepicker #picker9></mat-datepicker>
-                          <!--<mat-error *ngIf="medicalDetail.invalid">Hospitalized Date is required</mat-error>-->
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'">
-                        <mat-radio-group formControlName="isRecovered" (change)="isRecoveredInd()">
-                          <p>Are you now fully recovered and off all medications? </p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-8" *ngIf="medicalDetail.controls['isRecovered'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Non Recovery Details<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="nonRecoveryDetails"    autocomplete="off"   maxlength="45">
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div class="row" *ngIf="lifePremiumList.product_id=='112'" >
-                    <div class="col-md-12 ">
-                      <h6 class="color-blue p-3">For female lives</h6>
-                      <div class="col-md-12" *ngIf="proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2' && lifePremiumList.product_id=='112' ">
-                        <mat-radio-group formControlName="pregnantInd" (change)="ispregnantInd()" >
-                          <p>Are you Pregnant?  </p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-12 " *ngIf="medicalDetail.controls['pregnantInd'].value == 'Yes' && proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2' && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Pregnant weeks<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="pregnantweeks"  autocomplete="off" maxlength="45">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' ">
-                        <mat-radio-group formControlName="femaleDieaseInd" (change)="isfemaleDieaseInd()">
-                          <p>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement? </p>
-                          <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-md-12 " *ngIf="medicalDetail.controls['femaleDieaseInd'].value == 'Yes'  && lifePremiumList.product_id=='112'" >
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Female Diease weeks<span class="error" >*</span></mat-placeholder>
-                          <input matInput  formControlName="femaleDieaseWeeks"  autocomplete="off" maxlength="45">
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-                  <!--<div class="col-md-4" *ngIf="lifePremiumList.product_id=='112'">-->
-                  <!--<mat-form-field class="w-100">-->
-                  <!--<input matInput placeholder="Other Health Information" formControlName="healthInformation" maxlength="50" autocomplete="off"   >-->
-                  <!--&lt;!&ndash;<mat-error *ngIf="medicalDetail.controls.healthInformation.errors?.required">Other Health Information is required</mat-error>&ndash;&gt;-->
-                  <!--</mat-form-field>-->
+              <!--<mat-expansion-panel expanded>-->
+                <!--<mat-expansion-panel-header>-->
+                  <!--<mat-panel-title> QUESTIONNAIRES </mat-panel-title>-->
+                <!--</mat-expansion-panel-header>-->
+                <!--<div class="row mt-3">-->
+                  <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                    <!--<mat-radio-group formControlName="travelOutsideIndia" >-->
+                      <!--<p>Do you plan to live or travel outside india for more than 30 days?</p>-->
+                      <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                      <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                    <!--</mat-radio-group>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                    <!--<mat-radio-group formControlName="pilot" >-->
+                      <!--<p>Have you in the past 5 years flown as a pilot, co-pilot, pilot instructor, student pilot or do you intend to fly?</p>-->
+                      <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                      <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                    <!--</mat-radio-group>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                    <!--<mat-form-field class="w-100">-->
+                      <!--<mat-select  placeholder="Do you take part in any of the following activities " formControlName="adventurousActivities" (change)="isadventurous()" (change)="isadventurousName()"  multiple required  class="w-100">-->
+                        <!--<mat-option *ngFor="let list of eAdActivity | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                      <!--</mat-select>-->
+                      <!--<mat-error *ngIf="medicalDetail.controls.adventurousActivities.errors?.required">Adventurous Activities is required</mat-error>-->
+                    <!--</mat-form-field>-->
                   <!--</div>-->
 
-                  <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
-                    <div class="col-md-12 ">
-                      <mat-checkbox  formControlName="healthInformation"   (change)="diseaseReq()" >Disese/Health Information</mat-checkbox>
-                    </div>
-                  </div>
-                  <div *ngIf="medicalDetail.controls['healthInformation'].value == true">
-                    <div class="col-md-12 p-3 ">
+                  <!--<div class="col-md-8 mt-2" *ngIf="medicalDetail.controls['adventurousActivities'].value == '9~' && lifePremiumList.product_id=='112'" >-->
+                    <!--<mat-form-field class="w-100">-->
+                      <!--<mat-placeholder>Adventurous Activities Details<span class="error" >*</span></mat-placeholder>-->
+                      <!--<input matInput  formControlName="adventurousActivitiesDetails"    autocomplete="off"   maxlength="10">-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                    <!--<mat-radio-group formControlName="drugsInd" (change)="isdrugsInd()"  >-->
+                      <!--<p>Have you in the past used or do you use any habit forming drugs or narcotics or received any drug abstinence treatment?<span class="error" >*</span></p>-->
+                      <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                      <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                    <!--</mat-radio-group>-->
+                  <!--</div>-->
 
-                      <div  formArrayName="medicalQuestions" *ngFor="let item of medicalDetail.get('medicalQuestions')['controls']; let i = index;">
-                        <div class="row" [formGroupName]="i">
-                          <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Disease" formControlName="disease" maxlength="50" autocomplete="off" required  >
-                              <mat-error *ngIf="medicalDetail.invalid">Disease is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput [matDatepicker]="picker5" [max]="minDate"  placeholder="Date Diagnois (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datediagnois" (dateInput)="addEventMedical($event,i,'medical')" (dateChange)="addEventMedical($event,i,'medical')" autocomplete="off" maxlength="10" minlength="10" required>
-                              <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
-                              <mat-datepicker #picker5></mat-datepicker>
-                              <mat-error *ngIf="medicalDetail.invalid">Diagnois Date is required</mat-error>
-                            </mat-form-field>
-                            <p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.value}}</p>
-                          </div>
-                          <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Treatment" formControlName="treatment" maxlength="50" autocomplete="off" required  >
-                              <mat-error *ngIf="medicalDetail.invalid">Treatment is required</mat-error>
-                            </mat-form-field>
-                          </div>
+                  <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['drugsInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                    <!--<mat-form-field class="w-100">-->
+                      <!--<mat-placeholder>Drugs Details<span class="error" >*</span></mat-placeholder>-->
+                      <!--<input matInput  formControlName="drugsDetails"    autocomplete="off"   maxlength="45">-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                    <!--<mat-radio-group formControlName="alcoholInd" (change)="isalcoholInd()"  >-->
+                      <!--<p>Do you consume alcohol? If yes, details about consumption (per week) <span class="error" >*</span> </p>-->
+                      <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                      <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                    <!--</mat-radio-group>-->
+                  <!--</div>-->
 
-                          <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Dosage" formControlName="dosage" maxlength="50" autocomplete="off" required  >
-                              <mat-error *ngIf="medicalDetail.invalid">Dosage is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Doctor" formControlName="doctor" maxlength="50" autocomplete="off" required  >
-                              <mat-error *ngIf="medicalDetail.invalid">Doctor is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput [matDatepicker]="picker6" [max]="minDate"  placeholder="Follow Up Date (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datefollowup" (dateInput)="addEventMedical($event,i,'medicalfollowup')" (dateChange)="addEventMedical($event,i,'medicalfollowup')" autocomplete="off" maxlength="10" minlength="10" required>
-                              <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
-                              <mat-datepicker #picker6></mat-datepicker>
-                              <mat-error *ngIf="nomineeDetail.invalid">Follow Up Date is required</mat-error>
-                            </mat-form-field>
-                            <p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.value}}</p>
-                          </div>
-                          <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Complications" formControlName="anycomplications" maxlength="50" autocomplete="off" required  >
-                              <mat-error *ngIf="medicalDetail.invalid">Complications is required</mat-error>
-                            </mat-form-field>
-                          </div>
-
-                          <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Remarks" formControlName="remarks" maxlength="50" autocomplete="off" required  >
-                              <mat-error *ngIf="medicalDetail.invalid">Remarks is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                          <button mat-mini-fab	*ngIf=" i == 0 && medicalDetail.get('medicalQuestions').value.length < 5" color="accent"  (click)="addMedItems()">+</button>
-                          <button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="removeMedItems(i)">-</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row p-3">
-                    <div class="col-md-12">
-                      <h6 class="color-blue" *ngIf="lifePremiumList.product_id=='112'">FAMILY HISTORY</h6>
-                    </div>
-                    <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
-                      <div class="col-md-12 ">
-
-                        <div  formArrayName="medicalFamilyQuestions" *ngFor="let item of medicalDetail.get('medicalFamilyQuestions')['controls']; let i = index;">
-                          <div class="row" [formGroupName]="i">
-                            <div class="col-md-3">
-                              <mat-form-field class="w-100">
-                                <mat-select  placeholder="Relationship" formControlName="relation" (change)="geteFamRelationshipName(i)" required class="w-100">
-                                  <mat-option *ngFor="let list of eNomineeRelation | keys" [value]= list.key> {{list.value}} </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="medicalDetail.invalid">Relation is required</mat-error>
-                              </mat-form-field>
-                            </div>
-                            <div class="col-md-2">
-                              <mat-form-field class="w-100">
-                                <input matInput placeholder="Age" formControlName="age" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" required  >
-                                <mat-error *ngIf="medicalDetail.invalid">Age is required</mat-error>
-                              </mat-form-field>
-                            </div>
-
-                            <div class="col-md-6">
-                              <mat-form-field class="w-100">
-                                <mat-select  placeholder="Health Status" formControlName="healthStatus" (change)="getHealthStaus()" required class="w-100">
-                                  <mat-option *ngFor="let list of ehealthStatus | keys" [value]= list.key> {{list.value}} </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="medicalDetail.invalid">Health Status is required</mat-error>
-                              </mat-form-field>
-                            </div>
+                  <!--<div class="col-md-10 " *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                    <!--<mat-form-field class="w-100">-->
+                      <!--<mat-placeholder>Alcohol Details<span class="error" >*</span></mat-placeholder>-->
+                      <!--<mat-select  formControlName="alcoholDetails"  (change)=" geteAlcoholDetails()" multiple >-->
+                        <!--<mat-option *ngFor="let alcoholDets of eAlcoholDetails | keys" value="{{alcoholDets.key}}" > {{alcoholDets.value}} </mat-option>-->
+                      <!--</mat-select>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
 
 
-                            <button mat-mini-fab	*ngIf=" i == 0 && medicalDetail.get('medicalFamilyQuestions').value.length < 5" color="accent"  (click)="addFamilyItems()">+</button>
-                            <button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="removeFamilyItems(i)">-</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="proposal-buttom mt-3 text-right w-100">
-                  <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                  <button mat-raised-button color="primaryBlue" (click)="medicalDetails(stepper, medicalDetail.value)">Next</button>
-                </div>
+                  <!--<div class="col-md-4" *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes'">-->
+                    <!--&lt;!&ndash;<mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>&ndash;&gt;-->
 
-              </mat-expansion-panel>
-            </form>
-          </mat-accordion>
-        </mat-step>
+                    <!--<mat-form-field class="w-100" >-->
+                      <!--<mat-select placeholder="Beer(pint per week)" formControlName="alcoholBeer"  >-->
+                        <!--<mat-option value="1">1</mat-option>-->
+                        <!--<mat-option value="2">2</mat-option>-->
+                        <!--<mat-option value="3">3</mat-option>-->
+                        <!--<mat-option value="4">4</mat-option>-->
+                        <!--<mat-option value="5">5</mat-option>-->
+                        <!--<mat-option value="6">6</mat-option>-->
+                        <!--<mat-option value="7">7</mat-option>-->
+                        <!--<mat-option value="8">8</mat-option>-->
+                        <!--<mat-option value="9">9</mat-option>-->
+                        <!--<mat-option value="10">Greater than 9</mat-option>-->
+                      <!--</mat-select>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-4" *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes'">-->
+                    <!--&lt;!&ndash;<mat-checkbox formControlName="insuredCheck1" >Wine Glass</mat-checkbox>&ndash;&gt;-->
+                    <!--<mat-form-field class="w-100">-->
+                      <!--<mat-select placeholder="hard liquar(per week)" formControlName="alcoholliquar">-->
+                        <!--<mat-option value="1">1</mat-option>-->
+                        <!--<mat-option value="2">2</mat-option>-->
+                        <!--<mat-option value="3">3</mat-option>-->
+                        <!--<mat-option value="4">4</mat-option>-->
+                        <!--<mat-option value="5">5</mat-option>-->
+                        <!--<mat-option value="6">6</mat-option>-->
+                        <!--<mat-option value="7">Greater than 6</mat-option>-->
+                      <!--</mat-select>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-4" *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes'">-->
+                    <!--&lt;!&ndash;<mat-checkbox formControlName="insuredCheck2" (change)="checkHabits($event, 'beer')">Beer Bottle</mat-checkbox>&ndash;&gt;-->
+                    <!--<mat-form-field class="w-100" >-->
+                      <!--<mat-select placeholder="Wine(glass per week)" formControlName="alcoholWine" >-->
+                        <!--<mat-option value="1">1</mat-option>-->
+                        <!--<mat-option value="2">2</mat-option>-->
+                        <!--<mat-option value="3">3</mat-option>-->
+                        <!--<mat-option value="4">4</mat-option>-->
+                        <!--<mat-option value="5">5</mat-option>-->
+                        <!--<mat-option value="6">6</mat-option>-->
+                        <!--<mat-option value="7">7</mat-option>-->
+                        <!--<mat-option value="8">8</mat-option>-->
+                        <!--<mat-option value="9">9</mat-option>-->
+                        <!--<mat-option value="10">10</mat-option>-->
+                        <!--<mat-option value="11">Greater than 11</mat-option>-->
+                      <!--</mat-select>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
+
+                  <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                    <!--<mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" >-->
+                      <!--<p>Do you smoke or consume tobacco in any form e.g(paan,tobacco,gutka) or have done so in the past 12 months? <span class="error" >*</span></p>-->
+                      <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                      <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                    <!--</mat-radio-group>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-4 " *ngIf="medicalDetail.controls['tobaccoInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                    <!--<mat-form-field class="w-100">-->
+                      <!--<mat-placeholder>Tobacco Details<span class="error" >*</span></mat-placeholder>-->
+                      <!--<mat-select  formControlName="tobaccoDetails"  (change)=" geteTobaccoDetail()" >-->
+                        <!--<mat-option *ngFor="let tobaccoDets of eTobaccoDetails | keys" value="{{tobaccoDets.key}}" > {{tobaccoDets.value}} </mat-option>-->
+                      <!--</mat-select>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-4" *ngIf="medicalDetail.controls['tobaccoInd'].value == 'Yes' && lifePremiumList.product_id=='112'">-->
+                    <!--<mat-radio-group formControlName="tobaccoStopInd" (change)="istobaccoStopInd()" >-->
+                      <!--<p>Did you stop tobacco consumption (in any form)? <span class="error" >*</span> </p>-->
+                      <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                      <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                    <!--</mat-radio-group>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-4 " *ngIf="medicalDetail.controls['tobaccoStopInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                    <!--<mat-form-field class="w-100">-->
+                      <!--<mat-placeholder>Reason For Stopping <span class="error" >*</span></mat-placeholder>-->
+                      <!--<input matInput  formControlName="tobaccoStopDetails"    autocomplete="off"   maxlength="45">-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
+
+                  <!--<div class="row" >-->
+                    <!--<div class="col-md-12 mt-2">-->
+                      <!--<h6 class="color-blue p-3">Within the past five years, have you: </h6>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="consultDoctorInd" (change)="isconsultDoctorInd()" >-->
+                          <!--<p>Consulted any doctor or other health practitioner,except for common cold/influenza lasting less than four days  <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['consultDoctorInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Consulting Doctor Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="consultDoctorDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="ECGInd" (change)="isECGInd()" >-->
+                          <!--<p>Had ECG, X-rays, blood test or any other tests done <span class="error" >*</span> </p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['ECGInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>ECG Details<span class="error" >*</span></mat-placeholder>-->
+
+                          <!--<input matInput  formControlName="ECGDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="admitInd" (change)="isadmitInd()" >-->
+                          <!--<p>Been attended by or admitted/advised to be admitted to any hospital/medical facility or availed leave on medical grounds<span class="error" >*</span> </p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['admitInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Admit Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="admitDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                  <!--<div class="col-md-12" >-->
+                    <!--<mat-radio-group formControlName="medicalTreatment" (change)="ismedicationInd()" >-->
+                      <!--<p>Are you taking any medication at present or following a diet prescribed by a doctor? <span class="error" >*</span></p>-->
+                      <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                      <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                    <!--</mat-radio-group>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['medicalTreatment'].value == 'Yes'" >-->
+                    <!--<mat-form-field class="w-100">-->
+                      <!--<mat-placeholder>Medication Details<span class="error" >*</span></mat-placeholder>-->
+                      <!--<input matInput  formControlName="medicationDetails"  autocomplete="off"  (keypress)="addressValidate($event)" maxlength="45">-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
+
+                  <!--<div class="row"  >-->
+                    <!--<div class="col-md-12 mt-2">-->
+                      <!--<h6 class="color-blue p-3">Have you ever sought an advice for the following?</h6>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="heartDieaseInd" (change)="isheartDieaseInd()" >-->
+                          <!--<p>Any disorder of the heart <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['heartDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Heart Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="heartDieaseDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="respiratoryDieaseInd" (change)="isrespiratoryDieaseInd()" >-->
+                          <!--<p>Any other respiratory or lung trouble <span class="error" >*</span> </p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['respiratoryDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Respiratory Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="respiratoryDieaseDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="diabetesInd" (change)="isdiabetesInd()" >-->
+                          <!--<p>Diabetes or sugar in the urine ? <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['diabetesInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Diabetes Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="diabetesDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="kidneyDieaseInd" (change)="iskidneyDieaseInd()" >-->
+                          <!--<p>Disease or disorder of kidneys, bladder, prostrate or reproductive organs <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['kidneyDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Kidney Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="kidneyDieaseDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="digestiveDieaseInd" (change)="isdigestiveDieaseInd()" >-->
+                          <!--<p>Any disorder of the digestive system, gall bladder or liver <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['digestiveDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Digestive Disease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="digestiveDieaseDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="cancerDieaseInd" (change)="iscancerDieaseInd()" >-->
+                          <!--<p>Cancer, enlarged gland, growth or tumor, chemotherapy or radiotherapy of any kind? <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8" *ngIf="medicalDetail.controls['cancerDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Cancer Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="cancerDieaseDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="tropicalDieaseInd" (change)="istropicalDieaseInd()" >-->
+                          <!--<p>Tropical Diease? <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['tropicalDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Tropical Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="tropicalDieaseDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="thyroidDieaseInd" (change)="isthyroidDieaseInd()" >-->
+                          <!--<p>Thyroid Diease? <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['thyroidDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Thyroid Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="thyroidDieaseDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="bloodDieaseInd" (change)="isbloodDieaseInd()" >-->
+                          <!--<p>Anemia, bleeding or any other disorder of the blood <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['bloodDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Blood Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="bloodDieaseDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="nervousDieaseInd" (change)="isnervousDieaseInd()" >-->
+                          <!--<p>Any nervous or neurological disorder <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['nervousDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Nervous Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="nervousDieaseDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="muscleDieaseInd" (change)="ismuscleDieaseInd()" >-->
+                          <!--<p>Disorder or disease of muscle, bones, joints, limbs, spine <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['muscleDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Muscle Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="muscleDieaseDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12">-->
+                        <!--<mat-radio-group formControlName="receivedTreatment2" (change)="isaidsInd()" >-->
+                          <!--<p>A test indicating the presence of HIV/AIDS, Hepatitis B or Hepatitis C<span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment2'].value == 'Yes'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>AIDS Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="aidsDetails"  autocomplete="off" (keypress)="addressValidate($event)"  maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="alcoholicInd" (change)="isalcoholicInd()" >-->
+                          <!--<p>Excessive alcohol consumption or to stop drinking or received alcohol abstinence treatment<span class="error" >*</span> </p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['alcoholicInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Alcoholic Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="alcoholicDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="otherIllnessInd" (change)="isotherIllnessInd()" >-->
+                          <!--<p>Any other illness, disorder, operation, disability? <span class="error" >*</span></p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['otherIllnessInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Other Illness Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="otherIllnessDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+
+                    <!--</div>-->
+                  <!--</div>-->
+
+
+
+
+                  <!--<div class="row" >-->
+                    <!--<div class="col-md-12 mt-2">-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="deformityInd" (change)="isdeformityInd()" >-->
+                          <!--<p>Any deformity or physical abnormality? </p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12 " *ngIf="medicalDetail.controls['deformityInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Deformity Diease Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="deformityDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+
+
+                      <!--<div class="col-md-12">-->
+                        <!--<mat-radio-group formControlName="receivedTreatment1" (change)="isdiagnosedInd()">-->
+                          <!--<p>Have you ever been diagnosed or / received treatment for any heart, kidney, liver disease including Hepatitis B, cerebrovascular disease including stroke, paralysis, lung disease, cancer, tumor or physical deformity? </p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment1'].value == 'Yes'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Diagnosed Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="diagnosedDetails"  autocomplete="off" (keypress)="addressValidate($event)"  maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="symptomsInd" (change)="issymptomsInd()">-->
+                          <!--<p>Any health related complaints or symptoms for which a physician has not been consulted or treatment received?</p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Symptoms Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="symptomsDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="isHospitalized" (change)="isHospitalizedMed()" >-->
+                          <!--<p>Have you ever been hospitalized for this condition?  </p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8 " *ngIf="medicalDetail.controls['isHospitalized'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Hospitalized Date (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput [matDatepicker]="picker9" [max]="minDate"   (keypress)="dobValidate($event)"  formControlName="hospitalizedDate" (dateInput)="addEventMedical($event,i,'medical')" (dateChange)="addEventMedical($event,i,'medical')" autocomplete="off" maxlength="10" minlength="10" required>-->
+                          <!--<mat-datepicker-toggle matSuffix [for]="picker9"></mat-datepicker-toggle>-->
+                          <!--<mat-datepicker #picker9></mat-datepicker>-->
+                          <!--&lt;!&ndash;<mat-error *ngIf="medicalDetail.invalid">Hospitalized Date is required</mat-error>&ndash;&gt;-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'">-->
+                        <!--<mat-radio-group formControlName="isRecovered" (change)="isRecoveredInd()">-->
+                          <!--<p>Are you now fully recovered and off all medications? </p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8" *ngIf="medicalDetail.controls['isRecovered'].value == 'Yes' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Non Recovery Details<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="nonRecoveryDetails"    autocomplete="off"   maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+
+                  <!--<div class="row" *ngIf="lifePremiumList.product_id=='112'" >-->
+                    <!--<div class="col-md-12 ">-->
+                      <!--<h6 class="color-blue p-3">For female lives</h6>-->
+                      <!--<div class="col-md-12" *ngIf="proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2' && lifePremiumList.product_id=='112' ">-->
+                        <!--<mat-radio-group formControlName="pregnantInd" (change)="ispregnantInd()" >-->
+                          <!--<p>Are you Pregnant?  </p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12 " *ngIf="medicalDetail.controls['pregnantInd'].value == 'Yes' && proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2' && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Pregnant weeks<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="pregnantweeks"  autocomplete="off" maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' ">-->
+                        <!--<mat-radio-group formControlName="femaleDieaseInd" (change)="isfemaleDieaseInd()">-->
+                          <!--<p>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement? </p>-->
+                          <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                        <!--</mat-radio-group>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-12 " *ngIf="medicalDetail.controls['femaleDieaseInd'].value == 'Yes'  && lifePremiumList.product_id=='112'" >-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Female Diease weeks<span class="error" >*</span></mat-placeholder>-->
+                          <!--<input matInput  formControlName="femaleDieaseWeeks"  autocomplete="off" maxlength="45">-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--&lt;!&ndash;<div class="col-md-4" *ngIf="lifePremiumList.product_id=='112'">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<input matInput placeholder="Other Health Information" formControlName="healthInformation" maxlength="50" autocomplete="off"   >&ndash;&gt;-->
+                  <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="medicalDetail.controls.healthInformation.errors?.required">Other Health Information is required</mat-error>&ndash;&gt;&ndash;&gt;-->
+                  <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                  <!--<div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">-->
+                    <!--<div class="col-md-12 ">-->
+                      <!--<mat-checkbox  formControlName="healthInformation"   (change)="diseaseReq()" >Disese/Health Information</mat-checkbox>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div *ngIf="medicalDetail.controls['healthInformation'].value == true">-->
+                    <!--<div class="col-md-12 p-3 ">-->
+
+                      <!--<div  formArrayName="medicalQuestions" *ngFor="let item of medicalDetail.get('medicalQuestions')['controls']; let i = index;">-->
+                        <!--<div class="row" [formGroupName]="i">-->
+                          <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="Disease" formControlName="disease" maxlength="50" autocomplete="off" required  >-->
+                              <!--<mat-error *ngIf="medicalDetail.invalid">Disease is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+                          <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput [matDatepicker]="picker5" [max]="minDate"  placeholder="Date Diagnois (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datediagnois" (dateInput)="addEventMedical($event,i,'medical')" (dateChange)="addEventMedical($event,i,'medical')" autocomplete="off" maxlength="10" minlength="10" required>-->
+                              <!--<mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>-->
+                              <!--<mat-datepicker #picker5></mat-datepicker>-->
+                              <!--<mat-error *ngIf="medicalDetail.invalid">Diagnois Date is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                            <!--<p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.value}}</p>-->
+                          <!--</div>-->
+                          <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="Treatment" formControlName="treatment" maxlength="50" autocomplete="off" required  >-->
+                              <!--<mat-error *ngIf="medicalDetail.invalid">Treatment is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+
+                          <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="Dosage" formControlName="dosage" maxlength="50" autocomplete="off" required  >-->
+                              <!--<mat-error *ngIf="medicalDetail.invalid">Dosage is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+                          <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="Doctor" formControlName="doctor" maxlength="50" autocomplete="off" required  >-->
+                              <!--<mat-error *ngIf="medicalDetail.invalid">Doctor is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+                          <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput [matDatepicker]="picker6" [max]="minDate"  placeholder="Follow Up Date (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datefollowup" (dateInput)="addEventMedical($event,i,'medicalfollowup')" (dateChange)="addEventMedical($event,i,'medicalfollowup')" autocomplete="off" maxlength="10" minlength="10" required>-->
+                              <!--<mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>-->
+                              <!--<mat-datepicker #picker6></mat-datepicker>-->
+                              <!--<mat-error *ngIf="nomineeDetail.invalid">Follow Up Date is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                            <!--<p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.value}}</p>-->
+                          <!--</div>-->
+                          <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="Complications" formControlName="anycomplications" maxlength="50" autocomplete="off" required  >-->
+                              <!--<mat-error *ngIf="medicalDetail.invalid">Complications is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+
+                          <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="Remarks" formControlName="remarks" maxlength="50" autocomplete="off" required  >-->
+                              <!--<mat-error *ngIf="medicalDetail.invalid">Remarks is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+                          <!--<button mat-mini-fab	*ngIf=" i == 0 && medicalDetail.get('medicalQuestions').value.length < 5" color="accent"  (click)="addMedItems()">+</button>-->
+                          <!--<button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="removeMedItems(i)">-</button>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="row p-3">-->
+                    <!--<div class="col-md-12">-->
+                      <!--<h6 class="color-blue" *ngIf="lifePremiumList.product_id=='112'">FAMILY HISTORY</h6>-->
+                    <!--</div>-->
+                    <!--<div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">-->
+                      <!--<div class="col-md-12 ">-->
+
+                        <!--<div  formArrayName="medicalFamilyQuestions" *ngFor="let item of medicalDetail.get('medicalFamilyQuestions')['controls']; let i = index;">-->
+                          <!--<div class="row" [formGroupName]="i">-->
+                            <!--<div class="col-md-3">-->
+                              <!--<mat-form-field class="w-100">-->
+                                <!--<mat-select  placeholder="Relationship" formControlName="relation" (change)="geteFamRelationshipName(i)" required class="w-100">-->
+                                  <!--<mat-option *ngFor="let list of eNomineeRelation | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                <!--</mat-select>-->
+                                <!--<mat-error *ngIf="medicalDetail.invalid">Relation is required</mat-error>-->
+                              <!--</mat-form-field>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-2">-->
+                              <!--<mat-form-field class="w-100">-->
+                                <!--<input matInput placeholder="Age" formControlName="age" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" required  >-->
+                                <!--<mat-error *ngIf="medicalDetail.invalid">Age is required</mat-error>-->
+                              <!--</mat-form-field>-->
+                            <!--</div>-->
+
+                            <!--<div class="col-md-6">-->
+                              <!--<mat-form-field class="w-100">-->
+                                <!--<mat-select  placeholder="Health Status" formControlName="healthStatus" (change)="getHealthStaus()" required class="w-100">-->
+                                  <!--<mat-option *ngFor="let list of ehealthStatus | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                <!--</mat-select>-->
+                                <!--<mat-error *ngIf="medicalDetail.invalid">Health Status is required</mat-error>-->
+                              <!--</mat-form-field>-->
+                            <!--</div>-->
+
+
+                            <!--<button mat-mini-fab	*ngIf=" i == 0 && medicalDetail.get('medicalFamilyQuestions').value.length < 5" color="accent"  (click)="addFamilyItems()">+</button>-->
+                            <!--<button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="removeFamilyItems(i)">-</button>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="proposal-buttom mt-3 text-right w-100">-->
+                  <!--<button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>-->
+                  <!--<button mat-raised-button color="primaryBlue" (click)="medicalDetails(stepper, medicalDetail.value)">Next</button>-->
+                <!--</div>-->
+
+              <!--</mat-expansion-panel>-->
+            <!--</form>-->
+          <!--</mat-accordion>-->
+        <!--</mat-step>-->
 
 
 

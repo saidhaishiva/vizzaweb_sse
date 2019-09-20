@@ -339,10 +339,11 @@
       let getRegPolicyYear = start.getFullYear();
       let RegYear = start.getFullYear()-1;
       console.log(getRegPolicyYear,'getPolicyYear');
+      console.log(RegYear,'RegYear');
       let getLength = this.vehicalDetails.controls['manufactureYear'].value;
       console.log(getLength, 'getLengthgetLength');
       if(getLength.length == 4) {
-        if(getRegPolicyYear < getLength ){
+        if(getRegPolicyYear < getLength || RegYear > getLength ){
           this.toastr.error("Manufacturing year should be equal to registration year or less than 1year from Registration year.");
         }
 
