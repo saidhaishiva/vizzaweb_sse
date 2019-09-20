@@ -254,7 +254,7 @@ export class EdelweissPosComponent implements OnInit {
       maritalStatus: ['', Validators.required],
       maritalStatusName: '',
       nationality: '',
-      emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      emailId: ['', Validators.compose([ Validators.required,Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       pan: ['', Validators.compose([ Validators.minLength(10)])],
       aadhaarNo: '',
       ageProofIdName: '',
@@ -271,7 +271,7 @@ export class EdelweissPosComponent implements OnInit {
       smidName: '',
       slastName: '',
       sdob: '',
-      semailId: '',
+      semailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       smobileNo: '',
       isSmokerSpouse: 'No',
       isStaffSpouse: 'No',
@@ -315,7 +315,7 @@ export class EdelweissPosComponent implements OnInit {
       maritalStatus: ['', Validators.required],
       maritalStatusName: '',
       nationality: '',
-      emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      emailId: ['', Validators.compose([ Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       pan: ['', Validators.compose([ Validators.minLength(10)])],
       aadhaarNo: ['', Validators.compose([Validators.required])],
       ageProofIdName: '',
@@ -332,7 +332,7 @@ export class EdelweissPosComponent implements OnInit {
       smidName: '',
       slastName: '',
       sdob: '',
-      semailId: '',
+      semailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       smobileNo: '',
       isSmokerSpouse: 'No',
       isStaffSpouse: 'No',
@@ -380,9 +380,9 @@ export class EdelweissPosComponent implements OnInit {
       insureHistory: 'No',
       insureAccNo: '',
       provideAccNo: '',
-      epolicy: 'No',
+      epolicy: '',
       einsureAccNo: 'No',
-      epolicy1: 'No',
+      epolicy1: '',
       insureRepository: '',
       planOption: 'No',
       workSiteFlag: 'No',
@@ -671,6 +671,9 @@ export class EdelweissPosComponent implements OnInit {
   }
   employeeCode(event: any) {
     this.validation.employeeCode(event);
+  }
+  spaceValidator(event: any) {
+    this.validation.spaceValidator(event);
   }
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
@@ -2677,7 +2680,7 @@ export class EdelweissPosComponent implements OnInit {
 
     } else {
       this.insureArray.controls['provideAccNo'].patchValue('');
-      this.insureArray.controls['epolicy'].patchValue('No');
+      this.insureArray.controls['epolicy'].patchValue('');
       this.insureArray.controls['einsureAccNo'].patchValue('');
 
     }
@@ -2694,7 +2697,7 @@ export class EdelweissPosComponent implements OnInit {
         this.insureArray.controls['epolicy1'].setValidators([Validators.required]);
         this.insureArray.controls['insureRepository'].setValidators([Validators.required]);
       } else {
-        this.insureArray.controls['epolicy1'].patchValue('No');
+        this.insureArray.controls['epolicy1'].patchValue('');
         this.insureArray.controls['insureRepository'].patchValue('');
 
         this.insureArray.controls['provideAccNo'].setValidators(null);

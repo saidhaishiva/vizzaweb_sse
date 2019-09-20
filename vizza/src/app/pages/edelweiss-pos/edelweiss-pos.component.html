@@ -86,7 +86,7 @@
 
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Email ID" formControlName="emailId"  autocomplete="off" required>
+                          <input matInput placeholder="Email ID" formControlName="emailId" (keypress)="spaceValidator($event)" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.emailId.errors?.required">Email ID is required</mat-error>
                           <mat-error *ngIf="proposer.controls.emailId.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field>
@@ -379,7 +379,7 @@
                   <div class="col-md-4" >
                     <mat-form-field class="w-100" *ngIf="proposer.controls['employementType'].value == '9'" >
                       <mat-placeholder>Other Employment Type <span class="error"  *ngIf="proposer.controls['employementType'].value == '9'" >*</span></mat-placeholder>
-                      <input matInput   formControlName="employementTypeOther"   maxlength="45" autocomplete="off">
+                      <input matInput   formControlName="employementTypeOther"  (keypress)="employeeCode($event)"  maxlength="45" autocomplete="off">
                     </mat-form-field>
 
                   </div>
@@ -796,7 +796,7 @@
                     <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value == '9'">
                       <mat-form-field >
                         <mat-placeholder>Other Employment Type <span class="error"  *ngIf="insureArray.controls['employementType'].value == '9'" >*</span></mat-placeholder>
-                        <input matInput   formControlName="employementTypeOther"   maxlength="45" autocomplete="off">
+                        <input matInput   formControlName="employementTypeOther" (keypress)="employeeCode($event)"  maxlength="45" autocomplete="off">
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">

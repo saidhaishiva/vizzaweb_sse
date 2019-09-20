@@ -154,6 +154,7 @@ export class ValidationService {
             }
         }
     }
+
     employeeCode(event) {
         if (event.code == 'Space') {
             if (event.target.value.length == 0) {
@@ -166,6 +167,14 @@ export class ValidationService {
                 if (!pattern.test(inputChar)) {
                     event.preventDefault();
                 }
+            }
+        }
+    }
+    spaceValidator(event) {
+        if (event.code == 'Space') {
+            console.log(event.code,'ghjhjh');
+            if (event.target.value.length == 0) {
+                event.preventDefault();
             }
         }
     }
