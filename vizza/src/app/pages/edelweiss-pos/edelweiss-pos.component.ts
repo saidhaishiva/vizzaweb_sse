@@ -2683,11 +2683,21 @@ export class EdelweissPosComponent implements OnInit {
       this.insureArray.controls['epolicy'].patchValue('');
       this.insureArray.controls['einsureAccNo'].patchValue('');
 
+      this.insureArray.controls['provideAccNo'].setValidators(null);
+      this.insureArray.controls['epolicy'].setValidators(null);
+      this.insureArray.controls['einsureAccNo'].setValidators(null);
+
     }
 
     if (this.insureArray.controls['insureAccNo'].value == 'No') {
       this.insureArray.controls['einsureAccNo'].patchValue(this.insureArray.controls['einsureAccNo'].value);
       this.insureArray.controls['einsureAccNo'].setValidators([Validators.required]);
+       } else {
+      this.insureArray.controls['einsureAccNo'].patchValue('');
+
+      this.insureArray.controls['einsureAccNo'].setValidators(null);
+
+      }
 
 
       if ( this.insureArray.controls['insureAccNo'].value == 'No'  && this.insureArray.controls['einsureAccNo'].value == 'Yes') {
@@ -2700,13 +2710,13 @@ export class EdelweissPosComponent implements OnInit {
         this.insureArray.controls['epolicy1'].patchValue('');
         this.insureArray.controls['insureRepository'].patchValue('');
 
-        this.insureArray.controls['provideAccNo'].setValidators(null);
-        this.insureArray.controls['epolicy'].setValidators(null);
-        this.insureArray.controls['einsureAccNo'].setValidators(null);
+
         this.insureArray.controls['epolicy1'].setValidators(null);
         this.insureArray.controls['insureRepository'].setValidators(null);
+        this.insureArray.controls['einsureAccNo'].setValidators(null);
+
       }
-    }
+
     this.insureArray.controls['provideAccNo'].updateValueAndValidity();
     this.insureArray.controls['epolicy'].updateValueAndValidity();
     this.insureArray.controls['einsureAccNo'].updateValueAndValidity();
