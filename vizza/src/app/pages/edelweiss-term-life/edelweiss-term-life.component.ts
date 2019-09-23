@@ -267,6 +267,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       isStaff: 'No',
       employeeCode: '',
       stitle: '',
+      stitleName: '',
       sfirstName: '',
       smidName: '',
       slastName: '',
@@ -328,6 +329,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       isStaff: 'No',
       employeeCode: '',
       stitle: '',
+      stitleName: '',
       sfirstName: '',
       smidName: '',
       slastName: '',
@@ -931,6 +933,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['isStaff'].patchValue(this.proposer.controls['isStaff'].value),
           this.insureArray.controls['employeeCode'].patchValue(this.proposer.controls['employeeCode'].value),
           this.insureArray.controls['stitle'].patchValue(this.proposer.controls['stitle'].value),
+          this.insureArray.controls['stitleName'].patchValue(this.proposer.controls['stitleName'].value),
           this.insureArray.controls['sfirstName'].patchValue(this.proposer.controls['sfirstName'].value),
           this.insureArray.controls['smidName'].patchValue(this.proposer.controls['smidName'].value),
           this.insureArray.controls['slastName'].patchValue(this.proposer.controls['slastName'].value),
@@ -988,6 +991,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['isStaff'].patchValue(''),
           this.insureArray.controls['employeeCode'].patchValue(''),
           this.insureArray.controls['stitle'].patchValue(''),
+          this.insureArray.controls['stitleName'].patchValue(''),
           this.insureArray.controls['sfirstName'].patchValue(''),
           this.insureArray.controls['smidName'].patchValue(''),
           this.insureArray.controls['slastName'].patchValue(''),
@@ -5199,6 +5203,7 @@ console.log(this.proposalId,'proposalId');
 
         title: this.getStepper1.title,
         titleName: this.getStepper1.titleName,
+        stitleName: this.getStepper1.stitleName,
         firstName: this.getStepper1.firstName,
         midName: this.getStepper1.midName,
         lastName: this.getStepper1.lastName,
@@ -5266,6 +5271,7 @@ console.log(this.proposalId,'proposalId');
         investing: this.getStepper2.investing,
         title: this.getStepper2.title,
         titleName: this.getStepper2.titleName,
+        stitleName: this.getStepper2.stitleName,
         activity: this.getStepper2.activity,
         adventurousActivitiesName: this.getStepper2.adventurousActivitiesName,
         firstName: this.getStepper2.firstName,
@@ -5581,8 +5587,15 @@ console.log(this.proposalId,'proposalId');
 
     this.proposer.controls['titleName'].patchValue(this.etitle[this.proposer.controls['title'].value]);
   }
+  changeSpoTitle() {
+
+    this.proposer.controls['stitleName'].patchValue(this.etitle[this.proposer.controls['stitle'].value]);
+  }
   changeTitle1() {
     this.insureArray.controls['titleName'].patchValue(this.etitle[this.insureArray.controls['title'].value]);
+  }
+  changeSpoTitle1() {
+    this.insureArray.controls['stitleName'].patchValue(this.etitle[this.insureArray.controls['stitle'].value]);
   }
   isadventurousName() {
     this.medicalDetail.controls['adventurousActivitiesName'].patchValue(this.eAdActivity[this.medicalDetail.controls['adventurousActivities'].value]);
