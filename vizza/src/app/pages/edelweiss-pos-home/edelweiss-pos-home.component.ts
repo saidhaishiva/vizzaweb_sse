@@ -28,6 +28,7 @@ import {AppSettings} from '../../app.settings';
 export class EdelweissPosHomeComponent implements OnInit {
   public edelweisspos: FormGroup;
   public setDate: any;
+
   public age: any;
   public selectDate: any;
   public productName: any;

@@ -50,14 +50,20 @@
     public options : any;
     public config : any;
     public getDays : any;
-    public rto : any;
-    public maxDateValidate:any;
-    public getRegPolicyYear:any;
-    public errorFutureDate:any;
-    public manfactureErrorDate:any;
-    public minDate:any;
-    public maxDate:any;
-    public CityValid : boolean;
+    public rto: any;
+    public maxDateValidate: any;
+    public getRegPolicyYear: any;
+    public errorFutureDate: any;
+    public manfactureErrorDate: any;
+    public minDate: any;
+    public maxDate: any;
+    public start: any;
+    public RegYear: any;
+    public getLength: any;
+    public CityValid: boolean;
+    public dobError: any;
+    public dobStartError: any;
+    public dobendError: any;
     constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
     public dialogRef: MatDialogRef<EnquiryPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -307,43 +313,100 @@
     }
 
 
-    // manufactureYear(){
-    //   let start = new Date(this.vehicalDetails.controls['registrationDate'].value);
-    //   this.getRegPolicyYear = start.getFullYear();
-    //   let RegYear = start.getFullYear()-1;
-    //   let manStart = new Date(this.vehicalDetails.controls['manufactureYear'].value);
-    //   let getLength = manStart.getFullYear();
-    //   console.log( getLength,' getLength');
-    //   // if(getLength.length == 4) {
-    //     if(this.getRegPolicyYear <= getLength ){
-    //       alert('success')
-    //       this.manfactureErrorDate=true;
-    //       this.manfactureErrorDate='';
-    //       console.log(this.manfactureErrorDate,'manfactureErrorDate');
-    //     }else{
-    //       this.manfactureErrorDate=false;
-    //       alert('error inn');
-    //       console.log(this.manfactureErrorDate,'false man')
-    //       this.manfactureErrorDate='Manufacturing year should be equal to registration year or less than  Year of registration.';
-    //
-    //       // this.toastr.error("Manufacturing year should be equal to registration year or less than  Year of registration.");
-    //
-    //     }
-    //
-    //   }
-    //
-    // // }
+    addEvent(event, type) {
+      console.log(event, 'eventevent');
+      let selectedDate = '';
+      let dob = '';
+      const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+      if (event.value != null) {
 
-    manufactureYear(){
-      let start = new Date(this.vehicalDetails.controls['registrationDate'].value);
-      let getRegPolicyYear = start.getFullYear();
-      let RegYear = start.getFullYear()-1;
-      console.log(getRegPolicyYear,'getPolicyYear');
-      let getLength = this.vehicalDetails.controls['manufactureYear'].value;
-      console.log(getLength, 'getLengthgetLength');
-      if(getLength.length == 4) {
-        if(getRegPolicyYear < getLength ){
-          this.toastr.error("Manufacturing year should be equal to registration year or less than 1year from Registration year.");
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+
+        if (typeof event.value._i == 'string') {
+          console.log('in');
+          if (type == 'regitser') {
+            if (pattern.test(event.value._i) && event.value._i.length == 10 && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) {
+              this.dobError = '';
+            } else {
+              this.dobError = 'Enter Valid Date';
+            }
+          }
+        } else if (typeof event.value._i == 'object') {
+          this.dobError = '';
+
+          if (type == 'regitser') {
+            this.dobError = '';
+            console.log('out');
+            if (pattern.test(event.value._i) && event.value._i.length == 10 && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) {
+              this.dobError = '';
+            }
+          }
+        }
+        console.log(this.dobError, 'this.dobError');
+      }
+    }
+
+
+    addstart(event) {
+      if (event.value != null) {
+        let selectedDate = '';
+        let dob = '';
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (typeof event.value._i == 'string') {
+          if (pattern.test(event.value._i) && event.value._i.length == 10) {
+            this.dobStartError = '';
+          } else {
+            this.dobStartError = 'Enter Valid Date';
+          }
+
+        }
+      }
+    }
+
+    addend(event) {
+      if (event.value != null) {
+        let selectedDate = '';
+        let dob = '';
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (typeof event.value._i == 'string') {
+          if (pattern.test(event.value._i) && event.value._i.length == 10) {
+            this.dobendError = '';
+          } else {
+            this.dobendError = 'Enter Valid Date';
+          }
+
+        }
+      }
+    }
+
+
+    yearCalculate(dob) {
+      let today = new Date();
+      let birthDate = new Date(dob);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      let m = today.getMonth() - birthDate.getMonth();
+      let dd = today.getDate() - birthDate.getDate();
+      if (m < 0 || m == 0 && today.getDate() < birthDate.getDate()) {
+        age = age - 1;
+      }
+      return age;
+    }
+    manufactureYear() {
+      this.start = new Date(this.vehicalDetails.controls['registrationDate'].value);
+      this.getRegPolicyYear = this.start.getFullYear();
+      this.RegYear = this.start.getFullYear()-1;
+      console.log(this.getRegPolicyYear, 'getPolicyYear');
+      console.log(this.RegYear, 'RegYear');
+      this.getLength = this.vehicalDetails.controls['manufactureYear'].value;
+      console.log(this.getLength, 'getLengthgetLength');
+      if (this.getLength.length == 4) {
+        if (this.getRegPolicyYear < this.getLength || this.RegYear > this.getLength ) {
+          this.manfactureErrorDate=true;
+          this.manfactureErrorDate = 'Manufacturing year should be equal to registration year or less than 1year from Registration year';
+          // this.toastr.error('Manufacturing year should be equal to registration year or less than 1year from Registration year.');
+        }else {
+          this.manfactureErrorDate=false;
+          this.manfactureErrorDate='';
         }
 
       }
@@ -352,17 +415,17 @@
 
 
 
-    maxDatechange(){
+    maxDatechange() {
       let startDate = new Date(this.vehicalDetails.controls['registrationDate'].value);
       let regPolicyYear = startDate.getFullYear();
       console.log(regPolicyYear,'registeryear');
       this.maxDateValidate =this.maxDate.getFullYear();
       console.log(this.maxDateValidate,'maxyear');
 
-      if(this.maxDateValidate < regPolicyYear){
+      if (this.maxDateValidate < regPolicyYear) {
         this.errorFutureDate=true;
-        this.errorFutureDate ='Future Year is not Acceptable';
-      }else{
+        this.errorFutureDate = 'Future Year is not Acceptable';
+      } else {
         this.errorFutureDate=false;
         this.errorFutureDate='';
       }
@@ -431,12 +494,13 @@
         sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
         this.ageCalculateInsurer('days');
         // if(this.errorFutureDate == false) {
-          if(successData.status == true && this.errorFutureDate=='' ) {
+
+          if (successData.status == true && this.errorFutureDate == '' && this.manfactureErrorDate == '' && this.dobStartError == '' ) {
             this.dialogRef.close();
             this.router.navigate(['/bikepremium']);
           }
 
-      } else  if(successData.status == true ){
+      } else  if (successData.status == true ) {
         this.toastr.error(successData.ErrorObject);
         //   this.toastr.error('Please check');
 
