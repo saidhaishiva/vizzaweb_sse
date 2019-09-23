@@ -713,10 +713,11 @@
                 </div>
                 <div class="col-md-8 mt-2">
                   <ul class="summary-head">
-                    <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
-                    <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.total_premium}}</span> /</li>
+                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                     <li><span>Gross Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.premium}}</span> /</li>
                     <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.servicetax}}</span> </li>
+                    <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.total_premium}}</span> /</li>
+
                     <li></li>
                   </ul>
                 </div>
@@ -741,12 +742,12 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngIf="requestDetails.prop_occupation !=''"><strong>Occupation:</strong> {{requestDetails.prop_occupation}}</li>
+                        <li class="list-group-item" *ngIf="requestDetails.prop_occupationName !=''"><strong>Occupation:</strong> {{requestDetails.prop_occupationName}}</li>
                         <li class="list-group-item" *ngIf="requestDetails.prop_annual_income !='' && requestDetails.prop_annual_income !=null"><strong>Annual Income:</strong> {{requestDetails.prop_annual_income | currency: 'INR'}}</li>
                         <li class="list-group-item" *ngIf="requestDetails.prop_aadhar_no !='' && requestDetails.prop_aadhar_no !=null"><strong>Aadhar Number:</strong> {{requestDetails.prop_aadhar_no}}</li>
                         <li class="list-group-item" *ngIf="requestDetails.prop_pan_no !='' && requestDetails.prop_pan_no !=null"><strong>PAN Number:</strong> {{requestDetails.prop_pan_no | uppercase}}</li>
                         <li class="list-group-item" *ngIf="requestDetails.gst_id_no !='' && requestDetails.gst_id_no !=null"><strong>GST Number:</strong> {{requestDetails.gst_id_no | uppercase}}</li>
-                        <li class="list-group-item" *ngIf="requestDetails.insured_details !='' && requestDetails.insured_details !=null"><strong>Previous Medical Insurence:</strong> {{requestDetails.insured_details}}</li>
+                        <li class="list-group-item" *ngIf="requestDetails.previous_medical_insurance !='' && requestDetails.previous_medical_insurance !=null"><strong>Previous Medical Insurence:</strong> {{requestDetails.previous_medical_insurance}}</li>
 
                       </ul>
                     </div>
@@ -1737,12 +1738,12 @@
                     <li class="list-group-item"><strong>Email Id:</strong> {{requestDetails.proposer_email}}</li>
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{requestDetails.proposer_mobile}}</li>
                     <li class="list-group-item" *ngIf="requestDetails.proposer_alternate_mobile !=''"><strong>Alternate Number:</strong> {{requestDetails.proposer_alternate_mobile}}</li>
-                    <li class="list-group-item" *ngIf="requestDetails.prop_occupation !=''"><strong>Occupation:</strong> {{requestDetails.prop_occupation}}</li>
+                    <li class="list-group-item" *ngIf="requestDetails.prop_occupationName !=''"><strong>Occupation:</strong> {{requestDetails.prop_occupationName}}</li>
                     <li class="list-group-item" *ngIf="requestDetails.prop_annual_income !='' && requestDetails.prop_annual_income !=null"><strong>Annual Income:</strong> {{requestDetails.prop_annual_income | currency: 'INR'}}</li>
                     <li class="list-group-item" *ngIf="requestDetails.prop_aadhar_no !='' && requestDetails.prop_aadhar_no !=null"><strong>Aadhar Number:</strong> {{requestDetails.prop_aadhar_no}}</li>
                     <li class="list-group-item" *ngIf="requestDetails.prop_pan_no !='' && requestDetails.prop_pan_no !=null"><strong>PAN Number:</strong> {{requestDetails.prop_pan_no | uppercase}}</li>
                     <li class="list-group-item" *ngIf="requestDetails.gst_id_no !='' && requestDetails.gst_id_no !=null"><strong>GST Number:</strong> {{requestDetails.gst_id_no | uppercase}}</li>
-                    <li class="list-group-item" *ngIf="requestDetails.insured_details !='' && requestDetails.insured_details !=null"><strong>Previous Medical Insurence:</strong> {{requestDetails.insured_details}}</li>
+                    <li class="list-group-item" *ngIf="requestDetails.previous_medical_insurance !='' && requestDetails.previous_medical_insurance !=null"><strong>Previous Medical Insurence:</strong> {{requestDetails.previous_medical_insurance}}</li>
                   </ul>
                 </div>
               </div>

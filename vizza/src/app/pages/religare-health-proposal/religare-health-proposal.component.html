@@ -443,7 +443,7 @@
 
         <mat-step [stepControl]="">
           <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
-          <mat-accordion class="w-100 float-left ">
+          <mat-accordion class="w-100 float-left " *ngIf="payLaterr == false">
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -884,7 +884,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <form [formGroup]="personal" >
-              <div class="row">
+              <div class="row" *ngIf="payLaterr == false">
                 <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3">
                   <!--<h6 class="color-blue">PROPOSER DETAILS</h6>-->
                   <div class="row">
@@ -1083,7 +1083,7 @@
                 INSURED DETAILS
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-accordion class="w-100">
+            <mat-accordion class="w-100" *ngIf="payLaterr == false">
               <form [formGroup]="insureArray">
                 <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
                   <mat-expansion-panel class="mt-2" [formGroupName]="i" [expanded]="i == 0">
@@ -1225,7 +1225,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
-            <div class="row">
+            <div class="row" *ngIf="payLaterr == false">
               <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3" >
                 <!--<h6 class="color-blue mb-3" >MEDICAL HISTORY </h6>-->
                 <mat-accordion class="question-panel" *ngFor="let item of religareQuestionsList; let i = index">
@@ -1284,7 +1284,7 @@
               <mat-panel-title> NOMINEE DETAILS</mat-panel-title>
             </mat-expansion-panel-header>
             <ng-template matStepLabel>INSURED DETAILS</ng-template>
-            <div class="row mt-3">
+            <div class="row mt-3" *ngIf="payLaterr == false">
               <div class="col-sm-12 col-xs-12 box-card pt-3 pb-3" >
                 <!--<h6 class="color-blue mb-3" >NOMINEE DETAILS </h6>-->
                 <form [formGroup]="nomineeDetails">

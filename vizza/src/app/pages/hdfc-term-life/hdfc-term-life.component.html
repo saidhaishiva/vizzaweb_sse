@@ -1107,10 +1107,10 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item"><strong>Nominee Name:</strong> {{item.ntitleName}}</li>
+                                                <li class="list-group-item"><strong>Nominee Name:</strong> {{item.ntitle}}</li>
                                                     <li class="list-group-item"><strong>First Name:</strong> {{item.nfirstnm}}</li>
                                                 <li class="list-group-item"><strong>Last Name:</strong> {{item.nlastnm}}</li>
-                                                <li class="list-group-item" ><strong>Gender:</strong> {{item.ngenderName}}</li>
+                                                <li class="list-group-item" ><strong>Gender:</strong> {{item.ngender}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1121,7 +1121,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" ><strong>Marital Status:</strong> {{item.nmaritalstatusName}}</li>
+                                                <li class="list-group-item" ><strong>Marital Status:</strong> {{item.nmaritalstatus}}</li>
                                                 <li class="list-group-item"><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
                                                 <li class="list-group-item" ><strong>House No:</strong> {{item.nhouseno}}</li>
                                                 <li class="list-group-item" ><strong>Street:</strong> {{item.nstreet}}</li>
@@ -1166,11 +1166,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="item.atitle!=''"><strong>Appointee Name:</strong> {{item.atitleName}}</li>
-                                                <li class="list-group-item" *ngIf="item.afirstnm!=''" ><strong>Appointee Name:</strong> {{item.afirstnm}}</li>
-                                                <li class="list-group-item" *ngIf="item.alastnm!=''" ><strong>Appointee Name:</strong> {{item.alastnm}}</li>
-                                                <li class="list-group-item" *ngIf="item.agender!=''" ><strong>Appointee Name:</strong> {{item.agenderName}}</li>
-                                                <li class="list-group-item" *ngIf="item.amaritalstatus!=''" ><strong>Appointee Name:</strong> {{item.amaritalstatusName}}</li>
+                                                <li class="list-group-item" *ngIf="item.atitle!=''"><strong>Name:</strong> {{item.atitle}} {{item.afirstnm}}  {{item.alastnm}}</li>
+                                                <!--<li class="list-group-item" *ngIf="item.afirstnm!=''" ><strong>Appointee Name:</strong> {{item.afirstnm}}</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.alastnm!=''" ><strong>Appointee Name:</strong> {{item.alastnm}}</li>-->
+                                                <li class="list-group-item" *ngIf="item.agender!=''" ><strong>Gender:</strong> {{item.agender}}</li>
+                                                <li class="list-group-item" *ngIf="item.amaritalstatus!=''" ><strong>Marital Status:</strong> {{item.amaritalstatus}}</li>
 
                                             </ul>
                                         </div>
@@ -1182,11 +1182,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="item.ahouseno!=''" ><strong>Appointee Name:</strong> {{item.ahouseno}}</li>
-                                                <li class="list-group-item" *ngIf="item.astreet!=''" ><strong>Appointee Name:</strong> {{item.astreet}}</li>
-                                                <li class="list-group-item" *ngIf="item.alandmark!=''" ><strong>Appointee Name:</strong> {{item.alandmark}}</li>
-                                                <li class="list-group-item" *ngIf="item.acity!=''" ><strong>Appointee Name:</strong> {{item.acityName}}</li>
-                                                <li class="list-group-item" *ngIf="item.astate!=''" ><strong>Appointee Name:</strong> {{item.astateName}}</li>
+                                                <li class="list-group-item" *ngIf="item.ahouseno!=''" ><strong>House No:</strong> {{item.ahouseno}}</li>
+                                                <li class="list-group-item" *ngIf="item.astreet!=''" ><strong>Street:</strong> {{item.astreet}}</li>
+                                                <li class="list-group-item" *ngIf="item.alandmark!=''" ><strong>Landmark:</strong> {{item.alandmark}}</li>
+                                                <li class="list-group-item" *ngIf="item.acity!=''" ><strong>City:</strong> {{item.acityName}}</li>
+                                                <li class="list-group-item" *ngIf="item.astate!=''" ><strong>State:</strong> {{item.astateName}}</li>
 
                                             </ul>
                                         </div>
@@ -1198,10 +1198,10 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="item.apincode!=''" ><strong>Appointee Name:</strong> {{item.apincode}}</li>
-                                                <li class="list-group-item" *ngIf="item.acountry!=''" ><strong>Appointee Name:</strong> {{item.acountryName}}</li>
-                                                <li class="list-group-item" *ngIf="item.arelationship!=''" ><strong>Appointee Name:</strong> {{item.arelationshipName}}</li>
-                                                <li class="list-group-item" *ngIf="item.aDob!=''" ><strong>Appointee Dob:</strong> {{item.aDob | date: 'dd/MM/yyyy' }}</li>
+                                                <li class="list-group-item" *ngIf="item.apincode!=''" ><strong>Pincode:</strong> {{item.apincode}}</li>
+                                                <li class="list-group-item" *ngIf="item.acountry!=''" ><strong>Country:</strong> {{item.acountryName}}</li>
+                                                <li class="list-group-item" *ngIf="item.arelationship!=''" ><strong>Relationship:</strong> {{item.arelationship}}</li>
+                                                <li class="list-group-item" *ngIf="item.aDob!=''" ><strong> Dob:</strong> {{item.aDob | date: 'dd/MM/yyyy' }}</li>
 
                                             </ul>
                                         </div>
