@@ -36,6 +36,7 @@ export const MY_FORMATS = {
   ],
 })
 export class EdelweissPosComponent implements OnInit {
+
   public proposer: FormGroup;
   public insureArray: FormGroup;
   public medicalDetail: FormGroup;

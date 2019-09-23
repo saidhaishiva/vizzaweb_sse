@@ -252,6 +252,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
     )
   }
 
+
   buyProduct(value) {
     console.log(value, 'vlitss');
 

@@ -3021,7 +3021,7 @@ getweightListHdfc() {
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "term": this.lifePremiumList.termDetrails,
-      "product_id": this.lifePremiumList.productname,
+      "product_id": this.lifePremiumList.product_id,
       "policy_id": this.getEnquiryDetials.policy_id,
       "appsubmission": {
 
