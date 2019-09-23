@@ -906,7 +906,7 @@ export class FourWheelerService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getFourwheelerInsurance() + 'tata/fullQuote';
+    const url = this.configurationService.getFourwheelerInsurance() + 'tata/fullQuote ';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -927,6 +927,16 @@ export class FourWheelerService {
 
   //tataaig PdfDownload
 
+  getCarPolicyNumber(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'tata/getPolicyNo';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   getDownloadPdfTataaig(data) {
     const json = JSON.stringify(data);
     const httpOptions = {

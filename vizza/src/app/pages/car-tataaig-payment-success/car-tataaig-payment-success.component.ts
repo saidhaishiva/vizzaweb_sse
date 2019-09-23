@@ -19,6 +19,8 @@ export class CarTataaigPaymentSuccessComponent implements OnInit {
   public settings: Settings;
   public paymentStatus: any;
   public proposalId: any;
+  public policyNo: any;
+  public carPolicyNo: any;
   public type: any;
   public path: any;
   public currenturl: any;
@@ -29,14 +31,46 @@ export class CarTataaigPaymentSuccessComponent implements OnInit {
       console.log(params);
       this.paymentStatus = params.status;
       this.proposalId = params.proId;
+      this.policyNo = params.policyNo;
     });
   }
 
   ngOnInit() {
+    this.getpolicyNo();
   }
 
   retry() {
     this.router.navigate(['/car-tataaig-proposal'  + '/' + true]);
+  }
+
+  getpolicyNo() {
+    const data = {
+      "platform": "web",
+      "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      "pos_status": this.paymentStatus,
+      // "created_by": "",
+      "proposal_id": this.proposalId
+
+    }
+    this.carservice.getCarPolicyNumber(data).subscribe(
+        (successData) => {
+          this.getpolicyNoSuccess(successData);
+        },
+        (error) => {
+          this.getpolicyNoFailure(error);
+        }
+    );
+  }
+
+  public getpolicyNoSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.carPolicyNo = successData.ResponseObject;
+      this.policyNo = this.carPolicyNo.policy_number;
+    }
+  }
+
+  public getpolicyNoFailure(error) {
   }
 
   DownloadPdf() {

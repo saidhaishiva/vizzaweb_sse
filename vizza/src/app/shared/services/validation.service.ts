@@ -155,6 +155,30 @@ export class ValidationService {
         }
     }
 
+    employeeCode(event) {
+        if (event.code == 'Space') {
+            if (event.target.value.length == 0) {
+                event.preventDefault();
+            }
+        } else {
+            if (event.charCode !== 0) {
+                const pattern = /[a-zA-Z0-9 ]/;
+                const inputChar = String.fromCharCode(event.charCode);
+                if (!pattern.test(inputChar)) {
+                    event.preventDefault();
+                }
+            }
+        }
+    }
+    spaceValidator(event) {
+        if (event.code == 'Space') {
+            console.log(event.code,'ghjhjh');
+            if (event.target.value.length == 0) {
+                event.preventDefault();
+            }
+        }
+    }
+
     paste(event: any) {
         event.preventDefault();
     }

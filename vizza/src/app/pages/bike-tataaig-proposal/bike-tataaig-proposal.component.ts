@@ -66,6 +66,14 @@ export class BikeTataaigProposalComponent implements OnInit {
     public bikeEnquiryId: any;
     public banklist: any;
     public Quotelist: any;
+    public quotationNo: any;
+    public QuoteAss: any;
+    public QuoteAntitheft: any;
+    public QuoteThirdPartres:any;
+    public Quotedepreciation:any;
+    public QuoteConsumableexpense:any;
+    public QuoteReturninvoice:any;
+    public QuoteRoadsideassistance:any;
     public declaration: any;
     public PaymentRedirect: any;
     public PaymentReturn: any;
@@ -78,6 +86,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     public premium: any;
     public config: any;
     public productlist: any;
+
+
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public configr: ConfigurationService, public route: ActivatedRoute) {
         let stepperindex = 0;
@@ -183,7 +193,15 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.vehicle.controls['Associationmember'].value == false;
         this.getGenderlist();
+        // this.chaneauto();
+        // this.chaneanti();
+        // this.chanetpp();
+        // this.chanedepre();
+        // this.chanecon();
+        // this.chaneret();
+        // this.chaneroad();
         // this.getNamelist();
         this.coverdriveList();
         this.sessionData();
@@ -332,6 +350,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         return age;
     }
     amount_automobile() {
+        console.log(this.vehicle.controls['Associationmember'].value,'required Asso')
         if (this.vehicle.controls['Associationmember'].value == true) {
             this.vehicle.controls['Associationamount'].setValidators([Validators.required]);
             this.vehicle.controls['Associationamount'].updateValueAndValidity();
@@ -342,8 +361,10 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chaneauto()
     {
-        this.vehicle.controls['Antitheft'].patchValue(this.Quotelist.productlist.addons.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Associationamount'].patchValue(this.QuoteAss);
+        // console.log(this.Quotelist.productlist.addons.Automobile_Association_Membership,'quoteValueeee')
+        console.log(this.QuoteAss,'quoteValueesssss')
+        // console.log( this.vehicle.controls['Associationamount'].value,'quoteListsss')
 
     }
     amount_Antitheft() {
@@ -357,25 +378,25 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chaneanti()
     {
-        this.vehicle.controls['Antitheftamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Antitheftamount'].patchValue(this.QuoteAntitheft);
+        console.log(this.vehicle.controls['Antitheftamount'].value,'Antitheftamount')
 
     }
-    // amount_Tppdrestrict() {
-    //     if (this.vehicle.controls['Tppdrestrict'].value == true) {
-    //         this.vehicle.controls['Tppdrestrictamount'].setValidators([Validators.required]);
-    //         this.vehicle.controls['Tppdrestrictamount'].updateValueAndValidity();
-    //     } else {
-    //         this.vehicle.controls['Tppdrestrictamount'].clearValidators();
-    //         this.vehicle.controls['Tppdrestrictamount'].updateValueAndValidity();
-    //     }
-    // }
-    // chanetpp()
-    // {
-    //     this.vehicle.controls['Tppdrestrictamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-    //     console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
-    //
-    // }
+    amount_Tppdrestrict() {
+        if (this.vehicle.controls['Tppdrestrict'].value == true) {
+            this.vehicle.controls['Tppdrestrictamount'].setValidators([Validators.required]);
+            this.vehicle.controls['Tppdrestrictamount'].updateValueAndValidity();
+        } else {
+            this.vehicle.controls['Tppdrestrictamount'].clearValidators();
+            this.vehicle.controls['Tppdrestrictamount'].updateValueAndValidity();
+        }
+    }
+    chanetpp()
+    {
+        this.vehicle.controls['Tppdrestrictamount'].patchValue(this.QuoteThirdPartres);
+        console.log(this.vehicle.controls['Tppdrestrictamount'].value,'Tppdrestrictamount')
+
+    }
     amount_depreciation() {
         if (this.vehicle.controls['depreciation'].value == true) {
             this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
@@ -387,8 +408,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chanedepre()
     {
-        this.vehicle.controls['depreciationamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['depreciationamount'].patchValue(this.Quotedepreciation);
+        console.log( this.vehicle.controls['depreciationamount'].value,'depreciationamount')
 
     }
     amount_Consumableexpense() {
@@ -402,8 +423,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chanecon()
     {
-        this.vehicle.controls['Consumableexpenseamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Consumableexpenseamount'].patchValue(this.QuoteConsumableexpense);
+        console.log(this.vehicle.controls['Consumableexpenseamount'].value,'Consumableexpenseamount')
 
     }
     amount_Returninvoice() {
@@ -417,8 +438,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chaneret()
     {
-        this.vehicle.controls['Returninvoiceamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Returninvoiceamount'].patchValue(this.QuoteReturninvoice);
+        console.log(this.vehicle.controls['Returninvoiceamount'].value,'Returninvoiceamount')
 
     }
     amount_Roadsideassistance() {
@@ -432,8 +453,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     chaneroad()
     {
-        this.vehicle.controls['Roadsideassistanceamount'].patchValue(this.Quotelist.Automobile_Association_Membership.value);
-        console.log(this.Quotelist.Automobile_Association_Membership.value,'quoteList')
+        this.vehicle.controls['Roadsideassistanceamount'].patchValue(this.QuoteRoadsideassistance);
+        console.log(this.vehicle.controls['Roadsideassistanceamount'].value,'Roadsideassistanceamount')
 
     }
 
@@ -736,7 +757,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikenominee = JSON.stringify(value);
         if (this.nominee.valid) {
             if (this.nominee.controls['nomineeAge'].value >= 18) {
-                this.QuoteList(stepper);
+                // this.QuoteList(stepper);
+                this.createproposal(stepper);
             }else{
                 this.toastr.error('Nominee Age should Be 18 or above');
             }
@@ -835,8 +857,10 @@ export class BikeTataaigProposalComponent implements OnInit {
         }
     }
 
-    QuoteList(stepper) {
+    QuoteList() {
+        console.log(this.vehicle.controls['Associationmember'].value, 'Associationmember');
         const data = {
+
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -857,7 +881,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         };
         this.bikeinsurance.QuoteList(data).subscribe(
             (successData) => {
-                this.QuoteSuccess(successData, stepper);
+                this.QuoteSuccess(successData );
             },
             (error) => {
                 this.QuoteFailure(error);
@@ -865,10 +889,27 @@ export class BikeTataaigProposalComponent implements OnInit {
         );
     }
 
-    QuoteSuccess(successData, stepper) {
+    QuoteSuccess(successData) {
         if (successData.IsSuccess) {
             this.Quotelist = successData.ResponseObject;
             console.log(this.Quotelist, 'quotationdata');
+            this.quotationNo=this.Quotelist.productlist.quotation_no;
+            console.log(this.quotationNo, 'quotationNo');
+            this.QuoteAss=this.Quotelist.productlist.addons.Automobile_Association_Membership;
+            this.QuoteAntitheft=this.Quotelist.productlist.addons.Anti_theft_device;
+            this.QuoteThirdPartres=this.Quotelist.productlist.addons.TPPD_Restricted;
+            this.Quotedepreciation=this.Quotelist.productlist.addons.Depreciation_ReImbursement;
+            this.QuoteConsumableexpense=this.Quotelist.productlist.addons.Consumables_expenses;
+            this.QuoteReturninvoice=this.Quotelist.productlist.addons.Return_to_Invoice;
+            this.QuoteRoadsideassistance=this.Quotelist.productlist.addons.Roadside_Assistance;
+            console.log(this.QuoteAss,'amount')
+            this.chaneauto();
+            this.chaneanti();
+            this.chanetpp();
+            this.chanedepre();
+            this.chanecon();
+            this.chaneret();
+            this.chaneroad();
             // this.createproposal(stepper);
         }
     }
@@ -889,7 +930,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             "proposal_id": sessionStorage.tataBikeproposalID == '' || sessionStorage.tataBikeproposalID == undefined ? '' : sessionStorage.tataBikeproposalID,
             'package_type': this.premium,
             "motorproposalObj": {
-                "quotation_no": this.Quotelist.productlist.quotation_no,
+                "quotation_no": this.quotationNo,
                 "pol_sdate": this.enquiryFormData.business_type == '1' ? this.datepipe.transform(this.minDate, 'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
                 "sp_name": "Name",
                 "sp_license": "Lino12345566",

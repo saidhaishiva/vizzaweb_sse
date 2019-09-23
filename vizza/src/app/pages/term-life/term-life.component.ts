@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {MetaService} from '../../shared/services/meta.service';
+import {Meta, Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -47,8 +48,10 @@ export class TermLifeComponent implements OnInit {
     public settings: Settings;
     public metaTermLife: any;
     public metaTitle: any;
+    metaKeyword: any;
+    metaDescription: any;
 
-    constructor(public fb: FormBuilder, public router: Router,public commonservices: CommonService, public datepipe: DatePipe,public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService,public appSettings: AppSettings, public meta: MetaService) {
+    constructor(public fb: FormBuilder, public router: Router,public commonservices: CommonService, public datepipe: DatePipe,public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService,public appSettings: AppSettings, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if(window.innerWidth < 787){
@@ -123,9 +126,20 @@ export class TermLifeComponent implements OnInit {
     }
     public metaDetailSuccess(successData) {
         this.metaTermLife = successData.ResponseObject[0];
+        this.metaTitle = this.metaTermLife.title;
+        this.metaKeyword = this.metaTermLife.keyword;
+        this.metaDescription = this.metaTermLife.descrition;
+        this.metaTag.addTags([
+            {name: 'keywords', content: this.metaKeyword},
+            {name: 'description', content: this.metaDescription},
+        ]);
+        this.setTitle();
     }
     public metaDetailFailure(error) {
         console.log(error);
+    }
+    public setTitle() {
+        this.titleService.setTitle( this.metaTitle );
     }
 
     sessionData() {

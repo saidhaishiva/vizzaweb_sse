@@ -4,6 +4,7 @@
       <div *ngIf="paymentStatus == 'success'">
         <img src="assets/img/success.gif" alt="">
         <h5>Thank you! Your payment is processed successfully..</h5>
+        <p>Your Policy No {{policyNo}}.</p>
         <p>Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>
         <button mat-raised-button color="primary" routerLink="/home"> Done</button>
       </div>

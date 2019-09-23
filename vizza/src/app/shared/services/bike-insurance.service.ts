@@ -808,6 +808,17 @@ export class BikeInsuranceService {
 
   //tataaig PdfDownload
 
+  getpolicyNumber(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'tata/getPolicyNo';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
   getDownloadPdfTataaig(data) {
     const json = JSON.stringify(data);
     const httpOptions = {

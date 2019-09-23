@@ -17,6 +17,7 @@ import {FourWheelerEnquirypopupComponent} from './four-wheeler-enquirypopup/four
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ClearSessionMotorService} from '../../shared/services/clear-session-motor.service';
 import {MetaService} from '../../shared/services/meta.service';
+import {Meta, Title} from '@angular/platform-browser';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -70,8 +71,10 @@ export class FourWheelerHomeComponent implements OnInit {
   public showSelf: boolean;
   public metaCar: any;
   public metaTitle: any;
+  metaKeyword: any;
+  metaDescription: any;
 
-  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService) {
+  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
     if (window.innerWidth < 787) {
@@ -138,9 +141,20 @@ export class FourWheelerHomeComponent implements OnInit {
   }
   public metaDetailSuccess(successData) {
     this.metaCar = successData.ResponseObject[0];
+    this.metaTitle = this.metaCar.title;
+    this.metaKeyword = this.metaCar.keyword;
+    this.metaDescription = this.metaCar.descrition;
+    this.metaTag.addTags([
+      {name: 'keywords', content: this.metaKeyword},
+      {name: 'description', content: this.metaDescription},
+    ]);
+    this.setTitle();
   }
   public metaDetailFailure(error) {
     console.log(error);
+  }
+  public setTitle() {
+    this.titleService.setTitle( this.metaTitle );
   }
 
   setSession() {
