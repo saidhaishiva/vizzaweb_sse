@@ -1583,7 +1583,7 @@ export class StarHealthProposalComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
             'reference_id' : this.proposalNumber,
-            'proposal_id': sessionStorage.proposalID,
+            'proposal_id': this.proposalId,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
@@ -1854,6 +1854,7 @@ export class StarHealthProposalComponent implements OnInit {
             console.log(this.requestDetails, 'requestDetailsrequestDetails');
             this.proposalNumber = this.requestDetails[0].proposalNum;
             this.pos_status = this.requestDetails[0].role_id;
+            this.proposalId = this.requestDetails[0].proposal_id;
             console.log(this.pos_status , 'requestDetailsrequestDetails');
             this.requestDetails = this.requestDetails[0];
             this.requestInsuredDetails = this.requestDetails.insured_details;

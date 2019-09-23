@@ -112,7 +112,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostPa() + 'productlist/profission' ;
+        const url = this.configurationService.getHostPa() + 'productlist/profession' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -701,7 +701,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'common/payment_reminder';
+        const url = this.configurationService.getHostPa() + 'common/payment_reminder';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -711,7 +711,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'common/get_request';
+        const url = this.configurationService.getHostPa() + 'common/get_request';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
