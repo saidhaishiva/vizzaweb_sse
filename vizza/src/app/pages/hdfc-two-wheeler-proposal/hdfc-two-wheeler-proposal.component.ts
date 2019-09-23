@@ -1094,7 +1094,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             'policy_type': this.premiumType == 'ThridParty_premium' ? 'ThridParty_Premium' : 'Comprehensive_Premium',
             'proposal_id': sessionStorage.hdfcBikeproposalID == '' || sessionStorage.hdfcBikeproposalID == undefined ? '' : sessionStorage.hdfcBikeproposalID,
             'motorproposalObj': {
-                'TransactionID':this.buyProductDetails.TransactionID,
+                // 'TransactionID':this.buyProductDetails.TransactionID,
                 'Customer_Details': {
                     'Customer_FirstName': this.proposer.controls['firstName'].value,
                     'Customer_MiddleName': this.proposer.controls['middleName'].value,

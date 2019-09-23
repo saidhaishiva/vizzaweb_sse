@@ -1018,7 +1018,7 @@ console.log(this.vehicleidv.Idv);
             "policy_type":this.premiumType=='ThridParty_premium'?'ThridParty_Premium':'Comprehensive_Premium',
             "proposal_id":sessionStorage.hdfccarproposalID == '' || sessionStorage.hdfccarproposalID == undefined ? '' : sessionStorage.hdfccarproposalID,
             "motorproposalObj": {
-                'TransactionID':this.vehicleidv.TransactionID,
+                // 'TransactionID':this.vehicleidv.TransactionID,
             "Customer_Details": {
                 "GC_CustomerID": [],
                     "Company_Name": [],
