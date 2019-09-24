@@ -285,14 +285,13 @@
             </thead>
             <tbody>
             <!--<tr class="" *ngFor="let plists of allProductLists | orderBy : 'premium_amount';let i = index" [hidden]="changeSuninsuredAmount != getSumInsureId" >-->
-            <tr class="" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId"
-            >
+            <tr class="" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
               <td align="center"  class="col-md-2 text-center">
                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
                 <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
               </td>
               <td  class="col-md-1">
-                <p class="mt-4">&#8377; {{plists.suminsured_amount_format}}</p>
+                <p class="mt-4">&#8377; {{plists.suminsured_amount}}</p>
               </td>
               <td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3" class="col-md-1">
                 <p class="text-center mt-4">{{keys.key_features_value}}</p>
@@ -312,7 +311,7 @@
                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
               </td>
               <td class="col-md-2">
-                <p class="text-center mt-3 change-p"><strong>&#8377;{{plists.premium_amount_format}} / Yr</strong></p>
+                <p class="text-center mt-3 change-p"><strong>&#8377;{{plists.premium_amount}} / Yr</strong></p>
                 <p class="text-center change-p">(Including GST)</p>
               </td>
               <td class="col-md-1">
@@ -496,13 +495,13 @@
         <div class="col-3 col-md-3">
           <p style="margin-bottom: 0rem !important;">Sum Insured</p>
           <div>
-            <p style="font-size: 10px!important; font-weight: bold;"> &#8377; {{plists.suminsured_amount_format}} </p>
+            <p style="font-size: 10px!important; font-weight: bold;"> &#8377; {{plists.suminsured_amount}} </p>
           </div>
         </div>
         <div class="col-3 col-md-3">
           <p style="margin-bottom: 0rem !important;">Premium /yr</p>
           <div>
-            <p style="font-size: 10px!important; font-weight: bold;">&#8377;  {{plists.premium_amount_format}}</p>
+            <p style="font-size: 10px!important; font-weight: bold;">&#8377;  {{plists.premium_amount}}</p>
             <p style="font-size: 10px!important;">(Including GST)</p>
           </div>
         </div>
