@@ -607,6 +607,22 @@ ChangeGender(){
     }
 }
 
+   bioFuelReq() {
+
+        if (this.addOns.controls['biofuel'].value == 'LPG' || this.addOns.controls['biofuel'].value == 'CNG') {
+            this.addOns.controls['biofuelkit'].patchValue(this.addOns.controls['biofuelkit'].value);
+
+            this.addOns.controls['biofuelkit'].setValidators([Validators.required]);
+        } else {
+            this.addOns.controls['biofuelkit'].patchValue('');
+
+            this.addOns.controls['biofuelkit'].setValidators(null);
+
+        }
+        this.addOns.controls['biofuelkit'].updateValueAndValidity();
+
+    }
+
     public banksuccess(successData) {
         this.bankList = successData.ResponseObject;
     }
