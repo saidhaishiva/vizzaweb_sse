@@ -28,18 +28,18 @@
                         </div>
                         <div class="col-md-3 mt-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="firstName" maxlength="50" (keypress)="nameValidate($event)" autocomplete="off" required >
+                            <input matInput placeholder="First Name" formControlName="firstName" maxlength="20" (keypress)="nameValidate($event)" autocomplete="off" required >
                             <mat-error *ngIf="proposer.controls.firstName.errors?.required">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3 mt-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Middle Name" formControlName="middleName" maxlength="50" (keypress)="nameValidate($event)" >
+                            <input matInput placeholder="Middle Name" formControlName="middleName" maxlength="15" (keypress)="nameValidate($event)" >
                           </mat-form-field>
                         </div>
                         <div class="col-md-3 mt-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="lastName" maxlength="50" (keypress)="nameValidate($event)" required>
+                            <input matInput placeholder="Last Name" formControlName="lastName" maxlength="20" (keypress)="nameValidate($event)" required>
                             <mat-error *ngIf="proposer.controls.lastName.errors?.required">last Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -62,7 +62,7 @@
                           <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
                         </div>
                         <div class="col-md-3 mt-3"><mat-form-field class="w-100">
-                          <input matInput placeholder="Email ID"   formControlName="email" maxlength="100"  autocomplete="off" required>
+                          <input matInput placeholder="Email ID"   formControlName="email" maxlength="40"  autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.email.errors?.required">Email ID is required</mat-error>
                           <mat-error *ngIf="proposer.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field>
@@ -78,7 +78,7 @@
                           <div class="col-md-3 mt-3">
                               <mat-form-field class="w-100">
                                   <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)"  maxlength="17" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
-                                  <mat-hint font-size="10px" >Format of the Telephone number is 044-1234567</mat-hint>
+                                  <mat-hint font-size="10px" >Format of the Telephone number should be 044-1234567</mat-hint>
 
                               </mat-form-field>
                               <div class="error mt-1"  *ngIf="altererror != ''">{{altererror}}</div>
@@ -457,7 +457,7 @@
                                         </div>
                                         <div class="col-md-3 ">
                                             <mat-form-field class="w-100">
-                                                <mat-select placeholder="Biofuel Type" formControlName="biofuel"  >
+                                                <mat-select placeholder="Biofuel Type" formControlName="biofuel" (change)="bioFuelReq" >
                                                     <mat-option value="LPG">LPG</mat-option>
                                                     <mat-option value="CNG">CNG</mat-option>
                                                 </mat-select>
@@ -465,7 +465,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Biofuel Kit Price" formControlName="biofuelkit" autocomplete="off"  maxlength="10" (keypress)="numberValidate($event)"  >
+                                                <input matInput placeholder="Biofuel Kit Price" formControlName="biofuelkit" autocomplete="off"  maxlength="10" (keypress)="numberValidate($event)"  [required]="addOns.controls['biofuel'].value == 'LPG' || addOns.controls['biofuel'].value == 'CNG'">
                                                 <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
 
                                             </mat-form-field>
@@ -516,10 +516,11 @@
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="NoofUnnamedPerson" maxlength="7" (change)="validationforadons($event,'unamed')"><strong> No of UnnamedPerson </strong></mat-checkbox>
+                                            <mat-checkbox formControlName="NoofUnnamedPerson" maxlength="7" (change)="validationforadons($event,'unamed')"><strong> No of Unnamed Person </strong></mat-checkbox>
                                         </div>
 
-                                        <div class="col-md-3">
+
+                                        <div class="col-md-3" *ngIf="addOns.controls['NoofUnnamedPerson'].value !=''">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Unnamed Person SI<span class="error" *ngIf="addOns.controls['NoofUnnamedPerson'].value !=''">*</span></mat-placeholder>
                                                 <input matInput  formControlName="UnnamedPersonSI" autocomplete="off" maxlength="7" (keypress)="numberValidate($event)"  >
@@ -550,9 +551,9 @@
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="NoofnamedPerson" (change)="validationforadons($event,'named')"><strong> No of namedPerson </strong></mat-checkbox>
+                                            <mat-checkbox formControlName="NoofnamedPerson" (change)="validationforadons($event,'named')"><strong> No of named Person </strong></mat-checkbox>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" *ngIf="addOns.controls['NoofnamedPerson'].value ">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Person Name<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
                                                 <input matInput  formControlName="namedPerson" autocomplete="off" maxlength="25" (keypress)="nameValidate($event)"  >
@@ -561,7 +562,7 @@
                                             </mat-form-field>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" *ngIf="addOns.controls['NoofnamedPerson'].value ">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Named Person SI<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
                                                 <input matInput  formControlName="namedPersonSI" maxlength="10" autocomplete="off" (keypress)="numberValidate($event)"  >
@@ -579,7 +580,7 @@
                                         <div class="col-md-3 mt-1">
                                             <mat-checkbox formControlName="IsEMIprotector_Cover" (change)="validationforEmi($event)"><strong> Is EMI Protector_Cover</strong></mat-checkbox>
                                         </div>
-                                        <div class="col-md-3 ">
+                                        <div class="col-md-3 " *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>NO of EMI<span class="error" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">*</span></mat-placeholder>
                                                 <mat-select   formControlName="noOfEmi"  >
@@ -590,7 +591,7 @@
                                                 <mat-error *ngIf="addOns.controls.noOfEmi.errors?.required  ">NO Of EMI Is Required</mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>EMI Amount<span class="error" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">*</span></mat-placeholder>
                                                 <input matInput  formControlName="EMIamount" autocomplete="off" maxlength="10" (keypress)="numberValidate($event)"  >
@@ -603,16 +604,16 @@
                                             <mat-checkbox formControlName="IsNCBProtection" ><strong> Is NCB Protection </strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="IsLimitedtoOwnPremises" ><strong> Is Limited to OwnPremises </strong></mat-checkbox>
+                                            <mat-checkbox formControlName="IsLimitedtoOwnPremises" ><strong> Is Limited to Own Premises </strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="IsRTIcover" ><strong> Is ReturnTo Invoice </strong></mat-checkbox>
+                                            <mat-checkbox formControlName="IsRTIcover" ><strong> Is Return To Invoice </strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="IsCOCcover" ><strong> Is CostOf Consumables </strong></mat-checkbox>
+                                            <mat-checkbox formControlName="IsCOCcover" ><strong> Is Cost Of Consumables </strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="engineandgear" ><strong> Is Engine & GearBox Protector </strong></mat-checkbox>
+                                            <mat-checkbox formControlName="engineandgear" ><strong> Is Engine & Gear Box Protector </strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3 mt-1">
                                             <mat-checkbox formControlName="downtimeprotector" ><strong> Is Loss Of Use DownTime Protection</strong></mat-checkbox>
@@ -622,7 +623,7 @@
                                         </div>
 
                                         <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="EAW" ><strong> Is Emergency AssistanceWider</strong></mat-checkbox>
+                                            <mat-checkbox formControlName="EAW" ><strong> Is Emergency Assistance Wider</strong></mat-checkbox>
                                         </div>
 
                                         <div class="col-md-3 ">
@@ -630,7 +631,7 @@
                                         </div>
 
                                         <div class="col-md-3 ">
-                                            <mat-checkbox formControlName="IsLimitedtoOwnPremises" ><strong> Is Limited to OwnPremises </strong></mat-checkbox>
+                                            <mat-checkbox formControlName="IsLimitedtoOwnPremises" ><strong> Is Limited to Own Premises </strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3 mt-1">
                                             <mat-checkbox formControlName="OtherLoadDiscRate" ><strong> Other Load Disc Rate </strong></mat-checkbox>
