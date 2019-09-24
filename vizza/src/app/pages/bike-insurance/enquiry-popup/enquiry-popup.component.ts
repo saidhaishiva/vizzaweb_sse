@@ -495,7 +495,7 @@
         this.ageCalculateInsurer('days');
         // if(this.errorFutureDate == false) {
 
-          if (successData.status == true && this.errorFutureDate == '' && this.manfactureErrorDate == '' && this.dobStartError == '' ) {
+          if (successData.status == true && this.errorFutureDate == '' && this.manfactureErrorDate == '' && (this.dobStartError == ''|| this.dobStartError ==undefined) ) {
             this.dialogRef.close();
             this.router.navigate(['/bikepremium']);
           }
