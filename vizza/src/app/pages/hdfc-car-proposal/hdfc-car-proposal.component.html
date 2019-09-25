@@ -782,17 +782,35 @@
                         </div>
                     </div>
                     <section>
-                        <h5 class="mt-3 sub-title"> PROPOSER DETAILS </h5>
+                        <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
                         <div class="row box-card">
+                            <div class="col-md-12">
+                            </div>
                             <div class="col-md-6">
                                 <div class="p-3">
+
                                     <ul class="m-0 list-group">
                                         <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}}  {{proposerFormData.firstName}}{{proposerFormData.middleName}} {{proposerFormData.lastName}}</li>
                                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                         <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3">
+
+                                    <ul class="m-0 list-group">
                                         <li class="list-group-item" *ngIf="proposerFormData.email != ''"><strong>Email Id:</strong> {{proposerFormData.email}}</li>
                                         <li class="list-group-item" *ngIf="proposerFormData.mobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
-                                        <h4 class="color-blue mt-3">COMMUNICATION ADDRESS</h4>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="p-3">
+                                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                                    <ul class="m-0 list-group">
                                         <li class="list-group-item mt-1"><strong>Address 1:</strong> {{proposerFormData.address4}}</li>
                                         <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.address5}}</li>
                                         <li class="list-group-item" ><strong>PIN code:</strong> {{proposerFormData.pincode1}}</li>
@@ -800,13 +818,12 @@
                                         <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.statecom}}</li>
                                         <li class="list-group-item" ><strong>District:</strong> {{proposerFormData.districtcom}}</li>
                                         <li class="list-group-item" *ngIf="proposerFormData.landmarkcom != ''" ><strong>Landmark:</strong> {{proposerFormData.landmarkcom}}</li>
-
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4 class="color-blue mt-3">PERMANENT ADDRESS</h4>
-                                <div class="p-3">
+                                <div class=" p-3">
+                                    <h6 class="color-blue">REGISTRATION DETAILS</h6>
                                     <ul class="m-0 list-group">
                                         <li class="list-group-item" *ngIf="proposerFormData.address != ''"><strong>Address 3:</strong> {{proposerFormData.address}}</li>
                                         <li class="list-group-item" *ngIf="proposerFormData.address2 != ''"><strong>Address 4:</strong> {{proposerFormData.address2}}</li>
@@ -815,12 +832,12 @@
                                         <li class="list-group-item"><strong>State:</strong> {{proposerFormData.statepermanent}}</li>
                                         <li class="list-group-item"><strong>District:</strong> {{proposerFormData.districtpermanent}}</li>
                                         <li class="list-group-item" *ngIf="proposerFormData.landmarkpermanent != ''" ><strong>Landmark:</strong> {{proposerFormData.landmarkpermanent}}</li>
-
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </section>
+
                     <section>
                         <h5 class="mt-3 sub-title"> VEHICLE DETAILS </h5>
                         <div class="row box-card">
@@ -831,6 +848,13 @@
                                         <li class="list-group-item"><strong>Chassis Number:</strong> {{vehicalFormData.chassis}} </li>
                                         <li class="list-group-item"><strong>Vechicle Model:</strong> {{vehicalFormData.vehiclemodel}} </li>
                                         <li class="list-group-item"><strong>Vechicle Manufacture year:</strong> {{vehicalFormData.manufactureyear}} </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3">
+                                    <ul class="m-0 list-group">
                                         <li class="list-group-item"><strong>Vechicle Regsitration Date:</strong> {{vehicalFormData.Vehicleregdate | date: 'dd/MM/yyyy'}} </li>
                                         <li class="list-group-item"><strong>Registered No:</strong> {{vehicalFormData.regno}} </li>
                                         <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Agreement Type:</strong> {{vehicalFormData.Agreement}} </li>
@@ -850,6 +874,13 @@
                                         <li class="list-group-item"><strong>Previous Insurance Company:</strong>{{vehicalFormData.Previouscompanyvalue}}</li>
                                         <li class="list-group-item"><strong>Previous Ncb:</strong> {{vehicalFormData.ncb}}</li>
                                         <li class="list-group-item"><strong>Previous Policy End Date:</strong> {{vehicalFormData.previousenddate | date: 'dd/MM/yyyy'}}</li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 mt-2">
+                                    <ul class="m-0 list-group">
                                         <li class="list-group-item"><strong>Previous Policy NO:</strong> {{vehicalFormData.previouspolicyno}}</li>
                                         <li class="list-group-item"><strong>Vechicle idv:</strong> {{vehicleidv.Idv}}</li>
                                         <li class="list-group-item"><strong>Previous Policy  Claim:</strong> {{vehicalFormData.previouspolicyclaim}}</li>
@@ -858,50 +889,74 @@
                             </div>
                         </div>
                     </section>
-                    <section >
-                        <h5 class="mt-3 sub-title"> Addons </h5>
+                    <section>
+                        <h5 class="mt-3 sub-title">ADDONS </h5>
                         <div class="row box-card">
                             <div class="col-md-6">
-                                <div class="p-3 mt-2">
+                                <div class="p-3">
+
                                     <ul class="m-0 list-group">
                                         <li class="list-group-item"><strong>Extension County  :</strong>{{previousFormData.extentioncountryvalue}}</li>
-                                        <li class="list-group-item"><strong>Anti Theft Disc  :</strong>{{previousFormData.Antitheftdiscflag=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Handicap Disc  :</strong>{{previousFormData.HandicapDiscFlag=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is Effective Driving Licence  :</strong>{{previousFormData.drivinglicence=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.policytenture !=''"><strong>Policy Tenure  :</strong>{{previousFormData.policytenture}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.drivinglicence !=''"><strong>Effective Driving Licence :</strong>{{previousFormData.drivinglicence}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.biofuel !=''"><strong>BioFuel Type  :</strong>{{previousFormData.biofuel}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>BioFuel kit Price :</strong>{{previousFormData.biofuelkit}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.Antitheftdiscflag !=''"><strong>Anti Theft Disc Flag :</strong>{{previousFormData.Antitheftdiscflag}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.HandicapDiscFlag !=''"><strong>Handicap Disc Flag :</strong>{{previousFormData.HandicapDiscFlag}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.HandicapDiscFlag == true"><strong>Handicap Disc Flag :</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.HandicapDiscFlag == false"><strong>Handicap Disc Flag :</strong>No</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.numdrivers !=''"><strong>Number of Drivers :</strong>{{previousFormData.numdrivers}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.paiddriversi !=''"><strong>Paid Driver Sum Insure  :</strong>{{previousFormData.paiddriversi}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.ElecticalAccessoryIDV !=''"><strong>Electrical Accessory IDV  :</strong>{{previousFormData.ElecticalAccessoryIDV}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.NonElecticalAccessoryIDV !=''"><strong>Non Electical Accessory IDV :</strong>{{previousFormData.NonElecticalAccessoryIDV}}</li>
-                                        <li class="list-group-item"><strong>Other Load DiscRate  :</strong>{{previousFormData.OtherLoadDiscRate=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is Paid Driver  :</strong>{{previousFormData.IsPaidDriver=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.paiddriversi !=''"><strong>Paid Driver Sum Insure  :</strong>{{previousFormData.paiddriversi}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.policytenture !=''"><strong>policy tenure  :</strong>{{previousFormData.policytenture}}</li>
-                                        <li class="list-group-item"><strong>Pa cover  :</strong>{{previousFormData.pacover=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.biofuel !=''"><strong>Bio Fuel  :</strong>{{previousFormData.biofuel}}</li>
-                                        <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>Bio Fuel kit Price :</strong>{{previousFormData.biofuelkit}}</li>
-                                        <li class="list-group-item"><strong>Is Limited to Own Premises  :</strong>{{previousFormData.IsLimitedtoOwnPremises=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is zerodept Cover  :</strong>{{previousFormData.zerodept=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is NCB Protection  :</strong>{{previousFormData.IsNCBProtection=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is RTI cover  :</strong>{{previousFormData.IsRTIcover=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is COC cover  :</strong>{{previousFormData.IsCOCcover=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is Engine and Gear Cover  :</strong>{{previousFormData.engineandgear=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is Loss of Use Down TimeProt_Cover  :</strong>{{previousFormData.downtimeprotector=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is EA cover :</strong>{{previousFormData.IsEAAdvance_Cover=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is EAW cover :</strong>{{previousFormData.EAW=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is EAAdvance_Cover :</strong>{{previousFormData.IsEAAdvance_Cover=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is Towing_Cover :</strong>{{previousFormData.IsNCBProtection=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item"><strong>Is EMI Protector_Cover :</strong>{{previousFormData.IsEMIprotector_Cover=='true'?'Yes':'No'}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.noOfEmi !=''"><strong>No Of Emi :</strong>{{previousFormData.noOfEmi}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.EMIamount !=''"><strong>EMI Amount :</strong>{{previousFormData.EMIamount}}</li>
-                                        <li class="list-group-item" ><strong>No of Unnamed Person :</strong>{{previousFormData.NoofUnnamedPerson=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.NoofUnnamedPerson == true"><strong>No of Unnamed Person:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.NoofUnnamedPerson == false"><strong>No of Unnamed Person :</strong>No</li>
                                         <li class="list-group-item" *ngIf="previousFormData.UnnamedPersonSI !=''"><strong>Unnamed Person SI :</strong>{{previousFormData.UnnamedPersonSI}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.VoluntaryExcessDiscount !=''"><strong>Voluntary Excess Discount :</strong>{{previousFormData.VoluntaryExcessDiscount}}</li>
-                                        <li class="list-group-item"><strong>Is Limited to OwnPremises :</strong>{{previousFormData.IsLimitedtoOwnPremises=='true'?'Yes':'No'}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.TPPDLimit !=''"><strong>TPPD Limit :</strong>{{previousFormData.TPPDLimit}}</li>
-                                        <li class="list-group-item"><strong>No of NamedPerson :</strong>{{previousFormData.NoofnamedPerson=='true'?'Yes':'No'}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.NoofnamedPerson == true"><strong>No of Named Person:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.NoofnamedPerson == false"><strong>No of Named Person :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.namedPerson !=''"><strong> Person Name :</strong>{{previousFormData.namedPerson}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.namedPersonSI !=''"><strong>Named Person SI :</strong>{{previousFormData.namedPersonSI}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.namedPerson !=''"><strong>Named Person :</strong>{{previousFormData.namedPerson}}</li>
-                                        <!--<li class="list-group-item" *ngIf="previousFormData.pacover !=''" ><strong>Pa Cover  :</strong>{{previousFormData.pacover}}</li>-->
-                                        <!--<li class="list-group-item" *ngIf="previousFormData.pacovername !=''"><strong>Pa Cover Name  :</strong>{{previousFormData.pacovername}}</li>-->
-                                        <!--<li class="list-group-item" *ngIf="previousFormData.pasuminsured !=''"><strong>Pa Sum Insurance  :</strong>{{previousFormData.pasuminsured}}</li>-->
+                                        <li class="list-group-item" *ngIf="previousFormData.IsEMIprotector_Cover == true"><strong>Is EMI Protector_Cover:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsEMIprotector_Cover == false"><strong>Is EMI Protector_Cover :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.noOfEmi !=''"><strong>No Of EMI :</strong>{{previousFormData.noOfEmi}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.EMIamount !=''"><strong>EMI Amount :</strong>{{previousFormData.EMIamount}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsNCBProtection == true"><strong>Is NCB Protection:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsNCBProtection == false"><strong>Is NCB Protection :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == true"><strong>Is Limited to Own Premises  :</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == false"><strong>Is Limited to Own Premises  :</strong>No</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3">
+
+                                    <ul class="m-0 list-group">
+
+
+
+                                        <li class="list-group-item" *ngIf="previousFormData.IsRTIcover == true"><strong>Is Return To Invoice:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsRTIcover == false"><strong>Is Return To Invoice :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsCOCcover == true"><strong>Is Cost Of Consumables:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsCOCcover == false"><strong>Is Cost Of Consumables :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.engineandgear == true"><strong>Is Engine and Gear Box Protection:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.engineandgear == false"><strong>Is Engine and Gear Box Protection :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.downtimeprotector == true"><strong>Is Loss of Use Down Time Protection:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.downtimeprotector == false"><strong>Is Loss of Use Down Time Protection :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsEAAdvance_Cover == true"><strong>Is Emergency Assistance Advance_Cover:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsEAAdvance_Cover == false"><strong>Is Emergency Assistance Advance_Cover :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.EAW == true"><strong>Is Emergency Assistance Wider:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.EAW == false"><strong>Is Emergency Assistance Wider:</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.zerodept == true"><strong> Is Zerodept Cover  :</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.zerodept == false"><strong> Is Zerodept Cover  :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == true"><strong> Is Limited To Own Premises :</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == false"><strong> Is Limited To Own Premises  :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.OtherLoadDiscRate == true"><strong>Other Load Disc Rate :</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.OtherLoadDiscRate == false"><strong>Other Load Disc Rate :</strong>No</li>
+                                        <!--<li class="list-group-item"><strong>Pa cover  :</strong>{{previousFormData.pacover=='true'?'Yes':'No'}}</li>-->
+                                        <!--<li class="list-group-item"><strong>Is Limited to Own Premises  :</strong>{{previousFormData.IsLimitedtoOwnPremises=='true'?'Yes':'No'}}</li>-->
+
                                     </ul>
                                 </div>
                             </div>
@@ -916,6 +971,15 @@
                                         <li class="list-group-item" *ngIf="previousFormData.NomineeName !=''" ><strong>NomineeName :</strong>{{previousFormData.NomineeName}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.NomineeAge !=''"><strong>NomineeAge:</strong> {{previousFormData.NomineeAge}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.nomineeRelation !=''"><strong>nomineeRelation:</strong> {{previousFormData.nomineeRelation}}</li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 mt-2">
+                                    <ul class="m-0 list-group">
+
                                         <li class="list-group-item" *ngIf="previousFormData.appointeename !=''"><strong>appointeename:</strong> {{previousFormData.appointeename}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.appointeerelation !=''"><strong>appointeerelation:</strong> {{previousFormData.appointeerelation}}</li>
 
