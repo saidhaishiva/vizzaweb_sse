@@ -144,7 +144,7 @@ export class IffcoTokioComponent implements OnInit {
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.stepperindex = 0;
         this.route.params.forEach((params) => {
-            if (params.stepper == true) {
+            if(params.stepper == true || params.stepper == 'true') {
                 this.stepperindex = 3;
             }
             this.status = params.stepper;
@@ -156,7 +156,6 @@ export class IffcoTokioComponent implements OnInit {
                 this.getBackRequest();
             }
             if (this.proposal_Id == undefined || this.proposal_Id == '') {
-                alert();
                 this.payLaterr = false;
             }
 
@@ -291,6 +290,8 @@ export class IffcoTokioComponent implements OnInit {
     ngOnInit() {
         if (this.payLaterr == true) {
             this.stepperindex = 3;
+            console.log(this.stepperindex, ' this.stepperindex');
+                alert();
         } else {
             console.log(this.payLaterr, 'this.payLaterrolll222');
             this.numberValidateErr = false;
@@ -1106,6 +1107,7 @@ export class IffcoTokioComponent implements OnInit {
             console.log(this.nomineeFormData, 'nomineeFormData');
             console.log(this.personalFormData, 'personalFormData');
             this.createdDate = new Date();
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
             stepper.next();
             this.nextStep();
             this.topScroll();
