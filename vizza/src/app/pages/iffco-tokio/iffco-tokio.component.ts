@@ -1338,6 +1338,7 @@ export class IffcoTokioComponent implements OnInit {
             'paymentlink-date': '',
             'product_id': this.buyProductdetails.product_id,
             'plan_name': this.buyProductdetails.product_name,
+            'company_logo': this.buyProductdetails.company_logo,
             'sum_insured_amount': this.buyProductdetails.suminsured_amount,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
