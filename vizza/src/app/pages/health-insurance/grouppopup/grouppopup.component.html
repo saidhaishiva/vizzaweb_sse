@@ -56,11 +56,15 @@
 <!--mobile view-->
 <section class="d-block d-sm-block d-md-block d-lg-none d-xl-none">
   <div class="container" id="main-content">
-  <div class="text-right">
-    <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+  <div class="row">
+    <div class="col-12 text-right">
+      <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+    </div>
   </div>
-  <div class="text-center" >
-    <h3 class="color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> Family Group</h3>
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3 class="color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> Family Group</h3>
+    </div>
   </div>
   <div class="row mt-4">
     <div class="col-12" *ngFor="let clists of compareDetails">
@@ -95,7 +99,7 @@
   </div>
 
   <div class="row mt-4">
-    <div class=" col-12 col-md-12">
+    <div class=" col-12">
       <div class="card notes"  style="background:#FFE4F2; border:1px solid #D5528E;">
         <div class="card-body">
           <p style="margin-bottom: 0rem; color: #D5528E; font-style: italic; font-size: 12px;"> <strong>Note : </strong>Family groups are bifurcated based on their relationship, age, and other factors. (Due to this premium, sum insured, key features may vary accordingly based on their family group).</p>
@@ -104,8 +108,10 @@
     </div>
   </div>
 
-  <div class="text-center mt-4">
-    <button mat-raised-button color="primary" style="text-align: center" (click)="onNoClick();topScroll() ">Proceed</button>
+  <div class="row mt-4">
+    <div class="col-12 text-center">
+      <button mat-raised-button color="primary" style="text-align: center" (click)="onNoClick();topScroll() ">Proceed</button>
+    </div>
   </div>
   </div>
 </section>

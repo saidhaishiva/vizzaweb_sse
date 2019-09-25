@@ -99,7 +99,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     public previousInsuranceStatus1: any;
     public hideQuestion: any;
     public questions_list: any;
-    public totalData: any;
+    public pos_status: any;
     public sameField: any;
     public insureCity: any;
     public isDisable: any;
@@ -1743,6 +1743,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             sessionStorage.previousInsuranceFromData = JSON.stringify(this.previousInsuranceFromData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
             this.createdDate = new Date();
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
             stepper.next();
             this.nextStep();
             this.topScroll();
@@ -1957,6 +1958,8 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.requestPersonalInfo = this.requestDetails.ClientDetails.ClientAddress;
 
             this.requestInsuredDetails = this.requestDetails.InsuredDetailsList.InsuredDetail;
+            this.pos_status = this.requestDetails.role_id;
+
             // console.log(this.requestInsuredDetails, 'hgghjghjgjh');
         } else {
         }

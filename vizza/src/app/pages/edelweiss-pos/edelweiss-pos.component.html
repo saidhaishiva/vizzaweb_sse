@@ -261,7 +261,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <mat-form-field class="w-100">
-                            <input maxlength="80" matInput placeholder="Address 1" formControlName="currAddr1" (keyup)="addressValidate()" (keypress)="addressValidate($event)" autocomplete="off" required>
+                            <input maxlength="80" matInput placeholder="Address 1" formControlName="currAddr1" (keyup)="addressValidate($event)" (keypress)="addressValidate($event)" autocomplete="off" required>
 
                             <mat-error *ngIf="proposer.controls.currAddr1.errors?.required"> Address 1 is required</mat-error>
                           </mat-form-field>
