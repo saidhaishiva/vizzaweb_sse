@@ -5,7 +5,7 @@
         <mat-horizontal-stepper #stepper [selectedIndex]="currentStep" >
           <mat-step [stepControl]="personal">
             <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
-            <mat-accordion class="w-100 float-left">
+            <mat-accordion class="w-100 float-left" *ngIf="payLaterr == false">
               <form [formGroup]="personal">
                 <mat-expansion-panel expanded>
                   <mat-expansion-panel-header>
@@ -174,7 +174,7 @@
           </mat-step>
           <mat-step [stepControl]="">
             <ng-template matStepLabel >INSURED DETAILS</ng-template>
-            <mat-accordion class="w-100 float-left">
+            <mat-accordion class="w-100 float-left" *ngIf="payLaterr == false">
               <form [formGroup]="insureArray">
                 <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
                   <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
@@ -264,7 +264,7 @@
 
           <mat-step [stepControl]="">
             <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
-            <mat-accordion class="w-100 float-left">
+            <mat-accordion class="w-100 float-left" *ngIf="payLaterr == false">
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -427,22 +427,147 @@
                   </div>
                 </div>
               </section>
+            </section>
+            <section class="summary-details" *ngIf="payLaterr == true">
+              <div class="row">
+                <div class="col-md-4">
+                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">{{requestDetails.group_name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.sum_insured_amount}}</span></h4>
+                </div>
+                <div class="col-md-8">
+                  <h4 class="mt-4"></h4>
+                  <ul class="summary-head">
+
+                    <li><span>Insurer:</span><img src="{{ webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+
+                    <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{requestDetails.totalPremium}}</span></li>
+                    <li></li>
+                  </ul>
+                </div>
+              </div>
+              <section>
+                <h5 class="mt-3 sub-title">PROPOSER DETAILS</h5>
+                <div class="row box-card">
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Name:</strong>{{proposerData.Title}}.{{proposerData.FirstName}} {{proposerData.LastName}} </li>
+                        <li class="list-group-item"><strong>Gender:</strong> {{proposerData.Gender}} </li>
+                        <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerData.MobileNumber}}</li>
+                        <li class="list-group-item"><strong>D.O.B:</strong> {{proposerData.DOB  | date: 'dd/MM/yyyy'}}</li>
+                        <li class="list-group-item"><strong>Email:</strong> {{proposerData.Email}}</li>
+                        <!--<li class="list-group-item" *ngIf="proposerData.STDCode != ''"><strong>STD Code:</strong> {{proposerData.STDCode}}</li>-->
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item" *ngIf="proposerData.Landlineno != ''"><strong>LandLine Number:</strong> {{proposerData.Landlineno}}</li>
+                        <li class="list-group-item"><strong>Occupation:</strong> {{proposerData.occupationName}}</li>
+                        <li class="list-group-item"><strong>Marital Status:</strong> {{proposerData.Maritalstatus}}</li>
+                        <li class="list-group-item"><strong>Annual Income:</strong> {{proposerData.Income}}</li>
+                        <li class="list-group-item" *ngIf="proposerData.GSTNumber != ''"><strong>GST No:</strong> {{proposerData.GSTNumber | uppercase}}</li>
+                        <li class="list-group-item" *ngIf="proposerData.ISDNNumber != ''"><strong>ISDN Number:</strong> {{proposerData.ISDNNumber}}</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Address 1:</strong> {{proposerData.Address1}}</li>
+                        <li class="list-group-item" *ngIf="proposerData.Address2 != ''" ><strong>Address 2:</strong> {{proposerData.Address2}}</li>
+                        <li class="list-group-item"><strong>Pincode:</strong> {{proposerData.Pincode}}</li>
+
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <h6 class="color-blue mt-4"></h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>State:</strong> {{proposerData.State}}</li>
+                        <li class="list-group-item"><strong>City:</strong> {{proposerData.City}}</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </section>
+
+              <section *ngFor="let item of insuredData; let i = index;">
+                <h5 class="mt-3 sub-title">INSURED DETAILS FOR {{item.type | uppercase}}</h5>
+                <div class="row box-card">
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <h6 class="color-blue"></h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Name:</strong> {{item.Title}}.{{item.FirstName}} {{item.LastName}}</li>
+                        <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd/MM/yyyy'}}</li>
+                        <li class="list-group-item"><strong>Gender:</strong> {{item.Gender}} </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <h6 class="color-blue"></h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{item.Relationship}}</li>
+                         <li class="list-group-item" *ngIf="item.PreExistingDisease == 'No'"><strong >Pre Existing Disease :  </strong> No </li>
+                        <li class="list-group-item"  *ngIf="item.PreExistingDisease == 'Yes'"><strong >Pre Existing Disease :  </strong> Yes </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+                <div class="row box-card">
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <ul class="m-0 list-group">
+                            <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeDataPay.NomineeName}}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <ul class="m-0 list-group">
+                            <li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeDataPay.NomineeRelationship}}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </section>
 
               <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
               <hr>
 
               <div class="row">
                 <div class="col-md-12 text-center">
-                  <form action={{summaryData.PaymentActionUrl}}  method='post' #form>
+                  <form action={{PaymentActionUrl}}  method='post' #form>
 
 
-                    <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
+                    <button mat-button matStepperPrevious  (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
+                    <button mat-raised-button color="primaryBlue" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
                     <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                   </form>
                 </div>
               </div>
 
-            </section>
           </mat-step>
 
 

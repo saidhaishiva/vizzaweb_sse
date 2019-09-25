@@ -11,7 +11,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {HealthService} from '../../shared/services/health.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 export const MY_FORMATS = {
@@ -83,14 +83,25 @@ export class CholaHealthProposalComponent implements OnInit {
   public webhost: any;
 
   public relationsame1: any;
+  public requestDetails: any;
+  public pos_status: any;
   public currentStep: any;
+  public payLaterr: any;
   public nomineerelationshipList: any;
+  public createdDate: any;
+  public status: any;
+  public proposal_Id: any;
+  public stepperindex: any;
+  public PaymentActionUrl: any;
+  public proposerData: any;
+  public insuredData: any;
+  public nomineeDataPay: any;
 
-  constructor(public fb: FormBuilder, public authservice: AuthService, public config: ConfigurationService, public appSettings: AppSettings, public http: HttpClient, public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, public termService: HealthService, private toastr: ToastrService ) {
-    let stepperindex = 0;
+  constructor(public fb: FormBuilder, public authservice: AuthService, public config: ConfigurationService, public appSettings: AppSettings, public http: HttpClient, public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, public termService: HealthService, private toastr: ToastrService,public router: Router, ) {
+    this.stepperindex = 0;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
-        stepperindex = 3;
+        this.stepperindex = 3;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
           this.RediretUrlLink = this.summaryData.PaymentURL;
@@ -101,8 +112,20 @@ export class CholaHealthProposalComponent implements OnInit {
           sessionStorage.chola_health_proposal_id = this.proposalId;
         }
       }
+        this.status = params.stepper;
+        this.proposal_Id = params.proposalId;
+        if(this.proposal_Id != '' || this.proposal_Id != undefined ){
+            this.payLaterr = true;
+            console.log(this.proposal_Id, 'this.proposalId');
+            console.log(this.status, 'this.proposalId');
+            this.getBackRequest();
+        }
+        if(this.proposal_Id == undefined || this.proposal_Id == '') {
+            this.payLaterr = false;
+        }
+        console.log(this.payLaterr, 'cons');
     });
-      this.currentStep  = stepperindex;
+      this.currentStep  = this.stepperindex;
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today  = new Date();
@@ -149,35 +172,40 @@ export class CholaHealthProposalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setOccupationList();
-    this.maritalStatus();
-    this.setRelationship();
-    this.cholaTitlegender();
-    //   for (let i = 0; i < this.relationsame1.length; i++) {
-    //       if (this.relationsame1 = 'Spouse') {
-    //           this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Spouse');
-    //           this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Spouse']);
-    //       }
-    //   }
-    // this.cholaTotalsuminsuredList();
+      if (this.payLaterr == true) {
+          this.stepperindex = 3;
+          console.log(this.payLaterr, 'this.payLaterrolll');
+      } else {
+          this.setOccupationList();
+          this.maritalStatus();
+          this.setRelationship();
+          this.cholaTitlegender();
+          //   for (let i = 0; i < this.relationsame1.length; i++) {
+          //       if (this.relationsame1 = 'Spouse') {
+          //           this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Spouse');
+          //           this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Spouse']);
+          //       }
+          //   }
+          // this.cholaTotalsuminsuredList();
 
 
-      this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-      this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-      this.insurePersons = this.getFamilyDetails.family_members;
-      this.totalPermiumlist = this.getFamilyDetails.product_id;
-      // for (let i = 0; i < this.getFamilyDetails.product_id.length; i++) {
-      // }
-      this.insureArray = this.fb.group({
-      items: this.fb.array([])
-    });
-    for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
-      this.items = this.insureArray.get('items') as FormArray;
-      this.items.push(this.initItemRows());
-        this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
-    }
-      this.sessionData();
+          this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+          this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+          this.insurePersons = this.getFamilyDetails.family_members;
+          this.totalPermiumlist = this.getFamilyDetails.product_id;
+          // for (let i = 0; i < this.getFamilyDetails.product_id.length; i++) {
+          // }
+          this.insureArray = this.fb.group({
+              items: this.fb.array([])
+          });
+          for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+              this.items = this.insureArray.get('items') as FormArray;
+              this.items.push(this.initItemRows());
+              this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
+          }
+          this.sessionData();
 
+      }
   }
   setStep(index: number) {
     this.step = index;
@@ -981,8 +1009,11 @@ console.log( sessionStorage.stepper3Details);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
             sessionStorage.chola_health_proposal_id = this.proposalId;
+            this.createdDate = new Date();
+            this.pos_status = this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4';
+            this.PaymentActionUrl = this.summaryData.PaymentActionUrl;
 
-          stepper.next();
+            stepper.next();
           this.nextStep();
 
         } else {
@@ -1010,5 +1041,125 @@ console.log( sessionStorage.stepper3Details);
   changeNomineeRelation() {
         this.nomineeDetails.controls['nomineeRelationshipName'].patchValue(this.relationshipList[this.nomineeDetails.controls['nomineeRelationship'].value]);
   }
+
+  // pay Later
+    payLater(){
+
+      const data = {
+            "enquiry_id": this.getFamilyDetails.enquiry_id,
+            "proposal_id": sessionStorage.chola_health_proposal_id == '' || sessionStorage.chola_health_proposal_id == undefined ? '' : sessionStorage.chola_health_proposal_id,
+            "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            "product_id": this.buyProductdetails.product_id,
+            "totalPremium": this.summaryData.totalPremium,
+            "company_logo": this.buyProductdetails.company_logo,
+            "PaymentActionUrl": this.summaryData.PaymentActionUrl,
+             'created-date': this.createdDate,
+            'paymentlink-date': '',
+            "suminsured_id": this.buyProductdetails.suminsured_id,
+            "sum_insured_amount": this.buyProductdetails.suminsured_amount,
+            "group_name": this.getFamilyDetails.name,
+            "ProposalSave": {
+                "ObjProposalService": {
+                    "TotalSumInsured": this.buyProductdetails.suminsured_amount,
+                    "InsuranceDetails": "Family",
+                    "ProposalDetails": {
+                        "ClsMIBLProposalDetails": {
+                            "Title": this.personal.controls['personalTitle'].value,
+                            "FirstName": this.personal.controls['personalFirstname'].value,
+                            "LastName":this.personal.controls['personalLastname'].value,
+                            "DOB":this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd'),
+                            "Maritalstatus": this.personal.controls['maritalStatusName'].value,
+                            "Occupation": this.personal.controls['occupation'].value,
+                            "occupationName": this.personal.controls['occupationName'].value,
+                            "Income": this.personal.controls['personalIncome'].value,
+                            "Email": this.personal.controls['personalEmail'].value,
+                            "Address1": this.personal.controls['personalAddress'].value,
+                            "Address2": this.personal.controls['personalAddress2'].value,
+                            "State": this.personal.controls['personalState'].value,
+                            "City": this.personal.controls['personalCity'].value,
+                            "Pincode": this.personal.controls['personalPincode'].value,
+                            "STDCode": this.personal.controls['personalstdcode'].value,
+                            "Landlineno": this.personal.controls['personalLandlineno'].value,
+                            "MobileNumber": this.personal.controls['personalMobile'].value,
+                            "Gender": this.personal.controls['personalGender'].value,
+                            "CustMailStateCd": this.personal.controls['personalStateIdP'].value,
+                            "GSTNumber": this.personal.controls['personalGst'].value,
+                            "ISDNNumber": this.personal.controls['personalIsdn'].value,
+                        }
+                    },
+                    "InsuredDetails": {
+                        "clsInsuredDetails": this.totalInsureDetails,
+                    },
+                    "NomineeDetails": {
+                        "ClsMIBLNomineeDetails": {
+                            "NomineeName": this.nomineeData.nomineeName,
+                            "NomineeRelationship": this.nomineeData.nomineeRelationship,
+                        }
+                    }
+                    // "MIBLTransID": "ksakasjaiqw4a"
+                }
+
+            }
+        };
+        console.log(data, 'payyyyy');
+        this.settings.loadingSpinner = true;
+        this.termService.proposalPayLater(data).subscribe(
+            (successData) => {
+                this.payLaterSuccess(successData);
+            },
+            (error) => {
+                this.payLaterFailure(error);
+            }
+        );
+
+    }
+    public payLaterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.toastr.success(successData.ResponseObject);
+
+            this.saveEdit();
+        } else {
+            // this.toastr.error('sorry!');
+        }
+    }
+
+    public payLaterFailure(successData) {
+    }
+    saveEdit(){
+        this.router.navigate(['/home']);
+
+    }
+    // get request
+    getBackRequest() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'proposal_id': this.proposal_Id
+        };
+        this.termService.proposalGetRequest(data).subscribe(
+            (successData) => {
+                this.getBackResSuccess(successData);
+            },
+            (error) => {
+                this.getBackResFailure(error);
+            }
+        );
+    }
+
+    public getBackResSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.requestDetails = successData.ResponseObject;
+            this.pos_status = this.requestDetails.role_id;
+           this.proposerData = this.requestDetails.ProposalSave.ObjProposalService.ProposalDetails.ClsMIBLProposalDetails;
+           this.insuredData = this.requestDetails.ProposalSave.ObjProposalService.InsuredDetails.clsInsuredDetails;
+           this.nomineeDataPay = this.requestDetails.ProposalSave.ObjProposalService.NomineeDetails.ClsMIBLNomineeDetails;
+        }
+    }
+    public getBackResFailure(successData) {
+    }
 
 }

@@ -346,6 +346,7 @@ export const routes: Routes = [
             { path: 'bajaj-travel/:stepper', component: TravelBajajalianzProposalComponent, data:{ breadcrumb: 'Travel Bajajalianz '}},
             { path: 'bajaj-travelProposal/:proposalId/:stepper', component: TravelBajajalianzProposalComponent, data:{ breadcrumb: 'Travel Bajajalianz '}},
             { path: 'chola-health-proposal/:stepper', component: CholaHealthProposalComponent, data:{ breadcrumb: 'Chola Health'}},
+            { path: 'chola-proposal/:proposalId/:stepper', component: CholaHealthProposalComponent, data:{ breadcrumb: 'Chola Health'}},
             { path: 'reliance-motor-proposal/:stepper', component: RelianceMotorProposalComponent, data:{ breadcrumb: 'Reliance Motor'}},
             { path: 'bajaj-travel-payment-success/:status/:proId', component: TravelBajajPaymentSuccessComponent, data:{ breadcrumb: 'travel Bajaj'}},
             { path: 'reliance-pa-payment-success/:status/:proId', component: ReliancePaPaymentSuccessComponent, data:{ breadcrumb: 'reliance pa'}},
