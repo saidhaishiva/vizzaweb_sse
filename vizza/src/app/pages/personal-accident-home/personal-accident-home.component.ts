@@ -590,9 +590,19 @@ export class PersonalaccidentComponent implements OnInit {
             let policylists = successData.ResponseObject;
             this.productListArray.push(policylists.product_lists);
             this.allProductLists = [].concat.apply([], this.productListArray);
+            let premium;
+            let premium_format;
+
             for (let i = 0; i < this.allProductLists.length; i++) {
                 this.allProductLists[i].compare = false;
-                this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
+                let premium = this.numberWithCommas(this.allProductLists[i].premium_amount);
+                console.log(premium, 'premiumpremium');
+                if(premium.length == 7){
+                    premium_format = premium.replace(",","");
+                } else if(premium.length != 7){
+                    premium_format = premium;
+                }
+                this.allProductLists[i].premium_amount_format = premium_format;
                 this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
             }
             sessionStorage.selectedAmountP = this.selectedAmountP;
@@ -601,7 +611,7 @@ export class PersonalaccidentComponent implements OnInit {
             sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
             sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
-
+            console.log(this.allProductLists, 'this.allProductLists');
         } else {
             this.toast.error(successData.ErrorObject);
         }
