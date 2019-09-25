@@ -71,7 +71,7 @@ export const horizontalMenuItems = [
     new Menu (21, 'Life Insurance-Endowment', '/endowment-life-insurance', null, null, null, false, 9),
     new Menu (28, 'ULIP', '/ulip', null, null, null, false, 9),
     new Menu (60, 'Bajaj Goal Suruaksha', '/gold-suraksha', null, null, null, false, 9),
-    new Menu (55, 'Edelweiss Pos', '/edelweiss-pos-home', null, null, null, false, 9),
+    new Menu (55, 'Edelweiss', '/edelweiss-pos-home', null, null, null, false, 9),
     new Menu (22, 'General Insurance', '/', null, null, null, true, 0),
     new Menu (24, 'Commercial Insurance', '/', null, null, null, true, 22),
     new Menu (29, 'Jewelers Block Policy', '/jewelers', null, null, null, false, 24),

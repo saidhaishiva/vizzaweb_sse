@@ -16,11 +16,13 @@
 
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" (keypress)="dobValidate($event)" formControlName="registrationDate"   maxlength="10" minlength="10" required>
+        <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" (keypress)="dobValidate($event);maxDatechange()" (keyup)="maxDatechange()" (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')" formControlName="registrationDate"   maxlength="10" minlength="10" required>
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
         <mat-error *ngIf="vehicalDetails.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
       </mat-form-field>
+      <div class="error" *ngIf="errorFutureDate !='' && errorFutureDate != true">{{errorFutureDate}}</div>
+      <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
     </div>
     <div class="col-md-3" *ngIf="vehicalDetails.controls['bussiness'].value != '1' && vehicalDetails.controls['bussiness'].value != ''">
       <mat-form-field class="w-100">
@@ -62,12 +64,13 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (change)="manifactureList()"  required>
+        <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (change)="manifactureList()"   required>
           <mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
         </mat-select>
         <mat-error *ngIf="vehicalDetails.controls.manufacture.errors?.required">Vehicle Manufacture is required</mat-error>
         <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
       </mat-form-field>
+
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
@@ -98,9 +101,10 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (input)="numberValidate($event);manufactureYear()" formControlName="manufactureYear"  required>
+        <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event)"  (click)="manufactureYear()" (keyup)="manufactureYear()" formControlName="manufactureYear"  required>
         <mat-error *ngIf="vehicalDetails.controls.manufactureYear.errors?.required">Manufacture Year is required</mat-error>
       </mat-form-field>
+        <div class="error" *ngIf="manfactureErrorDate !='' && manfactureErrorDate != true">{{manfactureErrorDate}}</div>
     </div>
     <div class="col-md-3">
       <mat-placeholder>Registration City <span class="color-red">*</span></mat-placeholder>
