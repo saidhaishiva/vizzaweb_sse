@@ -553,28 +553,38 @@ export class HdfcCarProposalComponent implements OnInit {
     validationforadons(event,value){
       console.log(event);
       if(this.addOns.controls['numdrivers'].value !=''){
+          this.addOns.controls['numdrivers'].value == true;
           this.addOns.controls['paiddriversi'].setValidators([Validators.required]);
           this.addOns.controls['paiddriversi'].updateValueAndValidity();
-
+console.log(this.addOns.controls['numdrivers'].value,'valueeeeeeeee')
       }else if(this.addOns.controls['numdrivers'].value ==''){
+          this.addOns.controls['numdrivers'].value == false;
           this.addOns.controls['paiddriversi'].patchValue('');
           this.addOns.controls['paiddriversi'].setValidators(null);
           this.addOns.controls['paiddriversi'].updateValueAndValidity();
       }if(event.checked==true && value =='unamed'){
           console.log('rr');
+            this.addOns.controls['NoofUnnamedPerson'].value == true;
             this.addOns.controls['UnnamedPersonSI'].setValidators([Validators.required]);
             this.addOns.controls['UnnamedPersonSI'].updateValueAndValidity();
+            console.log(this.addOns.controls['NoofUnnamedPerson'].value,'valueeeeeeeee')
+
         }else if(event.checked==false && value =='unamed') {
+            this.addOns.controls['NoofUnnamedPerson'].value == false;
             this.addOns.controls['UnnamedPersonSI'].patchValue('');
             this.addOns.controls['UnnamedPersonSI'].setValidators(null);
             this.addOns.controls['UnnamedPersonSI'].updateValueAndValidity();
         }if(event.checked==true && value =='named'){
           console.log('gg');
+            this.addOns.controls['NoofnamedPerson'].value == true;
             this.addOns.controls['namedPerson'].setValidators([Validators.required]);
             this.addOns.controls['namedPerson'].updateValueAndValidity();
             this.addOns.controls['namedPersonSI'].setValidators([Validators.required]);
             this.addOns.controls['namedPersonSI'].updateValueAndValidity();
+            console.log(this.addOns.controls['NoofnamedPerson'].value,'valueeeeeeeee')
+
         }else if(event.checked==false && value =='named'){
+            this.addOns.controls['NoofnamedPerson'].value == false;
             this.addOns.controls['namedPerson'].patchValue('');
             this.addOns.controls['namedPerson'].setValidators(null);
             this.addOns.controls['namedPerson'].updateValueAndValidity();

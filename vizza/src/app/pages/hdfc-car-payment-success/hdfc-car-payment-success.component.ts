@@ -23,7 +23,7 @@ export class HdfcCarPaymentSuccessComponent implements OnInit {
     public proposalId: any;
     public settings: Settings;
 
-  constructor(public config: ConfigurationService, public bikeService: BikeInsuranceService,public fourwheelerservice: FourWheelerService, public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public bikeService: BikeInsuranceService, public fourwheelerservice: FourWheelerService, public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
       this.settings = this.appSettings.settings;
       this.route.params.forEach((params) => {
           console.log(params);
@@ -54,6 +54,7 @@ export class HdfcCarPaymentSuccessComponent implements OnInit {
                 this.downloadPdfFailure(error);
             }
         );
+
     }
     downloadPdfSuccess(successData) {
         console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
@@ -80,5 +81,50 @@ export class HdfcCarPaymentSuccessComponent implements OnInit {
     downloadPdfFailure(error) {
         console.log(error);
     }
+    // DownloadPdf() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+    //         'policy_id' : this.proposalId,
+    //
+    //     }
+    //     this.settings.loadingSpinner = true;
+    //     this.fourwheelerservice.getDownloadCarPdfHDFC(data).subscribe(
+    //         (successData) => {
+    //             this.downloadPdfSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.downloadPdfFailure(error);
+    //         }
+    //     );
+    // }
+    // downloadPdfSuccess(successData) {
+    //     console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
+    //     this.type = successData.ResponseObject.type;
+    //     this.path = successData.ResponseObject.path;
+    //     this.settings.loadingSpinner = false;
+    //
+    //     if (successData.IsSuccess == true) {
+    //         console.log(this.type, 'ww22');
+    //         console.log(this.path, 'path');
+    //         this.path = successData.ResponseObject.path;
+    //
+    //         this.currenturl = this.config.getimgUrl();
+    //         if (this.type == 'pdf') {
+    //             console.log(successData.ResponseObject, 'www333');
+    //             window.open(this.path,'_blank');
+    //         } else if (this.type === 'pdf') {
+    //             console.log(successData.ResponseObject, 'www3444');
+    //             window.open(this.path,'_blank');
+    //         } else {
+    //         }
+    //     } else {
+    //         this.toast.error(successData.ErrorObject);
+    //     }
+    // }
+    // downloadPdfFailure(error) {
+    //     console.log(error);
+    // }
 
 }
