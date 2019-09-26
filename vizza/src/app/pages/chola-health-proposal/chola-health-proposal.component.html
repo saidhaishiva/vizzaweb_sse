@@ -562,7 +562,7 @@
 
 
                     <button mat-button matStepperPrevious  (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
-                    <button mat-raised-button color="primaryBlue" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
+                    <button mat-raised-button color="primaryBlue" style="color: white" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
                     <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                   </form>
                 </div>

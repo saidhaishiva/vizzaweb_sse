@@ -178,6 +178,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 this.stepperindex = 3;
+                console.log(params, 'params');
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.RediretUrlLink = this.summaryData.PaymentURL;

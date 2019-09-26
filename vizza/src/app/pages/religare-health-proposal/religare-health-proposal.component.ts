@@ -1992,6 +1992,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             'created-date': this.createdDate,
             'action': this.summaryData.action,
             'proposalNum': this.summaryData.proposalNum,
+            'total_premium': this.summaryData.total_premium,
+            'company_logo': this.buyProductdetails.company_logo,
             'returnURL': this.summaryData.returnURL,
             'paymentlink-date': '',
             'add_ons': this.setAddonDefault ? this.addonDetails.toString() : 'CAREWITHNCB',
@@ -2062,9 +2064,11 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.action =  this.requestDetails.action;
             this.proposalNum = this.requestDetails.proposalNum;
             this.returnURL = this.requestDetails.returnURL;
-
-                this.requestInsuredDetails = this.requestDetails.proposer_insurer_details;
+            this.requestInsuredDetails = this.requestDetails.proposer_insurer_details;
             console.log(this.requestInsuredDetails, 'hgghjghjgjh');
+            console.log(this.requestInsuredDetails.prop_identity_list[0].identity_number, 'hgghjghjgjh');
+            console.log(this.requestInsuredDetails.prop_contact_list[0].contact_no, 'hgghjghjgjh');
+            console.log(this.requestInsuredDetails.prop_email_list[0].email, 'hgghjghjgjh');
         } else {
         }
     }
