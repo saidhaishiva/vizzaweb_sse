@@ -554,7 +554,7 @@
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>
+                  <!--<li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>-->
                   <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> </li>
                   <li></li>
                 </ul>
@@ -738,18 +738,17 @@
           </section>
           <section class="summary-details" *ngIf="payLaterr == true">
             <div class="row">
-              <div class="col-md-4"> <h4 class="mt-4"> {{requestDetails.group_name}}/{{requestDetails.suminsured_amount}}</h4></div>
+              <div class="col-md-4"> <h4 class="mt-4">{{requestDetails.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.suminsured_amount}}</span></h4></div>
               <div class="col-md-8">
                 <ul class="summary-head">
-                  <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
-                  <li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.servicetax}}</span> /</li>
+                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                   <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.total_premium}}</span> </li>
                   <li></li>
                 </ul>
               </div>
             </div>
             <section *ngFor="let item of requestInsuredDetails; let i = index;">
-              <h5 class="mt-3 sub-title"><span>PROPOSER DETAILS</span> </h5>
+              <h5 class="mt-3 sub-title"><span *ngIf="i == 0">PROPOSER DETAILS</span> <span *ngIf="i != 0"> INSURED DETAILS FOR {{item.type | uppercase}} </span> </h5>
               <div class="row box-card">
                 <div class="col-md-12">
                 </div>
@@ -760,9 +759,9 @@
                       <li class="list-group-item"><strong>D.O.B:</strong> {{item.prop_dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{item.prop_gender}}</li>
                       <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.relationship_cd}}</li>
-                      <!--<li class="list-group-item" *ngIf="item.prop_email_list[i].email"><strong>Email Id:</strong> {{item.prop_email_list[i].email}}</li>-->
+                      <li class="list-group-item"><strong>Email Id:</strong> {{item.prop_email_list[0].email}}</li>
                       <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
-                      <!--<li class="list-group-item" ><strong>Mobile Number:</strong> {{item.prop_contact_list[i].contact_no}}</li>-->
+                      <li class="list-group-item" ><strong>Mobile Number:</strong> {{item.prop_contact_list[0].contact_no}}</li>
                       <!--<li class="list-group-item" *ngIf="item.personalAltnumber" ><strong>Alternate Number:</strong> {{item.personalAltnumber}}</li>-->
                     </ul>
                   </div>
@@ -770,11 +769,11 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <!--<li class="list-group-item" *ngIf="item.prop_identity_list[i].identity_number"><strong>PAN Number:</strong> {{item.prop_identity_list[i].identity_number | uppercase}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.prop_identity_list[i].identity_number"><strong>Aadhar Number:</strong> {{item.item.prop_identity_list[i].identity_number}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.prop_identity_list[i].identity_number"><strong>GST Number:</strong> {{item.item.prop_identity_list[i].identity_number | uppercase}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.weight && item.weight !=0 && i !=0"><strong>Weight:</strong> {{item.weight}}</li>-->
-                      <!--<li class="list-group-item" *ngIf="item.height && item.height !=0 && i !=0"><strong>height:</strong> {{item.height}}</li>-->
+                      <li class="list-group-item"><strong>PAN Number:</strong> {{item.prop_identity_list[0].identity_number | uppercase}}</li>
+                      <li class="list-group-item"><strong>Aadhar Number:</strong> {{item.item.prop_identity_list[1].identity_number}}</li>
+                      <li class="list-group-item"><strong>GST Number:</strong> {{item.item.prop_identity_list[2].identity_number | uppercase}}</li>
+                      <li class="list-group-item" *ngIf="i != 0"><strong>Weight:</strong> {{item.weight}}</li>
+                      <li class="list-group-item" *ngIf="i != 0"><strong>height:</strong> {{item.height}}</li>
                     </ul>
                   </div>
                 </div>
@@ -814,7 +813,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <!--<li class="list-group-item"><strong>Nominee name:</strong> <span *ngIf="requestDetails.nominee_name !=''">{{requestDetails.nominee_name}}</span> <span *ngIf="requestDetails.nominee_name ==''"> Nil</span></li>-->
+                        <li class="list-group-item"><strong>Nominee name:</strong> <span>{{requestDetails.nominee_name}}</span>
                       </ul>
                     </div>
 
@@ -827,7 +826,7 @@
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Relationship with insured:</strong>
-                          <!--<span *ngIf="equestDetails.nominee_relationship !=''">{{requestDetails.nominee_relationship}}</span> <span *ngIf="requestDetails.nominee_relationship == '' || requestDetails.nominee_relationship == undefined"> Nil</span>-->
+                          <span>{{requestDetails.nominee_relationship}}</span>
                         </li>
                       </ul>
                     </div>
@@ -856,7 +855,7 @@
                   <input type='hidden' name='returnURL' value={{returnURL}}/>
                 </div>
                 <button mat-button matStepperPrevious  (click)="topScroll()" *ngIf="payLaterr == false" >Back</button>
-                <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
+                <button mat-button class="mat-primaryBlue" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
                 <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
               </form>
 

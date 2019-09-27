@@ -161,7 +161,6 @@ export class IffcoTokioComponent implements OnInit {
 
 
         });
-
         this.currentStep = this.stepperindex;
         this.sameValue = false;
 
@@ -291,7 +290,6 @@ export class IffcoTokioComponent implements OnInit {
         if (this.payLaterr == true) {
             this.stepperindex = 3;
             console.log(this.stepperindex, ' this.stepperindex');
-                alert();
         } else {
             console.log(this.payLaterr, 'this.payLaterrolll222');
             this.numberValidateErr = false;
@@ -1089,8 +1087,12 @@ export class IffcoTokioComponent implements OnInit {
             this.response_url = this.summaryData.RESPONSE_URL;
             this.unique_code = this.summaryData.UNIQUE_QUOTEID;
             this.partner_code = this.summaryData.PARTNER_CODE;
-            this.redirect_url = this.summaryData.redirect_url;
             this.action_url = this.summaryData.ACTION_URL;
+            console.log(this.action_url, ' this.action_url');
+            console.log(this.unique_code, ' this.unique_code');
+            console.log(this.response_url, ' this.response_url');
+            console.log(this.partner_code, ' this.partner_code');
+
             sessionStorage.iffco_health_proposal_id = this.proposalId;
             console.log(this.proposalId, ' this.proposalId');
             console.log(sessionStorage.iffco_health_proposal_id, 'sessionStorage.iffco_health_proposal_id ');
@@ -1350,14 +1352,16 @@ export class IffcoTokioComponent implements OnInit {
             'partner_code': this.summaryData.PARTNER_CODE,
             'response_url': this.summaryData.RESPONSE_URL,
             'unique_code': this.summaryData.UNIQUE_QUOTEID,
+            'xmlString' : this.xmlString,
             'company_name': 'Iffco-Tokiyo',
             'Policy': {
                 'Product': this.buyProductdetails.product_name == 'Family Health Protector Family' ? 'FHP' : 'IHP',
-                'GrossPremium': this.buyProductdetails.base_premium,
-                'NetPremiumPayable': this.buyProductdetails.service_tax,
-                'ServiceTax': this.buyProductdetails.total_premium,
+                'GrossPremium': this.summaryData.gross_premium,
+                'NetPremiumPayable': this.summaryData.net_premium_payable,
+                'ServiceTax': this.summaryData.service_tax,
                 'PromoCode': "",
                 'NomineeName': this.nomineeData.nomineeFirstName,
+                'NomineeAddress': this.nomineeData.nomineeAddress,
                 'NomineeCity': this.nomineeData.nomineeCity,
                 'NomineeState': this.nomineeData.nomineeState,
                 'NomineePincode': this.nomineeData.nomineePincode,
@@ -1453,11 +1457,17 @@ export class IffcoTokioComponent implements OnInit {
             let proposerData = this.requestDetails.Contact;
             let nomineeData = this.requestDetails.Policy;
             this.redirect_url = this.requestDetails.redirect_url,
-                this.action_url = this.requestDetails.ACTION_URL,
-                this.partner_code = this.requestDetails.PARTNER_CODE,
-                this.response_url = this.requestDetails.RESPONSE_URL,
-                this.unique_code = this.requestDetails.UNIQUE_QUOTEID,
-                this.pos_status = this.requestDetails.pos_status,
+                this.action_url = this.requestDetails.action_url,
+                this.partner_code = this.requestDetails.partner_code,
+                this.response_url = this.requestDetails.response_url,
+                this.unique_code = this.requestDetails.unique_code,
+                this.xmlString = this.requestDetails.xmlString,
+                this.pos_status = this.requestDetails.pos_status;
+            console.log(this.action_url, ' this.action_url');
+            console.log(this.unique_code, ' this.unique_code');
+            console.log(this.response_url, ' this.response_url');
+            console.log(this.partner_code, ' this.partner_code');
+            console.log(this.xmlString, ' this.xmlString');
                 console.log(this.requestInsuredDetails, 'hgghjghjgjh');
 
         }
