@@ -12,7 +12,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ValidationService} from '../../shared/services/validation.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 export const MY_FORMATS = {
   parse: {
@@ -79,18 +79,21 @@ export class TravelHdfcProposalComponent implements OnInit {
     public nomineeFormData: any;
     public currentStep: any;
     public today: any;
-    public plantype: any;
+    public requestDetails: any;
+    public pos_status: any;
     public getEnquiryDetails: any;
     public placeOfVisit: any;
     public step: any;
     public travelPurpose: any;
+    public requestCustomerDetails: any;
+    public proposalId: any;
     public mobileView: boolean;
     public pedValid: boolean;
 
 
 
 
-    constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -993,5 +996,155 @@ export class TravelHdfcProposalComponent implements OnInit {
 
     public proposalFailure(error) {
 
+    }
+
+    // pay Later
+    payLater(){
+        let insuretravelDetails = this.totalInsureDetails;
+        for (let i = 0; i < this.insuredTravelData.items.length; i++) {
+            this.insuredTravelData.items[i].NomineeName = this.nomineeTravelDetails.controls['NomineeName'].value;
+            this.insuredTravelData.items[i].NomineeRelation = this.nomineeTravelDetails.controls['NomineeRelation'].value;
+        }
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'enquiry_id': this.getTravelPremiumList.enquiry_id,
+            'product_id': this.getTravelPremiumList.product_id,
+            'plan_name': this.getTravelPremiumList.plan_name,
+            'sum_insured_amount': this.getTravelPremiumList.sum_insured_amount,
+            'proposal_id': sessionStorage.hdfc_Travel_proposal_id ? sessionStorage.hdfc_Travel_proposal_id : this.hdfc_Travel_proposal_id,
+            "InsuranceDetails": {
+                "PlanDetails": {
+                    'TotalSumInsured': this.getTravelPremiumList.sum_insured_amount,//From main page
+                    'PlanCd': this.getTravelPremiumList.plan_id,
+                    'DepartureDate': this.getEnquiryDetails.start_date,
+                    'ArrivalDate': this.getEnquiryDetails.end_date,
+                    'TravelDays': this.getEnquiryDetails.day_count.toString(),
+                    'purposeofvisitcd': sessionStorage.travelType,
+                    'PlacesVisitedCd':this.getEnquiryDetails.travel_place.toString(),
+                    'NoOfAdults': this.getEnquiryDetails.adult_count,
+                    'NoOfKids': this.getEnquiryDetails.child_count,
+                    'FloaterPlan': this.getEnquiryDetails.scheme,
+                    'DependentParent': "None",
+                    'NoOfAdditionalKids': "0"
+                },
+                "PaymentDetails": {
+                    'PaymentOption': this.hdfcTravel.controls['paymentmode'].value,
+                },
+                "CustDetails": {
+                    'Title': this.hdfcTravel.controls['title'].value,
+                    'FirstName': this.hdfcTravel.controls['firstname'].value,
+                    'MiddleName': this.hdfcTravel.controls['middlename'].value,
+                    'LastName': this.hdfcTravel.controls['lastname'].value,
+                    'DOB': this.datepipe.transform(this.hdfcTravel.controls['dob'].value, 'y-MM-dd'),
+                    'Gender': this.hdfcTravel.controls['gender'].value,
+                    'Address1': this.hdfcTravel.controls['address1'].value,
+                    'Address2': this.hdfcTravel.controls['address2'].value,
+                    'Address3': this.hdfcTravel.controls['address3'].value,
+                    'StateCode': this.hdfcTravel.controls['state'].value,
+                    'CityCode': this.hdfcTravel.controls['city'].value,
+                    'Pincode': this.hdfcTravel.controls['pincode'].value,
+                    'STDCodeResi': this.hdfcTravel.controls['stdcode'].value,
+                    'TelResi': this.hdfcTravel.controls['telephoneNo'].value,
+                    'STDCodeOff': this.hdfcTravel.controls['stdcodeoffice'].value,
+                    'TelOff': this.hdfcTravel.controls['telephoneNooffice'].value,
+                    'MobileNumber': this.hdfcTravel.controls['mobile'].value,
+                    'OverseasNo': "",
+                    'Email': this.hdfcTravel.controls['email'].value,
+                    'ExistingAliments': this.hdfcTravel.controls['ped'].value,
+                    'PhysicianName': this.hdfcTravel.controls['physicianName'].value,
+                    'PhysicianNo': this.hdfcTravel.controls['physicianMobile'].value,
+                    'DeclineInsurance': this.hdfcTravel.controls['declineinsurance'].value,
+                    'DeclineReason': this.hdfcTravel.controls['declineReson'].value,
+                    'RestrictionByIns': this.hdfcTravel.controls['restrictionbyinsurance'].value,
+                    'RestrictionByInsDetails': this.hdfcTravel.controls['restrictionbyinsurancedetails'].value,
+                    'GSTINNO': this.hdfcTravel.controls['gst'].value,
+                    'IsCustomerAuthenticationDone': "1",
+                    'AuthenticationType': "OTP",
+                    'UIDNo': "",
+                    'IsProposerSameAsInsured': this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].sameAsProposer.value.toString(),
+                    'IsCustomerAcceptedPED': sessionStorage.pedValid == undefined || sessionStorage.pedValid == '' ? 'false' : sessionStorage.pedValid
+                },
+                "Member": {
+                    "InsuredDetails": this.insuredTravelData.items
+
+                }
+            }
+        }
+        console.log(data, 'payyyyy');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.proposalPayLater(data).subscribe(
+            (successData) => {
+                this.payLaterSuccess(successData);
+            },
+            (error) => {
+                this.payLaterFailure(error);
+            }
+        );
+
+    }
+    public payLaterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.toastr.success(successData.ResponseObject);
+
+            this.saveEdit();
+        } else {
+            // this.toastr.error('sorry!');
+        }
+    }
+
+    public payLaterFailure(successData) {
+    }
+    saveEdit(){
+        this.router.navigate(['/home']);
+
+    }
+    // get request
+    getBackRequest() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'proposal_id': this.proposalId
+        };
+        this.proposalservice.proposalGetRequest(data).subscribe(
+            (successData) => {
+                this.getBackResSuccess(successData);
+            },
+            (error) => {
+                this.getBackResFailure(error);
+            }
+        );
+    }
+
+    public getBackResSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.requestDetails = successData.ResponseObject;
+            this.pos_status = this.requestDetails.role_id;
+            console.log(this.pos_status, 'this.pos_status');
+            // this.stepperindex = 3;
+            this.requestCustomerDetails = this.requestDetails.InsuranceDetails.CustDetails;
+            // this.requestInsuredDetails = this.requestDetails.InsuranceDetails.Member.InsuredDetails;
+            // this.fullName = this.requestCustomerDetails.ApplFirstName +' '+ this.requestCustomerDetails.ApplLastName;
+            // this.totalAmount = parseFloat(this.requestDetails.sum_insured_amount);
+            // console.log(this.requestInsuredDetails, 'hgghjghjgjh');
+            // this.PaymentActionUrl = this.requestDetails.PaymentActionUrl;
+            // this.ProposalNumber = this.requestDetails.ProposalNumber;
+            // this.AdditionalInfo1 = this.requestDetails.AdditionalInfo1;
+            // this.AdditionalInfo2 = this.requestDetails.AdditionalInfo2;
+            // this.AdditionalInfo3 = this.requestDetails.AdditionalInfo3;
+            // this.ProductCd = this.requestDetails.ProductCd;
+            // this.productcode = this.requestDetails.productcode;
+            // this.returnURL = this.requestDetails.returnURL;
+            // this.paymentmode = this.requestDetails.InsuranceDetails.PaymentDetails.PaymentMode;
+            // this.email = this.requestCustomerDetails.EmailId;
+            // console.log(this.email, 'this.email');
+            // console.log(this.paymentmode, 'this.paymentmode');
+        }
+    }
+    public getBackResFailure(successData) {
     }
 }

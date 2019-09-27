@@ -1732,7 +1732,7 @@ export class StarHealthProposalComponent implements OnInit {
             'premium': this.summaryData.premium,
             'servicetax': this.summaryData.servicetax,
             'total_premium': this.summaryData.total_premium,
-            'company_logo': this.summaryData.company_logo,
+            'company_logo': this.buyProductdetails.company_logo,
             'paymentlink-date': '',
             'policy_type_name': this.buyProductdetails.prod_shortform,
             'policy_category': 'fresh',

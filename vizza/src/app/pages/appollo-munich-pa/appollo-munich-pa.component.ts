@@ -132,6 +132,7 @@ export class AppollomunichpaComponent implements OnInit {
     public nomineeRequest: any;
     public insuredRequestMobile: any;
     public proposerRequestMobile: any;
+    public insuredRequestAddress: any;
 
     CheckHabits : boolean;
     readonlyProposer : boolean;
@@ -1629,7 +1630,7 @@ export class AppollomunichpaComponent implements OnInit {
                     }
                 }
             } else {
-                this.toastr.error('Proposer or Insurer age should be greater than 18 and lesser than 56');
+                this.toastr.error('Proposer or Insurer age should be greater than 18 and lesser than 45');
             }
 
         }
@@ -1976,9 +1977,9 @@ export class AppollomunichpaComponent implements OnInit {
             'product_id': this.getBuyDetails.product_id,
             'plan_name': this.getBuyDetails.product_name,
             'company_logo': this.getBuyDetails.company_logo,
-            'BasePremium': this.summaryData.premium,
-            // 'Tax': this.summaryData.Tax,
-            // 'FinalPremium': this.summaryData.FinalPremium,
+            'Tax': this.summaryData.Tax,
+            'FinalPremium': this.summaryData.FinalPremium,
+            'BasePremium': this.summaryData.BasePremium,
             'created-date': this.createdDate,
             'RediretUrlLink':this.summaryData.PaymentURL,
             'proposalNum':this.summaryData.proposalNum,
@@ -2019,6 +2020,10 @@ export class AppollomunichpaComponent implements OnInit {
                                     "PinCode": this.insured.controls['insuredPaPincode'].value,
                                     "StateCode": this.insured.controls['insuredPaStateIdP'].value,
                                     "TownCode": this.insured.controls['insuredPaCity'].value,
+                                    "insuredPaCityName":  this.insured.controls['insuredPaCityName'].value,
+                                    "insuredPaDistrict":  this.insured.controls['insuredPaDistrict'].value,
+                                    "insuredPaState":  this.insured.controls['insuredPaState'].value,
+
                                 }
                             },
                             "BirthDate": this.datepipe.transform(this.insured.controls['insuredPaDob'].value, 'y-MM-dd'),
@@ -2175,10 +2180,17 @@ export class AppollomunichpaComponent implements OnInit {
             this.proposerRequest = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Application.Proposer;
             this.insuredRequest = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Client;
             this.proposerRequestAddress = this.proposerRequest.Address.Address;
+            this.insuredRequestAddress = this.insuredRequest.Address.Address;
             this.nomineeRequest = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Application;
-            this.insuredRequestMobile = this.insuredRequest.ContactInformation.Email;
+            this.insuredRequestMobile = this.proposerRequest.ContactInformation.Email;
             this.proposerRequestMobile = this.proposerRequest.ContactInformation.ContactNumber.ContactNumber.Number;
             console.log(this.requestDetails, 'requestDetailsrequestDetails');
+            console.log(this.insuredRequest.IDProofNumber, 'Titlecode');
+            console.log(this.insuredRequest.IDProofTypeCode, 'FirstName');
+            console.log(this.insuredRequest.GstinNumber, 'insuredRequestMobile');
+            // console.log(this.proposerRequestMobile, 'proposerRequestMobile');
+            console.log(this.proposerRequest.insuredPaCityName, 'insuredOccupationListName');
+            console.log(this.proposerRequest.insuredPaDistrict, 'insuredProfessionListName');
             this.pos_status = this.requestDetails.role_id;
 
         } else {

@@ -335,7 +335,8 @@
                                 <mat-checkbox formControlName="Enginesecure"><strong> Engine Secure <span class="error">*</span></strong></mat-checkbox>
                               </div>
 
-                              <div class="col-md-6" *ngIf="vehicle.controls['Enginesecure'].value == true && vehicle.controls['package'].value != '4'">
+                              <!--<div class="col-md-6" *ngIf="vehicle.controls['Enginesecure'].value == true && vehicle.controls['package'].value != '4'">-->
+                              <div class="col-md-6" *ngIf="vehicle.controls['Enginesecure'].value == true">
                                 <mat-form-field class="w-100">
                                   <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['Enginesecure'].value == true">*</span></mat-placeholder>
                                   <textarea matInput rows="2" formControlName="enginesecureAmount" autocomplete="off" maxlength="30" readonly></textarea>
@@ -348,10 +349,10 @@
                           <div class="col-md-12 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2' && vehicle.controls['package'].value != '3' && visible != false">
                             <div class="row">
                               <div class="col-md-6">
-                                <mat-checkbox formControlName="Consumableexpence"><strong> Consumable Expences <span class="error">*</span></strong></mat-checkbox>
+                                <mat-checkbox formControlName="Consumableexpence"><strong>Consumable Expences<span class="error">*</span></strong></mat-checkbox>
                               </div>
 
-                              <div class="col-md-6" *ngIf="vehicle.controls['Consumableexpence'].value == true && vehicle.controls['package'].value != '4'">
+                              <div class="col-md-6" *ngIf="vehicle.controls['Consumableexpence'].value == true ">
                                 <mat-form-field class="w-100">
                                   <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['Consumableexpence'].value == true">*</span></mat-placeholder>
                                   <textarea matInput rows="2" formControlName="consexpenceAmount" autocomplete="off" maxlength="30" readonly></textarea>
@@ -431,7 +432,7 @@
                                 <mat-checkbox formControlName="Repairofglass"><strong> Repair of glass, plastic fibre and rubber glass<span class="error">*</span></strong></mat-checkbox>
                               </div>
 
-                              <div class="col-md-6" *ngIf="vehicle.controls['Repairofglass'].value == true && vehicle.controls['package'].value != '6'">
+                              <div class="col-md-6" *ngIf="vehicle.controls['Repairofglass'].value == true ">
                                 <mat-form-field class="w-100">
                                   <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['Repairofglass'].value == true">*</span></mat-placeholder>
                                   <textarea matInput rows="2" formControlName="RepairglassAmount" autocomplete="off" maxlength="30" readonly></textarea>

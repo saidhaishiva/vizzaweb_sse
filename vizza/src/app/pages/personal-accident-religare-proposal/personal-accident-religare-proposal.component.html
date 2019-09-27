@@ -557,7 +557,7 @@
                                     <li class="list-group-item"><strong>Gender:</strong>{{proposerRequest.genderCd}} </li>
                                     <li class="list-group-item"><strong>D.O.B:</strong>  {{proposerRequest.birthDt  | date: 'dd/MM/yyyy'}}</li>
                                     <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerRequest.partyContactDOList[0].contactNum}} </li>
-                                    <li class="list-group-item"><strong>Personal Email Id:</strong>  {{mailInfo.emailAddress}}</li>
+                                    <li class="list-group-item"><strong>Personal Email Id:</strong>  {{mailInfo}}</li>
                                     <!--<li class="list-group-item" *ngIf="requestDetails.policy.partyEmailDOList.emailAddress[1].emailAddress != ''"><strong>Offfical Email Id:</strong>  {{requestDetails.policy.partyEmailDOList.emailAddress[1].emailAddress}}</li>-->
                                     <li class="list-group-item"><strong>Occupation:</strong>  {{proposerRequest.occupationClassValue}}</li>
                                     <!--<li class="list-group-item" *ngIf="requestDetails.policy.partyContactDOList.contactNum[1].contactNum != ''"><strong>Residential Number:</strong>  {{requestDetails.policy.partyContactDOList.contactNum[1].contactNum}}</li>-->
@@ -568,10 +568,10 @@
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <!--/<li class="list-group-item" *ngIf="proposerRequest.classDescriptionValue != ''"><strong>Occupation Description:</strong>  {{proposerRequest.classDescriptionValue}}</li>-->
+                                    <li class="list-group-item" *ngIf="proposerRequest.classDescriptionValue != ''"><strong>Occupation Description:</strong>  {{proposerRequest.classDescriptionValue}}</li>
                                     <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerRequest.occupationClassValue}}</li>
-                                    <!--<li class="list-group-item"><strong>PAN Number:</strong> {{requestDetails.policy.partyDOList[0].partyIdentityDOList.identityNum[0].insuredPan | uppercase}}</li>-->
-                                    <!--<li class="list-group-item" *ngIf="requestDetails.policy.partyIdentityDOList.identityNum[1].insuredPassPort != ''"><strong>PassPort:</strong> {{requestDetails.policy.partyIdentityDOList.identityNum[1].insuredPassPort | uppercase}}</li>-->
+                                    <li class="list-group-item"><strong>PAN Number:</strong> {{identityNum | uppercase}}</li>
+                                    <li class="list-group-item" *ngIf="identityNum1 != ''"><strong>PassPort:</strong> {{identityNum1 | uppercase}}</li>
                                     <li class="list-group-item"><strong>Annual Income:</strong>{{proposerRequest.annualSalary}} </li>
                                     <li class="list-group-item"><strong>Height:</strong>  {{requestDetails.policy.partyDOList[1].height}}</li>
                                     <li class="list-group-item"><strong>Weight:</strong>  {{requestDetails.policy.partyDOList[1].weight}}</li>
@@ -583,9 +583,9 @@
                                 <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                                 <ul class="m-0 list-group">
                                     <li class="list-group-item"><strong>Address 1:</strong>{{proposerRequestAddress.addressLine1Lang1}}</li>
-                                    <!--<li class="list-group-item" *ngIf="proposerRequestAddress.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddress.addressLine2Lang1}}</li>-->
+                                    <li class="list-group-item" *ngIf="proposerRequestAddress.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddress.addressLine2Lang1}}</li>
                                     <li class="list-group-item"><strong>PIN code:</strong> {{proposerRequestAddress.pinCode}}</li>
-                                    <li class="list-group-item"><strong>City:</strong>{{proposerRequestAddress.insuredCityName}}</li>
+                                    <li class="list-group-item"><strong>City:</strong>{{proposerRequestAddress.cityCd}}</li>
                                     <li class="list-group-item"><strong>State:</strong>{{proposerRequestAddress.stateCd}}</li>
                                 </ul>
                             </div>
@@ -595,9 +595,9 @@
                                 <h6 class="color-blue">RESIDENCE DETAILS</h6>
                                 <ul class="m-0 list-group">
                                     <li class="list-group-item"><strong>Address 1:</strong>{{proposerRequestAddressPerm.addressLine1Lang1}} </li>
-                                    <!--<li class="list-group-item" *ngIf="proposerRequestAddressPerm.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddressPerm.addressLine2Lang1}}</li>-->
+                                    <li class="list-group-item" *ngIf="proposerRequestAddressPerm.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddressPerm.addressLine2Lang1}}</li>
                                     <li class="list-group-item"><strong>PIN code:</strong>{{proposerRequestAddressPerm.pinCode}} </li>
-                                    <li class="list-group-item"><strong>City:</strong> {{proposerRequestAddressPerm.insuredrCityName}}</li>
+                                    <li class="list-group-item"><strong>City:</strong> {{proposerRequestAddressPerm.cityCd}}</li>
                                     <li class="list-group-item"><strong>State:</strong>{{proposerRequestAddressPerm.stateCd}}</li>
                                 </ul>
                             </div>
@@ -690,17 +690,7 @@
                     <input type='hidden' name='proposalNum' value={{proposalNum}}/>
                     <input type='hidden' name='returnURL' value={{returnURL}}/>
                   </div>
-                    <!--<div class="row">-->
-                        <!--<div class="col-md-12">-->
-                    <!--&lt;!&ndash;<div class="proposal-buttom mt-3 col-md-6 text-right w-100">&ndash;&gt;-->
-                    <!--<div class="col-md-6 text-right w-100">-->
-                        <!--<button mat-button matStepperPrevious  >Back</button>-->
-                    <!--</div>-->
-                        <!--<div class="col-md-6 text-left w-100">-->
-                  <!--<button mat-raised-button color="primary" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
+
                     <div class="col-md-12">
                         <div class="proposal-buttom mb-3 text-center w-100">
                             <button mat-button matStepperPrevious  (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
@@ -1233,10 +1223,10 @@
                         </div>
                     </section>
                     <h5 class="mt-3 sub-title">SECURE DETAILS </h5>
-                    <!--<div class="row box-card">-->
-                        <!--<div class="row col-sm-12 col-xs-12 col-md-12" *ngFor="let item of personalAccidentQuestionsList; let i = index ">-->
-                            <!--<div class="col-sm-10 col-xs-10 col-md-10">-->
-                                <!--<p>{{i+1}}. {{item.question}} </p>-->
+                    <div class="row box-card">
+                        <div class="row col-sm-12 col-xs-12 col-md-12" *ngFor="let item of questionListPay; let i = index ">
+                            <div class="col-sm-10 col-xs-10 col-md-10">
+                                <p>{{i+1}}. {{item.questionCd}} </p>
                                 <!--<div *ngIf="item.checked">-->
                                     <!--<div class="" *ngIf="item.checked">-->
                                         <!--<div class="row col-sm-12 col-xs-12 col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">-->
@@ -1252,20 +1242,20 @@
                                         <!--</div>-->
                                     <!--</div>-->
                                 <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="col-sm-2 col-xs-2 col-md-2">-->
-                                <!--<div class="row col-sm-6 col-xs-6 col-md-6" >-->
-                                    <!--<strong>-->
-                                        <!--<span *ngIf="item.checked"> Yes</span>-->
-                                        <!--<span *ngIf="!item.checked"> No</span>-->
-                                    <!--</strong>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                            </div>
+                            <div class="col-sm-2 col-xs-2 col-md-2">
+                                <div class="row col-sm-6 col-xs-6 col-md-6" >
+                                    <strong>
+                                        <span *ngIf="item.checked"> Yes</span>
+                                        <span *ngIf="!item.checked"> No</span>
+                                    </strong>
+                                </div>
+                            </div>
 
 
 
-                        <!--</div>-->
-                    <!--</div>-->
+                        </div>
+                    </div>
 
 
                     <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>

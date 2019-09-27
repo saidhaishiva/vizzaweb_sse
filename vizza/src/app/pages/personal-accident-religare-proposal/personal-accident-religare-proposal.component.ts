@@ -59,7 +59,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     public declaration: boolean;
     public summaryData: any;
     public lastStepper: any;
-    public questionerData: any;
+    public questionListPay: any;
     public webhost: any;
     public proposalId: any;
     public settings: Settings;
@@ -100,7 +100,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     public hideQuestion: any;
     public partyQuestionDOList: any;
     public questions_list: any;
-    public totalData: any;
+    public identityNum1: any;
     public sameField: any;
     public insureCity: any;
     public isDisable: any;
@@ -116,7 +116,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     sameFieldsInsure: any;
     sameinsure: any;
     proposal_Id: any;
-    insurepersonalCitys: any;
+    identityNum: any;
     iresponse: any;
     insuredresidenceCitys: any;
     rinsuredResponse: any;
@@ -178,6 +178,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 this.stepperindex = 3;
+                console.log(params, 'params');
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.RediretUrlLink = this.summaryData.PaymentURL;
@@ -1651,29 +1652,14 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.returnURL = this.requestDetails.returnURL;
             this.action = this.requestDetails.action;
             this.proposerRequest = this.requestDetails.policy.partyDOList[0];
-             let   lll = this.proposerRequest.firstName;
-             console.log(lll, 'lll');
-            let last = this.proposerRequest.lastName;
-            console.log(lll, 'lll');
-            let salary = this.proposerRequest.annualSalary;
-            console.log(lll, 'lll');
-            let occ = this.proposerRequest.occupationClassValue;
-            console.log(occ, 'occ');
-
-            let architects = this.proposerRequest.Architects;
-            console.log(architects, 'architects');
-
-            let mobile = this.proposerRequest.partyContactDOList[0].contactNum;
-            console.log(mobile, 'mobile');
-
-            let email = this.proposerRequest.partyEmailDOList[0].emailAddress;
-            console.log(email, 'email');
-
-            // this.contactInfo = this.proposerRequest.partyContactDOList[0].contactNum[0];
             this.proposerRequestAddress = this.proposerRequest.partyAddressDOList[0];
             this.proposerRequestAddressPerm = this.proposerRequest.partyAddressDOList[1];
             this.mailInfo = this.proposerRequest.partyEmailDOList[0].emailAddress;
-            // this.insuredRequestMobile = this.insuredRequest.ContactInformation.Email;
+            this.identityNum = this.proposerRequest.partyIdentityDOList[0].identityNum;
+            this.identityNum1 = this.proposerRequest.partyIdentityDOList[1].identityNum;
+            this.questionListPay = this.requestDetails.policy.partyDOList[1].partyQuestionDOList;
+            console.log(this.questionListPay, 'this.identityNum');
+
             // this.proposerRequestMobile = this.proposerRequest.ContactInformation.ContactNumber.ContactNumber.Number;
             // console.log(this.requestDetails, 'requestDetailsrequestDetails');
             this.pos_status = this.requestDetails.role_id;

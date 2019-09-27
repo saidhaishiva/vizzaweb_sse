@@ -30,17 +30,17 @@ export class IffcoTokioHealthPayamentSuccessComponent implements OnInit {
       this.proposalId = params.proId;
 
     });
-    let groupDetails = JSON.parse(sessionStorage.groupDetails);
-    for(let i = 0; i < groupDetails.family_groups.length; i++) {
-      if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
-        groupDetails.family_groups[i].status = 1;
-      }
-    }
-    let status = groupDetails.family_groups.filter(data => data.status == 0);
-    if(status.length > 0) {
-      this.remainingStatus = true;
-    }
-    sessionStorage.groupDetails = JSON.stringify(groupDetails);
+    // let groupDetails = JSON.parse(sessionStorage.groupDetails);
+    // for(let i = 0; i < groupDetails.family_groups.length; i++) {
+    //   if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
+    //     groupDetails.family_groups[i].status = 1;
+    //   }
+    // }
+    // let status = groupDetails.family_groups.filter(data => data.status == 0);
+    // if(status.length > 0) {
+    //   this.remainingStatus = true;
+    // }
+    // sessionStorage.groupDetails = JSON.stringify(groupDetails);
   }
 
 
@@ -50,7 +50,7 @@ export class IffcoTokioHealthPayamentSuccessComponent implements OnInit {
     this.router.navigate(['/iffco'  + '/' + true]);
   }
   pay(){
-    sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
+    // sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
     this.router.navigate(['/healthinsurance']);
   }
 

@@ -606,14 +606,14 @@
                 </div>
               </div>
             </section>
-            <section class="summary-details" *ngIf="summaryData && payLaterr == true">
+            <section class="summary-details" *ngIf="payLaterr == true">
               <div class="row">
                 <div class="col-md-4">
                   <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.sum_insured_amount}}</span></h4>
                 </div>
                 <div class="col-md-8 mt-2">
                   <ul class="summary-head">
-                    <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
+                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                     <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.Policy.NetPremiumPayable}}</span> /</li>
                     <li><span>Gross Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.Policy.GrossPremium}}</span> /</li>
                     <!--<h4><span style="font-size: 17px; color: #666;">Gross Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.gross_premium}}</span></h4>-->
@@ -632,20 +632,20 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{requestDetails.Contact.Salutation}}{{'. '}} {{requestDetails.Contact.FirstName}}{{' '}} {{requestDetails.Contact.LastName}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{requestDetails.Contact.DOB | date: 'dd/MM/yyyy'}}</li>
+                        <li class="list-group-item"><strong>Gender:</strong> <span *ngIf="requestDetails.Contact.Sex == 'M'">Male</span><span *ngIf="requestDetails.Contact.Sex == 'F'">Female</span></li>
                         <li class="list-group-item"><strong>Personal Email Id:</strong> {{requestDetails.Contact.MailId}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{requestDetails.Contact.MobilePhone}}</li>
                         <li class="list-group-item"  *ngIf="requestDetails.Contact.HomePhone !=''">><strong>Home Phone Number:</strong> {{requestDetails.Contact.HomePhone}}</li>
-                        <li class="list-group-item"  *ngIf="requestDetails.Contact.OfficePhone !=''">><strong>Office Phone Number:</strong> {{requestDetails.Contact.OfficePhone}}</li>
-                        <li class="list-group-item"><strong>Gender:</strong> {{requestDetails.Contact.Sex}}</li>
+                        <li class="list-group-item"  *ngIf="requestDetails.Contact.OfficePhone !=''"><strong>Office Phone Number:</strong> {{requestDetails.Contact.OfficePhone}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong><span *ngIf="requestDetails.Contact.Married == 'M'">Married</span><span *ngIf="requestDetails.Contact.Married == 'U'">Unmarried</span><span *ngIf="requestDetails.Married == 'S'">Single</span><span *ngIf="requestDetails.Married == 'N'">Not Known</span></li>
-                        <li class="list-group-item"><strong>Occupation:</strong> {{requestDetails.Contact.Occupation}}</li>
+                        <li class="list-group-item"><strong>Occupation:</strong> {{requestDetails.Contact.OccupationName}}</li>
+
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <!--<li class="list-group-item"><strong>Marital Status:</strong> {{requestDetails.Contact.Married}}</li>-->
                         <li class="list-group-item"  *ngIf="requestDetails.Contact.PassPort !=''"><strong>Pass Port:</strong> {{requestDetails.Contact.PassPort | uppercase}}</li>
                         <li class="list-group-item"  *ngIf="requestDetails.Contact.PAN !=''"><strong>PAN Number:</strong> {{requestDetails.Contact.PAN | uppercase}}</li>
                         <li class="list-group-item"><strong>Emergency Name:</strong> {{requestDetails.Contact.EmergencyContactName}}</li>
@@ -674,8 +674,8 @@
                       <h3 class="mt-4"></h3>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>PIN code:</strong> {{requestDetails.Contact.PinCode}}</li>
-                        <li class="list-group-item"><strong>City:</strong> {{requestDetails.Contact.City}}</li>
-                        <li class="list-group-item"><strong>State:</strong> {{requestDetails.Contact.State}}</li>
+                        <li class="list-group-item"><strong>City:</strong> {{requestDetails.Contact.CityName}}</li>
+                        <li class="list-group-item"><strong>State:</strong> {{requestDetails.Contact.StateName}}</li>
                         <li class="list-group-item"  *ngIf="requestDetails.Contact.FaxNo !=''"><strong>Fax:</strong> {{requestDetails.Contact.FaxNo}}</li>
                       </ul>
                     </div>
@@ -685,7 +685,7 @@
                 </div>
               </section>
               <section *ngFor="let items of requestInsuredDetails;  let i = index;">
-                <h5 class="mt-3 sub-title"> INSURED DETAILS FOR {{items.proposerRelationship | uppercase}}  </h5>
+                <h5 class="mt-3 sub-title"> INSURED DETAILS FOR {{items.RelationtoInsured | uppercase}}  </h5>
                 <div class="row box-card">
                   <div class="col-md-12">
                   </div>
@@ -693,7 +693,7 @@
                     <div class="p-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{items.Salutation}}. {{items.FirstName}} {{items.LastName  }}</li>
-                        <li class="list-group-item"><strong>Gender:</strong><span *ngIf="items.Gender == 'Male'">Male</span><span *ngIf="items.Gender == 'Female'">Female</span></li>
+                        <li class="list-group-item"><strong>Gender:</strong><span *ngIf="items.Gender == 'M'">Male</span><span *ngIf="items.Gender == 'F'">Female</span></li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{items.DateOfBirth | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Age:</strong> {{items.Age}}</li>
                         <li class="list-group-item"><strong>Occupation:</strong> {{items.Occupation}}</li>
@@ -739,7 +739,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <!--<li class="list-group-item"><strong>Address:</strong> {{requestDetails.Policy.nomineeAddress}}</li>-->
+                          <li class="list-group-item"><strong>Address:</strong> {{requestDetails.Policy.NomineeAddress}}</li>
                           <li class="list-group-item"><strong>Pincode:</strong> {{requestDetails.Policy.NomineePincode}}</li>
                           <li class="list-group-item"><strong>City:</strong> {{requestDetails.Policy.NomineeCity}}</li>
                           <li class="list-group-item"><strong>State:</strong> {{requestDetails.Policy.NomineeState}}</li>
@@ -761,10 +761,10 @@
                 <form action={{action_url}} method='POST' #form>
                   <input id="PARTNERCODE" type="hidden" value={{partner_code}} name="PARTNER_CODE"><br/>
                   <input id="UNIQUEQUOTEID" type="hidden" value={{unique_code}} name="UNIQUE_QUOTEID"><br/>
-                  <input id="XMLDATA" type="hidden" value="{{xmlString}}" name="XML_DATA"><br/>
+                  <input id="XMLDATA" type="hidden" value={{xmlString}} name="XML_DATA"><br/>
                   <input id="RESPONSEURL" type="hidden" value={{response_url}} name="RESPONSE_URL"><br/>
 
-                  <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                  <button mat-button matStepperPrevious (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
                   <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && pos_status == '3'">Pay Later</button>
                   <button mat-raised-button class="mat-primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
 

@@ -563,7 +563,9 @@
                 </div>
               </mat-expansion-panel>
             </div>
-            <p class="mt-4 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+          </section>
+
+          <p class="mt-4 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
             <hr>
             <div *ngIf="!mobileView">
             <div class="row" *ngIf="summaryData">
@@ -592,7 +594,6 @@
               </div>
             </div>
             </div>
-          </section>
         </mat-step>
 
       </mat-horizontal-stepper>
