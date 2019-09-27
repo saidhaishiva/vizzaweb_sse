@@ -16,6 +16,7 @@ import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import {ViewKeyfeaturesComponent} from './view-keyfeatures/view-keyfeatures.component';
+import {consoleTestResultHandler} from 'tslint/lib/test';
 @Component({
   selector: 'app-bike-premium-list',
   templateUrl: './bike-premium-list.component.html',
@@ -40,6 +41,11 @@ export class BikePremiumListComponent implements OnInit {
     policyTerm: any;
     initialProductList: any;
     vehicleDetalis: any;
+    premiumbreakup: any;
+    ownDamage: any;
+    pa: any;
+    gst: any;
+    premium: any;
     constructor(public auth: AuthService, public datepipe: DatePipe,public dialog: MatDialog,public clearSession: ClearSessionMotorService, public appSettings: AppSettings,public router: Router,public bikeService: BikeInsuranceService, public config: ConfigurationService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -48,6 +54,7 @@ export class BikePremiumListComponent implements OnInit {
         this.webhost = this.config.getimgUrl();
         this.compareArray = [];
         this.initialProductList = [];
+        // this.premiumbreakup= [];
         this.thirdParty = false;
         this.compherhensive = 'Comprehensive_premium';
         sessionStorage.packae_list = this.compherhensive;
@@ -132,6 +139,7 @@ export class BikePremiumListComponent implements OnInit {
     }
 
     public getProductList(companyList): void {
+        alert('innnn...')
         this.productListArray = [];
         this.allProductLists = [];
         let sum_amount = '';
@@ -160,8 +168,29 @@ export class BikePremiumListComponent implements OnInit {
         if (successData) {
             for(let i = 0; i < successData.length; i++) {
                 if (successData[i].IsSuccess) {
+                    alert('sucess...')
                     let policylists = successData[i].ResponseObject;
+                    console.log(policylists,'product......');
                     this.productListArray.push(policylists.productlist);
+                   //  console.log(this.productListArray,'productListArray......');
+                   // this.premiumbreakup = policylists.productlist[i].premium_breakup;
+                   //   console.log( this.premiumbreakup,'gst......');
+                   //   console.log(  policylists.productlist[i].premium_breakup,'gst......');
+
+                    // this.gst=  this.premiumbreakup.GST;
+                   //  console.log(this.gst,'gst......');
+                   //
+                   //  this.ownDamage=  this.premiumbreakup.OwnDamage_premium;
+                   //  console.log(this.ownDamage,'ownDamage......');
+                   //
+                   //  this.pa =  this.premiumbreakup.PA_premium;
+                   //  console.log(this.pa,'pa......');
+                   //
+                   //  this.premium=  this.premiumbreakup.ThridParty_premium;
+                   //  console.log(this.premium,'premium......');
+
+
+
                 }
                 this.allProductLists = [].concat.apply([], this.productListArray);
             }
