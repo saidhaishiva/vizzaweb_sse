@@ -33,12 +33,19 @@ export class TermLifePremiumListComponent implements OnInit {
     compareArray: any;
     selectedAmountTravel: any;
     enquiryFromDetials: any;
+    HdfcPremiumList: any;
+    allHdfcList: any;
     dethBenfit: any;
     lifePremiumList: any;
+    allHdfcList12: any;
+    allhdfcProductList:any;
     totalpremiumTerm: any;
     termLists: any;
     selected: any;
     termListDetails: any;
+    hdfcPlan:any;
+    totalpremium: any;
+    CoverageAge: any;
     checkAllStatus: boolean;
     changepremiumList: boolean;
     public keyUp = new Subject<string>();
@@ -86,6 +93,8 @@ export class TermLifePremiumListComponent implements OnInit {
   ngOnInit() {
       this.getCompanyList();
       this.sessionData();
+      // this.getHdfcproduct();
+      this.getHDFcProduct();
       // this.form.controls['termlists'].setValue(this.allProductLists[0].term[0]);
 
   }
@@ -162,6 +171,120 @@ export class TermLifePremiumListComponent implements OnInit {
   public companyListFailure(error) {
       console.log(error);
   }
+  // getHdfcproduct() {
+  //   const data = {
+  //       'platform': 'web',
+  //       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+  //       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+  //       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+  //   };
+  //   this.life.getHDFcProduct(data).subscribe(
+  //       (successData) => {
+  //           this.productListSuccess(successData);
+  //       },
+  //       (error) => {
+  //           this.productListFailure(error);
+  //       });
+  // }
+  // public productListSuccess(successData) {
+  //     console.log(successData.ResponseObject);
+  //     if (successData.IsSuccess) {
+  //         this.allhdfcProductList = successData.ResponseObject;
+  //
+  //     }
+  // }
+  // public productListFailure(error) {
+  //     console.log(error);
+  // }
+    getHDFcProduct() {
+    const data = {
+        'platform': 'web',
+        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+        'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+    };
+    this.life.getHDFcProduct(data).subscribe(
+        (successData) => {
+            this.productHdfcSuccess(successData);
+        },
+        (error) => {
+            this.productHdfcFailure(error);
+        });
+  }
+  public productHdfcSuccess(successData) {
+      console.log(successData.ResponseObject);
+      if (successData.IsSuccess) {
+          this.allHdfcList = successData.ResponseObject;
+
+          for(let i=0;i<=this.allHdfcList; i++)
+          {
+              this.allHdfcList12 = this.allHdfcList[i].id;
+              console.log( this.allHdfcList[i],'listtttt');
+              console.log( this.allHdfcList[i].id,'listid');
+              console.log(  this.allHdfcList12 ,'listid');
+          }
+          // console.log( this.allHdfcList,'listtttt');
+          // console.log( this.allHdfcList.id,'listid');
+          // this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
+          // this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
+          // this.getProductList(companyList, sum_assured);
+          // this.getProductList(companyList, sum_assured);
+          console.log(this.allProductLists, 'allProductLists');
+      }
+
+  }
+
+  public productHdfcFailure(error) {
+      console.log(error);
+  }
+
+  gethdfcPremium(index) {
+    const data = {
+        'platform': 'web',
+        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+        'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+        'policy_id': this.getEnquiryDetials.policy_id,
+        'sum_assured': this.selectedAmountTravel,
+        'company_id': '5',
+        "product_id": "102",
+    };
+      this.settings.loadingSpinner = true;
+
+      this.life.gethdfcPremium(data).subscribe(
+        (successData) => {
+            this.hdfcPremiumSuccess(successData,index);
+        },
+        (error) => {
+            this.hdfcPremiumFailure(error);
+        });
+  }
+  public hdfcPremiumSuccess(successData,index) {
+      this.settings.loadingSpinner = false;
+
+      console.log(successData.ResponseObject);
+      if (successData.IsSuccess) {
+          this.HdfcPremiumList = successData.ResponseObject;
+          console.log( this.HdfcPremiumList,'ghfhfgvhgh')
+          // this.totalpremium =  this.HdfcPremiumList.totalpremium;
+          // this.CoverageAge =  this.HdfcPremiumList.CoverageAge;
+          this.allProductLists[index].totalpremium =  this.HdfcPremiumList.productlist[0].totalpremium;
+          this.allProductLists[index].CoverageAge =  this.HdfcPremiumList.productlist[0].CoverageAge;
+          console.log(this.HdfcPremiumList.productlist[0].totalpremium,'totalpremium');
+          console.log(this.HdfcPremiumList.productlist[0].CoverageAge,'CoverageAge');
+          console.log(this.allProductLists[index].totalpremium,'total2');
+          console.log(this.allProductLists[index].CoverageAge,'CoverageAge2');
+
+
+          // this.getProductList(companyList, sum_assured);
+          console.log(this.allProductLists, 'allProductLists');
+      }
+
+  }
+
+  public hdfcPremiumFailure(error) {
+      console.log(error);
+  }
 
     public getProductList(companyList, sum_assured): void {
         this.productListArray = [];
@@ -174,7 +297,9 @@ export class TermLifePremiumListComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'policy_id': this.getEnquiryDetials.policy_id,
             'sum_assured': sum_assured,
-            'company_id': ''
+            'company_id': '',
+            "product_id":"102"
+
         };
         this.settings.loadingSpinner = true;
         this.life.getProductList(data,companyList).subscribe(
@@ -411,10 +536,11 @@ export class TermLifePremiumListComponent implements OnInit {
             'term':  plists.termDetrails,
             'product_id': plists.product_id,
             'cover': cover ? cover: '',//Bajaj
-            'hdfc': productname ? productname :''
+            'hdfc': productname ? productname :'',
+            // 'hdfcplan':
         };
         console.log(data,'data');
-        this.settings.loadingSpinner = true;
+        // this.settings.loadingSpinner = true;
         this.life.getTermChangeList(data).subscribe(
             (successData) => {
                 this.termChangeSuccess(successData,plists,index);
