@@ -30,9 +30,9 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-  selector: 'app-iffco-tokio',
-  templateUrl: './iffco-tokio.component.html',
-  styleUrls: ['./iffco-tokio.component.scss'],
+    selector: 'app-iffco-tokio',
+    templateUrl: './iffco-tokio.component.html',
+    styleUrls: ['./iffco-tokio.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -144,8 +144,8 @@ export class IffcoTokioComponent implements OnInit {
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.stepperindex = 0;
         this.route.params.forEach((params) => {
-            if (params.stepper == true) {
-                this.stepperindex = 2;
+            if(params.stepper == true || params.stepper == 'true') {
+                this.stepperindex = 3;
             }
             this.status = params.stepper;
             this.proposal_Id = params.proposalId;
@@ -161,7 +161,6 @@ export class IffcoTokioComponent implements OnInit {
 
 
         });
-
         this.currentStep = this.stepperindex;
         this.sameValue = false;
 
@@ -289,7 +288,8 @@ export class IffcoTokioComponent implements OnInit {
 
     ngOnInit() {
         if (this.payLaterr == true) {
-            this.stepperindex = 2;
+            this.stepperindex = 3;
+            console.log(this.stepperindex, ' this.stepperindex');
         } else {
             console.log(this.payLaterr, 'this.payLaterrolll222');
             this.numberValidateErr = false;
@@ -1087,8 +1087,12 @@ export class IffcoTokioComponent implements OnInit {
             this.response_url = this.summaryData.RESPONSE_URL;
             this.unique_code = this.summaryData.UNIQUE_QUOTEID;
             this.partner_code = this.summaryData.PARTNER_CODE;
-            this.redirect_url = this.summaryData.redirect_url;
             this.action_url = this.summaryData.ACTION_URL;
+            console.log(this.action_url, ' this.action_url');
+            console.log(this.unique_code, ' this.unique_code');
+            console.log(this.response_url, ' this.response_url');
+            console.log(this.partner_code, ' this.partner_code');
+
             sessionStorage.iffco_health_proposal_id = this.proposalId;
             console.log(this.proposalId, ' this.proposalId');
             console.log(sessionStorage.iffco_health_proposal_id, 'sessionStorage.iffco_health_proposal_id ');
@@ -1105,11 +1109,11 @@ export class IffcoTokioComponent implements OnInit {
             console.log(this.nomineeFormData, 'nomineeFormData');
             console.log(this.personalFormData, 'personalFormData');
             this.createdDate = new Date();
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
             stepper.next();
             this.nextStep();
             this.topScroll();
             this.healthIffcoTrue3 = false;
-            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -1336,6 +1340,7 @@ export class IffcoTokioComponent implements OnInit {
             'paymentlink-date': '',
             'product_id': this.buyProductdetails.product_id,
             'plan_name': this.buyProductdetails.product_name,
+            'company_logo': this.buyProductdetails.company_logo,
             'sum_insured_amount': this.buyProductdetails.suminsured_amount,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -1347,14 +1352,16 @@ export class IffcoTokioComponent implements OnInit {
             'partner_code': this.summaryData.PARTNER_CODE,
             'response_url': this.summaryData.RESPONSE_URL,
             'unique_code': this.summaryData.UNIQUE_QUOTEID,
+            'xmlString' : this.xmlString,
             'company_name': 'Iffco-Tokiyo',
             'Policy': {
                 'Product': this.buyProductdetails.product_name == 'Family Health Protector Family' ? 'FHP' : 'IHP',
-                'GrossPremium': this.buyProductdetails.base_premium,
-                'NetPremiumPayable': this.buyProductdetails.service_tax,
-                'ServiceTax': this.buyProductdetails.total_premium,
+                'GrossPremium': this.summaryData.gross_premium,
+                'NetPremiumPayable': this.summaryData.net_premium_payable,
+                'ServiceTax': this.summaryData.service_tax,
                 'PromoCode': "",
                 'NomineeName': this.nomineeData.nomineeFirstName,
+                'NomineeAddress': this.nomineeData.nomineeAddress,
                 'NomineeCity': this.nomineeData.nomineeCity,
                 'NomineeState': this.nomineeData.nomineeState,
                 'NomineePincode': this.nomineeData.nomineePincode,
@@ -1450,67 +1457,23 @@ export class IffcoTokioComponent implements OnInit {
             let proposerData = this.requestDetails.Contact;
             let nomineeData = this.requestDetails.Policy;
             this.redirect_url = this.requestDetails.redirect_url,
-                this.action_url = this.requestDetails.ACTION_URL,
-                this.partner_code = this.requestDetails.PARTNER_CODE,
-                this.response_url = this.requestDetails.RESPONSE_URL,
-                this.unique_code = this.requestDetails.UNIQUE_QUOTEID,
-                this.pos_status = this.requestDetails.role_id,
+                this.action_url = this.requestDetails.action_url,
+                this.partner_code = this.requestDetails.partner_code,
+                this.response_url = this.requestDetails.response_url,
+                this.unique_code = this.requestDetails.unique_code,
+                this.xmlString = this.requestDetails.xmlString,
+                this.pos_status = this.requestDetails.pos_status;
+            console.log(this.action_url, ' this.action_url');
+            console.log(this.unique_code, ' this.unique_code');
+            console.log(this.response_url, ' this.response_url');
+            console.log(this.partner_code, ' this.partner_code');
+            console.log(this.xmlString, ' this.xmlString');
                 console.log(this.requestInsuredDetails, 'hgghjghjgjh');
-            //         this.proposer.controls['proposerDob'].patchValue(proposerData.DOB),
-            //         this.proposer.controls['proposerPassport'].patchValue(proposerData.PassPort),
-            //         this.proposer.controls['proposerPan'].patchValue(proposerData.PAN),
-            //         this.proposer.controls['proposerTitle'].patchValue(proposerData.Salutation),
-            //         this.proposer.controls['proposerFirstname'].patchValue(proposerData.FirstName),
-            //         this.proposer.controls['proposerLastname'].patchValue(proposerData.LastName),
-            //         this.proposer.controls['proposerGender'].patchValue(proposerData.Sex),
-            //         this.proposer.controls['typeAddress'].patchValue(proposerData.AddressType),
-            //         this.proposer.controls['proposerPincode'].patchValue(proposerData.PinCode),
-            //         this.proposer.controls['proposerState'].patchValue(proposerData.StateName),
-            //         this.proposer.controls['proposerStateName'].patchValue(proposerData.DOB),
-            //         this.proposer.controls['proposerAddress'].patchValue(proposerData.AddressLine1),
-            //         this.proposer.controls['proposerAddress2'].patchValue(proposerData.AddressLine2),
-            //         this.proposer.controls['proposerFax'].patchValue(proposerData.FaxNo),
-            //         this.proposer.controls['proposerOccupation'].patchValue(proposerData.OccupationName),
-            //         this.proposer.controls['proposerCity'].patchValue(proposerData.CityName),
-            //             this.proposer.controls['proposerMaritalStatus'].patchValue(proposerData.Married),
-            //         this.proposer.controls['proposerHomePhone'].patchValue(proposerData.HomePhone),
-            //         this.proposer.controls['proposerOfficePhone'].patchValue(proposerData.OfficePhone),
-            //         this.proposer.controls['proposerMobile'].patchValue(proposerData.MobilePhone),
-            //         this.proposer.controls['proposerEmail'].patchValue(proposerData.MailId),
-            //         this.proposer.controls['proposerAddress3'].patchValue(proposerData.AddressLine3),
-            //         this.proposer.controls['proposerAddress4'].patchValue(proposerData.AddressLine4),
-            //         this.proposer.controls['proposerEmergencyName'].patchValue(proposerData.EmergencyContactName),
-            //         this.proposer.controls['proposerEmergencyMobile'].patchValue(proposerData.EmergencyContactMobile),
-            //             this.nomineeDetails.controls['nomineeFirstName'].patchValue(nomineeData.NomineeName),
-            //             this.nomineeDetails.controls['nomineeRelationship'].patchValue(nomineeData.NomineeRelation),
-            //             this.nomineeDetails.controls['nomineePincode'].patchValue(nomineeData.NomineePincode),
-            //             this.nomineeDetails.controls['nomineeCity'].patchValue(nomineeData.NomineeCity),
-            //             this.nomineeDetails.controls['nomineeState'].patchValue(nomineeData.NomineeState)
-            //     for (let i=0; i <  this.requestInsuredDetails.length; i ++){
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerTitle.patchValue(this.requestInsuredDetails.Salutation);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerFirstname.patchValue(this.requestInsuredDetails.FirstName);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerLastname.patchValue(this.requestInsuredDetails.LastName);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(this.requestInsuredDetails.DateOfBirth);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue(this.requestInsuredDetails.Age);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.patchValue(this.requestInsuredDetails.Occupation);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerGender.patchValue(this.requestInsuredDetails.Gender);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerRelationship.patchValue(this.requestInsuredDetails.RelationtoInsured);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerHeight.patchValue(this.requestInsuredDetails.Height);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].proposerWeight.patchValue(this.requestInsuredDetails.Weight);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].Smoke.patchValue(this.requestInsuredDetails.Smoke);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].Alcohol.patchValue(this.requestInsuredDetails.Alcohol);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].Tobacco.patchValue(this.requestInsuredDetails.Tobacco);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].smokeQuantity.patchValue(this.requestInsuredDetails.SmokeQuantity);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].alcoholQuantity.patchValue(this.requestInsuredDetails.AlcoholQuantity);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].tobaccoQuantity.patchValue(this.requestInsuredDetails.TobaccoQuantity);
-            //                 this.insureArray['controls'].items['controls'][i]['controls'].PreExistingDisease.patchValue(this.requestInsuredDetails.PreExistingDisease);
-            //             }
-            // } else {
-            // }
+
         }
     }
     public getBackResFailure(successData) {
-        }
-
     }
+
+}
 

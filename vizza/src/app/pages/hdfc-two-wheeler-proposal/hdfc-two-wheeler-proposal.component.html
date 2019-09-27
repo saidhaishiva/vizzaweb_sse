@@ -86,7 +86,7 @@
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)" (keypress)="teleValidate($event)" maxlength="17" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
-                            <mat-hint font-size="10px" >Format of the Telephone number is 044-1234567</mat-hint>
+                            <mat-hint font-size="10px" >Format of the Telephone number should be 044-1234567</mat-hint>
                             <mat-error *ngIf="proposer.controls.alternateContact.hasError('pattern')">Enter valid Telephone Number</mat-error>
 
                         </mat-form-field>
@@ -335,7 +335,7 @@
                         </mat-form-field>
                       </div>
                         <div class="col-md-12 mt-3">
-                            <mat-checkbox formControlName="Financetype" (change)="changeValidation($event)"><strong> If Vehicle is Finance? </strong></mat-checkbox>
+                            <mat-checkbox formControlName="Financetype"  (change)="changeValidation($event)" (click)="changeValidation($event)" ><strong> If Vehicle is Finance? </strong></mat-checkbox>
                         </div>
                         <!--<div class="col-md-3 mt-1">-->
                             <!--<mat-checkbox formControlName="Financetyp"  >j</mat-checkbox>-->
@@ -355,7 +355,7 @@
                         <div class="col-md-3 mt-3" *ngIf ="financeTypeName" >
                             <mat-form-field class="w-100" >
                                 <mat-placeholder>Financier Name</mat-placeholder>
-                                <mat-select  formControlName="financiercode" [required]="financeTypeName"  >
+                                <mat-select  formControlName="financiercode" [required]="financeTypeName" (change)="financiername()" >
                                     <mat-option *ngFor="let finance of financeList | keys " [value]="finance.key" > {{finance.value}} </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Finance code is required</mat-error>
@@ -373,7 +373,7 @@
                       </div>
                       <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                       <mat-form-field class="w-100" >
-                        <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" required>
+                        <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany();previouscompany()" required>
                           <mat-option *ngFor="let company of companyList | keys" value="{{company.key}}" > {{company.value}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="vechicle.controls.Previouscompany.errors?.required">previous company is required</mat-error>
@@ -448,7 +448,7 @@
 
                                           <div class="col-md-3">
                                               <mat-form-field class="w-100" >
-                                                  <mat-select placeholder="Extension Country Code"  formControlName="extentioncountry" (change)="changeextensioncountry()" required>
+                                                  <mat-select placeholder="Extension Country Code"  formControlName="extentioncountry" (change)="changeextensioncountry();extensioncountry()" required>
                                                       <mat-option *ngFor="let country of countryList | keys" value="{{country.key}}" > {{country.value}} </mat-option>
                                                   </mat-select>
                                                   <mat-error *ngIf="addOns.controls.extentioncountry.errors?.required">Extension country is required</mat-error>

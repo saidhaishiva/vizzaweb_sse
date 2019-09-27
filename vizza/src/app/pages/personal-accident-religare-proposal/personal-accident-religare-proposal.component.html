@@ -6,7 +6,7 @@
       <mat-horizontal-stepper  #stepper  [selectedIndex]="currentStep">
        <mat-step [stepControl]="">
           <ng-template matStepLabel >PROPOSER / INSURED DETAILS</ng-template>
-          <mat-accordion class="w-100 float-left">
+          <mat-accordion class="w-100 float-left" *ngIf="payLaterr == false">
             <form [formGroup]="insured" >
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
@@ -532,37 +532,175 @@
 
 
             </div>
+          </section>
+            <section class="summary-details" *ngIf="payLaterr == true">
+                <div class="row">
+                    <div class="col-md-4"> <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.suminsured_amount}}</span></h4></div>
+                    <div class="col-md-8">
+                        <ul class="summary-head">
+                            <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                            <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.BasePremium}}</span> /</li>
+                            <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.BasePremium}}</span> </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+                <section>
+                    <h5 class="mt-3 sub-title">PROPOSER / INSURED DETAILS </h5>
+                    <div class="row box-card">
+                        <div class="col-md-12">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item"><strong>Name:</strong>  {{proposerRequest.firstName}} {{proposerRequest.lastName}} </li>
+                                    <li class="list-group-item"><strong>Gender:</strong>{{proposerRequest.genderCd}} </li>
+                                    <li class="list-group-item"><strong>D.O.B:</strong>  {{proposerRequest.birthDt  | date: 'dd/MM/yyyy'}}</li>
+                                    <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerRequest.partyContactDOList[0].contactNum}} </li>
+                                    <li class="list-group-item"><strong>Personal Email Id:</strong>  {{mailInfo}}</li>
+                                    <!--<li class="list-group-item" *ngIf="requestDetails.policy.partyEmailDOList.emailAddress[1].emailAddress != ''"><strong>Offfical Email Id:</strong>  {{requestDetails.policy.partyEmailDOList.emailAddress[1].emailAddress}}</li>-->
+                                    <li class="list-group-item"><strong>Occupation:</strong>  {{proposerRequest.occupationClassValue}}</li>
+                                    <!--<li class="list-group-item" *ngIf="requestDetails.policy.partyContactDOList.contactNum[1].contactNum != ''"><strong>Residential Number:</strong>  {{requestDetails.policy.partyContactDOList.contactNum[1].contactNum}}</li>-->
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" *ngIf="proposerRequest.classDescriptionValue != ''"><strong>Occupation Description:</strong>  {{proposerRequest.classDescriptionValue}}</li>
+                                    <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerRequest.occupationClassValue}}</li>
+                                    <li class="list-group-item"><strong>PAN Number:</strong> {{identityNum | uppercase}}</li>
+                                    <li class="list-group-item" *ngIf="identityNum1 != ''"><strong>PassPort:</strong> {{identityNum1 | uppercase}}</li>
+                                    <li class="list-group-item"><strong>Annual Income:</strong>{{proposerRequest.annualSalary}} </li>
+                                    <li class="list-group-item"><strong>Height:</strong>  {{requestDetails.policy.partyDOList[1].height}}</li>
+                                    <li class="list-group-item"><strong>Weight:</strong>  {{requestDetails.policy.partyDOList[1].weight}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item"><strong>Address 1:</strong>{{proposerRequestAddress.addressLine1Lang1}}</li>
+                                    <li class="list-group-item" *ngIf="proposerRequestAddress.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddress.addressLine2Lang1}}</li>
+                                    <li class="list-group-item"><strong>PIN code:</strong> {{proposerRequestAddress.pinCode}}</li>
+                                    <li class="list-group-item"><strong>City:</strong>{{proposerRequestAddress.cityCd}}</li>
+                                    <li class="list-group-item"><strong>State:</strong>{{proposerRequestAddress.stateCd}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class=" p-3">
+                                <h6 class="color-blue">RESIDENCE DETAILS</h6>
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item"><strong>Address 1:</strong>{{proposerRequestAddressPerm.addressLine1Lang1}} </li>
+                                    <li class="list-group-item" *ngIf="proposerRequestAddressPerm.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddressPerm.addressLine2Lang1}}</li>
+                                    <li class="list-group-item"><strong>PIN code:</strong>{{proposerRequestAddressPerm.pinCode}} </li>
+                                    <li class="list-group-item"><strong>City:</strong> {{proposerRequestAddressPerm.cityCd}}</li>
+                                    <li class="list-group-item"><strong>State:</strong>{{proposerRequestAddressPerm.stateCd}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <h5 class="mt-3 sub-title">SECURE DETAILS </h5>
+                <div class="row box-card">
+                    <div class="col-md-12">
+                        <div class="p-3">
+                            <!--<div class="row">-->
+
+                                <!--<div class="row col-md-12" *ngFor="let item of personalAccidentQuestionsList; let i = index ">-->
+                                    <!--<div class="col-md-10">-->
+                                        <!--<p>{{i+1}}. {{item.question}} </p>-->
+                                        <!--<div *ngIf="item.checked">-->
+                                            <!--<div class="" *ngIf="item.checked">-->
+                                                <!--<div class="row col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">-->
+                                                    <!--<div class="col-md-8">-->
+                                                        <!--<p>{{si+1}}. {{list.question}} </p>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="col-md-2">-->
+                                                        <!--<strong>-->
+                                                            <!--{{list.fieldValue}}-->
+                                                        <!--</strong>-->
+                                                    <!--</div>-->
+
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-2">-->
+                                        <!--<div class="row col-md-6" >-->
+                                            <!--<strong>-->
+                                                <!--<span *ngIf="item.checked"> Yes</span>-->
+                                                <!--<span *ngIf="!item.checked"> No</span>-->
+                                            <!--</strong>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+
+
+                                <!--</div>-->
+
+
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+
+
+                <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+                <div class="row box-card">
+                    <div class="col-md-6">
+                        <div class="p-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="m-0 list-group">
+                                        <li class="list-group-item"><strong>Name:</strong> {{requestDetails.policy.policyAdditionalFieldsDOList.field10}}</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="m-0 list-group">
+                                        <li class="list-group-item"><strong>Relationship with Insured:</strong> {{requestDetails.policy.policyAdditionalFieldsDOList.field12}}</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+
             <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
             <hr>
             <div class="row">
               <div class="col-md-12 text-center">
-                <form action={{summaryData.action}}  method='post' #form>
+                <form action={{action}}  method='post' #form>
 
                   <div>
-                    <input type='hidden' name='proposalNum' value={{summaryData.proposalNum}}/>
-                    <input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>
+                    <input type='hidden' name='proposalNum' value={{proposalNum}}/>
+                    <input type='hidden' name='returnURL' value={{returnURL}}/>
                   </div>
-                    <!--<div class="row">-->
-                        <!--<div class="col-md-12">-->
-                    <!--&lt;!&ndash;<div class="proposal-buttom mt-3 col-md-6 text-right w-100">&ndash;&gt;-->
-                    <!--<div class="col-md-6 text-right w-100">-->
-                        <!--<button mat-button matStepperPrevious  >Back</button>-->
-                    <!--</div>-->
-                        <!--<div class="col-md-6 text-left w-100">-->
-                  <!--<button mat-raised-button color="primary" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
+
                     <div class="col-md-12">
                         <div class="proposal-buttom mb-3 text-center w-100">
-                            <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                            <button mat-button matStepperPrevious  (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
+                            <button mat-raised-button color="primaryBlue" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
                             <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                         </div>
                     </div>
                 </form>
               </div>
             </div>
-          </section>
         </mat-step>
 
 
@@ -590,7 +728,7 @@
             </mat-expansion-panel-header>
                 <ng-template matStepLabel >PROPOSER / INSURED DETAILS</ng-template>
                 <form [formGroup]="insured">
-                    <div class="row">
+                    <div class="row" *ngIf="payLaterr == false">
                         <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3">
                             <div class="row" >
                                 <div class="col-sm-12 col-xs-12 col-md-12">
@@ -830,7 +968,7 @@
                     <mat-panel-title>SECURE DETAILS</mat-panel-title>
                 </mat-expansion-panel-header>
                 <ng-template matStepLabel>SECURE DETAILS</ng-template>
-                    <div class="row mt-3">
+                    <div class="row mt-3" *ngIf="payLaterr == false">
                         <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3 pb-3" >
                             <div class="row">
                                 <div class="row col-sm-12 col-xs-12 col-md-12" *ngFor="let item of personalAccidentQuestionsList; let i = index ">
@@ -872,12 +1010,12 @@
 
                     </div>
             </mat-expansion-panel>
-            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="religarePATrue2" class="w-100">
+            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="religarePATrue2" class="w-100" >
                 <mat-expansion-panel-header>
                     <mat-panel-title> NOMINEE DETAILS </mat-panel-title>
                 </mat-expansion-panel-header>
                 <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
-                <div class="row mt-3">
+                <div class="row mt-3" *ngIf="payLaterr == false">
                     <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3 pb-3" >
                         <!--<h6 class="color-blue mb-3" >NOMINEE DETAILS </h6>-->
                         <form [formGroup]="nomineeDetails">
@@ -1027,26 +1165,136 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+                </section>
+                <section class="summary-details" *ngIf="payLaterr == true">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12 col-md-12">
+                            <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.suminsured_amount}}</span></h4>
+                            <h4> <span style="font-size: 17px; color: #666;">Insurer: &nbsp;</span> <img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /></h4>
+                            <h4> <span style="font-size: 17px; color: #666;">Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.BasePremium}}</span></h4>
+                            <h4> <span style="font-size: 17px; color: #666;">Total Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.BasePremium}}</span></h4>
+                        </div>
+                    </div>
+                    <section>
+                        <h5 class="mt-3 sub-title">PROPOSER / INSURED DETAILS </h5>
+                        <div class="row box-card">
+                            <div class="col-sm-12 col-xs-12 col-md-12">
+                                <div class="p-3">
+                                    <ul class="m-0 list-group">
+                                        <li class="list-group-item"><strong>Name:</strong>  {{proposerRequest.firstName}} {{proposerRequest.lastName}} </li>
+                                        <li class="list-group-item"><strong>Gender:</strong>{{proposerRequest.genderCd}} </li>
+                                        <li class="list-group-item"><strong>D.O.B:</strong>  {{proposerRequest.birthDt  | date: 'dd/MM/yyyy'}}</li>
+                                        <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerRequest.partyContactDOList[0].contactNum}} </li>
+                                        <li class="list-group-item"><strong>Personal Email Id:</strong>  {{mailInfo.emailAddress}}</li>
+                                        <li class="list-group-item"><strong>Occupation:</strong>  {{proposerRequest.occupationClassValue}}</li>
+                                        <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerRequest.occupationClassValue}}</li>
+                                        <!--<li class="list-group-item"><strong>PAN Number:</strong> {{requestDetails.policy.partyDOList[0].partyIdentityDOList.identityNum[0].insuredPan | uppercase}}</li>-->
+                                        <!--<li class="list-group-item" *ngIf="requestDetails.policy.partyIdentityDOList.identityNum[1].insuredPassPort != ''"><strong>PassPort:</strong> {{requestDetails.policy.partyIdentityDOList.identityNum[1].insuredPassPort | uppercase}}</li>-->
+                                        <li class="list-group-item"><strong>Annual Income:</strong>{{proposerRequest.annualSalary}} </li>
+                                        <li class="list-group-item"><strong>Height:</strong>  {{requestDetails.policy.partyDOList[1].height}}</li>
+                                        <li class="list-group-item"><strong>Weight:</strong>  {{requestDetails.policy.partyDOList[1].weight}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-xs-12 col-md-12">
+                                <div class="p-3">
+                                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                                    <ul class="m-0 list-group">
+                                        <li class="list-group-item"><strong>Address 1:</strong>{{proposerRequestAddress.addressLine1Lang1}}</li>
+                                        <!--<li class="list-group-item" *ngIf="proposerRequestAddress.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddress.addressLine2Lang1}}</li>-->
+                                        <li class="list-group-item"><strong>PIN code:</strong> {{proposerRequestAddress.pinCode}}</li>
+                                        <li class="list-group-item"><strong>City:</strong>{{proposerRequestAddress.insuredCityName}}</li>
+                                        <li class="list-group-item"><strong>State:</strong>{{proposerRequestAddress.stateCd}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-xs-12 col-md-12">
+                                <div class=" p-3">
+                                    <h6 class="color-blue">RESIDENCE DETAILS</h6>
+                                    <ul class="m-0 list-group">
+                                        <li class="list-group-item"><strong>Address 1:</strong>{{proposerRequestAddressPerm.addressLine1Lang1}} </li>
+                                        <!--<li class="list-group-item" *ngIf="proposerRequestAddressPerm.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddressPerm.addressLine2Lang1}}</li>-->
+                                        <li class="list-group-item"><strong>PIN code:</strong>{{proposerRequestAddressPerm.pinCode}} </li>
+                                        <li class="list-group-item"><strong>City:</strong> {{proposerRequestAddressPerm.insuredrCityName}}</li>
+                                        <li class="list-group-item"><strong>State:</strong>{{proposerRequestAddressPerm.stateCd}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <h5 class="mt-3 sub-title">SECURE DETAILS </h5>
+                    <div class="row box-card">
+                        <div class="row col-sm-12 col-xs-12 col-md-12" *ngFor="let item of questionListPay; let i = index ">
+                            <div class="col-sm-10 col-xs-10 col-md-10">
+                                <p>{{i+1}}. {{item.questionCd}} </p>
+                                <!--<div *ngIf="item.checked">-->
+                                    <!--<div class="" *ngIf="item.checked">-->
+                                        <!--<div class="row col-sm-12 col-xs-12 col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">-->
+                                            <!--<div class="col-sm-8 col-xs-8 col-md-8">-->
+                                                <!--<p>{{si+1}}. {{list.question}} </p>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-sm-2 col-xs-2 col-md-2">-->
+                                                <!--<strong>-->
+                                                    <!--{{list.fieldValue}}-->
+                                                <!--</strong>-->
+                                            <!--</div>-->
+
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="col-sm-2 col-xs-2 col-md-2">
+                                <div class="row col-sm-6 col-xs-6 col-md-6" >
+                                    <strong>
+                                        <span *ngIf="item.checked"> Yes</span>
+                                        <span *ngIf="!item.checked"> No</span>
+                                    </strong>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+
+                    <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+                    <div class="row box-card">
+                        <div class="col-sm-12 col-xs-12 col-md-12">
+                            <div class="p-3">
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12 col-md-12">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item"><strong>Name:</strong> {{requestDetails.policy.policyAdditionalFieldsDOList.field10}}</li>
+                                            <li class="list-group-item"><strong>Relationship with Insured:</strong> {{requestDetails.policy.policyAdditionalFieldsDOList.field12}}</li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12 col-md-12 text-center">
-                                    <form action={{summaryData.action}}  method='post' #form>
+                                    <form action={{action}}  method='post' #form>
 
                                         <div>
-                                            <input type='hidden' name='proposalNum' value={{summaryData.proposalNum}}/>
-                                            <input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>
+                                            <input type='hidden' name='proposalNum' value={{proposalNum}}/>
+                                            <input type='hidden' name='returnURL' value={{returnURL}}/>
                                         </div>
                                         <div class="col-sm-12 col-xs-12 col-md-12">
                                             <div class="proposal-buttom mb-3 text-center w-100">
-                                                <button mat-button (click)="backAll()">Back</button>
-                                                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                                                <button mat-button   (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
+                                                <button mat-raised-button color="primaryBlue" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>                                                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                        </section>
             </mat-expansion-panel>
         </div>
 

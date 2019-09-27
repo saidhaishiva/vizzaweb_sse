@@ -252,10 +252,14 @@ export class EdelweissposPremiumListComponent implements OnInit {
     )
   }
 
+
   buyProduct(value) {
     console.log(value, 'vlitss');
+
     if (this.productvalue.company_id == 14) {
+      if(this.totalpremium !=0){
       this.router.navigate(['/edelweiss-pos' + '/' + false]);
+    }
     }
   }
 }

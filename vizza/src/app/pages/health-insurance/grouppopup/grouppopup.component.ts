@@ -14,13 +14,14 @@ export class GrouppopupComponent implements OnInit {
   constructor(
       public dialogRef: MatDialogRef<ComparelistComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any, public config: ConfigurationService) {
+      this.topScroll();
       this.compareDetails = this.data.comparedata;
       console.log(this.compareDetails, 'this.data.comparedata');
   }
 
   ngOnInit() {
       this.topScroll();
-      alert('hello');
+      // alert('hello');
   }
     onNoClick(): void {
         this.dialogRef.close();

@@ -277,7 +277,8 @@ export class AegonTermLifeComponent implements OnInit {
     console.log(this.lifePremiumList, 'this.lifePremiumList')
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
-
+    this.declaration = '';
+    console.log(this.declaration,'declaration');
     // if(){
     //     this.personal.controls['adbrSumAssured'].patchValue(this.lifePremiumList.sum_insured_amount);
     // } else {
@@ -396,7 +397,7 @@ export class AegonTermLifeComponent implements OnInit {
       this.nominee.controls['nState'].patchValue(this.personal.controls['cState'].value);
       this.getcitylistn();
       this.nominee.controls['nCity'].patchValue(this.personal.controls['cCity'].value);
-      this.nominee.controls['nCityName'].patchValue(this.personal.controls['cCityName'].value);
+      // this.nominee.controls['nCityName'].patchValue(this.personal.controls['cCityName'].value);
       this.nominee.controls['nPincode'].patchValue(this.personal.controls['cPincode'].value);
      console.log(this.nominee.controls['nCity'].value);
     } else {
@@ -405,7 +406,7 @@ export class AegonTermLifeComponent implements OnInit {
 
       this.nominee.controls['nAddress1'].patchValue('');
       this.nominee.controls['nAddress2'].patchValue('');
-      this.nominee.controls['nCityName'].patchValue('');
+      // this.nominee.controls['nCityName'].patchValue('');
       this.nominee.controls['nCity'].patchValue('');
       this.nominee.controls['nState'].patchValue('');
       this.nominee.controls['nPincode'].patchValue('');
@@ -850,7 +851,7 @@ export class AegonTermLifeComponent implements OnInit {
         if (selectedDate.length == 10) {
           this.nomineeAge = this.ageCalculate(dob);
           console.log(this.nomineeAge, ' this.nomineeAg');
-
+          sessionStorage.nomineeAge = this.nomineeAge;
         }
 
       } else if (typeof event.value._i == 'object') {
@@ -998,7 +999,7 @@ export class AegonTermLifeComponent implements OnInit {
       this.personal.controls['pAddress1'].patchValue(this.personal.controls['cAddress1'].value);
           this.personal.controls['pAddress2'].patchValue(this.personal.controls['cAddress2'].value);
           this.personal.controls['pCity'].patchValue(this.personal.controls['cCity'].value);
-          this.personal.controls['pCityName'].patchValue(this.personal.controls['cCityName'].value);
+          // this.personal.controls['pCityName'].patchValue(this.personal.controls['cCityName'].value);
           this.personal.controls['pState'].patchValue(this.personal.controls['cState'].value);
           this.personal.controls['pPincode'].patchValue(this.personal.controls['cPincode'].value);
           this.cityList = JSON.parse(sessionStorage.citycList);
@@ -1088,6 +1089,9 @@ export class AegonTermLifeComponent implements OnInit {
   //NEXT BUTTON NOMINEE
   public nomineeDetails(stepper: MatStepper, value) {
     console.log(value, 'nominee');
+    console.log(this.nomineeAge,'nominee age next');
+    console.log(sessionStorage.nomineeAge,'nominee age next');
+
     this.nomineeData= value;
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
@@ -1692,7 +1696,9 @@ export class AegonTermLifeComponent implements OnInit {
 
   changeQualificationList() {
     this.personal.controls['qualifictionName'].patchValue(this.qualificationList[this.personal.controls['qualifiction'].value]);
+  console.log(this.personal.controls['qualifictionName'].value,'qualification name')
   }
+
   changeOccupationlist() {
      this.personal.controls['natureOfWorkName'].patchValue(this.occupationList[this.personal.controls['natureOfWork'].value]);
 
@@ -1866,6 +1872,7 @@ export class AegonTermLifeComponent implements OnInit {
         nRelationName: stepper2.nRelationName,
         nStateName: stepper2.nStateName,
       });
+      console.log(this.nomineeAge,'nominee age')
 
     }
 

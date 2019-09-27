@@ -12,7 +12,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Settings} from '../../app.settings.model';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
  import {ValidationService} from '../../shared/services/validation.service';
- import {ActivatedRoute} from '@angular/router';
+ import {ActivatedRoute, Router} from '@angular/router';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -59,7 +59,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     public declaration: boolean;
     public summaryData: any;
     public lastStepper: any;
-    public questionerData: any;
+    public questionListPay: any;
     public webhost: any;
     public proposalId: any;
     public settings: Settings;
@@ -100,7 +100,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     public hideQuestion: any;
     public partyQuestionDOList: any;
     public questions_list: any;
-    public totalData: any;
+    public identityNum1: any;
     public sameField: any;
     public insureCity: any;
     public isDisable: any;
@@ -115,8 +115,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     gender: any;
     sameFieldsInsure: any;
     sameinsure: any;
-    proposerList: any;
-    insurepersonalCitys: any;
+    proposal_Id: any;
+    identityNum: any;
     iresponse: any;
     insuredresidenceCitys: any;
     rinsuredResponse: any;
@@ -136,11 +136,11 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     insureoccupationDescription: boolean;
     insureoccupationClass: boolean;
     public religarePAProposal: any;
-    proposerAgePA: any;
+    proposerRequestAddressPerm: any;
     insuredAgePA: any;
     public readonlyproposer: boolean;
-    insuredate: any;
-    personaldateError: any;
+    proposerRequestAddress: any;
+    proposerRequest: any;
     insurerdateError: any;
     nomineeDataForm: any;
     currentStep: any;
@@ -156,18 +156,29 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     insuredDescriptionValidator: boolean;
     codeList: boolean;
     questionId : any;
-
+    requestDetails : any;
+    pos_status : any;
+    createdDate : any;
+    stepperindex : any;
+    status : any;
+    mailInfo : any;
+    contactInfo : any;
+    proposalNum : any;
+    returnURL : any;
+    action : any;
     public religarePATrue0: boolean;
     public religarePATrue1: boolean;
     public religarePATrue2: boolean;
     public religarePATrue3: boolean;
+    public payLaterr: boolean;
 
-    constructor(private fb: FormBuilder, public proposalservice: HealthService, public route: ActivatedRoute, public validation: ValidationService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(private fb: FormBuilder, public proposalservice: HealthService, public route: ActivatedRoute, public validation: ValidationService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog, public router: Router,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
-        let stepperindex = 0;
+        this.stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
-                stepperindex = 3;
+                this.stepperindex = 3;
+                console.log(params, 'params');
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.RediretUrlLink = this.summaryData.PaymentURL;
@@ -177,8 +188,18 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     sessionStorage.pa_religare_proposal_id = this.proposalId;
                 }
             }
+            this.status = params.stepper;
+            this.proposal_Id = params.proposalId;
+            if(this.proposal_Id != '' || this.proposal_Id != undefined ){
+                this.payLaterr = true;
+                this.getBackRequest();
+            }
+            if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                this.payLaterr = false;
+
+            }
         });
-        this.currentStep = stepperindex;
+        this.currentStep = this.stepperindex;
         console.log(this.currentStep,'this.currentStep');
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -348,30 +369,35 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 
     }
     ngOnInit() {
-        this.setRelationship();
-        this.setOccupationListCode();
-        this.setpersonalOccupationListCode();
-        this.setinsureOccupationListCode();
-        this.religareQuestions();
+        if (this.payLaterr == true) {
+            this.stepperindex = 3;
+            console.log(this.payLaterr, 'this.payLaterrolll');
+        } else {
+            this.setRelationship();
+            this.setOccupationListCode();
+            this.setpersonalOccupationListCode();
+            this.setinsureOccupationListCode();
+            this.religareQuestions();
 
-        this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
-        this.getAllPremiumDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
-        if (this.getBuyDetails.product_id == 1) {
-            this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
-            this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
+            this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
+            this.getAllPremiumDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
+            if (this.getBuyDetails.product_id == 1) {
+                this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
+                this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
+            }
+            if (this.getBuyDetails.product_id != 1) {
+                this.nomineeDetails.get('religareNomineeName').setValidators(null);
+                this.nomineeDetails.get('religareRelationship').setValidators(null);
+            }
+            this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
+            this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
+            this.sessionData();
+            this.sameRelationship = 'SELF';
+            // if(this.insured.controls['insuredAnnualIncome'].value == ''){
+            //     this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
+            // }
+            // this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
         }
-        if (this.getBuyDetails.product_id != 1) {
-            this.nomineeDetails.get('religareNomineeName').setValidators(null);
-            this.nomineeDetails.get('religareRelationship').setValidators(null);
-        }
-        this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
-        this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
-        this.sessionData();
-        this.sameRelationship = 'SELF';
-        // if(this.insured.controls['insuredAnnualIncome'].value == ''){
-        //     this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
-        // }
-        // this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
     }
 
     setStep(index: number) {
@@ -1350,6 +1376,9 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             this.religarePAProposal = this.summaryData.proposal_id;
+            this.proposalNum = this.summaryData.proposalNum;
+            this.returnURL = this.summaryData.returnURL;
+            this.action = this.summaryData.action;
             sessionStorage.pa_religare_proposal_id = this.religarePAProposal;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             console.log(sessionStorage.summaryData,'sessionStorage.summaryData');
@@ -1357,6 +1386,9 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.nomineeDataForm = this.nomineeDetails.value;
             sessionStorage.proposerDataFormReligare =  JSON.stringify(this.proposerDataForm);
             sessionStorage.nomineeDataFormReligare = JSON.stringify(this.nomineeDataForm);
+            this.createdDate = new Date();
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -1388,5 +1420,252 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     }
     changeRelationShip(){
         this.nomineeDetails.controls['religareRelationshipName'].patchValue(this.relationshipList[this.nomineeDetails.controls['religareRelationship'].value]);
+    }
+    // payLater
+    payLater() {
+
+        let pan = this.personal.controls['personalPan'].value;
+        let pan1 = this.insured.controls['insuredPan'].value;
+        const data= {
+            'product_id': this.getBuyDetails.product_id,
+            'policy_term': '1',
+            'scheme_id': this.getBuyDetails.scheme,
+            'terms_condition': '1',
+            'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'platform': 'web',
+            'created-date': this.createdDate,
+            'payment-date': '',
+            'proposal_id': sessionStorage.pa_religare_proposal_id == '' || sessionStorage.pa_religare_proposal_id == undefined ? '' : sessionStorage.pa_religare_proposal_id,
+            'enquiry_id': this.getAllPremiumDetails.enquiry_id,
+            'group_name': 'Group A',
+            'company_name': this.getBuyDetails.company_name,
+            'plan_name': this.getBuyDetails.product_name,
+            'suminsured_amount':this.getBuyDetails.suminsured_amount,
+            'company_logo': this.getBuyDetails.company_logo,
+            'BasePremium': this.summaryData.premium,
+            // 'FinalPremium': this.summaryData.FinalPremium,
+            'action':this.summaryData.action,
+            'proposalNum':this.summaryData.proposalNum,
+            'returnURL':this.summaryData.returnURL,
+            "policy": {
+                "partyDOList": [{
+                    'birthDt': this.datepipe.transform(this.insured.controls['insuredDob'].value, 'y-MM-dd'),
+                    'firstName': this.insured.controls['insuredFirstname'].value,
+                    'genderCd': this.insured.controls['insuredGender'].value,
+                    'relationCd':'SELF',
+                    'roleCd': "PROPOSER",
+                    'titleCd': this.insured.controls['insuredTitle'].value,
+                    'annualSalary': this.insured.controls['insuredAnnualIncome'].value != 0 ? this.insured.controls['insuredAnnualIncome'].value: '',
+                    'occupationCode':this.insured.controls['insuredOccupationCode'].value,
+                    'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
+                    'occupationClassValue':this.insured.controls['insuredDescriptionCodeName'].value,
+                    'classDescription': this.insured.controls['insuredDescription'].value,
+                    'classDescriptionValue': this.insureoccupationDescription ? this.insured.controls['insuredClassDescriptionCodeName'].value : this.insured.controls['insuredClassDescriptionCodeName'].value,
+                    'lastName':  this.insured.controls['insuredLastname'].value,
+                    "partyAddressDOList": [{
+                        'addressLine1Lang1':  this.insured.controls['insuredAddress'].value,
+                        'addressLine2Lang1':  this.insured.controls['insuredAddress2'].value,
+                        'addressTypeCd': "COMMUNICATION",
+                        'areaCd':  this.insured.controls['insuredCity'].value,
+                        'cityCd': this.insured.controls['insuredCity'].value,
+                        'pinCode':  this.insured.controls['insuredPincode'].value,
+                        'stateCd':  this.insured.controls['insuredState'].value,
+                        'insuredCityName':  this.insured.controls['insuredCityName'].value,
+                        'countryCd': 'IND'
+                    },
+                        {
+                            'addressLine1Lang1':  this.insured.controls['insuredrAddress'].value,
+                            'addressLine2Lang1':  this.insured.controls['insuredrAddress2'].value,
+                            'addressTypeCd': 'PERMANENT',
+                            'areaCd':  this.insured.controls['insuredrCity'].value,
+                            'cityCd':  this.insured.controls['insuredrCity'].value,
+                            'pinCode':  this.insured.controls['insuredrPincode'].value,
+                            'stateCd':  this.insured.controls['insuredrState'].value,
+                            'insuredrCityName':  this.insured.controls['insuredrCityName'].value,
+
+                            'countryCd': 'IND'
+                        }
+                    ],
+                    "partyContactDOList": [{
+                        'contactNum':  this.insured.controls['insuredMobile'].value,
+                        'contactTypeCd': 'MOBILE',
+                        'stdCode': "+91"
+                    },
+                        {
+                            'contactNum': this.insured.controls['insuredAltnumber'].value,
+                            'contactTypeCd': 'RESIDENTIAL',
+                            'stdCode': "+91"
+                        }
+                    ],
+                    "partyEmailDOList": [{
+                        'emailAddress':  this.insured.controls['insuredEmail'].value,
+                        'emailTypeCd': "PERSONAL"
+                    },
+                        {
+                            'emailAddress':  this.insured.controls['insuredEmail2'].value,
+                            'emailTypeCd': "OFFICIAL"
+                        }
+                    ],
+                    "partyIdentityDOList": [{
+                        'identityNum': pan1.toUpperCase(),
+                        'identityTypeCd': "PAN"
+                    },
+                        {
+                            'identityNum':  this.insured.controls['insuredPassPort'].value,
+                            'identityTypeCd': "PASSPORT"
+                        }
+                    ]
+                },
+                    {
+                        'birthDt': this.datepipe.transform(this.insured.controls['insuredDob'].value, 'y-MM-dd'),
+                        'firstName': this.insured.controls['insuredFirstname'].value,
+                        'genderCd':  this.insured.controls['insuredGender'].value,
+                        'annualSalary': this.insured.controls['insuredAnnualIncome'].value != 0 ? this.insured.controls['insuredAnnualIncome'].value: '',
+                        'occupationCode':this.insured.controls['insuredOccupationCode'].value,
+                        'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
+                        'occupationClassValue':this.insured.controls['insuredDescriptionCodeName'].value,
+
+                        // 'classDescription': this.insureoccupationDescription ? this.insured.controls['insuredDescription'].value : this.insured.controls['insuredClassDescriptionCode'].value,
+                        'classDescription': this.insured.controls['insuredDescription'].value,
+                        'classDescriptionValue': this.insureoccupationDescription ? this.insured.controls['insuredClassDescriptionCodeName'].value : this.insured.controls['insuredClassDescriptionCodeName'].value,
+                        'lastName':  this.insured.controls['insuredLastname'].value,
+                        'height': this.insured.controls['insuredHeight'].value,
+                        'weight': this.insured.controls['insuredWeight'].value,
+                        "partyAddressDOList": [{
+                            'addressLine1Lang1':  this.insured.controls['insuredAddress'].value,
+                            'addressLine2Lang1':  this.insured.controls['insuredAddress2'].value,
+                            'addressTypeCd': "COMMUNICATION",
+                            'areaCd':  this.insured.controls['insuredCity'].value,
+                            'cityCd': this.insured.controls['insuredCity'].value,
+                            'pinCode':  this.insured.controls['insuredPincode'].value,
+                            'stateCd':  this.insured.controls['insuredState'].value,
+                            'countryCd': 'IND'
+                        },
+                            {
+                                'addressLine1Lang1':  this.insured.controls['insuredrAddress'].value,
+                                'addressLine2Lang1':  this.insured.controls['insuredrAddress2'].value,
+                                'addressTypeCd': 'PERMANENT',
+                                'areaCd':  this.insured.controls['insuredrCity'].value,
+                                'cityCd':  this.insured.controls['insuredrCity'].value,
+                                'pinCode':  this.insured.controls['insuredrPincode'].value,
+                                'stateCd':  this.insured.controls['insuredrState'].value,
+                                'countryCd': 'IND'
+                            }
+                        ],
+                        "partyContactDOList": [{
+                            'contactNum':  this.insured.controls['insuredMobile'].value,
+                            'contactTypeCd': 'MOBILE',
+                            'stdCode': "+91"
+                        },
+                            {
+                                'contactNum': this.insured.controls['insuredAltnumber'].value,
+                                'contactTypeCd': 'RESIDENTIAL',
+                                'stdCode': "+91"
+                            }
+                        ],
+                        "partyEmailDOList": [{
+                            'emailAddress':  this.insured.controls['insuredEmail'].value,
+                            'emailTypeCd': "PERSONAL"
+                        },
+                            {
+                                'emailAddress':  this.insured.controls['insuredEmail2'].value,
+                                'emailTypeCd': "OFFICIAL"
+                            }
+                        ],
+                        "partyIdentityDOList": [{
+                            'identityNum': pan1.toUpperCase(),
+                            'identityTypeCd': "PAN"
+                        },
+                            {
+                                'identityNum':  this.insured.controls['insuredPassPort'].value,
+                                'identityTypeCd': "PASSPORT"
+                            }
+                        ],
+                        "partyQuestionDOList": this.partyQuestionDOList,
+                        'relationCd': 'SELF',
+                        'roleCd': 'PRIMARY',
+                        'titleCd': this.insured.controls['insuredTitle'].value,
+                        'partyEmploymentDOList': {
+                            'occupationCd': 'C1'
+                        }
+                    }
+                ],
+                policyAdditionalFieldsDOList: {
+                    'field10':  this.nomineeDetails.controls['religareNomineeName'].value,
+                    'field12':  this.nomineeDetails.controls['religareRelationship'].value,
+                    'fieldTc': 'YES'
+                }
+            }
+        }
+
+
+        console.log(data, 'payyyyy');
+        this.settings.loadingSpinner = true;
+        this.personalservice.proposalPayLater(data).subscribe(
+            (successData) => {
+                this.payLaterSuccess(successData);
+            },
+            (error) => {
+                this.payLaterFailure(error);
+            }
+        );
+
+    }
+    public payLaterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.toastr.success(successData.ResponseObject);
+            this.saveEdit();
+        } else {
+        }
+    }
+
+    public payLaterFailure(successData) {
+    }
+    saveEdit(){
+        this.router.navigate(['/home']);
+
+    }
+    // get request
+    getBackRequest() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'proposal_id': this.proposal_Id
+        };
+        this.personalservice.proposalGetRequest(data).subscribe(
+            (successData) => {
+                this.getBackResSuccess(successData);
+            },
+            (error) => {
+                this.getBackResFailure(error);
+            }
+        );
+    }
+    public getBackResSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.requestDetails = successData.ResponseObject;
+            this.proposalNum = this.requestDetails.proposalNum;
+            this.returnURL = this.requestDetails.returnURL;
+            this.action = this.requestDetails.action;
+            this.proposerRequest = this.requestDetails.policy.partyDOList[0];
+            this.proposerRequestAddress = this.proposerRequest.partyAddressDOList[0];
+            this.proposerRequestAddressPerm = this.proposerRequest.partyAddressDOList[1];
+            this.mailInfo = this.proposerRequest.partyEmailDOList[0].emailAddress;
+            this.identityNum = this.proposerRequest.partyIdentityDOList[0].identityNum;
+            this.identityNum1 = this.proposerRequest.partyIdentityDOList[1].identityNum;
+            this.questionListPay = this.requestDetails.policy.partyDOList[1].partyQuestionDOList;
+            console.log(this.questionListPay, 'this.identityNum');
+
+            // this.proposerRequestMobile = this.proposerRequest.ContactInformation.ContactNumber.ContactNumber.Number;
+            // console.log(this.requestDetails, 'requestDetailsrequestDetails');
+            this.pos_status = this.requestDetails.role_id;
+        } else {
+        }
+    }
+    public getBackResFailure(successData) {
     }
 }

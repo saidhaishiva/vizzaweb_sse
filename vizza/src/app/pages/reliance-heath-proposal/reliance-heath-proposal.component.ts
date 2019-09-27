@@ -99,7 +99,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     public previousInsuranceStatus1: any;
     public hideQuestion: any;
     public questions_list: any;
-    public totalData: any;
+    public pos_status: any;
     public sameField: any;
     public insureCity: any;
     public isDisable: any;
@@ -1743,6 +1743,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             sessionStorage.previousInsuranceFromData = JSON.stringify(this.previousInsuranceFromData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
             this.createdDate = new Date();
+            this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
             stepper.next();
             this.nextStep();
             this.topScroll();
@@ -1895,12 +1896,15 @@ export class RelianceHeathProposalComponent implements OnInit {
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'product_id': this.buyProductdetails.product_id,
             'plan_name': this.buyProductdetails.product_name,
+            'company_logo': this.buyProductdetails.company_logo,
             'sum_insured_amount': this.buyProductdetails.suminsured_amount,
             'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString() : this.proposalId.toString(),
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'group_name': this.getFamilyDetails.name,
+            'premium': this.summaryData.premium,
+            'total_premium': this.summaryData.total_premium,
             'created-date': this.createdDate,
             'paymentlink-date': '',
         };
@@ -1957,6 +1961,8 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.requestPersonalInfo = this.requestDetails.ClientDetails.ClientAddress;
 
             this.requestInsuredDetails = this.requestDetails.InsuredDetailsList.InsuredDetail;
+            this.pos_status = this.requestDetails.role_id;
+
             // console.log(this.requestInsuredDetails, 'hgghjghjgjh');
         } else {
         }

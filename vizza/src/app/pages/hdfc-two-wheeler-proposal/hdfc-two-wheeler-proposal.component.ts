@@ -340,9 +340,17 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 this.titlesucccess(successData);
             },
             (error) => {
-                this.failureSuccess(error);
+                this.failureTitleSuccess(error);
             }
         );
+    }
+    public titlesucccess(successData) {
+        if (successData.IsSuccess) {
+
+            this.titleList = successData.ResponseObject;
+        }
+    }
+    public failureTitleSuccess(error) {
     }
 
 
@@ -358,9 +366,19 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 this.companysucccess(successData);
             },
             (error) => {
-                this.failureSuccess(error);
+                this.failureCompanySuccess(error);
             }
         );
+    }
+    public companysucccess(successData) {
+        if (successData.IsSuccess) {
+
+            this.companyList = successData.ResponseObject;
+            sessionStorage.companylist = JSON.stringify(this.companyList);
+
+        }
+    }
+    public failureCompanySuccess(error) {
     }
 
     extensioncountry() {
@@ -374,9 +392,17 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 this.countrysucccess(successData);
             },
             (error) => {
-                this.failureSuccess(error);
+                this.failureCountrySuccess(error);
             }
         );
+    }
+    public countrysucccess(successData) {
+        if (successData.IsSuccess) {
+
+            this.countryList = successData.ResponseObject;
+        }
+    }
+    public failureCountrySuccess(error) {
     }
 
     bankname() {
@@ -390,9 +416,16 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 this.banksuccess(successData);
             },
             (error) => {
-                this.failureSuccess(error);
+                this.failureBankSuccess(error);
             }
         );
+    }
+    public banksuccess(successData) {
+        if (successData.IsSuccess) {
+            this.bankList = successData.ResponseObject;
+        }
+    }
+    public failureBankSuccess(error) {
     }
 
     financiername() {
@@ -400,7 +433,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-        };
+
+        }
         this.bikeInsurance.hdfcGetFinancierNameList(data).subscribe(
             (successData) => {
                 this.financesuccess(successData);
@@ -411,30 +445,55 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         );
     }
 
-    public titlesucccess(successData) {
-        this.titleList = successData.ResponseObject;
-    }
-
-    public companysucccess(successData) {
-        this.companyList = successData.ResponseObject;
-        sessionStorage.companylist = JSON.stringify(this.companyList);
-
-    }
-
-    public banksuccess(successData) {
-        this.bankList = successData.ResponseObject;
-    }
-
     public financesuccess(successData) {
-        this.financeList = successData.ResponseObject;
-    }
-
-    public countrysucccess(successData) {
-        this.countryList = successData.ResponseObject;
+        if (successData.IsSuccess) {
+            this.financeList = successData.ResponseObject;
+        }
     }
 
     public failureSuccess(error) {
     }
+
+    // financiername() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    //     };
+    //     this.bikeInsurance.hdfcGetFinancierNameList(data).subscribe(
+    //         (successData) => {
+    //             this.financesuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.failureSuccess(error);
+    //         }
+    //     );
+    // }
+    //
+    // public titlesucccess(successData) {
+    //     this.titleList = successData.ResponseObject;
+    // }
+    //
+    // public companysucccess(successData) {
+    //     this.companyList = successData.ResponseObject;
+    //     sessionStorage.companylist = JSON.stringify(this.companyList);
+    //
+    // }
+    //
+    // public banksuccess(successData) {
+    //     this.bankList = successData.ResponseObject;
+    // }
+    //
+    // public financesuccess(successData) {
+    //     this.financeList = successData.ResponseObject;
+    // }
+    //
+    // public countrysucccess(successData) {
+    //     this.countryList = successData.ResponseObject;
+    // }
+    //
+    // public failureSuccess(error) {
+    // }
 
 
     ///change title value
@@ -1094,7 +1153,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             'policy_type': this.premiumType == 'ThridParty_premium' ? 'ThridParty_Premium' : 'Comprehensive_Premium',
             'proposal_id': sessionStorage.hdfcBikeproposalID == '' || sessionStorage.hdfcBikeproposalID == undefined ? '' : sessionStorage.hdfcBikeproposalID,
             'motorproposalObj': {
-                'TransactionID':this.buyProductDetails.TransactionID,
+                // 'TransactionID':this.buyProductDetails.TransactionID,
                 'Customer_Details': {
                     'Customer_FirstName': this.proposer.controls['firstName'].value,
                     'Customer_MiddleName': this.proposer.controls['middleName'].value,
