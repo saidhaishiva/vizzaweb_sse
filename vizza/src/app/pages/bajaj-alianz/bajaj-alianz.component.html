@@ -443,7 +443,7 @@
                                         <div class="p-3">
                                             <h6 class="color-blue mt-2"></h6>
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item"><strong> Name :</strong><span *ngIf="item.tycpdetails.beforetitle == 'MRS'">Ms</span><span *ngIf="item.tycpdetails.beforetitle == 'MR'">Mr</span> .{{item.tycpdetails.firstname}} {{item.tycpdetails.middlename}} {{item.tycpdetails.surname}}</li>
+                                                <li class="list-group-item"><strong> Name :</strong><span *ngIf="item.tycpdetails.beforetitle == 'MRS'">Ms</span><span *ngIf="item.tycpdetails.beforetitle == 'MR'">Mr</span> .{{item.hcpdtmemlist[i].membername}} {{item.tycpdetails.middlename}} {{item.tycpdetails.surname}}</li>
                                                 <!--<li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong> Name :</strong>Mr. {{item.ins_name}}</li>-->
                                                 <li class="list-group-item"><strong>Gender :</strong> {{item.tycpdetails.sex}}</li>
                                                 <li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{item.tycpdetails.dateofbirth | date: 'dd/MM/yyyy'}}</li>

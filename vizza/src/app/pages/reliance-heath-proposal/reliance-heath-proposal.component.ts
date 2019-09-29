@@ -143,6 +143,7 @@ export class RelianceHeathProposalComponent implements OnInit {
     public status : any;
     public proposal_Id : any;
     public stepperindex : any;
+    public RediretUrlLink : any;
 
     public healthRelianceTrue0: boolean;
     public healthRelianceTrue1: boolean;
@@ -1278,6 +1279,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'Age': this.insurerData[i].personalAge.toString(),
                     'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
                     'MaritalStatusID': this.insurerData[i].maritalStatus,
+                    'maritalStatusName': this.insurerData[i].maritalStatusName,
                     'OccupationID': this.insurerData[i].occupation,
                     'PreExistingDisease': {
                         'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'No' ? "false" : "true",
@@ -1680,6 +1682,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'DOB': this.datepipe.transform(this.nomineeData.nomineeDob, 'y-MM-dd'),
                     'NomineeRelationshipID': this.nomineeData.nomineeRelationship,
                     'NomineeRelationshipOther': this.nomineeData.nomineeOtherRelationship,
+                    'nomineeRelationshipName': this.nomineeDetails.controls['nomineeRelationshipName'].value,
                     'NomineeAddress': {
                         'Address1': this.nomineeData.nomineeAddress,
                         'Address2': this.nomineeData.nomineeAddress2,
@@ -1690,6 +1693,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                         'NearestLandmark': this.nomineeData.nearestLandMark,
                         'Pincode': this.nomineeData.nomineePincode,
                         'AreaID': this.nomineeData.nomineeArea,
+                        'nomineeAreaName': this.nomineeDetails.controls['nomineeAreaName'].value,
                         'StateID': this.nomineeData.nomineeStateId
                     }
                 },
@@ -1736,6 +1740,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.previousInsuranceFromData = this.previousInsuranceFrom.value;
             this.nomineeFormData = this.nomineeDetails.value;
             this.proposalId = this.summaryData.policy_id;
+            this.RediretUrlLink = this.summaryData.RediretUrlLink;
             sessionStorage.proposalID = this.proposalId;
             sessionStorage.summaryData = JSON.stringify(successData.ResponseObject);
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
@@ -1786,6 +1791,11 @@ export class RelianceHeathProposalComponent implements OnInit {
     }
 
     payLater(){
+        let typeList;
+        let maritalStatusName;
+        for(let i=0; i < this.insuredFormData; i++ ){
+          typeList = this.insureArray['controls'].items['controls'][i]['controls'].type;
+        }
         const data = {
             'ClientDetails': {
                 'ClientTypeID': '0',
@@ -1857,6 +1867,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 'SumInsured': this.buyProductdetails.suminsured_amount,
                 'IsServiceTaxExemptionApplicable': this.personalData.serviceTax == 'Yes' ? 'true' : 'false',
                 'ServiceTaxExemptionID': this.personalData.ServicesTaxId,
+                'ServicesTaxName': this.personalData.ServicesTaxName,
                 'IsAnyEmployeeOfRelianceADAGroup': 'false',
                 'CompanyNameID': '',
                 'EmployeeCode': '',
@@ -1894,6 +1905,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 'PrevYearPolicyEndDate': this.datepipe.transform(this.previousInsuranceFrom.controls['PolicyEndDate'].value, 'y-MM-dd') == null ? '' : this.previousInsuranceFrom.controls['PolicyEndDate'].value
             },
             'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'type': typeList,
             'product_id': this.buyProductdetails.product_id,
             'plan_name': this.buyProductdetails.product_name,
             'company_logo': this.buyProductdetails.company_logo,
@@ -1905,6 +1917,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             'group_name': this.getFamilyDetails.name,
             'premium': this.summaryData.premium,
             'total_premium': this.summaryData.total_premium,
+            'RediretUrlLink': this.summaryData.RediretUrlLink,
             'created-date': this.createdDate,
             'paymentlink-date': '',
         };
@@ -1959,6 +1972,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
             this.requestPersonalInfo = this.requestDetails.ClientDetails.ClientAddress;
+            this.RediretUrlLink = this.requestDetails.RediretUrlLink;
 
             this.requestInsuredDetails = this.requestDetails.InsuredDetailsList.InsuredDetail;
             this.pos_status = this.requestDetails.role_id;
