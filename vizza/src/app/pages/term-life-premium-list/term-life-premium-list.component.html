@@ -60,9 +60,9 @@
 
                 <div class="col-md-12"  *ngIf="plists.product_id == 102">
                 <mat-form-field class="w-100">
-                  <mat-select placeholder="Life" autocomplete="off" (change)="gethdfcPremium(index)" ([ngModel])="hdfcPlan" >
-                    <mat-option *ngFor="let list of allHdfcList | keys" [value]= 'list.key'>
-                      {{list.value}}{{hdfcPlan}}
+                  <mat-select placeholder="Life" autocomplete="off" (change)="gethdfcPremium(index)" (click)="getHDFcProduct($event)">
+                    <mat-option *ngFor="let alist of allHdfcList | keys" [value]= 'alist.key'>
+                      {{alist.name}}
                     </mat-option>
                   </mat-select>
                   <!--<mat-error *ngIf="personal.controls.pCity.errors?.required">city is required</mat-error>-->

@@ -1298,11 +1298,9 @@ export class TravelProposalComponent implements OnInit {
             'proposerAreaId': this.personalData.personalArea,
             'proposerAreaValue': this.personalData.personalAreaName,
             'proposerPincode': this.personalData.personalPincode,
-
             'physicianName': this.personalData.physicianName,
             'physicianContactNumber': this.personalData.physicianContactNumber,
             'travelDeclaration': this.personalData.travelDeclaration ? 1 : 0,
-
             'personalCity': this.personalData.personalCity,
             'personalCityValue': this.personalData.personalCityName,
             'personalState': this.personalData.personalState,
