@@ -138,6 +138,10 @@ export class TravelShriramProposalComponent implements OnInit {
     currentStep: any;
     public sameRelationship: any;
     public getEnquiryDetails: any;
+    public proposalId: any;
+    public payLaterr: any;
+    public proposal_Id: any;
+    public status: any;
     constructor(public travelservice: TravelService, public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -153,6 +157,19 @@ export class TravelShriramProposalComponent implements OnInit {
                 }
 
             }
+            this.status = params.stepper;
+            this.proposal_Id = params.proposalId;
+            if(this.proposalId != '' || this.proposal_Id != undefined ){
+                this.payLaterr = true;
+                console.log(this.proposal_Id, 'this.proposalId');
+                console.log(this.status, 'this.proposalId');
+                // this.getBackRequest();
+            }
+            if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                this.payLaterr = false;
+            }
+            console.log(this.payLaterr, 'cons');
+
         });
         this.currentStep = stepperindex;
         console.log(this.currentStep, 'this.currentStep');

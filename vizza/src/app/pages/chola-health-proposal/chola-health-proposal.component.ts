@@ -569,6 +569,9 @@ export class CholaHealthProposalComponent implements OnInit {
             console.log(this.insurerData, 'this.insurerData');
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
+                for (let i = 0; i < this.insurePersons.length; i++) {
+                    this.insurerData.items[i].type = this.insurePersons[i].type;
+                }
                 this.totalInsureDetails.push({
                     'Title': this.insurerData[i].personalTitle,
                     'FirstName': this.insurerData[i].personalFirstname,
@@ -1154,6 +1157,7 @@ console.log( sessionStorage.stepper3Details);
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
             this.pos_status = this.requestDetails.role_id;
+            this.PaymentActionUrl = this.requestDetails.PaymentActionUrl;
            this.proposerData = this.requestDetails.ProposalSave.ObjProposalService.ProposalDetails.ClsMIBLProposalDetails;
            this.insuredData = this.requestDetails.ProposalSave.ObjProposalService.InsuredDetails.clsInsuredDetails;
            this.nomineeDataPay = this.requestDetails.ProposalSave.ObjProposalService.NomineeDetails.ClsMIBLNomineeDetails;

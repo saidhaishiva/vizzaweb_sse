@@ -177,23 +177,27 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
+                this.status = params.stepper;
+                this.proposal_Id = params.proposalId;
                 this.stepperindex = 3;
                 console.log(params, 'params');
-                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
-                    this.summaryData = JSON.parse(sessionStorage.summaryData);
-                    this.RediretUrlLink = this.summaryData.PaymentURL;
-                    this.proposalId = this.summaryData.ProposalId;
-                    this.nomineeDataForm = JSON.parse(sessionStorage.nomineeDataFormReligare);
-                    this.proposerDataForm = JSON.parse(sessionStorage.proposerDataFormReligare);
-                    sessionStorage.pa_religare_proposal_id = this.proposalId;
+                if (this.proposal_Id == undefined || this.proposal_Id == '') {
+                    if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                        this.summaryData = JSON.parse(sessionStorage.summaryData);
+                        this.RediretUrlLink = this.summaryData.PaymentURL;
+                        this.proposalId = this.summaryData.ProposalId;
+                        this.nomineeDataForm = JSON.parse(sessionStorage.nomineeDataFormReligare);
+                        this.proposerDataForm = JSON.parse(sessionStorage.proposerDataFormReligare);
+                        sessionStorage.pa_religare_proposal_id = this.proposalId;
+                    }
+                } else {
+                    if(this.proposal_Id != '' || this.proposal_Id != undefined ){
+                        this.payLaterr = true;
+                        this.getBackRequest();
+                    }
                 }
             }
-            this.status = params.stepper;
-            this.proposal_Id = params.proposalId;
-            if(this.proposal_Id != '' || this.proposal_Id != undefined ){
-                this.payLaterr = true;
-                this.getBackRequest();
-            }
+
             if(this.proposal_Id == undefined || this.proposal_Id == '') {
                 this.payLaterr = false;
 
@@ -1381,7 +1385,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.action = this.summaryData.action;
             sessionStorage.pa_religare_proposal_id = this.religarePAProposal;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
-            console.log(sessionStorage.summaryData,'sessionStorage.summaryData');
+            console.log(this.action,'sessionStorage.summaryData');
             this.proposerDataForm = this.insured.value;
             this.nomineeDataForm = this.nomineeDetails.value;
             sessionStorage.proposerDataFormReligare =  JSON.stringify(this.proposerDataForm);

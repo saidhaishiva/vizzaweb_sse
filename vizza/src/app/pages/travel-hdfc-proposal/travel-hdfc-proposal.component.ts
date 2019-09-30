@@ -87,6 +87,10 @@ export class TravelHdfcProposalComponent implements OnInit {
     public travelPurpose: any;
     public requestCustomerDetails: any;
     public proposalId: any;
+    public stepperindex: any;
+    public payLaterr: any;
+    public status: any;
+    public proposal_Id: any;
     public mobileView: boolean;
     public pedValid: boolean;
 
@@ -98,10 +102,10 @@ export class TravelHdfcProposalComponent implements OnInit {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
-        let stepperindex = 0;
+        this.stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
-                stepperindex = 3;
+                this.stepperindex = 3;
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
@@ -114,8 +118,21 @@ export class TravelHdfcProposalComponent implements OnInit {
 
                 }
             }
+            this.status = params.stepper;
+            this.proposal_Id = params.proposalId;
+            if(this.proposalId != '' || this.proposal_Id != undefined ){
+                this.payLaterr = true;
+                console.log(this.proposal_Id, 'this.proposalId');
+                console.log(this.status, 'this.proposalId');
+                this.getBackRequest();
+            }
+            if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                this.payLaterr = false;
+            }
+            console.log(this.payLaterr, 'cons');
+
         });
-        this.currentStep = stepperindex;
+        this.currentStep = this.stepperindex;
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.totalInsureDetails = [];
@@ -174,35 +191,39 @@ export class TravelHdfcProposalComponent implements OnInit {
     }
 
     ngOnInit() {
-        if(window.innerWidth<=768){
-            this.mobileView = true;
-        }
-        else{
-            this.mobileView = false;
-        }
+        if (this.payLaterr == true) {
+            this.stepperindex = 3;
+            console.log(this.payLaterr, 'this.payLaterrolll');
+        } else {
+            if (window.innerWidth <= 768) {
+                this.mobileView = true;
+            } else {
+                this.mobileView = false;
+            }
 
-        this.titleproposer();
-        this.getStateList();
-        this.getPedList();
-        this.insuredRelationshipList();
-        this.nomineeRelationshipList();
-        this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-        console.log(this.getTravelPremiumList,'this.getTravelPremiumList');
-        let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
-        this.getEnquiryDetails = enqList[0];
-        // this.getallTravelPremiumList = JSON.parse(sessionStorage.allTravelPremiumLists);
-        // console.log(this.getallTravelPremiumList, 'this.getallTravelPremiumList');
-        this.insuredTravelPerson = this.getEnquiryDetails.family_members;
-        console.log(this.insuredTravelPerson,' this.insuredTravelPerson ');
-        this.hdfcInsuredTravel = this.fb.group({
-            items: this.fb.array([])
-        });
-        for (let i = 0; i < this.insuredTravelPerson.length; i++) {
-            this.items = this.hdfcInsuredTravel.get('items') as FormArray;
-            this.items.push(this.initItemRows());
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.patchValue(this.insuredTravelPerson[i].type);
+            this.titleproposer();
+            this.getStateList();
+            this.getPedList();
+            this.insuredRelationshipList();
+            this.nomineeRelationshipList();
+            this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
+            console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
+            let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
+            this.getEnquiryDetails = enqList[0];
+            // this.getallTravelPremiumList = JSON.parse(sessionStorage.allTravelPremiumLists);
+            // console.log(this.getallTravelPremiumList, 'this.getallTravelPremiumList');
+            this.insuredTravelPerson = this.getEnquiryDetails.family_members;
+            console.log(this.insuredTravelPerson, ' this.insuredTravelPerson ');
+            this.hdfcInsuredTravel = this.fb.group({
+                items: this.fb.array([])
+            });
+            for (let i = 0; i < this.insuredTravelPerson.length; i++) {
+                this.items = this.hdfcInsuredTravel.get('items') as FormArray;
+                this.items.push(this.initItemRows());
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.patchValue(this.insuredTravelPerson[i].type);
+            }
+            this.sessionData();
         }
-        this.sessionData();
     }
     // session Storage
     sessionData() {
@@ -1125,7 +1146,6 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.requestDetails = successData.ResponseObject;
             this.pos_status = this.requestDetails.role_id;
             console.log(this.pos_status, 'this.pos_status');
-            // this.stepperindex = 3;
             this.requestCustomerDetails = this.requestDetails.InsuranceDetails.CustDetails;
             // this.requestInsuredDetails = this.requestDetails.InsuranceDetails.Member.InsuredDetails;
             // this.fullName = this.requestCustomerDetails.ApplFirstName +' '+ this.requestCustomerDetails.ApplLastName;

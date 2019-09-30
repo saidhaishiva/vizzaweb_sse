@@ -386,7 +386,7 @@
         </mat-step>
         <mat-step [stepControl]="">
           <ng-template matStepLabel>SUMMARY</ng-template>
-          <section class="summary-details" *ngIf="summaryData">
+          <section class="summary-details" *ngIf="summaryData && payLaterr == false">
             <div class="row">
               <div class="col-md-4"> <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>
               <div class="col-md-8">
@@ -571,7 +571,7 @@
                                     <li class="list-group-item" *ngIf="proposerRequest.classDescriptionValue != ''"><strong>Occupation Description:</strong>  {{proposerRequest.classDescriptionValue}}</li>
                                     <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerRequest.occupationClassValue}}</li>
                                     <li class="list-group-item"><strong>PAN Number:</strong> {{identityNum | uppercase}}</li>
-                                    <li class="list-group-item" *ngIf="identityNum1 != ''"><strong>PassPort:</strong> {{identityNum1 | uppercase}}</li>
+                                    <!--<li class="list-group-item" *ngIf="identityNum1 != ''"><strong>PassPort:</strong> {{identityNum1 | uppercase}}</li>-->
                                     <li class="list-group-item"><strong>Annual Income:</strong>{{proposerRequest.annualSalary}} </li>
                                     <li class="list-group-item"><strong>Height:</strong>  {{requestDetails.policy.partyDOList[1].height}}</li>
                                     <li class="list-group-item"><strong>Weight:</strong>  {{requestDetails.policy.partyDOList[1].weight}}</li>
@@ -583,7 +583,7 @@
                                 <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                                 <ul class="m-0 list-group">
                                     <li class="list-group-item"><strong>Address 1:</strong>{{proposerRequestAddress.addressLine1Lang1}}</li>
-                                    <li class="list-group-item" *ngIf="proposerRequestAddress.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddress.addressLine2Lang1}}</li>
+                                    <!--<li class="list-group-item" *ngIf="proposerRequestAddress.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddress.addressLine2Lang1}}</li>-->
                                     <li class="list-group-item"><strong>PIN code:</strong> {{proposerRequestAddress.pinCode}}</li>
                                     <li class="list-group-item"><strong>City:</strong>{{proposerRequestAddress.cityCd}}</li>
                                     <li class="list-group-item"><strong>State:</strong>{{proposerRequestAddress.stateCd}}</li>
@@ -595,7 +595,7 @@
                                 <h6 class="color-blue">RESIDENCE DETAILS</h6>
                                 <ul class="m-0 list-group">
                                     <li class="list-group-item"><strong>Address 1:</strong>{{proposerRequestAddressPerm.addressLine1Lang1}} </li>
-                                    <li class="list-group-item" *ngIf="proposerRequestAddressPerm.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddressPerm.addressLine2Lang1}}</li>
+                                    <!--<li class="list-group-item" *ngIf="proposerRequestAddressPerm.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddressPerm.addressLine2Lang1}}</li>-->
                                     <li class="list-group-item"><strong>PIN code:</strong>{{proposerRequestAddressPerm.pinCode}} </li>
                                     <li class="list-group-item"><strong>City:</strong> {{proposerRequestAddressPerm.cityCd}}</li>
                                     <li class="list-group-item"><strong>State:</strong>{{proposerRequestAddressPerm.stateCd}}</li>
@@ -687,8 +687,8 @@
                 <form action={{action}}  method='post' #form>
 
                   <div>
-                    <input type='hidden' name='proposalNum' value={{proposalNum}}/>
-                    <input type='hidden' name='returnURL' value={{returnURL}}/>
+                    <input type='text' name='proposalNum' value={{proposalNum}}/>
+                    <input type='text' name='returnURL' value={{returnURL}}/>
                   </div>
 
                     <div class="col-md-12">
