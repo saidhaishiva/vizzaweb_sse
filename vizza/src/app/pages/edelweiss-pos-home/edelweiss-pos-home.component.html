@@ -34,7 +34,7 @@
                   <mat-select placeholder="Suminsured Amount" formControlName="edelsuminsure" required>
                     <mat-option *ngFor="let sumamount of suminsuredvalue | keys" value="{{sumamount.key}}">{{sumamount.value}}</mat-option>
                   </mat-select>
-                  <mat-error *ngIf="edelweisspos.controls.edelsuminsure.errors?.required">Suminsured Amount is required</mat-error>
+                  <mat-error *ngIf="edelweisspos.controls.edelsuminsure.errors?.required">Sum Insured Amount is required</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-12">
