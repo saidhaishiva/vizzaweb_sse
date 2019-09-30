@@ -45,12 +45,20 @@
                                         <mat-form-field class="w-100 text-left">
                                             <mat-placeholder>RTO AREA
                                             </mat-placeholder>
-                                            <mat-select  formControlName="city" (change)="rtoCity()" [required]="typeList == 'new'">
+                                            <mat-select  formControlName="city"   [required]="typeList == 'new'">
                                                 <mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="bikeInsurance.controls.city.errors?.required">city is required</mat-error>
                                         </mat-form-field>
                                     </div>
+
+                                    <!--<div class="col-md-12">-->
+                                        <!--<mat-placeholder>RTO AREA<span class="color-red">*</span></mat-placeholder>-->
+                                        <!--<ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails">-->
+                                        <!--</ngx-select-dropdown>-->
+                                        <!--<div class="color-red" *ngIf="CityValid">City is required</div>-->
+
+                                    <!--</div>-->
                                 </div>
                                 <div class="col-md-12 text-center mt-3">
                                     <button mat-raised-button color="primary"  (click)="quationFirstStep(bikeInsurance.value)">Submit</button>
