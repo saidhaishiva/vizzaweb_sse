@@ -544,7 +544,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       console.log(this.errorFutureDate,'errorFutureDate');
       console.log(this.manfactureErrorDate,'manfactureErrorDate');
       console.log(this.dobStartError,'dobStartError');
-        if(successData.status == true && this.errorFutureDate == '' && this.manfactureErrorDate == '' && (this.dobStartError == ''|| this.dobStartError ==undefined)){
+        if(successData.status == true && this.errorFutureDate == '' && this.manfactureErrorDate == '' && (this.dobError == ''|| this.dobError ==undefined)){
           this.dialogRef.close();
           this.router.navigate(['/four-wheeler-list']);
         }
