@@ -209,7 +209,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     });
     this.previousInsure = this.fb.group({
       policyNumber:['', Validators.required],
-      previousInsured: ['', Validators.required],
+      // previousInsured: ['', Validators.required],
       previousPolicyType: ['', Validators.required],
       policyNilDescription: '0',
       previousPolicyTypeName:'',
@@ -1008,7 +1008,7 @@ hypoName(){
         "LLtoPaidDriverYN": this.vehical.controls['lltoPaidDriver'].value == true ? '1' : '0',
         "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
         "PreviousPolicyNo": this.previousInsure.controls['policyNumber'].value,
-        "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
+        // "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
         "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
         "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
         "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
@@ -1163,7 +1163,7 @@ hypoName(){
       let stepper3 = JSON.parse(sessionStorage.stepper3);
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
-        previousInsured: stepper3.previousInsured,
+        // previousInsured: stepper3.previousInsured,
         policySi: stepper3.policySi,
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,

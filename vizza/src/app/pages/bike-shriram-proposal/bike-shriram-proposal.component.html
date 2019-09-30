@@ -343,14 +343,14 @@
 
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Previous Insurer"  formControlName="previousInsured" required>
-                                                        <mat-option *ngFor="let paCity of previousList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-                                                    </mat-select>
-                                                    <mat-error *ngIf="previousInsure.controls.previousInsured.errors?.required">Previous Insurer is required</mat-error>
-                                                </mat-form-field>
-                                            </div>
+                                            <!--<div class="col-md-3">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-select placeholder="Previous Insurer"  formControlName="previousInsured" required>-->
+                                                        <!--<mat-option *ngFor="let paCity of previousList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                                    <!--</mat-select>-->
+                                                    <!--<mat-error *ngIf="previousInsure.controls.previousInsured.errors?.required">Previous Insurer is required</mat-error>-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
@@ -583,7 +583,8 @@
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
-                                                    <li class="list-group-item"><strong>Previous Insurer:</strong> {{previousFormData.previousInsured}}</li>
+                                                    <!--<li class="list-group-item"><strong>Previous Insurer:</strong> {{previousFormData.previousInsured}}</li>-->
+                                                    <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyTypeName}}</li>
 
                                                 </ul>
                                             </div>
@@ -595,7 +596,6 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyTypeName}}</li>
                                                     <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>
                                                     <li class="list-group-item"><strong>Previous Nil Depreciation:</strong> <span *ngIf="previousFormData.policyNilDescription == '1'">Yes</span><span *ngIf="previousFormData.policyNilDescription == '0'">No</span></li>
                                                 </ul>

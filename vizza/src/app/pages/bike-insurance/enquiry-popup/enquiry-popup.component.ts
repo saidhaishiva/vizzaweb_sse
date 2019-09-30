@@ -302,6 +302,7 @@
     public citySuccess(successData){
       if (successData.IsSuccess) {
         this.cityDetails = successData.ResponseObject;
+        console.log(this.cityDetails,'cityDetails......');
             //
       }
     }
@@ -469,7 +470,8 @@
         'registration_city': this.vehicalDetails.controls['city'].value,
         'rto_code': this.rto,
         'type': this.enquiryFormData.type,
-         'prev_insurer':this.enquiryFormData.previousCompany
+         'prev_insurer':this.enquiryFormData.previousCompany,
+         'prev_insurance_name':this.enquiryFormData.prev_insurance_name,
       };
       sessionStorage.vehicledetails = JSON.stringify(data);
       this.bikeService.getEnquiryDetails(data).subscribe(
