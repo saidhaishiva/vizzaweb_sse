@@ -17,7 +17,7 @@ import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {TravelService} from '../../shared/services/travel.service';
 import {HealthService} from '../../shared/services/health.service';
 import {ValidationService} from '../../shared/services/validation.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -148,8 +148,13 @@ export class TravelProposalComponent implements OnInit {
     public passportPattern: any;
     public patternError: any;
     public placevisting: any;
+    public status: any;
+    public proposal_Id: any;
+    public payLaterr: any;
+    public requestDetails: any;
+    public pos_status: any;
 
-    constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -164,6 +169,18 @@ export class TravelProposalComponent implements OnInit {
                 }
 
             }
+            this.status = params.stepper;
+            this.proposal_Id = params.proposalId;
+            if(this.proposalId != '' || this.proposal_Id != undefined ){
+                this.payLaterr = true;
+                console.log(this.proposal_Id, 'this.proposalId');
+                console.log(this.status, 'this.proposalId');
+                this.getBackRequest();
+            }
+            if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                this.payLaterr = false;
+            }
+            console.log(this.payLaterr, 'cons');
         });
         this.passportPattern = '^[A-PR-WYa-pr-wy]{0,1}[0-9]{1,6}[1-9]{0,1}$';
         this.currentStep = stepperindex;
@@ -1248,5 +1265,105 @@ export class TravelProposalComponent implements OnInit {
     resetofgstType() {
         this.personal.controls['personalgstIdType'].patchValue('');
     }
+// pay Later
 
+
+    payLater(){
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'title': this.personalData.personalTitle,
+            'gender': this.personalData.personalGender,
+            'enquiry_id': this.getEnquiryDetails.enquiry_id,
+            'product_id': this.getTravelPremiumList.product_id,
+            'plan_name': this.getTravelPremiumList.plan_name,
+            'sum_insured_amount': this.getTravelPremiumList.sum_insured_amount,
+            'proposal_id': sessionStorage.travel_proposal_id == '' || sessionStorage.travel_proposal_id == undefined ? '' : sessionStorage.travel_proposal_id,
+            'travelStartOn': this.datepipe.transform(this.getEnquiryDetails.start_date, 'MMM d, y'),
+            'travelEndOn': this.datepipe.transform(this.getEnquiryDetails.end_date, 'MMM d, y'),
+            'proposerName': this.personalData.personalFirstname,
+            'proposerDob': this.datepipe.transform(this.personalData.personalDob, 'MMM d, y'),
+            'proposerEmail': this.personalData.personalEmail,
+            'gstIdNumber': this.personalData.personalGst,
+            'proposerPhone': this.personalData.personalMobile,
+            'planId': this.getTravelPremiumList.plan_id,
+            'travelPurposeId': this.personalData.travelPurpose,
+            'aadharIdNumber': this.personalData.personalAadhar,
+            'gstType': this.personalData.personalgstIdType,
+            'placeOfVisit': this.personalData.placeOfVisit.toString(),
+            'proposerAddressOne': this.personalData.personalAddress,
+            'proposerAddressTwo': this.personalData.personalAddress2,
+            'proposerAreaId': this.personalData.personalArea,
+            'proposerAreaValue': this.personalData.personalAreaName,
+            'proposerPincode': this.personalData.personalPincode,
+
+            'physicianName': this.personalData.physicianName,
+            'physicianContactNumber': this.personalData.physicianContactNumber,
+            'travelDeclaration': this.personalData.travelDeclaration ? 1 : 0,
+
+            'personalCity': this.personalData.personalCity,
+            'personalCityValue': this.personalData.personalCityName,
+            'personalState': this.personalData.personalState,
+            'insureds': this.allInsuredData
+
+        }
+
+        console.log(data, 'payyyyy');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.proposalPayLater(data).subscribe(
+            (successData) => {
+                this.payLaterSuccess(successData);
+            },
+            (error) => {
+                this.payLaterFailure(error);
+            }
+        );
+
+    }
+    public payLaterSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+            this.toastr.success(successData.ResponseObject);
+
+            this.saveEdit();
+        } else {
+            // this.toastr.error('sorry!');
+        }
+    }
+
+    public payLaterFailure(successData) {
+    }
+    saveEdit(){
+        this.router.navigate(['/home']);
+
+    }
+
+    getBackRequest() {
+        const data = {
+            'platform': 'web',
+            'user_id': '0',
+            'role_id': '4',
+            'proposal_id': this.proposalId
+        };
+        this.proposalservice.proposalGetRequest(data).subscribe(
+            (successData) => {
+                this.getBackResSuccess(successData);
+            },
+            (error) => {
+                this.getBackResFailure(error);
+            }
+        );
+    }
+
+    public getBackResSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.requestDetails = successData.ResponseObject;
+            this.pos_status = this.requestDetails.role_id;
+            console.log(this.pos_status, 'this.pos_status');
+        }
+    }
+    public getBackResFailure(successData) {
+    }
 }
