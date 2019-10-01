@@ -74,10 +74,12 @@ export class BikeInsuranceComponent implements OnInit {
     public metaTitle: any;
     public metaKeyword: any;
     public metaDescription: any;
+    public config: any;
+    public CityValid: boolean;
 
-    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
+    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
         this.settings = this.appSettings.settings;
-        this.webhost = this.config.getimgUrl();
+        this.webhost = this.configs.getimgUrl();
         if (window.innerWidth < 787) {
             this.settings.HomeSidenavUserBlock = false;
             this.settings.sidenavIsOpened = false;
@@ -90,6 +92,12 @@ export class BikeInsuranceComponent implements OnInit {
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.listDetails = false;
+        this.config = {
+            displayKey: "city", //if objects array passed which key to be displayed defaults to description
+            search: true,
+            limitTo: 5
+        };
+        this.CityValid = false;
 
         this.bikeInsurance = this.fb.group({
             'vehicalNumber': '',
@@ -196,6 +204,7 @@ export class BikeInsuranceComponent implements OnInit {
     numberValidate(event: any) {
         this.validation.numberValidate(event);
     }
+
     getCityLists() {
         const data = {
             'platform': 'web',
@@ -221,6 +230,7 @@ export class BikeInsuranceComponent implements OnInit {
     }
     public cityFailure(error) {
     }
+
     addEvent(event, type) {
         console.log(event, 'eventevent');
         let selectedDate = '';

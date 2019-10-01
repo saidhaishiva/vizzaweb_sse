@@ -1587,7 +1587,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                                 'identityTypeCd': "PASSPORT"
                             }
                         ],
-                        "partyQuestionDOList": this.partyQuestionDOList,
+                        "partyQuestionDOList": this.personalAccidentQuestionsList,
                         'relationCd': 'SELF',
                         'roleCd': 'PRIMARY',
                         'titleCd': this.insured.controls['insuredTitle'].value,

@@ -569,9 +569,6 @@ export class CholaHealthProposalComponent implements OnInit {
             console.log(this.insurerData, 'this.insurerData');
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
-                for (let i = 0; i < this.insurePersons.length; i++) {
-                    this.insurerData.items[i].type = this.insurePersons[i].type;
-                }
                 this.totalInsureDetails.push({
                     'Title': this.insurerData[i].personalTitle,
                     'FirstName': this.insurerData[i].personalFirstname,

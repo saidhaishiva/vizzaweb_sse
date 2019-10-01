@@ -295,7 +295,7 @@ export class EdelweissPosComponent implements OnInit {
       employementTypeOther: '',
       employementType: ['', Validators.compose([Validators.required])],
       employementTypeName: '',
-      employerName: ['', Validators.compose([Validators.required])],
+      employerName:'',
       natureduty: ['', Validators.compose([Validators.required])],
       naturedutyName: '',
       employerAddr: ['', Validators.compose([Validators.required])],
@@ -356,7 +356,7 @@ export class EdelweissPosComponent implements OnInit {
       employementTypeOther: '',
       employementType: ['', Validators.compose([Validators.required])],
       employementTypeName: '',
-      employerName: ['', Validators.compose([Validators.required])],
+      employerName: '',
       natureduty: ['', Validators.compose([Validators.required])],
       naturedutyName: '',
       employerAddr: ['', Validators.compose([Validators.required])],
@@ -1080,7 +1080,7 @@ export class EdelweissPosComponent implements OnInit {
       }
 
       if ( i != 0) {
-        if (this.getAge <= 18) {
+        if (this.getAge < 18) {
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(1);
           console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value,'nomineeagevalue');
         } else {
@@ -1090,7 +1090,7 @@ export class EdelweissPosComponent implements OnInit {
 
       }
       console.log(this.getAge,'getaage');
-      if (this.getAge <= 18) {
+      if (this.getAge < 18) {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(true);
 
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.value );
@@ -1421,21 +1421,21 @@ export class EdelweissPosComponent implements OnInit {
     // nomineeAge validate
     let nomineeValid = true;
     if (sessionStorage.nomineAge != '' && sessionStorage.nomineAge != undefined) {
-      if (sessionStorage.nomineAge <= 18) {
+      if (sessionStorage.nomineAge < 18) {
         nomineeValid = false;
       }
     }
     // appointeeAge validatate
     let appointeeAge = false;
     if (sessionStorage.appointeeAge != '' && sessionStorage.appointeeAge != undefined) {
-      if (sessionStorage.appointeeAge >= 18) {
+      if (sessionStorage.appointeeAge > 18) {
         appointeeAge = true;
       }
     }
 
     let appointeeAge2 = false;
     if (sessionStorage.appointeeAge2 != '' && sessionStorage.appointeeAge2 != undefined ) {
-      if ( sessionStorage.appointeeAge2 >=18 ) {
+      if ( sessionStorage.appointeeAge2 > 18 ) {
         appointeeAge2 = true;
       }
     }

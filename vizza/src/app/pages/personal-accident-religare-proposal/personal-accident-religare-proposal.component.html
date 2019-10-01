@@ -608,42 +608,42 @@
                 <div class="row box-card">
                     <div class="col-md-12">
                         <div class="p-3">
-                            <!--<div class="row">-->
+                            <div class="row">
 
-                                <!--<div class="row col-md-12" *ngFor="let item of personalAccidentQuestionsList; let i = index ">-->
-                                    <!--<div class="col-md-10">-->
-                                        <!--<p>{{i+1}}. {{item.question}} </p>-->
-                                        <!--<div *ngIf="item.checked">-->
-                                            <!--<div class="" *ngIf="item.checked">-->
-                                                <!--<div class="row col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">-->
-                                                    <!--<div class="col-md-8">-->
-                                                        <!--<p>{{si+1}}. {{list.question}} </p>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="col-md-2">-->
-                                                        <!--<strong>-->
-                                                            <!--{{list.fieldValue}}-->
-                                                        <!--</strong>-->
-                                                    <!--</div>-->
+                                <div class="row col-md-12" *ngFor="let item of questionListPay; let i = index ">
+                                    <div class="col-md-10">
+                                        <p>{{i+1}}. {{item.question}} </p>
+                                        <div *ngIf="item.checked">
+                                            <div class="" *ngIf="item.checked">
+                                                <div class="row col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">
+                                                    <div class="col-md-8">
+                                                        <p>{{si+1}}. {{list.question}} </p>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <strong>
+                                                            {{list.fieldValue}}
+                                                        </strong>
+                                                    </div>
 
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-md-2">-->
-                                        <!--<div class="row col-md-6" >-->
-                                            <!--<strong>-->
-                                                <!--<span *ngIf="item.checked"> Yes</span>-->
-                                                <!--<span *ngIf="!item.checked"> No</span>-->
-                                            <!--</strong>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-
-
-
-                                <!--</div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="row col-md-6" >
+                                            <strong>
+                                                <span *ngIf="item.checked"> Yes</span>
+                                                <span *ngIf="!item.checked"> No</span>
+                                            </strong>
+                                        </div>
+                                    </div>
 
 
-                            <!--</div>-->
+
+                                </div>
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -687,8 +687,8 @@
                 <form action={{action}}  method='post' #form>
 
                   <div>
-                    <input type='text' name='proposalNum' value={{proposalNum}}/>
-                    <input type='text' name='returnURL' value={{returnURL}}/>
+                    <input type='hidden' name='proposalNum' value={{proposalNum}}/>
+                    <input type='hidden' name='returnURL' value={{returnURL}}/>
                   </div>
 
                     <div class="col-md-12">
@@ -1227,21 +1227,21 @@
                         <div class="row col-sm-12 col-xs-12 col-md-12" *ngFor="let item of questionListPay; let i = index ">
                             <div class="col-sm-10 col-xs-10 col-md-10">
                                 <p>{{i+1}}. {{item.questionCd}} </p>
-                                <!--<div *ngIf="item.checked">-->
-                                    <!--<div class="" *ngIf="item.checked">-->
-                                        <!--<div class="row col-sm-12 col-xs-12 col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">-->
-                                            <!--<div class="col-sm-8 col-xs-8 col-md-8">-->
-                                                <!--<p>{{si+1}}. {{list.question}} </p>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-sm-2 col-xs-2 col-md-2">-->
-                                                <!--<strong>-->
-                                                    <!--{{list.fieldValue}}-->
-                                                <!--</strong>-->
-                                            <!--</div>-->
+                                <div *ngIf="item.checked">
+                                    <div class="" *ngIf="item.checked">
+                                        <div class="row col-sm-12 col-xs-12 col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">
+                                            <div class="col-sm-8 col-xs-8 col-md-8">
+                                                <p>{{si+1}}. {{list.question}} </p>
+                                            </div>
+                                            <div class="col-sm-2 col-xs-2 col-md-2">
+                                                <strong>
+                                                    {{list.fieldValue}}
+                                                </strong>
+                                            </div>
 
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-sm-2 col-xs-2 col-md-2">
                                 <div class="row col-sm-6 col-xs-6 col-md-6" >

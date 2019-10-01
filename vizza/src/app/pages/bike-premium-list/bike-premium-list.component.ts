@@ -46,6 +46,10 @@ export class BikePremiumListComponent implements OnInit {
     pa: any;
     gst: any;
     premium: any;
+    Gst: any;
+    OwnDamage_premium: any;
+    PA_premium: any;
+    ThridParty_premium: any;
     constructor(public auth: AuthService, public datepipe: DatePipe,public dialog: MatDialog,public clearSession: ClearSessionMotorService, public appSettings: AppSettings,public router: Router,public bikeService: BikeInsuranceService, public config: ConfigurationService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -55,11 +59,15 @@ export class BikePremiumListComponent implements OnInit {
         this.compareArray = [];
         this.initialProductList = [];
         // this.premiumbreakup= [];
+        this.Gst = [];
+        this.OwnDamage_premium = [];
+        this.PA_premium = [];
+        this.ThridParty_premium = [];
         this.thirdParty = false;
         this.compherhensive = 'Comprehensive_premium';
         sessionStorage.packae_list = this.compherhensive;
         this.clearSession.clearSessionbikeData();
-
+console.log(sessionStorage.packae_list,'sessionStorage packae_list');
     }
     ngOnInit()
     {
@@ -139,7 +147,6 @@ export class BikePremiumListComponent implements OnInit {
     }
 
     public getProductList(companyList): void {
-        alert('innnn...')
         this.productListArray = [];
         this.allProductLists = [];
         let sum_amount = '';
@@ -168,28 +175,10 @@ export class BikePremiumListComponent implements OnInit {
         if (successData) {
             for(let i = 0; i < successData.length; i++) {
                 if (successData[i].IsSuccess) {
-                    alert('sucess...')
                     let policylists = successData[i].ResponseObject;
                     console.log(policylists,'product......');
                     this.productListArray.push(policylists.productlist);
-                   //  console.log(this.productListArray,'productListArray......');
-                   // this.premiumbreakup = policylists.productlist[i].premium_breakup;
-                   //   console.log( this.premiumbreakup,'gst......');
-                   //   console.log(  policylists.productlist[i].premium_breakup,'gst......');
-
-                    // this.gst=  this.premiumbreakup.GST;
-                   //  console.log(this.gst,'gst......');
-                   //
-                   //  this.ownDamage=  this.premiumbreakup.OwnDamage_premium;
-                   //  console.log(this.ownDamage,'ownDamage......');
-                   //
-                   //  this.pa =  this.premiumbreakup.PA_premium;
-                   //  console.log(this.pa,'pa......');
-                   //
-                   //  this.premium=  this.premiumbreakup.ThridParty_premium;
-                   //  console.log(this.premium,'premium......');
-
-
+                    console.log(this.productListArray,'productListArray......');
 
                 }
                 this.allProductLists = [].concat.apply([], this.productListArray);
@@ -200,6 +189,16 @@ export class BikePremiumListComponent implements OnInit {
                 this.allProductLists[i].shortlist = false;
                 let dob = this.datepipe.transform(this.allProductLists[i].dob, 'y-MM-dd');
                 this.allProductLists[i].age = this.ageCalculate(dob);
+                console.log(this.allProductLists[i],'55555');
+                // this.premiumbreakup.push(this.allProductLists[i].premium_breakup)
+
+                // this.Gst[i] = this.allProductLists[i].premium_breakup.GST;
+                // console.log( this.Gst[i],'1111');
+                // this.OwnDamage_premium = this.allProductLists[i].premium_breakup.OwnDamage_premium;
+                // console.log( this.OwnDamage_premium,'1111');
+                //
+                // this.PA_premium = this.allProductLists[i].premium_breakup.PA_premium;
+                // this.ThridParty_premium = this.allProductLists[i].premium_breakup.ThridParty_premium;
                 // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
                 //this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
             }

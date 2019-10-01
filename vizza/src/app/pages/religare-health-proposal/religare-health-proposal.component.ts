@@ -137,6 +137,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     proposal_Id: any;
     createdDate: any;
     requestDetails: any;
+    requestmedicalQuestion: any;
     public religareMobileTrue0: boolean;
     public religareMobileTrue1: boolean;
     public religareMobileTrue2: boolean;
@@ -1193,9 +1194,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.proposerInsureData = [];
         this.totalReligareData = [];
         this.proposerInsureData.push(this.personal.value);
-            for (let i = 0; i < this.insurePersons.length; i++) {
-                this.insurerData.items[i].type = this.insurePersons[i].type;
-            }
+
             for (let i = 0; i < this.insurerData.items.length; i++) {
                 this.proposerInsureData.push(this.insurerData.items[i]);
             }
@@ -2009,7 +2008,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'nominee_name': this.nomineeDetails.controls['religareNomineeName'].value,
             'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
-            'medical_status': this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+            'medical_status': this.medicalStatus.includes('Yes') ? 'Yes' : 'No',
+            'medicalQuestion': this.religareQuestionsList
         };
         console.log(data, 'payyyyy');
         this.settings.loadingSpinner = true;
@@ -2065,6 +2065,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.proposalNum = this.requestDetails.proposalNum;
             this.returnURL = this.requestDetails.returnURL;
             this.requestInsuredDetails = this.requestDetails.proposer_insurer_details;
+            this.requestmedicalQuestion = this.requestDetails.medicalQuestion;
+            console.log(this.requestmedicalQuestion, 'requestmedicalQuestion');
             console.log(this.requestInsuredDetails, 'hgghjghjgjh');
             console.log(this.requestInsuredDetails.prop_identity_list[0].identity_number, 'hgghjghjgjh');
             console.log(this.requestInsuredDetails.prop_contact_list[0].contact_no, 'hgghjghjgjh');

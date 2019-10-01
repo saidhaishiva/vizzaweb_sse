@@ -66,6 +66,7 @@ export class TermLifePremiumListComponent implements OnInit {
       this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
       this.clearSession.clearSessiontermData();
       this.changepremiumList = false;
+      this.allHdfcList12 = [];
       // once user typing stoped after calling function
       const observable = this.keyUp
           .map(value => event)
@@ -93,8 +94,9 @@ export class TermLifePremiumListComponent implements OnInit {
   ngOnInit() {
       this.getCompanyList();
       this.sessionData();
+
       // this.getHdfcproduct();
-      this.getHDFcProduct();
+      // this.getHDFcProduct();
       // this.form.controls['termlists'].setValue(this.allProductLists[0].term[0]);
 
   }
@@ -196,7 +198,8 @@ export class TermLifePremiumListComponent implements OnInit {
   // public productListFailure(error) {
   //     console.log(error);
   // }
-    getHDFcProduct() {
+    getHDFcProduct(event:any) {
+      console.log(event,'event');
     const data = {
         'platform': 'web',
         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -215,11 +218,12 @@ export class TermLifePremiumListComponent implements OnInit {
       console.log(successData.ResponseObject);
       if (successData.IsSuccess) {
           this.allHdfcList = successData.ResponseObject;
-
-          for(let i=0;i<=this.allHdfcList; i++)
+            // alert('inn');
+          for(let i=0; i<=this.allHdfcList.length; i++)
           {
-              this.allHdfcList12 = this.allHdfcList[i].id;
-              console.log( this.allHdfcList[i],'listtttt');
+
+              this.allHdfcList12.push(this.allHdfcList[i].id);
+              console.log( this.allHdfcList,'listtttt');
               console.log( this.allHdfcList[i].id,'listid');
               console.log(  this.allHdfcList12 ,'listid');
           }
@@ -247,7 +251,7 @@ export class TermLifePremiumListComponent implements OnInit {
         'policy_id': this.getEnquiryDetials.policy_id,
         'sum_assured': this.selectedAmountTravel,
         'company_id': '5',
-        "product_id": "102",
+        "product_id": this.allHdfcList12,
     };
       this.settings.loadingSpinner = true;
 

@@ -202,7 +202,7 @@ export class BikeShriramProposalComponent implements OnInit {
     });
     this.previousInsure = this.fb.group({
       policyNumber:['', Validators.required],
-      previousInsured: ['', Validators.required],
+      // previousInsured: ['', Validators.required],
       // policyUwYear:  ['', Validators.compose([Validators.pattern('[2]{1}[0-9]{3}')])],
       previousPolicyType: ['', Validators.required],
       policyNilDescription: '0',
@@ -989,7 +989,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "LLtoPaidDriverYN": this.vehical.controls['lltoPaidDriver'].value == true ? '1' : '0',
               "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
               "PreviousPolicyNo": this.previousInsure.controls['policyNumber'].value,
-              "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
+              // "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
               // "PreviousPolicyUWYear": this.previousInsure.controls['policyUwYear'].value,
               "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
               // "PreviousPolicyClaimYN": this.previousInsure.controls['policyClaim'].value == true ? '1' : '0',
@@ -1124,7 +1124,7 @@ export class BikeShriramProposalComponent implements OnInit {
       let stepper3 = JSON.parse(sessionStorage.stepper3);
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
-        previousInsured: stepper3.previousInsured,
+        // previousInsured: stepper3.previousInsured,
         policySi: stepper3.policySi,
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
