@@ -2,7 +2,7 @@
     <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
         <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30" (ngSubmit)="login()" fxFlex.sm="60" class="mt-login">
             <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner">
-                <span class="box-content-header"><img class="login-logo" src="assets/img/vizza-logoNew.png"> </span>
+                <span class="box-content-header"><img src="assets/img/vizza-logoNew.png"> </span>
                 <mat-form-field class="w-100">
                     <input matInput placeholder="Mobile number" formControlName="username" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
                     <mat-icon matSuffix>person</mat-icon>
