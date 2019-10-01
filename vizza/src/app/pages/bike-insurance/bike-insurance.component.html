@@ -54,7 +54,7 @@
 
                                     <!--<div class="col-md-12">-->
                                         <!--<mat-placeholder>RTO AREA<span class="color-red">*</span></mat-placeholder>-->
-                                        <!--<ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails">-->
+                                        <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
                                         <!--</ngx-select-dropdown>-->
                                         <!--<div class="color-red" *ngIf="CityValid">City is required</div>-->
 
