@@ -64,6 +64,7 @@ export class BikeInsuranceComponent implements OnInit {
     public typeList: any;
     public companyList: any;
     public cityDetails: any;
+    public finalArray: any;
     public productList: any;
     public webhost: any;
     public listDetails: boolean;
@@ -95,7 +96,8 @@ export class BikeInsuranceComponent implements OnInit {
         this.config = {
             displayKey: "city", //if objects array passed which key to be displayed defaults to description
             search: true,
-            limitTo: 5
+            limitTo: 5,
+            // searchOnKey: 'city'
         };
         this.CityValid = false;
 
@@ -225,7 +227,8 @@ export class BikeInsuranceComponent implements OnInit {
     public citySuccess(successData){
         if (successData.IsSuccess) {
             this.cityDetails = successData.ResponseObject;
-            //
+            // this.finalArray = JSON.stringify( this.cityDetails);
+            // console.log(this.finalArray,'finalArray');
         }
     }
     public cityFailure(error) {

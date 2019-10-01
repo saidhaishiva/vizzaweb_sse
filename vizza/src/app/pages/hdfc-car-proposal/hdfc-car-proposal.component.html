@@ -290,12 +290,12 @@
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Engine No" formControlName="engine"    required>
+                                                <input matInput placeholder="Engine No" formControlName="engine"  class="text-uppercase"  readonly required>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Chassis No" formControlName="chassis"    required>
+                                                <input matInput placeholder="Chassis No" formControlName="chassis"    class="text-uppercase"  readonly required>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3">
@@ -871,9 +871,9 @@
                             <div class="col-md-6">
                                 <div class="p-3 mt-2">
                                     <ul class="m-0 list-group">
-                                        <li class="list-group-item"><strong>Previous Insurance Company:</strong>{{vehicalFormData.Previouscompanyvalue}}</li>
-                                        <li class="list-group-item"><strong>Previous Ncb:</strong> {{vehicalFormData.ncb}}</li>
-                                        <li class="list-group-item"><strong>Previous Policy End Date:</strong> {{vehicalFormData.previousenddate | date: 'dd/MM/yyyy'}}</li>
+                                        <li class="list-group-item" *ngIf="vehicalFormData.Previouscompanyvalue != ''"><strong>Previous Insurance Company:</strong>{{vehicalFormData.Previouscompanyvalue}}</li>
+                                        <li class="list-group-item" *ngIf="vehicalFormData.ncb != ''"><strong>Previous Ncb:</strong> {{vehicalFormData.ncb}}</li>
+                                        <li class="list-group-item" *ngIf="vehicalFormData.previousenddate != ''"><strong>Previous Policy End Date:</strong> {{vehicalFormData.previousenddate | date: 'dd/MM/yyyy'}}</li>
 
                                     </ul>
                                 </div>
@@ -881,9 +881,9 @@
                             <div class="col-md-6">
                                 <div class="p-3 mt-2">
                                     <ul class="m-0 list-group">
-                                        <li class="list-group-item"><strong>Previous Policy NO:</strong> {{vehicalFormData.previouspolicyno}}</li>
-                                        <li class="list-group-item"><strong>Vechicle idv:</strong> {{vehicleidv.Idv}}</li>
-                                        <li class="list-group-item"><strong>Previous Policy  Claim:</strong> {{vehicalFormData.previouspolicyclaim}}</li>
+                                        <li class="list-group-item" *ngIf="vehicalFormData.previouspolicyno != ''"><strong>Previous Policy NO:</strong> {{vehicalFormData.previouspolicyno}}</li>
+                                        <li class="list-group-item" *ngIf="vehicleidv.Idv != ''"><strong>Vechicle idv:</strong> {{vehicleidv.Idv}}</li>
+                                        <li class="list-group-item" *ngIf="vehicalFormData.previouspolicyclaim != ''"><strong>Previous Policy  Claim:</strong> {{vehicalFormData.previouspolicyclaim}}</li>
                                     </ul>
                                 </div>
                             </div>
