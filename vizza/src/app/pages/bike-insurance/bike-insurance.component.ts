@@ -206,7 +206,6 @@ export class BikeInsuranceComponent implements OnInit {
     }
 
     getCityLists() {
-        alert('innn')
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
