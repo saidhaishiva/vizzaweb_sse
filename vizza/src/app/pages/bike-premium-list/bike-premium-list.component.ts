@@ -67,7 +67,7 @@ export class BikePremiumListComponent implements OnInit {
         this.compherhensive = 'Comprehensive_premium';
         sessionStorage.packae_list = this.compherhensive;
         this.clearSession.clearSessionbikeData();
-
+console.log(sessionStorage.packae_list,'sessionStorage packae_list');
     }
     ngOnInit()
     {
@@ -189,16 +189,16 @@ export class BikePremiumListComponent implements OnInit {
                 this.allProductLists[i].shortlist = false;
                 let dob = this.datepipe.transform(this.allProductLists[i].dob, 'y-MM-dd');
                 this.allProductLists[i].age = this.ageCalculate(dob);
-                console.log(this.allProductLists[i].premium_breakup.GST,'55555');
+                console.log(this.allProductLists[i],'55555');
                 // this.premiumbreakup.push(this.allProductLists[i].premium_breakup)
 
-                this.Gst[i] = this.allProductLists[i].premium_breakup.GST;
-                console.log( this.Gst[i],'1111');
-                this.OwnDamage_premium = this.allProductLists[i].premium_breakup.OwnDamage_premium;
-                console.log( this.OwnDamage_premium,'1111');
-
-                this.PA_premium = this.allProductLists[i].premium_breakup.PA_premium;
-                this.ThridParty_premium = this.allProductLists[i].premium_breakup.ThridParty_premium;
+                // this.Gst[i] = this.allProductLists[i].premium_breakup.GST;
+                // console.log( this.Gst[i],'1111');
+                // this.OwnDamage_premium = this.allProductLists[i].premium_breakup.OwnDamage_premium;
+                // console.log( this.OwnDamage_premium,'1111');
+                //
+                // this.PA_premium = this.allProductLists[i].premium_breakup.PA_premium;
+                // this.ThridParty_premium = this.allProductLists[i].premium_breakup.ThridParty_premium;
                 // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
                 //this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
             }
