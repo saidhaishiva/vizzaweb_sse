@@ -66,6 +66,7 @@ export class TermLifePremiumListComponent implements OnInit {
       this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
       this.clearSession.clearSessiontermData();
       this.changepremiumList = false;
+      this.allHdfcList12 = [];
       // once user typing stoped after calling function
       const observable = this.keyUp
           .map(value => event)
@@ -93,6 +94,7 @@ export class TermLifePremiumListComponent implements OnInit {
   ngOnInit() {
       this.getCompanyList();
       this.sessionData();
+
       // this.getHdfcproduct();
       // this.getHDFcProduct();
       // this.form.controls['termlists'].setValue(this.allProductLists[0].term[0]);
@@ -220,7 +222,7 @@ export class TermLifePremiumListComponent implements OnInit {
           for(let i=0; i<=this.allHdfcList.length; i++)
           {
 
-              this.allHdfcList12 = this.allHdfcList[i].id;
+              this.allHdfcList12.push(this.allHdfcList[i].id);
               console.log( this.allHdfcList,'listtttt');
               console.log( this.allHdfcList[i].id,'listid');
               console.log(  this.allHdfcList12 ,'listid');
