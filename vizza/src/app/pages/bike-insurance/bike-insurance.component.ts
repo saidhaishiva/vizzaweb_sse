@@ -64,6 +64,7 @@ export class BikeInsuranceComponent implements OnInit {
     public typeList: any;
     public companyList: any;
     public cityDetails: any;
+    public finalArray: any;
     public productList: any;
     public webhost: any;
     public listDetails: boolean;
@@ -225,7 +226,8 @@ export class BikeInsuranceComponent implements OnInit {
     public citySuccess(successData){
         if (successData.IsSuccess) {
             this.cityDetails = successData.ResponseObject;
-            //
+            // this.finalArray = JSON.stringify( this.cityDetails);
+            // console.log(this.finalArray,'finalArray');
         }
     }
     public cityFailure(error) {
