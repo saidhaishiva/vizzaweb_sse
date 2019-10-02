@@ -54,8 +54,10 @@
 
                                     <div class="col-md-12" *ngIf="typeList == 'new'">
                                         <mat-placeholder>RTO AREA<span class="color-red">*</span></mat-placeholder>
-                                        <ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">
-                                        </ngx-select-dropdown>
+                                        <ngx-select-dropdown (change)="getCityLists($event);rtoCity()" [multiple]="true" formControlName="city"  [config]="config" [options]="getRtoDetails"></ngx-select-dropdown>
+
+                                        <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
+                                        <!--</ngx-select-dropdown>-->
                                         <div class="color-red" *ngIf="CityValid">City is required</div>
 
                                     </div>
