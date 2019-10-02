@@ -97,7 +97,7 @@ export class BikeInsuranceComponent implements OnInit {
             displayKey: "city", //if objects array passed which key to be displayed defaults to description
             search: true,
             limitTo: 5,
-            searchOnKey: 'city'
+            // searchOnKey: 'city'
         };
         this.CityValid = false;
 
