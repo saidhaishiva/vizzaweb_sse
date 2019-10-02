@@ -44,7 +44,10 @@ export class TermLifePremiumListComponent implements OnInit {
     selected: any;
     termListDetails: any;
     hdfcPlan:any;
-    totalpremium: any;
+    public totalpremium: any;
+    public totalpremiumlis: any;
+    public CoverageAgelis: any;
+    public id: any;
     CoverageAge: any;
     checkAllStatus: boolean;
     changepremiumList: boolean;
@@ -66,7 +69,7 @@ export class TermLifePremiumListComponent implements OnInit {
       this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
       this.clearSession.clearSessiontermData();
       this.changepremiumList = false;
-      this.allHdfcList12 = [];
+      // this.allHdfcList12 = [];
       // once user typing stoped after calling function
       const observable = this.keyUp
           .map(value => event)
@@ -80,7 +83,8 @@ export class TermLifePremiumListComponent implements OnInit {
               this.updateSumInsured();
           });
          this.form= this.fb.group({
-             termlists:''
+             termlists:'',
+             planList:''
          });
       this.form = this.fb.group({
           'items' : this.fb.array([
@@ -94,9 +98,7 @@ export class TermLifePremiumListComponent implements OnInit {
   ngOnInit() {
       this.getCompanyList();
       this.sessionData();
-
-      // this.getHdfcproduct();
-      // this.getHDFcProduct();
+      this.getHDFcProduct();
       // this.form.controls['termlists'].setValue(this.allProductLists[0].term[0]);
 
   }
@@ -173,6 +175,8 @@ export class TermLifePremiumListComponent implements OnInit {
   public companyListFailure(error) {
       console.log(error);
   }
+
+
   // getHdfcproduct() {
   //   const data = {
   //       'platform': 'web',
@@ -198,8 +202,8 @@ export class TermLifePremiumListComponent implements OnInit {
   // public productListFailure(error) {
   //     console.log(error);
   // }
-    getHDFcProduct(event:any) {
-      console.log(event,'event');
+    getHDFcProduct() {
+      // console.log(event,'event');
     const data = {
         'platform': 'web',
         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -222,11 +226,12 @@ export class TermLifePremiumListComponent implements OnInit {
           for(let i=0; i<=this.allHdfcList.length; i++)
           {
 
-              this.allHdfcList12.push(this.allHdfcList[i].id);
+              this.allHdfcList12 = this.allHdfcList[i].id;
               console.log( this.allHdfcList,'listtttt');
               console.log( this.allHdfcList[i].id,'listid');
               console.log(  this.allHdfcList12 ,'listid');
           }
+          alert(this.allHdfcList12);
           // console.log( this.allHdfcList,'listtttt');
           // console.log( this.allHdfcList.id,'listid');
           // this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
@@ -242,7 +247,8 @@ export class TermLifePremiumListComponent implements OnInit {
       console.log(error);
   }
 
-  gethdfcPremium(index) {
+  gethdfcPremium() {
+      alert(this.allHdfcList12);
     const data = {
         'platform': 'web',
         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -257,13 +263,13 @@ export class TermLifePremiumListComponent implements OnInit {
 
       this.life.gethdfcPremium(data).subscribe(
         (successData) => {
-            this.hdfcPremiumSuccess(successData,index);
+            this.hdfcPremiumSuccess(successData);
         },
         (error) => {
             this.hdfcPremiumFailure(error);
         });
   }
-  public hdfcPremiumSuccess(successData,index) {
+  public hdfcPremiumSuccess(successData) {
       this.settings.loadingSpinner = false;
 
       console.log(successData.ResponseObject);
@@ -272,13 +278,14 @@ export class TermLifePremiumListComponent implements OnInit {
           console.log( this.HdfcPremiumList,'ghfhfgvhgh')
           // this.totalpremium =  this.HdfcPremiumList.totalpremium;
           // this.CoverageAge =  this.HdfcPremiumList.CoverageAge;
-          this.allProductLists[index].totalpremium =  this.HdfcPremiumList.productlist[0].totalpremium;
-          this.allProductLists[index].CoverageAge =  this.HdfcPremiumList.productlist[0].CoverageAge;
+          alert('dfefef');
+          this.allProductLists.totalpremium = this.HdfcPremiumList.productlist[0].totalpremium;
+          this.allProductLists.CoverageAge =  this.HdfcPremiumList.productlist[0].CoverageAge;
+          alert(this.allProductLists.totalpremium);
           console.log(this.HdfcPremiumList.productlist[0].totalpremium,'totalpremium');
           console.log(this.HdfcPremiumList.productlist[0].CoverageAge,'CoverageAge');
-          console.log(this.allProductLists[index].totalpremium,'total2');
-          console.log(this.allProductLists[index].CoverageAge,'CoverageAge2');
-
+          console.log(this.allProductLists.totalpremium,'total2');
+          console.log(this.allProductLists.CoverageAge,'CoverageAge2');
 
           // this.getProductList(companyList, sum_assured);
           console.log(this.allProductLists, 'allProductLists');
@@ -289,6 +296,14 @@ export class TermLifePremiumListComponent implements OnInit {
   public hdfcPremiumFailure(error) {
       console.log(error);
   }
+
+
+    getValue()
+    {
+        this.form.controls['planList'].value;
+        console.log(this.form.controls['life'].value, 'lideefsghdfhsvghsfdsdbnfg');
+
+    }
 
     public getProductList(companyList, sum_assured): void {
         this.productListArray = [];
