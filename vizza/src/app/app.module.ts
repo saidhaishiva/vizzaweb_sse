@@ -14,6 +14,10 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
 import { SlickModule} from 'ngx-slick';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+// import {MatAutocompleteModule} from '@angular/material/autocomplete';
+// import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+// import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
 // import { ImageUploadModule } from "angular2-image-upload";
 // import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -375,6 +379,10 @@ import { EdelweissposPaymnetSuccessComponent } from './pages/edelweisspos-paymne
         PipesModule,
         NgxMaterialTimepickerModule.forRoot(),
         SelectDropDownModule,
+        // MatAutocompleteModule,
+        // MatSelectModule,
+        // MatFormFieldModule,
+        // NgxMatSelectSearchModule,
         // NgxMatSelectSearchModule,
         // AmazingTimePickerModule,
         MatDialogModule,
