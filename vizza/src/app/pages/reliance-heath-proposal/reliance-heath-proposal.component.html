@@ -857,7 +857,7 @@
                                             <li class="list-group-item"><strong>Marital Status:</strong> {{requestDetails.ClientDetails.maritalStatusName}}</li>
                                             <li class="list-group-item"><strong>Occupation:</strong> {{requestDetails.ClientDetails.occupationName}}</li>
                                             <li class="list-group-item"><strong>Nationality:</strong> {{requestDetails.ClientDetails.nationalityName}}</li>
-                                            <!--<li class="list-group-item" *ngIf="requestPersonalInfo.CommunicationAddress.PanNo !=''"><strong>PAN Number:</strong> {{requestPersonalInfo.CommunicationAddress.PanNo | uppercase}}</li>-->
+                                            <li class="list-group-item" *ngIf="requestPersonalInfo.CommunicationAddress.PanNo !=''"><strong>PAN Number:</strong> {{requestPersonalInfo.CommunicationAddress.PanNo | uppercase}}</li>
                                             <!--<li class="list-group-item" *ngIf="requestDetails.RiskDetail.IsServiceTaxExemptionApplicable == 'false'"><strong>Is Service Tax Exemption  Applicable : </strong> NO</li>-->
                                             <!--<li class="list-group-item" *ngIf="requestDetails.RiskDetail.IsServiceTaxExemptionApplicable == 'true'"><strong>Is Service Tax Exemption  Applicable : </strong> YES</li>-->
                                             <!--<li class="list-group-item" *ngIf="requestDetails.RiskDetail.ServicesTaxName != ''"><strong>Services Tax : </strong> {{requestDetails.RiskDetail.ServicesTaxName}} </li>-->
@@ -1012,15 +1012,15 @@
                             <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
                         <hr>
 
-                    <div class="row" *ngIf="summaryData">
+                    <div class="row">
                         <div class="col-md-12 text-center">
                             <form action={{RediretUrlLink}} method='post' #form>
-                                <button mat-button matStepperPrevious  (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
+
+                            <button mat-button matStepperPrevious  (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
                                 <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
                                 <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                             </form>
                         </div>
-
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>

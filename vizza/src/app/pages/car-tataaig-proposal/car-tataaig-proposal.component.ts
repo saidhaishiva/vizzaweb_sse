@@ -90,6 +90,7 @@ export class CarTataaigProposalComponent implements OnInit {
   public agecount: any;
   public premium: any;
   public visible: any;
+  public errortoaster: boolean;
 
 
   constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public config: ConfigurationService,public route: ActivatedRoute ) {
@@ -646,7 +647,13 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   FinanceSuccess(successData) {
-    this.banklist = successData.ResponseObject;
+    if (successData.IsSuccess == true) {
+      this.errortoaster = true;
+      this.banklist = successData.ResponseObject;
+    } else {
+      this.toastr.error(successData.ErrorObject);
+      this.errortoaster = false;
+    }
   }
 
   FinanceFailure(error) {
@@ -735,10 +742,13 @@ export class CarTataaigProposalComponent implements OnInit {
   vehicleDetails(stepper: MatStepper, value) {
     sessionStorage.tatacarvehicle = '';
     sessionStorage.tatacarvehicle = JSON.stringify(value);
-    if (this.vehicle.valid) {
+    if (this.vehicle.valid && this.errortoaster == true) {
       console.log(value, 'vehicle');
       stepper.next();
       this.topScroll();
+    }
+    else {
+      this.toastr.error('Please Select the Valid Bank Name');
     }
   }
 

@@ -255,7 +255,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.buyBikeDetails = JSON.parse(sessionStorage.enquiryFormData);
         this.buyProductDetails = JSON.parse(sessionStorage.buyProductDetails);
-        this.addOns.controls['extentioncountry'].patchValue('0');
+        this.addOns.controls['extentioncountry'].patchValue('No Extension');
         console.log(this.addOns.controls['extentioncountry'].value,'11111')
 
 // this.summaryData=JSON.parse(sessionStorage.summaryData);
@@ -448,8 +448,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
 
     public financesuccess(successData) {
-        if (successData.IsSuccess) {
+        if (successData.IsSuccess == true) {
             this.financeList = successData.ResponseObject;
+        }else{
+            this.toastr.error(successData.ErrorObject);
         }
     }
 
@@ -517,10 +519,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     //     this.BankDetails.controls['Banknamevalue'].patchValue(this.bankList[this.BankDetails.controls['Bankname'].value]);
     // }
 
-    changeextensioncountry() {
-        this.addOns.controls['extentioncountryvalue'].patchValue(this.countryList[this.addOns.controls['extentioncountry'].value]);
-        console.log(this.addOns.controls['extentioncountryvalue'].value);
-    }
+    // changeextensioncountry() {
+    //     this.addOns.controls['extentioncountryvalue'].patchValue(this.countryList[this.addOns.controls['extentioncountry'].value]);
+    //     console.log(this.addOns.controls['extentioncountryvalue'].value);
+    // }
 
     validationForNew(value) {
         console.log(value, 'valuecore');

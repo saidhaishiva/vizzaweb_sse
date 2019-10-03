@@ -46,7 +46,7 @@ export class TermLifePremiumListComponent implements OnInit {
     hdfcPlan:any;
     public totalpremium: any;
     public totalpremiumlis: any;
-    public CoverageAgelis: any;
+    public planList: any;
     public id: any;
     CoverageAge: any;
     checkAllStatus: boolean;
@@ -84,7 +84,7 @@ export class TermLifePremiumListComponent implements OnInit {
           });
          this.form= this.fb.group({
              termlists:'',
-             planList:''
+             // planList:''
          });
       this.form = this.fb.group({
           'items' : this.fb.array([
@@ -247,8 +247,7 @@ export class TermLifePremiumListComponent implements OnInit {
       console.log(error);
   }
 
-  gethdfcPremium() {
-      alert(this.allHdfcList12);
+  gethdfcPremium(plists,i) {
     const data = {
         'platform': 'web',
         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -257,38 +256,37 @@ export class TermLifePremiumListComponent implements OnInit {
         'policy_id': this.getEnquiryDetials.policy_id,
         'sum_assured': this.selectedAmountTravel,
         'company_id': '5',
-        "product_id": this.allHdfcList12,
+        "product_id": plists.planList,
     };
       this.settings.loadingSpinner = true;
 
       this.life.gethdfcPremium(data).subscribe(
         (successData) => {
-            this.hdfcPremiumSuccess(successData);
+            this.hdfcPremiumSuccess(successData,i);
         },
         (error) => {
             this.hdfcPremiumFailure(error);
         });
   }
-  public hdfcPremiumSuccess(successData) {
+  public hdfcPremiumSuccess(successData,i) {
       this.settings.loadingSpinner = false;
 
       console.log(successData.ResponseObject);
       if (successData.IsSuccess) {
           this.HdfcPremiumList = successData.ResponseObject;
-          console.log( this.HdfcPremiumList,'ghfhfgvhgh')
-          // this.totalpremium =  this.HdfcPremiumList.totalpremium;
+          console.log( this.HdfcPremiumList,'ghfhfgvhgh');
+          this.allProductLists[i].totalpremium =   this.HdfcPremiumList.productlist[0].totalpremium;
+        console.log(this.allProductLists[i].totalpremium, ' this.allProductLists[i].totalpremium');
           // this.CoverageAge =  this.HdfcPremiumList.CoverageAge;
-          alert('dfefef');
-          this.allProductLists.totalpremium = this.HdfcPremiumList.productlist[0].totalpremium;
-          this.allProductLists.CoverageAge =  this.HdfcPremiumList.productlist[0].CoverageAge;
-          alert(this.allProductLists.totalpremium);
-          console.log(this.HdfcPremiumList.productlist[0].totalpremium,'totalpremium');
-          console.log(this.HdfcPremiumList.productlist[0].CoverageAge,'CoverageAge');
-          console.log(this.allProductLists.totalpremium,'total2');
-          console.log(this.allProductLists.CoverageAge,'CoverageAge2');
-
-          // this.getProductList(companyList, sum_assured);
-          console.log(this.allProductLists, 'allProductLists');
+          // this.allProductLists.totalpremium = this.HdfcPremiumList.productlist[0].totalpremium;
+          // this.allProductLists.CoverageAge =  this.HdfcPremiumList.productlist[0].CoverageAge;
+          // console.log(this.HdfcPremiumList.productlist[0].totalpremium,'totalpremium');
+          // console.log(this.HdfcPremiumList.productlist[0].CoverageAge,'CoverageAge');
+          // console.log(this.allProductLists.totalpremium,'total2');
+          // console.log(this.allProductLists.CoverageAge,'CoverageAge2');
+          //
+          // // this.getProductList(companyList, sum_assured);
+          // console.log(this.allProductLists, 'allProductLists');
       }
 
   }
@@ -297,13 +295,13 @@ export class TermLifePremiumListComponent implements OnInit {
       console.log(error);
   }
 
-
-    getValue()
-    {
-        this.form.controls['planList'].value;
-        console.log(this.form.controls['life'].value, 'lideefsghdfhsvghsfdsdbnfg');
-
-    }
+    //
+    // getValue()
+    // {
+    //     this.form.controls['planList'].value;
+    //     console.log(this.form.controls['life'].value, 'lideefsghdfhsvghsfdsdbnfg');
+    //
+    // }
 
     public getProductList(companyList, sum_assured): void {
         this.productListArray = [];
