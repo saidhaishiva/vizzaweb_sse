@@ -443,7 +443,7 @@ export class PersonalaccidentComponent implements OnInit {
 
     // create enguiry
     createEnquiryDetails() {
-        this.paProceed = false;
+        // this.paProceed = false;
         if (this.Age < 18) {
             this.toast.error('Personal age should be 18 or above');
             return false;
@@ -507,7 +507,7 @@ export class PersonalaccidentComponent implements OnInit {
                 }
             );
         } else {
-            this.paProceed = true;
+            // this.paProceed = true;
         }
     }
 
@@ -526,7 +526,7 @@ export class PersonalaccidentComponent implements OnInit {
             }
 
         } else {
-            this.paProceed = true;
+            // this.paProceed = true;
         }
     }
 

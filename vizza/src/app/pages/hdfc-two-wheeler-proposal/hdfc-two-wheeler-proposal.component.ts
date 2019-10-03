@@ -448,8 +448,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
 
     public financesuccess(successData) {
-        if (successData.IsSuccess) {
+        if (successData.IsSuccess == true) {
             this.financeList = successData.ResponseObject;
+        }else{
+            this.toastr.error(successData.ErrorObject);
         }
     }
 

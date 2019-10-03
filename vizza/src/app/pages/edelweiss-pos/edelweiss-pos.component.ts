@@ -979,7 +979,7 @@ export class EdelweissPosComponent implements OnInit {
           this.insureArray.controls['annualIncome'].patchValue(this.proposer.controls['annualIncome'].value),
           this.insureArray.controls['taxResidence'].patchValue(this.proposer.controls['taxResidence'].value)
       console.log(this.insureArray.controls['title'].value, 'ghghghj');
-    } else if(this.insureArray.controls['investing'].value == 'SELF') {
+    } else  {
       this.insureArray.controls['title'].patchValue(''),
           this.insureArray.controls['titleName'].patchValue(''),
           this.insureArray.controls['firstName'].patchValue(''),
@@ -1341,15 +1341,15 @@ export class EdelweissPosComponent implements OnInit {
     console.log(this.proposer, 'proposer');
     if (this.proposer.valid) {
       if (sessionStorage.proposerAge >= 18) {
-        if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined ) {
+        // if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined ) {
           stepper.next();
           this.sameAsInsure();
 
-        }
-        else {
-          this.toastr.error('Spouse Age should be 18 or above');
-
-        }
+        // }
+        // else {
+        //   this.toastr.error('Spouse Age should be 18 or above');
+        //
+        // }
       } else {
         this.toastr.error('Proposer Age should be 18 or above');
 
@@ -1368,14 +1368,14 @@ export class EdelweissPosComponent implements OnInit {
     // let dateErrorMsg = [];
     if (this.insureArray.valid) {
       if (sessionStorage.proposerAge >= 18) {
-        if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined) {
+        // if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined) {
           stepper.next();
           this.topScroll();
-        }
-        else {
-          this.toastr.error('Spouse Age should be 18 or above');
-
-        }
+        // }
+        // else {
+        //   this.toastr.error('Spouse Age should be 18 or above');
+        //
+        // }
       } else {
         this.toastr.error('Insurer Age should be 18 or above');
 

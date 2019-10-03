@@ -638,7 +638,11 @@ ChangeGender(){
     }
 
     public financesuccess(successData) {
+        if (successData.IsSuccess == true) {
         this.financeList = successData.ResponseObject;
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
     }
     public countrysucccess(successData) {
         this.countryList = successData.ResponseObject;

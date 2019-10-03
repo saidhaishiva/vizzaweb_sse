@@ -51,6 +51,16 @@
                                             <!--<mat-error *ngIf="bikeInsurance.controls.city.errors?.required">city is required</mat-error>-->
                                         <!--</mat-form-field>-->
                                     <!--</div>-->
+                                    <!--<div class="col-md-12">-->
+                                    <!--<mat-form-field class="w-100 text-left">-->
+                                        <!--<input type="text" placeholder="RTO AREA" aria-label="cityDetails" matInput formControlName="city" (change)="rtoCity()" (keypress)="getCityLists($event)" [required]="typeList == 'new'" [matAutocomplete]="auto">-->
+                                        <!--<mat-autocomplete #auto="matAutocomplete">-->
+                                            <!--<mat-option *ngFor="let paCity of getRtoDetails | keys" value="{{paCity.value}}" > {{paCity.value}}-->
+                                            <!--</mat-option>-->
+                                        <!--</mat-autocomplete>-->
+                                        <!--<mat-error *ngIf="bikeInsurance.controls.city.errors?.required">city is required</mat-error>-->
+                                    <!--</mat-form-field>-->
+                                    <!--</div>-->
 
                                     <div class="col-md-12" *ngIf="typeList == 'new'">
                                         <mat-placeholder>RTO AREA<span class="color-red">*</span></mat-placeholder>
@@ -61,6 +71,7 @@
                                         <div class="color-red" *ngIf="CityValid">City is required</div>
 
                                     </div>
+
                                 </div>
                                 <div class="col-md-12 text-center mt-3">
                                     <button mat-raised-button color="primary"  (click)="quationFirstStep(bikeInsurance.value)">Submit</button>
