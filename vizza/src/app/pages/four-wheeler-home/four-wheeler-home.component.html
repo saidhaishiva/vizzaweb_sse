@@ -65,6 +65,7 @@
                       <mat-select  formControlName="city" (change)="rtoCity()" [required]="typeList == 'new'">
                         <mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
+
                       <mat-error *ngIf="fourWheeler.controls.city.errors?.required">city is required</mat-error>
                     </mat-form-field>
                   </div>
