@@ -56,8 +56,9 @@
                 <div *ngIf="pinerror" class="ngError">Pincode Required</div>
 
             <div fxLayoutAlign="center center" class="mt-3">
-              <button mat-raised-button color="accent" type="button" [disabled]="!paProceed" (click)="createEnquiryDetails()">Submit</button>
-              <button mat-button style="color: #fff; position: absolute; right: 10px;" (click)="reset()"><i class="material-icons" >refresh</i> Reset</button>
+              <button mat-raised-button color="accent" type="button" (click)="createEnquiryDetails()">Submit</button>
+                <!--[disabled]="!paProceed"-->
+                <button mat-button style="color: #fff; position: absolute; right: 10px;" (click)="reset()"><i class="material-icons" >refresh</i> Reset</button>
             </div>
           </mat-card>
         </div>

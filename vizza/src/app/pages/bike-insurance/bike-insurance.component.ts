@@ -31,6 +31,7 @@ export const MY_FORMATS = {
         monthYearA11yLabel: 'MM YYYY',
     },
 };
+
 @Component({
   selector: 'app-bike-insurance',
   templateUrl: './bike-insurance.component.html',
