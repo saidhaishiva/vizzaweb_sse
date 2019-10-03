@@ -268,6 +268,8 @@ export class HdfcCarProposalComponent implements OnInit {
           this.vehicleRegNumber = x.concat('-', y, '-', z, '-', w);
       }
 
+      this.addOns.controls['extentioncountry'].patchValue('No Extension');
+
       // this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
       this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);

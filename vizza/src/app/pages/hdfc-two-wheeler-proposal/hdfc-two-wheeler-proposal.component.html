@@ -446,14 +446,22 @@
                                           <h6 class="color-blue"> ADDON DETAILS </h6>
                                       </div>
 
-                                          <div class="col-md-3">
-                                              <mat-form-field class="w-100" >
-                                                  <mat-select placeholder="Extension Country Code"  formControlName="extentioncountry" (change)="changeextensioncountry();extensioncountry()" required>
-                                                      <mat-option *ngFor="let country of countryList | keys" value="{{country.key}}" > {{country.value}} </mat-option>
-                                                  </mat-select>
-                                                  <mat-error *ngIf="addOns.controls.extentioncountry.errors?.required">Extension country is required</mat-error>
-                                              </mat-form-field>
-                                          </div>
+                                          <!--<div class="col-md-3">-->
+                                              <!--<mat-form-field class="w-100" >-->
+                                                  <!--<mat-select placeholder="Extension Country Code"  formControlName="extentioncountry" (change)="changeextensioncountry();extensioncountry()" required>-->
+                                                      <!--<mat-option *ngFor="let country of countryList | keys" value="{{country.key}}" > {{country.value}} </mat-option>-->
+                                                  <!--</mat-select>-->
+                                                  <!--<mat-error *ngIf="addOns.controls.extentioncountry.errors?.required">Extension country is required</mat-error>-->
+                                              <!--</mat-form-field>-->
+                                          <!--</div>-->
+
+                                      <div class="col-md-3" >
+                                          <mat-form-field class="w-100">
+                                              <mat-placeholder>Extension Country Code</mat-placeholder>
+                                              <input matInput  formControlName="extentioncountry" (keypress)="nameValidate($event)" required readonly>
+                                              <mat-error *ngIf="addOns.controls.extentioncountry.errors?.required">Extension country is required</mat-error>
+                                          </mat-form-field>
+                                      </div>
 
                                       <!--<div class="col-md-3">-->
                                           <!--<mat-form-field class="w-100">-->
