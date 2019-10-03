@@ -646,7 +646,11 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   FinanceSuccess(successData) {
-    this.banklist = successData.ResponseObject;
+    if (successData.IsSuccess == true) {
+      this.banklist = successData.ResponseObject;
+    }else{
+      this.toastr.error(successData.ErrorObject);
+    }
   }
 
   FinanceFailure(error) {

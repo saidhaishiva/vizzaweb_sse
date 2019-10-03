@@ -724,7 +724,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" [ngStyle]="{'pointer-events': this.insureArray.controls['isCurrPerAddrSame'].value ? 'none' : ''}">
                       <div class="box-card addressBox" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''} || {'pointer-events': this.insureArray.controls['isCurrPerAddrSame'].value ? 'none' : ''}">
                         <div class="row p-1" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''} || {'pointer-events': this.insureArray.controls['isCurrPerAddrSame'].value ? 'none' : ''}">
                           <h6 class="color-blue ">PERMANENT ADDRESS</h6>
