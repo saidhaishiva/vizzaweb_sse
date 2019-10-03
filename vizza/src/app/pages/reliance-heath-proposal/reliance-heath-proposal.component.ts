@@ -1279,9 +1279,10 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'Age': this.insurerData[i].personalAge.toString(),
                     'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
                     'MaritalStatusID': this.insurerData[i].maritalStatus,
-                    'maritalStatusName': this.insurerData[i].maritalStatusName,
+                    'MaritalStatusName':  this.insureArray['controls'].items['controls'][i]['controls'].maritalStatusName,
                     'OccupationID': this.insurerData[i].occupation,
-                    'personalrelationshipName': this.insurerData[i].personalrelationshipName,
+                    'Type':  this.insureArray['controls'].items['controls'][i]['controls'].type,
+                    'PersonalrelationshipName':  this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName,
                     'PreExistingDisease': {
                         'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'No' ? "false" : "true",
                         'DiseaseList': {
