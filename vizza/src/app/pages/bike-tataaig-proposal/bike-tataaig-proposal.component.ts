@@ -86,6 +86,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public premium: any;
     public config: any;
     public productlist: any;
+    public errortoaster: boolean;
 
 
 
@@ -603,11 +604,14 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     FinanceSuccess(successData) {
         if (successData.IsSuccess == true) {
+           this.errortoaster = true;
         this.banklist = successData.ResponseObject;
         console.log(this.banklist, 'ddddddd');
-        }else{
+        } else {
+            this.errortoaster = false;
             this.toastr.error(successData.ErrorObject);
         }
+        console.log(this.errortoaster,'errortoaster')
     }
 
     FinanceFailure(error) {
@@ -733,10 +737,13 @@ export class BikeTataaigProposalComponent implements OnInit {
     vehicleDetails(stepper: MatStepper, value) {
         sessionStorage.tatabikevehicle = '';
         sessionStorage.tatabikevehicle = JSON.stringify(value);
-        if (this.vehicle.valid) {
+        if (this.vehicle.valid && this.errortoaster == true) {
             console.log(value, 'vehicle');
             stepper.next();
             this.topScroll();
+        }
+        else {
+            this.toastr.error('Please Select the Valid Bank Name');
         }
     }
 

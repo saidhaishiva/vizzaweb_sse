@@ -979,7 +979,7 @@ export class EdelweissPosComponent implements OnInit {
           this.insureArray.controls['annualIncome'].patchValue(this.proposer.controls['annualIncome'].value),
           this.insureArray.controls['taxResidence'].patchValue(this.proposer.controls['taxResidence'].value)
       console.log(this.insureArray.controls['title'].value, 'ghghghj');
-    } else  {
+    } else if (this.insureArray.controls['investing'].value == 'SELF')  {
       this.insureArray.controls['title'].patchValue(''),
           this.insureArray.controls['titleName'].patchValue(''),
           this.insureArray.controls['firstName'].patchValue(''),
