@@ -95,24 +95,22 @@ export class BikeInsuranceComponent implements OnInit {
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.listDetails = false;
-        // this.config = {
-        //     displayKey: "city", //if objects array passed which key to be displayed defaults to description
-        //     search: true,
-        //     limitTo: 5,
-        //     // searchOnKey: 'city'
-        // };
-        this.config = [];
         this.config = {
-            display: 'city',
-            search : true,
-            height : 'auto',
-            placeholder : 'RTO AREA',
-            limitTo : 5,
-            moreText: 'more',
-            noResultsFound: 'No results found!',
-            searchPlaceholder: 'Search',
-            searchOnKey: this.getRtoDetails,
-        }
+            displayKey: "city", //if objects array passed which key to be displayed defaults to description
+            search: true,
+            limitTo: 5,
+            // searchOnKey: 'city'
+        };
+        // this.config = [];
+        // this.config = {
+        //     display: 'city',
+        //     search : true,
+        //     placeholder : 'RTO AREA',
+        //     limitTo : 10,
+        //     noResultsFound: 'No results found!',
+        //     searchPlaceholder: 'Search',
+        //     searchOnKey: this.getRtoDetails,
+        // }
         this.CityValid = false;
 
         this.bikeInsurance = this.fb.group({
@@ -153,7 +151,7 @@ export class BikeInsuranceComponent implements OnInit {
         this.claimpercent();
         // this.bussinessType();
         this.getpreviousCompany();
-        // this.getCityLists();
+        this.getCityLists();
         this.sessionData();
         this.metaList();
     }
@@ -223,7 +221,7 @@ export class BikeInsuranceComponent implements OnInit {
 
 
 
-    getCityLists(event:any) {
+    getCityLists() {
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
