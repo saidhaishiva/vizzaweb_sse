@@ -809,10 +809,11 @@
 
                             <div class="col-md-6">
                                 <div class="p-3">
-                                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                                    <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                                     <ul class="m-0 list-group">
                                         <li class="list-group-item mt-1"><strong>Address 1:</strong> {{proposerFormData.address4}}</li>
                                         <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.address5}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.address6 != ''"><strong>Address 3:</strong> {{proposerFormData.address6}}</li>
                                         <li class="list-group-item" ><strong>PIN code:</strong> {{proposerFormData.pincode1}}</li>
                                         <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.citycom}}</li>
                                         <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.statecom}}</li>
@@ -823,10 +824,11 @@
                             </div>
                             <div class="col-md-6">
                                 <div class=" p-3">
-                                    <h6 class="color-blue">REGISTRATION DETAILS</h6>
+                                    <h6 class="color-blue">PERMANENT ADDRESS</h6>
                                     <ul class="m-0 list-group">
-                                        <li class="list-group-item" *ngIf="proposerFormData.address != ''"><strong>Address 3:</strong> {{proposerFormData.address}}</li>
-                                        <li class="list-group-item" *ngIf="proposerFormData.address2 != ''"><strong>Address 4:</strong> {{proposerFormData.address2}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.address != ''"><strong>Address 1:</strong> {{proposerFormData.address}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.address2 != ''"><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.address3 != ''"><strong>Address 3:</strong> {{proposerFormData.address3}}</li>
                                         <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode1}}</li>
                                         <li class="list-group-item"><strong>City:</strong> {{proposerFormData.citypermanent}}</li>
                                         <li class="list-group-item"><strong>State:</strong> {{proposerFormData.statepermanent}}</li>

@@ -19,6 +19,7 @@ import {ClearSessionMotorService} from '../../shared/services/clear-session-moto
 import {MetaService} from '../../shared/services/meta.service';
 import {Meta, Title} from '@angular/platform-browser';
 
+
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -64,7 +65,7 @@ export class BikeInsuranceComponent implements OnInit {
     public currentTab: any;
     public typeList: any;
     public companyList: any;
-    public cityDetails: any;
+    public getRtoDetails: any;
     public finalArray: any;
     public productList: any;
     public webhost: any;
@@ -76,7 +77,7 @@ export class BikeInsuranceComponent implements OnInit {
     public metaTitle: any;
     public metaKeyword: any;
     public metaDescription: any;
-    public config: any;
+    public config:any;
     public CityValid: boolean;
 
     constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
@@ -94,12 +95,24 @@ export class BikeInsuranceComponent implements OnInit {
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.listDetails = false;
+        // this.config = {
+        //     displayKey: "city", //if objects array passed which key to be displayed defaults to description
+        //     search: true,
+        //     limitTo: 5,
+        //     // searchOnKey: 'city'
+        // };
+        this.config = [];
         this.config = {
-            displayKey: "city", //if objects array passed which key to be displayed defaults to description
-            search: true,
-            limitTo: 5,
-            // searchOnKey: 'city'
-        };
+            display: 'city',
+            search : true,
+            height : 'auto',
+            placeholder : 'RTO AREA',
+            limitTo : 5,
+            moreText: 'more',
+            noResultsFound: 'No results found!',
+            searchPlaceholder: 'Search',
+            searchOnKey: this.getRtoDetails,
+        }
         this.CityValid = false;
 
         this.bikeInsurance = this.fb.group({
@@ -140,7 +153,7 @@ export class BikeInsuranceComponent implements OnInit {
         this.claimpercent();
         // this.bussinessType();
         this.getpreviousCompany();
-        this.getCityLists();
+        // this.getCityLists();
         this.sessionData();
         this.metaList();
     }
@@ -208,7 +221,9 @@ export class BikeInsuranceComponent implements OnInit {
         this.validation.numberValidate(event);
     }
 
-    getCityLists() {
+
+
+    getCityLists(event:any) {
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -225,15 +240,20 @@ export class BikeInsuranceComponent implements OnInit {
             }
         );
     }
-    public citySuccess(successData){
+    public citySuccess(successData) {
         if (successData.IsSuccess) {
-            this.cityDetails = successData.ResponseObject;
-            // this.finalArray = JSON.stringify( this.cityDetails);
-            // console.log(this.finalArray,'finalArray');
+            this.getRtoDetails = successData.ResponseObject;
+            console.log(this.getRtoDetails,'cityDetails......');
+            //
         }
     }
     public cityFailure(error) {
     }
+
+
+    public typeFailure(error) {
+    }
+
 
     addEvent(event, type) {
         console.log(event, 'eventevent');

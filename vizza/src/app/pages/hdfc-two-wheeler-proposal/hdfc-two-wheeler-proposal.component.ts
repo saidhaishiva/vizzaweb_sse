@@ -255,6 +255,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.buyBikeDetails = JSON.parse(sessionStorage.enquiryFormData);
         this.buyProductDetails = JSON.parse(sessionStorage.buyProductDetails);
+        this.addOns.controls['extentioncountry'].patchValue('0');
+        console.log(this.addOns.controls['extentioncountry'].value,'11111')
 
 // this.summaryData=JSON.parse(sessionStorage.summaryData);
         let stringToSplit;
