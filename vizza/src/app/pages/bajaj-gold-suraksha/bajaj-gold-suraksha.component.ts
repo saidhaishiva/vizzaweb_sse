@@ -43,6 +43,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
   public pin:any;
   public title: any;
   public response: any;
+  public redirectUrl: any;
   public pincodeErrors: any;
   public webhost: any;
   public settings: Settings;
@@ -110,12 +111,16 @@ export class BajajGoldSurakshaComponent implements OnInit {
         "paymentTerm": this.bajajgold.controls['paymentTerm'].value,
         "premium":this.bajajgold.controls['premium'].value,
         "paymentFrequency": this.bajajgold.controls['frequency'].value,
+        "pos_id": "39"
+        // this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
 
       };
 
       this.commonservices.getUpdateDetails(data).subscribe(
           (successData) => {
             this.getUpdateSuccess(successData);
+            // this.redirectUrl = successData.ResponseObject.redirect_url;
+
           },
           (error) => {
             this.getUpdateFailure(error);
@@ -124,6 +129,10 @@ export class BajajGoldSurakshaComponent implements OnInit {
     }
   }
   getUpdateSuccess(successData) {
+    this.redirectUrl = successData.ResponseObject.redirect_url;
+    console.log(this.redirectUrl, 'redirect')
+    window.open(this.redirectUrl,'_top');
+
   }
   getUpdateFailure(error) {
   }
