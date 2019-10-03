@@ -60,7 +60,7 @@
 
                 <div class="col-md-12"  *ngIf="plists.product_id == 102">
                 <mat-form-field class="w-100">
-                  <mat-select placeholder="Life" formControlName="planList" autocomplete="off" (change)="gethdfcPremium();getValue()" >
+                  <mat-select placeholder="Life"  [(ngModel)]="plists.planList" autocomplete="off" (change)="gethdfcPremium(plists,i)" >
                     <mat-option *ngFor="let alist of allHdfcList " [value]= 'alist.id'>
                       {{alist.name}}
                     </mat-option>

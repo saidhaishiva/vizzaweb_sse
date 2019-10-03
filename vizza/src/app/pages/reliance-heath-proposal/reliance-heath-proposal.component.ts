@@ -1977,7 +1977,8 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.requestInsuredDetails = this.requestDetails.InsuredDetailsList.InsuredDetail;
             this.pos_status = this.requestDetails.role_id;
 
-            // console.log(this.requestInsuredDetails, 'hgghjghjgjh');
+            console.log(this.requestDetails.RiskDetail.IsServiceTaxExemptionApplicable , 'hgghjghjgjh');
+            console.log(this.requestPersonalInfo.CommunicationAddress.PhoneNo , 'requestPersonalInfo.CommunicationAddress.PhoneNo');
         } else {
         }
     }
