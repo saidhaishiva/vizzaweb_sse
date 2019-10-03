@@ -2274,15 +2274,12 @@
 
                     <ul class="m-0 list-group">
                       <li class="list-group-item" *ngIf="insuredFormData.investing != ''"><strong>Are you investing for :</strong> {{insuredFormData.investing}}</li>
-
                       <li class="list-group-item"><strong>Name:</strong> {{insuredFormData.titleName}} {{insuredFormData.firstName}} {{insuredFormData.midName}} {{insuredFormData.lastName}}</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{insuredFormData.dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.gender != ''"><strong>Gender :</strong> {{insuredFormData.gender}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.maritalStatus != ''"><strong>Marital Status :</strong> {{insuredFormData.maritalStatusName}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.nationality != ''"><strong>Nationality :</strong> {{insuredFormData.nationality}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.emailId != ''"><strong>Email Id :</strong>{{insuredFormData.emailId}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.pan != ''"><strong>PAN No :</strong>{{insuredFormData.pan | uppercase}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.aadhaarNo != ''"><strong>Aadhaar No :</strong> {{insuredFormData.aadhaarNo}}</li>
 
 
 
@@ -2295,7 +2292,8 @@
                   <div class="p-3">
 
                     <ul class="m-0 list-group">
-
+                      <li class="list-group-item" *ngIf="insuredFormData.pan != ''"><strong>PAN No :</strong>{{insuredFormData.pan | uppercase}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.aadhaarNo != ''"><strong>Aadhaar No :</strong> {{insuredFormData.aadhaarNo}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.fatherhusbandName != ''"><strong>Father / Husband Name :</strong> {{insuredFormData.fatherhusbandName}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.ageProofId != ''"><strong>Age Proof Id :</strong> {{insuredFormData.ageProofIdName }}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.mobileNo != ''"><strong>Mobile No :</strong> {{insuredFormData.mobileNo}}</li>
@@ -2379,19 +2377,70 @@
                 <!--</div>-->
                 <div class="col-md-6">
                   <div class="p-3">
+                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong> Address 1:</strong> {{insuredFormData.currAddr1}}</li>
+                      <li class="list-group-item"  ><strong> Address 2:</strong> {{insuredFormData.currAddr2}}</li>
+                      <li class="list-group-item"  *ngIf="insuredFormData.currAddr3 != ''" ><strong> Address 3:</strong> {{insuredFormData.currAddr3}}</li>
+                      <li class="list-group-item"><strong> Pincode:</strong> {{insuredFormData.currPincode}}</li>
+                      <li class="list-group-item"><strong> State:</strong> {{insuredFormData.currState}}</li>
+                      <li class="list-group-item"><strong> City:</strong> {{insuredFormData.currCity}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class=" p-3">
+                    <h6 class="color-blue">RESIDENCE DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item" *ngIf="insuredFormData.perAddr1 != ''"><strong> Address 1:</strong> {{insuredFormData.perAddr1}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.perAddr2 != ''"><strong> Address 2:</strong> {{insuredFormData.perAddr2}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.perAddr3 != ''"><strong> Address 3:</strong>  {{insuredFormData.perAddr3}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.perPincode != ''" ><strong> Pincode:</strong> {{insuredFormData.perPincode}}</li>
+                      <li class="list-group-item"  *ngIf="insuredFormData.perState != ''"><strong> State:</strong> {{insuredFormData.perState}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.perCity != ''"><strong> City:</strong> {{insuredFormData.perCity}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue">TAX RESIDENCE DECLARATION</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class=" p-3">
+                    <h6 class="color-blue">INSURANCE HISTORY</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any application or proposal for life, health, accident or critical illness:</strong> {{insuredFormData.insureHistory}}</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="p-3">
                     <h6 class="color-blue">EMPLOYMENT DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item" *ngIf="insuredFormData.employerName != ''"><strong>Employer Name :</strong> {{insuredFormData.employerName}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.employementType != ''"><strong>Employment Type :</strong> {{insuredFormData.employementTypeName}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.employementTypeOther != ''"><strong>Employment Type Other :</strong> {{insuredFormData.employementTypeOther}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class=" p-3">
+                    <h6 class="color-blue"></h6>
+                    <ul class="m-0 list-group">
                       <li class="list-group-item" *ngIf="insuredFormData.natureduty != ''"><strong>Nature Of Duty :</strong> {{insuredFormData.naturedutyName}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Employer Address :</strong> {{insuredFormData.employerAddr}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.annualIncome != ''"><strong>Annual Income :</strong> {{insuredFormData.annualIncome}}</li>
                     </ul>
                   </div>
                 </div>
+
                 <div class="col-md-6">
-                  <div class=" p-3">
+                  <div class="p-3">
                     <h6 class="color-blue">LIFESTYLE DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item" *ngIf="insuredFormData.heightFeets != ''"><strong>Height Feets :</strong> {{insuredFormData.heightFeets}}</li>
@@ -2400,6 +2449,14 @@
                       <li class="list-group-item" *ngIf="insuredFormData.hasWeightChanged != ''"><strong>Change in weight past 6 months :</strong> {{insuredFormData.hasWeightChanged}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.inbetweenweight != ''"><strong>Changed Weight :</strong> {{insuredFormData.inbetweenweight}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.weightChangedreason != ''"><strong>Reason for weight changed :</strong> {{insuredFormData.weightChangedreason}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class=" p-3">
+                    <h6 class="color-blue"></h6>
+                    <ul class="m-0 list-group">
+
                       <li class="list-group-item" *ngIf="insuredFormData.medicalTreatment != ''"><strong>Are you taking any medication at present or following a diet prescribed by a doctor?:</strong> {{insuredFormData.medicalTreatment}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.medicationDetails != ''"><strong>Medication Details:</strong> {{insuredFormData.medicationDetails}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment2 != ''"><strong>A test indicating the presence of HIV/AIDS, Hepatitis B or Hepatitis C:</strong> {{insuredFormData.receivedTreatment2}}</li>
@@ -2438,50 +2495,10 @@
                   </div>
                 </div>
 
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <h6 class="color-blue">TAX RESIDENCE DECLARATION</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class=" p-3">
-                    <h6 class="color-blue">INSURANCE HISTORY</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any application or proposal for life, health, accident or critical illness:</strong> {{insuredFormData.insureHistory}}</li>
-                    </ul>
-                  </div>
-                </div>
 
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong> Address 1:</strong> {{insuredFormData.currAddr1}}</li>
-                      <li class="list-group-item"  ><strong> Address 2:</strong> {{insuredFormData.currAddr2}}</li>
-                      <li class="list-group-item"  *ngIf="insuredFormData.currAddr3 != ''" ><strong> Address 3:</strong> {{insuredFormData.currAddr3}}</li>
-                      <li class="list-group-item"><strong> Pincode:</strong> {{insuredFormData.currPincode}}</li>
-                      <li class="list-group-item"><strong> State:</strong> {{insuredFormData.currState}}</li>
-                      <li class="list-group-item"><strong> City:</strong> {{insuredFormData.currCity}}</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class=" p-3">
-                    <h6 class="color-blue">RESIDENCE DETAILS</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item" *ngIf="insuredFormData.perAddr1 != ''"><strong> Address 1:</strong> {{insuredFormData.perAddr1}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.perAddr2 != ''"><strong> Address 2:</strong> {{insuredFormData.perAddr2}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.perAddr3 != ''"><strong> Address 3:</strong>  {{insuredFormData.perAddr3}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.perPincode != ''" ><strong> Pincode:</strong> {{insuredFormData.perPincode}}</li>
-                      <li class="list-group-item"  *ngIf="insuredFormData.perState != ''"><strong> State:</strong> {{insuredFormData.perState}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.perCity != ''"><strong> City:</strong> {{insuredFormData.perCity}}</li>
-                    </ul>
-                  </div>
 
-                </div>
+
+
               </div>
             </section>
 
