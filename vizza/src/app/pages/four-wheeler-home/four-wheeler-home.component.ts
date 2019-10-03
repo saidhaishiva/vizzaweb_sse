@@ -102,6 +102,7 @@ export class FourWheelerHomeComponent implements OnInit {
       'previousCompany': '',
       'city': ''
     });
+
     this.expiry = false;
     this.showSelf = false;
     this.previousDate = true;
