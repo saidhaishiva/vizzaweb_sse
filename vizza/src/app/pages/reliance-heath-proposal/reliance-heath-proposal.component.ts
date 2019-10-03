@@ -1281,6 +1281,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'MaritalStatusID': this.insurerData[i].maritalStatus,
                     'maritalStatusName': this.insurerData[i].maritalStatusName,
                     'OccupationID': this.insurerData[i].occupation,
+                    'personalrelationshipName': this.insurerData[i].personalrelationshipName,
                     'PreExistingDisease': {
                         'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'No' ? "false" : "true",
                         'DiseaseList': {
@@ -1693,7 +1694,6 @@ export class RelianceHeathProposalComponent implements OnInit {
                         'NearestLandmark': this.nomineeData.nearestLandMark,
                         'Pincode': this.nomineeData.nomineePincode,
                         'AreaID': this.nomineeData.nomineeArea,
-                        'nomineeAreaName': this.nomineeDetails.controls['nomineeAreaName'].value,
                         'StateID': this.nomineeData.nomineeStateId
                     }
                 },
@@ -1714,6 +1714,8 @@ export class RelianceHeathProposalComponent implements OnInit {
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 'group_name': this.getFamilyDetails.name,
+                'personalrelationshipName': this.insurerData[0].personalrelationshipName,
+
             };
             this.settings.loadingSpinner = true;
             this.proposalservice.relianceProposal(data).subscribe(
@@ -1792,9 +1794,8 @@ export class RelianceHeathProposalComponent implements OnInit {
 
     payLater(){
         let typeList;
-        let maritalStatusName;
-        for(let i=0; i < this.insuredFormData; i++ ){
-          typeList = this.insureArray['controls'].items['controls'][i]['controls'].type;
+        for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
+            typeList = this.insureArray['controls'].items['controls'][i]['controls'].type.patchValue(this.getFamilyDetails.family_members[i].type);
         }
         const data = {
             'ClientDetails': {
@@ -1811,7 +1812,11 @@ export class RelianceHeathProposalComponent implements OnInit {
                 'OccupationID': this.personalData.occupation,
                 'occupationName': this.personalData.occupationName,
                 'maritalStatusName': this.personalData.maritalStatusName,
+                'nationalityName': this.personalData.nationalityName,
                 'PhoneNo': this.personalData.personalPhone,
+                'PanNo': this.personalData.personalPan,
+                'type': 'self',
+                'typess' : typeList,
                 'Salutation': this.personalData.personalTitle == 'MR' ? "Mr." : "Ms.",
                 'ClientAddress': {
                     'CommunicationAddress': {
@@ -1883,6 +1888,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 'DOB': this.datepipe.transform(this.nomineeData.nomineeDob, 'y-MM-dd'),
                 'NomineeRelationshipID': this.nomineeData.nomineeRelationship,
                 'NomineeRelationshipOther': this.nomineeData.nomineeOtherRelationship,
+                'nomineeRelationshipName': this.nomineeDetails.controls['nomineeRelationshipName'].value,
                 'NomineeAddress': {
                     'Address1': this.nomineeData.nomineeAddress,
                     'Address2': this.nomineeData.nomineeAddress2,
@@ -1893,6 +1899,10 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'NearestLandmark': this.nomineeData.nearestLandMark,
                     'Pincode': this.nomineeData.nomineePincode,
                     'AreaID': this.nomineeData.nomineeArea,
+                    'nomineeAreaName': this.nomineeDetails.controls['nomineeAreaName'].value,
+                    'nomineeState': this.nomineeDetails.controls['nomineeState'].value,
+                    'nomineeDistrict': this.nomineeDetails.controls['nomineeDistrict'].value,
+                    'nomineeCity': this.nomineeDetails.controls['nomineeCity'].value,
                     'StateID': this.nomineeData.nomineeStateId
                 }
             },
@@ -1905,7 +1915,6 @@ export class RelianceHeathProposalComponent implements OnInit {
                 'PrevYearPolicyEndDate': this.datepipe.transform(this.previousInsuranceFrom.controls['PolicyEndDate'].value, 'y-MM-dd') == null ? '' : this.previousInsuranceFrom.controls['PolicyEndDate'].value
             },
             'enquiry_id': this.getFamilyDetails.enquiry_id,
-            'type': typeList,
             'product_id': this.buyProductdetails.product_id,
             'plan_name': this.buyProductdetails.product_name,
             'company_logo': this.buyProductdetails.company_logo,
@@ -1977,8 +1986,10 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.requestInsuredDetails = this.requestDetails.InsuredDetailsList.InsuredDetail;
             this.pos_status = this.requestDetails.role_id;
 
-            console.log(this.requestDetails.RiskDetail.IsServiceTaxExemptionApplicable , 'hgghjghjgjh');
+            console.log(this.requestDetails, 'hgghjghjgjh');
+            console.log(this.requestDetails.RiskDetails.IsServiceTaxExemptionApplicable, 'RiskDetails');
             console.log(this.requestPersonalInfo.CommunicationAddress.PhoneNo , 'requestPersonalInfo.CommunicationAddress.PhoneNo');
+            console.log(this.requestPersonalInfo.CommunicationAddress.PanNo , 'PanNo.CommunicationAddress.PhoneNo');
         } else {
         }
     }

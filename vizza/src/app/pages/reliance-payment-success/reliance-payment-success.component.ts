@@ -36,17 +36,17 @@ export class ReliancePaymentSuccessComponent implements OnInit {
             this.mailstatus = params.mailstatus;
 
         });
-        let groupDetails = JSON.parse(sessionStorage.groupDetails);
-        for(let i = 0; i < groupDetails.family_groups.length; i++) {
-            if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
-                groupDetails.family_groups[i].status = 1;
-            }
-        }
-        let status = groupDetails.family_groups.filter(data => data.status == 0);
-        if(status.length > 0) {
-            this.remainingStatus = true;
-        }
-        sessionStorage.groupDetails = JSON.stringify(groupDetails);
+        // let groupDetails = JSON.parse(sessionStorage.groupDetails);
+        // for(let i = 0; i < groupDetails.family_groups.length; i++) {
+        //     if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
+        //         groupDetails.family_groups[i].status = 1;
+        //     }
+        // }
+        // let status = groupDetails.family_groups.filter(data => data.status == 0);
+        // if(status.length > 0) {
+        //     this.remainingStatus = true;
+        // }
+        // sessionStorage.groupDetails = JSON.stringify(groupDetails);
 
     }
 
