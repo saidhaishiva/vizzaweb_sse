@@ -1279,10 +1279,10 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'Age': this.insurerData[i].personalAge.toString(),
                     'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
                     'MaritalStatusID': this.insurerData[i].maritalStatus,
-                    'MaritalStatusName':  this.insureArray['controls'].items['controls'][i]['controls'].maritalStatusName,
+                    'maritalStatusName': this.insurerData[i].maritalStatusName,
                     'OccupationID': this.insurerData[i].occupation,
-                    'Type':  this.insureArray['controls'].items['controls'][i]['controls'].type,
-                    'PersonalrelationshipName':  this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName,
+                    'personalrelationshipName': this.insurerData[i].personalrelationshipName,
+                    'type': this.insurerData[i].type,
                     'PreExistingDisease': {
                         'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'No' ? "false" : "true",
                         'DiseaseList': {
@@ -1988,7 +1988,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.pos_status = this.requestDetails.role_id;
 
             console.log(this.requestDetails, 'hgghjghjgjh');
-            console.log(this.requestDetails.RiskDetails.IsServiceTaxExemptionApplicable, 'RiskDetails');
+            console.log(this.requestDetails.RiskDetails, 'RiskDetails');
             console.log(this.requestPersonalInfo.CommunicationAddress.PhoneNo , 'requestPersonalInfo.CommunicationAddress.PhoneNo');
             console.log(this.requestPersonalInfo.CommunicationAddress.PanNo , 'PanNo.CommunicationAddress.PhoneNo');
         } else {
