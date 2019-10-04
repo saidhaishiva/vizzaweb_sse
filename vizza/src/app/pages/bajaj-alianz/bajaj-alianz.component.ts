@@ -343,6 +343,7 @@ export class BajajAlianzComponent implements OnInit {
                     'memnomineerelation': this.insurerData[i].bajajRelationship,
                     'memcompname': this.insurerData[i].insureCName,
                     'memprvpolno': this.insurerData[i].insurePINumber,
+                    'type': this.insurerData[i].type,
                     'memprvexpdate': this.datepipe.transform(this.insurerData[i].insurePItDate, 'y-MM-dd'),
                     'memprvsi': this.insurerData[i].insureSInsurance,
                     'noofclaims': this.insurerData[i].insurePIClaims == '' ? "0" : this.insurerData[i].insurePIClaims || this.insurerData[i].insurePIClaims == null ? "0" : this.insurerData[i].insurePIClaims,
