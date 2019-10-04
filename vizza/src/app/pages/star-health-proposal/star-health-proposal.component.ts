@@ -1858,6 +1858,7 @@ export class StarHealthProposalComponent implements OnInit {
             console.log(this.pos_status , 'requestDetailsrequestDetails');
             this.requestDetails = this.requestDetails[0];
             this.requestInsuredDetails = this.requestDetails.insured_details;
+            sessionStorage.proposalID = this.proposalId
         } else {
         }
     }

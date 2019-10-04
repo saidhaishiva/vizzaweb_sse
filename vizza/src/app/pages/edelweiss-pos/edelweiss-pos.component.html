@@ -69,7 +69,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" (change)="changeMaritalReq()" required  class="w-100">
+                          <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()"  required  class="w-100">
                             <mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
@@ -503,7 +503,7 @@
                     </div>
                     <div class="col-md-4" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
                       <mat-form-field class="w-100" >
-                        <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="geteMaritalStatus()" (change)="changeMarital1()" (change)="changeMaritalInsuReq()"required  class="w-100" >
+                        <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="geteMaritalStatus()" (change)="changeMarital1()" required  class="w-100" >
                           <mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="insureArray.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>

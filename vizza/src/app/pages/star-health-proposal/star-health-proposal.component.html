@@ -857,7 +857,7 @@
                         <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{list.ins_relationship_name}}</li>
                         <li class="list-group-item"><strong>Do you have any health problem: </strong> <span *ngIf="list.illness == 'true'">Yes</span> <span *ngIf="list.illness == 'false'">No</span></li>
                         <li class="list-group-item" *ngIf="list.ins_illness"><strong>Illness:</strong> {{list.ins_illness}}</li>
-                        <li *ngIf="list.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> <span *ngIf="list.ins_hospital_cash == '1'">Yes</span> <span *ngIf="list.ins_hospital_cash == '0'">No</span></li>
+                        <li *ngIf="requestDetails.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> <span *ngIf="list.ins_hospital_cash == '1'">Yes</span> <span *ngIf="list.ins_hospital_cash == '0'">No</span></li>
                         <!--<li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>personal Accident Applicable:</strong> <span *ngIf="list.ins_personal_accident_applicable == '2'"> Yes</span> <span *ngIf="list.ins_personal_accident_applicable == '0'"> No</span></li>-->
                         <!--<li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Manual Labour:</strong> {{list.ins_engage_manual_labour}}</li>-->
                         <!--<li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Winter Sports:</strong> {{list.ins_engage_winter_sports}}</li>-->
