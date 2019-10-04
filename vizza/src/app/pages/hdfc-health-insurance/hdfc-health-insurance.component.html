@@ -501,6 +501,8 @@
                           <li class="list-group-item"><strong>Pincode:</strong>  {{requestCustomerDetails.Pincode}}</li>
                           <li class="list-group-item"><strong>City:</strong> {{requestCustomerDetails.City}}</li>
                           <li class="list-group-item"><strong>State:</strong> {{requestCustomerDetails.stateName}}</li>
+                          <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="requestDetails.InsuranceDetails.PaymentDetails.PaymentMode == 'CC'">Credit Card</span> <span *ngIf="requestDetails.InsuranceDetails.PaymentDetails.PaymentMode == 'DD'">Debit Card</span></li>
+
                         </ul>
                       </div>
                     </div>

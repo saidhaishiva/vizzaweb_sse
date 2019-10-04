@@ -635,7 +635,7 @@
                         <li class="list-group-item"><strong>Gender:</strong> <span *ngIf="requestDetails.Contact.Sex == 'M'">Male</span><span *ngIf="requestDetails.Contact.Sex == 'F'">Female</span></li>
                         <li class="list-group-item"><strong>Personal Email Id:</strong> {{requestDetails.Contact.MailId}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{requestDetails.Contact.MobilePhone}}</li>
-                        <li class="list-group-item"  *ngIf="requestDetails.Contact.HomePhone !=''">><strong>Home Phone Number:</strong> {{requestDetails.Contact.HomePhone}}</li>
+                        <li class="list-group-item"  *ngIf="requestDetails.Contact.HomePhone !=''"><strong>Home Phone Number:</strong> {{requestDetails.Contact.HomePhone}}</li>
                         <li class="list-group-item"  *ngIf="requestDetails.Contact.OfficePhone !=''"><strong>Office Phone Number:</strong> {{requestDetails.Contact.OfficePhone}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong><span *ngIf="requestDetails.Contact.Married == 'M'">Married</span><span *ngIf="requestDetails.Contact.Married == 'U'">Unmarried</span><span *ngIf="requestDetails.Married == 'S'">Single</span><span *ngIf="requestDetails.Married == 'N'">Not Known</span></li>
                         <li class="list-group-item"><strong>Occupation:</strong> {{requestDetails.Contact.OccupationName}}</li>

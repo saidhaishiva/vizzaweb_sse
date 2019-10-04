@@ -577,7 +577,9 @@ export class CholaHealthProposalComponent implements OnInit {
                     'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
                     'Relationship': this.insurerData[i].personalrelationship,
                     'SumInsured': this.buyProductdetails.suminsured_amount,
-                    'PreExistingDisease': this.insurerData[i].preExistingDisease
+                    'PreExistingDisease': this.insurerData[i].preExistingDisease,
+                    'type': this.insurerData[i].type,
+
                 });
             }
             if (dateErrorMsg.includes(2)) {
