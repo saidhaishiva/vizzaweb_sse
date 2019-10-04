@@ -71,12 +71,14 @@ export class FourWheelerHomeComponent implements OnInit {
   public showSelf: boolean;
   public metaCar: any;
   public metaTitle: any;
+  public getRtoDetails: any;
   metaKeyword: any;
   metaDescription: any;
+  public config: any;
 
-  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
+  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
     this.settings = this.appSettings.settings;
-    this.webhost = this.config.getimgUrl();
+    this.webhost = this.configs.getimgUrl();
     if (window.innerWidth < 787) {
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
@@ -89,6 +91,12 @@ export class FourWheelerHomeComponent implements OnInit {
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     this.listDetails = false;
+    this.config = {
+      displayKey: "city",
+      search: true,
+      limitTo: 5,
+      // searchOnKey: 'city'
+    };
 
     this.fourWheeler = this.fb.group({
       'vehicalNumber': '',
@@ -404,7 +412,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
   public citySuccess(successData) {
     if (successData.IsSuccess) {
-      this.cityDetails = successData.ResponseObject;
+      this.getRtoDetails = successData.ResponseObject;
       //
     }
   }

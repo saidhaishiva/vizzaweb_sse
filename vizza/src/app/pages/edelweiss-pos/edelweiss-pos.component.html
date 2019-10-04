@@ -449,7 +449,7 @@
                   <div class="col-md-6 box-card pt-3">
                     <!--<mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure()" ><strong>Same as proposer</strong></mat-checkbox>-->
                     <mat-form-field class="w-100">
-                      <mat-select  placeholder="Are you investing for" formControlName="investing"  (change)="sameAsInsure();investingreq()"  class="w-100" required >
+                      <mat-select  placeholder="Are you investing for" formControlName="investing"  (change)="sameAsInsure()"  class="w-100" required >
                         <mat-option *ngFor="let list of einvesting | keys" [value]= list.key> {{list.value}} </mat-option>
                       </mat-select>
                       <mat-error *ngIf="insureArray.controls.investing.errors?.required">Investing is required</mat-error>
