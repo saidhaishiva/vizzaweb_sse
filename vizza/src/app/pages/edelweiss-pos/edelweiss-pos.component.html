@@ -449,7 +449,7 @@
                   <div class="col-md-6 box-card pt-3">
                     <!--<mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure()" ><strong>Same as proposer</strong></mat-checkbox>-->
                     <mat-form-field class="w-100">
-                      <mat-select  placeholder="Are you investing for" formControlName="investing"  (change)="sameAsInsure()"  class="w-100" required >
+                      <mat-select  placeholder="Are you investing for" formControlName="investing"  (change)="sameAsInsure();investingreq()"  class="w-100" required >
                         <mat-option *ngFor="let list of einvesting | keys" [value]= list.key> {{list.value}} </mat-option>
                       </mat-select>
                       <mat-error *ngIf="insureArray.controls.investing.errors?.required">Investing is required</mat-error>
@@ -2402,14 +2402,6 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="p-3">
-                    <h6 class="color-blue">TAX RESIDENCE DECLARATION</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
                   <div class=" p-3">
                     <h6 class="color-blue">INSURANCE HISTORY</h6>
                     <ul class="m-0 list-group">
@@ -2417,6 +2409,15 @@
                     </ul>
                   </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue">TAX RESIDENCE DECLARATION</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
+                    </ul>
+                  </div>
+                </div>
+
 
                 <div class="col-md-6">
                   <div class="p-3">
@@ -2428,7 +2429,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" style="padding-top: 10px;">
                   <div class=" p-3">
                     <h6 class="color-blue"></h6>
                     <ul class="m-0 list-group">
@@ -2449,16 +2450,17 @@
                       <li class="list-group-item" *ngIf="insuredFormData.hasWeightChanged != ''"><strong>Change in weight past 6 months :</strong> {{insuredFormData.hasWeightChanged}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.inbetweenweight != ''"><strong>Changed Weight :</strong> {{insuredFormData.inbetweenweight}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.weightChangedreason != ''"><strong>Reason for weight changed :</strong> {{insuredFormData.weightChangedreason}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.medicalTreatment != ''"><strong>Are you taking any medication at present or following a diet prescribed by a doctor?:</strong> {{insuredFormData.medicalTreatment}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.medicationDetails != ''"><strong>Medication Details:</strong> {{insuredFormData.medicationDetails}}</li>
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6"  style="padding-top: 10px;">
                   <div class=" p-3">
                     <h6 class="color-blue"></h6>
                     <ul class="m-0 list-group">
 
-                      <li class="list-group-item" *ngIf="insuredFormData.medicalTreatment != ''"><strong>Are you taking any medication at present or following a diet prescribed by a doctor?:</strong> {{insuredFormData.medicalTreatment}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.medicationDetails != ''"><strong>Medication Details:</strong> {{insuredFormData.medicationDetails}}</li>
+
                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment2 != ''"><strong>A test indicating the presence of HIV/AIDS, Hepatitis B or Hepatitis C:</strong> {{insuredFormData.receivedTreatment2}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.aidsDetails != ''"><strong>AIDS Details:</strong> {{insuredFormData.aidsDetails}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment1 != ''" ><strong>Have you ever been diagnosed or / received treatment for any heart, kidney, liver disease including Hepatitis B, cerebrovascular disease including stroke, paralysis, lung disease, cancer, tumor or physical deformity?:</strong> {{insuredFormData.receivedTreatment1}}</li>
@@ -2468,6 +2470,20 @@
                   </div>
                 </div>
 
+
+                <div class="col-md-6">
+                  <div class=" p-3">
+                    <h6 class="color-blue">INSURANCE REPOSITORY</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item" *ngIf="insuredFormData.insureAccNo != ''"><strong>Do you have an e-insurance account number?:</strong> {{insuredFormData.insureAccNo}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.provideAccNo != ''"><strong>Provide Account No:</strong> {{insuredFormData.provideAccNo}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.epolicy != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.einsureAccNo != ''"><strong>E-Insurance Account Number:</strong> {{insuredFormData.einsureAccNo}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.epolicy1 != ''"><strong>Would you like to have an e policy in e-insurance account no?:</strong> {{insuredFormData.epolicy1}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.insureRepository != ''"><strong>Insurance Repository :</strong> {{insuredFormData.insureRepository}}</li>
+                    </ul>
+                  </div>
+                </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <h6 class="color-blue">OTHER DETAILS</h6>
@@ -2479,19 +2495,8 @@
                       <li class="list-group-item" *ngIf="insuredFormData.criminalDetails != '' && lifePremiumList.product_id=='112'"><strong>Criminal Details :</strong> {{insuredFormData.criminalDetails}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.categorization != '' "><strong>Categorization :</strong> {{insuredFormData.categorization}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.addrProof != ''"><strong>Address Proof :</strong> {{insuredFormData.addrProofName}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.identityProof != ''"><strong>Identity Proof :</strong> {{insuredFormData.identityProofName}}</li>                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class=" p-3">
-                    <h6 class="color-blue">INSURANCE REPOSITORY</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item" *ngIf="insuredFormData.insureAccNo != ''"><strong>Do you have an e-insurance account number?:</strong> {{insuredFormData.insureAccNo}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.provideAccNo != ''"><strong>Provide Account No:</strong> {{insuredFormData.provideAccNo}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.epolicy != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.einsureAccNo != ''"><strong>E-Insurance Account Number:</strong> {{insuredFormData.einsureAccNo}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.einsureAccNo == 'Yes' && insuredFormData.einsureAccNo == 'No'"><strong>Would you like to have an e policy in e-insurance account no?:</strong> {{insuredFormData.epolicy1}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.einsureAccNo == 'Yes' && insuredFormData.einsureAccNo == 'No'"><strong>Insurance Repository :</strong> {{insuredFormData.insureRepository}}</li>                    </ul>
+                      <li class="list-group-item" *ngIf="insuredFormData.identityProof != ''"><strong>Identity Proof :</strong> {{insuredFormData.identityProofName}}</li>
+                    </ul>
                   </div>
                 </div>
 

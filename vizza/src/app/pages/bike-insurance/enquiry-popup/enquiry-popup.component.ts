@@ -154,7 +154,8 @@
     public manifactureSuccess(successData){
       if (successData.IsSuccess) {
         this.manifactureDetails = successData.ResponseObject;
-        this.variantList();
+        // this.variantList();
+        this.modelList1()
 
       }
     }
@@ -178,11 +179,17 @@
     // variant
     variantList() {
       const data = {
-        'platform': 'web',
-        'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-        'manufacture': this.vehicalDetails.controls['manufacture'].value,
+        "platform": "web",
+        "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+        "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+        "manufacture": this.vehicalDetails.controls['manufacture'].value,
+        "model": this.vehicalDetails.controls['vehicleModel'].value,
+        // 'platform': 'web',
+        // 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+        // 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        // 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+        // 'manufacture': this.vehicalDetails.controls['manufacture'].value,
       }
       this.bikeService.getvariantList(data).subscribe(
           (successData) => {
@@ -196,7 +203,8 @@
     public variantSuccess(successData){
       if (successData.IsSuccess) {
         this.variantDetails = successData.ResponseObject;
-        this.modelList1();
+        // this.modelList1();
+        this.ccList();
       }
     }
     public variantFailure(error) {
@@ -205,12 +213,18 @@
     // model
     modelList1() {
       const data = {
-        'platform': 'web',
-        'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-        'manufacture': this.vehicalDetails.controls['manufacture'].value,
-        'variant':  this.vehicalDetails.controls['variant'].value
+        "platform": 'web',
+        "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+        "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+        "manufacture": this.vehicalDetails.controls['manufacture'].value,
+
+        // 'platform': 'web',
+        // 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+        // 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        // 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+        // 'manufacture': this.vehicalDetails.controls['manufacture'].value,
+        // 'variant':  this.vehicalDetails.controls['variant'].value
       }
       this.bikeService.getModelList(data).subscribe(
           (successData) => {
@@ -224,7 +238,7 @@
     public modelSuccess(successData){
       if (successData.IsSuccess) {
         this.modelDetails = successData.ResponseObject;
-        this.ccList();
+        this.variantList();
 
       }
     }
