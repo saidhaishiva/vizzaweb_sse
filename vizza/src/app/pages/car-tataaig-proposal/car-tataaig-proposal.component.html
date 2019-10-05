@@ -249,7 +249,7 @@
                           <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
+                      <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                         <mat-placeholder>Name<span class="color-red" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                         <ngx-select-dropdown (keyup)="financiertype($event.target.value)"  formControlName="bankName" (keypress)="nameValidate($event)" [config]="config" [options]="banklist"></ngx-select-dropdown>
 
