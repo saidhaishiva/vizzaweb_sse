@@ -92,6 +92,7 @@ export class CarTataaigProposalComponent implements OnInit {
   public visible: any;
   public config: any;
   public errortoaster: boolean;
+  public bankValid: boolean;
 
 
   constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public configs: ConfigurationService,public route: ActivatedRoute ) {
@@ -122,6 +123,7 @@ export class CarTataaigProposalComponent implements OnInit {
     const miniDate = new Date();
     this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
     this.maxdate = this.minDate;
+    this.bankValid = false;
     this.config = {
       displayKey: "bankName",
       search: true,
