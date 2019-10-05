@@ -909,6 +909,7 @@ export class IffcoTokioComponent implements OnInit {
                     'Weight': this.insuredDetails.items[i].proposerWeight,
                     'GrossMonthlyIncome': "",
                     'Occupation': this.insuredDetails.items[i].proposerOccupation,
+                    'proposerInsureOccupationName': this.insuredDetails.items[i].proposerInsureOccupationName,
                     'PreviousPolicyFlag': "N",
                     'InsuredPrimaryFlag': "Y",
                     'SumInsured': this.buyProductdetails.suminsured_amount,
@@ -1369,7 +1370,9 @@ export class IffcoTokioComponent implements OnInit {
                 'CriticalIllness': this.proposer.controls['criticalIllness'].value,
                 'RoomRentWaiver': this.proposer.controls['roomRentWaiver'].value,
                 'AdditionalFacts': this.proposer.controls['additionalFacts'].value,
-                'PastInsuranceDeclined': this.proposer.controls['pastInsuranceDeclined'].value
+                'PastInsuranceDeclined': this.proposer.controls['pastInsuranceDeclined'].value,
+                'nomineeCityName': this.proposer.controls['nomineeCityName'].value,
+                'nomineeStateName': this.proposer.controls['nomineeStateName'].value
             },
             "ListOfInsured": {
                 "Insured": this.insuredData,

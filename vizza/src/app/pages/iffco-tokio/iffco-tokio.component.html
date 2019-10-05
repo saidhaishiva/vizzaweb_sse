@@ -488,11 +488,11 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{personalFormData.proposerTitle}}{{'. '}} {{personalFormData.proposerFirstname}}{{' '}} {{personalFormData.proposerLastname}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{personalFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
+                        <li class="list-group-item"><strong>Gender:</strong> {{personalFormData.proposerGender}}</li>
                         <li class="list-group-item"><strong>Personal Email Id:</strong> {{personalFormData.proposerEmail}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{personalFormData.proposerMobile}}</li>
                         <li class="list-group-item"  *ngIf="personalFormData.proposerHomePhone !=''"><strong>Home Phone Number:</strong> {{personalFormData.proposerHomePhone}}</li>
                         <li class="list-group-item"  *ngIf="personalFormData.proposerOfficePhone !=''"><strong>Office Phone Number:</strong> {{personalFormData.proposerOfficePhone}}</li>
-                        <li class="list-group-item"><strong>Gender:</strong> {{personalFormData.proposerGender}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong><span *ngIf="personalFormData.proposerMaritalStatus == 'M'">Married</span><span *ngIf="personalFormData.proposerMaritalStatus == 'U'">Unmarried</span><span *ngIf="personalFormData.proposerMaritalStatus == 'S'">Single</span><span *ngIf="personalFormData.proposerMaritalStatus == 'N'">Not Known</span></li>
                         <li class="list-group-item"><strong>Occupation:</strong> {{personalFormData.proposerOccupationName}}</li>
                       </ul>
@@ -652,7 +652,7 @@
                         <li class="list-group-item"><strong>Emergency Mobile No:</strong> {{requestDetails.Contact.EmergencyContactMobile}}</li>
                         <li class="list-group-item"><strong>Past Insurance Declined:</strong><span *ngIf="requestDetails.Policy.PastInsuranceDeclined == 'N'">No</span><span *ngIf="requestDetails.Policy.PastInsuranceDeclined == 'Y'">Yes</span></li>
                         <li class="list-group-item"><strong>Room Rent Waiver:</strong><span *ngIf="requestDetails.Policy.RoomRentWaiver == 'N'">No</span><span *ngIf="requestDetails.Policy.RoomRentWaiver == 'Y'">Yes</span></li>
-                        <li class="list-group-item"><strong>Critical Illness:</strong><span *ngIf="requestDetails.Policy.CriticalIllness == 'N'">No</span><span *ngIf="requestDetails.Policy.criticalIllness == 'Y'">Yes</span></li>
+                        <li class="list-group-item"><strong>Critical Illness:</strong><span *ngIf="requestDetails.Policy.CriticalIllness == 'N'">No</span><span *ngIf="requestDetails.Policy.CriticalIllness == 'Y'">Yes</span></li>
                         <li class="list-group-item"><strong>Additional Facts:</strong><span *ngIf="requestDetails.Policy.AdditionalFacts == 'N'">No</span><span *ngIf="requestDetails.Policy.AdditionalFacts == 'Y'">Yes</span></li>
                       </ul>
                     </div>
@@ -696,7 +696,7 @@
                         <li class="list-group-item"><strong>Gender:</strong><span *ngIf="items.Gender == 'M'">Male</span><span *ngIf="items.Gender == 'F'">Female</span></li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{items.DateOfBirth | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Age:</strong> {{items.Age}}</li>
-                        <li class="list-group-item"><strong>Occupation:</strong> {{items.Occupation}}</li>
+                        <li class="list-group-item"><strong>Occupation:</strong> {{items.proposerInsureOccupationName}}</li>
                         <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{items.RelationtoInsured}}</li>
                       </ul>
                     </div>
@@ -741,8 +741,8 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Address:</strong> {{requestDetails.Policy.NomineeAddress}}</li>
                           <li class="list-group-item"><strong>Pincode:</strong> {{requestDetails.Policy.NomineePincode}}</li>
-                          <li class="list-group-item"><strong>City:</strong> {{requestDetails.Policy.NomineeCity}}</li>
-                          <li class="list-group-item"><strong>State:</strong> {{requestDetails.Policy.NomineeState}}</li>
+                          <li class="list-group-item"><strong>City:</strong> {{requestDetails.Policy.nomineeCityName}}</li>
+                          <li class="list-group-item"><strong>State:</strong> {{requestDetails.Policy.nomineeStateName}}</li>
                         </ul>
                       </div>
                     </div>
@@ -765,7 +765,7 @@
                   <input id="RESPONSEURL" type="hidden" value={{response_url}} name="RESPONSE_URL"><br/>
 
                   <button mat-button matStepperPrevious (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
-                  <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && pos_status == '3'">Pay Later</button>
+                  <button mat-button class="mat-primaryBlue" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == '3'">Pay Later</button>
                   <button mat-raised-button class="mat-primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
 
                 </form>

@@ -1280,6 +1280,8 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
                     'MaritalStatusID': this.insurerData[i].maritalStatus,
                     'maritalStatusName': this.insurerData[i].maritalStatusName,
+                    'occupationName': this.insurerData[i].occupationName,
+                    'occupationname': this.insureArray['controls'].items['controls'][i]['controls'].occupationName.value,
                     'OccupationID': this.insurerData[i].occupation,
                     'personalrelationshipName': this.insurerData[i].personalrelationshipName,
                     'type': this.insurerData[i].type,
