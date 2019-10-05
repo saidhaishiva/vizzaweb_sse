@@ -795,6 +795,8 @@
                                                 <li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress !=''"><strong>Address 1:</strong> {{nomineeFormData.nomineeAddress}}</li>
                                                 <li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress2 !=''"><strong>Address 2:</strong> {{nomineeFormData.nomineeAddress2}}</li>
                                                 <li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress3 !=''"><strong>Address 3:</strong> {{nomineeFormData.nomineeAddress3}}</li>
+                                                <li class="list-group-item" *ngIf="nomineeFormData.nomineePincode !=''"><strong>PIN code:</strong> {{nomineeFormData.nomineePincode}}</li>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -812,7 +814,6 @@
                                                 <li class="list-group-item"><strong>District:</strong> {{nomineeFormData.nomineeDistrict}}</li>
                                                 <li class="list-group-item"><strong>State:</strong> {{nomineeFormData.nomineeState}}</li>
                                                 <li class="list-group-item"><strong>Country:</strong> India</li>
-                                                <li class="list-group-item" *ngIf="nomineeFormData.nomineePincode !=''"><strong>PIN code:</strong> {{nomineeFormData.nomineePincode}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -842,7 +843,7 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Name:</strong> {{requestDetails.ClientDetails.Salutation}}. {{requestDetails.ClientDetails.ForeName}} {{requestDetails.ClientDetails.MidName}} {{requestDetails.LastName}}</li>
+                                            <li class="list-group-item"><strong>Name:</strong> {{requestDetails.ClientDetails.Salutation}} {{requestDetails.ClientDetails.ForeName}} {{requestDetails.ClientDetails.MidName}} {{requestDetails.LastName}}</li>
                                             <li class="list-group-item"><strong>D.O.B:</strong> {{requestDetails.ClientDetails.DOB | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item"><strong>Email Id:</strong> {{requestDetails.ClientDetails.Email}}</li>
                                             <li class="list-group-item"><strong>Mobile Number:</strong> {{requestDetails.ClientDetails.MobileNo}}</li>
@@ -860,7 +861,7 @@
                                             <li class="list-group-item" *ngIf="requestDetails.ClientDetails.PanNo !=''"><strong>PAN Number:</strong> {{requestDetails.ClientDetails.PanNo | uppercase}}</li>
                                             <li class="list-group-item" *ngIf="requestDetails.RiskDetails.IsServiceTaxExemptionApplicable == 'false'"><strong>Is Service Tax Exemption  Applicable : </strong> No</li>
                                             <li class="list-group-item" *ngIf="requestDetails.RiskDetails.IsServiceTaxExemptionApplicable == 'true'"><strong>Is Service Tax Exemption  Applicable : </strong> YES</li>
-                                            <li class="list-group-item" *ngIf="requestDetails.RiskDetails.ServicesTaxName != ''"><strong>Is Service Tax Exemption  Applicable : </strong> {{requestDetails.RiskDetail.ServicesTaxName}}</li>
+                                            <li class="list-group-item" *ngIf="requestDetails.RiskDetails.ServicesTaxName != ''"><strong>Is Service Tax Exemption  Applicable : </strong> {{requestDetails.RiskDetails.ServicesTaxName}}</li>
 
                                         </ul>
                                     </div>
@@ -911,32 +912,28 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Name:</strong> {{item.Salutation}}. {{item.FirstName}}  {{item.LastName}}</li>
+                                            <li class="list-group-item"><strong>Name:</strong> {{item.Salutation}} {{item.FirstName}}  {{item.LastName}}</li>
                                             <li class="list-group-item"><strong>Gender:</strong> {{item.Gender}}</li>
-                                            <li class="list-group-item"><strong>Marital Status:</strong> {{item.MaritalStatusID}}</li>
+                                            <li class="list-group-item"><strong>Marital Status:</strong> {{item.maritalStatusName}}</li>
                                             <li class="list-group-item"><strong>D.O.B:</strong> {{item.DOB | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item"><strong>Age:</strong> {{item.Age}}</li>
-                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.personalrelationshipName}}</li>
-                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.RelationshipWithProposerID}}</li>
+                                            <li class="list-group-item"><strong>Occupation:</strong> {{item.occupationName}}</li>
+                                            <li class="list-group-item"><strong>Relationship:</strong> {{item.personalrelationshipName}}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.IsExistingIllness == 'No'"><strong >Existing Illness :  </strong> No </li>
-                                            <li class="list-group-item"  *ngIf="item.PreExistingDisease.IsExistingIllness  == 'Yes'"><strong >Existing Illness :  </strong> Yes </li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.IsInsuredConsumetobacco == 'No'"><strong>Insured Consume Tobacco : </strong> No</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.IsInsuredConsumetobacco == 'Yes'"><strong>Insured Consume Tobacco : </strong> Yes</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.HasAnyPreClaimOnInsured == 'No'"><strong>Has Any Pre Claim On Insured : </strong> No</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.HasAnyPreClaimOnInsured == 'Yes'"><strong>Has Any Pre Claim On Insured : </strong>Yes</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.HasAnyPreHealthInsuranceCancelled == 'No'"><strong>Has Any Pre Health Insurance Cancelled : </strong> No</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.HasAnyPreHealthInsuranceCancelled == 'Yes'"><strong>Has Any Pre Health Insurance Cancelled : </strong> Yes</li>
+                                            <li class="list-group-item"><strong >Existing Illness :  </strong> {{item.PreExistingDisease.IsExistingIllness}} </li>
+                                            <li class="list-group-item"><strong>Insured Consume Tobacco : </strong> No</li>
+                                            <li class="list-group-item" ><strong>Has Any Pre Claim On Insured : </strong> No</li>
+                                            <li class="list-group-item" ><strong>Has Any Pre Health Insurance Cancelled : </strong> No</li>
 
-                                            <!--<li class="list-group-item"><strong>Details Of Pre Claim On Insured : </strong> <span *ngIf="item.PreExistingDisease.DetailsOfPreClaimOnInsured == ''">Nil</span><span *ngIf="item.PreExistingDisease.DetailsOfPreClaimOnInsured != ''">{{item.PreExistingDisease.DetailsOfPreClaimOnInsured}}</span></li>-->
-                                            <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].pre_existing_disease_name !=''"><strong>Disease:</strong> {{item.PreExistingDisease.DiseaseList[0].pre_existing_disease_name}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].SufferingSince !=''"><strong>Suffering Since : </strong> {{item.PreExistingDisease.DiseaseList[0].SufferingSince}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].OtherDisease !=''"><strong>Other Disease : </strong> {{item.PreExistingDisease.DiseaseList[0].OtherDisease}}</li>-->
+                                            <!--<li class="list-group-item"><strong>Details Of Pre Claim On Insured : </strong> <span *ngIf="item.PreExistingDisease.IsExistingIllness == ''">Nil</span><span *ngIf="item.PreExistingDisease.IsExistingIllness != ''">{{item.PreExistingDisease.IsExistingIllness}}</span></li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList.DiseaseDetail.DiseaseID !=''"><strong>Disease:</strong> {{item.PreExistingDisease.DiseaseList.DiseaseDetail.DiseaseID}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList.DiseaseDetail.SufferingSince !=''"><strong>Suffering Since : </strong> {{item.PreExistingDisease.DiseaseList.DiseaseDetail.SufferingSince}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList.DiseaseDetail.OtherDisease !=''"><strong>Other Disease : </strong> {{item.PreExistingDisease.DiseaseList.DiseaseDetail.OtherDisease}}</li>-->
 
                                         </ul>
                                     </div>
@@ -954,7 +951,7 @@
                             <li class="list-group-item" *ngIf="requestDetails.PreviousInsuranceDetails.PrevInsuranceID == ''"> <strong>Previous Insurance ID : </strong> Nil</li>
                             <li class="list-group-item" *ngIf="requestDetails.PreviousInsuranceDetails.PrevYearPolicyNo != ''"><strong>Previous Year Policy No : </strong> {{requestDetails.PreviousInsuranceDetails.PrevYearPolicyNo}}</li>
                             <li class="list-group-item" *ngIf="requestDetails.PreviousInsuranceDetails.PrevYearPolicyNo == ''"><strong>Previous Year Policy No : </strong> Nil</li>
-                            <li class="list-group-item" *ngIf="requestDetails.PreviousInsuranceDetails.PrevYearPolicyStartDate != '' && requestDetails.PreviousInsuranceDetails.PrevYearPolicyStartDate != null && requestDetails.PreviousInsuranceDetails.PrevYearPolicyStartDate != undefined"><strong>Previous Year Start Date : </strong> {{requestDetails.PrevYearPolicyStartDate.PrevInsuranceID | date: 'dd/MM/yyyy'}}</li>
+                            <li class="list-group-item" *ngIf="requestDetails.PreviousInsuranceDetails.PrevYearPolicyStartDate != '' && requestDetails.PreviousInsuranceDetails.PrevYearPolicyStartDate != null && requestDetails.PreviousInsuranceDetails.PrevYearPolicyStartDate != undefined"><strong>Previous Year Start Date : </strong> {{requestDetails.PreviousInsuranceDetails.PrevYearPolicyStartDate | date: 'dd/MM/yyyy'}}</li>
                             <li class="list-group-item" *ngIf="requestDetails.PreviousInsuranceDetails.PrevYearPolicyStartDate == '' ||  requestDetails.PreviousInsuranceDetails.PrevYearPolicyStartDate == null || requestDetails.PreviousInsuranceDetails.PrevYearPolicyStartDate == undefined"><strong>Previous Year Start Date : </strong> Nil</li>
                             <li class="list-group-item" *ngIf="requestDetails.PreviousInsuranceDetails.PrevYearPolicyEndDate != '' && requestDetails.PreviousInsuranceDetails.PrevYearPolicyEndDate != null && requestDetails.PreviousInsuranceDetails.PrevYearPolicyEndDate != undefined"><strong>Previous Year End Date : </strong> {{requestDetails.PreviousInsuranceDetails.PrevYearPolicyEndDate | date: 'dd/MM/yyyy'}}</li>
                             <li class="list-group-item" *ngIf="requestDetails.PreviousInsuranceDetails.PrevYearPolicyEndDate == '' || requestDetails.PreviousInsuranceDetails.PrevYearPolicyEndDate == null || requestDetails.PreviousInsuranceDetails.PrevYearPolicyEndDate == undefined"><strong>Previous Year End Date : </strong> Nil</li>
@@ -976,7 +973,7 @@
                             <div class="row">
                             <div class="col-md-12">
                             <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Nominee name:</strong>{{requestDetails.NomineeDetails.Salutation}}.{{requestDetails.NomineeDetails.FirstName}} {{requestDetails.NomineeDetails.MiddleName}} {{requestDetails.NomineeDetails.LastName}}</li>
+                            <li class="list-group-item"><strong>Nominee name:</strong>{{requestDetails.NomineeDetails.Salutation}}{{requestDetails.NomineeDetails.FirstName}} {{requestDetails.NomineeDetails.MiddleName}} {{requestDetails.NomineeDetails.LastName}}</li>
                             <li class="list-group-item" *ngIf="requestDetails.NomineeDetails.DOB !=''"><strong>DOB:</strong> {{requestDetails.NomineeDetails.DOB | date: 'dd/MM/yyyy'}}</li>
                             <li class="list-group-item" *ngIf="requestDetails.NomineeDetails.nomineeRelationshipName !=''"><strong>Relationship with Insured:</strong> {{requestDetails.NomineeDetails.nomineeRelationshipName}}</li>
                             <li class="list-group-item" *ngIf="requestDetails.NomineeDetails.NomineeAddress.Address1 !=''"><strong>Address 1:</strong> {{requestDetails.NomineeDetails.NomineeAddress.Address1}}</li>

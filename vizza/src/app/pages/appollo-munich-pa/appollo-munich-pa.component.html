@@ -601,7 +601,7 @@
                         <li class="list-group-item"><strong>State:</strong> {{proposerFormData.insuredPaState}}</li>
                       </ul>
                     </div>
-                  </div>s
+                  </div>
 
                   <div class="col-md-6">
                     <div class="p-3">
@@ -722,13 +722,12 @@
                         <li class="list-group-item"><strong>Occupation:</strong> {{requestDetails.insuredOccupationListName}}</li>
                         <!--<li class="list-group-item"><strong>Medical Information:</strong> {{proposerFormData.MedicalInformations}}</li>-->
                         <li class="list-group-item"><strong>Profession:</strong> {{requestDetails.insuredProfessionListName}}</li>
-                        <!--<li class="list-group-item" *ngIf="proposerRequest.riderList == true"><strong>TTD Rider:</strong><span *ngIf="proposerRequest.ttdrider == false">No</span><span *ngIf="proposerRequest.ttdrider == true">Yes</span> </li>-->
+                        <li class="list-group-item"><strong>TTD Rider:</strong><span *ngIf="proposerRequest.ttdrider == '0'">No</span><span *ngIf="proposerRequest.ttdrider == '1'">Yes</span> </li>
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
-
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Annual Income:</strong> {{insuredRequest.AnnualIncome}}</li>
                         <li class="list-group-item"><strong>Height:</strong> {{insuredRequest.Height}}</li>

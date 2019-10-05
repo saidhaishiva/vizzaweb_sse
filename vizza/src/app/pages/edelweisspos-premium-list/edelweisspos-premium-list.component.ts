@@ -8,6 +8,7 @@ import {DatePipe} from '@angular/common';
 import {ValidationService} from '../../shared/services/validation.service';
 import {FormBuilder} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-edelweisspos-premium-list',
@@ -44,8 +45,9 @@ export class EdelweissposPremiumListComponent implements OnInit {
   public premium: any;
   public changepremium: any;
   public sumamount: any;
+  public errorterm: boolean;
 
-  constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public commonService: CommonService, public config: ConfigurationService, public validation: ValidationService) {
+  constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public commonService: CommonService, private toastr: ToastrService, public config: ConfigurationService, public validation: ValidationService) {
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
@@ -241,15 +243,26 @@ export class EdelweissposPremiumListComponent implements OnInit {
     this.settings.loadingSpinner = true;
     this.commonService.changetermlist(data).subscribe(
         (successData) => {
+          // if (successData.IsSuccess == true) {
           this.settings.loadingSpinner = false;
           this.totalpremium = successData.ResponseObject.totalpremium;
+          this.errorterm = true;
           console.log(this.changepremium, 'katrku');
+          // alert('enter');
+          // } else {
+          // this.errorterm = false;
+          // this.toastr.error(successData.ErrorObject);
+          // }
+
+          console.log(this.totalpremium,'totalpremium');
+          console.log(this.errorterm,'errorterm');
         },
+
         (error) => {
           this.settings.loadingSpinner = false;
           console.log(error);
         }
-    )
+    );
   }
 
 
@@ -257,9 +270,11 @@ export class EdelweissposPremiumListComponent implements OnInit {
     console.log(value, 'vlitss');
 
     if (this.productvalue.company_id == 14) {
-      if(this.totalpremium !=0){
+      if (this.totalpremium !=0) {
       this.router.navigate(['/edelweiss-pos' + '/' + false]);
-    }
+    } else {
+          this.toastr.error('Modal premium should be greater than or equal to 5000 and less than or equal to 100000');
+          }
     }
   }
 }

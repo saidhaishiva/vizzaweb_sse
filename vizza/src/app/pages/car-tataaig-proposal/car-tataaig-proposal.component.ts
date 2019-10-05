@@ -90,10 +90,12 @@ export class CarTataaigProposalComponent implements OnInit {
   public agecount: any;
   public premium: any;
   public visible: any;
+  public config: any;
   public errortoaster: boolean;
+  public bankValid: boolean;
 
 
-  constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public config: ConfigurationService,public route: ActivatedRoute ) {
+  constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public configs: ConfigurationService,public route: ActivatedRoute ) {
 
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -114,13 +116,20 @@ export class CarTataaigProposalComponent implements OnInit {
     });
     this.currentStep = stepperindex;
     this.settings = this.appSettings.settings;
-    this.webhost = this.config.getimgUrl();
+    this.webhost = this.configs.getimgUrl();
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
     const miniDate = new Date();
     this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
     this.maxdate = this.minDate;
+    this.bankValid = false;
+    this.config = {
+      displayKey: "bankName",
+      search: true,
+      limitTo: 10,
+      // searchOnKey: 'city'
+    };
 
     this.proposer = this.fb.group({
       proposerTitle: ['', Validators.required],

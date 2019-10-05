@@ -315,7 +315,7 @@ export class TermLifePremiumListComponent implements OnInit {
             'policy_id': this.getEnquiryDetials.policy_id,
             'sum_assured': sum_assured,
             'company_id': '',
-            "product_id":"102"
+            "product_id": '102',
 
         };
         this.settings.loadingSpinner = true;
@@ -460,7 +460,7 @@ export class TermLifePremiumListComponent implements OnInit {
                         } else if (value.product_id == 111 || value.product_id == 112 ) {
                             this.router.navigate(['/edelweiss-term-life'  + '/' + false]);
                         }
-                        else if (value.product_id <= 110 && value.product_id >=102  ) {
+                        else if (value.product_id <= 120 && value.product_id >=102  ) {
                             this.router.navigate(['/hdfc-term-life'  + '/' + false]);
                         }
                     } else {
@@ -496,7 +496,7 @@ export class TermLifePremiumListComponent implements OnInit {
                     this.router.navigate(['/aegon-term-life'  + '/' + false]);
                 } else if (value.product_id == 111 || value.product_id == 112) {
                     this.router.navigate(['/edelweiss-term-life'  + '/' + false]);
-                }else if (value.product_id <= 110 && value.product_id >=102  ) {
+                }else if (value.product_id <= 120 && value.product_id >=102  ) {
                     this.router.navigate(['/hdfc-term-life'  + '/' + false]);
                 }
             } else {

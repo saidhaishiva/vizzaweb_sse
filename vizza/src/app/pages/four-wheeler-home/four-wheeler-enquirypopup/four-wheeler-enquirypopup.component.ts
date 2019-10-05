@@ -194,7 +194,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public manifactureSuccess(successData){
     if (successData.IsSuccess) {
       this.manifactureDetails = successData.ResponseObject;
-        this.variantList();
+        this.modelList1();
 
     }
   }
@@ -237,7 +237,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
       'model':  this.vehicalDetails.controls['vehicleModel'].value,
-        'variant':  this.vehicalDetails.controls['variant'].value
+       // 'variant':  this.vehicalDetails.controls['variant'].value
 
     }
     this.fwService.getvariantList(data).subscribe(
@@ -252,7 +252,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public variantSuccess(successData){
     if (successData.IsSuccess) {
       this.variantDetails = successData.ResponseObject;
-        this.modelList1();
+        this.ccList();
 
 
     }
@@ -261,12 +261,13 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   }
   modelList1() {
     const data = {
+
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
-      'variant':  this.vehicalDetails.controls['variant'].value
+      // 'variant':  this.vehicalDetails.controls['variant'].value
 
     }
     this.fwService.getModelList(data).subscribe(
@@ -281,7 +282,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public modelSuccess(successData){
     if (successData.IsSuccess) {
       this.modelDetails = successData.ResponseObject;
-      this.ccList();
+      this.variantList();
 
     }
   }
