@@ -925,19 +925,15 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.IsExistingIllness == 'No'"><strong >Existing Illness :  </strong> No </li>
-                                            <li class="list-group-item"  *ngIf="item.PreExistingDisease.IsExistingIllness  == 'Yes'"><strong >Existing Illness :  </strong> Yes </li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.IsInsuredConsumetobacco == 'No'"><strong>Insured Consume Tobacco : </strong> No</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.IsInsuredConsumetobacco == 'Yes'"><strong>Insured Consume Tobacco : </strong> Yes</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.HasAnyPreClaimOnInsured == 'No'"><strong>Has Any Pre Claim On Insured : </strong> No</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.HasAnyPreClaimOnInsured == 'Yes'"><strong>Has Any Pre Claim On Insured : </strong>Yes</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.HasAnyPreHealthInsuranceCancelled == 'No'"><strong>Has Any Pre Health Insurance Cancelled : </strong> No</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.HasAnyPreHealthInsuranceCancelled == 'Yes'"><strong>Has Any Pre Health Insurance Cancelled : </strong> Yes</li>
+                                            <li class="list-group-item"><strong >Existing Illness :  </strong> {{item.PreExistingDisease.IsExistingIllness}} </li>
+                                            <li class="list-group-item"><strong>Insured Consume Tobacco : </strong> {{item.PreExistingDisease.IsInsuredConsumetobacco}}</li>
+                                            <li class="list-group-item" ><strong>Has Any Pre Claim On Insured : </strong> {{item.PreExistingDisease.HasAnyPreClaimOnInsured}}</li>
+                                            <li class="list-group-item" ><strong>Has Any Pre Health Insurance Cancelled : </strong> {{item.PreExistingDisease.DetailsOfPreClaimOnInsured}}</li>
 
-                                            <li class="list-group-item"><strong>Details Of Pre Claim On Insured : </strong> <span *ngIf="item.PreExistingDisease.IsExistingIllness == ''">Nil</span><span *ngIf="item.PreExistingDisease.IsExistingIllness != ''">{{item.PreExistingDisease.IsExistingIllness}}</span></li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList.DiseaseDetail.DiseaseID !=''"><strong>Disease:</strong> {{item.PreExistingDisease.DiseaseList.DiseaseDetail.DiseaseID}}</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList.DiseaseDetail.SufferingSince !=''"><strong>Suffering Since : </strong> {{item.PreExistingDisease.DiseaseList.DiseaseDetail.SufferingSince}}</li>
-                                            <li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList.DiseaseDetail.OtherDisease !=''"><strong>Other Disease : </strong> {{item.PreExistingDisease.DiseaseList.DiseaseDetail.OtherDisease}}</li>
+                                            <!--<li class="list-group-item"><strong>Details Of Pre Claim On Insured : </strong> <span *ngIf="item.PreExistingDisease.IsExistingIllness == ''">Nil</span><span *ngIf="item.PreExistingDisease.IsExistingIllness != ''">{{item.PreExistingDisease.IsExistingIllness}}</span></li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList.DiseaseDetail.DiseaseID !=''"><strong>Disease:</strong> {{item.PreExistingDisease.DiseaseList.DiseaseDetail.DiseaseID}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList.DiseaseDetail.SufferingSince !=''"><strong>Suffering Since : </strong> {{item.PreExistingDisease.DiseaseList.DiseaseDetail.SufferingSince}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList.DiseaseDetail.OtherDisease !=''"><strong>Other Disease : </strong> {{item.PreExistingDisease.DiseaseList.DiseaseDetail.OtherDisease}}</li>-->
 
                                         </ul>
                                     </div>

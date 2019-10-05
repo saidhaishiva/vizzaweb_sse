@@ -488,11 +488,11 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{personalFormData.proposerTitle}}{{'. '}} {{personalFormData.proposerFirstname}}{{' '}} {{personalFormData.proposerLastname}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{personalFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
+                        <li class="list-group-item"><strong>Gender:</strong> {{personalFormData.proposerGender}}</li>
                         <li class="list-group-item"><strong>Personal Email Id:</strong> {{personalFormData.proposerEmail}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{personalFormData.proposerMobile}}</li>
                         <li class="list-group-item"  *ngIf="personalFormData.proposerHomePhone !=''"><strong>Home Phone Number:</strong> {{personalFormData.proposerHomePhone}}</li>
                         <li class="list-group-item"  *ngIf="personalFormData.proposerOfficePhone !=''"><strong>Office Phone Number:</strong> {{personalFormData.proposerOfficePhone}}</li>
-                        <li class="list-group-item"><strong>Gender:</strong> {{personalFormData.proposerGender}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong><span *ngIf="personalFormData.proposerMaritalStatus == 'M'">Married</span><span *ngIf="personalFormData.proposerMaritalStatus == 'U'">Unmarried</span><span *ngIf="personalFormData.proposerMaritalStatus == 'S'">Single</span><span *ngIf="personalFormData.proposerMaritalStatus == 'N'">Not Known</span></li>
                         <li class="list-group-item"><strong>Occupation:</strong> {{personalFormData.proposerOccupationName}}</li>
                       </ul>
@@ -652,7 +652,7 @@
                         <li class="list-group-item"><strong>Emergency Mobile No:</strong> {{requestDetails.Contact.EmergencyContactMobile}}</li>
                         <li class="list-group-item"><strong>Past Insurance Declined:</strong><span *ngIf="requestDetails.Policy.PastInsuranceDeclined == 'N'">No</span><span *ngIf="requestDetails.Policy.PastInsuranceDeclined == 'Y'">Yes</span></li>
                         <li class="list-group-item"><strong>Room Rent Waiver:</strong><span *ngIf="requestDetails.Policy.RoomRentWaiver == 'N'">No</span><span *ngIf="requestDetails.Policy.RoomRentWaiver == 'Y'">Yes</span></li>
-                        <li class="list-group-item"><strong>Critical Illness:</strong><span *ngIf="requestDetails.Policy.CriticalIllness == 'N'">No</span><span *ngIf="requestDetails.Policy.criticalIllness == 'Y'">Yes</span></li>
+                        <li class="list-group-item"><strong>Critical Illness:</strong><span *ngIf="requestDetails.Policy.CriticalIllness == 'N'">No</span><span *ngIf="requestDetails.Policy.CriticalIllness == 'Y'">Yes</span></li>
                         <li class="list-group-item"><strong>Additional Facts:</strong><span *ngIf="requestDetails.Policy.AdditionalFacts == 'N'">No</span><span *ngIf="requestDetails.Policy.AdditionalFacts == 'Y'">Yes</span></li>
                       </ul>
                     </div>
