@@ -132,7 +132,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     occupationClass: boolean;
     insureClassDescription: any;
     insureoccupationdescriptionList: any;
-    personalClassDescription: any;
+    mailInfo1: any;
     insureoccupationDescription: boolean;
     insureoccupationClass: boolean;
     public religarePAProposal: any;
@@ -1463,6 +1463,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     'titleCd': this.insured.controls['insuredTitle'].value,
                     'annualSalary': this.insured.controls['insuredAnnualIncome'].value != 0 ? this.insured.controls['insuredAnnualIncome'].value: '',
                     'occupationCode':this.insured.controls['insuredOccupationCode'].value,
+                    'insuredOccupationCodeName':this.insured.controls['insuredOccupationCodeName'].value,
                     'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
                     'occupationClassValue':this.insured.controls['insuredDescriptionCodeName'].value,
                     'classDescription': this.insured.controls['insuredDescription'].value,
@@ -1659,10 +1660,13 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.proposerRequestAddress = this.proposerRequest.partyAddressDOList[0];
             this.proposerRequestAddressPerm = this.proposerRequest.partyAddressDOList[1];
             this.mailInfo = this.proposerRequest.partyEmailDOList[0].emailAddress;
+            this.mailInfo1 = this.proposerRequest.partyEmailDOList[1].emailAddress;
             this.identityNum = this.proposerRequest.partyIdentityDOList[0].identityNum;
             this.identityNum1 = this.proposerRequest.partyIdentityDOList[1].identityNum;
+            this.identityNum1 = this.proposerRequest.partyIdentityDOList[1].identityNum;
             this.questionListPay = this.requestDetails.policy.partyDOList[1].partyQuestionDOList;
-            console.log(this.questionListPay, 'this.identityNum');
+            console.log(this.identityNum1, 'this.identityNum');
+            console.log(this.mailInfo1, 'this.identityNum');
 
             // this.proposerRequestMobile = this.proposerRequest.ContactInformation.ContactNumber.ContactNumber.Number;
             // console.log(this.requestDetails, 'requestDetailsrequestDetails');
