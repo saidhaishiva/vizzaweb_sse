@@ -127,7 +127,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.config = {
       displayKey: "bankName",
       search: true,
-      limitTo: 5,
+      limitTo: 10,
       // searchOnKey: 'city'
     };
 
