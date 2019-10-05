@@ -1282,6 +1282,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'maritalStatusName': this.insurerData[i].maritalStatusName,
                     'OccupationID': this.insurerData[i].occupation,
                     'personalrelationshipName': this.insurerData[i].personalrelationshipName,
+                    'occupationName': this.insurerData[i].occupationName,
                     'type': this.insurerData[i].type,
                     'PreExistingDisease': {
                         'IsExistingIllness': this.insurerData[i].IsExistingIllness == 'No' ? "false" : "true",
