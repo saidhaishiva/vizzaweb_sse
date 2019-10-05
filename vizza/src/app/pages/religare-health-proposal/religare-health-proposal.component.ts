@@ -1236,6 +1236,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                     'role_cd': this.proposerInsureData[i].rolecd,
                     'height': this.proposerInsureData[i].personalHeight,
                     'weight': this.proposerInsureData[i].personalWeight,
+                    'type': this.proposerInsureData[i].type,
                 });
                 if (this.proposerInsureData[i].personalAltnumber != '') {
                     this.totalReligareData[i].prop_contact_list.push({
