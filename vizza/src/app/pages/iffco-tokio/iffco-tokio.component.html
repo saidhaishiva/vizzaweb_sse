@@ -696,7 +696,7 @@
                         <li class="list-group-item"><strong>Gender:</strong><span *ngIf="items.Gender == 'M'">Male</span><span *ngIf="items.Gender == 'F'">Female</span></li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{items.DateOfBirth | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Age:</strong> {{items.Age}}</li>
-                        <li class="list-group-item"><strong>Occupation:</strong> {{items.Occupation}}</li>
+                        <li class="list-group-item"><strong>Occupation:</strong> {{items.proposerInsureOccupationName}}</li>
                         <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{items.RelationtoInsured}}</li>
                       </ul>
                     </div>
@@ -741,8 +741,8 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Address:</strong> {{requestDetails.Policy.NomineeAddress}}</li>
                           <li class="list-group-item"><strong>Pincode:</strong> {{requestDetails.Policy.NomineePincode}}</li>
-                          <li class="list-group-item"><strong>City:</strong> {{requestDetails.Policy.NomineeCity}}</li>
-                          <li class="list-group-item"><strong>State:</strong> {{requestDetails.Policy.NomineeState}}</li>
+                          <li class="list-group-item"><strong>City:</strong> {{requestDetails.Policy.nomineeCityName}}</li>
+                          <li class="list-group-item"><strong>State:</strong> {{requestDetails.Policy.nomineeStateName}}</li>
                         </ul>
                       </div>
                     </div>
@@ -765,7 +765,7 @@
                   <input id="RESPONSEURL" type="hidden" value={{response_url}} name="RESPONSE_URL"><br/>
 
                   <button mat-button matStepperPrevious (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
-                  <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && pos_status == '3'">Pay Later</button>
+                  <button mat-button class="mat-primaryBlue" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == '3'">Pay Later</button>
                   <button mat-raised-button class="mat-primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
 
                 </form>
