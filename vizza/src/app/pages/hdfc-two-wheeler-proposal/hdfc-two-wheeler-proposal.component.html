@@ -362,7 +362,8 @@
                                        appendTo="body"
                                        (scroll)="onScroll($event)"
                                        (scrollToEnd)="onScrollToEnd()"
-                                       formControlName="financiercode">
+                                       formControlName="financiercode"
+                                       [required]="financeTypeName">
                                 <ng-template ng-header-tmp>
                                     <small class="form-text text-muted">Loaded {{photosBuffer.length}} of {{photos.length}}</small>
                                 </ng-template>
