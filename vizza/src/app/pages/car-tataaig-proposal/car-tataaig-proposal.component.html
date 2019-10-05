@@ -1,5 +1,5 @@
 <section>
-  <div class="container-fluid">
+  <div class="container-fluid" id="car-tataig">
     <div class="row apolloMunichProposal">
       <div class="col-md-12">
       <mat-horizontal-stepper #stepper [selectedIndex]="currentStep">
@@ -249,16 +249,24 @@
                           <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                          <input  matInput formControlName="bankName" (keypress)="nameValidate($event)" (keyup)="financiertype($event.target.value)"  [matAutocomplete]="auto">
-                          <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option *ngFor="let bank of banklist | keys" value="{{bank.key}}">{{bank.value}}</mat-option>
-                          </mat-autocomplete>
-                          <mat-error *ngIf="vehicle.controls.bankName.errors?.required">BankName is Required</mat-error>
-                        </mat-form-field>
+                      <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
+                        <mat-placeholder>Name<span class="color-red" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
+                        <ngx-select-dropdown (keyup)="financiertype($event.target.value)"  formControlName="bankName" (keypress)="nameValidate($event)" [config]="config" [options]="banklist"></ngx-select-dropdown>
+
+                        <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
+                        <!--</ngx-select-dropdown>-->
+                        <div class="color-red" *ngIf="bankValid">BankName is Required</div>
                       </div>
+                      <!--<div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-placeholder>Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>-->
+                          <!--<input  matInput formControlName="bankName" (keypress)="nameValidate($event)" (keyup)="financiertype($event.target.value)"  [matAutocomplete]="auto">-->
+                          <!--<mat-autocomplete #auto="matAutocomplete">-->
+                            <!--<mat-option *ngFor="let bank of banklist | keys" value="{{bank.key}}">{{bank.value}}</mat-option>-->
+                          <!--</mat-autocomplete>-->
+                          <!--<mat-error *ngIf="vehicle.controls.bankName.errors?.required">BankName is Required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
                       <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Address<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>

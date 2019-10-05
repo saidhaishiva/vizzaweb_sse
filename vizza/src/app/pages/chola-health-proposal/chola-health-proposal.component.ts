@@ -471,7 +471,7 @@ export class CholaHealthProposalComponent implements OnInit {
   // insured page
   changeRelationShipList(index) {
     this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.patchValue(this.relationshipList[this.insureArray['controls'].items['controls'][index]['controls'].personalrelationship.value]);
- this.relationsame1 = this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.value;
+    this.relationsame1 = this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.value;
   }
 
 
@@ -510,10 +510,10 @@ export class CholaHealthProposalComponent implements OnInit {
                       this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Spouse');
                       this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Spouse']);
                   } else if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') {
-                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Child1');
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Son');
                       this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue('Son');
                   } else if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter') {
-                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Child2');
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Daughter');
                       this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue('Daughter');
                   }
               }
