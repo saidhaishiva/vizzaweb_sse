@@ -145,7 +145,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
-                        <p>Staff</p>
+                        <p>Staff</p><span>*</span>
                         <mat-radio-group formControlName="isStaff" (change)="staffChange()" required>
                           <mat-radio-button value="Yes" >Yes</mat-radio-button>
                           <mat-radio-button value="No">No</mat-radio-button>
@@ -578,7 +578,7 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
-                      <p>Staff</p>
+                      <p>Staff</p><span>*</span>
                       <mat-radio-group formControlName="isStaff" (change)="staffChange1()" required>
                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                         <mat-radio-button value="No">No</mat-radio-button>
@@ -1942,10 +1942,10 @@
                           </div>
                           <div class="col-md-4">
                             <mat-form-field class="w-100">
-                              <mat-select  placeholder="Nominee Relation with Insured" formControlName="nomineeRelationship" (change)="geteNomineeRelationName(i)" required class="w-100">
+                              <mat-select  placeholder="Nominee Relationship with Insured" formControlName="nomineeRelationship" (change)="geteNomineeRelationName(i)" required class="w-100">
                                 <mat-option *ngFor="let list of eNomineeRelation | keys" [value]= list.key> {{list.value}} </mat-option>
                               </mat-select>
-                              <mat-error *ngIf="nomineeDetail.invalid">Relation is required</mat-error>
+                              <mat-error *ngIf="nomineeDetail.invalid">Relationship is required</mat-error>
                             </mat-form-field>
                           </div>
                         </div>
@@ -1988,7 +1988,7 @@
                                 </div>
                                 <div class="col-md-3" >
                                   <mat-form-field class="w-100">
-                                    <mat-placeholder>Appointee Relation To Nominee  <span class="error" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">*</span></mat-placeholder>
+                                    <mat-placeholder>Appointee Relationship To Nominee  <span class="error" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">*</span></mat-placeholder>
                                     <mat-select formControlName="relationToInsured" autocomplete="off"  (change)="geteNomineeRelation()">
                                       <mat-option *ngFor="let list of eNomineeRelation | keys" [value]= 'list.value'>
                                         {{list.value}}
@@ -2682,7 +2682,7 @@
                       <div class="p-3">
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="item.gender != ''"><strong>Nominee Gender:</strong> {{item.gender}}</li>
-                          <li class="list-group-item" *ngIf="item.nomineeRelationship != ''"><strong>Nominee Relation:</strong> {{item.nomineeRelationshipName}}</li>
+                          <li class="list-group-item" *ngIf="item.nomineeRelationship != ''"><strong>Nominee Relationship:</strong> {{item.nomineeRelationshipName}}</li>
 
                         </ul>
                       </div>
@@ -2708,7 +2708,7 @@
                       <div class="p-3">
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="item.aGender != ''"><strong>Appointee Gender:</strong> {{item.aGender}}</li>
-                          <li class="list-group-item" *ngIf="item.relationToInsured != ''"><strong style="width: 235px">Appointee Relation To Nominee:</strong> {{item.relationToInsured}}</li>
+                          <li class="list-group-item" *ngIf="item.relationToInsured != ''"><strong style="width: 235px">Appointee Relationship To Nominee:</strong> {{item.relationToInsured}}</li>
 
                         </ul>
                       </div>
