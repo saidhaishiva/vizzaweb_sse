@@ -482,7 +482,6 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     //Proposer GenderList
     getGenderlist() {
-        alert('gender');
         const data = {
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -620,7 +619,6 @@ export class BikeTataaigProposalComponent implements OnInit {
     public failureSuccess(error) {
     }
     // financiertype() {
-    //     alert('financier');
     //     // console.log(event.length, 'length');
     //     // if (event.length >= 3) {
     //     //     if (this.vehicle.controls['banktype'].value == 'bank' || this.vehicle.controls['banktype'].value == 'nonbank financier') {
@@ -690,7 +688,6 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     // PACover_for_OwnerDriver for Addons
     coverdriveList() {
-        alert('cover');
         const data = {
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
