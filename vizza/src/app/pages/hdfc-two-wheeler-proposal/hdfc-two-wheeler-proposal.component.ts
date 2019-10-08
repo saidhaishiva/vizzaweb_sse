@@ -11,7 +11,7 @@ import {DatePipe} from '@angular/common';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Settings} from '../../app.settings.model';
-import {errorSymbol} from '@angular/compiler-cli/src/metadata/evaluator';
+
 
 export const MY_FORMATS = {
     parse: {
@@ -108,6 +108,11 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public antitheftdisc = 'false';
     public handicapdic = 'false';
 
+    photos = [];
+    photosBuffer = [];
+    bufferSize = 50;
+    numberOfItemsFromEndBeforeFetchingMore = 10;
+    loading = false;
 
     constructor(public fb: FormBuilder, public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe) {
         this.financeTypeTrue = false;
@@ -241,6 +246,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
 
         // });
+
 
     }
 
@@ -437,7 +443,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
 
         }
-        this.bikeInsurance.hdfcGetFinancierNameList(data).subscribe(
+        this.bikeInsurance.hdfcGetFinancierNameLists(data).subscribe(
             (successData) => {
                 this.financesuccess(successData);
             },
@@ -450,12 +456,41 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public financesuccess(successData) {
         if (successData.IsSuccess == true) {
             this.financeList = successData.ResponseObject;
+            this.photos = successData.ResponseObject.bankdetails;
+            console.log(this.photos,'photos');
+            this.photosBuffer = this.photos.slice(0, this.bufferSize);
+            console.log(this.photosBuffer,'photos');
         }else{
             this.toastr.error(successData.ErrorObject);
         }
     }
 
     public failureSuccess(error) {
+    }
+
+    onScrollToEnd() {
+        this.fetchMore();
+    }
+
+    onScroll({ end }) {
+        if (this.loading || this.photos.length <= this.photosBuffer.length) {
+            return;
+        }
+
+        if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
+            this.fetchMore();
+        }
+    }
+
+    private fetchMore() {
+        const len = this.photosBuffer.length;
+        const more = this.photos.slice(len, this.bufferSize + len);
+        this.loading = true;
+        // using timeout here to simulate backend API delay
+        setTimeout(() => {
+            this.loading = false;
+            this.photosBuffer = this.photosBuffer.concat(more);
+        }, 200)
     }
 
     // financiername() {
