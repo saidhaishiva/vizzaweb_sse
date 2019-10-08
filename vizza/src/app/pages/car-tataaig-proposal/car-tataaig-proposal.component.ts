@@ -93,6 +93,11 @@ export class CarTataaigProposalComponent implements OnInit {
   public config: any;
   public errortoaster: boolean;
   public bankValid: boolean;
+  photos = [];
+  photosBuffer = [];
+  bufferSize = 50;
+  numberOfItemsFromEndBeforeFetchingMore = 10;
+  loading = false;
 
 
   constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public configs: ConfigurationService,public route: ActivatedRoute ) {
@@ -218,6 +223,7 @@ export class CarTataaigProposalComponent implements OnInit {
   ngOnInit() {
     this.visible = false;
     this.getGenderlist();
+    this.financiertype();
     // this.getNamelist();
     // this.getRelationList();
     this.package();
@@ -631,42 +637,97 @@ export class CarTataaigProposalComponent implements OnInit {
   // nomineeRelationFailure(error) {
   //
   // }
+  financiertype() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
 
-  financiertype(event: any) {
-    console.log(event.length,'length');
-    if (event.length >= 3) {
-      if (this.vehicle.controls['banktype'].value == 'bank' || this.vehicle.controls['banktype'].value == 'nonbank financier') {
-        const data = {
-          'platform': 'web',
-          'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-          'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-          'type': this.vehicle.controls['banktype'].value,
-          'name': event,
-        };
-        this.carinsurance.Finacetype(data).subscribe(
-            (successData) => {
-              this.FinanceSuccess(successData);
-            },
-            (error) => {
-              this.FinanceFailure(error);
-            }
-        );
-      }
     }
+    this.carinsurance.Finacetype(data).subscribe(
+        (successData) => {
+          this.financesuccess(successData);
+        },
+        (error) => {
+          this.failureSuccess(error);
+        }
+    );
   }
 
-  FinanceSuccess(successData) {
+  public financesuccess(successData) {
     if (successData.IsSuccess == true) {
-      this.errortoaster = true;
       this.banklist = successData.ResponseObject;
-    } else {
-      this.toastr.error(successData.ErrorObject);
+      this.photos = successData.ResponseObject.financerdetails;
+      console.log(this.photos,'photos');
+      this.photosBuffer = this.photos.slice(0, this.bufferSize);
+      console.log(this.photosBuffer,'photos');
+    }else{
       this.errortoaster = false;
+      this.toastr.error(successData.ErrorObject);
     }
   }
 
-  FinanceFailure(error) {
+  public failureSuccess(error) {
+  }
+  // financiertype(event: any) {
+  //   console.log(event.length,'length');
+  //   if (event.length >= 3) {
+  //     if (this.vehicle.controls['banktype'].value == 'bank' || this.vehicle.controls['banktype'].value == 'nonbank financier') {
+  //       const data = {
+  //         'platform': 'web',
+  //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //         'type': this.vehicle.controls['banktype'].value,
+  //         'name': event,
+  //       };
+  //       this.carinsurance.Finacetype(data).subscribe(
+  //           (successData) => {
+  //             this.FinanceSuccess(successData);
+  //           },
+  //           (error) => {
+  //             this.FinanceFailure(error);
+  //           }
+  //       );
+  //     }
+  //   }
+  // }
+  //
+  // FinanceSuccess(successData) {
+  //   if (successData.IsSuccess == true) {
+  //     this.errortoaster = true;
+  //     this.banklist = successData.ResponseObject;
+  //   } else {
+  //     this.toastr.error(successData.ErrorObject);
+  //     this.errortoaster = false;
+  //   }
+  // }
+  //
+  // FinanceFailure(error) {
+  //
+  // }
+  onScrollToEnd() {
+    this.fetchMore();
+  }
 
+  onScroll({ end }) {
+    if (this.loading || this.photos.length <= this.photosBuffer.length) {
+      return;
+    }
+
+    if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
+      this.fetchMore();
+    }
+  }
+
+  private fetchMore() {
+    const len = this.photosBuffer.length;
+    const more = this.photos.slice(len, this.bufferSize + len);
+    this.loading = true;
+    // using timeout here to simulate backend API delay
+    setTimeout(() => {
+      this.loading = false;
+      this.photosBuffer = this.photosBuffer.concat(more);
+    }, 200)
   }
 
   chooseflag(event: any) {
