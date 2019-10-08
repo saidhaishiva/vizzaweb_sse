@@ -605,6 +605,7 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     public financesuccess(successData) {
         if (successData.IsSuccess == true) {
+            this.errortoaster = true;
             this.banklist = successData.ResponseObject;
             this.photos = successData.ResponseObject.financerdetails;
             console.log(this.photos,'photos');
