@@ -553,7 +553,7 @@
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>Name:</strong> <span *ngIf="proposerRequest.titleCd == 'MR'">Mr</span> <span *ngIf="proposerRequest.titleCd == 'MS'">Ms</span> {{proposerRequest.firstName}} {{proposerRequest.lastName}} </li>
+                                    <li class="list-group-item"><strong>Name:</strong> <span *ngIf="proposerRequest.titleCd == 'MR'">Mr</span> <span *ngIf="proposerRequest.titleCd == 'MS'">Ms</span>. {{proposerRequest.firstName}} {{proposerRequest.lastName}} </li>
                                     <li class="list-group-item"><strong>Gender:</strong>{{proposerRequest.genderCd}} </li>
                                     <li class="list-group-item"><strong>D.O.B:</strong>  {{proposerRequest.birthDt  | date: 'dd/MM/yyyy'}}</li>
                                     <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerRequest.partyContactDOList[0].contactNum}} </li>
