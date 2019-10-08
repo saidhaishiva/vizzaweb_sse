@@ -3868,6 +3868,16 @@ fieldset {
       }
     }
   }
+  .ng-select .ng-select-container {
+    background-color: #fff;
+    border-radius: 0px;
+    border: 0px solid #ccc;
+    border-bottom: 1px solid #969595;
+    min-height: 36px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
 
 }
 .bikeRoyalProposal{

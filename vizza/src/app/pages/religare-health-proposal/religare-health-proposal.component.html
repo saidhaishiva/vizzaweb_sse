@@ -762,7 +762,7 @@
                       <li class="list-group-item"><strong>Email Id:</strong> {{item.prop_email_list[0].email}}</li>
                       <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
                       <li class="list-group-item" ><strong>Mobile Number:</strong> {{item.prop_contact_list[0].contact_no}}</li>
-                      <!--<li class="list-group-item" *ngIf="item.personalAltnumber" ><strong>Alternate Number:</strong> {{item.personalAltnumber}}</li>-->
+                      <li class="list-group-item" *ngIf="item.prop_contact_list[1].contact_no != ''" ><strong>Alternate Number:</strong> {{item.item.prop_contact_list[1].contact_no}}</li>
                     </ul>
                   </div>
                 </div>
@@ -772,8 +772,8 @@
                       <li class="list-group-item"><strong>PAN Number:</strong> {{item.prop_identity_list[0].identity_number | uppercase}}</li>
                       <!--<li class="list-group-item"><strong>Aadhar Number:</strong> {{item.item.prop_identity_list[1].identity_number}}</li>-->
                       <!--<li class="list-group-item"><strong>GST Number:</strong> {{item.item.prop_identity_list[2].identity_number | uppercase}}</li>-->
-                      <li class="list-group-item" *ngIf="i != 0"><strong>Weight:</strong> {{item.weight}}</li>
                       <li class="list-group-item" *ngIf="i != 0"><strong>height:</strong> {{item.height}}</li>
+                      <li class="list-group-item" *ngIf="i != 0"><strong>Weight:</strong> {{item.weight}}</li>
                     </ul>
                   </div>
                 </div>

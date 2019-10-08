@@ -75,6 +75,7 @@ export class FourWheelerHomeComponent implements OnInit {
   metaKeyword: any;
   metaDescription: any;
   public config: any;
+  public CityValid: boolean;
 
   constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
     this.settings = this.appSettings.settings;
@@ -92,11 +93,12 @@ export class FourWheelerHomeComponent implements OnInit {
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     this.listDetails = false;
     this.config = {
-      displayKey: "city",
+      displayKey: "city", //if objects array passed which key to be displayed defaults to description
       search: true,
       limitTo: 5,
       // searchOnKey: 'city'
     };
+    this.CityValid = false;
 
     this.fourWheeler = this.fb.group({
       'vehicalNumber': '',

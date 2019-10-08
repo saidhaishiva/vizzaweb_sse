@@ -87,7 +87,12 @@ export class BikeTataaigProposalComponent implements OnInit {
     public config: any;
     public productlist: any;
     public errortoaster: boolean;
-
+    public bankValid: boolean;
+    photos = [];
+    photosBuffer = [];
+    bufferSize = 50;
+    numberOfItemsFromEndBeforeFetchingMore = 10;
+    loading = false;
 
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public configr: ConfigurationService, public route: ActivatedRoute) {
@@ -116,6 +121,13 @@ export class BikeTataaigProposalComponent implements OnInit {
         const miniDate = new Date();
         this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
         console.log(this.minDate, 'tdy');
+        this.config = {
+            displayKey: "bankName",
+            search: true,
+            limitTo: 10,
+            // searchOnKey: 'city'
+        };
+        this.bankValid = false;
 
         this.proposer = this.fb.group({
             proposerTitle: ['', Validators.required],
@@ -204,6 +216,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         // this.chaneret();
         // this.chaneroad();
         // this.getNamelist();
+        this.financiertype();
         this.coverdriveList();
         this.sessionData();
         this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
@@ -227,11 +240,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         // if (this.enquiryFormData.business_type != '1') {
         //     this.previouspolicy.controls['preflag'].patchValue('Y');
         // }
-        this.config = {
-            displayKey: "bankName", //if objects array passed which key to be displayed defaults to description
-            search: true,
-            limitTo: 5
-        };
+
     }
 
     nameValidate(event: any) {
@@ -577,45 +586,104 @@ export class BikeTataaigProposalComponent implements OnInit {
     //     this.previouspolicy.controls['preNamevalue'].patchValue(this.preNamelist[this.previouspolicy.controls['preName'].value]);
     //     console.log(this.previouspolicy.controls['preNamevalue'].value,'name');
     // }
+    financiertype() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
 
-    financiertype(event: any) {
-        console.log(event.length, 'length');
-        if (event.length >= 3) {
-            if (this.vehicle.controls['banktype'].value == 'bank' || this.vehicle.controls['banktype'].value == 'nonbank financier') {
-                const data = {
-                    'platform': 'web',
-                    'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-                    'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-                    'type': this.vehicle.controls['banktype'].value,
-                    'name': event,
-                };
-                this.bikeinsurance.Finacetype(data).subscribe(
-                    (successData) => {
-                        this.FinanceSuccess(successData);
-                    },
-                    (error) => {
-                        this.FinanceFailure(error);
-                    }
-                );
+        }
+        this.bikeinsurance.Finacetype(data).subscribe(
+            (successData) => {
+                this.financesuccess(successData);
+            },
+            (error) => {
+                this.failureSuccess(error);
             }
-        }
+        );
     }
 
-
-    FinanceSuccess(successData) {
+    public financesuccess(successData) {
         if (successData.IsSuccess == true) {
-           this.errortoaster = true;
-        this.banklist = successData.ResponseObject;
-        console.log(this.banklist, 'ddddddd');
-        } else {
-            this.errortoaster = false;
-            this.toastr.error(successData.ErrorObject);
+            this.banklist = successData.ResponseObject;
+            this.photos = successData.ResponseObject.financerdetails;
+            console.log(this.photos,'photos');
+            this.photosBuffer = this.photos.slice(0, this.bufferSize);
+            console.log(this.photosBuffer,'photos');
+        }else{
+           this.errortoaster = false;
+           this.toastr.error(successData.ErrorObject);
         }
-        console.log(this.errortoaster,'errortoaster')
     }
 
-    FinanceFailure(error) {
+    public failureSuccess(error) {
+    }
+    // financiertype() {
+    //     // console.log(event.length, 'length');
+    //     // if (event.length >= 3) {
+    //     //     if (this.vehicle.controls['banktype'].value == 'bank' || this.vehicle.controls['banktype'].value == 'nonbank financier') {
+    //             const data = {
+    //                 'platform': 'web',
+    //                 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //                 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+    //                 // 'type': this.vehicle.controls['banktype'].value,
+    //                 // 'name': event,
+    //             };
+    //             this.bikeinsurance.Finacetype(data).subscribe(
+    //                 (successData) => {
+    //                     this.FinanceSuccess(successData);
+    //                 },
+    //                 (error) => {
+    //                     this.FinanceFailure(error);
+    //                 }
+    //             );
+    //         // }
+    //     // }
+    // }
+    //
+    //
+    // FinanceSuccess(successData) {
+    //     if (successData.IsSuccess == true) {
+    //        this.errortoaster = true;
+    //     this.photos = successData.ResponseObject;
+    //     console.log(this.photos, 'ddddddd');
+    //         // this.photos = successData.ResponseObject.bankdetails;
+    //         console.log(this.photos,'photos');
+    //         this.photosBuffer = this.photos.slice(0, this.bufferSize);
+    //         console.log(this.photosBuffer,'photos');
+    //     } else {
+    //         this.errortoaster = false;
+    //         this.toastr.error(successData.ErrorObject);
+    //     }
+    //     console.log(this.errortoaster,'errortoaster');
+    // }
+    //
+    // FinanceFailure(error) {
+    //
+    // }
+    onScrollToEnd() {
+        this.fetchMore();
+    }
 
+    onScroll({ end }) {
+        if (this.loading || this.photos.length <= this.photosBuffer.length) {
+            return;
+        }
+
+        if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
+            this.fetchMore();
+        }
+    }
+
+    private fetchMore() {
+        const len = this.photosBuffer.length;
+        const more = this.photos.slice(len, this.bufferSize + len);
+        this.loading = true;
+        // using timeout here to simulate backend API delay
+        setTimeout(() => {
+            this.loading = false;
+            this.photosBuffer = this.photosBuffer.concat(more);
+        }, 200)
     }
 
     // PACover_for_OwnerDriver for Addons

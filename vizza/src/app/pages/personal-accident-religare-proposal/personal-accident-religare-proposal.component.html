@@ -553,14 +553,14 @@
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>Name:</strong>  {{proposerRequest.firstName}} {{proposerRequest.lastName}} </li>
+                                    <li class="list-group-item"><strong>Name:</strong> <span *ngIf="proposerRequest.titleCd == 'MR'">Mr</span> <span *ngIf="proposerRequest.titleCd == 'MS'">Ms</span>. {{proposerRequest.firstName}} {{proposerRequest.lastName}} </li>
                                     <li class="list-group-item"><strong>Gender:</strong>{{proposerRequest.genderCd}} </li>
                                     <li class="list-group-item"><strong>D.O.B:</strong>  {{proposerRequest.birthDt  | date: 'dd/MM/yyyy'}}</li>
                                     <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerRequest.partyContactDOList[0].contactNum}} </li>
                                     <li class="list-group-item"><strong>Personal Email Id:</strong>  {{mailInfo}}</li>
-                                    <!--<li class="list-group-item" *ngIf="requestDetails.policy.partyEmailDOList.emailAddress[1].emailAddress != ''"><strong>Offfical Email Id:</strong>  {{requestDetails.policy.partyEmailDOList.emailAddress[1].emailAddress}}</li>-->
-                                    <li class="list-group-item"><strong>Occupation:</strong>  {{proposerRequest.occupationClassValue}}</li>
-                                    <!--<li class="list-group-item" *ngIf="requestDetails.policy.partyContactDOList.contactNum[1].contactNum != ''"><strong>Residential Number:</strong>  {{requestDetails.policy.partyContactDOList.contactNum[1].contactNum}}</li>-->
+                                    <li class="list-group-item" *ngIf="mailInfo1 != ''"><strong>Offfical Email Id:</strong>  {{mailInfo1}}</li>
+                                    <li class="list-group-item"><strong>Occupation:</strong>  {{proposerRequest.insuredOccupationCodeName}}</li>
+                                    <li class="list-group-item" *ngIf="proposerRequest.partyContactDOList[1].contactNum != ''"><strong>Residential Number:</strong>  {{proposerRequest.partyContactDOList[1].contactNum}}</li>
                                 </ul>
                             </div>
 
@@ -571,7 +571,7 @@
                                     <li class="list-group-item" *ngIf="proposerRequest.classDescriptionValue != ''"><strong>Occupation Description:</strong>  {{proposerRequest.classDescriptionValue}}</li>
                                     <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerRequest.occupationClassValue}}</li>
                                     <li class="list-group-item"><strong>PAN Number:</strong> {{identityNum | uppercase}}</li>
-                                    <!--<li class="list-group-item" *ngIf="identityNum1 != ''"><strong>PassPort:</strong> {{identityNum1 | uppercase}}</li>-->
+                                    <li class="list-group-item" *ngIf="identityNum1 != ''"><strong>PassPort:</strong> {{identityNum1 | uppercase}}</li>
                                     <li class="list-group-item"><strong>Annual Income:</strong>{{proposerRequest.annualSalary}} </li>
                                     <li class="list-group-item"><strong>Height:</strong>  {{requestDetails.policy.partyDOList[1].height}}</li>
                                     <li class="list-group-item"><strong>Weight:</strong>  {{requestDetails.policy.partyDOList[1].weight}}</li>
@@ -583,7 +583,7 @@
                                 <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                                 <ul class="m-0 list-group">
                                     <li class="list-group-item"><strong>Address 1:</strong>{{proposerRequestAddress.addressLine1Lang1}}</li>
-                                    <!--<li class="list-group-item" *ngIf="proposerRequestAddress.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddress.addressLine2Lang1}}</li>-->
+                                    <li class="list-group-item" *ngIf="proposerRequestAddress.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddress.addressLine2Lang1}}</li>
                                     <li class="list-group-item"><strong>PIN code:</strong> {{proposerRequestAddress.pinCode}}</li>
                                     <li class="list-group-item"><strong>City:</strong>{{proposerRequestAddress.cityCd}}</li>
                                     <li class="list-group-item"><strong>State:</strong>{{proposerRequestAddress.stateCd}}</li>
@@ -595,7 +595,7 @@
                                 <h6 class="color-blue">RESIDENCE DETAILS</h6>
                                 <ul class="m-0 list-group">
                                     <li class="list-group-item"><strong>Address 1:</strong>{{proposerRequestAddressPerm.addressLine1Lang1}} </li>
-                                    <!--<li class="list-group-item" *ngIf="proposerRequestAddressPerm.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddressPerm.addressLine2Lang1}}</li>-->
+                                    <li class="list-group-item" *ngIf="proposerRequestAddressPerm.addressLine2Lang1 != ''"><strong>Address 2:</strong>{{proposerRequestAddressPerm.addressLine2Lang1}}</li>
                                     <li class="list-group-item"><strong>PIN code:</strong>{{proposerRequestAddressPerm.pinCode}} </li>
                                     <li class="list-group-item"><strong>City:</strong> {{proposerRequestAddressPerm.cityCd}}</li>
                                     <li class="list-group-item"><strong>State:</strong>{{proposerRequestAddressPerm.stateCd}}</li>

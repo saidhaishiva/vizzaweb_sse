@@ -249,14 +249,34 @@
                           <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
-                        <mat-placeholder>Name<span class="color-red" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                        <ngx-select-dropdown (keyup)="financiertype($event.target.value)"  formControlName="bankName" (keypress)="nameValidate($event)" [config]="config" [options]="banklist"></ngx-select-dropdown>
-
-                        <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
-                        <!--</ngx-select-dropdown>-->
-                        <div class="color-red" *ngIf="bankValid">BankName is Required</div>
+                      <div class="col-md-3 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
+                        <ng-select [items]="photosBuffer"
+                                   [virtualScroll]="true"
+                                   [loading]="loading"
+                                   bindLabel="name"
+                                   bindValue="id"
+                                   placeholder="Financier Name"
+                                   appendTo="body"
+                                   (scroll)="onScroll($event)"
+                                   (scrollToEnd)="onScrollToEnd()"
+                                   formControlName="bankName"
+                                   [required]="vehicle.controls['Financetype'].value == true">
+                          <ng-template ng-header-tmp>
+                            <small class="form-text text-muted">Loaded {{photosBuffer.length}} of {{photos.length}}</small>
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item" let-index="index">
+                            {{item.name}}
+                          </ng-template>
+                        </ng-select>
                       </div>
+                      <!--<div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">-->
+                        <!--<mat-placeholder>Name<span class="color-red" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>-->
+                        <!--<ngx-select-dropdown (keyup)="financiertype($event.target.value)"  formControlName="bankName" (keypress)="nameValidate($event)" [config]="config" [options]="banklist"></ngx-select-dropdown>-->
+
+                        <!--&lt;!&ndash;<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">&ndash;&gt;-->
+                        <!--&lt;!&ndash;</ngx-select-dropdown>&ndash;&gt;-->
+                        <!--<div class="color-red" *ngIf="bankValid">BankName is Required</div>-->
+                      <!--</div>-->
                       <!--<div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">-->
                         <!--<mat-form-field class="w-100">-->
                           <!--<mat-placeholder>Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>-->
