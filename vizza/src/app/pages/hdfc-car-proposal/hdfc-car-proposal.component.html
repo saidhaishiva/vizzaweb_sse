@@ -335,15 +335,35 @@
 
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >
-                                            <mat-form-field class="w-100" >
-                                                <mat-placeholder>Financier Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                                                <mat-select  formControlName="financiercode"  (change)="changefinancecompany()" >
-                                                    <mat-option *ngFor="let finance of financeList | keys" value="{{finance.key}}" > {{finance.value}} </mat-option>
-                                                </mat-select>
-                                                <mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Finance code is required</mat-error>
-                                            </mat-form-field>
+                                        <div class="col-md-3 mt-3" *ngIf ="vechicle.controls['Financetype'].value == true" >
+                                            <ng-select [items]="photosBuffer"
+                                                       [virtualScroll]="true"
+                                                       [loading]="loading"
+                                                       bindLabel="name"
+                                                       bindValue="id"
+                                                       placeholder="Financier Name"
+                                                       appendTo="body"
+                                                       (scroll)="onScroll($event)"
+                                                       (scrollToEnd)="onScrollToEnd()"
+                                                       formControlName="financiercode"
+                                                       [required]="vechicle.controls['Financetype'].value == true">
+                                                <ng-template ng-header-tmp>
+                                                    <small class="form-text text-muted">Loaded {{photosBuffer.length}} of {{photos.length}}</small>
+                                                </ng-template>
+                                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                                    {{item.name}}
+                                                </ng-template>
+                                            </ng-select>
                                         </div>
+                                        <!--<div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >-->
+                                            <!--<mat-form-field class="w-100" >-->
+                                                <!--<mat-placeholder>Financier Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>-->
+                                                <!--<mat-select  formControlName="financiercode"  (change)="changefinancecompany()" >-->
+                                                    <!--<mat-option *ngFor="let finance of financeList | keys" value="{{finance.key}}" > {{finance.value}} </mat-option>-->
+                                                <!--</mat-select>-->
+                                                <!--<mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Finance code is required</mat-error>-->
+                                            <!--</mat-form-field>-->
+                                        <!--</div>-->
                                         <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Branch Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>

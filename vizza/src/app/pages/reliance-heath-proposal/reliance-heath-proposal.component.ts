@@ -1275,6 +1275,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'Salutation': this.insurerData[i].personalTitle == 'MR' ? "Mr." : "Ms.",
                     'FirstName': this.insurerData[i].personalFirstname,
                     'LastName': this.insurerData[i].personalLastname,
+                    'personalMidname': this.insurerData[i].personalMidname,
                     'Gender': this.insurerData[i].personalGender,
                     'Age': this.insurerData[i].personalAge.toString(),
                     'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
