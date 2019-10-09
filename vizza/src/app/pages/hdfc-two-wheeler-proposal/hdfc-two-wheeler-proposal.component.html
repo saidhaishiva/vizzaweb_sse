@@ -371,6 +371,8 @@
                                    {{item.name}}
                                 </ng-template>
                             </ng-select>
+                            <em class="error help-block" *ngIf="!vechicle.get('financiercode').valid && (vechicle.get('financiercode').dirty || vechicle.get('financiercode').touched)">Financier Name is required</em>
+                            <!--<em *ngIf="vechicle.get('financiercode').errors?.required">Financier Name is required</em>-->
                         </div>
                         <!--<div class="col-md-3 mt-3" *ngIf ="financeTypeName" >-->
                             <!--<mat-form-field class="w-100" >-->
