@@ -54,6 +54,17 @@ export class EdelweissposPremiumListComponent implements OnInit {
     this.settings.sidenavIsPinned = false;
     this.webhost = this.config.getimgUrl();
     this.compareArray = [];
+    // this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
+    // this.getEnquiryid = JSON.parse(sessionStorage.getEnquiryDetials);
+    // this.policy =  this.enquiryFromDetials.benefit_term;
+    // console.log(this.policy,'policy term222');
+    // console.log(this.enquiryFromDetials.benefit_term,'policy term2221');
+    // this.premium = this.enquiryFromDetials.policy_paying_term;
+    // console.log(this.premium,'paymentterm222');
+    // console.log(this.enquiryFromDetials.policy_paying_term,'paymentterm2221');
+    // this.sumamount = this.enquiryFromDetials.sum_assured_id;
+    // console.log(this.sumamount, 'theyak2222');
+    // sessionStorage.sumamount =  this.sumamount;
   }
 
   ngOnInit() {
@@ -64,7 +75,11 @@ export class EdelweissposPremiumListComponent implements OnInit {
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     this.getEnquiryid = JSON.parse(sessionStorage.getEnquiryDetials);
     this.policy =  this.enquiryFromDetials.benefit_term;
+    console.log(this.policy,'policy term');
+    console.log(this.enquiryFromDetials.benefit_term,'policy term1');
     this.premium = this.enquiryFromDetials.policy_paying_term;
+    console.log(this.premium,'paymentterm');
+    console.log(this.enquiryFromDetials.policy_paying_term,'paymentterm1');
     this.sumamount = this.enquiryFromDetials.sum_assured_id;
     console.log(this.sumamount, 'theyak');
     sessionStorage.sumamount =  this.sumamount;
@@ -247,14 +262,14 @@ export class EdelweissposPremiumListComponent implements OnInit {
           this.settings.loadingSpinner = false;
           this.totalpremium = successData.ResponseObject.totalpremium;
           this.errorterm = true;
-          console.log(this.changepremium, 'katrku');
+          console.log(this.errorterm, 'katrku');
           // alert('enter');
           // } else {
           // this.errorterm = false;
           // this.toastr.error(successData.ErrorObject);
           // }
 
-          console.log(this.totalpremium,'totalpremium');
+          console.log(this.errorterm,'totalpremium');
           console.log(this.errorterm,'errorterm');
         },
 

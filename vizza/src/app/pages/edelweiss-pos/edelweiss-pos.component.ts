@@ -1765,6 +1765,7 @@ export class EdelweissPosComponent implements OnInit {
     if (sessionStorage.appointeeAge != '' && sessionStorage.appointeeAge != undefined) {
       if (sessionStorage.appointeeAge > 18) {
         appointeeAge = true;
+        console.log(appointeeAge,'appointeeAge');
       }
     }
 
@@ -1772,6 +1773,7 @@ export class EdelweissPosComponent implements OnInit {
     if (sessionStorage.appointeeAge2 != '' && sessionStorage.appointeeAge2 != undefined ) {
       if ( sessionStorage.appointeeAge2 > 18 ) {
         appointeeAge2 = true;
+        console.log(appointeeAge2,'appointeeAge2')
       }
     }
     console.log(sessionStorage.appointeeAge,'appointeeAge11222');
@@ -1801,19 +1803,19 @@ export class EdelweissPosComponent implements OnInit {
         // console.log(nominee2ageval,'nominee2ageval33333333');
 
         if (appointeeAge ) {
-          // console.log(appointeeAge,'appointeeAgeentry')
+          console.log(appointeeAge,'appointeeAgeentry')
           if (appointeeAge2 || sessionStorage.appointeeAge2 == undefined ) {
-            // console.log(appointeeAge2,'aappointeeAge2eentry')
+            console.log(appointeeAge2,'aappointeeAge2eentry')
             stepper.next();
             this.topScroll();
             // console.log(appointeeAge2,'falseApp');
           }
           else {
-            this.toastr.error('Appointee2 Age should be greater than 18.');
+            this.toastr.error('Appointee 2 age should be greater than 18.');
             // console.log('1111');
           }
         } else {
-          this.toastr.error('Appointee Age should be greater than 18.');
+          this.toastr.error('Appointee age should be greater than 18.');
           // console.log('2222');
         }
       } else {
