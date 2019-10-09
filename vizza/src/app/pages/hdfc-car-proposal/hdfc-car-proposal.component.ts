@@ -526,7 +526,7 @@ export class HdfcCarProposalComponent implements OnInit {
         if (successData.IsSuccess == true) {
             this.errortoaster = true;
             this.finlist = successData.ResponseObject;
-            this.photos = successData.ResponseObject.financerdetails;
+            this.photos = successData.ResponseObject.bankdetails;
             console.log(this.photos,'photos');
             this.photosBuffer = this.photos.slice(0, this.bufferSize);
             console.log(this.photosBuffer,'photos');
