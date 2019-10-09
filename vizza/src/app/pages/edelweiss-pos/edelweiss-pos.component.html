@@ -528,7 +528,7 @@
                     </div>
                     <div class="col-md-4" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
                       <mat-form-field class="w-100" >
-                        <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  (keypress)="idValidate($event)" autocomplete="off" >
+                        <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  (keypress)="idValidate($event)" autocomplete="off"  required>
                         <!--<mat-error *ngIf="insureArray.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
                         <mat-error *ngIf="insureArray.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         <mat-error *ngIf="insureArray.controls.pan.errors?.required">PAN Number is required</mat-error>
@@ -578,7 +578,7 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
-                      <p>Staff<span class="error">*</span>
+                      <p class="p-3">Staff<span class="error">*</span>
                       <mat-radio-group formControlName="isStaff" (change)="staffChange1()" required>
                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                         <mat-radio-button value="No">No</mat-radio-button>
@@ -2695,7 +2695,7 @@
                   <div class="row">
                     <div class="col-md-6" >
                       <div class="p-3">
-                        <h6 class="color-blue">APPOINTEE DETAILS</h6>
+                        <h6 class="color-blue" *ngIf="item.aName != ''">APPOINTEE DETAILS</h6>
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="item.aName != ''"><strong>Name:</strong> {{item.aName}}</li>
                           <li class="list-group-item" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true"><strong>Date Of Birth:</strong> {{item.appointeeDob | date: 'dd/MM/yyyy' }}</li>
