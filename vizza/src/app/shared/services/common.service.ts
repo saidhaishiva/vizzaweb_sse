@@ -581,6 +581,40 @@ export class CommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+     getPolicyTerm(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getmiscproduct() + 'bajaj/policy_term' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+     getPaymentTerm(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getmiscproduct() + 'bajaj/payment_term' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    getPaymentFreq(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getmiscproduct() + 'bajaj/frequency' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
 
     // edelweisspos homepage
     suminsuredlist(data) {
