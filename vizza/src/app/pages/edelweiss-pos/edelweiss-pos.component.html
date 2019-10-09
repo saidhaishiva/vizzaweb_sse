@@ -145,7 +145,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
-                        <p>Staff</p><span>*</span>
+                        <p>Staff<span class="error">*</span></p>
                         <mat-radio-group formControlName="isStaff" (change)="staffChange()" required>
                           <mat-radio-button value="Yes" >Yes</mat-radio-button>
                           <mat-radio-button value="No">No</mat-radio-button>
@@ -578,7 +578,7 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
-                      <p>Staff</p><span>*</span>
+                      <p>Staff<span class="error">*</span>
                       <mat-radio-group formControlName="isStaff" (change)="staffChange1()" required>
                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                         <mat-radio-button value="No">No</mat-radio-button>
@@ -2090,8 +2090,8 @@
                             </div>
                             <div class="col-md-3" >
                               <mat-form-field class="w-100">
-                                <mat-placeholder>Company Name<span class="error" *ngIf="bankDetail.controls['existingInsuranceInd'].value == true" (keypress)="nameValidate($event)">*</span></mat-placeholder>
-                                <input matInput   formControlName="companyName"  maxlength="15"  autocomplete="off">
+                                <mat-placeholder>Company Name<span class="error" *ngIf="bankDetail.controls['existingInsuranceInd'].value == true" >*</span></mat-placeholder>
+                                <input matInput   formControlName="companyName"  maxlength="15"  autocomplete="off" (keypress)="nameValidate($event)">
                               </mat-form-field>
                             </div>
 
@@ -2479,7 +2479,7 @@
                       <li class="list-group-item" *ngIf="insuredFormData.provideAccNo != ''"><strong>Provide Account No:</strong> {{insuredFormData.provideAccNo}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.epolicy != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.einsureAccNo != ''"><strong>E-Insurance Account Number:</strong> {{insuredFormData.einsureAccNo}}</li>
-                      <li class="list-group-item" *ngIf="insuredFormData.epolicy1 != ''"><strong>Would you like to have an e policy in e-insurance account no?:</strong> {{insuredFormData.epolicy1}}</li>
+                      <li class="list-group-item" *ngIf="insuredFormData.epolicy1 != ''"><strong>Would you like to have an e policy ?:</strong> {{insuredFormData.epolicy1}}</li>
                       <li class="list-group-item" *ngIf="insuredFormData.insureRepository != ''"><strong>Insurance Repository :</strong> {{insuredFormData.insureRepository}}</li>
                     </ul>
                   </div>
@@ -2670,8 +2670,8 @@
                     <div class="col-md-6">
                       <div class="p-3">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"  *ngIf="item.nomineeName != ''"><strong>Nominee Name:</strong> {{item.nomineeName}}</li>
-                          <li class="list-group-item" *ngIf="item.nDob != ''"><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
+                          <li class="list-group-item"  *ngIf="item.nomineeName != ''"><strong> Name:</strong> {{item.nomineeName}}</li>
+                          <li class="list-group-item" *ngIf="item.nDob != ''"><strong>Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
                         </ul>
                       </div>
                     </div>
@@ -2681,8 +2681,8 @@
                     <div class="col-md-6" >
                       <div class="p-3">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="item.gender != ''"><strong>Nominee Gender:</strong> {{item.gender}}</li>
-                          <li class="list-group-item" *ngIf="item.nomineeRelationship != ''"><strong>Nominee Relationship:</strong> {{item.nomineeRelationshipName}}</li>
+                          <li class="list-group-item" *ngIf="item.gender != ''"><strong>Gender:</strong> {{item.gender}}</li>
+                          <li class="list-group-item" *ngIf="item.nomineeRelationship != ''"><strong>Relationship:</strong> {{item.nomineeRelationshipName}}</li>
 
                         </ul>
                       </div>
@@ -2695,9 +2695,10 @@
                   <div class="row">
                     <div class="col-md-6" >
                       <div class="p-3">
+                        <h6 class="color-blue">APPOINTEE DETAILS</h6>
                         <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="item.aName != ''"><strong>Appointee Name:</strong> {{item.aName}}</li>
-                          <li class="list-group-item" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true"><strong>Appointee Dob:</strong> {{item.appointeeDob | date: 'dd/MM/yyyy' }}</li>
+                          <li class="list-group-item" *ngIf="item.aName != ''"><strong>Name:</strong> {{item.aName}}</li>
+                          <li class="list-group-item" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true"><strong>Date Of Birth:</strong> {{item.appointeeDob | date: 'dd/MM/yyyy' }}</li>
                         </ul>
                       </div>
                     </div>
@@ -2705,10 +2706,11 @@
 
 
                     <div class="col-md-6" >
-                      <div class="p-3">
+                      <div class="p-3 mt-3">
+                        <h6 class="color-blue"></h6>
                         <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="item.aGender != ''"><strong>Appointee Gender:</strong> {{item.aGender}}</li>
-                          <li class="list-group-item" *ngIf="item.relationToInsured != ''"><strong style="width: 235px">Appointee Relationship To Nominee:</strong> {{item.relationToInsured}}</li>
+                          <li class="list-group-item" *ngIf="item.aGender != ''"><strong>Gender:</strong> {{item.aGender}}</li>
+                          <li class="list-group-item" *ngIf="item.relationToInsured != ''"><strong style="width: 235px">Relationship To Nominee:</strong> {{item.relationToInsured}}</li>
 
                         </ul>
                       </div>
