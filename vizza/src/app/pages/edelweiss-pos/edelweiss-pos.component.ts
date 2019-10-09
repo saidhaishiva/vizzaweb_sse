@@ -1811,11 +1811,11 @@ export class EdelweissPosComponent implements OnInit {
             // console.log(appointeeAge2,'falseApp');
           }
           else {
-            this.toastr.error('Appointee2 Age should be greater than 18.');
+            this.toastr.error('Appointee 2 age should be greater than 18.');
             // console.log('1111');
           }
         } else {
-          this.toastr.error('Appointee Age should be greater than 18.');
+          this.toastr.error('Appointee age should be greater than 18.');
           // console.log('2222');
         }
       } else {
