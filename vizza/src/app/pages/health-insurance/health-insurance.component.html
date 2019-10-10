@@ -25,7 +25,7 @@
         <div class="w-100 mb-2 son" >
           <div id="clonehead">
             <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">
-              <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>
+              <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (selectionChange)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>
               <div class="col-md-3">{{item.name}}</div>
               <div class="col-md-5"> <mat-form-field class="w-100">
                 <input matInput placeholder="Age" [(ngModel)]="item.age" autocomplete="off" [disabled]="item.disabled" maxlength="3" (keypress)="numberOnly($event)"  alt="{{i}}" (keyup)="typeAge(item.checked, item.name, i, item.age)" max="{{item.name}}" >
@@ -269,7 +269,7 @@
               <th class="sun-insured healthScroll col-md-1">
                 <mat-form-field >
                   <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
-                  <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
+                  <mat-select [(ngModel)]="changeSuninsuredAmount" (selectionChange)="updateSumInsured()">
                     <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -386,7 +386,7 @@
               </mat-form-field>
                 <div *ngIf="item.error != ''" class="ngError">Required</div>
               </div>
-              <div class="col-sm-2 col-3"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>
+              <div class="col-sm-2 col-3"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (selectionChange)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>
             </div>
           </div>
           <div class="mt-3 text-center">
@@ -454,7 +454,7 @@
           <div class="col-6" >
             <mat-form-field  class="w-100">
               <mat-placeholder class="myclass font-weight-bold" style="color: #000000;">Filter by company</mat-placeholder>
-              <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
+              <mat-select [(ngModel)]="filterCompany" (selectionChange)="filterByProducts()" multiple>
                 <mat-option value="All" >Select All</mat-option>
 
                 <mat-select-trigger>
@@ -477,7 +477,7 @@
             <!--</mat-form-field>-->
             <mat-form-field class="w-100">
               <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
-              <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
+              <mat-select [(ngModel)]="changeSuninsuredAmount" (selectionChange)="updateSumInsured()">
                 <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
               </mat-select>
             </mat-form-field>
