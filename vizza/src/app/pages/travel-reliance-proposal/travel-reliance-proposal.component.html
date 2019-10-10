@@ -17,7 +17,7 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>
+                            <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="changeGender()" required>
                               <mat-option value="Mr.">Mr</mat-option>
                               <mat-option value="Ms.">Ms</mat-option>
                             </mat-select>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="selectMarital()" required  class="w-100">
+                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="selectMarital()" required  class="w-100">
                               <mat-option *ngFor="let status of Marital | keys" [value]= 'status.key'> {{status.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100" [ngStyle]="{'pointer-events': travelUserType == true ? 'none' : ''}">
-                            <mat-select  placeholder="Occupation" formControlName="occupation" required (change)="selectOccupation()" class="w-100">
+                            <mat-select  placeholder="Occupation" formControlName="occupation" required (selectionChange)="selectOccupation()" class="w-100">
                               <mat-option *ngFor="let list of PersonalOccupation | keys " value ='{{list.key}}' [hidden]="travelUserType == false && list.key == '36'"> {{list.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Nationality" formControlName="nationality" (change)="selectNationality()" required  class="w-100">
+                            <mat-select  placeholder="Nationality" formControlName="nationality" (selectionChange)="selectNationality()" required  class="w-100">
                               <mat-option *ngFor="let list of Nationality | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="personal.controls.nationality.errors?.required">Nationality is required</mat-error>
@@ -191,7 +191,7 @@
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <mat-select  placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils()" required  class="w-100">
+                                <mat-select  placeholder="Area" formControlName="personalArea" (selectionChange)="typeAddressDeatils()" required  class="w-100">
                                   <mat-option *ngFor="let list of proposalPArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="personal.controls.personalArea.errors?.required">Area is required</mat-error>
@@ -216,7 +216,7 @@
                           <div class="row">
                             <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                             <div class="text-right w-50">
-                              <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                              <mat-checkbox formControlName="sameas" (selectionChange)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                             </div>
                           </div>
                           <div class="row">
@@ -302,7 +302,7 @@
                       <div class="row">
                         <h6 class="color-blue ml-3">HOME BURGLARY DETAILS</h6>
                         <div class="text-right w-50">
-                          <mat-checkbox formControlName="sameasBurglary" (change)="sameBurglaryAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                          <mat-checkbox formControlName="sameasBurglary" (selectionChange)="sameBurglaryAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                         </div>
                       </div>
                       <div class="row">
@@ -378,7 +378,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Area" formControlName="personalBurglaryArea" (change)="selectBurglaryArea()" [disabled]="inputBurglaryReadonly" required>
+                            <mat-select  placeholder="Area" formControlName="personalBurglaryArea" (selectionChange)="selectBurglaryArea()" [disabled]="inputBurglaryReadonly" required>
                               <mat-option *ngFor="let list of proposalBArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="personal.controls.personalBurglaryArea.errors?.required">Area is required</mat-error>
@@ -482,7 +482,7 @@
                       <div class="row">
                         <h6 class="color-blue ml-3">SPONSOR DETAILS</h6>
                         <div class="text-right w-50">
-                          <mat-checkbox formControlName="sameasSponsor" (change)="sameSponsorAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                          <mat-checkbox formControlName="sameasSponsor" (selectionChange)="sameSponsorAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                         </div>
                       </div>
                       <div class="row">
@@ -619,7 +619,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Area" formControlName="personalCompanyArea" (change)="selectCompanyArea()">
+                            <mat-select  placeholder="Area" formControlName="personalCompanyArea" (selectionChange)="selectCompanyArea()">
                               <mat-option *ngFor="let list of proposalCArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                             </mat-select>
                           </mat-form-field>
@@ -641,7 +641,7 @@
                         <h6 class="color-blue ml-3">DOCTOR DETAILS</h6>
                         <div class="text-left pl-3 w-100">
                           <p>Is Doctor Details</p>
-                          <mat-radio-group formControlName="IsDoctorDetails" (change)="underDoctorDetail($event)">
+                          <mat-radio-group formControlName="IsDoctorDetails" (selectionChange)="underDoctorDetail($event)">
                             <mat-radio-button value="true">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -731,7 +731,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-placeholder >Area <span class="error">*</span></mat-placeholder>
-                            <mat-select formControlName="personalDoctorArea" (change)="selectDoctorArea()">
+                            <mat-select formControlName="personalDoctorArea" (selectionChange)="selectDoctorArea()">
                               <mat-option *ngFor="let list of proposalDArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                             </mat-select>
                           </mat-form-field>
@@ -774,11 +774,11 @@
                         <!--<h6 class="color-blue">INSURED DETAILS</h6>-->
                         <div class="row">
                           <div class="col-md-12 mb-3 pt-2" *ngIf="i == 0">
-                            <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
+                            <mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                           </div>
                           <div class="col-md-3" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" [required]="i == 0">
+                              <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)" [disabled]="sameValue" [required]="i == 0">
                                 <mat-option value="Mr.">Mr</mat-option>
                                 <mat-option value="Ms.">Ms</mat-option>
                               </mat-select>
@@ -830,7 +830,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100" [ngStyle]="{'pointer-events': travelUserType == true ? 'none' : ''}">
-                              <mat-select  placeholder="Occupation" formControlName="occupation" (change)="selectInsureOccupation(i)"  [disabled]="sameValue" [required]="i == 0">
+                              <mat-select  placeholder="Occupation" formControlName="occupation" (selectionChange)="selectInsureOccupation(i)"  [disabled]="sameValue" [required]="i == 0">
                                 <mat-option *ngFor="let list of PersonalOccupation | keys " value = '{{list.key}}'> {{list.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Occupation is required</mat-error>
@@ -844,7 +844,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="i ==0" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="selectInsureRelationship(i)" required>
+                              <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (selectionChange)="selectInsureRelationship(i)" required>
                                 <mat-option *ngFor="let lists of Relationship" [hidden]="lists.insured_relationship_with_proposer != '1' || lists.insured_id == '345'" value="{{lists.insured_id}}" >
                                   {{lists.relation_name}}
                                 </mat-option>
@@ -854,7 +854,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="i !=0">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="selectInsureRelationship(i)" required>
+                              <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (selectionChange)="selectInsureRelationship(i)" required>
                                 <mat-option *ngFor="let lists of Relationship" [hidden]="lists.insured_relationship_with_proposer != '1'" value="{{lists.insured_id}}" >
                                   {{lists.relation_name}}
                                 </mat-option>
@@ -891,7 +891,7 @@
                             <div class="row">
                               <div class="col-md-3">
                                 <p>Is Under Medication</p>
-                                <mat-radio-group formControlName="IsUnderMedication" (change)="underMedication(i)">
+                                <mat-radio-group formControlName="IsUnderMedication" (selectionChange)="underMedication(i)">
                                   <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                                   <mat-radio-button value="false">No</mat-radio-button>
                                 </mat-radio-group>
@@ -986,7 +986,7 @@
                           * Is Indian Citizen
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-radio-group formControlName="riskIndian" (change)="riskDetailsChange($event,'india')">
+                          <mat-radio-group formControlName="riskIndian" (selectionChange)="riskDetailsChange($event,'india')">
                             <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -1010,7 +1010,7 @@
                           * Is Residing In India
                         </div>
                         <div class="col-md-4 text-left">
-                          <mat-radio-group formControlName="riskIsResidingInIndia" (change)="riskDetailsChange($event,'residingIndia')">
+                          <mat-radio-group formControlName="riskIsResidingInIndia" (selectionChange)="riskDetailsChange($event,'residingIndia')">
                             <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -1041,7 +1041,7 @@
                           <!--<span class="error">*</span>-->
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-radio-group formControlName="riskIsInsuredOnImmigrantVisa" (change)="riskDetailsChange($event,'ImmigrantVisa')">
+                          <mat-radio-group formControlName="riskIsInsuredOnImmigrantVisa" (selectionChange)="riskDetailsChange($event,'ImmigrantVisa')">
                             <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -1054,7 +1054,7 @@
                           <!--<span class="error">*</span>-->
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-radio-group formControlName="riskIsTravelInvolvesSportingActivities" (change)="riskDetailsChange($event,'TravelInvolvesSporting')">
+                          <mat-radio-group formControlName="riskIsTravelInvolvesSportingActivities" (selectionChange)="riskDetailsChange($event,'TravelInvolvesSporting')">
                             <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -1076,7 +1076,7 @@
                           * Is Suffering From Pre-Existing Medical Conditions
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-radio-group formControlName="riskIsSufferingFromPEMC" (change)="riskDetailsChange($event,'IsSufferingFromPEMC')">
+                          <mat-radio-group formControlName="riskIsSufferingFromPEMC" (selectionChange)="riskDetailsChange($event,'IsSufferingFromPEMC')">
                             <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -1088,7 +1088,7 @@
                           * Is Pre-Existing Disease
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-radio-group formControlName="riskPreExistDisease" (change)="riskDetailsChange($event,'PreExistDisease')">
+                          <mat-radio-group formControlName="riskPreExistDisease" (selectionChange)="riskDetailsChange($event,'PreExistDisease')">
                             <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -1156,7 +1156,7 @@
                         <div class="col-md-12 text-left">
                           <mat-form-field class="w-100">
                               <mat-placeholder >Coverage Type Id <span class="error">*</span></mat-placeholder>
-                              <mat-select formControlName="riskCoverageType" (change)="selectriskriskCoverageType()">
+                              <mat-select formControlName="riskCoverageType" (selectionChange)="selectriskriskCoverageType()">
                               <mat-option  *ngFor="let cover of CoverType | keys"  value="{{cover.key}}">{{cover.value}}</mat-option>
                             </mat-select>
                           </mat-form-field>
@@ -1168,7 +1168,7 @@
                           <span>* Is Add On Cover Only Student </span>
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-radio-group formControlName="riskIsVisitingStudent" (change)="riskDetailsChange($event,'IsVisitingStudent')">
+                          <mat-radio-group formControlName="riskIsVisitingStudent" (selectionChange)="riskDetailsChange($event,'IsVisitingStudent')">
                             <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -1180,7 +1180,7 @@
                           <span>* Is Annual Multi-trip Individual <span class="error">*</span> </span>
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-radio-group formControlName="riskMaxDaysPerTripFlag" (change)="riskDetailsChange($event,'IsMultitripIndividual')">
+                          <mat-radio-group formControlName="riskMaxDaysPerTripFlag" (selectionChange)="riskDetailsChange($event,'IsMultitripIndividual')">
                             <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -1234,7 +1234,7 @@
                         <div class="col-md-12 text-left" *ngIf="getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2816' || getTravelPremiumList.product_code == '2813'">
                           <mat-form-field class="w-100">
                               <mat-placeholder >Senior Citizen Plan <span class="error">*</span></mat-placeholder>
-                              <mat-select formControlName="riskSeniorCitizenPlanID" (change)="selectseniorPlan()">
+                              <mat-select formControlName="riskSeniorCitizenPlanID" (selectionChange)="selectseniorPlan()">
                               <mat-option  *ngFor="let plans of seniorCitizenPlans | keys"  value="{{plans.key}}">{{plans.value}}</mat-option>
                             </mat-select>
                           </mat-form-field>
@@ -1914,7 +1914,7 @@
               <div class="row">
                 <div class="col-12">
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>
+                    <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="changeGender()" required>
                       <mat-option value="Mr.">Mr</mat-option>
                       <mat-option value="Ms.">Ms</mat-option>
                     </mat-select>
@@ -1955,7 +1955,7 @@
                 </div>
                 <div class="col-12">
                   <mat-form-field class="w-100">
-                    <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="selectMarital()" required  class="w-100">
+                    <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="selectMarital()" required  class="w-100">
                       <mat-option *ngFor="let status of Marital | keys" [value]= 'status.key'> {{status.value}} </mat-option>
                     </mat-select>
                     <mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
@@ -1963,7 +1963,7 @@
                 </div>
                 <div class="col-12">
                   <mat-form-field class="w-100" [ngStyle]="{'pointer-events': travelUserType == true ? 'none' : ''}">
-                    <mat-select  placeholder="Occupation" formControlName="occupation" required (change)="selectOccupation()" class="w-100">
+                    <mat-select  placeholder="Occupation" formControlName="occupation" required (selectionChange)="selectOccupation()" class="w-100">
                       <mat-option *ngFor="let list of PersonalOccupation | keys " value ='{{list.key}}' [hidden]="travelUserType == false && list.key == '36'"> {{list.value}} </mat-option>
                     </mat-select>
                     <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
@@ -2005,7 +2005,7 @@
                 </div>
                 <div class="col-12">
                   <mat-form-field class="w-100">
-                    <mat-select  placeholder="Nationality" formControlName="nationality" (change)="selectNationality()" required  class="w-100">
+                    <mat-select  placeholder="Nationality" formControlName="nationality" (selectionChange)="selectNationality()" required  class="w-100">
                       <mat-option *ngFor="let list of Nationality | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                     </mat-select>
                     <mat-error *ngIf="personal.controls.nationality.errors?.required">Nationality is required</mat-error>
@@ -2088,7 +2088,7 @@
                     </div>
                     <div class="col-12">
                       <mat-form-field class="w-100">
-                        <mat-select  placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils()" required  class="w-100">
+                        <mat-select  placeholder="Area" formControlName="personalArea" (selectionChange)="typeAddressDeatils()" required  class="w-100">
                           <mat-option *ngFor="let list of proposalPArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="personal.controls.personalArea.errors?.required">Area is required</mat-error>
@@ -2113,7 +2113,7 @@
                   <div class="row">
                     <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                     <div class="text-right w-50">
-                      <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                      <mat-checkbox formControlName="sameas" (selectionChange)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                     </div>
                   </div>
                   <div class="row">
@@ -2199,7 +2199,7 @@
               <div class="row">
                 <h6 class="color-blue ml-3">HOME BURGLARY DETAILS</h6>
                 <div class="text-right w-50">
-                  <mat-checkbox formControlName="sameasBurglary" (change)="sameBurglaryAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                  <mat-checkbox formControlName="sameasBurglary" (selectionChange)="sameBurglaryAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                 </div>
               </div>
               <div class="row">
@@ -2275,7 +2275,7 @@
                 </div>
                 <div class="col-12">
                   <mat-form-field class="w-100">
-                    <mat-select  placeholder="Area" formControlName="personalBurglaryArea" (change)="selectBurglaryArea()" [disabled]="inputBurglaryReadonly" required>
+                    <mat-select  placeholder="Area" formControlName="personalBurglaryArea" (selectionChange)="selectBurglaryArea()" [disabled]="inputBurglaryReadonly" required>
                       <mat-option *ngFor="let list of proposalBArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                     </mat-select>
                     <mat-error *ngIf="personal.controls.personalBurglaryArea.errors?.required">Area is required</mat-error>
@@ -2379,7 +2379,7 @@
               <div class="row">
                 <h6 class="color-blue ml-3">SPONSOR DETAILS</h6>
                 <div class="text-right w-50">
-                  <mat-checkbox formControlName="sameasSponsor" (change)="sameSponsorAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                  <mat-checkbox formControlName="sameasSponsor" (selectionChange)="sameSponsorAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                 </div>
               </div>
               <div class="row">
@@ -2516,7 +2516,7 @@
                 </div>
                 <div class="col-12">
                   <mat-form-field class="w-100">
-                    <mat-select  placeholder="Area" formControlName="personalCompanyArea" (change)="selectCompanyArea()">
+                    <mat-select  placeholder="Area" formControlName="personalCompanyArea" (selectionChange)="selectCompanyArea()">
                       <mat-option *ngFor="let list of proposalCArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -2538,7 +2538,7 @@
                 <h6 class="color-blue ml-3">DOCTOR DETAILS</h6>
                 <div class="text-left pl-3 w-100">
                   <p>Is Doctor Details</p>
-                  <mat-radio-group formControlName="IsDoctorDetails" (change)="underDoctorDetail($event)">
+                  <mat-radio-group formControlName="IsDoctorDetails" (selectionChange)="underDoctorDetail($event)">
                     <mat-radio-button value="true">Yes</mat-radio-button>
                     <mat-radio-button value="false">No</mat-radio-button>
                   </mat-radio-group>
@@ -2628,7 +2628,7 @@
                 <div class="col-12">
                   <mat-form-field class="w-100">
                     <mat-placeholder >Area <span class="error">*</span></mat-placeholder>
-                    <mat-select formControlName="personalDoctorArea" (change)="selectDoctorArea()">
+                    <mat-select formControlName="personalDoctorArea" (selectionChange)="selectDoctorArea()">
                       <mat-option *ngFor="let list of proposalDArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -2672,11 +2672,11 @@
                     <!--<h6 class="color-blue">INSURED DETAILS</h6>-->
                     <div class="row">
                       <div class="col-12 mb-3 pt-2" *ngIf="i == 0">
-                        <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
+                        <mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                       </div>
                       <div class="col-12" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}" *ngIf="i == 0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" [required]="i == 0">
+                          <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)" [disabled]="sameValue" [required]="i == 0">
                             <mat-option value="Mr.">Mr</mat-option>
                             <mat-option value="Ms.">Ms</mat-option>
                           </mat-select>
@@ -2728,7 +2728,7 @@
                       </div>
                       <div class="col-12" *ngIf="i == 0">
                         <mat-form-field class="w-100" [ngStyle]="{'pointer-events': travelUserType == true ? 'none' : ''}">
-                          <mat-select  placeholder="Occupation" formControlName="occupation" (change)="selectInsureOccupation(i)"  [disabled]="sameValue" [required]="i == 0">
+                          <mat-select  placeholder="Occupation" formControlName="occupation" (selectionChange)="selectInsureOccupation(i)"  [disabled]="sameValue" [required]="i == 0">
                             <mat-option *ngFor="let list of PersonalOccupation | keys " value = '{{list.key}}'> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="relianceInsuredTravel.invalid">Occupation is required</mat-error>
@@ -2742,7 +2742,7 @@
                       </div>
                       <div class="col-12" *ngIf="i ==0" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="selectInsureRelationship(i)" required>
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (selectionChange)="selectInsureRelationship(i)" required>
                             <mat-option *ngFor="let lists of Relationship" [hidden]="lists.insured_relationship_with_proposer != '1' || lists.insured_id == '345'" value="{{lists.insured_id}}" >
                               {{lists.relation_name}}
                             </mat-option>
@@ -2752,7 +2752,7 @@
                       </div>
                       <div class="col-12" *ngIf="i !=0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="selectInsureRelationship(i)" required>
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (selectionChange)="selectInsureRelationship(i)" required>
                             <mat-option *ngFor="let lists of Relationship" [hidden]="lists.insured_relationship_with_proposer != '1'" value="{{lists.insured_id}}" >
                               {{lists.relation_name}}
                             </mat-option>
@@ -2789,7 +2789,7 @@
                         <div class="row">
                           <div class="col-12">
                             <p>Is Under Medication</p>
-                            <mat-radio-group formControlName="IsUnderMedication" (change)="underMedication(i)">
+                            <mat-radio-group formControlName="IsUnderMedication" (selectionChange)="underMedication(i)">
                               <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                               <mat-radio-button value="false">No</mat-radio-button>
                             </mat-radio-group>
@@ -2881,7 +2881,7 @@
                   * Is Indian Citizen
                 </div>
                 <div class="col-12 text-right">
-                  <mat-radio-group formControlName="riskIndian" (change)="riskDetailsChange($event,'india')">
+                  <mat-radio-group formControlName="riskIndian" (selectionChange)="riskDetailsChange($event,'india')">
                     <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                     <mat-radio-button value="false">No</mat-radio-button>
                   </mat-radio-group>
@@ -2905,7 +2905,7 @@
                   * Is Residing In India
                 </div>
                 <div class="col-12 text-left">
-                  <mat-radio-group formControlName="riskIsResidingInIndia" (change)="riskDetailsChange($event,'residingIndia')">
+                  <mat-radio-group formControlName="riskIsResidingInIndia" (selectionChange)="riskDetailsChange($event,'residingIndia')">
                     <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                     <mat-radio-button value="false">No</mat-radio-button>
                   </mat-radio-group>
@@ -2936,7 +2936,7 @@
                   <!--<span class="error">*</span>-->
                 </div>
                 <div class="col-12 text-right">
-                  <mat-radio-group formControlName="riskIsInsuredOnImmigrantVisa" (change)="riskDetailsChange($event,'ImmigrantVisa')">
+                  <mat-radio-group formControlName="riskIsInsuredOnImmigrantVisa" (selectionChange)="riskDetailsChange($event,'ImmigrantVisa')">
                     <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                     <mat-radio-button value="false">No</mat-radio-button>
                   </mat-radio-group>
@@ -2949,7 +2949,7 @@
                   <!--<span class="error">*</span>-->
                 </div>
                 <div class="col-12 text-right">
-                  <mat-radio-group formControlName="riskIsTravelInvolvesSportingActivities" (change)="riskDetailsChange($event,'TravelInvolvesSporting')">
+                  <mat-radio-group formControlName="riskIsTravelInvolvesSportingActivities" (selectionChange)="riskDetailsChange($event,'TravelInvolvesSporting')">
                     <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                     <mat-radio-button value="false">No</mat-radio-button>
                   </mat-radio-group>
@@ -2971,7 +2971,7 @@
                   * Is Suffering From Pre-Existing Medical Conditions
                 </div>
                 <div class="col-12 text-right">
-                  <mat-radio-group formControlName="riskIsSufferingFromPEMC" (change)="riskDetailsChange($event,'IsSufferingFromPEMC')">
+                  <mat-radio-group formControlName="riskIsSufferingFromPEMC" (selectionChange)="riskDetailsChange($event,'IsSufferingFromPEMC')">
                     <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                     <mat-radio-button value="false">No</mat-radio-button>
                   </mat-radio-group>
@@ -2983,7 +2983,7 @@
                   * Is Pre-Existing Disease
                 </div>
                 <div class="col-12 text-right">
-                  <mat-radio-group formControlName="riskPreExistDisease" (change)="riskDetailsChange($event,'PreExistDisease')">
+                  <mat-radio-group formControlName="riskPreExistDisease" (selectionChange)="riskDetailsChange($event,'PreExistDisease')">
                     <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                     <mat-radio-button value="false">No</mat-radio-button>
                   </mat-radio-group>
@@ -3008,7 +3008,7 @@
                 <div class="col-12 text-left">
                   <mat-form-field class="w-100">
                     <mat-placeholder >Coverage Type Id <span class="error">*</span></mat-placeholder>
-                    <mat-select formControlName="riskCoverageType" (change)="selectriskriskCoverageType()">
+                    <mat-select formControlName="riskCoverageType" (selectionChange)="selectriskriskCoverageType()">
                       <mat-option  *ngFor="let cover of CoverType | keys"  value="{{cover.key}}">{{cover.value}}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -3020,7 +3020,7 @@
                   <span>* Is Add On Cover Only Student </span>
                 </div>
                 <div class="col-12 text-right">
-                  <mat-radio-group formControlName="riskIsVisitingStudent" (change)="riskDetailsChange($event,'IsVisitingStudent')">
+                  <mat-radio-group formControlName="riskIsVisitingStudent" (selectionChange)="riskDetailsChange($event,'IsVisitingStudent')">
                     <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                     <mat-radio-button value="false">No</mat-radio-button>
                   </mat-radio-group>
@@ -3032,7 +3032,7 @@
                   <span>* Is Annual Multi-trip Individual <span class="error">*</span> </span>
                 </div>
                 <div class="col-12 text-right">
-                  <mat-radio-group formControlName="riskMaxDaysPerTripFlag" (change)="riskDetailsChange($event,'IsMultitripIndividual')">
+                  <mat-radio-group formControlName="riskMaxDaysPerTripFlag" (selectionChange)="riskDetailsChange($event,'IsMultitripIndividual')">
                     <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                     <mat-radio-button value="false">No</mat-radio-button>
                   </mat-radio-group>
@@ -3079,7 +3079,7 @@
                 <div class="col-12 text-left" *ngIf="getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2816' || getTravelPremiumList.product_code == '2813'">
                   <mat-form-field class="w-100">
                     <mat-placeholder >Senior Citizen Plan <span class="error">*</span></mat-placeholder>
-                    <mat-select formControlName="riskSeniorCitizenPlanID" (change)="selectseniorPlan()">
+                    <mat-select formControlName="riskSeniorCitizenPlanID" (selectionChange)="selectseniorPlan()">
                       <mat-option  *ngFor="let plans of seniorCitizenPlans | keys"  value="{{plans.key}}">{{plans.value}}</mat-option>
                     </mat-select>
                   </mat-form-field>

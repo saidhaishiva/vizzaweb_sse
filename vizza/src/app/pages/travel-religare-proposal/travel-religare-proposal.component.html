@@ -20,7 +20,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title" (change)="changeGender()" required>
+                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeGender()" required>
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MS">Ms</mat-option>
                           </mat-select>
@@ -93,7 +93,7 @@
                             </div>
                             <div class="col-md-4" *ngIf="studentdetails">
                                 <mat-form-field class="w-100">
-                                    <mat-select placeholder="Months" formControlName="betweenMonth" (change)="selectMonths()" required>
+                                    <mat-select placeholder="Months" formControlName="betweenMonth" (selectionChange)="selectMonths()" required>
                                         <mat-option value="1">1</mat-option>
                                         <mat-option value="3">3</mat-option>
                                         <mat-option value="6">6</mat-option>
@@ -129,7 +129,7 @@
 
                           </div>
                           <div class="col-md-4"><mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Student"  formControlName="studentRelationShip" (change)="studentRelationshipList()" required>
+                            <mat-select placeholder="Relationship with Student"  formControlName="studentRelationShip" (selectionChange)="studentRelationshipList()" required>
                               <mat-option *ngFor="let lists of sponserRelationList | keys" value="{{lists.key}}" >
                                 {{lists.value}}
                               </mat-option>
@@ -177,7 +177,7 @@
                           <h6 class="color-blue mb-4 w-100"><strong>ADDON</strong></h6>
                           <div class="col-md-6" formArrayName="addonForm" *ngFor="let items of religarePersonal.get('addonForm')['controls']; let i = index;">
                             <div [formGroupName]="i" >
-                             <mat-checkbox   formControlName="checked" (change)="addonList($event, i)" class="mr-4">{{religarePersonal['controls'].addonForm['controls'][i]['controls'].title.value}}</mat-checkbox>
+                             <mat-checkbox   formControlName="checked" (selectionChange)="addonList($event, i)" class="mr-4">{{religarePersonal['controls'].addonForm['controls'][i]['controls'].title.value}}</mat-checkbox>
                             </div>
                           </div>
                         </div>
@@ -216,7 +216,7 @@
                                 <mat-error *ngIf="religarePersonal.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                               </mat-form-field></div>
                               <div class="col-md-6"><mat-form-field class="w-100" >
-                                <mat-select placeholder="City" formControlName="city" (change)="selectComCity()" autocomplete="off" required>
+                                <mat-select placeholder="City" formControlName="city" (selectionChange)="selectComCity()" autocomplete="off" required>
                                   <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.value'>
                                     {{city.value}}
                                   </mat-option>
@@ -238,7 +238,7 @@
                             <div class="row">
                               <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                               <div class="text-right w-50">
-                                <mat-checkbox formControlName="sameAsProposer" (change)="sameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox>
+                                <mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox>
                               </div>
                             </div>
                             <div class="row">
@@ -267,7 +267,7 @@
                               </mat-form-field></div>
                               <div class="col-md-6" [ngStyle]="{'pointer-events': this.religarePersonal.controls['sameAsProposer'].value ? 'none' : ''}">
                                 <mat-form-field class="w-100"  >
-                                  <mat-select placeholder="City" formControlName="rcity" (change)="selectResCity()" autocomplete="off"   required>
+                                  <mat-select placeholder="City" formControlName="rcity" (selectionChange)="selectResCity()" autocomplete="off"   required>
                                     <mat-option *ngFor="let city of residenceCitys | keys" [value]= 'city.value'>
                                       {{city.value}}
                                     </mat-option>
@@ -311,11 +311,11 @@
                       <!--<h6 class="color-blue">INSURED DETAILS</h6>-->
                       <div class="row">
                         <div class="col-md-12 mb-3" *ngIf="i == 0" >
-                          <mat-checkbox formControlName="sameAsInsuredProposer" (change)="sameInsuredProposer()"><strong>Same as proposer</strong></mat-checkbox>
+                          <mat-checkbox formControlName="sameAsInsuredProposer" (selectionChange)="sameInsuredProposer()"><strong>Same as proposer</strong></mat-checkbox>
                         </div>
                         <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="title" (change)="insureChangeGender(i)" required>
+                            <mat-select placeholder="Title" formControlName="title" (selectionChange)="insureChangeGender(i)" required>
                               <mat-option value="MR" *ngIf="insureReligareArray['controls'].items['controls'][i]['controls'].type.value != 'Daughter'">Mr</mat-option>
                               <mat-option value="MS" *ngIf="insureReligareArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Ms</mat-option>
                               <!--<mat-option value="MRS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Mrs</mat-option>-->
@@ -350,7 +350,7 @@
                         </div>
 
                         <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}"><mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="insureTravelRelationListName(i)" required>
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (selectionChange)="insureTravelRelationListName(i)" required>
                             <mat-option *ngFor="let lists of insuretravelRelationList | keys" value="{{lists.key}}" >
                               {{lists.value}}
                             </mat-option>
@@ -422,7 +422,7 @@
                                 <p *ngIf="si == 6 && diseaseFieldView">{{si+1}}. {{list.question_name}} </p>
                               </div>
                               <div class="col-md-6" >
-                                <mat-checkbox [(ngModel)]="list.checked" (change)="changereligareTravelQuestions($event, si, 'sub', i)"  *ngIf="list.field_type == 'checkbox'">
+                                <mat-checkbox [(ngModel)]="list.checked" (selectionChange)="changereligareTravelQuestions($event, si, 'sub', i)"  *ngIf="list.field_type == 'checkbox'">
                                 </mat-checkbox>
                               </div>
                               <div class="col-md-12" *ngIf="si != 6">
@@ -446,7 +446,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="row col-md-6" >
-                          <mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i, 'main', '0')"  *ngIf="item.field_type == 'checkbox'">
+                          <mat-checkbox [(ngModel)]="item.checked" (selectionChange)="changereligareTravelQuestions($event, i, 'main', '0')"  *ngIf="item.field_type == 'checkbox'">
                           </mat-checkbox>
                         </div>
                       </div>
@@ -517,7 +517,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Relationship with Insured"  formControlName="religareTravelRelationship" (change)="religareTravelRelationshipList()" required>
+                        <mat-select placeholder="Relationship with Insured"  formControlName="religareTravelRelationship" (selectionChange)="religareTravelRelationshipList()" required>
                           <mat-option *ngFor="let lists of sponserRelationList | keys" [hidden]="sameRelationship == lists.relation_id" value="{{lists.value}}" >
                             {{lists.value}}
                           </mat-option>

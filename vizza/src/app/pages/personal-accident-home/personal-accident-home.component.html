@@ -213,7 +213,7 @@
                                     <th class="col-md-2">
                                         <mat-form-field class="w-100">
                                             <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
-                                            <mat-select [(ngModel)]="filterCompany"  (change)="filterByProducts()" multiple>
+                                            <mat-select [(ngModel)]="filterCompany"  (selectionChange)="filterByProducts()" multiple>
                                                 <mat-option value="All" >Select All</mat-option>
 
                                                 <mat-select-trigger>
@@ -229,7 +229,7 @@
                                     <th class="sun-insured paScroll col-md-1">
                                         <mat-form-field >
                                             <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
-                                            <mat-select [(ngModel)]="selectedAmountP" (change)="updateSumInsured()">
+                                            <mat-select [(ngModel)]="selectedAmountP" (selectionChange)="updateSumInsured()">
                                                 <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount}}">{{amounts.si_amount}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -673,7 +673,7 @@
                 <div class="col-6">
                     <mat-form-field class="w-100">
                         <mat-placeholder class="myclass font-weight-bold" style="color: #000000">Filter by company</mat-placeholder>
-                        <mat-select [(ngModel)]="filterCompany"  (change)="filterByProducts()" multiple>
+                        <mat-select [(ngModel)]="filterCompany"  (selectionChange)="filterByProducts()" multiple>
                             <mat-option value="All" >Select All</mat-option>
 
                             <mat-select-trigger>

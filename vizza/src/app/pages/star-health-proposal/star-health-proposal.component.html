@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Occupation" formControlName="personalOccupation" (change)="changeOccupation()" autocomplete="off" required>
+                            <mat-select placeholder="Occupation" formControlName="personalOccupation" (selectionChange)="changeOccupation()" autocomplete="off" required>
                               <mat-option *ngFor="let occupation of  occupationList | keys" [value]="occupation.key">
                                 {{occupation.value}}
                               </mat-option>
@@ -124,7 +124,7 @@
                         </div>
                         <div class="col-md-3">
                           <p>Previous Medical insurance</p>
-                          <mat-radio-group (change)="PreviousInsure($event)" formControlName="previousinsuranceChecked">
+                          <mat-radio-group (selectionChange)="PreviousInsure($event)" formControlName="previousinsuranceChecked">
                             <mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>
                             <mat-radio-button value="false" [checked]="personal['controls'].previousinsuranceChecked.value == false">No</mat-radio-button>
                           </mat-radio-group>
@@ -164,7 +164,7 @@
                               <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-6"><mat-form-field class="w-100" >
-                              <mat-select placeholder="City" formControlName="personalCity"  (change)="getAreas('personal', 'manual'); changeCity()" autocomplete="off" required>
+                              <mat-select placeholder="City" formControlName="personalCity"  (selectionChange)="getAreas('personal', 'manual'); changeCity()" autocomplete="off" required>
                                 <mat-option *ngFor="let city of personalCitys | keys " [value]= 'city.key'>
                                   {{city.value}}
                                 </mat-option>
@@ -176,7 +176,7 @@
                               <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-6"><mat-form-field class="w-100" >
-                              <mat-select placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils(); changeArea()" autocomplete="off" required>
+                              <mat-select placeholder="Area" formControlName="personalArea" (selectionChange)="typeAddressDeatils(); changeArea()" autocomplete="off" required>
                                 <mat-option *ngFor="let area of areaNames | keys" [value]= 'area.key'>
                                   {{area.value}}
                                 </mat-option>
@@ -193,7 +193,7 @@
                               <h6 class="color-blue ml-3"> RESIDENCE ADDRESS</h6>
                             </div>
                             <div class=" col-md-6 text-right">
-                              <mat-checkbox formControlName="sameas" (change)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox>
+                              <mat-checkbox formControlName="sameas" (selectionChange)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox>
 
                             </div>
                           </div>
@@ -217,7 +217,7 @@
                             </mat-form-field></div>
                             <div class="col-md-6" [ngStyle]="{'pointer-events': personal['controls'].sameas.value ? 'none' : ''}">
                               <mat-form-field class="w-100" >
-                                <mat-select placeholder="City" formControlName="residenceCity"  (change)="getAreas('residence', 'rmanual'); changeresCity()"  autocomplete="off">
+                                <mat-select placeholder="City" formControlName="residenceCity"  (selectionChange)="getAreas('residence', 'rmanual'); changeresCity()"  autocomplete="off">
                                   <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
                                     {{citys.value}}
                                   </mat-option>
@@ -228,7 +228,7 @@
                               <input matInput placeholder="State" formControlName="residenceState"  autocomplete="off" readonly>
                             </mat-form-field></div>
                             <div class="col-md-6"><mat-form-field class="w-100" [ngStyle]="{'pointer-events': personal['controls'].sameas.value ? 'none' : ''}">
-                              <mat-select placeholder="Area" formControlName="residenceArea"   (change)="changeresArea()" autocomplete="off" >
+                              <mat-select placeholder="Area" formControlName="residenceArea"   (selectionChange)="changeresArea()" autocomplete="off" >
                                 <mat-option *ngFor="let rarea of rAreaNames | keys" [value]= 'rarea.key'>
                                   {{rarea.value}}
                                 </mat-option>
@@ -242,7 +242,7 @@
 
                     <div class="col-md-12 box-card">
                       <h6 class="color-blue">SOCIAL STATUS</h6>
-                      <mat-radio-group  formControlName="socialStatus" (change)="changeSocialStatus(socialStatus)">
+                      <mat-radio-group  formControlName="socialStatus" (selectionChange)="changeSocialStatus(socialStatus)">
                         <mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>
                         <mat-radio-button value="false" [checked]="personal['controls'].socialStatus.value == false" >No</mat-radio-button>
                       </mat-radio-group>
@@ -282,7 +282,7 @@
                       </div>
 
                     </div>
-                    <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzheimer's disease/Parkinson's disease</mat-checkbox></p>
+                    <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (selectionChange)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzheimer's disease/Parkinson's disease</mat-checkbox></p>
                     <div class="proposal-buttom mt-3 text-right w-100">
                       <button mat-raised-button color="primaryBlue" [disabled]="stopNext"  type="submit">Next</button>
                     </div>
@@ -344,7 +344,7 @@
                       </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required (change)="selectOccupation(i)">
+                          <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required (selectionChange)="selectOccupation(i)">
                             <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}">
                               {{occupation.value}}
                             </mat-option>
@@ -352,7 +352,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required (change)="selectProposerRelation(i)">
+                        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required (selectionChange)="selectProposerRelation(i)">
                           <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" >
                             {{relationship.value}}
                           </mat-option>
@@ -362,7 +362,7 @@
                         <p class="mr-3" *ngIf="buyProductdetails.product_id != '7'">Do you have any health problem? <span class="error"> *</span></p>
                         <p class="mr-3" *ngIf="buyProductdetails.product_id == '7'">Do you have any health problems? Has the person proposed for insurance been advised for treatment of sub-fertility / infertility? <span class="error"> *</span></p>
                         <div  fxLayoutAlign="start center">
-                          <mat-radio-group [(ngModel)]="item.illness" (change)="illnessStatus($event, i)" required>
+                          <mat-radio-group [(ngModel)]="item.illness" (selectionChange)="illnessStatus($event, i)" required>
                             <mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -383,7 +383,7 @@
                       </div>
                       <div class="col-md-12 " *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                         <p>personal Accident Applicable</p>
-                        <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (change)="personalAccident($event, i)"  required [disabled]="item.ins_accident_status" >
+                        <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (selectionChange)="personalAccident($event, i)"  required [disabled]="item.ins_accident_status" >
                           <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
                           <mat-radio-button value="0" checked="true">No</mat-radio-button>
                         </mat-radio-group>
@@ -391,7 +391,7 @@
                       <hr>
                       <div class="col-md-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                         <p>Does your occupation require you to engage in manual labour?</p>
-                        <mat-radio-group [(ngModel)]="item.engage_manual_status" (change)="engageWinter($event, i, 'manual')" required  >
+                        <mat-radio-group [(ngModel)]="item.engage_manual_status" (selectionChange)="engageWinter($event, i, 'manual')" required  >
                           <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
                           <mat-radio-button value="0">No</mat-radio-button>
                         </mat-radio-group>
@@ -401,7 +401,7 @@
                       </div>
                       <div class="col-md-12 " *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                         <p>Do you engage in or propose to engage in any activity or sport which is hazardous or adventurous in nature such as racing mountaineering winter sports etc.</p>
-                        <mat-radio-group [(ngModel)]="item.engage_winter_status" (change)="engageWinter($event, i, 'winter')" required  >
+                        <mat-radio-group [(ngModel)]="item.engage_winter_status" (selectionChange)="engageWinter($event, i, 'winter')" required  >
                           <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
                           <mat-radio-button value="0">No</mat-radio-button>
                         </mat-radio-group>
@@ -1048,7 +1048,7 @@
           </div>
           <div class="col-sm-12 col-xs-12 col-md-12 p-3">
           <mat-form-field class="w-100">
-          <mat-select placeholder="Occupation" formControlName="personalOccupation" (change)="changeOccupation()" autocomplete="off" required>
+          <mat-select placeholder="Occupation" formControlName="personalOccupation" (selectionChange)="changeOccupation()" autocomplete="off" required>
           <mat-option *ngFor="let occupation of  occupationList | keys" [value]="occupation.key">
           {{occupation.value}}
           </mat-option>
@@ -1111,7 +1111,7 @@
           </div>
           <div class="col-sm-12 col-xs-12 col-md-12">
           <p>Previous Medical insurance</p>
-          <mat-radio-group (change)="PreviousInsure($event)" formControlName="previousinsuranceChecked">
+          <mat-radio-group (selectionChange)="PreviousInsure($event)" formControlName="previousinsuranceChecked">
           <mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>
           <mat-radio-button value="false" [checked]="personal['controls'].previousinsuranceChecked.value == false">No</mat-radio-button>
           </mat-radio-group>
@@ -1191,7 +1191,7 @@
           <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
           </mat-form-field></div>
           <div class=" col-12 col-md-6 col-sm-12 "><mat-form-field class="w-100" >
-          <mat-select placeholder="City" formControlName="personalCity"  (change)="getAreas('personal', 'manual'); changeCity()" autocomplete="off" required>
+          <mat-select placeholder="City" formControlName="personalCity"  (selectionChange)="getAreas('personal', 'manual'); changeCity()" autocomplete="off" required>
           <mat-option *ngFor="let city of personalCitys | keys " [value]= 'city.key'>
           {{city.value}}
           </mat-option>
@@ -1203,7 +1203,7 @@
           <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
           </mat-form-field></div>
           <div class="col-12 col-md-6 col-sm-12 "><mat-form-field class="w-100" >
-          <mat-select placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils(); changeArea()" autocomplete="off" required>
+          <mat-select placeholder="Area" formControlName="personalArea" (selectionChange)="typeAddressDeatils(); changeArea()" autocomplete="off" required>
           <mat-option *ngFor="let area of areaNames | keys" [value]= 'area.key'>
           {{area.value}}
           </mat-option>
@@ -1220,7 +1220,7 @@
           <h6 class="color-blue ml-3"> RESIDENCE ADDRESS</h6>
           </div>
           <div class=" col-sm-12 col-xs-12 col-md-12">
-          <mat-checkbox formControlName="sameas" (change)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox>
+          <mat-checkbox formControlName="sameas" (selectionChange)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox>
 
           </div>
           </div>
@@ -1244,7 +1244,7 @@
           </mat-form-field></div>
           <div class="col-sm-12 col-xs-12 col-md-12" [ngStyle]="{'pointer-events': personal['controls'].sameas.value ? 'none' : ''}">
           <mat-form-field class="w-100" >
-          <mat-select placeholder="City" formControlName="residenceCity"  (change)="getAreas('residence', 'rmanual')"  autocomplete="off">
+          <mat-select placeholder="City" formControlName="residenceCity"  (selectionChange)="getAreas('residence', 'rmanual')"  autocomplete="off">
           <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
           {{citys.value}}
           </mat-option>
@@ -1269,7 +1269,7 @@
 
           <div class="col-sm-12 col-xs-12 col-md-12 box-card">
           <h6 class="color-blue">SOCIAL STATUS</h6>
-          <mat-radio-group  formControlName="socialStatus" (change)="changeSocialStatus(socialStatus)">
+          <mat-radio-group  formControlName="socialStatus" (selectionChange)="changeSocialStatus(socialStatus)">
           <mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>
           <mat-radio-button value="false" [checked]="personal['controls'].socialStatus.value == false" >No</mat-radio-button>
           </mat-radio-group>
@@ -1309,7 +1309,7 @@
           </div>
 
           </div>
-          <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzheimer's disease/Parkinson's disease</mat-checkbox></p>
+          <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (selectionChange)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzheimer's disease/Parkinson's disease</mat-checkbox></p>
           <div class="proposal-buttom mt-3 text-right w-100">
           <button mat-raised-button color="primaryBlue" [disabled]="stopNext"  type="submit">Next</button>
           </div>
@@ -1375,7 +1375,7 @@
         </mat-form-field></div>
         <div class="col-sm-12 col-xs-12 col-md-12">
         <mat-form-field class="w-100">
-        <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required (change)="selectOccupation(i)">
+        <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required (selectionChange)="selectOccupation(i)">
         <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}">
         {{occupation.value}}
         </mat-option>
@@ -1383,7 +1383,7 @@
         </mat-form-field>
         </div>
         <div class="col-sm-12 col-xs-12"><mat-form-field class="w-100">
-        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required (change)="selectProposerRelation(i)">
+        <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required (selectionChange)="selectProposerRelation(i)">
         <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" >
         {{relationship.value}}
         </mat-option>
@@ -1394,7 +1394,7 @@
         <p class="mr-3" *ngIf="buyProductdetails.product_id != '7'">Do you have any health problem? <span class="error"> *</span></p>
         <p class="mr-3" *ngIf="buyProductdetails.product_id == '7'">Do you have any health problems? Has the person proposed for insurance been advised for treatment of sub-fertility / infertility? <span class="error"> *</span></p>
         <div  fxLayoutAlign="start center">
-        <mat-radio-group [(ngModel)]="item.illness" (change)="illnessStatus($event, i)" required>
+        <mat-radio-group [(ngModel)]="item.illness" (selectionChange)="illnessStatus($event, i)" required>
         <mat-radio-button value="true" class="mr-3">Yes</mat-radio-button>
         <mat-radio-button value="false">No</mat-radio-button>
         </mat-radio-group>
@@ -1415,7 +1415,7 @@
         </div>
         <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
         <p>personal Accident Applicable</p>
-        <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (change)="personalAccident($event, i)"  required [disabled]="item.ins_accident_status" >
+        <mat-radio-group [(ngModel)]="item.ins_personal_accident_applicable" (selectionChange)="personalAccident($event, i)"  required [disabled]="item.ins_accident_status" >
         <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
         <mat-radio-button value="0" checked="true">No</mat-radio-button>
         </mat-radio-group>
@@ -1423,7 +1423,7 @@
         <hr>
         <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
         <p>Does your occupation require you to engage in manual labour?</p>
-        <mat-radio-group [(ngModel)]="item.engage_manual_status" (change)="engageWinter($event, i, 'manual')" required  >
+        <mat-radio-group [(ngModel)]="item.engage_manual_status" (selectionChange)="engageWinter($event, i, 'manual')" required  >
         <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
         <mat-radio-button value="0">No</mat-radio-button>
         </mat-radio-group>
@@ -1433,7 +1433,7 @@
         </div>
         <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
         <p>Do you engage in or propose to engage in any activity or sport which is hazardous or adventurous in nature such as racing mountaineering winter sports etc.</p>
-        <mat-radio-group [(ngModel)]="item.engage_winter_status" (change)="engageWinter($event, i, 'winter')" required  >
+        <mat-radio-group [(ngModel)]="item.engage_winter_status" (selectionChange)="engageWinter($event, i, 'winter')" required  >
         <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
         <mat-radio-button value="0">No</mat-radio-button>
         </mat-radio-group>

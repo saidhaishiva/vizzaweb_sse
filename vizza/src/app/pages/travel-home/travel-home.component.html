@@ -30,7 +30,7 @@
                 </ng-template>
                 <div class="travel">
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure"  (change)="selectedSumAmount()" required>
+                    <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure"  (selectionChange)="selectedSumAmount()" required>
                       <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
                         {{amounts.suminsured_amount}}
                       </mat-option>
@@ -42,7 +42,7 @@
                       <div class="col-md-6" *ngFor="let item of selfArray; let i = index; let last = last">
                         <div class="row" fxLayoutAlign="start center">
                           <div class="col-md-1">
-                            <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
+                            <mat-checkbox [(ngModel)]="item.checked" (selectionChange)="ckeckedUser(i, item.checked, item.name)">
                             </mat-checkbox>
                           </div>
                           <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
@@ -55,7 +55,7 @@
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <mat-checkbox [(ngModel)]="travelUserType" (change)="ckeckedUserType()">
+                        <mat-checkbox [(ngModel)]="travelUserType" (selectionChange)="ckeckedUserType()">
                           Are You Student?
                         </mat-checkbox>
                       </div>
@@ -103,7 +103,7 @@
                     <div class="row mt-2">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()" multiple required>
+                          <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (selectionChange)="changeTravelPlan()" multiple required>
                             <mat-option *ngFor="let list of getAllcountryList" value="{{list.country_name}}">{{list.country_name}}</mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -111,7 +111,7 @@
                       </div>
                       <div class="col-md-6" *ngIf="!travelUserType">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()" required>
+                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (selectionChange)="changeTravelType()" required>
                             <mat-option value="Business">
                               Business
                             </mat-option>
@@ -127,7 +127,7 @@
                       </div>
                     </div>
                     <div *ngIf="travelType == 'Multi'">
-                      <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()" required>
+                      <mat-radio-group class="w-100" [(ngModel)]="duration" (selectionChange)="changeTravelDuration()" required>
                         <div class="row mt-2">
                           <div class="col-md-5">
                             <mat-label>Max trip Duraion (in days) </mat-label>
@@ -144,7 +144,7 @@
                         </div>
                       </mat-radio-group>
                     </div><br>
-                    <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()" required>
+                    <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (selectionChange)="changeMedicalCondition()" required>
                       <div class="row">
                         <div class="col-md-5">
                           <mat-label>Any medical conditions? <span style="color:red;">*</span></mat-label>
@@ -177,7 +177,7 @@
                 <!--<div mat-dialog-content >-->
                 <div class="travel">
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure"  (change)="selectedSumAmount()" required>
+                    <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure"  (selectionChange)="selectedSumAmount()" required>
                       <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
                         {{amounts.suminsured_amount}}
                       </mat-option>
@@ -189,7 +189,7 @@
                         <div class="col-md-6" *ngFor="let item of familyArray; let i = index; let last = last">
                         <div class="row" fxLayoutAlign="start center">
                           <div class="col-md-1">
-                            <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
+                            <mat-checkbox [(ngModel)]="item.checked" (selectionChange)="ckeckedUser(i, item.checked, item.name)">
                             </mat-checkbox>
                           </div>
                           <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
@@ -241,7 +241,7 @@
                     <div class="row mt-2">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()" multiple required>
+                          <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (selectionChange)="changeTravelPlan()" multiple required>
                             <mat-option *ngFor="let list of getAllcountryList" value="{{list.country_name}}">{{list.country_name}}</mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -250,7 +250,7 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()" required>
+                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (selectionChange)="changeTravelType()" required>
                             <mat-option value="Business">
                               Business
                             </mat-option>
@@ -267,7 +267,7 @@
                       </div>
                     </div>
                     <div *ngIf="travelType == 'Multi'">
-                      <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()" required>
+                      <mat-radio-group class="w-100" [(ngModel)]="duration" (selectionChange)="changeTravelDuration()" required>
                         <div class="row mt-2">
                           <div class="col-md-5">
                             <mat-label>Max trip Duraion (in days) </mat-label>
@@ -284,7 +284,7 @@
                         </div>
                       </mat-radio-group>
                     </div><br>
-                    <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()" required>
+                    <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (selectionChange)="changeMedicalCondition()" required>
                       <div class="row">
                         <div class="col-md-5">
                           <mat-label>Any medical conditions? <span style="color:red;">*</span></mat-label>
@@ -725,7 +725,7 @@
               </ng-template>
               <div class="travel">
                 <mat-form-field class="w-100">
-                  <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure"  (change)="selectedSumAmount()" required>
+                  <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure"  (selectionChange)="selectedSumAmount()" required>
                     <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
                       {{amounts.suminsured_amount}}
                     </mat-option>
@@ -737,7 +737,7 @@
                     <div class="col-md-6" *ngFor="let item of selfArray; let i = index; let last = last">
                       <div class="row" fxLayoutAlign="start center">
                         <div class="col-1">
-                          <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
+                          <mat-checkbox [(ngModel)]="item.checked" (selectionChange)="ckeckedUser(i, item.checked, item.name)">
                           </mat-checkbox>
                         </div>
                         <div class="col-4"><span class="text-left">{{item.name}}</span></div>
@@ -750,7 +750,7 @@
                       </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <mat-checkbox [(ngModel)]="travelUserType" (change)="ckeckedUserType()">
+                      <mat-checkbox [(ngModel)]="travelUserType" (selectionChange)="ckeckedUserType()">
                         Are You Student?
                       </mat-checkbox>
                     </div>
@@ -805,7 +805,7 @@
                   <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <mat-form-field class="w-100">
-                        <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()" multiple required>
+                        <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (selectionChange)="changeTravelPlan()" multiple required>
                           <mat-option *ngFor="let list of getAllcountryList" value="{{list.country_name}}">{{list.country_name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
@@ -815,7 +815,7 @@
                   <div class="row" *ngIf="!travelUserType">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <mat-form-field class="w-100">
-                        <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()" required>
+                        <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (selectionChange)="changeTravelType()" required>
                           <mat-option value="Business">
                             Business
                           </mat-option>
@@ -831,7 +831,7 @@
                     </div>
                   </div>
                   <div *ngIf="travelType == 'Multi'">
-                    <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()" required>
+                    <mat-radio-group class="w-100" [(ngModel)]="duration" (selectionChange)="changeTravelDuration()" required>
                       <div class="row mt-2">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                           <mat-label>Max trip Duraion (in days): </mat-label>
@@ -847,7 +847,7 @@
                       </div>
                     </mat-radio-group>
                   </div><br>
-                  <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()" required>
+                  <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (selectionChange)="changeMedicalCondition()" required>
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <mat-label>Any medical conditions?</mat-label>
@@ -883,7 +883,7 @@
               <!--<div mat-dialog-content >-->
               <div class="travel">
                 <mat-form-field class="w-100">
-                  <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure"  (change)="selectedSumAmount()" required>
+                  <mat-select placeholder="SUM INSURED (USD-$)" [(ngModel)]="selectedAmountTravel" name="suminsure"  (selectionChange)="selectedSumAmount()" required>
                     <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
                       {{amounts.suminsured_amount}}
                     </mat-option>
@@ -895,7 +895,7 @@
                     <div class="col-md-6 col-sm-6 col-xs-6" *ngFor="let item of familyArray; let i = index; let last = last">
                       <div class="row" fxLayoutAlign="start center">
                         <div class="col-md-1 col-sm-1 col-xs-1">
-                          <mat-checkbox [(ngModel)]="item.checked" (change)="ckeckedUser(i, item.checked, item.name)">
+                          <mat-checkbox [(ngModel)]="item.checked" (selectionChange)="ckeckedUser(i, item.checked, item.name)">
                           </mat-checkbox>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4"><span class="text-left">{{item.name}}</span></div>
@@ -947,7 +947,7 @@
                   <div class="row mt-2">
                     <div class="col-md-6 col-sm-6 col-xs-6">
                       <mat-form-field class="w-100">
-                        <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()" multiple required>
+                        <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (selectionChange)="changeTravelPlan()" multiple required>
                           <mat-option *ngFor="let list of getAllcountryList" value="{{list.country_name}}">{{list.country_name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
@@ -956,7 +956,7 @@
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6">
                       <mat-form-field class="w-100">
-                        <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()" required>
+                        <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (selectionChange)="changeTravelType()" required>
                           <mat-option value="Business">
                             Business
                           </mat-option>
@@ -973,7 +973,7 @@
                     </div>
                   </div>
                   <div *ngIf="travelType == 'Multi'">
-                    <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()" required>
+                    <mat-radio-group class="w-100" [(ngModel)]="duration" (selectionChange)="changeTravelDuration()" required>
                       <div class="row mt-2">
                         <div class="col-md-5 col-sm-5 col-xs-5">
                           <mat-label>Max trip Duraion (in days) </mat-label>
@@ -990,7 +990,7 @@
                       </div>
                     </mat-radio-group>
                   </div><br>
-                  <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()" required>
+                  <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (selectionChange)="changeMedicalCondition()" required>
                     <div class="row">
                       <div class="col-md-5 col-sm-5 col-xs-5">
                         <mat-label>Any medical conditions?</mat-label>

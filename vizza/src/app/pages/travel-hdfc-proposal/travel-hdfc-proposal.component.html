@@ -116,7 +116,7 @@
                       </mat-form-field></div>
                       <div class="col-md-3 mt-2">
                         <mat-form-field class="w-100" >
-                          <mat-select placeholder="PED" formControlName="ped" autocomplete="off"  (change)="changePed()" required>
+                          <mat-select placeholder="PED" formControlName="ped" autocomplete="off"  (selectionChange)="changePed()" required>
                             <mat-option *ngFor="let item of getpedDetails" value= {{item.pedid}}>
                               {{item.ped}}
                             </mat-option>
@@ -197,7 +197,7 @@
                       </mat-form-field></div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="State" formControlName="state" autocomplete="off"  (change)="getCityList($event)" required>
+                          <mat-select placeholder="State" formControlName="state" autocomplete="off"  (selectionChange)="getCityList($event)" required>
                             <mat-option *ngFor="let state of hdfcTravelStates | keys" value='{{state.key}}'>
                               {{state.value}}
                             </mat-option>
@@ -207,7 +207,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100" >
-                          <mat-select placeholder="City" formControlName="city" autocomplete="off" (change)="selectCity()" required>
+                          <mat-select placeholder="City" formControlName="city" autocomplete="off" (selectionChange)="selectCity()" required>
                             <mat-option *ngFor="let city of hdfcTravelCity | keys" [value]= 'city.key'>
                               {{city.value}}
                             </mat-option>
@@ -244,7 +244,7 @@
                       <!--<h6 class="color-blue">INSURED DETAILS</h6>-->
                       <div class="row">
                         <div class="col-md-12 mb-3" *ngIf="i == 0" >
-                          <div class="col-md-12 mt-4"><mat-checkbox formControlName="sameAsProposer" (change)="sameasInsurerDetails()"><strong>Same as proposer</strong></mat-checkbox></div>
+                          <div class="col-md-12 mt-4"><mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameasInsurerDetails()"><strong>Same as proposer</strong></mat-checkbox></div>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
@@ -300,7 +300,7 @@
 
                         <div class="col-md-3" [ngStyle]="{'pointer-events': hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}" *ngIf="i == 0">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Proposer"  formControlName="InsuredRelation" (change)="selectRelation(i)" required >
+                            <mat-select placeholder="Relationship with Proposer"  formControlName="InsuredRelation" (selectionChange)="selectRelation(i)" required >
                               <mat-option *ngFor="let lists of insuredRelationshipDetails | keys" [hidden]="lists.key == 'E'" value="{{lists.value}}" >
                                 {{lists.value}}
                               </mat-option>
@@ -310,7 +310,7 @@
                         </div>
                         <div class="col-md-3" [ngStyle]="{'pointer-events': hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}" *ngIf="i != 0">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Proposer"  formControlName="InsuredRelation" (change)="selectRelation(i)" required >
+                            <mat-select placeholder="Relationship with Proposer"  formControlName="InsuredRelation" (selectionChange)="selectRelation(i)" required >
                               <mat-option *ngFor="let lists of insuredRelationshipDetails | keys" [hidden]="lists.key == 'E'" value="{{lists.key}}" >
                                 {{lists.value}}
                               </mat-option>
@@ -359,7 +359,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Insured"  formControlName="NomineeRelation" (change)="selectNomineRelation()"  required >
+                          <mat-select placeholder="Relationship with Insured"  formControlName="NomineeRelation" (selectionChange)="selectNomineRelation()"  required >
                             <mat-option *ngFor="let lists of nomineeRelationshipDetails | keys" [hidden]="sameRelationship == lists.value" value="{{lists.value}}">
                               {{lists.value}}
                             </mat-option>

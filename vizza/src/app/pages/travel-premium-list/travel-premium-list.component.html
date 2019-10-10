@@ -32,7 +32,7 @@
               <th class="sun-insured col-md-1">
                 <mat-form-field >
                   <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured (USD $)</mat-placeholder>
-                  <mat-select [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()">
+                  <mat-select [(ngModel)]="selectedAmountTravel" (selectionChange)="updateSumInsured()">
                     <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
                       $ {{amounts.suminsured_amount}}
                     </mat-option>
@@ -210,7 +210,7 @@
             <!--</mat-form-field>-->
             <mat-form-field>
               <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured (USD $)</mat-placeholder>
-              <mat-select [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()">
+              <mat-select [(ngModel)]="selectedAmountTravel" (selectionChange)="updateSumInsured()">
                 <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
                   $ {{amounts.suminsured_amount}}
                 </mat-option>

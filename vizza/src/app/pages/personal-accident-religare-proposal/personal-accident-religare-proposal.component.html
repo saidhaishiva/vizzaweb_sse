@@ -19,7 +19,7 @@
                      <div class="row" >
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="insuredTitle" (change)="insurechangeGender()"  required>
+                          <mat-select placeholder="Title" formControlName="insuredTitle" (selectionChange)="insurechangeGender()"  required>
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MS">Ms</mat-option>
                             <!--<mat-option value="MRS">Mrs</mat-option>-->
@@ -63,7 +63,7 @@
                       </mat-form-field></div>
                         <div class="col-md-3" >
                             <mat-form-field class="w-100" >
-                                <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode(); changeOccupation()"   required>
+                                <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationCode" (selectionChange)="setinsureOccupationListCode(); changeOccupation()"   required>
                                     <mat-option *ngFor="let occupation of occupationCode | keys" value="{{occupation.key}}">{{occupation.value}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredOccupationCode.errors?.required">Occupation is required</mat-error>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-md-3" >
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="Occupation List" name="occupation" formControlName="insuredDescriptionCode"   (change)="setinsureDescriptionListCode(); changeDescription()" required>
+                                <mat-select placeholder="Occupation List" name="occupation" formControlName="insuredDescriptionCode"   (selectionChange)="setinsureDescriptionListCode(); changeDescription()" required>
                                     <mat-option *ngFor="let occupation of insureoccupationdescriptionList | keys " value="{{occupation.key}}">{{occupation.value}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredDescriptionCode.errors?.required">Occupation List is required</mat-error>
@@ -177,7 +177,7 @@
                                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                     </mat-form-field></div>
                                     <div class="col-md-6"><mat-form-field class="w-100" >
-                                        <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off" (change)="changeCity()" required>
+                                        <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off" (selectionChange)="changeCity()" required>
                                             <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.value'>
                                                 {{city.value}}
                                             </mat-option>
@@ -198,7 +198,7 @@
                                 <div class="row">
                                     <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                                     <div class="text-right w-50">
-                                        <mat-checkbox formControlName="sameasInsuredAddress" (change)="insuredsameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                                        <mat-checkbox formControlName="sameasInsuredAddress" (selectionChange)="insuredsameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -227,7 +227,7 @@
                                     </mat-form-field></div>
                                     <div class="col-md-6" [ngStyle]="{'pointer-events':inputReadonly ? 'none' : ''}">
                                         <mat-form-field class="w-100 mb-2">
-                                            <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" (change)="changeRCity()" required>
+                                            <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" (selectionChange)="changeRCity()" required>
                                                 <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.value'>
                                                     {{citys.value}}
                                                 </mat-option>
@@ -363,7 +363,7 @@
                       </div>
                         <div class="col-md-4">
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="Relationship With Insured"  formControlName="religareRelationship"  (change)="setRelationship()" required  >
+                                <mat-select placeholder="Relationship With Insured"  formControlName="religareRelationship"  (selectionChange)="setRelationship()" required  >
                                     <mat-option *ngFor="let relation of relationshipList | keys"  [hidden]="relation.key == '1'" value="{{relation.value}}">{{relation.value}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredrelationship.errors?.required">Relationship With Insured is required</mat-error>
@@ -733,7 +733,7 @@
                             <div class="row" >
                                 <div class="col-sm-12 col-xs-12 col-md-12">
                                     <mat-form-field class="w-100">
-                                        <mat-select placeholder="Title" formControlName="insuredTitle" (change)="insurechangeGender()"  required>
+                                        <mat-select placeholder="Title" formControlName="insuredTitle" (selectionChange)="insurechangeGender()"  required>
                                             <mat-option value="MR">Mr</mat-option>
                                             <mat-option value="MS">Ms</mat-option>
                                             <!--<mat-option value="MRS">Mrs</mat-option>-->
@@ -777,7 +777,7 @@
                                 </mat-form-field></div>
                                 <div class="col-sm-12 col-xs-12 col-md-12" >
                                     <mat-form-field class="w-100" >
-                                        <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode(); changeOccupation()"   required>
+                                        <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationCode" (selectionChange)="setinsureOccupationListCode(); changeOccupation()"   required>
                                             <mat-option *ngFor="let occupation of occupationCode | keys" value="{{occupation.key}}">{{occupation.value}}</mat-option>
                                         </mat-select>
                                         <mat-error *ngIf="insured.controls.insuredOccupationCode.errors?.required">Occupation is required</mat-error>
@@ -786,7 +786,7 @@
                                 </div>
                                 <div class="col-sm-12 col-xs-12 col-md-12" >
                                     <mat-form-field class="w-100">
-                                        <mat-select placeholder="Occupation List" name="occupation" formControlName="insuredDescriptionCode"   (change)="setinsureDescriptionListCode(); changeDescription()" required>
+                                        <mat-select placeholder="Occupation List" name="occupation" formControlName="insuredDescriptionCode"   (selectionChange)="setinsureDescriptionListCode(); changeDescription()" required>
                                             <mat-option *ngFor="let occupation of insureoccupationdescriptionList | keys " value="{{occupation.key}}">{{occupation.value}}</mat-option>
                                         </mat-select>
                                         <mat-error *ngIf="insured.controls.insuredDescriptionCode.errors?.required">Occupation List is required</mat-error>
@@ -801,7 +801,7 @@
                                 </div>
                                 <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="insureoccupationClass">
                                     <mat-form-field class="w-100" >
-                                        <mat-select placeholder="Occupation Description" name="occupation" formControlName="insuredClassDescriptionCode" (change)="changeOccupationDescription()">
+                                        <mat-select placeholder="Occupation Description" name="occupation" formControlName="insuredClassDescriptionCode" (selectionChange)="changeOccupationDescription()">
                                             <mat-option *ngFor="let classOccupation of insureClassDescription"  value="{{classOccupation.occupation_class_description}}">{{classOccupation.occ_name}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
@@ -891,7 +891,7 @@
                                             <mat-error *ngIf="insured.controls.insuredPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                         </mat-form-field></div>
                                         <div class="col-sm-12 col-xs-12 col-md-12"><mat-form-field class="w-100" >
-                                            <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off" (change)="changeCity()" required>
+                                            <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off" (selectionChange)="changeCity()" required>
                                                 <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.key'>
                                                     {{city.value}}
                                                 </mat-option>
@@ -913,7 +913,7 @@
                                     <div class="row">
                                         <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                                         <div class="text-right w-50">
-                                            <mat-checkbox formControlName="sameasInsuredAddress" (change)="insuredsameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                                            <mat-checkbox formControlName="sameasInsuredAddress" (selectionChange)="insuredsameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -941,7 +941,7 @@
                                         </mat-form-field></div>
                                         <div class="col-sm-12 col-xs-12 col-md-12" [ngStyle]="{'pointer-events':inputReadonly ? 'none' : ''}">
                                             <mat-form-field class="w-100 mb-2">
-                                                <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" (change)="changeRCity()" required>
+                                                <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" (selectionChange)="changeRCity()" required>
                                                     <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
                                                         {{citys.value}}
                                                     </mat-option>
@@ -1028,7 +1028,7 @@
                                 </div>
                                 <div class="col-sm-12 col-xs-12 col-md-12">
                                     <mat-form-field class="w-100">
-                                        <mat-select placeholder="Relationship With Insured"  formControlName="religareRelationship"  (change)="setRelationship()" required  >
+                                        <mat-select placeholder="Relationship With Insured"  formControlName="religareRelationship"  (selectionChange)="setRelationship()" required  >
                                             <mat-option *ngFor="let relation of relationshipList | keys"  [hidden]="relation.key == '1'" value="{{relation.value}}">{{relation.value}}</mat-option>
                                         </mat-select>
                                         <mat-error *ngIf="insured.controls.insuredrelationship.errors?.required">Relationship With Insured is required</mat-error>
