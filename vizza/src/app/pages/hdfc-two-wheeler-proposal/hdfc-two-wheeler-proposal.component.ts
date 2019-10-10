@@ -202,7 +202,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             // vechicleidv: ['', Validators.required],
             Financetype: false,
             Agreement: [''],
-            financiercode: [''],
+            financiercode: '',
             fibranchname: [''],
             Previouscompanyvalue: [''],
             financiercodevalue: [''],
@@ -584,7 +584,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     //
     //stepper
     nextTab(stepper, value, type) {
-
         if (type == 'stepper1') {
             console.log(value, 'value');
             // this.proposerData = value;
@@ -1143,8 +1142,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     //create proposal
     createproposal(stepper: MatStepper) {
-
-
         let stringToSplit;
         stringToSplit = this.vehicledata.vehicle_no.toUpperCase();
         var pos = stringToSplit.search('-');
@@ -1232,9 +1229,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'PreviousPolicyEndDate': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y') : '',
                     'ProposalDate': this.tod,
 
-                    // "AgreementType": "",
-                    // "FinancierCode": "",
-                    // "BranchName": "",
+                    "AgreementType": this.vechicle.controls['Agreement'].value,
+                    "FinancierCode": this.vechicle.controls['financiercode'].value,
+                    "BranchName": this.vechicle.controls['fibranchname'].value,
                     'PreviousPolicy_CorporateCustomerId_Mandatary': this.regvalue != 'New Vehicle' ? this.vechicle.controls['Previouscompany'].value : '',
                     'PreviousPolicy_NCBPercentage': this.regvalue != 'New Vehicle' ? this.vechicle.controls['ncb'].value : '',
                     'PreviousPolicy_PolicyEndDate': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y') : '',

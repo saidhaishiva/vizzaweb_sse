@@ -47,6 +47,11 @@ export class BajajGoldSurakshaComponent implements OnInit {
   public redirectUrl: any;
   public pincodeErrors: any;
   public webhost: any;
+  public getpolicyTerm: any;
+  public paymentTerm: any;
+  public PaymentFreq: any;
+  public age: any;
+  public spouseDobError: any;
   public settings: Settings;
 
   constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public commonservices: CommonService,public auth: AuthService, public validation: ValidationService,public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog,public config: ConfigurationService,public appSettings: AppSettings) {
@@ -78,6 +83,9 @@ export class BajajGoldSurakshaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getPolicyTerm();
+    this.getPaymentTerm();
+    this.getPaymentFreq();
     this.setDate = Date.now();
     this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
     this.route.params.forEach((params) => {
@@ -88,55 +96,219 @@ export class BajajGoldSurakshaComponent implements OnInit {
   FireInsurer() {
 
   }
+  // addEvent(event) {
+  //   this.selectDate = event.value;
+  //   this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+  // }
   addEvent(event) {
-    this.selectDate = event.value;
-    this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+    if (event.value != null) {
+      let selectedDate = '';
+      this.age = '';
+      let dob = '';
+      if (typeof event.value._i == 'string') {
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (pattern.test(event.value._i) && event.value._i.length == 10) {
+          this.spouseDobError = '';
+        } else {
+          this.spouseDobError = 'Enter Valid Date';
+        }
+        selectedDate = event.value._i;
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (selectedDate.length == 10) {
+          this.age = this.ageCalculate(dob);
+          sessionStorage.age = this.age;
+          console.log( sessionStorage.age,'age');
+
+
+        }
+
+      } else if (typeof event.value._i == 'object') {
+        // dob = this.datepipe.transform(event.value, 'MMM d, y');
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (dob.length == 10) {
+          this.age = this.ageCalculate(dob);
+          sessionStorage.age = this.age;
+          console.log( sessionStorage.age,'age');
+
+        }
+        console.log( sessionStorage.age,'age');
+
+        this.spouseDobError = '';
+      }
+
+    }
   }
+  ageCalculate(dob) {
+    let today = new Date();
+    let birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    let dd = today.getDate() - birthDate.getDate();
+    if (m < 0 || m == 0 && today.getDate() < birthDate.getDate()) {
+      age = age - 1;
+    }
+    return age;
+  }
+  getPolicyTerm() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+    }
+    this.commonservices.getPolicyTerm(data).subscribe(
+        (successData) => {
+          this.getpolicyTermSuccess(successData);
+        },
+        (error) => {
+          this.getpolicyTermFailure(error);
+        }
+    );
+    console.log(data,'datapin')
+  }
+
+
+  public getpolicyTermSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.getpolicyTerm = successData.ResponseObject;
+      sessionStorage.getpolicyTerm = JSON.stringify(this.getpolicyTerm);
+
+    }
+  }
+  public getpolicyTermFailure(error) {
+  }
+  getPaymentTerm() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      'policy_term':this.bajajgold.controls.policyTerm.value,
+    }
+    this.commonservices.getPaymentTerm(data).subscribe(
+        (successData) => {
+          this.getPaymentTermSuccess(successData);
+        },
+        (error) => {
+          this.getPaymentTermFailure(error);
+        }
+    );
+    console.log(data,'datapin')
+  }
+
+
+  public getPaymentTermSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.paymentTerm = successData.ResponseObject;
+      sessionStorage.paymentTerm = JSON.stringify(this.paymentTerm);
+
+    }
+  }
+  public getPaymentTermFailure(error) {
+  }
+  getPaymentFreq() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+    }
+    this.commonservices.getPaymentFreq(data).subscribe(
+        (successData) => {
+          this.getPaymentFreqSuccess(successData);
+        },
+        (error) => {
+          this.getPaymentFreqFailure(error);
+        }
+    );
+    console.log(data,'datapin')
+  }
+
+
+  public getPaymentFreqSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.PaymentFreq = successData.ResponseObject;
+      sessionStorage.PaymentFreq = JSON.stringify(this.PaymentFreq);
+
+    }
+  }
+  public getPaymentFreqFailure(error) {
+  }
+
+  getage(){
+    if(sessionStorage.age > 18){
+      let appointeeAge = true;
+    }
+    else {
+    }
+  }
+
   getSubmitDetails(values) {
 
     if (this.bajajgold.valid) {
-      const data = {
-        "platform": "web",
-        "created_by": "0",
-        'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-        "firstName": this.bajajgold.controls['fname'].value,
-        "lastName":this.bajajgold.controls['lname'].value,
-        "dob": this.bajajgold.controls['dob'].value,
-        "gender": this.bajajgold.controls['gender'].value,
-        "mobile": this.bajajgold.controls['mobile'].value,
-        "email": this.bajajgold.controls['email'].value,
-        "pincode": this.bajajgold.controls['pincode'].value,
-        "policyTerm": this.bajajgold.controls['policyTerm'].value,
-        "paymentTerm": this.bajajgold.controls['paymentTerm'].value,
-        "premium":this.bajajgold.controls['premium'].value,
-        "paymentFrequency": this.bajajgold.controls['frequency'].value,
-        "pos_id": "39"
-        // this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
+      if (sessionStorage.age > 18 && sessionStorage.age < 65 ) {
+        if (this.bajajgold.controls.premium.value > 300000 && this.bajajgold.controls.premium.value < 1000000) {
 
-      };
+          const data = {
+            "platform": "web",
+            "created_by": "0",
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            "firstName": this.bajajgold.controls['fname'].value,
+            "lastName": this.bajajgold.controls['lname'].value,
+            "dob": this.bajajgold.controls['dob'].value,
+            "gender": this.bajajgold.controls['gender'].value,
+            "mobile": this.bajajgold.controls['mobile'].value,
+            "email": this.bajajgold.controls['email'].value,
+            "pincode": this.bajajgold.controls['pincode'].value,
+            "policyTerm": this.bajajgold.controls['policyTerm'].value,
+            "paymentTerm": this.bajajgold.controls['paymentTerm'].value,
+            "premium": this.bajajgold.controls['premium'].value,
+            "paymentFrequency": this.bajajgold.controls['frequency'].value,
+            "pos_id": "197"
+            // this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
 
-      this.commonservices.getUpdateDetails(data).subscribe(
-          (successData) => {
-            this.getUpdateSuccess(successData);
-            // this.redirectUrl = successData.ResponseObject.redirect_url;
+          };
 
-          },
-          (error) => {
-            this.getUpdateFailure(error);
-          }
-      );
+          this.commonservices.getUpdateDetails(data).subscribe(
+              (successData) => {
+                this.getUpdateSuccess(successData);
+                // this.redirectUrl = successData.ResponseObject.redirect_url;
+
+              },
+              (error) => {
+                this.getUpdateFailure(error);
+              }
+          );
+        } else {
+          this.toastr.error(' Sum Assured Should Be between 30,000 to 10,00,000.');
+
+        }
+      }
+    else
+      {
+        this.toastr.error('Age should be greater than 18 and less than 65.');
+
+      }
+
     }
   }
+
   getUpdateSuccess(successData) {
     this.redirectUrl = successData.ResponseObject.redirect_url;
     console.log(this.redirectUrl, 'redirect')
     this.window.open(this.redirectUrl,'_top');
 
   }
+
   getUpdateFailure(error) {
   }
+//   else
+// {
+//   this.toastr.error('Age should be greater than 18.');
+//
+// }
   getPincodeDetails(pin, title) {
     this.pin = pin;
     this.title = title;

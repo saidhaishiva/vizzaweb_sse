@@ -92,6 +92,13 @@ export class HdfcCarProposalComponent implements OnInit {
     public vehicleRegNumber: any;
     public vehicleRegNo: any;
     public buyFourwheelerProductDetails: any;
+    public errortoaster: boolean;
+    public finlist: any;
+    photos = [];
+    photosBuffer = [];
+    bufferSize = 50;
+    numberOfItemsFromEndBeforeFetchingMore = 10;
+    loading = false;
 
   constructor(public fb: FormBuilder,public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe ,public Fourwheeler: FourWheelerService) {
       let stepperindex = 0;
@@ -218,13 +225,13 @@ export class HdfcCarProposalComponent implements OnInit {
           IsCOCcover: [''],
           engineandgear: [''],
           downtimeprotector: [''],
-          IsEAAdvance_Cover:[''],
-          IsEMIprotector_Cover:[''],
-          EAW:[''],
-          NoofUnnamedPerson:[''],
-          namedPerson:[''],
-          noOfEmi:[''],
-          EMIamount:['']
+          IsEAAdvance_Cover: [''],
+          IsEMIprotector_Cover: [''],
+          EAW: [''],
+          NoofUnnamedPerson: [''],
+          namedPerson: [''],
+          noOfEmi: [''],
+          EMIamount: ['']
       });
       this.BankDetails = this.fb.group({
           // Bankname: ['', Validators.required],
@@ -249,8 +256,8 @@ export class HdfcCarProposalComponent implements OnInit {
       this.extensioncountry();
       this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
       this.carEquiryId = sessionStorage.fwEnquiryId;
-      this.vehicleidv=JSON.parse(sessionStorage.buyFourwheelerProductDetails);
-      this.buyFourwheelerProductDetails=JSON.parse(sessionStorage.buyFourwheelerProductDetails);
+      this.vehicleidv = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
+      this.buyFourwheelerProductDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
       let stringToSplit;
       stringToSplit = this.vehicledata.vehicle_no.toUpperCase();
       let x = stringToSplit.slice(0, 2);
@@ -483,21 +490,80 @@ export class HdfcCarProposalComponent implements OnInit {
             }
         );
     }
+    // financiername() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    //     };
+    //     this.bikeInsurance.hdfcGetFinancierNameList(data).subscribe(
+    //         (successData) => {
+    //             this.financesuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.failureSuccess(error);
+    //         }
+    //     );
+    // }
     financiername() {
         const data = {
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-        };
+
+        }
         this.bikeInsurance.hdfcGetFinancierNameList(data).subscribe(
             (successData) => {
-                this.financesuccess(successData);
+                this.financiersuccess(successData);
             },
             (error) => {
-                this.failureSuccess(error);
+                this.financierFailure(error);
             }
         );
     }
+
+    public financiersuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.errortoaster = true;
+            this.finlist = successData.ResponseObject;
+            this.photos = successData.ResponseObject.bankdetails;
+            console.log(this.photos,'photos');
+            this.photosBuffer = this.photos.slice(0, this.bufferSize);
+            console.log(this.photosBuffer,'photos');
+            this.changefinancecompany();
+        } else {
+            this.errortoaster = false;
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+
+    public financierFailure(error) {
+    }
+    onScrollToEnd() {
+        this.fetchMore();
+    }
+
+    onScroll({ end }) {
+        if (this.loading || this.photos.length <= this.photosBuffer.length) {
+            return;
+        }
+
+        if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
+            this.fetchMore();
+        }
+    }
+
+    private fetchMore() {
+        const len = this.photosBuffer.length;
+        const more = this.photos.slice(len, this.bufferSize + len);
+        this.loading = true;
+        // using timeout here to simulate backend API delay
+        setTimeout(() => {
+            this.loading = false;
+            this.photosBuffer = this.photosBuffer.concat(more);
+        }, 200)
+    }
+
     onsubmit(value1){
         console.log(this.addOns.controls['NomineeName'].value,'sdfsadf');
         if (this.addOns.controls['NomineeName'].value != ''){

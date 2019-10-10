@@ -1364,10 +1364,120 @@ export class EdelweissPosComponent implements OnInit {
 
 
   }
-  // investingreq(){
-  //   alert('invest');
-  //
-  // }
+//   investingreq() {
+//     alert('spouse');
+//   if (this.insureArray.controls['investing'].value == 'SPOUSE') {
+//   this.insureArray.controls['title'].patchValue(this.insureArray.controls['title'].value),
+//   this.insureArray.controls['titleName'].patchValue(this.insureArray.controls['titleName'].value),
+//   this.insureArray.controls['firstName'].patchValue(this.insureArray.controls['firstName'].value),
+//   this.insureArray.controls['midName'].patchValue(this.insureArray.controls['midName'].value),
+//   this.insureArray.controls['lastName'].patchValue(this.insureArray.controls['lastName'].value),
+//   this.insureArray.controls['gender'].patchValue(this.insureArray.controls['gender'].value),
+//   this.insureArray.controls['dob'].patchValue(this.insureArray.controls['dob'].value),
+//   this.insureArray.controls['maritalStatus'].patchValue(this.insureArray.controls['maritalStatus'].value),
+//   this.insureArray.controls['maritalStatusName'].patchValue(this.insureArray.controls['maritalStatusName'].value),
+//   this.insureArray.controls['nationality'].patchValue(this.insureArray.controls['nationality'].value),
+//   this.insureArray.controls['emailId'].patchValue(this.insureArray.controls['emailId'].value),
+//   this.insureArray.controls['pan'].patchValue(this.insureArray.controls['pan'].value),
+//   this.insureArray.controls['aadhaarNo'].patchValue(this.insureArray.controls['aadhaarNo'].value),
+//   this.insureArray.controls['fatherhusbandName'].patchValue(this.insureArray.controls['fatherhusbandName'].value),
+//   this.insureArray.controls['ageProofId'].patchValue(this.insureArray.controls['ageProofId'].value),
+//   this.insureArray.controls['ageProofIdName'].patchValue(this.insureArray.controls['ageProofIdName'].value),
+//   this.insureArray.controls['highestQualification'].patchValue(this.insureArray.controls['highestQualification'].value),
+//   this.insureArray.controls['highestQualificationName'].patchValue(this.insureArray.controls['highestQualificationName'].value),
+//   this.insureArray.controls['otherQualification'].patchValue(this.insureArray.controls['otherQualification'].value),
+//   this.insureArray.controls['mobileNo'].patchValue(this.insureArray.controls['mobileNo'].value),
+//   this.insureArray.controls['isStaff'].patchValue(this.insureArray.controls['isStaff'].value),
+//   this.insureArray.controls['employeeCode'].patchValue(this.insureArray.controls['employeeCode'].value),
+//   // this.insureArray.controls['stitle'].patchValue(this.proposer.controls['stitle'].value),
+//   // this.insureArray.controls['sfirstName'].patchValue(this.proposer.controls['sfirstName'].value),
+//   // this.insureArray.controls['smidName'].patchValue(this.proposer.controls['smidName'].value),
+//   // this.insureArray.controls['slastName'].patchValue(this.proposer.controls['slastName'].value),
+//   // this.insureArray.controls['sdob'].patchValue(this.proposer.controls['sdob'].value),
+//   // this.insureArray.controls['semailId'].patchValue(this.proposer.controls['semailId'].value),
+//   // this.insureArray.controls['smobileNo'].patchValue(this.proposer.controls['smobileNo'].value),
+//   // this.insureArray.controls['isSmokerSpouse'].patchValue(this.proposer.controls['isSmokerSpouse'].value),
+//   // this.insureArray.controls['isStaffSpouse'].patchValue(this.proposer.controls['isStaffSpouse'].value),
+//   // this.insureArray.controls['employeeCodeSpouse'].patchValue(this.proposer.controls['employeeCodeSpouse'].value),
+//   // this.insureArray.controls['relationSpouseInsurer'].patchValue(this.proposer.controls['relationSpouseProposer'].value),
+//   // this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.proposer.controls['relationSpouseProposerName'].value),
+//   this.insureArray.controls['currAddr1'].patchValue(this.insureArray.controls['currAddr1'].value),
+//   this.insureArray.controls['currAddr2'].patchValue(this.insureArray.controls['currAddr2'].value),
+//   this.insureArray.controls['currAddr3'].patchValue(this.insureArray.controls['currAddr3'].value),
+//   this.insureArray.controls['currPincode'].patchValue(this.insureArray.controls['currPincode'].value),
+//   this.insureArray.controls['currState'].patchValue(this.insureArray.controls['currState'].value),
+//   this.insureArray.controls['currCity'].patchValue(this.insureArray.controls['currCity'].value),
+//   this.insureArray.controls['perAddr1'].patchValue(this.insureArray.controls['perAddr1'].value),
+//   this.insureArray.controls['perAddr2'].patchValue(this.insureArray.controls['perAddr2'].value),
+//   this.insureArray.controls['perAddr3'].patchValue(this.insureArray.controls['perAddr3'].value),
+//   this.insureArray.controls['perPincode'].patchValue(this.insureArray.controls['perPincode'].value),
+//   this.insureArray.controls['perState'].patchValue(this.insureArray.controls['perState'].value),
+//   this.insureArray.controls['perCity'].patchValue(this.insureArray.controls['perCity'].value),
+//   this.insureArray.controls['isCurrPerAddrSame'].patchValue(this.insureArray.controls['isCurrPerAddrSame'].value),
+//   this.insureArray.controls['employementTypeOther'].patchValue(this.insureArray.controls['employementTypeOther'].value),
+//   this.insureArray.controls['employementType'].patchValue(this.insureArray.controls['employementType'].value),
+//   this.insureArray.controls['employementTypeName'].patchValue(this.insureArray.controls['employementTypeName'].value),
+//   this.insureArray.controls['employerName'].patchValue(this.insureArray.controls['employerName'].value),
+//   this.insureArray.controls['natureduty'].patchValue(this.insureArray.controls['natureduty'].value),
+//   this.insureArray.controls['naturedutyName'].patchValue(this.insureArray.controls['naturedutyName'].value),
+//   this.insureArray.controls['employerAddr'].patchValue(this.insureArray.controls['employerAddr'].value),
+//   this.insureArray.controls['annualIncome'].patchValue(this.insureArray.controls['annualIncome'].value),
+//   this.insureArray.controls['taxResidence'].patchValue(this.insureArray.controls['taxResidence'].value)
+//   console.log(this.insureArray.controls['title'].value, 'ghghghj');
+// } else  {
+//   this.insureArray.controls['title'].patchValue(''),
+//       this.insureArray.controls['titleName'].patchValue(''),
+//       this.insureArray.controls['firstName'].patchValue(''),
+//       this.insureArray.controls['midName'].patchValue(''),
+//       this.insureArray.controls['lastName'].patchValue(''),
+//       this.insureArray.controls['gender'].patchValue(''),
+//       this.insureArray.controls['dob'].patchValue(''),
+//       this.insureArray.controls['maritalStatus'].patchValue(''),
+//       this.insureArray.controls['nationality'].patchValue(''),
+//       this.insureArray.controls['emailId'].patchValue(''),
+//       this.insureArray.controls['pan'].patchValue(''),
+//       this.insureArray.controls['aadhaarNo'].patchValue(''),
+//       this.insureArray.controls['fatherhusbandName'].patchValue(''),
+//       this.insureArray.controls['ageProofId'].patchValue(''),
+//       this.insureArray.controls['ageProofIdName'].patchValue(''),
+//       this.insureArray.controls['highestQualification'].patchValue(''),
+//       this.insureArray.controls['highestQualificationName'].patchValue(''),
+//       this.insureArray.controls['otherQualification'].patchValue(''),
+//       this.insureArray.controls['mobileNo'].patchValue(''),
+//       this.insureArray.controls['isStaff'].patchValue(''),
+//       this.insureArray.controls['employeeCode'].patchValue(''),
+//       // this.insureArray.controls['stitle'].patchValue(''),
+//       // this.insureArray.controls['sfirstName'].patchValue(''),
+//       // this.insureArray.controls['smidName'].patchValue(''),
+//       // this.insureArray.controls['slastName'].patchValue(''),
+//       // this.insureArray.controls['sdob'].patchValue(''),
+//       // this.insureArray.controls['semailId'].patchValue(''),
+//       // this.insureArray.controls['smobileNo'].patchValue(''),
+//       // this.insureArray.controls['isSmokerSpouse'].patchValue(''),
+//       // this.insureArray.controls['isStaffSpouse'].patchValue(''),
+//       this.insureArray.controls['currAddr1'].patchValue(''),
+//       this.insureArray.controls['currAddr2'].patchValue(''),
+//       this.insureArray.controls['currAddr3'].patchValue(''),
+//       this.insureArray.controls['currPincode'].patchValue(''),
+//       this.insureArray.controls['currState'].patchValue(''),
+//       this.insureArray.controls['currCity'].patchValue(''),
+//       this.insureArray.controls['perAddr1'].patchValue(''),
+//       this.insureArray.controls['perAddr2'].patchValue(''),
+//       this.insureArray.controls['perAddr3'].patchValue(''),
+//       this.insureArray.controls['perPincode'].patchValue(''),
+//       this.insureArray.controls['perState'].patchValue(''),
+//       this.insureArray.controls['perCity'].patchValue(''),
+//       this.insureArray.controls['isCurrPerAddrSame'].patchValue(''),
+//       this.insureArray.controls['employementTypeOther'].patchValue(''),
+//       this.insureArray.controls['employementType'].patchValue(''),
+//       this.insureArray.controls['employerName'].patchValue(''),
+//       this.insureArray.controls['natureduty'].patchValue(''),
+//       this.insureArray.controls['employerAddr'].patchValue(''),
+//       this.insureArray.controls['annualIncome'].patchValue(''),
+//       this.insureArray.controls['taxResidence'].patchValue('')
+//
+// }
+//   }
 
   addEventNominee(event, i, type) {
     if(type == 'nominee') {
@@ -1766,6 +1876,7 @@ export class EdelweissPosComponent implements OnInit {
     if (sessionStorage.appointeeAge != '' && sessionStorage.appointeeAge != undefined) {
       if (sessionStorage.appointeeAge > 18) {
         appointeeAge = true;
+        console.log(appointeeAge,'appointeeAge');
       }
     }
 
@@ -1773,6 +1884,7 @@ export class EdelweissPosComponent implements OnInit {
     if (sessionStorage.appointeeAge2 != '' && sessionStorage.appointeeAge2 != undefined ) {
       if ( sessionStorage.appointeeAge2 > 18 ) {
         appointeeAge2 = true;
+        console.log(appointeeAge2,'appointeeAge2')
       }
     }
     console.log(sessionStorage.appointeeAge,'appointeeAge11222');
@@ -1802,19 +1914,19 @@ export class EdelweissPosComponent implements OnInit {
         // console.log(nominee2ageval,'nominee2ageval33333333');
 
         if (appointeeAge ) {
-          // console.log(appointeeAge,'appointeeAgeentry')
+          console.log(appointeeAge,'appointeeAgeentry')
           if (appointeeAge2 || sessionStorage.appointeeAge2 == undefined ) {
-            // console.log(appointeeAge2,'aappointeeAge2eentry')
+            console.log(appointeeAge2,'aappointeeAge2eentry')
             stepper.next();
             this.topScroll();
             // console.log(appointeeAge2,'falseApp');
           }
           else {
-            this.toastr.error('Appointee2 Age should be greater than 18.');
+            this.toastr.error('Appointee 2 age should be greater than 18.');
             // console.log('1111');
           }
         } else {
-          this.toastr.error('Appointee Age should be greater than 18.');
+          this.toastr.error('Appointee age should be greater than 18.');
           // console.log('2222');
         }
       } else {
