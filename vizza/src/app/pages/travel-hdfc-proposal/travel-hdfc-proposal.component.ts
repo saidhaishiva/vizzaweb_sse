@@ -14,6 +14,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
+import { WINDOW } from '@ng-toolkit/universal';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -97,7 +98,7 @@ export class TravelHdfcProposalComponent implements OnInit {
 
 
 
-    constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
+    constructor(@Inject(WINDOW) private window: Window, public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -195,7 +196,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.stepperindex = 3;
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
-            if (window.innerWidth <= 768) {
+            if (this.window.innerWidth <= 768) {
                 this.mobileView = true;
             } else {
                 this.mobileView = false;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {TravelService} from '../../shared/services/travel.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,6 +8,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {MatDialog} from '@angular/material';
 import {Settings} from '../../app.settings.model';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-shriram-motor-payment-success',
@@ -22,7 +23,7 @@ export class ShriramMotorPaymentSuccessComponent implements OnInit {
   public proposalId: any
   public settings: Settings;
 
-  constructor(public config: ConfigurationService, public bikeService: BikeInsuranceService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public bikeService: BikeInsuranceService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
     this.route.params.forEach((params) => {
       console.log(params);
@@ -64,17 +65,7 @@ export class ShriramMotorPaymentSuccessComponent implements OnInit {
     //   this.currenturl = this.config.getimgUrl();
     //     if (this.type == 'pdf') {
     //       console.log(successData.ResponseObject, 'www333');
-    //       window.open(this.path,'_blank');
-    //     } else if (this.type === 'pdf') {
-    //       console.log(successData.ResponseObject, 'www3444');
-    //       window.open(this.path,'_blank');
-    // } else {
-    //         this.toast.error(successData.ErrorObject);
-    //
-    //     }
-    // }
-
-    console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
+    //       this.window.log(successData.ResponseObject, 'ssssssssssssssssssssss');
     this.type = successData.ResponseObject.type;
     this.path = successData.ResponseObject.path;
     this.settings.loadingSpinner = false;
@@ -85,10 +76,10 @@ export class ShriramMotorPaymentSuccessComponent implements OnInit {
       this.currenturl = this.config.getimgUrl();
       if (this.type == 'pdf') {
         console.log(successData.ResponseObject, 'www333');
-        window.open(this.path,'_blank');
+        this.window.open(this.path,'_blank');
       } else if (this.type === 'pdf') {
         console.log(successData.ResponseObject, 'www3444');
-        window.open(this.path,'_blank');
+        this.window.open(this.path,'_blank');
       } else {
       }
     } else {

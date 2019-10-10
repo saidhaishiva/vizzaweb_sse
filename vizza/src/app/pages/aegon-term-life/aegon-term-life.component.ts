@@ -20,6 +20,7 @@ import * as moment from 'moment';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {Observable, Subject} from 'rxjs';
 import {any} from 'codelyzer/util/function';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 export const MY_FORMATS = {
@@ -130,7 +131,7 @@ export class AegonTermLifeComponent implements OnInit {
 
 
 
-  constructor(public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public config: ConfigurationService) {
+  constructor(@Inject(WINDOW) private window: Window, public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public config: ConfigurationService) {
     let stepperindex = 0;
     this.requestedUrl = '';
     this.redirectUrl='';
@@ -330,7 +331,7 @@ export class AegonTermLifeComponent implements OnInit {
   uploadvalid() {
 
       console.log('11111111doc');
-      window.open(this.redirectUrl,'_top')
+      this.window.open(this.redirectUrl,'_top')
       console.log('22222');
 
   }

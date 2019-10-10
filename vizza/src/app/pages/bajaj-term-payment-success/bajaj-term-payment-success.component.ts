@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-bajaj-term-payment-success',
@@ -30,7 +31,7 @@ export class BajajTermPaymentSuccessComponent implements OnInit {
   public settings: Settings;
 
 
-  constructor(public config: ConfigurationService, public router: Router, public proposalservice: TermLifeCommonService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public router: Router, public proposalservice: TermLifeCommonService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
 
     this.route.params.forEach((params) => {
@@ -75,15 +76,15 @@ console.log(type, 'type');
       this.receipt_link = successData.ResponseObject.receipt_link;
       if(type == 'receipt'){
         console.log(this.receipt_link, 'this.bi_pdf_url');
-        window.open(this.receipt_link, '_blank');
+        this.window.open(this.receipt_link, '_blank');
       }
       if(type == 'pdf') {
         console.log(this.bi_pdf_url, 'this.form');
-        window.open(this.bi_pdf_url, '_blank');
+        this.window.open(this.bi_pdf_url, '_blank');
 
       }
       if(type == 'proposl') {
-        window.open(this.proposal_form, '_blank');
+        this.window.open(this.proposal_form, '_blank');
         console.log(this.proposal_form, 'this.bi_pdf_url');
 
       }

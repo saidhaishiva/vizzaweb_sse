@@ -319,7 +319,7 @@ export class RenewalReminderComponent implements OnInit {
         const file = event.target.files[0];
 
         const reader = new FileReader();
-        reader.onload = e => this.imageSrc = reader.result;
+        reader.onload = e => this.imageSrc = reader.result as string;
 
         reader.readAsDataURL(file);
         this.fileUploadPathPDF= '';

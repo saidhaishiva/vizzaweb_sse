@@ -8,6 +8,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 
@@ -29,7 +30,7 @@ export class PaymentSuccessComponent implements OnInit {
  currenturl: any;
     remainingStatus: any;
 
-  constructor(public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
+  constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
       this.purchasetoken = this.route.snapshot.queryParamMap['params']['purchaseToken'];
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
@@ -130,7 +131,7 @@ export class PaymentSuccessComponent implements OnInit {
             this.path = successData.ResponseObject.path;
             this.currenturl = this.config.getimgUrl();
             if (this.type == 'pdf') {
-                window.open(this.currenturl + '/' + this.path, '_blank');
+                this.window.open(this.currenturl + '/' + this.path, '_blank');
                 // window.location.href = this.fileName + '/' +  this.path  ;
             } else {
                 this.downloadMessage();

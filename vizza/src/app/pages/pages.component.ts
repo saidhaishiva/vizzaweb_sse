@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, Inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppSettings } from '../app.settings';
 import { Settings } from '../app.settings.model';
@@ -7,6 +7,7 @@ import { AuthService} from '../shared/services/auth.service';
 import {PosstatusAlert} from './health-insurance/health-insurance.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ContactComponent} from './contact/contact.component';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class PagesComponent implements OnInit {
   public userId: any;
   public mHorizontal: any;
 
-  constructor(public appSettings:AppSettings, public router:Router, private menuService: MenuService, public auth: AuthService, public dialog: MatDialog){
+  constructor(@Inject(WINDOW) private window: Window, public appSettings:AppSettings, public router:Router, private menuService: MenuService, public auth: AuthService, public dialog: MatDialog){
     this.settings = this.appSettings.settings;
     this.breadcrumbHome = true;
     this.userId = 0;
@@ -50,7 +51,7 @@ export class PagesComponent implements OnInit {
         this.settings.userId = this.auth.getDmUserId() !=null?this.auth.getDmUserId() : this.userId;
     }
 
-      if(window.innerWidth <= 992){
+      if(this.window.innerWidth <= 992){
         this.mHorizontal = false;
       this.settings.menu = 'vertical';
       this.settings.sidenavIsOpened = false;
@@ -84,7 +85,7 @@ export class PagesComponent implements OnInit {
         if(!this.settings.sidenavIsPinned){
           this.sidenav.close(); 
         }      
-        if(window.innerWidth <= 992){
+        if(this.window.innerWidth <= 992){
           this.sidenav.close(); 
         } 
       }                
@@ -139,14 +140,14 @@ export class PagesComponent implements OnInit {
         clearInterval(scrollInterval); 
       }
     },10);
-    if(window.innerWidth <= 992){
+    if(this.window.innerWidth <= 992){
       this.scrolledContent.scrollTop = 0;
     }
   }
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    if(window.innerWidth <= 992){
+    if(this.window.innerWidth <= 992){
       this.mHorizontal = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;

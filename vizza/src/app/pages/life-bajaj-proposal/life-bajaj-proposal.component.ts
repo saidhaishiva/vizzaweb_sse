@@ -14,6 +14,7 @@ import {TermLifeCommonService} from '../../shared/services/term-life-common.serv
 import * as moment from 'moment';
 import {CommonService} from '../../shared/services/common.service';
 import { matchingPasswords} from '../../theme/utils/app-validators';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 export const MY_FORMATS = {
@@ -138,7 +139,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public bankProofPath: any;
   public idProofPath: any;
 
-   constructor(public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+   constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
         let stepperindex = 0;
         this.route.params.forEach((params) => {
@@ -1772,7 +1773,7 @@ samerelationShip(){
   public pincodeListFailure(error) {
   }
   downloadForm() {
-    window.open("https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102");
+    this.window.open("https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102");
   }
 
   ifscBasedGetDetails(ifsc) {

@@ -7,6 +7,7 @@ import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-travel-reliance-payment-success',
@@ -21,7 +22,7 @@ export class TravelReliancePaymentSuccessComponent implements OnInit {
   public proposalId: any
   public mailStatus: any
   public settings: Settings;
-  constructor(public config: ConfigurationService, public proposalservice: TravelService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public proposalservice: TravelService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
 
     this.route.params.forEach((params) => {
@@ -66,9 +67,9 @@ export class TravelReliancePaymentSuccessComponent implements OnInit {
 
       this.currenturl = this.config.getimgUrl();
       if (this.type == 'pdf') {
-        window.open(this.path,'_blank');
+        this.window.open(this.path,'_blank');
       } else if (this.type === 'pdf') {
-        window.open(this.path,'_blank');
+        this.window.open(this.path,'_blank');
       } else {
         this.downloadMessage();
       }

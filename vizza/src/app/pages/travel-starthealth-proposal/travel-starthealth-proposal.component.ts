@@ -18,6 +18,7 @@ import {TravelService} from '../../shared/services/travel.service';
 import {HealthService} from '../../shared/services/health.service';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import { WINDOW } from '@ng-toolkit/universal';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -154,7 +155,7 @@ export class TravelProposalComponent implements OnInit {
     public requestDetails: any;
     public pos_status: any;
 
-    constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
+    constructor(@Inject(WINDOW) private window: Window, public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -1251,7 +1252,7 @@ export class TravelProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             this.paymentGatewayData = successData.ResponseObject;
-            window.location.href = this.paymentGatewayData.payment_gateway_url;
+            this.window.location.href = this.paymentGatewayData.payment_gateway_url;
            // this.lastStepper.next();
 
         } else {

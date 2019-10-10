@@ -11,6 +11,7 @@ import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import { WINDOW } from '@ng-toolkit/universal';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -44,7 +45,7 @@ export class MachineryComponent implements OnInit {
     public pincodeErrors: any;
     public webhost: any;
     public settings: Settings;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog,public config: ConfigurationService,public appSettings: AppSettings) {
+  constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog,public config: ConfigurationService,public appSettings: AppSettings) {
       this.settings = this.appSettings.settings;
       this.webhost = this.config.getimgUrl();
       if(window.innerWidth < 787){

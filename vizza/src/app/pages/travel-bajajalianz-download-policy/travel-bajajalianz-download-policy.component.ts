@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {Settings} from '../../app.settings.model';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {ActivatedRoute} from '@angular/router';
 import {TravelService} from '../../shared/services/travel.service';
 import {AppSettings} from '../../app.settings';
 import {AuthService} from '../../shared/services/auth.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-travel-bajajalianz-download-policy',
@@ -18,7 +19,7 @@ export class TravelBajajalianzDownloadPolicyComponent implements OnInit {
   type: any;
   currenturl: any;
   path: any;
-  constructor(public config: ConfigurationService, public proposalservice: TravelService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
+  constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public proposalservice: TravelService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
     this.route.params.forEach((params) => {
       console.log(params.id);
       this.paymentStatus = params.status;
@@ -60,7 +61,7 @@ export class TravelBajajalianzDownloadPolicyComponent implements OnInit {
         console.log(this.currenturl);
         console.log(successData.ResponseObject.path, 'path');
         this.path = successData.ResponseObject.path;
-        window.open(this.currenturl + '/' + this.path, '_blank');
+        this.window.open(this.currenturl + '/' + this.path, '_blank');
       }
     }
   }

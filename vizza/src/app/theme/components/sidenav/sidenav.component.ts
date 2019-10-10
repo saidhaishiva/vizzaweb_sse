@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener, Inject } from '@angular/core';
 import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
 import { MenuService } from '../menu/menu.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-sidenav',
@@ -29,7 +30,7 @@ export class SidenavComponent implements OnInit {
   public showMenu5: any;
   public showMenu6: any;
 
-  constructor(public appSettings:AppSettings, public menuService:MenuService){
+  constructor(@Inject(WINDOW) private window: Window, public appSettings:AppSettings, public menuService:MenuService){
       this.settings = this.appSettings.settings;
       this.showMenu = false;
       this.showMenu1 = false;
@@ -44,7 +45,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit() {
     this.menuItems = this.menuService.getVerticalMenuItems();
 
-    if(window.innerWidth < 992){
+    if(this.window.innerWidth < 992){
       this.sideNavMobile = true;
     }
   }
@@ -86,7 +87,7 @@ export class SidenavComponent implements OnInit {
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    if(window.innerWidth < 992){
+    if(this.window.innerWidth < 992){
       this.sideNavMobile = true;
     }
 

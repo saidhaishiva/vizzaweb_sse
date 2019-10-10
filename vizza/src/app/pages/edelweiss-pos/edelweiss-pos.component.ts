@@ -12,6 +12,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 export const MY_FORMATS = {
@@ -186,7 +187,7 @@ export class EdelweissPosComponent implements OnInit {
   public otpGenList: any;
   public enquiryFromDetials:any;
 
-  constructor( public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
+  constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
     this.requestedUrl = '';
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -1737,7 +1738,7 @@ export class EdelweissPosComponent implements OnInit {
   uploadvalid() {
     if (this.documentDetail.valid) {
       console.log('11111111doc');
-      window.open(this.requestedUrl,'_top')
+      this.window.open(this.requestedUrl,'_top')
       console.log('22222');
     } else {
       console.log('3333333333else');

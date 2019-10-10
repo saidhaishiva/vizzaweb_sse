@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-reliance-pa-download-policy',
@@ -20,7 +21,7 @@ export class ReliancePaDownloadPolicyComponent implements OnInit {
   currenturl: any;
   path: any;
 
-  constructor(public config: ConfigurationService, public personalservice: PersonalAccidentService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
+  constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public personalservice: PersonalAccidentService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
     this.route.params.forEach((params) => {
       this.proposalId = params.proId;
     });
@@ -60,7 +61,7 @@ export class ReliancePaDownloadPolicyComponent implements OnInit {
         console.log(this.currenturl);
         console.log(successData.ResponseObject.path, 'path');
         this.path = successData.ResponseObject.path;
-        window.open(this.currenturl + '/' + this.path, '_blank');
+        this.window.open(this.currenturl + '/' + this.path, '_blank');
       }
     }
   }

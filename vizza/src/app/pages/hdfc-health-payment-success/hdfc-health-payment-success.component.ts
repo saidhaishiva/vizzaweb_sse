@@ -9,6 +9,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {ToastrService} from 'ngx-toastr';
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
     selector: 'app-hdfc-health-payment-success',
@@ -26,7 +27,7 @@ public policyStatus: any
 public remainingStatus: any
 public settings: Settings;
 
-constructor(public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
     this.remainingStatus = false;
     this.route.params.forEach((params) => {
@@ -90,10 +91,10 @@ public downloadPdfSuccess(successData) {
         this.currenturl = this.config.getimgUrl();
         if (this.type == 'pdf') {
             console.log(successData.ResponseObject, 'www333');
-            window.open(this.currenturl + '/' +  this.path,'_blank');
+            this.window.open(this.currenturl + '/' +  this.path,'_blank');
         } else if (this.type === 'pdf') {
             console.log(successData.ResponseObject, 'www3444');
-            window.open(this.currenturl + '/' +  this.path,'_blank');
+            this.window.open(this.currenturl + '/' +  this.path,'_blank');
         } else {
             this.downloadMessage();
         }

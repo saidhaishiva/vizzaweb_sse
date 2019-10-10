@@ -17,6 +17,7 @@ import {PersonalInsurer} from '../personal-accident-home/personal-accident-home.
 import { ValidationService} from '../../shared/services/validation.service';
 import {MetaService} from '../../shared/services/meta.service';
 import {Meta, Title} from '@angular/platform-browser';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 export const MY_FORMATS = {
@@ -121,7 +122,7 @@ export class TravelHomeComponent implements OnInit {
     metaKeyword: any;
     metaDescription: any;
 
-    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
+    constructor(@Inject(WINDOW) private window: Window, public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if(window.innerWidth < 787){

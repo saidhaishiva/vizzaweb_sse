@@ -36,7 +36,7 @@ export class ClaimAssistanceComponent implements OnInit {
     imageSrc: string;
 
 
-    @ViewChild('myForm') myForm: NgForm;
+    @ViewChild('myForm' ) myForm: NgForm;
 
 
     constructor(public fb: FormBuilder, public common: CommonService, public toastr: ToastrService, public dialog: MatDialog,public auth: AuthService,public appSettings: AppSettings,public config : ConfigurationService) {
@@ -155,7 +155,7 @@ export class ClaimAssistanceComponent implements OnInit {
                 const file = event.target.files[0];
 
                 const reader = new FileReader();
-                reader.onload = e => this.imageSrc = reader.result;
+                reader.onload = e => this.imageSrc = reader.result as string;
 
                 reader.readAsDataURL(file);
                 this.fileUploadPathPDF= '';

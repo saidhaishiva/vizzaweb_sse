@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -7,7 +7,7 @@ import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ToastrModule } from 'ngx-toastr';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import { SafePipe} from '../safe-pipe';
 import {ScrollToModule} from 'ng2-scroll-to';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
@@ -352,13 +352,14 @@ import { EdelweissPosComponent } from './pages/edelweiss-pos/edelweiss-pos.compo
 import { EdelweissposOpt } from './pages/edelweiss-pos/edelweiss-pos.component';
 import { ViewdetailscomponentComponent } from './pages/four-wheeler-product-list/viewdetailscomponent/viewdetailscomponent.component';
 import { EdelweissposPaymnetSuccessComponent } from './pages/edelweisspos-paymnet-success/edelweisspos-paymnet-success.component';
-import {NgSelectModule} from '@ng-select/ng-select';
-
-
+// import {NgSelectModule} from '@ng-select/ng-select';
+import { MatCheckboxModule} from '@angular/material';
+import { TransferHttpCacheModule } from '@nguniversal/common';
+import { NgtUniversalModule } from '@ng-toolkit/universal';
 
 @NgModule({
     imports: [
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         Ng2OrderModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot(),
@@ -371,7 +372,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
         NgxPaginationModule,
         NgxChartsModule,
         PdfViewerModule,
-        NgSelectModule,
+        // NgSelectModule,
         ScrollToModule.forRoot(),
         SlickModule.forRoot(),
         // ImageUploadModule.forRoot(),
@@ -385,6 +386,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
         NgxMaterialTimepickerModule.forRoot(),
         SelectDropDownModule,
         NgxMatSelectSearchModule,
+        MatCheckboxModule,
+
         // MatAutocompleteModule,
         // MatSelectModule,
         // MatFormFieldModule,
@@ -392,7 +395,10 @@ import {NgSelectModule} from '@ng-select/ng-select';
         // NgxMatSelectSearchModule,
         // AmazingTimePickerModule,
         MatDialogModule,
-        routing
+        routing,
+        CommonModule,
+        TransferHttpCacheModule,
+        NgtUniversalModule
     ],
     declarations: [
         AppComponent,
@@ -713,6 +719,9 @@ import {NgSelectModule} from '@ng-select/ng-select';
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+    ],
     entryComponents: [
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog

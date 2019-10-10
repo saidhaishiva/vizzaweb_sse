@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Router} from '@angular/router';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-exam',
@@ -22,7 +23,7 @@ export class ExamComponent implements OnInit {
     selectedData: any;
     expired: boolean;
     public settings : Settings;
-  constructor(public appSettings: AppSettings, public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
+  constructor(@Inject(WINDOW) private window: Window, public appSettings: AppSettings, public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
       this.settings = this.appSettings.settings;
       this.gethours = '';
       this.getMinutes = '';
@@ -37,7 +38,7 @@ export class ExamComponent implements OnInit {
   ngOnInit() {
     this.getQuestions();
     this.countdown('45');
-      window.addEventListener('beforeunload', function (e) {
+      this.window.addEventListener('beforeunload', function (e) {
           let confirmationMessage = '\o/';
           e.returnValue = confirmationMessage;
           return confirmationMessage;

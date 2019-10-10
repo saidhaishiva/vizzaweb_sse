@@ -9,6 +9,7 @@ import {HealthService} from '../../shared/services/health.service';
 import {ToastrService} from 'ngx-toastr';
 import {Settings} from '../../app.settings.model';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
     public proposalId: any;
     public settings: Settings;
 
-    constructor(public config: ConfigurationService,public router: Router, public personalService: PersonalAccidentService,public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService,public router: Router, public personalService: PersonalAccidentService,public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
         this.route.params.forEach((params) => {
             this.paymentStatus = params.status;
@@ -68,7 +69,7 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
             this.currenturl = this.config.getimgUrl();
             if (this.type == 'pdf') {
                 console.log(successData.ResponseObject, 'www333');
-                window.open(this.currenturl + '/' +  this.path,'_blank');
+                this.window.open(this.currenturl + '/' +  this.path,'_blank');
             // } else if (this.type === 'pdf') {
             //     console.log(successData.ResponseObject, 'www3444');
             //     window.open(this.currenturl + '/' +  this.path,'_blank');

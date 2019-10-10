@@ -17,6 +17,7 @@ import { Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {MetaService} from '../../shared/services/meta.service';
 import {Meta, Title} from '@angular/platform-browser';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 @Component({
@@ -51,7 +52,7 @@ export class TermLifeComponent implements OnInit {
     metaKeyword: any;
     metaDescription: any;
 
-    constructor(public fb: FormBuilder, public router: Router,public commonservices: CommonService, public datepipe: DatePipe,public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService,public appSettings: AppSettings, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
+    constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public router: Router,public commonservices: CommonService, public datepipe: DatePipe,public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService,public appSettings: AppSettings, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if(window.innerWidth < 787){

@@ -17,6 +17,7 @@ import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
+import { WINDOW } from '@ng-toolkit/universal';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -134,7 +135,7 @@ export class StarHealthProposalComponent implements OnInit {
     public healthStarTrue2: boolean;
     public healthStarTrue3: boolean;
 
-    constructor(public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
+    constructor(@Inject(WINDOW) private window: Window, public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.stepperindex = 0;
         this.route.params.forEach((params) => {
@@ -1602,7 +1603,7 @@ export class StarHealthProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             // this.toastr.success('Proposal created successfully!!');
             this.paymentGatewayData = successData.ResponseObject;
-            window.location.href = this.paymentGatewayData.payment_gateway_url;
+            this.window.location.href = this.paymentGatewayData.payment_gateway_url;
             this.lastStepper.next();
             this.nextStep();
 
@@ -1865,7 +1866,7 @@ export class StarHealthProposalComponent implements OnInit {
     public getBackResFailure(successData) {
     }
     paySuccess(){
-        window.location.href = this.requestDetails.payment;
+        this.window.location.href = this.requestDetails.payment;
 
     }
 }

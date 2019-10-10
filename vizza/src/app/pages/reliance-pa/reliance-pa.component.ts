@@ -12,7 +12,7 @@ import {Settings} from '../../app.settings.model';
 import {MY_FORMATS} from '../appollo-munich-pa/appollo-munich-pa.component';
 import {validate} from 'codelyzer/walkerFactory/walkerFn';
 import { ConfigurationService} from '../../shared/services/configuration.service';
-import {jsonpCallbackContext} from '@angular/common/http/src/module';
+// import {jsonpCallbackContext} from '@angular/common/http/src/module';
 import { ActivatedRoute} from '@angular/router';
 
 

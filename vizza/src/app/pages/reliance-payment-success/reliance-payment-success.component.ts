@@ -7,6 +7,7 @@ import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {Settings} from '../../app.settings.model';
 import {HealthService} from '../../shared/services/health.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-reliance-payment-success',
@@ -26,7 +27,7 @@ export class ReliancePaymentSuccessComponent implements OnInit {
     public settings: Settings;
 
 
-    constructor(public config: ConfigurationService,public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService,public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
         this.remainingStatus = false;
         this.route.params.forEach((params) => {
@@ -79,7 +80,7 @@ export class ReliancePaymentSuccessComponent implements OnInit {
 
         if (successData.IsSuccess == true) {
             if (this.type == 'pdf') {
-                window.open(this.path, '_self' );
+                this.window.open(this.path, '_self' );
             }
         } else {
             this.toast.error(successData.ErrorObject);

@@ -6,6 +6,7 @@ import {CommonService} from '../../shared/services/common.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {LearningcenterService} from '../../shared/services/learningcenter.service';
 import {Router} from '@angular/router';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-dm-training',
@@ -36,7 +37,7 @@ export class DmTrainingComponent implements OnInit {
     startTime: boolean;
     startOnlineExam: boolean;
     public settings : Settings;
-    constructor(public appSettings: AppSettings, public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
+    constructor(@Inject(WINDOW) private window: Window, public appSettings: AppSettings, public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
         this.settings = this.appSettings.settings;
         setTimeout((time) => {
             this.settings.loadingSpinner = false;

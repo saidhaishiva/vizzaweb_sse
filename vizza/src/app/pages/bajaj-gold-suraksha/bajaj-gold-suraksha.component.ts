@@ -12,6 +12,7 @@ import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {PersonalInsurer} from '../personal-accident-home/personal-accident-home.component';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 export const MY_FORMATS = {
@@ -48,7 +49,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
   public webhost: any;
   public settings: Settings;
 
-  constructor(public fb: FormBuilder, public commonservices: CommonService,public auth: AuthService, public validation: ValidationService,public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog,public config: ConfigurationService,public appSettings: AppSettings) {
+  constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public commonservices: CommonService,public auth: AuthService, public validation: ValidationService,public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog,public config: ConfigurationService,public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
     if(window.innerWidth < 787){
@@ -131,7 +132,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
   getUpdateSuccess(successData) {
     this.redirectUrl = successData.ResponseObject.redirect_url;
     console.log(this.redirectUrl, 'redirect')
-    window.open(this.redirectUrl,'_top');
+    this.window.open(this.redirectUrl,'_top');
 
   }
   getUpdateFailure(error) {

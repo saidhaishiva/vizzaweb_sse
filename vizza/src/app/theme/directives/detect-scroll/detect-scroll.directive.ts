@@ -1,4 +1,5 @@
-import { Directive, HostListener, Output, EventEmitter} from '@angular/core';
+import { Directive, HostListener, Output, EventEmitter, Inject} from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
 
 export type ScrollEvent = {
   originalEvent: Event,
@@ -12,6 +13,8 @@ export type ScrollEvent = {
 export class DetectScrollDirective {
 
   @Output() onScroll = new EventEmitter<ScrollEvent>();
+ constructor(@Inject(WINDOW) private window: Window) {}
+
 
   @HostListener('scroll', ['$event']) elementScrolled(event) {
     const scrollTop = event.target.scrollTop;
@@ -20,7 +23,7 @@ export class DetectScrollDirective {
   }
 
   @HostListener('window:scroll', ['$event']) windowScrolled(event) {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const scrollTop = this.window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     const emitValue: ScrollEvent = { originalEvent: event, isWindowEvent: true, scrollTop };
     this.onScroll.emit(emitValue);
   }

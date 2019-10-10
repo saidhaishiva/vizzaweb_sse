@@ -19,6 +19,7 @@ import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {Observable, Subject} from 'rxjs';
+import { WINDOW } from '@ng-toolkit/universal';
 
 export const MY_FORMATS = {
   parse: {
@@ -156,7 +157,7 @@ export class HdfcTermLifeComponent implements OnInit {
   public keyUp = new Subject<string>();
 
 
-  constructor(public validation: ValidationService, public authservice: AuthService, public fb: FormBuilder, public route: ActivatedRoute, public TermLifeService: TermLifeCommonService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public config: ConfigurationService) {
+  constructor(@Inject(WINDOW) private window: Window, public validation: ValidationService, public authservice: AuthService, public fb: FormBuilder, public route: ActivatedRoute, public TermLifeService: TermLifeCommonService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public config: ConfigurationService) {
     let stepperindex = 0;
     // this.requestedUrl = '';
     this.redirectUrl = '';
@@ -426,7 +427,7 @@ export class HdfcTermLifeComponent implements OnInit {
   uploadvalid() {
 
     console.log('11111111doc');
-    window.open(this.redirectUrl,'_top')
+    this.window.open(this.redirectUrl,'_top')
     console.log('22222');
 
   }

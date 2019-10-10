@@ -245,7 +245,7 @@ export class EdelweissposPremiumListComponent implements OnInit {
         (successData) => {
           // if (successData.IsSuccess == true) {
           this.settings.loadingSpinner = false;
-          this.totalpremium = successData.ResponseObject.totalpremium;
+          this.totalpremium = successData['ResponseObject'].totalpremium;
           this.errorterm = true;
           console.log(this.changepremium, 'katrku');
           // alert('enter');

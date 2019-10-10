@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, Inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
@@ -14,6 +14,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material'
 import {MetaService} from '../../shared/services/meta.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {Meta, Title} from '@angular/platform-browser';
+import { WINDOW } from '@ng-toolkit/universal';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -51,7 +52,7 @@ export class LiftPolicyComponent implements OnInit {
   metaKeyword: any;
   metaDescription: any;
   public settings: Settings;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public config: ConfigurationService,
+  constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public config: ConfigurationService,
               public appSettings: AppSettings, public meta: MetaService, public auth: AuthService, public metaTag: Meta, private titleService: Title) {
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();

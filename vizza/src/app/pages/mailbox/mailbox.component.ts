@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
 import { Mail } from './mail.model';
 import { MailboxService } from './mailbox.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-mailbox',
@@ -23,7 +24,7 @@ export class MailboxComponent implements OnInit {
   public searchText: string;
   public form:FormGroup;
 
-  constructor(public appSettings:AppSettings, 
+  constructor(@Inject(WINDOW) private window: Window, public appSettings:AppSettings, 
               public formBuilder: FormBuilder, 
               public snackBar: MatSnackBar,
               private mailboxService:MailboxService) { 
@@ -32,7 +33,7 @@ export class MailboxComponent implements OnInit {
 
   ngOnInit() {
     this.getMails();      
-    if(window.innerWidth <= 992){
+    if(this.window.innerWidth <= 992){
       this.sidenavOpen = false;
     }
     this.form = this.formBuilder.group({
@@ -45,7 +46,7 @@ export class MailboxComponent implements OnInit {
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    (window.innerWidth <= 992) ? this.sidenavOpen = false : this.sidenavOpen = true;
+    (this.window.innerWidth <= 992) ? this.sidenavOpen = false : this.sidenavOpen = true;
   }
 
   public getMails(){
@@ -76,7 +77,7 @@ export class MailboxComponent implements OnInit {
     this.mail.selected = true;
     this.mail.unread = false;
     this.newMail = false;
-    if(window.innerWidth <= 992){
+    if(this.window.innerWidth <= 992){
       this.sidenav.close(); 
     }
   }

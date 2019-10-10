@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { BikeInsuranceService } from '../../shared/services/bike-insurance.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { Settings } from '../../app.settings.model';
 import { AppSettings} from '../../app.settings';
 import { ConfigurationService } from '../../shared/services/configuration.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-biketataaig-download-policy',
@@ -21,7 +22,7 @@ export class BiketataaigDownloadPolicyComponent implements OnInit {
 
 
 
-  constructor(public config: ConfigurationService,public bikeinsurance: BikeInsuranceService,public route: ActivatedRoute,public appSettings: AppSettings,public auth: AuthService) {
+  constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService,public bikeinsurance: BikeInsuranceService,public route: ActivatedRoute,public appSettings: AppSettings,public auth: AuthService) {
     this.route.params.forEach((params) => {
       this.proposalId = params.proId;
     });
@@ -58,7 +59,7 @@ export class BiketataaigDownloadPolicyComponent implements OnInit {
         console.log(this.currenturl);
         console.log(successData.ResponseObject.path, 'path');
         this.path = successData.ResponseObject.path;
-        window.open(this.currenturl + '/' + this.path, '_blank');
+        this.window.open(this.currenturl + '/' + this.path, '_blank');
       }
     }
   }

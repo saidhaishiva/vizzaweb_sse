@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {HealthService} from '../../shared/services/health.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
@@ -6,6 +6,7 @@ import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {ToastrService} from 'ngx-toastr';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-download-policy',
@@ -18,7 +19,7 @@ export class DownloadPolicyComponent implements OnInit {
     type: any;
     currenturl: any;
     path: any;
-  constructor(public config: ConfigurationService, public toast: ToastrService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
+  constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public toast: ToastrService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
       this.route.params.forEach((params) => {
           this.proposalId = params.id;
       });
@@ -51,7 +52,7 @@ export class DownloadPolicyComponent implements OnInit {
             this.currenturl = this.config.getimgUrl();
             if (this.type == 'pdf') {
                 this.path = successData.ResponseObject.path;
-                window.open(this.currenturl + '/' + this.path, '_blank');
+                this.window.open(this.currenturl + '/' + this.path, '_blank');
             }
         } else {
             this.toast.error(successData.ErrorObject);

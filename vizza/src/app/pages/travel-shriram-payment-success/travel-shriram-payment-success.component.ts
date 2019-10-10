@@ -8,6 +8,7 @@ import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {Settings} from '../../app.settings.model';
 import {TravelService} from '../../shared/services/travel.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class TravelShriramPaymentSuccessComponent implements OnInit {
     public proposalId: any
     public settings: Settings;
 
-    constructor(public config: ConfigurationService, public travelservice: TravelService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public travelservice: TravelService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
         this.route.params.forEach((params) => {
             console.log(params);
@@ -68,10 +69,10 @@ export class TravelShriramPaymentSuccessComponent implements OnInit {
             this.currenturl = this.config.getimgUrl();
             if (this.type == 'pdf') {
                 console.log(successData.ResponseObject, 'www333');
-                window.open(this.path,'_blank');
+                this.window.open(this.path,'_blank');
             } else if (this.type === 'pdf') {
                 console.log(successData.ResponseObject, 'www3444');
-                window.open(this.path,'_blank');
+                this.window.open(this.path,'_blank');
             } else {
                 this.downloadMessage();
             }

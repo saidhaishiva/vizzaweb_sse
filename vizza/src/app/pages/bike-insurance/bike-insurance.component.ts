@@ -18,6 +18,7 @@ import {ClearSessionPaService} from '../../shared/services/clear-session-pa.serv
 import {ClearSessionMotorService} from '../../shared/services/clear-session-motor.service';
 import {MetaService} from '../../shared/services/meta.service';
 import {Meta, Title} from '@angular/platform-browser';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 export const MY_FORMATS = {
@@ -80,7 +81,7 @@ export class BikeInsuranceComponent implements OnInit {
     public config:any;
     public CityValid: boolean;
 
-    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
+    constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
         this.settings = this.appSettings.settings;
         this.webhost = this.configs.getimgUrl();
         if (window.innerWidth < 787) {

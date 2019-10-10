@@ -6,6 +6,7 @@ import {CommonService} from '../../shared/services/common.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {LearningcenterService} from '../../shared/services/learningcenter.service';
 import {Settings} from '../../app.settings.model';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-training',
@@ -34,7 +35,7 @@ export class TrainingComponent implements OnInit {
     startTime: boolean;
     startOnlineExam: boolean;
     public settings : Settings;
-    constructor(public appSettings: AppSettings, public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
+    constructor(@Inject(WINDOW) private window: Window, public appSettings: AppSettings, public common: CommonService, public auth: AuthService, public learning: LearningcenterService, public dialog: MatDialog, public router: Router) {
         this.settings = this.appSettings.settings;
         setTimeout((time) => {
             this.settings.loadingSpinner = false;

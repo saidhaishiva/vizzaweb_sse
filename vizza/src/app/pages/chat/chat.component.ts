@@ -1,8 +1,9 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, Inject } from '@angular/core';
 import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
 import { Chat } from './chat.model';
 import { ChatService } from './chat.service';
+import { WINDOW } from '@ng-toolkit/universal';
 
 @Component({
   selector: 'app-chat',
@@ -20,20 +21,20 @@ export class ChatComponent implements OnInit {
   public currentChat:Chat;
   public newMessage:string;
 
-  constructor(public appSettings:AppSettings, private chatService:ChatService) { 
+  constructor(@Inject(WINDOW) private window: Window, public appSettings:AppSettings, private chatService:ChatService) { 
     this.settings = this.appSettings.settings; 
   }
 
   ngOnInit() {
     this.chats = this.chatService.getChats(); 
-    if(window.innerWidth <= 768){
+    if(this.window.innerWidth <= 768){
       this.sidenavOpen = false;
     }    
   } 
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    (window.innerWidth <= 768) ? this.sidenavOpen = false : this.sidenavOpen = true;
+    (this.window.innerWidth <= 768) ? this.sidenavOpen = false : this.sidenavOpen = true;
   }
 
   public getChat(obj){
@@ -48,7 +49,7 @@ export class ChatComponent implements OnInit {
         talk.image = obj.image;
       }
     });
-    if(window.innerWidth <= 768){
+    if(this.window.innerWidth <= 768){
       this.sidenav.close();
     }     
   }

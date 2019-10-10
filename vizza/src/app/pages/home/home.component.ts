@@ -15,6 +15,7 @@ import {ClearSessionService} from '../../shared/services/clear-session.service';
 import {MetaService} from '../../shared/services/meta.service';
 import {Meta} from '@angular/platform-browser'
 import {Title} from '@angular/platform-browser';
+import { WINDOW } from '@ng-toolkit/universal';
 
 export const MY_FORMATS = {
     parse: {
@@ -62,7 +63,7 @@ export class HomeComponent implements OnInit {
     metaKeyword: any;
     metaDescription: any;
 
-    constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe ,public session: ClearSessionService, public appSettings: AppSettings, public toastr: ToastrService,
+    constructor(@Inject(WINDOW) private window: Window, public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe ,public session: ClearSessionService, public appSettings: AppSettings, public toastr: ToastrService,
                 public config: ConfigurationService, public common: CommonService, public dialog: MatDialog, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
         // this.form =  this.fb.group({
         //     'insurename': ['', Validators.compose([Validators.required])],

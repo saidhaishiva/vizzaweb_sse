@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
@@ -12,6 +12,7 @@ import {CommonService} from '../../shared/services/common.service';
 import {FormGroup, FormBuilder,Validators} from "@angular/forms";
 import {MatDialog} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
+import { WINDOW } from '@ng-toolkit/universal';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -102,7 +103,7 @@ export class DmProfileComponent implements OnInit {
     @ViewChild('sidenav') sidenav: any;
     public sidenavOpen:boolean = true;
 
-    constructor(public route: ActivatedRoute, public auth: AuthService, public common: CommonService, public appSettings: AppSettings, public config: ConfigurationService,
+    constructor(@Inject(WINDOW) private window: Window, public route: ActivatedRoute, public auth: AuthService, public common: CommonService, public appSettings: AppSettings, public config: ConfigurationService,
                 public dialog: MatDialog, public router: Router, public fb: FormBuilder, public datepipe: DatePipe, public toastr: ToastrService) {
         this.webhost = this.config.getimgUrl();
         this.roleId = this.auth.getDmRoleId();
@@ -439,7 +440,7 @@ export class DmProfileComponent implements OnInit {
     printAppointment () {
         let printContents, popupWin;
         printContents = document.getElementById('appointment').innerHTML;
-        popupWin = window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
+        popupWin = this.window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
         popupWin.document.open();
         popupWin.document.write(`
       <html>
@@ -529,7 +530,7 @@ export class DmProfileComponent implements OnInit {
     printTraining () {
         let printContents, popupWin;
         printContents = document.getElementById('training').innerHTML;
-        popupWin = window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
+        popupWin = this.window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
         popupWin.document.open();
         popupWin.document.write(`
       <html>
@@ -665,7 +666,7 @@ export class DmProfileComponent implements OnInit {
     printExamination () {
         let printContents, popupWin;
         printContents = document.getElementById('examination').innerHTML;
-        popupWin = window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
+        popupWin = this.window.open('', '_blank', 'top=100,left=0, bottom=100,height=100%,width=auto');
         popupWin.document.open();
         popupWin.document.write(`
       <html>

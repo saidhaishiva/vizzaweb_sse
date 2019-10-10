@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
@@ -13,6 +13,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import * as moment from 'moment';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 
@@ -48,7 +49,7 @@ export class EdelweissPosHomeComponent implements OnInit {
   public premiumdata: any;
   public policydata: any;
 
-  constructor(public fb: FormBuilder, public router: Router, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public config: ConfigurationService, public validation: ValidationService, public auth: AuthService, public appSettings: AppSettings) {
+  constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public router: Router, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public config: ConfigurationService, public validation: ValidationService, public auth: AuthService, public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
     if(window.innerWidth < 787){

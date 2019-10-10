@@ -18,6 +18,7 @@ import {ClearSessionService} from '../../shared/services/clear-session.service';
 import {ActivatedRoute} from '@angular/router';
 import {MetaService} from '../../shared/services/meta.service';
 import {Meta, Title} from '@angular/platform-browser';
+import { WINDOW } from '@ng-toolkit/universal';
 
 
 @Component({
@@ -99,7 +100,7 @@ export class HealthInsuranceComponent implements OnInit {
     metaDescription: any;
 
     private keyUp = new Subject<string>();
-    constructor(public route: ActivatedRoute,public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService, public session: ClearSessionService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
+    constructor(@Inject(WINDOW) private window: Window, public route: ActivatedRoute,public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService, public session: ClearSessionService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
         if(window.innerWidth < 787){

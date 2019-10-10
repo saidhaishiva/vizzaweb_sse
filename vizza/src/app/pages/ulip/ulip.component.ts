@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import {DatePipe} from '@angular/common';
@@ -9,6 +9,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import { WINDOW } from '@ng-toolkit/universal';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -43,7 +44,7 @@ export class UlipComponent implements OnInit {
   public webhost: any;
   public settings: Settings;
 
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public appSettings: AppSettings,public config: ConfigurationService) {
+  constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public appSettings: AppSettings,public config: ConfigurationService) {
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
     if(window.innerWidth < 787){
