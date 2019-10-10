@@ -16,7 +16,7 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender()" required >
+                            <mat-select placeholder="Title" formControlName="proposerTitle" (selectionChange)="changeGender()" required >
                               <mat-option value="MR">Mr</mat-option>
                               <mat-option value="MS">Ms</mat-option>
                               <mat-option value="MRS">Mrs</mat-option>
@@ -54,7 +54,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Occupation" formControlName="proposerOccupation"  (change)="setOccupation('proposer')"required   class="w-100">
+                            <mat-select  placeholder="Occupation" formControlName="proposerOccupation"  (selectionChange)="setOccupation('proposer')"required   class="w-100">
                               <mat-option  *ngFor="let occupation of occupationDetails | keys "  [value]= 'occupation.key'> {{occupation.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="proposer.controls.proposerOccupation.errors?.required">Occupation is required</mat-error>
@@ -216,7 +216,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="State" formControlName="proposerState" (change)="cityList()"  class="w-100"  required>
+                            <mat-select  placeholder="State" formControlName="proposerState" (selectionChange)="cityList()"  class="w-100"  required>
                               <mat-option  *ngFor="let statedata of stateDetails | keys"  [value]= 'statedata.key'> {{statedata.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="proposer.controls.proposerState.errors?.required">State is required</mat-error>
@@ -262,7 +262,7 @@
 
                           <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Title" formControlName="proposerTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" required>
+                              <mat-select placeholder="Title" formControlName="proposerTitle" (selectionChange)="insureChangeGender(i)" [disabled]="sameValue" required>
                                 <mat-option value="MR">Mr</mat-option>
                                 <mat-option value="MS">Ms</mat-option>
                                 <mat-option value="MRS" [hidden]="insureArray['controls'].items['controls'][i]['controls'].type.value == 'Son'">Mrs</mat-option>
@@ -307,7 +307,7 @@
                           </div>
                           <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                             <mat-form-field class="w-100">
-                              <mat-select  placeholder="Occupation" formControlName="proposerOccupation" [disabled]="sameValue" (change)="getOccupationName(i)"  class="w-100">
+                              <mat-select  placeholder="Occupation" formControlName="proposerOccupation" [disabled]="sameValue" (selectionChange)="getOccupationName(i)"  class="w-100">
                                 <mat-option  *ngFor="let occupation of occupationDetails | keys"  [value]= 'occupation.key'> {{occupation.value}} </mat-option>
 
                               </mat-select>
@@ -346,7 +346,7 @@
                           </div>
                           <div class="col-md-3">
                             <p>smoke: <span class="error">*</span></p>
-                            <mat-radio-group formControlName="Smoke" (change)="smoking($event,i)">
+                            <mat-radio-group formControlName="Smoke" (selectionChange)="smoking($event,i)">
                               <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                               <mat-radio-button value="N">No</mat-radio-button>
                             </mat-radio-group>
@@ -358,7 +358,7 @@
                           </div>
                           <div class="col-md-3" >
                             <p>Alcohol:  <span class="error">*</span></p>
-                            <mat-radio-group formControlName="Alcohol"  (change)="alcohol($event,i)">
+                            <mat-radio-group formControlName="Alcohol"  (selectionChange)="alcohol($event,i)">
                               <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                               <mat-radio-button value="N">No</mat-radio-button>
                             </mat-radio-group>
@@ -370,7 +370,7 @@
                           </div>
                           <div class="col-md-3" >
                             <p>Tobacco:  <span class="error">*</span></p>
-                            <mat-radio-group formControlName="Tobacco" (change)="tovacco($event,i)">
+                            <mat-radio-group formControlName="Tobacco" (selectionChange)="tovacco($event,i)">
                               <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                               <mat-radio-button value="N">No</mat-radio-button>
                             </mat-radio-group>
@@ -435,7 +435,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="State" formControlName="nomineeState" (change)="stateListname()"  class="w-100" required>
+                            <mat-select  placeholder="State" formControlName="nomineeState" (selectionChange)="stateListname()"  class="w-100" required>
                               <mat-option  *ngFor="let statedata of nomineestateDetails | keys"  [value]= 'statedata.key'> {{statedata.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
@@ -443,7 +443,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field  class="w-100">
-                            <mat-select  placeholder="City" formControlName="nomineeCity" (change)="cityListname()"  class="w-100" required>
+                            <mat-select  placeholder="City" formControlName="nomineeCity" (selectionChange)="cityListname()"  class="w-100" required>
                               <mat-option  *ngFor="let citydata of nomineecityDetails| keys"  [value]= 'citydata.key'> {{citydata.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>

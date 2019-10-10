@@ -27,7 +27,7 @@
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <mat-form-field class="w-100">
-                                                                    <mat-select placeholder="Title" formControlName="insureTitle" (change)="insureChangeGender(i)" required>
+                                                                    <mat-select placeholder="Title" formControlName="insureTitle" (selectionChange)="insureChangeGender(i)" required>
                                                                         <mat-option value="MR">Mr</mat-option>
                                                                         <mat-option value="MRS">Ms</mat-option>
                                                                     </mat-select>
@@ -110,7 +110,7 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <mat-form-field class="w-100">
-                                                                    <mat-select  placeholder="Occupation" formControlName="insureoccupation" (change)="selectOccupation(i)" required  class="w-100">
+                                                                    <mat-select  placeholder="Occupation" formControlName="insureoccupation" (selectionChange)="selectOccupation(i)" required  class="w-100">
                                                                         <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}">{{occupation.value}}</mat-option>
                                                                     </mat-select>
                                                                     <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
@@ -179,7 +179,7 @@
                                                                 </mat-form-field>
                                                             </div>
                                                             <div class="col-sm-2" *ngIf = "zoneList">
-                                                                <mat-checkbox formControlName="zoneCheck" (change)="zonecheckingList($event)">Pan India cover</mat-checkbox>
+                                                                <mat-checkbox formControlName="zoneCheck" (selectionChange)="zonecheckingList($event)">Pan India cover</mat-checkbox>
                                                             </div>
                                                             <div class="col-md-12" *ngIf="zonemessage !=''">
                                                                 <div class="card notes">
@@ -202,7 +202,7 @@
                                                     </div>
 
                                                     <div class="col-md-12 box-card pt-3 addressBox">
-                                                        <h6 class="color-blue mb-3">PRE-EXISTING DISEASES<mat-slide-toggle formControlName="insureDisease" (change)="previousDisease($event, i)" class="pl-3"></mat-slide-toggle></h6>
+                                                        <h6 class="color-blue mb-3">PRE-EXISTING DISEASES<mat-slide-toggle formControlName="insureDisease" (selectionChange)="previousDisease($event, i)" class="pl-3"></mat-slide-toggle></h6>
                                                         <div class="row">
                                                             <div class="col-md-3"><p>1. previous Establishing Disease</p></div>
                                                             <div class="col-md-3"><p>2. Asthma</p></div>
