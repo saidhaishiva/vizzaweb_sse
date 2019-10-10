@@ -17,7 +17,7 @@
 
                       <div class="col-md-3" >
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title" (change)="changeTitle()" required>
+                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" required>
                             <mat-option *ngFor="let list of TitleList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
@@ -59,7 +59,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Gender" formControlName="gender" (change)=changeGender() required>
+                          <mat-select placeholder="Gender" formControlName="gender" (selectionChange)=changeGender() required>
                             <mat-option value="Male">Male</mat-option>
                             <mat-option value="Female">Female</mat-option>
                           </mat-select>
@@ -91,7 +91,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">
+                          <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="changeMarital()" required  class="w-100">
                             <mat-option *ngFor="let list of maritalStatusList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
@@ -105,7 +105,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Occupation" name="occupation" formControlName="occupationList" (change)="occupationListCode()"required>
+                          <mat-select placeholder="Occupation" name="occupation" formControlName="occupationList" (selectionChange)="occupationListCode()"required>
                             <mat-option *ngFor="let list of occupationList | keys" [value]="list.key">{{list.value}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.occupationList.errors?.required">Occupation is required</mat-error>
@@ -113,7 +113,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Education" formControlName="education" (change)="changeEducation()" required  class="w-100">
+                          <mat-select  placeholder="Education" formControlName="education" (selectionChange)="changeEducation()" required  class="w-100">
                             <mat-option *ngFor="let list of educationList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.education.errors?.required">Education is required</mat-error>
@@ -149,7 +149,7 @@
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['weightChanged'].value == 'GAINED' || proposer.controls['weightChanged'].value == 'LOST' ">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Reason for weight changed" formControlName="weightChangedreason" (change)="changeWeightChanged()" class="w-100">
+                          <mat-select  placeholder="Reason for weight changed" formControlName="weightChangedreason" (selectionChange)="changeWeightChanged()" class="w-100">
                             <mat-option *ngFor="let list of weightList | keys" [value]= list.key> {{list.value}} </mat-option>                          </mat-select>
                           <mat-error *ngIf="proposer.controls.weightChangedreason.errors?.required">Weight changed is required</mat-error>
                         </mat-form-field>
@@ -158,7 +158,7 @@
 
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Language" formControlName="language" (change)="changeLanguage()" required  class="w-100">
+                          <mat-select  placeholder="Language" formControlName="language" (selectionChange)="changeLanguage()" required  class="w-100">
                             <mat-option *ngFor="let list of languageList | keys" [value]= list.key> {{list.value}} </mat-option>                          </mat-select>
                           <mat-error *ngIf="proposer.controls.language.errors?.required">Language is required</mat-error>
                         </mat-form-field>
@@ -172,7 +172,7 @@
                       <!--</div>-->
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Document Language" formControlName="language2" (change)="changeDocLanguage()" required  class="w-100">
+                          <mat-select  placeholder="Document Language" formControlName="language2" (selectionChange)="changeDocLanguage()" required  class="w-100">
                             <mat-option *ngFor="let list of docLanguageList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.language2.errors?.required">Document Language is required</mat-error>
@@ -180,7 +180,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Nationality" formControlName="nationality" (change)="changeNationality()" required  class="w-100">
+                          <mat-select  placeholder="Nationality" formControlName="nationality" (selectionChange)="changeNationality()" required  class="w-100">
                             <mat-option *ngFor="let list of nationalityList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.nationality.errors?.required">Nationality is required</mat-error>
@@ -188,7 +188,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Country Of Residence" formControlName="countryOfResid" (change)="changeCountry()" required (change)="changeCountryy()" class="w-100">
+                          <mat-select  placeholder="Country Of Residence" formControlName="countryOfResid" (selectionChange)="changeCountry()" required (change)="changeCountryy()" class="w-100">
                             <mat-option *ngFor="let list of countryList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.countryOfResid.errors?.required">Country of Residence is required</mat-error>
@@ -196,20 +196,20 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Place Of Birth" formControlName="pob" class="nospace" (change)="changeCitizenship()" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required >
+                          <input matInput placeholder="Place Of Birth" formControlName="pob" class="nospace" (selectionChange)="changeCitizenship()" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.pob.errors?.required">Place Of Birth is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Cititzenship" formControlName="citizenship" (change)="changeCitizenship()" required  class="w-100">
+                          <mat-select  placeholder="Cititzenship" formControlName="citizenship" (selectionChange)="changeCitizenship()" required  class="w-100">
                             <mat-option *ngFor="let list of citizenshipList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.citizenship.errors?.required">Citizenship is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-radio-group formControlName="politicallyExposedPerson" (change)="politicalReson()">
+                        <mat-radio-group formControlName="politicallyExposedPerson" (selectionChange)="politicalReson()">
                           <p>Politically Exposed Person</p>
                           <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                           <mat-radio-button value="N">No</mat-radio-button>
@@ -225,7 +225,7 @@
 
 
                       <div class="col-md-3 mt-4">
-                        <mat-checkbox formControlName="isPancard" (change)="isPancardChecked($event)" ><strong>If PAN Card </strong></mat-checkbox>
+                        <mat-checkbox formControlName="isPancard" (selectionChange)="isPancardChecked($event)" ><strong>If PAN Card </strong></mat-checkbox>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value">
                         <mat-form-field class="w-100" >
@@ -435,7 +435,7 @@
                           <div class="row">
                             <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                             <div class="text-right w-50">
-                              <mat-checkbox formControlName="sameAsProposer" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                              <mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                             </div>
                           </div>
                           <div class="row">
@@ -562,7 +562,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Address Proof" formControlName="addressProof" (change)="changeAddressProof()" required  class="w-100">
+                          <mat-select  placeholder="Address Proof" formControlName="addressProof" (selectionChange)="changeAddressProof()" required  class="w-100">
                             <mat-option *ngFor="let list of paIdProofList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.addressProof.errors?.required">Address Proof is required</mat-error>
@@ -570,7 +570,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Age Proof" formControlName="ageProof" (change)="changeAgeProof()" required  class="w-100">
+                          <mat-select  placeholder="Age Proof" formControlName="ageProof" (selectionChange)="changeAgeProof()" required  class="w-100">
                             <mat-option *ngFor="let list of ageProofsList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.ageProof.errors?.required">Age Proof is required</mat-error>
@@ -578,7 +578,7 @@
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['occupationList'].value !='T' && proposer.controls['occupationList'].value !='N' && proposer.controls['occupationList'].value !='U' ">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Income Proof" formControlName="incomeProof" (change)="changeIncomeProof()"  class="w-100">
+                          <mat-select  placeholder="Income Proof" formControlName="incomeProof" (selectionChange)="changeIncomeProof()"  class="w-100">
                             <mat-option *ngFor="let list of incomeProofList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.incomeProof.errors?.required">Income Proof is required</mat-error>
@@ -586,7 +586,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Id Proof" formControlName="idProof" (change)="changeIdProof()" required  class="w-100">
+                          <mat-select  placeholder="Id Proof" formControlName="idProof" (selectionChange)="changeIdProof()" required  class="w-100">
                             <mat-option *ngFor="let list of idProofList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.idProof.errors?.required">Id Proof is required</mat-error>
@@ -650,7 +650,7 @@
                               </div>
                             </div>
                             <div class="col-md-2" *ngIf="item.mainQuestion.feild == 'Y/N'">
-                              <mat-slide-toggle [(ngModel)]="item.mainQuestion.checked" (change)="changeQuestion(j)"></mat-slide-toggle>
+                              <mat-slide-toggle [(ngModel)]="item.mainQuestion.checked" (selectionChange)="changeQuestion(j)"></mat-slide-toggle>
                             </div>
 
                               <div class="col-md-12 familyBox mt-2" *ngIf="i == 0 && item.mainQuestion.checked">
@@ -683,7 +683,7 @@
                                   </div>
                                   <div class="col-md-3">
                                     <mat-form-field class="w-100">
-                                      <mat-select  placeholder="Health Status" formControlName="health_status" class="w-100" (change)="changeHealthStatus(i)" required>
+                                      <mat-select  placeholder="Health Status" formControlName="health_status" class="w-100" (selectionChange)="changeHealthStatus(i)" required>
                                         <mat-option *ngFor="let list of healthStatusList | keys" [value]= list.value> {{list.value}} </mat-option>
                                       </mat-select>
                                       <mat-error *ngIf="familyDiseaseForm.invalid">Health Status is required</mat-error>
@@ -699,7 +699,7 @@
                                   <div class="col-md-3" *ngIf="familyDiseaseForm['controls'].family['controls'][i]['controls'].health_status.value == 'Not Alive'">
                                     <mat-form-field class="w-100">
                                       <mat-placeholder >Cause Of Death  <span class="error">* </span></mat-placeholder>
-                                      <mat-select   formControlName="cause_death" (change)="changeCauseOfDeath(i)" class="w-100"  >
+                                      <mat-select   formControlName="cause_death" (selectionChange)="changeCauseOfDeath(i)" class="w-100"  >
                                         <mat-option *ngFor="let list of causeOfDeathList | keys" [value]= list.key> {{list.value}} </mat-option>
                                       </mat-select>
                                       <mat-error *ngIf="familyDiseaseForm.invalid">Cause Of Death is required</mat-error>
@@ -791,7 +791,7 @@
                           </div>
                           <div class="col-md-4">
                             <mat-form-field class="w-100">
-                              <mat-select  placeholder="Nominee Relation with Insured" formControlName="nRelation" class="w-100" (change)="changeNomineeRelation()" required>
+                              <mat-select  placeholder="Nominee Relation with Insured" formControlName="nRelation" class="w-100" (selectionChange)="changeNomineeRelation()" required>
                                 <mat-option *ngFor="let list of nomineeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="nomineeDetails.invalid">Relation is required</mat-error>
@@ -833,7 +833,7 @@
                           <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
                               <mat-placeholder >Relation To Insured <span class="error">*</span></mat-placeholder>
-                              <mat-select formControlName="relationToInsured" class="w-100" (change)="changeNomineeRelation()" >
+                              <mat-select formControlName="relationToInsured" class="w-100" (selectionChange)="changeNomineeRelation()" >
                                 <mat-option *ngFor="let list of apointeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="nomineeDetails.invalid">Relation is required</mat-error>
@@ -1438,7 +1438,7 @@
                                   <div class="col-md-3">
                                       <div class="text-left w-100">
                                           <div class="custom-file">
-                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
                                               <label class="custom-file-label"> Address Proof</label>
                                           </div>
                                       </div>
@@ -1447,7 +1447,7 @@
                                   <div class="col-md-3">
                                       <div class="text-left w-100">
                                           <div class="custom-file">
-                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" >
                                               <label class="custom-file-label"> Age Proof</label>
                                           </div>
                                       </div>
@@ -1457,7 +1457,7 @@
                                   <div class="col-md-3">
                                       <div class="text-left w-100">
                                           <div class="custom-file">
-                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" >
                                               <label class="custom-file-label"> ID Proof</label>
                                           </div>
                                       </div>
@@ -1466,7 +1466,7 @@
                                 <div class="col-md-3">
                                   <div class="text-left w-100">
                                     <div class="custom-file">
-                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'bank_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'bank_proof')"   aria-describedby="inputGroupFileAddon01" >
                                       <label class="custom-file-label"> Bank Proof</label>
                                     </div>
                                   </div>

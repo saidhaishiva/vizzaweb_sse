@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <mat-select placeholder="Policy Term" formControlName="policyTerm" autocomplete="off"  required (change)="getPaymentTerm()">
+                    <mat-select placeholder="Policy Term" formControlName="policyTerm" autocomplete="off"  required (selectionChange)="getPaymentTerm()">
                       <mat-option *ngFor="let list of getpolicyTerm | keys" [value]= 'list.value'>
                         {{list.value}}
                       </mat-option>
