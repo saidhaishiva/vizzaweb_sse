@@ -20,7 +20,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>
+                                                    <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="changeGender()" required>
                                                         <mat-option value="MR">Mr</mat-option>
                                                         <mat-option value="MS">Ms</mat-option>
                                                     </mat-select>
@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="selectMarital()" required  class="w-100">
+                                                    <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="selectMarital()" required  class="w-100">
                                                         <mat-option *ngFor="let status of maritalDetail | keys" [value]= 'status.key'> {{status.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
@@ -60,7 +60,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="Occupation" formControlName="occupation" (change)="selectOccupation()" required  class="w-100">
+                                                    <mat-select  placeholder="Occupation" formControlName="occupation" (selectionChange)="selectOccupation()" required  class="w-100">
                                                         <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
@@ -68,7 +68,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="Nationality" formControlName="nationality" (change)="selectNationality()" required  class="w-100">
+                                                    <mat-select  placeholder="Nationality" formControlName="nationality" (selectionChange)="selectNationality()" required  class="w-100">
                                                         <mat-option *ngFor="let list of nationalityList | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="personal.controls.nationality.errors?.required">Nationality is required</mat-error>
@@ -132,7 +132,7 @@
                                                 <mat-form-field  class="w-100">
                                                     <mat-placeholder>Service Tax Exemption<span class="error">*</span></mat-placeholder>
 
-                                                    <mat-select formControlName="ServicesTaxId" autocomplete="off" (change)="isServiceTax()" >
+                                                    <mat-select formControlName="ServicesTaxId" autocomplete="off" (selectionChange)="isServiceTax()" >
                                                         <mat-option *ngFor="let list of ServiceTaxId | keys" value={{list.key}}   matTooltip="{{list.value}}">{{list.value}}</mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="personal.controls.ServicesTaxId.errors?.required">Services Tax is required</mat-error>-->
@@ -204,7 +204,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <mat-form-field class="w-100">
-                                                            <mat-select  placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils()" required  class="w-100">
+                                                            <mat-select  placeholder="Area" formControlName="personalArea" (selectionChange)="typeAddressDeatils()" required  class="w-100">
                                                                 <mat-option *ngFor="let list of proposalPArea | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                             </mat-select>
                                                             <mat-error *ngIf="personal.controls.personalArea.errors?.required">Area is required</mat-error>
@@ -224,12 +224,12 @@
                                                 <div class="row">
                                                     <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                                                     <div class="text-right w-50">
-                                                        <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                                                        <mat-checkbox formControlName="sameas" (selectionChange)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <!--<div class="col-md-12">-->
-                                                        <!--<mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>-->
+                                                        <!--<mat-checkbox formControlName="sameas" (selectionChange)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>-->
                                                     <!--</div>-->
                                                     <div class="col-md-12">
                                                         <mat-form-field class="w-100">
@@ -280,7 +280,7 @@
 
                                                     <div class="col-md-6">
                                                         <mat-form-field class="w-100">
-                                                            <mat-select  placeholder="Area" formControlName="residenceArea" required  class="w-100" (change)="selectResArea()" [disabled]="inputReadonly">
+                                                            <mat-select  placeholder="Area" formControlName="residenceArea" required  class="w-100" (selectionChange)="selectResArea()" [disabled]="inputReadonly">
                                                                 <mat-option *ngFor="let list of proposalRArea | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                             </mat-select>
                                                             <mat-error *ngIf="personal.controls.residenceArea.errors?.required">Area is required</mat-error>
@@ -331,11 +331,11 @@
                                             <!--<h6 class="color-blue mt-3">{{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h6>-->
                                             <div class="row">
                                                 <div class="col-md-12 mt-3" *ngIf="i == 0">
-                                                    <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
+                                                    <mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                                                 </div>
                                                 <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" required>
+                                                        <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)" required>
                                                             <mat-option value="MR" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Daughter'">Mr</mat-option>
                                                             <mat-option value="MS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Ms</mat-option>
                                                         </mat-select>
@@ -362,7 +362,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
-                                                        <mat-select  placeholder="Marital Status" formControlName="maritalStatus" required (change)="selecInsurertMarital(i)"  class="w-100" autocomplete="off">
+                                                        <mat-select  placeholder="Marital Status" formControlName="maritalStatus" required (selectionChange)="selecInsurertMarital(i)"  class="w-100" autocomplete="off">
                                                             <mat-option *ngFor="let status of maritalDetail | keys" [value]= 'status.key'> {{status.value}} </mat-option>
                                                         </mat-select>
                                                         <mat-error *ngIf="insureArray.invalid">Marital Status is required</mat-error>
@@ -386,7 +386,7 @@
                                                 </div>
                                                 <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select  placeholder="Occupation" formControlName="occupation" (change)="selectInsurerOccupation(i)" required  class="w-100">
+                                                        <mat-select  placeholder="Occupation" formControlName="occupation" (selectionChange)="selectInsurerOccupation(i)" required  class="w-100">
                                                             <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                         </mat-select>
                                                         <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
@@ -394,7 +394,7 @@
                                                 </div>
                                                 <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" (change)="selectInsuredRelation(i)"  required >
+                                                        <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" (selectionChange)="selectInsuredRelation(i)"  required >
                                                             <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                         </mat-select>
                                                         <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
@@ -402,28 +402,28 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p>Is Existing Illness</p>
-                                                    <mat-radio-group formControlName="IsExistingIllness" (change)="boolenHide($event, i, 'IsExistingIllness')">
+                                                    <mat-radio-group formControlName="IsExistingIllness" (selectionChange)="boolenHide($event, i, 'IsExistingIllness')">
                                                         <mat-radio-button value="Yes" [checked]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'Yes'" class="mr-2">Yes</mat-radio-button>
                                                         <mat-radio-button value="No" [checked]="insureArray['controls'].items['controls'][i]['controls'].IsExistingIllness.value == 'No'">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p>Is Insured Consume Tobacco</p>
-                                                    <mat-radio-group  formControlName="IsInsuredConsumetobacco" (change)="boolenHide($event, i, 'IsInsuredConsumetobacco')">
+                                                    <mat-radio-group  formControlName="IsInsuredConsumetobacco" (selectionChange)="boolenHide($event, i, 'IsInsuredConsumetobacco')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                         <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p>Has Any Pre Claim On Insured</p>
-                                                    <mat-radio-group formControlName="HasAnyPreClaimOnInsured" (change)="boolenHide($event, i, 'HasAnyPreClaimOnInsured')">
+                                                    <mat-radio-group formControlName="HasAnyPreClaimOnInsured" (selectionChange)="boolenHide($event, i, 'HasAnyPreClaimOnInsured')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                         <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p>Has Any Pre Health Insurance Cancelled</p>
-                                                    <mat-radio-group formControlName="HasAnyPreHealthInsuranceCancelled" (change)="boolenHide($event, i, 'HasAnyPreHealthInsuranceCancelled')">
+                                                    <mat-radio-group formControlName="HasAnyPreHealthInsuranceCancelled" (selectionChange)="boolenHide($event, i, 'HasAnyPreHealthInsuranceCancelled')">
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                         <mat-radio-button value="No">No</mat-radio-button>
                                                     </mat-radio-group>
@@ -554,7 +554,7 @@
                                             </div>
                                             <div class="col-md-3 mt-1">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship" (change)="selectNomineRelation()" required >
+                                                    <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship" (selectionChange)="selectNomineRelation()" required >
                                                         <mat-option *ngFor="let relationship of nomineeRelationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship with Proposer is required</mat-error>
@@ -608,7 +608,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="Area" formControlName="nomineeArea" required  class="w-100" (change)="selectNomineResArea()" >
+                                                    <mat-select  placeholder="Area" formControlName="nomineeArea" required  class="w-100" (selectionChange)="selectNomineResArea()" >
                                                         <mat-option *ngFor="let list of nomineeAreaList | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetails.controls.nomineeArea.errors?.required">Area is required</mat-error>

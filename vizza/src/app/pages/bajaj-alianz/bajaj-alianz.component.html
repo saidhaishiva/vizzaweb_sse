@@ -282,7 +282,7 @@
                                                     </div>
                                                     <div class="col-sm-12 box-card pt-3" *ngIf ="i == 0">
                                                         <div class="col-sm-6">
-                                                            <mat-checkbox formControlName="insureCheckCopay"  (change)="changeCoPayment($event,i)" class="pr-3"></mat-checkbox> Voluntary Co-Payment <small class="pl-3">(Note: Your premium may differ based on your Co-Payment.)</small>
+                                                            <mat-checkbox formControlName="insureCheckCopay"  (selectionChange)="changeCoPayment($event,i)" class="pr-3"></mat-checkbox> Voluntary Co-Payment <small class="pl-3">(Note: Your premium may differ based on your Co-Payment.)</small>
                                                         </div>
                                                         <div class ="col-sm-6" *ngIf="copaymentShow">
                                                             <mat-form-field class="w-100">
@@ -594,7 +594,7 @@
                                                     <div class="row">
                                                         <div class="col-sm-12 col-xs-12 col-md-12">
                                                             <mat-form-field class="w-100">
-                                                                <mat-select placeholder="Title" formControlName="insureTitle" (change)="insureChangeGender(i)" required>
+                                                                <mat-select placeholder="Title" formControlName="insureTitle" (selectionChange)="insureChangeGender(i)" required>
                                                                     <mat-option value="MR">Mr</mat-option>
                                                                     <mat-option value="MRS">Ms</mat-option>
                                                                 </mat-select>
@@ -677,7 +677,7 @@
                                                         </div>
                                                         <div class="col-sm-12 col-xs-12 col-md-12">
                                                             <mat-form-field class="w-100">
-                                                                <mat-select  placeholder="Occupation" formControlName="insureoccupation" (change)="selectOccupation(i)" required  class="w-100">
+                                                                <mat-select  placeholder="Occupation" formControlName="insureoccupation" (selectionChange)="selectOccupation(i)" required  class="w-100">
                                                                     <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}">{{occupation.value}}</mat-option>
                                                                 </mat-select>
                                                                 <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
@@ -746,7 +746,7 @@
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col-sm-12 col-xs-12 col-md-12" *ngIf = "zoneList">
-                                                            <mat-checkbox formControlName="zoneCheck" (change)="zonecheckingList($event)">Pan India cover</mat-checkbox>
+                                                            <mat-checkbox formControlName="zoneCheck" (selectionChange)="zonecheckingList($event)">Pan India cover</mat-checkbox>
                                                         </div>
                                                         <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="zonemessage !=''">
                                                             <div class="card notes">
@@ -769,7 +769,7 @@
                                                 </div>
 
                                                 <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3 addressBox">
-                                                    <h6 class="color-blue mb-3">PRE-EXISTING DISEASES<mat-slide-toggle formControlName="insureDisease" (change)="previousDisease($event, i)" class="pl-3"></mat-slide-toggle></h6>
+                                                    <h6 class="color-blue mb-3">PRE-EXISTING DISEASES<mat-slide-toggle formControlName="insureDisease" (selectionChange)="previousDisease($event, i)" class="pl-3"></mat-slide-toggle></h6>
                                                     <div class="row">
                                                         <div class="col-sm-12 col-xs-12 col-md-12"><p>1. previous Establishing Disease</p></div>
                                                         <div class="col-sm-12 col-xs-12 col-md-12"><p>2. Asthma</p></div>
@@ -849,7 +849,7 @@
                                                 </div>
                                                 <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3" *ngIf ="i == 0">
                                                     <div class="col-sm-12 col-xs-12 col-md-12">
-                                                        <mat-checkbox formControlName="insureCheckCopay"  (change)="changeCoPayment($event,i)" class="pr-3"></mat-checkbox> Voluntary Co-Payment <small class="pl-3">(Note: Your premium may differ based on your Co-Payment.)</small>
+                                                        <mat-checkbox formControlName="insureCheckCopay"  (selectionChange)="changeCoPayment($event,i)" class="pr-3"></mat-checkbox> Voluntary Co-Payment <small class="pl-3">(Note: Your premium may differ based on your Co-Payment.)</small>
                                                     </div>
                                                     <div class ="col-sm-12 col-xs-12 col-md-12" *ngIf="copaymentShow">
                                                         <mat-form-field class="w-100">
