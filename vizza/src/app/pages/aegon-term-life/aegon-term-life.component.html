@@ -18,7 +18,7 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="title"  (change)="changeGender(); getMaritalList(); getEmpType(); getPremium('title')"  required>
+                            <mat-select placeholder="Title" formControlName="title"  (selectionChange)="changeGender(); getMaritalList(); getEmpType(); getPremium('title')"  required>
                               <mat-option value="Mr">Mr</mat-option>
                               <mat-option value="Ms">Ms</mat-option>
                               <mat-option value="Mrs">Mrs</mat-option>
@@ -100,7 +100,7 @@
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (change)="changeQualificationList();getAnnual('qul'); getPremium('qul')" required>
+                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (selectionChange)="changeQualificationList();getAnnual('qul'); getPremium('qul')" required>
                             <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>
@@ -118,7 +118,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Employee Type" formControlName="employeeType" autocomplete="off" required (change)="changeEmpType()">
+                            <mat-select placeholder="Employee Type" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType()">
                               <mat-option *ngFor="let list of empTypeList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
@@ -128,7 +128,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Nature Of Work" formControlName="natureOfWork" autocomplete="off" required (change)="changeOccupationlist()" >
+                            <mat-select placeholder="Nature Of Work" formControlName="natureOfWork" autocomplete="off" required (selectionChange)="changeOccupationlist()" >
                               <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
@@ -156,7 +156,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="smoker" required (change)="getPremium('smoker')">
+                          <mat-radio-group formControlName="smoker" required (selectionChange)="getPremium('smoker')">
                             <p>Smoker <span class="error" >*</span></p>
                             <mat-radio-button value="y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="n">No</mat-radio-button>
@@ -178,14 +178,14 @@
                         </div>
 
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="isHousewife" required (change)="getPremium('wife')">
+                          <mat-radio-group formControlName="isHousewife" required (selectionChange)="getPremium('wife')">
                             <p>Is Housewife <span class="error" >*</span></p>
                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="No">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="isHusbandCover" required (change)="getPremium('hus')">
+                          <mat-radio-group formControlName="isHusbandCover" required (selectionChange)="getPremium('hus')">
                             <p>Is Husband Cover <span class="error" >*</span></p>
                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="No">No</mat-radio-button>
@@ -212,7 +212,7 @@
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <mat-select placeholder="State" formControlName="cState" autocomplete="off" required (keyup)="typeAddressDeatils()" (change)="changecState()">
+                                <mat-select placeholder="State" formControlName="cState" autocomplete="off" required (keyup)="typeAddressDeatils()" (selectionChange)="changecState()">
                                   <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>
@@ -221,7 +221,7 @@
                               </mat-form-field></div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100"  >
-                                <mat-select placeholder="City" formControlName="cCity" autocomplete="off" required (change)="changecCitylist()" (keyup)="typeAddressDeatils()">
+                                <mat-select placeholder="City" formControlName="cCity" autocomplete="off" required (selectionChange)="changecCitylist()" (keyup)="typeAddressDeatils()">
                                   <mat-option *ngFor="let city of citycList | keys" [value]= 'city.value'>
                                     {{city.value}}
                                   </mat-option>
@@ -261,7 +261,7 @@
                             </div>
                             <div class="col-md-6" [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
                               <mat-form-field class="w-100">
-                              <mat-select placeholder="State" formControlName="pState" autocomplete="off" (change)="changeState()" required="" >
+                              <mat-select placeholder="State" formControlName="pState" autocomplete="off" (selectionChange)="changeState()" required="" >
                                 <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
                                   {{list.value}}
                                 </mat-option>
@@ -270,7 +270,7 @@
                             </mat-form-field></div>
                             <div class="col-md-6"  [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
                               <mat-form-field class="w-100">
-                                <mat-select placeholder="City" formControlName="pCity" autocomplete="off" required (change)="changeCitylist()">
+                                <mat-select placeholder="City" formControlName="pCity" autocomplete="off" required (selectionChange)="changeCitylist()">
                                   <mat-option *ngFor="let list of cityList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>
@@ -313,7 +313,7 @@
                         </div>
                         <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'L' && lifePremiumList.benefit_option == 'LP'&& lifePremiumList.benefit_option == 'LH' && lifePremiumList.benefit_option == 'LHP'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Death Benefit TISA" formControlName="deathBenefitTISA" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" (change)="checkSumAs()" readonly>
+                            <input matInput placeholder="Death Benefit TISA" formControlName="deathBenefitTISA" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" (selectionChange)="checkSumAs()" readonly>
                             <mat-error *ngIf="personal.controls.deathBenefitTISA.errors?.required">Death Benefit TISA is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -435,7 +435,7 @@
                             <div class="row">
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Title" formControlName="ntitle" (change)="getnomineerelationship()" required>
+                                  <mat-select placeholder="Title" formControlName="ntitle" (selectionChange)="getnomineerelationship()" required>
                                     <mat-option value="Mr">Mr</mat-option>
                                     <mat-option value="Ms">Ms</mat-option>
                                     <mat-option value="Mrs">Mrs</mat-option>
@@ -471,7 +471,7 @@
                               </div>
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relationship with insured" formControlName="nRelation" autocomplete="off" required (change)="otherNominee()">
+                                  <mat-select placeholder="Relationship with insured" formControlName="nRelation" autocomplete="off" required (selectionChange)="otherNominee()">
                                     <mat-option *ngFor="let list of nomineeRelationship | keys" [value]= 'list.value'>
                                       {{list.value}}
                                     </mat-option>
@@ -512,7 +512,7 @@
                                 </mat-form-field>
                               </div>
                               <div class="col-md-3"><mat-form-field class="w-100">
-                                <mat-select placeholder="State" formControlName="nState" autocomplete="off" (change)="changenState()"  required>
+                                <mat-select placeholder="State" formControlName="nState" autocomplete="off" (selectionChange)="changenState()"  required>
                                   <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>
@@ -520,7 +520,7 @@
                                 <mat-error *ngIf="nominee.controls.nState.errors?.required">State is required</mat-error>
                               </mat-form-field></div>
                               <div class="col-md-3"><mat-form-field class="w-100" >
-                                <mat-select placeholder="City" formControlName="nCity" autocomplete="off" (change)="changeNcitylist()"  required>
+                                <mat-select placeholder="City" formControlName="nCity" autocomplete="off" (selectionChange)="changeNcitylist()"  required>
                                   <mat-option *ngFor="let city of citynList | keys" [value]= 'city.value'>
                                     {{city.value}}
                                   </mat-option>
@@ -575,7 +575,7 @@
                             <div class="col-md-4">
                               <mat-form-field class="w-100">
                                 <mat-placeholder>Relationship with Nominee<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
-                                <mat-select formControlName="aRelation" autocomplete="off"  (change)="otherAppointee()">
+                                <mat-select formControlName="aRelation" autocomplete="off"  (selectionChange)="otherAppointee()">
                                   <mat-option *ngFor="let list of appointeeRelationList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>

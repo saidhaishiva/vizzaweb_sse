@@ -224,7 +224,7 @@
                           <h6 class="color-blue">PERSONAL HABITS (PER DAY)</h6>
                         </div>
                         <div class="col-md-6">
-                          <mat-checkbox formControlName="insuredSmoke" (selectionChange)="checkHabits($event, 'smoke')">Smoking</mat-checkbox>
+                          <mat-checkbox formControlName="insuredSmoke" (change)="checkHabits($event, 'smoke')">Smoking</mat-checkbox>
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Smoking" formControlName="insuredSmokeList"  (selectionChange)="smokingPersonalhabit()" [required]="insuredSmoke" [disabled]="habits">
                               <mat-option value="1">1</mat-option>
@@ -260,7 +260,7 @@
                           <h6 class="color-blue">DRINKING HABITS (PER WEEK)</h6>
                         </div>
                         <div class="col-md-4">
-                          <mat-checkbox formControlName="insuredCheck" (selectionChange)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>
+                          <mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>
 
                           <mat-form-field class="w-100" >
                             <mat-select placeholder="Liquor Peg" formControlName="insuredLiquor"  (selectionChange)="liquorPegPersonalhabit()" [required]="insuredCheck"  [disabled]="habits">
@@ -278,7 +278,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
-                          <mat-checkbox formControlName="insuredCheck1" (selectionChange)="checkHabits($event, 'wine')">Wine Glass</mat-checkbox>
+                          <mat-checkbox formControlName="insuredCheck1" (change)="checkHabits($event, 'wine')">Wine Glass</mat-checkbox>
                           <mat-form-field class="w-100">
                             <mat-select placeholder=Wine formControlName="insuredWine" (selectionChange)="wineGlassPersonalhabit()" [required]="insuredCheck1"  [disabled]="habits">
                               <mat-option value="1">1</mat-option>
@@ -292,7 +292,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
-                          <mat-checkbox formControlName="insuredCheck2" (selectionChange)="checkHabits($event, 'beer')">Beer Bottle</mat-checkbox>
+                          <mat-checkbox formControlName="insuredCheck2" (change)="checkHabits($event, 'beer')">Beer Bottle</mat-checkbox>
                           <mat-form-field class="w-100" >
                             <mat-select placeholder=Beer formControlName="insuredBeer" (selectionChange)="beerBottlePersonalhabit()" [required]="insuredCheck2"  [disabled]="habits">
                               <mat-option value="1">1</mat-option>
@@ -313,7 +313,7 @@
                           <h6 class="color-blue">PREVOIUS INSURER DETAILS</h6>
                         </div>
                         <div class="col-md-12">
-                          <mat-radio-group (selectionChange)="previousinsureList($event)"  formControlName="previousradio">
+                          <mat-radio-group (change)="previousinsureList($event)"  formControlName="previousradio">
                             <mat-radio-button value="1">Yes</mat-radio-button>
                             <mat-radio-button value="2">No</mat-radio-button>
                           </mat-radio-group>
@@ -475,7 +475,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-12 mt-2 mb-3" >
-                          <mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameasProposer()"><strong class="color-blue">Same as proposer Address</strong></mat-checkbox>
+                          <mat-checkbox formControlName="sameAsProposer" (change)="sameasProposer()"><strong class="color-blue">Same as proposer Address</strong></mat-checkbox>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">

@@ -64,7 +64,7 @@
 
                                     <div class="col-md-12" *ngIf="typeList == 'new'">
                                         <mat-placeholder>RTO AREA<span class="color-red">*</span></mat-placeholder>
-                                        <ngx-select-dropdown (change)="rtoCity();"  formControlName="city"  [config]="config" [options]="getRtoDetails"></ngx-select-dropdown>
+                                        <ngx-select-dropdown (selectionChange)="rtoCity();"  formControlName="city"  [config]="config" [options]="getRtoDetails"></ngx-select-dropdown>
 
                                         <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
                                         <!--</ngx-select-dropdown>-->
@@ -143,7 +143,7 @@
                                     </div>
                                     <div class="col-md-12">
                                             <p class="mt-2">Previous Claim ? <span class="error">*</span></p>
-                                            <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="setSession();changeNcbAmt()"  [required]="typeList != 'new'">
+                                            <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (selectionChange)="setSession();changeNcbAmt()"  [required]="typeList != 'new'">
                                             <mat-radio-button value="Yes">Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
                                             </mat-radio-group>
@@ -151,7 +151,7 @@
                                     <div class="col-md-10" *ngIf="bikeInsurance.controls['previousClaim'].value == 'No'">
                                         <mat-form-field class="w-100 text-left">
                                             <mat-placeholder> NCB Percent(%) <span class="error">*</span></mat-placeholder>
-                                            <mat-select (change)="setSession()" formControlName="ncb"  >
+                                            <mat-select (selectionChange)="setSession()" formControlName="ncb"  >
                                            <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                            </mat-select>
                                            <mat-error *ngIf="bikeInsurance.controls.ncb.errors?.required">Ncb is required</mat-error>
