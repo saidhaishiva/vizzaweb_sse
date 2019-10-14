@@ -284,9 +284,6 @@ export class BajajAlianzComponent implements OnInit {
         );
     }
 
-    topScrollinsurer(){
-        this.topScroll()
-    }
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }
@@ -392,7 +389,6 @@ export class BajajAlianzComponent implements OnInit {
                     if(!relationshipValidate.includes('No')) {
                         this.proposal(stepper);
                         this.topScroll();
-                        this.nextStep();
                         this.healthBajajTrue1 = false;
                     }  else{
                         this.toastr.error('Insurer and Nominee relationship should be different');
@@ -873,6 +869,7 @@ export class BajajAlianzComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
             stepper.next();
+            this.nextStep();
             this.topScroll();
             this.toastr.success('proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
