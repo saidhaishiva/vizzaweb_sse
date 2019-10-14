@@ -158,7 +158,7 @@ export class AppolloMunichComponent implements OnInit {
     public getDays: any;
     public getAge: any;
     public readonly: any;
-    public readonlyproposer: any;
+    public nomineeList: any;
     public appolloQuestionsList: any;
     public proposerList: any;
     public sameRelationship : any;
@@ -2316,6 +2316,8 @@ export class AppolloMunichComponent implements OnInit {
                         'MaritalStatusCode': this.totalInsureDetails[0].MaritalStatusCode,
                         'MiddleName': this.totalInsureDetails[0].MiddleName == null ? '':  this.totalInsureDetails[0].MiddleName,
                         'NationalityCode': this.totalInsureDetails[0].NationalityCode,
+                        'maritalStatusName': this.totalInsureDetails[0].maritalStatusName,
+                        'proposerrelationshipName': this.totalInsureDetails[0].proposerrelationshipName,
                         // 'AnnualIncome':  this.totalInsureDetails[0].proposerAnnualIncome,
                         'OccuptionCode': this.totalInsureDetails[0].OccuptionCode,
                             'PreviousInsurer': {
@@ -2554,6 +2556,8 @@ export class AppolloMunichComponent implements OnInit {
                         'MaritalStatusCode': this.totalInsureDetails[0].MaritalStatusCode,
                         'MiddleName': this.totalInsureDetails[0].MiddleName == null ? '':  this.totalInsureDetails[0].MiddleName,
                         'NationalityCode': this.totalInsureDetails[0].NationalityCode,
+                        'maritalStatusName': this.totalInsureDetails[0].maritalStatusName,
+                        'proposerrelationshipName': this.totalInsureDetails[0].proposerrelationshipName,
                         // 'AnnualIncome':  this.totalInsureDetails[0].proposerAnnualIncome,
                         'OccuptionCode': this.totalInsureDetails[0].OccuptionCode,
                         'type': this.totalInsureDetails[0].type,
@@ -2647,6 +2651,7 @@ export class AppolloMunichComponent implements OnInit {
             this.pos_status = this.requestDetails.role_id;
             console.log(this.pos_status , 'requestDetailsrequestDetails');
             this.proposerList = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Application.Proposer;
+            this.nomineeList = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Application;
             console.log(this.proposerList, 'asdadsd');
             this.requestClientDetails = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Client;
             console.log(this.requestClientDetails, 'requestInsuredListrequestInsuredList');
