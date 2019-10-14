@@ -17,7 +17,7 @@
                             <th class="col-md-2">
                                 <mat-form-field class="w-100">
                                     <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
-                                    <mat-select [(ngModel)]="filterCompany"  (change)="filterByProducts()" multiple>
+                                    <mat-select [(ngModel)]="filterCompany"  (selectionChange)="filterByProducts()" multiple>
                                         <mat-option value="All" >Select All</mat-option>
                                         <mat-select-trigger>
                                             {{filterCompany ? filterCompany[0] : ''}}
@@ -34,7 +34,7 @@
                             <th class="sun-insured col-md-2">
                                 <mat-form-field >
                                     <mat-placeholder class="myclass font-weight-bold">Premium type ($)</mat-placeholder>
-                                    <mat-select [(ngModel)]="compherhensive" (change)="premiumlist();listDetails()" >
+                                    <mat-select [(ngModel)]="compherhensive" (selectionChange)="premiumlist();listDetails()" >
                                         <mat-option value="Comprehensive_premium">Comprehensive Premium</mat-option>
                                         <mat-option value="ThridParty_premium" *ngIf="vehicleDetalis.business_type != '1'">ThridParty Premium</mat-option>
                                     </mat-select>
@@ -44,7 +44,7 @@
                             <th class="sun-insured col-md-2">
                                 <mat-form-field >
                                     <mat-placeholder class="myclass font-weight-bold">Policy Term</mat-placeholder>
-                                    <mat-select [(ngModel)]="policyTerm" (change)="premiumlist()">
+                                    <mat-select [(ngModel)]="policyTerm" (selectionChange)="premiumlist()">
                                         <mat-option value="1">One Year</mat-option>
                                         <mat-option value="2">Two Year</mat-option>
                                         <mat-option value="3">Three Year</mat-option>
