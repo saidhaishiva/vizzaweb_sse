@@ -46,6 +46,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public bankDetail: FormGroup;
   public apointeeDetails: FormGroup;
   public familyDiseaseForm: FormGroup;
+  public documentDetail: FormGroup;
   public itemsNominee: any;
   public proposerdateError: any;
   public transactiondateError: any;
@@ -124,6 +125,8 @@ export class LifeBajajProposalComponent implements OnInit {
   public uploadIdProofName: any;
   public uploadBankProofName: any;
   public uploadAgeProofName: any;
+  public uploadphotoName: any;
+  public uploadotherDosName: any;
   public uploadAddressProofName: any;
   public currentStep: any;
   public documentPath: any;
@@ -137,6 +140,8 @@ export class LifeBajajProposalComponent implements OnInit {
   public ageProofPath: any;
   public addressProofPath: any;
   public bankProofPath: any;
+  public photoPath: any;
+  public otherdocsPath: any;
   public idProofPath: any;
 
    constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -299,6 +304,16 @@ export class LifeBajajProposalComponent implements OnInit {
           this.getFamilyContols()
         ])
       });
+       this.documentDetail = this.Proposer.group({
+
+           addrProof:'',
+           ageProof:'',
+           idProof:'',
+           bankProof:'',
+           photo:'',
+           otherDoc:'',
+
+       });
 
     this.questions = this.Proposer.group({});
     this.setQuestionDetails = [];
@@ -322,7 +337,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
 
       this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
-
+      this.mainQuestion();
     this.paIdList();
     this.ageProof();
     this.maritalStatus();
@@ -965,8 +980,21 @@ samerelationShip(){
 
   }
 
+    //upload document valid
+    uploadValid() {
+        if (this.documentDetail.valid) {
+            console.log('11111111doc');
+            this.window.open(this.proposalNextList.payment_link,'_top')
+            console.log('22222');
+        } else {
+            console.log('3333333333else');
+            this.toastr.error('Please Upload the Document');
+            console.log('444444444else');
+        }
+    }
 
-  //nominee details
+
+    //nominee details
   nomineeDetailNext(stepper, value) {
     console.log(value);
     sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
@@ -1678,16 +1706,16 @@ samerelationShip(){
         this.optGenStatus = false;
       this.otpGenList = successData.ResponseObject;
 
-        let dialogRef = this.dialog.open(BajajLifeOpt, {
-            width: '1200px'
-        });
-        dialogRef.disableClose = true;
-        dialogRef.afterClosed().subscribe(result => {
-          if(result) {
-
-          }
-
-        });
+        // let dialogRef = this.dialog.open(BajajLifeOpt, {
+        //     width: '1200px'
+        // });
+        // dialogRef.disableClose = true;
+        // dialogRef.afterClosed().subscribe(result => {
+        //   if(result) {
+        //
+        //   }
+        //
+        // });
 
     } else {
         this.optGenStatus = true;
@@ -2558,6 +2586,48 @@ samerelationShip(){
             }
             this.uploadBankProofName = this.fileDetails[0].name;
         }
+        else if(type == 'photoGraph') {
+
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({
+                    'base64': '',
+                    'proofType': type,
+                    'fileExt': event.target.files[i].type,
+                    'name': event.target.files[i].name
+                });
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(this.fileDetails, getUrlEdu, 'photo_g');
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+            this.uploadphotoName = this.fileDetails[0].name;
+        }
+        else if(type == 'other_Details') {
+
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({
+                    'base64': '',
+                    'proofType': type,
+                    'fileExt': event.target.files[i].type,
+                    'name': event.target.files[i].name
+                });
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(this.fileDetails, getUrlEdu, 'other_d');
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+            this.uploadotherDosName = this.fileDetails[0].name;
+        }
 
     }
     onUploadFinished(values, basecode, type) {
@@ -2600,12 +2670,28 @@ samerelationShip(){
             }
           }
         }
+        else if(type == 'photo') {
+          this.photoPath = [];
+          for (let k = 0; k < values.length; k++) {
+            if (this.photoPath.indexOf(values[k].name) == -1) {
+              this.photoPath.push(values[k]);
+            }
+          }
+        }
+        else if(type == 'other_docs') {
+          this.otherdocsPath = [];
+          for (let k = 0; k < values.length; k++) {
+            if (this.otherdocsPath.indexOf(values[k].name) == -1) {
+              this.otherdocsPath.push(values[k]);
+            }
+          }
+        }
 
         console.log(this.ageProofPath, 'this.ageProofPath');
         console.log(this.addressProofPath, 'this.addressProofPath');
         console.log(this.bankProofPath, 'this.bankProofPath');
         console.log(this.idProofPath, 'this.idProofPath');
-        console.log(this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath), 'this.conbvsgd');
+        console.log(this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath,this.photoPath,this.otherdocsPath), 'this.conbvsgd');
 
     }
 
@@ -2617,7 +2703,7 @@ samerelationShip(){
             "platform": "web",
             "policy_id": this.getEnquiryDetials.policy_id,
             "Persons": [{
-                "Documents": this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath),
+                "Documents": this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath,this.otherdocsPath,this.photoPath),
                 "Type": "PH"
             }]
         };
@@ -2652,6 +2738,16 @@ samerelationShip(){
     }
   nextDocUpload(stepper) {
     stepper.next();
+      let dialogRef = this.dialog.open(BajajLifeOpt, {
+          width: '1200px'
+      });
+      dialogRef.disableClose = true;
+      dialogRef.afterClosed().subscribe(result => {
+          if(result) {
+
+          }
+
+      });
     this.topScroll();
   }
 
