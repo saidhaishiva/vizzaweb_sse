@@ -247,7 +247,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
 
     if (this.bajajgold.valid) {
       if (sessionStorage.age > 18 && sessionStorage.age < 65 ) {
-        if (this.bajajgold.controls.premium.value > 300000 && this.bajajgold.controls.premium.value < 1000000) {
+        if (this.bajajgold.controls.premium.value >= 30000 && this.bajajgold.controls.premium.value <= 1000000) {
 
           const data = {
             "platform": "web",
@@ -266,7 +266,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
             "paymentTerm": this.bajajgold.controls['paymentTerm'].value,
             "premium": this.bajajgold.controls['premium'].value,
             "paymentFrequency": this.bajajgold.controls['frequency'].value,
-            "pos_id": "197"
+            "pos_id": this.auth.getPosId() ? this.auth.getPosId() :'197',
             // this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
 
           };
