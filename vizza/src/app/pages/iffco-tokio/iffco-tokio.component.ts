@@ -150,10 +150,14 @@ export class IffcoTokioComponent implements OnInit {
             this.status = params.stepper;
             this.proposal_Id = params.proposalId;
             if (this.proposal_Id != '' || this.proposal_Id != undefined) {
-                this.payLaterr = true;
-                console.log(this.proposal_Id, 'this.proposal_Id');
-                console.log(this.status, 'this.proposal_Id');
-                this.getBackRequest();
+
+            } else {
+                if (this.proposal_Id != '' || this.proposal_Id != undefined) {
+                    this.payLaterr = true;
+                    console.log(this.proposal_Id, 'this.proposal_Id');
+                    console.log(this.status, 'this.proposal_Id');
+                    this.getBackRequest();
+                }
             }
             if (this.proposal_Id == undefined || this.proposal_Id == '') {
                 this.payLaterr = false;

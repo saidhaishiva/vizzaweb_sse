@@ -102,24 +102,29 @@ export class CholaHealthProposalComponent implements OnInit {
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
         this.stepperindex = 3;
-        if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
-          this.summaryData = JSON.parse(sessionStorage.summaryData);
-          this.RediretUrlLink = this.summaryData.PaymentURL;
-          this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
-          this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
-          this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
-          this.proposalId = this.summaryData.ProposalId;
-          sessionStorage.chola_health_proposal_id = this.proposalId;
-        }
+          this.status = params.stepper;
+          this.proposal_Id = params.proposalId;
+
+          if(this.proposal_Id != '' || this.proposal_Id != undefined ) {
+              if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                  this.summaryData = JSON.parse(sessionStorage.summaryData);
+                  this.RediretUrlLink = this.summaryData.PaymentURL;
+                  this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                  this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                  this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                  this.proposalId = this.summaryData.ProposalId;
+                  sessionStorage.chola_health_proposal_id = this.proposalId;
+              }
+          } else {
+              if(this.proposal_Id != '' || this.proposal_Id != undefined ){
+                  this.payLaterr = true;
+                  console.log(this.proposal_Id, 'this.proposalId');
+                  console.log(this.status, 'this.proposalId');
+                  this.getBackRequest();
+              }
+          }
       }
-        this.status = params.stepper;
-        this.proposal_Id = params.proposalId;
-        if(this.proposal_Id != '' || this.proposal_Id != undefined ){
-            this.payLaterr = true;
-            console.log(this.proposal_Id, 'this.proposalId');
-            console.log(this.status, 'this.proposalId');
-            this.getBackRequest();
-        }
+
         if(this.proposal_Id == undefined || this.proposal_Id == '') {
             this.payLaterr = false;
         }
