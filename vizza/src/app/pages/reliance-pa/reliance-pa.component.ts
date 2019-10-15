@@ -271,6 +271,14 @@ export class ReliancePaComponent implements OnInit {
     this.nominee.controls['nomineePaCountry'].patchValue('India');
   }
 
+  ChangeGender(){
+    if (this.proposer.controls['proposerPaTitle'].value == 'Mr.' || this.proposer.controls['proposerPaTitle'].value == 'Dr.'){
+      this.proposer.controls['proposerPaGender'].patchValue('MALE');
+    } else {
+      this.proposer.controls['proposerPaGender'].patchValue('FEMALE');
+    }
+  }
+
   insurechangeGender(type) {
     if (type == 'proposer') {
       if (this.proposer.controls['proposerPaTitle'].value == 'Mr.' || this.proposer.controls['proposerPaTitle'].value == 'Dr.') {
@@ -308,6 +316,9 @@ export class ReliancePaComponent implements OnInit {
 
   idValidate(event: any) {
     this.validation.idValidate(event);
+  }
+  passportsValidate(event: any) {
+    this.validation.passportsValidate(event);
   }
 
   // space

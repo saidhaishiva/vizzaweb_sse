@@ -1786,8 +1786,8 @@
                           <span *ngIf="riskFormData.riskIndian == 'true'">Yes</span>
                           <span *ngIf="riskFormData.riskIndian == 'false'">No</span>
                         </li>
-                        <li class="list-group-item">
-                          <strong> Is Over Seas Citizen :</strong>
+                        <li class="list-group-item" *ngIf="riskDetails['controls'].riskIndian.value == false || riskDetails['controls'].riskIndian.value == 'false'">
+                          <strong> Is OverSeas Citizen :</strong>
                           <span *ngIf="riskFormData.riskIsOverSeasCitizen == 'true'">Yes</span>
                           <span *ngIf="riskFormData.riskIsOverSeasCitizen == 'false'">No</span>
                         </li>
@@ -3476,8 +3476,8 @@
                     <span *ngIf="riskFormData.riskIndian == 'true'">Yes</span>
                     <span *ngIf="riskFormData.riskIndian == 'false'">No</span>
                   </li>
-                  <li class="list-group-item">
-                    <strong> Is Over Seas Citizen :</strong>
+                  <li class="list-group-item" *ngIf="riskDetails['controls'].riskIndian.value == false || riskDetails['controls'].riskIndian.value == 'false'">
+                    <strong> Is OverSeas Citizen :</strong>
                     <span *ngIf="riskFormData.riskIsOverSeasCitizen == 'true'">Yes</span>
                     <span *ngIf="riskFormData.riskIsOverSeasCitizen == 'false'">No</span>
                   </li>
