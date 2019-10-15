@@ -607,7 +607,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     this.nextStep();
                     this.religareTravelMobileTrue1 = false;
                 } else {
-                    this.toastr.error('Sponser age should be 18 or above');
+                    this.toastr.error('Sponsor age should be 18 or above');
                 }
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
