@@ -29,13 +29,13 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="firstname" maxlength="50" (keypress)="nameValidateNospace($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="firstname" maxlength="50" (keypress)="nameValidate($event)"  autocomplete="off" required >
                           <mat-error *ngIf="religarePersonal.controls.firstname.errors?.required"> First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastname" maxlength="50" (keypress)="nameValidateNospace($event)"  autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="lastname" maxlength="50" (keypress)="nameValidate($event)"  autocomplete="off" required >
                           <mat-error *ngIf="religarePersonal.controls.lastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -163,11 +163,11 @@
                               <mat-error *ngIf="religarePersonal.controls.guidetitle.errors?.required">Guide Title is required</mat-error>
                             </mat-form-field></div>
                           <div class="col-md-4"><mat-form-field class="w-100">
-                            <input matInput placeholder="Guide First Name" maxlength="50" formControlName="guidefirstname" (keypress)="nameValidateNospace($event)" autocomplete="off" required >
+                            <input matInput placeholder="Guide First Name" maxlength="50" formControlName="guidefirstname" (keypress)="nameValidate($event)" autocomplete="off" required >
                             <mat-error *ngIf="religarePersonal.controls.guidefirstname.errors?.required">Guide Firstname is required</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-4"><mat-form-field class="w-100">
-                            <input matInput placeholder="Guide Last Name" maxlength="50" formControlName="guidelastname"  (keypress)="nameValidateNospace($event)" autocomplete="off" required>
+                            <input matInput placeholder="Guide Last Name" maxlength="50" formControlName="guidelastname"  (keypress)="nameValidate($event)" autocomplete="off" required>
                             <mat-error *ngIf="religarePersonal.controls.guidelastname.errors?.required">Guide Lastname is required</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-4"><mat-form-field class="w-100">
