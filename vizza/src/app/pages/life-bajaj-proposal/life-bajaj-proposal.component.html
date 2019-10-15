@@ -1419,8 +1419,9 @@
                       </mat-expansion-panel-header>
                       <div class="row mt-3">
                           <div class="col-md-12 box-card pt-3 pb-3" >
+                            <form [formGroup]="documentDetail">
 
-                              <div class="row">
+                            <div class="row">
 
                                   <div class="col-md-12 mb-4">
                                       <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>
@@ -1438,7 +1439,7 @@
                                   <div class="col-md-3">
                                       <div class="text-left w-100">
                                           <div class="custom-file">
-                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                              <input type="file" class="custom-file-input" formControlName="addrProof" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" required>
                                               <label class="custom-file-label"> Address Proof</label>
                                           </div>
                                       </div>
@@ -1447,7 +1448,7 @@
                                   <div class="col-md-3">
                                       <div class="text-left w-100">
                                           <div class="custom-file">
-                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                              <input type="file" class="custom-file-input" formControlName="ageProof" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" required>
                                               <label class="custom-file-label"> Age Proof</label>
                                           </div>
                                       </div>
@@ -1457,7 +1458,7 @@
                                   <div class="col-md-3">
                                       <div class="text-left w-100">
                                           <div class="custom-file">
-                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                              <input type="file" class="custom-file-input" formControlName="idProof" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" required>
                                               <label class="custom-file-label"> ID Proof</label>
                                           </div>
                                       </div>
@@ -1466,11 +1467,29 @@
                                 <div class="col-md-3">
                                   <div class="text-left w-100">
                                     <div class="custom-file">
-                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'bank_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="bankProof" (selectionChange)="uploadProof($event, 'bank_proof')"   aria-describedby="inputGroupFileAddon01" required>
                                       <label class="custom-file-label"> Bank Proof</label>
                                     </div>
                                   </div>
                                   <p class="mt-2" style="color: green;">{{uploadBankProofName}}</p>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="text-left w-100">
+                                    <div class="custom-file">
+                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="photo" (selectionChange)="uploadProof($event, 'photo')"   aria-describedby="inputGroupFileAddon01" required>
+                                      <label class="custom-file-label"> Photograph</label>
+                                    </div>
+                                  </div>
+                                  <p class="mt-2" style="color: green;">{{uploadphotoName}}</p>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="text-left w-100">
+                                    <div class="custom-file">
+                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="otherDoc" (selectionChange)="uploadProof($event, 'other_docs')"   aria-describedby="inputGroupFileAddon01" >
+                                      <label class="custom-file-label"> other documents</label>
+                                    </div>
+                                  </div>
+                                  <p class="mt-2" style="color: green;">{{uploadotherDosName}}</p>
                                 </div>
                               </div>
 
@@ -1492,7 +1511,7 @@
                                   <div class="col-md-6">
                                       <div class="proposal-buttom text-left w-100">
                                           <form action={{proposalNextList.payment_link}}  method='post' #form>
-                                              <button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>
+                                              <button mat-raised-button color="primaryBlue" (click)="uploadValid()">Pay Now</button>
                                           </form>
                                       </div>
                                   </div>
@@ -1511,6 +1530,7 @@
                                       <!--</form>-->
                                   <!--</div>-->
                               <!--</div>-->
+                            </form>
 
                           </div>
                       </div>

@@ -155,7 +155,7 @@
                   <div class="col-md-10" *ngIf="fourWheeler.controls['previousClaim'].value == 'No'">
                     <mat-form-field class="w-100 text-left">
                       <mat-placeholder> NCB Percent(%) <span class="error">*</span></mat-placeholder>
-                      <mat-select (change)="setSession()" formControlName="ncb"  >
+                      <mat-select (selectionChange)="setSession()" formControlName="ncb"  >
                         <!--<i class="material-icons"><span matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy."</span>-->
                         <!--help-->
                         <!--</i>-->
