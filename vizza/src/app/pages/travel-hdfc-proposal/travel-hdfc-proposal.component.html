@@ -256,19 +256,19 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="InsFirstName"  (keypress)="nameValidateNospace($event)" maxlength="45" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="First Name" formControlName="InsFirstName"  (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="hdfcInsuredTravel.invalid">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Middle Name" formControlName="InsMiddleName"  (keypress)="nameValidateNospace($event)" maxlength="45" autocomplete="off" readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="Middle Name" formControlName="InsMiddleName"  (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <!--<mat-error *ngIf="hdfcInsuredTravel.invalid">Last Name is required</mat-error>-->
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="InsLastName"  (keypress)="nameValidateNospace($event)" maxlength="45" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="Last Name" formControlName="InsLastName"  (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="hdfcInsuredTravel.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
