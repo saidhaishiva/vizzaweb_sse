@@ -216,7 +216,7 @@
                           <div class="row">
                             <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                             <div class="text-right w-50">
-                              <mat-checkbox formControlName="sameas" (selectionChange)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                              <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                             </div>
                           </div>
                           <div class="row">
@@ -774,7 +774,7 @@
                         <!--<h6 class="color-blue">INSURED DETAILS</h6>-->
                         <div class="row">
                           <div class="col-md-12 mb-3 pt-2" *ngIf="i == 0">
-                            <mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
+                            <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                           </div>
                           <div class="col-md-3" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}" *ngIf="i == 0">
                             <mat-form-field class="w-100">

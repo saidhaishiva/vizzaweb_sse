@@ -64,7 +64,7 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (change)="manifactureList()"   required>
+        <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (selectionChange)="manifactureList()"   required>
           <mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
         </mat-select>
         <mat-error *ngIf="vehicalDetails.controls.manufacture.errors?.required">Vehicle Manufacture is required</mat-error>
@@ -74,7 +74,7 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <mat-select placeholder="Vehicle Model"  formControlName="vehicleModel" (change)="modelList1()"  required>
+        <mat-select placeholder="Vehicle Model"  formControlName="vehicleModel" (selectionChange)="modelList1()"  required>
           <mat-option *ngFor="let paCity of modelDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
         </mat-select>
         <mat-error *ngIf="vehicalDetails.controls.vehicleModel.errors?.required">Vehicle Model is required</mat-error>
@@ -83,7 +83,7 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <mat-select placeholder="Variant"  formControlName="variant" (change)="variantList()"   required>
+        <mat-select placeholder="Variant"  formControlName="variant" (selectionChange)="variantList()"   required>
           <mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
         </mat-select>
         <mat-error *ngIf="vehicalDetails.controls.variant.errors?.required">Variant is required</mat-error>
