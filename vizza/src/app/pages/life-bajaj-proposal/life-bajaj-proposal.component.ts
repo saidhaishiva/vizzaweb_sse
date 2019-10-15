@@ -157,6 +157,7 @@ export class LifeBajajProposalComponent implements OnInit {
                     this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
                     this.bankDetailFormData = JSON.parse(sessionStorage.bankDetailFormData);
                     this.nomineeDetailFormData = JSON.parse(sessionStorage.nomineeDetailFormData);
+
                     this.familyDiseaseFormData = JSON.parse(sessionStorage.familyDiseaseFormData);
                 }
 
@@ -167,6 +168,8 @@ export class LifeBajajProposalComponent implements OnInit {
         this.ageProofPath = [];
         this.bankProofPath = [];
         this.idProofPath = [];
+        this.photoPath = [];
+        this.otherdocsPath = [];
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -335,9 +338,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
-
-      this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
-      this.mainQuestion();
+    this.mainQuestion();
     this.paIdList();
     this.ageProof();
     this.maritalStatus();
@@ -821,6 +822,7 @@ export class LifeBajajProposalComponent implements OnInit {
               } else {
                 stepper.next();
                 this.topScroll();
+                this.mainQuestion();
               }
             } else {
               this.toastr.error('Annual Income shoud be above 5 lakhs');
@@ -1850,6 +1852,7 @@ samerelationShip(){
   }
 
   mainQuestion() {
+
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -2508,6 +2511,7 @@ samerelationShip(){
             for (let i = 0; i < event.target.files.length; i++) {
                 this.fileDetails.push({
                     'base64': '',
+                    'content_type': this.documentDetail.controls['addrProof'].value,
                     'proofType': type,
                     'fileExt': event.target.files[i].type,
                     'name': event.target.files[i].name
@@ -2529,6 +2533,7 @@ samerelationShip(){
             for (let i = 0; i < event.target.files.length; i++) {
                 this.fileDetails.push({
                     'base64': '',
+                    'content_type': this.documentDetail.controls['ageProof'].value,
                     'proofType': type,
                     'fileExt': event.target.files[i].type,
                     'name': event.target.files[i].name
@@ -2550,6 +2555,7 @@ samerelationShip(){
             for (let i = 0; i < event.target.files.length; i++) {
                 this.fileDetails.push({
                     'base64': '',
+                    'content_type': this.documentDetail.controls['idProof'].value,
                     'proofType': type,
                     'fileExt': event.target.files[i].type,
                     'name': event.target.files[i].name
@@ -2570,6 +2576,7 @@ samerelationShip(){
             for (let i = 0; i < event.target.files.length; i++) {
                 this.fileDetails.push({
                     'base64': '',
+                    'content_type': this.documentDetail.controls['bankProof'].value,
                     'proofType': type,
                     'fileExt': event.target.files[i].type,
                     'name': event.target.files[i].name
@@ -2591,6 +2598,7 @@ samerelationShip(){
             for (let i = 0; i < event.target.files.length; i++) {
                 this.fileDetails.push({
                     'base64': '',
+                    'content_type': this.documentDetail.controls['photo'].value,
                     'proofType': type,
                     'fileExt': event.target.files[i].type,
                     'name': event.target.files[i].name
@@ -2612,6 +2620,7 @@ samerelationShip(){
             for (let i = 0; i < event.target.files.length; i++) {
                 this.fileDetails.push({
                     'base64': '',
+                    'content_type': this.documentDetail.controls['otherDoc'].value,
                     'proofType': type,
                     'fileExt': event.target.files[i].type,
                     'name': event.target.files[i].name
@@ -2670,7 +2679,7 @@ samerelationShip(){
             }
           }
         }
-        else if(type == 'photo') {
+        else if(type == 'photo_g') {
           this.photoPath = [];
           for (let k = 0; k < values.length; k++) {
             if (this.photoPath.indexOf(values[k].name) == -1) {
@@ -2678,7 +2687,7 @@ samerelationShip(){
             }
           }
         }
-        else if(type == 'other_docs') {
+        else if(type == 'other_d') {
           this.otherdocsPath = [];
           for (let k = 0; k < values.length; k++) {
             if (this.otherdocsPath.indexOf(values[k].name) == -1) {
@@ -2691,6 +2700,8 @@ samerelationShip(){
         console.log(this.addressProofPath, 'this.addressProofPath');
         console.log(this.bankProofPath, 'this.bankProofPath');
         console.log(this.idProofPath, 'this.idProofPath');
+        console.log(this.photoPath, 'this.photoPath');
+        console.log(this.otherdocsPath, 'this.otherdocsPath');
         console.log(this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath,this.photoPath,this.otherdocsPath), 'this.conbvsgd');
 
     }
