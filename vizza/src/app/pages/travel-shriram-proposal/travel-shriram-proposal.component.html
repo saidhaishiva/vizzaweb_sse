@@ -258,7 +258,7 @@
 
 
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>SUMMARAY</ng-template>
+          <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
               <div class="col-md-6">
@@ -352,7 +352,13 @@
                       <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.address2 != ''"><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.address3 != ''"><strong>Address 3:</strong> {{proposerFormData.address3}}</li>
-                      <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.cityName}}</li>
+                       </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                       <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.cityName}}</li>
                       <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.stateName}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode}}</li>
                     </ul>
@@ -363,6 +369,12 @@
                     <h6 class="color-blue">NOMINEE DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{nomineeFormData.nomineeName}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeFormData.nomineeRelationshipName}}</li>
                     </ul>
                   </div>
@@ -409,6 +421,9 @@
   </div>
 </div>
 </section>
+
+
+
 
 
 <!--mobile view-->
