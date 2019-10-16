@@ -279,7 +279,7 @@
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <mat-form-field class="w-100">
+                                                        <mat-form-field class="w-100" [ngStyle]="{'pointer-events': inputReadonly ? 'none' : ''}">
                                                             <mat-select  placeholder="Area" formControlName="residenceArea" required  class="w-100" (selectionChange)="selectResArea()" [disabled]="inputReadonly">
                                                                 <mat-option *ngFor="let list of proposalRArea | keys" [value]= 'list.key'> {{list.value}} </mat-option>
                                                             </mat-select>
