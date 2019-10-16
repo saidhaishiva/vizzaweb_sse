@@ -18,7 +18,7 @@
                       <div class="row">
                         <div class="col-md-3 mt-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="title" (change)="ChangeGender()" required >
+                            <mat-select placeholder="Title" formControlName="title" (selectionChange)="ChangeGender()" required >
                               <mat-option value="Mr">Mr</mat-option>
                               <mat-option value="Ms">Ms</mat-option>
                               <mat-option value="Mrs">Mrs</mat-option>
@@ -335,25 +335,37 @@
 
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3 mt-3" *ngIf ="vechicle.controls['Financetype'].value == true" >
-                                            <ng-select [items]="photosBuffer"
-                                                       [virtualScroll]="true"
-                                                       [loading]="loading"
-                                                       bindLabel="name"
-                                                       bindValue="id"
-                                                       placeholder="Financier Name"
-                                                       appendTo="body"
-                                                       (scroll)="onScroll($event)"
-                                                       (scrollToEnd)="onScrollToEnd()"
-                                                       formControlName="financiercode"
-                                                       [required]="vechicle.controls['Financetype'].value == true">
-                                                <ng-template ng-header-tmp>
-                                                    <small class="form-text text-muted">Loaded {{photosBuffer.length}} of {{photos.length}}</small>
-                                                </ng-template>
-                                                <ng-template ng-option-tmp let-item="item" let-index="index">
-                                                    {{item.name}}
-                                                </ng-template>
-                                            </ng-select>
+                                        <!--<div class="col-md-3 mt-3" *ngIf ="vechicle.controls['Financetype'].value == true" >-->
+                                        <!--<ng-select [items]="photosBuffer"-->
+                                        <!--[virtualScroll]="true"-->
+                                        <!--[loading]="loading"-->
+                                        <!--bindLabel="name"-->
+                                        <!--bindValue="id"-->
+                                        <!--placeholder="Financier Name"-->
+                                        <!--appendTo="body"-->
+                                        <!--(scroll)="onScroll($event)"-->
+                                        <!--(scrollToEnd)="onScrollToEnd()"-->
+                                        <!--formControlName="financiercode"-->
+                                        <!--[required]="vechicle.controls['Financetype'].value == true">-->
+                                        <!--<ng-template ng-header-tmp>-->
+                                        <!--<small class="form-text text-muted">Loaded {{photosBuffer.length}} of {{photos.length}}</small>-->
+                                        <!--</ng-template>-->
+                                        <!--<ng-template ng-option-tmp let-item="item" let-index="index">-->
+                                        <!--{{item.name}}-->
+                                        <!--</ng-template>-->
+                                        <!--</ng-select>-->
+                                        <!--</div>-->
+                                        <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >
+                                            <mat-form-field class="w-100" >
+                                                <mat-placeholder>Financier Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
+                                                <mat-select  formControlName="financiercode"  (change)="changefinancecompany()">
+                                                    <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
+                                                        <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
+                                                    </cdk-virtual-scroll-viewport>
+                                                    <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
+                                                </mat-select>
+                                                <mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Finance code is required</mat-error>
+                                            </mat-form-field>
                                         </div>
                                         <!--<div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >-->
                                             <!--<mat-form-field class="w-100" >-->
@@ -1067,3 +1079,7 @@
     </div>
   </div>
 </section>
+
+<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+    <div *cdkVirtualFor="let item of finlist" class="example-item">{{item.name}}</div>
+</cdk-virtual-scroll-viewport>

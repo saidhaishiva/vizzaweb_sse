@@ -356,6 +356,7 @@ import { EdelweissposPaymnetSuccessComponent } from './pages/edelweisspos-paymne
 import { MatCheckboxModule} from '@angular/material';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { NgtUniversalModule } from '@ng-toolkit/universal';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
     imports: [
@@ -398,7 +399,9 @@ import { NgtUniversalModule } from '@ng-toolkit/universal';
         routing,
         CommonModule,
         TransferHttpCacheModule,
-        NgtUniversalModule
+        NgtUniversalModule,
+        ScrollingModule
+
     ],
     declarations: [
         AppComponent,
