@@ -767,7 +767,7 @@ ChangeGender(){
     }
 
     changefinancecompany() {
-        this.vechicle.controls['financiercodevalue'].patchValue(this.financeList[this.vechicle.controls['financiercode'].value]);
+        this.vechicle.controls['financiercodevalue'].patchValue(this.finlist[this.vechicle.controls['financiercode'].value]);
 
     }
 

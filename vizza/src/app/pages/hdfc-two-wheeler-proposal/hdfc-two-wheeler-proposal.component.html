@@ -352,37 +352,41 @@
 
                             </mat-form-field>
                         </div>
-                        <div class="col-md-3 mt-3" *ngIf ="financeTypeName" >
-                            <ng-select [items]="photosBuffer"
-                                       [virtualScroll]="true"
-                                       [loading]="loading"
-                                       bindLabel="name"
-                                       bindValue="id"
-                                       placeholder="Financier Name"
-                                       appendTo="body"
-                                       (scroll)="onScroll($event)"
-                                       (scrollToEnd)="onScrollToEnd()"
-                                       formControlName="financiercode"
-                                       [required]="financeTypeName">
-                                <ng-template ng-header-tmp>
-                                    <small class="form-text text-muted">Loaded {{photosBuffer.length}} of {{photos.length}}</small>
-                                </ng-template>
-                                <ng-template ng-option-tmp let-item="item" let-index="index">
-                                   {{item.name}}
-                                </ng-template>
-                            </ng-select>
-                            <em class="error help-block" *ngIf="!vechicle.get('financiercode').valid && (vechicle.get('financiercode').dirty || vechicle.get('financiercode').touched)">Financier Name is required</em>
-                            <!--<em *ngIf="vechicle.get('financiercode').errors?.required">Financier Name is required</em>-->
-                        </div>
                         <!--<div class="col-md-3 mt-3" *ngIf ="financeTypeName" >-->
-                            <!--<mat-form-field class="w-100" >-->
-                                <!--<mat-placeholder>Financier Name</mat-placeholder>-->
-                                <!--<mat-select  formControlName="financiercode" [required]="financeTypeName" (change)="financiername()" >-->
-                                    <!--<mat-option *ngFor="let finance of financeList | keys " [value]="finance.key" > {{finance.value}} </mat-option>-->
-                                <!--</mat-select>-->
-                                <!--<mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Finance code is required</mat-error>-->
-                            <!--</mat-form-field>-->
+                            <!--<ng-select [items]="photosBuffer"-->
+                                       <!--[virtualScroll]="true"-->
+                                       <!--[loading]="loading"-->
+                                       <!--bindLabel="name"-->
+                                       <!--bindValue="id"-->
+                                       <!--placeholder="Financier Name"-->
+                                       <!--appendTo="body"-->
+                                       <!--(scroll)="onScroll($event)"-->
+                                       <!--(scrollToEnd)="onScrollToEnd()"-->
+                                       <!--formControlName="financiercode"-->
+                                       <!--[required]="financeTypeName">-->
+                                <!--<ng-template ng-header-tmp>-->
+                                    <!--<small class="form-text text-muted">Loaded {{photosBuffer.length}} of {{photos.length}}</small>-->
+                                <!--</ng-template>-->
+                                <!--<ng-template ng-option-tmp let-item="item" let-index="index">-->
+                                   <!--{{item.name}}-->
+                                <!--</ng-template>-->
+                            <!--</ng-select>-->
+                            <!--<em class="error help-block" *ngIf="!vechicle.get('financiercode').valid && (vechicle.get('financiercode').dirty || vechicle.get('financiercode').touched)">Financier Name is required</em>-->
+                            <!--&lt;!&ndash;<em *ngIf="vechicle.get('financiercode').errors?.required">Financier Name is required</em>&ndash;&gt;-->
                         <!--</div>-->
+                        <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >
+                            <mat-form-field class="w-100" >
+                                <mat-placeholder>Financier Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
+                                <mat-select  formControlName="financiercode"  (change)="changefinancecompany()">
+                                    <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
+                                        <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
+                                    </cdk-virtual-scroll-viewport>
+                                    <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
+                                </mat-select>
+                                <mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Finance code is required</mat-error>
+                            </mat-form-field>
+                        </div>
+
                         <div class="col-md-3 mt-3" *ngIf="financeTypeTrue">
                             <mat-form-field class="w-100">
                                 <mat-placeholder>Branch Name</mat-placeholder>
