@@ -998,14 +998,16 @@
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
-              <!--<div class="col-md-4"> <h4 class="mt-3 text-center"> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>-->
-              <div class="col-md-8">
-                <ul class="summary-head">
-                  <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getBuyDetails.company_logo}}" class="img-thumbnail" style="width: 88px;" /> </li>-->
-                  <!--<li><span>Base Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.BasePremium}}</span> /</li>-->
-                  <!--<li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.Tax}}</span> </li>-->
-                  <!--<li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span> </li>-->
-                  <!--<li></li>-->
+              <!--<div class="col-md-"> <h4 class="mt-3 text-center"> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{lifePremiumList.sum_insured_amount}}</span></h4></div>-->
+              <!--<div class="col-md-4"> <h4 class="mt-3 text-center"> <span style="font-size: 17px; color: #666;">Plan Name: {{lifePremiumList.product_display_name}}</span></h4></div>-->
+              <div class="col-md-12">
+                <ul class="summary-head" style="height: 73px;">
+                  <li><span>Sum Insured:</span><span style="font-size: 16px;"><i class="fas fa-rupee-sign"></i> {{lifePremiumList.sum_insured_amount}}</span></li>
+                  <li><span>Plan Name:</span><span style="font-size: 16px;"> {{lifePremiumList.product_display_name}}</span></li>
+                  <li style="margin-left: 910px;"><span>Insurer:</span><img src="{{ webhost + '/' + lifePremiumList.company_logo}}" class="img-thumbnail" style="width: 154px;" /> </li>
+                  <!--<li><span>GST:</span><span style="font-size: 16px;"><i class="fas fa-rupee-sign"></i> {{summaryData.gst}}</span></li>-->
+                  <li><span>Premium:</span><span style="font-size: 16px;"><i class="fas fa-rupee-sign"></i> {{premium}}</span></li>
+                  <li></li>
                 </ul>
               </div>
             </div>
@@ -1485,7 +1487,7 @@
                                 <div class="col-md-3">
                                   <div class="text-left w-100">
                                     <div class="custom-file">
-                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="otherDoc" (change)="uploadProof($event, 'other_Details')"   aria-describedby="inputGroupFileAddon01" >
+                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="otherDoc" (change)="uploadProof($event, 'other_Documents')"   aria-describedby="inputGroupFileAddon01" >
                                       <label class="custom-file-label"> other documents</label>
                                     </div>
                                   </div>

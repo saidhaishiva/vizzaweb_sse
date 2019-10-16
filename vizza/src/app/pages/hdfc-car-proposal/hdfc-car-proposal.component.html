@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-3 mt-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Middle Name" formControlName="middleName" maxlength="15" (keypress)="nameValidate($event)" >
+                            <input matInput placeholder="Middle Name" formControlName="middleName" maxlength="20" (keypress)="nameValidate($event)" >
                           </mat-form-field>
                         </div>
                         <div class="col-md-3 mt-3">
@@ -379,16 +379,16 @@
                                         <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Branch Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                                                <input matInput  maxlength="4" formControlName="fibranchname" (keypress)="nameValidate($event)"  >
+                                                <input matInput  maxlength="20" formControlName="fibranchname" (keypress)="nameValidate($event)"  >
                                                 <mat-error *ngIf="vechicle.controls.fibranchname.errors?.required">Branch name is required</mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-12 mt-3">
+                                        <div class="col-md-12 mt-3" *ngIf="regvalue !='New Vehicle'">
                                             <h6 class="color-blue"> PREVIOUS POLICY DETAILS </h6>
                                         </div>
                                         <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                                             <mat-form-field class="w-100" >
-                                                <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" required>
+                                                <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" [required]="regvalue !='New Vehicle'">
                                                     <mat-option *ngFor="let company of companyList | keys" value="{{company.key}}" > {{company.value}} </mat-option>
                                                 </mat-select>
                                                 <mat-error *ngIf="vechicle.controls.Previouscompany.errors?.required">previous company is required</mat-error>
@@ -427,9 +427,9 @@
                                                 <!--<input matInput placeholder="Previous Policy claim" formControlName="previouspolicyclaim" maxlength="20" readonly [required]="regvalue !='New Vehicle'">-->
                                             <!--</mat-form-field>-->
                                         <!--</div>-->
-                                        <div class="col-md-3 mt-3">
+                                        <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" (input)="idvinput($event.target.value)"  [required]="regvalue !='New Vehicle'">
+                                                <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)"   [required]="regvalue !='New Vehicle'">
                                             </mat-form-field>
                                         </div>
                                     </div>

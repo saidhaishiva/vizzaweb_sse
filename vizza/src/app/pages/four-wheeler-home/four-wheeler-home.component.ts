@@ -197,6 +197,7 @@ export class FourWheelerHomeComponent implements OnInit {
   }
 
   addEvent(event, type) {
+    // alert('1111')
     console.log(event, 'eventevent');
     let selectedDate = '';
     let dob = '';
@@ -208,6 +209,7 @@ export class FourWheelerHomeComponent implements OnInit {
       if (typeof event.value._i == 'string') {
         if (type == 'regitser') {
           if (pattern.test(event.value._i) && event.value._i.length == 10 && this.fourWheeler.controls['registrationDateNew'].value >= this.minDate) {
+
             this.dobError = '';
           } else {
             this.dobError = 'Enter Valid Date';
@@ -225,6 +227,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
         }
       }
+      console.log(this.dobError,'dobError')
     }
   }
 

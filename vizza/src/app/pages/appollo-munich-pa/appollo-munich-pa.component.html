@@ -244,7 +244,7 @@
                         <div class="col-md-6">
                           <mat-checkbox formControlName="insuredPouches" (change)="checkHabits($event, 'pouches')" >Pouches</mat-checkbox>
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Pouches" formControlName="insuredPouchesList" (change)="pouchesPersonalhabit()" [required]="insuredPouches"  [disabled]="habits">
+                            <mat-select placeholder="Pouches" formControlName="insuredPouchesList" (selectionChange)="pouchesPersonalhabit()" [required]="insuredPouches"  [disabled]="habits">
                               <mat-option value="1">1</mat-option>
                               <mat-option value="2">2</mat-option>
                               <mat-option value="3">3</mat-option>
@@ -861,7 +861,7 @@
                     <div class="proposal-buttom mb-3 text-center w-100">
                       <button mat-button matStepperPrevious  (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
                       <button mat-raised-button color="primaryBlue"  (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
-                      <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                      <button mat-raised-button color="primaryBlue" class="ml-1" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                     </div>
                   </div>
 

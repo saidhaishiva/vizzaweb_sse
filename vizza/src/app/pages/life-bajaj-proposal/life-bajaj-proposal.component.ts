@@ -101,6 +101,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public getAge:any;
   public slectedIndex:any;
   public declaration: any;
+  public premium: any;
   public requestedUrl: any;
   public diseaseLists: any;
   public enquiryFormData: any;
@@ -1017,7 +1018,7 @@ samerelationShip(){
     // appointeeAge validatate
     let appointeeAge = false;
     if(sessionStorage.appointeeAge != '' && sessionStorage.appointeeAge != undefined) {
-      if(sessionStorage.appointeeAge > 18) {
+      if(sessionStorage.appointeeAge >= 18) {
         appointeeAge = true;
       }
     }
@@ -2253,12 +2254,14 @@ samerelationShip(){
       this.topScroll();
       this.toastr.success('BI Genereated successfully!!');
       this.summaryData = successData.ResponseObject;
+      this.premium = this.summaryData.Premium;
       this.requestedUrl = this.summaryData.biUrlLink;
       this.proposerFormData = this.proposer.value;
       this.familyDiseaseFormData = this.familyDiseaseForm.value.family;
       this.bankDetailFormData = this.bankDetail.value;
       this.nomineeDetailFormData = this.nomineeDetails.value.itemsNominee;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
+
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       sessionStorage.bankDetailFormData = JSON.stringify(this.bankDetailFormData);
       sessionStorage.nomineeDetailFormData = JSON.stringify(this.nomineeDetailFormData);
@@ -2615,7 +2618,7 @@ samerelationShip(){
             }
             this.uploadphotoName = this.fileDetails[0].name;
         }
-        else if(type == 'other_Details') {
+        else if(type == 'other_Documents') {
 
             for (let i = 0; i < event.target.files.length; i++) {
                 this.fileDetails.push({
@@ -2639,6 +2642,7 @@ samerelationShip(){
         }
 
     }
+
     onUploadFinished(values, basecode, type) {
         values[0].base64 = basecode[0][1];
 
@@ -2736,6 +2740,7 @@ samerelationShip(){
             this.toastr.success(successData.ResponseObject.message, 'Success');
             this.fileUploadStatus = false;
         } else {
+
             this.toastr.error(successData.ErrorObject, 'Failed');
             this.fileUploadStatus = true;
         }

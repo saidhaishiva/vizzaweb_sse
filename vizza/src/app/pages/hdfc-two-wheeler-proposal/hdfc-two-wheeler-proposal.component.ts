@@ -102,6 +102,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public vehicleRegNumber: any;
     public vehicleRegNo: any;
     public buyProductDetails: any;
+    public finlist: any;
+    public sameasper: boolean;
 
 
     public financiercodevalue: any;
@@ -117,6 +119,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     constructor(public fb: FormBuilder, public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe) {
         this.financeTypeTrue = false;
         this.financeTypeName = false;
+        this.sameasper = false;
 
         let stepperindex = 0;
         this.route.params.forEach((params) => {
@@ -455,11 +458,11 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     public financesuccess(successData) {
         if (successData.IsSuccess == true) {
-            this.financeList = successData.ResponseObject;
-            this.photos = successData.ResponseObject.bankdetails;
-            console.log(this.photos,'photos');
-            this.photosBuffer = this.photos.slice(0, this.bufferSize);
-            console.log(this.photosBuffer,'photos');
+            // this.financeList = successData.ResponseObject;
+            this.finlist = successData.ResponseObject.bankdetails;
+            console.log(this.finlist,'finlist');
+            // this.photosBuffer = this.photos.slice(0, this.bufferSize);
+            // console.log(this.photosBuffer,'photos');
         }else{
             this.toastr.error(successData.ErrorObject);
         }
@@ -545,8 +548,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     }
 
+    // changefinancecompany() {
+    //     this.vechicle.controls['financiercodevalue'].patchValue(this.financeList[this.vechicle.controls['financiercode'].value]);
+    //
+    // }
     changefinancecompany() {
-        this.vechicle.controls['financiercodevalue'].patchValue(this.financeList[this.vechicle.controls['financiercode'].value]);
+        this.vechicle.controls['financiercodevalue'].patchValue(this.finlist[this.vechicle.controls['financiercode'].value]);
 
     }
 
@@ -957,6 +964,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].patchValue(this.proposer.controls['citycom'].value);
             this.proposer.controls['districtpermanent'].patchValue(this.proposer.controls['districtcom'].value);
             this.proposer.controls['landmarkpermanent'].patchValue(this.proposer.controls['landmarkcom'].value);
+            this.sameasper=true;
             this.personalCitys = JSON.parse(sessionStorage.residenceCitys);
             sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
             this.personaldistricts = JSON.parse(sessionStorage.residenceDistricts);
@@ -972,6 +980,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].patchValue('');
             this.proposer.controls['districtpermanent'].patchValue('');
             this.proposer.controls['landmarkpermanent'].patchValue('');
+            this.sameasper=false;
             if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
                 this.personalCitys = JSON.parse(sessionStorage.personalCitys);
             } else {
@@ -1249,7 +1258,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'Vehicle_IDV': this.vehicleidv.Idv,
                 },
                 'Req_TW': {
-                    'ExtensionCountryCode': this.addOns.controls['extentioncountry'].value,
+                    'ExtensionCountryCode': '',
                     'POLICY_TENURE': this.addOns.controls['policytenture'].value,
                     'ExtensionCountryName': this.addOns.controls['extentioncountryvalue'].value,
                     'Effectivedrivinglicense': this.addOns.controls['drivinglicence'].value,
