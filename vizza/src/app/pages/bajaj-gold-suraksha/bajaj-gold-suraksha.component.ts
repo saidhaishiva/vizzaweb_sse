@@ -101,7 +101,9 @@ export class BajajGoldSurakshaComponent implements OnInit {
   //   this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
   // }
   addEvent(event) {
+    alert('inn')
     if (event.value != null) {
+
       let selectedDate = '';
       this.age = '';
       let dob = '';
@@ -118,8 +120,6 @@ export class BajajGoldSurakshaComponent implements OnInit {
           this.age = this.ageCalculate(dob);
           sessionStorage.age = this.age;
           console.log( sessionStorage.age,'age');
-
-
         }
 
       } else if (typeof event.value._i == 'object') {

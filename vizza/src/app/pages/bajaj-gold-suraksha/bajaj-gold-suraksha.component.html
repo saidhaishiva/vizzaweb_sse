@@ -24,14 +24,14 @@
               <div class="row">
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="First Name" formControlName="fname" required  (keypress)="nameValidate($event)" class="textFieldd">
+                    <input matInput placeholder="First Name" formControlName="fname" required maxlength="30" (keypress)="nameValidate($event)" class="textFieldd">
                     <mat-error *ngIf="bajajgold.controls.fname.errors?.required">First Name is required</mat-error>
                     <mat-icon matSuffix>person</mat-icon>
                   </mat-form-field>
                 </div>
                   <div class="col-md-6">
                     <mat-form-field class="w-100">
-                      <input matInput placeholder="last Name" formControlName="lname" required  (keypress)="nameValidate($event)" class="textFieldd">
+                      <input matInput placeholder="last Name" formControlName="lname" required maxlength="30" (keypress)="nameValidate($event)" class="textFieldd">
                       <mat-error *ngIf="bajajgold.controls.lname.errors?.required">Last Name is required</mat-error>
                       <mat-icon matSuffix>person</mat-icon>
                     </mat-form-field>
@@ -39,7 +39,7 @@
 
                 <div class="col-md-6">
                     <mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" placeholder="Dob(DD/MM/YYYY)" formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="dobValidate($event)" required>
+                      <input matInput [matDatepicker]="picker" placeholder="Date Of Birth (DD/MM/YYYY)" formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="dobValidate($event)" required>
                       <mat-error *ngIf="bajajgold.controls.dob.errors?.required">DOB  is required</mat-error>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Email" formControlName="email" required>
+                    <input matInput placeholder="Email" formControlName="email" required maxlength="80">
                     <mat-error *ngIf="bajajgold.controls.email.errors?.required">Email is required</mat-error>
                     <mat-error *ngIf="bajajgold.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                     <mat-icon matSuffix>email</mat-icon>
@@ -76,7 +76,7 @@
                   <mat-form-field class="w-100">
                     <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" formControlName="pincode"  (input)="getPincodeDetails($event.target.value, 'personal')"  autocomplete="off" required>
                     <mat-error *ngIf="bajajgold.controls.pincode.errors?.required">Pincode is required</mat-error>
-                    <mat-error *ngIf="bajajgold.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                    <!--<mat-error *ngIf="bajajgold.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                     <!--<mat-error *ngIf="bajajgold.controls.pincode.hasError('required')">Pincode required</mat-error>-->
                     <mat-error *ngIf="bajajgold.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                     <mat-icon matSuffix>place</mat-icon>
@@ -136,8 +136,8 @@
                 <!--</div>-->
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Sum Assured Amount" formControlName="premium" required>
-                    <mat-error *ngIf="bajajgold.controls.premium.errors?.required">Premium is required</mat-error>
+                    <input matInput placeholder="Sum Assured Amount" formControlName="premium" required (keypress)="nameValidate($event)" maxlength="7">
+                    <mat-error *ngIf="bajajgold.controls.premium.errors?.required">Sum Assured Amount is required</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-12 text-center mt-3">
