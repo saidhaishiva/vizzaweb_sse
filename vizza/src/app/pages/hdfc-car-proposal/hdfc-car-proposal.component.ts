@@ -349,8 +349,7 @@ export class HdfcCarProposalComponent implements OnInit {
     //      this.proposer.controls['vechicleidv'].updateValueAndValidity();
     // }
     validationForNew(value) {
-      alert('value')
-        console.log(value, 'valuecore');
+      console.log(value, 'valuecore');
         if (value == 'New Vehicle') {
             console.log('vinoyth');
             this.vechicle.controls['Previouscompany'].setValidators(null);
@@ -950,8 +949,14 @@ ChangeGender(){
             // this.addOns.controls['appointeename'].patchValue('');
             // this.addOns.controls['appointeerelation'].patchValue('');
             if (this.vechicle.valid) {
-                stepper.next();
-                this.topScroll();
+                if(this.vechicle.controls['vechicleidv'].value > 7000) {
+                    //
+                    // }
+                    stepper.next();
+                    this.topScroll();
+                }else{
+                    this.toastr.error('IDV Should Not Less Than 7000');
+                }
             } else {
                 this.toastr.error('Please fill the Mandatory Fields')
 
@@ -1377,11 +1382,11 @@ console.log(this.vehicleidv.Idv);
 
     }
 
-    idvinput(idv){
-        if(idv<7000){
-            this.toastr.error('IDV Should Not Less Than 7000');
-        }
-    }
+    // idvinput(idv){
+    //     if(idv<7000){
+    //         this.toastr.error('IDV Should Not Less Than 7000');
+    //     }
+    // }
     topScroll() {
         document.getElementById('main-content').scrollTop = 0;
     }

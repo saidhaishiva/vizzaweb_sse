@@ -379,7 +379,7 @@
                                         <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Branch Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                                                <input matInput  maxlength="4" formControlName="fibranchname" (keypress)="nameValidate($event)"  >
+                                                <input matInput  maxlength="20" formControlName="fibranchname" (keypress)="nameValidate($event)"  >
                                                 <mat-error *ngIf="vechicle.controls.fibranchname.errors?.required">Branch name is required</mat-error>
                                             </mat-form-field>
                                         </div>
@@ -429,7 +429,7 @@
                                         <!--</div>-->
                                         <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" (input)="idvinput($event.target.value)"  [required]="regvalue !='New Vehicle'">
+                                                <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)"   [required]="regvalue !='New Vehicle'">
                                             </mat-form-field>
                                         </div>
                                     </div>
