@@ -512,7 +512,7 @@ export class HdfcCarProposalComponent implements OnInit {
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
 
         }
-        this.bikeInsurance.hdfcGetFinancierNameList(data).subscribe(
+        this.bikeInsurance.hdfcGetFinancierNameLists(data).subscribe(
             (successData) => {
                 this.financiersuccess(successData);
             },
@@ -525,12 +525,13 @@ export class HdfcCarProposalComponent implements OnInit {
     public financiersuccess(successData) {
         if (successData.IsSuccess == true) {
             this.errortoaster = true;
-            this.finlist = successData.ResponseObject;
-            this.photos = successData.ResponseObject.bankdetails;
-            console.log(this.photos,'photos');
-            this.photosBuffer = this.photos.slice(0, this.bufferSize);
-            console.log(this.photosBuffer,'photos');
-            this.changefinancecompany();
+            this.finlist = successData.ResponseObject.bankdetails;
+            console.log(this.finlist,'finlist');
+            // this.photos = successData.ResponseObject.bankdetails;
+            // console.log(this.photos,'photos');
+            // this.photosBuffer = this.photos.slice(0, this.bufferSize);
+            // console.log(this.photosBuffer,'photos');
+            // this.changefinancecompany();
         } else {
             this.errortoaster = false;
             this.toastr.error(successData.ErrorObject);
@@ -539,30 +540,30 @@ export class HdfcCarProposalComponent implements OnInit {
 
     public financierFailure(error) {
     }
-    onScrollToEnd() {
-        this.fetchMore();
-    }
-
-    onScroll({ end }) {
-        if (this.loading || this.photos.length <= this.photosBuffer.length) {
-            return;
-        }
-
-        if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
-            this.fetchMore();
-        }
-    }
-
-    private fetchMore() {
-        const len = this.photosBuffer.length;
-        const more = this.photos.slice(len, this.bufferSize + len);
-        this.loading = true;
-        // using timeout here to simulate backend API delay
-        setTimeout(() => {
-            this.loading = false;
-            this.photosBuffer = this.photosBuffer.concat(more);
-        }, 200)
-    }
+    // onScrollToEnd() {
+    //     this.fetchMore();
+    // }
+    //
+    // onScroll({ end }) {
+    //     if (this.loading || this.photos.length <= this.photosBuffer.length) {
+    //         return;
+    //     }
+    //
+    //     if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
+    //         this.fetchMore();
+    //     }
+    // }
+    //
+    // private fetchMore() {
+    //     const len = this.photosBuffer.length;
+    //     const more = this.photos.slice(len, this.bufferSize + len);
+    //     this.loading = true;
+    //     // using timeout here to simulate backend API delay
+    //     setTimeout(() => {
+    //         this.loading = false;
+    //         this.photosBuffer = this.photosBuffer.concat(more);
+    //     }, 200)
+    // }
 
     onsubmit(value1){
         console.log(this.addOns.controls['NomineeName'].value,'sdfsadf');
