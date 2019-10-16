@@ -74,6 +74,7 @@ export class HdfcCarProposalComponent implements OnInit {
     public previousFormData: any;
     public bankFormData: any;
     public vehicledata: any;
+    public vehicleTypedata: any;
     public carEquiryId: any;
     public vehicleidv: any;
     public regvalue: any;
@@ -255,6 +256,7 @@ export class HdfcCarProposalComponent implements OnInit {
       this.financiername();
       this.extensioncountry();
       this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
+      this.vehicleTypedata = JSON.parse(sessionStorage.enquiryFormDatafw);
       this.carEquiryId = sessionStorage.fwEnquiryId;
       this.vehicleidv = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
       this.buyFourwheelerProductDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
@@ -294,7 +296,7 @@ export class HdfcCarProposalComponent implements OnInit {
           this.RegDateage = this.regdatecalculate(regno);
           console.log(this.RegDateage,'empty');
       }
-      if (this.vehicledata.type == 'new') {
+      if (this.vehicleTypedata.type == 'new') {
           console.log('into ve');
           this.regvalue = 'New Vehicle';
           this.validationForNew(this.regvalue);
@@ -306,9 +308,48 @@ export class HdfcCarProposalComponent implements OnInit {
       this.altererror='';
 
   }
-
+    // validationForNew(value) {
+    //
+    //     if (value == 'New Vehicle') {
+    //         this.vechicle.controls['Previouscompany'].patchValue(this.vechicle.controls['Previouscompany'].value);
+    //         this.vechicle.controls['ncb'].patchValue(this.vechicle.controls['ncb'].value);
+    //         this.vechicle.controls['previousenddate'].patchValue(this.vechicle.controls['previousenddate'].value);
+    //         this.vechicle.controls['previouspolicyno'].patchValue(this.vechicle.controls['previouspolicyno'].value);
+    //         this.vechicle.controls['previouspolicyclaim'].patchValue(this.vechicle.controls['previouspolicyclaim'].value);
+    //         this.vechicle.controls['vechicleidv'].patchValue(this.vechicle.controls['vechicleidv'].value);
+    //
+    //         this.proposer.controls['Previouscompany'].setValidators([Validators.required]);
+    //         this.proposer.controls['ncb'].setValidators([Validators.required]);
+    //         this.proposer.controls['previousenddate'].setValidators([Validators.required]);
+    //         this.proposer.controls['previouspolicyno'].setValidators([Validators.required]);
+    //         this.proposer.controls['previouspolicyclaim'].setValidators([Validators.required]);
+    //         this.proposer.controls['vechicleidv'].setValidators([Validators.required]);
+    //     } else {
+    //         this.proposer.controls['Previouscompany'].patchValue('');
+    //         this.proposer.controls['ncb'].patchValue('');
+    //         this.proposer.controls['previousenddate'].patchValue('');
+    //         this.proposer.controls['previouspolicyno'].patchValue('');
+    //         this.proposer.controls['previouspolicyclaim'].patchValue('');
+    //         this.proposer.controls['vechicleidv'].patchValue('');
+    //
+    //         this.proposer.controls['Previouscompany'].setValidators(null);
+    //         this.proposer.controls['ncb'].setValidators(null);
+    //         this.proposer.controls['previousenddate'].setValidators(null);
+    //         this.proposer.controls['previouspolicyno'].setValidators(null);
+    //         this.proposer.controls['previouspolicyclaim'].setValidators(null);
+    //         this.proposer.controls['vechicleidv'].setValidators(null);
+    //
+    //     }
+    //
+    //      this.proposer.controls['Previouscompany'].updateValueAndValidity();
+    //      this.proposer.controls['ncb'].updateValueAndValidity();
+    //      this.proposer.controls['previousenddate'].updateValueAndValidity();
+    //      this.proposer.controls['previouspolicyno'].updateValueAndValidity();
+    //      this.proposer.controls['previouspolicyclaim'].updateValueAndValidity();
+    //      this.proposer.controls['vechicleidv'].updateValueAndValidity();
+    // }
     validationForNew(value) {
-        console.log(value, 'valuecore');
+      console.log(value, 'valuecore');
         if (value == 'New Vehicle') {
             console.log('vinoyth');
             this.vechicle.controls['Previouscompany'].setValidators(null);
@@ -512,7 +553,7 @@ export class HdfcCarProposalComponent implements OnInit {
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
 
         }
-        this.bikeInsurance.hdfcGetFinancierNameList(data).subscribe(
+        this.bikeInsurance.hdfcGetFinancierNameLists(data).subscribe(
             (successData) => {
                 this.financiersuccess(successData);
             },
@@ -525,12 +566,13 @@ export class HdfcCarProposalComponent implements OnInit {
     public financiersuccess(successData) {
         if (successData.IsSuccess == true) {
             this.errortoaster = true;
-            this.finlist = successData.ResponseObject;
-            this.photos = successData.ResponseObject.bankdetails;
-            console.log(this.photos,'photos');
-            this.photosBuffer = this.photos.slice(0, this.bufferSize);
-            console.log(this.photosBuffer,'photos');
-            this.changefinancecompany();
+            this.finlist = successData.ResponseObject.bankdetails;
+            console.log(this.finlist,'finlist');
+            // this.photos = successData.ResponseObject.bankdetails;
+            // console.log(this.photos,'photos');
+            // this.photosBuffer = this.photos.slice(0, this.bufferSize);
+            // console.log(this.photosBuffer,'photos');
+            // this.changefinancecompany();
         } else {
             this.errortoaster = false;
             this.toastr.error(successData.ErrorObject);
@@ -539,30 +581,30 @@ export class HdfcCarProposalComponent implements OnInit {
 
     public financierFailure(error) {
     }
-    onScrollToEnd() {
-        this.fetchMore();
-    }
-
-    onScroll({ end }) {
-        if (this.loading || this.photos.length <= this.photosBuffer.length) {
-            return;
-        }
-
-        if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
-            this.fetchMore();
-        }
-    }
-
-    private fetchMore() {
-        const len = this.photosBuffer.length;
-        const more = this.photos.slice(len, this.bufferSize + len);
-        this.loading = true;
-        // using timeout here to simulate backend API delay
-        setTimeout(() => {
-            this.loading = false;
-            this.photosBuffer = this.photosBuffer.concat(more);
-        }, 200)
-    }
+    // onScrollToEnd() {
+    //     this.fetchMore();
+    // }
+    //
+    // onScroll({ end }) {
+    //     if (this.loading || this.photos.length <= this.photosBuffer.length) {
+    //         return;
+    //     }
+    //
+    //     if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
+    //         this.fetchMore();
+    //     }
+    // }
+    //
+    // private fetchMore() {
+    //     const len = this.photosBuffer.length;
+    //     const more = this.photos.slice(len, this.bufferSize + len);
+    //     this.loading = true;
+    //     // using timeout here to simulate backend API delay
+    //     setTimeout(() => {
+    //         this.loading = false;
+    //         this.photosBuffer = this.photosBuffer.concat(more);
+    //     }, 200)
+    // }
 
     onsubmit(value1){
         console.log(this.addOns.controls['NomineeName'].value,'sdfsadf');
@@ -719,12 +761,13 @@ ChangeGender(){
     public failureSuccess(error) {
     }
     changeInsuranceCompany() {
+      // alert('inn');
         this.vechicle.controls['Previouscompanyvalue'].patchValue(this.companyList[this.vechicle.controls['Previouscompany'].value]);
 
     }
 
     changefinancecompany() {
-        this.vechicle.controls['financiercodevalue'].patchValue(this.financeList[this.vechicle.controls['financiercode'].value]);
+        this.vechicle.controls['financiercodevalue'].patchValue(this.finlist[this.vechicle.controls['financiercode'].value]);
 
     }
 
@@ -878,8 +921,12 @@ ChangeGender(){
             console.log(sessionStorage.proposerAge, 'rr');
             console.log(this.proposer.valid,'valid');
             if (this.proposer.valid) {
+                console.log(this.proposer.valid,'proposervalid');
+                // alert('inn')
                 if (sessionStorage.proposerAge >= 18) {
+                    // alert('age')
                     if( this.altererror==''){
+                        // alert('error')
                         stepper.next();
                         this.topScroll();
                     }
@@ -902,8 +949,14 @@ ChangeGender(){
             // this.addOns.controls['appointeename'].patchValue('');
             // this.addOns.controls['appointeerelation'].patchValue('');
             if (this.vechicle.valid) {
-                stepper.next();
-                this.topScroll();
+                if(this.vechicle.controls['vechicleidv'].value > 7000) {
+                    //
+                    // }
+                    stepper.next();
+                    this.topScroll();
+                }else{
+                    this.toastr.error('IDV Should Not Less Than 7000');
+                }
             } else {
                 this.toastr.error('Please fill the Mandatory Fields')
 
@@ -1180,7 +1233,7 @@ console.log(this.vehicleidv.Idv);
             "Req_PvtCar": {
                 "POSP_CODE": '',
                     "POLICY_TENURE":this.addOns.controls['policytenture'].value,
-                    "ExtensionCountryCode": this.addOns.controls['extentioncountry'].value,
+                    "ExtensionCountryCode": '',
                     "ExtensionCountryName": this.addOns.controls['extentioncountryvalue'].value,
                     "BreakIN_ID": '',
                     "Effectivedrivinglicense": this.addOns.controls['drivinglicence'].value,
@@ -1329,11 +1382,11 @@ console.log(this.vehicleidv.Idv);
 
     }
 
-    idvinput(idv){
-        if(idv<7000){
-            this.toastr.error('IDV Should Not Less Than 7000');
-        }
-    }
+    // idvinput(idv){
+    //     if(idv<7000){
+    //         this.toastr.error('IDV Should Not Less Than 7000');
+    //     }
+    // }
     topScroll() {
         document.getElementById('main-content').scrollTop = 0;
     }

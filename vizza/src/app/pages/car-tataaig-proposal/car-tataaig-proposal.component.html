@@ -16,7 +16,7 @@
                     <div class="row">
                       <div class="col-md-3" >
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="proposerTitle" (change)="choosegen()" required>
+                          <mat-select placeholder="Title" formControlName="proposerTitle" (selectionChange)="choosegen()" required>
                             <mat-option value="Mr.">Mr.</mat-option>
                             <mat-option value="Mrs.">Mrs.</mat-option>
                             <mat-option value="Mrs.">Miss.</mat-option>
@@ -59,7 +59,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="maritial()" class="w-100" required>
+                          <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="maritial()" class="w-100" required>
                             <mat-option value="single">Single</mat-option>
                             <mat-option value="Married">Married</mat-option>
                             <mat-option value="Others">Others</mat-option>
@@ -199,7 +199,7 @@
                         </mat-form-field>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
-                        <button mat-raised-button color="primaryBlue"  (click)="proposerDetails(stepper,proposer.value)" >Next</button>
+                        <button mat-raised-button color="primaryBlue" class="ml-3"  (click)="proposerDetails(stepper,proposer.value)" >Next</button>
                       </div>
                     </div>
                   </div>
@@ -225,12 +225,12 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Engine No" formControlName="engine" (keypress)="numberValidate($event)" readonly required>
+                          <input matInput class="text-uppercase" placeholder="Engine No" formControlName="engine" (keypress)="numberValidate($event)" readonly required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Chassis No" formControlName="chassis" (keypress)="numberValidate($event)" readonly required>
+                          <input matInput  class="text-uppercase" placeholder="Chassis No" formControlName="chassis" (keypress)="numberValidate($event)" readonly required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-12 mt-1">
@@ -249,44 +249,38 @@
                           <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
-                        <ng-select [items]="photosBuffer"
-                                   [virtualScroll]="true"
-                                   [loading]="loading"
-                                   bindLabel="name"
-                                   bindValue="id"
-                                   placeholder="Financier Name"
-                                   appendTo="body"
-                                   (scroll)="onScroll($event)"
-                                   (scrollToEnd)="onScrollToEnd()"
-                                   formControlName="bankName"
-                                   [required]="vehicle.controls['Financetype'].value == true">
-                          <ng-template ng-header-tmp>
-                            <small class="form-text text-muted">Loaded {{photosBuffer.length}} of {{photos.length}}</small>
-                          </ng-template>
-                          <ng-template ng-option-tmp let-item="item" let-index="index">
-                            {{item.name}}
-                          </ng-template>
-                        </ng-select>
+                      <!--<div class="col-md-3 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">-->
+                        <!--<ng-select [items]="photosBuffer"-->
+                                   <!--[virtualScroll]="true"-->
+                                   <!--[loading]="loading"-->
+                                   <!--bindLabel="name"-->
+                                   <!--bindValue="id"-->
+                                   <!--placeholder="Financier Name"-->
+                                   <!--appendTo="body"-->
+                                   <!--(scroll)="onScroll($event)"-->
+                                   <!--(scrollToEnd)="onScrollToEnd()"-->
+                                   <!--formControlName="bankName"-->
+                                   <!--[required]="vehicle.controls['Financetype'].value == true">-->
+                          <!--<ng-template ng-header-tmp>-->
+                            <!--<small class="form-text text-muted">Loaded {{photosBuffer.length}} of {{photos.length}}</small>-->
+                          <!--</ng-template>-->
+                          <!--<ng-template ng-option-tmp let-item="item" let-index="index">-->
+                            <!--{{item.name}}-->
+                          <!--</ng-template>-->
+                        <!--</ng-select>-->
+                      <!--</div>-->
+                      <div class="col-md-3 mt-3" *ngIf="vehicle.controls['Financetype'].value == true" >
+                        <mat-form-field class="w-100" >
+                          <mat-placeholder>Financier Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
+                          <mat-select  formControlName="bankName"  >
+                            <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
+                              <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
+                            </cdk-virtual-scroll-viewport>
+                            <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
+                          </mat-select>
+                          <mat-error *ngIf="vehicle.controls.bankName.errors?.required">Financier Name is required</mat-error>
+                        </mat-form-field>
                       </div>
-                      <!--<div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">-->
-                        <!--<mat-placeholder>Name<span class="color-red" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>-->
-                        <!--<ngx-select-dropdown (keyup)="financiertype($event.target.value)"  formControlName="bankName" (keypress)="nameValidate($event)" [config]="config" [options]="banklist"></ngx-select-dropdown>-->
-
-                        <!--&lt;!&ndash;<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">&ndash;&gt;-->
-                        <!--&lt;!&ndash;</ngx-select-dropdown>&ndash;&gt;-->
-                        <!--<div class="color-red" *ngIf="bankValid">BankName is Required</div>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-placeholder>Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>-->
-                          <!--<input  matInput formControlName="bankName" (keypress)="nameValidate($event)" (keyup)="financiertype($event.target.value)"  [matAutocomplete]="auto">-->
-                          <!--<mat-autocomplete #auto="matAutocomplete">-->
-                            <!--<mat-option *ngFor="let bank of banklist | keys" value="{{bank.key}}">{{bank.value}}</mat-option>-->
-                          <!--</mat-autocomplete>-->
-                          <!--<mat-error *ngIf="vehicle.controls.bankName.errors?.required">BankName is Required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
                       <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Address<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
@@ -302,7 +296,7 @@
                         <div class="row">
                           <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Addons Package" formControlName="package" (change)="selectopt($event);QuoteList()" (keyup)="QuoteList()" required>
+                          <mat-select placeholder="Addons Package" formControlName="package" (selectionChange)="selectopt($event);QuoteList()" (keyup)="QuoteList()" required>
                             <mat-option *ngFor="let package of packagelist | keys" value="{{package.key}}">{{package.value}}</mat-option>
                           </mat-select>
                             <mat-error *ngIf="vehicle.controls.package.errors?.required">Package is Required</mat-error>
@@ -523,7 +517,7 @@
                       </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
                       <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
-                      <button mat-raised-button color="primaryBlue"  (click)="vehicleDetails(stepper,vehicle.value)" >Next</button>
+                      <button mat-raised-button color="primaryBlue" class="ml-3" (click)="vehicleDetails(stepper,vehicle.value)" >Next</button>
                     </div>
                   </div>
                 </div>
@@ -608,7 +602,7 @@
                               </div>
                               <div class="proposal-buttom mt-3 text-right w-100">
                                 <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
-                                <button mat-raised-button color="primaryBlue"  (click)="prepolicyDetails(stepper,previouspolicy.value)" >Next</button>
+                                <button mat-raised-button color="primaryBlue" class="ml-3" (click)="prepolicyDetails(stepper,previouspolicy.value)" >Next</button>
                               </div>
                             </div>
                           </div>
@@ -651,7 +645,7 @@
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
                         <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
-                        <button mat-raised-button color="primaryBlue"  (click)="nomineeDetails(stepper,nominee.value)" >Next</button>
+                        <button mat-raised-button color="primaryBlue" class="ml-3" (click)="nomineeDetails(stepper,nominee.value)" >Next</button>
                       </div>
                     </div>
                   </div>
