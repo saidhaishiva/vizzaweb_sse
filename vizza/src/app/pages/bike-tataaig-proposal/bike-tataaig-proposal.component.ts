@@ -88,6 +88,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public productlist: any;
     public errortoaster: boolean;
     public bankValid: boolean;
+    public finlist: boolean;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -121,12 +122,12 @@ export class BikeTataaigProposalComponent implements OnInit {
         const miniDate = new Date();
         this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
         console.log(this.minDate, 'tdy');
-        this.config = {
-            displayKey: "bankName",
-            search: true,
-            limitTo: 10,
-            // searchOnKey: 'city'
-        };
+        // this.config = {
+        //     displayKey: "bankName",
+        //     search: true,
+        //     limitTo: 10,
+        //     // searchOnKey: 'city'
+        // };
         this.bankValid = false;
 
         this.proposer = this.fb.group({
@@ -606,11 +607,11 @@ export class BikeTataaigProposalComponent implements OnInit {
     public financesuccess(successData) {
         if (successData.IsSuccess == true) {
             this.errortoaster = true;
-            this.banklist = successData.ResponseObject;
-            this.photos = successData.ResponseObject.financerdetails;
-            console.log(this.photos,'photos');
-            this.photosBuffer = this.photos.slice(0, this.bufferSize);
-            console.log(this.photosBuffer,'photos');
+            // this.banklist = successData.ResponseObject;
+            this.finlist = successData.ResponseObject.financerdetails;
+            console.log(this.finlist,'finlist');
+            // this.photosBuffer = this.photos.slice(0, this.bufferSize);
+            // console.log(this.photosBuffer,'photos');
         }else{
            this.errortoaster = false;
            this.toastr.error(successData.ErrorObject);
@@ -1112,4 +1113,8 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     proposalFailure(error) {
     }
+    // changefinancecompany() {
+    //     this.vehicle.controls['bankNamevalue'].patchValue(this.finlist[this.vehicle.controls['bankName'].value]);
+    //
+    // }
 }

@@ -93,6 +93,7 @@ export class CarTataaigProposalComponent implements OnInit {
   public config: any;
   public errortoaster: boolean;
   public bankValid: boolean;
+  public finlist: any;
   photos = [];
   photosBuffer = [];
   bufferSize = 50;
@@ -657,11 +658,11 @@ export class CarTataaigProposalComponent implements OnInit {
   public financesuccess(successData) {
     if (successData.IsSuccess == true) {
       this.errortoaster = true;
-      this.banklist = successData.ResponseObject;
-      this.photos = successData.ResponseObject.financerdetails;
-      console.log(this.photos,'photos');
-      this.photosBuffer = this.photos.slice(0, this.bufferSize);
-      console.log(this.photosBuffer,'photos');
+      // this.banklist = successData.ResponseObject;
+      this.finlist = successData.ResponseObject.financerdetails;
+      console.log(this.finlist,'finlist');
+      // this.photosBuffer = this.photos.slice(0, this.bufferSize);
+      // console.log(this.photosBuffer,'photos');
     }else{
       this.errortoaster = false;
       this.toastr.error(successData.ErrorObject);
@@ -1097,6 +1098,7 @@ export class CarTataaigProposalComponent implements OnInit {
 
   //Proposal Creation
   createproposal(stepper: MatStepper) {
+    console.log(this.quotationNo,'qqqqqqqqqqqqqqqqqqqqq...')
     const data = {
       "platform": "web",
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -1209,5 +1211,9 @@ export class CarTataaigProposalComponent implements OnInit {
 
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
+  }
+  changefinancecompany() {
+    this.vehicle.controls['financiercodevalue'].patchValue(this.finlist[this.vehicle.controls['financiercode'].value]);
+
   }
 }
