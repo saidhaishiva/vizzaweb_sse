@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-md-3 mt-3">
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="Title" formControlName="title" (change)="ChangeGender()" required >
+                                <mat-select placeholder="Title" formControlName="title" (selectionChange)="ChangeGender()" required >
                                     <mat-option value="Mr">Mr</mat-option>
                                     <mat-option value="Ms">Ms</mat-option>
                                     <mat-option value="Mrs">Mrs</mat-option>
@@ -165,7 +165,7 @@
                                 <div class="col-md-6 "  >
                                 <mat-form-field class="w-100" >
                                     <mat-placeholder>City<span class="error" *ngIf="proposer.controls['citycom'].value == ''">*</span></mat-placeholder>
-                                    <mat-select  formControlName="citycom"  (change)="typeAddressDeatils()" >
+                                    <mat-select  formControlName="citycom"  (selectionChange)="typeAddressDeatils()" >
                                         <mat-option *ngFor="let city of residenceCitys | keys" value="{{city.value}}" > {{city.value}} </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="proposer.controls.citycom.errors?.required">city is required</mat-error>
@@ -174,7 +174,7 @@
                                 <div class="col-md-6 "  >
                                     <mat-form-field class="w-100" >
                                         <mat-placeholder>district<span class="error" *ngIf="proposer.controls['districtcom'].value == ''">*</span></mat-placeholder>
-                                        <mat-select  formControlName="districtcom" (change)="typeAddressDeatils()" >
+                                        <mat-select  formControlName="districtcom" (selectionChange)="typeAddressDeatils()" >
                                             <mat-option *ngFor="let district of residenceDistricts | keys" value="{{district.value}}" > {{district.value}} </mat-option>
                                         </mat-select>
                                         <mat-error *ngIf="proposer.controls.districtcom.errors?.required">district  is required</mat-error>
@@ -395,7 +395,7 @@
                       </div>
                       <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                       <mat-form-field class="w-100" >
-                        <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany();previouscompany()" required>
+                        <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (selectionChange)="changeInsuranceCompany();previouscompany()" required>
                           <mat-option *ngFor="let company of companyList | keys" value="{{company.key}}" > {{company.value}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="vechicle.controls.Previouscompany.errors?.required">previous company is required</mat-error>

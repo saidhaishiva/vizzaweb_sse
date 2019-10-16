@@ -283,7 +283,7 @@ export class TravelHdfcProposalComponent implements OnInit {
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsGender.patchValue(this.hdfcTravel2.items[i].InsGender);
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(this.hdfcTravel2.items[i].InsDOB);
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelation.patchValue(this.hdfcTravel2.items[i].InsuredRelation);
-                // this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelationName.patchValue(this.hdfcTravel2.items[i].InsuredRelationName);
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelationName.patchValue(this.hdfcTravel2.items[i].InsuredRelationName);
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.hdfcTravel2.items[i].InsuredAge);
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.hdfcTravel2.items[i].insurerDobValidError);
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.hdfcTravel2.items[i].insurerDobError);
@@ -332,6 +332,9 @@ export class TravelHdfcProposalComponent implements OnInit {
     // validation
     nameValidate(event: any){
         this.validation.nameValidate(event);
+    }
+    phyname(event: any){
+        this.validation.phyname(event);
     }
     // Dob validation
     dobValidate(event: any){
@@ -590,7 +593,9 @@ export class TravelHdfcProposalComponent implements OnInit {
     }
 
     selectRelation(i){
-        // this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelationName.patchValue(this.insuredRelationshipDetails[this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelation.value])
+        alert('innn');
+        this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelationName.patchValue(this.insuredRelationshipDetails[this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelation.value])
+        console.log(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelationName.value,'insurancessssss')
     }
 
     ageCalculate(dob) {
@@ -890,7 +895,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsDOB.patchValue('');
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelation.patchValue('');
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredAge.patchValue('');
-            // this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelationName.patchValue('');
+            this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelationName.patchValue('');
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
 
         }

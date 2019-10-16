@@ -774,16 +774,16 @@
                             </mat-form-field>
                         </div>
                       <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="District"  formControlName="nomineeDistrict" (selectionChange)="changeNomineeDistrict()"  [disabled]="nomineesame" >
+                        <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': nomineesame ? 'none' : ''}">
+                          <mat-select placeholder="District"  formControlName="nomineeDistrict" (selectionChange)="changeNomineeDistrict()"  >
                             <mat-option *ngFor="let AppolloDistrict of nomineeAppolloDistrictList | keys" value="{{AppolloDistrict.key}}" > {{AppolloDistrict.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field class="w-100" >
-                          <mat-select placeholder="City"  formControlName="nomineeCity" (selectionChange)="changeNomineeCity()"   [disabled]="nomineesame" required>
+                        <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': nomineesame ? 'none' : ''}">
+                          <mat-select placeholder="City"  formControlName="nomineeCity" (selectionChange)="changeNomineeCity()"  required>
                             <mat-option *ngFor="let AppolloCity of nomineeAppolloCityLis | keys" value="{{AppolloCity.key}}" > {{AppolloCity.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>

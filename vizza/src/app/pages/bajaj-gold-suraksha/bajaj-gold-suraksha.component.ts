@@ -270,7 +270,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
             // this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
 
           };
-
+          console.log(data, 'data');
           this.commonservices.getUpdateDetails(data).subscribe(
               (successData) => {
                 this.getUpdateSuccess(successData);
@@ -342,6 +342,11 @@ export class BajajGoldSurakshaComponent implements OnInit {
   numberValidate(event: any) {
     this.validation.numberValidate(event);
   }
+  // Dob validation
+  dobValidate(event: any){
+    this.validation.dobValidate(event);
+  }
+
   nameValidate(event: any) {
     this.validation.nameValidate(event);
   }

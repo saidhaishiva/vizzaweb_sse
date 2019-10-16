@@ -74,20 +74,20 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Aadhar Card
+                    Aadhaar Card
                 </mat-panel-title>
 
             </mat-expansion-panel-header>
             <div class="row">
                 <div class="col-md-6">
                     <div class="text-left" *ngIf="roleId == '1'">
-                        <mat-checkbox [(ngModel)]="aadharFront" >Aadhar Front Image</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="aadharFront" >Aadhaar Front Image</mat-checkbox>
                     </div>
                     <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_front_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_front_img, 'Aadhar')">
                 </div>
                 <div class="col-md-6">
                     <div class="text-left" *ngIf="roleId == '1'">
-                        <mat-checkbox [(ngModel)]="aadharBack" >Aadhar Back Image</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="aadharBack" >Aadhaar Back Image</mat-checkbox>
                     </div>
                     <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_back_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_back_img, 'Aadhar Card')">
                 </div>
@@ -170,7 +170,7 @@
 
             <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="posData.check_leaf_upload_img != ''">
                 <div class="mb-2 mt-2">
-                    <h6 class="text-center" style="color: #0288d1">Check Leaf</h6>
+                    <h6 class="text-center" style="color: #0288d1">Cheque Leaf</h6>
                     <img src="{{webhost +'/'+ posData.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(posData.check_leaf_upload_img, 'Check Leaf')">
                 </div>
             </div>
