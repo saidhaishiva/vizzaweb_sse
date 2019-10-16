@@ -74,6 +74,7 @@ export class HdfcCarProposalComponent implements OnInit {
     public previousFormData: any;
     public bankFormData: any;
     public vehicledata: any;
+    public vehicleTypedata: any;
     public carEquiryId: any;
     public vehicleidv: any;
     public regvalue: any;
@@ -255,6 +256,7 @@ export class HdfcCarProposalComponent implements OnInit {
       this.financiername();
       this.extensioncountry();
       this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
+      this.vehicleTypedata = JSON.parse(sessionStorage.enquiryFormDatafw);
       this.carEquiryId = sessionStorage.fwEnquiryId;
       this.vehicleidv = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
       this.buyFourwheelerProductDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
@@ -294,7 +296,7 @@ export class HdfcCarProposalComponent implements OnInit {
           this.RegDateage = this.regdatecalculate(regno);
           console.log(this.RegDateage,'empty');
       }
-      if (this.vehicledata.type == 'new') {
+      if (this.vehicleTypedata.type == 'new') {
           console.log('into ve');
           this.regvalue = 'New Vehicle';
           this.validationForNew(this.regvalue);
@@ -306,8 +308,48 @@ export class HdfcCarProposalComponent implements OnInit {
       this.altererror='';
 
   }
-
+    // validationForNew(value) {
+    //
+    //     if (value == 'New Vehicle') {
+    //         this.vechicle.controls['Previouscompany'].patchValue(this.vechicle.controls['Previouscompany'].value);
+    //         this.vechicle.controls['ncb'].patchValue(this.vechicle.controls['ncb'].value);
+    //         this.vechicle.controls['previousenddate'].patchValue(this.vechicle.controls['previousenddate'].value);
+    //         this.vechicle.controls['previouspolicyno'].patchValue(this.vechicle.controls['previouspolicyno'].value);
+    //         this.vechicle.controls['previouspolicyclaim'].patchValue(this.vechicle.controls['previouspolicyclaim'].value);
+    //         this.vechicle.controls['vechicleidv'].patchValue(this.vechicle.controls['vechicleidv'].value);
+    //
+    //         this.proposer.controls['Previouscompany'].setValidators([Validators.required]);
+    //         this.proposer.controls['ncb'].setValidators([Validators.required]);
+    //         this.proposer.controls['previousenddate'].setValidators([Validators.required]);
+    //         this.proposer.controls['previouspolicyno'].setValidators([Validators.required]);
+    //         this.proposer.controls['previouspolicyclaim'].setValidators([Validators.required]);
+    //         this.proposer.controls['vechicleidv'].setValidators([Validators.required]);
+    //     } else {
+    //         this.proposer.controls['Previouscompany'].patchValue('');
+    //         this.proposer.controls['ncb'].patchValue('');
+    //         this.proposer.controls['previousenddate'].patchValue('');
+    //         this.proposer.controls['previouspolicyno'].patchValue('');
+    //         this.proposer.controls['previouspolicyclaim'].patchValue('');
+    //         this.proposer.controls['vechicleidv'].patchValue('');
+    //
+    //         this.proposer.controls['Previouscompany'].setValidators(null);
+    //         this.proposer.controls['ncb'].setValidators(null);
+    //         this.proposer.controls['previousenddate'].setValidators(null);
+    //         this.proposer.controls['previouspolicyno'].setValidators(null);
+    //         this.proposer.controls['previouspolicyclaim'].setValidators(null);
+    //         this.proposer.controls['vechicleidv'].setValidators(null);
+    //
+    //     }
+    //
+    //      this.proposer.controls['Previouscompany'].updateValueAndValidity();
+    //      this.proposer.controls['ncb'].updateValueAndValidity();
+    //      this.proposer.controls['previousenddate'].updateValueAndValidity();
+    //      this.proposer.controls['previouspolicyno'].updateValueAndValidity();
+    //      this.proposer.controls['previouspolicyclaim'].updateValueAndValidity();
+    //      this.proposer.controls['vechicleidv'].updateValueAndValidity();
+    // }
     validationForNew(value) {
+      alert('value')
         console.log(value, 'valuecore');
         if (value == 'New Vehicle') {
             console.log('vinoyth');
@@ -720,6 +762,7 @@ ChangeGender(){
     public failureSuccess(error) {
     }
     changeInsuranceCompany() {
+      // alert('inn');
         this.vechicle.controls['Previouscompanyvalue'].patchValue(this.companyList[this.vechicle.controls['Previouscompany'].value]);
 
     }
@@ -879,8 +922,12 @@ ChangeGender(){
             console.log(sessionStorage.proposerAge, 'rr');
             console.log(this.proposer.valid,'valid');
             if (this.proposer.valid) {
+                console.log(this.proposer.valid,'proposervalid');
+                // alert('inn')
                 if (sessionStorage.proposerAge >= 18) {
+                    // alert('age')
                     if( this.altererror==''){
+                        // alert('error')
                         stepper.next();
                         this.topScroll();
                     }
@@ -1181,7 +1228,7 @@ console.log(this.vehicleidv.Idv);
             "Req_PvtCar": {
                 "POSP_CODE": '',
                     "POLICY_TENURE":this.addOns.controls['policytenture'].value,
-                    "ExtensionCountryCode": this.addOns.controls['extentioncountry'].value,
+                    "ExtensionCountryCode": '',
                     "ExtensionCountryName": this.addOns.controls['extentioncountryvalue'].value,
                     "BreakIN_ID": '',
                     "Effectivedrivinglicense": this.addOns.controls['drivinglicence'].value,
