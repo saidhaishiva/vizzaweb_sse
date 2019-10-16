@@ -435,7 +435,7 @@
                           <div class="row">
                             <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                             <div class="text-right w-50">
-                              <mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                              <mat-checkbox formControlName="sameAsProposer" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                             </div>
                           </div>
                           <div class="row">
@@ -1439,8 +1439,8 @@
                                   <div class="col-md-3">
                                       <div class="text-left w-100">
                                           <div class="custom-file">
-                                              <input type="file" class="custom-file-input" formControlName="addrProof" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" required>
-                                              <label class="custom-file-label"> Address Proof</label>
+                                              <input type="file" class="custom-file-input" formControlName="addrProof" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" required>
+                                              <label class="custom-file-label"> Address Proof <span class="error">*</span></label>
                                           </div>
                                       </div>
                                       <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
@@ -1448,8 +1448,8 @@
                                   <div class="col-md-3">
                                       <div class="text-left w-100">
                                           <div class="custom-file">
-                                              <input type="file" class="custom-file-input" formControlName="ageProof" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" required>
-                                              <label class="custom-file-label"> Age Proof</label>
+                                              <input type="file" class="custom-file-input" formControlName="ageProof" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" required>
+                                              <label class="custom-file-label"> Age Proof <span class="error">*</span></label>
                                           </div>
                                       </div>
                                       <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
@@ -1458,8 +1458,8 @@
                                   <div class="col-md-3">
                                       <div class="text-left w-100">
                                           <div class="custom-file">
-                                              <input type="file" class="custom-file-input" formControlName="idProof" accept=".png, .jpg, .jpeg" (selectionChange)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" required>
-                                              <label class="custom-file-label"> ID Proof</label>
+                                              <input type="file" class="custom-file-input" formControlName="idProof" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" required>
+                                              <label class="custom-file-label"> ID Proof <span class="error">*</span></label>
                                           </div>
                                       </div>
                                       <p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>
@@ -1467,8 +1467,8 @@
                                 <div class="col-md-3">
                                   <div class="text-left w-100">
                                     <div class="custom-file">
-                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="bankProof" (selectionChange)="uploadProof($event, 'bank_proof')"   aria-describedby="inputGroupFileAddon01" required>
-                                      <label class="custom-file-label"> Bank Proof</label>
+                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="bankProof" (change)="uploadProof($event, 'bank_proof')"   aria-describedby="inputGroupFileAddon01" required>
+                                      <label class="custom-file-label"> Bank Proof <span class="error">*</span></label>
                                     </div>
                                   </div>
                                   <p class="mt-2" style="color: green;">{{uploadBankProofName}}</p>
@@ -1476,8 +1476,8 @@
                                 <div class="col-md-3">
                                   <div class="text-left w-100">
                                     <div class="custom-file">
-                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="photo" (selectionChange)="uploadProof($event, 'photo')"   aria-describedby="inputGroupFileAddon01" required>
-                                      <label class="custom-file-label"> Photograph</label>
+                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="photo" (change)="uploadProof($event, 'photoGraph')"   aria-describedby="inputGroupFileAddon01" required>
+                                      <label class="custom-file-label"> Photograph<span class="error">*</span></label>
                                     </div>
                                   </div>
                                   <p class="mt-2" style="color: green;">{{uploadphotoName}}</p>
@@ -1485,7 +1485,7 @@
                                 <div class="col-md-3">
                                   <div class="text-left w-100">
                                     <div class="custom-file">
-                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="otherDoc" (selectionChange)="uploadProof($event, 'other_docs')"   aria-describedby="inputGroupFileAddon01" >
+                                      <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="otherDoc" (change)="uploadProof($event, 'other_Details')"   aria-describedby="inputGroupFileAddon01" >
                                       <label class="custom-file-label"> other documents</label>
                                     </div>
                                   </div>

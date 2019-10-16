@@ -27,19 +27,19 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="firstname" (keypress)="nameValidateNospace($event)" maxlength="45"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="firstname" (keypress)="nameValidate($event)" maxlength="45"  autocomplete="off" required >
                           <mat-error *ngIf="hdfcTravel.controls.firstname.errors?.required"> First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Middle Name" formControlName="middlename"  (keypress)="nameValidateNospace($event)" maxlength="45"  autocomplete="off"  >
+                          <input matInput placeholder="Middle Name" formControlName="middlename"  (keypress)="nameValidate($event)" maxlength="45"  autocomplete="off"  >
                           <!--<mat-error *ngIf="hdfcPersonal.controls.midname.errors?.required"> Middle Name is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="nameValidateNospace($event)" maxlength="45"   autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="nameValidate($event)" maxlength="45"   autocomplete="off" required >
                           <mat-error *ngIf="hdfcTravel.controls.lastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -244,7 +244,7 @@
                       <!--<h6 class="color-blue">INSURED DETAILS</h6>-->
                       <div class="row">
                         <div class="col-md-12 mb-3" *ngIf="i == 0" >
-                          <div class="col-md-12 mt-4"><mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameasInsurerDetails()"><strong>Same as proposer</strong></mat-checkbox></div>
+                          <div class="col-md-12 mt-4"><mat-checkbox formControlName="sameAsProposer" (change)="sameasInsurerDetails()"><strong>Same as proposer</strong></mat-checkbox></div>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
@@ -256,19 +256,19 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="InsFirstName"  (keypress)="nameValidateNospace($event)" maxlength="45" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="First Name" formControlName="InsFirstName"  (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="hdfcInsuredTravel.invalid">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Middle Name" formControlName="InsMiddleName"  (keypress)="nameValidateNospace($event)" maxlength="45" autocomplete="off" readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="Middle Name" formControlName="InsMiddleName"  (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <!--<mat-error *ngIf="hdfcInsuredTravel.invalid">Last Name is required</mat-error>-->
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="InsLastName"  (keypress)="nameValidateNospace($event)" maxlength="45" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="Last Name" formControlName="InsLastName"  (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="hdfcInsuredTravel.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -519,7 +519,7 @@
                           <li class="list-group-item" *ngIf="item.InsGender == 'F'"><strong>Gender:</strong> Female</li>
                           <li class="list-group-item"><strong>D.O.B:</strong> {{item.InsDOB | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item"><strong>Age:</strong> {{item.InsuredAge}}</li>
-                          <li class="list-group-item"><strong>Relationship:</strong> {{item.InsuredRelation}}</li>
+                          <li class="list-group-item"><strong>Relationship:</strong> {{item.InsuredRelationName}}</li>
                           <li class="list-group-item"><strong>PassPort:</strong> {{item.PassportNo}}</li>
                         </ul>
                       </div>
