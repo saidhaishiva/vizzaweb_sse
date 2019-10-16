@@ -1231,6 +1231,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
                     "AgreementType": this.vechicle.controls['Agreement'].value,
                     "FinancierCode": this.vechicle.controls['financiercode'].value,
+                    // "FinancierCode": '',
                     "BranchName": this.vechicle.controls['fibranchname'].value,
                     'PreviousPolicy_CorporateCustomerId_Mandatary': this.regvalue != 'New Vehicle' ? this.vechicle.controls['Previouscompany'].value : '',
                     'PreviousPolicy_NCBPercentage': this.regvalue != 'New Vehicle' ? this.vechicle.controls['ncb'].value : '',
