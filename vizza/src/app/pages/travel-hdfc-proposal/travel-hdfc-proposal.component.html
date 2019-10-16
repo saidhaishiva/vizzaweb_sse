@@ -751,7 +751,7 @@
             <div *ngIf="!mobileView">
             <div class="row" *ngIf="summaryData">
               <div class="col-md-12 text-center">
-                <!--<form action={{summaryData.PaymentActionUrl}}  method='POST' #form>-->
+                <form action={{PaymentActionUrl}}  method='POST' #form>
                   <!--&lt;!&ndash;<input id="__VIEWSTATE" type="text" value="/wEPDwUKMTgyOTc0NDQ4NGRk" name="__VIEWSTATE">&ndash;&gt;-->
                   <!--<input id="__EVENTVALIDATION" type="hidden" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="-->
                          <!--name="__EVENTVALIDATION">-->
@@ -769,7 +769,7 @@
                   <!--&lt;!&ndash;<input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>&ndash;&gt;-->
                   <button mat-button matStepperPrevious (click)="backAll()">Back</button>
                   <button mat-raised-button color="primaryBlue" class="mb-4"  [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
-                <!--</form>-->
+                </form>
 
 
                 </div>
