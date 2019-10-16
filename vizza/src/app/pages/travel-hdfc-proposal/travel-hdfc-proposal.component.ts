@@ -55,6 +55,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public insuredTravelPerson: any;
     public getallTravelPremiumList: any;
     public items: any;
+    public PaymentActionUrl: any;
     public insuredRelationshipDetails: any;
     public declinedetails: boolean;
     public restrictiondetails: boolean;
@@ -999,6 +1000,9 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.nextStep();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData,'summary....')
+            this.PaymentActionUrl = this.summaryData.PaymentActionUrl;
+            console.log(this.PaymentActionUrl,'payyyyyy')
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposerFormData = this.hdfcTravel.value;
             this.insuredFormData = this.hdfcInsuredTravel.value.items;
