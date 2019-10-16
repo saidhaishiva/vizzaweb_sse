@@ -18,7 +18,7 @@
                       <div class="row">
                         <div class="col-md-3 mt-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="title" (change)="ChangeGender()" required >
+                            <mat-select placeholder="Title" formControlName="title" (selectionChange)="ChangeGender()" required >
                               <mat-option value="Mr">Mr</mat-option>
                               <mat-option value="Ms">Ms</mat-option>
                               <mat-option value="Mrs">Mrs</mat-option>
