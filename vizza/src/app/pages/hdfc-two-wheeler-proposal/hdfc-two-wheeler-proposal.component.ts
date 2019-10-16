@@ -103,6 +103,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public vehicleRegNo: any;
     public buyProductDetails: any;
     public finlist: any;
+    public sameasper: boolean;
 
 
     public financiercodevalue: any;
@@ -118,6 +119,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     constructor(public fb: FormBuilder, public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe) {
         this.financeTypeTrue = false;
         this.financeTypeName = false;
+        this.sameasper = false;
 
         let stepperindex = 0;
         this.route.params.forEach((params) => {
@@ -962,6 +964,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].patchValue(this.proposer.controls['citycom'].value);
             this.proposer.controls['districtpermanent'].patchValue(this.proposer.controls['districtcom'].value);
             this.proposer.controls['landmarkpermanent'].patchValue(this.proposer.controls['landmarkcom'].value);
+            this.sameasper=true;
             this.personalCitys = JSON.parse(sessionStorage.residenceCitys);
             sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
             this.personaldistricts = JSON.parse(sessionStorage.residenceDistricts);
@@ -977,6 +980,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].patchValue('');
             this.proposer.controls['districtpermanent'].patchValue('');
             this.proposer.controls['landmarkpermanent'].patchValue('');
+            this.sameasper=false;
             if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
                 this.personalCitys = JSON.parse(sessionStorage.personalCitys);
             } else {
