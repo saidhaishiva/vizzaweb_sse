@@ -558,7 +558,7 @@
                                     <li class="list-group-item"><strong>D.O.B:</strong>  {{proposerRequest.birthDt  | date: 'dd/MM/yyyy'}}</li>
                                     <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerRequest.partyContactDOList[0].contactNum}} </li>
                                     <li class="list-group-item"><strong>Personal Email Id:</strong>  {{mailInfo}}</li>
-                                    <li class="list-group-item" *ngIf="mailInfo1 != ''"><strong>Offfical Email Id:</strong>  {{mailInfo1}}</li>
+                                    <li class="list-group-item" *ngIf="mailInfo1 != ''"><strong>Official Email Id:</strong>  {{mailInfo1}}</li>
                                     <li class="list-group-item"><strong>Occupation:</strong>  {{proposerRequest.insuredOccupationCodeName}}</li>
                                     <li class="list-group-item" *ngIf="proposerRequest.partyContactDOList[1].contactNum != ''"><strong>Residential Number:</strong>  {{proposerRequest.partyContactDOList[1].contactNum}}</li>
                                 </ul>
