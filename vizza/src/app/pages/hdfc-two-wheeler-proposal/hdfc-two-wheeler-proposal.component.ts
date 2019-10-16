@@ -104,7 +104,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public buyProductDetails: any;
 
 
-    public financiercodevalue: any;
+    // public financiercodevalue: any;
     public antitheftdisc = 'false';
     public handicapdic = 'false';
 
@@ -202,10 +202,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             // vechicleidv: ['', Validators.required],
             Financetype: false,
             Agreement: [''],
-            financiercode: '',
+            // financiercode: '',
             fibranchname: [''],
             Previouscompanyvalue: [''],
-            financiercodevalue: [''],
+            // financiercodevalue: [''],
             previouspolicyclaim: ['', Validators.required],
             Financetyp: ['']
 
@@ -545,10 +545,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     }
 
-    changefinancecompany() {
-        this.vechicle.controls['financiercodevalue'].patchValue(this.financeList[this.vechicle.controls['financiercode'].value]);
-
-    }
+    // changefinancecompany() {
+    //     this.vechicle.controls['financiercodevalue'].patchValue(this.financeList[this.vechicle.controls['financiercode'].value]);
+    //
+    // }
 
     // changebankname() {
     //     this.BankDetails.controls['Banknamevalue'].patchValue(this.bankList[this.BankDetails.controls['Bankname'].value]);
@@ -731,7 +731,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 manufactureyear: this.getstepper2.manufactureyear,
                 Financetype: this.getstepper2.Financetype,
                 Agreement: this.getstepper2.Agreement,
-                financiercode: this.getstepper2.financiercode,
+                // financiercode: this.getstepper2.financiercode,
                 fibranchname: this.getstepper2.fibranchname,
                 Previouscompany: this.getstepper2.Previouscompany,
                 ncb: this.getstepper2.ncb,
@@ -739,7 +739,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 previouspolicyno: this.getstepper2.previouspolicyno,
                 // vechicleidv: this.getstepper2.vechicleidv,
                 Previouscompanyvalue: this.getstepper2.Previouscompanyvalue,
-                financiercodevalue: this.getstepper2.financiercodevalue,
+                // financiercodevalue: this.getstepper2.financiercodevalue,
                 previouspolicyclaim: this.getstepper2.previouspolicyclaim,
 
             });
@@ -868,21 +868,21 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.financeTypeTrue = true;
             this.financeTypeName = true;
             this.vechicle.controls['Agreement'].setValidators([Validators.required]);
-            this.vechicle.controls['financiercode'].setValidators([Validators.required]);
+            // this.vechicle.controls['financiercode'].setValidators([Validators.required]);
             this.vechicle.controls['fibranchname'].setValidators([Validators.required]);
         } else if (event.checked != true) {
             this.financeTypeTrue = false;
             this.financeTypeName = false;
             this.vechicle.controls['Agreement'].patchValue('');
-            this.vechicle.controls['financiercode'].patchValue('');
+            // this.vechicle.controls['financiercode'].patchValue('');
             this.vechicle.controls['fibranchname'].patchValue('');
             this.vechicle.controls['Agreement'].setValidators([]);
-            this.vechicle.controls['financiercode'].setValidators([]);
+            // this.vechicle.controls['financiercode'].setValidators([]);
             this.vechicle.controls['fibranchname'].setValidators([]);
         }
 
         this.vechicle.controls['Agreement'].updateValueAndValidity();
-        this.vechicle.controls['financiercode'].updateValueAndValidity();
+        // this.vechicle.controls['financiercode'].updateValueAndValidity();
         this.vechicle.controls['fibranchname'].updateValueAndValidity();
     }
 
@@ -1230,7 +1230,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'ProposalDate': this.tod,
 
                     "AgreementType": this.vechicle.controls['Agreement'].value,
-                    "FinancierCode": this.vechicle.controls['financiercode'].value,
+                    // "FinancierCode": this.vechicle.controls['financiercode'].value,
+                    "FinancierCode": '',
                     "BranchName": this.vechicle.controls['fibranchname'].value,
                     'PreviousPolicy_CorporateCustomerId_Mandatary': this.regvalue != 'New Vehicle' ? this.vechicle.controls['Previouscompany'].value : '',
                     'PreviousPolicy_NCBPercentage': this.regvalue != 'New Vehicle' ? this.vechicle.controls['ncb'].value : '',
