@@ -541,26 +541,26 @@
 
     </mat-card>
     <div class="d-block d-sm-block d-md-block d-lg-none d-xl-none" style="margin-top: 10px !important;" >
-      <div class="row compar-mobile" *ngIf="compareArray != ''">
+      <div class="row compar-fix" *ngIf="compareArray != ''">
 
         <!--<div class="text-right closeBtnClass">-->
         <!--<mat-icon (click)="removeAllCompare(i)">close</mat-icon>-->
         <!--</div>-->
         <div class="col-4" *ngFor="let clists of compareArray; let i = index">
           <div fxLayout="column" class="flex-p">
-            <mat-card class="custom-card compare-icon text-center pr-3">
+            <mat-card class="custom-card compare-icon-mobile text-center pr-3">
               <div class="text-right closeBtnClass">
-                <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
+                  <mat-icon style="font-size:12px;" (click)="removeCompare(i, clists.index)">close</mat-icon>
               </div>
-              <mat-card-content class="p-0 col">
+              <mat-card-content>
                 <!--<p class="color-green-mobile mb-0 text-center">{{clists.product_name}}</p>-->
-                <img  src="{{webhost + '/' + clists.company_logo}}" class="w-100" >
+                <img  src="{{webhost + '/' + clists.company_logo}}" class="w-100">
               </mat-card-content>
             </mat-card>
           </div>
         </div>
-        <div class="col text-center" *ngIf="compareArray != ''">
-          <button  class="mt-5" mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
+        <div class="text-center" *ngIf="compareArray != ''">
+          <button  class="btn btn-sm" mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
         </div>
       </div>
     </div>

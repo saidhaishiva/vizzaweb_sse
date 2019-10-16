@@ -499,6 +499,12 @@ a:hover {
   .compare-icon img {
     width: 90px; }
 
+
+.compare-icon-mobile {
+  height: 50px; }
+.compare-icon-mobile img {
+  width: 90px; }
+
 .add-disable.mat-raised-button[disabled][disabled] {
   background: #ccc !important;
   cursor: default; }
