@@ -247,9 +247,9 @@
                               </mat-form-field>
                             </div>
                             <div class="col-md-3" *ngIf="i != 0 && genderStatus == true">
-                                <mat-form-field class="w-100">
+                                <mat-form-field class="w-100" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                                     <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)"  required>
-                                        <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)" [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
+                                        <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)"  required>
                                             <mat-option value="MR" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Daughter'">Mr</mat-option>
                                             <mat-option value="MS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Ms</mat-option>
                                         </mat-select>
@@ -284,8 +284,8 @@
                                 <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
                               <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
                             </div>
-                            <div class="col-md-3"><mat-form-field class="w-100">
-                                <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required (selectionChange)="selectRelationship(i)" [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                            <div class="col-md-3"><mat-form-field class="w-100" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
+                                <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" required (selectionChange)="selectRelationship(i)">
                                     <mat-option *ngFor="let relationship of insureRelationList | keys" value="{{relationship.key}}" >
                                         {{relationship.value}}
                                     </mat-option>

@@ -333,6 +333,9 @@ export class TravelHdfcProposalComponent implements OnInit {
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }
+    phyname(event: any){
+        this.validation.phyname(event);
+    }
     // Dob validation
     dobValidate(event: any){
         this.validation.dobValidate(event);

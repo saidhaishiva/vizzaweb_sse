@@ -1088,6 +1088,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
     sameProposer(value: any) {
         if (value.checked) {
+            this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
@@ -1112,6 +1113,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             }
 
         } else {
+            this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.patchValue(false);
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
             this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
