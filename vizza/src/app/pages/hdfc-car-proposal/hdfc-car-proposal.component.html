@@ -383,12 +383,12 @@
                                                 <mat-error *ngIf="vechicle.controls.fibranchname.errors?.required">Branch name is required</mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-12 mt-3">
+                                        <div class="col-md-12 mt-3" *ngIf="regvalue !='New Vehicle'">
                                             <h6 class="color-blue"> PREVIOUS POLICY DETAILS </h6>
                                         </div>
                                         <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                                             <mat-form-field class="w-100" >
-                                                <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" required>
+                                                <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" [required]="regvalue !='New Vehicle'">
                                                     <mat-option *ngFor="let company of companyList | keys" value="{{company.key}}" > {{company.value}} </mat-option>
                                                 </mat-select>
                                                 <mat-error *ngIf="vechicle.controls.Previouscompany.errors?.required">previous company is required</mat-error>
@@ -427,7 +427,7 @@
                                                 <!--<input matInput placeholder="Previous Policy claim" formControlName="previouspolicyclaim" maxlength="20" readonly [required]="regvalue !='New Vehicle'">-->
                                             <!--</mat-form-field>-->
                                         <!--</div>-->
-                                        <div class="col-md-3 mt-3">
+                                        <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                                             <mat-form-field class="w-100">
                                                 <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" (input)="idvinput($event.target.value)"  [required]="regvalue !='New Vehicle'">
                                             </mat-form-field>
