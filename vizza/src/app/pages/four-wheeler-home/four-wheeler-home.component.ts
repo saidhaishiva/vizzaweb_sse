@@ -100,6 +100,7 @@ export class FourWheelerHomeComponent implements OnInit {
       // searchOnKey: 'city'
     };
     this.CityValid = false;
+    this.dobError = false;
 
     this.fourWheeler = this.fb.group({
       'vehicalNumber': '',
@@ -209,19 +210,23 @@ export class FourWheelerHomeComponent implements OnInit {
       if (typeof event.value._i == 'string') {
         if (type == 'regitser') {
           if (pattern.test(event.value._i) && event.value._i.length == 10 && this.fourWheeler.controls['registrationDateNew'].value >= this.minDate) {
-
+            this.dobError = false;
             this.dobError = '';
           } else {
+            this.dobError = true;
             this.dobError = 'Enter Valid Date';
           }
         } else if (typeof event.value._i == 'object') {
           this.dobError = '';
+          this.dobError = false;
 
           if (type == 'regitser') {
             this.dobError = '';
+            this.dobError = false;
 
             if (pattern.test(event.value._i) && event.value._i.length == 10 && this.fourWheeler.controls['registrationDateNew'].value >= this.minDate) {
               this.dobError = '';
+              this.dobError = false;
             }
           }
 

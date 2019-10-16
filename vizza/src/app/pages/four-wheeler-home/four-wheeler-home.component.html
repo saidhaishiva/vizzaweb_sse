@@ -42,9 +42,9 @@
                       <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)"  [min]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDateNew"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" [required]="typeList == 'new'">
                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1></mat-datepicker>
-                      <mat-error *ngIf="fourWheeler.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
+                      <mat-error *ngIf="fourWheeler.controls.registrationDateNew.errors?.required">Registration Date is required</mat-error>
                     </mat-form-field>
-                    <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+                    <div class="error" *ngIf="dobError != '' && dobError != true">{{dobError}}</div>
 
                   </div>
                   <div class="col-md-12" *ngIf="typeList == 'new'">
@@ -53,7 +53,7 @@
 
                     <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
                     <!--</ngx-select-dropdown>-->
-                    <div class="color-red" *ngIf="CityValid">City is required</div>
+                    <div class="error help-block" *ngIf=" this.fourWheeler['controls'].city.value == ''||(this.fourWheeler['controls'].city.value == null && fourWheeler.get('city').touched)" >RTO AREA is required</div>
 
                   </div>
                   <!--<div class="col-md-12" *ngIf="typeList == 'new'">-->
@@ -139,6 +139,8 @@
                       <mat-radio-button value="Yes">Yes</mat-radio-button>
                       <mat-radio-button class="pl-3" value="No">No</mat-radio-button>
                     </mat-radio-group>
+                    <div class="error help-block" *ngIf=" this.fourWheeler['controls'].previousClaim.value == ''||(this.fourWheeler['controls'].previousClaim.value == null && fourWheeler.get('previousClaim').touched)" >Previous Claim is required</div>
+
                   </div>
                   <!--<div class="col-md-12" *ngIf="fourWheeler.controls['previousClaim'].value == 'No'">-->
                     <!--<mat-form-field class="w-100 text-left">-->
