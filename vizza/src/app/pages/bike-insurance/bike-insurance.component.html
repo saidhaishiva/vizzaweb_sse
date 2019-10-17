@@ -36,10 +36,12 @@
                                             <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)"  [min]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDateNew"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" [required]="typeList == 'new'">
                                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                             <mat-datepicker #picker1></mat-datepicker>
-                                            <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
+                                            <mat-error *ngIf="bikeInsurance.controls.registrationDateNew.errors?.required">Registration Date is required</mat-error>
                                         </mat-form-field>
-                                        <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+                                        <!--<mat-error *ngIf="bikeInsurance.controls.registrationDateNew.errors?.required">Vehicle No is required</mat-error>-->
 
+                                        <!--<div class="error help-block" *ngIf=" this.bikeInsurance['controls'].registrationDateNew.value == ''||(this.bikeInsurance['controls'].registrationDateNew.value == null && bikeInsurance.get('registrationDateNew').touched)" >Registration Date is required</div>-->
+                                        <div class="error" *ngIf="dobError != '' && dobError != true">{{dobError}}</div>
                                     </div>
                                     <!--<div class="col-md-12">-->
                                         <!--<mat-form-field class="w-100 text-left">-->
@@ -63,13 +65,15 @@
                                     <!--</div>-->
 
                                     <div class="col-md-12" *ngIf="typeList == 'new'">
-                                        <mat-placeholder>RTO AREA<span class="color-red">*</span></mat-placeholder>
-                                        <ngx-select-dropdown (change)="rtoCity()" formControlName="city"  [config]="config" [options]="getRtoDetails"></ngx-select-dropdown>
+                                        <mat-placeholder>RTO AREA<span class="error">*</span></mat-placeholder>
+                                        <ngx-select-dropdown (change)="rtoCity()" formControlName="city"  [config]="config" [options]="getRtoDetails" [required]="typeList != 'new'"></ngx-select-dropdown>
 
                                         <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
                                         <!--</ngx-select-dropdown>-->
-                                        <div class="color-red" *ngIf="CityValid">City is required</div>
+                                        <!--<em class="error help-block" *ngIf="!bikeInsurance.get('city').valid && (bikeInsurance.get('city').dirty || bikeInsurance.get('city').touched) ">Please Select RTO AREA</em>-->
 
+                                        <div class="error help-block" *ngIf=" this.bikeInsurance['controls'].city.value == ''||(this.bikeInsurance['controls'].city.value == null && bikeInsurance.get('city').touched)" >RTO AREA is required</div>
+                                        <!--<div class="color-red" *ngIf="CityValid && CityValid != '' ">City is required</div>-->
                                     </div>
                                     <!--<div>{{getRtoDetails | json}}</div>-->
                                     <!--<div class="col-md-12">-->
@@ -103,7 +107,7 @@
                                     <div class="col-md-12">
                                         <mat-form-field class="w-100 text-left">
                                             <input matInput placeholder="Vehicle No"  class="text-uppercase" formControlName="vehicalNumber"    (keypress)="idValidate($event)" (keyup)="setSession()" (input)="vehicaleValidate()" [required]="typeList != 'new'">
-                                            <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
+                                            <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Registration Date is required</mat-error>
                                             <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Enter Vaild Vehicle Number </mat-error>
                                             <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>-->
                                         </mat-form-field>
@@ -145,8 +149,10 @@
                                             <p class="mt-2">Previous Claim ? <span class="error">*</span></p>
                                             <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (selectionChange)="setSession();changeNcbAmt()"  [required]="typeList != 'new'">
                                             <mat-radio-button value="Yes">Yes</mat-radio-button>
-                                            <mat-radio-button value="No">No</mat-radio-button>
+                                            <mat-radio-button class="pl-3" value="No">No</mat-radio-button>
                                             </mat-radio-group>
+                                        <div class="error help-block" *ngIf=" this.bikeInsurance['controls'].previousClaim.value == ''||(this.bikeInsurance['controls'].previousClaim.value == null && bikeInsurance.get('previousClaim').touched)" >Previous Claim is required</div>
+
                                     </div>
                                     <div class="col-md-10" *ngIf="bikeInsurance.controls['previousClaim'].value == 'No'">
                                         <mat-form-field class="w-100 text-left">

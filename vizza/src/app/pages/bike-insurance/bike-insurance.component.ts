@@ -113,12 +113,13 @@ export class BikeInsuranceComponent implements OnInit {
         //     searchOnKey: this.getRtoDetails,
         // }
         this.CityValid = false;
-
+        this.dobError = false;
+console.log(this.dobError,'dobError11111111');
         this.bikeInsurance = this.fb.group({
             'vehicalNumber': '',
             'registrationDate': '',
             'registrationDateNew': '',
-            'previousClaim': 'Yes',
+            'previousClaim': null,
             'enquiry': '',
             'ncb': '',
             'previousPolicyExpiry': '',
@@ -137,7 +138,9 @@ export class BikeInsuranceComponent implements OnInit {
         }
     }
     ngOnInit() {
-        // clear session for list page
+
+        this.bikeInsurance.controls['city'].patchValue(null);
+            // clear session for list page
         sessionStorage.enquiryFormData = '';
         sessionStorage.Rto = '';
         sessionStorage.bikeListDetails = '';
@@ -155,6 +158,7 @@ export class BikeInsuranceComponent implements OnInit {
         this.getCityLists();
         this.sessionData();
         this.metaList();
+        console.log(this.bikeInsurance.controls['city'].value,'hhhhh');
     }
 
     public metaList() {
@@ -255,6 +259,7 @@ export class BikeInsuranceComponent implements OnInit {
 
 
     addEvent(event, type) {
+
         console.log(event, 'eventevent');
         let selectedDate = '';
         let dob = '';
@@ -267,19 +272,24 @@ export class BikeInsuranceComponent implements OnInit {
                 console.log('in');
                 if (type == 'regitser') {
                     if (pattern.test(event.value._i) && event.value._i.length == 10 && this.bikeInsurance.controls['registrationDateNew'].value >= this.minDate) {
+                        this.dobError = false;
                         this.dobError = '';
                     } else {
+                        this.dobError = true;
                         this.dobError = 'Enter Valid Date';
                     }
                 }
             } else if (typeof event.value._i == 'object') {
                 this.dobError = '';
+                this.dobError = false;
 
                 if (type == 'regitser') {
                     this.dobError = '';
+                    this.dobError = false;
                     console.log('out');
                     if (pattern.test(event.value._i) && event.value._i.length == 10 && this.bikeInsurance.controls['registrationDateNew'].value >= this.minDate) {
                         this.dobError = '';
+                        this.dobError = false;
                     }
                 }
             }
@@ -366,9 +376,9 @@ export class BikeInsuranceComponent implements OnInit {
                     this.bikeDetailsFailure(error);
                 }
             );
-        // }else{
-        //     this.toastr.error('Please select the Mandatory field');
-        //
+        }else{
+            this.toastr.error('Please select the Mandatory field');
+
         }
     }
 
