@@ -945,7 +945,7 @@ ChangeGender(){
             }
         }
         if (type == 'stepper2') {
-            console.log('wwwww');
+            console.log(this.vechicle.controls['vechicleidv'].value,'wwww......w');
             sessionStorage.stepper2Details = '';
             sessionStorage.stepper2Details = JSON.stringify(value);
             // this.addOns.controls['NomineeName'].patchValue('');
@@ -953,7 +953,7 @@ ChangeGender(){
             // this.addOns.controls['appointeename'].patchValue('');
             // this.addOns.controls['appointeerelation'].patchValue('');
             if (this.vechicle.valid) {
-                if(this.vechicle.controls['vechicleidv'].value > 7000) {
+                if(this.vechicle.controls['vechicleidv'].value > 7000 || this.vechicle.controls['vechicleidv'].value=='' ) {
                     //
                     // }
                     stepper.next();

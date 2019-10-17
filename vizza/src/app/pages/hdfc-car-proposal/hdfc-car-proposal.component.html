@@ -300,22 +300,22 @@
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Vechicle Model" formControlName="vehiclemodel"   readonly required>
+                                                <input matInput placeholder="Vehicle Model" formControlName="vehiclemodel"   readonly required>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3 ">
+                                        <div class="col-md-3 " *ngIf="regvalue !='New Vehicle'">
                                             <mat-form-field class="w-100">
-                                                <input matInput [matDatepicker]="picker1" placeholder="Vehicle Registration Date(DD/MM/YYYY)"   formControlName="Vehicleregdate"  (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off" readonly required>
+                                                <input matInput [matDatepicker]="picker1" placeholder="Vehicle Registration Date(DD/MM/YYYY)"   formControlName="Vehicleregdate"  (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off" readonly [required]="regvalue !='New Vehicle'">
                                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker1></mat-datepicker>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" *ngIf="regvalue !='New Vehicle'">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Registration No" formControlName="regno" (keypress)="numberValidate($event)" readonly required>
+                                                <input matInput placeholder="Registration No" formControlName="regno" (keypress)="numberValidate($event)" readonly [required]="regvalue !='New Vehicle'">
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" >
                                             <mat-form-field class="w-100">
                                                 <input matInput placeholder="vehicle Manufacture Year" maxlength="4" formControlName="manufactureyear" (keypress)="numberValidate($event)"  readonly required>
                                             </mat-form-field>
