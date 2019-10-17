@@ -437,7 +437,7 @@
                                 </div>
                             </div>
                             <section *ngFor="let item of requestList; let i = index;">
-                                <h5 class="mt-3 sub-title">{{item.hcpdtmemlist.type | uppercase}} DETAILS </h5>
+                                <h5 class="mt-3 sub-title">{{item.hcpdtmemlist[i].type | uppercase}} DETAILS </h5>
                                 <div class="row box-card">
                                     <div class="col-md-6">
                                         <div class="p-3">
@@ -450,7 +450,7 @@
                                                 <li class="list-group-item" *ngIf="i != 0"><strong>D.O.B:</strong> {{item.tycpdetails.dateofbirth| date: 'dd/MM/yyyy'}}</li>
                                                 <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{item.tycpdetails.email}}</li>
                                                 <!--<li class="list-group-item" *ngIf="summaryData.proposer_age !='' && i == 0"><strong>Age :</strong> {{summaryData.proposer_age}}</li>-->
-                                                <li class="list-group-item" *ngIf="item.hcpdtmemlist.memage !=''"><strong>Age :</strong> {{item.hcpdtmemlist.memage}}</li>
+                                                <li class="list-group-item" *ngIf="item.hcpdtmemlist[i].memage !=''"><strong>Age :</strong> {{item.hcpdtmemlist[i].memage}}</li>
                                                 <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{item.tycpdetails.contact1}}</li>
                                             </ul>
                                         </div>
@@ -461,14 +461,14 @@
                                             <h6 class="mt-2"></h6>
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item" *ngIf="item.tycpdetails.telephone !='' && i == 0"><strong>Alternate Number:</strong> {{item.tycpdetails.telephone}}</li>
-                                                <li class="list-group-item"><strong>Relationship:</strong> {{item.hcpdtmemlist.memrelation}}</li>
+                                                <li class="list-group-item"><strong>Relationship:</strong> {{item.hcpdtmemlist[i].memrelation}}</li>
                                                 <!--<li class="list-group-item" *ngIf="item.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{item.polcovvolntrycp}} %</li>-->
                                                 <!--<li class="list-group-item" *ngIf="item.tycpdetails.insureCoPayment !=''  && i == 0"><strong>Voluntary Co-Payment:</strong> {{item.tycpdetails.insureCoPayment}}</li>-->
 
-                                                <li class="list-group-item"><strong>Height:</strong> {{item.hcpdtmemlist.memheightcm}}</li>
-                                                <li class="list-group-item"><strong>Weight:</strong> {{item.hcpdtmemlist.memweightkg}}</li>
+                                                <li class="list-group-item"><strong>Height:</strong> {{item.hcpdtmemlist[i].memheightcm}}</li>
+                                                <li class="list-group-item"><strong>Weight:</strong> {{item.hcpdtmemlist[i].memweightkg}}</li>
                                                 <li class="list-group-item"><strong>Occupation:</strong> {{item.insureoccupationName}}</li>
-                                                <!--<li class="list-group-item" *ngIf="item.insureGMIncome !=''"><strong>Gross Monthly Income:</strong> {{item.insureGMIncome}}</li>-->
+                                                <li class="list-group-item" *ngIf="item.hcpdtmemlist[i].memgrossmonthlyincome !=''"><strong>Gross Monthly Income:</strong> {{item.item.hcpdtmemlist[i].memgrossmonthlyincome }}</li>
                                             </ul>
                                         </div>
                                     </div>
