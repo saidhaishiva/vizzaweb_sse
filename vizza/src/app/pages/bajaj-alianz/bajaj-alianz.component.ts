@@ -335,6 +335,7 @@ export class BajajAlianzComponent implements OnInit {
                     'memheightcm': this.insurerData[i].insureHeight,
                     'memweightkg': this.insurerData[i].insureWeight,
                     'memoccupation': this.insurerData[i].insureoccupation,
+                    'insureoccupationName': this.insurerData[i].insureoccupationName,
                     'memgrossmonthlyincome': this.insurerData[i].insureGMIncome == '' ? "0" : this.insurerData[i].insureGMIncome,
                     'memnomineename': this.insurerData[i].bajajNomineeName,
                     'memnomineerelation': this.insurerData[i].bajajRelationship,

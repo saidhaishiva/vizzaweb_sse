@@ -105,7 +105,7 @@ export class CholaHealthProposalComponent implements OnInit {
           this.status = params.stepper;
           this.proposal_Id = params.proposalId;
 
-          if(this.proposal_Id != '' || this.proposal_Id != undefined ) {
+       //   if(this.proposal_Id != '' || this.proposal_Id != undefined ) {
               if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                   this.summaryData = JSON.parse(sessionStorage.summaryData);
                   this.RediretUrlLink = this.summaryData.PaymentURL;
@@ -115,14 +115,14 @@ export class CholaHealthProposalComponent implements OnInit {
                   this.proposalId = this.summaryData.ProposalId;
                   sessionStorage.chola_health_proposal_id = this.proposalId;
               }
-          } else {
+          // } else {
               if(this.proposal_Id != '' || this.proposal_Id != undefined ){
                   this.payLaterr = true;
                   console.log(this.proposal_Id, 'this.proposalId');
                   console.log(this.status, 'this.proposalId');
                   this.getBackRequest();
               }
-          }
+          // }
       }
 
         if(this.proposal_Id == undefined || this.proposal_Id == '') {
