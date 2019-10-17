@@ -382,7 +382,7 @@
                         <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >
                             <mat-form-field class="w-100" >
                                 <mat-placeholder>Financier Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                                <mat-select  formControlName="financiercode"  (change)="changefinancecompany()">
+                                <mat-select  formControlName="financiercode"  (selectionChange)="changefinancecompany()">
                                     <cdk-virtual-scroll-viewport [itemSize]="70" [style.height.px]=5*40>
                                         <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
                                     </cdk-virtual-scroll-viewport>
