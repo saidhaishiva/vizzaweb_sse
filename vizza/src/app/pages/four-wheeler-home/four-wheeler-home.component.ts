@@ -311,6 +311,9 @@ export class FourWheelerHomeComponent implements OnInit {
             this.bikeDetailsFailure(error);
           }
       );
+    }else{
+      this.toastr.error('Please select the Mandatory field');
+
     }
   }
 

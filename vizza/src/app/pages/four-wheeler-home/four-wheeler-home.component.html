@@ -49,7 +49,7 @@
                   </div>
                   <div class="col-md-12" *ngIf="typeList == 'new'">
                     <mat-placeholder>RTO AREA<span class="color-red">*</span></mat-placeholder>
-                    <ngx-select-dropdown (change)="rtoCity();"  formControlName="city"  [config]="config" [options]="getRtoDetails"></ngx-select-dropdown>
+                    <ngx-select-dropdown (change)="rtoCity();"  formControlName="city"  [config]="config" [options]="getRtoDetails" [required]="typeList != 'new'"></ngx-select-dropdown>
 
                     <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
                     <!--</ngx-select-dropdown>-->

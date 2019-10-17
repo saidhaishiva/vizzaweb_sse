@@ -119,7 +119,7 @@ console.log(this.dobError,'dobError11111111');
             'vehicalNumber': '',
             'registrationDate': '',
             'registrationDateNew': '',
-            'previousClaim': '',
+            'previousClaim': null,
             'enquiry': '',
             'ncb': '',
             'previousPolicyExpiry': '',
@@ -376,9 +376,9 @@ console.log(this.dobError,'dobError11111111');
                     this.bikeDetailsFailure(error);
                 }
             );
-        // }else{
-        //     this.toastr.error('Please select the Mandatory field');
-        //
+        }else{
+            this.toastr.error('Please select the Mandatory field');
+
         }
     }
 
