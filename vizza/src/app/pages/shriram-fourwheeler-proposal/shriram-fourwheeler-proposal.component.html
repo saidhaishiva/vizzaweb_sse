@@ -16,7 +16,7 @@
                                         <div class="row">
                                             <div class="col-md-3" >
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Title" formControlName="title" (change)="changeGender()" required>
+                                                    <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeGender()" required>
                                                         <mat-option *ngFor="let title of titleList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>

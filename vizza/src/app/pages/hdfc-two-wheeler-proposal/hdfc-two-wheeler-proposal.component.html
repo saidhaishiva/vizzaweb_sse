@@ -85,7 +85,7 @@
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)" (keypress)="teleValidate($event)" maxlength="17" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
+                          <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)" (keypress)="teleValidate($event)" maxlength="11" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
                             <mat-hint font-size="10px" >Format of the Telephone number should be 044-1234567</mat-hint>
                             <mat-error *ngIf="proposer.controls.alternateContact.hasError('pattern')">Enter valid Telephone Number</mat-error>
 
@@ -319,7 +319,7 @@
                       </div>
                       <div class="col-md-3 " *ngIf="regvalue !='New Vehicle'" >
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" placeholder="Vehicle Registration Date(DD/MM/YYYY)"   formControlName="Vehicleregdate" readonly  (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off" required>
+                          <input matInput [matDatepicker]="picker1" placeholder="Vehicle Registration Date(DD/MM/YYYY)"   formControlName="Vehicleregdate" readonly  (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off" [required]="regvalue !='New Vehicle'">
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
@@ -378,12 +378,12 @@
                             <mat-form-field class="w-100" >
                                 <mat-placeholder>Financier Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                                 <mat-select  formControlName="financiercode"  (change)="changefinancecompany()">
-                                    <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
+                                    <cdk-virtual-scroll-viewport [itemSize]="70" [style.height.px]=5*40>
                                         <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
                                     </cdk-virtual-scroll-viewport>
                                     <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
                                 </mat-select>
-                                <mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Finance code is required</mat-error>
+                                <mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Financier Name is required</mat-error>
                             </mat-form-field>
                         </div>
 
@@ -727,7 +727,7 @@
                   <div class="row">
                       <div class="col-md-4">
                           <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large">{{vehicleidv.plan_name}}</span> </span></h4>                      </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8 p-3">
                           <ul class="summary-head">
                               <li><span>IDV : </span><span><i class="fas fa-rupee-sign"></i>{{vehicleidv.Idv}}</span></li>
                               <li><span>Insurer : </span><img src="{{webhost + '/' + companylogo}}" class="img-thumbnail" style="width: 55px;" /> </li>
@@ -748,6 +748,8 @@
                                       <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}}  {{proposerFormData.firstName}}{{proposerFormData.middleName}} {{proposerFormData.lastName}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                       <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.email != ''"><strong>Email Id:</strong> {{proposerFormData.email}}</li>
+
                                   </ul>
                               </div>
                           </div>
@@ -755,8 +757,10 @@
                               <div class="p-3">
 
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item" *ngIf="proposerFormData.email != ''"><strong>Email Id:</strong> {{proposerFormData.email}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.mobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.alternateContact != ''"><strong>Telephone Number:</strong> {{proposerFormData.alternateContact}}</li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.gstNumber != ''"><strong>GST Number:</strong> {{proposerFormData.gstNumber}}</li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.personalPan != ''"><strong>PAN Number:</strong> {{proposerFormData.personalPan}}</li>
                                   </ul>
                               </div>
                           </div>
@@ -822,7 +826,7 @@
                           </div>
                       </div>
                   </section>
-                  <section >
+                  <section *ngIf="regvalue !='New Vehicle'">
                       <h5 class="mt-3 sub-title"> PREVIOUS POLICY  DETAILS </h5>
                       <div class="row box-card">
                           <div class="col-md-6">

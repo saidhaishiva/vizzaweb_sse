@@ -49,7 +49,7 @@
                   </div>
                   <div class="col-md-12" *ngIf="typeList == 'new'">
                     <mat-placeholder>RTO AREA<span class="error">*</span></mat-placeholder>
-                    <ngx-select-dropdown (change)="rtoCity();"  formControlName="city"  [config]="config" [options]="getRtoDetails" [required]="typeList == 'new'"></ngx-select-dropdown>
+                    <ngx-select-dropdown (change)="rtoCity();"  formControlName="city"  [config]="config" [options]="getRtoDetails" [required]="typeList == 'new'" ></ngx-select-dropdown>
 
                     <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
                     <!--</ngx-select-dropdown>-->
@@ -163,7 +163,7 @@
                         <!--</i>-->
                         <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
-                      <mat-error *ngIf="fourWheeler.controls.ncb.errors?.required">Ncb is required</mat-error>
+                      <!--<mat-error *ngIf="fourWheeler.controls.ncb.errors?.required">Ncb is required</mat-error>-->
                     </mat-form-field>
                   </div>
 
