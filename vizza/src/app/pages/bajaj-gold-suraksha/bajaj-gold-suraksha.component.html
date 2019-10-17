@@ -17,7 +17,7 @@
     <div class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-block AllFormView">
-          <mat-card class="p-4" style="background: linear-gradient(to top, #e3eaa4 0%, #b8cc6a 100%) !important; color:#fff;">
+          <mat-card class="p-4" style="background: linear-gradient(to top, #e3eaa4 0%, #b8cc6a 100%) !important; color:#000;">
             <!--<h2 class="w-100 text-center" >Let us assist you</h2>-->
             <form [formGroup]="bajajgold">
 
@@ -44,6 +44,8 @@
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
+                  <div class="error" *ngIf="spouseDobError != ''">{{spouseDobError}}</div>
+
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
@@ -66,7 +68,7 @@
                 </div>
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Email" formControlName="email" required maxlength="80">
+                    <input matInput placeholder="Email" formControlName="email" required maxlength="40">
                     <mat-error *ngIf="bajajgold.controls.email.errors?.required">Email is required</mat-error>
                     <mat-error *ngIf="bajajgold.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                     <mat-icon matSuffix>email</mat-icon>
@@ -136,7 +138,7 @@
                 <!--</div>-->
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Sum Assured Amount" formControlName="premium" required (keypress)="nameValidate($event)" maxlength="7">
+                    <input matInput placeholder="Sum Assured Amount" style="color: #000;" formControlName="premium" required (keypress)="numberValidate($event)" maxlength="7">
                     <mat-error *ngIf="bajajgold.controls.premium.errors?.required">Sum Assured Amount is required</mat-error>
                   </mat-form-field>
                 </div>
