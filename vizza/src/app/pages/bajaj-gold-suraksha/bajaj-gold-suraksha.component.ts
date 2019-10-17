@@ -45,7 +45,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
   public title: any;
   public response: any;
   public redirectUrl: any;
-  public pincodeErrors: any;
+  public pincodeErrors:  any;
   public webhost: any;
   public getpolicyTerm: any;
   public paymentTerm: any;
@@ -101,7 +101,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
   //   this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
   // }
   addEvent(event) {
-    alert('inn')
+
     if (event.value != null) {
 
       let selectedDate = '';
@@ -246,7 +246,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
   getSubmitDetails(values) {
 
     if (this.bajajgold.valid) {
-      if (sessionStorage.age > 18 && sessionStorage.age < 65 ) {
+      if (sessionStorage.age >= 18 && sessionStorage.age <= 65 ) {
         if (this.bajajgold.controls.premium.value >= 30000 && this.bajajgold.controls.premium.value <= 1000000) {
 
           const data = {

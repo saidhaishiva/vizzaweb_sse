@@ -123,11 +123,11 @@ imageDownload() {
 //
 //
 //   }
-  this.downloadPdf().subscribe(
-      (res) => {
-        saveAs(res, 'test.pdf')
-      }
-  );
+//   this.downloadPdf().subscribe(
+//       (res) => {
+//         saveAs(res, 'test.pdf')
+//       }
+//   );
 }
 
   public downloadPdf(){
