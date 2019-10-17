@@ -320,6 +320,11 @@
                                                 <input matInput placeholder="vehicle Manufacture Year" maxlength="4" formControlName="manufactureyear" (keypress)="numberValidate($event)"  readonly required>
                                             </mat-form-field>
                                         </div>
+                                        <div class="col-md-3 mt-3" >
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="Vehicle Idv" formControlName="vechicleidv"  maxlength="10"  readonly required >
+                                            </mat-form-field>
+                                        </div>
                                         <div class="col-md-12 mt-3">
                                             <mat-checkbox formControlName="Financetype"  (change)="check($event)" ><strong> If Vehicle is Finance? </strong></mat-checkbox>
                                         </div>
@@ -358,7 +363,7 @@
                                         <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >
                                             <mat-form-field class="w-100" >
                                                 <mat-placeholder>Financier Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                                                <mat-select  formControlName="financiercode"  (change)="changefinancecompany()">
+                                                <mat-select  formControlName="financiercode"  (selectionChange)="changefinancecompany()">
                                                     <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
                                                         <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
                                                     </cdk-virtual-scroll-viewport>
@@ -388,7 +393,7 @@
                                         </div>
                                         <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
                                             <mat-form-field class="w-100" >
-                                                <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (change)="changeInsuranceCompany()" [required]="regvalue !='New Vehicle'">
+                                                <mat-select placeholder="Previous Insurance Company"  formControlName="Previouscompany" (selectionChange)="changeInsuranceCompany()"  [required]="regvalue !='New Vehicle'">
                                                     <mat-option *ngFor="let company of companyList | keys" value="{{company.key}}" > {{company.value}} </mat-option>
                                                 </mat-select>
                                                 <mat-error *ngIf="vechicle.controls.Previouscompany.errors?.required">previous company is required</mat-error>
@@ -427,11 +432,7 @@
                                                 <!--<input matInput placeholder="Previous Policy claim" formControlName="previouspolicyclaim" maxlength="20" readonly [required]="regvalue !='New Vehicle'">-->
                                             <!--</mat-form-field>-->
                                         <!--</div>-->
-                                        <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
-                                            <mat-form-field class="w-100">
-                                                <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)"   [required]="regvalue !='New Vehicle'">
-                                            </mat-form-field>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -563,7 +564,7 @@
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Unnamed Person SI<span class="error" *ngIf="addOns.controls['NoofUnnamedPerson'].value !=''">*</span></mat-placeholder>
                                                 <input matInput  formControlName="UnnamedPersonSI" autocomplete="off" maxlength="7" (keypress)="numberValidate($event)"  >
-                                                <mat-error *ngIf="addOns.controls.UnnamedPersonSI.errors?.required  ">UnnamedPersonSI is required</mat-error>
+                                                <mat-error *ngIf="addOns.controls.UnnamedPersonSI.errors?.required  ">Unnamed Person SI is required</mat-error>
 
                                             </mat-form-field>
                                         </div>
@@ -891,8 +892,9 @@
                                     <ul class="m-0 list-group">
                                         <li class="list-group-item"><strong>Engine Number:</strong> {{vehicalFormData.engine |uppercase}} </li>
                                         <li class="list-group-item"><strong>Chassis Number:</strong> {{vehicalFormData.chassis| uppercase}} </li>
-                                        <li class="list-group-item"><strong>Vechicle Model:</strong> {{vehicalFormData.vehiclemodel}} </li>
-                                        <li class="list-group-item"><strong>Vechicle Manufacture year:</strong> {{vehicalFormData.manufactureyear}} </li>
+                                        <li class="list-group-item"><strong>Vehicle Model:</strong> {{vehicalFormData.vehiclemodel}} </li>
+                                        <li class="list-group-item"><strong>Vehicle Manufacture year:</strong> {{vehicalFormData.manufactureyear}} </li>
+                                        <li class="list-group-item"><strong>Vechicle Idv:</strong> {{vehicalFormData.vechicleidv}} </li>
 
                                     </ul>
                                 </div>
@@ -900,17 +902,17 @@
                             <div class="col-md-6">
                                 <div class="p-3">
                                     <ul class="m-0 list-group">
-                                        <li class="list-group-item"><strong>Vechicle Regsitration Date:</strong> {{vehicalFormData.Vehicleregdate | date: 'dd/MM/yyyy'}} </li>
-                                        <li class="list-group-item"><strong>Registered No:</strong> {{vehicalFormData.regno}} </li>
-                                        <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Agreement Type:</strong> {{vehicalFormData.Agreement}} </li>
-                                        <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Financier Name:</strong> {{vehicalFormData.Financetype}} </li>
-                                        <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Branch Name:</strong> {{vehicalFormData.fibranchname}} </li>
+                                        <li class="list-group-item" *ngIf="regvalue !='New Vehicle'"><strong>Vehicle Regsitration Date:</strong> {{vehicalFormData.Vehicleregdate | date: 'dd/MM/yyyy'}} </li>
+                                        <li class="list-group-item" *ngIf="regvalue !='New Vehicle'"><strong>Registered No:</strong> {{vehicalFormData.regno}} </li>
+                                        <li class="list-group-item" *ngIf="vehicalFormData.Agreement !=''"><strong>Agreement Type:</strong> {{vehicalFormData.Agreement}} </li>
+                                        <li class="list-group-item" ><strong>Financier Name:</strong> {{vehicalFormData.financiercodevalue}} </li>
+                                        <li class="list-group-item" *ngIf="vehicalFormData.fibranchname !=''"><strong>Branch Name:</strong> {{vehicalFormData.fibranchname}} </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </section>
-                    <section >
+                    <section *ngIf="regvalue !='New Vehicle'" >
                         <h5 class="mt-3 sub-title"> PREVIOUS POLICY  DETAILS </h5>
                         <div class="row box-card">
                             <div class="col-md-6">
@@ -927,7 +929,7 @@
                                 <div class="p-3 mt-2">
                                     <ul class="m-0 list-group">
                                         <li class="list-group-item" *ngIf="vehicalFormData.previouspolicyno != ''"><strong>Previous Policy NO:</strong> {{vehicalFormData.previouspolicyno}}</li>
-                                        <li class="list-group-item" *ngIf="vehicleidv.Idv != ''"><strong>Vechicle idv:</strong> {{vehicleidv.Idv}}</li>
+                                        <!--<li class="list-group-item" *ngIf="vehicleidv.Idv != ''"><strong>Vehicle idv:</strong> {{vehicleidv.Idv}}</li>-->
                                         <li class="list-group-item" *ngIf="vehicalFormData.previouspolicyclaim != ''"><strong>Previous Policy  Claim:</strong> {{vehicalFormData.previouspolicyclaim}}</li>
                                     </ul>
                                 </div>
@@ -947,7 +949,7 @@
                                         <li class="list-group-item" *ngIf="previousFormData.biofuel !=''"><strong>BioFuel Type  :</strong>{{previousFormData.biofuel}}</li>
                                         <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>BioFuel kit Price :</strong>{{previousFormData.biofuelkit}}</li>
                                         <li class="list-group-item"*ngIf="previousFormData.Antitheftdiscflag !=''"><strong>Anti Theft Disc Flag :</strong>{{previousFormData.Antitheftdiscflag}}</li>
-                                        <li class="list-group-item"*ngIf="previousFormData.HandicapDiscFlag !=''"><strong>Handicap Disc Flag :</strong>{{previousFormData.HandicapDiscFlag}}</li>
+                                        <!--<li class="list-group-item"*ngIf="previousFormData.HandicapDiscFlag !=''"><strong>Handicap Disc Flag :</strong>{{previousFormData.HandicapDiscFlag}}</li>-->
                                         <li class="list-group-item" *ngIf="previousFormData.HandicapDiscFlag == true"><strong>Handicap Disc Flag :</strong>Yes</li>
                                         <li class="list-group-item" *ngIf="previousFormData.HandicapDiscFlag == false"><strong>Handicap Disc Flag :</strong>No</li>
                                         <li class="list-group-item"*ngIf="previousFormData.numdrivers !=''"><strong>Number of Drivers :</strong>{{previousFormData.numdrivers}}</li>

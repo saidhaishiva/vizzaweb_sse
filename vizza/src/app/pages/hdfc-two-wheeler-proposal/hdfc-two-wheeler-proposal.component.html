@@ -314,7 +314,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Vechicle Model" formControlName="vehiclemodel" (keypress)="numberValidate($event)" readonly required>
+                          <input matInput placeholder="Vehicle Model" formControlName="vehiclemodel" (keypress)="numberValidate($event)" readonly required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3 " *ngIf="regvalue !='New Vehicle'" >
@@ -334,6 +334,11 @@
                           <input matInput placeholder="vehicle Manufacture Year" maxlength="4" formControlName="manufactureyear" (keypress)="numberValidate($event)" readonly  required>
                         </mat-form-field>
                       </div>
+                        <div class="col-md-3 mt-3" *ngIf="regvalue !='New Vehicle'">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" readonly  required>
+                            </mat-form-field>
+                        </div>
                         <div class="col-md-12 mt-3">
                             <mat-checkbox formControlName="Financetype"  (change)="changeValidation($event)" (click)="changeValidation($event)" ><strong> If Vehicle is Finance? </strong></mat-checkbox>
                         </div>
@@ -439,11 +444,7 @@
 
                             <!--</mat-form-field>-->
                         <!--</div>-->
-                      <!--<div class="col-md-3 mt-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" (input)="idvinput($event.target.value)"  [required]="regvalue !='New Vehicle'">-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
+
                 </div>
                   </div>
                 </div>
@@ -809,6 +810,7 @@
                                       <li class="list-group-item"><strong>Chassis Number:</strong> {{vehicalFormData.chassis | uppercase}} </li>
                                       <li class="list-group-item"><strong>Vehicle Model:</strong> {{vehicalFormData.vehiclemodel}} </li>
                                       <li class="list-group-item"><strong>Vehicle Manufacture year:</strong> {{vehicalFormData.manufactureyear}} </li>
+                                      <li class="list-group-item"><strong>Vechicle Idv:</strong> {{vehicalFormData.vechicleidv}} </li>
 
                                   </ul>
                               </div>
@@ -818,9 +820,9 @@
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Vehicle Regsitration Date:</strong> {{vehicalFormData.Vehicleregdate | date: 'dd/MM/yyyy'}} </li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.regno !=''"><strong>Registered No:</strong> {{vehicalFormData.regno}} </li>
-                                      <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Agreement Type:</strong> {{vehicalFormData.Agreement}} </li>
-                                      <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Financier Name:</strong> {{vehicalFormData.Financetype}} </li>
-                                      <li class="list-group-item" *ngIf="vehicalFormData.Financetype !=''"><strong>Branch Name:</strong> {{vehicalFormData.fibranchname}} </li>
+                                      <li class="list-group-item" *ngIf="vehicalFormData.Agreement !=''"><strong>Agreement Type:</strong> {{vehicalFormData.Agreement}} </li>
+                                      <li class="list-group-item" *ngIf="vehicalFormData.financiercodevalue !=''"><strong>Financier Name:</strong> {{vehicalFormData.financiercodevalue}} </li>
+                                      <li class="list-group-item" *ngIf="vehicalFormData.fibranchname !=''"><strong>Branch Name:</strong> {{vehicalFormData.fibranchname}} </li>
                                   </ul>
                               </div>
                           </div>
@@ -843,7 +845,7 @@
                               <div class="p-3 mt-2">
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item" *ngIf="vehicalFormData.previouspolicyno !=''"><strong>Previous Policy NO:</strong> {{vehicalFormData.previouspolicyno}}</li>
-                                      <li class="list-group-item" *ngIf="vehicleidv.Idv !=''"><strong>Vechicle idv:</strong> {{vehicleidv.Idv}}</li>
+                                      <li class="list-group-item" *ngIf="vehicleidv.Idv !=''"><strong>Vehicle idv:</strong> {{vehicleidv.Idv}}</li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.previouspolicyclaim !=''"><strong>Previous Policy  Claim:</strong> {{vehicalFormData.previouspolicyclaim}}</li>
                                   </ul>
                               </div>
@@ -888,7 +890,7 @@
                                       <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == false"><strong>Is Limited to Own Premises:</strong>No</li>
                                       <li class="list-group-item" *ngIf="previousFormData.zerodept == true"><strong>Is zerodept Cover:</strong>Yes</li>
                                       <li class="list-group-item" *ngIf="previousFormData.zerodept == false"><strong>Is zerodept Cover:</strong>No</li>
-                                      <li class="list-group-item" *ngIf="previousFormData.pacover !=''" ><strong>PA Cover  :</strong>{{previousFormData.pacover}}</li>
+                                      <!--<li class="list-group-item" *ngIf="previousFormData.pacover !=''" ><strong>PA Cover  :</strong>{{previousFormData.pacover}}</li>-->
                                       <li class="list-group-item" *ngIf="previousFormData.pacovername !=''"><strong>PA Cover Name  :</strong>{{previousFormData.pacovername}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.pasuminsured !=''"><strong>PA Sum Insurance  :</strong>{{previousFormData.pasuminsured}}</li>
 

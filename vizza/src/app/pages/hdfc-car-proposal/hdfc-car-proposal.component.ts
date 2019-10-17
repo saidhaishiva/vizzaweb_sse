@@ -280,7 +280,8 @@ export class HdfcCarProposalComponent implements OnInit {
       }
 
       this.addOns.controls['extentioncountry'].patchValue('No Extension');
-
+      this.vechicle.controls['vechicleidv'].patchValue(this.buyFourwheelerProductDetails.Idv);
+      console.log(this.vechicle.controls['vechicleidv'].value,'12233333');
       // this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
       this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
@@ -572,7 +573,9 @@ export class HdfcCarProposalComponent implements OnInit {
             this.errortoaster = true;
             this.finlist = successData.ResponseObject.bankdetails;
             console.log(this.finlist,'finlist');
-            // this.photos = successData.ResponseObject.bankdetails;
+            console.log(this.finlist[0].id,'finlist');
+            console.log(this.finlist.id,'finlist');
+            // this.photos =this.finlist.id ;
             // console.log(this.photos,'photos');
             // this.photosBuffer = this.photos.slice(0, this.bufferSize);
             // console.log(this.photosBuffer,'photos');
@@ -771,8 +774,8 @@ ChangeGender(){
     }
 
     changefinancecompany() {
-        this.vechicle.controls['financiercodevalue'].patchValue(this.finlist[this.vechicle.controls['financiercode'].value]);
-
+      this.vechicle.controls['financiercodevalue'].patchValue(this.finlist[this.vechicle.controls['financiercode'].value]);
+console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765')
     }
 
     // changebankname() {
@@ -953,14 +956,14 @@ ChangeGender(){
             // this.addOns.controls['appointeename'].patchValue('');
             // this.addOns.controls['appointeerelation'].patchValue('');
             if (this.vechicle.valid) {
-                if(this.vechicle.controls['vechicleidv'].value > 7000 || this.vechicle.controls['vechicleidv'].value=='' ) {
+                // if(this.vechicle.controls['vechicleidv'].value > 7000 || this.vechicle.controls['vechicleidv'].value=='' ) {
                     //
                     // }
                     stepper.next();
                     this.topScroll();
-                }else{
-                    this.toastr.error('IDV Should Not Less Than 7000');
-                }
+                // }else{
+                //     this.toastr.error('IDV Should Not Less Than 7000');
+                // }
             } else {
                 this.toastr.error('Please fill the Mandatory Fields')
 
@@ -1161,9 +1164,10 @@ ChangeGender(){
             console.log(regno, 'reg');
             console.log(this.addOns.controls['ElecticalAccessoryIDV'].value, 'check');
         }
-console.log(this.vehicleidv.Idv);
-        const data={
+        console.log(this.addOns.controls['zerodept'].value,'zerodepte1111111111.......');
 
+        console.log(this.vehicleidv.Idv);
+        const data={
             "platform": "web",
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosUserId() : '4',
@@ -1214,7 +1218,7 @@ console.log(this.vehicleidv.Idv);
             "Policy_Details": {
                 "PolicyStartDate": this.tommarrow,
                     "ProposalDate": this.tod,
-                    "AgreementType": this.vechicle.controls['Agreement'].value,
+                    "AgreementType": '',
                     "FinancierCode": this.vechicle.controls['financiercode'].value,
                     "BranchName":this.vechicle.controls['fibranchname'].value,
                     "PreviousPolicy_CorporateCustomerId_Mandatary": this.regvalue != 'New Vehicle' ? this.vechicle.controls['Previouscompany'].value : '' ,
@@ -1251,7 +1255,7 @@ console.log(this.vehicleidv.Idv);
                     "Owner_Driver_Nominee_Relationship": this.addOns.controls['nomineeRelation'].value,
                     "Owner_Driver_Appointee_Name": this.addOns.controls['appointeename'].value,
                     "Owner_Driver_Appointee_Relationship": this.addOns.controls['appointeerelation'].value,
-                    "IsZeroDept_Cover": this.addOns.controls['zerodept'].value=='true' ?'1':'0',
+                    "IsZeroDept_Cover": this.addOns.controls['zerodept'].value==true ?'1':'0',
                      'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
                     'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
                     "OtherLoadDiscRate": this.addOns.controls['OtherLoadDiscRate'].value==true ?'1':'0',
@@ -1295,6 +1299,8 @@ console.log(this.vehicleidv.Idv);
         }
 
         };
+        console.log(data,'data');
+        console.log(this.addOns.controls['zerodept'].value,'zerodepte.......');
         this.Setting.loadingSpinner = true;
         this.Fourwheeler.proposalHdfccar(data).subscribe(
             (successData) => {
