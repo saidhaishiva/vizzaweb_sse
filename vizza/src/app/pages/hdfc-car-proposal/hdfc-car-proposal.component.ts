@@ -1417,4 +1417,16 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
         this.validation.idValidate(event);
     }
 
+    teleValidate(event: any) {
+
+        if (event.charCode !== 0) {
+            const pattern = /[0-9-]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+
+            }
+        }
+    }
+
 }
