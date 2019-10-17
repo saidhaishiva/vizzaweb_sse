@@ -94,6 +94,7 @@ export class HdfcCarProposalComponent implements OnInit {
     public vehicleRegNo: any;
     public buyFourwheelerProductDetails: any;
     public errortoaster: boolean;
+    public sameasper: boolean;
     public finlist: any;
     photos = [];
     photosBuffer = [];
@@ -135,6 +136,7 @@ export class HdfcCarProposalComponent implements OnInit {
       this.todaydate=new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate());
       this.tod=this.datepipe.transform(this.todaydate,'dd/MM/y');
       String ;this.tod = this.tod.substring(0, 10);
+      this.sameasper = false;
 
 
       this.proposer = this.fb.group({
@@ -383,6 +385,7 @@ export class HdfcCarProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].patchValue(this.proposer.controls['citycom'].value);
             this.proposer.controls['districtpermanent'].patchValue(this.proposer.controls['districtcom'].value);
             this.proposer.controls['landmarkpermanent'].patchValue(this.proposer.controls['landmarkcom'].value);
+            this.sameasper=true;
             this.personalCitys = JSON.parse(sessionStorage.residenceCitys);
             sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
             this.personaldistricts = JSON.parse(sessionStorage.residenceDistricts);
@@ -398,6 +401,7 @@ export class HdfcCarProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].patchValue('');
             this.proposer.controls['districtpermanent'].patchValue('');
             this.proposer.controls['landmarkpermanent'].patchValue('');
+            this.sameasper=false;
             if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
                 this.personalCitys = JSON.parse(sessionStorage.personalCitys);
             } else {
