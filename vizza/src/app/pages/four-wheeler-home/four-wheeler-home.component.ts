@@ -106,7 +106,7 @@ export class FourWheelerHomeComponent implements OnInit {
       'vehicalNumber': '',
       'registrationDate': '',
       'registrationDateNew': '',
-      'previousClaim': 'Yes',
+      'previousClaim': '',
       'enquiry': '',
       'ncb': '',
       'previousPolicyExpiry': '',
