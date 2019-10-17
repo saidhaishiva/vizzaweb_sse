@@ -94,9 +94,11 @@ public valueDetails: any;
 public packaeList: any;
 public apponiteeList: boolean;
 public addList: boolean;
+public sameasper: boolean;
 public electricaAccessories: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
     let stepperindex = 0;
+    this.sameasper = false;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
         stepperindex = 4;
@@ -509,7 +511,8 @@ public electricaAccessories: boolean;
         this.proposer.controls['rpincode'].patchValue( this.proposer.controls['pincode'].value),
         this.proposer.controls['rstate'].patchValue( this.proposer.controls['state'].value),
         this.proposer.controls['rcity'].patchValue( this.proposer.controls['city'].value)
-        this.proposer.controls['rcityName'].patchValue( this.proposer.controls['cityName'].value)
+        this.proposer.controls['rcityName'].patchValue( this.proposer.controls['cityName'].value),
+            this.sameasper=true;
       } else {
         this.proposer.controls['raddress'].patchValue(''),
         this.proposer.controls['raddress2'].patchValue(''),
@@ -517,7 +520,8 @@ public electricaAccessories: boolean;
         this.proposer.controls['raddress4'].patchValue(''),
         this.proposer.controls['rpincode'].patchValue(''),
         this.proposer.controls['rstate'].patchValue(''),
-        this.proposer.controls['rcity'].patchValue('')
+        this.proposer.controls['rcity'].patchValue(''),
+            this.sameasper=false;
       }
   }
   proposerDetails(stepper: MatStepper,value){
