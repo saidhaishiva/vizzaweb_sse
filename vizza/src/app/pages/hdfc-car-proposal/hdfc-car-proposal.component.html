@@ -77,7 +77,7 @@
                         </div>
                           <div class="col-md-3 mt-3">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)"  maxlength="17" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
+                                  <input matInput placeholder="Telephone Number"   (input)="alternatecontact($event.target.value,$event)"  maxlength="11" formControlName="alternateContact" pattern="[0-9-]*" autocomplete="off">
                                   <mat-hint font-size="10px" >Format of the Telephone number should be 044-1234567</mat-hint>
 
                               </mat-form-field>
@@ -190,34 +190,34 @@
                                               <div class="col-md-12 mt-3">
                                                   <mat-checkbox formControlName="issameascmmunication"  (change)="sameaspermenant($event)" ><strong> Is Same As Communication Address </strong></mat-checkbox>
                                               </div>
-                                              <mat-form-field class="w-100">
-                                                  <input matInput placeholder="Address 1" rows="2" formControlName="address" autocomplete="off" maxlength="30" required>
+                                              <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">
+                                                  <input matInput placeholder="Address 1" rows="2" formControlName="address" autocomplete="off" maxlength="30" required [readonly]="sameasper">
                                                   <mat-error *ngIf="proposer.controls.address.errors?.required">Address is required</mat-error>
                                               </mat-form-field>
                                           </div>
                                           <div class="col-md-12">
-                                              <mat-form-field class="w-100">
-                                                  <input matInput placeholder="Address 2" rows="2" formControlName="address2" maxlength="30"   autocomplete="off" required>
+                                              <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">
+                                                  <input matInput placeholder="Address 2" rows="2" formControlName="address2" maxlength="30"   autocomplete="off" required [readonly]="sameasper">
                                                   <mat-error *ngIf="proposer.controls.address2.errors?.required">Address2 is required</mat-error>
                                               </mat-form-field>
                                           </div>
                                           <div class="col-md-12">
-                                              <mat-form-field class="w-100">
-                                                  <input matInput placeholder="Address 3" rows="2" formControlName="address3"  maxlength="30"  autocomplete="off">
+                                              <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">
+                                                  <input matInput placeholder="Address 3" rows="2" formControlName="address3"  maxlength="30"  autocomplete="off" [readonly]="sameasper">
                                                   <!--<mat-error *ngIf="proposer.controls.address3.errors?.required">Address3 is required</mat-error>-->
                                               </mat-form-field>
                                           </div>
                                           <div class="col-md-6">
-                                              <mat-form-field class="w-100">
-                                                  <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode"  (input)="getPostalCode($event.target.value,'proposer')" autocomplete="off" required>
+                                              <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">
+                                                  <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode"  (input)="getPostalCode($event.target.value,'proposer')" autocomplete="off" required [readonly]="sameasper">
                                                   <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                                   <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode required</mat-error>
                                                   <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                               </mat-form-field>
                                           </div>
                                           <div class="col-md-6">
-                                              <mat-form-field class="w-100">
-                                                  <input matInput placeholder="State" formControlName="statepermanent"  autocomplete="off"  required >
+                                              <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">
+                                                  <input matInput placeholder="State" formControlName="statepermanent"  autocomplete="off"  required [readonly]="sameasper" >
                                                   <mat-error *ngIf="proposer.controls.statepermanent.errors?.required">State is required</mat-error>
                                               </mat-form-field>
                                           </div>
@@ -235,26 +235,26 @@
                                           <!--</mat-form-field>-->
                                           <!--</div>-->
                                           <div class="col-md-6 "  >
-                                              <mat-form-field class="w-100" >
+                                              <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">
                                                   <mat-placeholder>City<span class="error" *ngIf="proposer.controls['citypermanent'].value == ''">*</span></mat-placeholder>
-                                                  <mat-select  formControlName="citypermanent"   >
+                                                  <mat-select  formControlName="citypermanent"  [readonly]="sameasper" >
                                                       <mat-option *ngFor="let city of personalCitys | keys" value="{{city.value}}" > {{city.value}} </mat-option>
                                                   </mat-select>
                                                   <mat-error *ngIf="proposer.controls.citypermanent.errors?.required">city is required</mat-error>
                                               </mat-form-field>
                                           </div>
                                           <div class="col-md-6 "  >
-                                              <mat-form-field class="w-100" >
+                                              <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">
                                                   <mat-placeholder>district<span class="error" *ngIf="proposer.controls['districtpermanent'].value == ''">*</span></mat-placeholder>
-                                                  <mat-select  formControlName="districtpermanent"  >
+                                                  <mat-select  formControlName="districtpermanent"  [readonly]="sameasper">
                                                       <mat-option *ngFor="let district of personaldistricts | keys" value="{{district.value}}" > {{district.value}} </mat-option>
                                                   </mat-select>
                                                   <mat-error *ngIf="proposer.controls.districtpermanent.errors?.required">District is required</mat-error>
                                               </mat-form-field>
                                           </div>
                                           <div class="col-md-6">
-                                              <mat-form-field class="w-100">
-                                                  <input matInput placeholder="LandMark"  maxlength="50" formControlName="landmarkpermanent"  autocomplete="off" >
+                                              <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">
+                                                  <input matInput placeholder="LandMark"  maxlength="50" formControlName="landmarkpermanent"  autocomplete="off" [readonly]="sameasper">
                                               </mat-form-field>
                                           </div>
                                       </div>
@@ -300,24 +300,24 @@
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Vechicle Model" formControlName="vehiclemodel"   required>
+                                                <input matInput placeholder="Vechicle Model" formControlName="vehiclemodel"   readonly required>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3 ">
                                             <mat-form-field class="w-100">
-                                                <input matInput [matDatepicker]="picker1" placeholder="Vehicle Registration Date(DD/MM/YYYY)"   formControlName="Vehicleregdate"  (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off" required>
+                                                <input matInput [matDatepicker]="picker1" placeholder="Vehicle Registration Date(DD/MM/YYYY)"   formControlName="Vehicleregdate"  (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off" readonly required>
                                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker1></mat-datepicker>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Registration No" formControlName="regno" (keypress)="numberValidate($event)"  required>
+                                                <input matInput placeholder="Registration No" formControlName="regno" (keypress)="numberValidate($event)" readonly required>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="vehicle Manufacture Year" maxlength="4" formControlName="manufactureyear" (keypress)="numberValidate($event)"  required>
+                                                <input matInput placeholder="vehicle Manufacture Year" maxlength="4" formControlName="manufactureyear" (keypress)="numberValidate($event)"  readonly required>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-12 mt-3">
@@ -364,7 +364,7 @@
                                                     </cdk-virtual-scroll-viewport>
                                                     <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
                                                 </mat-select>
-                                                <mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Finance code is required</mat-error>
+                                                <mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Financier Name is required</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <!--<div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >-->
@@ -811,7 +811,7 @@
                         <div class="col-md-4">
                             <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large">{{vehicleidv.plan_name}}</span> </span></h4>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8 p-3">
                             <ul class="summary-head">
                                 <li><span>IDV : </span><span><i class="fas fa-rupee-sign"></i>{{vehicleidv.Idv}}</span></li>
                                 <li><span>Insurer : </span><img src="{{webhost + '/' + vehicleidv.company_logo}}" class="img-thumbnail" style="width: 55px;" /> </li>
@@ -832,6 +832,8 @@
                                         <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}}  {{proposerFormData.firstName}}{{proposerFormData.middleName}} {{proposerFormData.lastName}}</li>
                                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                         <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.email != ''"><strong>Email Id:</strong> {{proposerFormData.email}}</li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -839,8 +841,10 @@
                                 <div class="p-3">
 
                                     <ul class="m-0 list-group">
-                                        <li class="list-group-item" *ngIf="proposerFormData.email != ''"><strong>Email Id:</strong> {{proposerFormData.email}}</li>
                                         <li class="list-group-item" *ngIf="proposerFormData.mobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.alternateContact != ''"><strong>Telephone Number:</strong> {{proposerFormData.alternateContact}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.gstNumber != ''"><strong>GST Number:</strong> {{proposerFormData.gstNumber}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.personalPan != ''"><strong>PAN Number:</strong> {{proposerFormData.personalPan}}</li>
                                     </ul>
                                 </div>
                             </div>

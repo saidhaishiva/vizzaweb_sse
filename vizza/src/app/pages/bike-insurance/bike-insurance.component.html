@@ -66,7 +66,7 @@
 
                                     <div class="col-md-12" *ngIf="typeList == 'new'">
                                         <mat-placeholder>RTO AREA<span class="error">*</span></mat-placeholder>
-                                        <ngx-select-dropdown (change)="rtoCity()" formControlName="city"  [config]="config" [options]="getRtoDetails" [required]="typeList != 'new'"></ngx-select-dropdown>
+                                        <ngx-select-dropdown (change)="rtoCity()" formControlName="city"  [config]="config" [options]="getRtoDetails" [required]="typeList == 'new'"></ngx-select-dropdown>
 
                                         <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
                                         <!--</ngx-select-dropdown>-->
@@ -106,7 +106,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <mat-form-field class="w-100 text-left">
-                                            <input matInput placeholder="Vehicle No"  class="text-uppercase" formControlName="vehicalNumber"    (keypress)="idValidate($event)" (keyup)="setSession()" (input)="vehicaleValidate()" [required]="typeList != 'new'">
+                                            <input matInput placeholder="Vehicle No"  class="text-uppercase" formControlName="vehicalNumber"   maxlength="10" minlength="10" (keypress)="idValidate($event)" (keyup)="setSession()" (input)="vehicaleValidate()" [required]="typeList != 'new'">
                                             <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Registration Date is required</mat-error>
                                             <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Enter Vaild Vehicle Number </mat-error>
                                             <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>-->
@@ -147,7 +147,7 @@
                                     </div>
                                     <div class="col-md-12">
                                             <p class="mt-2">Previous Claim ? <span class="error">*</span></p>
-                                            <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (selectionChange)="setSession();changeNcbAmt()"  [required]="typeList != 'new'">
+                                            <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="setSession();changeNcbAmt()"  [required]="typeList != 'new'">
                                             <mat-radio-button value="Yes">Yes</mat-radio-button>
                                             <mat-radio-button class="pl-3" value="No">No</mat-radio-button>
                                             </mat-radio-group>
@@ -156,11 +156,11 @@
                                     </div>
                                     <div class="col-md-10" *ngIf="bikeInsurance.controls['previousClaim'].value == 'No'">
                                         <mat-form-field class="w-100 text-left">
-                                            <mat-placeholder> NCB Percent(%) <span class="error">*</span></mat-placeholder>
+                                            <mat-placeholder> NCB Percent(%)<span class="error">*</span></mat-placeholder>
                                             <mat-select (selectionChange)="setSession()" formControlName="ncb"  >
                                            <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                            </mat-select>
-                                           <mat-error *ngIf="bikeInsurance.controls.ncb.errors?.required">Ncb is required</mat-error>
+                                           <!--<mat-error *ngIf="bikeInsurance.controls.ncb.errors?.required">Ncb is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
                                     <div class="col-md-2" *ngIf="bikeInsurance.controls['previousClaim'].value == 'No'">
