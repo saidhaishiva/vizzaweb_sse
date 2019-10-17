@@ -114,6 +114,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public Idv: any;
   public valid: any;
   public currentStep: any;
+  public sameasper: boolean;
+
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public route: ActivatedRoute, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
     let stepperindex = 0;
@@ -133,6 +135,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
       }
     });
+    this.sameasper = false;
+
     this.currentStep  = stepperindex;
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -590,7 +594,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
           this.proposer.controls['rpincode'].patchValue( this.proposer.controls['pincode'].value),
           this.proposer.controls['rstate'].patchValue( this.proposer.controls['state'].value),
           this.proposer.controls['rcity'].patchValue( this.proposer.controls['city'].value),
-          this.proposer.controls['rcityName'].patchValue( this.proposer.controls['cityName'].value)
+          this.proposer.controls['rcityName'].patchValue( this.proposer.controls['cityName'].value),
+              this.sameasper=true;
       console.log(this.proposer.controls['rcity'].value, 'ghghghj');
     } else {
       this.proposer.controls['raddress'].patchValue(''),
@@ -598,7 +603,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
           this.proposer.controls['rpincode'].patchValue(''),
           this.proposer.controls['rstate'].patchValue(''),
           this.proposer.controls['rcity'].patchValue(''),
-          this.proposer.controls['rcityName'].patchValue('')
+          this.proposer.controls['rcityName'].patchValue(''),
+          this.sameasper=false;
       console.log(this.proposer.controls['rcity'].value, 'eeeeeeee');
     }
   }
