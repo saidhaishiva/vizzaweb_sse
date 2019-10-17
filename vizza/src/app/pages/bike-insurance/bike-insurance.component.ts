@@ -204,7 +204,6 @@ console.log(this.dobError,'dobError11111111');
         console.log(sessionStorage.Rto,'sessionStorage.Rto');
     }
     changeNcbAmt() {
-        alert('1111')
         if (this.bikeInsurance.controls['previousClaim'].value == 'No') {
             this.bikeInsurance.controls['ncb'].patchValue(this.bikeInsurance.controls['ncb'].value);
 
