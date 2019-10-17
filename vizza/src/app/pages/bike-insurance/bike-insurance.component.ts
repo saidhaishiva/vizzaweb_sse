@@ -204,11 +204,25 @@ console.log(this.dobError,'dobError11111111');
         console.log(sessionStorage.Rto,'sessionStorage.Rto');
     }
     changeNcbAmt() {
+        alert('1111')
         if (this.bikeInsurance.controls['previousClaim'].value == 'No') {
+            this.bikeInsurance.controls['ncb'].patchValue(this.bikeInsurance.controls['ncb'].value);
+
+            this.bikeInsurance.controls['ncb'].setValidators([Validators.required]);
         } else {
             this.bikeInsurance.controls['ncb'].patchValue('');
+
+            this.bikeInsurance.controls['ncb'].setValidators(null);
+
         }
+        this.bikeInsurance.controls['ncb'].updateValueAndValidity();
+
     }
+
+// } else {
+//             this.bikeInsurance.controls['ncb'].patchValue('');
+//         }
+//     }
 
     nameValidate(event: any) {
         this.validation.nameValidate(event);
