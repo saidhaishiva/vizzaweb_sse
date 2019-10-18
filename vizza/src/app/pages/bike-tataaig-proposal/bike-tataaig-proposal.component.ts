@@ -89,7 +89,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public productlist: any;
     public errortoaster: boolean;
     public bankValid: boolean;
-    public finlist: boolean;
+    public finlist: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -736,7 +736,9 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     covervalue() {
+        alert('inn')
         this.vehicle.controls['coverdrivevalue'].patchValue(this.coverlist[this.vehicle.controls['coverdrive'].value]);
+
     }
 
     chooseflag(event: any) {
