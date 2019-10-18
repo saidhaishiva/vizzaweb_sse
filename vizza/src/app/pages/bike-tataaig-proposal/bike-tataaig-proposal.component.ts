@@ -185,7 +185,11 @@ export class BikeTataaigProposalComponent implements OnInit {
             Roadsideassistance: false,
             Roadsideassistanceamount:'',
             elecAccessories: false,
+            elecAccessoriesSI:'',
             elecAccessoriesAmount:'',
+            nonElectricAcess: false,
+            nonElectricAcessSI:'',
+            nonElectricAcessSIAmount:'',
         });
 
         this.previouspolicy = this.fb.group({
@@ -483,6 +487,54 @@ export class BikeTataaigProposalComponent implements OnInit {
 
         }
         this.vehicle.controls['elecAccessoriesAmount'].updateValueAndValidity();
+    }
+    electricReq() {
+        if (this.vehicle.controls['elecAccessoriesSI'].value ) {
+            this.vehicle.controls['elecAccessoriesAmount'].patchValue(this.vehicle.controls['elecAccessoriesAmount'].value),
+                this.vehicle.controls['elecAccessoriesAmount'].setValidators([Validators.required]);
+
+        } else {
+            this.vehicle.controls['elecAccessoriesAmount'].patchValue(''),
+                this.vehicle.controls['elecAccessoriesAmount'].clearValidators();
+
+        }
+        this.vehicle.controls['elecAccessoriesAmount'].updateValueAndValidity();
+    }
+    eAcessSIChange()
+    {
+        this.vehicle.controls['elecAccessoriesAmount'].patchValue(this.QuoteRoadsideassistance);
+        console.log(this.QuoteRoadsideassistance,'quoteValueesssss')
+
+    }
+    nonelectricAccess() {
+        if (this.vehicle.controls['nonElectricAcess'].value == true) {
+            this.vehicle.controls['nonElectricAcessSI'].patchValue(this.vehicle.controls['nonElectricAcessSI'].value),
+                this.vehicle.controls['nonElectricAcessSI'].setValidators([Validators.required]);
+
+        } else {
+            this.vehicle.controls['nonElectricAcessSI'].patchValue(''),
+                this.vehicle.controls['nonElectricAcessSI'].clearValidators();
+
+        }
+        this.vehicle.controls['nonElectricAcessSI'].updateValueAndValidity();
+    }
+    electricNonReq() {
+        if (this.vehicle.controls['nonElectricAcessSI'].value ) {
+            this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(this.vehicle.controls['nonElectricAcessSIAmount'].value),
+                this.vehicle.controls['nonElectricAcessSIAmount'].setValidators([Validators.required]);
+
+        } else {
+            this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(''),
+                this.vehicle.controls['nonElectricAcessSIAmount'].clearValidators();
+
+        }
+        this.vehicle.controls['nonElectricAcessSIAmount'].updateValueAndValidity();
+    }
+    nEAcessChange()
+    {
+        this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(this.QuoteRoadsideassistance);
+        console.log(this.QuoteRoadsideassistance,'quoteValueesssss')
+
     }
     // chanelectriAccess()
     // {
@@ -832,12 +884,12 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikevehicle = '';
         sessionStorage.tatabikevehicle = JSON.stringify(value);
         if (this.vehicle.valid && this.errortoaster == true) {
-            if(this.vehicle.controls['elecAccessoriesAmount'].value <= 50000){
+            if(this.vehicle.controls['elecAccessoriesAmount'].value <= 15000){
             console.log(value, 'vehicle');
             stepper.next();
             this.topScroll();
         }else{
-                this.toastr.error('Sum Insured should be less then or equal to 50000');
+                this.toastr.error('Sum Insured should be less then or equal to 15000');
             }
         }
         else {
@@ -939,8 +991,13 @@ export class BikeTataaigProposalComponent implements OnInit {
                 Returninvoiceamount: this.getstepper2.Returninvoiceamount,
                 Roadsideassistance: this.getstepper2.Roadsideassistance,
                 Roadsideassistanceamount: this.getstepper2.Roadsideassistanceamount,
-                elecAccessories: this.getstepper2.elecAccessories,
-                elecAccessoriesAmount: this.getstepper2.elecAccessoriesAmount,
+                elecAccessories:this.getstepper2.elecAccessories,
+                elecAccessoriesSI:this.getstepper2.elecAccessoriesSI,
+                elecAccessoriesAmount:this.getstepper2.elecAccessoriesAmount,
+                nonElectricAcess: this.getstepper2.nonElectricAcess,
+                nonElectricAcessSI:this.getstepper2.nonElectricAcessSI,
+                nonElectricAcessSIAmount:this.getstepper2.nonElectricAcessSIAmount,
+
             })
         }
         if (sessionStorage.tatabikeprepolicy != '' && sessionStorage.tatabikeprepolicy != undefined) {
@@ -991,7 +1048,9 @@ export class BikeTataaigProposalComponent implements OnInit {
             'Return_to_Invoice': this.vehicle.controls['Returninvoice'].value == true ? 'Y' : 'N',
             'Roadside_Assistance': this.vehicle.controls['Roadsideassistance'].value == true ? 'Y' : 'N',
             "Electrical_accessories":this.vehicle.controls['elecAccessories'].value == true ? 'Y' : 'N',
-            "sum_insured": this.vehicle.controls['elecAccessoriesAmount'].value,
+            "sum_insured": this.vehicle.controls['elecAccessoriesSI'].value,
+            "Non_Electrical_Accessories":this.vehicle.controls['nonElectricAcess'].value == true ? 'Y' : 'N',
+            "Non_Electrical_Accessories_SI":this.vehicle.controls['nonElectricAcessSI'].value,
         };
         this.bikeinsurance.QuoteList(data).subscribe(
             (successData) => {
