@@ -202,7 +202,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             ncb: ['', Validators.required],
             previousenddate: ['', Validators.required],
             previouspolicyno: ['', Validators.required],
-            // vechicleidv: ['', Validators.required],
+            vechicleidv: ['', Validators.required],
             Financetype: false,
             Agreement: [''],
             financiercode: '',
@@ -266,7 +266,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.buyProductDetails = JSON.parse(sessionStorage.buyProductDetails);
         this.addOns.controls['extentioncountry'].patchValue('No Extension');
         console.log(this.addOns.controls['extentioncountry'].value,'11111')
-
+        this.vechicle.controls['vechicleidv'].patchValue(this.buyProductDetails.Idv);
+        console.log(this.vechicle.controls['vechicleidv'].value,'12233333');
 // this.summaryData=JSON.parse(sessionStorage.summaryData);
         let stringToSplit;
         stringToSplit = this.vehicledata.vehicle_no.toUpperCase();
@@ -622,8 +623,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             // this.addOns.controls['appointeename'].patchValue('');
             // this.addOns.controls['appointeerelation'].patchValue('');
             if (this.vechicle.valid) {
+                // if(this.vechicle.controls['vechicleidv'].value > 7000 || this.vechicle.controls['vechicleidv'].value=='' ) {
                 stepper.next();
                 this.topScroll();
+                // }else{
+                //     this.toastr.error('IDV Should Not Less Than 7000');
+                // }
             } else {
                 this.toastr.error('Please fill the Mandatory Fields');
 
@@ -744,7 +749,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 ncb: this.getstepper2.ncb,
                 previousenddate: this.datepipe.transform(this.getstepper2.previousenddate, 'y-MM-dd'),
                 previouspolicyno: this.getstepper2.previouspolicyno,
-                // vechicleidv: this.getstepper2.vechicleidv,
+                vechicleidv: this.getstepper2.vechicleidv,
                 Previouscompanyvalue: this.getstepper2.Previouscompanyvalue,
                 financiercodevalue: this.getstepper2.financiercodevalue,
                 previouspolicyclaim: this.getstepper2.previouspolicyclaim,
@@ -1271,7 +1276,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'Owner_Driver_Nominee_Relationship': this.addOns.controls['nomineeRelation'].value,
                     'Owner_Driver_Appointee_Name': this.addOns.controls['appointeename'].value,
                     'Owner_Driver_Appointee_Relationship': this.addOns.controls['appointeerelation'].value,
-                    'IsZeroDept_Cover': this.addOns.controls['zerodept'].value == 'true' ? '1' : '0',
+                    'IsZeroDept_Cover': this.addOns.controls['zerodept'].value == true ? '1' : '0',
                     'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
                     'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
                     'IsLimitedtoOwnPremises': this.addOns.controls['IsLimitedtoOwnPremises'].value == true ? '1' : '0',
