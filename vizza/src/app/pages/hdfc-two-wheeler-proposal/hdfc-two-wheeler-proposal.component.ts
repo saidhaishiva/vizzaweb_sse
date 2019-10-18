@@ -461,9 +461,29 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         if (successData.IsSuccess == true) {
             // this.financeList = successData.ResponseObject;
             this.finlist = successData.ResponseObject.bankdetails;
-            console.log(this.finlist,'finlist');
-            // this.photosBuffer = this.photos.slice(0, this.bufferSize);
-            // console.log(this.photosBuffer,'photos');
+//             this.photos=this.finlist.map(function (a) {
+//                 return a["id"];
+//             })
+//             console.log(this.photos,'photo');
+//             console.log(this.finlist.length.id,'finlist11111111111');
+//      for(let i=0;i< this.photos.length;i++) {
+// //     // console.log(this.finlist.length, 'finlistlenght....');
+// //
+// //     // for (let key in this.finlist[i].id) {
+// //     //    console.log('innnnnnnnnnnnnnnnnnn')
+// //     //     // console.log(this.finlist[i].id, 'finlistiddddddd....');
+// //     //
+//         this.vechicle.controls['financiercode'].patchValue(this.photos[i].id);
+// //         this.vechicle.controls['financiercodevalue'].patchValue(this.finlist[i].name);
+//         console.log(this.vechicle.controls['financiercode'].value, 'keyrrrrr111111');
+// //     //     // console.log(this.vechicle.controls['financiercode'].patchValue(key), 'keyrrrrr');
+// //     //
+// //     //     // this.vechicle.controls['financiercodevalue'].patchValue(this.finlist['id'][key]);
+// //     //     // console.log(this.vechicle.controls['financiercodevalue'].value, 'keyrrrrr2222222');
+// //     // }
+// }
+//             // this.photosBuffer = this.photos.slice(0, this.bufferSize);
+//             // console.log(this.photosBuffer,'photos');
         }else{
             this.toastr.error(successData.ErrorObject);
         }
