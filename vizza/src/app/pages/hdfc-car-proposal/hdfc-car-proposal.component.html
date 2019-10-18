@@ -274,7 +274,7 @@
             </mat-accordion>
           </mat-step>
             <mat-step [stepControl]="">
-                <ng-template matStepLabel>VEHICLE DETAILS/PREVIOUS POLICY</ng-template>
+                <ng-template matStepLabel>{{regvalue !='New Vehicle'?'VECHILE DETAILS/PREVIOUS POLICY DETAILS':'VECHILE DETAILS'}}</ng-template>
                 <mat-accordion class="w-100 float-left">
                     <form [formGroup]="vechicle">
                         <mat-expansion-panel expanded>
@@ -846,7 +846,7 @@
                                         <li class="list-group-item" *ngIf="proposerFormData.mobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                                         <li class="list-group-item" *ngIf="proposerFormData.alternateContact != ''"><strong>Telephone Number:</strong> {{proposerFormData.alternateContact}}</li>
                                         <li class="list-group-item" *ngIf="proposerFormData.gstNumber != ''"><strong>GST Number:</strong> {{proposerFormData.gstNumber}}</li>
-                                        <li class="list-group-item" *ngIf="proposerFormData.personalPan != ''"><strong>PAN Number:</strong> {{proposerFormData.personalPan}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.personalPan != ''"><strong>PAN Number:</strong> {{proposerFormData.personalPan | uppercase}}</li>
                                     </ul>
                                 </div>
                             </div>
