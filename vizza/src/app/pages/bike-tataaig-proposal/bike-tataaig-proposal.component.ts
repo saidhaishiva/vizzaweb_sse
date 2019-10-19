@@ -75,6 +75,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public QuoteReturninvoice:any;
     public QuoteRoadsideassistance:any;
     public electriaccSuminsured:any;
+    public nonElectriaccSuminsured:any;
     public declaration: any;
     public PaymentRedirect: any;
     public PaymentReturn: any;
@@ -502,7 +503,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     eAcessSIChange()
     {
-        this.vehicle.controls['elecAccessoriesAmount'].patchValue(this.QuoteRoadsideassistance);
+        this.vehicle.controls['elecAccessoriesAmount'].patchValue(this.electriaccSuminsured);
         console.log(this.QuoteRoadsideassistance,'quoteValueesssss')
 
     }
@@ -532,7 +533,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     nEAcessChange()
     {
-        this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(this.QuoteRoadsideassistance);
+        this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(this.nonElectriaccSuminsured);
         console.log(this.QuoteRoadsideassistance,'quoteValueesssss')
 
     }
@@ -1038,7 +1039,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             'package_type': this.premium,
             'Idv': this.buyBikeDetails.Idv,
             'revised_idv': this.buyBikeDetails.Idv,
-            'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value,
+            'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value == '' ? 'ODD01' : this.vehicle.controls['coverdrive'].value,
             'Automobile_Association_Membership': this.vehicle.controls['Associationmember'].value == true ? 'Y' : 'N',
             // 'Voluntary_Deductibles': this.vehicle.controls['Voluntary'].value == true ? 'Y' : 'N',
             'Anti_theft_device': this.vehicle.controls['Antitheft'].value == true ? 'Y' : 'N',
@@ -1048,9 +1049,9 @@ export class BikeTataaigProposalComponent implements OnInit {
             'Return_to_Invoice': this.vehicle.controls['Returninvoice'].value == true ? 'Y' : 'N',
             'Roadside_Assistance': this.vehicle.controls['Roadsideassistance'].value == true ? 'Y' : 'N',
             "Electrical_accessories":this.vehicle.controls['elecAccessories'].value == true ? 'Y' : 'N',
-            "sum_insured": this.vehicle.controls['elecAccessoriesSI'].value,
+            "Electrical_Accessories_SI": this.vehicle.controls['elecAccessoriesSI'].value,
             "Non_Electrical_Accessories":this.vehicle.controls['nonElectricAcess'].value == true ? 'Y' : 'N',
-            "non_sum_insured":this.vehicle.controls['nonElectricAcessSI'].value,
+            "Non_Electrical_Accessories_SI":this.vehicle.controls['nonElectricAcessSI'].value,
         };
         this.bikeinsurance.QuoteList(data).subscribe(
             (successData) => {
@@ -1075,7 +1076,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.QuoteConsumableexpense=this.Quotelist.productlist.addons.Consumables_expenses;
             this.QuoteReturninvoice=this.Quotelist.productlist.addons.Return_to_Invoice;
             this.QuoteRoadsideassistance=this.Quotelist.productlist.addons.Roadside_Assistance;
-            this.electriaccSuminsured=this.Quotelist.productlist.addons.sum_insured;
+            this.electriaccSuminsured=this.Quotelist.productlist.addons.Electrical_accessories;
+            this.nonElectriaccSuminsured=this.Quotelist.productlist.addons.NonElectrical_accessories;
             console.log(this.QuoteAss,'amount')
             this.chaneauto();
             this.chaneanti();
