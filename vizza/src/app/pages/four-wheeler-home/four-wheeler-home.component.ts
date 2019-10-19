@@ -128,6 +128,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
   ngOnInit() {
     this.fourWheeler.controls['city'].patchValue(null);
+    this.fourWheeler.controls['previousClaim'].patchValue(null);
     this.claimpercent();
     this.getpreviousCompany();
     this.getCityLists();
