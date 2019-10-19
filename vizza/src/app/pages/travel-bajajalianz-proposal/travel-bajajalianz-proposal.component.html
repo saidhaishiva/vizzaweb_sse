@@ -90,7 +90,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required>
+                        <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[0-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required>
                         <mat-error *ngIf="bajajProposal.controls.passportNumber.errors?.required">Passport number is required</mat-error>
                         <mat-error *ngIf="bajajProposal.controls.passportNumber.hasError('pattern')">Enter Valid  Passport number</mat-error>
                       </mat-form-field></div>

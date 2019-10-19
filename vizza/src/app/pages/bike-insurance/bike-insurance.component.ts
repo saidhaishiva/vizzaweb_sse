@@ -140,6 +140,7 @@ console.log(this.dobError,'dobError11111111');
     ngOnInit() {
 
         this.bikeInsurance.controls['city'].patchValue(null);
+        this.bikeInsurance.controls['previousClaim'].patchValue(null);
             // clear session for list page
         sessionStorage.enquiryFormData = '';
         sessionStorage.Rto = '';

@@ -269,18 +269,18 @@
               <th class="sun-insured healthScroll col-md-1">
                 <mat-form-field >
                   <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
-                  <mat-select [(ngModel)]="changeSuninsuredAmount" (selectionChange)="updateSumInsured()">
+                  <mat-select [(ngModel)]="changeSuninsuredAmount" class="scrollSumIns" (selectionChange)="updateSumInsured()">
                     <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </th>
-              <th class="col-md-1 font-weight-bold" style="padding: 15px !important;">Copay</th>
-              <th class="col-md-2 font-weight-bold" style="padding: 15px !important;">Pre Existing Disease</th>
+              <th class="col-md-1 font-weight-bold">Copay</th>
+              <th class="col-md-2 font-weight-bold">Pre Existing Disease</th>
               <th class="col-md-1 font-weight-bold">Pre Hospitalization</th>
               <th class="col-md-1 font-weight-bold">Post Hospitalization</th>
-              <th class="col-md-1 font-weight-bold" style="padding: 15px !important;">Compare</th>
-              <th class="col-md-2 font-weight-bold" style="padding: 15px !important;">Premium ( &#8377; )</th>
-              <th class="col-md-1 font-weight-bold" style="padding: 15px !important;">Buy</th>
+              <th class="col-md-1 font-weight-bold">Compare</th>
+              <th class="col-md-2 font-weight-bold">Premium ( &#8377; )</th>
+              <th class="col-md-1 font-weight-bold">Buy</th>
             </tr>
             </thead>
             <tbody>
@@ -315,7 +315,7 @@
                 <p class="text-center change-p">(Including GST)</p>
               </td>
               <td class="col-md-1">
-                <p class="mt-4"><button mat-raised-button color="accent" (click)="buyProduct(plists)">Buy</button></p>
+                <p class="mt-4 text-center"><button mat-raised-button color="accent" (click)="buyProduct(plists)">Buy</button></p>
               </td>
             </tr>
             </tbody>

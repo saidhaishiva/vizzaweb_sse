@@ -91,12 +91,14 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public bikeEnquiryId : any;
   public packagelist : any;
   public siValue : any;
+  public config : any;
+  public getBankHypoDetails: any;
   // public policyDatevalidate : any;
   public currentStep : any;
   public mobileNumber : any;
 
   public genderList: boolean;
-  constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
+  constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
@@ -123,7 +125,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 
     this.settings = this.appSettings.settings;
-    this.webhost = this.config.getimgUrl();
+    this.webhost = this.configs.getimgUrl();
 
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
@@ -138,6 +140,12 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.claimList = false;
     this.apponiteeList = false;
     this.mobileNumber = 'true';
+    // this.config = {
+    //   displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
+    //   search: true,
+    //   limitTo: 5,
+    //   // searchOnKey: 'city'
+    // };
 
     this.pType = false;
     this.electricalValid = false;
@@ -244,6 +252,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.nomineeRelationShip();
     this.previousInsureType();
     this.changehypothecationType();
+    this.getHBankLists();
+
 
     this.sessionData();
   }
@@ -741,6 +751,33 @@ hypoName(){
     }
   }
   public claimFailure(error) {
+  }
+
+  getHBankLists() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.fwService.getHypoBankList(data).subscribe(
+        (successData) => {
+          this.HBankSuccess(successData);
+        },
+        (error) => {
+          this.HBankFailure(error);
+        }
+    );
+  }
+  public HBankSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.getBankHypoDetails = successData.ResponseObject.bankdetails;
+      console.log(this.getBankHypoDetails,'cityDetails......');
+      //
+    }
+  }
+  public HBankFailure(error) {
   }
 
 

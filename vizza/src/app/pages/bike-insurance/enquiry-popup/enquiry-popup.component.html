@@ -5,7 +5,7 @@
 </div>
 
 <form [formGroup]="vehicalDetails">
-  <h5 class="text-center mb-5"><span *ngIf="bikeListDetails.business_type != '1'">Verify Your Vehicle Details For {{vehicalDetails.controls['vehicalNumber'].value}}</span> <span *ngIf="bikeListDetails.business_type == '1'">Verify Your Vehicle Details </span></h5>
+  <h5 class="text-center mb-5"><span *ngIf="bikeListDetails.business_type != '1'">Verify Your Vehicle Details For {{vehicalDetails.controls['vehicalNumber'].value | uppercase}}</span> <span *ngIf="bikeListDetails.business_type == '1'">Verify Your Vehicle Details </span></h5>
   <div class="row">
     <!--<div class="col-md-3">-->
       <!--<mat-form-field class="w-100">-->
@@ -56,7 +56,7 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Engine number " class="text-uppercase" formControlName="engine"  maxlength= "15" pattern="\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*" (keypress)="idValidate($event)" required>
+        <input matInput placeholder="Engine number " class="text-uppercase" formControlName="engine"  maxlength= "25" pattern="\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*" (keypress)="idValidate($event)" required>
         <mat-error *ngIf="vehicalDetails.controls.engine.errors?.required">Engine number is required</mat-error>
         <mat-error *ngIf="vehicalDetails.controls.engine.hasError('pattern')">Vehicle No containing at least one number and letter</mat-error>
       </mat-form-field>
@@ -99,7 +99,7 @@
 
     <div class="col-md-3">
       <mat-placeholder>Registration City <span class="color-red">*</span></mat-placeholder>
-        <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails"></ngx-select-dropdown>
+        <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails" ></ngx-select-dropdown>
         <div class="color-red" *ngIf="CityValid">City is required</div>
         <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
     </div>
