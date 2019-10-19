@@ -788,7 +788,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     covervalue() {
-        alert('inn')
+
         this.vehicle.controls['coverdrivevalue'].patchValue(this.coverlist[this.vehicle.controls['coverdrive'].value]);
 
     }
@@ -1050,7 +1050,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             "Electrical_accessories":this.vehicle.controls['elecAccessories'].value == true ? 'Y' : 'N',
             "sum_insured": this.vehicle.controls['elecAccessoriesSI'].value,
             "Non_Electrical_Accessories":this.vehicle.controls['nonElectricAcess'].value == true ? 'Y' : 'N',
-            "Non_Electrical_Accessories_SI":this.vehicle.controls['nonElectricAcessSI'].value,
+            "non_sum_insured":this.vehicle.controls['nonElectricAcessSI'].value,
         };
         this.bikeinsurance.QuoteList(data).subscribe(
             (successData) => {
