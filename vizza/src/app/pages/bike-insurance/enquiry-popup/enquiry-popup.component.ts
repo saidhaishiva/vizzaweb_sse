@@ -104,6 +104,7 @@
     }
 
     ngOnInit() {
+      this.CityValid = false;
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeListDetails = JSON.parse(sessionStorage.bikeListDetails);
       this.rto = sessionStorage.Rto;
@@ -447,16 +448,16 @@
 
     }
     enquiryQuation(value) {
+      if (this.vehicalDetails.controls['city'].value == '') {
+
+        this.CityValid = true;
+        console.log(this.CityValid,'cityvalid');
+      } else {
+        this.CityValid = false;
+        console.log(this.CityValid,'cityvalidfalse');
+      }
       // if(this.errorFutureDate == false) {
       //   console.log('innnnnnn');
-        if (this.vehicalDetails.controls['city'].value == '') {
-
-          this.CityValid = true;
-          console.log(this.CityValid,'cityvalid');
-        } else {
-          this.CityValid = false;
-          console.log(this.CityValid,'cityvalidfalse');
-        }
 
       if(this.vehicalDetails.valid) {
           const data = {
@@ -532,7 +533,18 @@
     }
     public enquiryFailure(error) {
     }
-
+// cityvalid(){
+//       alert('innn');
+//   if (this.vehicalDetails.controls['city'].value == '') {
+//
+//     this.CityValid = true;
+//     console.log(this.CityValid,'cityvalid');
+//   } else {
+//     this.CityValid = false;
+//     console.log(this.CityValid,'cityvalidfalse');
+//   }
+//
+// }
 
     close(): void {
       this.dialogRef.close();
