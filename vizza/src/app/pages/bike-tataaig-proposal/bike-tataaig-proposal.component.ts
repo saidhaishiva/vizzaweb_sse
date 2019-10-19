@@ -1064,7 +1064,9 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     QuoteSuccess(successData) {
-        if (successData.IsSuccess) {
+
+            if (successData.IsSuccess == true) {
+                this.errortoaster = true;
             this.Quotelist = successData.ResponseObject;
             console.log(this.Quotelist, 'quotationdata');
             this.quotationNo=this.Quotelist.productlist.quotation_no;
@@ -1086,8 +1088,13 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.chanecon();
             this.chaneret();
             this.chaneroad();
+            this.eAcessSIChange();
+            this.nEAcessChange();
             // this.createproposal(stepper);
-        }
+            }else{
+                this.errortoaster = false;
+                this.toastr.error(successData.ErrorObject);
+            }
     }
 
     QuoteFailure(error) {
