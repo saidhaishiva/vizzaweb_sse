@@ -318,7 +318,7 @@
                               <mat-form-field class="w-100">
                                 <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['elecAccessoriesSI'].value">*</span></mat-placeholder>
                                 <!--<textarea matInput rows="2" formControlName="electriAccessSIAmount" autocomplete="off"  readonly></textarea>-->
-                                <input matInput   formControlName="elecAccessoriesAmount"   maxlength="5" autocomplete="off"  (keypress)="numberValidate($event)">
+                                <input matInput   formControlName="elecAccessoriesAmount"   autocomplete="off"  readonly>
 
                                 <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                               </mat-form-field>
@@ -339,7 +339,7 @@
                               <mat-form-field class="w-100">
                                 <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['nonElectricAcessSI'].value ">*</span></mat-placeholder>
                                 <!--<textarea matInput rows="2" formControlName="nonElectricAcessSIAmount" autocomplete="off" readonly></textarea>-->
-                                <input matInput   formControlName="nonElectricAcessSIAmount"   maxlength="5" autocomplete="off"  (keypress)="numberValidate($event)">
+                                <input matInput   formControlName="nonElectricAcessSIAmount"   autocomplete="off"  readonly>
 
                                 <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                               </mat-form-field>

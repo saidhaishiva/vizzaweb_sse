@@ -91,6 +91,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public errortoaster: boolean;
     public bankValid: boolean;
     public finlist: any;
+    public finArray: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -131,6 +132,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         //     // searchOnKey: 'city'
         // };
         this.bankValid = false;
+        this.finArray=[];
 
         this.proposer = this.fb.group({
             proposerTitle: ['', Validators.required],
@@ -685,8 +687,17 @@ export class BikeTataaigProposalComponent implements OnInit {
             // this.banklist = successData.ResponseObject;
             this.finlist = successData.ResponseObject.financerdetails;
             console.log(this.finlist,'finlist');
+            for(let i=0;i < this.finlist.length;i++){
+            this.finArray.push(this.finlist[i])
+                // this.photos=this.finArray[i].id;
+                this.photos=this.finArray[i].name;
+            // console.log(this.photos,'55555555');
+            // console.log(this.finArray[i].id,'1111111111111');
+            // console.log(this.finArray[i].name,'2222222222222');
+
             // this.photosBuffer = this.photos.slice(0, this.bufferSize);
             // console.log(this.photosBuffer,'photos');
+            }
         }else{
            this.errortoaster = false;
            this.toastr.error(successData.ErrorObject);
@@ -1216,7 +1227,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     proposalFailure(error) {
     }
     changefinancecompany() {
-        this.vehicle.controls['bankNamevalue'].patchValue(this.finlist[this.vehicle.controls['bankName'].value]);
+        this.vehicle.controls['bankNamevalue'].patchValue(this.finArray[this.vehicle.controls['bankName'].value]);
 console.log(this.vehicle.controls['bankNamevalue'].value,'11111111111111111111');
     }
 }

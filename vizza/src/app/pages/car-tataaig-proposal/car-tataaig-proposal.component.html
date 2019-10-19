@@ -297,7 +297,7 @@
                             <mat-form-field class="w-100">
                               <mat-placeholder>Electrical Accessories SI<span class="error" *ngIf="vehicle.controls['electriAccess'].value == true">*</span></mat-placeholder>
                               <!--<textarea matInput rows="2" formControlName="electriAccessSI" autocomplete="off" maxlength="5" (keypress)="electricReq()"></textarea>-->
-                              <input matInput   formControlName="electriAccessSI"   maxlength="5" autocomplete="off" (keypress)="electricReq()" (keypress)="numberValidate($event)">
+                              <input matInput   formControlName="electriAccessSI"   maxlength="5" autocomplete="off" (change)="QuoteList()" (keypress)="numberValidate($event);electricReq()">
 
                               <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                             </mat-form-field>
@@ -306,7 +306,7 @@
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['electriAccess'].value">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="electriAccessSIAmount" autocomplete="off"  readonly></textarea>-->
-                            <input matInput   formControlName="electriAccessSIAmount"   maxlength="5" autocomplete="off"  (keypress)="numberValidate($event)">
+                            <input matInput   formControlName="electriAccessSIAmount"   autocomplete="off"  readonly>
 
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
@@ -318,7 +318,7 @@
                         <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Non Electrical Accessories SI<span class="error" *ngIf="vehicle.controls['nonElectricAcess'].value == true">*</span></mat-placeholder>
-                            <input matInput   formControlName="nonElectricAcessSI"   maxlength="5" autocomplete="off" (keypress)="electricNonReq()" (keypress)="numberValidate($event)">
+                            <input matInput   formControlName="nonElectricAcessSI"   maxlength="5" autocomplete="off" (change)="QuoteList()" (keypress)="numberValidate($event);electricNonReq()">
 
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
@@ -327,7 +327,7 @@
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['nonElectricAcessSI'].value ">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="nonElectricAcessSIAmount" autocomplete="off" readonly></textarea>-->
-                            <input matInput   formControlName="nonElectricAcessSIAmount"   maxlength="5" autocomplete="off"  (keypress)="numberValidate($event)">
+                            <input matInput   formControlName="nonElectricAcessSIAmount"   autocomplete="off"  readonly>
 
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
@@ -339,7 +339,7 @@
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['autoAsso'].value == true">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="autoAssoAmount" autocomplete="off"  readonly></textarea>-->
-                            <input matInput   formControlName="autoAssoAmount"   maxlength="5" autocomplete="off" (keypress)="numberValidate($event)">
+                            <input matInput   formControlName="autoAssoAmount"    autocomplete="off" readonly>
 
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
@@ -351,7 +351,7 @@
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['antitheft'].value == true">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="antitheftAmount" autocomplete="off"  readonly></textarea>-->
-                            <input matInput   formControlName="antitheftAmount"   maxlength="5" autocomplete="off"  (keypress)="numberValidate($event)">
+                            <input matInput   formControlName="antitheftAmount"    autocomplete="off"  readonly>
 
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
@@ -363,7 +363,7 @@
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['tppdRes'].value">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="tppdResAmount" autocomplete="off"  readonly></textarea>-->
-                            <input matInput   formControlName="tppdResAmount"   maxlength="5" autocomplete="off"  (keypress)="numberValidate($event)">
+                            <input matInput   formControlName="tppdResAmount"   autocomplete="off"  readonly>
 
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
