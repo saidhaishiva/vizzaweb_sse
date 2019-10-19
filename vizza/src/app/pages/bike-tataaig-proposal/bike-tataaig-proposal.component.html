@@ -309,7 +309,7 @@
                               <mat-form-field class="w-100">
                                 <mat-placeholder>Electrical Accessories SI<span class="error" *ngIf="vehicle.controls['elecAccessories'].value == true">*</span></mat-placeholder>
                                 <!--<textarea matInput rows="2" formControlName="electriAccessSI" autocomplete="off" maxlength="5" (keypress)="electricReq()"></textarea>-->
-                                <input matInput   formControlName="elecAccessoriesSI"   maxlength="5" autocomplete="off" (keypress)="electricReq()" (keypress)="numberValidate($event)">
+                                <input matInput   formControlName="elecAccessoriesSI"   maxlength="5" autocomplete="off" (change)="QuoteList()" (keypress)="numberValidate($event);electricReq()">
 
                                 <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                               </mat-form-field>
@@ -330,7 +330,7 @@
                             <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                               <mat-form-field class="w-100">
                                 <mat-placeholder>Non Electrical Accessories SI<span class="error" *ngIf="vehicle.controls['nonElectricAcess'].value == true">*</span></mat-placeholder>
-                                <input matInput   formControlName="nonElectricAcessSI"   maxlength="5" autocomplete="off" (keypress)="electricNonReq()" (keypress)="numberValidate($event)">
+                                <input matInput   formControlName="nonElectricAcessSI"   maxlength="5" autocomplete="off" (change)="QuoteList()" (keypress)="numberValidate($event);electricNonReq()">
 
                                 <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                               </mat-form-field>

@@ -496,6 +496,8 @@
               this.enquiryFailure(error);
             }
         );
+      }else{
+        this.toastr.error('Please select the Mandatory field');
       }
       // }else {
       //   console.log('outtttttt');
