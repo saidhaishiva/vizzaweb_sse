@@ -426,13 +426,16 @@ export class HdfcCarProposalComponent implements OnInit {
         } else if (event.checked != true) {
             this.vechicle.controls['Agreement'].patchValue('');
             this.vechicle.controls['financiercode'].patchValue('');
+            this.vechicle.controls['financiercodevalue'].patchValue('');
             this.vechicle.controls['fibranchname'].patchValue('');
             this.vechicle.controls['Agreement'].setValidators(null);
             this.vechicle.controls['financiercode'].setValidators(null);
+            this.vechicle.controls['financiercodevalue'].setValidators(null);
             this.vechicle.controls['fibranchname'].setValidators(null);
         }
         this.vechicle.controls['Agreement'].updateValueAndValidity();
         this.vechicle.controls['financiercode'].updateValueAndValidity();
+        this.vechicle.controls['financiercodevalue'].updateValueAndValidity();
         this.vechicle.controls['fibranchname'].updateValueAndValidity();
     }
 
@@ -571,7 +574,8 @@ export class HdfcCarProposalComponent implements OnInit {
     public financiersuccess(successData) {
         if (successData.IsSuccess == true) {
             this.errortoaster = true;
-            this.finlist = successData.ResponseObject.bankdetails;
+            this.finlist = successData.ResponseObject;
+            // this.finlist = successData.ResponseObject.bankdetails;
             console.log(this.finlist,'finlist');
             console.log(this.finlist[0].id,'finlist111');
             // console.log(this.finlist[0].name,'finlist22222');

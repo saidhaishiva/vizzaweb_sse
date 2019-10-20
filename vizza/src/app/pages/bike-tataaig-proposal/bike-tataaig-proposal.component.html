@@ -274,7 +274,7 @@
                             <mat-placeholder>Financier Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                             <mat-select  formControlName="bankName" (selectionChange)="changefinancecompany()" >
                               <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
-                                <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
+                                <mat-option *cdkVirtualFor="let finance of finlist | keys" value="{{finance.key}}">{{finance.value}}</mat-option>
                               </cdk-virtual-scroll-viewport>
                               <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
                             </mat-select>
@@ -742,6 +742,7 @@
                         <li class="list-group-item"><strong>Engine Number:</strong> {{vehicalFormData.engine}} </li>
                         <li class="list-group-item"><strong>Chassis Number:</strong> {{vehicalFormData.chassis}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>Financier Type:</strong> {{vehicalFormData.banktype}} </li>
+                        <!--<li *ngFor="let list of finArray"><strong>Financier Name:</strong> {{list.name}}</li>-->
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>Financier Name:</strong> {{vehicalFormData.bankNamevalue}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>Address:</strong> {{vehicalFormData.Address}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['coverdrivevalue'].value == 'None'"><strong>PACover for OwnerDriver:</strong> Yes </li>

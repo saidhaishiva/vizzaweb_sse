@@ -202,6 +202,7 @@ export class BikeShriramProposalComponent implements OnInit {
       lltoPaidDriver: '',
       addonPackage:'',
       hypothecationBankName:'',
+        hypothecationBankNamevalue:'',
       pincode:'',
       state:'',
       city:'',
@@ -288,6 +289,10 @@ export class BikeShriramProposalComponent implements OnInit {
         } else {
             if(this.proposer.controls['title'].value == 'Dr'){
                 this.genderList = true;
+                this.proposer.controls['gender'].patchValue('');
+                this.proposer.controls['gender'].setValidators([Validators.required]);
+                console.log(this.proposer.controls['gender'].value,'genders......')
+
             }
             }
 
@@ -433,6 +438,8 @@ export class BikeShriramProposalComponent implements OnInit {
                   this.toastr.error('Proposer age should be 18 or above');
 
               }
+          }else{
+              this.toastr.error('Please Fill all the Mandatory Field ')
           }
 
         }
@@ -560,7 +567,8 @@ export class BikeShriramProposalComponent implements OnInit {
     }
     public HBankSuccess(successData) {
         if (successData.IsSuccess) {
-            this.getBankHypoDetails = successData.ResponseObject.bankdetails;
+            this.getBankHypoDetails = successData.ResponseObject;
+            // this.getBankHypoDetails = successData.ResponseObject.bankdetails;
             console.log(this.getBankHypoDetails,'cityDetails......');
             //
         }
@@ -692,9 +700,11 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['hypothecationType'].setValidators(null);
         this.vehical.controls['hypothecationAddress1'].setValidators(null);
         this.vehical.controls['hypothecationBankName'].setValidators(null);
+        this.vehical.controls['hypothecationBankNamevalue'].setValidators(null);
         this.vehical.controls['hypothecationType'].patchValue('');
         this.vehical.controls['hypothecationAddress1'].patchValue('');
         this.vehical.controls['hypothecationBankName'].patchValue('');
+        this.vehical.controls['hypothecationBankNamevalue'].patchValue('');
 
     }
   }
@@ -1149,6 +1159,7 @@ export class BikeShriramProposalComponent implements OnInit {
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
         hypothecationBankName:stepper2.hypothecationBankName,
+          hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
           isFinanced:stepper2.isFinanced,
         pincode:stepper2.pincode,
         state:stepper2.state,

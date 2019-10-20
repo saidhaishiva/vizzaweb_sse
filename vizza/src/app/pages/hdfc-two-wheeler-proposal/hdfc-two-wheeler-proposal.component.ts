@@ -459,8 +459,8 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     public financesuccess(successData) {
         if (successData.IsSuccess == true) {
-            // this.financeList = successData.ResponseObject;
-            this.finlist = successData.ResponseObject.bankdetails;
+            this.finlist = successData.ResponseObject;
+            // this.finlist = successData.ResponseObject.bankdetails;
 //             this.photos=this.finlist.map(function (a) {
 //                 return a["id"];
 //             })
@@ -907,14 +907,17 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.financeTypeName = false;
             this.vechicle.controls['Agreement'].patchValue('');
             this.vechicle.controls['financiercode'].patchValue('');
+            this.vechicle.controls['financiercodevalue'].patchValue('');
             this.vechicle.controls['fibranchname'].patchValue('');
             this.vechicle.controls['Agreement'].setValidators([]);
             this.vechicle.controls['financiercode'].setValidators([]);
+            this.vechicle.controls['financiercodevalue'].setValidators([]);
             this.vechicle.controls['fibranchname'].setValidators([]);
         }
 
         this.vechicle.controls['Agreement'].updateValueAndValidity();
         this.vechicle.controls['financiercode'].updateValueAndValidity();
+        this.vechicle.controls['financiercodevalue'].updateValueAndValidity();
         this.vechicle.controls['fibranchname'].updateValueAndValidity();
     }
 

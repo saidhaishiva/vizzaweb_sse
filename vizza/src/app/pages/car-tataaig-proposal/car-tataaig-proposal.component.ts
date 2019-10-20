@@ -177,6 +177,7 @@ export class CarTataaigProposalComponent implements OnInit {
       Financetype: false,
       banktype: '',
       bankName: '',
+      bankNamevalue: '',
       Address: '',
       package: ['', Validators.required],
       packagevalue: '',
@@ -794,13 +795,16 @@ export class CarTataaigProposalComponent implements OnInit {
     } else if (event.checked != true) {
       this.vehicle.controls['banktype'].patchValue('');
       this.vehicle.controls['bankName'].patchValue('');
+      this.vehicle.controls['bankNamevalue'].patchValue('');
       this.vehicle.controls['Address'].patchValue('');
       this.vehicle.controls['banktype'].setValidators(null);
       this.vehicle.controls['bankName'].setValidators(null);
+      this.vehicle.controls['bankNamevalue'].setValidators(null);
       this.vehicle.controls['Address'].setValidators(null);
     }
     this.vehicle.controls['banktype'].updateValueAndValidity();
     this.vehicle.controls['bankName'].updateValueAndValidity();
+    this.vehicle.controls['bankNamevalue'].updateValueAndValidity();
     this.vehicle.controls['Address'].updateValueAndValidity();
   }
 
@@ -1196,6 +1200,7 @@ export class CarTataaigProposalComponent implements OnInit {
         Financetype: this.getstepper2.Financetype,
         banktype: this.getstepper2.banktype,
         bankName: this.getstepper2.bankName,
+        bankNamevalue: this.getstepper2.bankNamevalue,
         Address: this.getstepper2.Address,
         package: this.getstepper2.package,
         packagevalue:  this.getstepper2.packagevalue,
@@ -1381,7 +1386,7 @@ export class CarTataaigProposalComponent implements OnInit {
     document.getElementById('main-content').scrollTop = 0;
   }
   changefinancecompany() {
-    this.vehicle.controls['financiercodevalue'].patchValue(this.finlist[this.vehicle.controls['financiercode'].value]);
+    this.vehicle.controls['bankNamevalue'].patchValue(this.finlist[this.vehicle.controls['bankName'].value]);
 
   }
 }

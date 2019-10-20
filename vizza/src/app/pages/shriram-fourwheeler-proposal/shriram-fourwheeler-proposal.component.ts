@@ -196,6 +196,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       lltoPaidDriver: '',
       addonPackage:'',
       hypothecationBankName:'',
+      hypothecationBankNamevalue:'',
       pincode:'',
       state:'',
       city:'',
@@ -293,6 +294,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     } else {
       if(this.proposer.controls['title'].value == 'Dr'){
         this.genderList = true;
+        this.proposer.controls['gender'].patchValue('');
+        this.proposer.controls['gender'].setValidators([Validators.required]);
+        console.log(this.proposer.controls['gender'].value,'genders......')
       }
     }
 
@@ -414,6 +418,10 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   changevehicle() {
     this.proposer.controls['vehicleTypeName'].patchValue(this.bkVehicleList[this.proposer.controls['vehicleType'].value]);
 
+  }
+  changefinancecompany() {
+    this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.getBankHypoDetails[this.vehical.controls['hypothecationBankName'].value]);
+    console.log(this.vehical.controls['bankNamevalue'].value,'11111111111111111111');
   }
 
   // NEXT BUTTON
@@ -678,10 +686,12 @@ hypoName(){
       this.vehical.controls['hypothecationAddress1'].setValidators(null);
       this.vehical.controls['hypothecationAddress2'].setValidators(null);
       this.vehical.controls['hypothecationBankName'].setValidators(null);
+      this.vehical.controls['hypothecationBankNamevalue'].setValidators(null);
       this.vehical.controls['hypothecationType'].patchValue('');
       this.vehical.controls['hypothecationAddress1'].patchValue('');
       this.vehical.controls['hypothecationAddress2'].patchValue('');
       this.vehical.controls['hypothecationBankName'].patchValue('');
+      this.vehical.controls['hypothecationBankNamevalue'].patchValue('');
     }
   }
   selectPolicy(){
@@ -772,7 +782,8 @@ hypoName(){
   }
   public HBankSuccess(successData) {
     if (successData.IsSuccess) {
-      this.getBankHypoDetails = successData.ResponseObject.bankdetails;
+      // this.getBankHypoDetails = successData.ResponseObject.bankdetails;
+      this.getBankHypoDetails = successData.ResponseObject;
       console.log(this.getBankHypoDetails,'cityDetails......');
       //
     }
@@ -1174,6 +1185,7 @@ hypoName(){
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
         hypothecationBankName:stepper2.hypothecationBankName,
+        hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
         isFinanced:stepper2.isFinanced,
         pincode:stepper2.pincode,
         state:stepper2.state,
