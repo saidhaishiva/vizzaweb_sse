@@ -974,6 +974,15 @@ export class TravelHomeComponent implements OnInit {
             this.enquiryDetails = successData.ResponseObject;
             sessionStorage.enquiryDetailsTravel = JSON.stringify(this.enquiryDetails);
             this.router.navigate(['/travelpremium']);
+            this.selectedAmountTravel = '';
+            this.medicalCondition = '';
+            this.startDate  = '';
+            this.startDate  = '';
+            this.endDate  = '';
+            this.travelPlan  = '';
+            this.travelType  = '';
+            this.pincode  = '';
+            this.finalData = [];
         }
         else {
             this.travelProceed = true;

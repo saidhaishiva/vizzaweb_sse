@@ -74,6 +74,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     public QuoteConsumableexpense:any;
     public QuoteReturninvoice:any;
     public QuoteRoadsideassistance:any;
+    public electriaccSuminsured:any;
+    public nonElectriaccSuminsured:any;
     public declaration: any;
     public PaymentRedirect: any;
     public PaymentReturn: any;
@@ -88,7 +90,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     public productlist: any;
     public errortoaster: boolean;
     public bankValid: boolean;
-    public finlist: boolean;
+    public finlist: any;
+    public finArray: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -129,6 +132,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         //     // searchOnKey: 'city'
         // };
         this.bankValid = false;
+        this.finArray=[];
 
         this.proposer = this.fb.group({
             proposerTitle: ['', Validators.required],
@@ -164,6 +168,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             Financetype: false,
             banktype: '',
             bankName: '',
+            bankNamevalue: '',
             Address: '',
             coverdrive: ['', Validators.required],
             coverdrivevalue: '',
@@ -182,6 +187,12 @@ export class BikeTataaigProposalComponent implements OnInit {
             Returninvoiceamount:'',
             Roadsideassistance: false,
             Roadsideassistanceamount:'',
+            elecAccessories: false,
+            elecAccessoriesSI:'',
+            elecAccessoriesAmount:'',
+            nonElectricAcess: false,
+            nonElectricAcessSI:'',
+            nonElectricAcessSIAmount:'',
         });
 
         this.previouspolicy = this.fb.group({
@@ -468,6 +479,72 @@ export class BikeTataaigProposalComponent implements OnInit {
         console.log(this.vehicle.controls['Roadsideassistanceamount'].value,'Roadsideassistanceamount')
 
     }
+    electriAccess() {
+        if (this.vehicle.controls['elecAccessories'].value == true) {
+            this.vehicle.controls['elecAccessories'].patchValue(this.vehicle.controls['elecAccessories'].value),
+            this.vehicle.controls['elecAccessoriesAmount'].setValidators([Validators.required]);
+
+        } else {
+            this.vehicle.controls['elecAccessoriesAmount'].patchValue(''),
+            this.vehicle.controls['elecAccessoriesAmount'].clearValidators();
+
+        }
+        this.vehicle.controls['elecAccessoriesAmount'].updateValueAndValidity();
+    }
+    electricReq() {
+        if (this.vehicle.controls['elecAccessoriesSI'].value ) {
+            this.vehicle.controls['elecAccessoriesAmount'].patchValue(this.vehicle.controls['elecAccessoriesAmount'].value),
+                this.vehicle.controls['elecAccessoriesAmount'].setValidators([Validators.required]);
+
+        } else {
+            this.vehicle.controls['elecAccessoriesAmount'].patchValue(''),
+                this.vehicle.controls['elecAccessoriesAmount'].clearValidators();
+
+        }
+        this.vehicle.controls['elecAccessoriesAmount'].updateValueAndValidity();
+    }
+    eAcessSIChange()
+    {
+        this.vehicle.controls['elecAccessoriesAmount'].patchValue(this.electriaccSuminsured);
+        console.log(this.QuoteRoadsideassistance,'quoteValueesssss')
+
+    }
+    nonelectricAccess() {
+        if (this.vehicle.controls['nonElectricAcess'].value == true) {
+            this.vehicle.controls['nonElectricAcessSI'].patchValue(this.vehicle.controls['nonElectricAcessSI'].value),
+                this.vehicle.controls['nonElectricAcessSI'].setValidators([Validators.required]);
+
+        } else {
+            this.vehicle.controls['nonElectricAcessSI'].patchValue(''),
+                this.vehicle.controls['nonElectricAcessSI'].clearValidators();
+
+        }
+        this.vehicle.controls['nonElectricAcessSI'].updateValueAndValidity();
+    }
+    electricNonReq() {
+        if (this.vehicle.controls['nonElectricAcessSI'].value ) {
+            this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(this.vehicle.controls['nonElectricAcessSIAmount'].value),
+                this.vehicle.controls['nonElectricAcessSIAmount'].setValidators([Validators.required]);
+
+        } else {
+            this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(''),
+                this.vehicle.controls['nonElectricAcessSIAmount'].clearValidators();
+
+        }
+        this.vehicle.controls['nonElectricAcessSIAmount'].updateValueAndValidity();
+    }
+    nEAcessChange()
+    {
+        this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(this.nonElectriaccSuminsured);
+        console.log(this.QuoteRoadsideassistance,'quoteValueesssss')
+
+    }
+    // chanelectriAccess()
+    // {
+    //     this.vehicle.controls['elecAccessoriesAmount'].patchValue(this.electriaccSuminsured);
+    //     console.log(this.vehicle.controls['elecAccessoriesAmount'].value,'elecAccessoriesAmount')
+    //
+    // }
 
     choosegen() {
         if(this.proposer.controls['proposerTitle'].value == 'Mr.') {
@@ -607,11 +684,20 @@ export class BikeTataaigProposalComponent implements OnInit {
     public financesuccess(successData) {
         if (successData.IsSuccess == true) {
             this.errortoaster = true;
-            // this.banklist = successData.ResponseObject;
-            this.finlist = successData.ResponseObject.financerdetails;
-            console.log(this.finlist,'finlist');
-            // this.photosBuffer = this.photos.slice(0, this.bufferSize);
-            // console.log(this.photosBuffer,'photos');
+            this.finlist = successData.ResponseObject;
+            // this.finlist = successData.ResponseObject.financerdetails;
+            // console.log(this.finlist,'finlist');
+            // for(let i=0;i < this.finlist.length;i++){
+            // this.finArray.push(this.finlist[i])
+            //     // this.photos=this.finArray[i].id;
+            //     this.photos=this.finArray[i].name;
+            // // console.log(this.photos,'55555555');
+            // // console.log(this.finArray[i].id,'1111111111111');
+            // // console.log(this.finArray[i].name,'2222222222222');
+            //
+            // // this.photosBuffer = this.photos.slice(0, this.bufferSize);
+            // // console.log(this.photosBuffer,'photos');
+            // }
         }else{
            this.errortoaster = false;
            this.toastr.error(successData.ErrorObject);
@@ -714,7 +800,9 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     covervalue() {
+
         this.vehicle.controls['coverdrivevalue'].patchValue(this.coverlist[this.vehicle.controls['coverdrive'].value]);
+
     }
 
     chooseflag(event: any) {
@@ -808,9 +896,13 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikevehicle = '';
         sessionStorage.tatabikevehicle = JSON.stringify(value);
         if (this.vehicle.valid && this.errortoaster == true) {
+            if(this.vehicle.controls['elecAccessoriesAmount'].value <= 15000){
             console.log(value, 'vehicle');
             stepper.next();
             this.topScroll();
+        }else{
+                this.toastr.error('Sum Insured should be less then or equal to 15000');
+            }
         }
         else {
             this.toastr.error('Please Select the Valid Bank Name');
@@ -892,6 +984,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 Financetype: this.getstepper2.Financetype,
                 banktype: this.getstepper2.banktype,
                 bankName: this.getstepper2.bankName,
+                bankNamevalue: this.getstepper2.bankNamevalue,
                 Address: this.getstepper2.Address,
                 coverdrive: this.getstepper2.coverdrive,
                 coverdrivevalue: this.getstepper2.coverdrivevalue,
@@ -910,6 +1003,13 @@ export class BikeTataaigProposalComponent implements OnInit {
                 Returninvoiceamount: this.getstepper2.Returninvoiceamount,
                 Roadsideassistance: this.getstepper2.Roadsideassistance,
                 Roadsideassistanceamount: this.getstepper2.Roadsideassistanceamount,
+                elecAccessories:this.getstepper2.elecAccessories,
+                elecAccessoriesSI:this.getstepper2.elecAccessoriesSI,
+                elecAccessoriesAmount:this.getstepper2.elecAccessoriesAmount,
+                nonElectricAcess: this.getstepper2.nonElectricAcess,
+                nonElectricAcessSI:this.getstepper2.nonElectricAcessSI,
+                nonElectricAcessSIAmount:this.getstepper2.nonElectricAcessSIAmount,
+
             })
         }
         if (sessionStorage.tatabikeprepolicy != '' && sessionStorage.tatabikeprepolicy != undefined) {
@@ -950,7 +1050,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             'package_type': this.premium,
             'Idv': this.buyBikeDetails.Idv,
             'revised_idv': this.buyBikeDetails.Idv,
-            'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value,
+            'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value == '' ? 'ODD01' : this.vehicle.controls['coverdrive'].value,
             'Automobile_Association_Membership': this.vehicle.controls['Associationmember'].value == true ? 'Y' : 'N',
             // 'Voluntary_Deductibles': this.vehicle.controls['Voluntary'].value == true ? 'Y' : 'N',
             'Anti_theft_device': this.vehicle.controls['Antitheft'].value == true ? 'Y' : 'N',
@@ -959,6 +1059,10 @@ export class BikeTataaigProposalComponent implements OnInit {
             'Consumables_expenses': this.vehicle.controls['Consumableexpense'].value == true ? 'Y' : 'N',
             'Return_to_Invoice': this.vehicle.controls['Returninvoice'].value == true ? 'Y' : 'N',
             'Roadside_Assistance': this.vehicle.controls['Roadsideassistance'].value == true ? 'Y' : 'N',
+            "Electrical_accessories":this.vehicle.controls['elecAccessories'].value == true ? 'Y' : 'N',
+            "Electrical_Accessories_SI": this.vehicle.controls['elecAccessoriesSI'].value,
+            "Non_Electrical_Accessories":this.vehicle.controls['nonElectricAcess'].value == true ? 'Y' : 'N',
+            "Non_Electrical_Accessories_SI":this.vehicle.controls['nonElectricAcessSI'].value,
         };
         this.bikeinsurance.QuoteList(data).subscribe(
             (successData) => {
@@ -971,7 +1075,9 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     QuoteSuccess(successData) {
-        if (successData.IsSuccess) {
+
+            if (successData.IsSuccess == true) {
+                this.errortoaster = true;
             this.Quotelist = successData.ResponseObject;
             console.log(this.Quotelist, 'quotationdata');
             this.quotationNo=this.Quotelist.productlist.quotation_no;
@@ -983,6 +1089,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.QuoteConsumableexpense=this.Quotelist.productlist.addons.Consumables_expenses;
             this.QuoteReturninvoice=this.Quotelist.productlist.addons.Return_to_Invoice;
             this.QuoteRoadsideassistance=this.Quotelist.productlist.addons.Roadside_Assistance;
+            this.electriaccSuminsured=this.Quotelist.productlist.addons.Electrical_accessories;
+            this.nonElectriaccSuminsured=this.Quotelist.productlist.addons.NonElectrical_accessories;
             console.log(this.QuoteAss,'amount')
             this.chaneauto();
             this.chaneanti();
@@ -991,8 +1099,13 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.chanecon();
             this.chaneret();
             this.chaneroad();
+            this.eAcessSIChange();
+            this.nEAcessChange();
             // this.createproposal(stepper);
-        }
+            }else{
+                this.errortoaster = false;
+                this.toastr.error(successData.ErrorObject);
+            }
     }
 
     QuoteFailure(error) {
@@ -1113,8 +1226,13 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     proposalFailure(error) {
     }
-    // changefinancecompany() {
-    //     this.vehicle.controls['bankNamevalue'].patchValue(this.finlist[this.vehicle.controls['bankName'].value]);
-    //
-    // }
+    changefinancecompany() {
+        this.vehicle.controls['bankNamevalue'].patchValue(this.finlist[this.vehicle.controls['bankName'].value]);
+
+        console.log(this.vehicle.controls['bankNamevalue'].value,'000000000.....');
+        console.log(this.finlist[this.vehicle.controls['bankName'].value],'11111111111111111111....');
+        this.vehicle.controls['bankNamevalue'].patchValue(this.banklist[this.vehicle.controls['bankName'].value]);
+console.log(this.vehicle.controls['bankNamevalue'].value,'2222222222....');
+console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....');
+    }
 }

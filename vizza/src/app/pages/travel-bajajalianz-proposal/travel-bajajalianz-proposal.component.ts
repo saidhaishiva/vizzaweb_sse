@@ -506,7 +506,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 //may 30 1983....
                 //16 YEARS that is 5843 days ,,,max 35 yrs11 mnths ,30 days that is 13148.
 
-                if(getProposerAgeDays > 5843 && getProposerAgeDays < 13149){
+                if(getProposerAgeDays > 5844 && getProposerAgeDays < 13149 ){
                     ageValidStatus = true;
                 } else{
                     ageValidStatus = false;

@@ -63,6 +63,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public proposalTypeList: any;
   public finance: boolean;
   public claimDetails: any;
+  public getBankHypoDetails: any;
   public claimList: boolean;
   public previousList: any;
   public summaryData: any;
@@ -100,9 +101,11 @@ export class BikeShriramProposalComponent implements OnInit {
     public currentStep : any;
     public premiumAmount : any;
     public packagelist : any;
+    public config:any;
+
 
   public genderList: boolean;
-    constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+    constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
@@ -129,7 +132,7 @@ export class BikeShriramProposalComponent implements OnInit {
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 
     this.settings = this.appSettings.settings;
-        this.webhost = this.config.getimgUrl();
+        this.webhost = this.configs.getimgUrl();
 
         this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
@@ -149,6 +152,12 @@ export class BikeShriramProposalComponent implements OnInit {
     this.paUnNamed = false;
     this.policyTypeDetails = false;
     this.policyDatevalidate = [];
+        this.config = {
+            displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
+            search: true,
+            limitTo: 5,
+            // searchOnKey: 'city'
+        };
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       name: new FormControl(''),
@@ -193,6 +202,7 @@ export class BikeShriramProposalComponent implements OnInit {
       lltoPaidDriver: '',
       addonPackage:'',
       hypothecationBankName:'',
+        hypothecationBankNamevalue:'',
       pincode:'',
       state:'',
       city:'',
@@ -239,6 +249,7 @@ export class BikeShriramProposalComponent implements OnInit {
          this.claimpercent();
          this.nomineeRelationShip();
          this.changehypothecationType();
+         this.getHBankLists();
 
       this.sessionData();
   }
@@ -278,6 +289,10 @@ export class BikeShriramProposalComponent implements OnInit {
         } else {
             if(this.proposer.controls['title'].value == 'Dr'){
                 this.genderList = true;
+                this.proposer.controls['gender'].patchValue('');
+                this.proposer.controls['gender'].setValidators([Validators.required]);
+                console.log(this.proposer.controls['gender'].value,'genders......')
+
             }
             }
 
@@ -394,6 +409,7 @@ export class BikeShriramProposalComponent implements OnInit {
               }
             }
 
+
       changeCity() {
         this.proposer.controls['proposerbkCityName'].patchValue(this.bikeCityList[this.proposer.controls['proposerbkCity'].value]);
 
@@ -422,6 +438,8 @@ export class BikeShriramProposalComponent implements OnInit {
                   this.toastr.error('Proposer age should be 18 or above');
 
               }
+          }else{
+              this.toastr.error('Please Fill all the Mandatory Field ')
           }
 
         }
@@ -473,6 +491,10 @@ export class BikeShriramProposalComponent implements OnInit {
     gethypoTypeName(){
         this.vehical.controls['hypothecationTypeName'].patchValue(this.hypothecationTypeDetails[this.vehical.controls['hypothecationType'].value]);
 
+    }
+    changefinancecompany() {
+        this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.getBankHypoDetails[this.vehical.controls['hypothecationBankName'].value]);
+        console.log(this.vehical.controls['bankNamevalue'].value,'11111111111111111111');
     }
         policyType() {
               const data = {
@@ -526,6 +548,34 @@ export class BikeShriramProposalComponent implements OnInit {
         }
         public hypothecationFailure(error) {
         }
+    getHBankLists() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+        }
+        this.bikeInsurance.getHypoBankList(data).subscribe(
+            (successData) => {
+                this.HBankSuccess(successData);
+            },
+            (error) => {
+                this.HBankFailure(error);
+            }
+        );
+    }
+    public HBankSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.getBankHypoDetails = successData.ResponseObject;
+            // this.getBankHypoDetails = successData.ResponseObject.bankdetails;
+            console.log(this.getBankHypoDetails,'cityDetails......');
+            //
+        }
+    }
+    public HBankFailure(error) {
+    }
+
 // hypo type
     changehypothecationType() {
         const data = {
@@ -650,9 +700,11 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['hypothecationType'].setValidators(null);
         this.vehical.controls['hypothecationAddress1'].setValidators(null);
         this.vehical.controls['hypothecationBankName'].setValidators(null);
+        this.vehical.controls['hypothecationBankNamevalue'].setValidators(null);
         this.vehical.controls['hypothecationType'].patchValue('');
         this.vehical.controls['hypothecationAddress1'].patchValue('');
         this.vehical.controls['hypothecationBankName'].patchValue('');
+        this.vehical.controls['hypothecationBankNamevalue'].patchValue('');
 
     }
   }
@@ -1107,6 +1159,7 @@ export class BikeShriramProposalComponent implements OnInit {
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
         hypothecationBankName:stepper2.hypothecationBankName,
+          hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
           isFinanced:stepper2.isFinanced,
         pincode:stepper2.pincode,
         state:stepper2.state,

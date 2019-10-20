@@ -151,7 +151,7 @@
                                             <mat-radio-button value="Yes">Yes</mat-radio-button>
                                             <mat-radio-button class="pl-3" value="No">No</mat-radio-button>
                                             </mat-radio-group>
-                                        <div class="error help-block" *ngIf=" this.bikeInsurance['controls'].previousClaim.value == ''||(this.bikeInsurance['controls'].previousClaim.value == null && bikeInsurance.get('previousClaim').touched)" >Previous Claim is required</div>
+                                        <div class="error help-block" *ngIf=" this.bikeInsurance['controls'].previousClaim.value == ''||(this.bikeInsurance['controls'].previousClaim.value == null && bikeInsurance.get('previousClaim').touched)" >Previous Claim is required </div>
 
                                     </div>
                                     <div class="col-md-10" *ngIf="bikeInsurance.controls['previousClaim'].value == 'No'">

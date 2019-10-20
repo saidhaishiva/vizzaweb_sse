@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="carShriram-proposal">
     <div class="row apolloMunichProposal">
         <div class="col-md-12">
             <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
@@ -257,11 +257,31 @@
                                                     </mat-select>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Hypothecation Bank Name" formControlName="hypothecationBankName" autocomplete="off" [required]="finance" >
+                                            <div class="col-md-3 "  >
+                                                <mat-form-field class="w-100"  *ngIf="vehical.controls['isFinanced'].value == true">
+                                                    <mat-placeholder>Hypothecation Bank Name<span class="error" >*</span></mat-placeholder>
+                                                    <mat-select  formControlName="hypothecationBankName" (selectionChange)="changefinancecompany()">
+                                                        <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
+                                                            <!--<mat-option *cdkVirtualFor="let bankList of getBankHypoDetails" [value]="bankList.id">{{bankList.bank_name}}</mat-option>-->
+                                                            <mat-option *cdkVirtualFor="let bankList of getBankHypoDetails | keys" value="{{bankList.key}}">{{bankList.value}}</mat-option>
+                                                        </cdk-virtual-scroll-viewport>
+                                                        <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
+                                                    </mat-select>
+                                                    <!--<mat-error *ngIf="vehical.controls.hypothecationBankName.errors?.required">Hypothecation Bank Name is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
+                                            <!--<div class="col-md-3" >-->
+                                                <!--<mat-placeholder>Hypothecation Bank Name<span class="error">*</span></mat-placeholder>-->
+                                                <!--<ngx-select-dropdown formControlName="hypothecationBankName"  [config]="config" [options]="getBankHypoDetails" [required]="finance"></ngx-select-dropdown>-->
+                                                <!--<mat-error *ngIf="vehical.controls.hypothecationBankName.errors?.required">Hypothecation Bank Name is required</mat-error>-->
+
+                                                <!--&lt;!&ndash;<div class="error help-block" *ngIf=" this.bikeInsurance['controls'].city.value == ''||(this.bikeInsurance['controls'].city.value == null && bikeInsurance.get('city').touched)" >RTO AREA is required</div>&ndash;&gt;-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-3">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<input matInput placeholder="Hypothecation Bank Name" formControlName="hypothecationBankName" autocomplete="off" [required]="finance" >-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Hypothecation Address 1" formControlName="hypothecationAddress1" autocomplete="off" maxlength="30" [required]="finance" >
@@ -567,20 +587,21 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Policy Type:</strong> {{vehicalFormData.policyTypeName}}</li>
                                             <li class="list-group-item"><strong>Proposal Type:</strong> {{vehicalFormData.proposalType}}</li>
+                                            <li class="list-group-item"><strong>Vehicle Colour:</strong> {{vehicalFormData.vehicleColour}}</li>
+                                            <li class="list-group-item"><strong>AddOn Package:</strong> {{vehicalFormData.addonPackage}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''"><strong>Nil Depreciation Cover:</strong> <span *ngIf="vehicalFormData.nilDepreciationCover == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Access:</strong><span *ngIf="vehicalFormData.electricalAccess == true">Yes</span></li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong><span *ngIf="vehicalFormData.nonElectricalAccess == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamed != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.paforUnnamed == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Is Vehicle Financed:</strong> <span *ngIf="vehicalFormData.isFinanced == true">Yes</span></li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationTypeName}}</li>
-                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankName != ''"><strong>Hypothecation Bank Name:</strong> {{vehicalFormData.hypothecationBankName}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankName != ''"><strong>Hypothecation Bank Name:</strong> {{vehicalFormData.hypothecationBankNamevalue}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.CNGKit != ''" ><strong>CNGKit:</strong> <span *ngIf="vehicalFormData.CNGKit == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.geographicalArea != ''" ><strong>Geographical Area:</strong> <span *ngIf="vehicalFormData.geographicalArea == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.Bangladesh != ''" ><strong>Bangladesh:</strong> <span *ngIf="vehicalFormData.Bangladesh == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.SriLanka != ''" ><strong>SriLanka:</strong> <span *ngIf="vehicalFormData.SriLanka == true">Yes</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.Pakistan != ''" ><strong>Pakistan:</strong> <span *ngIf="vehicalFormData.Pakistan == true">Yes</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.Nepal != ''" ><strong>Nepal:</strong> <span *ngIf="vehicalFormData.Nepal == true">Yes</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.Bhutan != ''" ><strong>Bhutan:</strong> <span *ngIf="vehicalFormData.Bhutan == true">Yes</span></li>
+
+
 
                                         </ul>
                                     </div>
@@ -588,8 +609,9 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Vehicle Colour:</strong> {{vehicalFormData.vehicleColour}}</li>
-                                            <li class="list-group-item"><strong>AddOn Package:</strong> {{vehicalFormData.addonPackage}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.Pakistan != ''" ><strong>Pakistan:</strong> <span *ngIf="vehicalFormData.Pakistan == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.Nepal != ''" ><strong>Nepal:</strong> <span *ngIf="vehicalFormData.Nepal == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.Bhutan != ''" ><strong>Bhutan:</strong> <span *ngIf="vehicalFormData.Bhutan == true">Yes</span></li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationAddress1 != ''"><strong>Hypothecation Address1:</strong> {{vehicalFormData.hypothecationAddress1}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationAddress2 != ''"><strong>Hypothecation Address2:</strong> {{vehicalFormData.hypothecationAddress2}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationAddress3 != ''"><strong>Hypothecation Address3:</strong> {{vehicalFormData.hypothecationAddress3}}</li>

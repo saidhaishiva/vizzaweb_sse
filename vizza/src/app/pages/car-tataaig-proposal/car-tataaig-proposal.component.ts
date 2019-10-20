@@ -86,6 +86,11 @@ export class CarTataaigProposalComponent implements OnInit {
   public QReturnInvoice: any;
   public QEngineSecure: any;
   public quotationNo: any;
+  public ElectricalAccessoriesAmt: any;
+  public NonElectricalAccessoriesAmt: any;
+  public AutomobileAssociationAmt: any;
+  public AntitheftdeviceAmt: any;
+  public TPPDAmt: any;
   public carProposerAge: any;
   public agecount: any;
   public premium: any;
@@ -172,6 +177,7 @@ export class CarTataaigProposalComponent implements OnInit {
       Financetype: false,
       banktype: '',
       bankName: '',
+      bankNamevalue: '',
       Address: '',
       package: ['', Validators.required],
       packagevalue: '',
@@ -198,6 +204,18 @@ export class CarTataaigProposalComponent implements OnInit {
       enginesecureAmount: '',
       keyReplacementAmount: '',
       invoiceAmount: '',
+      electriAccess: '',
+      electriAccessSI: '',
+      electriAccessSIAmount: '',
+      nonElectricAcess: '',
+      nonElectricAcessSI: '',
+      nonElectricAcessSIAmount: '',
+      autoAsso: '',
+      autoAssoAmount: '',
+      antitheft: '',
+      antitheftAmount: '',
+      tppdRes: '',
+      tppdResAmount: '',
     });
 
     this.previouspolicy = this.fb.group({
@@ -777,13 +795,16 @@ export class CarTataaigProposalComponent implements OnInit {
     } else if (event.checked != true) {
       this.vehicle.controls['banktype'].patchValue('');
       this.vehicle.controls['bankName'].patchValue('');
+      this.vehicle.controls['bankNamevalue'].patchValue('');
       this.vehicle.controls['Address'].patchValue('');
       this.vehicle.controls['banktype'].setValidators(null);
       this.vehicle.controls['bankName'].setValidators(null);
+      this.vehicle.controls['bankNamevalue'].setValidators(null);
       this.vehicle.controls['Address'].setValidators(null);
     }
     this.vehicle.controls['banktype'].updateValueAndValidity();
     this.vehicle.controls['bankName'].updateValueAndValidity();
+    this.vehicle.controls['bankNamevalue'].updateValueAndValidity();
     this.vehicle.controls['Address'].updateValueAndValidity();
   }
 
@@ -815,9 +836,17 @@ export class CarTataaigProposalComponent implements OnInit {
     sessionStorage.tatacarvehicle = '';
     sessionStorage.tatacarvehicle = JSON.stringify(value);
     if (this.vehicle.valid && this.errortoaster == true) {
+      if(this.vehicle.controls['electriAccessSI'].value <= 50000){
+        if(this.vehicle.controls['nonElectricAcessSI'].value <= 50000){
       console.log(value, 'vehicle');
       stepper.next();
       this.topScroll();
+        }else{
+          this.toastr.error('Non Electrical Accessories SI should be less then or equal to 15000');
+        }
+      }else{
+        this.toastr.error('Electrical Accessories SI should be less then or equal to 15000');
+      }
     }
     else {
       this.toastr.error('Please Select the Valid Bank Name');
@@ -874,7 +903,14 @@ export class CarTataaigProposalComponent implements OnInit {
       'Repairglass_plastic_fibre_and_rubberglass': this.vehicle.controls['Repairofglass'].value == true ? 'Y' : 'N',
       'Tyre_Secure': this.vehicle.controls['Tyresecure'].value == true ? 'Y' : 'N',
       'NCB_protection_cover': this.vehicle.controls['protectioncover'].value == true ? 'Y' : 'N',
-      'Roadside_Assistance':this.vehicle.controls['Roadside'].value == true ? 'Y' : 'N'
+      'Roadside_Assistance':this.vehicle.controls['Roadside'].value == true ? 'Y' : 'N',
+      "Electrical_Accessories": this.vehicle.controls['electriAccess'].value == true ? 'Y' : 'N',
+      "Electrical_Accessories_SI":this.vehicle.controls['electriAccessSI'].value,
+      "Non_Electrical_Accessories": this.vehicle.controls['nonElectricAcess'].value == true ? 'Y' : 'N',
+      "Non_Electrical_Accessories_SI": this.vehicle.controls['nonElectricAcessSI'].value,
+      "Automobile_Association_Membership": this.vehicle.controls['autoAsso'].value == true ? 'Y' : 'N',
+      "Antitheft": this.vehicle.controls['antitheft'].value == true ? 'Y' : 'N',
+      "TPPD_Restricted": this.vehicle.controls['tppdRes'].value == true ? 'Y' : 'N',
     };
     console.log(data,'fullquote');
     this.carinsurance.QuoteList(data).subscribe(
@@ -902,6 +938,11 @@ export class CarTataaigProposalComponent implements OnInit {
       this.QReturnInvoice=this.Quotelist.productlist.addons.Return_to_Invoice;
       this.QEngineSecure=this.Quotelist.productlist.addons.Engine_Secure;
       this.quotationNo=this.Quotelist.productlist.quotation_no;
+      this.ElectricalAccessoriesAmt=this.Quotelist.productlist.accessories.Electrical_Accessories;
+      this.NonElectricalAccessoriesAmt=this.Quotelist.productlist.accessories.NonElectrical_accessories;
+      this.AutomobileAssociationAmt=this.Quotelist.productlist.accessories.Automobile_Association;
+      this.AntitheftdeviceAmt=this.Quotelist.productlist.accessories.Anti_theft_device;
+      this.TPPDAmt=this.Quotelist.productlist.accessories.TPPD;
       console.log(this.quotationNo,'quotationNoooo');
 
       this.depreciationChange();
@@ -915,6 +956,11 @@ export class CarTataaigProposalComponent implements OnInit {
       this.personalossChange();
       this.RepairGlassChange();
       this.transportAmountChange();
+      this.eAcessSIChange();
+      this.nEAcessChange();
+      this.autoAssoAmountChange();
+      this.antitheftAmountChange();
+      this.ttppdResAmountChange();
       // this.createproposal(stepper);
     }
   }
@@ -1000,7 +1046,120 @@ export class CarTataaigProposalComponent implements OnInit {
     console.log(this.QEmergencytransport,'quoteValueesssss')
 
   }
+  electricAccess() {
+    if (this.vehicle.controls['electriAccess'].value == true) {
+      this.vehicle.controls['electriAccessSI'].patchValue(this.vehicle.controls['electriAccessSI'].value),
+          this.vehicle.controls['electriAccessSI'].setValidators([Validators.required]);
 
+    } else {
+      this.vehicle.controls['electriAccessSI'].patchValue(''),
+          this.vehicle.controls['electriAccessSI'].clearValidators();
+
+    }
+    this.vehicle.controls['electriAccessSI'].updateValueAndValidity();
+  }
+  electricReq() {
+    if (this.vehicle.controls['electriAccessSI'].value ) {
+      this.vehicle.controls['electriAccessSIAmount'].patchValue(this.vehicle.controls['electriAccessSIAmount'].value),
+          this.vehicle.controls['electriAccessSIAmount'].setValidators([Validators.required]);
+
+    } else {
+      this.vehicle.controls['electriAccessSIAmount'].patchValue(''),
+          this.vehicle.controls['electriAccessSIAmount'].clearValidators();
+
+    }
+    this.vehicle.controls['electriAccessSIAmount'].updateValueAndValidity();
+  }
+  eAcessSIChange()
+  {
+    this.vehicle.controls['electriAccessSIAmount'].patchValue(this.ElectricalAccessoriesAmt);
+    console.log(this.QEmergencytransport,'quoteValueesssss')
+
+  }
+  nonelectricAccess() {
+    if (this.vehicle.controls['nonElectricAcess'].value == true) {
+      this.vehicle.controls['nonElectricAcessSI'].patchValue(this.vehicle.controls['nonElectricAcessSI'].value),
+          this.vehicle.controls['nonElectricAcessSI'].setValidators([Validators.required]);
+
+    } else {
+      this.vehicle.controls['nonElectricAcessSI'].patchValue(''),
+          this.vehicle.controls['nonElectricAcessSI'].clearValidators();
+
+    }
+    this.vehicle.controls['nonElectricAcessSI'].updateValueAndValidity();
+  }
+  electricNonReq() {
+    if (this.vehicle.controls['nonElectricAcessSI'].value ) {
+      this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(this.vehicle.controls['nonElectricAcessSIAmount'].value),
+          this.vehicle.controls['nonElectricAcessSIAmount'].setValidators([Validators.required]);
+
+    } else {
+      this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(''),
+          this.vehicle.controls['nonElectricAcessSIAmount'].clearValidators();
+
+    }
+    this.vehicle.controls['nonElectricAcessSIAmount'].updateValueAndValidity();
+  }
+  nEAcessChange()
+  {
+    this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(this.NonElectricalAccessoriesAmt);
+    console.log(this.QEmergencytransport,'quoteValueesssss')
+
+  }
+  autoAssoReq() {
+    if (this.vehicle.controls['autoAsso'].value == true ) {
+      this.vehicle.controls['autoAssoAmount'].patchValue(this.vehicle.controls['autoAssoAmount'].value),
+          this.vehicle.controls['autoAssoAmount'].setValidators([Validators.required]);
+
+    } else {
+      this.vehicle.controls['autoAssoAmount'].patchValue(''),
+          this.vehicle.controls['autoAssoAmount'].clearValidators();
+
+    }
+    this.vehicle.controls['autoAssoAmount'].updateValueAndValidity();
+  }
+  autoAssoAmountChange()
+  {
+    this.vehicle.controls['autoAssoAmount'].patchValue(this.AutomobileAssociationAmt);
+    console.log(this.QEmergencytransport,'quoteValueesssss')
+
+  }
+  antitheftReq() {
+    if (this.vehicle.controls['antitheft'].value == true ) {
+      this.vehicle.controls['antitheftAmount'].patchValue(this.vehicle.controls['antitheftAmount'].value),
+          this.vehicle.controls['antitheftAmount'].setValidators([Validators.required]);
+
+    } else {
+      this.vehicle.controls['antitheftAmount'].patchValue(''),
+          this.vehicle.controls['antitheftAmount'].clearValidators();
+
+    }
+    this.vehicle.controls['antitheftAmount'].updateValueAndValidity();
+  }
+  antitheftAmountChange()
+  {
+    this.vehicle.controls['antitheftAmount'].patchValue(this.AntitheftdeviceAmt);
+    console.log(this.QEmergencytransport,'quoteValueesssss')
+
+  }
+  tppdResReq() {
+    if (this.vehicle.controls['tppdRes'].value == true ) {
+      this.vehicle.controls['tppdResAmount'].patchValue(this.vehicle.controls['tppdResAmount'].value),
+          this.vehicle.controls['tppdResAmount'].setValidators([Validators.required]);
+
+    } else {
+      this.vehicle.controls['tppdResAmount'].patchValue(''),
+          this.vehicle.controls['tppdResAmount'].clearValidators();
+
+    }
+    this.vehicle.controls['tppdResAmount'].updateValueAndValidity();
+  }
+  ttppdResAmountChange()
+  {
+    this.vehicle.controls['tppdResAmount'].patchValue(this.TPPDAmt);
+    console.log(this.QEmergencytransport,'quoteValueesssss')
+
+  }
 
   sessionData() {
     if (sessionStorage.tatacarproposer != '' && sessionStorage.tatacarproposer != undefined) {
@@ -1041,6 +1200,7 @@ export class CarTataaigProposalComponent implements OnInit {
         Financetype: this.getstepper2.Financetype,
         banktype: this.getstepper2.banktype,
         bankName: this.getstepper2.bankName,
+        bankNamevalue: this.getstepper2.bankNamevalue,
         Address: this.getstepper2.Address,
         package: this.getstepper2.package,
         packagevalue:  this.getstepper2.packagevalue,
@@ -1066,7 +1226,20 @@ export class CarTataaigProposalComponent implements OnInit {
         consexpenceAmount: this.getstepper2.consexpenceAmount,
         enginesecureAmount: this.getstepper2.enginesecureAmount,
         keyReplacementAmount: this.getstepper2.keyReplacementAmount,
+        electriAccess: this.getstepper2.electriAccess,
+        electriAccessSI: this.getstepper2.electriAccessSI,
+        electriAccessSIAmount: this.getstepper2.electriAccessSIAmount,
+        nonElectricAcess: this.getstepper2.nonElectricAcess,
+        nonElectricAcessSI: this.getstepper2.nonElectricAcessSI,
+        nonElectricAcessSIAmount:this.getstepper2.nonElectricAcessSIAmount,
+        autoAsso:this.getstepper2.autoAsso,
+        autoAssoAmount:this.getstepper2.autoAssoAmount,
+        antitheft: this.getstepper2.antitheft,
+        antitheftAmount: this.getstepper2.antitheftAmount,
+        tppdRes:this.getstepper2.tppdRes,
+        tppdResAmount: this.getstepper2.tppdResAmount,
         invoiceAmount: this.getstepper2.invoiceAmount,
+
       });
       this.visible = true;
     }
@@ -1213,7 +1386,7 @@ export class CarTataaigProposalComponent implements OnInit {
     document.getElementById('main-content').scrollTop = 0;
   }
   changefinancecompany() {
-    this.vehicle.controls['financiercodevalue'].patchValue(this.finlist[this.vehicle.controls['financiercode'].value]);
+    this.vehicle.controls['bankNamevalue'].patchValue(this.finlist[this.vehicle.controls['bankName'].value]);
 
   }
 }

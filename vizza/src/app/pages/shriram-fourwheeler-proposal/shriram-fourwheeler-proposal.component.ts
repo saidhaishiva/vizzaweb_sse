@@ -91,12 +91,14 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public bikeEnquiryId : any;
   public packagelist : any;
   public siValue : any;
+  public config : any;
+  public getBankHypoDetails: any;
   // public policyDatevalidate : any;
   public currentStep : any;
   public mobileNumber : any;
 
   public genderList: boolean;
-  constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
+  constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
@@ -123,7 +125,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 
     this.settings = this.appSettings.settings;
-    this.webhost = this.config.getimgUrl();
+    this.webhost = this.configs.getimgUrl();
 
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
@@ -138,6 +140,12 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.claimList = false;
     this.apponiteeList = false;
     this.mobileNumber = 'true';
+    // this.config = {
+    //   displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
+    //   search: true,
+    //   limitTo: 5,
+    //   // searchOnKey: 'city'
+    // };
 
     this.pType = false;
     this.electricalValid = false;
@@ -188,6 +196,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       lltoPaidDriver: '',
       addonPackage:'',
       hypothecationBankName:'',
+      hypothecationBankNamevalue:'',
       pincode:'',
       state:'',
       city:'',
@@ -244,6 +253,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.nomineeRelationShip();
     this.previousInsureType();
     this.changehypothecationType();
+    this.getHBankLists();
+
 
     this.sessionData();
   }
@@ -283,6 +294,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     } else {
       if(this.proposer.controls['title'].value == 'Dr'){
         this.genderList = true;
+        this.proposer.controls['gender'].patchValue('');
+        this.proposer.controls['gender'].setValidators([Validators.required]);
+        console.log(this.proposer.controls['gender'].value,'genders......')
       }
     }
 
@@ -404,6 +418,10 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   changevehicle() {
     this.proposer.controls['vehicleTypeName'].patchValue(this.bkVehicleList[this.proposer.controls['vehicleType'].value]);
 
+  }
+  changefinancecompany() {
+    this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.getBankHypoDetails[this.vehical.controls['hypothecationBankName'].value]);
+    console.log(this.vehical.controls['bankNamevalue'].value,'11111111111111111111');
   }
 
   // NEXT BUTTON
@@ -668,10 +686,12 @@ hypoName(){
       this.vehical.controls['hypothecationAddress1'].setValidators(null);
       this.vehical.controls['hypothecationAddress2'].setValidators(null);
       this.vehical.controls['hypothecationBankName'].setValidators(null);
+      this.vehical.controls['hypothecationBankNamevalue'].setValidators(null);
       this.vehical.controls['hypothecationType'].patchValue('');
       this.vehical.controls['hypothecationAddress1'].patchValue('');
       this.vehical.controls['hypothecationAddress2'].patchValue('');
       this.vehical.controls['hypothecationBankName'].patchValue('');
+      this.vehical.controls['hypothecationBankNamevalue'].patchValue('');
     }
   }
   selectPolicy(){
@@ -741,6 +761,34 @@ hypoName(){
     }
   }
   public claimFailure(error) {
+  }
+
+  getHBankLists() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.fwService.getHypoBankList(data).subscribe(
+        (successData) => {
+          this.HBankSuccess(successData);
+        },
+        (error) => {
+          this.HBankFailure(error);
+        }
+    );
+  }
+  public HBankSuccess(successData) {
+    if (successData.IsSuccess) {
+      // this.getBankHypoDetails = successData.ResponseObject.bankdetails;
+      this.getBankHypoDetails = successData.ResponseObject;
+      console.log(this.getBankHypoDetails,'cityDetails......');
+      //
+    }
+  }
+  public HBankFailure(error) {
   }
 
 
@@ -1137,6 +1185,7 @@ hypoName(){
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
         hypothecationBankName:stepper2.hypothecationBankName,
+        hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
         isFinanced:stepper2.isFinanced,
         pincode:stepper2.pincode,
         state:stepper2.state,

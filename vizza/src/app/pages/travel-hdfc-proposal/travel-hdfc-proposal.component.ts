@@ -594,7 +594,6 @@ export class TravelHdfcProposalComponent implements OnInit {
     }
 
     selectRelation(i){
-        alert('innn');
         this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelationName.patchValue(this.insuredRelationshipDetails[this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelation.value])
         console.log(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelationName.value,'insurancessssss')
     }
