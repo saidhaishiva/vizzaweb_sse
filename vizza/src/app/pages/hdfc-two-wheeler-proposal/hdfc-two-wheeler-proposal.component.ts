@@ -461,9 +461,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         if (successData.IsSuccess == true) {
             // this.financeList = successData.ResponseObject;
             this.finlist = successData.ResponseObject.bankdetails;
+            this.photos = successData.ResponseObject.bankdetails;
             console.log(this.finlist,'finlist');
-            // this.photosBuffer = this.photos.slice(0, this.bufferSize);
-            // console.log(this.photosBuffer,'photos');
+            this.photosBuffer = this.photos.slice(0, this.bufferSize);
+            console.log(this.photosBuffer,'photos');
         }else{
             this.toastr.error(successData.ErrorObject);
         }
