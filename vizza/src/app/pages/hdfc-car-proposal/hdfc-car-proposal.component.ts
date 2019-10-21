@@ -189,7 +189,7 @@ export class HdfcCarProposalComponent implements OnInit {
           vechicleidv: ['', Validators.required],
           Financetype: [''],
           Agreement: [''],
-          financiercode: [''],
+          financiercode: '',
           fibranchname: [''],
           Previouscompanyvalue: [''],
           financiercodevalue: [''],
