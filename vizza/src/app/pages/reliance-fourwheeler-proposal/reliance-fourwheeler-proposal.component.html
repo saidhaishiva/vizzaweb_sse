@@ -18,7 +18,7 @@
                     <div class="row">
                       <div class="col-md-3 mt-3" >
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title" (change)="changeTitle()" required>
+                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" required>
                             <mat-option *ngFor="let title of titleList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="relianceProposal.controls.title.errors?.required">Title is required</mat-error>
@@ -68,7 +68,7 @@
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Occupation" formControlName="occupation" (change)="changeOccupation()" required>
+                          <mat-select placeholder="Occupation" formControlName="occupation" (selectionChange)="changeOccupation()" required>
                             <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}" > {{occupation.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="relianceProposal.controls.occupation.errors?.required">occupation  is required</mat-error>
@@ -76,7 +76,7 @@
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()">
+                          <mat-select placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="changeMarital()">
                             <mat-option *ngFor="let marital of maritalList | keys" value="{{marital.key}}" > {{marital.value}} </mat-option>
                           </mat-select>
                           <!--                          <mat-error *ngIf="relianceProposal.controls.maritalStatus.errors?.required">maritalStatus  is required</mat-error>-->
@@ -84,7 +84,7 @@
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Nationality" formControlName="nationality" (change)="changeNationality()">
+                          <mat-select placeholder="Nationality" formControlName="nationality" (selectionChange)="changeNationality()">
                             <mat-option *ngFor="let nationality of nationalityList | keys" value="{{nationality.key}}" > {{nationality.value}} </mat-option>
                           </mat-select>
                           <!--                          <mat-error *ngIf="relianceProposal.controls.nationality.errors?.required">nationality  is required</mat-error>-->
@@ -426,7 +426,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Buyer Type" formControlName="OtherSystemName" (change)="changeOtherSystem()" required>
+                          <mat-select placeholder="Buyer Type" formControlName="OtherSystemName" (selectionChange)="changeOtherSystem()" required>
                             <mat-option *ngFor="let list of otherSystemNameList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="riskDetails.controls.OtherSystemName.errors?.required">Buyer Type  is required</mat-error>
@@ -448,7 +448,7 @@
 
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Finance Type" formControlName="FinanceType" (change)="changeFinancialType()" required>
+                          <mat-select placeholder="Finance Type" formControlName="FinanceType" (selectionChange)="changeFinancialType()" required>
                             <mat-option *ngFor="let list of financialTypeList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="riskDetails.controls.FinanceType.errors?.required">Finance Type  is required</mat-error>
@@ -528,7 +528,7 @@
                       </div>
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Fuel type" formControlName="fuelType" (change)="changeFuel()"required>
+                          <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()"required>
                             <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                           </mat-select>
@@ -717,7 +717,7 @@
                     <div class="row">
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="IsPAToDriverCoveredSi" (change)="getPaidDriverSi()" required>
+                          <mat-select placeholder="Sum Insured" formControlName="IsPAToDriverCoveredSi" (selectionChange)="getPaidDriverSi()" required>
                             <mat-option *ngFor="let type of driverCoveredList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                           </mat-select>
@@ -749,7 +749,7 @@
                     <div class="row">
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="TPPDCoverSi" (change)="getTppdSi()" required>
+                          <mat-select placeholder="Sum Insured" formControlName="TPPDCoverSi" (selectionChange)="getTppdSi()" required>
                             <mat-option *ngFor="let type of tppdList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                           </mat-select>
@@ -768,7 +768,7 @@
                     <div class="row">
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (change)="unnamedSi()" required>
+                          <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi()" required>
                             <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>
@@ -793,7 +793,7 @@
                     <div class="row">
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (change)="voluntaryAmount()" required>
+                          <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (selectionChange)="voluntaryAmount()" required>
                             <mat-option *ngFor="let type of amountList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                           </mat-select>
@@ -891,7 +891,7 @@
 
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="namedPassengersSI" (change)="unnamedSi()" required>
+                          <mat-select placeholder="Sum Insured" formControlName="namedPassengersSI" (selectionChange)="unnamedSi()" required>
                             <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="coverDetails.controls.namedPassengersSI.errors?.required">Sum Insured is required</mat-error>
@@ -923,7 +923,7 @@
 
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Nominee Relation" formControlName="nprelation" (change)="changenpRelation()" required>
+                          <mat-select placeholder="Nominee Relation" formControlName="nprelation" (selectionChange)="changenpRelation()" required>
                             <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="coverDetails.controls.nprelation.errors?.required">Relation  is required</mat-error>
@@ -940,7 +940,7 @@
 
                       <div class="col-md-4 mt-0" *ngIf="npshowNominee">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Other Relation" formControlName="npOtherRelation" (change)="changenpOtherRelation()" required>
+                          <mat-select placeholder="Other Relation" formControlName="npOtherRelation" (selectionChange)="changenpOtherRelation()" required>
                             <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="coverDetails.controls.npOtherRelation.errors?.required">Relation  is required</mat-error>
@@ -996,7 +996,7 @@
 
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Nominee Relation" formControlName="nrelation" (change)="changenRelation()" required>
+                          <mat-select placeholder="Nominee Relation" formControlName="nrelation" (selectionChange)="changenRelation()" required>
                             <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="coverDetails.controls.nrelation.errors?.required">Relation  is required</mat-error>
@@ -1013,7 +1013,7 @@
 
                       <div class="col-md-4 mt-0" *ngIf="showNominee">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Other Relation" formControlName="nOtherRelation" (change)="changenOtherRelation()" required>
+                          <mat-select placeholder="Other Relation" formControlName="nOtherRelation" (selectionChange)="changenOtherRelation()" required>
                             <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
                           </mat-select>
                                                           <mat-error *ngIf="coverDetails.controls.nOtherRelation.errors?.required">Relation  is required</mat-error>
@@ -1064,7 +1064,7 @@
                       </div>
                       <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Previous Insurance" formControlName="prevInsurance" (change)="changeInsurer()" required>
+                          <mat-select placeholder="Previous Insurance" formControlName="prevInsurance" (selectionChange)="changeInsurer()" required>
                             <mat-option *ngFor="let list of prevInsurerList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="previousInsurance.controls.prevInsurance.errors?.required">prevInsurance  is required</mat-error>
@@ -1073,7 +1073,7 @@
 
                       <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Previous year policy" formControlName="prevYearPolicyType"  (change)="changePrevYear()"required>
+                          <mat-select placeholder="Previous year policy" formControlName="prevYearPolicyType"  (selectionChange)="changePrevYear()"required>
                             <mat-option *ngFor="let polList of prevPolicyList | keys" value="{{polList.key}}" > {{polList.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="previousInsurance.controls.prevYearPolicyType.errors?.required">prevYearPolicyType  is required</mat-error>
@@ -1147,7 +1147,7 @@
               <div class="col-md-2">
                 <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> IDV: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.Idv}}</span> </span></h4>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8 mt-3">
                 <ul class="summary-head">
                   <li><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                   <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.productlist.comphensivePreminium}}</span></li>
@@ -1489,15 +1489,15 @@
               </div>
             </section>
             <section>
-              <h5 class="mt-3 sub-title">Previous Insurance Details </h5>
+              <h5 class="mt-3 sub-title" *ngIf="previousFormData.policyNumber != ''">Previous Insurance Details </h5>
               <div class="row box-card">
                 <div class="col-md-6">
                   <div class="p-3">
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
-                          <li class="list-group-item"><strong>Previous Insurance:</strong> {{previousFormData.prevInsuranceValue}}</li>
+                          <li class="list-group-item" *ngIf="previousFormData.policyNumber != ''"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
+                          <li class="list-group-item" *ngIf="previousFormData.prevInsuranceValue != ''"><strong>Previous Insurance:</strong> {{previousFormData.prevInsuranceValue}}</li>
                           <li class="list-group-item" *ngIf="buyProduct.business_type ==2 || buyProduct.business_type ==5"><strong>Inspection Id:</strong> {{previousFormData.inspectionId}}</li>
                           <li class="list-group-item" *ngIf="buyProduct.business_type ==2 || buyProduct.business_type ==5"><strong>Inspection Date:</strong> {{previousFormData.inspectionDate | date: 'dd/MM/yyyy'}}</li>
                           <!--                                              <li class="list-group-item"><strong>Previous End Date:</strong> {{previousFormData.previousdEndob | date: 'dd/MM/yyyy'}}</li>-->
@@ -1512,10 +1512,10 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Previous year policy:</strong> {{previousFormData.prevYearPolicyTypeValue}}</li>
+                          <li class="list-group-item" *ngIf="previousFormData.prevYearPolicyTypeValue != ''"><strong>Previous year policy:</strong> {{previousFormData.prevYearPolicyTypeValue}}</li>
 <!--                          <li class="list-group-item"><strong>Previous Policy Sold:</strong> {{previousFormData.prevPolSold}}</li>-->
                           <!--                                              <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>-->
-                          <li class="list-group-item"><strong>Previous Insurer Address:</strong> {{previousFormData.prevInsurerAddress}}</li>
+                          <li class="list-group-item" *ngIf="previousFormData.prevInsurerAddress != ''"><strong>Previous Insurer Address:</strong> {{previousFormData.prevInsurerAddress}}</li>
                           <li class="list-group-item" *ngIf="previousFormData.inspectionDone != '' && (buyProduct.business_type ==2 || buyProduct.business_type ==5)"><strong>Inspection Done:</strong><span *ngIf="previousFormData.inspectionDone == true">Yes</span><span *ngIf="previousFormData.inspectionDone == false">No</span> </li>
 
 
