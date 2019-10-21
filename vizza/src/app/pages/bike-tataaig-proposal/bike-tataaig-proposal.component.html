@@ -249,7 +249,8 @@
                               <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
                             </mat-form-field>
                           </div>
-                        <!--<div class="col-md-3 mt-3" *ngIf ="vehicle.controls['Financetype'].value == true" >-->
+
+                        <!--<div class="col-md-3 mt-3" *ngIf ="vehicle.controls['Financetype'].value == true">-->
                           <!--<ng-select [items]="photosBuffer"-->
                                      <!--[virtualScroll]="true"-->
                                      <!--[loading]="loading"-->
@@ -268,13 +269,15 @@
                               <!--{{item.name}}-->
                             <!--</ng-template>-->
                           <!--</ng-select>-->
+                          <!--<em class="error help-block" *ngIf="!vehicle.get('bankName').valid && (vehicle.get('bankName').dirty || vehicle.get('bankName').touched)">Financier Name is required</em>-->
+                          <!--&lt;!&ndash;<em *ngIf="vechicle.get('financiercode').errors?.required">Financier Name is required</em>&ndash;&gt;-->
                         <!--</div>-->
                         <div class="col-md-3 mt-3" *ngIf="vehicle.controls['Financetype'].value == true" >
                           <mat-form-field class="w-100" >
                             <mat-placeholder>Financier Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                             <mat-select  formControlName="bankName" (selectionChange)="changefinancecompany()" >
                               <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
-                                <mat-option *cdkVirtualFor="let finance of finlist | keys" value="{{finance.key}}">{{finance.value}}</mat-option>
+                                <mat-option *cdkVirtualFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}}</mat-option>
                               </cdk-virtual-scroll-viewport>
                               <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
                             </mat-select>
@@ -303,7 +306,7 @@
 
                             <!--</div>-->
                             <div class="col-md-3 mt-1"  *ngIf="premium != 'ThridParty_premium'" >
-                              <mat-checkbox formControlName="elecAccessories" (change)="electriAccess();QuoteList()"><strong> Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                              <mat-checkbox formControlName="elecAccessories" (change)="electriAccess()"><strong> Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
                             </div>
                             <div class="col-md-3" *ngIf="vehicle.controls['elecAccessories'].value == true">
                               <mat-form-field class="w-100">
@@ -325,7 +328,7 @@
                             </div>
 
                             <div class="col-md-3 mt-1"  *ngIf="premium != 'ThridParty_premium'" >
-                              <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess();QuoteList()"><strong> Non Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                              <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
                             </div>
                             <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                               <mat-form-field class="w-100">
