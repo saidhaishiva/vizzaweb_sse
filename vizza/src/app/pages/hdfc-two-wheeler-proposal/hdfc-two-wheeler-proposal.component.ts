@@ -465,6 +465,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             console.log(this.finlist,'finlist');
             this.photosBuffer = this.photos.slice(0, this.bufferSize);
             console.log(this.photosBuffer,'photos');
+            this.changefinancecompany();
         }else{
             this.toastr.error(successData.ErrorObject);
         }
