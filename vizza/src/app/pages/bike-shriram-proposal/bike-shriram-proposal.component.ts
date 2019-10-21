@@ -567,8 +567,8 @@ export class BikeShriramProposalComponent implements OnInit {
     }
     public HBankSuccess(successData) {
         if (successData.IsSuccess) {
-            this.getBankHypoDetails = successData.ResponseObject;
-            // this.getBankHypoDetails = successData.ResponseObject.bankdetails;
+            // this.getBankHypoDetails = successData.ResponseObject;
+            this.getBankHypoDetails = successData.ResponseObject.bankdetails;
             console.log(this.getBankHypoDetails,'cityDetails......');
             //
         }
