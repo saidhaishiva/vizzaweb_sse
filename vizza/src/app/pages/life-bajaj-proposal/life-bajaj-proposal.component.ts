@@ -391,11 +391,11 @@ export class LifeBajajProposalComponent implements OnInit {
       appointeeDobValidError: '',
       sharePercentage: '',
       showAppointee: false,
-      aName: '',
+      aName: ['', Validators.required],
       nomineeAgeVal: '',
-      appointeeDob: '',
-      appointeeRelationToNominee: '',
-      relationToInsured: '',
+      appointeeDob: ['', Validators.required],
+      appointeeRelationToNominee:['', Validators.required],
+      relationToInsured: ['', Validators.required],
       relationToInsuredName: ''
     });
   }
@@ -1048,7 +1048,7 @@ samerelationShip(){
                 this.toastr.error('Appointee Age should be greater than 18.');
               }
             }else{
-              this.toastr.error('Nominee Age should be greater than 18.');
+              this.toastr.error('Nominee 2 Age should be greater than 18.');
 
             }
 
@@ -2269,7 +2269,7 @@ samerelationShip(){
       this.downloadFile(this.requestedUrl);
 
     } else {
-        this.toastr.error(successData.ErrorObject, 'Failed');
+        this.toastr.error(successData.ErrorObject);
     }
 
   }

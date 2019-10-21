@@ -808,7 +808,7 @@
                         <div class="row" *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value">
                           <div class="col-md-4">
                             <mat-form-field class="w-100" *ngIf="i ==0" >
-                              <mat-placeholder>Apointee Name <span class="error">*</span></mat-placeholder >
+                              <mat-placeholder>Appointee Name <span class="error">*</span></mat-placeholder >
                               <input matInput formControlName="aName" (keypress)="nameValidate($event)"  autocomplete="off"  >
                             </mat-form-field>
                           </div>
@@ -1273,6 +1273,8 @@
                           <li class="list-group-item" *ngIf="bankDetailFormData.branchName!=''"><strong>Branch Name:</strong> {{bankDetailFormData.branchName}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.accountNo!=''"><strong>Account No:</strong> {{bankDetailFormData.accountNo}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.accountType!=''"><strong>Account Type:</strong> {{bankDetailFormData.accountType}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.ifscCode!=''"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode | uppercase}}</li>
+
 
                         </ul>
                       </div>
@@ -1284,10 +1286,12 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="bankDetailFormData.ifscCode!=''"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode | uppercase}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.micrCode!=''"><strong>Micr Code:</strong> {{bankDetailFormData.micrCode}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.paymentMode!=''"><strong>Renewal Payment Mode:</strong> {{bankDetailFormData.paymentMode}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.bankProof!=''"><strong>Bank Proof:</strong> {{bankDetailFormData.bankProof}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.bankCity!=''"><strong>City:</strong> {{bankDetailFormData.bankCity}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.bankDistrict!=''"><strong>District:</strong> {{bankDetailFormData.bankDistrict}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.bankState!=''"><strong>State:</strong> {{bankDetailFormData.bankState}}</li>
                         </ul>
                       </div>
                     </div>
