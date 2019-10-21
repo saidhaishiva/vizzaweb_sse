@@ -189,10 +189,10 @@ export class HdfcCarProposalComponent implements OnInit {
           vechicleidv: ['', Validators.required],
           Financetype: [''],
           Agreement: [''],
-          financiercode: [''],
+          financiercode: '',
           fibranchname: [''],
           Previouscompanyvalue: [''],
-          financiercodevalue: [''],
+          financiercodevalue: '',
           previouspolicyclaim:['', Validators.required],
       });
       this.addOns = this.fb.group({
@@ -426,13 +426,16 @@ export class HdfcCarProposalComponent implements OnInit {
         } else if (event.checked != true) {
             this.vechicle.controls['Agreement'].patchValue('');
             this.vechicle.controls['financiercode'].patchValue('');
+            this.vechicle.controls['financiercodevalue'].patchValue('');
             this.vechicle.controls['fibranchname'].patchValue('');
             this.vechicle.controls['Agreement'].setValidators(null);
             this.vechicle.controls['financiercode'].setValidators(null);
+            this.vechicle.controls['financiercodevalue'].setValidators(null);
             this.vechicle.controls['fibranchname'].setValidators(null);
         }
         this.vechicle.controls['Agreement'].updateValueAndValidity();
         this.vechicle.controls['financiercode'].updateValueAndValidity();
+        this.vechicle.controls['financiercodevalue'].updateValueAndValidity();
         this.vechicle.controls['fibranchname'].updateValueAndValidity();
     }
 
@@ -571,17 +574,11 @@ export class HdfcCarProposalComponent implements OnInit {
     public financiersuccess(successData) {
         if (successData.IsSuccess == true) {
             this.errortoaster = true;
+            // this.finlist = successData.ResponseObject;
             this.finlist = successData.ResponseObject.bankdetails;
-            console.log(this.finlist,'finlist');
-            console.log(this.finlist[0].id,'finlist111');
-            // console.log(this.finlist[0].name,'finlist22222');
-            // console.log(this.finlist[0][0].name,'finlist22223');
-            // console.log(this.finlist[0][0][0].name,'finlist22244');
-            // this.photos =this.finlist.id ;
-            // console.log(this.photos,'photos');
-            // this.photosBuffer = this.photos.slice(0, this.bufferSize);
-            // console.log(this.photosBuffer,'photos');
-            // this.changefinancecompany();
+            this.photos = successData.ResponseObject.bankdetails ;
+            this.photosBuffer = this.photos.slice(0, this.bufferSize);
+            this.changefinancecompany();
         } else {
             this.errortoaster = false;
             this.toastr.error(successData.ErrorObject);
@@ -590,30 +587,30 @@ export class HdfcCarProposalComponent implements OnInit {
 
     public financierFailure(error) {
     }
-    // onScrollToEnd() {
-    //     this.fetchMore();
-    // }
-    //
-    // onScroll({ end }) {
-    //     if (this.loading || this.photos.length <= this.photosBuffer.length) {
-    //         return;
-    //     }
-    //
-    //     if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
-    //         this.fetchMore();
-    //     }
-    // }
-    //
-    // private fetchMore() {
-    //     const len = this.photosBuffer.length;
-    //     const more = this.photos.slice(len, this.bufferSize + len);
-    //     this.loading = true;
-    //     // using timeout here to simulate backend API delay
-    //     setTimeout(() => {
-    //         this.loading = false;
-    //         this.photosBuffer = this.photosBuffer.concat(more);
-    //     }, 200)
-    // }
+    onScrollToEnd() {
+        this.fetchMore();
+    }
+
+    onScroll({ end }) {
+        if (this.loading || this.photos.length <= this.photosBuffer.length) {
+            return;
+        }
+
+        if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
+            this.fetchMore();
+        }
+    }
+
+    private fetchMore() {
+        const len = this.photosBuffer.length;
+        const more = this.photos.slice(len, this.bufferSize + len);
+        this.loading = true;
+        // using timeout here to simulate backend API delay
+        setTimeout(() => {
+            this.loading = false;
+            this.photosBuffer = this.photosBuffer.concat(more);
+        }, 200)
+    }
 
     onsubmit(value1){
         console.log(this.addOns.controls['NomineeName'].value,'sdfsadf');

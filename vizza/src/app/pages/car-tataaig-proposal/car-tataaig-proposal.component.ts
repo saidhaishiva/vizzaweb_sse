@@ -86,6 +86,11 @@ export class CarTataaigProposalComponent implements OnInit {
   public QReturnInvoice: any;
   public QEngineSecure: any;
   public quotationNo: any;
+  public ElectricalAccessoriesAmt: any;
+  public NonElectricalAccessoriesAmt: any;
+  public AutomobileAssociationAmt: any;
+  public AntitheftdeviceAmt: any;
+  public TPPDAmt: any;
   public carProposerAge: any;
   public agecount: any;
   public premium: any;
@@ -172,6 +177,7 @@ export class CarTataaigProposalComponent implements OnInit {
       Financetype: false,
       banktype: '',
       bankName: '',
+      bankNamevalue: '',
       Address: '',
       package: ['', Validators.required],
       packagevalue: '',
@@ -789,13 +795,16 @@ export class CarTataaigProposalComponent implements OnInit {
     } else if (event.checked != true) {
       this.vehicle.controls['banktype'].patchValue('');
       this.vehicle.controls['bankName'].patchValue('');
+      this.vehicle.controls['bankNamevalue'].patchValue('');
       this.vehicle.controls['Address'].patchValue('');
       this.vehicle.controls['banktype'].setValidators(null);
       this.vehicle.controls['bankName'].setValidators(null);
+      this.vehicle.controls['bankNamevalue'].setValidators(null);
       this.vehicle.controls['Address'].setValidators(null);
     }
     this.vehicle.controls['banktype'].updateValueAndValidity();
     this.vehicle.controls['bankName'].updateValueAndValidity();
+    this.vehicle.controls['bankNamevalue'].updateValueAndValidity();
     this.vehicle.controls['Address'].updateValueAndValidity();
   }
 
@@ -929,6 +938,11 @@ export class CarTataaigProposalComponent implements OnInit {
       this.QReturnInvoice=this.Quotelist.productlist.addons.Return_to_Invoice;
       this.QEngineSecure=this.Quotelist.productlist.addons.Engine_Secure;
       this.quotationNo=this.Quotelist.productlist.quotation_no;
+      this.ElectricalAccessoriesAmt=this.Quotelist.productlist.accessories.Electrical_Accessories;
+      this.NonElectricalAccessoriesAmt=this.Quotelist.productlist.accessories.NonElectrical_accessories;
+      this.AutomobileAssociationAmt=this.Quotelist.productlist.accessories.Automobile_Association;
+      this.AntitheftdeviceAmt=this.Quotelist.productlist.accessories.Anti_theft_device;
+      this.TPPDAmt=this.Quotelist.productlist.accessories.TPPD;
       console.log(this.quotationNo,'quotationNoooo');
 
       this.depreciationChange();
@@ -1058,7 +1072,7 @@ export class CarTataaigProposalComponent implements OnInit {
   }
   eAcessSIChange()
   {
-    this.vehicle.controls['electriAccessSIAmount'].patchValue(this.QEmergencytransport);
+    this.vehicle.controls['electriAccessSIAmount'].patchValue(this.ElectricalAccessoriesAmt);
     console.log(this.QEmergencytransport,'quoteValueesssss')
 
   }
@@ -1088,7 +1102,7 @@ export class CarTataaigProposalComponent implements OnInit {
   }
   nEAcessChange()
   {
-    this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(this.QEmergencytransport);
+    this.vehicle.controls['nonElectricAcessSIAmount'].patchValue(this.NonElectricalAccessoriesAmt);
     console.log(this.QEmergencytransport,'quoteValueesssss')
 
   }
@@ -1106,7 +1120,7 @@ export class CarTataaigProposalComponent implements OnInit {
   }
   autoAssoAmountChange()
   {
-    this.vehicle.controls['autoAssoAmount'].patchValue(this.QEmergencytransport);
+    this.vehicle.controls['autoAssoAmount'].patchValue(this.AutomobileAssociationAmt);
     console.log(this.QEmergencytransport,'quoteValueesssss')
 
   }
@@ -1124,7 +1138,7 @@ export class CarTataaigProposalComponent implements OnInit {
   }
   antitheftAmountChange()
   {
-    this.vehicle.controls['antitheftAmount'].patchValue(this.QEmergencytransport);
+    this.vehicle.controls['antitheftAmount'].patchValue(this.AntitheftdeviceAmt);
     console.log(this.QEmergencytransport,'quoteValueesssss')
 
   }
@@ -1142,7 +1156,7 @@ export class CarTataaigProposalComponent implements OnInit {
   }
   ttppdResAmountChange()
   {
-    this.vehicle.controls['tppdResAmount'].patchValue(this.QEmergencytransport);
+    this.vehicle.controls['tppdResAmount'].patchValue(this.TPPDAmt);
     console.log(this.QEmergencytransport,'quoteValueesssss')
 
   }
@@ -1186,6 +1200,7 @@ export class CarTataaigProposalComponent implements OnInit {
         Financetype: this.getstepper2.Financetype,
         banktype: this.getstepper2.banktype,
         bankName: this.getstepper2.bankName,
+        bankNamevalue: this.getstepper2.bankNamevalue,
         Address: this.getstepper2.Address,
         package: this.getstepper2.package,
         packagevalue:  this.getstepper2.packagevalue,
@@ -1371,7 +1386,7 @@ export class CarTataaigProposalComponent implements OnInit {
     document.getElementById('main-content').scrollTop = 0;
   }
   changefinancecompany() {
-    this.vehicle.controls['financiercodevalue'].patchValue(this.finlist[this.vehicle.controls['financiercode'].value]);
+    this.vehicle.controls['bankNamevalue'].patchValue(this.finlist[this.vehicle.controls['bankName'].value]);
 
   }
 }
