@@ -192,7 +192,7 @@ export class HdfcCarProposalComponent implements OnInit {
           financiercode: '',
           fibranchname: [''],
           Previouscompanyvalue: [''],
-          financiercodevalue: [''],
+          financiercodevalue: '',
           previouspolicyclaim:['', Validators.required],
       });
       this.addOns = this.fb.group({
