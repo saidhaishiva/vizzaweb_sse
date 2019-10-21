@@ -352,8 +352,8 @@ import { EdelweissPosComponent } from './pages/edelweiss-pos/edelweiss-pos.compo
 import { EdelweissposOpt } from './pages/edelweiss-pos/edelweiss-pos.component';
 import { ViewdetailscomponentComponent } from './pages/four-wheeler-product-list/viewdetailscomponent/viewdetailscomponent.component';
 import { EdelweissposPaymnetSuccessComponent } from './pages/edelweisspos-paymnet-success/edelweisspos-paymnet-success.component';
-import {NgSelectModule} from '@ng-select/ng-select';
-import {NgOptionHighlightModule} from '@ng-select/ng-option-highlight';
+// import {NgSelectModule} from '@ng-select/ng-select';
+// import {NgOptionHighlightModule} from '@ng-select/ng-option-highlight';
 import { MatCheckboxModule} from '@angular/material';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { NgtUniversalModule } from '@ng-toolkit/universal';
@@ -374,8 +374,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         NgxPaginationModule,
         NgxChartsModule,
         PdfViewerModule,
-        NgSelectModule,
-        NgOptionHighlightModule,
+        // NgSelectModule,
+        // NgOptionHighlightModule,
         ScrollToModule.forRoot(),
         SlickModule.forRoot(),
         // ImageUploadModule.forRoot(),
