@@ -797,7 +797,7 @@ hypoName(){
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'financial_code':this.vehical.controls['hypothecationBankName'].value
+      'bank_id':this.vehical.controls['hypothecationBankName'].value
     }
     this.fwService.getHypoBankName(data).subscribe(
         (successData) => {
@@ -813,7 +813,7 @@ hypoName(){
     if (successData.IsSuccess == true) {
       // this.errortoaster = true;
 
-      this.photos = successData.ResponseObject;
+      this.photos = successData.ResponseObject.bank_name;
       console.log(this.photos,'photos');
 
     }
