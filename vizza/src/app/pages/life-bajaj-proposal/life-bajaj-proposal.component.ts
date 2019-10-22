@@ -391,11 +391,11 @@ export class LifeBajajProposalComponent implements OnInit {
       appointeeDobValidError: '',
       sharePercentage: '',
       showAppointee: false,
-      aName: ['', Validators.required],
+      aName: '',
       nomineeAgeVal: '',
-      appointeeDob: ['', Validators.required],
-      appointeeRelationToNominee:['', Validators.required],
-      relationToInsured: ['', Validators.required],
+      appointeeDob: '',
+      appointeeRelationToNominee:'',
+      relationToInsured: '',
       relationToInsuredName: ''
     });
   }

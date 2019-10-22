@@ -229,7 +229,7 @@
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="panNum"  (keypress)="idValidate($event)" autocomplete="off">
+                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="panNum"  (keypress)="idValidate($event)" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.panNum.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="proposer.controls.panNum.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                           <mat-error *ngIf="proposer.controls.panNum.errors?.required">PAN Number is required</mat-error>
