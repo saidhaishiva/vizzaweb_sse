@@ -98,6 +98,8 @@ export class CarTataaigProposalComponent implements OnInit {
   public config: any;
   public errortoaster: boolean;
   public bankValid: boolean;
+  public errorMsg: any;
+  public errorNonMsg: any;
   public finlist: any;
   photos = [];
   photosBuffer = [];
@@ -135,6 +137,8 @@ export class CarTataaigProposalComponent implements OnInit {
     this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
     this.maxdate = this.minDate;
     this.bankValid = false;
+    this.errorMsg = false;
+    this.errorNonMsg = false;
     this.config = {
       displayKey: "bankName",
       search: true,
@@ -871,16 +875,12 @@ export class CarTataaigProposalComponent implements OnInit {
     sessionStorage.tatacarvehicle = '';
     sessionStorage.tatacarvehicle = JSON.stringify(value);
     if (this.vehicle.valid && this.errortoaster == true) {
-      if(this.vehicle.controls['electriAccessSI'].value <= 50000){
-        if(this.vehicle.controls['nonElectricAcessSI'].value <= 50000){
+      if(this.vehicle.controls['electriAccessSI'].value <= 50000 && this.vehicle.controls['nonElectricAcessSI'].value <= 50000){
       console.log(value, 'vehicle');
       stepper.next();
       this.topScroll();
-        }else{
-          this.toastr.error('Non Electrical Accessories SI should be less then or equal to 15000');
-        }
       }else{
-        this.toastr.error('Electrical Accessories SI should be less then or equal to 15000');
+        this.toastr.error('Sum Insured should be less then or equal to 50000');
       }
     }
     else {
@@ -1194,6 +1194,26 @@ export class CarTataaigProposalComponent implements OnInit {
     this.vehicle.controls['tppdResAmount'].patchValue(this.TPPDAmt);
     console.log(this.QEmergencytransport,'quoteValueesssss')
 
+  }
+  electriError(){
+    if(this.vehicle.controls['electriAccessSI'].value <= 50000 ){
+      this.errorMsg=false;
+      this.errorMsg='';
+    }else{
+
+      this.errorMsg=true;
+      this.errorMsg = 'Sum Insured should be less then or equal to 50000';
+    }
+  }
+  nonelectriError(){
+    if( this.vehicle.controls['nonElectricAcessSI'].value <= 50000){
+      this.errorNonMsg=false;
+      this.errorNonMsg='';
+    }else{
+
+      this.errorNonMsg=true;
+      this.errorNonMsg = 'Sum Insured should be less then or equal to 50000';
+    }
   }
 
   sessionData() {

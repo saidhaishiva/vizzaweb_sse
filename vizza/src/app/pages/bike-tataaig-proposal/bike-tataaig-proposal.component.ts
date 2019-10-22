@@ -92,6 +92,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     public bankValid: boolean;
     public finlist: any;
     public finArray: any;
+    public errorMsg: any;
+    public errorNonMsg: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -132,6 +134,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         //     // searchOnKey: 'city'
         // };
         this.bankValid = false;
+        this.errorMsg = false;
+        this.errorNonMsg = false;
         this.finArray=[];
 
         this.proposer = this.fb.group({
@@ -557,6 +561,27 @@ export class BikeTataaigProposalComponent implements OnInit {
         }
     }
 
+    electriError(){
+        if(this.vehicle.controls['elecAccessoriesSI'].value <= 15000 ){
+            this.errorMsg=false;
+            this.errorMsg='';
+        }else{
+
+            this.errorMsg=true;
+            this.errorMsg = 'Sum Insured should be less then or equal to 15000';
+        }
+    }
+    nonelectriError(){
+        if( this.vehicle.controls['nonElectricAcessSI'].value <= 15000){
+            this.errorNonMsg=false;
+            this.errorNonMsg='';
+        }else{
+
+            this.errorNonMsg=true;
+            this.errorNonMsg = 'Sum Insured should be less then or equal to 15000';
+        }
+    }
+
 
     //Proposer GenderList
     getGenderlist() {
@@ -939,7 +964,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikevehicle = '';
         sessionStorage.tatabikevehicle = JSON.stringify(value);
         if (this.vehicle.valid && this.errortoaster == true) {
-            if(this.vehicle.controls['elecAccessoriesAmount'].value <= 15000){
+            if(this.vehicle.controls['elecAccessoriesSI'].value <= 15000 && this.vehicle.controls['nonElectricAcessSI'].value <= 15000){
             console.log(value, 'vehicle');
             stepper.next();
             this.topScroll();

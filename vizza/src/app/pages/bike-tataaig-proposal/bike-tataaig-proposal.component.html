@@ -312,10 +312,12 @@
                               <mat-form-field class="w-100">
                                 <mat-placeholder>Electrical Accessories SI<span class="error" *ngIf="vehicle.controls['elecAccessories'].value == true">*</span></mat-placeholder>
                                 <!--<textarea matInput rows="2" formControlName="electriAccessSI" autocomplete="off" maxlength="5" (keypress)="electricReq()"></textarea>-->
-                                <input matInput   formControlName="elecAccessoriesSI"   maxlength="5" autocomplete="off" (change)="QuoteList()" (keypress)="numberValidate($event);electricReq()">
+                                <input matInput   formControlName="elecAccessoriesSI"   maxlength="5" autocomplete="off" (change)="QuoteList();electriError()" (keypress)="numberValidate($event);electricReq();electriError()">
 
                                 <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                               </mat-form-field>
+                              <div class="error" *ngIf="errorMsg !='' && errorMsg != true">{{errorMsg}}</div>
+
                             </div>
                             <div class="col-md-3" *ngIf="vehicle.controls['elecAccessoriesSI'].value">
                               <mat-form-field class="w-100">
@@ -333,10 +335,12 @@
                             <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                               <mat-form-field class="w-100">
                                 <mat-placeholder>Non Electrical Accessories SI<span class="error" *ngIf="vehicle.controls['nonElectricAcess'].value == true">*</span></mat-placeholder>
-                                <input matInput   formControlName="nonElectricAcessSI"   maxlength="5" autocomplete="off" (change)="QuoteList()" (keypress)="numberValidate($event);electricNonReq()">
+                                <input matInput   formControlName="nonElectricAcessSI"   maxlength="5" autocomplete="off" (change)="QuoteList();nonelectriError()" (keypress)="numberValidate($event);electricNonReq();nonelectriError()">
 
                                 <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                               </mat-form-field>
+                              <div class="error" *ngIf="errorNonMsg !='' && errorNonMsg != true">{{errorNonMsg}}</div>
+
                             </div>
                             <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcessSI'].value ">
                               <mat-form-field class="w-100">
@@ -346,6 +350,7 @@
 
                                 <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                               </mat-form-field>
+
                             </div>
 
 
