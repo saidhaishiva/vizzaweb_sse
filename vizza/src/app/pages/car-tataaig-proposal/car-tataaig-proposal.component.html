@@ -274,7 +274,7 @@
                           <mat-placeholder>Financier Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                           <mat-select  formControlName="bankName" (selectionChange)="changefinancecompany()" >
                             <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
-                              <mat-option *cdkVirtualFor="let finance of finlist | keys" value="{{finance.key}}">{{finance.value}}</mat-option>
+                              <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
                               <!--<mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>-->
                             </cdk-virtual-scroll-viewport>
                             <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
@@ -292,7 +292,7 @@
                       <!--<div class="col-md-12 mt-2" >-->
 
                           <div class="col-md-3 mt-1">
-                            <mat-checkbox formControlName="electriAccess" (change)="electricAccess();QuoteList()"><strong> Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                            <mat-checkbox formControlName="electriAccess" (change)="electricAccess()"><strong> Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
                           </div>
                         <div class="col-md-3" *ngIf="vehicle.controls['electriAccess'].value == true">
                             <mat-form-field class="w-100">
@@ -314,7 +314,7 @@
                         </div>
 
                         <div class="col-md-3 mt-1">
-                          <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess();QuoteList()"><strong> Non Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                          <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
                         </div>
                         <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                           <mat-form-field class="w-100">
@@ -748,7 +748,7 @@
               <div class="col-md-4">
                 <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buycarDetails.plan_name}}</span> </span></h4>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8 mt-3">
                 <ul class="summary-head">
                   <li><span>Insurer : </span><img src="{{webhost + '/' + buycarDetails.company_logo}}" class="img-thumbnail" style="width: 49px;" /> </li>
                   <li><span>Premium : </span><span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></li>

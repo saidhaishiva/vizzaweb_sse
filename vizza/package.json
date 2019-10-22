@@ -39,6 +39,7 @@
     "@angular/router": "^7.2.15",
     "@ng-bootstrap/ng-bootstrap": "^4.2.0",
     "@ng-select/ng-select": "3.2.0",
+    "@ng-select/ng-option-highlight": "0.0.4",
     "@ng-toolkit/universal": "^7.1.2",
     "@nguniversal/common": "0.0.0",
     "@nguniversal/express-engine": "0.0.0",

@@ -177,7 +177,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Policy Type"  formControlName="policyType"   (change)="policyList()"  required>
+                                                    <mat-select placeholder="Policy Type"  formControlName="policyType"   (selectionChange)="policyList()"  required>
                                                         <mat-option *ngFor="let vehiclebk of policyTypeList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="vehical.controls.policyType.errors?.required">Policy Type is required</mat-error>
@@ -252,7 +252,7 @@
                                         <div class="row" *ngIf="finance">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (change)="changehypothecation(); hypoName()" [required]="finance" >
+                                                    <mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (selectionChange)="changehypothecation(); hypoName()" [required]="finance" >
                                                         <mat-option *ngFor="let hypothecationTypebk of hypothecationTypeDetails | keys " value="{{hypothecationTypebk.key}}" > {{hypothecationTypebk.value}} </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
@@ -262,10 +262,9 @@
                                                     <mat-placeholder>Hypothecation Bank Name<span class="error" >*</span></mat-placeholder>
                                                     <mat-select  formControlName="hypothecationBankName" (selectionChange)="changefinancecompany()">
                                                         <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
+                                                            <mat-option *cdkVirtualFor="let bankList of getBankHypoDetails" [value]="bankList.id">{{bankList.bank_name}}</mat-option>
                                                             <!--<mat-option *cdkVirtualFor="let bankList of getBankHypoDetails" [value]="bankList.id">{{bankList.bank_name}}</mat-option>-->
-                                                            <mat-option *cdkVirtualFor="let bankList of getBankHypoDetails | keys" value="{{bankList.key}}">{{bankList.value}}</mat-option>
                                                         </cdk-virtual-scroll-viewport>
-                                                        <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="vehical.controls.hypothecationBankName.errors?.required">Hypothecation Bank Name is required</mat-error>-->
                                                 </mat-form-field>
@@ -407,7 +406,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Previous policy Type"  formControlName="previousPolicyType" (change)="policyDetail()"  required>
+                                                    <mat-select placeholder="Previous policy Type"  formControlName="previousPolicyType" (selectionChange)="policyDetail()"  required>
                                                         <mat-option *ngFor="let vehiclebk of policyTypeList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="previousInsure.controls.previousPolicyType.errors?.required">Previous policy Type is required</mat-error>
@@ -518,7 +517,7 @@
                             <div class="col-md-4">
                                 <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.plan_name}}/ IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyBikeDetails.Idv}}</span> </span></h4>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 mt-3">
                                 <ul class="summary-head">
                                     <li><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                                     <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.Comprehensive_premium}}</span></li>

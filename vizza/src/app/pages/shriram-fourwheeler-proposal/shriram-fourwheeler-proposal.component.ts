@@ -782,8 +782,8 @@ hypoName(){
   }
   public HBankSuccess(successData) {
     if (successData.IsSuccess) {
-      // this.getBankHypoDetails = successData.ResponseObject.bankdetails;
-      this.getBankHypoDetails = successData.ResponseObject;
+      this.getBankHypoDetails = successData.ResponseObject.bankdetails;
+      // this.getBankHypoDetails = successData.ResponseObject;
       console.log(this.getBankHypoDetails,'cityDetails......');
       //
     }
