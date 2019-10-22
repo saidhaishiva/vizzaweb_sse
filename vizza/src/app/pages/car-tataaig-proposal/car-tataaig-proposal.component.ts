@@ -679,7 +679,7 @@ export class CarTataaigProposalComponent implements OnInit {
 
   public financesuccess(successData) {
     if (successData.IsSuccess == true) {
-      this.errortoaster = true;
+      // this.errortoaster = true;
       // this.banklist = successData.ResponseObject;
       this.finlist = successData.ResponseObject.financerdetails;
       console.log(this.finlist,'finlist');
@@ -687,7 +687,7 @@ export class CarTataaigProposalComponent implements OnInit {
       // console.log(this.photosBuffer,'photos');
       this.financierListname();
     }else{
-      this.errortoaster = false;
+      // this.errortoaster = false;
       this.toastr.error(successData.ErrorObject);
     }
   }
@@ -874,7 +874,7 @@ export class CarTataaigProposalComponent implements OnInit {
   vehicleDetails(stepper: MatStepper, value) {
     sessionStorage.tatacarvehicle = '';
     sessionStorage.tatacarvehicle = JSON.stringify(value);
-    if (this.vehicle.valid && this.errortoaster == true) {
+    if (this.vehicle.valid ) {
       if(this.vehicle.controls['electriAccessSI'].value <= 50000 && this.vehicle.controls['nonElectricAcessSI'].value <= 50000){
       console.log(value, 'vehicle');
       stepper.next();
@@ -884,7 +884,7 @@ export class CarTataaigProposalComponent implements OnInit {
       }
     }
     else {
-      this.toastr.error('Please Select the Valid Bank Name');
+      this.toastr.error('Please Fill All The Mandtory Fields');
     }
   }
 

@@ -125,7 +125,7 @@ export class FourWheelerService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/manufactureDescList';
+    const url = this.configurationService.getFourwheelerInsurance() + 'common/manufactureDescList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -136,7 +136,7 @@ export class FourWheelerService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/modelDescList';
+    const url = this.configurationService.getFourwheelerInsurance() + 'common/modelDescList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -147,7 +147,7 @@ export class FourWheelerService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/variantList';
+    const url = this.configurationService.getFourwheelerInsurance() + 'common/variantList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -158,7 +158,7 @@ export class FourWheelerService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/ccList';
+    const url = this.configurationService.getFourwheelerInsurance() + 'common/ccList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);

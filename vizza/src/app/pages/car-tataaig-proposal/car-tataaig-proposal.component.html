@@ -818,21 +818,34 @@
                       <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE TYPE:</strong><span *ngIf="vehicle.controls['Financetype']">Yes</span></li>
                       <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE NAME:</strong> {{photos}} </li>
                       <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.elecAccessories != '' && vehicalFormData.elecAccessories == true"><strong>Electrical Accessories:</strong><span *ngIf="vehicalFormData.elecAccessories == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.elecAccessoriesSI != '' && vehicalFormData.elecAccessories == true "><strong>Electrical Accessories SI:</strong>{{vehicalFormData.elecAccessoriesSI}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.elecAccessoriesAmount != '' && vehicalFormData.elecAccessoriesSI != '' "><strong>Amount:</strong>{{vehicalFormData.elecAccessoriesAmount}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.nonElectricAcess != '' && vehicalFormData.nonElectricAcess == true"><strong>Non Electrical Accessories:</strong><span *ngIf="vehicalFormData.nonElectricAcess == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.nonElectricAcessSI != '' && vehicalFormData.nonElectricAcess == true "><strong>Non Electrical Accessories SI:</strong>{{vehicalFormData.nonElectricAcessSI}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.nonElectricAcessSIAmount != '' && vehicalFormData.nonElectricAcessSI != '' "><strong>Amount:</strong>{{vehicalFormData.nonElectricAcessSIAmount}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.autoAsso != '' && vehicalFormData.autoAsso == true"><strong>AutoMobile Association Member:</strong><span *ngIf="vehicalFormData.autoAsso == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.autoAssoAmount != ''  "><strong>Amount:</strong>{{vehicalFormData.autoAssoAmount}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.antitheft != '' && vehicalFormData.antitheft == true"><strong>Antitheft:</strong><span *ngIf="vehicalFormData.antitheft == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.antitheftAmount != ''  "><strong>Amount:</strong>{{vehicalFormData.antitheftAmount}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.tppdRes != '' && vehicalFormData.tppdRes == true"><strong>TPPD Restricted:</strong><span *ngIf="vehicalFormData.tppdRes == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.tppdResAmount != '' "><strong>Amount:</strong>{{vehicalFormData.tppdResAmount}} </li>
                       <li class="list-group-item" *ngIf="vehicalFormData.package != ''"><strong> Package: </strong> {{vehicalFormData.packagevalue}} </li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Depreciation != '' && vehicalFormData.Depreciation == true"><strong> Depreciation Reimbursement </strong><span *ngIf="vehicalFormData.Depreciation == true">Yes</span></li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Depreciation != '' && vehicalFormData.Depreciation == true"><strong> Depreciation Reimbursement Amount </strong>{{vehicalFormData.DepreciationAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Invoice != '' && vehicalFormData.Invoice == true"><strong> Return to Invoice </strong><span *ngIf="vehicalFormData.Invoice == true">Yes</span></li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Invoice != '' && vehicalFormData.Invoice == true"><strong> Return to Invoice Amount </strong>{{vehicalFormData.invoiceAmount}}</li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.personaloss != '' && vehicalFormData.personaloss == true"><strong> Loss of Personal belongings(IDV) </strong><span *ngIf="vehicalFormData.personaloss == true">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.personaloss != '' && vehicalFormData.personaloss == true"><strong>  Loss of Personal belongings(IDV)t Amount </strong>{{vehicalFormData.personalossAmount}}</li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.transport != '' && vehicalFormData.transport == true"><strong> Emergency transport and Hotel expences(IDV) </strong><span *ngIf="vehicalFormData.transport == true">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.transport != '' && vehicalFormData.transport == true"><strong> Emergency transport and Hotel expences(IDV) Amount </strong>{{vehicalFormData.transportAmount}}</li>
+
                     </ul>
                   </div>
                 </div>
               <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="vehicalFormData.personaloss != '' && vehicalFormData.personaloss == true"><strong> Loss of Personal belongings(IDV) </strong><span *ngIf="vehicalFormData.personaloss == true">Yes</span></li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.personaloss != '' && vehicalFormData.personaloss == true"><strong>  Loss of Personal belongings(IDV)t Amount </strong>{{vehicalFormData.personalossAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.transport != '' && vehicalFormData.transport == true"><strong> Emergency transport and Hotel expences(IDV) </strong><span *ngIf="vehicalFormData.transport == true">Yes</span></li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.transport != '' && vehicalFormData.transport == true"><strong> Emergency transport and Hotel expences(IDV) Amount </strong>{{vehicalFormData.transportAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.keyReplacement != '' && vehicalFormData.keyReplacement == true"><strong> Key Replacement </strong><span *ngIf="vehicalFormData.keyReplacement == true">Yes</span></li>
                     <li class="list-group-item" *ngIf="vehicalFormData.keyReplacement != '' && vehicalFormData.keyReplacement == true"><strong> Key Replacement Amount </strong>{{vehicalFormData.keyReplacementAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Enginesecure != '' && vehicalFormData.Enginesecure == true"><strong> Engine Secure </strong><span *ngIf="vehicalFormData.Enginesecure == true">Yes</span></li>

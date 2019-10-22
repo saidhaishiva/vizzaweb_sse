@@ -963,7 +963,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     vehicleDetails(stepper: MatStepper, value) {
         sessionStorage.tatabikevehicle = '';
         sessionStorage.tatabikevehicle = JSON.stringify(value);
-        if (this.vehicle.valid && this.errortoaster == true) {
+        if (this.vehicle.valid ) {
             if(this.vehicle.controls['elecAccessoriesSI'].value <= 15000 && this.vehicle.controls['nonElectricAcessSI'].value <= 15000){
             console.log(value, 'vehicle');
             stepper.next();
@@ -973,7 +973,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             }
         }
         else {
-            this.toastr.error('Please Select the Valid Bank Name');
+            this.toastr.error('Please Fill All The Mandatory Fields');
         }
     }
 
