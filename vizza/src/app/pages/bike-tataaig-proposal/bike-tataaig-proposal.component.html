@@ -746,7 +746,7 @@
                         <li class="list-group-item"><strong>Chassis Number:</strong> {{vehicalFormData.chassis}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>Financier Type:</strong> {{vehicalFormData.banktype}} </li>
                         <!--<li *ngFor="let list of finArray"><strong>Financier Name:</strong> {{list.name}}</li>-->
-                        <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>Financier Name:</strong> {{vehicalFormData.bankNamevalue}} </li>
+                        <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>Financier Name:</strong> {{photos}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>Address:</strong> {{vehicalFormData.Address}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['coverdrivevalue'].value == 'None'"><strong>PACover for OwnerDriver:</strong> Yes </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['coverdrivevalue'].value != 'None'"><strong>PACover for OwnerDriver:</strong> {{vehicalFormData.coverdrivevalue}} </li>

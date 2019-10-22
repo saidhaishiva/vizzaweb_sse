@@ -267,7 +267,7 @@
                                             <div class="col-md-3 "  >
                                                 <mat-form-field class="w-100"  *ngIf="vehical.controls['isFinanced'].value == true">
                                                     <mat-placeholder>Hypothecation Bank Name<span class="error" >*</span></mat-placeholder>
-                                                    <mat-select  formControlName="hypothecationBankName" (selectionChange)="changefinancecompany()">
+                                                    <mat-select  formControlName="hypothecationBankName" (selectionChange)="hypothecationBankListName()">
                                                         <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
                                                             <!--<mat-option *cdkVirtualFor="let bankList of getBankHypoDetails | keys" value="{{bankList.key}}">{{bankList.value}}</mat-option>-->
                                                             <mat-option *cdkVirtualFor="let bankList of getBankHypoDetails" [value]="bankList.id">{{bankList.bank_name}}</mat-option>

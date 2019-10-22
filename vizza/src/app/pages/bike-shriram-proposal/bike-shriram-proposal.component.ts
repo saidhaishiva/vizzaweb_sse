@@ -102,6 +102,7 @@ export class BikeShriramProposalComponent implements OnInit {
     public premiumAmount : any;
     public packagelist : any;
     public config:any;
+    public photos:any;
 
 
   public genderList: boolean;
@@ -571,11 +572,45 @@ export class BikeShriramProposalComponent implements OnInit {
             this.getBankHypoDetails = successData.ResponseObject.bankdetails;
             console.log(this.getBankHypoDetails,'cityDetails......');
             //
+            this.hypothecationBankListName()
         }
     }
     public HBankFailure(error) {
     }
 
+    hypothecationBankListName() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'financial_code':this.vehical.controls['hypothecationBankName'].value
+        }
+        this.bikeInsurance.getHypoBankName(data).subscribe(
+            (successData) => {
+                this.financierNamesuccess(successData);
+            },
+            (error) => {
+                this.financierNameFailure(error);
+            }
+        );
+    }
+
+    public financierNamesuccess(successData) {
+        if (successData.IsSuccess == true) {
+            // this.errortoaster = true;
+
+            this.photos = successData.ResponseObject;
+            console.log(this.photos,'photos');
+
+        }
+        // else {
+        //     this.errortoaster = false;
+        //     this.toastr.error(successData.ErrorObject);
+        // }
+    }
+
+    public financierNameFailure(error) {
+    }
 // hypo type
     changehypothecationType() {
         const data = {

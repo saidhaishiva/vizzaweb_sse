@@ -75,6 +75,17 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  getHypoBankName(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'common/get_hypothecation_bank_name';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   getCompanyDetails(data) {
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
