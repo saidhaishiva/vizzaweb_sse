@@ -107,6 +107,17 @@ export class BikeInsuranceService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  getHypoBankName(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'common/get_hypothecation_bank_name';
+    return this.http.post(url, json,httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   getHypothecationType(data) {
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -235,7 +246,7 @@ export class BikeInsuranceService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getBikeInsurance() + 'shriram/manufactureDescList';
+    const url = this.configurationService.getBikeInsurance() + 'common/manufactureDescList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -246,7 +257,7 @@ export class BikeInsuranceService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getBikeInsurance() + 'shriram/modelDescList';
+    const url = this.configurationService.getBikeInsurance() + 'common/modelDescList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -257,7 +268,7 @@ export class BikeInsuranceService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getBikeInsurance() + 'shriram/variantList';
+    const url = this.configurationService.getBikeInsurance() + 'common/variantList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -268,7 +279,7 @@ export class BikeInsuranceService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getBikeInsurance() + 'shriram/ccList';
+    const url = this.configurationService.getBikeInsurance() + 'common/ccList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -803,6 +814,16 @@ export class BikeInsuranceService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  tataFinancierName(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'tata/financialname';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
 
   //TAtaaig Coverdrivelist
 
@@ -900,6 +921,17 @@ export class BikeInsuranceService {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
     const url = this.configurationService.getBikeInsurance() + 'hdfc/financierLists';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+  hdfcFinancierName(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'hdfc/financiername';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);

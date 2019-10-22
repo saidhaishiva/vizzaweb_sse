@@ -92,6 +92,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     public bankValid: boolean;
     public finlist: any;
     public finArray: any;
+    public errorMsg: any;
+    public errorNonMsg: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -132,6 +134,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         //     // searchOnKey: 'city'
         // };
         this.bankValid = false;
+        this.errorMsg = false;
+        this.errorNonMsg = false;
         this.finArray=[];
 
         this.proposer = this.fb.group({
@@ -481,15 +485,15 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     electriAccess() {
         if (this.vehicle.controls['elecAccessories'].value == true) {
-            this.vehicle.controls['elecAccessories'].patchValue(this.vehicle.controls['elecAccessories'].value),
-            this.vehicle.controls['elecAccessoriesAmount'].setValidators([Validators.required]);
+            this.vehicle.controls['elecAccessoriesSI'].patchValue(this.vehicle.controls['elecAccessoriesSI'].value),
+            this.vehicle.controls['elecAccessoriesSI'].setValidators([Validators.required]);
 
         } else {
-            this.vehicle.controls['elecAccessoriesAmount'].patchValue(''),
-            this.vehicle.controls['elecAccessoriesAmount'].clearValidators();
+            this.vehicle.controls['elecAccessoriesSI'].patchValue(''),
+            this.vehicle.controls['elecAccessoriesSI'].clearValidators();
 
         }
-        this.vehicle.controls['elecAccessoriesAmount'].updateValueAndValidity();
+        this.vehicle.controls['elecAccessoriesSI'].updateValueAndValidity();
     }
     electricReq() {
         if (this.vehicle.controls['elecAccessoriesSI'].value ) {
@@ -554,6 +558,27 @@ export class BikeTataaigProposalComponent implements OnInit {
         else if(this.proposer.controls['proposerTitle'].value == 'Mrs.' || this.proposer.controls['proposerTitle'].value == 'Miss.' ) {
             this.proposer.controls['proposerGender'].patchValue('FEMALE');
             this.proposer.controls['driveGender'].patchValue('FEMALE')
+        }
+    }
+
+    electriError(){
+        if(this.vehicle.controls['elecAccessoriesSI'].value <= 15000 ){
+            this.errorMsg=false;
+            this.errorMsg='';
+        }else{
+
+            this.errorMsg=true;
+            this.errorMsg = 'Sum Insured should be less then or equal to 15000';
+        }
+    }
+    nonelectriError(){
+        if( this.vehicle.controls['nonElectricAcessSI'].value <= 15000){
+            this.errorNonMsg=false;
+            this.errorNonMsg='';
+        }else{
+
+            this.errorNonMsg=true;
+            this.errorNonMsg = 'Sum Insured should be less then or equal to 15000';
         }
     }
 
@@ -705,6 +730,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             console.log(this.finlist,'finlist');
             // this.photosBuffer = this.photos.slice(0, this.bufferSize);
             // console.log(this.photosBuffer,'photos');
+            this.financierListname();
         }
         else{
            this.errortoaster = false;
@@ -713,6 +739,40 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     public failureSuccess(error) {
+    }
+
+    financierListname() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'financial_code':this.vehicle.controls['bankName'].value
+        }
+        this.bikeinsurance.tataFinancierName(data).subscribe(
+            (successData) => {
+                this.financierNamesuccess(successData);
+            },
+            (error) => {
+                this.financierNameFailure(error);
+            }
+        );
+    }
+
+    public financierNamesuccess(successData) {
+        if (successData.IsSuccess == true) {
+            // this.errortoaster = true;
+
+            this.photos = successData.ResponseObject;
+            console.log(this.photos,'photos');
+
+        }
+        // else {
+        //     this.errortoaster = false;
+        //     this.toastr.error(successData.ErrorObject);
+        // }
+    }
+
+    public financierNameFailure(error) {
     }
     // financiertype() {
     //     // console.log(event.length, 'length');
@@ -903,8 +963,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     vehicleDetails(stepper: MatStepper, value) {
         sessionStorage.tatabikevehicle = '';
         sessionStorage.tatabikevehicle = JSON.stringify(value);
-        if (this.vehicle.valid && this.errortoaster == true) {
-            if(this.vehicle.controls['elecAccessoriesAmount'].value <= 15000){
+        if (this.vehicle.valid ) {
+            if(this.vehicle.controls['elecAccessoriesSI'].value <= 15000 && this.vehicle.controls['nonElectricAcessSI'].value <= 15000){
             console.log(value, 'vehicle');
             stepper.next();
             this.topScroll();
@@ -913,7 +973,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             }
         }
         else {
-            this.toastr.error('Please Select the Valid Bank Name');
+            this.toastr.error('Please Fill All The Mandatory Fields');
         }
     }
 

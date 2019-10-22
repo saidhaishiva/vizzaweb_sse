@@ -1079,7 +1079,7 @@
                         <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                         </div>
                         <div class="col-sm-12 col-xs-12 col-md-12">
-                          <mat-checkbox formControlName="sameas" (selectionChange)="sameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox>
+                          <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox>
                         </div>
                       </div>
                       <div class="row">
@@ -1160,7 +1160,7 @@
                       <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3">
                         <!--<h6 class="color-blue"> {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h6>-->
                         <div class="mt-3" *ngIf="i == 0 && buyProductdetails.product_name != 'Care Freedom' && genderStatus == false">
-                          <mat-checkbox formControlName="sameAsProposer" (selectionChange)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
+                          <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                         </div>
                         <div class="row">
                           <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="genderStatus == false">

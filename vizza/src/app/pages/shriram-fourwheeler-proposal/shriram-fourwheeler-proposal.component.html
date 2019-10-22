@@ -260,7 +260,7 @@
                                             <div class="col-md-3 "  >
                                                 <mat-form-field class="w-100"  *ngIf="vehical.controls['isFinanced'].value == true">
                                                     <mat-placeholder>Hypothecation Bank Name<span class="error" >*</span></mat-placeholder>
-                                                    <mat-select  formControlName="hypothecationBankName" (selectionChange)="changefinancecompany()">
+                                                    <mat-select  formControlName="hypothecationBankName" (selectionChange)="hypothecationBankListName()">
                                                         <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
                                                             <mat-option *cdkVirtualFor="let bankList of getBankHypoDetails" [value]="bankList.id">{{bankList.bank_name}}</mat-option>
                                                             <!--<mat-option *cdkVirtualFor="let bankList of getBankHypoDetails" [value]="bankList.id">{{bankList.bank_name}}</mat-option>-->
@@ -594,7 +594,7 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamed != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.paforUnnamed == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Is Vehicle Financed:</strong> <span *ngIf="vehicalFormData.isFinanced == true">Yes</span></li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationTypeName}}</li>
-                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankName != ''"><strong>Hypothecation Bank Name:</strong> {{vehicalFormData.hypothecationBankNamevalue}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankName != ''"><strong>Hypothecation Bank Name:</strong> {{photos}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.CNGKit != ''" ><strong>CNGKit:</strong> <span *ngIf="vehicalFormData.CNGKit == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.geographicalArea != ''" ><strong>Geographical Area:</strong> <span *ngIf="vehicalFormData.geographicalArea == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.Bangladesh != ''" ><strong>Bangladesh:</strong> <span *ngIf="vehicalFormData.Bangladesh == true">Yes</span></li>

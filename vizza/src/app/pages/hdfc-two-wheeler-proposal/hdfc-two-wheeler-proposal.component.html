@@ -382,7 +382,7 @@
                         <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >
                             <mat-form-field class="w-100" >
                                 <mat-placeholder>Financier Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                                <mat-select  formControlName="financiercode"  (selectionChange)="changefinancecompany()">
+                                <mat-select  formControlName="financiercode"  (selectionChange)="financierListname()">
                                     <cdk-virtual-scroll-viewport [itemSize]="70" [style.height.px]=5*40>
                                         <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
                                     </cdk-virtual-scroll-viewport>
@@ -727,7 +727,7 @@
               <section class="summary-details" *ngIf="summaryData">
                   <div class="row">
                       <div class="col-md-4">
-                          <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large">{{vehicleidv.plan_name}}</span> </span></h4>                      </div>
+                          <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large">{{vehicleidv.plan_name}}</span> </span></h4> </div>
                       <div class="col-md-8 p-3">
                           <ul class="summary-head">
                               <li><span>IDV : </span><span><i class="fas fa-rupee-sign"></i>{{vehicleidv.Idv}}</span></li>
@@ -821,7 +821,7 @@
                                       <li class="list-group-item"><strong>Vehicle Regsitration Date:</strong> {{vehicalFormData.Vehicleregdate | date: 'dd/MM/yyyy'}} </li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.regno !=''"><strong>Registered No:</strong> {{vehicalFormData.regno}} </li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.Agreement !=''"><strong>Agreement Type:</strong> {{vehicalFormData.Agreement}} </li>
-                                      <li class="list-group-item" *ngIf="vehicalFormData.financiercodevalue !=''"><strong>Financier Name:</strong> {{vehicalFormData.financiercodevalue}} </li>
+                                      <li class="list-group-item" *ngIf="vehicalFormData.financiercodevalue !=''"><strong>Financier Name:</strong> {{photos}} </li>
                                       <li class="list-group-item" *ngIf="vehicalFormData.fibranchname !=''"><strong>Branch Name:</strong> {{vehicalFormData.fibranchname}} </li>
                                   </ul>
                               </div>

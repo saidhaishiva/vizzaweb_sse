@@ -93,6 +93,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public siValue : any;
   public config : any;
   public getBankHypoDetails: any;
+  public photos: any;
   // public policyDatevalidate : any;
   public currentStep : any;
   public mobileNumber : any;
@@ -791,6 +792,39 @@ hypoName(){
   public HBankFailure(error) {
   }
 
+  hypothecationBankListName() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'bank_id':this.vehical.controls['hypothecationBankName'].value
+    }
+    this.fwService.getHypoBankName(data).subscribe(
+        (successData) => {
+          this.financierNamesuccess(successData);
+        },
+        (error) => {
+          this.financierNameFailure(error);
+        }
+    );
+  }
+
+  public financierNamesuccess(successData) {
+    if (successData.IsSuccess == true) {
+      // this.errortoaster = true;
+
+      this.photos = successData.ResponseObject.bank_name;
+      console.log(this.photos,'photos');
+
+    }
+    // else {
+    //     this.errortoaster = false;
+    //     this.toastr.error(successData.ErrorObject);
+    // }
+  }
+
+  public financierNameFailure(error) {
+  }
 
   // from date
   addEventPrevious(event) {

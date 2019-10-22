@@ -272,7 +272,7 @@
                       <div class="col-md-3 mt-3" *ngIf="vehicle.controls['Financetype'].value == true" >
                         <mat-form-field class="w-100" >
                           <mat-placeholder>Financier Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                          <mat-select  formControlName="bankName" (selectionChange)="changefinancecompany()" >
+                          <mat-select  formControlName="bankName" (selectionChange)="financierListname()" >
                             <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
                               <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
                               <!--<mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>-->
@@ -291,19 +291,20 @@
                       </div>
                       <!--<div class="col-md-12 mt-2" >-->
 
-                          <div class="col-md-3 mt-1">
+                          <div class="col-md-4 mt-1">
                             <mat-checkbox formControlName="electriAccess" (change)="electricAccess()"><strong> Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
                           </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['electriAccess'].value == true">
+                        <div class="col-md-4" *ngIf="vehicle.controls['electriAccess'].value == true">
                             <mat-form-field class="w-100">
                               <mat-placeholder>Electrical Accessories SI<span class="error" *ngIf="vehicle.controls['electriAccess'].value == true">*</span></mat-placeholder>
                               <!--<textarea matInput rows="2" formControlName="electriAccessSI" autocomplete="off" maxlength="5" (keypress)="electricReq()"></textarea>-->
-                              <input matInput   formControlName="electriAccessSI"   maxlength="5" autocomplete="off" (change)="QuoteList()" (keypress)="numberValidate($event);electricReq()">
+                              <input matInput   formControlName="electriAccessSI"   maxlength="5" autocomplete="off" (change)="QuoteList();electriError()" (keypress)="numberValidate($event);electricReq();electriError()">
 
                               <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                             </mat-form-field>
+                          <div class="error" *ngIf="errorMsg !='' && errorMsg != true">{{errorMsg}}</div>
                           </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['electriAccessSI'].value">
+                        <div class="col-md-4" *ngIf="vehicle.controls['electriAccessSI'].value">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['electriAccess'].value">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="electriAccessSIAmount" autocomplete="off"  readonly></textarea>-->
@@ -313,18 +314,19 @@
                           </mat-form-field>
                         </div>
 
-                        <div class="col-md-3 mt-1">
+                        <div class="col-md-4 mt-1">
                           <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
                         </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
+                        <div class="col-md-4" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Non Electrical Accessories SI<span class="error" *ngIf="vehicle.controls['nonElectricAcess'].value == true">*</span></mat-placeholder>
-                            <input matInput   formControlName="nonElectricAcessSI"   maxlength="5" autocomplete="off" (change)="QuoteList()" (keypress)="numberValidate($event);electricNonReq()">
+                            <input matInput   formControlName="nonElectricAcessSI"   maxlength="5" autocomplete="off" (change)="QuoteList();nonelectriError()" (keypress)="numberValidate($event);electricNonReq();nonelectriError()">
 
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
+                          <div class="error" *ngIf="errorNonMsg !='' && errorNonMsg != true">{{errorNonMsg}}</div>
                         </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcessSI'].value ">
+                        <div class="col-md-4" *ngIf="vehicle.controls['nonElectricAcessSI'].value ">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['nonElectricAcessSI'].value ">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="nonElectricAcessSIAmount" autocomplete="off" readonly></textarea>-->
@@ -333,10 +335,10 @@
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3 mt-1">
+                        <div class="col-md-4 mt-1">
                           <mat-checkbox formControlName="autoAsso" (change)="autoAssoReq();QuoteList()"><strong> Automobile_Association_Membership<span class="error">*</span></strong></mat-checkbox>
                         </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['autoAsso'].value == true">
+                        <div class="col-md-4" *ngIf="vehicle.controls['autoAsso'].value == true">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['autoAsso'].value == true">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="autoAssoAmount" autocomplete="off"  readonly></textarea>-->
@@ -345,10 +347,10 @@
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3 mt-1">
+                        <div class="col-md-4 mt-1">
                           <mat-checkbox formControlName="antitheft" (change)="antitheftReq();QuoteList()"><strong> Antitheft <span class="error">*</span></strong></mat-checkbox>
                         </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['antitheft'].value">
+                        <div class="col-md-4" *ngIf="vehicle.controls['antitheft'].value">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['antitheft'].value == true">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="antitheftAmount" autocomplete="off"  readonly></textarea>-->
@@ -814,36 +816,51 @@
                       <li class="list-group-item"><strong>Engine Number:</strong> {{vehicalFormData.engine}} </li>
                       <li class="list-group-item"><strong>Chassis Number:</strong> {{vehicalFormData.chassis}} </li>
                       <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE TYPE:</strong><span *ngIf="vehicle.controls['Financetype']">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE NAME:</strong> {{vehicalFormData.bankNamevalue}} </li>
+                      <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE NAME:</strong> {{photos}} </li>
                       <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.elecAccessories != '' && vehicalFormData.elecAccessories == true"><strong>Electrical Accessories:</strong><span *ngIf="vehicalFormData.elecAccessories == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.elecAccessoriesSI != '' && vehicalFormData.elecAccessories == true "><strong>Electrical Accessories SI:</strong>{{vehicalFormData.elecAccessoriesSI}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.elecAccessoriesAmount != '' && vehicalFormData.elecAccessoriesSI != '' "><strong>Amount:</strong>{{vehicalFormData.elecAccessoriesAmount}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.nonElectricAcess != '' && vehicalFormData.nonElectricAcess == true"><strong>Non Electrical Accessories:</strong><span *ngIf="vehicalFormData.nonElectricAcess == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.nonElectricAcessSI != '' && vehicalFormData.nonElectricAcess == true "><strong>Non Electrical Accessories SI:</strong>{{vehicalFormData.nonElectricAcessSI}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.nonElectricAcessSIAmount != '' && vehicalFormData.nonElectricAcessSI != '' "><strong>Amount:</strong>{{vehicalFormData.nonElectricAcessSIAmount}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.autoAsso != '' && vehicalFormData.autoAsso == true"><strong>AutoMobile Association Member:</strong><span *ngIf="vehicalFormData.autoAsso == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.autoAssoAmount != ''  "><strong>Amount:</strong>{{vehicalFormData.autoAssoAmount}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.antitheft != '' && vehicalFormData.antitheft == true"><strong>Antitheft:</strong><span *ngIf="vehicalFormData.antitheft == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.antitheftAmount != ''  "><strong>Amount:</strong>{{vehicalFormData.antitheftAmount}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.tppdRes != '' && vehicalFormData.tppdRes == true"><strong>TPPD Restricted:</strong><span *ngIf="vehicalFormData.tppdRes == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.tppdResAmount != '' "><strong>Amount:</strong>{{vehicalFormData.tppdResAmount}} </li>
                       <li class="list-group-item" *ngIf="vehicalFormData.package != ''"><strong> Package: </strong> {{vehicalFormData.packagevalue}} </li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Depreciation != '' && vehicalFormData.Depreciation == true"><strong> Depreciation Reimbursement </strong><span *ngIf="vehicalFormData.Depreciation == true">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.DepreciationAmount != '' || vehicalFormData.DepreciationAmount != undefined"><strong> Depreciation Reimbursement Amount </strong>{{vehicalFormData.DepreciationAmount}}</li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Depreciation != '' && vehicalFormData.Depreciation == true"><strong> Depreciation Reimbursement Amount </strong>{{vehicalFormData.DepreciationAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Invoice != '' && vehicalFormData.Invoice == true"><strong> Return to Invoice </strong><span *ngIf="vehicalFormData.Invoice == true">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.invoiceAmount != '' || vehicalFormData.invoiceAmount != undefined"><strong> Return to Invoice Amount </strong>{{vehicalFormData.invoiceAmount}}</li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.personaloss != '' && vehicalFormData.personaloss == true"><strong> Loss of Personal belongings(IDV) </strong><span *ngIf="vehicalFormData.personaloss == true">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.personalossAmount != '' || vehicalFormData.personalossAmount != undefined "><strong>  Loss of Personal belongings(IDV)t Amount </strong>{{vehicalFormData.personalossAmount}}</li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.transport != '' && vehicalFormData.transport == true"><strong> Emergency transport and Hotel expences(IDV) </strong><span *ngIf="vehicalFormData.transport == true">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.transportAmount != '' || vehicalFormData.transportAmount != undefined"><strong> Emergency transport and Hotel expences(IDV) Amount </strong>{{vehicalFormData.transportAmount}}</li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Invoice != '' && vehicalFormData.Invoice == true"><strong> Return to Invoice Amount </strong>{{vehicalFormData.invoiceAmount}}</li>
+
                     </ul>
                   </div>
                 </div>
               <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="vehicalFormData.personaloss != '' && vehicalFormData.personaloss == true"><strong> Loss of Personal belongings(IDV) </strong><span *ngIf="vehicalFormData.personaloss == true">Yes</span></li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.personaloss != '' && vehicalFormData.personaloss == true"><strong>  Loss of Personal belongings(IDV)t Amount </strong>{{vehicalFormData.personalossAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.transport != '' && vehicalFormData.transport == true"><strong> Emergency transport and Hotel expences(IDV) </strong><span *ngIf="vehicalFormData.transport == true">Yes</span></li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.transport != '' && vehicalFormData.transport == true"><strong> Emergency transport and Hotel expences(IDV) Amount </strong>{{vehicalFormData.transportAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.keyReplacement != '' && vehicalFormData.keyReplacement == true"><strong> Key Replacement </strong><span *ngIf="vehicalFormData.keyReplacement == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.keyReplacementAmount != '' || vehicalFormData.keyReplacementAmount != undefined "><strong> Key Replacement Amount </strong>{{vehicalFormData.keyReplacementAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.keyReplacement != '' && vehicalFormData.keyReplacement == true"><strong> Key Replacement Amount </strong>{{vehicalFormData.keyReplacementAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Enginesecure != '' && vehicalFormData.Enginesecure == true"><strong> Engine Secure </strong><span *ngIf="vehicalFormData.Enginesecure == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.enginesecureAmount != '' || vehicalFormData.enginesecureAmount != undefined"><strong> Engine Secure Amount </strong>{{vehicalFormData.enginesecureAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.Enginesecure != '' && vehicalFormData.Enginesecure == true"><strong> Engine Secure Amount </strong>{{vehicalFormData.enginesecureAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpence != '' && vehicalFormData.Consumableexpence == true"><strong> Consumable Expences </strong><span *ngIf="vehicalFormData.Consumableexpence == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.consexpenceAmount != '' || vehicalFormData.consexpenceAmount != undefined"><strong> Consumable Expences Amount </strong>{{vehicalFormData.consexpenceAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpence != '' && vehicalFormData.Consumableexpence == true"><strong> Consumable Expences Amount </strong>{{vehicalFormData.consexpenceAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Repairofglass != '' && vehicalFormData.Repairofglass == true"><strong> Repair of glass, plastic fibre and rubber glass </strong><span *ngIf="vehicalFormData.Repairofglass == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.RepairglassAmount != '' || vehicalFormData.RepairglassAmount != undefined "><strong> Repair of glass, plastic fibre and rubber glass Amount </strong>{{vehicalFormData.RepairglassAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.Repairofglass != '' && vehicalFormData.Repairofglass == true"><strong> Repair of glass, plastic fibre and rubber glass Amount </strong>{{vehicalFormData.RepairglassAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Tyresecure != '' && vehicalFormData.Tyresecure == true"><strong> Tyre Secure </strong><span *ngIf="vehicalFormData.Tyresecure == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.tyresecureAmount != '' || vehicalFormData.tyresecureAmount != undefined "><strong> Tyre Secure Amount </strong>{{vehicalFormData.tyresecureAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.Tyresecure != '' && vehicalFormData.Tyresecure == true"><strong> Tyre Secure Amount </strong>{{vehicalFormData.tyresecureAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.protectioncover != '' && vehicalFormData.protectioncover == true"><strong> NCB protection cover </strong><span *ngIf="vehicalFormData.protectioncover == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.protectioncover != '' && vehicalFormData.protectioncover == true"><strong> NCB protection cover Amount</strong>{{vehicalFormData.protectioncoverAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Roadside != '' && vehicalFormData.Roadside == true"><strong> Roadside Assistance </strong><span *ngIf="vehicalFormData.Roadside == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.roadsideAmount != '' || vehicalFormData.roadsideAmount != undefined "><strong> Roadside Assistance Amount </strong>{{vehicalFormData.roadsideAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.Roadside != '' && vehicalFormData.Roadside == true"><strong> Roadside Assistance Amount </strong>{{vehicalFormData.roadsideAmount}}</li>
+                    <!--<li class="list-group-item" *ngIf="vehicalFormData.roadsideAmount != '' || vehicalFormData.roadsideAmount != undefined "><strong> Roadside Assistance Amount </strong>{{vehicalFormData.roadsideAmount}}</li>-->
                     </ul>
                   </div>
                 </div>

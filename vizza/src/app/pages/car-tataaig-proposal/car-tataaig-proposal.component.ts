@@ -98,6 +98,8 @@ export class CarTataaigProposalComponent implements OnInit {
   public config: any;
   public errortoaster: boolean;
   public bankValid: boolean;
+  public errorMsg: any;
+  public errorNonMsg: any;
   public finlist: any;
   photos = [];
   photosBuffer = [];
@@ -135,6 +137,8 @@ export class CarTataaigProposalComponent implements OnInit {
     this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
     this.maxdate = this.minDate;
     this.bankValid = false;
+    this.errorMsg = false;
+    this.errorNonMsg = false;
     this.config = {
       displayKey: "bankName",
       search: true,
@@ -675,19 +679,54 @@ export class CarTataaigProposalComponent implements OnInit {
 
   public financesuccess(successData) {
     if (successData.IsSuccess == true) {
-      this.errortoaster = true;
+      // this.errortoaster = true;
       // this.banklist = successData.ResponseObject;
       this.finlist = successData.ResponseObject.financerdetails;
       console.log(this.finlist,'finlist');
       // this.photosBuffer = this.photos.slice(0, this.bufferSize);
       // console.log(this.photosBuffer,'photos');
+      this.financierListname();
     }else{
-      this.errortoaster = false;
+      // this.errortoaster = false;
       this.toastr.error(successData.ErrorObject);
     }
   }
 
   public failureSuccess(error) {
+  }
+
+  financierListname() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'financial_code':this.vehicle.controls['bankName'].value
+    }
+    this.carinsurance.tataFinancierName(data).subscribe(
+        (successData) => {
+          this.financierNamesuccess(successData);
+        },
+        (error) => {
+          this.financierNameFailure(error);
+        }
+    );
+  }
+
+  public financierNamesuccess(successData) {
+    if (successData.IsSuccess == true) {
+      // this.errortoaster = true;
+
+      this.photos = successData.ResponseObject;
+      console.log(this.photos,'photos');
+
+    }
+    // else {
+    //     this.errortoaster = false;
+    //     this.toastr.error(successData.ErrorObject);
+    // }
+  }
+
+  public financierNameFailure(error) {
   }
   // financiertype(event: any) {
   //   console.log(event.length,'length');
@@ -835,21 +874,17 @@ export class CarTataaigProposalComponent implements OnInit {
   vehicleDetails(stepper: MatStepper, value) {
     sessionStorage.tatacarvehicle = '';
     sessionStorage.tatacarvehicle = JSON.stringify(value);
-    if (this.vehicle.valid && this.errortoaster == true) {
-      if(this.vehicle.controls['electriAccessSI'].value <= 50000){
-        if(this.vehicle.controls['nonElectricAcessSI'].value <= 50000){
+    if (this.vehicle.valid ) {
+      if(this.vehicle.controls['electriAccessSI'].value <= 50000 && this.vehicle.controls['nonElectricAcessSI'].value <= 50000){
       console.log(value, 'vehicle');
       stepper.next();
       this.topScroll();
-        }else{
-          this.toastr.error('Non Electrical Accessories SI should be less then or equal to 15000');
-        }
       }else{
-        this.toastr.error('Electrical Accessories SI should be less then or equal to 15000');
+        this.toastr.error('Sum Insured should be less then or equal to 50000');
       }
     }
     else {
-      this.toastr.error('Please Select the Valid Bank Name');
+      this.toastr.error('Please Fill All The Mandtory Fields');
     }
   }
 
@@ -1159,6 +1194,26 @@ export class CarTataaigProposalComponent implements OnInit {
     this.vehicle.controls['tppdResAmount'].patchValue(this.TPPDAmt);
     console.log(this.QEmergencytransport,'quoteValueesssss')
 
+  }
+  electriError(){
+    if(this.vehicle.controls['electriAccessSI'].value <= 50000 ){
+      this.errorMsg=false;
+      this.errorMsg='';
+    }else{
+
+      this.errorMsg=true;
+      this.errorMsg = 'Sum Insured should be less then or equal to 50000';
+    }
+  }
+  nonelectriError(){
+    if( this.vehicle.controls['nonElectricAcessSI'].value <= 50000){
+      this.errorNonMsg=false;
+      this.errorNonMsg='';
+    }else{
+
+      this.errorNonMsg=true;
+      this.errorNonMsg = 'Sum Insured should be less then or equal to 50000';
+    }
   }
 
   sessionData() {
