@@ -820,13 +820,13 @@
                       <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
                       <li class="list-group-item" *ngIf="vehicalFormData.package != ''"><strong> Package: </strong> {{vehicalFormData.packagevalue}} </li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Depreciation != '' && vehicalFormData.Depreciation == true"><strong> Depreciation Reimbursement </strong><span *ngIf="vehicalFormData.Depreciation == true">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.DepreciationAmount != '' || vehicalFormData.DepreciationAmount != undefined"><strong> Depreciation Reimbursement Amount </strong>{{vehicalFormData.DepreciationAmount}}</li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Depreciation != '' && vehicalFormData.Depreciation == true"><strong> Depreciation Reimbursement Amount </strong>{{vehicalFormData.DepreciationAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Invoice != '' && vehicalFormData.Invoice == true"><strong> Return to Invoice </strong><span *ngIf="vehicalFormData.Invoice == true">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.invoiceAmount != '' || vehicalFormData.invoiceAmount != undefined"><strong> Return to Invoice Amount </strong>{{vehicalFormData.invoiceAmount}}</li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Invoice != '' && vehicalFormData.Invoice == true"><strong> Return to Invoice Amount </strong>{{vehicalFormData.invoiceAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.personaloss != '' && vehicalFormData.personaloss == true"><strong> Loss of Personal belongings(IDV) </strong><span *ngIf="vehicalFormData.personaloss == true">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.personalossAmount != '' || vehicalFormData.personalossAmount != undefined "><strong>  Loss of Personal belongings(IDV)t Amount </strong>{{vehicalFormData.personalossAmount}}</li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.personaloss != '' && vehicalFormData.personaloss == true"><strong>  Loss of Personal belongings(IDV)t Amount </strong>{{vehicalFormData.personalossAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.transport != '' && vehicalFormData.transport == true"><strong> Emergency transport and Hotel expences(IDV) </strong><span *ngIf="vehicalFormData.transport == true">Yes</span></li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.transportAmount != '' || vehicalFormData.transportAmount != undefined"><strong> Emergency transport and Hotel expences(IDV) Amount </strong>{{vehicalFormData.transportAmount}}</li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.transport != '' && vehicalFormData.transport == true"><strong> Emergency transport and Hotel expences(IDV) Amount </strong>{{vehicalFormData.transportAmount}}</li>
                     </ul>
                   </div>
                 </div>
@@ -834,18 +834,20 @@
                 <div class="p-3">
                   <ul class="m-0 list-group">
                       <li class="list-group-item" *ngIf="vehicalFormData.keyReplacement != '' && vehicalFormData.keyReplacement == true"><strong> Key Replacement </strong><span *ngIf="vehicalFormData.keyReplacement == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.keyReplacementAmount != '' || vehicalFormData.keyReplacementAmount != undefined "><strong> Key Replacement Amount </strong>{{vehicalFormData.keyReplacementAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.keyReplacement != '' && vehicalFormData.keyReplacement == true"><strong> Key Replacement Amount </strong>{{vehicalFormData.keyReplacementAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Enginesecure != '' && vehicalFormData.Enginesecure == true"><strong> Engine Secure </strong><span *ngIf="vehicalFormData.Enginesecure == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.enginesecureAmount != '' || vehicalFormData.enginesecureAmount != undefined"><strong> Engine Secure Amount </strong>{{vehicalFormData.enginesecureAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.Enginesecure != '' && vehicalFormData.Enginesecure == true"><strong> Engine Secure Amount </strong>{{vehicalFormData.enginesecureAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpence != '' && vehicalFormData.Consumableexpence == true"><strong> Consumable Expences </strong><span *ngIf="vehicalFormData.Consumableexpence == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.consexpenceAmount != '' || vehicalFormData.consexpenceAmount != undefined"><strong> Consumable Expences Amount </strong>{{vehicalFormData.consexpenceAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpence != '' && vehicalFormData.Consumableexpence == true"><strong> Consumable Expences Amount </strong>{{vehicalFormData.consexpenceAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Repairofglass != '' && vehicalFormData.Repairofglass == true"><strong> Repair of glass, plastic fibre and rubber glass </strong><span *ngIf="vehicalFormData.Repairofglass == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.RepairglassAmount != '' || vehicalFormData.RepairglassAmount != undefined "><strong> Repair of glass, plastic fibre and rubber glass Amount </strong>{{vehicalFormData.RepairglassAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.Repairofglass != '' && vehicalFormData.Repairofglass == true"><strong> Repair of glass, plastic fibre and rubber glass Amount </strong>{{vehicalFormData.RepairglassAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Tyresecure != '' && vehicalFormData.Tyresecure == true"><strong> Tyre Secure </strong><span *ngIf="vehicalFormData.Tyresecure == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.tyresecureAmount != '' || vehicalFormData.tyresecureAmount != undefined "><strong> Tyre Secure Amount </strong>{{vehicalFormData.tyresecureAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.Tyresecure != '' && vehicalFormData.Tyresecure == true"><strong> Tyre Secure Amount </strong>{{vehicalFormData.tyresecureAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.protectioncover != '' && vehicalFormData.protectioncover == true"><strong> NCB protection cover </strong><span *ngIf="vehicalFormData.protectioncover == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.protectioncover != '' && vehicalFormData.protectioncover == true"><strong> NCB protection cover Amount</strong>{{vehicalFormData.protectioncoverAmount}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Roadside != '' && vehicalFormData.Roadside == true"><strong> Roadside Assistance </strong><span *ngIf="vehicalFormData.Roadside == true">Yes</span></li>
-                    <li class="list-group-item" *ngIf="vehicalFormData.roadsideAmount != '' || vehicalFormData.roadsideAmount != undefined "><strong> Roadside Assistance Amount </strong>{{vehicalFormData.roadsideAmount}}</li>
+                    <li class="list-group-item" *ngIf="vehicalFormData.Roadside != '' && vehicalFormData.Roadside == true"><strong> Roadside Assistance Amount </strong>{{vehicalFormData.roadsideAmount}}</li>
+                    <!--<li class="list-group-item" *ngIf="vehicalFormData.roadsideAmount != '' || vehicalFormData.roadsideAmount != undefined "><strong> Roadside Assistance Amount </strong>{{vehicalFormData.roadsideAmount}}</li>-->
                     </ul>
                   </div>
                 </div>

@@ -485,15 +485,15 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     electriAccess() {
         if (this.vehicle.controls['elecAccessories'].value == true) {
-            this.vehicle.controls['elecAccessories'].patchValue(this.vehicle.controls['elecAccessories'].value),
-            this.vehicle.controls['elecAccessoriesAmount'].setValidators([Validators.required]);
+            this.vehicle.controls['elecAccessoriesSI'].patchValue(this.vehicle.controls['elecAccessoriesSI'].value),
+            this.vehicle.controls['elecAccessoriesSI'].setValidators([Validators.required]);
 
         } else {
-            this.vehicle.controls['elecAccessoriesAmount'].patchValue(''),
-            this.vehicle.controls['elecAccessoriesAmount'].clearValidators();
+            this.vehicle.controls['elecAccessoriesSI'].patchValue(''),
+            this.vehicle.controls['elecAccessoriesSI'].clearValidators();
 
         }
-        this.vehicle.controls['elecAccessoriesAmount'].updateValueAndValidity();
+        this.vehicle.controls['elecAccessoriesSI'].updateValueAndValidity();
     }
     electricReq() {
         if (this.vehicle.controls['elecAccessoriesSI'].value ) {
