@@ -272,7 +272,7 @@
                       <div class="col-md-3 mt-3" *ngIf="vehicle.controls['Financetype'].value == true" >
                         <mat-form-field class="w-100" >
                           <mat-placeholder>Financier Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                          <mat-select  formControlName="bankName" (selectionChange)="changefinancecompany()" >
+                          <mat-select  formControlName="bankName" (selectionChange)="financierListname()" >
                             <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
                               <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
                               <!--<mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>-->
@@ -291,10 +291,10 @@
                       </div>
                       <!--<div class="col-md-12 mt-2" >-->
 
-                          <div class="col-md-3 mt-1">
+                          <div class="col-md-4 mt-1">
                             <mat-checkbox formControlName="electriAccess" (change)="electricAccess()"><strong> Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
                           </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['electriAccess'].value == true">
+                        <div class="col-md-4" *ngIf="vehicle.controls['electriAccess'].value == true">
                             <mat-form-field class="w-100">
                               <mat-placeholder>Electrical Accessories SI<span class="error" *ngIf="vehicle.controls['electriAccess'].value == true">*</span></mat-placeholder>
                               <!--<textarea matInput rows="2" formControlName="electriAccessSI" autocomplete="off" maxlength="5" (keypress)="electricReq()"></textarea>-->
@@ -303,7 +303,7 @@
                               <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                             </mat-form-field>
                           </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['electriAccessSI'].value">
+                        <div class="col-md-4" *ngIf="vehicle.controls['electriAccessSI'].value">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['electriAccess'].value">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="electriAccessSIAmount" autocomplete="off"  readonly></textarea>-->
@@ -313,10 +313,10 @@
                           </mat-form-field>
                         </div>
 
-                        <div class="col-md-3 mt-1">
+                        <div class="col-md-4 mt-1">
                           <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
                         </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
+                        <div class="col-md-4" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Non Electrical Accessories SI<span class="error" *ngIf="vehicle.controls['nonElectricAcess'].value == true">*</span></mat-placeholder>
                             <input matInput   formControlName="nonElectricAcessSI"   maxlength="5" autocomplete="off" (change)="QuoteList()" (keypress)="numberValidate($event);electricNonReq()">
@@ -324,7 +324,7 @@
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcessSI'].value ">
+                        <div class="col-md-4" *ngIf="vehicle.controls['nonElectricAcessSI'].value ">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['nonElectricAcessSI'].value ">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="nonElectricAcessSIAmount" autocomplete="off" readonly></textarea>-->
@@ -333,10 +333,10 @@
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3 mt-1">
+                        <div class="col-md-4 mt-1">
                           <mat-checkbox formControlName="autoAsso" (change)="autoAssoReq();QuoteList()"><strong> Automobile_Association_Membership<span class="error">*</span></strong></mat-checkbox>
                         </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['autoAsso'].value == true">
+                        <div class="col-md-4" *ngIf="vehicle.controls['autoAsso'].value == true">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['autoAsso'].value == true">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="autoAssoAmount" autocomplete="off"  readonly></textarea>-->
@@ -345,10 +345,10 @@
                             <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3 mt-1">
+                        <div class="col-md-4 mt-1">
                           <mat-checkbox formControlName="antitheft" (change)="antitheftReq();QuoteList()"><strong> Antitheft <span class="error">*</span></strong></mat-checkbox>
                         </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['antitheft'].value">
+                        <div class="col-md-4" *ngIf="vehicle.controls['antitheft'].value">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Amount<span class="error" *ngIf="vehicle.controls['antitheft'].value == true">*</span></mat-placeholder>
                             <!--<textarea matInput rows="2" formControlName="antitheftAmount" autocomplete="off"  readonly></textarea>-->

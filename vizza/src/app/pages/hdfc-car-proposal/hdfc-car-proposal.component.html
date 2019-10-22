@@ -365,7 +365,7 @@
                                         <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >
                                             <mat-form-field class="w-100" >
                                                 <mat-placeholder>Financier Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                                                <mat-select  formControlName="financiercode"  (selectionChange)="changefinancecompany()">
+                                                <mat-select  formControlName="financiercode"  (selectionChange)="financierListname()">
                                                     <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
                                                         <mat-option *cdkVirtualFor="let finance of finlist" [value]="finance.id">{{finance.name}}</mat-option>
                                                     </cdk-virtual-scroll-viewport>
@@ -907,7 +907,7 @@
                                         <li class="list-group-item" *ngIf="regvalue !='New Vehicle'"><strong>Vehicle Regsitration Date:</strong> {{vehicalFormData.Vehicleregdate | date: 'dd/MM/yyyy'}} </li>
                                         <li class="list-group-item" *ngIf="regvalue !='New Vehicle'"><strong>Registered No:</strong> {{vehicalFormData.regno}} </li>
                                         <li class="list-group-item" *ngIf="vehicalFormData.Agreement !=''"><strong>Agreement Type:</strong> {{vehicalFormData.Agreement}} </li>
-                                        <li class="list-group-item" ><strong>Financier Name:</strong> {{vehicalFormData.financiercodevalue}} </li>
+                                        <li class="list-group-item" ><strong>Financier Name:</strong> {{photos}} </li>
                                         <li class="list-group-item" *ngIf="vehicalFormData.fibranchname !=''"><strong>Branch Name:</strong> {{vehicalFormData.fibranchname}} </li>
                                     </ul>
                                 </div>

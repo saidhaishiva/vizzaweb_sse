@@ -465,13 +465,48 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             // console.log(this.finlist,'finlist');
             // this.photosBuffer = this.photos.slice(0, this.bufferSize);
             // console.log(this.photosBuffer,'photos');
-            this.changefinancecompany();
+            this.financierListname();
         }else{
             this.toastr.error(successData.ErrorObject);
         }
     }
 
     public failureSuccess(error) {
+
+    }
+
+    financierListname() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'financial_code':this.vechicle.controls['financiercode'].value
+        }
+        this.bikeInsurance.hdfcFinancierName(data).subscribe(
+            (successData) => {
+                this.financierNamesuccess(successData);
+            },
+            (error) => {
+                this.financierNameFailure(error);
+            }
+        );
+    }
+
+    public financierNamesuccess(successData) {
+        if (successData.IsSuccess == true) {
+            // this.errortoaster = true;
+
+            this.photos = successData.ResponseObject;
+            console.log(this.photos,'photos');
+
+        }
+        // else {
+        //     this.errortoaster = false;
+        //     this.toastr.error(successData.ErrorObject);
+        // }
+    }
+
+    public financierNameFailure(error) {
     }
 
     // onScrollToEnd() {

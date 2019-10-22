@@ -705,6 +705,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             console.log(this.finlist,'finlist');
             // this.photosBuffer = this.photos.slice(0, this.bufferSize);
             // console.log(this.photosBuffer,'photos');
+            this.financierListname();
         }
         else{
            this.errortoaster = false;
@@ -713,6 +714,40 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     public failureSuccess(error) {
+    }
+
+    financierListname() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'financial_code':this.vehicle.controls['bankName'].value
+        }
+        this.bikeinsurance.tataFinancierName(data).subscribe(
+            (successData) => {
+                this.financierNamesuccess(successData);
+            },
+            (error) => {
+                this.financierNameFailure(error);
+            }
+        );
+    }
+
+    public financierNamesuccess(successData) {
+        if (successData.IsSuccess == true) {
+            // this.errortoaster = true;
+
+            this.photos = successData.ResponseObject;
+            console.log(this.photos,'photos');
+
+        }
+        // else {
+        //     this.errortoaster = false;
+        //     this.toastr.error(successData.ErrorObject);
+        // }
+    }
+
+    public financierNameFailure(error) {
     }
     // financiertype() {
     //     // console.log(event.length, 'length');
