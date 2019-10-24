@@ -165,6 +165,20 @@ export class BikeTataaigProposalComponent implements OnInit {
             drivingexp: '',
             drivemaritalStatus: '',
         });
+        this.previouspolicy = this.fb.group({
+            // preflag: ['', Validators.required],
+            // preName: '',
+            // preNamevalue: '',
+            prepolno: '',
+            preAddressone: ['', Validators.required],
+            preAddresstwo: '',
+            preAddressthree: '',
+            prepincode: '',
+            preState: '',
+            preDistrict: '',
+            preCity: '',
+            ispreviousPolicy:'',
+        });
 
         this.vehicle = this.fb.group({
             engine: ['', Validators.required],
@@ -199,19 +213,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             nonElectricAcessSIAmount:'',
         });
 
-        this.previouspolicy = this.fb.group({
-            // preflag: ['', Validators.required],
-            // preName: '',
-            // preNamevalue: '',
-            prepolno: '',
-            preAddressone: ['', Validators.required],
-            preAddresstwo: '',
-            preAddressthree: '',
-            prepincode: '',
-            preState: '',
-            preDistrict: '',
-            preCity: '',
-        });
+
 
         this.nominee = this.fb.group({
             nomineeName: ['', Validators.required],
@@ -543,6 +545,30 @@ export class BikeTataaigProposalComponent implements OnInit {
         console.log(this.QuoteRoadsideassistance,'quoteValueesssss')
 
     }
+    // previousChange() {
+    //
+    //     if (this.previouspolicy.controls['ispreviousPolicy'].value == 'Yes') {
+    //         this.vehicle.controls['depreciation'].patchValue(this.vehicle.controls['depreciation'].value);
+    //         this.vehicle.controls['Returninvoice'].patchValue(this.vehicle.controls['Returninvoice'].value);
+    //
+    //
+    //         this.vehicle.controls['depreciation'].setValidators([Validators.required]);
+    //         this.vehicle.controls['Returninvoice'].setValidators([Validators.required]);
+    //     } else {
+    //         // this.vehicle.controls['depreciation'].patchValue(false);
+    //         // this.vehicle.controls['Returninvoice'].patchValue(false);
+    //
+    //         this.vehicle.controls['depreciation'].setValidators(null);
+    //         this.vehicle.controls['Returninvoice'].setValidators(null);
+    //
+    //     }
+    //     this.vehicle.controls['depreciation'].updateValueAndValidity();
+    //     this.vehicle.controls['Returninvoice'].updateValueAndValidity();
+    //     console.log(this.vehicle.controls['depreciation'].value,'depreciation......');
+    //     console.log(this.vehicle.controls['Returninvoice'].value,'Returninvoice......');
+    //
+    // }
+
     // chanelectriAccess()
     // {
     //     this.vehicle.controls['elecAccessoriesAmount'].patchValue(this.electriaccSuminsured);
@@ -560,6 +586,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.proposer.controls['driveGender'].patchValue('FEMALE')
         }
     }
+
 
     electriError(){
         if(this.vehicle.controls['elecAccessoriesSI'].value <= 15000 ){
@@ -1045,55 +1072,56 @@ export class BikeTataaigProposalComponent implements OnInit {
             })
         }
         if (sessionStorage.tatabikevehicle != '' && sessionStorage.tatabikevehicle != undefined) {
-            this.getstepper2 = JSON.parse(sessionStorage.tatabikevehicle);
+            this.getstepper3 = JSON.parse(sessionStorage.tatabikevehicle);
             this.vehicle = this.fb.group({
-                engine: this.getstepper2.engine,
-                chassis: this.getstepper2.chassis,
-                Financetype: this.getstepper2.Financetype,
-                banktype: this.getstepper2.banktype,
-                bankName: this.getstepper2.bankName,
-                bankNamevalue: this.getstepper2.bankNamevalue,
-                Address: this.getstepper2.Address,
-                coverdrive: this.getstepper2.coverdrive,
-                coverdrivevalue: this.getstepper2.coverdrivevalue,
-                Associationmember: this.getstepper2.Associationmember,
-                Associationamount: this.getstepper2.Associationamount,
-                // Voluntary: this.getstepper2.Voluntary,
-                Antitheft: this.getstepper2.Antitheft,
-                Antitheftamount: this.getstepper2.Antitheftamount,
-                Tppdrestrict: this.getstepper2.Tppdrestrict,
-                Tppdrestrictamount: this.getstepper2.Tppdrestrictamount,
-                depreciation: this.getstepper2.depreciation,
-                depreciationamount: this.getstepper2.depreciationamount,
-                Consumableexpense: this.getstepper2.Consumableexpense,
-                Consumableexpenseamount: this.getstepper2.Consumableexpenseamount,
-                Returninvoice: this.getstepper2.Returninvoice,
-                Returninvoiceamount: this.getstepper2.Returninvoiceamount,
-                Roadsideassistance: this.getstepper2.Roadsideassistance,
-                Roadsideassistanceamount: this.getstepper2.Roadsideassistanceamount,
-                elecAccessories:this.getstepper2.elecAccessories,
-                elecAccessoriesSI:this.getstepper2.elecAccessoriesSI,
-                elecAccessoriesAmount:this.getstepper2.elecAccessoriesAmount,
-                nonElectricAcess: this.getstepper2.nonElectricAcess,
-                nonElectricAcessSI:this.getstepper2.nonElectricAcessSI,
-                nonElectricAcessSIAmount:this.getstepper2.nonElectricAcessSIAmount,
+                engine: this.getstepper3.engine,
+                chassis: this.getstepper3.chassis,
+                Financetype: this.getstepper3.Financetype,
+                banktype: this.getstepper3.banktype,
+                bankName: this.getstepper3.bankName,
+                bankNamevalue: this.getstepper3.bankNamevalue,
+                Address: this.getstepper3.Address,
+                coverdrive: this.getstepper3.coverdrive,
+                coverdrivevalue: this.getstepper3.coverdrivevalue,
+                Associationmember: this.getstepper3.Associationmember,
+                Associationamount: this.getstepper3.Associationamount,
+                // Voluntary: this.getstepper3.Voluntary,
+                Antitheft: this.getstepper3.Antitheft,
+                Antitheftamount: this.getstepper3.Antitheftamount,
+                Tppdrestrict: this.getstepper3.Tppdrestrict,
+                Tppdrestrictamount: this.getstepper3.Tppdrestrictamount,
+                depreciation: this.getstepper3.depreciation,
+                depreciationamount: this.getstepper3.depreciationamount,
+                Consumableexpense: this.getstepper3.Consumableexpense,
+                Consumableexpenseamount: this.getstepper3.Consumableexpenseamount,
+                Returninvoice: this.getstepper3.Returninvoice,
+                Returninvoiceamount: this.getstepper3.Returninvoiceamount,
+                Roadsideassistance: this.getstepper3.Roadsideassistance,
+                Roadsideassistanceamount: this.getstepper3.Roadsideassistanceamount,
+                elecAccessories:this.getstepper3.elecAccessories,
+                elecAccessoriesSI:this.getstepper3.elecAccessoriesSI,
+                elecAccessoriesAmount:this.getstepper3.elecAccessoriesAmount,
+                nonElectricAcess: this.getstepper3.nonElectricAcess,
+                nonElectricAcessSI:this.getstepper3.nonElectricAcessSI,
+                nonElectricAcessSIAmount:this.getstepper3.nonElectricAcessSIAmount,
 
             })
         }
         if (sessionStorage.tatabikeprepolicy != '' && sessionStorage.tatabikeprepolicy != undefined) {
-            this.getstepper3 = JSON.parse(sessionStorage.tatabikeprepolicy);
+            this.getstepper2 = JSON.parse(sessionStorage.tatabikeprepolicy);
             this.previouspolicy = this.fb.group({
-                // preflag: this.getstepper3.preflag,
-                // preName: this.getstepper3.preName,
-                // preNamevalue: this.getstepper3.preNamevalue,
-                prepolno: this.getstepper3.prepolno,
-                preAddressone: this.getstepper3.preAddressone,
-                preAddresstwo: this.getstepper3.preAddresstwo,
-                preAddressthree: this.getstepper3.preAddressthree,
-                prepincode: this.getstepper3.prepincode,
-                preState: this.getstepper3.preState,
-                preDistrict: this.getstepper3.preDistrict,
-                preCity: this.getstepper3.preCity,
+                // preflag: this.getstepper2.preflag,
+                // preName: this.getstepper2.preName,
+                // preNamevalue: this.getstepper2.preNamevalue,
+                prepolno: this.getstepper2.prepolno,
+                preAddressone: this.getstepper2.preAddressone,
+                preAddresstwo: this.getstepper2.preAddresstwo,
+                preAddressthree: this.getstepper2.preAddressthree,
+                prepincode: this.getstepper2.prepincode,
+                preState: this.getstepper2.preState,
+                preDistrict: this.getstepper2.preDistrict,
+                preCity: this.getstepper2.preCity,
+                ispreviousPolicy: this.getstepper2.ispreviousPolicy,
             })
         }
         if (sessionStorage.tatabikenominee != '' && sessionStorage.tatabikenominee != undefined) {

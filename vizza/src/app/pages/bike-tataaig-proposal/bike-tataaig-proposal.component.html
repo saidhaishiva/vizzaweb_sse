@@ -209,6 +209,98 @@
           </mat-accordion>
           </mat-step>
 
+          <mat-step [stepControl]="" *ngIf="enquiryFormData.business_type != '1'">
+            <ng-template matStepLabel> PREVIOUS POLICY </ng-template>
+            <mat-accordion class="w-100 float-left">
+              <form [formGroup]="previouspolicy">
+                <mat-expansion-panel expanded>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title> PREVIOUS POLICY </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="row mt-1">
+                    <div class="col-md-12 box-card pt-3">
+                      <div class="row">
+                        <!--<div class="col-md-4" [ngStyle]="{'pointer-events':'none'}">-->
+                        <!--<mat-form-field class="w-100">-->
+                        <!--<mat-select  placeholder="Is there any rollover with previous policy?" formControlName="preflag" required>-->
+                        <!--<mat-option value="Y">Yes</mat-option>-->
+                        <!--<mat-option value="N">No</mat-option>-->
+                        <!--</mat-select>-->
+                        <!--<mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>-->
+                        <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">-->
+                        <!--<mat-form-field class="w-100">-->
+                        <!--<mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>-->
+                        <!--<mat-select formControlName="preName" (change)="selectopt()">-->
+                        <!--<mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.key}}">{{Namelist.value}}</mat-option>-->
+                        <!--</mat-select>-->
+                        <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <mat-placeholder> Policy No <span class="error" *ngIf="this.enquiryFormData.business_type != '1'"> * </span></mat-placeholder>
+                            <input matInput formControlName="prepolno" (paste)="onpaste($event)" (keypress)="numberValidate($event)" autocomplete="off"  minlength="6">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-12 mt-1">
+                          <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <textarea matInput placeholder="Address 1" rows="2" formControlName="preAddressone" autocomplete="off" maxlength="30" required></textarea>
+                            <mat-error *ngIf="previouspolicy.controls.preAddressone.errors?.required">Address1 is Required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <textarea matInput placeholder="Address 2" rows="2" formControlName="preAddresstwo" autocomplete="off" maxlength="30"></textarea>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <textarea matInput placeholder="Address 3" rows="2" formControlName="preAddressthree" autocomplete="off" maxlength="30"></textarea>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Pincode" formControlName="prepincode" (input)="getPostalCode($event.target.value,'prepolicy')" minlength="6" maxlength="6">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="State" formControlName="preState"  autocomplete="off" readonly>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="District"  formControlName="preDistrict" autocomplete="off" readonly>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="City"  formControlName="preCity" autocomplete="off" readonly>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <p>Is there Nil_Depreciation and Return_to_invoice in your previous policy?<span class="error">*</span></p>
+                          <mat-radio-group formControlName="ispreviousPolicy"   required>
+                            <mat-radio-button value="Yes" >Yes</mat-radio-button>
+                            <mat-radio-button value="No">No</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        <div class="proposal-buttom mt-3 text-right w-100">
+                          <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
+                          <button mat-raised-button color="primaryBlue" class="p-0 ml-3"  (click)="prepolicyDetails(stepper,previouspolicy.value)" >Next</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </form>
+            </mat-accordion>
+          </mat-step>
+
           <mat-step [stepControl]="">
             <ng-template matStepLabel> VEHICLE DETAILS</ng-template>
             <mat-accordion class="w-100 float-left">
@@ -416,7 +508,7 @@
                               </div>
                             </div>
 
-                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium'" >
+                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' && previouspolicy.controls['ispreviousPolicy'].value == 'Yes'" >
                               <div class="row">
                                 <div class="col-md-4">
                                   <mat-checkbox formControlName="depreciation" (click)="QuoteList()" (change)="amount_depreciation()" (click)="chanedepre()" (keyup)="chanedepre()"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
@@ -448,7 +540,7 @@
                               </div>
                             </div>
 
-                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium'" >
+                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' && previouspolicy.controls['ispreviousPolicy'].value == 'Yes'" >
                               <div class="row">
                                 <div class="col-md-4">
                                   <mat-checkbox formControlName="Returninvoice"  (change)="QuoteList()" (change)="amount_Returninvoice()" (click)="chaneret()" (keyup)="chaneret()"><strong> Return_to_Invoice </strong></mat-checkbox>
@@ -548,90 +640,7 @@
             </mat-accordion>
           </mat-step>
 
-          <mat-step [stepControl]="" *ngIf="enquiryFormData.business_type != '1'">
-            <ng-template matStepLabel> PREVIOUS POLICY </ng-template>
-            <mat-accordion class="w-100 float-left">
-              <form [formGroup]="previouspolicy">
-              <mat-expansion-panel expanded>
-              <mat-expansion-panel-header>
-                <mat-panel-title> PREVIOUS POLICY </mat-panel-title>
-              </mat-expansion-panel-header>
-                <div class="row mt-1">
-              <div class="col-md-12 box-card pt-3">
-                <div class="row">
-                  <!--<div class="col-md-4" [ngStyle]="{'pointer-events':'none'}">-->
-                    <!--<mat-form-field class="w-100">-->
-                      <!--<mat-select  placeholder="Is there any rollover with previous policy?" formControlName="preflag" required>-->
-                        <!--<mat-option value="Y">Yes</mat-option>-->
-                        <!--<mat-option value="N">No</mat-option>-->
-                      <!--</mat-select>-->
-                      <!--<mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>-->
-                    <!--</mat-form-field>-->
-                  <!--</div>-->
-                  <!--<div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">-->
-                    <!--<mat-form-field class="w-100">-->
-                      <!--<mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>-->
-                      <!--<mat-select formControlName="preName" (change)="selectopt()">-->
-                        <!--<mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.key}}">{{Namelist.value}}</mat-option>-->
-                      <!--</mat-select>-->
-                    <!--</mat-form-field>-->
-                  <!--</div>-->
-                  <div class="col-md-4">
-                    <mat-form-field class="w-100">
-                      <mat-placeholder> Policy No <span class="error" *ngIf="this.enquiryFormData.business_type != '1'"> * </span></mat-placeholder>
-                      <input matInput formControlName="prepolno" (paste)="onpaste($event)" (keypress)="numberValidate($event)" autocomplete="off"  minlength="6">
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-12 mt-1">
-                    <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
-                  </div>
-                  <div class="col-md-4">
-                    <mat-form-field class="w-100">
-                      <textarea matInput placeholder="Address 1" rows="2" formControlName="preAddressone" autocomplete="off" maxlength="30" required></textarea>
-                      <mat-error *ngIf="previouspolicy.controls.preAddressone.errors?.required">Address1 is Required</mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-4">
-                    <mat-form-field class="w-100">
-                      <textarea matInput placeholder="Address 2" rows="2" formControlName="preAddresstwo" autocomplete="off" maxlength="30"></textarea>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-4">
-                    <mat-form-field class="w-100">
-                      <textarea matInput placeholder="Address 3" rows="2" formControlName="preAddressthree" autocomplete="off" maxlength="30"></textarea>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-form-field class="w-100">
-                      <input matInput placeholder="Pincode" formControlName="prepincode" (input)="getPostalCode($event.target.value,'prepolicy')" minlength="6" maxlength="6">
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-form-field class="w-100">
-                      <input matInput placeholder="State" formControlName="preState"  autocomplete="off" readonly>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-form-field class="w-100">
-                      <input matInput placeholder="District"  formControlName="preDistrict" autocomplete="off" readonly>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-form-field class="w-100">
-                      <input matInput placeholder="City"  formControlName="preCity" autocomplete="off" readonly>
-                    </mat-form-field>
-                  </div>
-                <div class="proposal-buttom mt-3 text-right w-100">
-                  <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
-                  <button mat-raised-button color="primaryBlue" class="p-0 ml-3"  (click)="prepolicyDetails(stepper,previouspolicy.value)" >Next</button>
-                </div>
-                </div>
-              </div>
-              </div>
-              </mat-expansion-panel>
-              </form>
-            </mat-accordion>
-          </mat-step>
+
 
           <mat-step [stepControl]="">
             <ng-template matStepLabel> NOMINEE DETAILS </ng-template>
