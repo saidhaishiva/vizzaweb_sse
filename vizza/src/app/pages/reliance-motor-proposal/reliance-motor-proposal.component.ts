@@ -43,7 +43,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   previousInsurance : FormGroup;
   coverDetails : FormGroup;
   riskDetails : FormGroup;
-  public titleList: any;
+  public titleList:any;
   public proposerData: any;
   public summaryData: any;
   public proposerFormData: any;
