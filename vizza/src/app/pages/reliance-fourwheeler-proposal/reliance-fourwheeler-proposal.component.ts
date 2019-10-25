@@ -51,7 +51,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public sicoverValue: any;
   public insuranceidvError: any;
   public roadtaxidvError: any;
-  public registrationidvError: any;
+  public registrationidvError:any;
   public popupValue: any;
   public summaryData: any;
   public proposerFormData: any;

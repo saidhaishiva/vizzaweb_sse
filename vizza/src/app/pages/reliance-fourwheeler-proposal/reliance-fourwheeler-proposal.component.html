@@ -67,7 +67,7 @@
                       </mat-form-field>
                       </div>
                       <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
+                        <mat-form-field class="w-100" >
                           <mat-select placeholder="Occupation" formControlName="occupation" (selectionChange)="changeOccupation()" required>
                             <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}" > {{occupation.value}} </mat-option>
                           </mat-select>
