@@ -376,6 +376,7 @@ export class LifeBajajProposalComponent implements OnInit {
       this.changeGender();
       this.proposer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
       this.getPostal(this.proposer.controls['pincode'].value, 'personal');
+      this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
 
 
   }
@@ -2741,7 +2742,7 @@ samerelationShip(){
             this.fileUploadStatus = false;
         } else {
 
-            this.toastr.error(successData.ErrorObject, 'Failed');
+            this.toastr.error(successData.ErrorObject);
             this.fileUploadStatus = true;
         }
     }
