@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidationService} from '../../shared/services/validation.service';
 import {DatePipe} from '@angular/common';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
@@ -11,6 +11,9 @@ import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import { ActivatedRoute } from '@angular/router';
+import {CommonService} from '../../shared/services/common.service';
+import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
+import {WINDOW} from '@ng-toolkit/universal';
 
 
 export const MY_FORMATS = {
@@ -41,6 +44,7 @@ export class CarTataaigProposalComponent implements OnInit {
   public vehicle: FormGroup;
   public previouspolicy: FormGroup;
   public nominee: FormGroup;
+  // public popup: FormGroup;
   public minDate: any;
   public maxdate: any;
   public proposerdateError: any;
@@ -96,10 +100,13 @@ export class CarTataaigProposalComponent implements OnInit {
   public premium: any;
   public visible: any;
   public config: any;
-  public errortoaster: boolean;
+  // public ispreviousPolicy: any;
   public bankValid: boolean;
+  public modelBoxList: boolean;
   public errorMsg: any;
   public errorNonMsg: any;
+  public packagesslist: any;
+  public packaageList: any;
   public finlist: any;
   photos = [];
   photosBuffer = [];
@@ -108,7 +115,7 @@ export class CarTataaigProposalComponent implements OnInit {
   loading = false;
 
 
-  constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public configs: ConfigurationService,public route: ActivatedRoute ) {
+  constructor(@Inject(WINDOW) private window: Window,public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService, public dialog: MatDialog,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public configs: ConfigurationService,public route: ActivatedRoute,) {
 
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -137,6 +144,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
     this.maxdate = this.minDate;
     this.bankValid = false;
+
     this.errorMsg = false;
     this.errorNonMsg = false;
     this.config = {
@@ -187,7 +195,7 @@ export class CarTataaigProposalComponent implements OnInit {
       preState: '',
       preDistrict: '',
       preCity: '',
-      ispreviousPolicy:'',
+
     });
 
     this.vehicle = this.fb.group({
@@ -235,6 +243,7 @@ export class CarTataaigProposalComponent implements OnInit {
       antitheftAmount: '',
       tppdRes: '',
       tppdResAmount: '',
+      ispreviousPolicy:'Yes',
     });
 
 
@@ -244,6 +253,12 @@ export class CarTataaigProposalComponent implements OnInit {
       nomineeAge: ['', Validators.required],
       nomineerelation: ['', Validators.required],
     })
+
+    // this.popup = this.fb.group({
+    //   ispreviousPolicy: '',
+    //
+    // })
+
   }
 
   ngOnInit() {
@@ -252,7 +267,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.financiertype();
     // this.getNamelist();
     // this.getRelationList();
-    this.package();
+    // this.packageaddon();
     this.sessionData();
     this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
     console.log(this.vehicledata);
@@ -260,6 +275,8 @@ export class CarTataaigProposalComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.carListDetails);
     console.log(this.enquiryFormData, 'enquiry data');
     this.carEnquiryId = sessionStorage.fwEnquiryId;
+    // this.ispreviousPolicy = sessionStorage.ispreviousPolicy;
+    // console.log(this.ispreviousPolicy, 'ispreviousPolicy......');
     this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
     this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
     this.premium = sessionStorage.packageListFw;
@@ -490,6 +507,33 @@ export class CarTataaigProposalComponent implements OnInit {
 
   }
 
+  getPackagelist() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'package':this.vehicle.controls['package'].value
+    };
+    this.carinsurance.packagesList(data).subscribe(
+        (successData) => {
+          this.packaaageListSuccess(successData);
+        },
+        (error) => {
+          this.packaaageListFailure(error);
+        }
+    );
+  }
+
+  packaaageListSuccess(successData) {
+    this.packagesslist = successData.ResponseObject;
+this.packaageList=this.packagesslist.content;
+console.log(this.packaageList,'this.packaageList');
+
+  }
+
+  packaaageListFailure(error) {
+
+  }
   // //PreviousPolicy NameList
   // getNamelist() {
   //   const data = {
@@ -518,16 +562,27 @@ export class CarTataaigProposalComponent implements OnInit {
   // select() {
   //   this.previouspolicy.controls['preNamevalue'].patchValue(this.preNamelist[this.previouspolicy.controls['preName'].value]);
   // }
+  changepopup(){
+      if(this.vehicle.controls['package'].value == '3' || this.vehicle.controls['package'].value == '4' || this.vehicle.controls['package'].value == '5' || this.vehicle.controls['package'].value == '6' || this.vehicle.controls['package'].value == '7'){
+          this.modelBoxList = true
 
-
+          console.log(this.modelBoxList,'this.modelBox......');
+      }else{
+          this.modelBoxList = false
+          console.log(this.modelBoxList,'this.modelBox111......');
+      }
+  }
 
 
 // Addons Package
-    package() {
+    packageaddon() {
+console.log(this.vehicle.controls['ispreviousPolicy'].value,"12222222");
         const data = {
+
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'addons':  this.vehicle.controls['ispreviousPolicy'].value == ""?'Y':this.vehicle.controls['ispreviousPolicy'].value == "Yes"?'Y':'N'
         };
         this.carinsurance.packagetype(data).subscribe(
             (successData) => {
@@ -540,7 +595,41 @@ export class CarTataaigProposalComponent implements OnInit {
     }
 
     packageListSuccess(successData) {
+      if (successData.IsSuccess) {
         this.packagelist = successData.ResponseObject;
+        // this.window.open(this.packaageList,'_top');
+        var modal = document.getElementById("myModal");
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            width: '400px';
+            modal.style.display = "none";
+          }
+        }
+      // if(this.vehicle.controls['ispreviousPolicy'].value== 'No'){
+      //   this.toastr.error('Eligible Only for Gold and Silver Plan ');
+      // }
+      console.log(this.vehicle.controls['ispreviousPolicy'].value,"55555555");
+        // if(this.vehicle.controls['package'].value != '1' && this.vehicle.controls['package'].value != '2' ){
+        //   alert('1nn')
+        //   this.modelBox!=false;
+        //   console.log( this.modelBox,' this.modelBox')
+
+      // let dialogRef = this.dialog.open(tataigCarOpt, {
+      //   width: '400px'
+      // });
+      // dialogRef.disableClose = true;
+      // dialogRef.afterClosed().subscribe(result => {
+      //   if(result) {
+      //
+      //   }
+      //
+      // });
+      //   }
+      //   this.toastr.error(successData.ErrorObject);
+
+    } else {
+      this.toastr.error(successData.ResponseObject.ErrorObject);
+    }
 
     }
 
@@ -1298,6 +1387,7 @@ export class CarTataaigProposalComponent implements OnInit {
         tppdRes:this.getstepper3.tppdRes,
         tppdResAmount: this.getstepper3.tppdResAmount,
         invoiceAmount: this.getstepper3.invoiceAmount,
+        ispreviousPolicy: this.getstepper3.ispreviousPolicy,
         // quotationNo: this.getstepper2.this.quotationNo,
 
       });
@@ -1317,7 +1407,7 @@ export class CarTataaigProposalComponent implements OnInit {
         preState: this.getstepper2.preState,
         preDistrict: this.getstepper2.preDistrict,
         preCity: this.getstepper2.preCity,
-        ispreviousPolicy: this.getstepper2.ispreviousPolicy,
+
       })
     }
     if (sessionStorage.tatacarnominee != '' && sessionStorage.tatacarnominee != undefined) {
@@ -1451,3 +1541,98 @@ export class CarTataaigProposalComponent implements OnInit {
 
   }
 }
+
+// @Component({
+//   selector: ' tataigCarOpt ',
+//   template: `
+//         <div class="container">
+//             <div class="row">
+//                 <div class="col-md-12 text-center w-100">
+//                   <p>Is there Nil_Depreciation and Return_to_invoice in your previous policy?<span class="error">*</span></p>
+//                   <mat-radio-group  [(ngModel)]="ispreviousPolicy" (change)="prePolicyVal()" required>
+//                     <mat-radio-button value="Yes" >Yes</mat-radio-button>
+//                     <mat-radio-button value="No">No</mat-radio-button>
+//                   </mat-radio-group>
+//                     <!--<mat-form-field class="w-50">-->
+//                         <!--<input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)"  autocomplete="off" >-->
+//                     <!--</mat-form-field>-->
+//                 </div>
+//
+//             </div>
+//         </div>
+//         <!--<div mat-dialog-actions style="justify-content: center">-->
+//           <!--<button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>-->
+//           <!--<button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>-->
+//         <!--</div>-->
+//     `
+// })
+// export class tataigCarOpt {
+//  public ispreviousPolicy: any;
+//   public previousPolicyvalue:any;
+//   constructor(
+//       public dialogRef: MatDialogRef<tataigCarOpt>,
+//       @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public carinsurance: FourWheelerService) {
+//     this.ispreviousPolicy = "";
+// console.log(this.ispreviousPolicy,'previous........')
+//   }
+//   // // Number validation
+//   // numberValidate(event: any) {
+//   //   this.validation.numberValidate(event);
+//   // }
+//
+//   onNoClick(): void {
+//     this.dialogRef.close(true);
+//   }
+//
+//   prePolicyVal() {
+//
+//     const data = {
+//       "platform": "web",
+//       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+//       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+//       "addons": this.ispreviousPolicy == "Yes"?'Y':'N'
+//
+//     }
+//     console.log(data, '999999999');
+//     this.carinsurance.packagetype(data).subscribe(
+//         (successData) => {
+//           this.otpValidationListSuccess(successData);
+//         },
+//         (error) => {
+//           this.otpValidationListFailure(error);
+//         }
+//     );
+//   }
+//
+//   public otpValidationListSuccess(successData) {
+//     if (successData.IsSuccess) {
+//       this.previousPolicyvalue = successData.ResponseObject;
+//       if(this.ispreviousPolicy== 'No'){
+//         this.toastr.error('Eligible Only for Gold and Silver Plan ');
+//       }
+//       // this.toastr.success(successData.ResponseObject);
+//       console.log(this.previousPolicyvalue, '122345566677')
+//       this.dialogRef.close(true);
+//     }
+//     // } else {
+//     //   this.toastr.error(successData.ErrorObject);
+//     // }
+//     sessionStorage.ispreviousPolicy = this.ispreviousPolicy;
+//     sessionStorage.previousPolicyvalue = this.previousPolicyvalue;
+//     console.log(sessionStorage.previousPolicyvalue,'sessiopreviousPolicyvalue....')
+//     console.log(sessionStorage.ispreviousPolicy,'tpreviousPolicyvalue....')
+//   }
+//
+//   public otpValidationListFailure(error) {
+//   }
+//
+//   // trmsg(){
+//   //   if(this.ispreviousPolicy== 'No'){
+//   //     this.toastr.error('Eligible Only for Gold and Silver Plan ');
+//   //   }
+//   // }
+//
+//   numberValidate(event: any) {
+//     this.validation.numberValidate(event);
+//   }
+// }

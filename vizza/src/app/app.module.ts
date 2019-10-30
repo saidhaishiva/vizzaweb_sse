@@ -287,6 +287,7 @@ import { EnquiryPopupComponent } from './pages/bike-insurance/enquiry-popup/enqu
 import { BikeTataaigPaymentSuccesssComponent } from './pages/bike-tataaig-payment-successs/bike-tataaig-payment-successs.component';
 import { RoyalsundaramMotorPaymentSuccessComponent } from './pages/royalsundaram-motor-payment-success/royalsundaram-motor-payment-success.component';
 import { CarTataaigProposalComponent } from './pages/car-tataaig-proposal/car-tataaig-proposal.component';
+// import { tataigCarOpt } from './pages/car-tataaig-proposal/car-tataaig-proposal.component';
 import {PaymentModeValidate} from './pages/term-life-premium-list/term-life-premium-list.component';
 import { idvvalidate } from './pages/reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
 import {idvvalidatetwoWheeler} from './pages/reliance-motor-proposal/reliance-motor-proposal.component';
@@ -608,6 +609,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         DownloadMessageTravelBajaj,
         BajajLifeOpt,
         EdelweissOpt,
+        // tataigCarOpt,
         ReliancePaPaymentSuccessComponent,
         ReliancePaDownloadPolicyComponent,
         DownloadReliancePersonalAccident,
