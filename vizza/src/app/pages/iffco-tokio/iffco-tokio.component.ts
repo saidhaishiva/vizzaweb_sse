@@ -1149,6 +1149,7 @@ export class IffcoTokioComponent implements OnInit {
 
     cityListname() {
         this.nomineeDetails.controls['nomineeCityName'].patchValue(this.nomineecityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
+        console.log(this.nomineeDetails.controls['nomineeCityName'].value,'this.nomineeDetails.controls[\'nomineeCityName\'].patchValue')
     }
 
     public objectToXml(xmlData) {
@@ -1375,8 +1376,8 @@ export class IffcoTokioComponent implements OnInit {
                 'RoomRentWaiver': this.proposer.controls['roomRentWaiver'].value,
                 'AdditionalFacts': this.proposer.controls['additionalFacts'].value,
                 'PastInsuranceDeclined': this.proposer.controls['pastInsuranceDeclined'].value,
-                'nomineeCityName': this.proposer.controls['nomineeCityName'].value,
-                'nomineeStateName': this.proposer.controls['nomineeStateName'].value
+                'nomineeCityName': this.nomineeDetails.controls['nomineeCityName'].value,
+                'nomineeStateName': this.nomineeDetails.controls['nomineeStateName'].value
             },
             "ListOfInsured": {
                 "Insured": this.insuredData,
