@@ -8,5 +8,7 @@ interface Document {
     mozCancelFullScreen: any;
     mozFullScreenElement:any;
     msFullscreenElement:any;
+    webkitExitFullscreen:any;
+    webkitFullscreenElement:any;
 }
 declare var L:any;  //leaflet
