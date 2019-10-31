@@ -7,7 +7,7 @@
     "start": "ng serve --host 0.0.0.0 --port 4219",
     "lint": "ng lint",
     "test": "ng test --code-coverage",
-    "build": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --prod --aot --build-optimizer",
+    "build": "node --max_old_space_size=16000 ./node_modules/@angular/cli/bin/ng build --prod --aot --build-optimizer",
     "pree2e": "webdriver-manager update",
     "e2e": "ng e2e",
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
@@ -15,10 +15,10 @@
     "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
     "build:client-and-server-bundles": "ng build --prod && ng run vizza:server:production",
     "server": "node local.js",
-    "build:prod": "npm run build:ssr",
+    "build:prod": "npm run build -- --prod --aot",
     "serve:prerender": "node static.js",
     "build:prerender": "npm run build:prod && node dist/prerender.js",
-    "fix-memory-limit": "cross-env LIMIT=8192 increase-memory-limit"
+    "fix-memory-limit": "cross-env LIMIT=16000 increase-memory-limit"
   },
   "private": true,
   "dependencies": {
