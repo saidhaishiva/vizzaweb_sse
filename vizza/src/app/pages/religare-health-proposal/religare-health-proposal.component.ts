@@ -1338,6 +1338,7 @@ export class ReligareHealthProposalComponent implements OnInit {
 
     public religareQuestionsSuccess(successData) {
         this.religareQuestionsList = successData.ResponseObject;
+
         for (let i = 0; i < this.religareQuestionsList.length; i++) {
             this.religareQuestionsList[i].mStatus = 'No';
             this.religareQuestionsList[i].answer_status = false;
@@ -1358,6 +1359,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
     questionYes(id, value: any) {
         if (value.checked) {
+            // alert('inn');
             this.religareQuestionsList[id].mStatus = 'Yes';
             this.religareQuestionsList[id].answer_status = true;
         } else {
