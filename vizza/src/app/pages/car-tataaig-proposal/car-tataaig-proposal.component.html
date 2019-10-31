@@ -469,7 +469,7 @@
                         <div class="row">
                           <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Addons Package" formControlName="package" aria-label="close" (selectionChange)="selectopt($event);QuoteList();packageaddon();changepopup();getPackagelist()"  (click)="packageaddon()" (keyup)="QuoteList()" data-toggle="modal" data-target="#myModal" required>
+                          <mat-select placeholder="Addons Package" formControlName="package" aria-label="close" (selectionChange)="selectopt($event);QuoteList();packageaddon();changepopup();getPackagelist()"  (click)="packageaddon()" (keyup)="QuoteList()"  required>
                             <mat-option *ngFor="let package of packagelist | keys" value="{{package.key}}">{{package.value}}</mat-option>
                           </mat-select>
                             <mat-error *ngIf="vehicle.controls.package.errors?.required">Package is Required</mat-error>
@@ -477,21 +477,21 @@
                           </div>
 
 
-                          <div id="myModal" class="modal" *ngIf="modelBoxList ">
+                          <!--<div id="myModal" class="modal" *ngIf="modelBoxList ">-->
 
-                            <!-- Modal content -->
-                            <div class="modal-content">
-                              <span class="close">&times;</span>
-                              <div class="col-md-12 text-center w-100">
-                                <p>{{packaageList}}<span class="error">*</span></p>
-                                <mat-radio-group  formControlName="ispreviousPolicy" (change)="packageaddon()" required>
-                                  <mat-radio-button value="Yes" >Yes</mat-radio-button>
-                                  <mat-radio-button value="No">No</mat-radio-button>
-                                </mat-radio-group>
-                              </div>
-                            </div>
+                            <!--&lt;!&ndash; Modal content &ndash;&gt;-->
+                            <!--<div class="modal-content">-->
+                              <!--<span class="close">&times;</span>-->
+                              <!--<div class="col-md-12 text-center w-100">-->
+                                <!--<p>{{packaageList}}<span class="error">*</span></p>-->
+                                <!--<mat-radio-group  formControlName="ispreviousPolicy" (change)="packageaddon()" required>-->
+                                  <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
+                                  <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                                <!--</mat-radio-group>-->
+                              <!--</div>-->
+                            <!--</div>-->
 
-                          </div>
+                          <!--</div>-->
 
                           <!--<div class="container" *ngIf="modelBoxList ">-->
                           <!---->

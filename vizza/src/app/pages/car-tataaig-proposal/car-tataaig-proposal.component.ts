@@ -14,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 import {CommonService} from '../../shared/services/common.service';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {WINDOW} from '@ng-toolkit/universal';
+import {EdelweissOpt} from '../edelweiss-term-life/edelweiss-term-life.component';
+import {BehaviorSubject} from 'rxjs';
 
 
 export const MY_FORMATS = {
@@ -28,6 +30,9 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MM YYYY',
   },
 };
+export interface DialogData {
+  name: string;
+}
 
 @Component({
   selector: 'app-car-tataaig-proposal',
@@ -100,6 +105,8 @@ export class CarTataaigProposalComponent implements OnInit {
   public premium: any;
   public visible: any;
   public config: any;
+  public ispreviousPolicy: any;
+  public newPackageList: any;
   // public ispreviousPolicy: any;
   public bankValid: boolean;
   public modelBoxList: boolean;
@@ -131,6 +138,8 @@ export class CarTataaigProposalComponent implements OnInit {
           this.previousFormData = JSON.parse(sessionStorage.tatacarprepolicy);
           this.nomineeFormData = JSON.parse(sessionStorage.tatacarnominee);
           this.ProposalId = sessionStorage.tatacarproposalID;
+          this.ispreviousPolicy=JSON.parse(sessionStorage.ispreviousPolicy);
+          console.log(this.ispreviousPolicy,'this.ispreviousPolicy....')
         }
       }
     });
@@ -527,7 +536,13 @@ export class CarTataaigProposalComponent implements OnInit {
   packaaageListSuccess(successData) {
     this.packagesslist = successData.ResponseObject;
 this.packaageList=this.packagesslist.content;
+    // let bSubject = new BehaviorSubject(this.packaageList);
+  // this.newPackageList = new BehaviorSubject<string>(this.packaageList);
+    // cast = this. newPackageList.asObservable();
+
+    // sessionStorage.packaageList = this.packaageList;
 console.log(this.packaageList,'this.packaageList');
+console.log( sessionStorage.packaageList,'this.packaageList');
 
   }
 
@@ -597,35 +612,25 @@ console.log(this.vehicle.controls['ispreviousPolicy'].value,"12222222");
     packageListSuccess(successData) {
       if (successData.IsSuccess) {
         this.packagelist = successData.ResponseObject;
-        // this.window.open(this.packaageList,'_top');
-        var modal = document.getElementById("myModal");
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            width: '400px';
-            modal.style.display = "none";
-          }
-        }
-      // if(this.vehicle.controls['ispreviousPolicy'].value== 'No'){
-      //   this.toastr.error('Eligible Only for Gold and Silver Plan ');
-      // }
-      console.log(this.vehicle.controls['ispreviousPolicy'].value,"55555555");
-        // if(this.vehicle.controls['package'].value != '1' && this.vehicle.controls['package'].value != '2' ){
-        //   alert('1nn')
-        //   this.modelBox!=false;
-        //   console.log( this.modelBox,' this.modelBox')
 
-      // let dialogRef = this.dialog.open(tataigCarOpt, {
-      //   width: '400px'
-      // });
-      // dialogRef.disableClose = true;
-      // dialogRef.afterClosed().subscribe(result => {
-      //   if(result) {
-      //
-      //   }
-      //
-      // });
-      //   }
-      //   this.toastr.error(successData.ErrorObject);
+      console.log(this.vehicle.controls['ispreviousPolicy'].value,"55555555");
+        if(this.vehicle.controls['package'].value != '1' && this.vehicle.controls['package'].value != '2' ){
+          let dialogRef = this.dialog.open(tataigCarOpt, {
+            width: '400px',
+            data: {name: this.packaageList}
+
+          });
+          console.log(name,'hjhjkjkjkkjjkdataaaaaa')
+          dialogRef.disableClose = true;
+          dialogRef.afterClosed().subscribe(result => {
+            // if(result) {
+            //
+            // }
+            console.log('The dialog was closed');
+
+          });
+        }
+        this.toastr.error(successData.ErrorObject);
 
     } else {
       this.toastr.error(successData.ResponseObject.ErrorObject);
@@ -812,50 +817,12 @@ console.log(this.vehicle.controls['ispreviousPolicy'].value,"12222222");
       console.log(this.photos,'photos');
 
     }
-    // else {
-    //     this.errortoaster = false;
-    //     this.toastr.error(successData.ErrorObject);
-    // }
+
   }
 
   public financierNameFailure(error) {
   }
-  // financiertype(event: any) {
-  //   console.log(event.length,'length');
-  //   if (event.length >= 3) {
-  //     if (this.vehicle.controls['banktype'].value == 'bank' || this.vehicle.controls['banktype'].value == 'nonbank financier') {
-  //       const data = {
-  //         'platform': 'web',
-  //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-  //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-  //         'type': this.vehicle.controls['banktype'].value,
-  //         'name': event,
-  //       };
-  //       this.carinsurance.Finacetype(data).subscribe(
-  //           (successData) => {
-  //             this.FinanceSuccess(successData);
-  //           },
-  //           (error) => {
-  //             this.FinanceFailure(error);
-  //           }
-  //       );
-  //     }
-  //   }
-  // }
-  //
-  // FinanceSuccess(successData) {
-  //   if (successData.IsSuccess == true) {
-  //     this.errortoaster = true;
-  //     this.banklist = successData.ResponseObject;
-  //   } else {
-  //     this.toastr.error(successData.ErrorObject);
-  //     this.errortoaster = false;
-  //   }
-  // }
-  //
-  // FinanceFailure(error) {
-  //
-  // }
+
   onScrollToEnd() {
     this.fetchMore();
   }
@@ -1542,97 +1509,88 @@ console.log(this.vehicle.controls['ispreviousPolicy'].value,"12222222");
   }
 }
 
-// @Component({
-//   selector: ' tataigCarOpt ',
-//   template: `
-//         <div class="container">
-//             <div class="row">
-//                 <div class="col-md-12 text-center w-100">
-//                   <p>Is there Nil_Depreciation and Return_to_invoice in your previous policy?<span class="error">*</span></p>
-//                   <mat-radio-group  [(ngModel)]="ispreviousPolicy" (change)="prePolicyVal()" required>
-//                     <mat-radio-button value="Yes" >Yes</mat-radio-button>
-//                     <mat-radio-button value="No">No</mat-radio-button>
-//                   </mat-radio-group>
-//                     <!--<mat-form-field class="w-50">-->
-//                         <!--<input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)"  autocomplete="off" >-->
-//                     <!--</mat-form-field>-->
-//                 </div>
-//
-//             </div>
-//         </div>
-//         <!--<div mat-dialog-actions style="justify-content: center">-->
-//           <!--<button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>-->
-//           <!--<button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>-->
-//         <!--</div>-->
-//     `
-// })
-// export class tataigCarOpt {
-//  public ispreviousPolicy: any;
-//   public previousPolicyvalue:any;
-//   constructor(
-//       public dialogRef: MatDialogRef<tataigCarOpt>,
-//       @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public carinsurance: FourWheelerService) {
-//     this.ispreviousPolicy = "";
-// console.log(this.ispreviousPolicy,'previous........')
-//   }
-//   // // Number validation
-//   // numberValidate(event: any) {
-//   //   this.validation.numberValidate(event);
-//   // }
-//
-//   onNoClick(): void {
-//     this.dialogRef.close(true);
-//   }
-//
-//   prePolicyVal() {
-//
-//     const data = {
-//       "platform": "web",
-//       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       "addons": this.ispreviousPolicy == "Yes"?'Y':'N'
-//
-//     }
-//     console.log(data, '999999999');
-//     this.carinsurance.packagetype(data).subscribe(
-//         (successData) => {
-//           this.otpValidationListSuccess(successData);
-//         },
-//         (error) => {
-//           this.otpValidationListFailure(error);
-//         }
-//     );
-//   }
-//
-//   public otpValidationListSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.previousPolicyvalue = successData.ResponseObject;
-//       if(this.ispreviousPolicy== 'No'){
-//         this.toastr.error('Eligible Only for Gold and Silver Plan ');
-//       }
-//       // this.toastr.success(successData.ResponseObject);
-//       console.log(this.previousPolicyvalue, '122345566677')
-//       this.dialogRef.close(true);
-//     }
-//     // } else {
-//     //   this.toastr.error(successData.ErrorObject);
-//     // }
-//     sessionStorage.ispreviousPolicy = this.ispreviousPolicy;
-//     sessionStorage.previousPolicyvalue = this.previousPolicyvalue;
-//     console.log(sessionStorage.previousPolicyvalue,'sessiopreviousPolicyvalue....')
-//     console.log(sessionStorage.ispreviousPolicy,'tpreviousPolicyvalue....')
-//   }
-//
-//   public otpValidationListFailure(error) {
-//   }
-//
-//   // trmsg(){
-//   //   if(this.ispreviousPolicy== 'No'){
-//   //     this.toastr.error('Eligible Only for Gold and Silver Plan ');
-//   //   }
-//   // }
-//
-//   numberValidate(event: any) {
-//     this.validation.numberValidate(event);
-//   }
-// }
+@Component({
+  selector: ' tataigCarOpt ',
+  template: `
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                  <p>{{data.name}}<span class="error">*</span></p>
+                  <mat-radio-group  [(ngModel)]="ispreviousPolicy" (change)="prePolicyVal()" required>
+                    <mat-radio-button value="Yes" >Yes</mat-radio-button>
+                    <mat-radio-button value="No">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+            </div>
+        </div>
+       
+    `
+})
+export class tataigCarOpt {
+ public ispreviousPolicy: any;
+  public previousPolicyvalue:any;
+  public packaageList:any
+  // public newPackageList:any
+  constructor(
+      public dialogRef: MatDialogRef<tataigCarOpt>,
+      @Inject(MAT_DIALOG_DATA) public data: DialogData, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public carinsurance: FourWheelerService) {
+    this.ispreviousPolicy = "";
+    // this.packaageList = JSON.parse(sessionStorage.packaageList);
+console.log(data.name,'previous........')
+  }
+  ngOnInit() {
+
+    // this.newPackageList.subscribe(newPackageList => this.newPackageList = newPackageList);
+    // this.service.cast.subscribe(newPassword => this.newPassword = newPassword);
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close(true);
+    console.log('outtttt');
+  }
+
+  prePolicyVal() {
+
+    const data = {
+      "platform": "web",
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "addons": this.ispreviousPolicy == "Yes"?'Y':'N'
+
+    }
+    console.log(data, '999999999');
+    this.carinsurance.packagetype(data).subscribe(
+        (successData) => {
+          this.otpValidationListSuccess(successData);
+        },
+        (error) => {
+          this.otpValidationListFailure(error);
+        }
+    );
+  }
+
+  public otpValidationListSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.previousPolicyvalue = successData.ResponseObject;
+      if(this.ispreviousPolicy== 'No'){
+        this.toastr.error('Eligible Only for Gold and Silver Plan ');
+      }
+      console.log(this.previousPolicyvalue, '122345566677')
+      this.dialogRef.close(true);
+    }
+
+    sessionStorage.ispreviousPolicy = this.ispreviousPolicy;
+    sessionStorage.previousPolicyvalue = this.previousPolicyvalue;
+    console.log(sessionStorage.previousPolicyvalue,'sessiopreviousPolicyvalue....')
+    console.log(sessionStorage.ispreviousPolicy,'tpreviousPolicyvalue....')
+  }
+
+  public otpValidationListFailure(error) {
+  }
+
+
+
+  numberValidate(event: any) {
+    this.validation.numberValidate(event);
+  }
+}
