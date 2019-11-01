@@ -508,10 +508,10 @@
                               </div>
                             </div>
 
-                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' && previouspolicy.controls['ispreviousPolicy'].value == 'Yes'" >
+                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' " >
                               <div class="row">
                                 <div class="col-md-4">
-                                  <mat-checkbox formControlName="depreciation" (click)="QuoteList()" (change)="amount_depreciation()" (click)="chanedepre()" (keyup)="chanedepre()"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
+                                  <mat-checkbox formControlName="depreciation" (click)="QuoteList();chanedepre()" (change)="amount_depreciation()"  (keyup)="chanedepre()"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
                                 </div>
 
                                 <div class="col-md-4" *ngIf="vehicle.controls['depreciation'].value ==true">
@@ -540,7 +540,7 @@
                               </div>
                             </div>
 
-                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' && previouspolicy.controls['ispreviousPolicy'].value == 'Yes'" >
+                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' " >
                               <div class="row">
                                 <div class="col-md-4">
                                   <mat-checkbox formControlName="Returninvoice"  (change)="QuoteList()" (change)="amount_Returninvoice()" (click)="chaneret()" (keyup)="chaneret()"><strong> Return_to_Invoice </strong></mat-checkbox>

@@ -73,7 +73,6 @@ export class HdfcCarPaymentSuccessComponent implements OnInit {
             } else if (this.type === 'pdf') {
                 console.log(successData.ResponseObject, 'www3444');
                 this.window.open(this.path,'_blank');
-            } else {
             }
         } else {
             this.toast.error(successData.ErrorObject);
