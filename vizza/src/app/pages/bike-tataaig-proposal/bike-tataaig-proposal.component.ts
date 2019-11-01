@@ -32,6 +32,9 @@ export interface DialogData {
     name: string;
     animal:string;
 }
+declare const global: any;
+// tslint:disable-next-line:variable-name
+const MouseEvent = (global as any).MouseEvent as MouseEvent;
 
 @Component({
     selector: 'app-bike-tataaig-proposal',

@@ -6,6 +6,11 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
+declare const global: any;
+// tslint:disable-next-line:variable-name
+const MouseEvent = (global as any).MouseEvent as MouseEvent;
+
 @Component({
   selector: 'app-professional',
   templateUrl: './professional.component.html',
