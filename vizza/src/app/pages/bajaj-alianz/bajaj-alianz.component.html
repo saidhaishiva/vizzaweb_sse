@@ -544,7 +544,7 @@
                     <div class="row">
                         <div class="col-md-6 text-right">
                             <button mat-button matStepperPrevious (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
-                            <button mat-button class="mat-primaryBlue" style="color: white" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
+                            <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
                         </div>
                         <div class="col-md-6 text-left">
                             <form action={{RediretUrlLink}} method='post' #form>

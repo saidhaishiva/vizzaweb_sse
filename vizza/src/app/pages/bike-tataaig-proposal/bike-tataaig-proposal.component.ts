@@ -104,6 +104,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public finArray: any;
     public errorMsg: any;
     public errorNonMsg: any;
+    public packaageList: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -1187,6 +1188,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             "Electrical_Accessories_SI": this.vehicle.controls['elecAccessoriesSI'].value,
             "Non_Electrical_Accessories":this.vehicle.controls['nonElectricAcess'].value == true ? 'Y' : 'N',
             "Non_Electrical_Accessories_SI":this.vehicle.controls['nonElectricAcessSI'].value,
+            "package":this.vehicle.controls['depreciation'].value == true?'8':''||this.vehicle.controls['Returninvoice'].value == true?'9':'',
         };
         this.bikeinsurance.QuoteList(data).subscribe(
             (successData) => {
@@ -1205,6 +1207,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.Quotelist = successData.ResponseObject;
             console.log(this.Quotelist, 'quotationdata');
             this.quotationNo=this.Quotelist.productlist.quotation_no;
+            this.packaageList=this.Quotelist.content;
+            console.log(this.packaageList,'234567898767890')
             console.log(this.quotationNo, 'quotationNo');
             this.QuoteAss=this.Quotelist.productlist.addons.Automobile_Association_Membership;
             this.QuoteAntitheft=this.Quotelist.productlist.addons.Anti_theft_device;
