@@ -511,9 +511,20 @@ export class CholaHealthProposalComponent implements OnInit {
               this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('Self');
               this.insureArray['controls'].items['controls'][0]['controls'].personalrelationshipName.patchValue(this.relationshipList['Self']);
               for (let i= 0; i < this.insureArray.value.items.length; i++) {
-                  if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Spouse') {
-                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Spouse');
-                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Spouse']);
+                  if (this.insureArray.value.items[1] && this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Spouse') {
+                      if(this.getFamilyDetails.family_members[1].type=='Spouse' || this.getFamilyDetails.family_members[1].type!=undefined ){
+                          // console.log(this.getFamilyDetails.family_members[1].type,'1111111');
+                          // console.log(this.getFamilyDetails.family_members[1].type.value,'55555');
+                          // alert('inn')
+                          this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Spouse');
+                          this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Spouse']);
+
+                      }else if( this.insureArray.value.items[0] && this.getFamilyDetails.family_members[0].type=='Spouse'){
+                          // console.log(this.getFamilyDetails.family_members[0].type.value,'22222');
+                          // alert('inner12')
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Self');
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Self']);
+                      }
                   } else if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') {
                       this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Son');
                       this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue('Son');
