@@ -74,6 +74,7 @@ export class HdfcCarPaymentSuccessComponent implements OnInit {
                 console.log(successData.ResponseObject, 'www3444');
                 this.window.open(this.path,'_blank');
             }
+
         } else {
             this.toast.error(successData.ErrorObject);
         }

@@ -620,6 +620,7 @@ console.log( sessionStorage.packaageList,'this.packaageList');
             width: '400px',
             data: {name: this.packaageList, animal: this.ispreviousPolicy}
           });
+
           console.log(name,'hjhjkjkjkkjjkdataaaaaa')
           console.log(this.ispreviousPolicy,'55555555555233');
           dialogRef.disableClose = true;

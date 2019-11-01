@@ -425,7 +425,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         console.log(this.vehicle.controls['Tppdrestrictamount'].value,'Tppdrestrictamount')
 
     }
-    amount_depreciation() {
+    amount_depreciation()
+    {
         if (this.vehicle.controls['depreciation'].value == true) {
             this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
             this.vehicle.controls['depreciationamount'].updateValueAndValidity();
