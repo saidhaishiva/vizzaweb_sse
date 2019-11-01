@@ -7,7 +7,9 @@ import {AuthService} from '../../shared/services/auth.service';
 import {LearningcenterService} from '../../shared/services/learningcenter.service';
 import {Settings} from '../../app.settings.model';
 import { WINDOW } from '@ng-toolkit/universal';
-
+declare const global: any;
+// tslint:disable-next-line:variable-name
+const MouseEvent = (global as any).MouseEvent as MouseEvent;
 @Component({
   selector: 'app-training',
   templateUrl: './training.component.html',
