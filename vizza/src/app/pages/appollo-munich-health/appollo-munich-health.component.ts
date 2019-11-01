@@ -2418,8 +2418,10 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     changeDistrict(){
+        // alert('innn');
         this.proposer.controls['proposerDistrictName'].patchValue(this.AppolloDistrictList[this.proposer.controls['proposerDistrict'].value]);
-
+    console.log(this.proposer.controls['proposerDistrict'].value, 'proposerDistrict');
+    console.log(this.proposer.controls['proposerDistrictName'].value, 'districtname');
     }
     changeMarital(){
         this.proposer.controls['maritalStatusName'].patchValue(this.maritalDetail[this.proposer.controls['maritalStatus'].value]);

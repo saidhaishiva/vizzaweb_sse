@@ -811,9 +811,9 @@
                       <div class="col-md-8">
                           <ul class="summary-head">
                               <li><span>Insurer:</span><img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
+                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.BasePremium}}</span></li>
                               <li><span>Service Tax:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.Tax}}</span></li>
-                              <li><span>Base Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.BasePremium}}</span></li>
+                              <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
                               <li></li>
                           </ul>
                       </div>
@@ -825,7 +825,7 @@
                       </div>
                       <div class="col-md-6">
                         <div class="p-3">
-                          <h6>PROPOSER DETAILS</h6>
+                          <!--<h6>PROPOSER DETAILS</h6>-->
                           <ul class="m-0 list-group">
                             <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitleName}} {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                             <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
@@ -910,7 +910,7 @@
                           <div class="p-3">
                             <h6 class="mt-4"></h6>
                             <ul class="m-0 list-group">
-                              <li class="list-group-item" *ngIf="item.proposerDistrict !='' && item.proposerDistrict !=null"><strong>District:</strong> {{item.proposerDistrict}}</li>
+                              <li class="list-group-item" *ngIf="item.proposerDistrictName !='' && item.proposerDistrictName !=null"><strong>District:</strong> {{item.proposerDistrictName}}</li>
                               <li class="list-group-item" *ngIf="item.proposerState !='' && item.proposerState !=null"><strong>State:</strong> {{item.proposerState}}</li>
                               <!--<li class="list-group-item" ><strong>Country:</strong> INDIA</li>-->
                               <li class="list-group-item" *ngIf="item.proposerPincode !='' && item.proposerPincode!=null"><strong>PIN code:</strong> {{item.proposerPincode}}</li>

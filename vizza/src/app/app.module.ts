@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -363,7 +364,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
     imports: [
-        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        BrowserModule.withServerTransition({ appId: 'vizza-app' }),
         Ng2OrderModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot(),
