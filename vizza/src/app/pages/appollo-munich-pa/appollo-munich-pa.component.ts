@@ -1654,8 +1654,11 @@ export class AppollomunichpaComponent implements OnInit {
         for (let i = 0; i < this.appolloQuestionsListPa.length; i++) {
 
             if(this.appolloQuestionsListPa[i].mStatus == 'No'){
+                console.log(this.appolloQuestionsListPa[i].mStatus, 'mstatus')
                 medicalStatus.push('No');
             } else if(this.appolloQuestionsListPa[i].mStatus == 'Yes') {
+                console.log(this.appolloQuestionsListPa[i].mStatus, 'mstatusyes')
+
                 medicalStatus.push('Yes');
             }
         }
