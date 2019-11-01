@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import { ValidationService } from '../../shared/services/validation.service';
 import { BikeInsuranceService } from '../../shared/services/bike-insurance.service';
@@ -11,6 +11,9 @@ import { AuthService} from '../../shared/services/auth.service';
 import { DatePipe} from '@angular/common';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import { ActivatedRoute } from '@angular/router';
+import {CommonService} from '../../shared/services/common.service';
+import {FourWheelerService} from '../../shared/services/four-wheeler.service';
+import {WINDOW} from '@ng-toolkit/universal';
 
     export const MY_FORMATS = {
     parse: {
@@ -25,6 +28,10 @@ import { ActivatedRoute } from '@angular/router';
     },
 };
 
+export interface DialogData {
+    name: string;
+    animal:string;
+}
 
 @Component({
     selector: 'app-bike-tataaig-proposal',
@@ -101,7 +108,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     loading = false;
 
 
-    constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public configr: ConfigurationService, public route: ActivatedRoute) {
+    constructor(@Inject(WINDOW) private window: Window,public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public configr: ConfigurationService, public dialog: MatDialog, public route: ActivatedRoute) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if (params.stepper == true || params.stepper == 'true') {
@@ -428,6 +435,23 @@ export class BikeTataaigProposalComponent implements OnInit {
     amount_depreciation()
     {
         if (this.vehicle.controls['depreciation'].value == true) {
+            let dialogRef = this.dialog.open(tataigBikeOpt, {
+                width: '400px',
+                // data: {name: this.packaageList, animal: this.ispreviousPolicy}
+            });
+
+
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+                if(result) {
+                    // this.ispreviousPolicy = result;
+                    // console.log(result,'23456787656789876');
+                    // console.log(this.ispreviousPolicy,'23456787656789876');
+
+                }
+
+                console.log('The dialog was closed');
+            });
             this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
             this.vehicle.controls['depreciationamount'].updateValueAndValidity();
         } else {
@@ -1331,5 +1355,53 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['bankNamevalue'].patchValue(this.banklist[this.vehicle.controls['bankName'].value]);
 console.log(this.vehicle.controls['bankNamevalue'].value,'2222222222....');
 console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....');
+    }
+}
+@Component({
+    selector: ' tataigBikeOpt ',
+    template: `
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                  <p>{{data.name}}<span class="error">*</span></p>
+                  <mat-radio-group  [(ngModel)]="data.animal" (change)="outChange()" [mat-dialog-close]="data.animal" required>
+                    <mat-radio-button value="Y" >Yes</mat-radio-button>
+                    <mat-radio-button value="N">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+            </div>
+        </div>
+       
+    `
+})
+export class tataigBikeOpt {
+    public ispreviousPolicy: any;
+    public previousPolicyvalue:any;
+    public packaageList:any
+    // public newPackageList:any
+    constructor(
+        public dialogRef: MatDialogRef<tataigBikeOpt>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public carinsurance: FourWheelerService) {
+        data.animal = "";
+        // this.packaageList = JSON.parse(sessionStorage.packaageList);
+        console.log(data.name,'previous........');
+        console.log(data.animal,'previous........');
+    }
+
+
+    outChange(): void {
+        if(this.data.animal == 'N'){
+            this.toastr.error('Eligible Only for Gold and Silver Plan ');
+        }
+
+        console.log(this.data.animal, '122345566677');
+        this.dialogRef.close(
+            this.data.animal
+        );
+        console.log('outtttt111111111');
+    }
+
+    numberValidate(event: any) {
+        this.validation.numberValidate(event);
     }
 }
