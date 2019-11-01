@@ -1363,7 +1363,7 @@ console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center w-100">
-                  <p>{{data.name}}<span class="error">*</span></p>
+                  <p>yyy<span class="error">*</span></p>
                   <mat-radio-group  [(ngModel)]="data.animal" (change)="outChange()" [mat-dialog-close]="data.animal" required>
                     <mat-radio-button value="Y" >Yes</mat-radio-button>
                     <mat-radio-button value="N">No</mat-radio-button>
@@ -1382,21 +1382,21 @@ export class tataigBikeOpt {
     constructor(
         public dialogRef: MatDialogRef<tataigBikeOpt>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public carinsurance: FourWheelerService) {
-        data.animal = "";
+        // data.animal = "";
         // this.packaageList = JSON.parse(sessionStorage.packaageList);
-        console.log(data.name,'previous........');
-        console.log(data.animal,'previous........');
+        // console.log(data.name,'previous........');
+        // console.log(data.animal,'previous........');
     }
 
 
     outChange(): void {
-        if(this.data.animal == 'N'){
-            this.toastr.error('Eligible Only for Gold and Silver Plan ');
-        }
-
-        console.log(this.data.animal, '122345566677');
+        // if(this.data.animal == 'N'){
+        //     this.toastr.error('Eligible Only for Gold and Silver Plan ');
+        // }
+        //
+        // console.log(this.data.animal, '122345566677');
         this.dialogRef.close(
-            this.data.animal
+            // this.data.animal
         );
         console.log('outtttt111111111');
     }
