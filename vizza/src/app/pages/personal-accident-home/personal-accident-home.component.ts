@@ -21,6 +21,11 @@ import {MetaService} from '../../shared/services/meta.service';
 import {Meta, Title} from '@angular/platform-browser';
 import { WINDOW } from '@ng-toolkit/universal';
 
+declare const global: any;
+// tslint:disable-next-line:variable-name
+const MouseEvent = (global as any).MouseEvent as MouseEvent;
+
+
 @Component({
   selector: 'app-personal-accident-home',
   templateUrl: './personal-accident-home.component.html',

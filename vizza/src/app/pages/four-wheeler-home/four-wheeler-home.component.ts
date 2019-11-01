@@ -32,6 +32,10 @@ export const MY_FORMATS = {
   },
 };
 
+declare const global: any;
+// tslint:disable-next-line:variable-name
+const MouseEvent = (global as any).MouseEvent as MouseEvent;
+
 @Component({
   selector: 'app-four-wheeler-home',
   templateUrl: './four-wheeler-home.component.html',

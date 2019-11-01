@@ -25,6 +25,9 @@ export const MY_FORMATS = {
         monthYearA11yLabel: 'MM YYYY',
     },
 };
+declare const global: any;
+// tslint:disable-next-line:variable-name
+const MouseEvent = (global as any).MouseEvent as MouseEvent;
 
 @Component({
     selector: 'app-hdfc-two-wheeler-proposal',
