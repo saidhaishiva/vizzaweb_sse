@@ -282,13 +282,13 @@
                             <input matInput placeholder="City"  formControlName="preCity" autocomplete="off" readonly>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4">
-                          <p>Is there Nil_Depreciation and Return_to_invoice in your previous policy?<span class="error">*</span></p>
-                          <mat-radio-group formControlName="ispreviousPolicy"   required>
-                            <mat-radio-button value="Yes" >Yes</mat-radio-button>
-                            <mat-radio-button value="No">No</mat-radio-button>
-                          </mat-radio-group>
-                        </div>
+                        <!--<div class="col-md-4">-->
+                          <!--<p>Is there Nil_Depreciation and Return_to_invoice in your previous policy?<span class="error">*</span></p>-->
+                          <!--<mat-radio-group formControlName="ispreviousPolicy"   required>-->
+                            <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
+                            <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                          <!--</mat-radio-group>-->
+                        <!--</div>-->
                         <div class="proposal-buttom mt-3 text-right w-100">
                           <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
                           <button mat-raised-button color="primaryBlue" class="p-0 ml-3"  (click)="prepolicyDetails(stepper,previouspolicy.value)" >Next</button>
@@ -463,7 +463,7 @@
                             <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium'" >
                               <div class="row">
                                 <div class="col-md-4">
-                                  <mat-checkbox formControlName="Associationmember" (change)="QuoteList();amount_automobile()"  (click)="chaneauto()" (keyup)="chaneauto()"  ><strong> Automobile_Association_Membership </strong></mat-checkbox>
+                                  <mat-checkbox formControlName="Associationmember" (change)="QuoteList();amount_automobile()"  (change)="chaneauto()" (keyup)="chaneauto()"  ><strong> Automobile_Association_Membership </strong></mat-checkbox>
                                 </div>
 
                                 <div class="col-md-4" *ngIf="vehicle.controls['Associationmember'].value ==true">
@@ -479,7 +479,7 @@
                             <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium'" >
                               <div class="row">
                                 <div class="col-md-4">
-                                  <mat-checkbox formControlName="Antitheft" (change)="QuoteList();amount_Antitheft()"  (click)="chaneanti()" (keyup)="chaneanti()"  ><strong> Anti_theft_device </strong></mat-checkbox>
+                                  <mat-checkbox formControlName="Antitheft" (change)="QuoteList();amount_Antitheft()"  (change)="chaneanti()" (keyup)="chaneanti()"  ><strong> Anti_theft_device </strong></mat-checkbox>
                                 </div>
 
                                 <div class="col-md-4" *ngIf="vehicle.controls['Antitheft'].value ==true">
@@ -496,7 +496,7 @@
                             <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium'" >
                               <div class="row">
                                 <div class="col-md-4">
-                                  <mat-checkbox formControlName="Tppdrestrict" (change)="QuoteList()" (click)="chanedepre()" (keyup)="chanedepre()" ><strong> TPPD_Restricted </strong></mat-checkbox>
+                                  <mat-checkbox formControlName="Tppdrestrict" (change)="QuoteList()" (change)="chanedepre()" (keyup)="chanedepre()" ><strong> TPPD_Restricted </strong></mat-checkbox>
                                 </div>
 
                                 <div class="col-md-4" *ngIf="vehicle.controls['Tppdrestrict'].value ==true">
@@ -509,10 +509,10 @@
                               </div>
                             </div>
 
-                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' " >
+                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' &&  depReturn==true " >
                               <div class="row">
                                 <div class="col-md-4">
-                                  <mat-checkbox formControlName="depreciation" (click)="QuoteList();chanedepre()" (change)="amount_depreciation()"  (keyup)="chanedepre()"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
+                                  <mat-checkbox formControlName="depreciation" (change)="QuoteList();addcontent();disableDpRt();amount_depreciation();chanedepre()"  (keyup)="chanedepre()"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
                                 </div>
 
                                 <div class="col-md-4" *ngIf="vehicle.controls['depreciation'].value ==true">
@@ -528,7 +528,7 @@
                             <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium'" >
                               <div class="row">
                                 <div class="col-md-4">
-                                  <mat-checkbox formControlName="Consumableexpense"  (change)="QuoteList()" (change)="amount_Consumableexpense()" (click)="chanecon()" (keyup)="chanecon()"><strong> Consumables_expenses </strong></mat-checkbox>
+                                  <mat-checkbox formControlName="Consumableexpense"  (change)="QuoteList()" (change)="amount_Consumableexpense()" (change)="chanecon()" (keyup)="chanecon()"><strong> Consumables_expenses </strong></mat-checkbox>
                                 </div>
 
                                 <div class="col-md-4" *ngIf="vehicle.controls['Consumableexpense'].value ==true">
@@ -541,10 +541,10 @@
                               </div>
                             </div>
 
-                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' " >
+                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' && depReturn==true " >
                               <div class="row">
                                 <div class="col-md-4">
-                                  <mat-checkbox formControlName="Returninvoice"  (change)="QuoteList()" (change)="amount_Returninvoice()" (click)="chaneret()" (keyup)="chaneret()"><strong> Return_to_Invoice </strong></mat-checkbox>
+                                  <mat-checkbox formControlName="Returninvoice"  (change)="QuoteList();addcontent();disableDpRt();amount_Returninvoice();chaneret()"  (keyup)="chaneret()"><strong> Return_to_Invoice </strong></mat-checkbox>
                                 </div>
 
                                 <div class="col-md-4" *ngIf="vehicle.controls['Returninvoice'].value ==true">
@@ -560,7 +560,7 @@
                             <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium'" >
                               <div class="row">
                                 <div class="col-md-4">
-                                  <mat-checkbox formControlName="Roadsideassistance" (change)="QuoteList()" (change)="amount_Roadsideassistance()" (click)="chaneroad()" (keyup)="chaneroad()"><strong> Roadside_Assistance </strong></mat-checkbox>
+                                  <mat-checkbox formControlName="Roadsideassistance" (change)="QuoteList()" (change)="amount_Roadsideassistance()" (change)="chaneroad()" (keyup)="chaneroad()"><strong> Roadside_Assistance </strong></mat-checkbox>
                                 </div>
 
                                 <div class="col-md-4" *ngIf="vehicle.controls['Roadsideassistance'].value ==true">

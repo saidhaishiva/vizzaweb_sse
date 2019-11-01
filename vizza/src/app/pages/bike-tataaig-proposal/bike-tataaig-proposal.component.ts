@@ -99,12 +99,14 @@ export class BikeTataaigProposalComponent implements OnInit {
     public config: any;
     public productlist: any;
     public errortoaster: boolean;
+    public depReturn: boolean;
     public bankValid: boolean;
     public finlist: any;
     public finArray: any;
     public errorMsg: any;
     public errorNonMsg: any;
     public packaageList: any;
+    public ispreviousPolicy: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -147,6 +149,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.bankValid = false;
         this.errorMsg = false;
         this.errorNonMsg = false;
+        this.depReturn = true;
+        this.ispreviousPolicy = '';
         this.finArray=[];
 
         this.proposer = this.fb.group({
@@ -188,7 +192,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             preState: '',
             preDistrict: '',
             preCity: '',
-            ispreviousPolicy:'',
+            // ispreviousPolicy:'',
         });
 
         this.vehicle = this.fb.group({
@@ -438,29 +442,46 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     amount_depreciation()
     {
+        // alert('dep')
         if (this.vehicle.controls['depreciation'].value == true) {
-            let dialogRef = this.dialog.open(tataigBikeOpt, {
-                width: '400px',
-                // data: {name: this.packaageList, animal: this.ispreviousPolicy}
-            });
-
-
-            dialogRef.disableClose = true;
-            dialogRef.afterClosed().subscribe(result => {
-                if(result) {
-                    // this.ispreviousPolicy = result;
-                    // console.log(result,'23456787656789876');
-                    // console.log(this.ispreviousPolicy,'23456787656789876');
-
-                }
-
-                console.log('The dialog was closed');
-            });
             this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
             this.vehicle.controls['depreciationamount'].updateValueAndValidity();
         } else {
             this.vehicle.controls['depreciationamount'].clearValidators();
             this.vehicle.controls['depreciationamount'].updateValueAndValidity();
+        }
+    }
+    disableDpRt(){
+        alert('dep')
+        if (this.vehicle.controls['depreciation'].value == true || this.vehicle.controls['Returninvoice'].value == true) {
+            alert('true')
+            let dialogRef = this.dialog.open(tataigBikeOpt, {
+
+                width: '400px',
+                data: {name: this.packaageList, animal: this.ispreviousPolicy}
+            });
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    this.ispreviousPolicy = result;
+                    // console.log(result,'23456787656789876');
+                    console.log(this.ispreviousPolicy,'23456787656789876');
+                    this.checkRTDp();
+                }
+
+                console.log('The dialog was closed');
+            });
+
+        }
+
+    }
+
+    checkRTDp(){
+        if(this.ispreviousPolicy=='N') {
+            alert('other');
+            this.depReturn==false;
+        }else{
+            this.depReturn==true;
         }
     }
     chanedepre()
@@ -830,6 +851,38 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     public financierNameFailure(error) {
     }
+
+    addcontent() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'package':this.vehicle.controls['depreciation'].value == true?'8':this.vehicle.controls['Returninvoice'].value == true?'9':'',
+        }
+        this.bikeinsurance.tataAddContent(data).subscribe(
+            (successData) => {
+                this.addConsuccess(successData);
+            },
+            (error) => {
+                this.addConFailure(error);
+            }
+        );
+    }
+
+    public addConsuccess(successData) {
+        if (successData.IsSuccess == true) {
+
+            // this.photos = successData.ResponseObject;
+            // console.log(this.photos,'photos');
+            this.packaageList=successData.ResponseObject.content;
+            console.log(this.packaageList,'234567898767890');
+
+        }
+
+    }
+
+    public addConFailure(error) {
+    }
     // financiertype() {
     //     // console.log(event.length, 'length');
     //     // if (event.length >= 3) {
@@ -1188,7 +1241,6 @@ export class BikeTataaigProposalComponent implements OnInit {
             "Electrical_Accessories_SI": this.vehicle.controls['elecAccessoriesSI'].value,
             "Non_Electrical_Accessories":this.vehicle.controls['nonElectricAcess'].value == true ? 'Y' : 'N',
             "Non_Electrical_Accessories_SI":this.vehicle.controls['nonElectricAcessSI'].value,
-            "package":this.vehicle.controls['depreciation'].value == true?'8':''||this.vehicle.controls['Returninvoice'].value == true?'9':'',
         };
         this.bikeinsurance.QuoteList(data).subscribe(
             (successData) => {
@@ -1207,8 +1259,6 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.Quotelist = successData.ResponseObject;
             console.log(this.Quotelist, 'quotationdata');
             this.quotationNo=this.Quotelist.productlist.quotation_no;
-            this.packaageList=this.Quotelist.content;
-            console.log(this.packaageList,'234567898767890')
             console.log(this.quotationNo, 'quotationNo');
             this.QuoteAss=this.Quotelist.productlist.addons.Automobile_Association_Membership;
             this.QuoteAntitheft=this.Quotelist.productlist.addons.Anti_theft_device;
@@ -1370,7 +1420,7 @@ console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center w-100">
-                  <p>yyy<span class="error">*</span></p>
+                  <p>{{data.name}}<span class="error">*</span></p>
                   <mat-radio-group  [(ngModel)]="data.animal" (change)="outChange()" [mat-dialog-close]="data.animal" required>
                     <mat-radio-button value="Y" >Yes</mat-radio-button>
                     <mat-radio-button value="N">No</mat-radio-button>
@@ -1383,28 +1433,22 @@ console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....
 })
 export class tataigBikeOpt {
     public ispreviousPolicy: any;
-    public previousPolicyvalue:any;
     public packaageList:any
-    // public newPackageList:any
     constructor(
         public dialogRef: MatDialogRef<tataigBikeOpt>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public carinsurance: FourWheelerService) {
-        // data.animal = "";
-        // this.packaageList = JSON.parse(sessionStorage.packaageList);
-        // console.log(data.name,'previous........');
-        // console.log(data.animal,'previous........');
+        data.animal = "";
+        console.log(data.name,'previous........');
+        console.log(data.animal,'previous animal........');
     }
 
 
     outChange(): void {
-        // if(this.data.animal == 'N'){
-        //     this.toastr.error('Eligible Only for Gold and Silver Plan ');
-        // }
-        //
-        // console.log(this.data.animal, '122345566677');
+
         this.dialogRef.close(
-            // this.data.animal
+            this.data.animal
         );
+        console.log(this.data.animal,'this.data.animal');
         console.log('outtttt111111111');
     }
 
