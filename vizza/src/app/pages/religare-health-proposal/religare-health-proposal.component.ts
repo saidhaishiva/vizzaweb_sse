@@ -81,6 +81,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     public code: any;
     public sumAreaName: any;
     public pos_status: any;
+    public product_id: any;
     public requestInsuredDetails: any;
     public setDateAge: any;
     public personalAge: any;
@@ -2066,6 +2067,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
             this.pos_status =  this.requestDetails.role_id;
+            this.product_id =  this.requestDetails.product_id;
             this.action =  this.requestDetails.action;
             this.proposalNum = this.requestDetails.proposalNum;
             this.returnURL = this.requestDetails.returnURL;
@@ -2079,6 +2081,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             console.log(this.requestDetails.PreviousInsuranceDetails.PrevInsuranceID , 'fdgdfgfdgf');
         } else {
         }
+        console.log(this.requestDetails,"requestDetails");
     }
     public getBackResFailure(successData) {
     }

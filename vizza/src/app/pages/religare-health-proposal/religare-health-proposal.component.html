@@ -762,7 +762,7 @@
                       <li class="list-group-item"><strong>Email Id:</strong> {{item.prop_email_list[0].email}}</li>
                       <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
                       <li class="list-group-item" ><strong>Mobile Number:</strong> {{item.prop_contact_list[0].contact_no}}</li>
-                      <li class="list-group-item" *ngIf="item.prop_contact_list[1].contact_no != ''" ><strong>Alternate Number:</strong> {{item.item.prop_contact_list[1].contact_no}}</li>
+                      <li class="list-group-item" *ngIf="item.prop_contact_list[1].contact_no != ''" ><strong>Alternate Number:</strong> {{item.prop_contact_list[1].contact_no}}</li>
                     </ul>
                   </div>
                 </div>
@@ -889,7 +889,7 @@
 
             </div>
 
-            <div class="row box-card" *ngIf="requestDetails.product_id == '1' && (requestDetails.suminsured_amount == 300000.00 || requestDetails.suminsured_amount == 300000)">
+            <div class="row box-card" *ngIf="product_id == '1' && (requestDetails.suminsured_amount == 300000.00 || requestDetails.suminsured_amount == 300000)">
               <div class="col-md-6">
                 <div class="p-3">
                   <div class="row">
