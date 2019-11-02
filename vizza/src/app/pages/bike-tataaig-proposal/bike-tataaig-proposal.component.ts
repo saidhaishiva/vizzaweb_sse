@@ -464,7 +464,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     this.ispreviousPolicy = result;
-                    // console.log(result,'23456787656789876');
+                    console.log(result,'23456787656789876');
                     console.log(this.ispreviousPolicy,'23456787656789876');
 
                 }
@@ -477,11 +477,15 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     checkRTDp(){
+        console.log(this.depReturn,'111111depReturn')
+        console.log(this.ispreviousPolicy,'111111ispreviousPolicy')
         if(this.ispreviousPolicy=='N') {
             // alert('other');
-            this.depReturn==false;
+            this.depReturn=false;
+            console.log(this.depReturn,'77777depReturn')
         }else{
-            this.depReturn==true;
+            this.depReturn=true;
+            console.log(this.depReturn,'88888depReturn')
         }
     }
     chanedepre()
