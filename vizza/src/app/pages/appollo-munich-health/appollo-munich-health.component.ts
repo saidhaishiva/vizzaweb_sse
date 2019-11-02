@@ -2445,6 +2445,7 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     payLater() {
+        alert('innnn');
         let clientData = this.totalInsureDetails.slice(1);
         const data  = {
             'enquiry_id': this.getFamilyDetails.enquiry_id,
@@ -2467,7 +2468,7 @@ export class AppolloMunichComponent implements OnInit {
                     'Application': {
                         'NomineeAddress': {
                             'AddressLine1': this.nomineeData.nomineeAddress,
-                            'AddressLine2': this.nomineeData.nomineeAddress2 == null ? '' : this.nomineeData.nomineeAddress2,
+                            'AddressLine2':  this.nomineeData.nomineeAddress2,
                             'AddressLine3': this.nomineeData.nomineeAddress3 == null ? '' : this.nomineeData.nomineeAddress3,
                             'CountryCode': this.nomineeData.nomineeCountry == null ? '' : this.nomineeData.nomineeCountry,
                             'District': this.nomineeData.nomineeDistrict == null ? '' : this.nomineeData.nomineeDistrict,
@@ -2601,7 +2602,9 @@ export class AppolloMunichComponent implements OnInit {
 
         };
 
-        console.log(data, 'payyyyy');
+        console.log(data, 'payyyyy.......');
+        console.log(this.nomineeData.nomineeAddress2,'latttttttttttttttttttttttt');
+
         this.settings.loadingSpinner = true;
         this.proposalservice.proposalPayLater(data).subscribe(
             (successData) => {
