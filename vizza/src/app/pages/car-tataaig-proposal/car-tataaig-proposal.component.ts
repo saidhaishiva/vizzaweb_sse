@@ -261,7 +261,7 @@ export class CarTataaigProposalComponent implements OnInit {
       antitheftAmount: '',
       tppdRes: '',
       tppdResAmount: '',
-      ispreviousPolicy:'',
+      // ispreviousPolicy:'',
     });
 
 
@@ -1383,7 +1383,7 @@ console.log( sessionStorage.packaageList,'this.packaageList');
         tppdRes:this.getstepper3.tppdRes,
         tppdResAmount: this.getstepper3.tppdResAmount,
         invoiceAmount: this.getstepper3.invoiceAmount,
-        ispreviousPolicy: this.getstepper3.ispreviousPolicy,
+        // ispreviousPolicy: this.getstepper3.ispreviousPolicy,
         // quotationNo: this.getstepper2.this.quotationNo,
 
       });

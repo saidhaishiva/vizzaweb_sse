@@ -103,6 +103,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public declaration: any;
   public premium: any;
   public requestedUrl: any;
+  public biURL: any;
   public diseaseLists: any;
   public enquiryFormData: any;
   public setQuestionDetails: any;
@@ -155,6 +156,7 @@ export class LifeBajajProposalComponent implements OnInit {
                     let summaryData = JSON.parse(sessionStorage.summaryData);
                     this.summaryData = summaryData;
                     this.requestedUrl = summaryData.biUrlLink;
+
                     this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
                     this.bankDetailFormData = JSON.parse(sessionStorage.bankDetailFormData);
                     this.nomineeDetailFormData = JSON.parse(sessionStorage.nomineeDetailFormData);
@@ -1621,6 +1623,9 @@ samerelationShip(){
           this.proposalGenStatus = false;
           this.proposalNextList = successData.ResponseObject;
           this.proposalFormPdf = this.proposalNextList.proposal_form;
+          console.log(this.proposalFormPdf, 'dffs');
+          this.biURL = this.proposalNextList.bi_link;
+          console.log(this.biURL, 'biii');
           this.otpGen();
       } else {
             this.proposalGenStatus = true;
@@ -2257,6 +2262,10 @@ samerelationShip(){
       this.summaryData = successData.ResponseObject;
       this.premium = this.summaryData.Premium;
       this.requestedUrl = this.summaryData.biUrlLink;
+        console.log(this.requestedUrl, 'req');
+        console.log(this.summaryData.biUrlLink, 'summary');
+
+
       this.proposerFormData = this.proposer.value;
       this.familyDiseaseFormData = this.familyDiseaseForm.value.family;
       this.bankDetailFormData = this.bankDetail.value;
@@ -2767,6 +2776,9 @@ samerelationShip(){
       });
     this.topScroll();
   }
+    proposalForm(stepper){
+        stepper.next();
+    }
 
 }
 

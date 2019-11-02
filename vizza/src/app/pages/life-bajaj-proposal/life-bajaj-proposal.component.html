@@ -1372,6 +1372,8 @@
                             style="display: block;"
                 ></pdf-viewer>
               </div>
+
+
               <p class="mt-2 pl-3" *ngIf="proposalGenStatus">
                 <mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct. <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span></mat-checkbox>
               </p>
@@ -1384,6 +1386,34 @@
               </div>
 
           </section>
+        </mat-step>
+        <mat-step [stepControl]="">
+          <ng-template matStepLabel>BI FORM</ng-template>
+          <mat-accordion class="mt-4 w-100 float-left">
+            <mat-expansion-panel expanded>
+              <mat-expansion-panel-header>
+                <mat-panel-title>BI FORM
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="row mt-3">
+                <div class="col-md-12 box-card pt-3 pb-3" >
+
+                  <pdf-viewer src="{{biURL}}"
+                              [render-text]="true"
+                              style="display: block;"
+
+                  ></pdf-viewer>
+
+                  <div class="col-md-12">
+                    <div class="proposal-buttom text-center w-100">
+                      <button mat-raised-button color="primaryBlue" (click)="proposalForm(stepper)">Next</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
         </mat-step>
 
           <mat-step [stepControl]="">
