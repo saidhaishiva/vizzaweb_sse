@@ -452,9 +452,9 @@ export class BikeTataaigProposalComponent implements OnInit {
         }
     }
     disableDpRt(){
-        alert('dep')
+        // alert('dep')
         if (this.vehicle.controls['depreciation'].value == true || this.vehicle.controls['Returninvoice'].value == true) {
-            alert('true')
+            // alert('true')
             let dialogRef = this.dialog.open(tataigBikeOpt, {
 
                 width: '400px',
@@ -466,9 +466,9 @@ export class BikeTataaigProposalComponent implements OnInit {
                     this.ispreviousPolicy = result;
                     // console.log(result,'23456787656789876');
                     console.log(this.ispreviousPolicy,'23456787656789876');
-                    this.checkRTDp();
-                }
 
+                }
+                this.checkRTDp();
                 console.log('The dialog was closed');
             });
 
@@ -478,7 +478,7 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     checkRTDp(){
         if(this.ispreviousPolicy=='N') {
-            alert('other');
+            // alert('other');
             this.depReturn==false;
         }else{
             this.depReturn==true;
@@ -876,6 +876,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             // console.log(this.photos,'photos');
             this.packaageList=successData.ResponseObject.content;
             console.log(this.packaageList,'234567898767890');
+            this.disableDpRt();
 
         }
 

@@ -544,7 +544,7 @@
                             <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' && depReturn==true " >
                               <div class="row">
                                 <div class="col-md-4">
-                                  <mat-checkbox formControlName="Returninvoice"  (change)="QuoteList();addcontent();disableDpRt();amount_Returninvoice();chaneret()"  (keyup)="chaneret()"><strong> Return_to_Invoice </strong></mat-checkbox>
+                                  <mat-checkbox formControlName="Returninvoice"  (change)="QuoteList();addcontent();amount_Returninvoice();chaneret()"  (keyup)="chaneret()"><strong> Return_to_Invoice </strong></mat-checkbox>
                                 </div>
 
                                 <div class="col-md-4" *ngIf="vehicle.controls['Returninvoice'].value ==true">
