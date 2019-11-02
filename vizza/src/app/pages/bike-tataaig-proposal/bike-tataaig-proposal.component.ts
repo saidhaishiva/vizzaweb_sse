@@ -30,7 +30,9 @@ import {WINDOW} from '@ng-toolkit/universal';
 
 export interface DialogData {
     name: string;
-    animal:string;
+    question1:string;
+    question2:string;
+    id:any;
 }
 declare const global: any;
 // tslint:disable-next-line:variable-name
@@ -100,13 +102,18 @@ export class BikeTataaigProposalComponent implements OnInit {
     public productlist: any;
     public errortoaster: boolean;
     public depReturn: boolean;
+    public deprecuiation: boolean;
     public bankValid: boolean;
     public finlist: any;
     public finArray: any;
     public errorMsg: any;
     public errorNonMsg: any;
     public packaageList: any;
+    public packaageListID: any;
     public ispreviousPolicy: any;
+    public checkId: any;
+    public checkValue: any;
+    public ispreviousPolicy1: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -150,7 +157,11 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.errorMsg = false;
         this.errorNonMsg = false;
         this.depReturn = true;
+        this.deprecuiation = true;
         this.ispreviousPolicy = '';
+        this.checkId = '';
+        this.checkValue = '';
+        this.ispreviousPolicy1 = '';
         this.finArray=[];
 
         this.proposer = this.fb.group({
@@ -458,14 +469,17 @@ export class BikeTataaigProposalComponent implements OnInit {
             let dialogRef = this.dialog.open(tataigBikeOpt, {
 
                 width: '400px',
-                data: {name: this.packaageList, animal: this.ispreviousPolicy}
+                data: {name: this.packaageList,id:this.packaageListID,question1: this.ispreviousPolicy,question2: this.ispreviousPolicy1}
             });
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     this.ispreviousPolicy = result;
-                    console.log(result,'23456787656789876');
-                    console.log(this.ispreviousPolicy,'23456787656789876');
+                    this.checkId=this.ispreviousPolicy.id
+                    this.checkValue=this.ispreviousPolicy.question1
+                    console.log(result,'resulit.........');
+                    console.log(this.checkId,'23456787656789876');
+                    console.log(this.checkValue,'23451111111');
 
                 }
                 this.checkRTDp();
@@ -477,15 +491,25 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     checkRTDp(){
-        console.log(this.depReturn,'111111depReturn')
-        console.log(this.ispreviousPolicy,'111111ispreviousPolicy')
-        if(this.ispreviousPolicy=='N') {
-            // alert('other');
-            this.depReturn=false;
-            console.log(this.depReturn,'77777depReturn')
-        }else{
-            this.depReturn=true;
-            console.log(this.depReturn,'88888depReturn')
+        console.log(this.ispreviousPolicy,'ispreviousPolicy');
+        if(this.checkValue=='N'&&this.checkId=='8'){
+            this.deprecuiation=false;
+            console.log(this.deprecuiation,'77777deprecuiation');
+            this.changeRTPDPYN();
+
+        }else if(this.checkValue=='N'&&this.checkId=='9'){
+                this.depReturn=false;
+            console.log(this.depReturn,'77777deprecuiation');
+                this.changeRTPDPYN();
+        }
+    }
+    changeRTPDPYN(){
+        if(this.deprecuiation==false){
+        this.vehicle.controls['depreciation'].patchValue('');
+        console.log(this.vehicle.controls['depreciation'].value,'68789787678');
+        }else if(this.depReturn==false){
+            this.vehicle.controls['Returninvoice'].patchValue('');
+            console.log(this.vehicle.controls['Returninvoice'].value,'1234567879878');
         }
     }
     chanedepre()
@@ -861,7 +885,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            'package':this.vehicle.controls['depreciation'].value == true?'8':this.vehicle.controls['Returninvoice'].value == true?'9':'',
+            'package':this.vehicle.controls['depreciation'].value == true ? '8' : this.vehicle.controls['Returninvoice'].value == true ? '9':'',
         }
         this.bikeinsurance.tataAddContent(data).subscribe(
             (successData) => {
@@ -879,7 +903,9 @@ export class BikeTataaigProposalComponent implements OnInit {
             // this.photos = successData.ResponseObject;
             // console.log(this.photos,'photos');
             this.packaageList=successData.ResponseObject.content;
+            this.packaageListID=successData.ResponseObject.id;
             console.log(this.packaageList,'234567898767890');
+            console.log(this.packaageListID,'234567898767890');
             this.disableDpRt();
 
         }
@@ -1208,7 +1234,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 preState: this.getstepper2.preState,
                 preDistrict: this.getstepper2.preDistrict,
                 preCity: this.getstepper2.preCity,
-                ispreviousPolicy: this.getstepper2.ispreviousPolicy,
+                // ispreviousPolicy: this.getstepper2.ispreviousPolicy,
             })
         }
         if (sessionStorage.tatabikenominee != '' && sessionStorage.tatabikenominee != undefined) {
@@ -1422,14 +1448,25 @@ console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....
 @Component({
     selector: ' tataigBikeOpt ',
     template: `
-        <div class="container">
+        <div class="container" *ngIf="data.id=='8'">
             <div class="row">
                 <div class="col-md-12 text-center w-100">
                   <p>{{data.name}}<span class="error">*</span></p>
-                  <mat-radio-group  [(ngModel)]="data.animal" (change)="outChange()" [mat-dialog-close]="data.animal" required>
+                  <mat-radio-group  [(ngModel)]="data.question1" (change)="outChange1()" [mat-dialog-close]="data.question1" required>
                     <mat-radio-button value="Y" >Yes</mat-radio-button>
                     <mat-radio-button value="N">No</mat-radio-button>
                   </mat-radio-group>
+                </div>
+            </div>
+        </div>
+        <div class="container" *ngIf="data.id=='9'">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                    <p>{{data.name}}<span class="error">*</span></p>
+                    <mat-radio-group  [(ngModel)]="data.question2" (change)="outChange2()" [mat-dialog-close]="data.question2" required>
+                        <mat-radio-button value="Y" >Yes</mat-radio-button>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                    </mat-radio-group>
                 </div>
             </div>
         </div>
@@ -1438,23 +1475,34 @@ console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....
 })
 export class tataigBikeOpt {
     public ispreviousPolicy: any;
+    public ispreviousPolicy1: any;
     public packaageList:any
     constructor(
         public dialogRef: MatDialogRef<tataigBikeOpt>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public carinsurance: FourWheelerService) {
-        data.animal = "";
+        data.question1 = "";
+        data.question2 = "";
         console.log(data.name,'previous........');
-        console.log(data.animal,'previous animal........');
+        console.log(data.question1,'previous question1........');
+        console.log(data.question2,'previous question1........');
+        console.log(data.id,'iddddd........');
     }
 
 
-    outChange(): void {
+    outChange1(): void {
+
+        this.dialogRef.close({question1:this.data.question1,id: this.data.id});
+        // this.dialogRef.close(this.data.question1);
+        console.log(this.data.question1,'question1');
+        console.log('outttquest11');
+    }
+    outChange2(): void {
 
         this.dialogRef.close(
-            this.data.animal
+            {question1:this.data.question2,id: this.data.id}
         );
-        console.log(this.data.animal,'this.data.animal');
-        console.log('outtttt111111111');
+        console.log(this.data.question1,'question2');
+        console.log('outtttt1222222222');
     }
 
     numberValidate(event: any) {

@@ -33,6 +33,7 @@ export const MY_FORMATS = {
 export interface DialogData {
   name: string;
   animal:string;
+
 }
 
 declare const global: any;
@@ -119,6 +120,7 @@ export class CarTataaigProposalComponent implements OnInit {
   public errorNonMsg: any;
   public packagesslist: any;
   public packaageList: any;
+  public packaageListID: any;
   public finlist: any;
   photos = [];
   photosBuffer = [];
@@ -284,6 +286,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.ispreviousPolicy='';
     this.getGenderlist();
     this.financiertype();
+    this.packageaddon();
     // this.getNamelist();
     // this.getRelationList();
     // this.packageaddon();
@@ -543,57 +546,15 @@ export class CarTataaigProposalComponent implements OnInit {
   packaaageListSuccess(successData) {
     this.packagesslist = successData.ResponseObject;
 this.packaageList=this.packagesslist.content;
-    // let bSubject = new BehaviorSubject(this.packaageList);
-  // this.newPackageList = new BehaviorSubject<string>(this.packaageList);
-    // cast = this. newPackageList.asObservable();
-
-    // sessionStorage.packaageList = this.packaageList;
-console.log(this.packaageList,'this.packaageList');
-console.log( sessionStorage.packaageList,'this.packaageList');
+this.popupraise();
+console.log(this.packaageList,'this.packaageList');   // question
 
   }
 
   packaaageListFailure(error) {
 
   }
-  // //PreviousPolicy NameList
-  // getNamelist() {
-  //   const data = {
-  //     'platform': 'web',
-  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-  //   };
-  //   this.carinsurance.NameList(data).subscribe(
-  //       (successData) => {
-  //         this.prepolicyNameListSuccess(successData);
-  //       },
-  //       (error) => {
-  //         this.prepolicyNameListFailure(error);
-  //       }
-  //   );
-  // }
-  //
-  // prepolicyNameListSuccess(successData) {
-  //   this.preNamelist = successData.ResponseObject;
-  // }
-  //
-  // prepolicyNameListFailure(error) {
-  //
-  // }
-  //
-  // select() {
-  //   this.previouspolicy.controls['preNamevalue'].patchValue(this.preNamelist[this.previouspolicy.controls['preName'].value]);
-  // }
-  // changepopup(){
-  //     if(this.vehicle.controls['package'].value == '3' || this.vehicle.controls['package'].value == '4' || this.vehicle.controls['package'].value == '5' || this.vehicle.controls['package'].value == '6' || this.vehicle.controls['package'].value == '7'){
-  //         this.modelBoxList = true
-  //
-  //         console.log(this.modelBoxList,'this.modelBox......');
-  //     }else{
-  //         this.modelBoxList = false
-  //         console.log(this.modelBoxList,'this.modelBox111......');
-  //     }
-  // }
+
 
 
 // Addons Package
@@ -619,50 +580,9 @@ console.log( sessionStorage.packaageList,'this.packaageList');
     packageListSuccess(successData) {
       if (successData.IsSuccess) {
         this.packagelist = successData.ResponseObject;
-        if(this.vehicle.controls['package'].value == '3' || this.vehicle.controls['package'].value == '4' || this.vehicle.controls['package'].value == '5' || this.vehicle.controls['package'].value == '6' || this.vehicle.controls['package'].value == '7'){
-          let dialogRef = this.dialog.open(tataigCarOpt, {
-            width: '400px',
-            data: {name: this.packaageList, animal: this.ispreviousPolicy}
-          });
+        console.log(this.packagelist,'packagelist')
+        // this.getPackagelist()
 
-          console.log(name,'hjhjkjkjkkjjkdataaaaaa')
-          console.log(this.ispreviousPolicy,'55555555555233');
-          dialogRef.disableClose = true;
-          dialogRef.afterClosed().subscribe(result => {
-            if(result) {
-              this.ispreviousPolicy = result;
-              console.log(result,'23456787656789876');
-              console.log(this.ispreviousPolicy,'23456787656789876');
-
-              }
-
-            console.log('The dialog was closed');
-            // this.packageaddon()
-          });
-          // let dialogRef = this.dialog.open(tataigCarOpt, {
-          //   width: '400px',
-          //   data: {name: this.packaageList,ispreviousPolicy: this.ispreviousPolicy}
-          //
-          // });
-          // console.log(name,'hjhjkjkjkkjjkdataaaaaa')
-          // console.log(this.ispreviousPolicy,'55555555555233');
-          // // console.log(this.data.prev,'55555555555233');
-          // dialogRef.disableClose = true;
-          // dialogRef.afterClosed().subscribe(result => {
-          //   // if(result) {
-          //   // this.ispreviousPolicy = result;
-          //   //
-          //   // }
-          //
-          //   // console.log(data.prev,'777777');
-          //   console.log('The dialog was closed');
-          //
-          // });
-        }
-        this.toastr.error(successData.ErrorObject);
-
-    } else {
-      this.toastr.error(successData.ResponseObject.ErrorObject);
     }
 
     }
@@ -670,6 +590,30 @@ console.log( sessionStorage.packaageList,'this.packaageList');
     packageListFailure(error) {
 
     }
+
+
+
+    popupraise(){
+      if(this.vehicle.controls['package'].value == '3' || this.vehicle.controls['package'].value == '4' || this.vehicle.controls['package'].value == '5' || this.vehicle.controls['package'].value == '6' || this.vehicle.controls['package'].value == '7'){
+        let dialogRef = this.dialog.open(tataigCarOpt, {
+          width: '400px',
+          data: {name: this.packaageList,id:this.packaageList, animal: this.ispreviousPolicy}
+        });
+        console.log(name,'hjhjkjkjkkjjkdataaaaaa');
+        // console.log(id,'iddddddd');
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+          if(result) {
+            this.ispreviousPolicy = result;
+            console.log(this.ispreviousPolicy,'23456787656789876'); //Y  N
+            this.packageaddon();
+          }
+
+          console.log('The dialog was closed');
+        });
+
+      }
+  }
 
   selectopt(event: any) {
     console.log(this.vehicle.controls['packagevalue'].value, 'alue');
@@ -805,12 +749,9 @@ console.log( sessionStorage.packaageList,'this.packaageList');
 
   public financesuccess(successData) {
     if (successData.IsSuccess == true) {
-      // this.errortoaster = true;
-      // this.banklist = successData.ResponseObject;
+
       this.finlist = successData.ResponseObject.financerdetails;
       console.log(this.finlist,'finlist');
-      // this.photosBuffer = this.photos.slice(0, this.bufferSize);
-      // console.log(this.photosBuffer,'photos');
       this.financierListname();
     }else{
       // this.errortoaster = false;
@@ -1557,16 +1498,13 @@ console.log( sessionStorage.packaageList,'this.packaageList');
 })
 export class tataigCarOpt {
  public ispreviousPolicy: any;
-  public previousPolicyvalue:any;
   public packaageList:any
-  // public newPackageList:any
   constructor(
       public dialogRef: MatDialogRef<tataigCarOpt>,
       @Inject(MAT_DIALOG_DATA) public data: DialogData, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public carinsurance: FourWheelerService) {
     data.animal = "";
-    // this.packaageList = JSON.parse(sessionStorage.packaageList);
-console.log(data.name,'previous........');
-console.log(data.animal,'previous........');
+console.log(data.name,'previous........'); // // question
+
   }
 
 
@@ -1574,22 +1512,13 @@ console.log(data.animal,'previous........');
    if(this.data.animal == 'N'){
           this.toastr.error('Eligible Only for Gold and Silver Plan ');
         }
-
-        console.log(this.data.animal, '122345566677');
+   console.log(this.data.animal, '122345566677');
         this.dialogRef.close(
             this.data.animal
         );
     console.log('outtttt111111111');
   }
 
-  // outChange(){
-  //   if(data.prev == 'No'){
-  //           this.toastr.error('Eligible Only for Gold and Silver Plan ');
-  //         }
-  //         console.log(this.data.prev, '122345566677');
-  //         this.dialogRef.close(true);
-  //   console.log('outtttt111111111');
-  // }
 
   // prePolicyVal() {
   //

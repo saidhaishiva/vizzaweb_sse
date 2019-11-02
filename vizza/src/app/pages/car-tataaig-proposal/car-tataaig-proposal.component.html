@@ -470,117 +470,12 @@
                         <div class="row">
                           <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Addons Package" formControlName="package" aria-label="close" (selectionChange)="selectopt($event);QuoteList();packageaddon();getPackagelist()"  (click)="packageaddon()" (keyup)="QuoteList()"  required>
+                          <mat-select placeholder="Addons Package" formControlName="package" aria-label="close" (selectionChange)="selectopt($event);QuoteList();getPackagelist()"  (keyup)="QuoteList()"  required>
                             <mat-option *ngFor="let package of packagelist | keys" value="{{package.key}}">{{package.value}}</mat-option>
                           </mat-select>
                             <mat-error *ngIf="vehicle.controls.package.errors?.required">Package is Required</mat-error>
                         </mat-form-field>
                           </div>
-
-
-                          <!--<div id="myModal" class="modal" *ngIf="modelBoxList ">-->
-
-                            <!--&lt;!&ndash; Modal content &ndash;&gt;-->
-                            <!--<div class="modal-content">-->
-                              <!--<span class="close">&times;</span>-->
-                              <!--<div class="col-md-12 text-center w-100">-->
-                                <!--<p>{{packaageList}}<span class="error">*</span></p>-->
-                                <!--<mat-radio-group  formControlName="ispreviousPolicy" (change)="packageaddon()" required>-->
-                                  <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                  <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                <!--</mat-radio-group>-->
-                              <!--</div>-->
-                            <!--</div>-->
-
-                          <!--</div>-->
-
-                          <!--<div class="container" *ngIf="modelBoxList ">-->
-                          <!---->
-
-                            <!--&lt;!&ndash; Modal &ndash;&gt;-->
-                            <!--<div class="modal fade" id="myModal" role="dialog">-->
-                              <!--<div class="modal-dialog">-->
-
-                                <!--&lt;!&ndash; Modal content&ndash;&gt;-->
-                                <!--<div class="modal-content">-->
-                                  <!--<div class="modal-header">-->
-                                    <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                                  <!--</div>-->
-                                  <!--<div class="modal-body">-->
-                                    <!--<div class="row" >-->
-                                      <!--<div class="col-md-12 text-center w-100">-->
-                                        <!--<p>{{packaageList}}<span class="error">*</span></p>-->
-                                        <!--<mat-radio-group  formControlName="ispreviousPolicy" (change)="packageaddon()" required>-->
-                                          <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                        <!--</mat-radio-group>-->
-                                      <!--</div>-->
-                                    <!--</div>        -->
-                                  <!--</div>-->
-                                  <!---->
-                                <!--</div>-->
-
-                              <!--</div>-->
-                            <!--</div>-->
-
-                          <!--</div>-->
-
-                          <!--<div class="modal fade" id="myModal" role="dialog" *ngIf="modelBoxList ">-->
-                            <!--<div class="modal-dialog">-->
-                              <!--<div class="modal-content">-->
-                                  <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                                <!--<div class="modal-body">-->
-                                  <!--<div class="row" >-->
-                                  <!--<div class="col-md-12 text-center w-100">-->
-                                  <!--<p>{{packaageList}}<span class="error">*</span></p>-->
-                                  <!--<mat-radio-group  formControlName="ispreviousPolicy" (change)="packageaddon()" required>-->
-                                  <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                  <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                  <!--</mat-radio-group>-->
-                                  <!--</div>-->
-                                  <!--</div>-->
-                                <!--</div>-->
-                              <!--</div>-->
-                            <!--</div>-->
-                          <!--</div>-->
-
-                          <!--<div class="container-fluid "  *ngIf="modelBoxList ">-->
-                            <!--<div class="row">-->
-                              <!--<div class="col-md-12">-->
-                                <!--<mat-accordion class="w-100 float-left">-->
-                                  <!--&lt;!&ndash;<form [formGroup]="popup">&ndash;&gt;-->
-                                  <!--<div class="row" >-->
-                                    <!--<div class="col-md-12 text-center w-100">-->
-                                      <!--<p>Is there Nil_Depreciation and Return_to_invoice in your previous policy?<span class="error">*</span></p>-->
-                                      <!--<mat-radio-group  formControlName="ispreviousPolicy" (change)="packageaddon()" required>-->
-                                        <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                        <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                      <!--</mat-radio-group>-->
-                                    <!--</div>-->
-                                  <!--</div>-->
-                                  <!--&lt;!&ndash;</form>&ndash;&gt;-->
-                                <!--</mat-accordion>-->
-                              <!--</div>-->
-                            <!--</div>-->
-
-                          <!--</div>-->
-
-                          <!--<div class="row" *ngIf="modelBox ">-->
-                            <!--<div class="col-md-12 text-center w-100">-->
-                              <!--<p>Is there Nil_Depreciation and Return_to_invoice in your previous policy?<span class="error">*</span></p>-->
-                              <!--<mat-radio-group  [(ngModel)]="ispreviousPolicy" (change)="packageaddon()" required>-->
-                                <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                              <!--</mat-radio-group>-->
-                              <!--&lt;!&ndash;<mat-form-field class="w-50">&ndash;&gt;-->
-                              <!--&lt;!&ndash;<input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)"  autocomplete="off" >&ndash;&gt;-->
-                              <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                            <!--</div>-->
-
-                          <!--</div>-->
-
-
-
                           <!--<div class="container" *ngIf="vehicle.controls['package'].value">-->
                             <!--<div class="row">-->
                               <!--<div class="col-md-12 text-center w-100">-->
@@ -603,7 +498,6 @@
                               <!--<mat-radio-button value="No">No</mat-radio-button>-->
                             <!--</mat-radio-group>-->
                           <!--</div>-->
-
                           <div class="col-md-12 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2' && visible != false">
                             <div class="row">
                               <div class="col-md-6" >
