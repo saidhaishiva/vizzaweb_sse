@@ -286,6 +286,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.ispreviousPolicy='';
     this.getGenderlist();
     this.financiertype();
+    this.packageaddon();
     // this.getNamelist();
     // this.getRelationList();
     // this.packageaddon();
@@ -545,9 +546,9 @@ export class CarTataaigProposalComponent implements OnInit {
   packaaageListSuccess(successData) {
     this.packagesslist = successData.ResponseObject;
 this.packaageList=this.packagesslist.content;
-
+this.popupraise();
 console.log(this.packaageList,'this.packaageList');   // question
-   this. popupraise()
+
   }
 
   packaaageListFailure(error) {
@@ -580,7 +581,7 @@ console.log(this.packaageList,'this.packaageList');   // question
       if (successData.IsSuccess) {
         this.packagelist = successData.ResponseObject;
         console.log(this.packagelist,'packagelist')
-        this.getPackagelist()
+        // this.getPackagelist()
 
     }
 
@@ -589,6 +590,8 @@ console.log(this.packaageList,'this.packaageList');   // question
     packageListFailure(error) {
 
     }
+
+
 
     popupraise(){
       if(this.vehicle.controls['package'].value == '3' || this.vehicle.controls['package'].value == '4' || this.vehicle.controls['package'].value == '5' || this.vehicle.controls['package'].value == '6' || this.vehicle.controls['package'].value == '7'){
@@ -603,11 +606,10 @@ console.log(this.packaageList,'this.packaageList');   // question
           if(result) {
             this.ispreviousPolicy = result;
             console.log(this.ispreviousPolicy,'23456787656789876'); //Y  N
-
+            this.packageaddon();
           }
 
           console.log('The dialog was closed');
-          // this.packageaddon()
         });
 
       }
