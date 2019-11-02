@@ -2018,8 +2018,8 @@ export class AppolloMunichComponent implements OnInit {
                     'Address': {
                         'Address': {
                             'AddressLine1': this.insurerData[0].proposerAddress,
-                            'AddressLine2': this.insurerData[0].proposerAddress2 == null ? '' : this.insurerData[0].proposerAddress2,
-                            'AddressLine3': this.insurerData[0].proposerAddress3 == null ? '' : this.insurerData[0].proposerAddress3,
+                            'AddressLine2': this.insurerData[0].proposerAddress2 == null || this.insurerData[0].proposerAddress2 == undefined ? '' : this.insurerData[0].proposerAddress2,
+                            'AddressLine3': this.insurerData[0].proposerAddress3 == null || this.insurerData[0].proposerAddress3 == undefined ? '' : this.insurerData[0].proposerAddress3,
                             'CountryCode': this.insurerData[0].proposerCountry,
                             'District': this.insurerData[0].proposerDistrict,
                             'PinCode': this.insurerData[0].proposerPincode,
