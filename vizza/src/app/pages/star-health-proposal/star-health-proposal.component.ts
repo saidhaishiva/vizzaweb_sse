@@ -499,6 +499,8 @@ export class StarHealthProposalComponent implements OnInit {
     public setRelationshipSuccess(successData) {
         if (successData.IsSuccess) {
             this.relationshipList = successData.ResponseObject;
+            // alert('relationshipList');
+            console.log(this.relationshipList,'relationshipList.......')
         }
     }
     public setRelationshipFailure(error) {
@@ -862,9 +864,13 @@ export class StarHealthProposalComponent implements OnInit {
 
     }
     selectProposerRelation(index) {
+        // alert('innn');
         this.familyMembers[index].ins_relationship_name = this.relationshipList[this.familyMembers[index].ins_relationship];
+        console.log(this.familyMembers[index].ins_relationship_name,'ins_relationship_name');
         if(sessionStorage.nomineeDate != '' && sessionStorage.nomineeDate !=undefined) {
+            // alert('1111');
             let nominee = JSON.parse(sessionStorage.nomineeDate);
+            console.log(nominee[0].nominee[0].nrelationship,'nominee[0].nominee[0].nrelationship');
             if(nominee[0].nominee[0].nrelationship !='') {
                 this.nomineeDate[0].nominee[0].nrelationship = '';
             }
