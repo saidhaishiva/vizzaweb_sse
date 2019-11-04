@@ -165,6 +165,7 @@ export class AppolloMunichComponent implements OnInit {
     public proposerFormData : any;
     public insuredFormData : any;
     public nomineeFormData : any;
+    public Prospect : any;
     currentStep: any;
     proofValid: any;
     proposal_Id: any;
@@ -178,6 +179,7 @@ export class AppolloMunichComponent implements OnInit {
     public appolloMobileTrue3: boolean;
     public payLaterr: boolean;
     public appolloMobileTrue4: boolean;
+    public proposallst: boolean;
 
 
     constructor(public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
@@ -2445,7 +2447,7 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     payLater() {
-        alert('innnn');
+        // alert('innnn');
         let clientData = this.totalInsureDetails.slice(1);
         const data  = {
             'enquiry_id': this.getFamilyDetails.enquiry_id,
@@ -2468,7 +2470,7 @@ export class AppolloMunichComponent implements OnInit {
                     'Application': {
                         'NomineeAddress': {
                             'AddressLine1': this.nomineeData.nomineeAddress,
-                            'AddressLine2':  this.nomineeData.nomineeAddress2,
+                            'AddressLine2':  this.nomineeData.nomineeAddress2 == null ? '' : this.nomineeData.nomineeAddress2,
                             'AddressLine3': this.nomineeData.nomineeAddress3 == null ? '' : this.nomineeData.nomineeAddress3,
                             'CountryCode': this.nomineeData.nomineeCountry == null ? '' : this.nomineeData.nomineeCountry,
                             'District': this.nomineeData.nomineeDistrict == null ? '' : this.nomineeData.nomineeDistrict,
@@ -2657,7 +2659,15 @@ export class AppolloMunichComponent implements OnInit {
             console.log(this.pos_status , 'requestDetailsrequestDetails');
             this.proposerList = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Application.Proposer;
             this.nomineeList = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Application;
+            console.log(this.nomineeList.nomineeAddress2 , 'nomineeaddress 2' )
             console.log(this.proposerList, 'asdadsd');
+            console.log(this.proposerList, 'esded');
+            console.log(this.nomineeList, 'nominee details');
+            this.proposallst = this.requestDetails.ProposalCaptureServiceRequest;
+            console.log(this.requestDetails.ProposalCaptureServiceRequest, 'proposl');
+            console.log(this.proposallst, 'proposl');
+            console.log(this.requestDetails.ProposalCaptureServiceRequest.Prospect, 'proposl2');
+            console.log(this.requestDetails.ProposalCaptureServiceRequest.Prospect.Application, 'proposl2');
             this.requestClientDetails = this.requestDetails.ProposalCaptureServiceRequest.Prospect.Client;
             console.log(this.requestClientDetails, 'requestInsuredListrequestInsuredList');
             console.log(this.requestDetails.ProposalCaptureServiceRequest.Prospect.Client, 'this.requestDetails.ProposalCaptureServiceRequest.Prospect.Client');
