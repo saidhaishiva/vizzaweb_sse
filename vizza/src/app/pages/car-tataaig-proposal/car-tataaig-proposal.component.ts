@@ -287,6 +287,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.getGenderlist();
     this.financiertype();
     this.packageaddon();
+    this.maritial();
     // this.getNamelist();
     // this.getRelationList();
     // this.packageaddon();
@@ -907,6 +908,7 @@ console.log(this.packaageList,'this.packaageList');   // question
       if(this.vehicle.controls['electriAccessSI'].value <= 50000 && this.vehicle.controls['nonElectricAcessSI'].value <= 50000){
       console.log(value, 'vehicle');
       stepper.next();
+      this.QuoteList();
       this.topScroll();
       }else{
         this.toastr.error('Sum Insured should be less then or equal to 50000');

@@ -1640,7 +1640,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                             'MobileNo': this.personalData.personalMobile,
                             'NearestLandmark': this.personalData.personalNearestLandMark,
                             'PanNo': this.personalData.personalPan,
-                            'PhoneNo': this.personalData.personalPhone,
+                            'PhoneNo': this.personalData.personalPhone == undefined ? '' :this.personalData.personalPhone,
                             'Alternative': this.personalData.personalAltnumber,
                             'Pincode': this.personalData.personalPincode,
                             'AreaID': this.personalData.personalArea,
