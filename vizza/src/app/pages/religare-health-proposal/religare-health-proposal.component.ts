@@ -1703,6 +1703,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
             'medical_status': this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
         };
+        console.log(this.getFamilyDetails.name,'get family details');
+
         if (!this.back){
             this.processDiseaseData(this.totalData);
         }
@@ -2018,6 +2020,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             'medicalQuestion': this.religareQuestionsList
         };
         console.log(data, 'payyyyy');
+        console.log(this.getFamilyDetails.name,'get family details');
+
         this.settings.loadingSpinner = true;
         this.proposalservice.proposalPayLater(data).subscribe(
             (successData) => {
@@ -2075,7 +2079,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.requestmedicalQuestion = this.requestDetails.medicalQuestion;
             console.log(this.requestmedicalQuestion, 'requestmedicalQuestion');
             console.log(this.requestInsuredDetails, 'hgghjghjgjh');
-            console.log(this.requestInsuredDetails.prop_identity_list[0].identity_number, 'hgghjghjgjh');
+            // console.log(this.requestInsuredDetails.prop_identity_list[0].identity_number, 'hgghjghjgjh');
             console.log(this.requestInsuredDetails.prop_contact_list[0].contact_no, 'hgghjghjgjh');
             console.log(this.requestInsuredDetails.prop_email_list[0].email, 'hgghjghjgjh');
             console.log(this.requestDetails.PreviousInsuranceDetails.PrevInsuranceID , 'fdgdfgfdgf');
