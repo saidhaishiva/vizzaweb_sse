@@ -190,12 +190,12 @@
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Marital Status<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <mat-select formControlName="drivemaritalStatus">
+                          <mat-select formControlName="drivemaritalStatus" (selectionChange)="maritial()">
                             <mat-option value="single">Single</mat-option>
                             <mat-option value="Married">Married</mat-option>
                             <mat-option value="Others">Others</mat-option>
                           </mat-select>
-                          <mat-error *ngIf="proposer.controls.drivemaritalStatus.errors?.required">Maritial status is Required</mat-error>
+                          <mat-error *ngIf="proposer.controls.drivemaritalStatus.errors?.required">Marital status is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">

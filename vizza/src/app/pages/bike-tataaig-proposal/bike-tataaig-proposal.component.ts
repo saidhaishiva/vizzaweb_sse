@@ -252,6 +252,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     ngOnInit() {
         this.vehicle.controls['Associationmember'].value == false;
         this.getGenderlist();
+        this.maritial();
         // this.chaneauto();
         // this.chaneanti();
         // this.chanetpp();
@@ -1108,6 +1109,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             console.log(value, 'vehicle');
             stepper.next();
             this.topScroll();
+            this.QuoteList();
         }else{
                 this.toastr.error('Sum Insured should be less then or equal to 15000');
             }

@@ -114,7 +114,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Pincode" formControlName="proposerPincode" (input)="getPostalCode($event.target.value,'proposer')" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" required>
+                          <input matInput placeholder="Pincode" formControlName="proposerPincode" (keypress)="numberValidate($event)" (input)="getPostalCode($event.target.value,'proposer')" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" required>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('required')">Pincode  is Required</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
