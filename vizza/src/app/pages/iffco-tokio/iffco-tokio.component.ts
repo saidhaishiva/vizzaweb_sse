@@ -149,6 +149,7 @@ export class IffcoTokioComponent implements OnInit {
             }
             this.status = params.stepper;
             this.proposal_Id = params.proposalId;
+            console.log(params.proposalId,'proposalid');
             if (this.proposal_Id != '' || this.proposal_Id != undefined) {
 
             } else {
@@ -1089,6 +1090,9 @@ export class IffcoTokioComponent implements OnInit {
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.policy_id;
+            console.log(this.proposalId,'proposal id');
+            console.log(this.summaryData.policy_id,'policy id');
+
             this.response_url = this.summaryData.RESPONSE_URL;
             this.unique_code = this.summaryData.UNIQUE_QUOTEID;
             this.partner_code = this.summaryData.PARTNER_CODE;
