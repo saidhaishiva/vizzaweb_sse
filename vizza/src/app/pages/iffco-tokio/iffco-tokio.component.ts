@@ -146,20 +146,28 @@ export class IffcoTokioComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 this.stepperindex = 3;
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.personalFormData = JSON.parse(sessionStorage.personalFormData);
+                    this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                    // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    // this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                    // this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    this.proposalId = this.summaryData.policy_id;
+                    sessionStorage.proposalID = this.proposalId;
+                }
             }
             this.status = params.stepper;
             this.proposal_Id = params.proposalId;
             console.log(params.proposalId,'proposalid');
             if (this.proposal_Id != '' || this.proposal_Id != undefined) {
-
-            } else {
-                if (this.proposal_Id != '' || this.proposal_Id != undefined) {
-                    this.payLaterr = true;
-                    console.log(this.proposal_Id, 'this.proposal_Id');
-                    console.log(this.status, 'this.proposal_Id');
-                    this.getBackRequest();
-                }
+                this.payLaterr = true;
+                console.log(this.proposal_Id, 'this.proposal_Id');
+                console.log(this.status, 'this.proposal_Id');
+                this.getBackRequest();
             }
+
             if (this.proposal_Id == undefined || this.proposal_Id == '') {
                 this.payLaterr = false;
             }
@@ -295,8 +303,9 @@ export class IffcoTokioComponent implements OnInit {
         if (this.payLaterr == true) {
             this.stepperindex = 3;
             console.log(this.stepperindex, ' this.stepperindex');
+            console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
-            console.log(this.payLaterr, 'this.payLaterrolll222');
+            // console.log(this.payLaterr, 'this.payLaterrolll222');
             this.numberValidateErr = false;
             this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
             console.log(this.buyProductdetails, 'this.buyProductdetails');
