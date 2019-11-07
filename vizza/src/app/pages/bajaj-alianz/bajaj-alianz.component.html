@@ -450,13 +450,13 @@
                                 </div>
                             </div>
                             <section *ngFor="let item of requestList; let i = index;">
-                                <h5 class="mt-3 sub-title">{{item.hcpdtmemlist[i].type | uppercase}} DETAILS </h5>
+                                <h5 class="mt-3 sub-title">{{item.type}} DETAILS </h5>
                                 <div class="row box-card">
                                     <div class="col-md-6">
                                         <div class="p-3">
                                             <h6 class="color-blue mt-2"></h6>
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item"><strong> Name :</strong> {{item.hcpdtmemlist[i].title}}.{{item.hcpdtmemlist[i].membername}} {{item.hcpdtmemlist[i].membermiddlename}} {{item.hcpdtmemlist[i].memberlastname}}</li>
+                                                <li class="list-group-item"><strong> Name :</strong><span *ngIf="item.hcpdtmemlist[i].title == 'MRS'">Ms</span><span *ngIf="item.hcpdtmemlist[i].title == 'MR'">Mr</span>.{{item.hcpdtmemlist[i].membername}} {{item.hcpdtmemlist[i].membermiddlename}} {{item.hcpdtmemlist[i].memberlastname}}</li>
                                                 <!--<li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong> Name :</strong>Mr. {{item.ins_name}}</li>-->
                                                 <li class="list-group-item"><strong>Gender :</strong><span *ngIf="item.hcpdtmemlist[i].memgender == 'M'">Male</span><span *ngIf="item.hcpdtmemlist[i].memgender == 'F'">Female</span> </li>
                                                 <!--<li class="list-group-item" *ngIf="i == 0"><strong>D.O.B :</strong> {{item.tycpdetails.dateofbirth | date: 'dd/MM/yyyy'}}</li>-->

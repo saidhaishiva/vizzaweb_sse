@@ -764,10 +764,15 @@ export class AppolloMunichComponent implements OnInit {
     public appolloQuestionsFailure(error) {
     }
 
-    questionYes(index, value: any) {
-        if (value.checked) {
+    questionYes(index, event: any) {
+        console.log(event, 'click');
+        console.log(event.target.firstChild, 'target..');
+
+        if (event.target.firstChild.value=='on' && event.target.firstChild != null) {
+            // alert('inn');
             this.appolloQuestionsList[index].mStatus = 'Yes';
-        } else {
+
+        } else if(event.target.firstChild == null){
             this.appolloQuestionsList[index].mStatus = 'No';
         }
     }
@@ -1895,6 +1900,7 @@ export class AppolloMunichComponent implements OnInit {
             this.nomineeDetails.controls['nomineeAddress2'].patchValue('');
             this.nomineeDetails.controls['nomineeAddress3'].patchValue('');
             this.nomineeDetails.controls['nomineeAddress'].patchValue('');
+            this.nomineeDetails.controls['nomineePincode'].patchValue('');
             this.nomineeDetails.controls['nomineeCity'].patchValue('');
             this.nomineeDetails.controls['nomineeCityName'].patchValue('');
             this.nomineeDetails.controls['nomineeState'].patchValue('');
@@ -1976,6 +1982,7 @@ export class AppolloMunichComponent implements OnInit {
             if(this.appolloQuestionsList[i].mStatus == 'No'){
                 medicalStatus.push('No');
             } else if(this.appolloQuestionsList[i].mStatus == 'Yes') {
+                // alert('in');
                 medicalStatus.push('Yes');
             }
         }

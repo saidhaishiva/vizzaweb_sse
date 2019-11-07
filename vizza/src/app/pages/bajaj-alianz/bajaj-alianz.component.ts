@@ -1138,7 +1138,7 @@ console.log(sessionStorage.insuredFormData,'insuredFormData');
             for(let i=0;i<=this.requestList.length;i++){
                 console.log(this.requestList[0].hcpdtmemlist[i].length,'78899898')
                 console.log(this.requestList[0].hcpdtmemlist[i],'1111111')
-            this.type = this.requestList[0].hcpdtmemlist[i].type;
+            this.type = this.requestList[0].hcpdtmemlist[i].memrelation;
             console.log(this.type,'type....');
             }
 

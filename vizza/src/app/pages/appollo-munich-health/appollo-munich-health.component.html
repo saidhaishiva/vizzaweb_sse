@@ -991,9 +991,9 @@
                 <div class="col-md-8">
                   <ul class="summary-head">
                     <li><span>Insurer:</span><img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{requestDetails.FinalPremium}}</span></li>
+                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{requestDetails.BasePremium}}</span></li>
                     <li><span>Service Tax:</span><span><i class="fas fa-rupee-sign"></i> {{requestDetails.Tax}}</span></li>
-                    <li><span>Base Premium:</span><span><i class="fas fa-rupee-sign"></i> {{requestDetails.BasePremium}}</span></li>
+                    <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{requestDetails.FinalPremium}}</span></li>
                     <li></li>
                   </ul>
                 </div>
@@ -1005,9 +1005,9 @@
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6>PROPOSER DETAILS</h6>
+                      <h6></h6>
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{proposerList.TitleCode}} {{proposerList.FirstName}} {{proposerList.MiddleName}} {{proposerList.LastName}}</li>
+                        <li class="list-group-item"><strong>Name:</strong><span *ngIf="proposerList.TitleCode == 'MR'">Mr</span> <span *ngIf="proposerList.TitleCode == 'MRS'">Mrs</span><span *ngIf="proposerList.TitleCode == 'MISS'">Miss</span> {{proposerList.FirstName}} {{proposerList.MiddleName}} {{proposerList.LastName}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerList.BirthDate | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Email Id:</strong> {{proposerList.ContactInformation.Email}}</li>
                         <!--<li class="list-group-item" *ngIf="proposerList.ContactInformation.ContactNumber.ContactNumber.Number != ''"><strong>Mobile Number:</strong> {{proposerList.ContactInformation.ContactNumber.ContactNumber.Number}}</li>-->
@@ -1171,7 +1171,7 @@
                   <div class="row">
                       <div class="col-md-12 text-center">
                           <form action='{{RediretUrlLink}}' method='post' #form>
-                            <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                            <!--<button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
                             <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
 
                             <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
