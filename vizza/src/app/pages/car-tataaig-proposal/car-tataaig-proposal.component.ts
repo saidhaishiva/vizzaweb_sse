@@ -595,7 +595,7 @@ console.log(this.packaageList,'this.packaageList');   // question
 
 
     popupraise(){
-      if(this.vehicle.controls['package'].value == '3' || this.vehicle.controls['package'].value == '4' || this.vehicle.controls['package'].value == '5' || this.vehicle.controls['package'].value == '6' || this.vehicle.controls['package'].value == '7'){
+      if((this.vehicle.controls['package'].value == '3' || this.vehicle.controls['package'].value == '4' || this.vehicle.controls['package'].value == '5' || this.vehicle.controls['package'].value == '6' || this.vehicle.controls['package'].value == '7') && this.enquiryFormData.business_type != '1'){
         let dialogRef = this.dialog.open(tataigCarOpt, {
           width: '400px',
           data: {name: this.packaageList,id:this.packaageList, animal: this.ispreviousPolicy}
