@@ -39,7 +39,7 @@
 
                 <div class="col-md-6">
                     <mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" placeholder="Date Of Birth (DD/MM/YYYY)" formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="dobValidate($event)" required>
+                      <input matInput [matDatepicker]="picker" placeholder="Date Of Birth (DD/MM/YYYY)" formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="dobValidate($event)" required maxlength="10">
                       <mat-error *ngIf="bajajgold.controls.dob.errors?.required">DOB  is required</mat-error>
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
@@ -172,7 +172,17 @@
             <li> Decline in interest rate of G-Sec (Government of India Securities) .</li>
             <li>Appreciation of the Rupee.</li>
             <li>Decline in inflation.</li>
-          </ol>  </div>
+          </ol>
+          <p></p>
+          <p></p>
+          <p></p>
+          <br>
+          <br>
+          <p class="know-note-content"> NOTE: THE BRIEF WRITE UP YOU FIND IN THIS WEBSITE FOR VARIOUS POLICIES
+            IS ONLY A SYNOPSIS. THE DETAIL EXTENT OF COVERAGE WITH THE TERMS &
+            CONDITIONS WILL BE SENT BY US TO YOUR MAIL ID ON REQUEST TO US. PLEASE
+            MAIL TO CUSTOMERCARE@VIZZAFIN.COM</p>
+        </div>
       </div>
     </section>
 

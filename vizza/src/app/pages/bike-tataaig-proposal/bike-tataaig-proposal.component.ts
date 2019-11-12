@@ -212,14 +212,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             Financetype: false,
             banktype: '',
             bankName: '',
-            // bankNamevalue: '',
+            bankNamevalue: '',
             Address: '',
-            elecAccessories: false,
-            elecAccessoriesSI:'',
-            elecAccessoriesAmount:'',
-            nonElectricAcess: false,
-            nonElectricAcessSI:'',
-            nonElectricAcessSIAmount:'',
             coverdrive: ['', Validators.required],
             coverdrivevalue: '',
             Associationmember: false,
@@ -237,7 +231,12 @@ export class BikeTataaigProposalComponent implements OnInit {
             Returninvoiceamount:'',
             Roadsideassistance: false,
             Roadsideassistanceamount:'',
-
+            elecAccessories: false,
+            elecAccessoriesSI:'',
+            elecAccessoriesAmount:'',
+            nonElectricAcess: false,
+            nonElectricAcessSI:'',
+            nonElectricAcessSIAmount:'',
         });
 
 
@@ -466,7 +465,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     disableDpRt(){
         // alert('dep')
-        if ((this.vehicle.controls['depreciation'].value == true || this.vehicle.controls['Returninvoice'].value == true) && this.enquiryFormData.business_type != '1') {
+        if (this.vehicle.controls['depreciation'].value == true || this.vehicle.controls['Returninvoice'].value == true) {
             // alert('true')
             let dialogRef = this.dialog.open(tataigBikeOpt, {
 
@@ -508,14 +507,10 @@ export class BikeTataaigProposalComponent implements OnInit {
     changeRTPDPYN(){
         if(this.deprecuiation==false){
         this.vehicle.controls['depreciation'].patchValue(false);
-        this.vehicle.controls['depreciationamount'].patchValue('0');
-        console.log(this.vehicle.controls['depreciation'].value,'depreciation....');
-        console.log(this.vehicle.controls['depreciationamount'].value,'depreciationamount.....');
+        console.log(this.vehicle.controls['depreciation'].value,'68789787678');
         }else if(this.depReturn==false){
             this.vehicle.controls['Returninvoice'].patchValue(false);
-            this.vehicle.controls['Returninvoiceamount'].patchValue('0');
-            console.log(this.vehicle.controls['Returninvoice'].value,'Returninvoice.....');
-            console.log(this.vehicle.controls['Returninvoiceamount'].value,'Returninvoiceamount...');
+            console.log(this.vehicle.controls['Returninvoice'].value,'1234567879878');
         }
     }
     chanedepre()
@@ -1199,7 +1194,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 Financetype: this.getstepper3.Financetype,
                 banktype: this.getstepper3.banktype,
                 bankName: this.getstepper3.bankName,
-                // bankNamevalue: this.getstepper3.bankNamevalue,
+                bankNamevalue: this.getstepper3.bankNamevalue,
                 Address: this.getstepper3.Address,
                 coverdrive: this.getstepper3.coverdrive,
                 coverdrivevalue: this.getstepper3.coverdrivevalue,
@@ -1442,15 +1437,15 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     proposalFailure(error) {
     }
-//     changefinancecompany() {
-//         this.vehicle.controls['bankNamevalue'].patchValue(this.photos[this.vehicle.controls['bankName'].value]);
-//
-//         console.log(this.vehicle.controls['bankNamevalue'].value,'000000000.....');
-//         console.log(this.finlist[this.vehicle.controls['bankName'].value],'11111111111111111111....');
-//         this.vehicle.controls['bankNamevalue'].patchValue(this.banklist[this.vehicle.controls['bankName'].value]);
-// console.log(this.vehicle.controls['bankNamevalue'].value,'2222222222....');
-// console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....');
-//     }
+    changefinancecompany() {
+        this.vehicle.controls['bankNamevalue'].patchValue(this.photos[this.vehicle.controls['bankName'].value]);
+
+        console.log(this.vehicle.controls['bankNamevalue'].value,'000000000.....');
+        console.log(this.finlist[this.vehicle.controls['bankName'].value],'11111111111111111111....');
+        this.vehicle.controls['bankNamevalue'].patchValue(this.banklist[this.vehicle.controls['bankName'].value]);
+console.log(this.vehicle.controls['bankNamevalue'].value,'2222222222....');
+console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....');
+    }
 }
 @Component({
     selector: ' tataigBikeOpt ',
