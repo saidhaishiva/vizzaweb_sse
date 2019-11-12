@@ -112,6 +112,8 @@ export class BajajAlianzComponent implements OnInit {
     public premium: any;
     public totalPremium: any;
     public type: any;
+    public relationshipStatus: any;
+    public relType: any;
 
 
 
@@ -1131,15 +1133,18 @@ console.log(sessionStorage.insuredFormData,'insuredFormData');
             this.sumInsuredAmount = this.requestList[0].sum_insured_amount;
             this.companyLogo = this.requestList[0].company_logo;
             this.premium = this.requestList[0].premium;
-            console.log(this.requestList, 'hgghjghjgjh');
-            console.log(this.requestDetails, 'this.requestDetails');
+                console.log(this.requestList, 'hgghjghjgjh');
+                console.log(this.requestDetails, 'this.requestDetails');
             console.log(this.grouPName, 'requestList[i]');
             this.totalPremium = this.requestList[0].total_premium;
-            for(let i=0;i<=this.requestList.length;i++){
-                console.log(this.requestList[0].hcpdtmemlist[i].length,'78899898')
-                console.log(this.requestList[0].hcpdtmemlist[i],'1111111')
-            this.type = this.requestList[0].hcpdtmemlist[i].memrelation;
-            console.log(this.type,'type....');
+            for(let k=0;k<=this.requestList.length;k++){
+                this.type=[];
+                this.type = this.requestList[0].hcpdtmemlist;
+                for(let i=0;i<=this.type.length;i++){
+                    this.relationshipStatus=this.type[i].memrelation;
+
+
+                }
             }
 
         } else {
