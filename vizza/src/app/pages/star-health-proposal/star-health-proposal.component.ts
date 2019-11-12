@@ -1734,6 +1734,7 @@ export class StarHealthProposalComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'proposal_id' : this.proposalId,
             'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'user_id':this.getFamilyDetails.enquiry_id,
             'group_name':  this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
             'product_id': this.buyProductdetails.product_id,
