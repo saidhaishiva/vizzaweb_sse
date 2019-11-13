@@ -1089,13 +1089,15 @@
                       </div>
                     </div>
 
-                    <div class="row" *ngIf="buyProduct.business_type == 2 || buyProduct.business_type ==5">
+                    <!--<div class="row" *ngIf="buyProduct.business_type == 2 || buyProduct.business_type ==5">-->
+                    <div class="row" *ngIf="showInspection==true">
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="inspectionDone">Inspection Done</mat-checkbox>
                       </div>
                     </div>
 
-                    <div class="row" *ngIf="buyProduct.business_type == 2 || buyProduct.business_type ==5">
+                    <!--<div class="row" *ngIf="buyProduct.business_type == 2 || buyProduct.business_type ==5">-->
+                    <div class="row" *ngIf="showInspection==true">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Inspection Id"  formControlName="inspectionId"  required autocomplete="off">
@@ -1103,7 +1105,7 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-4">
+                      <div class="col-md-4" *ngIf="showInspection==true">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker3" [max]="today" placeholder=" Inspection Date (DD/MM/YYYY)"   formControlName="inspectionDate" (dateInput)="addEvent($event,'iDate')" (dateChange)="addEvent($event,'iDate')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>

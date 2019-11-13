@@ -12,6 +12,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import {ActivatedRoute} from '@angular/router';
 import {PaymentModeValidate} from '../term-life-premium-list/term-life-premium-list.component';
+import * as moment from 'moment';
 
 
 export const MY_FORMATS = {
@@ -99,6 +100,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public buyProduct: any;
   public currentStep: any;
   public ProposalId: any;
+  public PreviousExpiry: any;
+  public showInspection: boolean;
 
   //dob
   proposerAge : any;
@@ -141,6 +144,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.currentStep = stepperindex;
     this.setting = appsetting.settings;
     this.webhost = this.config.getimgUrl();
+    this.showInspection=false
+
 
     this.relianceProposal = this.fb.group({
       firstName : ['' , Validators.required],
@@ -474,6 +479,49 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.previousInsurance.controls['prevYearPolicyTypeValue'].patchValue(this.prevPolicyList[this.previousInsurance.controls['prevYearPolicyType'].value]);
   }
 
+  inspectionShow() {
+    this.PreviousExpiry=this.buyProduct.previous_policy_expiry_date;
+    let inspectionDate = moment(this.PreviousExpiry,'YYYY/MM/DD');
+    console.log(inspectionDate,'previous date.....');
+    // let today = new Date();
+    let todayDate = moment(new Date(), 'YYYY/MM/DD');
+    console.log(todayDate,'start date.....');
+    let inspectionCount = todayDate.diff(inspectionDate, 'days');
+    console.log(inspectionCount, 'daysdays');
+    if(inspectionCount > 90){
+      // alert('inn');
+      this.showInspection=true;
+    }else{
+      this.showInspection=false;
+      // alert('out...');
+    }
+    // return days;
+
+  }
+
+  // inspectionShow(){
+  //   this.PreviousExpiry=this.buyProduct.previous_policy_expiry_date;
+  //   console.log(this.PreviousExpiry,'PreviousExpiry....');
+  //   let today = new Date();
+  //   console.log(today,'today...');
+  //   let inspectionDate = new Date(this.PreviousExpiry);
+  //   console.log(inspectionDate,'inspectionDate.....');
+  //   let yrs = today.getFullYear() - inspectionDate.getFullYear();
+  //   console.log(yrs,'yrs......');
+  //   let months = today.getMonth() - inspectionDate.getMonth();
+  //   console.log(months,'months.....');
+  //   let inspectionCount = today.getDate() - inspectionDate.getDate();
+  //   console.log(inspectionCount,'inspectionCount....');
+  //   if(inspectionCount>90){
+  //     alert('inn');
+  //     this.showInspection=true;
+  //   }else{
+  //     this.showInspection=false;
+  //     alert('out...');
+  //   }
+  //
+  //
+  // }
 
   // //change gender details
   // titleChangeGender() {
@@ -1014,6 +1062,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }else{
           stepper.next();
           this.topScroll();
+          this.inspectionShow();
         }
       }else{
         this.toastr.error('Please Select the Mandatory Fields')

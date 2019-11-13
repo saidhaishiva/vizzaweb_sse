@@ -764,17 +764,18 @@ export class AppolloMunichComponent implements OnInit {
     public appolloQuestionsFailure(error) {
     }
 
-    questionYes(index, event: any) {
+    questionYes(event:any,index) {
+        // alert('ques');
         console.log(event, 'click');
-        console.log(event.target.firstChild, 'target..');
-
-        if (event.target.firstChild.value=='on' && event.target.firstChild != null) {
-            // alert('inn');
+        if (event.checked==true) {
             this.appolloQuestionsList[index].mStatus = 'Yes';
-
-        } else if(event.target.firstChild == null){
-            this.appolloQuestionsList[index].mStatus = 'No';
+            // if((event) && this.appolloQuestionsList[index].mStatus == 'Yes') {
+            //     this.appolloQuestionsList[index].mStatus = 'No';
+            // }
+        }else if (event.checked==false){
+        this.appolloQuestionsList[index].mStatus = 'No';
         }
+
     }
 
 
