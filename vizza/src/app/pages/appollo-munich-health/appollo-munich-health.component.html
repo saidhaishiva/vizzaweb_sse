@@ -687,7 +687,7 @@
                         {{i+1}}. {{item.question}}
                       </div>
                       <div class="col-md-2 text-right">
-                        <mat-slide-toggle  (click)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
+                        <mat-slide-toggle  (change)="questionYes($event,i)">{{item.mStatus}}</mat-slide-toggle>
                       </div>
                     </div>
                   </div>
@@ -899,10 +899,10 @@
                           <div class="p-3">
                               <h6>COMMUNICATION DETAILS</h6>
                             <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Address 1:</strong> {{item.proposerAddress}}</li>
+                            <li class="list-group-item" *ngIf="item.proposerAddress != ''"><strong>Address 1:</strong> {{item.proposerAddress}}</li>
                             <li class="list-group-item" *ngIf="item.proposerAddress2 != ''"><strong>Address 2:</strong> {{item.proposerAddress2}}</li>
                             <li class="list-group-item"  *ngIf="item.proposerAddress3 != ''"><strong>Address 3:</strong> {{item.proposerAddress3}}</li>
-                            <li class="list-group-item" ><strong>City:</strong> {{item.proposerCityName}}</li>
+                            <li class="list-group-item" *ngIf="item.proposerCityName != ''" ><strong>City:</strong> {{item.proposerCityName}}</li>
                             </ul>
                           </div>
                         </div>
