@@ -138,6 +138,10 @@ export class ReligareHealthProposalComponent implements OnInit {
     proposal_Id: any;
     createdDate: any;
     requestDetails: any;
+    gtotalPremium: any;
+    gcompanylogo:any;
+    gname:any;
+    gsum_insured:any;
     requestmedicalQuestion: any;
     public religareMobileTrue0: boolean;
     public religareMobileTrue1: boolean;
@@ -2070,6 +2074,11 @@ export class ReligareHealthProposalComponent implements OnInit {
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
+            this.gname =this.requestDetails.group_name;
+            this.gsum_insured =this.requestDetails.suminsured_amount;
+            this.gcompanylogo =this.requestDetails.company_logo;
+            this.gtotalPremium =this.requestDetails.total_premium;
+            this.gname =this.requestDetails.group_name;
             this.pos_status =  this.requestDetails.role_id;
             this.product_id =  this.requestDetails.product_id;
             this.action =  this.requestDetails.action;
@@ -2077,6 +2086,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.returnURL = this.requestDetails.returnURL;
             this.requestInsuredDetails = this.requestDetails.proposer_insurer_details;
             this.requestmedicalQuestion = this.requestDetails.medicalQuestion;
+            console.log(this.requestDetails, 'requestDetails')
             console.log(this.requestmedicalQuestion, 'requestmedicalQuestion');
             console.log(this.requestInsuredDetails, 'hgghjghjgjh');
             // console.log(this.requestInsuredDetails.prop_identity_list[0].identity_number, 'hgghjghjgjh');
