@@ -736,13 +736,14 @@
           </div>
 
           </section>
+
           <section class="summary-details" *ngIf="payLaterr == true">
             <div class="row">
-              <div class="col-md-4"> <h4 class="mt-4">{{requestDetails.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.suminsured_amount}}</span></h4></div>
+              <div class="col-md-4"> <h4 class="mt-4">{{gname}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{gsum_insured}}</span></h4></div>
               <div class="col-md-8">
                 <ul class="summary-head">
-                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.total_premium}}</span> </li>
+                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + gcompanylogo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{gtotalPremium}}</span> </li>
                   <li></li>
                 </ul>
               </div>
@@ -762,7 +763,7 @@
                       <li class="list-group-item"><strong>Email Id:</strong> {{item.prop_email_list[0].email}}</li>
                       <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
                       <li class="list-group-item" ><strong>Mobile Number:</strong> {{item.prop_contact_list[0].contact_no}}</li>
-                      <li class="list-group-item" *ngIf="item.prop_contact_list[1].contact_no != ''" ><strong>Alternate Number:</strong> {{item.prop_contact_list[1].contact_no}}</li>
+                      <!--<li class="list-group-item" *ngIf="item.prop_contact_list[1].contact_no != ''" ><strong>Alternate Number:</strong> {{item.prop_contact_list[1].contact_no}}</li>-->
                     </ul>
                   </div>
                 </div>

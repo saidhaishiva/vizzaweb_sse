@@ -88,8 +88,6 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
             } else {
                 this.downloadMessage();
             }
-        } else {
-            this.toast.error(successData.ErrorObject);
         }
     }
     public downloadPdfFailure(error) {

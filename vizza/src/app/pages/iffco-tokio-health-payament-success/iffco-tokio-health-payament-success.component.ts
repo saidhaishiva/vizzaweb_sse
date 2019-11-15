@@ -47,7 +47,7 @@ export class IffcoTokioHealthPayamentSuccessComponent implements OnInit {
   ngOnInit() {
   }
   retry() {
-    this.router.navigate(['/iffco'  + '/' + true]);
+    this.router.navigate(['/iffcoProposal'  + '/' + true]);
   }
   pay(){
     // sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
