@@ -218,6 +218,17 @@ export class BikeInsuranceService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  getRegionList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'common/regionList';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   getRtoList(data) {
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -549,7 +560,17 @@ export class BikeInsuranceService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-
+  coverPremium(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'reliance/coverPremium';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   // get reliance pincode list
 
   getrPincodeList(data){
