@@ -80,7 +80,9 @@ export class FourWheelerHomeComponent implements OnInit {
   metaKeyword: any;
   metaDescription: any;
   public config: any;
+  public regionDetails: any;
   public CityValid: boolean;
+  public vehicleRegNumber: any;
 
   constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
     this.settings = this.appSettings.settings;
@@ -139,7 +141,35 @@ export class FourWheelerHomeComponent implements OnInit {
     this.sessionData();
     this.metaList();
   }
+  getRegionLists() {
 
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      'region_code':this.vehicleRegNumber,
+
+    }
+    console.log(this.vehicleRegNumber,'this.vehicleRegNumber....')
+    this.fwService.getRegionList(data).subscribe(
+        (successData) => {
+          this.regionSuccess(successData);
+        },
+        (error) => {
+          this.regionFailure(error);
+        }
+    );
+  }
+  public regionSuccess(successData){
+    if (successData.IsSuccess) {
+      this.regionDetails = successData.ResponseObject;
+      console.log(this.regionDetails,'regionDetails......');
+      //
+    }
+  }
+  public regionFailure(error) {
+  }
   public metaList() {
     const data = {
       'platform': 'web',
@@ -320,6 +350,20 @@ export class FourWheelerHomeComponent implements OnInit {
       this.toastr.error('Please select the Mandatory field');
 
     }
+  }
+
+  vechicleValue(){
+
+    let stringToSplit;
+    stringToSplit = this.fourWheeler.controls['vehicalNumber'].value.toUpperCase();
+    let x = stringToSplit.slice(0, 2);
+    console.log(x,'x.....')
+    let y = stringToSplit.slice(2, 4);
+    console.log(y,'y.....')
+
+    this.vehicleRegNumber = x.concat('-', y);
+    console.log( this.vehicleRegNumber,'vehicleRegNumber.....')
+
   }
 
   public bikeDetailsSuccess(successData, data) {

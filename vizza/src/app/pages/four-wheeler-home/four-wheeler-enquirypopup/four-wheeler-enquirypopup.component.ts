@@ -65,7 +65,10 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public start: any;
   public RegYear: any;
   public getLength: any;
+  public regionDetails: any;
+  public vehicleRegNumber: any;
   public CityValid : boolean;
+  public regionValid : boolean;
   constructor(public fb: FormBuilder, public fwService: FourWheelerService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
               public dialogRef: MatDialogRef<FourWheelerEnquirypopupComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -88,7 +91,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'engine': ['', Validators.required],
       'previousPolicyExpiry':'',
       'previousPolicyStart': '',
-      'city': ['', Validators.required]
+      'city': ['', Validators.required],
+      'regionList': ['', Validators.required]
     });
     this.getDays = this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd');
     const miniDate = new Date();
@@ -103,6 +107,13 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       search: true,
       limitTo: 5
     };
+    this.config = {
+      displayKey: "regionList", //if objects array passed which key to be displayed defaults to description
+      search: true,
+      limitTo: 5
+    };
+    this.regionValid = false;
+    this.CityValid = false;
 
   // this.CityValid = false;
   //   this.citySettings = {
@@ -146,11 +157,39 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
     this.carListDetails = JSON.parse(sessionStorage.carListDetails);
     this.rto = sessionStorage.RtoFour;
+    let stringToSplit;
+    stringToSplit = this.carListDetails.vehicle_no.toUpperCase();
+    let x = stringToSplit.slice(0, 2);
+    console.log(x,'x.....')
+    let y = stringToSplit.slice(2, 4);
+    console.log(y,'y.....')
+    // let oo = stringToSplit.slice(5, 6);
+    // console.log(oo,'oo.....')
+    // let w = '';
+    // let z = stringToSplit.slice(4, 6);
+    // console.log(z,'z.....')
+    // if (!isNaN(oo)) {
+    //   let j = stringToSplit.slice(4, 5);
+    //   console.log(j,'j...')
+    //   w = stringToSplit.slice(5);
+    //   console.log(w,'w.....')
+    this.vehicleRegNumber = x.concat('-', y);
+    console.log( this.vehicleRegNumber,'vehicleRegNumber.....')
+    // } else {
+    //   w = stringToSplit.slice(6);
+    //   this.vehicleRegNumber = x.concat('-', y, '-', z, '-', w);
+    //   console.log( this.vehicleRegNumber,'vehicleRegNumber1111.....')
+    //
+    // }
+    this.CityValid = false;
+    this.regionValid = false;
+
 
     this.claimpercent();
     this.manifactureList();
     this.dataList();
     this.getCityLists();
+    this.getRegionLists();
 
   }
   dataList(){
@@ -368,6 +407,33 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public cityFailure(error) {
   }
 
+  getRegionLists() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      'region_code':this.vehicleRegNumber,
+    }
+    this.fwService.getRegionList(data).subscribe(
+        (successData) => {
+          this.regionSuccess(successData);
+        },
+        (error) => {
+          this.regionFailure(error);
+        }
+    );
+  }
+  public regionSuccess(successData){
+    if (successData.IsSuccess) {
+      this.regionDetails = successData.ResponseObject;
+      console.log(this.regionDetails,'regionDetails......');
+      //
+    }
+  }
+  public regionFailure(error) {
+  }
+
 
   addEvent(event, type) {
     console.log(event, 'eventevent');
@@ -490,6 +556,13 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   enquiryQuation(value) {
     if( this.vehicalDetails.controls['city'].value == ''){
       this.CityValid = true;
+      if(this.vehicalDetails.controls['regionList'].value == ''){
+        this.regionValid = true;
+        console.log(this.regionValid,'regionValid...');
+      }else{
+        this.regionValid = false;
+        console.log(this.regionValid,'regionValidfalse...');
+      }
     } else {
       this.CityValid = false;
 
@@ -521,6 +594,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'business_type':this.ListDetails.business_type,
       'registration_city': this.vehicalDetails.controls['city'].value,
       'rto_code': this.rto,
+       'region_name': this.vehicalDetails.controls['regionList'].value,
       'prev_insurance_name': this.enquiryFormData.prev_insurance_name
 
       };
