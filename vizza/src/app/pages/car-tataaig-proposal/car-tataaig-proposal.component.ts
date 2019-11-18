@@ -556,10 +556,31 @@ console.log(this.packaageList,'this.packaageList');   // question
 
   }
 
-
+changeAddonValue(){
+    console.log(this.ispreviousPolicy,'ghhghj')
+    if(this.ispreviousPolicy=='N'){
+      // alert('changeAddonValue');
+      this.vehicle.controls['package'].patchValue('');
+      this.vehicle.controls['Repairofglass'].patchValue('');
+      this.vehicle.controls['Depreciation'].patchValue('');
+      this.vehicle.controls['Invoice'].patchValue('');
+      this.vehicle.controls['personaloss'].patchValue('');
+      this.vehicle.controls['transport'].patchValue('');
+      this.vehicle.controls['keyReplacement'].patchValue('');
+      this.vehicle.controls['Enginesecure'].patchValue('');
+      this.vehicle.controls['Consumableexpence'].patchValue('');
+      this.vehicle.controls['Tyresecure'].patchValue('');
+      this.vehicle.controls['Roadside'].patchValue('');
+      this.packageaddon();
+    }else{
+      this.packageaddon();
+      // alert('else')
+    }
+}
 
 // Addons Package
     packageaddon() {
+    // alert('packageaddon');
         const data = {
 
             'platform': 'web',
@@ -595,6 +616,7 @@ console.log(this.packaageList,'this.packaageList');   // question
 
 
     popupraise(){
+    // alert('popupraise');
       if((this.vehicle.controls['package'].value == '3' || this.vehicle.controls['package'].value == '4' || this.vehicle.controls['package'].value == '5' || this.vehicle.controls['package'].value == '6' || this.vehicle.controls['package'].value == '7') && this.enquiryFormData.business_type != '1'){
         let dialogRef = this.dialog.open(tataigCarOpt, {
           width: '400px',
@@ -607,7 +629,8 @@ console.log(this.packaageList,'this.packaageList');   // question
           if(result) {
             this.ispreviousPolicy = result;
             console.log(this.ispreviousPolicy,'23456787656789876'); //Y  N
-            this.packageaddon();
+            this.changeAddonValue();
+
           }
 
           console.log('The dialog was closed');
