@@ -398,7 +398,7 @@
 
                             <!--</div>-->
                             <div class="col-md-3 mt-1"  *ngIf="premium != 'ThridParty_premium'" >
-                              <mat-checkbox formControlName="elecAccessories" (change)="electriAccess()"><strong> Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                              <mat-checkbox formControlName="elecAccessories" (change)="electriAccess()"><strong> Electrical Accessories </strong></mat-checkbox>
                             </div>
                             <div class="col-md-3" *ngIf="vehicle.controls['elecAccessories'].value == true">
                               <mat-form-field class="w-100">
@@ -422,7 +422,7 @@
                             </div>
 
                             <div class="col-md-3 mt-1"  *ngIf="premium != 'ThridParty_premium'" >
-                              <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                              <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories </strong></mat-checkbox>
                             </div>
                             <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                               <mat-form-field class="w-100">
@@ -632,7 +632,7 @@
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
                         <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
-                        <button mat-raised-button color="primaryBlue" class="p-0 ml-3" (click)="vehicleDetails(stepper,vehicle.value)" >Next</button>
+                        <button mat-raised-button color="primaryBlue" class="p-0 ml-3" (click)="vehicleDetails(stepper,vehicle.value);QuoteList()" >Next</button>
                       </div>
                       </div>
                     </div>
