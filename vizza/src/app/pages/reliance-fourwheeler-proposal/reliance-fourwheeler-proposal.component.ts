@@ -818,7 +818,7 @@ changeOwnerDriver(){
   changeRate(event:any){
     // alert('inn')
     // console.log(event,'event...');
-    // console.log(event.target.value);
+    console.log(event.target.value);
     // console.log(this.coverDetails.controls['applicableRate'].value,'applicableRate......');
     // console.log(parseFloat('2.3'),'parseFloat......');
 

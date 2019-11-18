@@ -652,7 +652,7 @@
                       </div>
                       <div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Applicable Rate"  formControlName="applicableRate" (change)="changeRate($event)"  (keypress)="changeRate($event);getCover();changeDepreciation()"  autocomplete="off" required >
+                          <input matInput placeholder="Applicable Rate"  formControlName="applicableRate" (change)="changeRate($event)" (input)="changeRate($event)"  (keypress)="changeRate($event);getCover();changeDepreciation()"  autocomplete="off" required >
                           <mat-error *ngIf="coverDetails.controls.applicableRate.errors?.required">Applicable Rate is required</mat-error>
                         </mat-form-field>
                         <div class="error" *ngIf="errorRateMsg !='' && errorRateMsg != true">{{errorRateMsg}}</div>
