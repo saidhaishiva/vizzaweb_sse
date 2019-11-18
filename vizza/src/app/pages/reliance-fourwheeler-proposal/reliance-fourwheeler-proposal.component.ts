@@ -102,8 +102,18 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public ProposalId: any;
   public PreviousExpiry: any;
   public coverListValue: any;
-  public valueOfPermium: any;
+  public nil_depreciation: any;
+  public basic_od: any;
+  public electrical_accessories: any;
+  public non_electrical_accessories: any;
+  public Anti_theft: any;
+  public automobile_association: any;
+  public basic_liability: any;
+  public pa_unnamed_passenger: any;
+  public pa_owner_driver: any;
+  public voluntary_deductible: any;
   public showInspection: boolean;
+  public errorRateMsg: any;
 
   //dob
   proposerAge : any;
@@ -147,6 +157,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.setting = appsetting.settings;
     this.webhost = this.config.getimgUrl();
     this.showInspection=false
+    this.errorRateMsg=false
 
 
     this.relianceProposal = this.fb.group({
@@ -632,7 +643,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
 changeOwnerDriver(){
 
-    this.coverDetails.controls['totalOwnerDriverPremium'].patchValue(this.valueOfPermium);
+    this.coverDetails.controls['totalOwnerDriverPremium'].patchValue(this.pa_owner_driver);
 
 }
 
@@ -754,7 +765,7 @@ changeOwnerDriver(){
     }
   }
   changeVoluntary(){
-          this.coverDetails.controls['totalVoluntaryDeductablePremium'].patchValue(this.valueOfPermium);
+          this.coverDetails.controls['totalVoluntaryDeductablePremium'].patchValue(this.voluntary_deductible);
 
 
   }
@@ -780,7 +791,7 @@ changeOwnerDriver(){
     if(event.checked){
       this.coverDetails.controls['NilDepreciationCoverage'].patchValue(true);
       //
-      this.coverDetails.controls['applicableRate'].patchValue('1.0');
+      this.coverDetails.controls['applicableRate'].patchValue( this.coverDetails.controls['applicableRate'].value);
 
       this.coverDetails.controls['applicableRate'].setValidators([Validators.required]);
       this.coverDetails.controls['applicableRate'].updateValueAndValidity();
@@ -800,9 +811,28 @@ changeOwnerDriver(){
   }
   changeDepreciation(){
 
-          this.coverDetails.controls['totalDepreciationPremium'].patchValue(this.valueOfPermium);
+          this.coverDetails.controls['totalDepreciationPremium'].patchValue(this.nil_depreciation);
 
 
+  }
+  changeRate(event:any){
+    alert('inn')
+    // console.log(event,'event...');
+    // console.log(event.target.value);
+    // console.log(this.coverDetails.controls['applicableRate'].value,'applicableRate......');
+    // console.log(parseFloat('2.3'),'parseFloat......');
+
+  if(event.target.value < 2.3) {
+    this.errorRateMsg=true;
+    this.errorRateMsg = 'Applicable Rate should not be less than 2.3';
+
+  } else{
+    // alert('else..')
+    // console.log(event.target.value);
+    // console.log(this.coverDetails.controls['applicableRate'].value,'applicableRate......');
+    this.errorRateMsg=false;
+    this.errorRateMsg = '';
+  }
   }
 
 
@@ -844,20 +874,27 @@ changeOwnerDriver(){
     }
   }
   changeElect(){
-          this.coverDetails.controls['totalElectricalItemPremium'].patchValue(this.valueOfPermium);
+          this.coverDetails.controls['totalElectricalItemPremium'].patchValue(this.electrical_accessories);
 
   }
+
+  changesumInsu(){
+    if(this.coverDetails.controls.NoOfUnnamedPassenegersCovered.value) {
+      this.coverDetails.controls['UnnamedPassengersSI'].setValidators([Validators.required]);
+      this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
+    }else{
+        this.coverDetails.controls['UnnamedPassengersSI'].patchValue('');
+        this.coverDetails.controls['UnnamedPassengersSI'].setValidators(null);
+        this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
+      }
+  }
   changeValueUnpass(){
-    if(this.coverDetails.controls.UnnamedPassengersSI.value){
-    this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].setValidators([Validators.required]);
-    this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].updateValueAndValidity();
-      this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue(this.valueOfPermium);
+      if(this.coverDetails.controls.UnnamedPassengersSI.value){
+      this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue(this.pa_unnamed_passenger);
       this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators([Validators.required]);
       this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
   }else {
-      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].patchValue('');
-  this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].setValidators(null);
-  this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].updateValueAndValidity();
+
   this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue('');
   this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators(null);
   this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
@@ -888,7 +925,7 @@ changeOwnerDriver(){
     }
   }
 changeNonElect(){
-          this.coverDetails.controls['totalNonElectricalItemPremium'].patchValue(this.valueOfPermium);
+          this.coverDetails.controls['totalNonElectricalItemPremium'].patchValue(this.non_electrical_accessories);
 
 }
 
@@ -1136,7 +1173,7 @@ changeNonElect(){
     } else if (type == 'stepper3') {
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
-      if (this.coverDetails.valid) {
+      if (this.coverDetails.valid && this.errorRateMsg==false) {
         console.log(typeof (this.buyProduct.business_type),'type');
         if (this.buyProduct.business_type == 1){
 
@@ -1690,6 +1727,7 @@ changeNonElect(){
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
           'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
           'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
+          'NoOfUnnamedPassenegersCovered':this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value,
          // 'NoOfUnnamedPassenegersCovered': this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value != '' ? this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value : '',
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
@@ -1828,7 +1866,7 @@ changeNonElect(){
               'NoOfItems': '',
               'PackageName': '',
               'PolicyCoverID': '',
-              'ApplicableRate': '1.0',
+              'ApplicableRate': '2.3',
             }
           }
         }
@@ -1847,9 +1885,38 @@ changeNonElect(){
     if (successData.IsSuccess) {
       this.coverListValue = successData.ResponseObject;
       console.log(this.coverListValue,'coverListValue......');
-      this.valueOfPermium=this.coverListValue.productlist[0].Comprehensive_premium;
-      console.log(this.coverListValue.productlist,'this.coverListValue.productlist....');
+      this.nil_depreciation=this.coverListValue.coverlist[0].nil_depreciation;
+      console.log(this.nil_depreciation,'this.nil_depreciation....');
+
+      this.basic_od=this.coverListValue.coverlist[0].basic_od;
+      console.log(this.basic_od,'this.basic_od....');
+
+      this.electrical_accessories=this.coverListValue.coverlist[0].electrical_accessories;
+      console.log(this.electrical_accessories,'this.electrical_accessories....');
+
+      this.non_electrical_accessories=this.coverListValue.coverlist[0].non_electrical_accessories;
+      console.log(this.non_electrical_accessories,'this.non_electrical_accessories...');
+
+      this.Anti_theft=this.coverListValue.coverlist[0].Anti_theft;
+      console.log(this.Anti_theft,'this.Anti_theft....');
+
+      this.automobile_association=this.coverListValue.coverlist[0].automobile_association;
+      console.log(this.automobile_association,'this.automobile_association....');
+
+      this.basic_liability=this.coverListValue.coverlist[0].basic_liability;
+      console.log(this.basic_liability,'this.basic_liability....');
+
+      this.pa_unnamed_passenger=this.coverListValue.coverlist[0].pa_unnamed_passenger;
+      console.log(this.pa_unnamed_passenger,'this.pa_unnamed_passenger....');
+
+      this.voluntary_deductible=this.coverListValue.coverlist[0].voluntary_deductible;
+      console.log(this.voluntary_deductible,'this.voluntary_deductible....');
+
+      this.pa_owner_driver=this.coverListValue.coverlist[0].pa_owner_driver;
+      console.log(this.pa_owner_driver,'this.pa_owner_driver....');
       console.log(this.unnamedList,'valueOfPermium....');
+    }else{
+      this.toastr.error(successData.ErrorObject);
     }
   }
   public coverPreFailure(error) {

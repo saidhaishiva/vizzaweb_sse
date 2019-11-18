@@ -550,24 +550,25 @@
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger($event);getCover()">PA to Unnamed Passenger</mat-checkbox>
                       </div>
-                      <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
+                      <div class="col-md-3"  *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="No Of Unnamed Passengers Covered"  (keypress)="numberValidate($event);changesumInsu()" maxlength="1" formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
+                          <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passengers Covered is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.value">
                       <mat-form-field class="w-100">
-                        <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();changeValueUnpass();getCover()" required>
+                        <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();getCover();changeValueUnpass()"  (click)="getCover();changeValueUnpass()"  (keyup)="getCover();changeValueUnpass()" required>
                           <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>
                       </mat-form-field>
                     </div>
 
-                      <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengersSI.value ">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="No Of Unnamed Passengers Covered"  (keypress)="numberValidate($event)" formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
-                          <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passengers Covered is required</mat-error>
-                        </mat-form-field>
-                      </div>
+
                       <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengersSI.value">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Total Premium"  formControlName="totalUnnamedPassengerPremium"  autocomplete="off" [required]="coverDetails.controls.UnnamedPassengersSI.value" readonly>
+                          <input matInput placeholder="Total Premium"  formControlName="totalUnnamedPassengerPremium" (change)="getCover();changeValueUnpass()" (click)="getCover();changeValueUnpass()" (keyup)="getCover();changeValueUnpass()" autocomplete="off" [required]="coverDetails.controls.UnnamedPassengersSI.value" readonly>
                         </mat-form-field>
                       </div>
 
@@ -593,7 +594,7 @@
                           </div>
                           <div class="col-md-4 mt-0">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Nominee Name" formControlName="cnomineeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                              <input matInput placeholder="Nominee Name" formControlName="cnomineeName"  (keypress)="nameValidate($event);getCover();changeOwnerDriver()" autocomplete="off" required >
                               <mat-error *ngIf="coverDetails.controls.cnomineeName.errors?.required">Nominee Name is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -651,13 +652,14 @@
                       </div>
                       <div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Applicable Rate"  formControlName="applicableRate"  autocomplete="off" required readonly>
+                          <input matInput placeholder="Applicable Rate"  formControlName="applicableRate" (change)="changeRate($event)"  (keypress)="changeRate($event);getCover();changeDepreciation()"  autocomplete="off" required >
                           <mat-error *ngIf="coverDetails.controls.applicableRate.errors?.required">Applicable Rate is required</mat-error>
                         </mat-form-field>
+                        <div class="error" *ngIf="errorRateMsg !='' && errorRateMsg != true">{{errorRateMsg}}</div>
                       </div>
                       <div class="col-md-4 " *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Total Premium"  formControlName="totalDepreciationPremium" (change)="changeDepreciation()" autocomplete="off" [required]="coverDetails.controls.NilDepreciationCoverage.value == true" readonly>
+                          <input matInput placeholder="Total Premium"  formControlName="totalDepreciationPremium" (change)="getCover();changeDepreciation()" (click)="getCover();changeDepreciation()" (keyup)="getCover();changeDepreciation()" autocomplete="off" [required]="coverDetails.controls.NilDepreciationCoverage.value == true" readonly>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
@@ -690,7 +692,7 @@
                       </div>
                       <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsVoluntaryDeductableOpted.value == true">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (selectionChange)="voluntaryAmount();getCover();changeVoluntary()" required>
+                          <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (selectionChange)="voluntaryAmount();getCover();changeVoluntary()" (click)="getCover();changeVoluntary()" required>
                             <mat-option *ngFor="let type of amountList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="coverDetails.controls.VoluntaryDeductableAmount.errors?.required">Sum Insured  is required</mat-error>
@@ -698,7 +700,7 @@
                       </div>
                       <div class="col-md-4 " *ngIf="coverDetails.controls.VoluntaryDeductableAmount.value">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Total Premium"  formControlName="totalVoluntaryDeductablePremium" (change)="changeVoluntary()" autocomplete="off" [required]="coverDetails.controls.VoluntaryDeductableAmount.value" readonly>
+                          <input matInput placeholder="Total Premium"  formControlName="totalVoluntaryDeductablePremium" (change)="getCover();changeVoluntary()" (click)="getCover();changeVoluntary()" (keyup)="getCover();changeVoluntary()" autocomplete="off" [required]="coverDetails.controls.VoluntaryDeductableAmount.value" readonly>
                         </mat-form-field>
                       </div>
 
@@ -707,13 +709,13 @@
                       </div>
                       <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Sum Insured"  formControlName="ElectricalItemsTotalSI"  autocomplete="off" required readonly>
+                          <input matInput placeholder="Sum Insured"  formControlName="ElectricalItemsTotalSI" (change)="getCover();changeElect()" (keyup)="getCover();changeElect()" autocomplete="off" required readonly>
                           <mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Total Premium"  formControlName="totalElectricalItemPremium" (change)="changeElect()" autocomplete="off" [required]="coverDetails.controls.IsElectricalItemFitted.value == true" readonly>
+                          <input matInput placeholder="Total Premium"  formControlName="totalElectricalItemPremium" (change)="getCover();changeElect()" (keyup)="getCover();changeElect()" (click)="getCover();changeElect()" autocomplete="off" [required]="coverDetails.controls.IsElectricalItemFitted.value == true" readonly>
                         </mat-form-field>
                       </div>
 
@@ -722,13 +724,13 @@
                       </div>
                       <div class="col-md-4 " *ngIf="coverDetails.controls.IsNonElectricalItemFitted.value == true">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Sum Insured"  formControlName="NonElectricalItemsTotalSI"  autocomplete="off" required readonly >
+                          <input matInput placeholder="Sum Insured"  formControlName="NonElectricalItemsTotalSI" (change)="getCover();changeNonElect()" (keyup)="getCover();changeNonElect()" autocomplete="off" required readonly >
                           <mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsNonElectricalItemFitted.value == true">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Total Premium"  formControlName="totalNonElectricalItemPremium"  autocomplete="off" (change)="getCover();changeNonElect()" [required]="coverDetails.controls.IsNonElectricalItemFitted.value == true" readonly>
+                          <input matInput placeholder="Total Premium"  formControlName="totalNonElectricalItemPremium"  autocomplete="off" (change)="getCover();changeNonElect()" (keyup)="getCover();changeNonElect()" (click)="getCover();changeNonElect()" [required]="coverDetails.controls.IsNonElectricalItemFitted.value == true" readonly>
                         </mat-form-field>
                       </div>
 
