@@ -1044,8 +1044,14 @@
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuelType:</strong> {{coverFormData.fuelTypeValue}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember != ''"><strong>Automobile Association Membership:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == true">Yes</span><span *ngIf="coverFormData.AutomobileAssociationMember == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalAutomobilePremium != '' && coverFormData.AutomobileAssociationMember ==true "><strong>Total Premium:</strong> {{coverFormData.totalAutomobilePremium}}</li>
+
                                   <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted != ''"><strong>Anti-Theft Device :</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == true">Yes</span><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalAntiTheftPremium != '' && coverFormData.AntiTheftDeviceFitted ==true "><strong>Total Premium:</strong> {{coverFormData.totalAntiTheftPremium}}</li>
+
                                   <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>Basic OD :</strong><span *ngIf="coverFormData.BasicODCoverage == true">Yes</span><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalBasicODPremium != '' && coverFormData.BasicODCoverage ==true "><strong>Total Premium:</strong> {{coverFormData.totalBasicODPremium}}</li>
+
                               </ul>
                           </div>
 
