@@ -551,13 +551,13 @@
                         <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger($event);getCover()">PA to Unnamed Passenger</mat-checkbox>
                       </div>
                       <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();changeValueUnpass();getCover()" required>
-                            <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>
-                        </mat-form-field>
-                      </div>
+                      <mat-form-field class="w-100">
+                        <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();changeValueUnpass();getCover()" required>
+                          <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>
+                      </mat-form-field>
+                    </div>
 
                       <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengersSI.value ">
                         <mat-form-field class="w-100">

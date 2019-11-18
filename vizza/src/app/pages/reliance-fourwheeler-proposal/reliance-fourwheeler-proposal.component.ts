@@ -1688,7 +1688,9 @@ changeNonElect(){
           'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value ,
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
-          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+          'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+          'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
+         // 'NoOfUnnamedPassenegersCovered': this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value != '' ? this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value : '',
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
           "ElectricItems": {
@@ -1818,6 +1820,16 @@ changeNonElect(){
             'LiabilityToPaidDriver': {
               'NoOfItems': '1'
             }
+          },
+          'NilDepreciationCoverage': {
+            'NilDepreciationCoverage': {
+              'IsMandatory': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+              'IsChecked': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+              'NoOfItems': '',
+              'PackageName': '',
+              'PolicyCoverID': '',
+              'ApplicableRate': '1.0',
+            }
           }
         }
       }
@@ -1837,7 +1849,7 @@ changeNonElect(){
       console.log(this.coverListValue,'coverListValue......');
       this.valueOfPermium=this.coverListValue.productlist[0].Comprehensive_premium;
       console.log(this.coverListValue.productlist,'this.coverListValue.productlist....');
-      console.log(this.valueOfPermium,'valueOfPermium....');
+      console.log(this.unnamedList,'valueOfPermium....');
     }
   }
   public coverPreFailure(error) {
