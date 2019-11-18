@@ -465,7 +465,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     disableDpRt(){
         // alert('dep')
-        if (this.vehicle.controls['depreciation'].value == true || this.vehicle.controls['Returninvoice'].value == true) {
+        if ((this.vehicle.controls['depreciation'].value == true || this.vehicle.controls['Returninvoice'].value == true) && (this.enquiryFormData.business_type != '1')) {
             // alert('true')
             let dialogRef = this.dialog.open(tataigBikeOpt, {
 
@@ -507,9 +507,11 @@ export class BikeTataaigProposalComponent implements OnInit {
     changeRTPDPYN(){
         if(this.deprecuiation==false){
         this.vehicle.controls['depreciation'].patchValue(false);
+            this.vehicle.controls['depreciationamount'].patchValue('');
         console.log(this.vehicle.controls['depreciation'].value,'68789787678');
         }else if(this.depReturn==false){
             this.vehicle.controls['Returninvoice'].patchValue(false);
+            this.vehicle.controls['Returninvoiceamount'].patchValue('');
             console.log(this.vehicle.controls['Returninvoice'].value,'1234567879878');
         }
     }
