@@ -816,7 +816,7 @@ changeOwnerDriver(){
 
   }
   changeRate(event:any){
-    alert('inn')
+    // alert('inn')
     // console.log(event,'event...');
     // console.log(event.target.value);
     // console.log(this.coverDetails.controls['applicableRate'].value,'applicableRate......');
@@ -1915,9 +1915,10 @@ changeNonElect(){
       this.pa_owner_driver=this.coverListValue.coverlist[0].pa_owner_driver;
       console.log(this.pa_owner_driver,'this.pa_owner_driver....');
       console.log(this.unnamedList,'valueOfPermium....');
-    }else{
-      this.toastr.error(successData.ErrorObject);
     }
+    // else{
+    //   this.toastr.error(successData.ErrorObject);
+    // }
   }
   public coverPreFailure(error) {
   }
