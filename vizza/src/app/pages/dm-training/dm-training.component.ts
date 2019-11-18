@@ -135,6 +135,7 @@ export class DmTrainingComponent implements OnInit {
                 } else {
                     h = 0;
                 }
+
                 let sendMinutes;
                 if (minutes != 0) {
                     m = minutes;
