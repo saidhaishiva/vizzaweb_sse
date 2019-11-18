@@ -158,7 +158,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       dob: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-      occupation: '',
+      occupation: ['', Validators.required],
       aadharNumber: ['', Validators.compose([Validators.minLength(12)])],
       panNumber: ['', Validators.compose([ Validators.minLength(10)])],
       address: ['', Validators.required],
@@ -245,7 +245,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       previousInsured: ['', Validators.required],
       previousdob: '',
       isPreviousPolicyHolder: 'No',
-      previousinsurersCorrectAddress: '',
+      previousinsurersCorrectAddress: ['', Validators.required],
       voluntary: '',
       claimAmountReceived: '',
       claimsReported: ['', Validators.compose([ Validators.maxLength(2)])],
@@ -527,6 +527,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
     }
+    console.log(this.proposer.controls['rcity'].value, 'rcity');
+    console.log(this.proposer.controls['city'].value, 'ccity');
   }
 
   public pinresProposerListFailure(error) {
@@ -882,6 +884,27 @@ export class RsFourwheelerProposalComponent implements OnInit {
       }
       this.vehical.controls['isBiFuelKitYes'].updateValueAndValidity();
       this.vehical.controls['addonValue'].updateValueAndValidity();
+
+
+  }
+  changebifuel(){
+    console.log(this.vehical.controls['isBiFuelKitYes'].value,'111111')
+    if (this.vehical.controls['isBiFuelKitYes'].value == 'Add On') {
+      // this.vehical.controls['isBiFuelKitYes'].patchValue(this.vehical.controls['isBiFuelKitYes'].value);
+      this.vehical.controls['addonValue'].patchValue(this.vehical.controls['addonValue'].value);
+
+      // this.vehical.controls['isBiFuelKitYes'].setValidators([Validators.required]);
+      this.vehical.controls['addonValue'].setValidators([Validators.required]);
+    } else {
+      // this.vehical.controls['isBiFuelKitYes'].patchValue('');
+      this.vehical.controls['addonValue'].patchValue('');
+
+      // this.vehical.controls['isBiFuelKitYes'].setValidators(null);
+      this.vehical.controls['addonValue'].setValidators(null);
+
+    }
+    // this.vehical.controls['isBiFuelKitYes'].updateValueAndValidity();
+    this.vehical.controls['addonValue'].updateValueAndValidity();
 
 
   }
@@ -1406,6 +1429,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       //         "elecValue": this.vehical.value.electricalAccess[i].elecValue ? 'err' : '',
       //     });
       // }
+    console.log(this.proposer.controls['rcity'].value, ' Propossal');
+    console.log(this.proposer.controls['city'].value, ' Propossal');
 
     const data = {
       "platform": "web",
@@ -1568,7 +1593,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
   updateproposal(stepper) {
+    console.log(this.proposer.controls['rcity'].value, 'cityUpdate Propossal');
+    console.log(this.proposer.controls['city'].value, 'cityUpdate Propossal');
     const data = {
+
+
       "platform": "web",
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -1858,10 +1887,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   communicateCity() {
     this.proposer.controls['cityName'].patchValue(this.cityCommList[this.proposer.controls['city'].value]);
+    console.log(this.proposer.controls['city'].value, 'citypatch')
 
   }
   registrationCity() {
     this.proposer.controls['rcityName'].patchValue(this.rescityList[this.proposer.controls['rcity'].value]);
+    console.log(this.proposer.controls['rcity'].value, 'rcitypatch')
+
 
   }
 }

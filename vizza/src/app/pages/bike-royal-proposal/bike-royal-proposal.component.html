@@ -61,14 +61,14 @@
                       </div>
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="STD CODE"   (keypress)="numberValidate($event)"  maxlength="5" formControlName="stdCode" autocomplete="off" required>
-                                <mat-error *ngIf="proposer.controls.stdCode.errors?.required">Std Code is required</mat-error>
+                                <input matInput placeholder="STD CODE"   (keypress)="numberValidate($event)"  maxlength="5" formControlName="stdCode" autocomplete="off" >
+                                <!--<mat-error *ngIf="proposer.controls.stdCode.errors?.required">Std Code is required</mat-error>-->
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Phone Number"   (keypress)="numberValidate($event)"  maxlength="10" minlength="5" formControlName="phoneNumber" autocomplete="off" required>
-                                <mat-error *ngIf="proposer.controls.phoneNumber.errors?.required">Phone Number is required</mat-error>
+                                <input matInput placeholder="Phone Number"   (keypress)="numberValidate($event)"  maxlength="10" minlength="5" formControlName="phoneNumber" autocomplete="off" >
+                                <!--<mat-error *ngIf="proposer.controls.phoneNumber.errors?.required">Phone Number is required</mat-error>-->
                             </mat-form-field>
                         </div>
 

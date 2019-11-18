@@ -79,6 +79,11 @@ export class DmTrainingComponent implements OnInit {
         this.trainingTiming();
 
     }
+
+
+    retry() {
+        this.router.navigate(['/dm-profile']);
+    }
     // // Start timers.
     // StartTimers() {
     //     this.warningTimer = setTimeout((res) => { this.IdleWarning() }, this.timoutWarning);
@@ -100,126 +105,287 @@ export class DmTrainingComponent implements OnInit {
     //    // this.router.navigate(['/home']);
     // }
 
+
+    // countdown(minutes) {
+    //     const test = this;
+    //     let timeoutHandle;
+    //     let h ;
+    //     let m ;
+    //     function count() {
+    //         // let startTime = '15:00:00';
+    //         let startTime = document.getElementById('timer').innerHTML;
+    //         let pieces = startTime.split(":");
+    //         let time = new Date();
+    //         time.setHours(parseInt(pieces[0]));
+    //         time.setMinutes(parseInt(pieces[1]));
+    //         time.setSeconds(parseInt(pieces[2]));
+    //         let timedif = new Date(time.valueOf() - 1000);
+    //         let newtime = timedif.toTimeString().split(" ")[0];
+    //         document.getElementById('timer').innerHTML=newtime;
+    //         test.getRemainingTime = newtime;
+    //         sessionStorage.dmCheckoutTime = newtime;
+    //         if (newtime == '00:00:00') {
+    //
+    //             this.trainingCompleted = true;
+    //             const getFulltime = test.getRemainingTime;
+    //             // split the time
+    //             let pieces = getFulltime.split(":");
+    //             let hours = pieces[0];
+    //             let minutes = pieces[1];
+    //             let seconds = pieces[2];
+    //             hours = hours == '00' ? 0 : hours;
+    //             minutes = minutes == '00' ? 0 : minutes;
+    //             let timeLeft = sessionStorage.dmTimeLeft;
+    //             if (hours != 0) {
+    //                 h = hours * 60;
+    //             } else {
+    //                 h = 0;
+    //             }
+    //             let sendMinutes;
+    //             if (minutes != 0) {
+    //                 m = minutes;
+    //                 sendMinutes = true;
+    //             } else {
+    //                 m = timeLeft;
+    //                 sendMinutes = false;
+    //
+    //             }
+    //             // let stayTime = timeLeft - remainingTime;
+    //             if (sendMinutes) {
+    //                 let remainingTime = parseInt(h) + parseInt(m);
+    //                 sendMinutes = timeLeft - remainingTime;
+    //             } else {
+    //                 sendMinutes = timeLeft;
+    //                 sessionStorage.dmTimeLeft = '';
+    //             }
+    //             setTimeout(() => {
+    //                 let dialogRef = test.dialog.open(DmTrainingcompletedAlert, {
+    //                     width: '700px',
+    //                 });
+    //
+    //                 dialogRef.disableClose = true;
+    //                 dialogRef.afterClosed().subscribe(result => {
+    //                     if (result) {
+    //                         sessionStorage.dmCheckoutTime = '';
+    //                         test.trainingStatus = test.auth.getSessionData('dmTrainingStatus');
+    //                         sendMinutes = 1;
+    //                         test.sendRemainingTime(sendMinutes, 'leftTime');
+    //                     } else {
+    //                     }
+    //                 });
+    //             },800);
+    //             // end
+    //
+    //         } else {
+    //             if (test.getRemainingTime != '') {
+    //                 let h ;
+    //                 let m ;
+    //                 const getFulltime = test.getRemainingTime;
+    //                 let pieces = getFulltime.split(":");
+    //                 let hours = pieces[0];
+    //                 let minutes = pieces[1];
+    //                 let seconds = pieces[2];
+    //                 hours = hours == '00' ? 0 : hours;
+    //                 minutes = minutes == '00' ? 0 : minutes;
+    //                 let timeLeft = sessionStorage.dmTimeLeft;
+    //                 if (hours != 0) {
+    //                     h = hours * 60;
+    //                 } else {
+    //                     h = 0;
+    //                 }
+    //                 let sendMinutes;
+    //                 if (minutes != 0 || hours != 0) {
+    //                     m = minutes;
+    //                     sendMinutes = true;
+    //                 } else if (hours == 0 && minutes == 0) {
+    //                     m = timeLeft;
+    //                     sendMinutes = false;
+    //                 } else {
+    //                     m = minutes;
+    //                     sendMinutes = true;
+    //                 }
+    //                 if (sendMinutes) {
+    //                     let remainingTime = parseInt(h) + parseInt(m);
+    //                     sendMinutes = timeLeft - remainingTime;
+    //                 } else {
+    //                     sendMinutes = timeLeft;
+    //                     sessionStorage.dmTimeLeft = '';
+    //                 }
+    //                 if (getFulltime != '00:00:00') {
+    //                     if (seconds == '00') {
+    //                         sendMinutes = 1;
+    //                         test.sendRemainingTime(sendMinutes, 'everyTime');
+    //                         // sessionStorage.dmCheckoutTime = '';
+    //                     }
+    //                 }
+    //             }
+    //             timeoutHandle=setTimeout(count, 1000);
+    //         }
+    //
+    //     }
+    //
+    //     count();
+    // }
+    // countdown(minutes) {
+    //     const test = this;
+    //     let timeoutHandle;
+    //     let h ;
+    //     let m ;
+    //     function count() {
+    //         // let startTime = '15:00:00';
+    //         let startTime = document.getElementById('timer').innerHTML;
+    //         let pieces = startTime.split(":");
+    //         let time = sessionStorage.dmTimeLeft;
+    //         time.setHours(parseInt(pieces[0]));
+    //         time.setMinutes(parseInt(pieces[1]));
+    //         time.setSeconds(parseInt(pieces[2]));
+    //         let timedif = new Date(time.valueOf() - 1000);
+    //         let newtime = timedif.toTimeString().split(" ")[0];
+    //         document.getElementById('timer').innerHTML=newtime;
+    //         test.getRemainingTime = newtime;
+    //         sessionStorage.dmCheckoutTime = newtime;
+    //         if (newtime == '00:00:00') {
+    //
+    //             this.trainingCompleted = true;
+    //             const getFulltime = test.getRemainingTime;
+    //             // split the time
+    //             let pieces = getFulltime.split(":");
+    //             let hours = pieces[0];
+    //             let minutes = pieces[1];
+    //             let seconds = pieces[2];
+    //             hours = hours == '00' ? 0 : hours;
+    //             minutes = minutes == '00' ? 0 : minutes;
+    //             let timeLeft = sessionStorage.dmTimeLeft;
+    //             if (hours != 0) {
+    //                 h = hours * 60;
+    //             } else {
+    //                 h = 0;
+    //             }
+    //             let sendMinutes;
+    //             if (minutes != 0) {
+    //                 m = minutes;
+    //                 sendMinutes = true;
+    //             } else {
+    //                 m = timeLeft;
+    //                 sendMinutes = false;
+    //
+    //             }
+    //             // let stayTime = timeLeft - remainingTime;
+    //             if (sendMinutes) {
+    //                 let remainingTime = parseInt(h) + parseInt(m);
+    //                 sendMinutes = timeLeft - remainingTime;
+    //             } else {
+    //                 sendMinutes = timeLeft;
+    //                 sessionStorage.dmTimeLeft = '';
+    //             }
+    //             setTimeout(() => {
+    //                 let dialogRef = test.dialog.open(DmTrainingcompletedAlert, {
+    //                     width: '700px',
+    //                 });
+    //
+    //                 dialogRef.disableClose = true;
+    //                 dialogRef.afterClosed().subscribe(result => {
+    //                     if (result) {
+    //                         sessionStorage.dmCheckoutTime = '';
+    //                         test.trainingStatus = test.auth.getSessionData('dmTrainingStatus');
+    //                         sendMinutes = 1;
+    //                         test.sendRemainingTime(sendMinutes, 'leftTime');
+    //                     } else {
+    //                     }
+    //                 });
+    //             },800);
+    //             // end
+    //
+    //         } else {
+    //             if (test.getRemainingTime != '') {
+    //                 let h ;
+    //                 let m ;
+    //                 const getFulltime = test.getRemainingTime;
+    //                 let pieces = getFulltime.split(":");
+    //                 let hours = pieces[0];
+    //                 let minutes = pieces[1];
+    //                 let seconds = pieces[2];
+    //                 hours = hours == '00' ? 0 : hours;
+    //                 minutes = minutes == '00' ? 0 : minutes;
+    //                 let timeLeft = sessionStorage.dmTimeLeft;
+    //                 if (hours != 0) {
+    //                     h = hours * 60;
+    //                 } else {
+    //                     h = 0;
+    //                 }
+    //                 let sendMinutes;
+    //                 if (minutes != 0 || hours != 0) {
+    //                     m = minutes;
+    //                     sendMinutes = true;
+    //                 } else if (hours == 0 && minutes == 0) {
+    //                     m = timeLeft;
+    //                     sendMinutes = false;
+    //                 } else {
+    //                     m = minutes;
+    //                     sendMinutes = true;
+    //                 }
+    //                 if (sendMinutes) {
+    //                     let remainingTime = parseInt(h) + parseInt(m);
+    //                     sendMinutes = timeLeft - remainingTime;
+    //                 } else {
+    //                     sendMinutes = timeLeft;
+    //                     sessionStorage.dmTimeLeft = '';
+    //                 }
+    //                 if (getFulltime != '00:00:00') {
+    //                     if (seconds == '00') {
+    //                         sendMinutes = 1;
+    //                         test.sendRemainingTime(sendMinutes, 'everyTime');
+    //                         // sessionStorage.dmCheckoutTime = '';
+    //                     }
+    //                 }
+    //             }
+    //             timeoutHandle=setTimeout(count, 1000);
+    //         }
+    //
+    //     }
+    //
+    //     count();
+    // }
+
     countdown(minutes) {
         const test = this;
-        let timeoutHandle;
-        let h ;
-        let m ;
+
+            let timeoutHandle;
+            let h ;
+            let m ;
+            let time;
+
+        // let upgradeTime= 86400;
+        let upgradeTime= 86400;
+        let seconds = upgradeTime;
+
         function count() {
-            // let startTime = '15:00:00';
-            let startTime = document.getElementById('timer').innerHTML;
-            let pieces = startTime.split(":");
-            let time = new Date();
-            time.setHours(parseInt(pieces[0]));
-            time.setMinutes(parseInt(pieces[1]));
-            time.setSeconds(parseInt(pieces[2]));
-            let timedif = new Date(time.valueOf() - 1000);
-            let newtime = timedif.toTimeString().split(" ")[0];
-            document.getElementById('timer').innerHTML=newtime;
-            test.getRemainingTime = newtime;
-            sessionStorage.dmCheckoutTime = newtime;
-            if (newtime == '00:00:00') {
-
-                this.trainingCompleted = true;
-                const getFulltime = test.getRemainingTime;
-                // split the time
-                let pieces = getFulltime.split(":");
-                let hours = pieces[0];
-                let minutes = pieces[1];
-                let seconds = pieces[2];
-                hours = hours == '00' ? 0 : hours;
-                minutes = minutes == '00' ? 0 : minutes;
-                let timeLeft = sessionStorage.dmTimeLeft;
-                if (hours != 0) {
-                    h = hours * 60;
-                } else {
-                    h = 0;
-                }
-                let sendMinutes;
-                if (minutes != 0) {
-                    m = minutes;
-                    sendMinutes = true;
-                } else {
-                    m = timeLeft;
-                    sendMinutes = false;
-
-                }
-                // let stayTime = timeLeft - remainingTime;
-                if (sendMinutes) {
-                    let remainingTime = parseInt(h) + parseInt(m);
-                    sendMinutes = timeLeft - remainingTime;
-                } else {
-                    sendMinutes = timeLeft;
-                    sessionStorage.dmTimeLeft = '';
-                }
-                setTimeout(() => {
-                    let dialogRef = test.dialog.open(DmTrainingcompletedAlert, {
-                        width: '700px',
-                    });
-
-                    dialogRef.disableClose = true;
-                    dialogRef.afterClosed().subscribe(result => {
-                        if (result) {
-                            sessionStorage.dmCheckoutTime = '';
-                            test.trainingStatus = test.auth.getSessionData('dmTrainingStatus');
-                            sendMinutes = 1;
-                            test.sendRemainingTime(sendMinutes, 'leftTime');
-                        } else {
-                        }
-                    });
-                },800);
-                // end
-
-            } else {
-                if (test.getRemainingTime != '') {
-                    let h ;
-                    let m ;
-                    const getFulltime = test.getRemainingTime;
-                    let pieces = getFulltime.split(":");
-                    let hours = pieces[0];
-                    let minutes = pieces[1];
-                    let seconds = pieces[2];
-                    hours = hours == '00' ? 0 : hours;
-                    minutes = minutes == '00' ? 0 : minutes;
-                    let timeLeft = sessionStorage.dmTimeLeft;
-                    if (hours != 0) {
-                        h = hours * 60;
-                    } else {
-                        h = 0;
-                    }
-                    let sendMinutes;
-                    if (minutes != 0 || hours != 0) {
-                        m = minutes;
-                        sendMinutes = true;
-                    } else if (hours == 0 && minutes == 0) {
-                        m = timeLeft;
-                        sendMinutes = false;
-                    } else {
-                        m = minutes;
-                        sendMinutes = true;
-                    }
-                    if (sendMinutes) {
-                        let remainingTime = parseInt(h) + parseInt(m);
-                        sendMinutes = timeLeft - remainingTime;
-                    } else {
-                        sendMinutes = timeLeft;
-                        sessionStorage.dmTimeLeft = '';
-                    }
-                    if (getFulltime != '00:00:00') {
-                        if (seconds == '00') {
-                            sendMinutes = 1;
-                            test.sendRemainingTime(sendMinutes, 'everyTime');
-                           // sessionStorage.dmCheckoutTime = '';
-                        }
-                    }
-                }
-                timeoutHandle=setTimeout(count, 1000);
+            let hoursLeft   = Math.floor(seconds);
+             let hours       = Math.floor(hoursLeft/3600);
+            let minutesLeft = Math.floor((hoursLeft) - (hours*3600));
+            let minutes     = Math.floor(minutesLeft/60);
+            let remainingSeconds = seconds % 60;
+            function pad(n) {
+                return (n < 10 ? "0" + n : n);
             }
-
+            document.getElementById('countdown').innerHTML =  pad(hours) + ":" + pad(minutes) + ":" + pad(remainingSeconds);
+            if (seconds == 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('countdown').innerHTML = "Completed";
+            } else {
+                seconds--;
+            }
         }
+        let countdownTimer = setInterval('timer', 1000);
+        console.log(countdownTimer, 'countdown timer');
 
-        count();
+
     }
+
+
+
+
+
 
     public trainingTiming(): void {
         const data = {
@@ -239,6 +405,8 @@ export class DmTrainingComponent implements OnInit {
     public getTrainingTimingSuccess(successData) {
         if (successData.IsSuccess) {
             let time = successData.ResponseObject.pending_time_left;
+            console.log(successData.ResponseObject.pending_time_left, 'time');
+            console.log( time, 'timeee');
             sessionStorage.dmTimeLeft = time;
             let seconds = 0;
             let h = Math.floor(time / 60);
@@ -303,6 +471,7 @@ export class DmTrainingComponent implements OnInit {
 
 
 }
+
 @Component({
     selector: 'dmtrainingcompletedalert',
     template: `

@@ -58,6 +58,7 @@
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
+
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="STD CODE"   (keypress)="numberValidate($event)"  maxlength="5" formControlName="stdCode" autocomplete="off" >
                                                     <!--<mat-error *ngIf="proposer.controls.stdCode.errors?.required">Std Code is required</mat-error>-->
@@ -89,10 +90,10 @@
 
                                             <div class="col-md-3" >
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Occupation" formControlName="occupation" >
+                                                    <mat-select placeholder="Occupation" formControlName="occupation" required >
                                                         <mat-option *ngFor="let title of occupationList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="proposer.controls.occupation.errors?.required">Occupation is required</mat-error>-->
+                                                    <mat-error *ngIf="proposer.controls.occupation.errors?.required">Occupation is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                          </div>
@@ -425,7 +426,7 @@
                                                     <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'" >
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Value Of BiFuel Kit<span class="error" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'">*</span></mat-placeholder>
-                                                            <mat-select  formControlName="isBiFuelKitYes" (change)="changeBiFuelValue()" >
+                                                            <mat-select  formControlName="isBiFuelKitYes" (selectionChange)="changeBiFuelValue();changebifuel()">
                                                                 <mat-option *ngFor="let BiFuels of BiFuelList | keys " value="{{BiFuels.key}}" > {{BiFuels.value}} </mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
@@ -605,8 +606,8 @@
 
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input maxlength="80" matInput placeholder=" Previous insurers Address" formControlName="previousinsurersCorrectAddress"  autocomplete="off">
-                                                    <!--<mat-error *ngIf="previousInsure.controls.previousinsurersCorrectAddress.errors?.required">Address is required</mat-error>-->
+                                                    <input maxlength="80" matInput placeholder=" Previous insurers Address" formControlName="previousinsurersCorrectAddress"  autocomplete="off" required>
+                                                    <mat-error *ngIf="previousInsure.controls.previousinsurersCorrectAddress.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
