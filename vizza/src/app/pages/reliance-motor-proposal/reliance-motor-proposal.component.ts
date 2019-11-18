@@ -89,7 +89,14 @@ export class RelianceMotorProposalComponent implements OnInit {
   public enquiryFormData: any;
   public bikeEnquiryId: any;
   public coverListValue: any;
-  public valueOfPermium: any;
+  public pa_owner_driver: any;
+  public basic_od: any;
+  public electrical_accessories: any;
+  public non_electrical_accessories: any;
+  public Anti_theft: any;
+  public voluntary_deductible: any;
+  public automobile_association: any;
+  public basic_liability: any;
 
   //dob
   proposerAge : any;
@@ -204,6 +211,9 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.coverDetails = this.fb.group({
       AutomobileAssociationMember: [''],
       AntiTheftDeviceFitted: [''],
+      totalAutomobilePremium: [''],
+      totalAntiTheftPremium: [''],
+      totalBasicODPremium: [''],
       // InsurancePremium: [''],
       PAToOwnerDriverCoverd: [''],
       NilDepreciationCoverage: [''],
@@ -867,9 +877,22 @@ export class RelianceMotorProposalComponent implements OnInit {
     if (successData.IsSuccess) {
       this.coverListValue = successData.ResponseObject;
       console.log(this.coverListValue,'coverListValue......');
-      this.valueOfPermium=this.coverListValue.productlist[0].Comprehensive_premium;
-      console.log(this.coverListValue.productlist,'this.coverListValue.productlist....');
-      console.log(this.valueOfPermium,'valueOfPermium....');
+      this.basic_liability=this.coverListValue.coverlist[0].basic_liability;
+      console.log(this.basic_liability,'basic_liability....');
+      this.automobile_association=this.coverListValue.coverlist[0].automobile_association;
+      console.log(this.automobile_association,'automobile_association....');
+      this.voluntary_deductible=this.coverListValue.coverlist[0].voluntary_deductible;
+      console.log(this.voluntary_deductible,'voluntary_deductible....');
+      this.Anti_theft=this.coverListValue.coverlist[0].Anti_theft;
+      console.log(this.Anti_theft,'Anti_theft....');
+      this.non_electrical_accessories=this.coverListValue.coverlist[0].non_electrical_accessories;
+      console.log(this.non_electrical_accessories,'non_electrical_accessories....');
+      this.electrical_accessories=this.coverListValue.coverlist[0].electrical_accessories;
+      console.log(this.electrical_accessories,'electrical_accessories....');
+      this.basic_od=this.coverListValue.coverlist[0].basic_od;
+      console.log(this.basic_od,'basic_od....');
+      this.pa_owner_driver=this.coverListValue.coverlist[0].pa_owner_driver;
+      console.log(this.pa_owner_driver,'pa_owner_driver....');
     }
   }
   public coverPreFailure(error) {
@@ -2064,7 +2087,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
 
   valueUnnamedPass(){
-    this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue(this.valueOfPermium);
+    this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue(this.basic_liability);
     console.log( this.coverDetails.controls['totalUnnamedPassengerPremium'].value,'11222')
   }
 
@@ -2082,18 +2105,70 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.coverDetails.controls['totalVoluntaryPremium'].updateValueAndValidity();
   }
 
+  totalAutomobileAssociatioChange(){
+    if (this.coverDetails.controls['AutomobileAssociationMember'].value==true) {
+      this.coverDetails.controls['totalAutomobilePremium'].patchValue(this.coverDetails.controls['totalAutomobilePremium'].value);
+
+      this.coverDetails.controls['totalAutomobilePremium'].setValidators([Validators.required]);
+    } else {
+      this.coverDetails.controls['totalAutomobilePremium'].patchValue('');
+
+      this.coverDetails.controls['totalAutomobilePremium'].setValidators(null);
+
+    }
+    this.coverDetails.controls['totalAutomobilePremium'].updateValueAndValidity();
+  }
+  AntiTheftChange(){
+    if (this.coverDetails.controls['AntiTheftDeviceFitted'].value==true) {
+      this.coverDetails.controls['totalAntiTheftPremium'].patchValue(this.coverDetails.controls['totalAntiTheftPremium'].value);
+
+      this.coverDetails.controls['totalAntiTheftPremium'].setValidators([Validators.required]);
+    } else {
+      this.coverDetails.controls['totalAntiTheftPremium'].patchValue('');
+
+      this.coverDetails.controls['totalAntiTheftPremium'].setValidators(null);
+
+    }
+    this.coverDetails.controls['totalAntiTheftPremium'].updateValueAndValidity();
+  }
+  totalBasicODChange(){
+    if (this.coverDetails.controls['BasicODCoverage'].value==true) {
+      this.coverDetails.controls['totalBasicODPremium'].patchValue(this.coverDetails.controls['totalBasicODPremium'].value);
+
+      this.coverDetails.controls['totalBasicODPremium'].setValidators([Validators.required]);
+    } else {
+      this.coverDetails.controls['totalBasicODPremium'].patchValue('');
+
+      this.coverDetails.controls['totalBasicODPremium'].setValidators(null);
+
+    }
+    this.coverDetails.controls['totalBasicODPremium'].updateValueAndValidity();
+  }
+
   getValueVoluntary(){
-    this.coverDetails.controls['totalVoluntaryPremium'].patchValue(this.valueOfPermium);
+    this.coverDetails.controls['totalVoluntaryPremium'].patchValue(this.voluntary_deductible);
     console.log( this.coverDetails.controls['totalVoluntaryPremium'].value,'113333')
   }
   getValueDriverCover(){
-    this.coverDetails.controls['totalPAToOwnerDriverPremium'].patchValue(this.valueOfPermium);
+    this.coverDetails.controls['totalPAToOwnerDriverPremium'].patchValue(this.pa_owner_driver);
     console.log( this.coverDetails.controls['totalPAToOwnerDriverPremium'].value,'114444')
+  }
+  getValueAutomobile(){
+    this.coverDetails.controls['totalAutomobilePremium'].patchValue(this.automobile_association);
+    console.log( this.coverDetails.controls['totalAutomobilePremium'].value,'55555')
+  }
+  getValueAntiTheft(){
+    this.coverDetails.controls['totalAntiTheftPremium'].patchValue(this.Anti_theft);
+    console.log( this.coverDetails.controls['totalAntiTheftPremium'].value,'6666')
+  }
+  getValueBasicOD(){
+    this.coverDetails.controls['totalBasicODPremium'].patchValue(this.basic_od);
+    console.log( this.coverDetails.controls['totalBasicODPremium'].value,'77777')
   }
 
   changeElec(){
     if (this.coverDetails.controls['IsElectricalItemFitted'].value) {
-
+      this.coverDetails.controls['ElectricalItemsTotalPremium'].patchValue(this.electrical_accessories);
       this.coverDetails.controls['ElectricalItemsTotalPremium'].setValidators([Validators.required]);
     } else {
       this.coverDetails.controls['ElectricalItemsTotalPremium'].patchValue('');
@@ -2105,13 +2180,13 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
 
   getElectric(){
-    this.coverDetails.controls['ElectricalItemsTotalPremium'].patchValue(this.valueOfPermium);
+    this.coverDetails.controls['ElectricalItemsTotalPremium'].patchValue(this.electrical_accessories);
     console.log( this.coverDetails.controls['ElectricalItemsTotalPremium'].value,'115555')
   }
 
   changeNonElec(){
     if (this.coverDetails.controls['IsNonElectricalItemFitted'].value) {
-
+      this.coverDetails.controls['NonElectricalItemsTotalPremium'].patchValue(this.non_electrical_accessories);
       this.coverDetails.controls['NonElectricalItemsTotalPremium'].setValidators([Validators.required]);
     } else {
       this.coverDetails.controls['NonElectricalItemsTotalPremium'].patchValue('');
@@ -2123,7 +2198,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
 
   getValueNonElectric(){
-    this.coverDetails.controls['NonElectricalItemsTotalPremium'].patchValue(this.valueOfPermium);
+    this.coverDetails.controls['NonElectricalItemsTotalPremium'].patchValue(this.non_electrical_accessories);
     console.log( this.coverDetails.controls['NonElectricalItemsTotalPremium'].value,'11666')
   }
 

@@ -413,7 +413,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'region_code':this.vehicleRegNumber,
+      'region_code':this.vehicleRegNumber=='-'?'':this.vehicleRegNumber,
     }
     this.fwService.getRegionList(data).subscribe(
         (successData) => {
