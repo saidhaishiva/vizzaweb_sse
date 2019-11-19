@@ -500,8 +500,10 @@ export class BikeTataaigProposalComponent implements OnInit {
 
         }else if(this.checkValue=='N'&&this.checkId=='9'){
                 this.depReturn=false;
+            this.vehicle.controls['Returninvoice'].patchValue(false);
+            this.vehicle.controls['Returninvoiceamount'].patchValue('');
             console.log(this.depReturn,'77777deprecuiation');
-                this.changeRTPDPYN();
+                this.changrRTP();
         }
     }
     changeRTPDPYN(){
@@ -509,7 +511,10 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['depreciation'].patchValue(false);
             this.vehicle.controls['depreciationamount'].patchValue('');
         console.log(this.vehicle.controls['depreciation'].value,'68789787678');
-        }else if(this.depReturn==false){
+        }
+    }
+    changrRTP(){
+        if(this.depReturn==false){
             this.vehicle.controls['Returninvoice'].patchValue(false);
             this.vehicle.controls['Returninvoiceamount'].patchValue('');
             console.log(this.vehicle.controls['Returninvoice'].value,'1234567879878');
