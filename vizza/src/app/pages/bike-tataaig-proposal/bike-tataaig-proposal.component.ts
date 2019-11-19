@@ -212,7 +212,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             Financetype: false,
             banktype: '',
             bankName: '',
-            bankNamevalue: '',
+            // bankNamevalue: '',
             Address: '',
             coverdrive: ['', Validators.required],
             coverdrivevalue: '',
@@ -1027,6 +1027,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.proposer.controls['driveLastname'].patchValue(this.proposer.controls['proposerLastname'].value);
             this.proposer.controls['driveGender'].patchValue(this.proposer.controls['proposerGender'].value);
             this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
+            this.proposer.controls['drivingexp'].patchValue(this.proposer.controls['drivingexp'].value);
             // this.proposer.controls['driveFirstname'].setValidators([Validators.required]);
             // this.proposer.controls['driveLastname'].setValidators([Validators.required]);
             // this.proposer.controls['driveGender'].setValidators([Validators.required]);
@@ -1044,6 +1045,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             // this.proposer.controls['driveLastname'].setValidators(null);
             // this.proposer.controls['driveGender'].setValidators(null);
             // this.proposer.controls['driveAge'].setValidators(null);
+            this.proposer.controls['drivingexp'].patchValue('');
             this.proposer.controls['drivingexp'].setValidators(null);
             // this.proposer.controls['drivemaritalStatus'].setValidators(null);
         }
@@ -1203,7 +1205,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 Financetype: this.getstepper3.Financetype,
                 banktype: this.getstepper3.banktype,
                 bankName: this.getstepper3.bankName,
-                bankNamevalue: this.getstepper3.bankNamevalue,
+                // bankNamevalue: this.getstepper3.bankNamevalue,
                 Address: this.getstepper3.Address,
                 coverdrive: this.getstepper3.coverdrive,
                 coverdrivevalue: this.getstepper3.coverdrivevalue,
@@ -1446,15 +1448,15 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     proposalFailure(error) {
     }
-    changefinancecompany() {
-        this.vehicle.controls['bankNamevalue'].patchValue(this.photos[this.vehicle.controls['bankName'].value]);
-
-        console.log(this.vehicle.controls['bankNamevalue'].value,'000000000.....');
-        console.log(this.finlist[this.vehicle.controls['bankName'].value],'11111111111111111111....');
-        this.vehicle.controls['bankNamevalue'].patchValue(this.banklist[this.vehicle.controls['bankName'].value]);
-console.log(this.vehicle.controls['bankNamevalue'].value,'2222222222....');
-console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....');
-    }
+//     changefinancecompany() {
+//         this.vehicle.controls['bankNamevalue'].patchValue(this.photos[this.vehicle.controls['bankName'].value]);
+//
+//         console.log(this.vehicle.controls['bankNamevalue'].value,'000000000.....');
+//         console.log(this.finlist[this.vehicle.controls['bankName'].value],'11111111111111111111....');
+//         this.vehicle.controls['bankNamevalue'].patchValue(this.banklist[this.vehicle.controls['bankName'].value]);
+// console.log(this.vehicle.controls['bankNamevalue'].value,'2222222222....');
+// console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....');
+//     }
 }
 @Component({
     selector: ' tataigBikeOpt ',
