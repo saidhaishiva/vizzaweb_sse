@@ -456,16 +456,19 @@ export class BikeTataaigProposalComponent implements OnInit {
     {
         // alert('dep')
         if (this.vehicle.controls['depreciation'].value == true) {
-            this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
+            // this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
             this.vehicle.controls['depreciationamount'].updateValueAndValidity();
         } else {
+            this.vehicle.controls['depreciationamount'].setValidators(null);
+
             this.vehicle.controls['depreciationamount'].clearValidators();
             this.vehicle.controls['depreciationamount'].updateValueAndValidity();
         }
     }
     disableDpRt(){
-        // alert('dep')
-        if ((this.vehicle.controls['depreciation'].value == true || this.vehicle.controls['Returninvoice'].value == true) && (this.enquiryFormData.business_type != '1')) {
+        // alert('dep');
+        console.log(this.vehicle.controls['depreciation'].value,'fdghjhg');
+        if ((this.vehicle.controls['depreciation'].value == true  || this.vehicle.controls['Returninvoice'].value == true) && (this.enquiryFormData.business_type != '1')) {
             // alert('true')
             let dialogRef = this.dialog.open(tataigBikeOpt, {
 
@@ -495,6 +498,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         console.log(this.ispreviousPolicy,'ispreviousPolicy');
         if(this.checkValue=='N'&&this.checkId=='8'){
             this.deprecuiation=false;
+            this.vehicle.controls['depreciation'].patchValue(false);
+            this.vehicle.controls['depreciationamount'].patchValue('');
             console.log(this.deprecuiation,'77777deprecuiation');
             this.changeRTPDPYN();
 
@@ -543,9 +548,11 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     amount_Returninvoice() {
         if (this.vehicle.controls['Returninvoice'].value == true) {
-            this.vehicle.controls['Returninvoiceamount'].setValidators([Validators.required]);
+            // this.vehicle.controls['Returninvoiceamount'].setValidators([Validators.required]);
             this.vehicle.controls['Returninvoiceamount'].updateValueAndValidity();
         } else {
+            this.vehicle.controls['Returninvoiceamount'].setValidators(null);
+
             this.vehicle.controls['Returninvoiceamount'].clearValidators();
             this.vehicle.controls['Returninvoiceamount'].updateValueAndValidity();
         }
