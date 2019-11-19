@@ -338,7 +338,7 @@
                                 <mat-option value="bank">BANK</mat-option>
                                 <mat-option value="nonbank financier">NONBANK FINANCIER</mat-option>
                               </mat-select>
-                              <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
+                              <!--<mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>-->
                             </mat-form-field>
                           </div>
 
@@ -373,14 +373,14 @@
                               </cdk-virtual-scroll-viewport>
                               <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
                             </mat-select>
-                            <mat-error *ngIf="vehicle.controls.bankName.errors?.required">Financier Name is required</mat-error>
+                            <!--<mat-error *ngIf="vehicle.controls.bankName.errors?.required">Financier Name is required</mat-error>-->
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                           <mat-form-field class="w-100">
                               <mat-placeholder>Address<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                               <textarea matInput rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
-                            <mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>
+                            <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
                         </div>
 

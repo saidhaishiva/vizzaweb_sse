@@ -333,7 +333,7 @@
                             <mat-option value="bank">BANK</mat-option>
                             <mat-option value="nonbank financier">NONBANK FINANCIER</mat-option>
                           </mat-select>
-                          <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
+                          <!--<mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <!--<div class="col-md-3 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">-->
@@ -366,20 +366,20 @@
                             </cdk-virtual-scroll-viewport>
                             <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
                           </mat-select>
-                          <mat-error *ngIf="vehicle.controls.bankName.errors?.required">Financier Name is required</mat-error>
+                          <!--<mat-error *ngIf="vehicle.controls.bankName.errors?.required">Financier Name is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Address<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                           <textarea matInput rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
-                          <mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>
+                          <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <!--<div class="col-md-12 mt-2" >-->
 
                           <div class="col-md-4 mt-1">
-                            <mat-checkbox formControlName="electriAccess" (change)="electricAccess()"><strong> Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                            <mat-checkbox formControlName="electriAccess" (change)="electricAccess()"><strong> Electrical Accessories </strong></mat-checkbox>
                           </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['electriAccess'].value == true">
                             <mat-form-field class="w-100">
@@ -402,7 +402,7 @@
                         </div>
 
                         <div class="col-md-4 mt-1">
-                          <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                          <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                           <mat-form-field class="w-100">
@@ -423,7 +423,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4 mt-1">
-                          <mat-checkbox formControlName="autoAsso" (change)="autoAssoReq();QuoteList()"><strong> Automobile_Association_Membership<span class="error">*</span></strong></mat-checkbox>
+                          <mat-checkbox formControlName="autoAsso" (change)="autoAssoReq();QuoteList()"><strong> Automobile_Association_Membership</strong></mat-checkbox>
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['autoAsso'].value == true">
                           <mat-form-field class="w-100">
@@ -435,7 +435,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4 mt-1">
-                          <mat-checkbox formControlName="antitheft" (change)="antitheftReq();QuoteList()"><strong> Antitheft <span class="error">*</span></strong></mat-checkbox>
+                          <mat-checkbox formControlName="antitheft" (change)="antitheftReq();QuoteList()"><strong> Antitheft </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['antitheft'].value">
                           <mat-form-field class="w-100">
@@ -447,7 +447,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-3 mt-1">
-                          <mat-checkbox formControlName="tppdRes" (change)="tppdResReq();QuoteList()"><strong> TPPD_Restricted <span class="error">*</span></strong></mat-checkbox>
+                          <mat-checkbox formControlName="tppdRes" (change)="tppdResReq();QuoteList()"><strong> TPPD_Restricted</strong></mat-checkbox>
                         </div>
                         <div class="col-md-3" *ngIf="vehicle.controls['tppdRes'].value == true">
                           <mat-form-field class="w-100">
@@ -967,7 +967,7 @@
                   <input name="proposal_no" type="hidden" value="{{Proposalnumber}}" />
                   <input name="ReturnURL" type="hidden" value="{{PaymentReturn}}" />
                   <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                  <button mat-raised-button color="primaryBlue" class="ml-3" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                 </form>
               </div>
             </div>

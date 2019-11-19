@@ -1056,21 +1056,21 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     check(event) {
-        // if (event.checked == true) {
-        //     this.vehicle.controls['banktype'].setValidators([Validators.required]);
-        //     this.vehicle.controls['bankName'].setValidators([Validators.required]);
-        //     this.vehicle.controls['Address'].setValidators([Validators.required]);
-        // } else if (event.checked != true) {
-        //     this.vehicle.controls['banktype'].patchValue('');
-        //     this.vehicle.controls['bankName'].patchValue('');
-        //     this.vehicle.controls['Address'].patchValue('');
-        //     this.vehicle.controls['banktype'].setValidators(null);
-        //     this.vehicle.controls['bankName'].setValidators(null);
-        //     this.vehicle.controls['Address'].setValidators(null);
-        // }
-        // this.vehicle.controls['banktype'].updateValueAndValidity();
-        // this.vehicle.controls['bankName'].updateValueAndValidity();
-        // this.vehicle.controls['Address'].updateValueAndValidity();
+        if (event.checked == true) {
+            this.vehicle.controls['banktype'].setValidators([Validators.required]);
+            this.vehicle.controls['bankName'].setValidators([Validators.required]);
+            this.vehicle.controls['Address'].setValidators([Validators.required]);
+        } else  {
+            this.vehicle.controls['banktype'].patchValue('');
+            this.vehicle.controls['bankName'].patchValue('');
+            this.vehicle.controls['Address'].patchValue('');
+            this.vehicle.controls['banktype'].setValidators(null);
+            this.vehicle.controls['bankName'].setValidators(null);
+            this.vehicle.controls['Address'].setValidators(null);
+        }
+        this.vehicle.controls['banktype'].updateValueAndValidity();
+        this.vehicle.controls['bankName'].updateValueAndValidity();
+        this.vehicle.controls['Address'].updateValueAndValidity();
     }
 
     // changeflag(event: any) {
@@ -1111,6 +1111,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     vehicleDetails(stepper: MatStepper, value) {
         sessionStorage.tatabikevehicle = '';
         sessionStorage.tatabikevehicle = JSON.stringify(value);
+        console.log(this.vehicle.value,'687986788');
+        console.log(this.vehicle,'675768998')
         if (this.vehicle.valid ) {
             if(this.vehicle.controls['elecAccessoriesSI'].value <= 15000 && this.vehicle.controls['nonElectricAcessSI'].value <= 15000){
             console.log(value, 'vehicle');
