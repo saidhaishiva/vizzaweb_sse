@@ -179,7 +179,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       rstateName: '',
       rcityName: '',
       sameas: '',
-      phoneNumber:  ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
+      phoneNumber:  '',
       stdCode: '',
 
     });

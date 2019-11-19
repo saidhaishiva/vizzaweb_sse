@@ -693,7 +693,7 @@
             <hr>
             <div class="row">
               <div class="col-md-12 text-center">
-                      <form action={{PaymentRedirect}}  method='POST' #form>
+                      <form action={{PaymentRedirect}} id="PostForm" name="PostForm" autocomplete="off" method='POST' #form>
 
                       <input type="hidden" name="reqType" id="reqType" value="JSON">
                       <input type="hidden" name="process"  value="paymentOption">
@@ -712,8 +712,10 @@
                       <input type="hidden" value={{VehicleSubLine}} name="vehicleSubLine" id="vehicleSubLine">
                       <input type="hidden" value={{ElcValue}} name="elc_value" id="elc_value">
                       <input type="hidden" value="" name="nonelc_value" id="nonelc_value">
-                      <input type="hidden" value="Yes" name="multiplePaymentMode" id="multiplePaymentMode">
-                      <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                      <!--<input type="hidden" value="Yes" name="multiplePaymentMode" id="multiplePaymentMode">-->
+                          <input type="hidden" value="billdesk" name="paymentType">
+
+                          <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                       <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()" >Pay Now</button>
                   </form>
               </div>
