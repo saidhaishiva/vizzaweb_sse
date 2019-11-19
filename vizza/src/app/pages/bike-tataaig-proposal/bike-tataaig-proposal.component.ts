@@ -212,7 +212,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             Financetype: false,
             banktype: '',
             bankName: '',
-            bankNamevalue: '',
+            // bankNamevalue: '',
             Address: '',
             coverdrive: ['', Validators.required],
             coverdrivevalue: '',
@@ -456,16 +456,19 @@ export class BikeTataaigProposalComponent implements OnInit {
     {
         // alert('dep')
         if (this.vehicle.controls['depreciation'].value == true) {
-            this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
+            // this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
             this.vehicle.controls['depreciationamount'].updateValueAndValidity();
         } else {
+            this.vehicle.controls['depreciationamount'].setValidators(null);
+
             this.vehicle.controls['depreciationamount'].clearValidators();
             this.vehicle.controls['depreciationamount'].updateValueAndValidity();
         }
     }
     disableDpRt(){
-        // alert('dep')
-        if (this.vehicle.controls['depreciation'].value == true || this.vehicle.controls['Returninvoice'].value == true) {
+        // alert('dep');
+        console.log(this.vehicle.controls['depreciation'].value,'fdghjhg');
+        if ((this.vehicle.controls['depreciation'].value == true  || this.vehicle.controls['Returninvoice'].value == true) && (this.enquiryFormData.business_type != '1')) {
             // alert('true')
             let dialogRef = this.dialog.open(tataigBikeOpt, {
 
@@ -495,21 +498,30 @@ export class BikeTataaigProposalComponent implements OnInit {
         console.log(this.ispreviousPolicy,'ispreviousPolicy');
         if(this.checkValue=='N'&&this.checkId=='8'){
             this.deprecuiation=false;
+            this.vehicle.controls['depreciation'].patchValue(false);
+            this.vehicle.controls['depreciationamount'].patchValue('');
             console.log(this.deprecuiation,'77777deprecuiation');
             this.changeRTPDPYN();
 
         }else if(this.checkValue=='N'&&this.checkId=='9'){
                 this.depReturn=false;
+            this.vehicle.controls['Returninvoice'].patchValue(false);
+            this.vehicle.controls['Returninvoiceamount'].patchValue('');
             console.log(this.depReturn,'77777deprecuiation');
-                this.changeRTPDPYN();
+                this.changrRTP();
         }
     }
     changeRTPDPYN(){
         if(this.deprecuiation==false){
         this.vehicle.controls['depreciation'].patchValue(false);
+            this.vehicle.controls['depreciationamount'].patchValue('');
         console.log(this.vehicle.controls['depreciation'].value,'68789787678');
-        }else if(this.depReturn==false){
+        }
+    }
+    changrRTP(){
+        if(this.depReturn==false){
             this.vehicle.controls['Returninvoice'].patchValue(false);
+            this.vehicle.controls['Returninvoiceamount'].patchValue('');
             console.log(this.vehicle.controls['Returninvoice'].value,'1234567879878');
         }
     }
@@ -536,9 +548,11 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     amount_Returninvoice() {
         if (this.vehicle.controls['Returninvoice'].value == true) {
-            this.vehicle.controls['Returninvoiceamount'].setValidators([Validators.required]);
+            // this.vehicle.controls['Returninvoiceamount'].setValidators([Validators.required]);
             this.vehicle.controls['Returninvoiceamount'].updateValueAndValidity();
         } else {
+            this.vehicle.controls['Returninvoiceamount'].setValidators(null);
+
             this.vehicle.controls['Returninvoiceamount'].clearValidators();
             this.vehicle.controls['Returninvoiceamount'].updateValueAndValidity();
         }
@@ -1020,6 +1034,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.proposer.controls['driveLastname'].patchValue(this.proposer.controls['proposerLastname'].value);
             this.proposer.controls['driveGender'].patchValue(this.proposer.controls['proposerGender'].value);
             this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
+            this.proposer.controls['drivingexp'].patchValue(this.proposer.controls['drivingexp'].value);
             // this.proposer.controls['driveFirstname'].setValidators([Validators.required]);
             // this.proposer.controls['driveLastname'].setValidators([Validators.required]);
             // this.proposer.controls['driveGender'].setValidators([Validators.required]);
@@ -1037,6 +1052,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             // this.proposer.controls['driveLastname'].setValidators(null);
             // this.proposer.controls['driveGender'].setValidators(null);
             // this.proposer.controls['driveAge'].setValidators(null);
+            this.proposer.controls['drivingexp'].patchValue('');
             this.proposer.controls['drivingexp'].setValidators(null);
             // this.proposer.controls['drivemaritalStatus'].setValidators(null);
         }
@@ -1049,21 +1065,21 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     check(event) {
-        // if (event.checked == true) {
-        //     this.vehicle.controls['banktype'].setValidators([Validators.required]);
-        //     this.vehicle.controls['bankName'].setValidators([Validators.required]);
-        //     this.vehicle.controls['Address'].setValidators([Validators.required]);
-        // } else if (event.checked != true) {
-        //     this.vehicle.controls['banktype'].patchValue('');
-        //     this.vehicle.controls['bankName'].patchValue('');
-        //     this.vehicle.controls['Address'].patchValue('');
-        //     this.vehicle.controls['banktype'].setValidators(null);
-        //     this.vehicle.controls['bankName'].setValidators(null);
-        //     this.vehicle.controls['Address'].setValidators(null);
-        // }
-        // this.vehicle.controls['banktype'].updateValueAndValidity();
-        // this.vehicle.controls['bankName'].updateValueAndValidity();
-        // this.vehicle.controls['Address'].updateValueAndValidity();
+        if (event.checked == true) {
+            this.vehicle.controls['banktype'].setValidators([Validators.required]);
+            this.vehicle.controls['bankName'].setValidators([Validators.required]);
+            this.vehicle.controls['Address'].setValidators([Validators.required]);
+        } else  {
+            this.vehicle.controls['banktype'].patchValue('');
+            this.vehicle.controls['bankName'].patchValue('');
+            this.vehicle.controls['Address'].patchValue('');
+            this.vehicle.controls['banktype'].setValidators(null);
+            this.vehicle.controls['bankName'].setValidators(null);
+            this.vehicle.controls['Address'].setValidators(null);
+        }
+        this.vehicle.controls['banktype'].updateValueAndValidity();
+        this.vehicle.controls['bankName'].updateValueAndValidity();
+        this.vehicle.controls['Address'].updateValueAndValidity();
     }
 
     // changeflag(event: any) {
@@ -1104,6 +1120,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     vehicleDetails(stepper: MatStepper, value) {
         sessionStorage.tatabikevehicle = '';
         sessionStorage.tatabikevehicle = JSON.stringify(value);
+        console.log(this.vehicle.value,'687986788');
+        console.log(this.vehicle,'675768998')
         if (this.vehicle.valid ) {
             if(this.vehicle.controls['elecAccessoriesSI'].value <= 15000 && this.vehicle.controls['nonElectricAcessSI'].value <= 15000){
             console.log(value, 'vehicle');
@@ -1194,7 +1212,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 Financetype: this.getstepper3.Financetype,
                 banktype: this.getstepper3.banktype,
                 bankName: this.getstepper3.bankName,
-                bankNamevalue: this.getstepper3.bankNamevalue,
+                // bankNamevalue: this.getstepper3.bankNamevalue,
                 Address: this.getstepper3.Address,
                 coverdrive: this.getstepper3.coverdrive,
                 coverdrivevalue: this.getstepper3.coverdrivevalue,
@@ -1437,15 +1455,15 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     proposalFailure(error) {
     }
-    changefinancecompany() {
-        this.vehicle.controls['bankNamevalue'].patchValue(this.photos[this.vehicle.controls['bankName'].value]);
-
-        console.log(this.vehicle.controls['bankNamevalue'].value,'000000000.....');
-        console.log(this.finlist[this.vehicle.controls['bankName'].value],'11111111111111111111....');
-        this.vehicle.controls['bankNamevalue'].patchValue(this.banklist[this.vehicle.controls['bankName'].value]);
-console.log(this.vehicle.controls['bankNamevalue'].value,'2222222222....');
-console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....');
-    }
+//     changefinancecompany() {
+//         this.vehicle.controls['bankNamevalue'].patchValue(this.photos[this.vehicle.controls['bankName'].value]);
+//
+//         console.log(this.vehicle.controls['bankNamevalue'].value,'000000000.....');
+//         console.log(this.finlist[this.vehicle.controls['bankName'].value],'11111111111111111111....');
+//         this.vehicle.controls['bankNamevalue'].patchValue(this.banklist[this.vehicle.controls['bankName'].value]);
+// console.log(this.vehicle.controls['bankNamevalue'].value,'2222222222....');
+// console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....');
+//     }
 }
 @Component({
     selector: ' tataigBikeOpt ',

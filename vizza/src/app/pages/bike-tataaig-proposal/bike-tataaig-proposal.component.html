@@ -338,7 +338,7 @@
                                 <mat-option value="bank">BANK</mat-option>
                                 <mat-option value="nonbank financier">NONBANK FINANCIER</mat-option>
                               </mat-select>
-                              <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
+                              <!--<mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>-->
                             </mat-form-field>
                           </div>
 
@@ -373,14 +373,14 @@
                               </cdk-virtual-scroll-viewport>
                               <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
                             </mat-select>
-                            <mat-error *ngIf="vehicle.controls.bankName.errors?.required">Financier Name is required</mat-error>
+                            <!--<mat-error *ngIf="vehicle.controls.bankName.errors?.required">Financier Name is required</mat-error>-->
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                           <mat-form-field class="w-100">
                               <mat-placeholder>Address<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                               <textarea matInput rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
-                            <mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>
+                            <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                           </mat-form-field>
                         </div>
 
@@ -398,7 +398,7 @@
 
                             <!--</div>-->
                             <div class="col-md-3 mt-1"  *ngIf="premium != 'ThridParty_premium'" >
-                              <mat-checkbox formControlName="elecAccessories" (change)="electriAccess()"><strong> Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                              <mat-checkbox formControlName="elecAccessories" (change)="electriAccess()"><strong> Electrical Accessories </strong></mat-checkbox>
                             </div>
                             <div class="col-md-3" *ngIf="vehicle.controls['elecAccessories'].value == true">
                               <mat-form-field class="w-100">
@@ -422,7 +422,7 @@
                             </div>
 
                             <div class="col-md-3 mt-1"  *ngIf="premium != 'ThridParty_premium'" >
-                              <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                              <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories </strong></mat-checkbox>
                             </div>
                             <div class="col-md-3" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                               <mat-form-field class="w-100">
@@ -509,7 +509,7 @@
                               </div>
                             </div>
 
-                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' &&  deprecuiation==true " >
+                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium'  " >
                               <div class="row">
                                 <div class="col-md-4">
                                   <mat-checkbox formControlName="depreciation" (change)="QuoteList();addcontent();amount_depreciation();chanedepre()"  (keyup)="chanedepre()"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
@@ -541,7 +541,7 @@
                               </div>
                             </div>
 
-                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium' && depReturn==true " >
+                            <div class="col-md-12 mt-2" *ngIf="premium != 'ThridParty_premium'" >
                               <div class="row">
                                 <div class="col-md-4">
                                   <mat-checkbox formControlName="Returninvoice"  (change)="QuoteList();addcontent();amount_Returninvoice();chaneret()"  (keyup)="chaneret()"><strong> Return_to_Invoice </strong></mat-checkbox>
@@ -790,7 +790,7 @@
                         <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense != ''&& vehicalFormData.Consumableexpense == true"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense == true">Yes</span></li>
                         <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpenseamount != '' && vehicalFormData.Consumableexpense == true"><strong>Consumables_expenses Amount:</strong>{{vehicalFormData.Consumableexpenseamount}} </li>
                         <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice != '' && vehicalFormData.Returninvoice == true"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoiceamount != ''&& vehicalFormData.Returninvoice == true "><strong>Return_to_Invoice Amount:</strong>{{vehicalFormData.Returninvoiceamount}} </li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoiceamount != '' && vehicalFormData.Returninvoice == true "><strong>Return_to_Invoice Amount:</strong>{{vehicalFormData.Returninvoiceamount}} </li>
                         <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance != '' && vehicalFormData.Roadsideassistance == true"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance == true">Yes</span></li>
                         <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistanceamount != '' && vehicalFormData.Roadsideassistance == true "><strong>Roadside_Assistance Amount:</strong>{{vehicalFormData.Roadsideassistanceamount}} </li>
 
@@ -855,7 +855,7 @@
                     <input name="proposal_no" type="hidden" value="{{Proposalnumber}}" />
                     <input name="ReturnURL" type="hidden" value="{{PaymentReturn}}" />
                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                    <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                    <button mat-raised-button color="primaryBlue" class=" ml-3" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                   </form>
                 </div>
               </div>
