@@ -226,7 +226,7 @@ export class TermLifePremiumListComponent implements OnInit {
           for(let i=0; i<=this.allHdfcList.length; i++)
           {
 
-              this.allHdfcList12 = this.allHdfcList[i].id;
+              // this.allHdfcList12 = this.allHdfcList[i].id;
               console.log( this.allHdfcList,'listtttt');
               console.log( this.allHdfcList[i].id,'listid');
               console.log(  this.allHdfcList12 ,'listid');

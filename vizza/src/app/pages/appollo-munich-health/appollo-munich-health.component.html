@@ -895,7 +895,7 @@
                           </div>
                         </div>
 
-                        <div class="col-md-6" *ngIf="item.type != 'Son' && item.type != 'Daughter'">
+                        <div class="col-md-6" *ngIf="item.type != 'Son' && item.type != 'Daughter' && item.type != 'Spouse'">
                           <div class="p-3">
                               <h6>COMMUNICATION DETAILS</h6>
                             <ul class="m-0 list-group">
@@ -1012,7 +1012,7 @@
                         <li class="list-group-item"><strong>Email Id:</strong> {{proposerList.ContactInformation.Email}}</li>
                         <!--<li class="list-group-item" *ngIf="proposerList.ContactInformation.ContactNumber.ContactNumber.Number != ''"><strong>Mobile Number:</strong> {{proposerList.ContactInformation.ContactNumber.ContactNumber.Number}}</li>-->
                         <li class="list-group-item"><strong>Gender:</strong>{{proposerList.GenderCode}}</li>
-                        <!--<li class="list-group-item"><strong>Marital Status:</strong> {{proposerList.MaritalStatusCode}}</li>-->
+                        <li class="list-group-item"><strong>Marital Status:</strong> {{proposerList.MaritalStatusCode}}</li>
                         <!--<li class="list-group-item" *ngIf="proposerList.IDProofTypeCode != ''"><strong> Select ID Proof :</strong> {{proposerList.IDProofTypeCode  | uppercase }}</li>-->
                         <!--<li class="list-group-item" *ngIf="proposerList.IDProofNumber != ''"><strong>Select ID Proof Number:</strong> {{proposerList.IDProofNumber  | uppercase}}</li>-->
                         <!--<li class="list-group-item" *ngIf="proposerList.proposerGst != ''"><strong>GST:</strong> {{proposerList.proposerGst | uppercase}}</li>-->
@@ -1074,7 +1074,7 @@
               </div>
               </div>
 
-              <div class="col-md-6" *ngIf="item.type != 'Son' && item.type != 'Daughter'">
+              <div class="col-md-6" *ngIf="item.type != 'Son' && item.type != 'Daughter' && item.type != 'Spouse'">
               <div class="p-3">
               <h6>COMMUNICATION DETAILS</h6>
               <ul class="m-0 list-group">
@@ -1089,10 +1089,10 @@
               <div class="p-3">
               <h6 class="mt-4"></h6>
               <ul class="m-0 list-group">
-              <li class="list-group-item" ><strong>District:</strong> {{item.proposerDistrict}}</li>
-              <li class="list-group-item" ><strong>State:</strong> {{item.proposerState}}</li>
+              <li class="list-group-item" ><strong>District:</strong> {{item.Address.Address.proposerDistrict}}</li>
+              <li class="list-group-item" ><strong>State:</strong> {{item.Address.Address.proposerState}}</li>
               <!--<li class="list-group-item" ><strong>Country:</strong> INDIA</li>-->
-              <li class="list-group-item" ><strong>PIN code:</strong> {{item.proposerPincode}}</li>
+              <li class="list-group-item" ><strong>PIN code:</strong> {{item.Address.Address.proposerPincode}}</li>
               </ul>
               </div>
               </div>
@@ -1168,16 +1168,17 @@
                       <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>
                   </p>
                   <hr>
-                  <div class="row">
-                      <div class="col-md-12 text-center">
-                          <form action='{{RediretUrlLink}}' method='post' #form>
-                            <!--<button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
-                            <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
-
-                            <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
-                          </form>
-                      </div>
-                  </div>
+            <div class="row">
+              <div class="col-md-6 text-right">
+                <button mat-button matStepperPrevious (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
+                <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
+              </div>
+              <div class="col-md-6 text-left">
+                <form action={{RediretUrlLink}} method='post' #form>
+                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                </form>
+              </div>
+            </div>
           </mat-step>
       </mat-horizontal-stepper>
     </div>

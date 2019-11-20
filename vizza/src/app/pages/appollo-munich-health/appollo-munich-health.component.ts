@@ -191,6 +191,9 @@ export class AppolloMunichComponent implements OnInit {
               if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                   this.summaryData = JSON.parse(sessionStorage.summaryData);
                   this.RediretUrlLink = this.summaryData.PaymentURL;
+                  console.log(this.summaryData.PaymentURL,'summarylink');
+                  console.log(this.RediretUrlLink,'summarylink');
+
                   this.proposalId = this.summaryData.ProposalId;
                   this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
                   this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
@@ -2395,6 +2398,8 @@ export class AppolloMunichComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
+            console.log(this.summaryData.PaymentURL,'summarylink');
+            console.log(this.RediretUrlLink,'summarylink');
             this.proposalId = this.summaryData.ProposalId;
             this.proposerFormData = this.proposer.value;
             this.nomineeFormData = this.nomineeDetails.value;
@@ -2466,6 +2471,7 @@ export class AppolloMunichComponent implements OnInit {
             'company_logo': this.buyProductdetails.company_logo,
             'FinalPremium': this.summaryData.FinalPremium,
             'Tax': this.summaryData.Tax,
+            'PaymentURL': this.summaryData.PaymentURL,
             'BasePremium': this.summaryData.BasePremium,
             'proposal_id': sessionStorage.appollo_health_proposal_id == '' || sessionStorage.appollo_health_proposal_id == undefined ? '' : sessionStorage.appollo_health_proposal_id,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -2662,6 +2668,7 @@ export class AppolloMunichComponent implements OnInit {
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
+            this.RediretUrlLink = this.requestDetails.PaymentURL;
             console.log(this.requestDetails, 'requestDetailsrequestDetails');
             this.pos_status = this.requestDetails.role_id;
             console.log(this.pos_status , 'requestDetailsrequestDetails');
