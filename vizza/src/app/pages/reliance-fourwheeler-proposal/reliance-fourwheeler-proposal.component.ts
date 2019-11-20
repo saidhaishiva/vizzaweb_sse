@@ -1915,6 +1915,14 @@ changeNonElect(){
       this.pa_owner_driver=this.coverListValue.coverlist[0].pa_owner_driver;
       console.log(this.pa_owner_driver,'this.pa_owner_driver....');
       console.log(this.unnamedList,'valueOfPermium....');
+      this.changeValueUnpass();
+      this.changeOwnerDriver();
+      this.changeDepreciation();
+      this.changeVoluntary();
+      this.changeElect();
+      this.changeNonElect();
+
+
     }
     // else{
     //   this.toastr.error(successData.ErrorObject);

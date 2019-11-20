@@ -894,6 +894,14 @@ export class RelianceMotorProposalComponent implements OnInit {
       console.log(this.basic_od,'basic_od....');
       this.pa_owner_driver=this.coverListValue.coverlist[0].pa_owner_driver;
       console.log(this.pa_owner_driver,'pa_owner_driver....');
+      this.valueUnnamedPass();
+      this.getValueVoluntary();
+      this.getValueDriverCover();
+      this.getValueAutomobile();
+      this.getValueAntiTheft();
+      this.getValueBasicOD();
+      this.getElectric();
+      this.getValueNonElectric();
     }
   }
   public coverPreFailure(error) {
@@ -2172,7 +2180,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
   changeElec(){
     if (this.coverDetails.controls['IsElectricalItemFitted'].value) {
-      // this.coverDetails.controls['ElectricalItemsTotalPremium'].patchValue(this.electrical_accessories);
+      this.coverDetails.controls['ElectricalItemsTotalPremium'].patchValue(this.electrical_accessories);
       this.coverDetails.controls['ElectricalItemsTotalPremium'].setValidators([Validators.required]);
     } else {
       this.coverDetails.controls['ElectricalItemsTotalPremium'].patchValue('');

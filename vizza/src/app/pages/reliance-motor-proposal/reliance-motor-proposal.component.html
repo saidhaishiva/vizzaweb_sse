@@ -468,7 +468,7 @@
                             </div>
                             <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
                                         <mat-form-field class="w-100">
-                                            <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();UnnamedPassengersChange();getCover();valueUnnamedPass()" (change)="getCover();valueUnnamedPass()" required>
+                                            <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();UnnamedPassengersChange();getCover();valueUnnamedPass()"  required>
                                                 <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>
@@ -478,17 +478,17 @@
 
                             <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengersSI.value">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Total Premium"  formControlName="totalUnnamedPassengerPremium" (change)="getCover();valueUnnamedPass()" autocomplete="off" [required]="coverDetails.controls.UnnamedPassengersSI.value" readonly>
+                                    <input matInput placeholder="Cover Premium"  formControlName="totalUnnamedPassengerPremium"  autocomplete="off" [required]="coverDetails.controls.UnnamedPassengersSI.value" readonly>
                                 </mat-form-field>
                             </div>
 
 
                             <div class="col-md-4">
-                                <mat-checkbox  formControlName="IsVoluntaryDeductableOpted" (change)="updateVoluntary($event);">Voluntary Deductible </mat-checkbox>
+                                <mat-checkbox  formControlName="IsVoluntaryDeductableOpted" (change)="updateVoluntary($event);getCover()">Voluntary Deductible </mat-checkbox>
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.IsVoluntaryDeductableOpted.value == true">
                                 <mat-form-field class="w-100">
-                                    <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (selectionChange)="voluntaryAmount();totalVoluntaryPremiumChange();getCover();getValueVoluntary()" (click)="getCover();getValueVoluntary()" (keyup)="getCover();getValueVoluntary()" required>
+                                    <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (selectionChange)="voluntaryAmount();totalVoluntaryPremiumChange();getCover();getValueVoluntary()" required>
                                         <mat-option *ngFor="let type of amountList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                                     </mat-select>
@@ -497,7 +497,7 @@
                             </div>
                             <div class="col-md-4" *ngIf="coverDetails.controls.VoluntaryDeductableAmount.value">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Total Premium"  formControlName="totalVoluntaryPremium" (change)="getCover();getValueVoluntary()" (click)="getCover();getValueVoluntary()" (keyup)="getCover();getValueVoluntary()" autocomplete="off" [required]="coverDetails.controls.VoluntaryDeductableAmount.value" readonly>
+                                    <input matInput placeholder="Cover Premium"  formControlName="totalVoluntaryPremium"  autocomplete="off" [required]="coverDetails.controls.VoluntaryDeductableAmount.value" readonly>
                                     <!--<mat-error *ngIf="coverDetails.controls.totalVoluntaryPremium.errors?.required">No Of Passenegers is required</mat-error>-->
                                 </mat-form-field>
                             </div>
@@ -510,7 +510,7 @@
 
                                     <div class="col-md-4 mt-3">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Nominee Name" formControlName="cnomineeName"  (keypress)="nameValidate($event);getCover();getValueDriverCover()" autocomplete="off" required >
+                                            <input matInput placeholder="Nominee Name" formControlName="cnomineeName"  (keypress)="nameValidate($event);getCover()" autocomplete="off" required >
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4 mt-3">
@@ -556,7 +556,7 @@
                                     </div>
                                     <div class="col-md-4 mt-3" *ngIf="coverDetails.controls.PAToOwnerDriverCoverd.value == true">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Total Premium"  formControlName="totalPAToOwnerDriverPremium" (change)="getCover();getValueDriverCover()"  autocomplete="off" [required]="coverDetails.controls.PAToOwnerDriverCoverd.value == true" readonly >
+                                            <input matInput placeholder="Cover Premium"  formControlName="totalPAToOwnerDriverPremium" (change)="getCover();getValueDriverCover()"  autocomplete="off" [required]="coverDetails.controls.PAToOwnerDriverCoverd.value == true" readonly >
                                             <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
                                         </mat-form-field>
                                     </div>
@@ -564,14 +564,14 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="NilDepreciationCoverage"  >Nil Depreciation </mat-checkbox>
+                                <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="getCover();getValueAutomobile()" >Nil Depreciation </mat-checkbox>
                             </div>
                             <div class="col-md-3">
-                                <mat-checkbox class="mt-2" formControlName="AutomobileAssociationMember" (change)="totalAutomobileAssociatioChange();getCover();getValueAutomobile()">Automobile Association Membership</mat-checkbox>
+                                <mat-checkbox class="mt-2" formControlName="AutomobileAssociationMember" (change)="totalAutomobileAssociatioChange();getCover()">Automobile Association Membership</mat-checkbox>
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.AutomobileAssociationMember.value == true">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Total Premium"  formControlName="totalAutomobilePremium" (change)="getCover();getValueAutomobile()" (click)="getCover();getValueAutomobile()"  autocomplete="off" [required]="coverDetails.controls.AutomobileAssociationMember.value == true" readonly >
+                                    <input matInput placeholder="Cover Premium"  formControlName="totalAutomobilePremium"  autocomplete="off" [required]="coverDetails.controls.AutomobileAssociationMember.value == true" readonly >
                                     <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
                                 </mat-form-field>
                             </div>
@@ -580,7 +580,7 @@
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.AntiTheftDeviceFitted.value == true">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Total Premium"  formControlName="totalAntiTheftPremium" (change)="getCover();getValueAntiTheft()" (click)="getCover();getValueAntiTheft()"  autocomplete="off" [required]="coverDetails.controls.AntiTheftDeviceFitted.value == true" readonly >
+                                    <input matInput placeholder="Cover Premium"  formControlName="totalAntiTheftPremium"  autocomplete="off" [required]="coverDetails.controls.AntiTheftDeviceFitted.value == true" readonly >
                                     <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
                                 </mat-form-field>
                             </div>
@@ -596,7 +596,7 @@
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.BasicODCoverage.value == true">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Total Premium"  formControlName="totalBasicODPremium" (change)="getCover();getValueBasicOD()" (click)="getCover();getValueBasicOD()"  autocomplete="off" [required]="coverDetails.controls.BasicODCoverage.value == true" readonly >
+                                    <input matInput placeholder="Cover Premium"  formControlName="totalBasicODPremium"   autocomplete="off" [required]="coverDetails.controls.BasicODCoverage.value == true" readonly >
                                     <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
                                 </mat-form-field>
                             </div>
@@ -616,13 +616,13 @@
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Sum Insured"  formControlName="ElectricalItemsTotalSI"  (change)="getCover();getElectric()"  (click)="getCover();getElectric" autocomplete="off"  required readonly>
+                                    <input matInput placeholder="Sum Insured"  formControlName="ElectricalItemsTotalSI"  (change)="getCover();getElectric()" autocomplete="off"  required readonly>
                                     <mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Total Premium"  formControlName="ElectricalItemsTotalPremium"  (change)="getCover();getElectric()" (click)="getCover();getElectric()" autocomplete="off" [required]="coverDetails.controls.IsElectricalItemFitted.value == true" readonly>
+                                    <input matInput placeholder="Cover Premium"  formControlName="ElectricalItemsTotalPremium"  autocomplete="off" [required]="coverDetails.controls.IsElectricalItemFitted.value == true" readonly>
                                     <!--<mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalPremium.errors?.required">Total Premium is required</mat-error>-->
                                 </mat-form-field>
                             </div>
@@ -632,14 +632,14 @@
                             </div>
                             <div class="col-md-4" *ngIf="coverDetails.controls.IsNonElectricalItemFitted.value == true">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Sum Insured"  formControlName="NonElectricalItemsTotalSI" (change)="getCover();getValueNonElectric()" (click)="getCover();getValueNonElectric()"  autocomplete="off"  required readonly >
+                                    <input matInput placeholder="Sum Insured"  formControlName="NonElectricalItemsTotalSI" (change)="getCover();getValueNonElectric()"  autocomplete="off"  required readonly >
                                     <mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>
 
                                 </mat-form-field>
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.IsNonElectricalItemFitted.value == true">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Total Premium"  formControlName="NonElectricalItemsTotalPremium" (change)="getCover();getValueNonElectric()" (click)="getCover();getValueNonElectric()"  autocomplete="off" [required]="coverDetails.controls.IsNonElectricalItemFitted.value == true" readonly>
+                                    <input matInput placeholder="Cover Premium"  formControlName="NonElectricalItemsTotalPremium"  autocomplete="off" [required]="coverDetails.controls.IsNonElectricalItemFitted.value == true" readonly>
                                     <!--<mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalPremium.errors?.required">Total Premium is required</mat-error>-->
                                 </mat-form-field>
                             </div>
@@ -1044,13 +1044,13 @@
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuelType:</strong> {{coverFormData.fuelTypeValue}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember != ''"><strong>Automobile Association Membership:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == true">Yes</span><span *ngIf="coverFormData.AutomobileAssociationMember == false">No</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalAutomobilePremium != ''  "><strong>Total Premium:</strong> {{coverFormData.totalAutomobilePremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalAutomobilePremium != ''  "><strong>Cover Premium:</strong> {{coverFormData.totalAutomobilePremium}}</li>
 
                                   <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted != ''"><strong>Anti-Theft Device :</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == true">Yes</span><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">No</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalAntiTheftPremium != '' "><strong>Total Premium:</strong> {{coverFormData.totalAntiTheftPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalAntiTheftPremium != '' "><strong>Cover Premium:</strong> {{coverFormData.totalAntiTheftPremium}}</li>
 
                                   <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>Basic OD :</strong><span *ngIf="coverFormData.BasicODCoverage == true">Yes</span><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalBasicODPremium != ''"><strong>Total Premium:</strong> {{coverFormData.totalBasicODPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalBasicODPremium != ''"><strong>Cover Premium:</strong> {{coverFormData.totalBasicODPremium}}</li>
 
                               </ul>
                           </div>
@@ -1074,7 +1074,7 @@
                               <h4 class="mt-4"></h4>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengersSI != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>Total Premium:</strong> {{coverFormData.totalUnnamedPassengerPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengersSI != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>Cover Premium:</strong> {{coverFormData.totalUnnamedPassengerPremium}}</li>
                               </ul>
                           </div>
 
@@ -1117,7 +1117,7 @@
                                   <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Other Relation:</strong> {{coverFormData.nOtherRelation}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.cnAddress != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Nominee Address:</strong> {{coverFormData.cnAddress}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalPAToOwnerDriverPremium != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Total Premium:</strong> {{coverFormData.totalPAToOwnerDriverPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalPAToOwnerDriverPremium != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Cover Premium:</strong> {{coverFormData.totalPAToOwnerDriverPremium}}</li>
                               </ul>
                           </div>
 
@@ -1159,7 +1159,7 @@
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted != ''"><strong>Voluntary Deductible:</strong><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == true">Yes</span><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == false">No</span> </li>
                                   <li class="list-group-item" *ngIf="coverFormData.VoluntaryDeductableAmount != '' && coverFormData.IsVoluntaryDeductableOpted ==true "><strong>Voluntary Deductable Amount:</strong> {{coverFormData.VoluntaryDeductableAmount}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalVoluntaryPremium != '' && coverFormData.IsVoluntaryDeductableOpted ==true "><strong>Total Premium:</strong> {{coverFormData.totalVoluntaryPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalVoluntaryPremium != '' && coverFormData.IsVoluntaryDeductableOpted ==true "><strong>Cover Premium:</strong> {{coverFormData.totalVoluntaryPremium}}</li>
 
                               </ul>
                           </div>
@@ -1169,7 +1169,7 @@
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.IsElectricalItemFitted != ''"><strong>Electrical Accessories:</strong><span *ngIf="coverFormData.IsElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsElectricalItemFitted == false">No</span> </li>
                                   <li class="list-group-item" *ngIf="coverFormData.ElectricalItemsTotalSI != '' && coverFormData.IsElectricalItemFitted ==true "><strong>Sum Insured:</strong> {{coverFormData.ElectricalItemsTotalSI}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.ElectricalItemsTotalPremium != '' && coverFormData.IsElectricalItemFitted ==true "><strong>Total Premium:</strong> {{coverFormData.ElectricalItemsTotalPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.ElectricalItemsTotalPremium != '' && coverFormData.IsElectricalItemFitted ==true "><strong>Cover Premium:</strong> {{coverFormData.ElectricalItemsTotalPremium}}</li>
 
                               </ul>
                           </div>
@@ -1179,7 +1179,7 @@
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted != ''"><strong>Non Electrical Accessories:</strong><span *ngIf="coverFormData.IsNonElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsNonElectricalItemFitted == false">No</span> </li>
                                   <li class="list-group-item" *ngIf="coverFormData.NonElectricalItemsTotalSI != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Sum Insured:</strong> {{coverFormData.NonElectricalItemsTotalSI}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.NonElectricalItemsTotalPremium != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Total Premium:</strong> {{coverFormData.NonElectricalItemsTotalPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.NonElectricalItemsTotalPremium != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Cover Premium:</strong> {{coverFormData.NonElectricalItemsTotalPremium}}</li>
                               </ul>
                           </div>
 
