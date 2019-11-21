@@ -108,8 +108,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public non_electrical_accessories: any;
   public Anti_theft: any;
   public automobile_association: any;
+  public Liability_paid_driver: any;
   public basic_liability: any;
   public pa_unnamed_passenger: any;
+  public Bifuel_Kit: any;
   public pa_owner_driver: any;
   public voluntary_deductible: any;
   public showInspection: boolean;
@@ -311,6 +313,11 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       fuelType: ['',Validators.required],
 
       inspectionNo: [''],
+      totalLiabilityToPaidDriverPremium: [''],
+      totalAssociationPremium: [''],
+      totalAntiTheftDeviceFittedPremium: [''],
+      totalBasicODCoveragePremium: [''],
+      totalBasicLiabilityPremium: [''],
 
     });
 
@@ -809,9 +816,110 @@ changeOwnerDriver(){
       this.coverDetails.controls['totalDepreciationPremium'].updateValueAndValidity();
     }
   }
+
   changeDepreciation(){
 
           this.coverDetails.controls['totalDepreciationPremium'].patchValue(this.nil_depreciation);
+
+
+  }
+
+  updateBasicODCoverage(){
+    if(this.coverDetails.controls.BasicODCoverage.value == true){
+      //
+      this.coverDetails.controls['totalBasicODCoveragePremium'].patchValue( this.coverDetails.controls['totalBasicODCoveragePremium'].value);
+      this.coverDetails.controls['totalBasicODCoveragePremium'].setValidators([Validators.required]);
+      this.coverDetails.controls['totalBasicODCoveragePremium'].updateValueAndValidity();
+    }else {
+
+      this.coverDetails.controls['totalBasicODCoveragePremium'].patchValue('');
+      this.coverDetails.controls['totalBasicODCoveragePremium'].setValidators(null);
+      this.coverDetails.controls['totalBasicODCoveragePremium'].updateValueAndValidity();
+    }
+  }
+  changeBasicODCoverage(){
+
+    this.coverDetails.controls['totalBasicODCoveragePremium'].patchValue(this.basic_od);
+
+
+  }
+
+  updateAntiTheftCoverage(){
+    if(this.coverDetails.controls.AntiTheftDeviceFitted.value == true){
+      //
+      this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].patchValue( this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].value);
+      this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].setValidators([Validators.required]);
+      this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].updateValueAndValidity();
+    }else {
+
+      this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].patchValue('');
+      this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].setValidators(null);
+      this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].updateValueAndValidity();
+    }
+  }
+  changeAntiTheftCoverage(){
+
+    this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].patchValue(this.Anti_theft);
+
+
+  }
+
+  updateAssociationCoverage(){
+    if(this.coverDetails.controls.AutomobileAssociationMember.value == true){
+      //
+      this.coverDetails.controls['totalAssociationPremium'].patchValue( this.coverDetails.controls['totalAssociationPremium'].value);
+      this.coverDetails.controls['totalAssociationPremium'].setValidators([Validators.required]);
+      this.coverDetails.controls['totalAssociationPremium'].updateValueAndValidity();
+    }else {
+
+      this.coverDetails.controls['totalAssociationPremium'].patchValue('');
+      this.coverDetails.controls['totalAssociationPremium'].setValidators(null);
+      this.coverDetails.controls['totalAssociationPremium'].updateValueAndValidity();
+    }
+  }
+  changeAssociationCoverage(){
+
+    this.coverDetails.controls['totalAssociationPremium'].patchValue(this.automobile_association);
+
+
+  }
+
+  updateLiabilityToPaidCoverage(){
+    if(this.coverDetails.controls.LiabilityToPaidDriverCovered.value == true){
+      //
+      this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].patchValue( this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].value);
+      this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].setValidators([Validators.required]);
+      this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].updateValueAndValidity();
+    }else {
+
+      this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].patchValue('');
+      this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].setValidators(null);
+      this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].updateValueAndValidity();
+    }
+  }
+  changeLiabilityToPaidCoverage(){
+
+    this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].patchValue(this.Liability_paid_driver);
+
+
+  }
+
+  updateBasicLiabilityCoverage(){
+    if(this.coverDetails.controls.BasicLiability.value == true){
+      //
+      this.coverDetails.controls['totalBasicLiabilityPremium'].patchValue( this.coverDetails.controls['totalBasicLiabilityPremium'].value);
+      this.coverDetails.controls['totalBasicLiabilityPremium'].setValidators([Validators.required]);
+      this.coverDetails.controls['totalBasicLiabilityPremium'].updateValueAndValidity();
+    }else {
+
+      this.coverDetails.controls['totalBasicLiabilityPremium'].patchValue('');
+      this.coverDetails.controls['totalBasicLiabilityPremium'].setValidators(null);
+      this.coverDetails.controls['totalBasicLiabilityPremium'].updateValueAndValidity();
+    }
+  }
+  changeBasicLiabilityCoverage(){
+
+    this.coverDetails.controls['totalBasicLiabilityPremium'].patchValue(this.basic_liability);
 
 
   }
@@ -932,16 +1040,17 @@ changeNonElect(){
     updatenonBiFuelKit(event){
         if(event.checked){
             this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-            this.coverDetails.controls['cpgLpgKit'].patchValue(true);
 
           //
-            this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+            this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
 
             this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
             this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+            this.coverDetails.controls['cpgLpgKit'].setValidators([Validators.required]);
+            this.coverDetails.controls['cpgLpgKit'].updateValueAndValidity();
 
-            this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
-            this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+            this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
+            this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
         }else {
             this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
             this.coverDetails.controls['cpgLpgKit'].patchValue(true);
@@ -952,10 +1061,13 @@ changeNonElect(){
             this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
             this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
 
-            this.coverDetails.controls['bifueltype'].patchValue('');
-            this.coverDetails.controls['bifueltype'].setValidators(null);
-            this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+            this.coverDetails.controls['bifuelAmount'].patchValue('');
+            this.coverDetails.controls['bifuelAmount'].setValidators(null);
+            this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
         }
+    }
+    changeBifuel(){
+      this.coverDetails.controls['bifuelAmount'].patchValue(this.Bifuel_Kit);
     }
 
   // updateDriverCovered(event){
@@ -1332,6 +1444,11 @@ changeNonElect(){
         UnnamedPassengersSI: this.getStepper3.UnnamedPassengersSI,
         IsVoluntaryDeductableOpted: this.getStepper3.IsVoluntaryDeductableOpted,
         VoluntaryDeductableAmount: this.getStepper3.VoluntaryDeductableAmount,
+        totalLiabilityToPaidDriverPremium: this.getStepper3.totalLiabilityToPaidDriverPremium,
+        totalAssociationPremium: this.getStepper3.totalAssociationPremium,
+        totalAntiTheftDeviceFittedPremium: this.getStepper3.totalAntiTheftDeviceFittedPremium,
+        totalBasicODCoveragePremium: this.getStepper3.totalBasicODCoveragePremium,
+        totalBasicLiabilityPremium: this.getStepper3.totalBasicLiabilityPremium,
         IsElectricalItemFitted: this.getStepper3.IsElectricalItemFitted,
         IsNonElectricalItemFitted: this.getStepper3.IsNonElectricalItemFitted,
         IsBiFuelKit: this.getStepper3.IsBiFuelKit,
@@ -1728,7 +1845,9 @@ changeNonElect(){
           'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
           'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
           'NoOfUnnamedPassenegersCovered':this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value,
-         // 'NoOfUnnamedPassenegersCovered': this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value != '' ? this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value : '',
+          'IsLiabilityToPaidDriverCovered':this.coverDetails.controls['LiabilityToPaidDriverCovered'].value ? 'true' : 'false',
+
+          // 'NoOfUnnamedPassenegersCovered': this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value != '' ? this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value : '',
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
           "ElectricItems": {
@@ -1779,6 +1898,7 @@ changeNonElect(){
               "PackageName": ""
             }
           },
+
           "BifuelKit": {
             "BifuelKit": {
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
@@ -1903,6 +2023,9 @@ changeNonElect(){
       this.automobile_association=this.coverListValue.coverlist[0].automobile_association;
       console.log(this.automobile_association,'this.automobile_association....');
 
+      this.Liability_paid_driver=this.coverListValue.coverlist[0].Liability_paid_driver;
+      console.log(this.Liability_paid_driver,'this.Liability_paid_driver....');
+
       this.basic_liability=this.coverListValue.coverlist[0].basic_liability;
       console.log(this.basic_liability,'this.basic_liability....');
 
@@ -1914,6 +2037,8 @@ changeNonElect(){
 
       this.pa_owner_driver=this.coverListValue.coverlist[0].pa_owner_driver;
       console.log(this.pa_owner_driver,'this.pa_owner_driver....');
+      this.Bifuel_Kit=this.coverListValue.coverlist[0].Bifuel_Kit;
+      console.log(this.Bifuel_Kit,'this.Bifuel_Kit....');
       console.log(this.unnamedList,'valueOfPermium....');
       this.changeValueUnpass();
       this.changeOwnerDriver();
@@ -1921,12 +2046,19 @@ changeNonElect(){
       this.changeVoluntary();
       this.changeElect();
       this.changeNonElect();
+      this.changeLiabilityToPaidCoverage();
+      this.changeAssociationCoverage();
+      this.changeAntiTheftCoverage();
+      this.changeBasicODCoverage();
+      this.changeBasicLiabilityCoverage();
+      this.changeBifuel();
+
 
 
     }
-    // else{
-    //   this.toastr.error(successData.ErrorObject);
-    // }
+    else{
+      this.toastr.error(successData.ErrorObject);
+    }
   }
   public coverPreFailure(error) {
   }

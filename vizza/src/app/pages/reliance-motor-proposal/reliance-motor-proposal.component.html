@@ -564,7 +564,13 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="getCover();getValueAutomobile()" >Nil Depreciation </mat-checkbox>
+                                <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="getCover();getNildepreciationCover()" >Nil Depreciation </mat-checkbox>
+                            </div>
+                            <div class="col-md-4 " *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
+                                <mat-form-field class="w-100">
+                                    <input matInput placeholder="Cover Premium"  formControlName="totalDepreciationPremium"  autocomplete="off" [required]="coverDetails.controls.NilDepreciationCoverage.value == true" readonly >
+                                    <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
+                                </mat-form-field>
                             </div>
                             <div class="col-md-3">
                                 <mat-checkbox class="mt-2" formControlName="AutomobileAssociationMember" (change)="totalAutomobileAssociatioChange();getCover()">Automobile Association Membership</mat-checkbox>

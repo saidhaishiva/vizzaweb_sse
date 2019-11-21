@@ -90,6 +90,8 @@ export class RelianceMotorProposalComponent implements OnInit {
   public bikeEnquiryId: any;
   public coverListValue: any;
   public pa_owner_driver: any;
+  public nil_depreciation: any;
+  public pa_unnamed_passenger: any;
   public basic_od: any;
   public electrical_accessories: any;
   public non_electrical_accessories: any;
@@ -731,9 +733,20 @@ export class RelianceMotorProposalComponent implements OnInit {
           'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value ,
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
-          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+          'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+          'IsNilDepApplyingFirstTime':'',
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
+          "NilDepreciationCoverage": {
+            "NilDepreciationCoverage": {
+              "IsMandatory": this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+              "IsChecked": this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+              "NoOfItems": "1",
+              "PackageName": "",
+              "PolicyCoverID": "",
+              "ApplicableRate": "1.0"
+            }
+          },
           "ElectricItems": {
             "ElectricalItems": {
               "ElectricalItemsID": "",
@@ -894,6 +907,10 @@ export class RelianceMotorProposalComponent implements OnInit {
       console.log(this.basic_od,'basic_od....');
       this.pa_owner_driver=this.coverListValue.coverlist[0].pa_owner_driver;
       console.log(this.pa_owner_driver,'pa_owner_driver....');
+      this.nil_depreciation=this.coverListValue.coverlist[0].nil_depreciation;
+      console.log(this.nil_depreciation,'nil_depreciation....');
+      this.pa_unnamed_passenger=this.coverListValue.coverlist[0].pa_unnamed_passenger;
+      console.log(this.pa_unnamed_passenger,'pa_unnamed_passenger....');
       this.valueUnnamedPass();
       this.getValueVoluntary();
       this.getValueDriverCover();
@@ -1545,9 +1562,20 @@ export class RelianceMotorProposalComponent implements OnInit {
           'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value ,
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
-          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+          'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+          'IsNilDepApplyingFirstTime':'',
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
+          "NilDepreciationCoverage": {
+            "NilDepreciationCoverage": {
+              "IsMandatory":this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+              "IsChecked": this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+              "NoOfItems": "1",
+              "PackageName": "",
+              "PolicyCoverID": "",
+              "ApplicableRate": "1.0"
+            }
+          },
           "ElectricItems": {
             "ElectricalItems": {
               "ElectricalItemsID": "",
@@ -2163,6 +2191,14 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
   getValueDriverCover(){
     this.coverDetails.controls['totalPAToOwnerDriverPremium'].patchValue(this.pa_owner_driver);
+    console.log( this.coverDetails.controls['totalPAToOwnerDriverPremium'].value,'114444')
+  }
+  getNildepreciationCover(){
+    this.coverDetails.controls['totalAutomobilePremium'].patchValue(this.nil_depreciation);
+    console.log( this.coverDetails.controls['totalPAToOwnerDriverPremium'].value,'114444')
+  }
+  getPaUnnamedPassengerCover(){
+    this.coverDetails.controls['totalPAToOwnerDriverPremium'].patchValue(this.pa_unnamed_passenger);
     console.log( this.coverDetails.controls['totalPAToOwnerDriverPremium'].value,'114444')
   }
   getValueAutomobile(){
