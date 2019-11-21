@@ -222,9 +222,9 @@ export class RelianceMotorProposalComponent implements OnInit {
       // TPPDCoverSi: [''],
       BasicODCoverage: ['',Validators.required],
       BasicLiability: ['',Validators.required],
-      nrelationValue: [''],
+      // nrelationValue: [''],
       fuelTypeValue: [''],
-      nOtherRelationValue: [''],
+      // nOtherRelationValue: [''],
       // PACoverToOwner: [''],
       IsElectricalItemFitted: [''],
       IsNonElectricalItemFitted: [''],
@@ -242,7 +242,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       UnnamedPassengerCovered: [''],
       NoOfUnnamedPassenegersCovered: [''],
       // PAToNamedPassenger: [''],
-      NonamedPassenegers: [''],
+      // NonamedPassenegers: [''],
       totalUnnamedPassengerPremium: [''],
       NonElectricalItemsTotalPremium: [''],
       totalVoluntaryPremium: [''],
@@ -256,16 +256,16 @@ export class RelianceMotorProposalComponent implements OnInit {
       nrelation: [''],
       nOtherRelation: [''],
       cnAddress: [''],
-      npappointeeName: [''],
-      npnomineeName: [''],
-      npDob: [''],
-      nprelation: [''],
-      nprelationValue: [''],
-      npOtherRelation: [''],
-      npOtherRelationValue: [''],
-      npAddress: [''],
-      namedPassengersSI: [''],
-      nppassengerName: [''],
+      // npappointeeName: [''],
+      // npnomineeName: [''],
+      // npDob: [''],
+      // nprelation: [''],
+      // nprelationValue: [''],
+      // npOtherRelation: [''],
+      // npOtherRelationValue: [''],
+      // npAddress: [''],
+      // namedPassengersSI: [''],
+      // nppassengerName: [''],
       fuelType: ['',Validators.required],
       AntiTheftDeviceFitted: [''],
       totalAutomobilePremium: [''],
@@ -932,6 +932,9 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.changeBifuel();
       this.getNildepreciationCover();
     }
+    else{
+      this.toastr.error(successData.ErrorObject);
+    }
   }
   public coverPreFailure(error) {
   }
@@ -966,6 +969,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
       }
     } else if (type == 'stepper3') {
+      console.log(this.coverDetails.value,'this.coverDetails.....')
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
       if (this.coverDetails.valid) {
