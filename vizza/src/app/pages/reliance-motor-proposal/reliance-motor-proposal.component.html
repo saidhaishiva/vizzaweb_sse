@@ -465,7 +465,7 @@
                             <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="No Of Passenegers"  formControlName="NoOfUnnamedPassenegersCovered" maxlength="1" autocomplete="off" [required]="coverDetails.controls.UnnamedPassengerCovered.value == true"  >
-                                    <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>
+                                    <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
                                 </mat-form-field>
                             </div>
                             <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
@@ -473,7 +473,7 @@
                                             <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();UnnamedPassengersChange();getCover();valueUnnamedPass()"  required>
                                                 <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                                             </mat-select>
-                                            <mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>
+                                            <!--<mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>-->
                                         </mat-form-field>
                             </div>
                             <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengersSI.value">
@@ -495,7 +495,7 @@
                                         <mat-option *ngFor="let type of amountList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                                     </mat-select>
-                                    <mat-error *ngIf="coverDetails.controls.VoluntaryDeductableAmount.errors?.required">Sum Insured  is required</mat-error>
+                                    <!--<mat-error *ngIf="coverDetails.controls.VoluntaryDeductableAmount.errors?.required">Sum Insured  is required</mat-error>-->
                                 </mat-form-field>
                             </div>
                             <div class="col-md-4" *ngIf="coverDetails.controls.VoluntaryDeductableAmount.value">
@@ -524,7 +524,7 @@
                                             <input matInput [matDatepicker]="picker" [max]="today" placeholder=" Nominee DOB (DD/MM/YYYY)"   formControlName="cnDob" (dateInput)="addEvent($event,'nominee')" (dateChange)="addEvent($event,'nominee')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                             <mat-datepicker #picker></mat-datepicker>
-                                            <mat-error *ngIf="coverDetails.controls.cnDob.errors?.required">DOB is required</mat-error>
+                                            <!--<mat-error *ngIf="coverDetails.controls.cnDob.errors?.required">DOB is required</mat-error>-->
                                         </mat-form-field>
                                         <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
                                     </div>
@@ -534,14 +534,14 @@
                                             <mat-select placeholder="Nominee Relation" formControlName="nrelation" (selectionChange)="changenRelation()" required>
                                                 <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
                                             </mat-select>
-                                            <mat-error *ngIf="coverDetails.controls.nrelation.errors?.required">Relation  is required</mat-error>
+                                            <!--<mat-error *ngIf="coverDetails.controls.nrelation.errors?.required">Relation  is required</mat-error>-->
                                         </mat-form-field>
                                     </div>
 
                                     <div class="col-md-4 mt-3">
                                         <mat-form-field class="w-100">
                                             <input matInput placeholder="Nominee Address" formControlName="cnAddress"  autocomplete="off" required >
-                                            <mat-error *ngIf="coverDetails.controls.cnAddress.errors?.required">nominee Address is required</mat-error>
+                                            <!--<mat-error *ngIf="coverDetails.controls.cnAddress.errors?.required">nominee Address is required</mat-error>-->
                                         </mat-form-field>
                                     </div>
 
@@ -549,7 +549,7 @@
                                     <div class="col-md-4 mt-3" *ngIf="showNominee">
                                         <mat-form-field class="w-100" *ngIf="showNominee">
                                             <input matInput placeholder="Appointee Name" formControlName="cappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
-                                            <mat-error *ngIf="coverDetails.controls.cappointeeName.errors?.required">Appointee Name is required</mat-error>
+                                            <!--<mat-error *ngIf="coverDetails.controls.cappointeeName.errors?.required">Appointee Name is required</mat-error>-->
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4 mt-3" *ngIf="showNominee">
@@ -557,7 +557,7 @@
                                             <mat-select placeholder="Appointee Relation" formControlName="nOtherRelation" (selectionChange)="changenOtherRelation()" required>
                                                 <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
                                             </mat-select>
-                                            <mat-error *ngIf="coverDetails.controls.nOtherRelation.errors?.required">Appointee Relation  is required</mat-error>
+                                            <!--<mat-error *ngIf="coverDetails.controls.nOtherRelation.errors?.required">Appointee Relation  is required</mat-error>-->
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4 mt-3" *ngIf="coverDetails.controls.PAToOwnerDriverCoverd.value == true">
@@ -584,7 +584,7 @@
                             <div class="col-md-4 " *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Sum Insured"  formControlName="ElectricalItemsTotalSI"  (change)="getCover();getElectric()" autocomplete="off"  required readonly>
-                                    <mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>
+                                    <!--<mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
                                 </mat-form-field>
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
@@ -604,7 +604,7 @@
                             <div class="col-md-4" *ngIf="coverDetails.controls.IsNonElectricalItemFitted.value == true">
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Sum Insured"  formControlName="NonElectricalItemsTotalSI" (change)="getCover();getValueNonElectric()"  autocomplete="off"  required readonly >
-                                    <mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>
+                                    <!--<mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
 
                                 </mat-form-field>
                             </div>
@@ -638,7 +638,7 @@
                             <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Sum Insured"  formControlName="BiFuelKitSi"  maxlength="5" (keypress)="getCover();changeBifuel()" autocomplete="off" required >
-                                    <mat-error *ngIf="coverDetails.controls.BiFuelKitSi.errors?.required">Sum Insured is required</mat-error>
+                                    <!--<mat-error *ngIf="coverDetails.controls.BiFuelKitSi.errors?.required">Sum Insured is required</mat-error>-->
                                 </mat-form-field>
                             </div>
 
@@ -647,7 +647,7 @@
                                     <mat-select placeholder="Bifuel Type" formControlName="bifueltype" required>
                                         <mat-option *ngFor="let type of bifueltypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="coverDetails.controls.bifueltype.errors?.required">Bifuel type is required</mat-error>
+                                    <!--<mat-error *ngIf="coverDetails.controls.bifueltype.errors?.required">Bifuel type is required</mat-error>-->
                                 </mat-form-field>
                             </div>
 
