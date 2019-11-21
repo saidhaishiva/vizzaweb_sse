@@ -817,7 +817,7 @@
                                         </mat-form-field>
                                     </div>
 
-                                    <div class="col-md-4 mt-0">
+                                    <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
                                         <mat-form-field class="w-100">
                                             <mat-select placeholder="Bifuel type" formControlName="bifueltype"  required>
                                                 <mat-option *ngFor="let type of bifueltypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
