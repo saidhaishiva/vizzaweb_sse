@@ -92,6 +92,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   public pa_owner_driver: any;
   public nil_depreciation: any;
   public pa_unnamed_passenger: any;
+  public Bifuel_Kit: any;
   public basic_od: any;
   public electrical_accessories: any;
   public non_electrical_accessories: any;
@@ -269,6 +270,8 @@ export class RelianceMotorProposalComponent implements OnInit {
       totalAutomobilePremium: [''],
       totalAntiTheftPremium: [''],
       totalBasicODPremium: [''],
+      totalBasicLiabilityPremium: [''],
+      bifuelAmount: [''],
     });
 
     this.riskDetails = this.fb.group({
@@ -911,6 +914,9 @@ export class RelianceMotorProposalComponent implements OnInit {
       console.log(this.nil_depreciation,'nil_depreciation....');
       this.pa_unnamed_passenger=this.coverListValue.coverlist[0].pa_unnamed_passenger;
       console.log(this.pa_unnamed_passenger,'pa_unnamed_passenger....');
+      this.Bifuel_Kit=this.coverListValue.coverlist[0].Bifuel_Kit;
+      console.log(this.pa_unnamed_passenger,'pa_unnamed_passenger....');
+
       this.valueUnnamedPass();
       this.getValueVoluntary();
       this.getValueDriverCover();
@@ -919,6 +925,8 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.getValueBasicOD();
       this.getElectric();
       this.getValueNonElectric();
+      this.getValueBasicLiability();
+      this.changeBifuel();
     }
   }
   public coverPreFailure(error) {
@@ -1068,6 +1076,8 @@ export class RelianceMotorProposalComponent implements OnInit {
         AntiTheftDeviceFitted: this.getStepper3.AntiTheftDeviceFitted,
         totalAntiTheftPremium: this.getStepper3.totalAntiTheftPremium,
         totalBasicODPremium: this.getStepper3.totalBasicODPremium,
+        totalBasicLiabilityPremium: this.getStepper3.totalBasicLiabilityPremium,
+        bifuelAmount: this.getStepper3.bifuelAmount,
         // InsurancePremium: this.getStepper3.InsurancePremium,
         NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
         // TPPDCover: this.getStepper3.TPPDCover,
@@ -2091,13 +2101,16 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
       this.coverDetails.controls['cpgLpgKit'].patchValue(true);
       //
-      this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+      this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
 
       this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
       this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
 
       this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
       this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+
+      this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
+      this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
     }else {
       this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
       this.coverDetails.controls['cpgLpgKit'].patchValue(false);
@@ -2110,7 +2123,14 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.coverDetails.controls['bifueltype'].patchValue('');
       this.coverDetails.controls['bifueltype'].setValidators(null);
       this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+
+      this.coverDetails.controls['bifuelAmount'].patchValue('');
+      this.coverDetails.controls['bifuelAmount'].setValidators(null);
+      this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
     }
+  }
+  changeBifuel(){
+    this.coverDetails.controls['bifuelAmount'].patchValue(this.Bifuel_Kit);
   }
   UnnamedPassengersChange(){
     if (this.coverDetails.controls['UnnamedPassengersSI'].value) {
@@ -2184,6 +2204,19 @@ export class RelianceMotorProposalComponent implements OnInit {
     }
     this.coverDetails.controls['totalBasicODPremium'].updateValueAndValidity();
   }
+  totalBasicLiabilityChange(){
+    if (this.coverDetails.controls['BasicLiability'].value==true) {
+      // this.coverDetails.controls['totalBasicODPremium'].patchValue(this.coverDetails.controls['totalBasicODPremium'].value);
+
+      this.coverDetails.controls['totalBasicLiabilityPremium'].setValidators([Validators.required]);
+    } else {
+      this.coverDetails.controls['totalBasicLiabilityPremium'].patchValue('');
+
+      this.coverDetails.controls['totalBasicLiabilityPremium'].setValidators(null);
+
+    }
+    this.coverDetails.controls['totalBasicLiabilityPremium'].updateValueAndValidity();
+  }
 
   getValueVoluntary(){
     this.coverDetails.controls['totalVoluntaryPremium'].patchValue(this.voluntary_deductible);
@@ -2212,6 +2245,10 @@ export class RelianceMotorProposalComponent implements OnInit {
   getValueBasicOD(){
     this.coverDetails.controls['totalBasicODPremium'].patchValue(this.basic_od);
     console.log( this.coverDetails.controls['totalBasicODPremium'].value,'77777')
+  }
+  getValueBasicLiability(){
+    this.coverDetails.controls['totalBasicLiabilityPremium'].patchValue(this.basic_liability);
+    console.log( this.coverDetails.controls['totalBasicLiabilityPremium'].value,'77777')
   }
 
   changeElec(){

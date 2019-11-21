@@ -825,8 +825,8 @@
                                             <mat-error *ngIf="coverDetails.controls.bifueltype.errors?.required">Bifuel type is required</mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <div class="col-md-4">
-                                      <p>Staff</p>
+                                    <div class="col-md-4" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
+                                      <p>Is CPG/LPG kit ?</p>
                                       <mat-radio-group formControlName="cpgLpgKit" (selectionChange)="cpgLpgKitChange()" (change)="cpgLpgKitChange()">
                                         <mat-radio-button value="Yes" >Yes</mat-radio-button>
                                         <mat-radio-button value="No">No</mat-radio-button>
