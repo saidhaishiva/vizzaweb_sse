@@ -189,7 +189,7 @@ public electricaAccessories: boolean;
       policyNumber: '',
       previousInsured: '',
       previousdob:'',
-      isPreviousPolicyHolder:'',
+      isPreviousPolicyHolder:'No',
       voluntary:'',
       claimAmount:'',
       previousPolicyType: '',
