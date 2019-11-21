@@ -217,6 +217,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       // InsurancePremium: [''],
       PAToOwnerDriverCoverd: [''],
       NilDepreciationCoverage: [''],
+      nilDepApplyingFirstTime: [''],
       // TPPDCover: [''],
       // TPPDCoverSi: [''],
       BasicODCoverage: ['',Validators.required],
@@ -272,6 +273,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       totalBasicODPremium: [''],
       totalBasicLiabilityPremium: [''],
       bifuelAmount: [''],
+      totalDepreciationPremium: [''],
     });
 
     this.riskDetails = this.fb.group({
@@ -374,7 +376,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     if(this.coverDetails.controls['fuelType'].value == 5){
       this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
       //
-      this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+      this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
 
       this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
       this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
@@ -572,6 +574,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
 
 
+
   //dob
   addEvent(event, type) {
     if (event.value != null) {
@@ -737,7 +740,7 @@ export class RelianceMotorProposalComponent implements OnInit {
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
           'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
-          'IsNilDepApplyingFirstTime':'',
+          'IsNilDepApplyingFirstTime':this.coverDetails.controls['nilDepApplyingFirstTime'].value,
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
           "NilDepreciationCoverage": {
@@ -803,7 +806,7 @@ export class RelianceMotorProposalComponent implements OnInit {
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['bifueltype'].value ,
+              "Fueltype": this.coverDetails.controls['fuelTypeValue'].value ,
               "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ? 'true' : 'false',
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
@@ -927,6 +930,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.getValueNonElectric();
       this.getValueBasicLiability();
       this.changeBifuel();
+      this.getNildepreciationCover();
     }
   }
   public coverPreFailure(error) {
@@ -1078,8 +1082,10 @@ export class RelianceMotorProposalComponent implements OnInit {
         totalBasicODPremium: this.getStepper3.totalBasicODPremium,
         totalBasicLiabilityPremium: this.getStepper3.totalBasicLiabilityPremium,
         bifuelAmount: this.getStepper3.bifuelAmount,
+        totalDepreciationPremium: this.getStepper3.totalDepreciationPremium,
         // InsurancePremium: this.getStepper3.InsurancePremium,
         NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
+        nilDepApplyingFirstTime: this.getStepper3.nilDepApplyingFirstTime,
         // TPPDCover: this.getStepper3.TPPDCover,
         // TPPDCoverSi: this.getStepper3.TPPDCoverSi,
         BasicODCoverage: this.getStepper3.BasicODCoverage,
@@ -1133,9 +1139,9 @@ export class RelianceMotorProposalComponent implements OnInit {
 
       if (this.getStepper3.fuelType == 5) {
         this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-        this.coverDetails.controls['cpgLpgKit'].patchValue(true);
+        this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
         //
-        this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+        this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
 
         this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
         this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
@@ -1144,7 +1150,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         this.coverDetails.controls['bifueltype'].updateValueAndValidity();
       } else {
         this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
-        this.coverDetails.controls['cpgLpgKit'].patchValue(false);
+        this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
 
 
         this.coverDetails.controls['BiFuelKitSi'].patchValue('');
@@ -1573,7 +1579,7 @@ export class RelianceMotorProposalComponent implements OnInit {
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
           'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
-          'IsNilDepApplyingFirstTime':'',
+          'IsNilDepApplyingFirstTime':this.coverDetails.controls['nilDepApplyingFirstTime'].value,
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
           "NilDepreciationCoverage": {
@@ -1639,7 +1645,7 @@ export class RelianceMotorProposalComponent implements OnInit {
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['bifueltype'].value ,
+              "Fueltype": this.coverDetails.controls['fuelTypeValue'].value ,
               "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ? 'true' : 'false',
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
@@ -2099,7 +2105,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   updatenonBiFuelKit(event){
     if(event.checked){
       this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-      this.coverDetails.controls['cpgLpgKit'].patchValue(true);
+      this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
       //
       this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
 
@@ -2113,7 +2119,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
     }else {
       this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
-      this.coverDetails.controls['cpgLpgKit'].patchValue(false);
+      this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
 
 
       this.coverDetails.controls['BiFuelKitSi'].patchValue('');
@@ -2217,6 +2223,23 @@ export class RelianceMotorProposalComponent implements OnInit {
     }
     this.coverDetails.controls['totalBasicLiabilityPremium'].updateValueAndValidity();
   }
+  nilDepApplyingChange(){
+    if (this.coverDetails.controls.NilDepreciationCoverage.value == true) {
+      // this.coverDetails.controls['totalBasicODPremium'].patchValue(this.coverDetails.controls['totalBasicODPremium'].value);
+
+      this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators([Validators.required]);
+      this.coverDetails.controls['totalDepreciationPremium'].setValidators([Validators.required]);
+    } else {
+      this.coverDetails.controls['nilDepApplyingFirstTime'].patchValue('');
+      this.coverDetails.controls['totalDepreciationPremium'].patchValue('');
+
+      this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators(null);
+      this.coverDetails.controls['totalDepreciationPremium'].setValidators(null);
+
+    }
+    this.coverDetails.controls['nilDepApplyingFirstTime'].updateValueAndValidity();
+    this.coverDetails.controls['totalDepreciationPremium'].updateValueAndValidity();
+  }
 
   getValueVoluntary(){
     this.coverDetails.controls['totalVoluntaryPremium'].patchValue(this.voluntary_deductible);
@@ -2227,7 +2250,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     console.log( this.coverDetails.controls['totalPAToOwnerDriverPremium'].value,'114444')
   }
   getNildepreciationCover(){
-    this.coverDetails.controls['totalAutomobilePremium'].patchValue(this.nil_depreciation);
+    this.coverDetails.controls['totalDepreciationPremium'].patchValue(this.nil_depreciation);
     console.log( this.coverDetails.controls['totalPAToOwnerDriverPremium'].value,'114444')
   }
   getPaUnnamedPassengerCover(){

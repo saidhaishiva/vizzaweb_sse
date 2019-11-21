@@ -569,77 +569,7 @@
 
                                 </div>
                             </div>
-                           <div class="col-md-12 mt-2" >
-                            <div class="row">
-                            <div class="col-md-3">
-                                <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="getCover();getNildepreciationCover()" >Nil Depreciation </mat-checkbox>
-                            </div>
-                            <div class="col-md-4 " *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Cover Premium"  formControlName="totalDepreciationPremium"  autocomplete="off" [required]="coverDetails.controls.NilDepreciationCoverage.value == true" readonly >
-                                    <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
-                                </mat-form-field>
-                            </div>
-                            </div>
-                           </div>
-                                    <div class="col-md-12 mt-2" >
-                                        <div class="row">
-                            <div class="col-md-3">
-                                <mat-checkbox class="mt-2" formControlName="AutomobileAssociationMember" (change)="totalAutomobileAssociatioChange();getCover()">Automobile Association Membership</mat-checkbox>
-                            </div>
-                            <div class="col-md-4 " *ngIf="coverDetails.controls.AutomobileAssociationMember.value == true">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Cover Premium"  formControlName="totalAutomobilePremium"  autocomplete="off" [required]="coverDetails.controls.AutomobileAssociationMember.value == true" readonly >
-                                    <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
-                                </mat-form-field>
-                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mt-2" >
-                                        <div class="row">
-                            <div class="col-md-3">
-                                <mat-checkbox  formControlName="AntiTheftDeviceFitted" (change)="AntiTheftChange();getCover();getValueAntiTheft()">Anti-Theft Device</mat-checkbox>
-                            </div>
-                            <div class="col-md-4 " *ngIf="coverDetails.controls.AntiTheftDeviceFitted.value == true">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Cover Premium"  formControlName="totalAntiTheftPremium"  autocomplete="off" [required]="coverDetails.controls.AntiTheftDeviceFitted.value == true" readonly >
-                                    <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
-                                </mat-form-field>
-                            </div>
-                                        </div>
-                                    </div>
-                            <!--<div class="col-md-3">-->
-                                <!--<mat-checkbox  formControlName="TPPDCover" (change)="updateTppd($event)">TPPD Restrictred</mat-checkbox>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-3">-->
-                                <!--<mat-checkbox  formControlName="paPaidDriver" (change)="updatePaidDriver($event)">PA to Paid Driver</mat-checkbox>-->
-                            <!--</div>-->
-                                    <div class="col-md-12 mt-2" >
-                                        <div class="row">
-                            <div class="col-md-3">
-                                <mat-checkbox  formControlName="BasicODCoverage" (change)="totalBasicODChange();getCover();getValueBasicOD()"  required checked >Basic OD<span class="error">*</span></mat-checkbox>
-                            </div>
-                            <div class="col-md-4 " *ngIf="coverDetails.controls.BasicODCoverage.value == true">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Cover Premium"  formControlName="totalBasicODPremium"   autocomplete="off" [required]="coverDetails.controls.BasicODCoverage.value == true" readonly >
-                                    <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
-                                </mat-form-field>
-                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mt-2" >
-                                        <div class="row">
-                            <div class="col-md-3">
-                                <mat-checkbox  formControlName="BasicLiability" (change)="totalBasicLiabilityChange();getCover();getValueBasicLiability()"  required checked >Basic Liability<span class="error">*</span></mat-checkbox>
-                            </div>
-                                            <div class="col-md-4 " *ngIf="coverDetails.controls.BasicLiability.value == true">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Cover Premium"  formControlName="totalBasicLiabilityPremium"   autocomplete="off" [required]="coverDetails.controls.BasicLiability.value == true" readonly >
-                                                    <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                </mat-form-field>
-                                            </div>
-                                        </div>
-                                    </div>
+
 
                             <!--<div class="col-md-3">-->
                                 <!--<mat-checkbox  formControlName="PAToNamedPassenger" (change)="updatenpMandatory($event)">PA to Named Passenger </mat-checkbox>-->
@@ -714,7 +644,7 @@
 
                             <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
                                 <mat-form-field class="w-100">
-                                    <mat-select placeholder="Bifuel type" formControlName="bifueltype" required>
+                                    <mat-select placeholder="Bifuel Type" formControlName="bifueltype" required>
                                         <mat-option *ngFor="let type of bifueltypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="coverDetails.controls.bifueltype.errors?.required">Bifuel type is required</mat-error>
@@ -740,6 +670,84 @@
                             </div>
                         </div>
                     </div>
+                            <div class="col-md-12 mt-2" >
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="nilDepApplyingChange();getCover();getNildepreciationCover()" >Nil Depreciation </mat-checkbox>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
+                                        <p>Is Nil Depreciation Applying First Time ?<span class="error">*</span></p>
+                                        <mat-radio-group formControlName="nilDepApplyingFirstTime" (selectionChange)="nilDepApplyingChange();getCover();getNildepreciationCover()" (change)="nilDepApplyingChange();getCover();getNildepreciationCover()">
+                                            <mat-radio-button value="Yes" >Yes</mat-radio-button>
+                                            <mat-radio-button value="No">No</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="col-md-4 " *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
+                                        <mat-form-field class="w-100">
+                                            <input matInput placeholder="Cover Premium"  formControlName="totalDepreciationPremium"  autocomplete="off" [required]="coverDetails.controls.NilDepreciationCoverage.value == true" readonly >
+                                            <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2" >
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <mat-checkbox class="mt-2" formControlName="AutomobileAssociationMember" (change)="totalAutomobileAssociatioChange();getCover()">Automobile Association Membership</mat-checkbox>
+                                    </div>
+                                    <div class="col-md-4 " *ngIf="coverDetails.controls.AutomobileAssociationMember.value == true">
+                                        <mat-form-field class="w-100">
+                                            <input matInput placeholder="Cover Premium"  formControlName="totalAutomobilePremium"  autocomplete="off" [required]="coverDetails.controls.AutomobileAssociationMember.value == true" readonly >
+                                            <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2" >
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <mat-checkbox  formControlName="AntiTheftDeviceFitted" (change)="AntiTheftChange();getCover();getValueAntiTheft()">Anti-Theft Device</mat-checkbox>
+                                    </div>
+                                    <div class="col-md-4 " *ngIf="coverDetails.controls.AntiTheftDeviceFitted.value == true">
+                                        <mat-form-field class="w-100">
+                                            <input matInput placeholder="Cover Premium"  formControlName="totalAntiTheftPremium"  autocomplete="off" [required]="coverDetails.controls.AntiTheftDeviceFitted.value == true" readonly >
+                                            <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="col-md-3">-->
+                            <!--<mat-checkbox  formControlName="TPPDCover" (change)="updateTppd($event)">TPPD Restrictred</mat-checkbox>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-3">-->
+                            <!--<mat-checkbox  formControlName="paPaidDriver" (change)="updatePaidDriver($event)">PA to Paid Driver</mat-checkbox>-->
+                            <!--</div>-->
+                            <div class="col-md-12 mt-2" >
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <mat-checkbox  formControlName="BasicODCoverage" (change)="totalBasicODChange();getCover();getValueBasicOD()"  required checked >Basic OD<span class="error">*</span></mat-checkbox>
+                                    </div>
+                                    <div class="col-md-4 " *ngIf="coverDetails.controls.BasicODCoverage.value == true">
+                                        <mat-form-field class="w-100">
+                                            <input matInput placeholder="Cover Premium"  formControlName="totalBasicODPremium"   autocomplete="off" [required]="coverDetails.controls.BasicODCoverage.value == true" readonly >
+                                            <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2" >
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <mat-checkbox  formControlName="BasicLiability" (change)="totalBasicLiabilityChange();getCover();getValueBasicLiability()"  required checked >Basic Liability<span class="error">*</span></mat-checkbox>
+                                    </div>
+                                    <div class="col-md-4 " *ngIf="coverDetails.controls.BasicLiability.value == true">
+                                        <mat-form-field class="w-100">
+                                            <input matInput placeholder="Cover Premium"  formControlName="totalBasicLiabilityPremium"   autocomplete="off" [required]="coverDetails.controls.BasicLiability.value == true" readonly >
+                                            <!--<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
 
@@ -1195,6 +1203,8 @@
                               <h2 class="color-blue m-2">Nil Depreciation</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage != ''"><strong>Nil Depreciation:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == true">Yes</span><span *ngIf="coverFormData.NilDepreciationCoverage == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.nilDepApplyingFirstTime != '' && coverFormData.NilDepreciationCoverage ==true "><strong>Is Nil Depreciation Applying First Time ?:</strong> {{coverFormData.nilDepApplyingFirstTime}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalDepreciationPremium != '' && coverFormData.NilDepreciationCoverage ==true "><strong>Cover Premium:</strong> {{coverFormData.totalDepreciationPremium}}</li>
 <!--                                  <li class="list-group-item" *ngIf="coverFormData.applicableRate != '' && coverFormData.NilDepreciationCoverage == true "><strong>Applicable Rate:</strong> {{coverFormData.applicableRate}}</li>-->
 
                               </ul>
