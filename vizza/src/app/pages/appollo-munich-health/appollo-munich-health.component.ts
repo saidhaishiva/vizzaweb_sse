@@ -166,6 +166,9 @@ export class AppolloMunichComponent implements OnInit {
     public insuredFormData : any;
     public nomineeFormData : any;
     public Prospect : any;
+    public state : any;
+    public nominee_state : any;
+    public marital_status : any;
     currentStep: any;
     proofValid: any;
     proposal_Id: any;
@@ -2478,6 +2481,10 @@ export class AppolloMunichComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'group_name': this.getFamilyDetails.name,
+            'state': this.proposer.controls['proposerState'].value,
+            'nominee_state':this.nomineeData.nomineeState,
+            'marital_status': this.proposer.controls['maritalStatusName'].value,
+
             'paymentlink-date': '',
             'ProposalCaptureServiceRequest': {
                 'Prospect': {
@@ -2669,6 +2676,9 @@ export class AppolloMunichComponent implements OnInit {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
             this.RediretUrlLink = this.requestDetails.PaymentURL;
+            this.state = this.requestDetails.state;
+            this.nominee_state = this.requestDetails.nominee_state;
+            this.marital_status = this.requestDetails.marital_status;
             console.log(this.requestDetails, 'requestDetailsrequestDetails');
             this.pos_status = this.requestDetails.role_id;
             console.log(this.pos_status , 'requestDetailsrequestDetails');

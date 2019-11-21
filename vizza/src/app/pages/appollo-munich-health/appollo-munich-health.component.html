@@ -1007,14 +1007,16 @@
                     <div class="p-3">
                       <h6></h6>
                       <ul class="m-0 list-group">
+
+
                         <li class="list-group-item"><strong>Name:</strong><span *ngIf="proposerList.TitleCode == 'MR'">Mr</span> <span *ngIf="proposerList.TitleCode == 'MRS'">Mrs</span><span *ngIf="proposerList.TitleCode == 'MISS'">Miss</span> {{proposerList.FirstName}} {{proposerList.MiddleName}} {{proposerList.LastName}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerList.BirthDate | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Email Id:</strong> {{proposerList.ContactInformation.Email}}</li>
                         <!--<li class="list-group-item" *ngIf="proposerList.ContactInformation.ContactNumber.ContactNumber.Number != ''"><strong>Mobile Number:</strong> {{proposerList.ContactInformation.ContactNumber.ContactNumber.Number}}</li>-->
                         <li class="list-group-item"><strong>Gender:</strong>{{proposerList.GenderCode}}</li>
-                        <li class="list-group-item"><strong>Marital Status:</strong> {{proposerList.MaritalStatusCode}}</li>
-                        <!--<li class="list-group-item" *ngIf="proposerList.IDProofTypeCode != ''"><strong> Select ID Proof :</strong> {{proposerList.IDProofTypeCode  | uppercase }}</li>-->
-                        <!--<li class="list-group-item" *ngIf="proposerList.IDProofNumber != ''"><strong>Select ID Proof Number:</strong> {{proposerList.IDProofNumber  | uppercase}}</li>-->
+                        <li class="list-group-item"><strong>Marital Status:</strong> {{marital_status}}</li>
+                        <li class="list-group-item" *ngIf="proposerList.IDProofTypeCode != ''"><strong> Select ID Proof :</strong> {{proposerList.IDProofTypeCode  | uppercase }}</li>
+                        <li class="list-group-item" *ngIf="proposerList.IDProofNumber != ''"><strong>Select ID Proof Number:</strong> {{proposerList.IDProofNumber  | uppercase}}</li>
                         <!--<li class="list-group-item" *ngIf="proposerList.proposerGst != ''"><strong>GST:</strong> {{proposerList.proposerGst | uppercase}}</li>-->
                       </ul>
                     </div>
@@ -1024,12 +1026,12 @@
                       <h6>COMMUNICATION DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Address 1:</strong> {{proposerList.Address.Address.AddressLine1}}</li>
-                        <li class="list-group-item" *ngIf="proposerList.Address.Address.AddressLine2 != ''"><strong>Address 2:</strong> {{proposerList.Address.Address.AddressLine2}}</li>
-                        <li class="list-group-item" *ngIf="proposerList.Address.Address.AddressLine3 != ''"><strong>Address 3:</strong> {{proposerList.Address.Address.AddressLine3}}</li>
+                        <li class="list-group-item" *ngIf="proposerList.Address.Address.AddressLine2!= ''"><strong>Address 2:</strong> {{proposerList.Address.Address.AddressLine2}}</li>
+                        <li class="list-group-item" *ngIf="proposerList.Address.Address.AddressLine3!= ''"><strong>Address 3:</strong> {{proposerList.Address.Address.AddressLine3}}</li>
                         <li class="list-group-item"><strong>PIN code:</strong> {{proposerList.Address.Address.PinCode}}</li>
                         <li class="list-group-item" ><strong>City:</strong> {{proposerList.Address.Address.CityName}}</li>
-                        <li class="list-group-item" *ngIf="proposerList.Address.Address.DistrictName != ''" ><strong>District:</strong> {{proposerList.Address.Address.DistrictName}}</li>
-                        <li class="list-group-item"><strong>State:</strong> {{proposerList.Address.Address.StateCode}}</li>
+                        <li class="list-group-item" *ngIf="proposerList.Address.Address.DistrictName!= ''" ><strong>District:</strong> {{proposerList.Address.Address.DistrictName}}</li>
+                        <li class="list-group-item"><strong>State:</strong> {{state}}</li>
                         <li class="list-group-item"><strong>Country:</strong>INDIA</li>
                       </ul>
                     </div>
@@ -1052,7 +1054,7 @@
               <li class="list-group-item"><strong>Mobile Number:</strong> {{item.ContactInformation.ContactNumber.ContactNumber.Number}}</li>
               <li class="list-group-item"><strong>Gender:</strong> {{item.GenderCode}} </li>
               <li class="list-group-item"><strong>Marital Status:</strong> {{item.maritalStatusName}}</li>
-              <li class="list-group-item" ><strong>Occupation:</strong> {{item.ProposeroccupationName}}</li>
+              <li class="list-group-item" *ngIf="item.ProposeroccupationName != '' && item.ProposeroccupationName !=null"><strong>Occupation:</strong> {{item.ProposeroccupationName}}</li>
               </ul>
               </div>
               </div>
@@ -1064,12 +1066,12 @@
               <li class="list-group-item"><strong>Relationship:</strong> {{item.proposerrelationshipName}}</li>
                 <li class="list-group-item"><strong>Height:</strong> {{item.Height}}</li>
                 <li class="list-group-item"><strong>Weight:</strong> {{item.Weight}}</li>
-              <!--<li class="list-group-item" *ngIf="item.proposerIdProofName != '' && item.proposerIdProofName != null"><strong>Select ID Proof:</strong> {{item.proposerIdProofName  | uppercase}}</li>-->
-              <!--<li class="list-group-item" *ngIf="item.proposerIdProofIdP != '' && item.proposerIdProofIdP != null"><strong>ID Proof Number:</strong> {{item.proposerIdProofIdP  | uppercase}}</li>-->
-              <!--<li class="list-group-item" *ngIf="item.proposerGst != '' && item.proposerGst != null"><strong>GST:</strong> {{item.proposerGst | uppercase}}</li>-->
-              <!--<li class="list-group-item" *ngIf="item.proposerAnnualIncome != '' && item.proposerAnnualIncome != null"><strong>Annual Income:</strong> {{item.proposerAnnualIncome}}</li>-->
-              <!--<li class="list-group-item" *ngIf="item.proposerFamilySize != '' && item.proposerFamilySize != null"><strong>Family Size:</strong> {{item.proposerFamilySize}}</li>-->
-              <!--<li class="list-group-item" *ngIf="item.ProffessionListName != '' && item.ProffessionListName != null"><strong>Profession:</strong> {{item.ProffessionListName}}</li>-->
+              <li class="list-group-item" *ngIf="item.proposerIdProofName != '' && item.proposerIdProofName != null"><strong>Select ID Proof:</strong> {{item.proposerIdProofName  | uppercase}}</li>
+              <li class="list-group-item" *ngIf="item.proposerIdProofIdP != '' && item.proposerIdProofIdP != null"><strong>ID Proof Number:</strong> {{item.proposerIdProofIdP  | uppercase}}</li>
+              <li class="list-group-item" *ngIf="item.proposerGst != '' && item.proposerGst != null"><strong>GST:</strong> {{item.proposerGst | uppercase}}</li>
+              <li class="list-group-item" *ngIf="item.proposerAnnualIncome != '' && item.proposerAnnualIncome != null"><strong>Annual Income:</strong> {{item.proposerAnnualIncome}}</li>
+              <li class="list-group-item" *ngIf="item.proposerFamilySize != '' && item.proposerFamilySize != null"><strong>Family Size:</strong> {{item.proposerFamilySize}}</li>
+              <li class="list-group-item" *ngIf="item.ProffessionListName != '' && item.ProffessionListName != null"><strong>Profession:</strong> {{item.ProffessionListName}}</li>
               </ul>
               </div>
               </div>
@@ -1079,9 +1081,9 @@
               <h6>COMMUNICATION DETAILS</h6>
               <ul class="m-0 list-group">
               <li class="list-group-item"><strong>Address 1:</strong> {{item.Address.Address.AddressLine1}}</li>
-              <li class="list-group-item" ><strong>Address 2:</strong> {{item.Address.Address.AddressLine2}}</li>
-              <li class="list-group-item" ><strong>Address 3:</strong> {{item.Address.Address.AddressLine3}}</li>
-              <li class="list-group-item-item" ><strong>City:</strong> {{item.proposerCityName}}</li>
+              <li class="list-group-item" *ngIf="item.Address.Address.AddressLine2 != '' && item.Address.Address.AddressLine2 != null"><strong>Address 2:</strong> {{item.Address.Address.AddressLine2}}</li>
+              <li class="list-group-item" *ngIf="item.Address.Address.AddressLine3 != '' && item.Address.Address.AddressLine3 != null"><strong>Address 3:</strong> {{item.Address.Address.AddressLine3}}</li>
+              <li class="list-group-item" *ngIf="item.Address.Address.CityName != ''"><strong>City:</strong> {{item.Address.Address.CityName}}</li>
               </ul>
               </div>
               </div>
@@ -1089,41 +1091,41 @@
               <div class="p-3">
               <h6 class="mt-4"></h6>
               <ul class="m-0 list-group">
-              <li class="list-group-item" ><strong>District:</strong> {{item.Address.Address.proposerDistrict}}</li>
-              <li class="list-group-item" ><strong>State:</strong> {{item.Address.Address.proposerState}}</li>
+              <li class="list-group-item" ><strong>District:</strong> {{item.Address.Address.DistrictName}}</li>
+              <li class="list-group-item" ><strong>State:</strong> {{state}}</li>
               <!--<li class="list-group-item" ><strong>Country:</strong> INDIA</li>-->
-              <li class="list-group-item" ><strong>PIN code:</strong> {{item.Address.Address.proposerPincode}}</li>
+              <li class="list-group-item" ><strong>PIN code:</strong> {{item.Address.Address.PinCode}}</li>
               </ul>
               </div>
               </div>
-              <div class="col-md-6" *ngIf="item.personalHabit">
-              <!--<div class="p-3" *ngIf="(item.Smoking != '' && item.Smoking != 0) || (item.Pouches != '' && item.Pouches != 0) || (item.LiquorPeg != '' && item.LiquorPeg != 0 && item.LiquorPeg != undefined || && item.LiquorPeg != null) || (item.WineGlass != '' && item.WineGlass != 0 && item.WineGlass != undefined && item.WineGlass != null) || (item.BeerBottle != ''  && item.BeerBottle != 0 && item.BeerBottle != undefined && item.BeerBottle != null)">-->
-              <div class="p-3">
-              <h6>PERSONAL HABITS</h6>
-              <ul class="m-0 list-group">
-              <!--<li class="list-group-item" *ngIf="item.Smoking != '' && item.Smoking != 0"><strong>Smoking:</strong>{{item.Smoking}}</li>-->
-              <!--<li class="list-group-item"  *ngIf="item.Pouches != '' && item.Pouches != 0" ><strong>Pouches:</strong> {{item.Pouches}}</li>-->
-              <!--<li class="list-group-item" *ngIf="item.LiquorPeg != '' && item.LiquorPeg != 0"><strong>Liquor Peg:</strong> {{item.LiquorPeg}}</li>-->
-              <!--<li class="list-group-item" *ngIf="item.WineGlass != '' && item.WineGlass != 0"><strong>Wine Glass:</strong> {{item.WineGlass}}</li>-->
-              <!--<li class="list-group-item" *ngIf="item.BeerBottle != '' && item.BeerBottle != 0"><strong>Beer Bottle:</strong> {{item.BeerBottle}}</li>-->
-              </ul>
-              </div>
-              </div>
-              <div class="col-md-6" *ngIf="previousDetails">
-              <div class="p-3">
-              <h6>PREVIOUS INSURER DETAILS</h6>
-              <ul class="m-0 list-group">
-              <!--<li class="list-group-item" *ngIf="item.InceptionDate != ''"><strong>Policy Start Date:</strong> {{item.PolicyStartDate  | date: 'dd/MM/yyyy'}}</li>-->
-              <!--<li class="list-group-item" *ngIf="item.EndDate != ''"><strong>Policy End Date:</strong> {{item.PolicyEndDate  | date: 'dd/MM/yyyy'}}</li>-->
-              <!--<li class="list-group-item" *ngIf="item.PreviousInsurer != ''"><strong>Previous Insurer:</strong> {{item.PreviousInsurer}}</li>-->
-              <!--<li class="list-group-item" ><strong>Previous Policy No:</strong> {{item.PreviousPolicyNumber}}</li>-->
-              <!--<li class="list-group-item"><strong>Sum Insured:</strong> {{item.SumInsured}}</li>-->
-              <!--<li class="list-group-item"  *ngIf="item.QualifyingAmount != '' && item.QualifyingAmount != 0 "><strong>Qualifying Amount:</strong> {{item.QualifyingAmount}}</li>-->
-              <!--<li class="list-group-item"  *ngIf="item.WaivePeriod != ''"><strong>Waive Period:</strong> {{item.WaivePeriod}}</li>-->
-              <!--<li class="list-group-item"  *ngIf="item.Remarks != ''"><strong>Remark Details:</strong> {{item.Remarks}}</li>-->
-              </ul>
-              </div>
-              </div>
+              <!--<div class="col-md-6" *ngIf="item.personalHabit">-->
+              <!--&lt;!&ndash;<div class="p-3" *ngIf="(item.Smoking != '' && item.Smoking != 0) || (item.Pouches != '' && item.Pouches != 0) || (item.LiquorPeg != '' && item.LiquorPeg != 0 && item.LiquorPeg != undefined || && item.LiquorPeg != null) || (item.WineGlass != '' && item.WineGlass != 0 && item.WineGlass != undefined && item.WineGlass != null) || (item.BeerBottle != ''  && item.BeerBottle != 0 && item.BeerBottle != undefined && item.BeerBottle != null)">&ndash;&gt;-->
+              <!--<div class="p-3">-->
+              <!--<h6>PERSONAL HABITS</h6>-->
+              <!--<ul class="m-0 list-group">-->
+              <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.Smoking != '' && item.Smoking != 0"><strong>Smoking:</strong>{{item.Smoking}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item"  *ngIf="item.Pouches != '' && item.Pouches != 0" ><strong>Pouches:</strong> {{item.Pouches}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.LiquorPeg != '' && item.LiquorPeg != 0"><strong>Liquor Peg:</strong> {{item.LiquorPeg}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.WineGlass != '' && item.WineGlass != 0"><strong>Wine Glass:</strong> {{item.WineGlass}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.BeerBottle != '' && item.BeerBottle != 0"><strong>Beer Bottle:</strong> {{item.BeerBottle}}</li>&ndash;&gt;-->
+              <!--</ul>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-md-6" *ngIf="previousDetails">-->
+              <!--<div class="p-3">-->
+              <!--<h6>PREVIOUS INSURER DETAILS</h6>-->
+              <!--<ul class="m-0 list-group">-->
+              <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.InceptionDate != ''"><strong>Policy Start Date:</strong> {{item.PolicyStartDate  | date: 'dd/MM/yyyy'}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.EndDate != ''"><strong>Policy End Date:</strong> {{item.PolicyEndDate  | date: 'dd/MM/yyyy'}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.PreviousInsurer != ''"><strong>Previous Insurer:</strong> {{item.PreviousInsurer}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item" ><strong>Previous Policy No:</strong> {{item.PreviousPolicyNumber}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item"><strong>Sum Insured:</strong> {{item.SumInsured}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item"  *ngIf="item.QualifyingAmount != '' && item.QualifyingAmount != 0 "><strong>Qualifying Amount:</strong> {{item.QualifyingAmount}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item"  *ngIf="item.WaivePeriod != ''"><strong>Waive Period:</strong> {{item.WaivePeriod}}</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-group-item"  *ngIf="item.Remarks != ''"><strong>Remark Details:</strong> {{item.Remarks}}</li>&ndash;&gt;-->
+              <!--</ul>-->
+              <!--</div>-->
+              <!--</div>-->
               </div>
               </section>
               <section>
@@ -1150,7 +1152,7 @@
               <div class="col-md-12">
               <ul class="m-0 list-group">
               <li class="list-group-item"><strong>Pin Code:</strong> {{nomineeList.NomineeAddress.PinCode}}</li>
-              <li class="list-group-item"><strong>State:</strong> {{nomineeList.NomineeAddress.StateCode}}</li>
+              <li class="list-group-item"><strong>State:</strong> {{nominee_state}}</li>
               <li class="list-group-item" *ngIf="nomineeList.NomineeAddress.nomineeDistrictName != ''"><strong>District:</strong> {{nomineeList.NomineeAddress.nomineeDistrictName}}</li>
               <li class="list-group-item"><strong>City:</strong> {{nomineeList.NomineeAddress.nomineeCityName}}</li>
               </ul>
