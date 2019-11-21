@@ -1452,6 +1452,7 @@ changeNonElect(){
         ElectricalItemsTotalSI: this.getStepper3.ElectricalItemsTotalSI,
         NonElectricalItemsTotalSI: this.getStepper3.NonElectricalItemsTotalSI,
         BiFuelKitSi: this.getStepper3.BiFuelKitSi,
+        bifuelAmount: this.getStepper3.bifuelAmount,
         bifueltype: this.getStepper3.bifueltype,
         cpgLpgKit: this.getStepper3.cpgLpgKit,
         fittngType: this.getStepper3.fittngType,
