@@ -1053,7 +1053,7 @@ changeNonElect(){
             this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
         }else {
             this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
-            this.coverDetails.controls['cpgLpgKit'].patchValue(true);
+            this.coverDetails.controls['cpgLpgKit'].patchValue('Yes');
 
 
 
@@ -1066,6 +1066,20 @@ changeNonElect(){
             this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
         }
     }
+
+  cpgLpgKitChange(){
+    if(this.coverDetails.controls.cpgLpgKit.value == 'Yes'){
+      this.coverDetails.controls['fittngType'].patchValue(this.coverDetails.controls['fittngType'].value);
+      this.coverDetails.controls['fittngType'].setValidators([Validators.required]);
+      this.coverDetails.controls['fittngType'].updateValueAndValidity();
+
+    }else {
+      this.coverDetails.controls['fittngType'].patchValue('');
+      this.coverDetails.controls['fittngType'].setValidators(null);
+      this.coverDetails.controls['fittngType'].updateValueAndValidity();
+
+    }
+  }
     changeBifuel(){
       this.coverDetails.controls['bifuelAmount'].patchValue(this.Bifuel_Kit);
     }
@@ -1905,7 +1919,7 @@ changeNonElect(){
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
               "Fueltype": this.coverDetails.controls['bifueltype'].value ,
-              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ? 'true' : 'false',
+              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ,
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
               "NoOfItems": "",
@@ -2233,7 +2247,7 @@ changeNonElect(){
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
               "Fueltype": this.coverDetails.controls['bifueltype'].value,
-              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ? 'true' : 'false',
+              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ,
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
               "NoOfItems": "",
