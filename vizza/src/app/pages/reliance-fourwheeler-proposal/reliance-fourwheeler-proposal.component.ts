@@ -477,9 +477,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.coverDetails.controls['fuelTypeValue'].patchValue(this.fuelTypeList[this.coverDetails.controls['fuelType'].value]);
     if(this.coverDetails.controls['fuelType'].value == 5){
         this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-      this.coverDetails.controls['cpgLpgKit'].patchValue(true);
+      this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
         //
-        this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+        this.coverDetails.controls['BiFuelKitSi'].patchValue( this.coverDetails.controls['BiFuelKitSi'].value);
 
         this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
         this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
@@ -488,7 +488,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.coverDetails.controls['bifueltype'].updateValueAndValidity();
       }else {
         this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
-      this.coverDetails.controls['cpgLpgKit'].patchValue(false);
+      this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
 
 
       this.coverDetails.controls['BiFuelKitSi'].patchValue('');
@@ -1053,7 +1053,7 @@ changeNonElect(){
             this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
         }else {
             this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
-            this.coverDetails.controls['cpgLpgKit'].patchValue('Yes');
+            this.coverDetails.controls['cpgLpgKit'].patchValue('');
 
 
 
@@ -1499,7 +1499,7 @@ changeNonElect(){
       if (this.getStepper3.fuelType == 5) {
         this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
         //
-        this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+        this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
 
         this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
         this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
@@ -1919,8 +1919,8 @@ changeNonElect(){
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['bifueltype'].value ,
-              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ,
+              "Fueltype": this.coverDetails.controls['fuelTypeValue'].value ,
+              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value? 'true' : 'false' ,
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
               "NoOfItems": "",
@@ -2247,8 +2247,8 @@ changeNonElect(){
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['bifueltype'].value,
-              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ,
+              "Fueltype": this.coverDetails.controls['fuelTypeValue'].value,
+              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ?'true' : 'false',
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
               "NoOfItems": "",

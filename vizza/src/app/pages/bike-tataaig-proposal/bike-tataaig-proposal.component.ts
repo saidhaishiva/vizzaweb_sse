@@ -114,6 +114,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public checkId: any;
     public checkValue: any;
     public ispreviousPolicy1: any;
+    public policy_start: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -1320,6 +1321,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.QuoteRoadsideassistance=this.Quotelist.productlist.addons.Roadside_Assistance;
             this.electriaccSuminsured=this.Quotelist.productlist.addons.Electrical_accessories;
             this.nonElectriaccSuminsured=this.Quotelist.productlist.addons.NonElectrical_accessories;
+            this.policy_start=this.Quotelist.productlist.policy_start;
             console.log(this.QuoteAss,'amount')
             this.chaneauto();
             this.chaneanti();
@@ -1354,7 +1356,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             'package_type': this.premium,
             "motorproposalObj": {
                 "quotation_no": this.quotationNo,
-                "pol_sdate": this.enquiryFormData.business_type == '1' ? this.datepipe.transform(this.minDate, 'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
+                // "pol_sdate": this.enquiryFormData.business_type == '1' ? this.datepipe.transform(this.minDate, 'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
+                "pol_sdate": this.enquiryFormData.business_type == '1' ? this.datepipe.transform(this.minDate, 'yMMdd') : this.policy_start,
                 "sp_name": "Name",
                 "sp_license": "Lino12345566",
                 "sp_place": "Mahbubnagar",
