@@ -37,13 +37,11 @@ export class EditMetaDetailComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   items: item[] = [];
 
-
   constructor(public config: ConfigurationService, public common:CommonService, public auth: AuthService, public fb: FormBuilder, public branchservice: BranchService,public datepipe: DatePipe, private toastr: ToastrService,public router: Router,public route: ActivatedRoute) {
     this.route.params.forEach((params: Params) => {
       this.metaid = params.id;
     });
     console.log(this.metaid,'ddd');
-
     this.metaDetail = this.fb.group({
       component: ['', Validators.required],
       title: ['', Validators.required],

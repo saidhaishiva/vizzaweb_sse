@@ -23,6 +23,7 @@ export interface item {
   templateUrl: './add-meta-detail.component.html',
   styleUrls: ['./add-meta-detail.component.scss']
 })
+
 export class AddMetaDetailComponent implements OnInit {
   public metaDetail: FormGroup;
   public itemShow = [];
