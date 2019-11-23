@@ -499,6 +499,7 @@ export class StarHealthProposalComponent implements OnInit {
     public setRelationshipSuccess(successData) {
         if (successData.IsSuccess) {
             this.relationshipList = successData.ResponseObject;
+            console.log(this.relationshipList,'relationshipList.......')
         }
     }
     public setRelationshipFailure(error) {
@@ -524,6 +525,7 @@ export class StarHealthProposalComponent implements OnInit {
     public setNomieRelationshipSuccess(successData) {
         if (successData.IsSuccess) {
             this.relationshipListNomine = successData.ResponseObject;
+         console.log(this.relationshipListNomine, 'nominee relation');
         }
     }
     public setNomieRelationshipFailure(error) {
@@ -863,11 +865,17 @@ export class StarHealthProposalComponent implements OnInit {
     }
     selectProposerRelation(index) {
         this.familyMembers[index].ins_relationship_name = this.relationshipList[this.familyMembers[index].ins_relationship];
+        console.log(this.familyMembers[index].ins_relationship_name,'ins_relationship_name');
+        console.log(this.relationshipList[this.familyMembers[index].ins_relationship],'ins_relationship_name232424');
         if(sessionStorage.nomineeDate != '' && sessionStorage.nomineeDate !=undefined) {
             let nominee = JSON.parse(sessionStorage.nomineeDate);
+            console.log(nominee[0].nominee[0].nrelationship,'nominee[0].nominee[0].nrelationship');
             if(nominee[0].nominee[0].nrelationship !='') {
                 this.nomineeDate[0].nominee[0].nrelationship = '';
             }
+            console.log(nominee[0].nominee.length, 'nominee length');
+            console.log(nominee[1].nominee[1].arelationship, 'nominee length4535');
+
             if(nominee[0].nominee.length > 1 && nominee[1].nominee[1].arelationship !='') {
                 this.nomineeDate[1].nominee[1].arelationship = '';
             }
@@ -983,9 +991,11 @@ export class StarHealthProposalComponent implements OnInit {
                 this.healthStarTrue2 = false;
             }
         }
-        if(this.familyMembers.length == 1){
-            this.sameRelationship = this.familyMembers[0].ins_relationship;
-        }
+        // if(this.familyMembers.length == 1){
+        //     alert('same relation');
+        //     this.sameRelationship = this.familyMembers[0].ins_relationship;
+        //     console.log(this.sameRelationship,'same relationship')
+        // }
     }
     typeAge(value, index, ci) {
         if (value < 18 && value != '') {
@@ -1724,6 +1734,7 @@ export class StarHealthProposalComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'proposal_id' : this.proposalId,
             'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'user_id':this.getFamilyDetails.enquiry_id,
             'group_name':  this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
             'product_id': this.buyProductdetails.product_id,

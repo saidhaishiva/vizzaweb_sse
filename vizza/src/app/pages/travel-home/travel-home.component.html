@@ -13,7 +13,9 @@
               <img src="assets/img/Travel-Inner-banner.png" class="w-100">
               <div class="aboutContent">
                 <h4>About Travel Insurance</h4>
-                <p style="text-align: left;">Sometimes, things don’t go as planned. Wherever you go, we protect you.… <button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow" style="color: #000000;">Know more</a></span></button></p>
+                <p style="text-align: left;">Sometimes, things don’t go as planned. Wherever you go, we protect you...… <button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow" style="color: #000000;">Know more</a></span></button></p>
+
+                <!--<p style="text-align: left;">Sometimes, things don’t go as planned. Wherever you go, we protect you.… <button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow" style="color: #000000;">Know more</a></span></button></p>-->
               </div>
             </div>
           </div>
@@ -137,9 +139,9 @@
                           </div>
                           <div class="col-md-6">
                             <mat-radio-button value="30">30</mat-radio-button>
-                            <mat-radio-button value="45">45</mat-radio-button>
-                            <mat-radio-button value="60">60</mat-radio-button>
-                            <mat-radio-button value="90">90</mat-radio-button>
+                            <mat-radio-button value="45" style="padding-left: 10px;">45</mat-radio-button>
+                            <mat-radio-button value="60" style="padding-left: 10px;">60</mat-radio-button>
+                            <mat-radio-button value="90" style="padding-left: 10px;">90</mat-radio-button>
                           </div>
                         </div>
                       </mat-radio-group>
@@ -151,7 +153,7 @@
                         </div>
                         <div class="col-md-7">
                           <mat-radio-button value="1">Yes</mat-radio-button>
-                          <mat-radio-button value="0">No</mat-radio-button>
+                          <mat-radio-button value="0" style ="padding-left: 35px;">No</mat-radio-button>
                         </div>
                       </div>
                     </mat-radio-group>
@@ -162,7 +164,8 @@
                     </mat-form-field>
                     <div *ngIf="pinerror" class="ngError">Required</div>
                     <div fxLayoutAlign="center center" class="mt-3">
-                      <button mat-raised-button color="accent" class="btn-color" type="button" [disabled]="!travelProceed" (click)="submit('self')">Proceed</button>
+                      <!--<button mat-raised-button color="accent" class="btn-color" type="button" [disabled]="!travelProceed" (click)="submit('self')">Proceed</button>-->
+                      <button mat-raised-button color="accent" class="btn-color" type="button"  (click)="submit('self')">Proceed</button>
                       <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>
                     </div>
                   </div>
@@ -277,9 +280,9 @@
                           </div>
                           <div class="col-md-6">
                             <mat-radio-button value="30">30</mat-radio-button>
-                            <mat-radio-button value="45">45</mat-radio-button>
-                            <mat-radio-button value="60">60</mat-radio-button>
-                            <mat-radio-button value="90">90</mat-radio-button>
+                            <mat-radio-button value="45" style="padding-left: 10px;">45</mat-radio-button>
+                            <mat-radio-button value="60" style="padding-left: 10px;">60</mat-radio-button>
+                            <mat-radio-button value="90" style="padding-left: 10px;">90</mat-radio-button>
                           </div>
                         </div>
                       </mat-radio-group>
@@ -291,7 +294,7 @@
                         </div>
                         <div class="col-md-7">
                           <mat-radio-button value="1">Yes</mat-radio-button>
-                          <mat-radio-button value="0" class="mr-1">No</mat-radio-button>
+                          <mat-radio-button value="0" class="mr-1" style ="padding-left: 35px;">No</mat-radio-button>
                         </div>
                       </div>
                     </mat-radio-group>
@@ -309,7 +312,8 @@
                     <!--</div>-->
 
                     <div fxLayoutAlign="center center" class="mt-3">
-                      <button mat-raised-button color="accent" class="btn-color" type="button" [disabled]="!travelProceed" (click)="submit('family')">Proceed</button>
+                      <!--<button mat-raised-button color="accent" class="btn-color" type="button" [disabled]="!travelProceed" (click)="submit('family')">Proceed</button>-->
+                      <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed</button>
                       <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>
                     </div>
 
@@ -688,17 +692,27 @@
             <h3 class="text-center" style="color: #9769DF"><img src="assets/img/travel-insurance.png" class="logo-size"> About Travel Insurance</h3>
           </div>
           <h3>OVERSEAS TRAVEL INSURANCE</h3>
-          <p>This insurance covers medical expenses incurred whilst travelling abroad for business / holiday / employment / studies. The claims are settled abroad in foreign currency but the  premium has to be paid in rupees. Policies are available for corporate frequent travellers on an annualized basis also.</p>
-          <p>The Overseas Travel Health insurance policy covers medical expenses incurred by the insured person, outside India as a direct result of bodily injuries caused or sickness or disease contracted. There are several plans available in the market based on the purpose of travel and sum insured required. If the plan / travelling person requires a medical examination for issuance of the policy the proposer will be requested to undergo prescribed medical examination at their own cost.</p>
-          <p>The Overseas Travel insurance generally has the following covers.</p>
+          <p>Overseas travel insurance protects a group of people, individual travelling together, individually
+            against any medical and other travel-related issues. This policy offers coverage for emergency
+            medical and health expenses, lost baggage and more. The key areas that is covered under this
+            policy are</p>
           <ul class="col-sm-12">
-            <li>Personal Accident </li>
-            <li>Loss of checked in Baggage</li>
-            <li>Delay of checked in Baggage</li>
-            <li>Loss of passport</li>
-            <li>Personal Liability</li>
+            <li>Cover for emergency medical deportation, evacuation, repatriation </li>
+            <li>Baggage Loss</li>
+            <li>Cover for key documents such as passport etc.</li>
+            <li>Cover against hijack disaster and other catastrophes</li>
+
           </ul>
-          <p>The Premium depends on the Age-band, Trip-band and Country of visits.  The Insurance also allows extension  on original policy for a further period if the stay is extended  and is   subject to declaration of good health by the insured. The policy is to be taken prior to departure from India. It is also essential that if there has been a pre issuance medical examination of the travelling person the medical records have to be taken along with the travel documents.</p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <br>
+          <br>
+
+          <p class="know-note-content"> NOTE: THE BRIEF WRITE UP YOU FIND IN THIS WEBSITE FOR VARIOUS POLICIES
+            IS ONLY A SYNOPSIS. THE DETAIL EXTENT OF COVERAGE WITH THE TERMS &
+            CONDITIONS WILL BE SENT BY US TO YOUR MAIL ID ON REQUEST TO US. PLEASE
+            MAIL TO CUSTOMERCARE@VIZZAFIN.COM</p>
         </div>
       </div>
     </section>
@@ -839,10 +853,10 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                          <mat-radio-button value="30">30</mat-radio-button>
-                          <mat-radio-button value="45">45</mat-radio-button>
-                          <mat-radio-button value="60">60</mat-radio-button>
-                          <mat-radio-button value="90">90</mat-radio-button>
+                          <mat-radio-button value="30" style="padding-left: 10px;">30</mat-radio-button>
+                          <mat-radio-button value="45" style="padding-left: 10px;">45</mat-radio-button>
+                          <mat-radio-button value="60" style="padding-left: 10px;">60</mat-radio-button>
+                          <mat-radio-button value="90" style="padding-left: 10px;">90</mat-radio-button>
                         </div>
                       </div>
                     </mat-radio-group>
@@ -856,7 +870,7 @@
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <mat-radio-button value="1">Yes</mat-radio-button>
-                        <mat-radio-button value="0">No</mat-radio-button>
+                        <mat-radio-button value="0" style ="padding-left: 35px;">No</mat-radio-button>
                       </div>
                     </div>
                   </mat-radio-group>
@@ -867,7 +881,8 @@
                   </mat-form-field>
                   <div *ngIf="pinerror" class="ngError">Required</div>
                   <div fxLayoutAlign="center center" class="mt-3">
-                    <button mat-raised-button color="accent" class="btn-color" type="button" [disabled]="!travelProceed" (click)="submit('self')">Proceed</button>
+                    <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed</button>
+                    <!--<button mat-raised-button color="accent" class="btn-color" type="button" [disabled]="!travelProceed" (click)="submit('self')">Proceed</button>-->
                     <!--<button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed</button>-->
                     <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>
                   </div>
@@ -982,10 +997,10 @@
                           :
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                          <mat-radio-button value="30">30</mat-radio-button>
-                          <mat-radio-button value="45">45</mat-radio-button>
-                          <mat-radio-button value="60">60</mat-radio-button>
-                          <mat-radio-button value="90">90</mat-radio-button>
+                          <mat-radio-button value="30" style="padding-left: 10px;">30</mat-radio-button>
+                          <mat-radio-button value="45" style="padding-left: 10px;">45</mat-radio-button>
+                          <mat-radio-button value="60" style="padding-left: 10px;">60</mat-radio-button>
+                          <mat-radio-button value="90" style="padding-left: 10px;">90</mat-radio-button>
                         </div>
                       </div>
                     </mat-radio-group>
@@ -997,7 +1012,7 @@
                       </div>
                       <div class="col-md-7 col-sm-7 col-xs-7">
                         <mat-radio-button value="1">Yes</mat-radio-button>
-                        <mat-radio-button value="0">No</mat-radio-button>
+                        <mat-radio-button value="0" style ="padding-left: 35px;">No</mat-radio-button>
                       </div>
                     </div>
                   </mat-radio-group>
@@ -1014,7 +1029,8 @@
                     <!--<i class="material-icons" (click)="refresh()">refresh</i> Reset-->
                   <!--</div>-->
                   <div fxLayoutAlign="center center" class="mt-3">
-                    <button mat-raised-button color="accent" class="btn-color" type="button" [disabled]="!travelProceed" (click)="submit('family')">Proceed</button>
+                    <!--<button mat-raised-button color="accent" class="btn-color" type="button" [disabled]="!travelProceed" (click)="submit('family')">Proceed</button>-->
+                    <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed</button>
                     <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>
                   </div>
 

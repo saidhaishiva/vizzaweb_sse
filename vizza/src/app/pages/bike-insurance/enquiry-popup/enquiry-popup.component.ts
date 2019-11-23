@@ -61,9 +61,12 @@
     public RegYear: any;
     public getLength: any;
     public CityValid: boolean;
+    public regionValid: boolean;
     public dobError: any;
     public dobStartError: any;
     public dobendError: any;
+    public regionDetails: any;
+    public vehicleRegNumber: any;
     constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
     public dialogRef: MatDialogRef<EnquiryPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -85,7 +88,8 @@
         'engine': ['', Validators.required],
         'previousPolicyExpiry':'',
         'previousPolicyStart': '',
-        'city': ['', Validators.required]
+        'city': ['', Validators.required],
+        'regionList': ['', Validators.required]
       });
         this.getDays = this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd');
       const miniDate = new Date();
@@ -100,22 +104,56 @@
         limitTo: 5
       };
         this.CityValid = false;
+      this.config = {
+        displayKey: "regionList", //if objects array passed which key to be displayed defaults to description
+        search: true,
+        limitTo: 5
+      };
+      this.regionValid = false;
 
     }
 
     ngOnInit() {
-      this.CityValid = false;
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeListDetails = JSON.parse(sessionStorage.bikeListDetails);
       this.rto = sessionStorage.Rto;
+      let stringToSplit;
+      stringToSplit = this.bikeListDetails.vehicle_no.toUpperCase();
+      let x = stringToSplit.slice(0, 2);
+      console.log(x,'x.....')
+      let y = stringToSplit.slice(2, 4);
+      console.log(y,'y.....')
+      // let oo = stringToSplit.slice(5, 6);
+      // console.log(oo,'oo.....')
+      // let w = '';
+      // let z = stringToSplit.slice(4, 6);
+      // console.log(z,'z.....')
+      // if (!isNaN(oo)) {
+      //   let j = stringToSplit.slice(4, 5);
+      //   console.log(j,'j...')
+      //   w = stringToSplit.slice(5);
+      //   console.log(w,'w.....')
+      this.vehicleRegNumber = x.concat('-', y);
+      console.log( this.vehicleRegNumber,'vehicleRegNumber.....')
+      // } else {
+      //   w = stringToSplit.slice(6);
+      //   this.vehicleRegNumber = x.concat('-', y, '-', z, '-', w);
+      //   console.log( this.vehicleRegNumber,'vehicleRegNumber1111.....')
+      //
+      // }
+      this.CityValid = false;
+      this.regionValid = false;
+
       this.claimpercent();
       this.manifactureList();
       this.dataList();
       this.getCityLists();
+
       this.vehicalDetails.controls['bussiness'].patchValue(this.ListDetails.business_type);
       this.vehicalDetails.controls['vehicleCC'].patchValue(this.ListDetails.vehicle_cc);
       this.vehicalDetails.controls['variant'].patchValue(this.ListDetails.vehicle_variant);
 
+      this.getRegionLists();
     }
     dataList(){
       console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle.....');
@@ -141,6 +179,7 @@
       console.log(this.vehicalDetails.controls['variant'].value,'variantttttt.....');
   }
                                /// manufacture
+
     manifactureList() {
       const data = {
         'platform': 'web',
@@ -330,6 +369,34 @@
     public cityFailure(error) {
     }
 
+    getRegionLists() {
+      console.log(this.vehicleRegNumber,'345678765678')
+      const data = {
+        'platform': 'web',
+        'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+        'region_code':this.vehicleRegNumber=='-'?'':this.vehicleRegNumber,
+      }
+      this.bikeService.getRegionList(data).subscribe(
+          (successData) => {
+            this.regionSuccess(successData);
+          },
+          (error) => {
+            this.regionFailure(error);
+          }
+      );
+    }
+    public regionSuccess(successData){
+      if (successData.IsSuccess) {
+        this.regionDetails = successData.ResponseObject;
+        console.log(this.regionDetails,'regionDetails......');
+        //
+      }
+    }
+    public regionFailure(error) {
+    }
+
 
     public typeFailure(error) {
     }
@@ -458,6 +525,13 @@
 
         this.CityValid = true;
         console.log(this.CityValid,'cityvalid');
+        if(this.vehicalDetails.controls['regionList'].value == ''){
+          this.regionValid = true;
+          console.log(this.regionValid,'regionValid...');
+        }else{
+          this.regionValid = false;
+          console.log(this.regionValid,'regionValidfalse...');
+        }
       } else {
         this.CityValid = false;
         console.log(this.CityValid,'cityvalidfalse');
@@ -489,6 +563,7 @@
         'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
         'business_type': this.vehicalDetails.controls['bussiness'].value,
         'registration_city': this.vehicalDetails.controls['city'].value,
+        'region_name': this.vehicalDetails.controls['regionList'].value,
         'rto_code': this.rto,
         'type': this.enquiryFormData.type,
          'prev_insurer':this.enquiryFormData.previousCompany,

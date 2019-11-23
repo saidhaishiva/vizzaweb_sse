@@ -111,8 +111,12 @@
       <mat-placeholder>Registration City <span class="color-red">*</span></mat-placeholder>
       <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails"></ngx-select-dropdown>
       <div class="color-red" *ngIf="CityValid">City is required</div>
-
-
+    </div>
+    <div class="col-md-3">
+      <mat-placeholder>Region Name <span class="color-red">*</span></mat-placeholder>
+      <ngx-select-dropdown  [config]="config"  formControlName="regionList"  [options]="regionDetails" ></ngx-select-dropdown>
+      <div class="color-red" *ngIf="regionValid">Region Name is required</div>
+      <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
     </div>
 
 

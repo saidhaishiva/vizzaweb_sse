@@ -109,6 +109,12 @@
         <mat-error *ngIf="vehicalDetails.controls.ncb.errors?.required">Ncb is required</mat-error>
       </mat-form-field>
     </div>
+    <div class="col-md-3">
+      <mat-placeholder>Region Name <span class="color-red">*</span></mat-placeholder>
+      <ngx-select-dropdown  [config]="config"  formControlName="regionList"  [options]="regionDetails" ></ngx-select-dropdown>
+      <div class="color-red" *ngIf="regionValid">Region Name is required</div>
+      <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
+    </div>
     <div class="col-md-12 text-center mt-3">
       <button mat-raised-button color="primary"  (click)="enquiryQuation(vehicalDetails.value)">Submit</button>
     </div>

@@ -73,7 +73,8 @@ export class PaymentSuccessComponent implements OnInit {
             'purchase_token' : this.purchasetoken,
             'proposal_id' : this.proposalid
         }
-        this.proposalservice.getPurchaceStatus(data).subscribe(
+      this.settings.loadingSpinner = true;
+      this.proposalservice.getPurchaceStatus(data).subscribe(
             (successData) => {
                 this. purchaseStatusSuccess(successData);
             },
@@ -110,6 +111,8 @@ export class PaymentSuccessComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
         }
+        this.settings.loadingSpinner = true;
+
         this.proposalservice.getDownloadPdf(data).subscribe(
             (successData) => {
                 this.downloadPdfSuccess(successData);

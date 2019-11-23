@@ -32,16 +32,19 @@ export class ApollomunichPaymentSuccessComponent implements OnInit {
             this.applicationNo = params.applicationNo;
         });
         let groupDetails = JSON.parse(sessionStorage.groupDetails);
+        console.log(sessionStorage.groupDetails,'sessionStorage.groupDetails');
         for(let i = 0; i < groupDetails.family_groups.length; i++) {
             if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
                 groupDetails.family_groups[i].status = 1;
             }
+            console.log(sessionStorage.changedTabIndex,'sessionStorage.changedTabIndex');
         }
         let status = groupDetails.family_groups.filter(data => data.status == 0);
         if(status.length > 0) {
             this.remainingStatus = true;
         }
         sessionStorage.groupDetails = JSON.stringify(groupDetails);
+        console.log(sessionStorage.groupDetails, 'sessionStorage.groupDetails' )
 
     }
 

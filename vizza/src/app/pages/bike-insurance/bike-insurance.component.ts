@@ -84,9 +84,11 @@ export class BikeInsuranceComponent implements OnInit {
     public metaKeyword: any;
     public metaDescription: any;
     public config:any;
+    public vehicleRegNumber:any;
+    public regionDetails:any;
     public CityValid: boolean;
 
-    constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
+    constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder,  public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public bikeService: BikeInsuranceService,  public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
         this.settings = this.appSettings.settings;
         this.webhost = this.configs.getimgUrl();
         if (window.innerWidth < 787) {
@@ -119,7 +121,7 @@ export class BikeInsuranceComponent implements OnInit {
         // }
         this.CityValid = false;
         this.dobError = false;
-console.log(this.dobError,'dobError11111111');
+        console.log(this.dobError,'dobError11111111');
         this.bikeInsurance = this.fb.group({
             'vehicalNumber': '',
             'registrationDate': '',
@@ -164,9 +166,67 @@ console.log(this.dobError,'dobError11111111');
         this.getCityLists();
         this.sessionData();
         this.metaList();
+        this.getRegionLists();
         console.log(this.bikeInsurance.controls['city'].value,'hhhhh');
+
     }
 
+    vechicleValue(){
+
+        let stringToSplit;
+        stringToSplit = this.bikeInsurance.controls['vehicalNumber'].value.toUpperCase();
+        let x = stringToSplit.slice(0, 2);
+        console.log(x,'x.....')
+        let y = stringToSplit.slice(2, 4);
+        console.log(y,'y.....')
+        // let oo = stringToSplit.slice(5, 6);
+        // console.log(oo,'oo.....')
+        // let w = '';
+        // let z = stringToSplit.slice(4, 6);
+        // console.log(z,'z.....')
+        // if (!isNaN(oo)) {
+        //   let j = stringToSplit.slice(4, 5);
+        //   console.log(j,'j...')
+        //   w = stringToSplit.slice(5);
+        //   console.log(w,'w.....')
+        this.vehicleRegNumber = x.concat('-', y);
+        console.log( this.vehicleRegNumber,'vehicleRegNumber.....')
+        // } else {
+        //   w = stringToSplit.slice(6);
+        //   this.vehicleRegNumber = x.concat('-', y, '-', z, '-', w);
+        //   console.log( this.vehicleRegNumber,'vehicleRegNumber1111.....')
+        //
+        // }
+    }
+    getRegionLists() {
+
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'region_code':this.vehicleRegNumber,
+
+        }
+        console.log(this.vehicleRegNumber,'this.vehicleRegNumber....')
+        this.bikeService.getRegionList(data).subscribe(
+            (successData) => {
+                this.regionSuccess(successData);
+            },
+            (error) => {
+                this.regionFailure(error);
+            }
+        );
+    }
+    public regionSuccess(successData){
+        if (successData.IsSuccess) {
+            this.regionDetails = successData.ResponseObject;
+            console.log(this.regionDetails,'regionDetails......');
+            //
+        }
+    }
+    public regionFailure(error) {
+    }
     public metaList() {
         const data = {
             'platform': 'web',

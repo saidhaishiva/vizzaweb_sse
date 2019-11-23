@@ -18,7 +18,7 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="title" (change)="changeTitle()" autocomplete="off" required  >
+                            <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" autocomplete="off" required  >
                               <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
@@ -43,7 +43,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Gender" formControlName="gender" (change)="changeGender()" autocomplete="off" required  >
+                            <mat-select placeholder="Gender" formControlName="gender" (selectionChange)="changeGender()" autocomplete="off" required  >
                               <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
@@ -70,7 +70,7 @@
                         </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Marital Status" formControlName="maritalstatus" (change)="changeMaritalStatus()" autocomplete="off" required  >
+                                  <mat-select placeholder="Marital Status" formControlName="maritalstatus" (selectionChange)="changeMaritalStatus()" autocomplete="off" required  >
                                       <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -80,7 +80,7 @@
                           </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Education Qualification" formControlName="eduqual" (change)="changeQualification()" required>
+                            <mat-select placeholder="Education Qualification" formControlName="eduqual" (selectionChange)="changeQualification()" required>
                               <mat-option *ngFor="let list of educationListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Nationality" formControlName="nationality" (change)="changeNationality()" required>
+                            <mat-select placeholder="Nationality" formControlName="nationality" (selectionChange)="changeNationality()" required>
                               <mat-option *ngFor="let list of nationalityListHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
@@ -107,7 +107,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Residential Status" formControlName="residentstatus" (change)="changeResident()" autocomplete="off" required>
+                            <mat-select placeholder="Residential Status" formControlName="residentstatus" (selectionChange)="changeResident()" autocomplete="off" required>
                               <mat-option *ngFor="let list of residentialStatusHdfcList | keys" [value]= 'list.key'>
                                 {{list.value}}
                               </mat-option>
@@ -234,7 +234,7 @@
                           <div class="row">
                             <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                             <div class="text-right w-50">
-                              <mat-checkbox formControlName="isAddressSame" (change)="sameAddress($event)" ><strong>Same as Permenent address</strong></mat-checkbox>
+                              <mat-checkbox formControlName="isAddressSame" (selectionChange)="sameAddress($event)" ><strong>Same as Permenent address</strong></mat-checkbox>
                             </div>
                           </div>
                           <div class="row">
@@ -321,7 +321,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Expected Duration Of Stay at the Correspondence address" (change)="changeexp()" formControlName="expdurofstay" autocomplete="off" >
+                          <mat-select placeholder="Expected Duration Of Stay at the Correspondence address" (selectionChange)="changeexp()" formControlName="expdurofstay" autocomplete="off" >
                             <mat-option *ngFor="let list of expectedStayHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -330,7 +330,7 @@
                         </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Preferred Communication Address Type" formControlName="prfdcommaddr" (change)="changeprfdcommaddr()" autocomplete="off"  >
+                          <mat-select placeholder="Preferred Communication Address Type" formControlName="prfdcommaddr" (selectionChange)="changeprfdcommaddr()" autocomplete="off"  >
                             <mat-option *ngFor="let list of addressHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -339,7 +339,7 @@
                         </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Preferred Communication Mode" formControlName="prfdcommmode" (change)="changecommodename()" autocomplete="off" >
+                          <mat-select placeholder="Preferred Communication Mode" formControlName="prfdcommmode" (selectionChange)="changecommodename()" autocomplete="off" >
                             <mat-option *ngFor="let list of communicationModeHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -348,7 +348,7 @@
                         </mat-form-field></div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Preferred Communication Language" formControlName="prfdcommlang" (change)="changeLang()" autocomplete="off"  >
+                          <mat-select placeholder="Preferred Communication Language" formControlName="prfdcommlang" (selectionChange)="changeLang()" autocomplete="off"  >
                             <mat-option *ngFor="let list of prefferedLangHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -363,7 +363,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Occupation Type" formControlName="occutype" autocomplete="off" (change)="changeoccutype()" required >
+                          <mat-select placeholder="Occupation Type" formControlName="occutype" autocomplete="off" (selectionChange)="changeoccutype()" required >
                             <mat-option *ngFor="let list of occupationTypeHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -386,7 +386,7 @@
                         </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Nature Of Occupation" formControlName="natureofoccu" (change)="changenatureOfOccu()" autocomplete="off" >
+                          <mat-select placeholder="Nature Of Occupation" formControlName="natureofoccu" (selectionChange)="changenatureOfOccu()" autocomplete="off" >
                             <mat-option *ngFor="let list of natureOfWorkHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -423,7 +423,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Source Type" formControlName="sourcetype" (change)="changesourcetype()" autocomplete="off"  >
+                          <mat-select placeholder="Source Type" formControlName="sourcetype" (selectionChange)="changesourcetype()" autocomplete="off"  >
                             <mat-option *ngFor="let list of sourceOfFundHdfcList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
@@ -448,42 +448,42 @@
                       </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Title" formControlName="fathernmtitle" autocomplete="off"  (change)="changefathernmtitle()" >
+                                  <mat-select placeholder="Title" formControlName="fathernmtitle" autocomplete="off"  (selectionChange)="changefathernmtitle()"  required>
                                       <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
-                                  <mat-error *ngIf="personal.controls.fathernmtitle.errors?.required">Title is required</mat-error>
+                                  <mat-error *ngIf="personal.controls.fathernmtitle.errors?.required">Father Name is required</mat-error>
                               </mat-form-field>
                           </div>
 
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="First Name" formControlName="fatherfirstnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                                  <input matInput placeholder="First Name" formControlName="fatherfirstnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  required>
                                   <mat-error *ngIf="personal.controls.fatherfirstnm.errors?.required">First Name is required</mat-error>
                               </mat-form-field>
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Middle Name" formControlName="fathermiddlenm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
-                                  <mat-error *ngIf="personal.controls.fathermiddlenm.errors?.required">First Name is required</mat-error>
+                                  <input matInput placeholder="Middle Name" formControlName="fathermiddlenm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  required>
+                                  <mat-error *ngIf="personal.controls.fathermiddlenm.errors?.required">Middle Name is required</mat-error>
                               </mat-form-field>
                           </div>
 
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Last Name" formControlName="fatherlastnm" class="textFieldd" (keypress)="nameValidate($event)" autocomplete="off"  >
+                                  <input matInput placeholder="Last Name" formControlName="fatherlastnm" class="textFieldd" (keypress)="nameValidate($event)" autocomplete="off"  required>
                                   <mat-error *ngIf="personal.controls.fatherlastnm.errors?.required">Last Name is required</mat-error>
                               </mat-form-field>
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Mother Title" formControlName="mothernmtitle" class="textFieldd" (change)="changemothernmtitle()" autocomplete="off"   >
+                                  <mat-select placeholder="Mother Title" formControlName="mothernmtitle" class="textFieldd" (selectionChange)="changemothernmtitle()" autocomplete="off"  required >
                                       <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
-                                  <mat-error *ngIf="personal.controls.mothernmtitle.errors?.required">Title is required</mat-error>
+                                  <mat-error *ngIf="personal.controls.mothernmtitle.errors?.required">Mother Title is required</mat-error>
                               </mat-form-field>
                           </div>
 
@@ -496,7 +496,7 @@
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <input matInput placeholder="Middle Name" formControlName="mothermiddlenm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
-                                  <mat-error *ngIf="personal.controls.mothermiddlenm.errors?.required">First Name is required</mat-error>
+                                  <mat-error *ngIf="personal.controls.mothermiddlenm.errors?.required">Middle Name is required</mat-error>
                               </mat-form-field>
                           </div>
 
@@ -518,7 +518,7 @@
                           <!--</div>-->
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Marital Status" formControlName="mmaritalstatus" autocomplete="off" (change)="changemmaritalstatus()" required  >
+                                  <mat-select placeholder="Marital Status" formControlName="mmaritalstatus" autocomplete="off" (selectionChange)="changemmaritalstatus()" required  >
                                       <mat-option *ngFor="let list of maritalListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -528,7 +528,7 @@
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Title" formControlName="spousenmtitle" (change)="changespousenmtitle()" autocomplete="off"   >
+                                  <mat-select placeholder="Title" formControlName="spousenmtitle" (selectionChange)="changespousenmtitle()" autocomplete="off"   >
                                       <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
@@ -546,38 +546,38 @@
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <input matInput placeholder="Middle Name" formControlName="spousemiddlenm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
-                                  <mat-error *ngIf="personal.controls.spousemiddlenm.errors?.required">First Name is required</mat-error>
+                                  <mat-error *ngIf="personal.controls.spousemiddlenm.errors?.required">Middle Name is required</mat-error>
                               </mat-form-field>
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
                                   <input matInput placeholder="Last Name" formControlName="spouselastnm" class="textFieldd" (keypress)="nameValidate($event)"  autocomplete="off"  >
-                                  <mat-error *ngIf="personal.controls.spouselastnm.errors?.required">First Name is required</mat-error>
+                                  <mat-error *ngIf="personal.controls.spouselastnm.errors?.required">Last Name is required</mat-error>
                               </mat-form-field>
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="occupation type sp" formControlName="occutypesp" autocomplete="off" (change)="changeoccutypesp()"  >
+                                  <mat-select placeholder="occupation type sp" formControlName="occutypesp" autocomplete="off" (selectionChange)="changeoccutypesp()"  >
                                       <mat-option *ngFor="let list of occupationTypeHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
-                                  <mat-error *ngIf="personal.controls.occutypesp.errors?.required">Title is required</mat-error>
+                                  <mat-error *ngIf="personal.controls.occutypesp.errors?.required">Occupation is required</mat-error>
                               </mat-form-field>
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Cat of occupation" formControlName="catofoccupation" autocomplete="off" (change)="changecatofoccupation()"  >
+                                  <mat-select placeholder="Cat of occupation" formControlName="catofoccupation" autocomplete="off" (selectionChange)="changecatofoccupation()"  >
                                       <mat-option *ngFor="let list of occupationListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>
                                   </mat-select>
-                                  <mat-error *ngIf="personal.controls.catofoccupation.errors?.required">Title is required</mat-error>
+                                  <mat-error *ngIf="personal.controls.catofoccupation.errors?.required">Cat of occupation is required</mat-error>
                               </mat-form-field>
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Country of birth" formControlName="countryofbirth" autocomplete="off" (change)="changecountryofbirth()"  >
+                                  <mat-select placeholder="Country of birth" formControlName="countryofbirth" autocomplete="off" (selectionChange)="changecountryofbirth()"  >
                                       <mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.key'>
                                           {{list.value}}
                                       </mat-option>

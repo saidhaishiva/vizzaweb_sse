@@ -114,7 +114,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Pincode" formControlName="proposerPincode" (input)="getPostalCode($event.target.value,'proposer')" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" required>
+                          <input matInput placeholder="Pincode" formControlName="proposerPincode" (keypress)="numberValidate($event)" (input)="getPostalCode($event.target.value,'proposer')" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" required>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('required')">Pincode  is Required</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -333,7 +333,7 @@
                             <mat-option value="bank">BANK</mat-option>
                             <mat-option value="nonbank financier">NONBANK FINANCIER</mat-option>
                           </mat-select>
-                          <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
+                          <!--<mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <!--<div class="col-md-3 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">-->
@@ -366,20 +366,20 @@
                             </cdk-virtual-scroll-viewport>
                             <!--<mat-option *ngFor="let finance of finlist" value="{{finance.id}}" > {{finance.name}} </mat-option>-->
                           </mat-select>
-                          <mat-error *ngIf="vehicle.controls.bankName.errors?.required">Financier Name is required</mat-error>
+                          <!--<mat-error *ngIf="vehicle.controls.bankName.errors?.required">Financier Name is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Address<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                           <textarea matInput rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
-                          <mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>
+                          <!--<mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <!--<div class="col-md-12 mt-2" >-->
 
                           <div class="col-md-4 mt-1">
-                            <mat-checkbox formControlName="electriAccess" (change)="electricAccess()"><strong> Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                            <mat-checkbox formControlName="electriAccess" (change)="electricAccess()"><strong> Electrical Accessories </strong></mat-checkbox>
                           </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['electriAccess'].value == true">
                             <mat-form-field class="w-100">
@@ -402,7 +402,7 @@
                         </div>
 
                         <div class="col-md-4 mt-1">
-                          <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories <span class="error">*</span></strong></mat-checkbox>
+                          <mat-checkbox formControlName="nonElectricAcess" (change)="nonelectricAccess()"><strong> Non Electrical Accessories </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['nonElectricAcess'].value == true">
                           <mat-form-field class="w-100">
@@ -423,7 +423,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4 mt-1">
-                          <mat-checkbox formControlName="autoAsso" (change)="autoAssoReq();QuoteList()"><strong> Automobile_Association_Membership<span class="error">*</span></strong></mat-checkbox>
+                          <mat-checkbox formControlName="autoAsso" (change)="autoAssoReq();QuoteList()"><strong> Automobile_Association_Membership</strong></mat-checkbox>
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['autoAsso'].value == true">
                           <mat-form-field class="w-100">
@@ -435,7 +435,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4 mt-1">
-                          <mat-checkbox formControlName="antitheft" (change)="antitheftReq();QuoteList()"><strong> Antitheft <span class="error">*</span></strong></mat-checkbox>
+                          <mat-checkbox formControlName="antitheft" (change)="antitheftReq();QuoteList()"><strong> Antitheft </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['antitheft'].value">
                           <mat-form-field class="w-100">
@@ -447,7 +447,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-3 mt-1">
-                          <mat-checkbox formControlName="tppdRes" (change)="tppdResReq();QuoteList()"><strong> TPPD_Restricted <span class="error">*</span></strong></mat-checkbox>
+                          <mat-checkbox formControlName="tppdRes" (change)="tppdResReq();QuoteList()"><strong> TPPD_Restricted</strong></mat-checkbox>
                         </div>
                         <div class="col-md-3" *ngIf="vehicle.controls['tppdRes'].value == true">
                           <mat-form-field class="w-100">
@@ -470,117 +470,12 @@
                         <div class="row">
                           <div class="col-md-12">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Addons Package" formControlName="package" aria-label="close" (selectionChange)="selectopt($event);QuoteList();packageaddon();getPackagelist()"  (click)="packageaddon()" (keyup)="QuoteList()"  required>
+                          <mat-select placeholder="Addons Package" formControlName="package" aria-label="close" (selectionChange)="selectopt($event);QuoteList();getPackagelist()"  (keyup)="QuoteList()"  required>
                             <mat-option *ngFor="let package of packagelist | keys" value="{{package.key}}">{{package.value}}</mat-option>
                           </mat-select>
                             <mat-error *ngIf="vehicle.controls.package.errors?.required">Package is Required</mat-error>
                         </mat-form-field>
                           </div>
-
-
-                          <!--<div id="myModal" class="modal" *ngIf="modelBoxList ">-->
-
-                            <!--&lt;!&ndash; Modal content &ndash;&gt;-->
-                            <!--<div class="modal-content">-->
-                              <!--<span class="close">&times;</span>-->
-                              <!--<div class="col-md-12 text-center w-100">-->
-                                <!--<p>{{packaageList}}<span class="error">*</span></p>-->
-                                <!--<mat-radio-group  formControlName="ispreviousPolicy" (change)="packageaddon()" required>-->
-                                  <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                  <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                <!--</mat-radio-group>-->
-                              <!--</div>-->
-                            <!--</div>-->
-
-                          <!--</div>-->
-
-                          <!--<div class="container" *ngIf="modelBoxList ">-->
-                          <!---->
-
-                            <!--&lt;!&ndash; Modal &ndash;&gt;-->
-                            <!--<div class="modal fade" id="myModal" role="dialog">-->
-                              <!--<div class="modal-dialog">-->
-
-                                <!--&lt;!&ndash; Modal content&ndash;&gt;-->
-                                <!--<div class="modal-content">-->
-                                  <!--<div class="modal-header">-->
-                                    <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                                  <!--</div>-->
-                                  <!--<div class="modal-body">-->
-                                    <!--<div class="row" >-->
-                                      <!--<div class="col-md-12 text-center w-100">-->
-                                        <!--<p>{{packaageList}}<span class="error">*</span></p>-->
-                                        <!--<mat-radio-group  formControlName="ispreviousPolicy" (change)="packageaddon()" required>-->
-                                          <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                          <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                        <!--</mat-radio-group>-->
-                                      <!--</div>-->
-                                    <!--</div>        -->
-                                  <!--</div>-->
-                                  <!---->
-                                <!--</div>-->
-
-                              <!--</div>-->
-                            <!--</div>-->
-
-                          <!--</div>-->
-
-                          <!--<div class="modal fade" id="myModal" role="dialog" *ngIf="modelBoxList ">-->
-                            <!--<div class="modal-dialog">-->
-                              <!--<div class="modal-content">-->
-                                  <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                                <!--<div class="modal-body">-->
-                                  <!--<div class="row" >-->
-                                  <!--<div class="col-md-12 text-center w-100">-->
-                                  <!--<p>{{packaageList}}<span class="error">*</span></p>-->
-                                  <!--<mat-radio-group  formControlName="ispreviousPolicy" (change)="packageaddon()" required>-->
-                                  <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                  <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                  <!--</mat-radio-group>-->
-                                  <!--</div>-->
-                                  <!--</div>-->
-                                <!--</div>-->
-                              <!--</div>-->
-                            <!--</div>-->
-                          <!--</div>-->
-
-                          <!--<div class="container-fluid "  *ngIf="modelBoxList ">-->
-                            <!--<div class="row">-->
-                              <!--<div class="col-md-12">-->
-                                <!--<mat-accordion class="w-100 float-left">-->
-                                  <!--&lt;!&ndash;<form [formGroup]="popup">&ndash;&gt;-->
-                                  <!--<div class="row" >-->
-                                    <!--<div class="col-md-12 text-center w-100">-->
-                                      <!--<p>Is there Nil_Depreciation and Return_to_invoice in your previous policy?<span class="error">*</span></p>-->
-                                      <!--<mat-radio-group  formControlName="ispreviousPolicy" (change)="packageaddon()" required>-->
-                                        <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                        <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                      <!--</mat-radio-group>-->
-                                    <!--</div>-->
-                                  <!--</div>-->
-                                  <!--&lt;!&ndash;</form>&ndash;&gt;-->
-                                <!--</mat-accordion>-->
-                              <!--</div>-->
-                            <!--</div>-->
-
-                          <!--</div>-->
-
-                          <!--<div class="row" *ngIf="modelBox ">-->
-                            <!--<div class="col-md-12 text-center w-100">-->
-                              <!--<p>Is there Nil_Depreciation and Return_to_invoice in your previous policy?<span class="error">*</span></p>-->
-                              <!--<mat-radio-group  [(ngModel)]="ispreviousPolicy" (change)="packageaddon()" required>-->
-                                <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                              <!--</mat-radio-group>-->
-                              <!--&lt;!&ndash;<mat-form-field class="w-50">&ndash;&gt;-->
-                              <!--&lt;!&ndash;<input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)"  autocomplete="off" >&ndash;&gt;-->
-                              <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                            <!--</div>-->
-
-                          <!--</div>-->
-
-
-
                           <!--<div class="container" *ngIf="vehicle.controls['package'].value">-->
                             <!--<div class="row">-->
                               <!--<div class="col-md-12 text-center w-100">-->
@@ -603,7 +498,6 @@
                               <!--<mat-radio-button value="No">No</mat-radio-button>-->
                             <!--</mat-radio-group>-->
                           <!--</div>-->
-
                           <div class="col-md-12 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2' && visible != false">
                             <div class="row">
                               <div class="col-md-6" >
@@ -1073,7 +967,7 @@
                   <input name="proposal_no" type="hidden" value="{{Proposalnumber}}" />
                   <input name="ReturnURL" type="hidden" value="{{PaymentReturn}}" />
                   <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                  <button mat-raised-button color="primaryBlue" class="ml-3" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                 </form>
               </div>
             </div>

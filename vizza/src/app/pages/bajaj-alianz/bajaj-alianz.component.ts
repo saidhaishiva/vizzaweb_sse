@@ -106,6 +106,14 @@ export class BajajAlianzComponent implements OnInit {
     public stepperindex: any;
     public pos_status: any;
     public requestList: any;
+    public grouPName: any;
+    public sumInsuredAmount: any;
+    public companyLogo: any;
+    public premium: any;
+    public totalPremium: any;
+    public type: any;
+    public relationshipStatus: any;
+    public relType: any;
 
 
 
@@ -322,9 +330,11 @@ export class BajajAlianzComponent implements OnInit {
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
+            console.log(this.insurerData, 'this.insurerData');
             this.totalInsureDetails = [];
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
+                    'title':this.insurerData[i].insureTitle,
                     'membername': this.insurerData[i].insureName,
                     'membermiddlename': this.insurerData[i].insuremiddleName,
                     'memberlastname': this.insurerData[i].insureLastName,
@@ -357,6 +367,7 @@ export class BajajAlianzComponent implements OnInit {
                     'memobesity': '0',
                     'memsmkertbco': '0',
                 });
+                console.log(this.totalInsureDetails,'totalInsureDetails....')
             }
             let ageValidate = [];
             let diseaseValidate = [];
@@ -791,6 +802,11 @@ export class BajajAlianzComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].zoneCheck.patchValue(this.getStepper1.items[i].zoneCheck);
 
             }
+            // alert('session');
+            console.log(this.getStepper1,'this.getStepper1');
+            console.log(sessionStorage.stepper1Details,'this.getStepper1');
+
+
         }
         // if (sessionStorage.insuremobileNumber != '' ) {
         //     this.insuremobileNumber = sessionStorage.insuremobileNumber;
@@ -858,6 +874,8 @@ export class BajajAlianzComponent implements OnInit {
                 'memiptreatsi': this.buyProductdetails.suminsured_amount
             }]
         };
+        console.log(this.totalInsureDetails,'totalInsureDetails1111111.....')
+        // alert('totalInsureDetails');
         this.proposalservice.getbajajProposal(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData,stepper);
@@ -874,16 +892,20 @@ export class BajajAlianzComponent implements OnInit {
             this.topScroll();
             this.toastr.success('proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
+            // alert('innnnnnnn....');
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
+            this.insuredFormData = this.insurerData;
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
-            this.insuredFormData = this.insureArray.value.items;
             this.RediretUrlLink = this.summaryData.payment_url;
             this.proposalId = this.summaryData.policy_id;
             sessionStorage.bajaj_health_proposalid = this.proposalId;
             this.createdDate = new Date();
             this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
 
+console.log(this.insuredFormData,'insuredFormData');
+console.log(sessionStorage.insuredFormData,'insuredFormData');
 
+// alert('insuredFormData');
         } else{
             this.toastr.error(successData.ErrorObject);
         }
@@ -994,6 +1016,7 @@ export class BajajAlianzComponent implements OnInit {
         }
     }
     payLater(){
+        // alert('innn');
         const data  = {
             'platform': 'web',
             'product_id': this.buyProductdetails.product_id,
@@ -1051,7 +1074,10 @@ export class BajajAlianzComponent implements OnInit {
         };
 
         console.log(data, 'payyyyy');
+        console.log()
         this.settings.loadingSpinner = true;
+        // alert('inn11');
+
         this.proposalservice.proposalPayLater(data).subscribe(
             (successData) => {
                 this.payLaterSuccess(successData);
@@ -1103,8 +1129,24 @@ export class BajajAlianzComponent implements OnInit {
             this.requestList.push(this.requestDetails);
             this.pos_status = this.requestDetails.role_id;
             this.RediretUrlLink = this.requestList[0].RediretUrlLink;
-            console.log(this.requestList, 'hgghjghjgjh');
-            console.log(this.requestDetails, 'this.requestDetails');
+            this.grouPName = this.requestList[0].group_name;
+            this.sumInsuredAmount = this.requestList[0].sum_insured_amount;
+            this.companyLogo = this.requestList[0].company_logo;
+            this.premium = this.requestList[0].premium;
+                console.log(this.requestList, 'hgghjghjgjh');
+                console.log(this.requestDetails, 'this.requestDetails');
+            console.log(this.grouPName, 'requestList[i]');
+            this.totalPremium = this.requestList[0].total_premium;
+            for(let k=0;k<=this.requestList.length;k++){
+                this.type=[];
+                this.type = this.requestList[0].hcpdtmemlist;
+                for(let i=0;i<=this.type.length;i++){
+                    this.relationshipStatus=this.type[i].memrelation;
+
+
+                }
+            }
+
         } else {
         }
     }

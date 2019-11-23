@@ -367,7 +367,7 @@
                               <div class="col-md-3 mt-3">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="District" formControlName="idistrict"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.inspSameAscommAddress.value == true">
-                                  <mat-error *ngIf="relianceProposal.controls.idistrict.errors?.required">City is required</mat-error>
+                                  <mat-error *ngIf="relianceProposal.controls.idistrict.errors?.required">distict is required</mat-error>
                                 </mat-form-field>
                               </div>
 
@@ -382,7 +382,7 @@
                               <div class="col-md-3 mt-3">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Landmark" formControlName="ilandmark"  autocomplete="off" [readonly]="relianceProposal.controls.inspSameAscommAddress.value == true">
-                                  <mat-error *ngIf="relianceProposal.controls.ilandmark.errors?.required">City is required</mat-error>
+                                  <mat-error *ngIf="relianceProposal.controls.ilandmark.errors?.required">landmark is required</mat-error>
                                 </mat-form-field>
                               </div>
 
@@ -498,7 +498,7 @@
 
 
                     <div class="proposal-buttom mt-3 text-right w-100">
-                      <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
+                      <button mat-button matStepperPrevious color="primaryBlue" class="text-light"  style="margin-right:17px" (click)="topScroll()">Back</button>
 
                       <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
                     </div>
@@ -532,7 +532,7 @@
                             <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                           </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">fuel type  is required</mat-error>
+                          <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>
                         </mat-form-field>
                       </div>
                         <div class="col-md-4 mt-0" *ngIf="buyProduct.business_type ==6">
@@ -546,186 +546,424 @@
                       <div class="col-md-12 mt-2">
                         <h3 class="color-blue">Vehicle Details</h3>
                       </div>
+                      <div class="col-md-12 mt-2" >
+                      <div class="row">
+                      <div class="col-md-3">
+                        <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger($event);getCover()">PA to Unnamed Passenger</mat-checkbox>
+                      </div>
+                      <div class="col-md-3"  *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="No Of Unnamed Passengers Covered"  (keypress)="numberValidate($event);changesumInsu()" maxlength="1" formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
+                          <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passengers Covered is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.value">
+                      <mat-form-field class="w-100">
+                        <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();getCover()"    required>
+                          <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>
+                      </mat-form-field>
+                    </div>
 
+
+                      <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengersSI.value">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Cover Premium"  formControlName="totalUnnamedPassengerPremium"   autocomplete="off" [required]="coverDetails.controls.UnnamedPassengersSI.value" readonly>
+                        </mat-form-field>
+                      </div>
+
+                      </div>
+                      </div>
+                      <div class="col-md-12 mt-2" >
+                      <div class="row">
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger($event)">PA to Unnamed Passenger</mat-checkbox>
+                        <mat-checkbox  formControlName="PAToOwnerDriverCoverd" (change)="updateOwnerDriverSi($event);updateMandatory($event);getCover();changeOwnerDriver()">PA to Owner Driver</mat-checkbox>
                       </div>
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="PAToOwnerDriverCoverd" (change)="updateOwnerDriverSi($event)" (change)="updateMandatory($event)">PA to Owner Driver</mat-checkbox>
+                      <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PAToOwnerDriverCoverd.value == true">
+
+                        <!--<div class="row">-->
+                          <!--<div class="col-md-4">-->
+                            <!--<h6 class="color-blue">PA To Owner Driver</h6>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <div class="row">
+
+                          <div class="col-md-4 mt-0">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Sum Insured"  formControlName="PAToOwnerDriverCoverdSi"  autocomplete="off" required readonly >
+                              <mat-error *ngIf="coverDetails.controls.PAToOwnerDriverCoverdSi.errors?.required">Sum Insured is required</mat-error>
+
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4 mt-0">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Nominee Name" formControlName="cnomineeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                              <mat-error *ngIf="coverDetails.controls.cnomineeName.errors?.required">Nominee Name is required</mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4 mt-0">
+                            <mat-form-field class="w-100">
+                              <input matInput [matDatepicker]="picker2" [max]="today" placeholder=" Nominee DOB (DD/MM/YYYY)"   formControlName="cnDob" (dateInput)="addEvent($event,'nominee')" (dateChange)="addEvent($event,'nominee')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                              <mat-datepicker #picker2></mat-datepicker>
+                              <mat-error *ngIf="coverDetails.controls.cnDob.errors?.required">DOB is required</mat-error>
+                            </mat-form-field>
+                            <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
+                          </div>
+
+                          <div class="col-md-4 mt-0">
+                            <mat-form-field class="w-100">
+                              <mat-select placeholder="Nominee Relation" formControlName="nrelation" (selectionChange)="changenRelation()" required>
+                                <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="coverDetails.controls.nrelation.errors?.required">Relation  is required</mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-4 mt-0">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Nominee Address" formControlName="cnAddress"  autocomplete="off" required >
+                              <mat-error *ngIf="coverDetails.controls.cnAddress.errors?.required">nominee Address is required</mat-error>
+                            </mat-form-field>
+                          </div>
+
+
+                          <div class="col-md-4 mt-0" *ngIf="showNominee">
+                            <mat-form-field class="w-100">
+                              <mat-select placeholder="Other Relation" formControlName="nOtherRelation" (selectionChange)="changenOtherRelation()" required>
+                                <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="coverDetails.controls.nOtherRelation.errors?.required">Relation  is required</mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-4 mt-0" *ngIf="showNominee">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Appointee Name" formControlName="cappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                              <mat-error *ngIf="coverDetails.controls.cappointeeName.errors?.required">Appointee Name is required</mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.PAToOwnerDriverCoverd.value == true">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Cover Premium"  formControlName="totalOwnerDriverPremium" (change)="getCover();changeOwnerDriver()"   autocomplete="off" [required]="coverDetails.controls.UnnamedPassengersSI.value == true" readonly>
+                            </mat-form-field>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="updateNildeprecition($event)">Nil Depreciation</mat-checkbox>
                       </div>
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="LiabilityToPaidDriverCovered">Liability to Paid Driver</mat-checkbox>
                       </div>
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="AutomobileAssociationMember">Automobile Association Membership</mat-checkbox>
+                      <div class="col-md-12 mt-2" >
+                      <div class="row">
+                      <div class="col-md-4">
+                        <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="updateNildeprecition($event);getCover()">Nil Depreciation</mat-checkbox>
                       </div>
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="AntiTheftDeviceFitted">Anti-Theft Device</mat-checkbox>
+                      <div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Applicable Rate"  formControlName="applicableRate" (change)="changeRate($event)" (input)="changeRate($event)"  (keypress)="changeRate($event);getCover();changeDepreciation()"  autocomplete="off" required >
+                          <mat-error *ngIf="coverDetails.controls.applicableRate.errors?.required">Applicable Rate is required</mat-error>
+                        </mat-form-field>
+                        <div class="error" *ngIf="errorRateMsg !='' && errorRateMsg != true">{{errorRateMsg}}</div>
                       </div>
-<!--                      <div class="col-md-3">-->
-<!--                        <mat-checkbox  formControlName="InsurancePremium">Insurance Premium</mat-checkbox>-->
-<!--                      </div>-->
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="TPPDCover" (change)="updateTppd($event)">TPPD Restrictred</mat-checkbox>
+                      <div class="col-md-4 " *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Cover Premium"  formControlName="totalDepreciationPremium" autocomplete="off" [required]="coverDetails.controls.NilDepreciationCoverage.value == true" readonly>
+                        </mat-form-field>
                       </div>
-                      <div class="col-md-3" >
-                        <mat-checkbox  formControlName="BasicODCoverage" required >Basic OD<span class="error">*</span></mat-checkbox>
                       </div>
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="BasicLiability" required >Basic Liability<span class="error">*</span></mat-checkbox>
                       </div>
+
 <!--                      <div class="col-md-3">-->
 <!--                        <mat-checkbox  formControlName="PACoverToOwner" (change)="updateMandatory($event)">PA Cover To Owner</mat-checkbox>-->
 <!--                      </div>-->
-
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsVoluntaryDeductableOpted" (change)="updateVoluntary($event)">Voluntary Deductible</mat-checkbox>
-                      </div>
-
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsElectricalItemFitted" (change)="updateElectricalItem($event)">Electrical Accessories</mat-checkbox>
-                      </div>
-
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsNonElectricalItemFitted" (change)="updatenonElectricalItem($event)">Non Electrical Accessories</mat-checkbox>
-                      </div>
-
-                      <div class="col-md-3" *ngIf="coverDetails.controls['fuelType'].value == 5">
-                        <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit($event)" >BiFuel Kit</mat-checkbox>
-                      </div>
-
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="PAToNamedPassenger" (change)="updatenpMandatory($event)">PA To Named Passenger</mat-checkbox>
-                      </div>
-
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsPAToDriverCovered" (change)="updateDriverCovered($event)">PA To Driver Covered</mat-checkbox>
-                      </div>
-
-                      <div class="col-md-3" >
-                        <mat-checkbox  formControlName="IsTotalCover" (change)="updateTotalCover($event)">Total Cover</mat-checkbox>
-                      </div>
-
-                      <div class="col-md-3" [ngStyle]="{'pointer-events': coverDetails.controls.IsTotalCover.value == true ? 'none' : ''}">
-                        <mat-checkbox  formControlName="IsRegistrationCover" *ngIf="coverDetails.controls.IsTotalCover.value == true">Registration Cover<span class="error">*</span></mat-checkbox>
-                      </div>
-
-                      <div class="col-md-3" [ngStyle]="{'pointer-events': coverDetails.controls.IsTotalCover.value == true ? 'none' : ''}">
-                        <mat-checkbox  formControlName="IsRoadTaxcover" *ngIf="coverDetails.controls.IsTotalCover.value == true">Road Tax cover<span class="error">*</span></mat-checkbox>
-                      </div>
-
-                      <div class="col-md-3" [ngStyle]="{'pointer-events': coverDetails.controls.IsTotalCover.value == true ? 'none' : ''}">
-                        <mat-checkbox  formControlName="InsurancePremium" *ngIf="coverDetails.controls.IsTotalCover.value == true">Insurance Premium<span class="error">*</span></mat-checkbox>
-                      </div>
-
-
-                    </div>
-                  </div>
-
-
-
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.IsRegistrationCover.value == true">
-                    <div class="row">
+                      <div class="col-md-12 mt-2" >
+                      <div class="row">
                       <div class="col-md-4">
-                        <h6 class="color-blue">Registration Cover</h6>
+                        <mat-checkbox  formControlName="IsVoluntaryDeductableOpted" (change)="updateVoluntary($event);getCover();changeVoluntary()">Voluntary Deductible</mat-checkbox>
                       </div>
-                    </div>
-                    <div class="row">
-<!--                      <div class="col-md-4 mt-0">-->
-<!--                        <mat-form-field class="w-100">-->
-<!--                          <mat-select placeholder="Sum Insured" formControlName="registrationSI" required>-->
-<!--                            <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>-->
-<!--                          </mat-select>-->
-<!--                        </mat-form-field>-->
-<!--                      </div>-->
-                      <div class="col-md-4 mt-0">
+                      <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsVoluntaryDeductableOpted.value == true">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Sum Insured"  formControlName="registrationSI" (keypress)="numberValidate($event)" (input)="idvCalculateDetails($event.target.value,'registration')" autocomplete="off" required>
-                          <mat-error *ngIf="coverDetails.controls.registrationSI.errors?.required">Sum Insured is required</mat-error>
-                        </mat-form-field>
-                        <div class="error" *ngIf="registrationidvError != ''">{{registrationidvError}}</div>
-
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.IsRoadTaxcover.value == true">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">Road Tax cover</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Sum Insured"  formControlName="roadtaxSI" (keypress)="numberValidate($event)" (input)="idvCalculateDetails($event.target.value,'roadtax')" autocomplete="off" required>
-                          <mat-error *ngIf="coverDetails.controls.roadtaxSI.errors?.required">Sum Insured is required</mat-error>
-                        </mat-form-field>
-                        <div class="error" *ngIf="roadtaxidvError != ''">{{roadtaxidvError}}</div>
-
-                      </div>
-                    </div>
-                  </div>
-
-
-
-
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.InsurancePremium.value == true">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">Insurance Premium</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Sum Insured"  formControlName="insuranceSI" (keypress)="numberValidate($event)" (input)="idvCalculateDetails($event.target.value,'insurance')" autocomplete="off" required>
-                          <mat-error *ngIf="coverDetails.controls.insuranceSI.errors?.required">Sum Insured is required</mat-error>
-                        </mat-form-field>
-                        <div class="error" *ngIf="insuranceidvError != ''">{{insuranceidvError}}</div>
-                      </div>
-                    </div>
-                  </div>
-
-
-
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">Nil Depreciation</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Applicable Rate"  formControlName="applicableRate"  autocomplete="off" required readonly>
-                          <mat-error *ngIf="coverDetails.controls.applicableRate.errors?.required">Applicable Rate is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.IsPAToDriverCovered.value == true">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">PA To Driver Covered</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="IsPAToDriverCoveredSi" (selectionChange)="getPaidDriverSi()" required>
-                            <mat-option *ngFor="let type of driverCoveredList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
-
+                          <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (selectionChange)="voluntaryAmount();getCover();changeVoluntary()"  required>
+                            <mat-option *ngFor="let type of amountList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.IsPAToDriverCoveredSi.errors?.required">Sum Insured is required</mat-error>
+                          <mat-error *ngIf="coverDetails.controls.VoluntaryDeductableAmount.errors?.required">Sum Insured  is required</mat-error>
                         </mat-form-field>
                       </div>
+                      <div class="col-md-4 " *ngIf="coverDetails.controls.VoluntaryDeductableAmount.value">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Cover Premium"  formControlName="totalVoluntaryDeductablePremium"  autocomplete="off" [required]="coverDetails.controls.VoluntaryDeductableAmount.value" readonly>
+                        </mat-form-field>
+                      </div>
+                      </div>
+                      </div>
+                      <div class="col-md-12 mt-2" >
+                      <div class="row">
+                      <div class="col-md-4">
+                        <mat-checkbox  formControlName="IsElectricalItemFitted" (change)="updateElectricalItem($event);getCover();changeElect()">Electrical Accessories</mat-checkbox>
+                      </div>
+                      <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Sum Insured"  formControlName="ElectricalItemsTotalSI"  autocomplete="off" required readonly>
+                          <mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Cover Premium"  formControlName="totalElectricalItemPremium"  autocomplete="off" [required]="coverDetails.controls.IsElectricalItemFitted.value == true" readonly>
+                        </mat-form-field>
+                      </div>
+                      </div>
+                      </div>
+                      <div class="col-md-12 mt-2" >
+                      <div class="row">
+                      <div class="col-md-4">
+                        <mat-checkbox  formControlName="IsNonElectricalItemFitted" (change)="updatenonElectricalItem($event);getCover();changeNonElect()">Non Electrical Accessories</mat-checkbox>
+                      </div>
+                      <div class="col-md-4 " *ngIf="coverDetails.controls.IsNonElectricalItemFitted.value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Sum Insured"  formControlName="NonElectricalItemsTotalSI" autocomplete="off" required readonly >
+                          <mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsNonElectricalItemFitted.value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Cover Premium"  formControlName="totalNonElectricalItemPremium"  autocomplete="off"  [required]="coverDetails.controls.IsNonElectricalItemFitted.value == true" readonly>
+                        </mat-form-field>
+                      </div>
+                      </div>
+                      </div>
+                      <div class="col-md-12 mt-2" >
+                        <div class="row">
+                          <div class="col-md-4" *ngIf="coverDetails.controls['fuelType'].value == 5">
+                            <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit($event);getCover();changeBifuel()" >BiFuel Kit</mat-checkbox>
+                          </div>
+
+                          <!--<div class="col-md-12 mt-2" >-->
+
+                          <!--<div class="row">-->
+                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Sum Insured"  formControlName="BiFuelKitSi" maxlength="5" (keypress)="getCover();changeBifuel()" autocomplete="off" required >
+                              <mat-error *ngIf="coverDetails.controls.BiFuelKitSi.errors?.required">Sum Insured is required</mat-error>
+
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
+                            <mat-form-field class="w-100">
+                              <mat-select placeholder="Bifuel type" formControlName="bifueltype"  required>
+                                <mat-option *ngFor="let type of bifueltypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="coverDetails.controls.bifueltype.errors?.required">Bifuel type is required</mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
+                            <p>Is CPG/LPG kit ?</p>
+                            <mat-radio-group formControlName="cpgLpgKit" (selectionChange)="cpgLpgKitChange()" (change)="cpgLpgKitChange()">
+                              <mat-radio-button value='Yes' >Yes</mat-radio-button>
+                              <mat-radio-button value='No'>No</mat-radio-button>
+                            </mat-radio-group>
+                          </div>
+
+                          <!--<div class="col-md-4">-->
+                          <!--<mat-checkbox  formControlName="cpgLpgKit" >Is CPG/LPG kit ?</mat-checkbox>-->
+                          <!--</div>-->
+
+                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.cpgLpgKit.value == 'Yes'">
+                            <mat-form-field class="w-100">
+                              <mat-select placeholder="Type of Fitting" formControlName="fittngType">
+                                <mat-option *ngFor="let type of fittngTypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
+                              </mat-select>
+                              <!--                                    <mat-error *ngIf="coverDetails.controls.fittngType.errors?.required">Type of Fitting is required</mat-error>-->
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Cover Premium"  formControlName="bifuelAmount"  autocomplete="off" [required]="coverDetails.controls.IsBiFuelKit.value == true" readonly>
+                            </mat-form-field>
+                          </div>
+                          <!--</div>-->
+                          <!--</div>-->
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 mt-2" >
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-checkbox  formControlName="LiabilityToPaidDriverCovered" (change)="updateLiabilityToPaidCoverage();getCover();changeLiabilityToPaidCoverage()">Liability to Paid Driver</mat-checkbox>
+                                </div>
+                                <div class="col-md-4 " *ngIf="coverDetails.controls.LiabilityToPaidDriverCovered.value == true">
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Cover Premium"  formControlName="totalLiabilityToPaidDriverPremium" autocomplete="off" [required]="coverDetails.controls.LiabilityToPaidDriverCovered.value == true" readonly>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-2" >
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-checkbox  formControlName="AutomobileAssociationMember" (change)="updateAssociationCoverage();getCover();changeAssociationCoverage()">Automobile Association Membership</mat-checkbox>
+                                </div>
+                                <div class="col-md-4 " *ngIf="coverDetails.controls.AutomobileAssociationMember.value == true">
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Cover Premium"  formControlName="totalAssociationPremium" autocomplete="off" [required]="coverDetails.controls.AutomobileAssociationMember.value == true" readonly>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-2" >
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-checkbox  formControlName="AntiTheftDeviceFitted" (change)="updateAntiTheftCoverage();getCover();changeAntiTheftCoverage()" >Anti-Theft Device</mat-checkbox>
+                                </div>
+                                <div class="col-md-4 " *ngIf="coverDetails.controls.AntiTheftDeviceFitted.value == true">
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Cover Premium"  formControlName="totalAntiTheftDeviceFittedPremium" autocomplete="off" [required]="coverDetails.controls.AntiTheftDeviceFitted.value == true" readonly>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                      <div class="col-md-3">-->
+                        <!--                        <mat-checkbox  formControlName="InsurancePremium">Insurance Premium</mat-checkbox>-->
+                        <!--                      </div>-->
+                        <!--<div class="col-md-3">-->
+                        <!--<mat-checkbox  formControlName="TPPDCover" (change)="updateTppd($event)">TPPD Restrictred</mat-checkbox>-->
+                        <!--</div>-->
+                        <div class="col-md-12 mt-2" >
+                            <div class="row">
+                                <div class="col-md-4" >
+                                    <mat-checkbox  formControlName="BasicODCoverage" required  (change)="updateBasicODCoverage();getCover();changeBasicODCoverage()"  >Basic OD<span class="error">*</span></mat-checkbox>
+                                </div>
+                                <div class="col-md-4 " *ngIf="coverDetails.controls.BasicODCoverage.value == true">
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Cover Premium"  formControlName="totalBasicODCoveragePremium" autocomplete="off" [required]="coverDetails.controls.BasicODCoverage.value == true" readonly>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-2" >
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-checkbox  formControlName="BasicLiability" required  (change)="updateBasicLiabilityCoverage();getCover();changeBasicLiabilityCoverage()"  >Basic Liability<span class="error">*</span></mat-checkbox>
+                                </div>
+                                <div class="col-md-4 " *ngIf="coverDetails.controls.BasicLiability.value == true">
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Cover Premium"  formControlName="totalBasicLiabilityPremium" autocomplete="off" [required]="coverDetails.controls.BasicLiability.value == true" readonly>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                   </div>
+
+                    <!--<div class="col-md-3">-->
+                    <!--<mat-checkbox  formControlName="PAToNamedPassenger" (change)="updatenpMandatory($event)">PA To Named Passenger</mat-checkbox>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-md-3">-->
+                    <!--<mat-checkbox  formControlName="IsPAToDriverCovered" (change)="updateDriverCovered($event)">PA To Driver Covered</mat-checkbox>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-md-3" >-->
+                    <!--<mat-checkbox  formControlName="IsTotalCover" (change)="updateTotalCover($event)">Total Cover</mat-checkbox>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-md-3" [ngStyle]="{'pointer-events': coverDetails.controls.IsTotalCover.value == true ? 'none' : ''}">-->
+                    <!--<mat-checkbox  formControlName="IsRegistrationCover" *ngIf="coverDetails.controls.IsTotalCover.value == true">Registration Cover<span class="error">*</span></mat-checkbox>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-md-3" [ngStyle]="{'pointer-events': coverDetails.controls.IsTotalCover.value == true ? 'none' : ''}">-->
+                    <!--<mat-checkbox  formControlName="IsRoadTaxcover" *ngIf="coverDetails.controls.IsTotalCover.value == true">Road Tax cover<span class="error">*</span></mat-checkbox>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-md-3" [ngStyle]="{'pointer-events': coverDetails.controls.IsTotalCover.value == true ? 'none' : ''}">-->
+                    <!--<mat-checkbox  formControlName="InsurancePremium" *ngIf="coverDetails.controls.IsTotalCover.value == true">Insurance Premium<span class="error">*</span></mat-checkbox>-->
+                    <!--</div>-->
+
+                  <!--<div class="col-md-12 mt-2" *ngIf="coverDetails.controls.IsRegistrationCover.value == true">-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4">-->
+                        <!--<h6 class="color-blue">Registration Cover</h6>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+<!--&lt;!&ndash;                      <div class="col-md-4 mt-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <mat-form-field class="w-100">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <mat-select placeholder="Sum Insured" formControlName="registrationSI" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>&ndash;&gt;-->
+<!--&lt;!&ndash;                          </mat-select>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </mat-form-field>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Sum Insured"  formControlName="registrationSI" (keypress)="numberValidate($event)" (input)="idvCalculateDetails($event.target.value,'registration')" autocomplete="off" required>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.registrationSI.errors?.required">Sum Insured is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                        <!--<div class="error" *ngIf="registrationidvError != ''">{{registrationidvError}}</div>-->
+
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                  <!--<div class="col-md-12 mt-2" *ngIf="coverDetails.controls.IsRoadTaxcover.value == true">-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4">-->
+                        <!--<h6 class="color-blue">Road Tax cover</h6>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Sum Insured"  formControlName="roadtaxSI" (keypress)="numberValidate($event)" (input)="idvCalculateDetails($event.target.value,'roadtax')" autocomplete="off" required>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.roadtaxSI.errors?.required">Sum Insured is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                        <!--<div class="error" *ngIf="roadtaxidvError != ''">{{roadtaxidvError}}</div>-->
+
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+
+
+
+                  <!--<div class="col-md-12 mt-2" *ngIf="coverDetails.controls.InsurancePremium.value == true">-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4">-->
+                        <!--<h6 class="color-blue">Insurance Premium</h6>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Sum Insured"  formControlName="insuranceSI" (keypress)="numberValidate($event)" (input)="idvCalculateDetails($event.target.value,'insurance')" autocomplete="off" required>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.insuranceSI.errors?.required">Sum Insured is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                        <!--<div class="error" *ngIf="insuranceidvError != ''">{{insuranceidvError}}</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+
+
+
+                  <!--<div class="col-md-12 mt-2" *ngIf="coverDetails.controls.IsPAToDriverCovered.value == true">-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4">-->
+                        <!--<h6 class="color-blue">PA To Driver Covered</h6>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="Sum Insured" formControlName="IsPAToDriverCoveredSi" (selectionChange)="getPaidDriverSi()" required>-->
+                            <!--<mat-option *ngFor="let type of driverCoveredList | keys" value="{{type.key}}" > {{type.value}} </mat-option>-->
+
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.IsPAToDriverCoveredSi.errors?.required">Sum Insured is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
 
 
 <!--                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PAToOwnerDriverCoverd.value == true">-->
@@ -740,221 +978,105 @@
 <!--                    </div>-->
 <!--                  </div>-->
 
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.TPPDCover.value == true">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">TPPD Restrictred</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="TPPDCoverSi" (selectionChange)="getTppdSi()" required>
-                            <mat-option *ngFor="let type of tppdList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                  <!--<div class="col-md-12 mt-2" *ngIf="coverDetails.controls.TPPDCover.value == true">-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4">-->
+                        <!--<h6 class="color-blue">TPPD Restrictred</h6>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="Sum Insured" formControlName="TPPDCoverSi" (selectionChange)="getTppdSi()" required>-->
+                            <!--<mat-option *ngFor="let type of tppdList | keys" value="{{type.key}}" > {{type.value}} </mat-option>-->
 
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.TPPDCoverSi.errors?.required">Sum Insured is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.TPPDCoverSi.errors?.required">Sum Insured is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
 
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">PA to Unnamed Passenger</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi()" required>
-                            <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="No Of Unnamed Passengers Covered"  (keypress)="numberValidate($event)" formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
-                          <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passengers Covered is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.IsVoluntaryDeductableOpted.value == true">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">Voluntary Deductible</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (selectionChange)="voluntaryAmount()" required>
-                            <mat-option *ngFor="let type of amountList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
-
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.VoluntaryDeductableAmount.errors?.required">Sum Insured  is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">Electrical Accessories</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Sum Insured"  formControlName="ElectricalItemsTotalSI"  autocomplete="off" required readonly>
-                          <mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.IsNonElectricalItemFitted.value == true">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">Non Electrical Accessories</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Sum Insured"  formControlName="NonElectricalItemsTotalSI"  autocomplete="off" required readonly >
-                          <mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">BiFuel Kit</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-3 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Sum Insured"  formControlName="BiFuelKitSi"  autocomplete="off" required readonly>
-                          <mat-error *ngIf="coverDetails.controls.BiFuelKitSi.errors?.required">Sum Insured is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-3 mt-0">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Bifuel type" formControlName="bifueltype"  required>
-                            <mat-option *ngFor="let type of bifueltypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.bifueltype.errors?.required">Bifuel type is required</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="cpgLpgKit" >CPG/LPG kit attached</mat-checkbox>
-                      </div>
-
-                      <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.cpgLpgKit.value == true">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Type of Fitting" formControlName="fittngType">
-                            <mat-option *ngFor="let type of fittngTypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
-                          </mat-select>
-                          <!--                                    <mat-error *ngIf="coverDetails.controls.fittngType.errors?.required">Type of Fitting is required</mat-error>-->
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
 
 <!--                  ////-->
 
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PAToNamedPassenger.value == true">
+                  <!--<div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PAToNamedPassenger.value == true">-->
 
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">PA To Named Passenger</h6>
-                      </div>
-                    </div>
-
-
-                    <div class="row">
-
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="namedPassengersSI" (selectionChange)="unnamedSi()" required>
-                            <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.namedPassengersSI.errors?.required">Sum Insured is required</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Passenger Name" formControlName="nppassengerName"  (keypress)="nameValidate($event)" autocomplete="off" required >
-                          <mat-error *ngIf="coverDetails.controls.nppassengerName.errors?.required">Passenger Name is required</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Nominee Name" formControlName="npnomineeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
-                          <mat-error *ngIf="coverDetails.controls.npnomineeName.errors?.required">Nominee Name is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder=" Nominee DOB (DD/MM/YYYY)"   formControlName="npDob" (dateInput)="addEvent($event,'npnominee')" (dateChange)="addEvent($event,'npnominee')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
-                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                          <mat-datepicker #picker1></mat-datepicker>
-                          <mat-error *ngIf="coverDetails.controls.npDob.errors?.required">DOB is required</mat-error>
-                        </mat-form-field>
-                        <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
-                      </div>
-
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Nominee Relation" formControlName="nprelation" (selectionChange)="changenpRelation()" required>
-                            <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.nprelation.errors?.required">Relation  is required</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Nominee Address" formControlName="npAddress"  autocomplete="off" required >
-                          <mat-error *ngIf="coverDetails.controls.npAddress.errors?.required">nominee Address is required</mat-error>
-                        </mat-form-field>
-                      </div>
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4">-->
+                        <!--<h6 class="color-blue">PA To Named Passenger</h6>-->
+                      <!--</div>-->
+                    <!--</div>-->
 
 
-                      <div class="col-md-4 mt-0" *ngIf="npshowNominee">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Other Relation" formControlName="npOtherRelation" (selectionChange)="changenpOtherRelation()" required>
-                            <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.npOtherRelation.errors?.required">Relation  is required</mat-error>
-                        </mat-form-field>
-                      </div>
+                    <!--<div class="row">-->
 
-                      <div class="col-md-4 mt-0" *ngIf="npshowNominee">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Appointee Name" formControlName="npappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
-                          <mat-error *ngIf="coverDetails.controls.npappointeeName.errors?.required">Appointee Name is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="Sum Insured" formControlName="namedPassengersSI" (selectionChange)="unnamedSi()" required>-->
+                            <!--<mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.namedPassengersSI.errors?.required">Sum Insured is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Passenger Name" formControlName="nppassengerName"  (keypress)="nameValidate($event)" autocomplete="off" required >-->
+                          <!--<mat-error *ngIf="coverDetails.controls.nppassengerName.errors?.required">Passenger Name is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Nominee Name" formControlName="npnomineeName"  (keypress)="nameValidate($event)" autocomplete="off" required >-->
+                          <!--<mat-error *ngIf="coverDetails.controls.npnomineeName.errors?.required">Nominee Name is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput [matDatepicker]="picker1" [max]="today" placeholder=" Nominee DOB (DD/MM/YYYY)"   formControlName="npDob" (dateInput)="addEvent($event,'npnominee')" (dateChange)="addEvent($event,'npnominee')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >-->
+                          <!--<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
+                          <!--<mat-datepicker #picker1></mat-datepicker>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.npDob.errors?.required">DOB is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                        <!--<div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="Nominee Relation" formControlName="nprelation" (selectionChange)="changenpRelation()" required>-->
+                            <!--<mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.nprelation.errors?.required">Relation  is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-4 mt-0">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Nominee Address" formControlName="npAddress"  autocomplete="off" required >-->
+                          <!--<mat-error *ngIf="coverDetails.controls.npAddress.errors?.required">nominee Address is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+
+
+                      <!--<div class="col-md-4 mt-0" *ngIf="npshowNominee">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="Other Relation" formControlName="npOtherRelation" (selectionChange)="changenpOtherRelation()" required>-->
+                            <!--<mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.npOtherRelation.errors?.required">Relation  is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-4 mt-0" *ngIf="npshowNominee">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Appointee Name" formControlName="npappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >-->
+                          <!--<mat-error *ngIf="coverDetails.controls.npappointeeName.errors?.required">Appointee Name is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
 
 
 
@@ -962,77 +1084,12 @@
 
                   <!--                  ///-->
 
-                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PAToOwnerDriverCoverd.value == true">
 
-                    <div class="row">
-                      <div class="col-md-4">
-                        <h6 class="color-blue">PA To Owner Driver</h6>
-                      </div>
-                    </div>
-                    <div class="row">
-
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Sum Insured"  formControlName="PAToOwnerDriverCoverdSi"  autocomplete="off" required readonly >
-                          <mat-error *ngIf="coverDetails.controls.PAToOwnerDriverCoverdSi.errors?.required">Sum Insured is required</mat-error>
-
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Nominee Name" formControlName="cnomineeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
-                                                          <mat-error *ngIf="coverDetails.controls.cnomineeName.errors?.required">Nominee Name is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker2" [max]="today" placeholder=" Nominee DOB (DD/MM/YYYY)"   formControlName="cnDob" (dateInput)="addEvent($event,'nominee')" (dateChange)="addEvent($event,'nominee')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
-                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                          <mat-datepicker #picker2></mat-datepicker>
-                          <mat-error *ngIf="coverDetails.controls.cnDob.errors?.required">DOB is required</mat-error>
-                        </mat-form-field>
-                        <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
-                      </div>
-
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Nominee Relation" formControlName="nrelation" (selectionChange)="changenRelation()" required>
-                            <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.nrelation.errors?.required">Relation  is required</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-4 mt-0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Nominee Address" formControlName="cnAddress"  autocomplete="off" required >
-                          <mat-error *ngIf="coverDetails.controls.cnAddress.errors?.required">nominee Address is required</mat-error>
-                        </mat-form-field>
-                      </div>
-
-
-                      <div class="col-md-4 mt-0" *ngIf="showNominee">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Other Relation" formControlName="nOtherRelation" (selectionChange)="changenOtherRelation()" required>
-                            <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
-                          </mat-select>
-                                                          <mat-error *ngIf="coverDetails.controls.nOtherRelation.errors?.required">Relation  is required</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-4 mt-0" *ngIf="showNominee">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Appointee Name" formControlName="cappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
-                                                          <mat-error *ngIf="coverDetails.controls.cappointeeName.errors?.required">Appointee Name is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
 
 
                   
                   <div class="proposal-buttom mt-3 text-right w-100" >
-                    <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
+                    <button mat-button matStepperPrevious color="primaryBlue" class="text-light" style="margin-right:17px" (click)="topScroll()">Back</button>
 
                     <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,coverDetails.value,'stepper3')" >Next</button>
                   </div>
@@ -1089,13 +1146,15 @@
                       </div>
                     </div>
 
-                    <div class="row" *ngIf="buyProduct.business_type == 2 || buyProduct.business_type ==5">
+                    <!--<div class="row" *ngIf="buyProduct.business_type == 2 || buyProduct.business_type ==5">-->
+                    <div class="row" *ngIf="showInspection==true">
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="inspectionDone">Inspection Done</mat-checkbox>
                       </div>
                     </div>
 
-                    <div class="row" *ngIf="buyProduct.business_type == 2 || buyProduct.business_type ==5">
+                    <!--<div class="row" *ngIf="buyProduct.business_type == 2 || buyProduct.business_type ==5">-->
+                    <div class="row" *ngIf="showInspection==true">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Inspection Id"  formControlName="inspectionId"  required autocomplete="off">
@@ -1103,7 +1162,7 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-4">
+                      <div class="col-md-4" *ngIf="showInspection==true">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker3" [max]="today" placeholder=" Inspection Date (DD/MM/YYYY)"   formControlName="inspectionDate" (dateInput)="addEvent($event,'iDate')" (dateChange)="addEvent($event,'iDate')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
@@ -1124,7 +1183,7 @@
 <!--                    </div>-->
 
                     <div class="proposal-buttom mt-3 text-right w-100">
-                      <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
+                      <button mat-button matStepperPrevious color="primaryBlue" class="text-light"  style="margin-right:17px" (click)="topScroll()">Back</button>
 
                       <button mat-raised-button color="primaryBlue"  (click)="createProposal(stepper,previousInsurance.value)">Next</button>
                     </div>
@@ -1311,8 +1370,12 @@
                     <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuelType:</strong> {{coverFormData.fuelTypeValue}}</li>
                     <li class="list-group-item" *ngIf="buyProduct.business_type ==6"><strong>Inspection No:</strong> {{coverFormData.inspectionNo}}</li>
                     <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember != ''"><strong>Automobile Association Membership:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == true">Yes</span><span *ngIf="coverFormData.AutomobileAssociationMember == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.totalAssociationPremium != '' && coverFormData.AutomobileAssociationMember ==true "><strong>Cover Premium:</strong> {{coverFormData.totalAssociationPremium}}</li>
+
                     <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted != ''"><strong>Anti-Theft Device :</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == true">Yes</span><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.totalAntiTheftDeviceFittedPremium != '' && coverFormData.AntiTheftDeviceFitted ==true "><strong>Cover Premium:</strong> {{coverFormData.totalAntiTheftDeviceFittedPremium}}</li>
                     <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>Basic OD :</strong><span *ngIf="coverFormData.BasicODCoverage == true">Yes</span><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.totalBasicODCoveragePremium != '' && coverFormData.BasicODCoverage ==true "><strong>Cover Premium:</strong> {{coverFormData.totalBasicODCoveragePremium}}</li>
                   </ul>
                 </div>
 
@@ -1320,8 +1383,10 @@
                   <h4 class="mt-4"></h4>
                   <ul class="m-0 list-group">
                     <li class="list-group-item" *ngIf="coverFormData.BasicLiability != ''"><strong>Basic Liability:</strong><span *ngIf="coverFormData.BasicLiability == true">Yes</span><span *ngIf="coverFormData.BasicLiability == false">No</span> </li>
-                    <li class="list-group-item" *ngIf="coverFormData.IsTotalCover != ''"><strong>Total Cover:</strong><span *ngIf="coverFormData.IsTotalCover == true">Yes</span><span *ngIf="coverFormData.IsTotalCover == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.totalBasicLiabilityPremium != '' && coverFormData.BasicLiability ==true "><strong>Cover Premium:</strong> {{coverFormData.totalBasicLiabilityPremium}}</li>
+                    <!--<li class="list-group-item" *ngIf="coverFormData.IsTotalCover != ''"><strong>Total Cover:</strong><span *ngIf="coverFormData.IsTotalCover == true">Yes</span><span *ngIf="coverFormData.IsTotalCover == false">No</span> </li>-->
                     <li class="list-group-item" *ngIf="coverFormData.LiabilityToPaidDriverCovered != ''"><strong>Liability to Paid Driver:</strong><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == true">Yes</span><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.totalLiabilityToPaidDriverPremium != '' && coverFormData.LiabilityToPaidDriverCovered ==true "><strong>Cover Premium:</strong> {{coverFormData.totalLiabilityToPaidDriverPremium}}</li>
                   </ul>
                 </div>
 
@@ -1337,28 +1402,29 @@
                   <h4 class="mt-4"></h4>
                     <ul class="m-0 list-group">
                     <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.totalUnnamedPassengerPremium != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>Cover Premium:</strong> {{coverFormData.totalUnnamedPassengerPremium}}</li>
                     </ul>
                   </div>
 
-                <div class="col-md-6" *ngIf="coverFormData.PAToNamedPassenger != ''">
-                        <h2 class="color-blue m-2">PA to Named Passenger</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.PAToNamedPassenger != ''"><strong>PA to Named Passenger :</strong><span *ngIf="coverFormData.PAToNamedPassenger == true">Yes</span><span *ngIf="coverFormData.PAToNamedPassenger == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.namedPassengersSI != '' && coverFormData.PAToNamedPassenger ==true "><strong>Sum Insured:</strong> {{coverFormData.namedPassengersSI}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.nppassengerName != '' && coverFormData.PAToNamedPassenger ==true "><strong>Passenger Name:</strong> {{coverFormData.nppassengerName}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.npappointeeName != '' && coverFormData.PAToNamedPassenger ==true "><strong>Appointee Name:</strong> {{coverFormData.npappointeeName}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.npnomineeName != '' && coverFormData.PAToNamedPassenger ==true "><strong>Nominee Name:</strong> {{coverFormData.npnomineeName}}</li>
-                        </ul>
-                      </div>
-                  <div class="col-md-6" *ngIf="coverFormData.PAToNamedPassenger != ''">
-                    <h4 class="mt-4"></h4>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item" *ngIf="coverFormData.npDob != '' && coverFormData.PAToNamedPassenger ==true"><strong>Nominee Dob:</strong> {{coverFormData.npDob | date: 'dd/MM/yyyy'}}</li>
-                      <li class="list-group-item" *ngIf="coverFormData.nprelation != '' && coverFormData.PAToNamedPassenger ==true "><strong>Relation:</strong> {{coverFormData.nprelationValue}}</li>
-                      <li class="list-group-item" *ngIf="coverFormData.npOtherRelation != '' && coverFormData.PAToNamedPassenger == true "><strong>Other Relation:</strong> {{coverFormData.npOtherRelationValue}}</li>
-                      <li class="list-group-item" *ngIf="coverFormData.npAddress != '' && coverFormData.PAToNamedPassenger == true "><strong>Nominee Address:</strong> {{coverFormData.npAddress}}</li>
-                    </ul>
-                  </div>
+                <!--<div class="col-md-6" *ngIf="coverFormData.PAToNamedPassenger != ''">-->
+                        <!--<h2 class="color-blue m-2">PA to Named Passenger</h2>-->
+                        <!--<ul class="m-0 list-group">-->
+                          <!--<li class="list-group-item" *ngIf="coverFormData.PAToNamedPassenger != ''"><strong>PA to Named Passenger :</strong><span *ngIf="coverFormData.PAToNamedPassenger == true">Yes</span><span *ngIf="coverFormData.PAToNamedPassenger == false">No</span> </li>-->
+                          <!--<li class="list-group-item" *ngIf="coverFormData.namedPassengersSI != '' && coverFormData.PAToNamedPassenger ==true "><strong>Sum Insured:</strong> {{coverFormData.namedPassengersSI}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="coverFormData.nppassengerName != '' && coverFormData.PAToNamedPassenger ==true "><strong>Passenger Name:</strong> {{coverFormData.nppassengerName}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="coverFormData.npappointeeName != '' && coverFormData.PAToNamedPassenger ==true "><strong>Appointee Name:</strong> {{coverFormData.npappointeeName}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="coverFormData.npnomineeName != '' && coverFormData.PAToNamedPassenger ==true "><strong>Nominee Name:</strong> {{coverFormData.npnomineeName}}</li>-->
+                        <!--</ul>-->
+                      <!--</div>-->
+                  <!--<div class="col-md-6" *ngIf="coverFormData.PAToNamedPassenger != ''">-->
+                    <!--<h4 class="mt-4"></h4>-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item" *ngIf="coverFormData.npDob != '' && coverFormData.PAToNamedPassenger ==true"><strong>Nominee Dob:</strong> {{coverFormData.npDob | date: 'dd/MM/yyyy'}}</li>-->
+                      <!--<li class="list-group-item" *ngIf="coverFormData.nprelation != '' && coverFormData.PAToNamedPassenger ==true "><strong>Relation:</strong> {{coverFormData.nprelationValue}}</li>-->
+                      <!--<li class="list-group-item" *ngIf="coverFormData.npOtherRelation != '' && coverFormData.PAToNamedPassenger == true "><strong>Other Relation:</strong> {{coverFormData.npOtherRelationValue}}</li>-->
+                      <!--<li class="list-group-item" *ngIf="coverFormData.npAddress != '' && coverFormData.PAToNamedPassenger == true "><strong>Nominee Address:</strong> {{coverFormData.npAddress}}</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
 
                 <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd == true">
                   <h2 class="color-blue m-2">PA to Owner Driver</h2>
@@ -1377,6 +1443,7 @@
                     <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
                     <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Other Relation:</strong> {{coverFormData.nOtherRelation}}</li>
                     <li class="list-group-item" *ngIf="coverFormData.cnAddress != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Nominee Address:</strong> {{coverFormData.cnAddress}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.totalOwnerDriverPremium != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Cover Premium:</strong> {{coverFormData.totalOwnerDriverPremium}}</li>
                   </ul>
                 </div>
 
@@ -1385,13 +1452,15 @@
                   <ul class="m-0 list-group">
                     <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>BiFuel Kit:</strong><span *ngIf="coverFormData.IsBiFuelKit == true">Yes</span><span *ngIf="coverFormData.IsBiFuelKit == false">No</span> </li>
                     <li class="list-group-item" *ngIf="coverFormData.BiFuelKitSi != '' && coverFormData.IsBiFuelKit ==true "><strong>Sum Insured:</strong> {{coverFormData.BiFuelKitSi}}</li>
-                    <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>CNG/LPG kit attached:</strong><span *ngIf="coverFormData.cpgLpgKit == true">Yes</span><span *ngIf="coverFormData.cpgLpgKit == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != '' && coverFormData.IsBiFuelKit ==true "><strong>Is CNG/LPG kit ?:</strong> {{coverFormData.cpgLpgKit}}</li>
+                    <!--<li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>CNG/LPG kit attached:</strong><span *ngIf="coverFormData.cpgLpgKit == true">Yes</span><span *ngIf="coverFormData.cpgLpgKit == false">No</span> </li>-->
                   </ul>
                 </div>
                 <div class="col-md-6" *ngIf="coverFormData.IsBiFuelKit == true">
                   <h4 class="mt-4"></h4>
                   <ul class="m-0 list-group">
                     <li class="list-group-item" *ngIf="coverFormData.bifueltype != '' && coverFormData.IsBiFuelKit ==true "><strong>Bifuel type:</strong> {{coverFormData.bifueltype}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.bifuelAmount != '' && coverFormData.IsBiFuelKit ==true "><strong>Cover Premium:</strong> {{coverFormData.bifuelAmount}}</li>
                     <li class="list-group-item" *ngIf="coverFormData.fittngType != '' && coverFormData.cpgLpgKit ==true "><strong>Fitting Type:</strong> {{coverFormData.fittngType}}</li>
                   </ul>
                 </div>
@@ -1417,23 +1486,25 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage != ''"><strong>Nil Depreciation:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == true">Yes</span><span *ngIf="coverFormData.NilDepreciationCoverage == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.applicableRate != '' && coverFormData.NilDepreciationCoverage == true "><strong>Applicable Rate:</strong> {{coverFormData.applicableRate}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.totalDepreciationPremium != '' && coverFormData.NilDepreciationCoverage == true "><strong>Cover Premium:</strong> {{coverFormData.totalDepreciationPremium}}</li>
 
                         </ul>
                       </div>
 
-                      <div class="col-md-6" *ngIf="coverFormData.TPPDCover == true">
-                        <h2 class="color-blue m-2">TPPD Restrictred</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.TPPDCover != ''"><strong>TPPD Restrictred:</strong><span *ngIf="coverFormData.TPPDCover == true">Yes</span><span *ngIf="coverFormData.TPPDCover == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.TPPDCoverSi != '' && coverFormData.TPPDCover ==true "><strong>Sum Insured:</strong> {{coverFormData.TPPDCoverSi}}</li>
-                        </ul>
-                      </div>
+                      <!--<div class="col-md-6" *ngIf="coverFormData.TPPDCover == true">-->
+                        <!--<h2 class="color-blue m-2">TPPD Restrictred</h2>-->
+                        <!--<ul class="m-0 list-group">-->
+                          <!--<li class="list-group-item" *ngIf="coverFormData.TPPDCover != ''"><strong>TPPD Restrictred:</strong><span *ngIf="coverFormData.TPPDCover == true">Yes</span><span *ngIf="coverFormData.TPPDCover == false">No</span> </li>-->
+                          <!--<li class="list-group-item" *ngIf="coverFormData.TPPDCoverSi != '' && coverFormData.TPPDCover ==true "><strong>Sum Insured:</strong> {{coverFormData.TPPDCoverSi}}</li>-->
+                        <!--</ul>-->
+                      <!--</div>-->
 
                       <div class="col-md-6" *ngIf="coverFormData.IsVoluntaryDeductableOpted ==true">
                         <h2 class="color-blue m-2">Voluntary Deductible</h2>
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted != ''"><strong>Voluntary Deductible:</strong><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == true">Yes</span><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.VoluntaryDeductableAmount != '' && coverFormData.IsVoluntaryDeductableOpted ==true "><strong>Voluntary Deductable Amount:</strong> {{coverFormData.VoluntaryDeductableAmount}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.totalVoluntaryDeductablePremium != '' && coverFormData.IsVoluntaryDeductableOpted ==true "><strong>Cover Premium:</strong> {{coverFormData.totalVoluntaryDeductablePremium}}</li>
 
                         </ul>
                       </div>
@@ -1442,6 +1513,7 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.IsElectricalItemFitted != ''"><strong>Electrical Accessories:</strong><span *ngIf="coverFormData.IsElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsElectricalItemFitted == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.ElectricalItemsTotalSI != '' && coverFormData.IsElectricalItemFitted ==true "><strong>Sum Insured:</strong> {{coverFormData.ElectricalItemsTotalSI}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.totalElectricalItemPremium != '' && coverFormData.IsElectricalItemFitted ==true "><strong>Cover Premium:</strong> {{coverFormData.totalElectricalItemPremium}}</li>
 
                         </ul>
                       </div>
@@ -1450,42 +1522,43 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted != ''"><strong>Non Electrical Accessories:</strong><span *ngIf="coverFormData.IsNonElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsNonElectricalItemFitted == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.NonElectricalItemsTotalSI != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Sum Insured:</strong> {{coverFormData.NonElectricalItemsTotalSI}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.totalNonElectricalItemPremium != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Cover Premium:</strong> {{coverFormData.totalNonElectricalItemPremium}}</li>
                         </ul>
                       </div>
 
-                      <div class="col-md-6" *ngIf="coverFormData.IsPAToDriverCovered == true">
-                        <h2 class="color-blue m-2">PA To Driver Covered</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.IsPAToDriverCovered != ''"><strong>PA To Driver Covered:</strong><span *ngIf="coverFormData.IsPAToDriverCovered == true">Yes</span><span *ngIf="coverFormData.IsPAToDriverCovered == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.IsPAToDriverCoveredSi != '' && coverFormData.IsPAToDriverCovered ==true "><strong>PA To Driver Covered SI:</strong> {{coverFormData.IsPAToDriverCoveredSi}}</li>
-                        </ul>
-                      </div>
+                      <!--<div class="col-md-6" *ngIf="coverFormData.IsPAToDriverCovered == true">-->
+                        <!--<h2 class="color-blue m-2">PA To Driver Covered</h2>-->
+                        <!--<ul class="m-0 list-group">-->
+                          <!--<li class="list-group-item" *ngIf="coverFormData.IsPAToDriverCovered != ''"><strong>PA To Driver Covered:</strong><span *ngIf="coverFormData.IsPAToDriverCovered == true">Yes</span><span *ngIf="coverFormData.IsPAToDriverCovered == false">No</span> </li>-->
+                          <!--<li class="list-group-item" *ngIf="coverFormData.IsPAToDriverCoveredSi != '' && coverFormData.IsPAToDriverCovered ==true "><strong>PA To Driver Covered SI:</strong> {{coverFormData.IsPAToDriverCoveredSi}}</li>-->
+                        <!--</ul>-->
+                      <!--</div>-->
 
-                <div class="col-md-6" *ngIf="coverFormData.IsTotalCover == true">
-                  <h2 class="color-blue m-2">Road Tax cover</h2>
-                  <ul class="m-0 list-group">
-                    <li class="list-group-item" *ngIf="coverFormData.IsRoadTaxcover != ''"><strong>Road Tax cover:</strong><span *ngIf="coverFormData.IsRoadTaxcover == true">Yes</span><span *ngIf="coverFormData.IsRoadTaxcover == false">No</span> </li>
-                    <li class="list-group-item" *ngIf="coverFormData.roadtaxSI != '' && coverFormData.IsRoadTaxcover ==true "><strong>Road Tax Covered SI:</strong> {{coverFormData.roadtaxSI}}</li>
+                <!--<div class="col-md-6" *ngIf="coverFormData.IsTotalCover == true">-->
+                  <!--<h2 class="color-blue m-2">Road Tax cover</h2>-->
+                  <!--<ul class="m-0 list-group">-->
+                    <!--<li class="list-group-item" *ngIf="coverFormData.IsRoadTaxcover != ''"><strong>Road Tax cover:</strong><span *ngIf="coverFormData.IsRoadTaxcover == true">Yes</span><span *ngIf="coverFormData.IsRoadTaxcover == false">No</span> </li>-->
+                    <!--<li class="list-group-item" *ngIf="coverFormData.roadtaxSI != '' && coverFormData.IsRoadTaxcover ==true "><strong>Road Tax Covered SI:</strong> {{coverFormData.roadtaxSI}}</li>-->
 
-                  </ul>
-                </div>
+                  <!--</ul>-->
+                <!--</div>-->
 
 
-                <div class="col-md-6" *ngIf="coverFormData.IsTotalCover == true">
-                  <h2 class="color-blue m-2">Registration cover</h2>
-                  <ul class="m-0 list-group">
-                    <li class="list-group-item" *ngIf="coverFormData.IsRegistrationCover != ''"><strong>Registration Cover:</strong><span *ngIf="coverFormData.IsRegistrationCover == true">Yes</span><span *ngIf="coverFormData.IsRegistrationCover == false">No</span> </li>
-                    <li class="list-group-item" *ngIf="coverFormData.registrationSI != '' && coverFormData.IsRegistrationCover ==true "><strong>Registration Covered SI:</strong> {{coverFormData.registrationSI}}</li>
-                  </ul>
-                </div>
+                <!--<div class="col-md-6" *ngIf="coverFormData.IsTotalCover == true">-->
+                  <!--<h2 class="color-blue m-2">Registration cover</h2>-->
+                  <!--<ul class="m-0 list-group">-->
+                    <!--<li class="list-group-item" *ngIf="coverFormData.IsRegistrationCover != ''"><strong>Registration Cover:</strong><span *ngIf="coverFormData.IsRegistrationCover == true">Yes</span><span *ngIf="coverFormData.IsRegistrationCover == false">No</span> </li>-->
+                    <!--<li class="list-group-item" *ngIf="coverFormData.registrationSI != '' && coverFormData.IsRegistrationCover ==true "><strong>Registration Covered SI:</strong> {{coverFormData.registrationSI}}</li>-->
+                  <!--</ul>-->
+                <!--</div>-->
 
-                <div class="col-md-6" *ngIf="coverFormData.IsTotalCover == true">
-                  <h2 class="color-blue m-2">Insurance Premium</h2>
-                  <ul class="m-0 list-group">
-                    <li class="list-group-item" *ngIf="coverFormData.InsurancePremium != ''"><strong>Insurance Premium:</strong><span *ngIf="coverFormData.InsurancePremium == true">Yes</span><span *ngIf="coverFormData.InsurancePremium == false">No</span> </li>
-                    <li class="list-group-item" *ngIf="coverFormData.insuranceSI != '' && coverFormData.InsurancePremium ==true "><strong>Insurance Premium SI:</strong> {{coverFormData.insuranceSI}}</li>
-                  </ul>
-                </div>
+                <!--<div class="col-md-6" *ngIf="coverFormData.IsTotalCover == true">-->
+                  <!--<h2 class="color-blue m-2">Insurance Premium</h2>-->
+                  <!--<ul class="m-0 list-group">-->
+                    <!--<li class="list-group-item" *ngIf="coverFormData.InsurancePremium != ''"><strong>Insurance Premium:</strong><span *ngIf="coverFormData.InsurancePremium == true">Yes</span><span *ngIf="coverFormData.InsurancePremium == false">No</span> </li>-->
+                    <!--<li class="list-group-item" *ngIf="coverFormData.insuranceSI != '' && coverFormData.InsurancePremium ==true "><strong>Insurance Premium SI:</strong> {{coverFormData.insuranceSI}}</li>-->
+                  <!--</ul>-->
+                <!--</div>-->
               </div>
             </section>
             <section>
@@ -1498,8 +1571,10 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="previousFormData.policyNumber != ''"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
                           <li class="list-group-item" *ngIf="previousFormData.prevInsuranceValue != ''"><strong>Previous Insurance:</strong> {{previousFormData.prevInsuranceValue}}</li>
-                          <li class="list-group-item" *ngIf="buyProduct.business_type ==2 || buyProduct.business_type ==5"><strong>Inspection Id:</strong> {{previousFormData.inspectionId}}</li>
-                          <li class="list-group-item" *ngIf="buyProduct.business_type ==2 || buyProduct.business_type ==5"><strong>Inspection Date:</strong> {{previousFormData.inspectionDate | date: 'dd/MM/yyyy'}}</li>
+                          <li class="list-group-item" *ngIf="showInspection==true"><strong>Inspection Id:</strong> {{previousFormData.inspectionId}}</li>
+                          <li class="list-group-item" *ngIf="showInspection==true"><strong>Inspection Date:</strong> {{previousFormData.inspectionDate | date: 'dd/MM/yyyy'}}</li>
+                          <!--<li class="list-group-item" *ngIf="buyProduct.business_type ==2 || buyProduct.business_type ==5"><strong>Inspection Id:</strong> {{previousFormData.inspectionId}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="buyProduct.business_type ==2 || buyProduct.business_type ==5"><strong>Inspection Date:</strong> {{previousFormData.inspectionDate | date: 'dd/MM/yyyy'}}</li>-->
                           <!--                                              <li class="list-group-item"><strong>Previous End Date:</strong> {{previousFormData.previousdEndob | date: 'dd/MM/yyyy'}}</li>-->
 
                         </ul>
@@ -1516,7 +1591,8 @@
 <!--                          <li class="list-group-item"><strong>Previous Policy Sold:</strong> {{previousFormData.prevPolSold}}</li>-->
                           <!--                                              <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>-->
                           <li class="list-group-item" *ngIf="previousFormData.prevInsurerAddress != ''"><strong>Previous Insurer Address:</strong> {{previousFormData.prevInsurerAddress}}</li>
-                          <li class="list-group-item" *ngIf="previousFormData.inspectionDone != '' && (buyProduct.business_type ==2 || buyProduct.business_type ==5)"><strong>Inspection Done:</strong><span *ngIf="previousFormData.inspectionDone == true">Yes</span><span *ngIf="previousFormData.inspectionDone == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="showInspection==true"><strong>Inspection Done:</strong><span *ngIf="previousFormData.inspectionDone == true">Yes</span><span *ngIf="previousFormData.inspectionDone == false">No</span> </li>
+                          <!--<li class="list-group-item" *ngIf="previousFormData.inspectionDone != '' && (buyProduct.business_type ==2 || buyProduct.business_type ==5)"><strong>Inspection Done:</strong><span *ngIf="previousFormData.inspectionDone == true">Yes</span><span *ngIf="previousFormData.inspectionDone == false">No</span> </li>-->
 
 
 

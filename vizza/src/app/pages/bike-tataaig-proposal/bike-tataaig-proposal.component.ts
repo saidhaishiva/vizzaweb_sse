@@ -30,7 +30,9 @@ import {WINDOW} from '@ng-toolkit/universal';
 
 export interface DialogData {
     name: string;
-    animal:string;
+    question1:string;
+    question2:string;
+    id:any;
 }
 declare const global: any;
 // tslint:disable-next-line:variable-name
@@ -100,13 +102,19 @@ export class BikeTataaigProposalComponent implements OnInit {
     public productlist: any;
     public errortoaster: boolean;
     public depReturn: boolean;
+    public deprecuiation: boolean;
     public bankValid: boolean;
     public finlist: any;
     public finArray: any;
     public errorMsg: any;
     public errorNonMsg: any;
     public packaageList: any;
+    public packaageListID: any;
     public ispreviousPolicy: any;
+    public checkId: any;
+    public checkValue: any;
+    public ispreviousPolicy1: any;
+    public policy_start: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -150,7 +158,11 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.errorMsg = false;
         this.errorNonMsg = false;
         this.depReturn = true;
+        this.deprecuiation = true;
         this.ispreviousPolicy = '';
+        this.checkId = '';
+        this.checkValue = '';
+        this.ispreviousPolicy1 = '';
         this.finArray=[];
 
         this.proposer = this.fb.group({
@@ -201,7 +213,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             Financetype: false,
             banktype: '',
             bankName: '',
-            bankNamevalue: '',
+            // bankNamevalue: '',
             Address: '',
             coverdrive: ['', Validators.required],
             coverdrivevalue: '',
@@ -241,6 +253,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     ngOnInit() {
         this.vehicle.controls['Associationmember'].value == false;
         this.getGenderlist();
+        this.maritial();
         // this.chaneauto();
         // this.chaneanti();
         // this.chanetpp();
@@ -444,28 +457,34 @@ export class BikeTataaigProposalComponent implements OnInit {
     {
         // alert('dep')
         if (this.vehicle.controls['depreciation'].value == true) {
-            this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
+            // this.vehicle.controls['depreciationamount'].setValidators([Validators.required]);
             this.vehicle.controls['depreciationamount'].updateValueAndValidity();
         } else {
+            this.vehicle.controls['depreciationamount'].setValidators(null);
+
             this.vehicle.controls['depreciationamount'].clearValidators();
             this.vehicle.controls['depreciationamount'].updateValueAndValidity();
         }
     }
     disableDpRt(){
-        // alert('dep')
-        if (this.vehicle.controls['depreciation'].value == true || this.vehicle.controls['Returninvoice'].value == true) {
+        // alert('dep');
+        console.log(this.vehicle.controls['depreciation'].value,'fdghjhg');
+        if ((this.vehicle.controls['depreciation'].value == true  || this.vehicle.controls['Returninvoice'].value == true) && (this.enquiryFormData.business_type != '1')) {
             // alert('true')
             let dialogRef = this.dialog.open(tataigBikeOpt, {
 
                 width: '400px',
-                data: {name: this.packaageList, animal: this.ispreviousPolicy}
+                data: {name: this.packaageList,id:this.packaageListID,question1: this.ispreviousPolicy,question2: this.ispreviousPolicy1}
             });
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     this.ispreviousPolicy = result;
-                    console.log(result,'23456787656789876');
-                    console.log(this.ispreviousPolicy,'23456787656789876');
+                    this.checkId=this.ispreviousPolicy.id
+                    this.checkValue=this.ispreviousPolicy.question1
+                    console.log(result,'resulit.........');
+                    console.log(this.checkId,'23456787656789876');
+                    console.log(this.checkValue,'23451111111');
 
                 }
                 this.checkRTDp();
@@ -477,15 +496,34 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     checkRTDp(){
-        console.log(this.depReturn,'111111depReturn')
-        console.log(this.ispreviousPolicy,'111111ispreviousPolicy')
-        if(this.ispreviousPolicy=='N') {
-            // alert('other');
-            this.depReturn=false;
-            console.log(this.depReturn,'77777depReturn')
-        }else{
-            this.depReturn=true;
-            console.log(this.depReturn,'88888depReturn')
+        console.log(this.ispreviousPolicy,'ispreviousPolicy');
+        if(this.checkValue=='N'&&this.checkId=='8'){
+            this.deprecuiation=false;
+            this.vehicle.controls['depreciation'].patchValue(false);
+            this.vehicle.controls['depreciationamount'].patchValue('');
+            console.log(this.deprecuiation,'77777deprecuiation');
+            this.changeRTPDPYN();
+
+        }else if(this.checkValue=='N'&&this.checkId=='9'){
+                this.depReturn=false;
+            this.vehicle.controls['Returninvoice'].patchValue(false);
+            this.vehicle.controls['Returninvoiceamount'].patchValue('');
+            console.log(this.depReturn,'77777deprecuiation');
+                this.changrRTP();
+        }
+    }
+    changeRTPDPYN(){
+        if(this.deprecuiation==false){
+        this.vehicle.controls['depreciation'].patchValue(false);
+            this.vehicle.controls['depreciationamount'].patchValue('');
+        console.log(this.vehicle.controls['depreciation'].value,'68789787678');
+        }
+    }
+    changrRTP(){
+        if(this.depReturn==false){
+            this.vehicle.controls['Returninvoice'].patchValue(false);
+            this.vehicle.controls['Returninvoiceamount'].patchValue('');
+            console.log(this.vehicle.controls['Returninvoice'].value,'1234567879878');
         }
     }
     chanedepre()
@@ -511,9 +549,11 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
     amount_Returninvoice() {
         if (this.vehicle.controls['Returninvoice'].value == true) {
-            this.vehicle.controls['Returninvoiceamount'].setValidators([Validators.required]);
+            // this.vehicle.controls['Returninvoiceamount'].setValidators([Validators.required]);
             this.vehicle.controls['Returninvoiceamount'].updateValueAndValidity();
         } else {
+            this.vehicle.controls['Returninvoiceamount'].setValidators(null);
+
             this.vehicle.controls['Returninvoiceamount'].clearValidators();
             this.vehicle.controls['Returninvoiceamount'].updateValueAndValidity();
         }
@@ -861,7 +901,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            'package':this.vehicle.controls['depreciation'].value == true?'8':this.vehicle.controls['Returninvoice'].value == true?'9':'',
+            'package':this.vehicle.controls['depreciation'].value == true ? '8' : this.vehicle.controls['Returninvoice'].value == true ? '9':'',
         }
         this.bikeinsurance.tataAddContent(data).subscribe(
             (successData) => {
@@ -879,7 +919,9 @@ export class BikeTataaigProposalComponent implements OnInit {
             // this.photos = successData.ResponseObject;
             // console.log(this.photos,'photos');
             this.packaageList=successData.ResponseObject.content;
+            this.packaageListID=successData.ResponseObject.id;
             console.log(this.packaageList,'234567898767890');
+            console.log(this.packaageListID,'234567898767890');
             this.disableDpRt();
 
         }
@@ -993,6 +1035,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.proposer.controls['driveLastname'].patchValue(this.proposer.controls['proposerLastname'].value);
             this.proposer.controls['driveGender'].patchValue(this.proposer.controls['proposerGender'].value);
             this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
+            this.proposer.controls['drivingexp'].patchValue(this.proposer.controls['drivingexp'].value);
             // this.proposer.controls['driveFirstname'].setValidators([Validators.required]);
             // this.proposer.controls['driveLastname'].setValidators([Validators.required]);
             // this.proposer.controls['driveGender'].setValidators([Validators.required]);
@@ -1010,6 +1053,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             // this.proposer.controls['driveLastname'].setValidators(null);
             // this.proposer.controls['driveGender'].setValidators(null);
             // this.proposer.controls['driveAge'].setValidators(null);
+            this.proposer.controls['drivingexp'].patchValue('');
             this.proposer.controls['drivingexp'].setValidators(null);
             // this.proposer.controls['drivemaritalStatus'].setValidators(null);
         }
@@ -1022,21 +1066,21 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     check(event) {
-        // if (event.checked == true) {
-        //     this.vehicle.controls['banktype'].setValidators([Validators.required]);
-        //     this.vehicle.controls['bankName'].setValidators([Validators.required]);
-        //     this.vehicle.controls['Address'].setValidators([Validators.required]);
-        // } else if (event.checked != true) {
-        //     this.vehicle.controls['banktype'].patchValue('');
-        //     this.vehicle.controls['bankName'].patchValue('');
-        //     this.vehicle.controls['Address'].patchValue('');
-        //     this.vehicle.controls['banktype'].setValidators(null);
-        //     this.vehicle.controls['bankName'].setValidators(null);
-        //     this.vehicle.controls['Address'].setValidators(null);
-        // }
-        // this.vehicle.controls['banktype'].updateValueAndValidity();
-        // this.vehicle.controls['bankName'].updateValueAndValidity();
-        // this.vehicle.controls['Address'].updateValueAndValidity();
+        if (event.checked == true) {
+            this.vehicle.controls['banktype'].setValidators([Validators.required]);
+            this.vehicle.controls['bankName'].setValidators([Validators.required]);
+            this.vehicle.controls['Address'].setValidators([Validators.required]);
+        } else  {
+            this.vehicle.controls['banktype'].patchValue('');
+            this.vehicle.controls['bankName'].patchValue('');
+            this.vehicle.controls['Address'].patchValue('');
+            this.vehicle.controls['banktype'].setValidators(null);
+            this.vehicle.controls['bankName'].setValidators(null);
+            this.vehicle.controls['Address'].setValidators(null);
+        }
+        this.vehicle.controls['banktype'].updateValueAndValidity();
+        this.vehicle.controls['bankName'].updateValueAndValidity();
+        this.vehicle.controls['Address'].updateValueAndValidity();
     }
 
     // changeflag(event: any) {
@@ -1077,11 +1121,14 @@ export class BikeTataaigProposalComponent implements OnInit {
     vehicleDetails(stepper: MatStepper, value) {
         sessionStorage.tatabikevehicle = '';
         sessionStorage.tatabikevehicle = JSON.stringify(value);
+        console.log(this.vehicle.value,'687986788');
+        console.log(this.vehicle,'675768998')
         if (this.vehicle.valid ) {
             if(this.vehicle.controls['elecAccessoriesSI'].value <= 15000 && this.vehicle.controls['nonElectricAcessSI'].value <= 15000){
             console.log(value, 'vehicle');
             stepper.next();
             this.topScroll();
+            this.QuoteList();
         }else{
                 this.toastr.error('Sum Insured should be less then or equal to 15000');
             }
@@ -1166,7 +1213,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 Financetype: this.getstepper3.Financetype,
                 banktype: this.getstepper3.banktype,
                 bankName: this.getstepper3.bankName,
-                bankNamevalue: this.getstepper3.bankNamevalue,
+                // bankNamevalue: this.getstepper3.bankNamevalue,
                 Address: this.getstepper3.Address,
                 coverdrive: this.getstepper3.coverdrive,
                 coverdrivevalue: this.getstepper3.coverdrivevalue,
@@ -1208,7 +1255,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 preState: this.getstepper2.preState,
                 preDistrict: this.getstepper2.preDistrict,
                 preCity: this.getstepper2.preCity,
-                ispreviousPolicy: this.getstepper2.ispreviousPolicy,
+                // ispreviousPolicy: this.getstepper2.ispreviousPolicy,
             })
         }
         if (sessionStorage.tatabikenominee != '' && sessionStorage.tatabikenominee != undefined) {
@@ -1274,6 +1321,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.QuoteRoadsideassistance=this.Quotelist.productlist.addons.Roadside_Assistance;
             this.electriaccSuminsured=this.Quotelist.productlist.addons.Electrical_accessories;
             this.nonElectriaccSuminsured=this.Quotelist.productlist.addons.NonElectrical_accessories;
+            this.policy_start=this.Quotelist.productlist.policy_start;
             console.log(this.QuoteAss,'amount')
             this.chaneauto();
             this.chaneanti();
@@ -1308,7 +1356,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             'package_type': this.premium,
             "motorproposalObj": {
                 "quotation_no": this.quotationNo,
-                "pol_sdate": this.enquiryFormData.business_type == '1' ? this.datepipe.transform(this.minDate, 'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
+                // "pol_sdate": this.enquiryFormData.business_type == '1' ? this.datepipe.transform(this.minDate, 'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
+                "pol_sdate": this.enquiryFormData.business_type == '1' ? this.datepipe.transform(this.minDate, 'yMMdd') : this.policy_start,
                 "sp_name": "Name",
                 "sp_license": "Lino12345566",
                 "sp_place": "Mahbubnagar",
@@ -1409,27 +1458,38 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     proposalFailure(error) {
     }
-    changefinancecompany() {
-        this.vehicle.controls['bankNamevalue'].patchValue(this.photos[this.vehicle.controls['bankName'].value]);
-
-        console.log(this.vehicle.controls['bankNamevalue'].value,'000000000.....');
-        console.log(this.finlist[this.vehicle.controls['bankName'].value],'11111111111111111111....');
-        this.vehicle.controls['bankNamevalue'].patchValue(this.banklist[this.vehicle.controls['bankName'].value]);
-console.log(this.vehicle.controls['bankNamevalue'].value,'2222222222....');
-console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....');
-    }
+//     changefinancecompany() {
+//         this.vehicle.controls['bankNamevalue'].patchValue(this.photos[this.vehicle.controls['bankName'].value]);
+//
+//         console.log(this.vehicle.controls['bankNamevalue'].value,'000000000.....');
+//         console.log(this.finlist[this.vehicle.controls['bankName'].value],'11111111111111111111....');
+//         this.vehicle.controls['bankNamevalue'].patchValue(this.banklist[this.vehicle.controls['bankName'].value]);
+// console.log(this.vehicle.controls['bankNamevalue'].value,'2222222222....');
+// console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....');
+//     }
 }
 @Component({
     selector: ' tataigBikeOpt ',
     template: `
-        <div class="container">
+        <div class="container" *ngIf="data.id=='8'">
             <div class="row">
                 <div class="col-md-12 text-center w-100">
                   <p>{{data.name}}<span class="error">*</span></p>
-                  <mat-radio-group  [(ngModel)]="data.animal" (change)="outChange()" [mat-dialog-close]="data.animal" required>
+                  <mat-radio-group  [(ngModel)]="data.question1" (change)="outChange1()" [mat-dialog-close]="data.question1" required>
                     <mat-radio-button value="Y" >Yes</mat-radio-button>
                     <mat-radio-button value="N">No</mat-radio-button>
                   </mat-radio-group>
+                </div>
+            </div>
+        </div>
+        <div class="container" *ngIf="data.id=='9'">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                    <p>{{data.name}}<span class="error">*</span></p>
+                    <mat-radio-group  [(ngModel)]="data.question2" (change)="outChange2()" [mat-dialog-close]="data.question2" required>
+                        <mat-radio-button value="Y" >Yes</mat-radio-button>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                    </mat-radio-group>
                 </div>
             </div>
         </div>
@@ -1438,23 +1498,34 @@ console.log(this.banklist[this.vehicle.controls['bankName'].value],'33333333....
 })
 export class tataigBikeOpt {
     public ispreviousPolicy: any;
+    public ispreviousPolicy1: any;
     public packaageList:any
     constructor(
         public dialogRef: MatDialogRef<tataigBikeOpt>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public carinsurance: FourWheelerService) {
-        data.animal = "";
+        data.question1 = "";
+        data.question2 = "";
         console.log(data.name,'previous........');
-        console.log(data.animal,'previous animal........');
+        console.log(data.question1,'previous question1........');
+        console.log(data.question2,'previous question1........');
+        console.log(data.id,'iddddd........');
     }
 
 
-    outChange(): void {
+    outChange1(): void {
+
+        this.dialogRef.close({question1:this.data.question1,id: this.data.id});
+        // this.dialogRef.close(this.data.question1);
+        console.log(this.data.question1,'question1');
+        console.log('outttquest11');
+    }
+    outChange2(): void {
 
         this.dialogRef.close(
-            this.data.animal
+            {question1:this.data.question2,id: this.data.id}
         );
-        console.log(this.data.animal,'this.data.animal');
-        console.log('outtttt111111111');
+        console.log(this.data.question1,'question2');
+        console.log('outtttt1222222222');
     }
 
     numberValidate(event: any) {

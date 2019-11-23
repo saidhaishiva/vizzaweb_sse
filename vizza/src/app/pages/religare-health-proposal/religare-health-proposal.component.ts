@@ -138,6 +138,10 @@ export class ReligareHealthProposalComponent implements OnInit {
     proposal_Id: any;
     createdDate: any;
     requestDetails: any;
+    gtotalPremium: any;
+    gcompanylogo:any;
+    gname:any;
+    gsum_insured:any;
     requestmedicalQuestion: any;
     public religareMobileTrue0: boolean;
     public religareMobileTrue1: boolean;
@@ -1703,6 +1707,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             'nominee_relationship': this.nomineeDetails.controls['religareRelationship'].value,
             'medical_status': this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
         };
+        console.log(this.getFamilyDetails.name,'get family details');
+
         if (!this.back){
             this.processDiseaseData(this.totalData);
         }
@@ -2018,6 +2024,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             'medicalQuestion': this.religareQuestionsList
         };
         console.log(data, 'payyyyy');
+        console.log(this.getFamilyDetails.name,'get family details');
+
         this.settings.loadingSpinner = true;
         this.proposalservice.proposalPayLater(data).subscribe(
             (successData) => {
@@ -2066,6 +2074,11 @@ export class ReligareHealthProposalComponent implements OnInit {
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
+            this.gname =this.requestDetails.group_name;
+            this.gsum_insured =this.requestDetails.suminsured_amount;
+            this.gcompanylogo =this.requestDetails.company_logo;
+            this.gtotalPremium =this.requestDetails.total_premium;
+            this.gname =this.requestDetails.group_name;
             this.pos_status =  this.requestDetails.role_id;
             this.product_id =  this.requestDetails.product_id;
             this.action =  this.requestDetails.action;
@@ -2073,9 +2086,10 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.returnURL = this.requestDetails.returnURL;
             this.requestInsuredDetails = this.requestDetails.proposer_insurer_details;
             this.requestmedicalQuestion = this.requestDetails.medicalQuestion;
+            console.log(this.requestDetails, 'requestDetails')
             console.log(this.requestmedicalQuestion, 'requestmedicalQuestion');
             console.log(this.requestInsuredDetails, 'hgghjghjgjh');
-            console.log(this.requestInsuredDetails.prop_identity_list[0].identity_number, 'hgghjghjgjh');
+            // console.log(this.requestInsuredDetails.prop_identity_list[0].identity_number, 'hgghjghjgjh');
             console.log(this.requestInsuredDetails.prop_contact_list[0].contact_no, 'hgghjghjgjh');
             console.log(this.requestInsuredDetails.prop_email_list[0].email, 'hgghjghjgjh');
             console.log(this.requestDetails.PreviousInsuranceDetails.PrevInsuranceID , 'fdgdfgfdgf');
