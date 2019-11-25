@@ -9,7 +9,7 @@ import {BranchService} from '../../../shared/services/branch.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {MatChipInputEvent} from '@angular/material';
-import {item} from '../add-meta-detail/add-meta-detail.component';
+// import {item} from '../add-meta-detail/add-meta-detail.component';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 export interface item {
