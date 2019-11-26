@@ -167,10 +167,10 @@
               <mat-error *ngIf="form.controls.documents['controls'].aadharnumber.hasError('required')">Enter Valid Aadhaar Number</mat-error>
             </mat-form-field>
             <mat-form-field class="w-100">
-              <input matInput required placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber" autocomplete="off" style="text-transform: uppercase">
+              <input matInput placeholder="Pan Number" maxlength="10" minlength="10" formControlName="pannumber" autocomplete="off" style="text-transform: uppercase">
               <i class="far fa-id-card" matSuffix></i>
               <mat-error *ngIf="form.controls.documents['controls'].pannumber.hasError('minlength')">Pan Number should be 10 digits</mat-error>
-              <mat-error *ngIf="form.controls.documents['controls'].pannumber.hasError('required')">Pan Number required</mat-error>
+              <!--<mat-error *ngIf="form.controls.documents['controls'].pannumber.hasError('required')">Pan Number required</mat-error>-->
               <mat-error *ngIf="form.controls.documents['controls'].pannumber.hasError('pattern')">Enter Valid Pan Number</mat-error>
             </mat-form-field>
             <div class="w-100">
@@ -208,8 +208,9 @@
             <div class="w-100">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" formControlName="pancard" (change)="readUrl($event, 'pancard')"   aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label"><span class="error">*</span> PAN Card Front Image</label>
-                <div class="error" *ngIf !="form.controls.documents['controls'].pancard.valid">PAN Card Image is required</div>
+                <label class="custom-file-label"> PAN Card Front Image</label>
+                <!--<span class="error">*</span>-->
+                <!--<div class="error" *ngIf !="form.controls.documents['controls'].pancard.valid">PAN Card Image is required</div>-->
               </div>
             </div>
             <div class="row w-100">

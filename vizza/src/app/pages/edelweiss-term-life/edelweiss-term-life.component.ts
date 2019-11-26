@@ -245,69 +245,70 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.nomineeDetails = [];
     this.taxRequired = '';
     this.step = 0;
-    this.proposer = this.fb.group({
-      title:  ['', Validators.compose([Validators.required])],
-      titleName: '',
-      firstName: ['', Validators.compose([Validators.required])],
-      midName: '',
-      lastName: ['', Validators.compose([Validators.required])],
-      gender: ['', Validators.compose([Validators.required])],
-      dob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
-      maritalStatus: ['', Validators.required],
-      maritalStatusName: '',
-      nationality: '',
-      emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-      pan: ['', Validators.compose([ Validators.minLength(10)])],
-      aadhaarNo: '',
-      ageProofIdName: '',
-      fatherhusbandName: '',
-      ageProofId: ['', Validators.compose([Validators.required])],
-      highestQualification: ['', Validators.compose([Validators.required])],
-      highestQualificationName: '',
-      otherQualification: '',
-      mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
-      isStaff: 'No',
-      employeeCode: '',
-      stitle: '',
-      stitleName: '',
-      sfirstName: '',
-      smidName: '',
-      slastName: '',
-      sdob: '',
-      semailId: '',
-      smobileNo: '',
-      isSmokerSpouse: 'No',
-      isStaffSpouse: 'No',
-      employeeCodeSpouse: '',
-      relationSpouseProposer: '3',
-      relationSpouseProposerName: 'Spouse',
-      currAddr1: ['', Validators.compose([Validators.required])],
-      currAddr2: ['', Validators.compose([Validators.required])],
-      currAddr3: '',
-      currPincode: ['', Validators.compose([Validators.required])],
-      currState: ['', Validators.compose([Validators.required])],
-      currCity: ['', Validators.compose([Validators.required])],
-      perAddr1: ['', Validators.compose([Validators.required])],
-      perAddr2: ['', Validators.compose([Validators.required])],
-      perAddr3: '',
-      perPincode: ['', Validators.compose([Validators.required])],
-      perState: ['', Validators.compose([Validators.required])],
-      perCity: ['', Validators.compose([Validators.required])],
-      isCurrPerAddrSame: '',
-      employementTypeOther: '',
-      employementType: ['', Validators.compose([Validators.required])],
-      employementTypeName: '',
-      employerName: ['', Validators.compose([Validators.required])],
-      natureduty: ['', Validators.compose([Validators.required])],
-      naturedutyName: '',
-      employerAddr: ['', Validators.compose([Validators.required])],
-      annualIncome: ['', Validators.compose([Validators.required])],
-      taxResidence: ['', Validators.compose([Validators.required])],
-
-    });
+    // this.proposer = this.fb.group({
+    //   title:  ['', Validators.compose([Validators.required])],
+    //   titleName: '',
+    //   firstName: ['', Validators.compose([Validators.required])],
+    //   midName: '',
+    //   lastName: ['', Validators.compose([Validators.required])],
+    //   gender: ['', Validators.compose([Validators.required])],
+    //   dob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+    //   maritalStatus: ['', Validators.required],
+    //   maritalStatusName: '',
+    //   nationality: '',
+    //   emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+    //   pan: ['', Validators.compose([ Validators.minLength(10)])],
+    //   aadhaarNo: '',
+    //   ageProofIdName: '',
+    //   fatherhusbandName: '',
+    //   ageProofId: ['', Validators.compose([Validators.required])],
+    //   highestQualification: ['', Validators.compose([Validators.required])],
+    //   highestQualificationName: '',
+    //   otherQualification: '',
+    //   mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
+    //   // isStaff: 'No',
+    //   // empl
+    //   // oyeeCode: '',
+    //   stitle: '',
+    //   stitleName: '',
+    //   sfirstName: '',
+    //   smidName: '',
+    //   slastName: '',
+    //   sdob: '',
+    //   semailId: '',
+    //   smobileNo: '',
+    //   isSmokerSpouse: 'No',
+    //   isStaffSpouse: 'No',
+    //   employeeCodeSpouse: '',
+    //   relationSpouseProposer: '3',
+    //   relationSpouseProposerName: 'Spouse',
+    //   currAddr1: ['', Validators.compose([Validators.required])],
+    //   currAddr2: ['', Validators.compose([Validators.required])],
+    //   currAddr3: '',
+    //   currPincode: ['', Validators.compose([Validators.required])],
+    //   currState: ['', Validators.compose([Validators.required])],
+    //   currCity: ['', Validators.compose([Validators.required])],
+    //   perAddr1: ['', Validators.compose([Validators.required])],
+    //   perAddr2: ['', Validators.compose([Validators.required])],
+    //   perAddr3: '',
+    //   perPincode: ['', Validators.compose([Validators.required])],
+    //   perState: ['', Validators.compose([Validators.required])],
+    //   perCity: ['', Validators.compose([Validators.required])],
+    //   isCurrPerAddrSame: '',
+    //   employementTypeOther: '',
+    //   employementType: ['', Validators.compose([Validators.required])],
+    //   employementTypeName: '',
+    //   employerName: ['', Validators.compose([Validators.required])],
+    //   natureduty: ['', Validators.compose([Validators.required])],
+    //   naturedutyName: '',
+    //   employerAddr: ['', Validators.compose([Validators.required])],
+    //   annualIncome: ['', Validators.compose([Validators.required])],
+    //   taxResidence: ['', Validators.compose([Validators.required])],
+    //
+    // });
 
     this.insureArray = this.fb.group({
-      investing: ['', Validators.compose([Validators.required])],
+      // investing: ['', Validators.compose([Validators.required])],
       title: ['', Validators.compose([Validators.required])],
       firstName: ['', Validators.compose([Validators.required])],
       titleName: '',
@@ -371,8 +372,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       criminalDetails: '',
       identityProof: ['', Validators.compose([Validators.required])],
       identityProofName: '',
-      categorization: ['', Validators.compose([Validators.required])],
-
+      categorization: '',
       addrProof: ['', Validators.compose([Validators.required])],
       addrProofName: '',
       heightFeets: ['', Validators.compose([Validators.required])],
@@ -389,9 +389,9 @@ export class EdelweissTermLifeComponent implements OnInit {
       epolicy1: 'No',
       insureRepository: '',
       // planOption: 'No',
-      workSiteFlag: 'No',
-      investmentStrategy: '',
-      risingStar: 'No',
+      // workSiteFlag: 'No',
+      // investmentStrategy: '',
+      // risingStar: 'No',
       // policyOption: '',
       additionalBenefit: '',
       TopUpBenefit: 'No',
@@ -416,73 +416,73 @@ export class EdelweissTermLifeComponent implements OnInit {
     });
 
       this.medicalDetail = this.fb.group({
-        travelOutsideIndia: 'No',
-        pilot: 'No',
-        activity: 'No',
+        travelOutsideIndia: '',
+        pilot: '',
+        activity: '',
         adventurousActivities: '',
         adventurousActivitiesName: '',
         adventurousActivitiesDetails: '',
-        medicalTreatment: 'No',
+        medicalTreatment: '',
         medicationDetails: '',
-        receivedTreatment1: 'No',
+        receivedTreatment1: '',
         diagnosedDetails:  '',
-        receivedTreatment2: 'No',
+        receivedTreatment2: '',
         aidsDetails: '',
         healthInformation: '',
-        drugsInd: 'No',
+        drugsInd: '',
         drugsDetails: '',
-        alcoholInd: 'No',
+        alcoholInd: '',
         alcoholDetails: '',
         alcoholBeer: '',
         alcoholliquar: '',
         alcoholWine: '',
-        tobaccoInd: 'No',
+        tobaccoInd: '',
         tobaccoDetails: '',
         tobaccoStopInd: '',
         tobaccoStopDetails: '',
-        consultDoctorInd: 'No',
+        consultDoctorInd: '',
         consultDoctorDetails: '',
-        ECGInd: 'No',
+        ECGInd: '',
         ECGDetails: '',
-        admitInd: 'No',
+        admitInd: '',
         admitDetails:  '',
-        heartDieaseInd: 'No',
+        heartDieaseInd: '',
         heartDieaseDetails: '',
-        isHospitalized: 'No',
+        isHospitalized: '',
         hospitalizedDate:  '',
-        respiratoryDieaseInd: 'No',
+        respiratoryDieaseInd: '',
         respiratoryDieaseDetails: '',
-        diabetesInd: 'No',
+        diabetesInd: '',
         diabetesDetails: '',
-        kidneyDieaseInd: 'No',
+        kidneyDieaseInd: '',
         kidneyDieaseDetails: '',
-        digestiveDieaseInd: 'No',
+        digestiveDieaseInd: '',
         digestiveDieaseDetails: '',
-        cancerDieaseInd: 'No',
+        cancerDieaseInd: '',
         cancerDieaseDetails: '',
-        tropicalDieaseInd: 'No',
+        tropicalDieaseInd: '',
         tropicalDieaseDetails: '',
-        thyroidDieaseInd: 'No',
+        thyroidDieaseInd: '',
         thyroidDieaseDetails: '',
-        bloodDieaseInd: 'No',
+        bloodDieaseInd: '',
         bloodDieaseDetails: '',
-        nervousDieaseInd: 'No',
+        nervousDieaseInd: '',
         nervousDieaseDetails: '',
-        isRecovered: 'No',
+        isRecovered: '',
         nonRecoveryDetails: '',
-        muscleDieaseInd: 'No',
+        muscleDieaseInd: '',
         muscleDieaseDetails: '',
-        alcoholicInd: 'No',
+        alcoholicInd: '',
         alcoholicDetails: '',
-        otherIllnessInd: 'No',
+        otherIllnessInd: '',
         otherIllnessDetails: '',
-        deformityInd: 'No',
+        deformityInd: '',
         deformityDetails: '',
-        symptomsInd: 'No',
+        symptomsInd: '',
         symptomsDetails: '',
-        pregnantInd: 'No',
+        pregnantInd: '',
         pregnantweeks: '',
-        femaleDieaseInd: 'No',
+        femaleDieaseInd: '',
         femaleDieaseWeeks: '',
         medicalQuestions : new FormArray([
               this.medicalQuesCreate()
@@ -587,27 +587,27 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getesalereqProof();
     this.geteAlcoholDetails();
     this.sessionData();
-    this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    this.insureArray.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
     let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
     this.proposerAge = this.ageCalculate(dob);
     sessionStorage.proposerAge = this.proposerAge;
     // this.proposer.controls['age'].patchValue(this.proposerAge);
-    this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+    this.insureArray.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
 
     // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
 
     if (this.enquiryFromDetials.gender == 'm') {
-      this.proposer.controls['title'].patchValue('1');
+      this.insureArray.controls['title'].patchValue('1');
       // if (this.enquiryFromDetials.gender == 'm') {
       //   this.proposer.controls['gender'].patchValue('Male');
       // } else {
       //   this.proposer.controls['gender'].patchValue('Female');
       // }
     } else if (this.enquiryFromDetials.gender == 'f') {
-      this.proposer.controls['title'].patchValue('2');
+      this.insureArray.controls['title'].patchValue('2');
 
     }
-    this.proposer.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
+    this.insureArray.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
 
   }
@@ -1326,31 +1326,31 @@ export class EdelweissTermLifeComponent implements OnInit {
 
 
   // Personal Details
-  proposerDetails(stepper: MatStepper, value) {
-    this.personalData = value;
-    sessionStorage.stepper1Details = '';
-    sessionStorage.stepper1Details = JSON.stringify(value);
-    console.log(this.proposer, 'proposer');
-    if (this.proposer.valid) {
-      if (sessionStorage.proposerAge >= 18) {
-        if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined ) {
-          stepper.next();
-          this.sameAsInsure();
-
-        }
-        else {
-          this.toastr.error('Spouse Age should be 18 or above');
-
-        }
-      } else {
-        this.toastr.error('Proposer Age should be 18 or above');
-
-      }
-
-    } else {
-    this.toastr.error('please enter all the Mandatory field ');
-  }
-  }
+  // proposerDetails(stepper: MatStepper, value) {
+  //   this.personalData = value;
+  //   sessionStorage.stepper1Details = '';
+  //   sessionStorage.stepper1Details = JSON.stringify(value);
+  //   console.log(this.proposer, 'proposer');
+  //   if (this.proposer.valid) {
+  //     if (sessionStorage.proposerAge >= 18) {
+  //       if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined ) {
+  //         stepper.next();
+  //         // this.sameAsInsure();
+  //
+  //       }
+  //       else {
+  //         this.toastr.error('Spouse Age should be 18 or above');
+  //
+  //       }
+  //     } else {
+  //       this.toastr.error('Proposer Age should be 18 or above');
+  //
+  //     }
+  //
+  //   } else {
+  //   this.toastr.error('please enter all the Mandatory field ');
+  // }
+  // }
   // Insure Details
   edelweissInsureDetails(stepper: MatStepper, value) {
     sessionStorage.stepper2Details = '';
@@ -3518,7 +3518,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "applyEIAccount":this.insureArray.controls['provideAccNo'].value,
         "EIARepository":this.insureArray.controls['insureRepository'].value,
         "wantEPolicy":this.insureArray.controls['epolicy'].value  ,
-        "relationLAProposer":this.insureArray.controls['investing'].value,
+        "relationLAProposer":'SELF',
         "height":"",
         "heightFeets":this.insureArray.controls['heightFeets'].value,
         "heightInches":this.insureArray.controls['heightInches'].value,
@@ -3535,6 +3535,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "nonRecoveryDetails":this.medicalDetail.controls['nonRecoveryDetails'].value,
         "isTaxResOfIndia":this.insureArray.controls['taxResidence'].value,
         "aadhaarNo":this.insureArray.controls['aadhaarNo'].value,
+
         "questionnaires":{
           "travelOutsideIndiaInd":this.medicalDetail.controls['travelOutsideIndia'].value  == 'Yes' ? 'Y' : 'N',
           "pilotInd":this.medicalDetail.controls['pilot'].value  == 'Yes' ? 'Y' : 'N',
@@ -5270,7 +5271,7 @@ console.log(this.proposalId,'proposalId');
       this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
       this.insureArray = this.fb.group({
 
-        investing: this.getStepper2.investing,
+        // investing: this.getStepper2.investing,
         title: this.getStepper2.title,
         titleName: this.getStepper2.titleName,
         stitleName: this.getStepper2.stitleName,

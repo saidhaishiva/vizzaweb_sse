@@ -552,6 +552,7 @@ export class TermLifePremiumListComponent implements OnInit {
             'company_id': plists.company_id,
             'term':  plists.termDetrails,
             'product_id': plists.product_id,
+            'sub_product_id': plists.sub_product_id,
             'cover': cover ? cover: '',//Bajaj
             'hdfc': productname ? productname :'',
             // 'hdfcplan':
