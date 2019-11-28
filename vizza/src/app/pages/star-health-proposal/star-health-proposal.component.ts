@@ -853,6 +853,7 @@ export class StarHealthProposalComponent implements OnInit {
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_relationship_name = '';
             this.familyMembers[i].ins_hospital_cash = '1';
+            this.familyMembers[i].ins_buyBack_cash = '';
             this.familyMembers[i].ins_engage_manual_labour = 'None';
             this.familyMembers[i].ins_engage_winter_sports = 'None';
             this.familyMembers[i].ins_personal_accident_applicable = '0';

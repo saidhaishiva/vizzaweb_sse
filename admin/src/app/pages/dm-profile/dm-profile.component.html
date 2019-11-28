@@ -81,13 +81,13 @@
       <div class="row">
         <div class="col-md-6">
           <div class="text-left" *ngIf="roleId == '1'">
-            <mat-checkbox [(ngModel)]="aadharFront" >Aadhar Front Image</mat-checkbox>
+            <mat-checkbox [(ngModel)]="aadharFront" >Aadhaar Front Image</mat-checkbox>
           </div>
           <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_front_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_front_img, 'Aadhar')">
         </div>
         <div class="col-md-6">
           <div class="text-left" *ngIf="roleId == '1'">
-            <mat-checkbox [(ngModel)]="aadharBack" >Aadhar Back Image</mat-checkbox>
+            <mat-checkbox [(ngModel)]="aadharBack" >Aadhaar Back Image</mat-checkbox>
           </div>
           <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_back_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_back_img, 'Aadhar Card')">
         </div>
@@ -170,8 +170,8 @@
 
       <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="posData.check_leaf_upload_img != ''">
         <div class="mb-2 mt-2">
-          <h6 class="text-center" style="color: #0288d1">Check Leaf</h6>
-          <img src="{{webhost +'/'+ posData.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(posData.check_leaf_upload_img, 'Check Leaf')">
+          <h6 class="text-center" style="color: #0288d1">Cheque Leaf</h6>
+          <img src="{{webhost +'/'+ posData.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(posData.check_leaf_upload_img, 'Cheque Leaf')">
         </div>
       </div>
 
@@ -613,9 +613,9 @@
                     <ul class="c-address">
                       <li>044 - 4269 1341 / 4204 4181</li>
                       <li>po_vizzainsbroker@vizzafin.com</li>
-                      <li>www.vizzainsure.com</li>
+                      <li>www.vizzainsurance.com</li>
                       <li>Direct Brokers ( Life and General Insurance)</li>
-                      <li>IRDA Licence No: IRDA /DB 543 /13 Valid Upto 08.10.2019</li>
+                      <li>IRDA Licence No: IRDA /DB 543 /13 Valid upto 08-10-2022</li>
                     </ul>
                   </div>
                 </div>
@@ -817,11 +817,13 @@
         <img class="transition-2 rounded-circle" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOySURBVFhH7ZddSFNhGMdXFnRlFHTRFxJiEVFGA0udO9s5cy3n6my5ILKki7yowMqLgqBuo4+bLvoCCyr6VhbnnCVmCVFRmSCUg+iiKCIR6yLUocv36X2O78aZvRuzzlkE/uEHr+/7PP/nv/fsDLRNa1rTslhut7uCcp4SowyJoggIXXexkn8jn89XSIPcSAbiIUlSgyAIc1hL/uTxeObSAN2TA2XgB+VoOBwuYO3Wiw7MenM86CO/RVtnTDhYKPrYXLwAuUBD7mI21okOap082Ijsl+BUkxdenauB3ks1ENgkpc4kyd3DbKyR3W6fLYniiDEQYgyVUGsBHgRS9LX4jSGJ1+udz+zMF30j1xpDnT7ghe7zv4eajDEkfcx2Zme+qLkXh1w95oOfGj9MJpQTvmRAL7MzX9R8Ow7pPLOJGyIb2MMCbmd25qtaFOr/NiB6MDtzBXdsBd8vr3zaVC+kBfx0xQ1jij8tDIJ7n66Iqb+x5+BOF3xrWfEEjttmMlvzRK6vLIKby2Hs7gb4emvipRiJ1MCRjQvh5ckNqSBJcA/P4pGJD4M9iTYHoAe5WbyU2Zon/NTkRsljaEsPg7eUyw3qtJWD7mHFDaLwMRPN05w2dAoQrfoQejA7a0Q6/CW84blAonIxs7FWJFr7jBcgGyQaeMLarRdRN6+nAxO8IDzIg9pR0u4vY+35EUQDjXTwOC+QEawhmn8Pa8uvSFvZflCrucF0FA+Q1rJ9rDz/Ihdsq+FiAcC1JQD31gFE6O8cgmvco2dYw8rzLz3gBRtk458FdIfUoobdLc3kccMo3F6l31YqGK7pHp5hDdayNuslbFFczqDaKQRVIgQ1ePE09hFQiSEYfnRVB9coPMMaQdbGnbLWXhVSnczGfDn86jynrN7VBxrYsbfrOYYZ7u2FWGWlDq5ReJZeTz+UrF4v80ULma05coaUEmr+Ln3YBPQ2EwOD8X4M1VderoNr3MMzbo+svq0K3F/G7P9OFZsji6jhZ96gJMdO9nThjcUcDh0U7vFqk9Dw7x110QVszJ8Lvzu8AUZcIa0/PjCYeFNaCgiucY9Xa4SGVNiYPxN9rD6eMY/bZzveJgPimlfDoyqoiWzc1OUMahGeKY/wtnsfkgFxzavJQCsbNzXZG1/Ppt+9OMcwIw8dgXGEd5YRWRsRhK5ZbGzucgeVUq5hFg6Hz31BeGfZcGyNrmFjc5crpGzkmWXDFVSHEd5ZNqrk6NT/VxbrlMX0JQnnA5zFxv5vstl+AS4pn97z5E3hAAAAAElFTkSuQmCC">
 
         <mat-form-field class="w-50">
-          <mat-select placeholder="Assign to Manager" [(ngModel)]="posManager" >
+          <mat-select placeholder="Assign to Manager" [(ngModel)]="posManager" required>
             <mat-option *ngFor="let list of allManagerLists" [value]="list.manager_id">
               {{list.manager_name}}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="posManager.invalid?.required">Assign to Manager is required</mat-error>
+
         </mat-form-field>
       </div>
     </div>

@@ -6,6 +6,7 @@ import {ConfigurationService} from '../../../shared/services/configuration.servi
   selector: 'app-compare-details',
   templateUrl: './compare-details.component.html',
   styleUrls: ['./compare-details.component.scss']
+
 })
 export class CompareDetailsComponent implements OnInit {
     compareDetails: any;

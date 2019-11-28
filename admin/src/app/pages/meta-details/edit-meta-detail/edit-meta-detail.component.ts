@@ -9,7 +9,7 @@ import {BranchService} from '../../../shared/services/branch.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {MatChipInputEvent} from '@angular/material';
-import {item} from '../add-meta-detail/add-meta-detail.component';
+// import {item} from '../add-meta-detail/add-meta-detail.component';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 export interface item {
@@ -37,13 +37,11 @@ export class EditMetaDetailComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   items: item[] = [];
 
-
   constructor(public config: ConfigurationService, public common:CommonService, public auth: AuthService, public fb: FormBuilder, public branchservice: BranchService,public datepipe: DatePipe, private toastr: ToastrService,public router: Router,public route: ActivatedRoute) {
     this.route.params.forEach((params: Params) => {
       this.metaid = params.id;
     });
     console.log(this.metaid,'ddd');
-
     this.metaDetail = this.fb.group({
       component: ['', Validators.required],
       title: ['', Validators.required],

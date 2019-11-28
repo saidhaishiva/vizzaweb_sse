@@ -83,18 +83,18 @@
                     <div class="text-left" *ngIf="roleId == '1'">
                         <mat-checkbox [(ngModel)]="aadharFront" >Aadhaar Front Image</mat-checkbox>
                     </div>
-                    <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_front_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_front_img, 'Aadhar')">
+                    <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_front_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_front_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_front_img, 'Aadhaar')">
                 </div>
                 <div class="col-md-6">
                     <div class="text-left" *ngIf="roleId == '1'">
                         <mat-checkbox [(ngModel)]="aadharBack" >Aadhaar Back Image</mat-checkbox>
                     </div>
-                    <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_back_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_back_img, 'Aadhar Card')">
+                    <img style="width: 250px; height: 150px;" *ngIf="posData.doc_aadhar_back_img != ''" src="{{webhost  +'/'+ posData.doc_aadhar_back_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_aadhar_back_img, 'Aadhaar Card')">
                 </div>
                 <div class="no-data"  *ngIf="posData.doc_aadhar_front_img == '' && posData.doc_aadhar_back_img == ''" >
                     <p class="text-center"  class="text-center" fxLayout="row" fxLayoutAlign="center center">  <i class="material-icons">
                         cloud_off
-                    </i> &nbsp; No Aadhar card</p>
+                    </i> &nbsp; No Aadhaar card</p>
                 </div>
             </div>
 
@@ -171,7 +171,7 @@
             <div fxLayout="row" fxLayoutAlign="center center" class="h-100" *ngIf="posData.check_leaf_upload_img != ''">
                 <div class="mb-2 mt-2">
                     <h6 class="text-center" style="color: #0288d1">Cheque Leaf</h6>
-                    <img src="{{webhost +'/'+ posData.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(posData.check_leaf_upload_img, 'Check Leaf')">
+                    <img src="{{webhost +'/'+ posData.check_leaf_upload_img}}" alt="" style="width: 298px" (click)="viewImage(posData.check_leaf_upload_img, 'Cheque Leaf')">
                 </div>
             </div>
 
@@ -481,9 +481,9 @@
                                         <ul class="c-address">
                                             <li>044 - 4269 1341 / 4204 4181</li>
                                             <li>po_vizzainsbroker@vizzafin.com</li>
-                                            <li>www.vizzainsure.com</li>
+                                            <li>www.vizzainsurance.com</li>
                                             <li>Direct Brokers ( Life and General Insurance)</li>
-                                            <li>IRDA Licence No: IRDA /DB 543 /13 Valid Upto 08.10.2019</li>
+                                            <li>IRDA Licence No: IRDA /DB 543 /13 Valid Upto 08.10.2022</li>
                                         </ul>
                                     </div>
                                 </div>

@@ -51,6 +51,28 @@ export class CommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    getCompanyAddress(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/companyaddress';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getLogo1(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/companylogo';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
 
     getDmProfileList(data) {
         const json = JSON.stringify(data);

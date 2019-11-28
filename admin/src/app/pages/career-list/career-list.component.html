@@ -75,7 +75,7 @@
                 </i> Download</button>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="status List">
+            <ngx-datatable-column name="Status List">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value" >
                 <mat-form-field class="mt-2 w-100">
                   <mat-select  placeholder="Status" (change)="updateStatusDetails(row)" [(ngModel)]="row.status" required  class="w-100">

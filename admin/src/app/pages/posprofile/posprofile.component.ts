@@ -91,6 +91,9 @@ export class PosprofileComponent implements OnInit {
     pdfSrc: any;
     posManager: any;
     roleId: any;
+    companyLogo: any;
+    companySuccess: any;
+
     comments: string;
     notes: string;
     rows = [];
@@ -159,6 +162,8 @@ export class PosprofileComponent implements OnInit {
         this.getTrainingDetails(this.posid);
         this.getExamDetails(this.posid);
         this.managerList();
+        this.getCompanyAddress();
+        this.getCompany();
 
     }
 
@@ -211,6 +216,70 @@ export class PosprofileComponent implements OnInit {
         }
     }
     getPosProfileFailure(error) {
+        console.log(error);
+        this.settings.loadingSpinner = false;
+
+    }
+    getCompanyAddress() {
+        this.settings.loadingSpinner = true;
+        const data = {
+            'platform': 'web',
+            'roleid': this.auth.getAdminRoleId(),
+            'adminid': this.auth.getAdminId(),
+            // 'pos_id': this.posid
+        };
+        this.common.getCompanyAddress(data).subscribe(
+            (successData) => {
+                this.getCompanySuccess(successData);
+            },
+            (error) => {
+                this.getCompanyFailure(error);
+            }
+        );
+    }
+    getCompanySuccess(successData) {
+        console.log(successData, 'successDatasuccessData');
+        this.settings.loadingSpinner = false;
+
+        if (successData.IsSuccess) {
+            this.companySuccess = successData.ResponseObject;
+
+        }
+    }
+    getCompanyFailure(error) {
+        console.log(error);
+        this.settings.loadingSpinner = false;
+
+    }
+
+
+    getCompany() {
+        this.settings.loadingSpinner = true;
+        const data = {
+            'platform': 'web',
+            'roleid': this.auth.getAdminRoleId(),
+            'adminid': this.auth.getAdminId(),
+            // 'pos_id': this.posid
+        };
+        this.common.getLogo1(data).subscribe(
+            (successData) => {
+                this.getLogoSuccess(successData);
+            },
+            (error) => {
+                this.getLogoFailure(error);
+            }
+        );
+    }
+    getLogoSuccess(successData) {
+        console.log(successData, 'successDatasuccessData');
+        this.settings.loadingSpinner = false;
+
+        if (successData.IsSuccess) {
+            this.companyLogo = successData.ResponseObject;
+
+        }
+    }
+    getLogoFailure(error) {
         console.log(error);
         this.settings.loadingSpinner = false;
 
