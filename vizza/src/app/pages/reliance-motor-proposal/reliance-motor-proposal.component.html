@@ -487,7 +487,7 @@
                             <div class="col-md-12 mt-2" >
                                 <div class="row">
                             <div class="col-md-4">
-                                <mat-checkbox  formControlName="IsVoluntaryDeductableOpted" (change)="updateVoluntary($event);getCover()">Voluntary Deductible </mat-checkbox>
+                                <mat-checkbox  formControlName="IsVoluntaryDeductableOpted" (change)="updateVoluntary($event)">Voluntary Deductible </mat-checkbox>
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.IsVoluntaryDeductableOpted.value == true">
                                 <mat-form-field class="w-100">
@@ -509,14 +509,14 @@
                             <div class="col-md-12 mt-2" >
                                 <div class="row">
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="PAToOwnerDriverCoverd" (change)="updateMandatory($event);getCover();getValueDriverCover()">PA to Owner Driver</mat-checkbox>
+                                <mat-checkbox  formControlName="PAToOwnerDriverCoverd" (change)="updateMandatory($event);getCover()">PA to Owner Driver</mat-checkbox>
                             </div>
                             <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PAToOwnerDriverCoverd.value == true">
                                 <div class="row">
 
                                     <div class="col-md-4 mt-3">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Nominee Name" formControlName="cnomineeName"  (keypress)="nameValidate($event);getCover()" autocomplete="off" required >
+                                            <input matInput placeholder="Nominee Name" formControlName="cnomineeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4 mt-3">
@@ -540,7 +540,7 @@
 
                                     <div class="col-md-4 mt-3">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Nominee Address" formControlName="cnAddress"  autocomplete="off" required >
+                                            <input matInput placeholder="Nominee Address" formControlName="cnAddress"  autocomplete="off" (keypress)="getCover();getValueDriverCover()" required >
                                             <!--<mat-error *ngIf="coverDetails.controls.cnAddress.errors?.required">nominee Address is required</mat-error>-->
                                         </mat-form-field>
                                     </div>
@@ -554,7 +554,7 @@
                                     </div>
                                     <div class="col-md-4 mt-3" *ngIf="showNominee">
                                         <mat-form-field class="w-100">
-                                            <mat-select placeholder="Appointee Relation" formControlName="nOtherRelation" (selectionChange)="changenOtherRelation()" required>
+                                            <mat-select placeholder="Appointee Relation" formControlName="nOtherRelation" (selectionChange)="changenOtherRelation();getCover();getValueDriverCover()" required>
                                                 <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
                                             </mat-select>
                                             <!--<mat-error *ngIf="coverDetails.controls.nOtherRelation.errors?.required">Appointee Relation  is required</mat-error>-->
@@ -579,7 +579,7 @@
                                     <div class="col-md-12 mt-2" >
                                         <div class="row">
                             <div class="col-md-4">
-                                <mat-checkbox  formControlName="IsElectricalItemFitted" (change)="updateElectricalItem($event);getCover();changeElec();getElectric()">Electrical Accessories</mat-checkbox>
+                                <mat-checkbox  formControlName="IsElectricalItemFitted" (change)="updateElectricalItem($event);getCover();changeElec();getCover();getElectric()">Electrical Accessories</mat-checkbox>
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
                                 <mat-form-field class="w-100">
@@ -599,7 +599,7 @@
                                     <div class="col-md-12 mt-2" >
                                         <div class="row">
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="IsNonElectricalItemFitted" (change)="updatenonElectricalItem($event);getCover();changeNonElec();getValueNonElectric()">Non Electrical Accessories</mat-checkbox>
+                                <mat-checkbox  formControlName="IsNonElectricalItemFitted" (change)="updatenonElectricalItem($event);changeNonElec();getCover();getValueNonElectric()">Non Electrical Accessories</mat-checkbox>
                             </div>
                             <div class="col-md-4" *ngIf="coverDetails.controls.IsNonElectricalItemFitted.value == true">
                                 <mat-form-field class="w-100">
@@ -623,7 +623,7 @@
                             <div class="col-md-12 mt-2" >
                                 <div class="row">
                                     <div class="col-md-3" *ngIf="coverDetails.controls['fuelType'].value == 5">
-                                        <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit($event);getCover();changeBifuel()" >BiFuel Kit</mat-checkbox>
+                                        <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit($event)" >BiFuel Kit</mat-checkbox>
                                     </div>
                                 </div>
                             </div>
@@ -637,7 +637,7 @@
                         <div class="row">
                             <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Sum Insured"  formControlName="BiFuelKitSi"  maxlength="5" (keypress)="getCover();changeBifuel()" autocomplete="off" required >
+                                    <input matInput placeholder="Sum Insured"  formControlName="BiFuelKitSi"  maxlength="5"  autocomplete="off" required >
                                     <!--<mat-error *ngIf="coverDetails.controls.BiFuelKitSi.errors?.required">Sum Insured is required</mat-error>-->
                                 </mat-form-field>
                             </div>
@@ -652,12 +652,12 @@
                             </div>
 
                             <div class="col-md-3" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
-                                <mat-checkbox  formControlName="cpgLpgKit" >CNG/LPG kit attached</mat-checkbox>
+                                <mat-checkbox  formControlName="cpgLpgKit" (change)="changeCpgLpgKit();" >CNG/LPG kit attached</mat-checkbox>
                             </div>
 
-                            <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.cpgLpgKit.value == true">
+                            <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true && coverDetails.controls.cpgLpgKit.value == true">
                                 <mat-form-field class="w-100">
-                                    <mat-select placeholder="Type of Fitting" formControlName="fittngType">
+                                    <mat-select placeholder="Type of Fitting" formControlName="fittngType" (change)="getCover();changeBifuel()">
                                         <mat-option *ngFor="let type of fittngTypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
                                     </mat-select>
 <!--                                    <mat-error *ngIf="coverDetails.controls.fittngType.errors?.required">Type of Fitting is required</mat-error>-->
@@ -673,7 +673,7 @@
                             <div class="col-md-12 mt-2" >
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="nilDepApplyingChange();getCover();getNildepreciationCover()" >Nil Depreciation </mat-checkbox>
+                                        <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="nilDepApplyingChange()" >Nil Depreciation </mat-checkbox>
                                     </div>
                                     <div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
                                         <p>Is Nil Depreciation Applying First Time ?<span class="error">*</span></p>
@@ -693,7 +693,7 @@
                             <div class="col-md-12 mt-2" >
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <mat-checkbox class="mt-2" formControlName="AutomobileAssociationMember" (change)="totalAutomobileAssociatioChange();getCover()">Automobile Association Membership</mat-checkbox>
+                                        <mat-checkbox class="mt-2" formControlName="AutomobileAssociationMember" (change)="totalAutomobileAssociatioChange();getCover();getValueAutomobile()">Automobile Association Membership</mat-checkbox>
                                     </div>
                                     <div class="col-md-4 " *ngIf="coverDetails.controls.AutomobileAssociationMember.value == true">
                                         <mat-form-field class="w-100">
@@ -979,101 +979,134 @@
                       </div>
                   </div>
                   <section>
+                      <h5 class="mt-3 sub-title" >Premium </h5>
+                      <div class="row box-card">
+                          <div class="col-md-6">
+                              <h4 class="mt-4"></h4>
+                              <!--<div class="p-0">-->
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item" ><strong>TP Premium:</strong> {{summaryData.productlist.tp_premium}}</li>
+                                          <li class="list-group-item" ><strong>OD Premium:</strong> {{summaryData.productlist.od_premium}}</li>
+
+                                      </ul>
+                                  </div>
+                              </div>
+                              <!--</div>-->
+                          </div>
+                          <div class="col-md-6">
+                              <h4 class="mt-4"></h4>
+                              <!--<div class="p-0">-->
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item" ><strong>PA to Owner Driver:</strong> {{summaryData.productlist.pa_to_owner_driver}}</li>
+                                          <li class="list-group-item" ><strong>Comphensive Premium:</strong> {{summaryData.productlist.comphensivePreminium}}</li>
+                                      </ul>
+                                  </div>
+                                  <!--</div>-->
+                              </div>
+                          </div>
+
+                      </div>
+                  </section>
+                  <section>
                       <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
                       <div class="row box-card">
 
                           <div class="col-md-6">
-                              <div class="p-3">
+                              <!--<div class="p-3">-->
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.titleValue}}.{{proposerFormData.firstName}} {{proposerFormData.middleName}} {{proposerFormData.lastName}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                       <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
-                                      <li class="list-group-item"><strong>Occupation:</strong>{{proposerFormData.occupationValue}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.maritalStatusValue !='' "><strong>Marital Status:</strong>{{proposerFormData.maritalStatusValue}}</li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.nationalityValue !='' "><strong>Nationality:</strong>{{proposerFormData.nationalityValue}}</li>
                                   </ul>
-                              </div>
+                              <!--</div>-->
                           </div>
                           <div class="col-md-6">
-                              <div class="p-3">
+                              <!--<div class="p-3">-->
                                   <ul class="m-0 list-group">
+                                      <li class="list-group-item"><strong>Occupation:</strong>{{proposerFormData.occupationValue}}</li>
                                       <li class="list-group-item" ><strong>Email Id:</strong> {{proposerFormData.email}}</li>
                                       <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerFormData.mobile}}</li>
-                                      <li class="list-group-item" *ngIf="proposerFormData.nationalityValue !='' "><strong>Nationality:</strong>{{proposerFormData.nationalityValue}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.alternateContact != ''"><strong>Alternate Number:</strong> {{proposerFormData.alternateContact}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.gstNumber != ''"><strong>GST Number:</strong> {{proposerFormData.gstNumber  | uppercase}}</li>
                                   </ul>
-                              </div>
+                              <!--</div>-->
                           </div>
                           <div class="col-md-6">
-                              <h4 class="color-blue">COMMUNICATION ADDRESS</h4>
-                              <div class="p-3">
+                              <h4 class="color-blue ml-3">COMMUNICATION ADDRESS</h4>
+                              <!--<div class="p-3">-->
                                   <ul class="m-0 list-group" >
                                       <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address}}</li>
                                       <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.address3 != ''"><strong>Address 3:</strong> {{proposerFormData.address3}}</li>
                                       <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode}}</li>
-                                      <li class="list-group-item"><strong>City:</strong> {{proposerFormData.city}}</li>
                                   </ul>
-                              </div>
+                              <!--</div>-->
                           </div>
                           <div class="col-md-6">
                               <h4 class="mt-4"></h4>
-                              <div class="p-3">
+                              <!--<div class="p-3">-->
                               <ul class="mt-0 list-group">
-                                      <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
+                                  <li class="list-group-item"><strong>City:</strong> {{proposerFormData.city}}</li>
+                                  <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
                                       <li class="list-group-item"><strong>Distict:</strong> {{proposerFormData.district}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.landmark != ''"><strong>Landmark:</strong>{{proposerFormData.landmark}} </li>
                                   </ul>
 
-                          </div>
+                          <!--</div>-->
                           </div>
 
                           <div class="col-md-6">
-                              <h4 class="color-blue">PERMANENT ADDRESS</h4>
-                              <div class="p-3">
+                              <h4 class="color-blue ml-3">PERMANENT ADDRESS</h4>
+                              <!--<div class="p-3">-->
                                   <ul class="m-0 list-group" >
                                       <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.paddress}}</li>
                                       <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.paddress2}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.paddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.paddress3}}</li>
                                       <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.ppincode}}</li>
-                                      <li class="list-group-item"><strong>City:</strong> {{proposerFormData.pcity}}</li>
                                   </ul>
-                              </div>
+                              <!--</div>-->
                           </div>
                           <div class="col-md-6">
                               <h4 class="mt-4"></h4>
-                              <div class="p-3">
+                              <!--<div class="p-3">-->
                                   <ul class="mt-0 list-group">
+                                      <li class="list-group-item"><strong>City:</strong> {{proposerFormData.pcity}}</li>
                                       <li class="list-group-item"><strong>State:</strong> {{proposerFormData.pstate}}</li>
                                       <li class="list-group-item"><strong>Distict:</strong> {{proposerFormData.pdistrict}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.landmark != ''"><strong>Landmark:</strong>{{proposerFormData.plandmark}} </li>
                                   </ul>
 
-                              </div>
+                              <!--</div>-->
                           </div>
 
                           <div class="col-md-6">
-                              <h4 class="color-blue">REGISTRATION ADDRESS</h4>
-                              <div class="p-3">
+                              <h4 class="color-blue ml-3">REGISTRATION ADDRESS</h4>
+                              <!--<div class="p-3">-->
                                   <ul class="m-0 list-group" >
                                       <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.raddress}}</li>
                                       <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.raddress2}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.raddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.raddress3}}</li>
                                       <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.rpincode}}</li>
-                                      <li class="list-group-item"><strong>City:</strong> {{proposerFormData.rcity}}</li>
                                   </ul>
-                              </div>
+                              <!--</div>-->
                           </div>
                           <div class="col-md-6">
                               <h4 class="mt-4"></h4>
-                              <div class="p-3">
+                              <!--<div class="p-3">-->
                                   <ul class="mt-0 list-group">
+                                      <li class="list-group-item"><strong>City:</strong> {{proposerFormData.rcity}}</li>
                                       <li class="list-group-item"><strong>State:</strong> {{proposerFormData.rstate}}</li>
                                       <li class="list-group-item"><strong>Distict:</strong> {{proposerFormData.rdistrict}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.landmark != ''"><strong>Landmark:</strong>{{proposerFormData.rlandmark}} </li>
                                   </ul>
 
-                              </div>
+                              <!--</div>-->
                           </div>
                       </div>
                   </section>
@@ -1082,7 +1115,7 @@
                       <h5 class="mt-3 sub-title">RISK /POLICY DETAILS</h5>
                       <div class="row box-card">
                           <div class="col-md-6">
-                              <div class="p-3">
+                              <!--<div class="p-3">-->
                                   <ul class="m-0 list-group">
 <!--                                      <li class="list-group-item" ><strong>OtherSystem Name:</strong> {{riskFormData.OtherSystemNameValue}}</li>-->
                                       <li class="list-group-item" ><strong>IDV:</strong> {{riskFormData.IDV}}</li>
@@ -1091,7 +1124,7 @@
                                       <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated == true"><strong>Financier Name:</strong> {{riskFormData.FinancierName}}</li>
                                       <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated == true"><strong>Financier Address:</strong> {{riskFormData.FinancierAddress}}</li>
                                   </ul>
-                              </div>
+                              <!--</div>-->
                           </div>
 
                       </div>
@@ -1105,14 +1138,12 @@
                               <h4 class="mt-4"></h4>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuelType:</strong> {{coverFormData.fuelTypeValue}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember != ''"><strong>Automobile Association Membership:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == true">Yes</span><span *ngIf="coverFormData.AutomobileAssociationMember == false">No</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalAutomobilePremium != ''  "><strong>Cover Premium:</strong> {{coverFormData.totalAutomobilePremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember == false"><strong>Automobile Association Membership:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember == true && coverFormData.totalAutomobilePremium != ''  "><strong>Automobile Association Membership Premium:</strong> {{coverFormData.totalAutomobilePremium}}</li>
 
-                                  <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted != ''"><strong>Anti-Theft Device :</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == true">Yes</span><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">No</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalAntiTheftPremium != '' "><strong>Cover Premium:</strong> {{coverFormData.totalAntiTheftPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted == false"><strong>Anti-Theft Device :</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalAntiTheftPremium != '' "><strong>Anti-Theft Device Premium:</strong> {{coverFormData.totalAntiTheftPremium}}</li>
 
-                                  <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>Basic OD :</strong><span *ngIf="coverFormData.BasicODCoverage == true">Yes</span><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalBasicODPremium != ''"><strong>Cover Premium:</strong> {{coverFormData.totalBasicODPremium}}</li>
 
                               </ul>
                           </div>
@@ -1120,25 +1151,32 @@
                           <div class="col-md-6">
                               <h4 class="mt-4"></h4>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.BasicLiability != ''"><strong>Basic Liability:</strong><span *ngIf="coverFormData.BasicLiability == true">Yes</span><span *ngIf="coverFormData.BasicLiability == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage == false"><strong>Basic OD :</strong><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalBasicODPremium != ''"><strong>Basic OD Premium:</strong> {{coverFormData.totalBasicODPremium}}</li>
+
+                                  <li class="list-group-item" *ngIf="coverFormData.BasicLiability == false"><strong>Basic Liability:</strong><span *ngIf="coverFormData.BasicLiability == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalBasicLiabilityPremium != ''"><strong>Basic Liability Premium:</strong>{{coverFormData.totalBasicLiabilityPremium}}</li>
                               </ul>
                           </div>
 
                           <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''">
                               <h2 class="color-blue m-2">PA to Unnamed Passenger</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered != ''"><strong>PA to Unnamed Passenger :</strong><span *ngIf="coverFormData.UnnamedPassengerCovered == true">Yes</span><span *ngIf="coverFormData.UnnamedPassengerCovered == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered == false"><strong>PA to Unnamed Passenger :</strong><span *ngIf="coverFormData.UnnamedPassengerCovered == false">No</span> </li>
                                   <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengersSI != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>Sum Insured:</strong> {{coverFormData.UnnamedPassengersSI}}</li>
+
+
                               </ul>
                           </div>
-
-                          <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''">
+                          <div class="col-md-6">
                               <h4 class="mt-4"></h4>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengersSI != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>Cover Premium:</strong> {{coverFormData.totalUnnamedPassengerPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengersSI != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>PA to Unnamed Passenger:</strong> {{coverFormData.totalUnnamedPassengerPremium}}</li>
                               </ul>
                           </div>
+
+
 
                           <!--<div class="col-md-6" *ngIf="coverFormData.PAToNamedPassenger != ''">-->
                               <!--<h2 class="color-blue m-2">PA to Named Passenger</h2>-->
@@ -1165,28 +1203,29 @@
                           <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd == true">
                               <h2 class="color-blue m-2">PA to Owner Driver</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''"><strong>PA to Owner Driver:</strong><span *ngIf="coverFormData.PAToOwnerDriverCoverd == true">Yes</span><span *ngIf="coverFormData.PAToOwnerDriverCoverd == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd == false"><strong>PA to Owner Driver:</strong><span *ngIf="coverFormData.PAToOwnerDriverCoverd == false">No</span> </li>
                                   <!--<li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverdSi != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>PA To Owner Driver Coverd SI:</strong> {{coverFormData.PAToOwnerDriverCoverdSi}}</li>-->
                                   <li class="list-group-item" *ngIf="coverFormData.cappointeeName != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Appointee Name:</strong> {{coverFormData.cappointeeName}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.cnomineeName != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Nominee Name:</strong> {{coverFormData.cnomineeName}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.cnDob != '' && coverFormData.PAToOwnerDriverCoverd ==true"><strong>Nominee Dob:</strong> {{coverFormData.cnDob | date: 'dd/MM/yyyy'}}</li>
+
                               </ul>
                           </div>
 
                           <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd == true">
                               <h4 class="mt-4"></h4>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.cnDob != '' && coverFormData.PAToOwnerDriverCoverd ==true"><strong>Nominee Dob:</strong> {{coverFormData.cnDob | date: 'dd/MM/yyyy'}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PAToOwnerDriverCoverd == false "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Other Relation:</strong> {{coverFormData.nOtherRelation}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.cnAddress != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Nominee Address:</strong> {{coverFormData.cnAddress}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalPAToOwnerDriverPremium != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Cover Premium:</strong> {{coverFormData.totalPAToOwnerDriverPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalPAToOwnerDriverPremium != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>PA to Owner Driver Premium:</strong> {{coverFormData.totalPAToOwnerDriverPremium}}</li>
                               </ul>
                           </div>
 
                           <div class="col-md-6" *ngIf="coverFormData.IsBiFuelKit == true">
                               <h2 class="color-blue m-2">BiFuel Kit</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>BiFuel Kit:</strong><span *ngIf="coverFormData.IsBiFuelKit == true">Yes</span><span *ngIf="coverFormData.IsBiFuelKit == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit == false"><strong>BiFuel Kit:</strong><span *ngIf="coverFormData.IsBiFuelKit == false">No</span> </li>
                                   <li class="list-group-item" *ngIf="coverFormData.BiFuelKitSi != '' && coverFormData.IsBiFuelKit ==true "><strong>Sum Insured:</strong> {{coverFormData.BiFuelKitSi}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>CNG/LPG kit attached:</strong><span *ngIf="coverFormData.cpgLpgKit == true">Yes</span><span *ngIf="coverFormData.cpgLpgKit == false">No</span> </li>
                               </ul>
@@ -1194,36 +1233,37 @@
                           <div class="col-md-6" *ngIf="coverFormData.IsBiFuelKit == true">
                               <h4 class="mt-4"></h4>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.bifueltype != '' && coverFormData.IsBiFuelKit ==true "><strong>Bifuel type:</strong> {{coverFormData.bifueltype}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.bifueltype != '' && coverFormData.IsBiFuelKit == false "><strong>Bifuel type:</strong> {{coverFormData.bifueltype}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.fittngType != '' && coverFormData.cpgLpgKit ==true "><strong>Fitting Type:</strong> {{coverFormData.fittngType}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.bifueltype != '' && coverFormData.IsBiFuelKit ==true "><strong>BiFuel Kit premium:</strong> {{coverFormData.bifuelAmount}}</li>
                               </ul>
                           </div>
 
                           <div class="col-md-6" *ngIf="coverFormData.NilDepreciationCoverage == true">
                               <h2 class="color-blue m-2">Nil Depreciation</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage != ''"><strong>Nil Depreciation:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == true">Yes</span><span *ngIf="coverFormData.NilDepreciationCoverage == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage == false"><strong>Nil Depreciation:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == false">No</span> </li>
                                   <li class="list-group-item" *ngIf="coverFormData.nilDepApplyingFirstTime != '' && coverFormData.NilDepreciationCoverage ==true "><strong>Is Nil Depreciation Applying First Time ?:</strong> {{coverFormData.nilDepApplyingFirstTime}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalDepreciationPremium != '' && coverFormData.NilDepreciationCoverage ==true "><strong>Cover Premium:</strong> {{coverFormData.totalDepreciationPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalDepreciationPremium != '' && coverFormData.NilDepreciationCoverage ==true "><strong>Nil Depreciation Premium:</strong> {{coverFormData.totalDepreciationPremium}}</li>
 <!--                                  <li class="list-group-item" *ngIf="coverFormData.applicableRate != '' && coverFormData.NilDepreciationCoverage == true "><strong>Applicable Rate:</strong> {{coverFormData.applicableRate}}</li>-->
 
                               </ul>
                           </div>
 
-                          <div class="col-md-6" *ngIf="coverFormData.TPPDCover == true">
-                              <h2 class="color-blue m-2">TPPD Restrictred</h2>
-                              <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.TPPDCover != ''"><strong>TPPD Restrictred:</strong><span *ngIf="coverFormData.TPPDCover == true">Yes</span><span *ngIf="coverFormData.TPPDCover == false">No</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.TPPDCoverSi != '' && coverFormData.TPPDCover ==true "><strong>Sum Insured:</strong> {{coverFormData.TPPDCoverSi}}</li>
-                              </ul>
-                          </div>
+                          <!--<div class="col-md-6" *ngIf="coverFormData.TPPDCover == true">-->
+                              <!--<h2 class="color-blue m-2">TPPD Restrictred</h2>-->
+                              <!--<ul class="m-0 list-group">-->
+                                  <!--<li class="list-group-item" *ngIf="coverFormData.TPPDCover != ''"><strong>TPPD Restrictred:</strong><span *ngIf="coverFormData.TPPDCover == true">Yes</span><span *ngIf="coverFormData.TPPDCover == false">No</span> </li>-->
+                                  <!--<li class="list-group-item" *ngIf="coverFormData.TPPDCoverSi != '' && coverFormData.TPPDCover ==true "><strong>Sum Insured:</strong> {{coverFormData.TPPDCoverSi}}</li>-->
+                              <!--</ul>-->
+                          <!--</div>-->
 
                           <div class="col-md-6" *ngIf="coverFormData.IsVoluntaryDeductableOpted ==true">
                               <h2 class="color-blue m-2">Voluntary Deductible</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted != ''"><strong>Voluntary Deductible:</strong><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == true">Yes</span><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted == false"><strong>Voluntary Deductible:</strong><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == false">No</span> </li>
                                   <li class="list-group-item" *ngIf="coverFormData.VoluntaryDeductableAmount != '' && coverFormData.IsVoluntaryDeductableOpted ==true "><strong>Voluntary Deductable Amount:</strong> {{coverFormData.VoluntaryDeductableAmount}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalVoluntaryPremium != '' && coverFormData.IsVoluntaryDeductableOpted ==true "><strong>Cover Premium:</strong> {{coverFormData.totalVoluntaryPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.totalVoluntaryPremium != '' && coverFormData.IsVoluntaryDeductableOpted ==true "><strong>Voluntary Deductible Premium:</strong> {{coverFormData.totalVoluntaryPremium}}</li>
 
                               </ul>
                           </div>
@@ -1231,9 +1271,9 @@
                           <div class="col-md-6" *ngIf="coverFormData.IsElectricalItemFitted == true">
                               <h2 class="color-blue m-2">Electrical Accessories</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.IsElectricalItemFitted != ''"><strong>Electrical Accessories:</strong><span *ngIf="coverFormData.IsElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsElectricalItemFitted == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.IsElectricalItemFitted == false"><strong>Electrical Accessories:</strong><span *ngIf="coverFormData.IsElectricalItemFitted == false">No</span> </li>
                                   <li class="list-group-item" *ngIf="coverFormData.ElectricalItemsTotalSI != '' && coverFormData.IsElectricalItemFitted ==true "><strong>Sum Insured:</strong> {{coverFormData.ElectricalItemsTotalSI}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.ElectricalItemsTotalPremium != '' && coverFormData.IsElectricalItemFitted ==true "><strong>Cover Premium:</strong> {{coverFormData.ElectricalItemsTotalPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.ElectricalItemsTotalPremium != '' && coverFormData.IsElectricalItemFitted ==true "><strong>Electrical Accessories Premium:</strong> {{coverFormData.ElectricalItemsTotalPremium}}</li>
 
                               </ul>
                           </div>
@@ -1241,19 +1281,35 @@
                           <div class="col-md-6" *ngIf="coverFormData.IsNonElectricalItemFitted == true">
                               <h2 class="color-blue m-2">Non Electrical Accessories</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted != ''"><strong>Non Electrical Accessories:</strong><span *ngIf="coverFormData.IsNonElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsNonElectricalItemFitted == false">No</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted == false"><strong>Non Electrical Accessories:</strong><span *ngIf="coverFormData.IsNonElectricalItemFitted == false">No</span> </li>
                                   <li class="list-group-item" *ngIf="coverFormData.NonElectricalItemsTotalSI != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Sum Insured:</strong> {{coverFormData.NonElectricalItemsTotalSI}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.NonElectricalItemsTotalPremium != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Cover Premium:</strong> {{coverFormData.NonElectricalItemsTotalPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.NonElectricalItemsTotalPremium != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Non Electrical Accessories Premium:</strong> {{coverFormData.NonElectricalItemsTotalPremium}}</li>
                               </ul>
                           </div>
 
-                          <div class="col-md-6" *ngIf="coverFormData.paPaidDriver == true">
-                              <h2 class="color-blue m-2">PA to Paid Driver</h2>
+                          <div class="col-md-6"  >
+                              <h2 class="color-blue m-2">GST</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.paPaidDriver != ''"><strong>PA to Paid Driver:</strong><span *ngIf="coverFormData.paPaidDriver == true">Yes</span><span *ngIf="coverFormData.paPaidDriver == false">No</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.paPaidDriverSi != '' && coverFormData.paPaidDriver ==true "><strong>Sum Insured:</strong> {{coverFormData.paPaidDriverSi}}</li>
+                                  <li class="list-group-item" *ngIf="gstAmount.igst != ''"><strong>GST:</strong>{{gstAmount.igst}} </li>
+
                               </ul>
                           </div>
+                          <div class="col-md-6">
+                              <h2 class="color-blue m-2">Discount</h2>
+                              <ul class="m-0 list-group">
+                                  <li class="list-group-item" *ngIf="discountAmount.anti_theft_device != ''"><strong>Anti Theft Device Discount:</strong> {{discountAmount.anti_theft_device}}</li>
+                                  <li class="list-group-item" *ngIf="discountAmount.voluntary_deductible != ''"><strong>Voluntary Deductible Discount:</strong> {{discountAmount.voluntary_deductible}}</li>
+                                  <li class="list-group-item" *ngIf="discountAmount.automobile_association_membership != ''"><strong>Automobile Association Membership Discount:</strong> {{discountAmount.automobile_association_membership}}</li>
+                              </ul>
+                          </div>
+
+                          <!--<div class="col-md-6" *ngIf="coverFormData.paPaidDriver == true">-->
+                              <!--<h2 class="color-blue m-2">PA to Paid Driver</h2>-->
+                              <!--<ul class="m-0 list-group">-->
+                                  <!--<li class="list-group-item" *ngIf="coverFormData.paPaidDriver != ''"><strong>PA to Paid Driver:</strong><span *ngIf="coverFormData.paPaidDriver == true">Yes</span><span *ngIf="coverFormData.paPaidDriver == false">No</span> </li>-->
+                                  <!--<li class="list-group-item" *ngIf="coverFormData.paPaidDriverSi != '' && coverFormData.paPaidDriver ==true "><strong>Sum Insured:</strong> {{coverFormData.paPaidDriverSi}}</li>-->
+                              <!--</ul>-->
+                          <!--</div>-->
 
                       </div>
                   </section>
@@ -1281,10 +1337,11 @@
                                       <div class="col-md-12">
                                           <ul class="m-0 list-group">
                                               <li class="list-group-item"  *ngIf="previousFormData.prevYearPolicyTypeValue != ''"><strong>Previous PolicyType:</strong> {{previousFormData.prevYearPolicyTypeValue}}</li>
-<!--                                              <li class="list-group-item"><strong>Previous Policy Sold:</strong> {{previousFormData.prevPolSold}}</li>-->
-<!--                                              <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>-->
                                               <li class="list-group-item"  *ngIf="previousFormData.prevInsurerAddress != ''"><strong>Previous Insurer Address:</strong> {{previousFormData.prevInsurerAddress}}</li>
-<!--                                              <li class="list-group-item"><strong>Previous Nil Depreciation:</strong> <span *ngIf="previousFormData.policyNilDescription == '1'">Yes</span><span *ngIf="previousFormData.policyNilDescription == '0'">No</span></li>-->
+                                              <!--  <li class="list-group-item"><strong>Previous Policy Sold:</strong> {{previousFormData.prevPolSold}}</li>-->
+                                              <!--  <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>-->
+
+                                              <!--   <li class="list-group-item"><strong>Previous Nil Depreciation:</strong> <span *ngIf="previousFormData.policyNilDescription == '1'">Yes</span><span *ngIf="previousFormData.policyNilDescription == '0'">No</span></li>-->
                                           </ul>
                                       </div>
                                   </div>

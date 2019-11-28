@@ -201,7 +201,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       lltoPaidDriver: '',
       addonPackage:'',
       hypothecationBankName:'',
-      hypothecationBankNamevalue:'',
+      // hypothecationBankNamevalue:'',
       pincode:'',
       state:'',
       city:'',
@@ -424,10 +424,10 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.proposer.controls['vehicleTypeName'].patchValue(this.bkVehicleList[this.proposer.controls['vehicleType'].value]);
 
   }
-  changefinancecompany() {
-    this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.getBankHypoDetails[this.vehical.controls['hypothecationBankName'].value]);
-    console.log(this.vehical.controls['bankNamevalue'].value,'11111111111111111111');
-  }
+  // changefinancecompany() {
+  //   this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.getBankHypoDetails[this.vehical.controls['hypothecationBankName'].value]);
+  //   console.log(this.vehical.controls['bankNamevalue'].value,'11111111111111111111');
+  // }
 
   // NEXT BUTTON
 
@@ -677,28 +677,73 @@ hypoName(){
 
     }
   }
-  financeType(value){
-    if(value.checked){
-      this.finance = true;
+  financeType() {
+
+    if (this.vehical.controls['isFinanced'].value==true) {
+      // alert('true')
+      this.vehical.controls['hypothecationType'].patchValue(this.vehical.controls['hypothecationType'].value);
+      this.vehical.controls['hypothecationAddress1'].patchValue(this.vehical.controls['hypothecationAddress1'].value);
+      this.vehical.controls['hypothecationAddress2'].patchValue(this.vehical.controls['hypothecationAddress2'].value);
+      this.vehical.controls['hypothecationBankName'].patchValue(this.vehical.controls['hypothecationBankName'].value);
+
       this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationAddress2'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
-
-    } else{
-      this.finance = false;
-      this.vehical.controls['hypothecationType'].setValidators(null);
-      this.vehical.controls['hypothecationAddress1'].setValidators(null);
-      this.vehical.controls['hypothecationAddress2'].setValidators(null);
-      this.vehical.controls['hypothecationBankName'].setValidators(null);
-      this.vehical.controls['hypothecationBankNamevalue'].setValidators(null);
+      this.finance = true;
+    } else {
+      // alert('false')
       this.vehical.controls['hypothecationType'].patchValue('');
+      this.vehical.controls['hypothecationTypeName'].patchValue('');
       this.vehical.controls['hypothecationAddress1'].patchValue('');
-      this.vehical.controls['hypothecationAddress2'].patchValue('');
       this.vehical.controls['hypothecationBankName'].patchValue('');
-      this.vehical.controls['hypothecationBankNamevalue'].patchValue('');
+      this.vehical.controls['hypothecationAddress2'].patchValue('');
+      this.vehical.controls['hypothecationAddress3'].patchValue('');
+      this.vehical.controls['hypothecationAgreementNo'].patchValue('');
+      this.vehical.controls['pincode'].patchValue('');
+      this.vehical.controls['stateName'].patchValue('');
+      this.vehical.controls['cityName'].patchValue('');
+      this.photos='';
+
+      this.vehical.controls['hypothecationType'].setValidators(null);
+      this.vehical.controls['hypothecationAddress2'].setValidators(null);
+      this.vehical.controls['hypothecationAddress1'].setValidators(null);
+      this.vehical.controls['hypothecationBankName'].setValidators(null);
+      this.finance = false;
+
     }
+    this.vehical.controls['hypothecationType'].updateValueAndValidity();
+    this.proposer.controls['hypothecationAddress2'].updateValueAndValidity();
+    this.vehical.controls['hypothecationAddress1'].updateValueAndValidity();
+    this.vehical.controls['hypothecationBankName'].updateValueAndValidity();
+
   }
+
+  // financeType(value){
+  //   if(value.checked){
+  //     this.finance = true;
+  //     this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
+  //     this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
+  //     this.vehical.controls['hypothecationAddress2'].setValidators([Validators.required]);
+  //     this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
+  //
+  //   } else{
+  //     this.finance = false;
+  //     this.vehical.controls['hypothecationType'].setValidators(null);
+  //     this.vehical.controls['hypothecationTypeName'].setValidators(null);
+  //     this.vehical.controls['hypothecationAddress1'].setValidators(null);
+  //     this.vehical.controls['hypothecationAddress2'].setValidators(null);
+  //     this.vehical.controls['hypothecationBankName'].setValidators(null);
+  //     // this.vehical.controls['hypothecationBankNamevalue'].setValidators(null);
+  //     this.vehical.controls['hypothecationType'].patchValue('');
+  //     this.vehical.controls['hypothecationTypeName'].patchValue('');
+  //     this.vehical.controls['hypothecationAddress1'].patchValue('');
+  //     this.vehical.controls['hypothecationAddress2'].patchValue('');
+  //     this.vehical.controls['hypothecationBankName'].patchValue('');
+  //     // this.vehical.controls['hypothecationBankNamevalue'].patchValue('');
+  //     this.photos='';
+  //   }
+  // }
   selectPolicy(){
     // MOT-PLT-002
     if( this.vehical.controls['policyType'].value == 'MOT-PLT-002'){
@@ -1099,7 +1144,7 @@ hypoName(){
         "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
         "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
         "HypothecationType": this.vehical.controls['hypothecationType'].value ? this.vehical.controls['hypothecationType'].value : '',
-        "HypothecationBankName": this.photos ,
+        "HypothecationBankName": this.photos==undefined||null?'':this.photos,
         // "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value ? this.vehical.controls['hypothecationBankName'].value : '' ,
         "HypothecationAddress1": this.vehical.controls['hypothecationAddress1'].value ?  this.vehical.controls['hypothecationAddress1'].value: '',
         "HypothecationAddress2": this.vehical.controls['hypothecationAddress2'].value?  this.vehical.controls['hypothecationAddress2'].value : '',
@@ -1224,7 +1269,7 @@ hypoName(){
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
         hypothecationBankName:stepper2.hypothecationBankName,
-        hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
+        // hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
         isFinanced:stepper2.isFinanced,
         pincode:stepper2.pincode,
         state:stepper2.state,

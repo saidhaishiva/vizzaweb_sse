@@ -100,6 +100,8 @@ export class RelianceMotorProposalComponent implements OnInit {
   public voluntary_deductible: any;
   public automobile_association: any;
   public basic_liability: any;
+  public gstAmount: any;
+  public discountAmount: any;
 
   //dob
   proposerAge : any;
@@ -1783,7 +1785,10 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.proposalId = this.summaryData.productlist.proposal_id;
       sessionStorage.relianceTwowheelerproposalID = this.proposalId;
       this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
-
+      this.gstAmount=this.summaryData.productlist.gst;
+      console.log(this.gstAmount,'this.gstAmount..');
+      this.discountAmount=this.summaryData.productlist.discount;
+      console.log(this.discountAmount,'this.gstAmount..');
       this.proposerFormData = this.relianceProposal.value;
       this.riskFormData = this.riskDetails.value;
       console.log(this.riskFormData,'RISKDATA')
@@ -2142,6 +2147,24 @@ export class RelianceMotorProposalComponent implements OnInit {
   changeBifuel(){
     this.coverDetails.controls['bifuelAmount'].patchValue(this.Bifuel_Kit);
   }
+  changeCpgLpgKit(){
+    if (this.coverDetails.controls.cpgLpgKit.value == true) {
+      // this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue(this.coverDetails.controls['totalUnnamedPassengerPremium'].value);
+
+      this.coverDetails.controls['fittngType'].setValidators([Validators.required]);
+      this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
+    } else {
+      this.coverDetails.controls['fittngType'].patchValue('');
+      this.coverDetails.controls['bifuelAmount'].patchValue('');
+
+      this.coverDetails.controls['fittngType'].setValidators(null);
+      this.coverDetails.controls['bifuelAmount'].setValidators(null);
+
+    }
+    this.coverDetails.controls['fittngType'].updateValueAndValidity();
+    this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
+  }
+
   UnnamedPassengersChange(){
     if (this.coverDetails.controls['UnnamedPassengersSI'].value) {
       // this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue(this.coverDetails.controls['totalUnnamedPassengerPremium'].value);

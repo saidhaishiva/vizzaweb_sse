@@ -157,12 +157,12 @@ export class BikeShriramProposalComponent implements OnInit {
     this.paUnNamed = false;
     this.policyTypeDetails = false;
     this.policyDatevalidate = [];
-        this.config = {
-            displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
-            search: true,
-            limitTo: 5,
-            // searchOnKey: 'city'
-        };
+        // this.config = {
+        //     displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
+        //     search: true,
+        //     limitTo: 5,
+        //     // searchOnKey: 'city'
+        // };
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       name: new FormControl(''),
@@ -207,7 +207,7 @@ export class BikeShriramProposalComponent implements OnInit {
       lltoPaidDriver: '',
       addonPackage:'',
       hypothecationBankName:'',
-        hypothecationBankNamevalue:'',
+        // hypothecationBankNamevalue:'',
       pincode:'',
       state:'',
       city:'',
@@ -497,10 +497,10 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['hypothecationTypeName'].patchValue(this.hypothecationTypeDetails[this.vehical.controls['hypothecationType'].value]);
 
     }
-    changefinancecompany() {
-        this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.getBankHypoDetails[this.vehical.controls['hypothecationBankName'].value]);
-        console.log(this.vehical.controls['bankNamevalue'].value,'11111111111111111111');
-    }
+    // changefinancecompany() {
+    //     this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.getBankHypoDetails[this.vehical.controls['hypothecationBankName'].value]);
+    //     console.log(this.vehical.controls['bankNamevalue'].value,'11111111111111111111');
+    // }
         policyType() {
               const data = {
                 'platform': 'web',
@@ -727,26 +727,81 @@ export class BikeShriramProposalComponent implements OnInit {
 
         }
     }
-    financeType(value){
-    if(value.checked){
-      this.finance = true;
-        this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
-        this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
-        this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
 
-    } else{
-      this.finance = false;
-        this.vehical.controls['hypothecationType'].setValidators(null);
-        this.vehical.controls['hypothecationAddress1'].setValidators(null);
-        this.vehical.controls['hypothecationBankName'].setValidators(null);
-        this.vehical.controls['hypothecationBankNamevalue'].setValidators(null);
-        this.vehical.controls['hypothecationType'].patchValue('');
-        this.vehical.controls['hypothecationAddress1'].patchValue('');
-        this.vehical.controls['hypothecationBankName'].patchValue('');
-        this.vehical.controls['hypothecationBankNamevalue'].patchValue('');
+    financeType() {
+
+        if (this.vehical.controls['isFinanced'].value==true) {
+            alert('true')
+            this.vehical.controls['hypothecationType'].patchValue(this.vehical.controls['hypothecationType'].value);
+            this.vehical.controls['hypothecationAddress1'].patchValue(this.vehical.controls['hypothecationAddress1'].value);
+            this.vehical.controls['hypothecationBankName'].patchValue(this.vehical.controls['hypothecationBankName'].value);
+
+            this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
+            this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
+            this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
+            this.finance = true;
+        } else {
+            alert('false')
+            this.vehical.controls['hypothecationType'].patchValue('');
+            this.vehical.controls['hypothecationTypeName'].patchValue('');
+            this.vehical.controls['hypothecationAddress1'].patchValue('');
+            this.vehical.controls['hypothecationBankName'].patchValue('');
+            this.vehical.controls['hypothecationAddress2'].patchValue('');
+            this.vehical.controls['hypothecationAddress3'].patchValue('');
+            this.vehical.controls['hypothecationAgreementNo'].patchValue('');
+            this.vehical.controls['pincode'].patchValue('');
+            this.vehical.controls['stateName'].patchValue('');
+            this.vehical.controls['cityName'].patchValue('');
+            this.photos='';
+
+            this.vehical.controls['hypothecationType'].setValidators(null);
+            this.vehical.controls['hypothecationTypeName'].setValidators(null);
+            this.vehical.controls['hypothecationAddress1'].setValidators(null);
+            this.vehical.controls['hypothecationBankName'].setValidators(null);
+            this.finance = false;
+
+        }
+        this.vehical.controls['hypothecationType'].updateValueAndValidity();
+        // this.proposer.controls['hypothecationTypeName'].updateValueAndValidity();
+        this.vehical.controls['hypothecationAddress1'].updateValueAndValidity();
+        this.vehical.controls['hypothecationBankName'].updateValueAndValidity();
 
     }
-  }
+
+  //   financeType(){
+  //       alert('in')
+  //
+  //   if(this.vehical.controls['isFinanced'].value==true){
+  //     this.finance = true;
+  //       this.vehical.controls['hypothecationType'].patchValue(this.vehical.controls['hypothecationType'].value);
+  //       this.vehical.controls['hypothecationAddress1'].patchValue(this.vehical.controls['hypothecationAddress1'].value);
+  //       this.vehical.controls['hypothecationBankName'].patchValue(this.vehical.controls['hypothecationBankName'].value);
+  //       this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
+  //       this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
+  //       this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
+  //
+  //   } else{
+  //     this.finance = false;
+  //       this.vehical.controls['hypothecationType'].setValidators(null);
+  //       this.vehical.controls['hypothecationTypeName'].setValidators(null);
+  //       this.vehical.controls['hypothecationAddress1'].setValidators(null);
+  //       this.vehical.controls['hypothecationBankName'].setValidators(null);
+  //       this.vehical.controls['hypothecationBankNamevalue'].setValidators(null);
+  //       this.vehical.controls['hypothecationType'].patchValue('');
+  //       this.vehical.controls['hypothecationTypeName'].patchValue('');
+  //       this.vehical.controls['hypothecationAddress1'].patchValue('');
+  //       this.vehical.controls['hypothecationBankName'].patchValue('');
+  //       // this.vehical.controls['hypothecationBankNamevalue'].patchValue('');
+  //       this.vehical.controls['hypothecationAddress2'].patchValue('');
+  //       this.vehical.controls['hypothecationAddress3'].patchValue('');
+  //       this.vehical.controls['hypothecationAgreementNo'].patchValue('');
+  //       this.vehical.controls['pincode'].patchValue('');
+  //       this.vehical.controls['stateName'].patchValue('');
+  //       this.vehical.controls['cityName'].patchValue('');
+  //       this.photos='';
+  //
+  //   }
+  // }
     selectPolicy(){
         // MOT-PLT-002
         this.vehical.controls['policyTypeName'].patchValue(this.policyTypeList[this.vehical.controls['policyType'].value]);
@@ -1089,7 +1144,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
               "HypothecationType": this.vehical.controls['hypothecationType'].value ? this.vehical.controls['hypothecationType'].value : '',
               // "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value ? this.vehical.controls['hypothecationBankName'].value : '' ,
-              "HypothecationBankName": this.photos ,
+              "HypothecationBankName": this.photos==undefined||null?'':this.photos,
               "HypothecationAddress1": this.vehical.controls['hypothecationAddress1'].value ?  this.vehical.controls['hypothecationAddress1'].value: '',
               "HypothecationAddress2": this.vehical.controls['hypothecationAddress2'].value?  this.vehical.controls['hypothecationAddress2'].value : '',
               "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value? this.vehical.controls['hypothecationAddress3'].value: '',
@@ -1199,7 +1254,7 @@ export class BikeShriramProposalComponent implements OnInit {
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
         hypothecationBankName:stepper2.hypothecationBankName,
-          hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
+          // hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
           isFinanced:stepper2.isFinanced,
         pincode:stepper2.pincode,
         state:stepper2.state,
