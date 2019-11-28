@@ -41,6 +41,8 @@ export const MY_FORMATS = {
 })
 export class LifeBajajProposalComponent implements OnInit {
   public proposer: FormGroup;
+  public customer: FormGroup;
+
   public questions: FormGroup;
   public nomineeDetails: FormGroup;
   public bankDetail: FormGroup;
@@ -104,6 +106,9 @@ export class LifeBajajProposalComponent implements OnInit {
   public premium: any;
   public requestedUrl: any;
   public biURL: any;
+  public Premium: any;
+  public ProposalNumber: any;
+  public policyId: any;
   public diseaseLists: any;
   public enquiryFormData: any;
   public setQuestionDetails: any;
@@ -131,6 +136,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public uploadotherDosName: any;
   public uploadAddressProofName: any;
   public currentStep: any;
+  public currentStep1: any;
   public documentPath: any;
   public dopDateError: any;
   public bankProofList: any;
@@ -145,6 +151,10 @@ export class LifeBajajProposalComponent implements OnInit {
   public photoPath: any;
   public otherdocsPath: any;
   public idProofPath: any;
+  public customerList: any;
+  public bajajcustomerAge: any;
+  public customerdateError: any;
+  public bajajAge1: any;
 
    constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
@@ -166,7 +176,8 @@ export class LifeBajajProposalComponent implements OnInit {
 
             }
         });
-        this.currentStep = stepperindex;
+
+
         this.addressProofPath = [];
         this.ageProofPath = [];
         this.bankProofPath = [];
@@ -177,6 +188,21 @@ export class LifeBajajProposalComponent implements OnInit {
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
       this.webhost = this.config.getimgUrl();
+
+       this.customer = this.Proposer.group({
+           title: ['', Validators.required],
+           titleValue: [''],
+           firstName: ['', Validators.required],
+           midName: '',
+           lastName: ['', Validators.required],
+           gender: ['', Validators.compose([Validators.required])],
+           dob: ['', Validators.compose([Validators.required])],
+           age: ['', Validators.required],
+           email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+           mobile: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
+           language2:'',
+       });
+
 
       this.proposer = this.Proposer.group({
       title: ['', Validators.required],
@@ -368,6 +394,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.getDiseaseList();
     this.samerelationShip();
     this.sessionData();
+    this.customerServices();
 
       this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
       let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
@@ -437,7 +464,82 @@ export class LifeBajajProposalComponent implements OnInit {
     }
   }
 
-  removeFamilyMember(event, index) {
+
+    customerServices() {
+        const data = {
+
+            "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            "platform": "web",
+            "product_id": this.lifePremiumList.product_id,
+            "suminsured_amount":  sessionStorage.selectedAmountTravel,
+            "policy_id": this.getEnquiryDetials.policy_id,
+            "term": this.lifePremiumList.termDetrails,
+            "insurer_proposer": {
+                "title": this.proposer.controls['title'].value,
+                "firstName": this.proposer.controls['firstName'].value,
+                "middleName": this.proposer.controls['midName'].value,
+                "lastName": this.proposer.controls['lastName'].value,
+                "dob":this.datepipe.transform(this.proposer.controls['dob'].value,'y-MM-dd'),
+                "age": this.proposer.controls['age'].value,
+                "gender": this.proposer.controls['gender'].value,
+                "mobile": this.proposer.controls['mobile'].value,
+                "email": this.proposer.controls['email'].value,
+                "proposer_type": "I",
+                "smoker": "N",
+                "sameAsProposer": "Y",
+                "documentLanguage": "ENG",
+                "premiumFrequency": "yearly"
+            }
+
+
+        }
+        this.termService.customerCreation(data).subscribe(
+            (successData) => {
+                this.customerListSuccess(successData);
+            },
+            (error) => {
+                this.customerListFailure(error);
+            }
+        );
+    }
+
+    public customerListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.customerList = successData.ResponseObject;
+            this.biURL = this.customerList.biUrlLink;
+            this.Premium = this.customerList.Premium;
+            this.ProposalNumber = this.customerList.ProposalNumber;
+            this.policyId = this.customerList.policyId;
+
+
+        }
+    }
+
+    public customerListFailure(error) {
+    }
+
+
+    proposalnext(stepper){
+        stepper.next();
+    }
+
+    customerNext(stepper){
+        console.log(this.customer.valid, 'this.proposer.valid');
+        if (this.customer.valid) {
+            stepper.next();
+            this.topScroll();
+            this.customerServices();
+        }
+
+        else{
+            this.toastr.error('Please fill all Mandatory Feilds')
+        }
+    }
+
+
+    removeFamilyMember(event, index) {
     let familyForm = this.familyDiseaseForm.get('family') as FormArray;
     familyForm.removeAt(1);
   }
@@ -636,6 +738,47 @@ export class LifeBajajProposalComponent implements OnInit {
 
       }
   }
+    addEvent11(event,type) {
+
+
+            if (event.value != null) {
+                let selectedDate = '';
+                this.bajajAge = '';
+                let dob = '';
+                if (typeof event.value._i == 'string') {
+                    const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.customerdateError = '';
+                    } else {
+                        this.customerdateError = 'Enter Valid Date';
+                    }
+                    selectedDate = event.value._i;
+                    dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                    if (selectedDate.length == 10) {
+                        this.bajajAge1 = this.ageCalculate(dob);
+                        sessionStorage.bajajcustomerAge = this.bajajAge1;
+
+                    }
+
+                } else if (typeof event.value._i == 'object') {
+                    // dob = this.datepipe.transform(event.value, 'MMM d, y');
+                    dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                    if (dob.length == 10) {
+                        this.bajajAge1 = this.ageCalculate(dob);
+                        sessionStorage.bajajcustomerAge = this.bajajAge1;
+
+                    }
+                    this.customerdateError = '';
+                }
+                if(this.bajajAge1!='')
+                {
+                    this.customer.controls['age'].patchValue(this.bajajAge1);
+                }
+
+            }
+
+
+    }
 
   addEventSpouse(event) {
     if (event.value != null) {
@@ -1624,9 +1767,9 @@ samerelationShip(){
           this.proposalNextList = successData.ResponseObject;
           this.proposalFormPdf = this.proposalNextList.proposal_form;
           console.log(this.proposalFormPdf, 'dffs');
-          this.biURL = this.proposalNextList.bi_link;
+          // this.biURL = this.proposalNextList.bi_link;
           console.log(this.biURL, 'biii');
-          this.otpGen();
+          // this.otpGen();
       } else {
             this.proposalGenStatus = true;
         this.toastr.error(successData.ErrorObject);
@@ -2121,6 +2264,9 @@ samerelationShip(){
       "suminsured_amount":  sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
           "term": this.lifePremiumList.termDetrails,
+          "premium": '41099',
+          "proposal_number": '1000002895',
+          "bi_pdf_url": "https://balicuat05.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000002895",
       "insurer_proposer": {
         "title": this.proposer.controls['title'].value,
         "firstName": this.proposer.controls['firstName'].value,
@@ -2764,6 +2910,7 @@ samerelationShip(){
     }
   nextDocUpload(stepper) {
     stepper.next();
+      this.otpGen();
       let dialogRef = this.dialog.open(BajajLifeOpt, {
           width: '1200px'
       });
