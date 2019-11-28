@@ -1016,6 +1016,7 @@
                       <div class="row box-card">
 
                           <div class="col-md-6">
+                              <h4 class="mt-4"></h4>
                               <!--<div class="p-3">-->
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.titleValue}}.{{proposerFormData.firstName}} {{proposerFormData.middleName}} {{proposerFormData.lastName}}</li>
@@ -1027,6 +1028,7 @@
                               <!--</div>-->
                           </div>
                           <div class="col-md-6">
+                              <h4 class="mt-4"></h4>
                               <!--<div class="p-3">-->
                                   <ul class="m-0 list-group">
                                       <li class="list-group-item"><strong>Occupation:</strong>{{proposerFormData.occupationValue}}</li>
@@ -1037,7 +1039,7 @@
                                   </ul>
                               <!--</div>-->
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6 mt-2">
                               <h4 class="color-blue ml-3">COMMUNICATION ADDRESS</h4>
                               <!--<div class="p-3">-->
                                   <ul class="m-0 list-group" >
@@ -1048,7 +1050,7 @@
                                   </ul>
                               <!--</div>-->
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6 mt-2">
                               <h4 class="mt-4"></h4>
                               <!--<div class="p-3">-->
                               <ul class="mt-0 list-group">
@@ -1061,7 +1063,7 @@
                           <!--</div>-->
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-6 mt-2">
                               <h4 class="color-blue ml-3">PERMANENT ADDRESS</h4>
                               <!--<div class="p-3">-->
                                   <ul class="m-0 list-group" >
@@ -1072,7 +1074,7 @@
                                   </ul>
                               <!--</div>-->
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6 mt-2">
                               <h4 class="mt-4"></h4>
                               <!--<div class="p-3">-->
                                   <ul class="mt-0 list-group">
@@ -1085,7 +1087,7 @@
                               <!--</div>-->
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-6 mt-2">
                               <h4 class="color-blue ml-3">REGISTRATION ADDRESS</h4>
                               <!--<div class="p-3">-->
                                   <ul class="m-0 list-group" >
@@ -1096,7 +1098,7 @@
                                   </ul>
                               <!--</div>-->
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6 mt-2">
                               <h4 class="mt-4"></h4>
                               <!--<div class="p-3">-->
                                   <ul class="mt-0 list-group">
@@ -1115,6 +1117,7 @@
                       <h5 class="mt-3 sub-title">RISK /POLICY DETAILS</h5>
                       <div class="row box-card">
                           <div class="col-md-6">
+                              <h4 class="mt-4"></h4>
                               <!--<div class="p-3">-->
                                   <ul class="m-0 list-group">
 <!--                                      <li class="list-group-item" ><strong>OtherSystem Name:</strong> {{riskFormData.OtherSystemNameValue}}</li>-->
@@ -1169,7 +1172,7 @@
                               </ul>
                           </div>
                           <div class="col-md-6">
-                              <h4 class="mt-4"></h4>
+                              <h4 style="margin-top: 29px !important;"></h4>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengersSI != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>PA to Unnamed Passenger:</strong> {{coverFormData.totalUnnamedPassengerPremium}}</li>
@@ -1213,7 +1216,7 @@
                           </div>
 
                           <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd == true">
-                              <h4 class="mt-4"></h4>
+                              <h4 style="margin-top: 29px !important;"></h4>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PAToOwnerDriverCoverd == false "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Other Relation:</strong> {{coverFormData.nOtherRelation}}</li>
@@ -1287,14 +1290,14 @@
                               </ul>
                           </div>
 
-                          <div class="col-md-6"  >
+                          <div class="col-md-6"  *ngIf="gstAmount.igst != ''||gstAmount.igst !=undefined ">
                               <h2 class="color-blue m-2">GST</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="gstAmount.igst != ''"><strong>GST:</strong>{{gstAmount.igst}} </li>
 
                               </ul>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6" *ngIf="discountAmount!= ''||discountAmount!= undefined " >
                               <h2 class="color-blue m-2">Discount</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="discountAmount.anti_theft_device != ''"><strong>Anti Theft Device Discount:</strong> {{discountAmount.anti_theft_device}}</li>
