@@ -17,11 +17,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 // import {MatAutocompleteModule} from '@angular/material/autocomplete';
-// import { MatFormFieldModule, MatSelectModule } from '@angular/material';
-// import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-
+import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 // import { ImageUploadModule } from "angular2-image-upload";
-// import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 // services
 import { LoginService } from './shared/services/login.service';
@@ -394,19 +391,16 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         SelectDropDownModule,
         NgxMatSelectSearchModule,
         MatCheckboxModule,
-
         // MatAutocompleteModule,
-        // MatSelectModule,
-        // MatFormFieldModule,
-        // NgxMatSelectSearchModule,
-        // NgxMatSelectSearchModule,
+        MatSelectModule,
+        MatFormFieldModule,
         // AmazingTimePickerModule,
         MatDialogModule,
         routing,
         CommonModule,
         TransferHttpCacheModule,
         NgtUniversalModule,
-        ScrollingModule
+        ScrollingModule,
 
     ],
     declarations: [

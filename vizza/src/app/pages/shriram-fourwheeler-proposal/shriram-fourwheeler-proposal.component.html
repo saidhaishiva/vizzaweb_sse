@@ -246,7 +246,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <mat-checkbox (change)="financeType($event)" formControlName="isFinanced">Is Vehicle in finance</mat-checkbox>
+                                                <mat-checkbox (change)="financeType()" formControlName="isFinanced">Is Vehicle in finance</mat-checkbox>
                                             </div>
                                         </div>
                                         <div class="row" *ngIf="finance">
@@ -296,7 +296,7 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Hypothecation Address 3"  formControlName="hypothecationAddress3" autocomplete="off" maxlength="30" >
-                                                    <mat-error *ngIf="vehical.controls.hypothecationAddress3.errors?.required">Address is required</mat-error>
+                                                    <!--<mat-error *ngIf="vehical.controls.hypothecationAddress3.errors?.required">Address is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -308,7 +308,7 @@
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6"  maxlength="6" (input)="getHypoPostalCode($event.target.value)" formControlName="pincode"   autocomplete="off" >
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                                                    <mat-error *ngIf="vehical.controls.pincode.hasError('required')">Pincode required</mat-error>
+                                                    <!--<mat-error *ngIf="vehical.controls.pincode.hasError('required')">Pincode required</mat-error>-->
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -316,13 +316,13 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="State" formControlName="stateName"  autocomplete="off" readonly>
-                                                    <mat-error *ngIf="vehical.controls.state.errors?.required">State is required</mat-error>
+                                                    <!--<mat-error *ngIf="vehical.controls.state.errors?.required">State is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="City" formControlName="cityName"  autocomplete="off" readonly >
-                                                    <mat-error *ngIf="vehical.controls.city.errors?.required">City is required</mat-error>
+                                                    <!--<mat-error *ngIf="vehical.controls.city.errors?.required">City is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                         </div>

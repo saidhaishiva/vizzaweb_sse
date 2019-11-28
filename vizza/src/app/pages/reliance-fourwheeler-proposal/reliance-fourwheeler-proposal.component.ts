@@ -116,6 +116,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public voluntary_deductible: any;
   public showInspection: boolean;
   public errorRateMsg: any;
+  public gstAmount: any;
+  public discountAmount: any;
 
   //dob
   proposerAge : any;
@@ -2476,8 +2478,13 @@ changeNonElect(){
     if (successData.IsSuccess) {
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
+      console.log(this.summaryData,'this.summaryData....');
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposalId = this.summaryData.productlist.proposal_id;
+      this.gstAmount=this.summaryData.productlist.gst;
+      console.log(this.gstAmount,'this.gstAmount..');
+      this.discountAmount=this.summaryData.productlist.discount;
+      console.log(this.discountAmount,'this.gstAmount..');
       sessionStorage.relianceFourwheelerproposalID = this.proposalId;
       this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
 
