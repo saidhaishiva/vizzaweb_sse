@@ -155,6 +155,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public bajajcustomerAge: any;
   public customerdateError: any;
   public bajajAge1: any;
+  public picker10: any;
 
    constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
