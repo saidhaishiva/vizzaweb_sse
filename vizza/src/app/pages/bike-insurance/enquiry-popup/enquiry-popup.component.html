@@ -12,7 +12,7 @@
         <!--<input matInput placeholder="Business  Type" formControlName="bussiness" readonly required>-->
       <!--</mat-form-field>-->
     <!--</div>-->
-    <div class="col-md-3">
+    <div class="col-md-3 mt-3">
       <mat-form-field class="w-100">
         <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" (keypress)="dobValidate($event);maxDatechange()" (keyup)="maxDatechange()" (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')" formControlName="registrationDate"   maxlength="10" minlength="10" required>
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -22,7 +22,7 @@
       <div class="error" *ngIf="errorFutureDate !='' && errorFutureDate != true">{{errorFutureDate}}</div>
       <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
     </div>
-    <div class="col-md-3" *ngIf="vehicalDetails.controls['bussiness'].value != '1' && vehicalDetails.controls['bussiness'].value != ''">
+    <div class="col-md-3 mt-3" *ngIf="vehicalDetails.controls['bussiness'].value != '1' && vehicalDetails.controls['bussiness'].value != ''">
       <mat-form-field class="w-100">
         <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="vehicalDetails.controls['registrationDate'].value" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  maxlength="10" minlength="10" required>
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -30,7 +30,7 @@
         <mat-error *ngIf="vehicalDetails.controls.previousPolicyStart.errors?.required">Start Date is required</mat-error>
       </mat-form-field>
     </div>
-     <div class="col-md-3" *ngIf="vehicalDetails.controls['bussiness'].value != '1' && vehicalDetails.controls['bussiness'].value != ''">
+     <div class="col-md-3 mt-3" *ngIf="vehicalDetails.controls['bussiness'].value != '1' && vehicalDetails.controls['bussiness'].value != ''">
        <mat-form-field class="w-100">
          <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"   (dateInput)="ageCalculateInsurer($event)"  (dateChange)="ageCalculateInsurer($event)"  maxlength="10" minlength="10" required>
            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
@@ -38,7 +38,7 @@
            <mat-error *ngIf="vehicalDetails.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
        </mat-form-field>
      </div>
-    <div class="col-md-3">
+    <div class="col-md-3 mt-3">
       <mat-form-field class="w-100">
         <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event)" (click)="manufactureYear()" (keyup)="manufactureYear()"  formControlName="manufactureYear"  required>
         <mat-error *ngIf="vehicalDetails.controls.manufactureYear.errors?.required">Manufacture Year is required</mat-error>
@@ -47,73 +47,129 @@
 
       <!--<div class="error" *ngIf=" manfactureErrorDate != false">{{manfactureErrorDate}}</div>-->
     </div>
-    <div class="col-md-3">
+      <div class="col-md-3 mt-3" *ngIf="bikeListDetails.business_type != '1'">
+          <mat-form-field class="w-100">
+              <input matInput placeholder="NCB Percent(%)"   formControlName="ncb"  required readonly>
+              <mat-error *ngIf="vehicalDetails.controls.ncb.errors?.required">Ncb is required</mat-error>
+          </mat-form-field>
+      </div>
+    <div class="col-md-3 mt-3">
       <mat-form-field class="w-100">
         <input matInput placeholder="Chassis Number" class="text-uppercase" formControlName="chasissNumber" pattern="\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*" maxlength= "25" (keypress)="idValidate($event)" required>
         <mat-error *ngIf="vehicalDetails.controls.chasissNumber.errors?.required">Chassis number is required</mat-error>
         <mat-error *ngIf="vehicalDetails.controls.chasissNumber.hasError('pattern')">Vehicle No containing at least one number and letter</mat-error>
       </mat-form-field>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 mt-3">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Engine number " class="text-uppercase" formControlName="engine"  maxlength= "25" pattern="\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*" (keypress)="idValidate($event)" required>
+        <input matInput placeholder="Engine number " class="text-uppercase" formControlName="engine"  maxlength= "25" pattern="\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*" (keypress)="idValidate($event)" (input)="manifactureList()" required>
         <mat-error *ngIf="vehicalDetails.controls.engine.errors?.required">Engine number is required</mat-error>
         <mat-error *ngIf="vehicalDetails.controls.engine.hasError('pattern')">Vehicle No containing at least one number and letter</mat-error>
       </mat-form-field>
     </div>
-    <div class="col-md-3">
-      <mat-form-field class="w-100">
-        <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (selectionChange)="manifactureList()"  required>
-          <mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-        </mat-select>
-        <mat-error *ngIf="vehicalDetails.controls.manufacture.errors?.required">Vehicle Manufacture is required</mat-error>
-      </mat-form-field>
-    </div>
 
-    <div class="col-md-3">
-       <mat-form-field class="w-100">
-         <mat-select placeholder="Vehicle Model"  formControlName="vehicleModel" (selectionChange)="modelList1()"  required>
-           <mat-option *ngFor="let paCity of modelDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-         </mat-select>
-         <mat-error *ngIf="vehicalDetails.controls.vehicleModel.errors?.required">Vehicle Model is required</mat-error>
-        </mat-form-field>
-    </div>
+      <div class="col-md-3 mt-2">
+          <mat-placeholder>Vehicle Manufacture <span class="color-red">*</span></mat-placeholder>
+          <ngx-select-dropdown  [config]="config"  formControlName="manufacture"  [options]="manifactureDetails" (change)="modelList1()" ></ngx-select-dropdown>
+          <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].manufacture.value == ''||(this.vehicalDetails['controls'].manufacture.value == null && vehicalDetails.get('manufacture').touched)" >Vehicle Manufacture is required</div>
 
-    <div class="col-md-3">
-      <mat-form-field class="w-100">
-        <mat-select placeholder="Variant"  formControlName="variant"  (selectionChange)="variantList()" required>
-          <mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-        </mat-select>
-        <mat-error *ngIf="vehicalDetails.controls.variant.errors?.required">Variant is required</mat-error>
-      </mat-form-field>
-    </div>
+          <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
+      </div>
+    <div class="col-md-3 mt-2">
+      <mat-placeholder>Vehicle Model<span class="color-red">*</span></mat-placeholder>
+      <ngx-select-dropdown  [config]="config"  formControlName="vehicleModel"  [options]="modelDetails" (change)="variantList()"></ngx-select-dropdown>
+      <!--<div class="color-red" *ngIf="modelValid">Vehicle Model is required</div>-->
+        <!--<em class="error help-block" *ngIf="!vehicalDetails.get('vehicleModel').valid && (vehicalDetails.get('vehicleModel').dirty || vehicalDetails.get('vehicleModel').touched)">Vehicle Model is required</em>-->
+        <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].vehicleModel.value == ''||(this.vehicalDetails['controls'].vehicleModel.value == null && vehicalDetails.get('vehicleModel').touched)" >Vehicle Model is required</div>
 
-    <div class="col-md-3">
-      <mat-form-field class="w-100">
-        <mat-select placeholder="Vehicle CC"  formControlName="vehicleCC"  required>
-          <mat-option *ngFor="let paCity of ccDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-        </mat-select>
-        <mat-error *ngIf="vehicalDetails.controls.vehicleCC.errors?.required">Vehicle cc is required</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-3">
-      <mat-placeholder>Registration City <span class="color-red">*</span></mat-placeholder>
-        <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails" ></ngx-select-dropdown>
-        <div class="color-red" *ngIf="CityValid">City is required</div>
         <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
     </div>
-    <div class="col-md-3" *ngIf="bikeListDetails.business_type != '1'">
-      <mat-form-field class="w-100">
-        <input matInput placeholder="NCB Percent(%)"   formControlName="ncb"  required readonly>
-        <mat-error *ngIf="vehicalDetails.controls.ncb.errors?.required">Ncb is required</mat-error>
-      </mat-form-field>
+    <div class="col-md-3 mt-2">
+      <mat-placeholder>Variant<span class="color-red">*</span></mat-placeholder>
+      <ngx-select-dropdown  [config]="config"  formControlName="variant"  [options]="variantDetails" (change)="ccList()"></ngx-select-dropdown>
+      <!--<div class="color-red" *ngIf="variantValid">Variant is required</div>-->
+        <!--<em class="error help-block" *ngIf="!vehicalDetails.get('variant').valid && (vehicalDetails.get('variant').dirty || vehicalDetails.get('variant').touched)">Variant is required</em>-->
+        <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].variant.value == ''||(this.vehicalDetails['controls'].variant.value == null && vehicalDetails.get('variant').touched)" >Variant is required</div>
+
+        <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 mt-2">
+      <mat-placeholder>Vehicle CC<span class="color-red">*</span></mat-placeholder>
+      <ngx-select-dropdown  [config]="config"  formControlName="vehicleCC"  [options]="ccDetails" ></ngx-select-dropdown>
+      <!--<div class="color-red" *ngIf="ccValid">Vehicle CC is required</div>-->
+        <!--<em class="error help-block" *ngIf="!vehicalDetails.get('vehicleCC').valid && (vehicalDetails.get('vehicleCC').dirty || vehicalDetails.get('vehicleCC').touched)">Vehicle CC is required</em>-->
+        <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].vehicleCC.value == ''||(this.vehicalDetails['controls'].vehicleCC.value == null && vehicalDetails.get('vehicleCC').touched)" >Vehicle CC is required</div>
+
+        <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
+    </div>
+
+    <!--</div>-->
+    <!--<div class="col-md-3">-->
+    <!--<mat-form-field class="w-100">-->
+      <!--<mat-select [formControl]="manufacture" placeholder="Vehicle Manufacture" #singleSelect  >-->
+        <!--<mat-option>-->
+          <!--<ngx-mat-select-search [formControl]="manufacture" [placeholderLabel]="'search..'"></ngx-mat-select-search>-->
+        <!--</mat-option>-->
+        <!--<mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}">-->
+          <!--{{paCity.value}}-->
+        <!--</mat-option>-->
+      <!--</mat-select>-->
+    <!--</mat-form-field>-->
+    <!--</div>-->
+    <!--<div class="col-md-3">-->
+      <!--<mat-form-field class="w-100">-->
+        <!--<mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (selectionChange)="manifactureList()"  required>-->
+          <!--<mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+        <!--</mat-select>-->
+        <!--<mat-error *ngIf="vehicalDetails.controls.manufacture.errors?.required">Vehicle Manufacture is required</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="col-md-3">-->
+       <!--<mat-form-field class="w-100">-->
+         <!--<mat-select placeholder="Vehicle Model"  formControlName="vehicleModel" (selectionChange)="modelList1()"  required>-->
+           <!--<mat-option *ngFor="let paCity of modelDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+         <!--</mat-select>-->
+         <!--<mat-error *ngIf="vehicalDetails.controls.vehicleModel.errors?.required">Vehicle Model is required</mat-error>-->
+        <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="col-md-3">-->
+      <!--<mat-form-field class="w-100">-->
+        <!--<mat-select placeholder="Variant"  formControlName="variant"  (selectionChange)="variantList()" required>-->
+          <!--<mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+        <!--</mat-select>-->
+        <!--<mat-error *ngIf="vehicalDetails.controls.variant.errors?.required">Variant is required</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="col-md-3">-->
+      <!--<mat-form-field class="w-100">-->
+        <!--<mat-select placeholder="Vehicle CC"  formControlName="vehicleCC"  required>-->
+          <!--<mat-option *ngFor="let paCity of ccDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+        <!--</mat-select>-->
+        <!--<mat-error *ngIf="vehicalDetails.controls.vehicleCC.errors?.required">Vehicle cc is required</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <div class="col-md-3 mt-2">
+      <mat-placeholder>Registration City <span class="color-red">*</span></mat-placeholder>
+        <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails" ></ngx-select-dropdown>
+        <!--<div class="color-red" *ngIf="CityValid">City is required</div>-->
+        <!--<em class="error help-block" *ngIf="!vehicalDetails.get('city').valid && (vehicalDetails.get('city').dirty || vehicalDetails.get('city').touched)">Registration City is required</em>-->
+        <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].city.value == ''||(this.vehicalDetails['controls'].city.value == null && vehicalDetails.get('city').touched)" >City is required</div>
+
+        <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
+    </div>
+
+    <div class="col-md-3 mt-2">
       <mat-placeholder>Region Name <span class="color-red">*</span></mat-placeholder>
       <ngx-select-dropdown  [config]="config"  formControlName="regionList"  [options]="regionDetails" ></ngx-select-dropdown>
-      <div class="color-red" *ngIf="regionValid">Region Name is required</div>
-      <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
+      <!--<div class="color-red" *ngIf="regionValid">Region Name is required</div>-->
+        <!--<em class="error help-block" *ngIf="!vehicalDetails.get('regionList').valid && (vehicalDetails.get('regionList').dirty || vehicalDetails.get('regionList').touched)">Region Name is required</em>-->
+        <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].regionList.value == ''||(this.vehicalDetails['controls'].regionList.value == null && vehicalDetails.get('regionList').touched)" >Region Name is required</div>
+
+        <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
     </div>
     <div class="col-md-12 text-center mt-3">
       <button mat-raised-button color="primary"  (click)="enquiryQuation(vehicalDetails.value)">Submit</button>

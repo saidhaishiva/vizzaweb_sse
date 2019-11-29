@@ -598,57 +598,46 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     if (event.checked) {
       this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(true);
 
-      //
       this.coverDetails.controls['cnomineeName'].setValidators([Validators.required]);
-      this.coverDetails.controls['cnomineeName'].updateValueAndValidity();
-      //
       this.coverDetails.controls['cnDob'].setValidators([Validators.required]);
-      this.coverDetails.controls['cnDob'].updateValueAndValidity();
-      //
       this.coverDetails.controls['nrelation'].setValidators([Validators.required]);
-      this.coverDetails.controls['nrelation'].updateValueAndValidity();
-      ///
       this.coverDetails.controls['cnAddress'].setValidators([Validators.required]);
-      this.coverDetails.controls['cnAddress'].updateValueAndValidity();
-      //
       this.coverDetails.controls['nOtherRelation'].setValidators([Validators.required]);
-      this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
 
       this.coverDetails.controls['totalOwnerDriverPremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalOwnerDriverPremium'].updateValueAndValidity();
+      this.getCover();
 
     } else {
       this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
 
       this.coverDetails.controls['cappointeeName'].patchValue('');
       this.coverDetails.controls['cappointeeName'].setValidators(null);
-      this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
 
-      //
       this.coverDetails.controls['cnomineeName'].patchValue('');
       this.coverDetails.controls['cnomineeName'].setValidators(null);
-      this.coverDetails.controls['cnomineeName'].updateValueAndValidity();
-      //
+
       this.coverDetails.controls['cnDob'].patchValue('');
       this.coverDetails.controls['cnDob'].setValidators(null);
-      this.coverDetails.controls['cnDob'].updateValueAndValidity();
-      //
+
       this.coverDetails.controls['nrelation'].patchValue('');
       this.coverDetails.controls['nrelation'].setValidators(null);
-      this.coverDetails.controls['nrelation'].updateValueAndValidity();
-      //
+
       this.coverDetails.controls['cnAddress'].patchValue('');
       this.coverDetails.controls['cnAddress'].setValidators(null);
-      this.coverDetails.controls['cnAddress'].updateValueAndValidity();
-      //
+
       this.coverDetails.controls['nOtherRelation'].patchValue('');
       this.coverDetails.controls['nOtherRelation'].setValidators(null);
-      this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
 
       this.coverDetails.controls['totalOwnerDriverPremium'].patchValue('');
       this.coverDetails.controls['totalOwnerDriverPremium'].setValidators(null);
-      this.coverDetails.controls['totalOwnerDriverPremium'].updateValueAndValidity();
     }
+    this.coverDetails.controls['cnomineeName'].updateValueAndValidity();
+    this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+    this.coverDetails.controls['cnDob'].updateValueAndValidity();
+    this.coverDetails.controls['nrelation'].updateValueAndValidity();
+    this.coverDetails.controls['cnAddress'].updateValueAndValidity();
+    this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
+    this.coverDetails.controls['totalOwnerDriverPremium'].updateValueAndValidity();
   }
 changeOwnerDriver(){
 
@@ -730,11 +719,10 @@ changeOwnerDriver(){
       // this.coverDetails.controls['UnnamedPassengersSI'].patchValue('100000');
 
       this.coverDetails.controls['UnnamedPassengersSI'].setValidators([Validators.required]);
-      this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
 
       // this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].patchValue('');
       this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].setValidators([Validators.required]);
-      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].updateValueAndValidity();
+
 
 
     }else{
@@ -743,35 +731,31 @@ changeOwnerDriver(){
 
       this.coverDetails.controls['UnnamedPassengersSI'].patchValue('');
       this.coverDetails.controls['UnnamedPassengersSI'].setValidators(null);
-      this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
 
       this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].patchValue('');
       this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].setValidators(null);
-      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].updateValueAndValidity();
-
 
     }
-    }
+    this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
+    this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].updateValueAndValidity();
 
-  updateVoluntary(event){
-    if(event.checked){
-      this.coverDetails.controls['IsVoluntaryDeductableOpted'].patchValue(true);
-      //
+  }
+
+  updateVoluntary(){
+    if(this.coverDetails.controls['IsVoluntaryDeductableOpted'].value == true){
+
       this.coverDetails.controls['VoluntaryDeductableAmount'].setValidators([Validators.required]);
-      this.coverDetails.controls['VoluntaryDeductableAmount'].updateValueAndValidity();
       this.coverDetails.controls['totalVoluntaryDeductablePremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalVoluntaryDeductablePremium'].updateValueAndValidity();
+      this.getCover();
     }else {
-      this.coverDetails.controls['IsVoluntaryDeductableOpted'].patchValue(false);
-
-
       this.coverDetails.controls['VoluntaryDeductableAmount'].patchValue('');
       this.coverDetails.controls['VoluntaryDeductableAmount'].setValidators(null);
-      this.coverDetails.controls['VoluntaryDeductableAmount'].updateValueAndValidity();
       this.coverDetails.controls['totalVoluntaryDeductablePremium'].patchValue('');
       this.coverDetails.controls['totalVoluntaryDeductablePremium'].setValidators(null);
-      this.coverDetails.controls['totalVoluntaryDeductablePremium'].updateValueAndValidity();
     }
+    this.coverDetails.controls['VoluntaryDeductableAmount'].updateValueAndValidity();
+    this.coverDetails.controls['totalVoluntaryDeductablePremium'].updateValueAndValidity();
+
   }
   changeVoluntary(){
           this.coverDetails.controls['totalVoluntaryDeductablePremium'].patchValue(this.voluntary_deductible);
@@ -782,41 +766,37 @@ changeOwnerDriver(){
   updateOwnerDriverSi(event){
     if(event.checked){
       this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(true);
-      //
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].patchValue('1500000');
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].setValidators([Validators.required]);
-      this.coverDetails.controls['PAToOwnerDriverCoverdSi'].updateValueAndValidity();
     }else {
       this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
-
-
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].patchValue('');
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].setValidators(null);
-      this.coverDetails.controls['PAToOwnerDriverCoverdSi'].updateValueAndValidity();
     }
+    this.coverDetails.controls['PAToOwnerDriverCoverdSi'].updateValueAndValidity();
+
   }
 
   updateNildeprecition(event){
     if(event.checked){
       this.coverDetails.controls['NilDepreciationCoverage'].patchValue(true);
-      //
-      this.coverDetails.controls['applicableRate'].patchValue( this.coverDetails.controls['applicableRate'].value);
 
+      this.coverDetails.controls['applicableRate'].patchValue( this.coverDetails.controls['applicableRate'].value);
       this.coverDetails.controls['applicableRate'].setValidators([Validators.required]);
-      this.coverDetails.controls['applicableRate'].updateValueAndValidity();
       this.coverDetails.controls['totalDepreciationPremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalDepreciationPremium'].updateValueAndValidity();
+      this.getCover();
     }else {
       this.coverDetails.controls['NilDepreciationCoverage'].patchValue(false);
 
 
       this.coverDetails.controls['applicableRate'].patchValue('');
       this.coverDetails.controls['applicableRate'].setValidators(null);
-      this.coverDetails.controls['applicableRate'].updateValueAndValidity();
       this.coverDetails.controls['totalDepreciationPremium'].patchValue('');
       this.coverDetails.controls['totalDepreciationPremium'].setValidators(null);
-      this.coverDetails.controls['totalDepreciationPremium'].updateValueAndValidity();
     }
+    this.coverDetails.controls['applicableRate'].updateValueAndValidity();
+    this.coverDetails.controls['totalDepreciationPremium'].updateValueAndValidity();
+
   }
 
   changeDepreciation(){
@@ -831,13 +811,14 @@ changeOwnerDriver(){
       //
       this.coverDetails.controls['totalBasicODCoveragePremium'].patchValue( this.coverDetails.controls['totalBasicODCoveragePremium'].value);
       this.coverDetails.controls['totalBasicODCoveragePremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalBasicODCoveragePremium'].updateValueAndValidity();
+      this.getCover();
     }else {
 
       this.coverDetails.controls['totalBasicODCoveragePremium'].patchValue('');
       this.coverDetails.controls['totalBasicODCoveragePremium'].setValidators(null);
-      this.coverDetails.controls['totalBasicODCoveragePremium'].updateValueAndValidity();
     }
+    this.coverDetails.controls['totalBasicODCoveragePremium'].updateValueAndValidity();
+
   }
   changeBasicODCoverage(){
 
@@ -851,13 +832,14 @@ changeOwnerDriver(){
       //
       this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].patchValue( this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].value);
       this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].updateValueAndValidity();
+      this.getCover();
     }else {
 
       this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].patchValue('');
       this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].setValidators(null);
-      this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].updateValueAndValidity();
     }
+    this.coverDetails.controls['totalAntiTheftDeviceFittedPremium'].updateValueAndValidity();
+
   }
   changeAntiTheftCoverage(){
 
@@ -871,13 +853,14 @@ changeOwnerDriver(){
       //
       this.coverDetails.controls['totalAssociationPremium'].patchValue( this.coverDetails.controls['totalAssociationPremium'].value);
       this.coverDetails.controls['totalAssociationPremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalAssociationPremium'].updateValueAndValidity();
+      this.getCover();
     }else {
 
       this.coverDetails.controls['totalAssociationPremium'].patchValue('');
       this.coverDetails.controls['totalAssociationPremium'].setValidators(null);
-      this.coverDetails.controls['totalAssociationPremium'].updateValueAndValidity();
     }
+    this.coverDetails.controls['totalAssociationPremium'].updateValueAndValidity();
+
   }
   changeAssociationCoverage(){
 
@@ -891,13 +874,14 @@ changeOwnerDriver(){
       //
       this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].patchValue( this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].value);
       this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].updateValueAndValidity();
+      this.getCover();
     }else {
 
       this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].patchValue('');
       this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].setValidators(null);
-      this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].updateValueAndValidity();
     }
+    this.coverDetails.controls['totalLiabilityToPaidDriverPremium'].updateValueAndValidity();
+
   }
   changeLiabilityToPaidCoverage(){
 
@@ -911,13 +895,14 @@ changeOwnerDriver(){
       //
       this.coverDetails.controls['totalBasicLiabilityPremium'].patchValue( this.coverDetails.controls['totalBasicLiabilityPremium'].value);
       this.coverDetails.controls['totalBasicLiabilityPremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalBasicLiabilityPremium'].updateValueAndValidity();
+      this.getCover();
     }else {
 
       this.coverDetails.controls['totalBasicLiabilityPremium'].patchValue('');
       this.coverDetails.controls['totalBasicLiabilityPremium'].setValidators(null);
-      this.coverDetails.controls['totalBasicLiabilityPremium'].updateValueAndValidity();
     }
+    this.coverDetails.controls['totalBasicLiabilityPremium'].updateValueAndValidity();
+
   }
   changeBasicLiabilityCoverage(){
 
@@ -968,20 +953,18 @@ changeOwnerDriver(){
       //
       this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('15000');
       this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators([Validators.required]);
-      this.coverDetails.controls['ElectricalItemsTotalSI'].updateValueAndValidity();
       this.coverDetails.controls['totalElectricalItemPremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalElectricalItemPremium'].updateValueAndValidity();
+      this.getCover();
     }else {
       this.coverDetails.controls['IsElectricalItemFitted'].patchValue(false);
-
-
       this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('');
       this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators(null);
-      this.coverDetails.controls['ElectricalItemsTotalSI'].updateValueAndValidity();
       this.coverDetails.controls['totalElectricalItemPremium'].patchValue('');
       this.coverDetails.controls['totalElectricalItemPremium'].setValidators(null);
-      this.coverDetails.controls['totalElectricalItemPremium'].updateValueAndValidity();
     }
+    this.coverDetails.controls['ElectricalItemsTotalSI'].updateValueAndValidity();
+    this.coverDetails.controls['totalElectricalItemPremium'].updateValueAndValidity();
+
   }
   changeElect(){
           this.coverDetails.controls['totalElectricalItemPremium'].patchValue(this.electrical_accessories);
@@ -991,12 +974,17 @@ changeOwnerDriver(){
   changesumInsu(){
     if(this.coverDetails.controls.NoOfUnnamedPassenegersCovered.value) {
       this.coverDetails.controls['UnnamedPassengersSI'].setValidators([Validators.required]);
-      this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
+      this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators([Validators.required]);
+      this.getCover();
     }else{
         this.coverDetails.controls['UnnamedPassengersSI'].patchValue('');
         this.coverDetails.controls['UnnamedPassengersSI'].setValidators(null);
-        this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
+        this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue('');
+        this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators(null);
       }
+    this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
+    this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
+
   }
   changeValueUnpass(){
       if(this.coverDetails.controls.UnnamedPassengersSI.value){
@@ -1014,25 +1002,22 @@ changeOwnerDriver(){
   updatenonElectricalItem(event){
     if(event.checked){
       this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(true);
-      //
       this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('12000');
-
       this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators([Validators.required]);
-      this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
-
       this.coverDetails.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
+      this.getCover()
     }else {
       this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(false);
 
 
       this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('');
       this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators(null);
-      this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
       this.coverDetails.controls['totalNonElectricalItemPremium'].patchValue('');
       this.coverDetails.controls['totalNonElectricalItemPremium'].setValidators(null);
-      this.coverDetails.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
     }
+    this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
+    this.coverDetails.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
+
   }
 changeNonElect(){
           this.coverDetails.controls['totalNonElectricalItemPremium'].patchValue(this.non_electrical_accessories);
@@ -1042,45 +1027,36 @@ changeNonElect(){
     updatenonBiFuelKit(event){
         if(event.checked){
             this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-
-          //
             this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
-
             this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
-            this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
             this.coverDetails.controls['cpgLpgKit'].setValidators([Validators.required]);
-            this.coverDetails.controls['cpgLpgKit'].updateValueAndValidity();
-
             this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
-            this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
+            this.getCover()
         }else {
             this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
             this.coverDetails.controls['cpgLpgKit'].patchValue('');
-
-
-
-          this.coverDetails.controls['BiFuelKitSi'].patchValue('');
+            this.coverDetails.controls['BiFuelKitSi'].patchValue('');
             this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
-            this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
-
             this.coverDetails.controls['bifuelAmount'].patchValue('');
             this.coverDetails.controls['bifuelAmount'].setValidators(null);
-            this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
         }
+      this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+      this.coverDetails.controls['cpgLpgKit'].updateValueAndValidity();
+      this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
+
     }
 
   cpgLpgKitChange(){
     if(this.coverDetails.controls.cpgLpgKit.value == 'Yes'){
       this.coverDetails.controls['fittngType'].patchValue(this.coverDetails.controls['fittngType'].value);
       this.coverDetails.controls['fittngType'].setValidators([Validators.required]);
-      this.coverDetails.controls['fittngType'].updateValueAndValidity();
 
     }else {
       this.coverDetails.controls['fittngType'].patchValue('');
       this.coverDetails.controls['fittngType'].setValidators(null);
-      this.coverDetails.controls['fittngType'].updateValueAndValidity();
-
     }
+    this.coverDetails.controls['fittngType'].updateValueAndValidity();
+
   }
     changeBifuel(){
       this.coverDetails.controls['bifuelAmount'].patchValue(this.Bifuel_Kit);

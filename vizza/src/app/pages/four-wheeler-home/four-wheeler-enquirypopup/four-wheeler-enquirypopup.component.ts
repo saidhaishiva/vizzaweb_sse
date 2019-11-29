@@ -69,6 +69,10 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public vehicleRegNumber: any;
   public CityValid : boolean;
   public regionValid : boolean;
+  public manifactureValid: boolean;
+  public modelValid: boolean;
+  public variantValid: boolean;
+  public ccValid: boolean;
   constructor(public fb: FormBuilder, public fwService: FourWheelerService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
               public dialogRef: MatDialogRef<FourWheelerEnquirypopupComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -125,9 +129,42 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   //     classes: 'myclass custom-class',
   //     noDataLabel: 'Speciality not found'
   //   };
+    this.config = {
+      displayKey: "manufacture", //if objects array passed which key to be displayed defaults to description
+      search: true,
+      limitTo: 5
+    };
+    this.manifactureValid = false;
+
+    this.config = {
+      displayKey: "vehicleModel", //if objects array passed which key to be displayed defaults to description
+      search: true,
+      limitTo: 5
+    };
+    this.modelValid = false;
+
+    this.config = {
+      displayKey: "variant", //if objects array passed which key to be displayed defaults to description
+      search: true,
+      limitTo: 5
+    };
+    this.variantValid = false;
+
+    this.config = {
+      displayKey: "vehicleCC", //if objects array passed which key to be displayed defaults to description
+      search: true,
+      limitTo: 5
+    };
+    this.ccValid = false;
+    this.vehicalDetails['controls'].city.patchValue(null);
+    this.vehicalDetails['controls'].regionList.patchValue(null);
+    this.vehicalDetails['controls'].manufacture.patchValue(null);
+    this.vehicalDetails['controls'].vehicleModel.patchValue(null);
+    this.vehicalDetails['controls'].variant.patchValue(null);
+    this.vehicalDetails['controls'].vehicleCC.patchValue(null);
 
 
-}
+  }
 
   // onItemSelect(item: any) {
   //   if (this.selectedQualification.length > 0) {
@@ -157,6 +194,12 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
     this.carListDetails = JSON.parse(sessionStorage.carListDetails);
     this.rto = sessionStorage.RtoFour;
+    this.vehicalDetails['controls'].city.patchValue(null);
+    this.vehicalDetails['controls'].regionList.patchValue(null);
+    this.vehicalDetails['controls'].manufacture.patchValue(null);
+    this.vehicalDetails['controls'].vehicleModel.patchValue(null);
+    this.vehicalDetails['controls'].variant.patchValue(null);
+    this.vehicalDetails['controls'].vehicleCC.patchValue(null);
     let stringToSplit;
     stringToSplit = this.carListDetails.vehicle_no.toUpperCase();
     let x = stringToSplit.slice(0, 2);
@@ -186,7 +229,6 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
 
 
     this.claimpercent();
-    this.manifactureList();
     this.dataList();
     this.getCityLists();
     this.getRegionLists();
@@ -559,6 +601,34 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       if(this.vehicalDetails.controls['regionList'].value == ''){
         this.regionValid = true;
         console.log(this.regionValid,'regionValid...');
+        if(this.vehicalDetails.controls['manufacture'].value == ''){
+          this.manifactureValid = true;
+          console.log(this.manifactureValid,'manifactureValid...');
+          if(this.vehicalDetails.controls['vehicleModel'].value == ''){
+            this.modelValid = true;
+            console.log(this.modelValid,'modelValid...');
+            if(this.vehicalDetails.controls['variant'].value == ''){
+              this.variantValid = true;
+              console.log(this.variantValid,'variantValid...');
+              if(this.vehicalDetails.controls['vehicleCC'].value == ''){
+                this.ccValid = true;
+                console.log(this.ccValid,'ccValid...');
+              }else{
+                this.ccValid = false;
+                console.log(this.ccValid,'rccValidfalse...');
+              }
+            }else{
+              this.variantValid = false;
+              console.log(this.variantValid,'regionValidfalse...');
+            }
+          }else{
+            this.modelValid = false;
+            console.log(this.modelValid,'rmodelValidfalse...');
+          }
+        }else{
+          this.manifactureValid = false;
+          console.log(this.manifactureValid,'manifactureValidfalse...');
+        }
       }else{
         this.regionValid = false;
         console.log(this.regionValid,'regionValidfalse...');

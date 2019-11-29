@@ -83,6 +83,7 @@ export class FourWheelerHomeComponent implements OnInit {
   public regionDetails: any;
   public CityValid: boolean;
   public vehicleRegNumber: any;
+  public previousCompanyValid: boolean;
 
   constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
     this.settings = this.appSettings.settings;
@@ -106,6 +107,14 @@ export class FourWheelerHomeComponent implements OnInit {
       // searchOnKey: 'city'
     };
     this.CityValid = false;
+    this.config = {
+      displayKey: "previousCompany", //if objects array passed which key to be displayed defaults to description
+      search: true,
+      limitTo: 5
+    };
+    this.previousCompanyValid = false;
+
+
     this.dobError = false;
 
     this.fourWheeler = this.fb.group({
@@ -124,6 +133,8 @@ export class FourWheelerHomeComponent implements OnInit {
     this.expiry = false;
     this.showSelf = false;
     this.previousDate = true;
+    this.fourWheeler.controls['previousCompany'].patchValue(null);
+    this.fourWheeler.controls['city'].patchValue(null);
     this.typeList = 'new';
     if (this.typeList == 'new') {
       this.getType(0);
@@ -133,6 +144,7 @@ export class FourWheelerHomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fourWheeler.controls['previousCompany'].patchValue(null);
     this.fourWheeler.controls['city'].patchValue(null);
     this.fourWheeler.controls['previousClaim'].patchValue(null);
     this.claimpercent();

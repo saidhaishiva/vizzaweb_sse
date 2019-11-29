@@ -96,7 +96,7 @@
                       <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" class="text-uppercase" maxlength="10" minlength="10"  (keypress)="idValidate($event);vechicleValue()" (keyup)="setSession()" (input)="vehicaleValidate();vechicleValue()" [required]="typeList != 'new'">
                       <mat-error *ngIf="fourWheeler.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
                       <mat-error *ngIf="fourWheeler.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 10 characters</mat-error>
-                      <mat-error *ngIf="fourWheeler.controls.vehicalNumber.hasError('pattern')">Enter Vaild Vehicle Number </mat-error>
+                      <mat-error *ngIf="fourWheeler.controls.vehicalNumber.hasError('pattern')">Enter Valid Vehicle Number </mat-error>
 
                     </mat-form-field>
                   </div>
@@ -125,14 +125,24 @@
                       <mat-error *ngIf="fourWheeler.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-12">
-                    <mat-form-field class="w-100 text-left">
-                      <mat-select placeholder="Previous Company" formControlName="previousCompany"  [required]="typeList != 'new'">
-                        <mat-option *ngFor="let title of companyList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="fourWheeler.controls.previousCompany.errors?.required">Previous Company is required</mat-error>
-                    </mat-form-field>
+                  <div class="col-md-12" >
+
+                    <mat-placeholder>Previous Company<span class="error">*</span></mat-placeholder>
+                    <ngx-select-dropdown  [config]="config"  formControlName="previousCompany"  [options]="companyList" ></ngx-select-dropdown>
+                    <!--<div class="color-red" *ngIf="previousCompanyValid">Previous Company is required</div>-->
+                    <div class="error help-block" *ngIf=" this.fourWheeler['controls'].previousCompany.value == ''||(this.fourWheeler['controls'].previousCompany.value == null && fourWheeler.get('previousCompany').touched)" >Previous Company is required</div>
+
+                    <!--<mat-error *ngIf="fourWheeler.controls.previousCompany.errors?.required">Previous Company is required</mat-error>-->
+
                   </div>
+                  <!--<div class="col-md-12">-->
+                    <!--<mat-form-field class="w-100 text-left">-->
+                      <!--<mat-select placeholder="Previous Company" formControlName="previousCompany"  [required]="typeList != 'new'">-->
+                        <!--<mat-option *ngFor="let title of companyList | keys" value="{{title.key}}" > {{title.value}} </mat-option>-->
+                      <!--</mat-select>-->
+                      <!--<mat-error *ngIf="fourWheeler.controls.previousCompany.errors?.required">Previous Company is required</mat-error>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
                   <div class="col-md-12">
                     <p class="mt-2">Previous Claim ? <span class="error">*</span></p>
                     <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="setSession();changeNcbAmt()" >
