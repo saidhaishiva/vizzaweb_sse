@@ -731,7 +731,7 @@ export class BikeShriramProposalComponent implements OnInit {
     financeType() {
 
         if (this.vehical.controls['isFinanced'].value==true) {
-            alert('true')
+            // alert('true')
             this.vehical.controls['hypothecationType'].patchValue(this.vehical.controls['hypothecationType'].value);
             this.vehical.controls['hypothecationAddress1'].patchValue(this.vehical.controls['hypothecationAddress1'].value);
             this.vehical.controls['hypothecationBankName'].patchValue(this.vehical.controls['hypothecationBankName'].value);
@@ -741,7 +741,7 @@ export class BikeShriramProposalComponent implements OnInit {
             this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
             this.finance = true;
         } else {
-            alert('false')
+            // alert('false')
             this.vehical.controls['hypothecationType'].patchValue('');
             this.vehical.controls['hypothecationTypeName'].patchValue('');
             this.vehical.controls['hypothecationAddress1'].patchValue('');
