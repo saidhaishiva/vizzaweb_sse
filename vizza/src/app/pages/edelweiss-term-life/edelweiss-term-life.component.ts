@@ -329,8 +329,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       highestQualificationName: '',
       otherQualification: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
-      isStaff: 'No',
-      employeeCode: '',
+      // isStaff: 'No',
+      // employeeCode: '',
       stitle: '',
       stitleName: '',
       sfirstName: '',
@@ -340,8 +340,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       semailId: '',
       smobileNo: '',
       isSmokerSpouse: 'No',
-      isStaffSpouse: 'No',
-      employeeCodeSpouse: '',
+      // isStaffSpouse: 'No',
+      // employeeCodeSpouse: '',
       relationSpouseInsurer: '3',
       relationSpouseInsurerName: 'Spouse',
       currAddr1: ['', Validators.compose([Validators.required])],
@@ -365,14 +365,14 @@ export class EdelweissTermLifeComponent implements OnInit {
       naturedutyName: '',
       employerAddr: ['', Validators.compose([Validators.required])],
       annualIncome: ['', Validators.compose([Validators.required])],
-      taxResidence: ['', Validators.compose([Validators.required])],
+      // taxResidence: ['', Validators.compose([Validators.required])],
       isPoliticallyExposed: false,
       specification: '',
       isCriminal: 'No',
       criminalDetails: '',
       identityProof: ['', Validators.compose([Validators.required])],
       identityProofName: '',
-      categorization: '',
+      // categorization: '',
       addrProof: ['', Validators.compose([Validators.required])],
       addrProofName: '',
       heightFeets: ['', Validators.compose([Validators.required])],
@@ -408,7 +408,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       sumAssuredATPD: '',
       isHCB: 'No',
       sumAssuredHCB: '',
-      payoutOption: '',
+      // payoutOption: '',
       noOfMonths: '',
       payoutPercentageIncome: '',
       sameAsProposer: false,
@@ -499,7 +499,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       name: '',
       location: '',
       ifscCode: ['', Validators.compose([Validators.required])],
-      investmentStrategy: '',
+      // investmentStrategy: '',
       existingInsuranceInd: false,
       existingInsurance : new FormArray([
         this.create()
@@ -2151,21 +2151,21 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.hcbdError = 'SumAssured Hospital Cash Benefit should be 100000 - 600000';
     }
   }
-  staffChange() {
-
-    if (this.proposer.controls['isStaff'].value == 'Yes') {
-      this.proposer.controls['employeeCode'].patchValue(this.proposer.controls['employeeCode'].value);
-
-      this.proposer.controls['employeeCode'].setValidators([Validators.required]);
-    } else {
-      this.proposer.controls['employeeCode'].patchValue('');
-
-      this.proposer.controls['employeeCode'].setValidators(null);
-
-    }
-    this.proposer.controls['employeeCode'].updateValueAndValidity();
-
-  }
+  // staffChange() {
+  //
+  //   if (this.proposer.controls['isStaff'].value == 'Yes') {
+  //     this.proposer.controls['employeeCode'].patchValue(this.proposer.controls['employeeCode'].value);
+  //
+  //     this.proposer.controls['employeeCode'].setValidators([Validators.required]);
+  //   } else {
+  //     this.proposer.controls['employeeCode'].patchValue('');
+  //
+  //     this.proposer.controls['employeeCode'].setValidators(null);
+  //
+  //   }
+  //   this.proposer.controls['employeeCode'].updateValueAndValidity();
+  //
+  // }
 
   staffChange1() {
 
@@ -2288,67 +2288,67 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
   }
 
-  changeMaritalReq() {
-
-    if (this.proposer.controls['maritalStatus'].value == 'M') {
-      this.proposer.controls['stitle'].patchValue(this.proposer.controls['stitle'].value);
-      this.proposer.controls['sfirstName'].patchValue(this.proposer.controls['sfirstName'].value);
-      this.proposer.controls['smidName'].patchValue(this.proposer.controls['smidName'].value);
-      this.proposer.controls['slastName'].patchValue(this.proposer.controls['slastName'].value);
-      this.proposer.controls['sdob'].patchValue(this.proposer.controls['sdob'].value);
-      this.proposer.controls['semailId'].patchValue(this.proposer.controls['semailId'].value);
-      this.proposer.controls['smobileNo'].patchValue(this.proposer.controls['smobileNo'].value);
-      this.proposer.controls['isSmokerSpouse'].patchValue(this.proposer.controls['isSmokerSpouse'].value);
-      this.proposer.controls['isStaffSpouse'].patchValue(this.proposer.controls['isStaffSpouse'].value);
-      this.proposer.controls['relationSpouseProposer'].patchValue(this.proposer.controls['relationSpouseProposer'].value);
-
-      this.proposer.controls['stitle'].setValidators([Validators.required]);
-      this.proposer.controls['sfirstName'].setValidators([Validators.required]);
-      this.proposer.controls['smidName'].setValidators(null);
-      this.proposer.controls['slastName'].setValidators([Validators.required]);
-      this.proposer.controls['sdob'].setValidators([Validators.required]);
-      this.proposer.controls['semailId'].setValidators([Validators.required]);
-      this.proposer.controls['smobileNo'].setValidators([Validators.required]);
-      this.proposer.controls['isSmokerSpouse'].setValidators([Validators.required]);
-      this.proposer.controls['isStaffSpouse'].setValidators([Validators.required]);
-      this.proposer.controls['relationSpouseProposer'].setValidators([Validators.required]);
-    } else {
-      this.proposer.controls['stitle'].patchValue('');
-      this.proposer.controls['sfirstName'].patchValue('');
-      this.proposer.controls['smidName'].patchValue('');
-      this.proposer.controls['slastName'].patchValue('');
-      this.proposer.controls['sdob'].patchValue('');
-      this.proposer.controls['semailId'].patchValue('');
-      this.proposer.controls['smobileNo'].patchValue('');
-      this.proposer.controls['isSmokerSpouse'].patchValue('No');
-      this.proposer.controls['isStaffSpouse'].patchValue('No');
-      this.proposer.controls['relationSpouseProposer'].patchValue('3');
-
-      this.proposer.controls['stitle'].setValidators(null);
-      this.proposer.controls['sfirstName'].setValidators(null);
-      this.proposer.controls['smidName'].setValidators(null);
-      this.proposer.controls['slastName'].setValidators(null);
-      this.proposer.controls['sdob'].setValidators(null);
-      this.proposer.controls['semailId'].setValidators(null);
-      this.proposer.controls['smobileNo'].setValidators(null);
-      this.proposer.controls['isSmokerSpouse'].setValidators(null);
-      this.proposer.controls['isStaffSpouse'].setValidators(null);
-      this.proposer.controls['relationSpouseProposer'].setValidators(null);
-
-    }
-    this.proposer.controls['employeeCode'].updateValueAndValidity();
-    this.proposer.controls['stitle'].updateValueAndValidity();
-    this.proposer.controls['sfirstName'].updateValueAndValidity();
-    this.proposer.controls['smidName'].updateValueAndValidity();
-    this.proposer.controls['slastName'].updateValueAndValidity();
-    this.proposer.controls['sdob'].updateValueAndValidity();
-    this.proposer.controls['semailId'].updateValueAndValidity();
-    this.proposer.controls['smobileNo'].updateValueAndValidity();
-    this.proposer.controls['isSmokerSpouse'].updateValueAndValidity();
-    this.proposer.controls['isStaffSpouse'].updateValueAndValidity();
-    this.proposer.controls['relationSpouseProposer'].updateValueAndValidity();
-
-  }
+  // changeMaritalReq() {
+  //
+  //   if (this.proposer.controls['maritalStatus'].value == 'M') {
+  //     this.proposer.controls['stitle'].patchValue(this.proposer.controls['stitle'].value);
+  //     this.proposer.controls['sfirstName'].patchValue(this.proposer.controls['sfirstName'].value);
+  //     this.proposer.controls['smidName'].patchValue(this.proposer.controls['smidName'].value);
+  //     this.proposer.controls['slastName'].patchValue(this.proposer.controls['slastName'].value);
+  //     this.proposer.controls['sdob'].patchValue(this.proposer.controls['sdob'].value);
+  //     this.proposer.controls['semailId'].patchValue(this.proposer.controls['semailId'].value);
+  //     this.proposer.controls['smobileNo'].patchValue(this.proposer.controls['smobileNo'].value);
+  //     this.proposer.controls['isSmokerSpouse'].patchValue(this.proposer.controls['isSmokerSpouse'].value);
+  //     this.proposer.controls['isStaffSpouse'].patchValue(this.proposer.controls['isStaffSpouse'].value);
+  //     this.proposer.controls['relationSpouseProposer'].patchValue(this.proposer.controls['relationSpouseProposer'].value);
+  //
+  //     this.proposer.controls['stitle'].setValidators([Validators.required]);
+  //     this.proposer.controls['sfirstName'].setValidators([Validators.required]);
+  //     this.proposer.controls['smidName'].setValidators(null);
+  //     this.proposer.controls['slastName'].setValidators([Validators.required]);
+  //     this.proposer.controls['sdob'].setValidators([Validators.required]);
+  //     this.proposer.controls['semailId'].setValidators([Validators.required]);
+  //     this.proposer.controls['smobileNo'].setValidators([Validators.required]);
+  //     this.proposer.controls['isSmokerSpouse'].setValidators([Validators.required]);
+  //     this.proposer.controls['isStaffSpouse'].setValidators([Validators.required]);
+  //     this.proposer.controls['relationSpouseProposer'].setValidators([Validators.required]);
+  //   } else {
+  //     this.proposer.controls['stitle'].patchValue('');
+  //     this.proposer.controls['sfirstName'].patchValue('');
+  //     this.proposer.controls['smidName'].patchValue('');
+  //     this.proposer.controls['slastName'].patchValue('');
+  //     this.proposer.controls['sdob'].patchValue('');
+  //     this.proposer.controls['semailId'].patchValue('');
+  //     this.proposer.controls['smobileNo'].patchValue('');
+  //     this.proposer.controls['isSmokerSpouse'].patchValue('No');
+  //     this.proposer.controls['isStaffSpouse'].patchValue('No');
+  //     this.proposer.controls['relationSpouseProposer'].patchValue('3');
+  //
+  //     this.proposer.controls['stitle'].setValidators(null);
+  //     this.proposer.controls['sfirstName'].setValidators(null);
+  //     this.proposer.controls['smidName'].setValidators(null);
+  //     this.proposer.controls['slastName'].setValidators(null);
+  //     this.proposer.controls['sdob'].setValidators(null);
+  //     this.proposer.controls['semailId'].setValidators(null);
+  //     this.proposer.controls['smobileNo'].setValidators(null);
+  //     this.proposer.controls['isSmokerSpouse'].setValidators(null);
+  //     this.proposer.controls['isStaffSpouse'].setValidators(null);
+  //     this.proposer.controls['relationSpouseProposer'].setValidators(null);
+  //
+  //   }
+  //   this.proposer.controls['employeeCode'].updateValueAndValidity();
+  //   this.proposer.controls['stitle'].updateValueAndValidity();
+  //   this.proposer.controls['sfirstName'].updateValueAndValidity();
+  //   this.proposer.controls['smidName'].updateValueAndValidity();
+  //   this.proposer.controls['slastName'].updateValueAndValidity();
+  //   this.proposer.controls['sdob'].updateValueAndValidity();
+  //   this.proposer.controls['semailId'].updateValueAndValidity();
+  //   this.proposer.controls['smobileNo'].updateValueAndValidity();
+  //   this.proposer.controls['isSmokerSpouse'].updateValueAndValidity();
+  //   this.proposer.controls['isStaffSpouse'].updateValueAndValidity();
+  //   this.proposer.controls['relationSpouseProposer'].updateValueAndValidity();
+  //
+  // }
 
   changeMaritalInsuReq() {
 
@@ -2412,21 +2412,21 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
-  staffSpouseChange() {
-
-    if (this.proposer.controls['isStaffSpouse'].value == 'Yes') {
-      this.proposer.controls['employeeCodeSpouse'].patchValue(this.proposer.controls['employeeCodeSpouse'].value);
-
-      this.proposer.controls['employeeCodeSpouse'].setValidators([Validators.required]);
-    } else {
-      this.proposer.controls['employeeCodeSpouse'].patchValue('');
-
-      this.proposer.controls['employeeCodeSpouse'].setValidators(null);
-
-    }
-    this.proposer.controls['employeeCodeSpouse'].updateValueAndValidity();
-
-  }
+  // staffSpouseChange() {
+  //
+  //   if (this.proposer.controls['isStaffSpouse'].value == 'Yes') {
+  //     this.proposer.controls['employeeCodeSpouse'].patchValue(this.proposer.controls['employeeCodeSpouse'].value);
+  //
+  //     this.proposer.controls['employeeCodeSpouse'].setValidators([Validators.required]);
+  //   } else {
+  //     this.proposer.controls['employeeCodeSpouse'].patchValue('');
+  //
+  //     this.proposer.controls['employeeCodeSpouse'].setValidators(null);
+  //
+  //   }
+  //   this.proposer.controls['employeeCodeSpouse'].updateValueAndValidity();
+  //
+  // }
 
   staffSpouseChange1() {
 
@@ -2443,21 +2443,21 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['employeeCodeSpouse'].updateValueAndValidity();
 
   }
-  othrhighQualify() {
-
-    if (this.proposer.controls['highestQualification'].value == '8') {
-      this.proposer.controls['otherQualification'].patchValue(this.proposer.controls['otherQualification'].value);
-
-      this.proposer.controls['otherQualification'].setValidators([Validators.required]);
-    } else {
-      this.proposer.controls['otherQualification'].patchValue('');
-
-      this.proposer.controls['otherQualification'].setValidators(null);
-
-    }
-    this.proposer.controls['otherQualification'].updateValueAndValidity();
-
-  }
+  // othrhighQualify() {
+  //
+  //   if (this.proposer.controls['highestQualification'].value == '8') {
+  //     this.proposer.controls['otherQualification'].patchValue(this.proposer.controls['otherQualification'].value);
+  //
+  //     this.proposer.controls['otherQualification'].setValidators([Validators.required]);
+  //   } else {
+  //     this.proposer.controls['otherQualification'].patchValue('');
+  //
+  //     this.proposer.controls['otherQualification'].setValidators(null);
+  //
+  //   }
+  //   this.proposer.controls['otherQualification'].updateValueAndValidity();
+  //
+  // }
 
   othrhighQualify1() {
 
@@ -2475,21 +2475,21 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
-  employmentTypereq() {
-
-    if (this.proposer.controls['employementType'].value == '9') {
-      this.proposer.controls['employementTypeOther'].patchValue(this.proposer.controls['employementTypeOther'].value);
-
-      this.proposer.controls['employementTypeOther'].setValidators([Validators.required]);
-    } else {
-      this.proposer.controls['employementTypeOther'].patchValue('');
-
-      this.proposer.controls['employementTypeOther'].setValidators(null);
-
-    }
-    this.proposer.controls['employementTypeOther'].updateValueAndValidity();
-
-  }
+  // employmentTypereq() {
+  //
+  //   if (this.proposer.controls['employementType'].value == '9') {
+  //     this.proposer.controls['employementTypeOther'].patchValue(this.proposer.controls['employementTypeOther'].value);
+  //
+  //     this.proposer.controls['employementTypeOther'].setValidators([Validators.required]);
+  //   } else {
+  //     this.proposer.controls['employementTypeOther'].patchValue('');
+  //
+  //     this.proposer.controls['employementTypeOther'].setValidators(null);
+  //
+  //   }
+  //   this.proposer.controls['employementTypeOther'].updateValueAndValidity();
+  //
+  // }
 
   employmentTypereq1() {
 
@@ -3372,11 +3372,11 @@ export class EdelweissTermLifeComponent implements OnInit {
         "sumAssured": sessionStorage.selectedAmountTravel,
         "planOption": "",
         "riderDetails": {
-          "workSiteFlag": this.insureArray.controls['workSiteFlag'].value,
-          "investmentStrategy":this.insureArray.controls['investmentStrategy'].value,
-          "risingStar":this.insureArray.controls['risingStar'].value,
+          "workSiteFlag": 'N',
+          "investmentStrategy":'',
+          "risingStar":'N',
           "policyOption":'',
-          "additionalBenefit":this.insureArray.controls['additionalBenefit'].value,
+          "additionalBenefit":'',
           "topUpBenefit": {
             "isTopUpBenefit": this.insureArray.controls['TopUpBenefit'].value,
             "topUpBenefitPercentage":this.insureArray.controls['topUpBenefitPercentage'].value,
@@ -3527,13 +3527,13 @@ export class EdelweissTermLifeComponent implements OnInit {
         "hasWeightChanged":this.insureArray.controls['hasWeightChanged'].value =='Same'? 'N' : 'Y',
         "weightChange":this.insureArray.controls['inbetweenweight'].value,
         "weightChangeReason":this.insureArray.controls['weightChangedreason'].value,
-        "isStaff":this.insureArray.controls['isStaff'].value == 'Yes' ? 'Y' : 'N',
-        "employeeCode":this.insureArray.controls['employeeCode'].value,
+        "isStaff":'N',
+        "employeeCode":'',
         "isHospitalized":this.medicalDetail.controls['isHospitalized'].value  == 'Yes' ? 'Y' : 'N',
         "hospitalizedDate":this.medicalDetail.controls['hospitalizedDate'].value,
         "isRecovered":this.medicalDetail.controls['isRecovered'].value  == 'Yes' ? 'Y' : 'N',
         "nonRecoveryDetails":this.medicalDetail.controls['nonRecoveryDetails'].value,
-        "isTaxResOfIndia":this.insureArray.controls['taxResidence'].value,
+        "isTaxResOfIndia":'LA is a tax resident of India',
         "aadhaarNo":this.insureArray.controls['aadhaarNo'].value,
 
         "questionnaires":{
@@ -3608,7 +3608,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           "name":this.bankDetail.controls['name'].value,
           "location":this.bankDetail.controls['location'].value,
           "ifscCode":this.bankDetail.controls['ifscCode'].value,
-          "investmentStrategy":this.bankDetail.controls['investmentStrategy'].value,
+          "investmentStrategy":'',
         },
         "existingInsurance_Ind":this.bankDetail.controls['existingInsuranceInd'].value ? 'Yes' : 'No',
         "existingInsurance": this.bankDetail.value.existingInsurance,
@@ -3625,77 +3625,76 @@ export class EdelweissTermLifeComponent implements OnInit {
         // ]
       },
       "Spouse":{
-        "title":this.proposer.controls['stitle'].value,
-        "firstName":this.proposer.controls['sfirstName'].value,
-        "middleName":this.proposer.controls['smidName'].value,
-        "lastName":this.proposer.controls['slastName'].value,
-        "dob":this.datepipe.transform(this.proposer.controls['sdob'].value, 'y-MM-dd'),
-        "emailId":this.proposer.controls['semailId'].value,
-        "phoneNo":this.proposer.controls['smobileNo'].value,
-        "isSmoker":this.proposer.controls['isSmokerSpouse'].value,
-        "isStaff":this.proposer.controls['isStaffSpouse'].value,
-        "employeeCode":this.proposer.controls['employeeCodeSpouse'].value,
-        "relationLAProposer":this.proposer.controls['relationSpouseProposer'].value,
+        "title":this.insureArray.controls['stitle'].value,
+        "firstName":this.insureArray.controls['sfirstName'].value,
+        "middleName":this.insureArray.controls['smidName'].value,
+        "lastName":this.insureArray.controls['slastName'].value,
+        "dob":this.datepipe.transform(this.insureArray.controls['sdob'].value, 'y-MM-dd'),
+        "emailId":this.insureArray.controls['semailId'].value,
+        "phoneNo":this.insureArray.controls['smobileNo'].value,
+        "isSmoker":this.insureArray.controls['isSmokerSpouse'].value,
+        "isStaff":'N',
+        "employeeCode":'',
+        "relationLAProposer":this.insureArray.controls['relationSpouseInsurer'].value,
       },
       "Proposer":{
-        "title":this.proposer.controls['title'].value,
-        "firstName":this.proposer.controls['firstName'].value,
-        "middleName":this.proposer.controls['midName'].value,
-        "lastName":this.proposer.controls['lastName'].value,
-        "dob":this.datepipe.transform(this.proposer.controls['dob'].value, 'y-MM-dd'),
-        "gender":this.proposer.controls['gender'].value,
-        "isSmoker":"",
-        "maritalStatus":this.proposer.controls['maritalStatus'].value,
-        "pan":this.proposer.controls['pan'].value,
+        "title": this.insureArray.controls['title'].value,
+        "firstName": this.insureArray.controls['firstName'].value,
+        "middleName": this.insureArray.controls['midName'].value,
+        "lastName": this.insureArray.controls['lastName'].value,
+        "dob": this.datepipe.transform(this.insureArray.controls['dob'].value, 'y-MM-dd'),
+        "gender": this.insureArray.controls['gender'].value,
+        "isSmoker":"Y",
+        "maritalStatus": this.insureArray.controls['maritalStatus'].value,
+        "pan": this.insureArray.controls['pan'].value,
         "maidName":"",
         "motherMaidName":"",
-        "FHName":this.proposer.controls['fatherhusbandName'].value,
-        "nationality":this.proposer.controls['nationality'].value,
+        "FHName":this.insureArray.controls['fatherhusbandName'].value,
+        "nationality":this.insureArray.controls['nationality'].value,
         "otherNationality":"",
-        "ageProofId":this.proposer.controls['ageProofId'].value,
-        "emailId":this.proposer.controls['emailId'].value,
-        "phoneNo":this.proposer.controls['mobileNo'].value,
-        "isStaff":this.proposer.controls['isStaff'].value == 'Yes' ? 'Y' : 'N',
-        "employeeCode":this.proposer.controls['employeeCode'].value,
+        "ageProofId":this.insureArray.controls['ageProofId'].value,
+        "emailId":this.insureArray.controls['emailId'].value,
+        "phoneNo":this.insureArray.controls['mobileNo'].value,
         "ResidencePhoneNo":"",
         "alternate_cnt_no":"",
-        "currAddr1":this.proposer.controls['currAddr1'].value,
-        "currAddr2":this.proposer.controls['currAddr2'].value,
-        "currAddr3":this.proposer.controls['currAddr3'].value ? this.proposer.controls['currAddr3'].value : '',
-        "currPincode":this.proposer.controls['currPincode'].value,
-        "currState":this.proposer.controls['currState'].value,
-        "currCity":this.proposer.controls['currCity'].value,
-        "perAddr1":this.proposer.controls['perAddr1'].value,
-        "perAddr2":this.proposer.controls['perAddr2'].value,
-        "perAddr3":this.proposer.controls['perAddr3'].value,
-        "perPincode":this.proposer.controls['perPincode'].value,
-        "perState":this.proposer.controls['perState'].value,
-        "perCity":this.proposer.controls['perCity'].value,
-        "isCurrPerAddrSame":this.proposer.controls['isCurrPerAddrSame'].value,
-        "isPerAddrIsCorrAddr":"Y",
-        "education":"2",
+        "currAddr1":this.insureArray.controls['currAddr1'].value,
+        "currAddr2":this.insureArray.controls['currAddr2'].value,
+        "currAddr3":this.insureArray.controls['currAddr3'].value,
+        "currPincode":this.insureArray.controls['currPincode'].value,
+        "currState":this.insureArray.controls['currState'].value,
+        "currCity":this.insureArray.controls['currCity'].value,
+        "perAddr1":this.insureArray.controls['perAddr1'].value,
+        "perAddr2":this.insureArray.controls['perAddr2'].value,
+        "perAddr3":this.insureArray.controls['perAddr3'].value,
+        "perPincode":this.insureArray.controls['perPincode'].value,
+        "perState":this.insureArray.controls['perState'].value,
+        "perCity":this.insureArray.controls['perCity'].value,
+        "isCurrPerAddrSame":this.insureArray.controls['isCurrPerAddrSame'].value,
+        "isPerAddrIsCorrAddr":"",
+        "education":"",
         "otherEducation":"",
-        "highestQualification":this.proposer.controls['highestQualification'].value,
-        "otherQualification":this.proposer.controls['otherQualification'].value,
+        "highestQualification":this.insureArray.controls['highestQualification'].value,
+        "otherQualification":this.insureArray.controls['otherQualification'].value,
         "collegeNameLoc":"DJTI Mumbai",
         "course":"",
         "courseDuration":"",
         "courseYear":"",
         "studentInstruction":"",
-        "employementType":this.proposer.controls['employementType'].value,
-        "employementTypeOther":this.proposer.controls['employementTypeOther'].value,
-        "employerName":this.proposer.controls['employerName'].value,
-        "employerAddr":this.proposer.controls['employerAddr'].value,
+        "employementType":this.insureArray.controls['employementType'].value,
+        "employementTypeOther":this.insureArray.controls['employementTypeOther'].value,
+        "employerName":this.insureArray.controls['employerName'].value,
+        "employerAddr":this.insureArray.controls['employerAddr'].value,
         "designation":"Senior Executive officer",
-        "natureOfDuty":this.proposer.controls['natureduty'].value,
+        "natureOfDuty":this.insureArray.controls['naturedutyName'].value,
         "experienceInYears":"",
         "occupationType":"",
         "noOfEmployees":"",
         "natureOfBusiness":"",
-        "annualIncome":this.proposer.controls['annualIncome'].value,
+        "annualIncome":this.insureArray.controls['annualIncome'].value,
         "isIncomeSource":"",
         "incomeSourceDetails":"",
         "familyHistory":this.medicalDetail.value.medicalFamilyQuestions,
+
           // {
           //   "relation":"1",
           //   "age":"50",
@@ -3748,8 +3747,9 @@ export class EdelweissTermLifeComponent implements OnInit {
         "hasWeightChanged":"",
         "weightChange":"",
         "weightChangeReason":"",
-        "isTaxResOfIndia":this.proposer.controls['taxResidence'].value,
-        "aadhaarNo":this.proposer.controls['aadhaarNo'].value,
+        "isTaxResOfIndia":'LA is a tax resident of India',
+        "aadhaarNo":this.insureArray.controls['aadhaarNo'].value,
+
         "questionnaires":{
           "medicationInd":"",
           "diagnosedInd":"",
@@ -3804,12 +3804,12 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.requestedUrl = this.summaryData.payment_link;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposalId = this.summaryData.ProposalId;
-      this.proposerFormData = this.proposer.value;
+      // this.proposerFormData = this.proposer.value;
       this.bankFormData = this.bankDetail.value;
       this.nomineeFormData = this.nomineeDetail.value.itemsNominee;
       this.insuredFormData = this.insureArray.value;
       this.medicalFormData = this.medicalDetail.value;
-      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      // sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
       sessionStorage.medicalFormData = JSON.stringify(this.medicalFormData);
       sessionStorage.bankFormData = JSON.stringify(this.bankFormData);
