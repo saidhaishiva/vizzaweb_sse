@@ -660,14 +660,14 @@
                                                <!--<input matInput   formControlName="employeeCodeSpouse"   maxlength="10" autocomplete="off">-->
                                            <!--</mat-form-field>-->
                                        <!--</div>-->
-                                       <div class="col-md-4 " *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
-                                           <mat-form-field class="w-100">
-                                               <mat-placeholder>Relation To Insure<span class="error" >*</span></mat-placeholder>
-                                               <mat-select  formControlName="relationSpouseInsurer"  (selectionChange)=" geteSpouseeRelationInsureName()" >
-                                                   <mat-option *ngFor="let list of eNomineeRelation | keys" value="{{list.key}}" > {{list.value}} </mat-option>
-                                               </mat-select>
-                                           </mat-form-field>
-                                       </div>
+                                       <!--<div class="col-md-4 " *ngIf="insureArray['controls'].maritalStatus.value == 'M'">-->
+                                           <!--<mat-form-field class="w-100">-->
+                                               <!--<mat-placeholder>Relation To Insure<span class="error" >*</span></mat-placeholder>-->
+                                               <!--<mat-select  formControlName="relationSpouseInsurer"  (selectionChange)=" geteSpouseeRelationInsureName()" >-->
+                                                   <!--<mat-option *ngFor="let list of eNomineeRelation | keys" value="{{list.key}}" > {{list.value}} </mat-option>-->
+                                               <!--</mat-select>-->
+                                           <!--</mat-form-field>-->
+                                       <!--</div>-->
 
 
                                    </div>
@@ -993,6 +993,21 @@
                                    <!--<mat-error *ngIf="insureArray.controls.additionalBenefit.errors?.required">additionalBenefit is required</mat-error>-->
                                <!--</mat-form-field>-->
                            <!--</div>-->
+                               <div class="col-md-4"  *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
+                                   <mat-radio-group formControlName="betterHalfBenefit" (selectionChange)="isbetterHalfBenefit()" >
+                                       <p>Better Half Benefit</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+
+                               </div>
+
+                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                       <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                                   </mat-form-field>
+                               </div>
                            <div class="col-md-4">
                                <mat-radio-group formControlName="TopUpBenefit" (selectionChange)="isTopUpBenefit()" >
                                    <p>Top Up Benefit</p>
@@ -1015,21 +1030,7 @@
                                    </mat-form-field>
                                </div>
 
-                           <div class="col-md-4" >
-                               <mat-radio-group formControlName="betterHalfBenefit" (selectionChange)="isbetterHalfBenefit()" >
-                                   <p>Better Half Benefit</p>
-                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                   <mat-radio-button value="No">No</mat-radio-button>
-                               </mat-radio-group>
 
-                           </div>
-
-                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
-                               <mat-form-field class="w-100">
-                                   <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
-                               </mat-form-field>
-                           </div>
                            <div class="col-md-4">
                            <mat-radio-group formControlName="waiverOfPremiumBenefit" >
                                <p>Waiver Of Premium Benefit</p>
@@ -1037,62 +1038,62 @@
                                <mat-radio-button value="No">No</mat-radio-button>
                            </mat-radio-group>
                            </div>
-                           <div class="col-md-4">
-                               <mat-radio-group formControlName="criticalIllness" (selectionChange)="iscriticalIllness()" >
-                                   <p>Critical Illness</p>
-                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                   <mat-radio-button value="No">No</mat-radio-button>
-                               </mat-radio-group>
-                           </div>
-                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
-                               <mat-form-field class="w-100">
-                                   <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (selectionChange)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
-                               </mat-form-field>
-                               <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
-                           </div>
-                           <div class="col-md-4">
-                               <mat-radio-group formControlName="isADB" (selectionChange)="isDeathBenefit()" >
-                                   <p>Accidental Death Benefit</p>
-                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                   <mat-radio-button value="No">No</mat-radio-button>
-                               </mat-radio-group>
-                           </div>
-                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isADB'].value == 'Yes'" >
-                               <mat-form-field class="w-100">
-                                   <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (selectionChange)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
-                               </mat-form-field>
-                               <div class="error" *ngIf="adbError != ''">{{adbError}}</div>
-                           </div>
-                           <div class="col-md-4">
-                               <mat-radio-group formControlName="isATPD" (selectionChange)="isAccidentalTotal()" >
-                                   <p>Accidental Total and Permanent Disability</p>
-                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                   <mat-radio-button value="No">No</mat-radio-button>
-                               </mat-radio-group>
-                           </div>
-                           <div class="col-md-4 mt-2 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >
-                               <mat-form-field class="w-100">
-                                   <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (selectionChange)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
-                               </mat-form-field>
-                               <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>
-                           </div>
-                           <div class="col-md-4">
-                               <mat-radio-group formControlName="isHCB" (selectionChange)="isHospitalCash()" >
-                                   <p>Hospital Cash Benefit</p>
-                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                   <mat-radio-button value="No">No</mat-radio-button>
-                               </mat-radio-group>
-                           </div>
-                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >
-                               <mat-form-field class="w-100">
-                                   <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (selectionChange)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
-                               </mat-form-field>
-                               <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
-                           </div>
+                           <!--<div class="col-md-4">-->
+                               <!--<mat-radio-group formControlName="criticalIllness" (selectionChange)="iscriticalIllness()" >-->
+                                   <!--<p>Critical Illness</p>-->
+                                   <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                                   <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                               <!--</mat-radio-group>-->
+                           <!--</div>-->
+                           <!--<div class="col-md-4 mt-2" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >-->
+                               <!--<mat-form-field class="w-100">-->
+                                   <!--<mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>-->
+                                   <!--<input matInput  formControlName="criticalsumAssured"    autocomplete="off" (selectionChange)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">-->
+                               <!--</mat-form-field>-->
+                               <!--<div class="error" *ngIf="ciError != ''">{{ciError}}</div>-->
+                           <!--</div>-->
+                           <!--<div class="col-md-4">-->
+                               <!--<mat-radio-group formControlName="isADB" (selectionChange)="isDeathBenefit()" >-->
+                                   <!--<p>Accidental Death Benefit</p>-->
+                                   <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                                   <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                               <!--</mat-radio-group>-->
+                           <!--</div>-->
+                           <!--<div class="col-md-4 mt-2" *ngIf="insureArray.controls['isADB'].value == 'Yes'" >-->
+                               <!--<mat-form-field class="w-100">-->
+                                   <!--<mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>-->
+                                   <!--<input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (selectionChange)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">-->
+                               <!--</mat-form-field>-->
+                               <!--<div class="error" *ngIf="adbError != ''">{{adbError}}</div>-->
+                           <!--</div>-->
+                           <!--<div class="col-md-4">-->
+                               <!--<mat-radio-group formControlName="isATPD" (selectionChange)="isAccidentalTotal()" >-->
+                                   <!--<p>Accidental Total and Permanent Disability</p>-->
+                                   <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                                   <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                               <!--</mat-radio-group>-->
+                           <!--</div>-->
+                           <!--<div class="col-md-4 mt-2 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >-->
+                               <!--<mat-form-field class="w-100">-->
+                                   <!--<mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>-->
+                                   <!--<input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (selectionChange)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">-->
+                               <!--</mat-form-field>-->
+                               <!--<div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>-->
+                           <!--</div>-->
+                           <!--<div class="col-md-4">-->
+                               <!--<mat-radio-group formControlName="isHCB" (selectionChange)="isHospitalCash()" >-->
+                                   <!--<p>Hospital Cash Benefit</p>-->
+                                   <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                                   <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                               <!--</mat-radio-group>-->
+                           <!--</div>-->
+                           <!--<div class="col-md-4 mt-2" *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >-->
+                               <!--<mat-form-field class="w-100">-->
+                                   <!--<mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>-->
+                                   <!--<input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (selectionChange)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">-->
+                               <!--</mat-form-field>-->
+                               <!--<div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>-->
+                           <!--</div>-->
                          </div>
                            <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
                                <div class="col-md-12">
@@ -1221,6 +1222,20 @@
                                    <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>
                                </div>
                                <div class="col-md-4">
+                               <mat-radio-group formControlName="criticalIllness" (selectionChange)="iscriticalIllness()" >
+                               <p>Critical Illness</p>
+                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                               <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                               </div>
+                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                               <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                               <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (selectionChange)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                               </mat-form-field>
+                               <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
+                               </div>
+                               <div class="col-md-4">
                                    <mat-radio-group formControlName="isHCB" (selectionChange)="isHospitalCash()" >
                                        <p>Hospital Cash Benefit</p>
                                        <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1234,6 +1249,13 @@
                                    </mat-form-field>
                                    <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
                                </div>
+                               <!--<div class="col-md-4">-->
+                                   <!--<mat-radio-group formControlName="DSA" (selectionChange)="isHospitalCash()" >-->
+                                       <!--<p>Decreasing Sum Assured</p>-->
+                                       <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+                                       <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                                   <!--</mat-radio-group>-->
+                               <!--</div>-->
                                <div class="col-md-4">
 
                                </div>
@@ -1248,14 +1270,14 @@
                                    <h6 class="color-blue">DEATH BENEFIT OPTIONS</h6>
                                </div>
 
-                               <!--<div class="col-md-4">-->
-                                   <!--<mat-form-field class="w-100">-->
-                                       <!--<mat-select  placeholder="Payout Option" formControlName="payoutOption" (change)="getpayoutOption()"  class="w-100" required>-->
-                                           <!--<mat-option *ngFor="let list of epayoutOption | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                                       <!--</mat-select>-->
-                                       <!--<mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Payout Option is required</mat-error>-->
-                                   <!--</mat-form-field>-->
-                               <!--</div>-->
+                               <div class="col-md-4">
+                                   <mat-form-field class="w-100">
+                                       <mat-select  placeholder="Payout Option" formControlName="payoutOption" (selectionChange)="getpayoutOption()"  class="w-100" required>
+                                           <mat-option *ngFor="let list of epayoutOption | keys" [value]= list.key> {{list.value}} </mat-option>
+                                       </mat-select>
+                                       <mat-error *ngIf="insureArray.controls.payoutOption.errors?.required">Payout Option is required</mat-error>
+                                   </mat-form-field>
+                               </div>
 
                                <div class="col-md-6">
                                    <mat-form-field class="w-100">
@@ -1361,11 +1383,13 @@
                            </mat-expansion-panel-header>
                        <div class="row mt-3">
                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                               <mat-radio-group formControlName="travelOutsideIndia" >
+                               <mat-radio-group formControlName="travelOutsideIndia"  (selectionChange)="travelOutside()">
                                    <p>Do you plan to live or travel outside india for more than 30 days?</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
+                               <div class="error" *ngIf="errortravelOutside != ''">{{errortravelOutside}}</div>
+
                            </div>
                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                <mat-radio-group formControlName="pilot" >
@@ -2458,7 +2482,7 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.sumAssuredATPD != '' && lifePremiumList.product_id=='112'"><strong>SumAssured Of Accidental Total and Permanent Disability:</strong> {{insuredFormData.sumAssuredATPD}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.isHCB != '' && lifePremiumList.product_id=='112'"><strong>Hospital Cash Benefit:</strong> {{insuredFormData.isHCB}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.sumAssuredHCB != '' && lifePremiumList.product_id=='112'"><strong>SumAssured Of Hospital Cash Benefit:</strong> {{insuredFormData.sumAssuredHCB}}</li>
-                                       <!--<li class="list-group-item" *ngIf="insuredFormData.payoutOption != '' && lifePremiumList.product_id=='112'"><strong>Payout Option:</strong> {{insuredFormData.payoutOption}}</li>-->
+                                       <li class="list-group-item" *ngIf="insuredFormData.payoutOption != '' && lifePremiumList.product_id=='112'"><strong>Payout Option:</strong> {{insuredFormData.payoutOption}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.payoutPercentageIncome != '' && lifePremiumList.product_id=='112'"><strong>Payout Percentage Income:</strong> {{insuredFormData.payoutPercentageIncome}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.noOfMonths != '' && lifePremiumList.product_id=='112'"><strong>No Of Months:</strong> {{insuredFormData.noOfMonths}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any application or proposal for life, health, accident or critical illness:</strong> {{insuredFormData.insureHistory}}</li>
@@ -2491,7 +2515,7 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Smoker:</strong> {{insuredFormData.isSmokerSpouse}}</li>
                                        <!--<li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{insuredFormData.isStaffSpouse}}</li>-->
                                        <li class="list-group-item" *ngIf="insuredFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{insuredFormData.employeeCodeSpouse}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.relationSpouseInsurer != ''"><strong>Relation To Insurer:</strong> {{insuredFormData.relationSpouseInsurerName}}</li>
+                                       <!--<li class="list-group-item" *ngIf="insuredFormData.relationSpouseInsurer != ''"><strong>Relation To Insurer:</strong> {{insuredFormData.relationSpouseInsurerName}}</li>-->
                                    </ul>
                                </div>
                            </div>

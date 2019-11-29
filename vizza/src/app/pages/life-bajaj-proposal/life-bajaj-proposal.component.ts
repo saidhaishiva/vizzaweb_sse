@@ -395,16 +395,28 @@ export class LifeBajajProposalComponent implements OnInit {
     this.getDiseaseList();
     this.samerelationShip();
     this.sessionData();
-    this.customerServices();
+    // this.customerServices();
+    //
+    //   this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    //   let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
+    //   this.bajajAge = this.ageCalculate(dob);
+    //   sessionStorage.bajajproposerAge = this.bajajAge;
+    //   this.proposer.controls['age'].patchValue(this.bajajAge);
+    //   this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+    //   this.changeGender();
+    //   this.proposer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
+    //   this.getPostal(this.proposer.controls['pincode'].value, 'personal');
+    //   this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
 
-      this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+
+      this.customer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
       let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
       this.bajajAge = this.ageCalculate(dob);
       sessionStorage.bajajproposerAge = this.bajajAge;
-      this.proposer.controls['age'].patchValue(this.bajajAge);
-      this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+      this.customer.controls['age'].patchValue(this.bajajAge);
+      this.customer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
       this.changeGender();
-      this.proposer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
+      this.customer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
       this.getPostal(this.proposer.controls['pincode'].value, 'personal');
       this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
 
@@ -516,6 +528,10 @@ export class LifeBajajProposalComponent implements OnInit {
 
 
         }
+        else{
+            this.toastr.error(successData.ErrorObject);
+
+        }
     }
 
     public customerListFailure(error) {
@@ -523,8 +539,16 @@ export class LifeBajajProposalComponent implements OnInit {
 
 
     proposalnext(stepper){
-        stepper.next();
+       if(this.biURL == '' || this.biURL == null || this.biURL == undefined)
+       {
+        this.toastr.error('Error in BI form');
+       }
+       else{
+           stepper.next();
+       }
+
     }
+
 
     customerNext(stepper){
         console.log(this.customer.valid, 'this.proposer.valid');
@@ -2265,9 +2289,9 @@ samerelationShip(){
       "suminsured_amount":  sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
           "term": this.lifePremiumList.termDetrails,
-          "premium": '41099',
-          "proposal_number": '1000002895',
-          "bi_pdf_url": "https://balicuat05.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000002895",
+          "premium": this.Premium,
+          "proposal_number": this.ProposalNumber,
+          "bi_pdf_url": this.biURL,
       "insurer_proposer": {
         "title": this.proposer.controls['title'].value,
         "firstName": this.proposer.controls['firstName'].value,

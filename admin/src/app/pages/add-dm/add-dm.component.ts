@@ -264,9 +264,11 @@ export class AddDmComponent implements OnInit {
             this.toastr.error('Please upload aadhar front page');
         } else if (this.aadharback == '') {
             this.toastr.error('Please upload aadhar back page');
-        } else if (this.pancard == '') {
-            this.toastr.error('Please upload pancard');
-        } else if (this.education == '') {
+        }
+        // else if (this.pancard == '') {
+        //     this.toastr.error('Please upload pancard');
+        // }
+        else if (this.education == '') {
             this.toastr.error('Please upload educational documents');
         }else if (this.profile == '') {
             this.toastr.error('Please upload profile');

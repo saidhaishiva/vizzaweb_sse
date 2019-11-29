@@ -259,7 +259,7 @@
           </mat-tab>
           <mat-tab label="Bank Details" formGroupName="bankdetails">
             <mat-form-field class="w-100">
-              <input matInput placeholder="Bank Name" (keypress)="data($event)" formControlName="bankname" autocomplete="off" required>
+              <input matInput placeholder="Bank Name" (keypress)="nameValidate($event)" formControlName="bankname" autocomplete="off" required>
               <mat-icon matSuffix>account_balance</mat-icon>
               <mat-error *ngIf="form.controls.bankdetails['controls'].bankname.hasError('required')">Bank Name is required</mat-error>
             </mat-form-field>
