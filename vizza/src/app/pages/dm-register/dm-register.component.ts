@@ -8,10 +8,12 @@ import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AppSettings} from '../../app.settings';
+// import {ValidationService} from '../../shared/services/validation.service';
 import {ToastrService} from 'ngx-toastr';
 import {Settings} from '../../app.settings.model';
 import {Router} from '@angular/router';
 import {MatTabChangeEvent} from '@angular/material';
+import {ValidationService} from '../../shared/services/validation.service';
 
 export const MY_FORMATS = {
     parse: {
@@ -73,7 +75,7 @@ export class DmRegisterComponent implements OnInit {
     public passwordHide: boolean = true;
     personalCitys: any;
     pincodeErrors : any;
-    constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
+    constructor(public config: ConfigurationService, public fb: FormBuilder, public router: Router, public datepipe: DatePipe, public appSettings: AppSettings, public login: LoginService, public validation: ValidationService, public common: CommonService, public auth: AuthService, private toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -184,12 +186,12 @@ export class DmRegisterComponent implements OnInit {
                     validDoc = false;
                     this.toastr.error('Please upload aadhar back');
                 }
-                if(this.pancard !='') {
-                    validDoc = true;
-                } else {
-                    validDoc = false;
-                    this.toastr.error('Please upload pancard image');
-                }
+                // if(this.pancard !='') {
+                //     validDoc = true;
+                // } else {
+                //     validDoc = false;
+                //     this.toastr.error('Please upload pancard image');
+                // }
                 if(validDoc) {
                     this.selectedIndex += 1;
                 }
@@ -345,9 +347,11 @@ export class DmRegisterComponent implements OnInit {
             this.toastr.error('Please upload aadhar front page');
         } else if (this.aadharback == '') {
             this.toastr.error('Please upload aadhar back page');
-        } else if (this.pancard == '') {
-            this.toastr.error('Please upload pancard');
-        } else if (this.education == '') {
+        }
+        // else if (this.pancard == '') {
+        //     this.toastr.error('Please upload pancard');
+        // }
+        else if (this.education == '') {
             this.toastr.error('Please upload educational documents');
         } else if (this.chequeleaf == '') {
             this.toastr.error('Please upload Cheque Leaf (or) Passbook');
@@ -519,6 +523,9 @@ export class DmRegisterComponent implements OnInit {
                 this.dob = date + '-' + month + '-' + year;
             }
         }
+    }
+    nameValidate(event: any) {
+        this.validation.nameValidate(event);
     }
 
     public data(event: any) {

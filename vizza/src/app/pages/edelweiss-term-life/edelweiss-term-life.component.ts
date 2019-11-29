@@ -5,7 +5,6 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDial
 import {DatePipe} from '@angular/common';
 import {ActivatedRoute,Router} from '@angular/router';
 import {CommonService} from '../../shared/services/common.service';
-import {ValidationService} from '../../shared/services/validation.service';
 import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {ConfigurationService} from '../../shared/services/configuration.service';
@@ -13,6 +12,7 @@ import {TermLifeCommonService} from '../../shared/services/term-life-common.serv
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 import { WINDOW } from '@ng-toolkit/universal';
+import {ValidationService} from '../../shared/services/validation.service';
 
 
 
@@ -186,6 +186,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public optGenStatus: boolean;
   public otpGenList: any;
   public enquiryFromDetials:any;
+  public errortravelOutside:any;
 
   constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
     this.requestedUrl = '';
@@ -342,8 +343,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       isSmokerSpouse: 'No',
       // isStaffSpouse: 'No',
       // employeeCodeSpouse: '',
-      relationSpouseInsurer: '3',
-      relationSpouseInsurerName: 'Spouse',
+      // relationSpouseInsurer: '3',
+      // relationSpouseInsurerName: 'Spouse',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -408,7 +409,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       sumAssuredATPD: '',
       isHCB: 'No',
       sumAssuredHCB: '',
-      // payoutOption: '',
+      payoutOption: '',
+        // DSA:'No',
       noOfMonths: '',
       payoutPercentageIncome: '',
       sameAsProposer: false,
@@ -566,7 +568,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteHeightInches();
     this.getHealthStaus();
     this.getPolicyOption();
-    // this.getpayoutOption();
+    this.getpayoutOption();
     this.geteWeightChanged();
     this.changeWeightChanged();
     this.getePolicyCategory();
@@ -2362,7 +2364,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['smobileNo'].patchValue(this.insureArray.controls['smobileNo'].value);
       this.insureArray.controls['isSmokerSpouse'].patchValue(this.insureArray.controls['isSmokerSpouse'].value);
       this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
-      this.insureArray.controls['relationSpouseInsurer'].patchValue(this.insureArray.controls['relationSpouseInsurer'].value);
+      // this.insureArray.controls['relationSpouseInsurer'].patchValue(this.insureArray.controls['relationSpouseInsurer'].value);
 
       this.insureArray.controls['stitle'].setValidators([Validators.required]);
       this.insureArray.controls['sfirstName'].setValidators([Validators.required]);
@@ -2373,7 +2375,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['smobileNo'].setValidators([Validators.required]);
       this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
       this.insureArray.controls['isStaffSpouse'].setValidators([Validators.required]);
-      this.insureArray.controls['relationSpouseInsurer'].setValidators([Validators.required]);
+      // this.insureArray.controls['relationSpouseInsurer'].setValidators([Validators.required]);
     } else {
       this.insureArray.controls['stitle'].patchValue('');
       this.insureArray.controls['sfirstName'].patchValue('');
@@ -2384,7 +2386,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['smobileNo'].patchValue('');
       this.insureArray.controls['isSmokerSpouse'].patchValue('No');
       this.insureArray.controls['isStaffSpouse'].patchValue('No');
-      this.insureArray.controls['relationSpouseInsurer'].patchValue('3');
+      // this.insureArray.controls['relationSpouseInsurer'].patchValue('3');
 
       this.insureArray.controls['stitle'].setValidators(null);
       this.insureArray.controls['sfirstName'].setValidators(null);
@@ -2395,7 +2397,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['smobileNo'].setValidators(null);
       this.insureArray.controls['isSmokerSpouse'].setValidators(null);
       this.insureArray.controls['isStaffSpouse'].setValidators(null);
-      this.insureArray.controls['relationSpouseInsurer'].setValidators(null);
+      // this.insureArray.controls['relationSpouseInsurer'].setValidators(null);
 
     }
     this.insureArray.controls['employeeCode'].updateValueAndValidity();
@@ -2408,7 +2410,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['smobileNo'].updateValueAndValidity();
     this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
     this.insureArray.controls['isStaffSpouse'].updateValueAndValidity();
-    this.insureArray.controls['relationSpouseInsurer'].updateValueAndValidity();
+    // this.insureArray.controls['relationSpouseInsurer'].updateValueAndValidity();
 
   }
 
@@ -2490,6 +2492,20 @@ export class EdelweissTermLifeComponent implements OnInit {
   //   this.proposer.controls['employementTypeOther'].updateValueAndValidity();
   //
   // }
+travelOutside(){
+    if(this.medicalDetail.controls['travelOutsideIndia'].value == '')
+    {
+      this.errortravelOutside=true;
+      this.errortravelOutside= 'Feild is Mandatory';
+
+    }else
+    {      this.errortravelOutside=false;
+      this.errortravelOutside= '';
+
+
+
+    }
+}
 
   employmentTypereq1() {
 
@@ -2787,6 +2803,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.medicalDetail.controls['alcoholDetails'].updateValueAndValidity();
 
   }
+
   isconsultDoctorInd() {
 
     if (this.medicalDetail.controls['consultDoctorInd'].value == 'Yes') {
@@ -3635,7 +3652,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "isSmoker":this.insureArray.controls['isSmokerSpouse'].value,
         "isStaff":'N',
         "employeeCode":'',
-        "relationLAProposer":this.insureArray.controls['relationSpouseInsurer'].value,
+        "relationLAProposer":'Spouse',
       },
       "Proposer":{
         "title": this.insureArray.controls['title'].value,
@@ -4468,32 +4485,32 @@ console.log(this.proposalId,'proposalId');
 
   public getepolicyOptionFailure(error) {
   }
-  // getpayoutOption() {
-  //   const data = {
-  //     'platform': 'web',
-  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-  //
-  //   }
-  //   this.termService.getepayoutOption(data).subscribe(
-  //       (successData) => {
-  //         this.getepayoutOptionSuccess(successData);
-  //       },
-  //       (error) => {
-  //         this.getepayoutOptionFailure(error);
-  //       }
-  //   );
-  // }
-  //
-  // public getepayoutOptionSuccess(successData) {
-  //   if (successData.IsSuccess) {
-  //     this.epayoutOption = successData.ResponseObject;
-  //   }
-  // }
-  //
-  // public getepayoutOptionFailure(error) {
-  // }
+  getpayoutOption() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.getepayoutOption(data).subscribe(
+        (successData) => {
+          this.getepayoutOptionSuccess(successData);
+        },
+        (error) => {
+          this.getepayoutOptionFailure(error);
+        }
+    );
+  }
+
+  public getepayoutOptionSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.epayoutOption = successData.ResponseObject;
+    }
+  }
+
+  public getepayoutOptionFailure(error) {
+  }
   getpayoutMonth() {
     const data = {
       'platform': 'web',
@@ -5307,7 +5324,7 @@ console.log(this.proposalId,'proposalId');
         isSmokerSpouse: this.getStepper2.isSmokerSpouse,
         isStaffSpouse: this.getStepper2.isStaffSpouse,
         employeeCodeSpouse: this.getStepper2.employeeCodeSpouse,
-        relationSpouseInsurer: this.getStepper2.relationSpouseInsurer,
+        // relationSpouseInsurer: this.getStepper2.relationSpouseInsurer,
         currAddr1: this.getStepper2.currAddr1,
         currAddr2: this.getStepper2.currAddr2,
         currAddr3: this.getStepper2.currAddr3,
