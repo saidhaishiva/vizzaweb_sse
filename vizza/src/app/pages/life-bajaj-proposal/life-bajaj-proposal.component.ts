@@ -370,7 +370,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
-    this.customerDetails = JSON.parse(sessionStorage.customerDetails);
+    // this.customerDetails = JSON.parse(sessionStorage.customerDetails);
     this.mainQuestion();
     this.paIdList();
     this.ageProof();
@@ -563,21 +563,21 @@ export class LifeBajajProposalComponent implements OnInit {
     public customerListFailure(error) {
     }
 
-
-    proposalnext(stepper){
-       if(this.biURL == '' || this.biURL == null || this.biURL == undefined)
-       {
-        this.toastr.error(' BI form not generated');
-       }
-       else{
-           stepper.next();
-       }
-
-    }
-    // proposalnext(stepper){
     //
-    //     stepper.next();
+    // proposalnext(stepper){
+    //    if(this.biURL == '' || this.biURL == null || this.biURL == undefined)
+    //    {
+    //     this.toastr.error(' BI form not generated');
+    //    }
+    //    else{
+    //        stepper.next();
+    //    }
+    //
     // }
+    proposalnext(stepper){
+
+        stepper.next();
+    }
 
 
     customerNext(stepper,value){
