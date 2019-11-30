@@ -9,6 +9,7 @@
   import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
   import {MomentDateAdapter} from '@angular/material-moment-adapter';
   import * as moment from 'moment';
+  import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
   export const MY_FORMATS = {
     parse: {
@@ -66,6 +67,10 @@
     public dobStartError: any;
     public dobendError: any;
     public regionDetails: any;
+    public manifactureValid: boolean;
+    public modelValid: any;
+    public variantValid: boolean;
+    public ccValid: boolean;
     public vehicleRegNumber: any;
     constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
     public dialogRef: MatDialogRef<EnquiryPopupComponent>,
@@ -79,6 +84,7 @@
         'enquiry': '',
         'vehicleModel':  ['', Validators.required],
         'manufacture': ['', Validators.required],
+        // 'manufactureSearch': [''],
         'bussiness': '',
         'ncb': ['', Validators.required],
         'manufactureYear': ['', Validators.required],
@@ -111,11 +117,53 @@
       };
       this.regionValid = false;
 
+      this.config = {
+        displayKey: "manufacture", //if objects array passed which key to be displayed defaults to description
+        search: true,
+        limitTo: 5
+      };
+      this.manifactureValid = false;
+
+      this.config = {
+        displayKey: "vehicleModel", //if objects array passed which key to be displayed defaults to description
+        search: true,
+        limitTo: 5
+      };
+      this.modelValid = false;
+
+      this.config = {
+        displayKey: "variant", //if objects array passed which key to be displayed defaults to description
+        search: true,
+        limitTo: 5
+      };
+      this.variantValid = false;
+
+      this.config = {
+        displayKey: "vehicleCC", //if objects array passed which key to be displayed defaults to description
+        search: true,
+        limitTo: 5
+      };
+      this.ccValid = false;
+      // alert('construct')
+      //   this.vehicalDetails['controls'].city.patchValue(null);
+      //   this.vehicalDetails['controls'].regionList.patchValue(null);
+      //   this.vehicalDetails['controls'].manufacture.patchValue(null);
+      //   this.vehicalDetails['controls'].vehicleModel.patchValue(null);
+      //   this.vehicalDetails['controls'].variant.patchValue(null);
+      //   this.vehicalDetails['controls'].vehicleCC.patchValue(null);
+
     }
 
     ngOnInit() {
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeListDetails = JSON.parse(sessionStorage.bikeListDetails);
+      // alert('ngonit')
+      //   this.vehicalDetails['controls'].city.patchValue(null);
+      //   this.vehicalDetails['controls'].regionList.patchValue(null);
+      //   this.vehicalDetails['controls'].manufacture.patchValue(null);
+      //   this.vehicalDetails['controls'].vehicleModel.patchValue(null);
+      //   this.vehicalDetails['controls'].variant.patchValue(null);
+      //   this.vehicalDetails['controls'].vehicleCC.patchValue(null);
       this.rto = sessionStorage.Rto;
       let stringToSplit;
       stringToSplit = this.bikeListDetails.vehicle_no.toUpperCase();
@@ -145,7 +193,7 @@
       this.regionValid = false;
 
       this.claimpercent();
-      this.manifactureList();
+      // this.manifactureList();
       this.dataList();
       this.getCityLists();
 
@@ -155,6 +203,8 @@
 
       this.getRegionLists();
     }
+
+
     dataList(){
       console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle.....');
       this.vehicalDetails.patchValue({
@@ -181,6 +231,7 @@
                                /// manufacture
 
     manifactureList() {
+      // alert('in ma')
       const data = {
         'platform': 'web',
         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -200,8 +251,10 @@
     public manifactureSuccess(successData){
       if (successData.IsSuccess) {
         this.manifactureDetails = successData.ResponseObject;
-        // this.variantList();
-        this.modelList1()
+console.log(this.manifactureDetails,'this.manifactureDetails...')
+        this.modelList1();
+        console.log(this.vehicalDetails.controls['manufacture'].value,'vehicalDetails.controls.manufacture....');
+
 
       }
     }
@@ -249,7 +302,7 @@
     public variantSuccess(successData){
       if (successData.IsSuccess) {
         this.variantDetails = successData.ResponseObject;
-        // this.modelList1();
+       console.log( this.variantDetails,' this.variantDetails...')
         this.ccList();
       }
     }
@@ -258,6 +311,9 @@
 
     // model
     modelList1() {
+      console.log(this.vehicalDetails.controls.manufacture.value,'manufa')
+
+      // alert('in s')
       const data = {
         "platform": 'web',
         "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -284,6 +340,7 @@
     public modelSuccess(successData){
       if (successData.IsSuccess) {
         this.modelDetails = successData.ResponseObject;
+        console.log(this.modelDetails,'this.modelDetails..')
         this.variantList();
 
       }
@@ -314,6 +371,7 @@
     public ccSuccess(successData){
       if (successData.IsSuccess) {
         this.ccDetails = successData.ResponseObject;
+        console.log( this.ccDetails, "ccDetails");
       }
     }
     public ccFailure(error) {
@@ -528,6 +586,35 @@
         if(this.vehicalDetails.controls['regionList'].value == ''){
           this.regionValid = true;
           console.log(this.regionValid,'regionValid...');
+          if(this.vehicalDetails.controls['manufacture'].value == ''){
+            this.manifactureValid = true;
+            console.log(this.manifactureValid,'manifactureValid...');
+            if(this.vehicalDetails.controls['vehicleModel'].value == ''){
+              this.modelValid = true;
+              console.log(this.modelValid,'modelValid...');
+              if(this.vehicalDetails.controls['variant'].value == ''){
+                this.variantValid = true;
+                console.log(this.variantValid,'variantValid...');
+                if(this.vehicalDetails.controls['vehicleCC'].value == ''){
+                  this.ccValid = true;
+                  console.log(this.ccValid,'ccValid...');
+                }else{
+                  this.ccValid = false;
+                  console.log(this.ccValid,'rccValidfalse...');
+                }
+              }else{
+                this.variantValid = false;
+                console.log(this.variantValid,'regionValidfalse...');
+              }
+            }else{
+              this.modelValid = false;
+              console.log(this.modelValid,'rmodelValidfalse...');
+            }
+          }else{
+            this.manifactureValid = false;
+            console.log(this.manifactureValid,'manifactureValidfalse...');
+          }
+
         }else{
           this.regionValid = false;
           console.log(this.regionValid,'regionValidfalse...');

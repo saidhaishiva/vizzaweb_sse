@@ -87,6 +87,7 @@ export class BikeInsuranceComponent implements OnInit {
     public vehicleRegNumber:any;
     public regionDetails:any;
     public CityValid: boolean;
+    public previousCompanyValid: boolean;
 
     constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder,  public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public bikeService: BikeInsuranceService,  public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
         this.settings = this.appSettings.settings;
@@ -109,6 +110,12 @@ export class BikeInsuranceComponent implements OnInit {
             limitTo: 5,
             // searchOnKey: 'city'
         };
+        this.config = {
+            displayKey: "previousCompany", //if objects array passed which key to be displayed defaults to description
+            search: true,
+            limitTo: 5
+        };
+        this.previousCompanyValid = false;
         // this.config = [];
         // this.config = {
         //     display: 'city',
@@ -137,6 +144,9 @@ export class BikeInsuranceComponent implements OnInit {
         this.expiry = false;
         this.showSelf = false;
         this.previousDate = true;
+        this.bikeInsurance.controls['city'].patchValue(null);
+        this.bikeInsurance.controls['previousCompany'].patchValue(null);
+        this.bikeInsurance.controls['previousClaim'].patchValue(null);
         this.typeList = 'new';
         if (this.typeList == 'new') {
            this.getType(0);
@@ -147,6 +157,7 @@ export class BikeInsuranceComponent implements OnInit {
     ngOnInit() {
 
         this.bikeInsurance.controls['city'].patchValue(null);
+        this.bikeInsurance.controls['previousCompany'].patchValue(null);
         this.bikeInsurance.controls['previousClaim'].patchValue(null);
             // clear session for list page
         sessionStorage.enquiryFormData = '';
