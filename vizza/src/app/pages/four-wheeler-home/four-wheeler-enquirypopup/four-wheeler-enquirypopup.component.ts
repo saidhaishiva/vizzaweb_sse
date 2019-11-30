@@ -678,6 +678,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
             this.enquiryFailure(error);
           }
       );
+    }else{
+      this.toastr.error('Please select the Mandatory field');
     }
   }
   public enquirySuccess(successData){
