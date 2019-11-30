@@ -167,7 +167,7 @@
 
                       <div class="col-md-3" >
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" required>
+                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" required readonly>
                             <mat-option *ngFor="let list of TitleList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
@@ -175,24 +175,24 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="firstName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)" required >
+                          <input matInput placeholder="First Name" formControlName="firstName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)" required readonly>
                           <mat-error *ngIf="proposer.controls.firstName.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mid Name" formControlName="midName"  maxlength="45" (keypress)="nameValidate($event)" autocomplete="off">
+                          <input matInput placeholder="Mid Name" formControlName="midName"  maxlength="45" (keypress)="nameValidate($event)" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastName" class="nospace" maxlength="45"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="lastName" class="nospace" maxlength="45"  (keypress)="nameValidate($event)" autocomplete="off" required readonly>
                           <mat-error *ngIf="proposer.controls.lastName.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" [ngStyle]="{'pointer-events': requestedUrl !='' ? 'none' : ''}">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event,'dob')" (dateChange)="addEvent($event,'dob')" minlength="10" maxlength="10"
+                          <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)" readonly formControlName="dob" (dateInput)="addEvent($event,'dob')" (dateChange)="addEvent($event,'dob')" minlength="10" maxlength="10"
                                  autocomplete="off"   required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
@@ -209,7 +209,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Gender" formControlName="gender" (selectionChange)=changeGender() required>
+                          <mat-select placeholder="Gender" formControlName="gender" (selectionChange)=changeGender() required readonly>
                             <mat-option value="Male">Male</mat-option>
                             <mat-option value="Female">Female</mat-option>
                           </mat-select>
@@ -218,14 +218,14 @@
                       </div>
                       <div class="col-md-3 mt-1">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mobile Number" (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobile" autocomplete="off" required>
+                          <input matInput placeholder="Mobile Number" (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobile" readonly autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.mobile.errors?.required">Mobile Number is required</mat-error>
                           <mat-error *ngIf="proposer.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Email ID" formControlName="email"  autocomplete="off" required>
+                          <input matInput placeholder="Email ID" formControlName="email"  autocomplete="off" required readonly>
                           <mat-error *ngIf="proposer.controls.email.errors?.required">Email ID is required</mat-error>
                           <mat-error *ngIf="proposer.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field>

@@ -419,20 +419,21 @@ export class LifeBajajProposalComponent implements OnInit {
       this.customer.controls['age'].patchValue(this.bajajAge);
       this.customer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
       this.changeGender();
-      // this.customer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
-      // this.getPostal(this.customer.controls['pincode'].value, 'personal');
+      this.proposer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
+      this.getPostal(this.proposer.controls['pincode'].value, 'personal');
       // this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
 
 
-        this.proposer.controls['title'].patchValue (this.customerDetails.title);
-        this.proposer.controls['firstName'].patchValue (this.customerDetails.firstName);
-        this.proposer.controls['midName'].patchValue (this.customerDetails.midName);
-        this.proposer.controls['lastName'].patchValue (this.customerDetails.lastName);
-        this.proposer.controls['age'].patchValue (this.customerDetails.age);
-        this.proposer.controls['dob'].patchValue (this.customerDetails.dob);
-        this.proposer.controls['gender'].patchValue (this.customerDetails.gender);
-        this.proposer.controls['mobile'].patchValue (this.customerDetails.mobile);
-        this.proposer.controls['email'].patchValue (this.customerDetails.email);
+
+      // this.proposer.controls['title'].patchValue (this.customerDetails.title);
+        // this.proposer.controls['firstName'].patchValue (this.customerDetails.firstName);
+        // this.proposer.controls['midName'].patchValue (this.customerDetails.midName);
+        // this.proposer.controls['lastName'].patchValue (this.customerDetails.lastName);
+        // this.proposer.controls['age'].patchValue (this.customerDetails.age);
+        // this.proposer.controls['dob'].patchValue (this.customerDetails.dob);
+        // this.proposer.controls['gender'].patchValue (this.customerDetails.gender);
+        // this.proposer.controls['mobile'].patchValue (this.customerDetails.mobile);
+        // this.proposer.controls['email'].patchValue (this.customerDetails.email);
 
         // this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
         // // let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
@@ -553,6 +554,7 @@ export class LifeBajajProposalComponent implements OnInit {
             this.policyId = this.customerList.policyId;
 
 
+
         }
         else{
             this.toastr.error(successData.ErrorObject);
@@ -581,9 +583,23 @@ export class LifeBajajProposalComponent implements OnInit {
 
 
     customerNext(stepper,value){
+        // this.customerDetails = JSON.parse(sessionStorage.customerDetails);
+
         sessionStorage.customerDetails = JSON.stringify(value);
         console.log(sessionStorage.customerDetails, 'session');
-        console.log(this.customer.valid, 'this.proposer.valid');
+        console.log(this.customer.valid, 'this.customer.valid');
+
+        this.proposer.controls['title'].patchValue (this.customer.controls['title'].value);
+        this.proposer.controls['firstName'].patchValue (this.customer.controls['firstName'].value);
+        this.proposer.controls['midName'].patchValue (this.customer.controls['midName'].value);
+        this.proposer.controls['lastName'].patchValue (this.customer.controls['lastName'].value);
+        this.proposer.controls['age'].patchValue (this.customer.controls['age'].value);
+        this.proposer.controls['dob'].patchValue (this.customer.controls['dob'].value);
+        this.proposer.controls['gender'].patchValue (this.customer.controls['gender'].value);
+        this.proposer.controls['mobile'].patchValue (this.customer.controls['mobile'].value);
+        this.proposer.controls['email'].patchValue (this.customer.controls['email'].value);
+
+
         if (this.customer.valid) {
             stepper.next();
             this.topScroll();
@@ -2465,6 +2481,10 @@ samerelationShip(){
       this.summaryData = successData.ResponseObject;
       this.premium = this.summaryData.Premium;
       // this.requestedUrl = this.summaryData.biUrlLink;
+        this.proposalFormPdf = this.summaryData.proposal_form;
+        this.proposalFormPdf = this.summaryData.proposal_form;
+
+
         console.log(this.requestedUrl, 'req');
         console.log(this.summaryData.biUrlLink, 'summary');
 
