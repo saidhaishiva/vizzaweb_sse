@@ -68,7 +68,7 @@
     public dobendError: any;
     public regionDetails: any;
     public manifactureValid: boolean;
-    public modelValid: boolean;
+    public modelValid: any;
     public variantValid: boolean;
     public ccValid: boolean;
     public vehicleRegNumber: any;
@@ -144,24 +144,26 @@
         limitTo: 5
       };
       this.ccValid = false;
-        this.vehicalDetails['controls'].city.patchValue(null);
-        this.vehicalDetails['controls'].regionList.patchValue(null);
-        this.vehicalDetails['controls'].manufacture.patchValue(null);
-        this.vehicalDetails['controls'].vehicleModel.patchValue(null);
-        this.vehicalDetails['controls'].variant.patchValue(null);
-        this.vehicalDetails['controls'].vehicleCC.patchValue(null);
+      // alert('construct')
+      //   this.vehicalDetails['controls'].city.patchValue(null);
+      //   this.vehicalDetails['controls'].regionList.patchValue(null);
+      //   this.vehicalDetails['controls'].manufacture.patchValue(null);
+      //   this.vehicalDetails['controls'].vehicleModel.patchValue(null);
+      //   this.vehicalDetails['controls'].variant.patchValue(null);
+      //   this.vehicalDetails['controls'].vehicleCC.patchValue(null);
 
     }
 
     ngOnInit() {
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeListDetails = JSON.parse(sessionStorage.bikeListDetails);
-        this.vehicalDetails['controls'].city.patchValue(null);
-        this.vehicalDetails['controls'].regionList.patchValue(null);
-        this.vehicalDetails['controls'].manufacture.patchValue(null);
-        this.vehicalDetails['controls'].vehicleModel.patchValue(null);
-        this.vehicalDetails['controls'].variant.patchValue(null);
-        this.vehicalDetails['controls'].vehicleCC.patchValue(null);
+      // alert('ngonit')
+      //   this.vehicalDetails['controls'].city.patchValue(null);
+      //   this.vehicalDetails['controls'].regionList.patchValue(null);
+      //   this.vehicalDetails['controls'].manufacture.patchValue(null);
+      //   this.vehicalDetails['controls'].vehicleModel.patchValue(null);
+      //   this.vehicalDetails['controls'].variant.patchValue(null);
+      //   this.vehicalDetails['controls'].vehicleCC.patchValue(null);
       this.rto = sessionStorage.Rto;
       let stringToSplit;
       stringToSplit = this.bikeListDetails.vehicle_no.toUpperCase();
@@ -201,6 +203,8 @@
 
       this.getRegionLists();
     }
+
+
     dataList(){
       console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle.....');
       this.vehicalDetails.patchValue({

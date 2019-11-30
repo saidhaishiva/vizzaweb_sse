@@ -72,33 +72,33 @@
 
     <div class="col-md-3 mt-2">
       <mat-placeholder>Vehicle Manufacture<span class="color-red">*</span></mat-placeholder>
-      <ngx-select-dropdown  [config]="config"  formControlName="manufacture"  [options]="manifactureDetails" (change)="modelList1()" ></ngx-select-dropdown>
+      <ngx-select-dropdown  [config]="config"  formControlName="manufacture"  [options]="manifactureDetails" (change)="modelList1()" required ></ngx-select-dropdown>
       <!--<div class="color-red" *ngIf="manifactureValid">Vehicle Manufacture is required</div>-->
-      <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].manufacture.value == ''||(this.vehicalDetails['controls'].manufacture.value == null && vehicalDetails.get('manufacture').touched)" >Vehicle Manufacture is required</div>
+      <div class="error help-block" *ngIf="(!vehicalDetails.get('manufacture').valid && (vehicalDetails.get('manufacture').dirty || vehicalDetails.get('manufacture').touched))">Vehicle Manufacture is required</div>
 
       <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
     </div>
     <div class="col-md-3 mt-2">
       <mat-placeholder>Vehicle Model<span class="color-red">*</span></mat-placeholder>
-      <ngx-select-dropdown  [config]="config"  formControlName="vehicleModel"  [options]="modelDetails" (change)="variantList()" ></ngx-select-dropdown>
+      <ngx-select-dropdown  [config]="config"  formControlName="vehicleModel"  [options]="modelDetails" (change)="variantList()" required></ngx-select-dropdown>
       <!--<div class="color-red" *ngIf="modelValid">Region Name is required</div>-->
-      <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].vehicleModel.value == ''||(this.vehicalDetails['controls'].vehicleModel.value == null && vehicalDetails.get('vehicleModel').touched)" >Vehicle Model is required</div>
+      <div class="error help-block" *ngIf="(!vehicalDetails.get('vehicleModel').valid && (vehicalDetails.get('vehicleModel').dirty || vehicalDetails.get('vehicleModel').touched))">Vehicle Model is required</div>
 
       <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
     </div>
     <div class="col-md-3 mt-2">
       <mat-placeholder>Variant<span class="color-red">*</span></mat-placeholder>
-      <ngx-select-dropdown  [config]="config"  formControlName="variant"  [options]="variantDetails" (change)="ccList()"></ngx-select-dropdown>
+      <ngx-select-dropdown  [config]="config"  formControlName="variant"  [options]="variantDetails" (change)="ccList()" required></ngx-select-dropdown>
       <!--<div class="color-red" *ngIf="variantValid">Vehicle Model is required</div>-->
-      <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].variant.value == ''||(this.vehicalDetails['controls'].variant.value == null && vehicalDetails.get('variant').touched)" >Variant is required</div>
+      <div class="error help-block" *ngIf="(!vehicalDetails.get('variant').valid && (vehicalDetails.get('variant').dirty || vehicalDetails.get('variant').touched))">Variant is required</div>
 
       <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
     </div>
     <div class="col-md-3 mt-2">
       <mat-placeholder>Vehicle CC<span class="color-red">*</span></mat-placeholder>
-      <ngx-select-dropdown  [config]="config"  formControlName="vehicleCC"  [options]="ccDetails"  ></ngx-select-dropdown>
+      <ngx-select-dropdown  [config]="config"  formControlName="vehicleCC"  [options]="ccDetails" required ></ngx-select-dropdown>
       <!--<div class="color-red" *ngIf="ccValid">Vehicle CC is required</div>-->
-      <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].vehicleCC.value == ''||(this.vehicalDetails['controls'].vehicleCC.value == null && vehicalDetails.get('vehicleCC').touched)" >Vehicle CC is required</div>
+      <div class="error help-block" *ngIf="(!vehicalDetails.get('vehicleCC').valid && (vehicalDetails.get('vehicleCC').dirty || vehicalDetails.get('vehicleCC').touched))">Vehicle CC is required</div>
 
       <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
     </div>
@@ -143,16 +143,16 @@
 
     <div class="col-md-3 mt-2">
       <mat-placeholder>Registration City <span class="color-red">*</span></mat-placeholder>
-      <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails"></ngx-select-dropdown>
+      <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails" required></ngx-select-dropdown>
       <!--<div class="color-red" *ngIf="CityValid">City is required</div>-->
-      <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].city.value == ''||(this.vehicalDetails['controls'].city.value == null && vehicalDetails.get('city').touched)" >Registration City is required</div>
+      <div class="error help-block" *ngIf="(!vehicalDetails.get('city').valid && (vehicalDetails.get('city').dirty || vehicalDetails.get('city').touched))">Registration City is required</div>
 
     </div>
     <div class="col-md-3 mt-2">
       <mat-placeholder>Region Name <span class="color-red">*</span></mat-placeholder>
-      <ngx-select-dropdown  [config]="config"  formControlName="regionList"  [options]="regionDetails" ></ngx-select-dropdown>
+      <ngx-select-dropdown  [config]="config"  formControlName="regionList"  [options]="regionDetails" required></ngx-select-dropdown>
       <!--<div class="color-red" *ngIf="regionValid">Region Name is required</div>-->
-      <div class="error help-block" *ngIf=" this.vehicalDetails['controls'].regionList.value == ''||(this.vehicalDetails['controls'].regionList.value == null && vehicalDetails.get('regionList').touched)" >Region Name is required</div>
+      <div class="error help-block" *ngIf="(!vehicalDetails.get('regionList').valid && (vehicalDetails.get('regionList').dirty || vehicalDetails.get('regionList').touched))">Region Name is required</div>
 
       <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
     </div>
