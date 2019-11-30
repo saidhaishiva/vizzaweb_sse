@@ -86,6 +86,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public today:any;
   public getEnquiryDetials:any;
   public enquiryFromDetials:any;
+  public customerDetails:any;
   public idProofList:any;
   public incomeProofList:any;
   public ageProofsList:any;
@@ -171,6 +172,7 @@ export class LifeBajajProposalComponent implements OnInit {
                     this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
                     this.bankDetailFormData = JSON.parse(sessionStorage.bankDetailFormData);
                     this.nomineeDetailFormData = JSON.parse(sessionStorage.nomineeDetailFormData);
+                    // this.nomineeDetailFormData = JSON.parse(sessionStorage.nomineeDetailFormData);
 
                     this.familyDiseaseFormData = JSON.parse(sessionStorage.familyDiseaseFormData);
                 }
@@ -368,6 +370,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
+    this.customerDetails = JSON.parse(sessionStorage.customerDetails);
     this.mainQuestion();
     this.paIdList();
     this.ageProof();
@@ -416,9 +419,32 @@ export class LifeBajajProposalComponent implements OnInit {
       this.customer.controls['age'].patchValue(this.bajajAge);
       this.customer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
       this.changeGender();
-      this.customer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
-      this.getPostal(this.proposer.controls['pincode'].value, 'personal');
-      this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
+      // this.customer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
+      // this.getPostal(this.customer.controls['pincode'].value, 'personal');
+      // this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
+
+
+        this.proposer.controls['title'].patchValue (this.customerDetails.title);
+        this.proposer.controls['firstName'].patchValue (this.customerDetails.firstName);
+        this.proposer.controls['midName'].patchValue (this.customerDetails.midName);
+        this.proposer.controls['lastName'].patchValue (this.customerDetails.lastName);
+        this.proposer.controls['age'].patchValue (this.customerDetails.age);
+        this.proposer.controls['dob'].patchValue (this.customerDetails.dob);
+        this.proposer.controls['gender'].patchValue (this.customerDetails.gender);
+        this.proposer.controls['mobile'].patchValue (this.customerDetails.mobile);
+        this.proposer.controls['email'].patchValue (this.customerDetails.email);
+
+        // this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+        // // let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
+        // this.bajajAge = this.ageCalculate(dob);
+        // sessionStorage.bajajproposerAge = this.bajajAge;
+        // this.proposer.controls['age'].patchValue(this.bajajAge);
+        // this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+        // this.changeGender();
+        // this.proposer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
+        // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
+        this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
+
 
 
   }
@@ -490,15 +516,15 @@ export class LifeBajajProposalComponent implements OnInit {
             "policy_id": this.getEnquiryDetials.policy_id,
             "term": this.lifePremiumList.termDetrails,
             "insurer_proposer": {
-                "title": this.proposer.controls['title'].value,
-                "firstName": this.proposer.controls['firstName'].value,
-                "middleName": this.proposer.controls['midName'].value,
-                "lastName": this.proposer.controls['lastName'].value,
-                "dob":this.datepipe.transform(this.proposer.controls['dob'].value,'y-MM-dd'),
-                "age": this.proposer.controls['age'].value,
-                "gender": this.proposer.controls['gender'].value,
-                "mobile": this.proposer.controls['mobile'].value,
-                "email": this.proposer.controls['email'].value,
+                "title": this.customer.controls['title'].value,
+                "firstName": this.customer.controls['firstName'].value,
+                "middleName": this.customer.controls['midName'].value,
+                "lastName": this.customer.controls['lastName'].value,
+                "dob":this.datepipe.transform(this.customer.controls['dob'].value,'y-MM-dd'),
+                "age": this.customer.controls['age'].value,
+                "gender": this.customer.controls['gender'].value,
+                "mobile": this.customer.controls['mobile'].value,
+                "email": this.customer.controls['email'].value,
                 "proposer_type": "I",
                 "smoker": "N",
                 "sameAsProposer": "Y",
@@ -541,16 +567,22 @@ export class LifeBajajProposalComponent implements OnInit {
     proposalnext(stepper){
        if(this.biURL == '' || this.biURL == null || this.biURL == undefined)
        {
-        this.toastr.error('Error in BI form');
+        this.toastr.error(' BI form not generated');
        }
        else{
            stepper.next();
        }
 
     }
+    // proposalnext(stepper){
+    //
+    //     stepper.next();
+    // }
 
 
-    customerNext(stepper){
+    customerNext(stepper,value){
+        sessionStorage.customerDetails = JSON.stringify(value);
+        console.log(sessionStorage.customerDetails, 'session');
         console.log(this.customer.valid, 'this.proposer.valid');
         if (this.customer.valid) {
             stepper.next();
@@ -2429,10 +2461,10 @@ samerelationShip(){
     if(successData.IsSuccess){
       stepper.next();
       this.topScroll();
-      this.toastr.success('BI Genereated successfully!!');
+      this.toastr.success('Proposal Created successfully!!');
       this.summaryData = successData.ResponseObject;
       this.premium = this.summaryData.Premium;
-      this.requestedUrl = this.summaryData.biUrlLink;
+      // this.requestedUrl = this.summaryData.biUrlLink;
         console.log(this.requestedUrl, 'req');
         console.log(this.summaryData.biUrlLink, 'summary');
 
@@ -2494,6 +2526,25 @@ samerelationShip(){
             this.toastr.error('Sorry, you are not allowed to purchase policy ');
         } else {
             this.getIncomeProof();
+        }
+
+
+
+
+        if (sessionStorage.customerDetails != '' && sessionStorage.customerDetails != undefined) {
+            let customerDetails = JSON.parse(sessionStorage.customerDetails);
+            this.customer = this.Proposer.group({
+                title: customerDetails.title,
+                firstName: customerDetails.firstName,
+                midName: customerDetails.midName,
+                lastName: customerDetails.lastName,
+                dob: customerDetails.dob,
+                age: customerDetails.age,
+                gender: customerDetails.gender,
+                mobile: customerDetails.mobile,
+                email: customerDetails.email,
+
+            });
         }
 
       this.proposer = this.Proposer.group({
