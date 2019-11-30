@@ -563,21 +563,21 @@ export class LifeBajajProposalComponent implements OnInit {
     public customerListFailure(error) {
     }
 
-    //
-    // proposalnext(stepper){
-    //    if(this.biURL == '' || this.biURL == null || this.biURL == undefined)
-    //    {
-    //     this.toastr.error(' BI form not generated');
-    //    }
-    //    else{
-    //        stepper.next();
-    //    }
-    //
-    // }
-    proposalnext(stepper){
 
-        stepper.next();
+    proposalnext(stepper){
+       if(this.biURL == '' || this.biURL == null || this.biURL == undefined)
+       {
+        this.toastr.error(' BI form not generated');
+       }
+       else{
+           stepper.next();
+       }
+
     }
+    // proposalnext(stepper){
+    //
+    //     stepper.next();
+    // }
 
 
     customerNext(stepper,value){
