@@ -669,8 +669,8 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
         'region_name': this.vehicalDetails.controls['regionList'].value,
         'rto_code': this.rto,
         'type': this.enquiryFormData.type,
-         'prev_insurer':this.enquiryFormData.previousCompany,
-         'prev_insurance_name':this.enquiryFormData.prev_insurance_name,
+         'prev_insurer':this.enquiryFormData.previousCompany== null ? '' :this.enquiryFormData.previousCompany,
+         'prev_insurance_name':this.enquiryFormData.prev_insurance_name== null ? '':this.enquiryFormData.prev_insurance_name,
       };
       sessionStorage.vehicledetails = JSON.stringify(data);
       this.bikeService.getEnquiryDetails(data).subscribe(

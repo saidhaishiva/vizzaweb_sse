@@ -660,7 +660,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'registration_city': this.vehicalDetails.controls['city'].value,
       'rto_code': this.rto,
        'region_name': this.vehicalDetails.controls['regionList'].value,
-      'prev_insurance_name': this.enquiryFormData.prev_insurance_name
+      'prev_insurance_name': this.enquiryFormData.prev_insurance_name == null ? '' :this.enquiryFormData.prev_insurance_name
 
       };
       console.log(data,'data');

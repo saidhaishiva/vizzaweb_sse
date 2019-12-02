@@ -102,6 +102,8 @@ export class RelianceMotorProposalComponent implements OnInit {
   public basic_liability: any;
   public gstAmount: any;
   public discountAmount: any;
+  public electricalSumAount: any;
+  public nonElectricalSumAount: any;
 
   //dob
   proposerAge : any;
@@ -115,6 +117,8 @@ export class RelianceMotorProposalComponent implements OnInit {
   constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService,public dialog: MatDialog, public route: ActivatedRoute , public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
 
     let stepperindex = 0;
+    this.nonElectricalSumAount=false
+    this.electricalSumAount=false
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
         stepperindex = 4;
@@ -1116,7 +1120,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         cnAddress: this.getStepper3.cnAddress,
         fuelType: this.getStepper3.fuelType,
         // nOtherRelationValue: this.getStepper3.nOtherRelationValue,
-        // nrelationValue: this.getStepper3.nrelationValue,
+        nrelationValue: this.getStepper3.nrelationValue,
         // npappointeeName: this.getStepper3.npappointeeName,
         // npnomineeName: this.getStepper3.npnomineeName,
         // npDob: this.datepipe.transform(this.getStepper3.npDob, 'y-MM-dd'),
@@ -2066,17 +2070,36 @@ export class RelianceMotorProposalComponent implements OnInit {
   updateElectricalItem(event){
     if(this.coverDetails.controls['IsElectricalItemFitted'].value==true){
 
-      this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('15000');
+      // this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('');
       this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators([Validators.required]);
-      this.coverDetails.controls['ElectricalItemsTotalPremium'].setValidators([Validators.required]);
-      this.getCover();
+
     }else {
       this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('');
       this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators(null);
-      this.coverDetails.controls['ElectricalItemsTotalPremium'].patchValue('');
-      this.coverDetails.controls['ElectricalItemsTotalPremium'].setValidators(null);
+
     }
     this.coverDetails.controls['ElectricalItemsTotalSI'].updateValueAndValidity();
+
+  }
+  changeConditionElect(event:any){
+    if((this.coverDetails.controls['ElectricalItemsTotalSI'].value >1000)&&(this.coverDetails.controls['ElectricalItemsTotalSI'].value <60000) ){
+     this.electricalSumAount=false;
+     this.electricalSumAount='';
+
+      this.getCover();
+    }else{
+      this.electricalSumAount=true;
+      this.electricalSumAount = 'Electrical Accessories Sum Insured Should be greater than 1000 and lesser than 60000';
+    }
+  }
+  changeSumElectric(){
+  if(this.coverDetails.controls['ElectricalItemsTotalSI'].value){
+    this.coverDetails.controls['ElectricalItemsTotalPremium'].setValidators([Validators.required]);
+
+  }else{
+    this.coverDetails.controls['ElectricalItemsTotalPremium'].patchValue('');
+    this.coverDetails.controls['ElectricalItemsTotalPremium'].setValidators(null);
+  }
     this.coverDetails.controls['ElectricalItemsTotalPremium'].updateValueAndValidity();
 
   }
@@ -2084,20 +2107,41 @@ export class RelianceMotorProposalComponent implements OnInit {
   updatenonElectricalItem(){
     if(this.coverDetails.controls['IsNonElectricalItemFitted'].value==true){
 
-      this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('12000');
+      // this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('12000');
       this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators([Validators.required]);
-      this.coverDetails.controls['NonElectricalItemsTotalPremium'].setValidators([Validators.required]);
-      this.getCover();
+      // this.coverDetails.controls['NonElectricalItemsTotalPremium'].setValidators([Validators.required]);
     }else {
       this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('');
       this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators(null);
+      // this.coverDetails.controls['NonElectricalItemsTotalPremium'].patchValue('');
+      // this.coverDetails.controls['NonElectricalItemsTotalPremium'].setValidators(null);
+    }
+    this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
+    // this.coverDetails.controls['NonElectricalItemsTotalPremium'].updateValueAndValidity();
+
+  }
+  changeConditionNonElect(event:any){
+    if((this.coverDetails.controls['NonElectricalItemsTotalSI'].value >1000)&&(this.coverDetails.controls['NonElectricalItemsTotalSI'].value <60000) ){
+      this.nonElectricalSumAount=false;
+      this.nonElectricalSumAount='';
+      this.getCover();
+    }else{
+      this.nonElectricalSumAount=true;
+      this.nonElectricalSumAount = 'Electrical Accessories Sum Insured Should be greater than 1000 and lesser than 60000';
+    }
+  }
+  changeSumNonElectric(){
+    if(this.coverDetails.controls['NonElectricalItemsTotalSI'].value){
+      this.coverDetails.controls['NonElectricalItemsTotalPremium'].setValidators([Validators.required]);
+
+    }else{
       this.coverDetails.controls['NonElectricalItemsTotalPremium'].patchValue('');
       this.coverDetails.controls['NonElectricalItemsTotalPremium'].setValidators(null);
     }
-    this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
     this.coverDetails.controls['NonElectricalItemsTotalPremium'].updateValueAndValidity();
 
   }
+
 
   updatenonBiFuelKit(){
     if(this.coverDetails.controls['IsBiFuelKit'].value==true){

@@ -332,6 +332,7 @@ export class FourWheelerHomeComponent implements OnInit {
   // home bike
   quationFirstStep(value) {
     sessionStorage.enquiryFormDatafw = JSON.stringify(value);
+    console.log(this.fourWheeler.controls['previousCompany'].value,'hgghhg...')
     const data = {
       "platform": "web",
       "created_by": "0",
@@ -339,14 +340,14 @@ export class FourWheelerHomeComponent implements OnInit {
       "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       "enquiry_id": 0,
       "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      "vehicle_no": this.fourWheeler.controls['vehicalNumber'].value,
+      "vehicle_no": this.fourWheeler.controls['vehicalNumber'].value==null||undefined ?'': this.fourWheeler.controls['vehicalNumber'].value,
       "registration_date": this.fourWheeler.controls['registrationDate'].value ? this.fourWheeler.controls['registrationDate'].value : this.fourWheeler.controls['registrationDateNew'].value,
       "previous_claim_YN": this.fourWheeler.controls['previousClaim'].value == 'No' ? '0' : '1',
       "previous_policy_expiry_date": this.fourWheeler.controls['previousPolicyExpiry'].value ? this.fourWheeler.controls['previousPolicyExpiry'].value : '',
       "previous_policy_start_date": this.fourWheeler.controls['previousPolicyStart'].value ? this.fourWheeler.controls['previousPolicyStart'].value : '',
       "type": this.typeList,
       "ncb_percent": this.fourWheeler.controls['ncb'].value ? this.fourWheeler.controls['ncb'].value : '0',
-      "prev_insurance_name": this.fourWheeler.controls['previousCompany'].value ? this.fourWheeler.controls['previousCompany'].value : '',
+      "prev_insurance_name": this.fourWheeler.controls['previousCompany'].value==null||undefined ?'': this.fourWheeler.controls['previousCompany'].value,
     }
     console.log(data, 'data');
     if (this.fourWheeler.valid) {

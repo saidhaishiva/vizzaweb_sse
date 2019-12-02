@@ -746,7 +746,7 @@ changeOwnerDriver(){
 
       this.coverDetails.controls['VoluntaryDeductableAmount'].setValidators([Validators.required]);
       this.coverDetails.controls['totalVoluntaryDeductablePremium'].setValidators([Validators.required]);
-      this.getCover();
+
     }else {
       this.coverDetails.controls['VoluntaryDeductableAmount'].patchValue('');
       this.coverDetails.controls['VoluntaryDeductableAmount'].setValidators(null);

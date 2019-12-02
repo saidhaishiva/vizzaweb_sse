@@ -451,7 +451,7 @@ export class BikeInsuranceComponent implements OnInit {
             "previous_policy_start_date": this.bikeInsurance.controls['previousPolicyStart'].value ? this.bikeInsurance.controls['previousPolicyStart'].value : '',
             "type": this.typeList,
             "ncb_percent": this.bikeInsurance.controls['ncb'].value ? this.bikeInsurance.controls['ncb'].value : '0',
-            "prev_insurance_name": this.bikeInsurance.controls['previousCompany'].value ? this.bikeInsurance.controls['previousCompany'].value : '',
+            "prev_insurance_name": this.bikeInsurance.controls['previousCompany'].value==null||undefined ?'': this.bikeInsurance.controls['previousCompany'].value,
         }
         console.log(data, 'data');
         console.log(this.bikeInsurance,'bikegroup');
