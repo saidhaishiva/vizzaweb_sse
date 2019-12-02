@@ -156,12 +156,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       limitTo: 5
     };
     this.ccValid = false;
-    this.vehicalDetails['controls'].city.patchValue(null);
-    this.vehicalDetails['controls'].regionList.patchValue(null);
-    this.vehicalDetails['controls'].manufacture.patchValue(null);
-    this.vehicalDetails['controls'].vehicleModel.patchValue(null);
-    this.vehicalDetails['controls'].variant.patchValue(null);
-    this.vehicalDetails['controls'].vehicleCC.patchValue(null);
+
 
 
   }
@@ -194,12 +189,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
     this.carListDetails = JSON.parse(sessionStorage.carListDetails);
     this.rto = sessionStorage.RtoFour;
-    this.vehicalDetails['controls'].city.patchValue(null);
-    this.vehicalDetails['controls'].regionList.patchValue(null);
-    this.vehicalDetails['controls'].manufacture.patchValue(null);
-    this.vehicalDetails['controls'].vehicleModel.patchValue(null);
-    this.vehicalDetails['controls'].variant.patchValue(null);
-    this.vehicalDetails['controls'].vehicleCC.patchValue(null);
+
     let stringToSplit;
     stringToSplit = this.carListDetails.vehicle_no.toUpperCase();
     let x = stringToSplit.slice(0, 2);
@@ -232,6 +222,11 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     this.dataList();
     this.getCityLists();
     this.getRegionLists();
+
+    this.vehicalDetails.controls['manufacture'].patchValue(this.ListDetails.vehicle_manufacture);
+    this.vehicalDetails.controls['vehicleModel'].patchValue(this.ListDetails.vehicle_model);
+    this.vehicalDetails.controls['variant'].patchValue(this.ListDetails.vehicle_variant);
+    this.vehicalDetails.controls['vehicleCC'].patchValue(this.ListDetails.vehicle_cc);
 
   }
   dataList(){

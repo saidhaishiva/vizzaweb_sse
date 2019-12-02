@@ -193,19 +193,24 @@
       this.regionValid = false;
 
       this.claimpercent();
-      // this.manifactureList();
+      this.manifactureList();
       this.dataList();
       this.getCityLists();
 
       this.vehicalDetails.controls['bussiness'].patchValue(this.ListDetails.business_type);
-      this.vehicalDetails.controls['vehicleCC'].patchValue(this.ListDetails.vehicle_cc);
+      this.vehicalDetails.controls['manufacture'].patchValue(this.ListDetails.vehicle_manufacture);
+      this.vehicalDetails.controls['vehicleModel'].patchValue(this.ListDetails.vehicle_model);
       this.vehicalDetails.controls['variant'].patchValue(this.ListDetails.vehicle_variant);
+      this.vehicalDetails.controls['vehicleCC'].patchValue(this.ListDetails.vehicle_cc);
+      // alert('console..')
+      console.log(this.vehicalDetails.controls['manufacture'].value,'345678....')
 
       this.getRegionLists();
     }
 
 
     dataList(){
+      console.log('dataList...')
       console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle.....');
       this.vehicalDetails.patchValue({
         'vehicalNumber': this.ListDetails.vehicle_no,
@@ -227,6 +232,7 @@
       });
       console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle1111111.....');
       console.log(this.vehicalDetails.controls['variant'].value,'variantttttt.....');
+      console.log(this.vehicalDetails.controls['manufacture'].value,'manufacture.....');//bajai2
   }
                                /// manufacture
 
@@ -260,19 +266,45 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
     }
     public manifactureFailure(error) {
     }
-    nameValidate(event: any){
-      this.validation.nameValidate(event);
+
+    // model
+    modelList1() {
+      console.log(this.vehicalDetails.controls.manufacture.value,'manufa')
+
+      // alert('in Models')
+      const data = {
+        "platform": 'web',
+        "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+        "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+        "manufacture": this.vehicalDetails.controls['manufacture'].value,
+
+        // 'platform': 'web',
+        // 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+        // 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+        // 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+        // 'manufacture': this.vehicalDetails.controls['manufacture'].value,
+        // 'variant':  this.vehicalDetails.controls['variant'].value
+      }
+      console.log(data,'data....')
+      this.bikeService.getModelList(data).subscribe(
+          (successData) => {
+            this.modelSuccess(successData);
+          },
+          (error) => {
+            this.modelFailure(error);
+          }
+      );
     }
-    // Dob validation
-    dobValidate(event: any){
-      this.validation.dobValidate(event);
+    public modelSuccess(successData){
+      if (successData.IsSuccess) {
+        this.modelDetails = successData.ResponseObject;
+        console.log(this.modelDetails,'this.modelDetails..')
+        this.variantList();
+
+      }
     }
-    // Number validation
-    numberValidate(event: any){
-      this.validation.numberValidate(event);
-    }
-    idValidate(event: any) {
-      this.validation.idValidate(event);
+    public modelFailure(error) {
     }
 
     // variant
@@ -302,51 +334,14 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
     public variantSuccess(successData){
       if (successData.IsSuccess) {
         this.variantDetails = successData.ResponseObject;
-       console.log( this.variantDetails,' this.variantDetails...')
+        console.log( this.variantDetails,' this.variantDetails...')
         this.ccList();
       }
     }
     public variantFailure(error) {
     }
 
-    // model
-    modelList1() {
-      console.log(this.vehicalDetails.controls.manufacture.value,'manufa')
 
-      // alert('in s')
-      const data = {
-        "platform": 'web',
-        "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-        "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-        "manufacture": this.vehicalDetails.controls['manufacture'].value,
-
-        // 'platform': 'web',
-        // 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        // 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-        // 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-        // 'manufacture': this.vehicalDetails.controls['manufacture'].value,
-        // 'variant':  this.vehicalDetails.controls['variant'].value
-      }
-      this.bikeService.getModelList(data).subscribe(
-          (successData) => {
-            this.modelSuccess(successData);
-          },
-          (error) => {
-            this.modelFailure(error);
-          }
-      );
-    }
-    public modelSuccess(successData){
-      if (successData.IsSuccess) {
-        this.modelDetails = successData.ResponseObject;
-        console.log(this.modelDetails,'this.modelDetails..')
-        this.variantList();
-
-      }
-    }
-    public modelFailure(error) {
-    }
     // cc
     ccList() {
       const data = {
@@ -376,6 +371,27 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
     }
     public ccFailure(error) {
     }
+
+
+
+    nameValidate(event: any){
+      this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+      this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+      this.validation.numberValidate(event);
+    }
+    idValidate(event: any) {
+      this.validation.idValidate(event);
+    }
+
+
+
+
     claimpercent() {
       const data = {
         'platform': 'web',
@@ -638,7 +654,7 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
         'previous_policy_expiry_date':this.vehicalDetails.controls['previousPolicyExpiry'].value == null ? '' :this.vehicalDetails.controls['previousPolicyExpiry'].value,
         'previous_policy_no':"12344556",
         'previous_claim_YN': this.vehicalDetails.controls['previousClaim'].value == 'No' ? '0' : '1',
-        'vehicle_manufacture':this.vehicalDetails.controls['manufacture'].value,
+        'vehicle_manufacture':this.vehicalDetails.controls['manufacture'].value||this.ListDetails.vehicle_manufacture,
         'vehicle_model':this.vehicalDetails.controls['vehicleModel'].value,
         'vehicle_variant':this.vehicalDetails.controls['variant'].value,
         'vehicle_cc':this.vehicalDetails.controls['vehicleCC'].value,

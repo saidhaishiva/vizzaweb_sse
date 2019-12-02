@@ -1165,7 +1165,7 @@
                               </ul>
                           </div>
 
-                          <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''">
+                          <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''||coverFormData.UnnamedPassengerCovered == false">
                               <h2 class="color-blue m-2">PA to Unnamed Passenger</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered == false"><strong>PA to Unnamed Passenger :</strong><span *ngIf="coverFormData.UnnamedPassengerCovered == false">No</span> </li>
@@ -1174,7 +1174,7 @@
 
                               </ul>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''||coverFormData.UnnamedPassengerCovered == false">
                               <h4 style="margin-top: 29px !important;"></h4>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
@@ -1300,12 +1300,12 @@
 
                               <!--</ul>-->
                           <!--</div>-->
-                          <div class="col-md-6" *ngIf="discountAmount!= ''||discountAmount!= undefined " >
+                          <div class="col-md-6" *ngIf="this.summaryData.productlist.discount!= ''&&discountAmount!= ''&&this.summaryData.productlist.discount!= undefined " >
                               <h2 class="color-blue m-2">Discount</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="discountAmount.anti_theft_device != ''"><strong>Anti Theft Device Discount:</strong> {{discountAmount.anti_theft_device}}</li>
-                                  <li class="list-group-item" *ngIf="discountAmount.voluntary_deductible != ''"><strong>Voluntary Deductible Discount:</strong> {{discountAmount.voluntary_deductible}}</li>
-                                  <li class="list-group-item" *ngIf="discountAmount.automobile_association_membership != ''"><strong>Automobile Association Membership Discount:</strong> {{discountAmount.automobile_association_membership}}</li>
+                                  <li class="list-group-item" *ngIf="discountAmount.anti_theft_device != ''&&coverFormData.AntiTheftDeviceFitted == false"><strong>Anti Theft Device Discount:</strong> {{discountAmount.anti_theft_device}}</li>
+                                  <li class="list-group-item" *ngIf="discountAmount.voluntary_deductible != ''&&coverFormData.IsVoluntaryDeductableOpted == false"><strong>Voluntary Deductible Discount:</strong> {{discountAmount.voluntary_deductible}}</li>
+                                  <li class="list-group-item" *ngIf="discountAmount.automobile_association_membership != ''&&coverFormData.AutomobileAssociationMember == false"><strong>Automobile Association Membership Discount:</strong> {{discountAmount.automobile_association_membership}}</li>
                               </ul>
                           </div>
 

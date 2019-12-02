@@ -157,6 +157,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public customerdateError: any;
   public bajajAge1: any;
   public picker10: any;
+  public bigeneration:any;
 
    constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
@@ -187,6 +188,7 @@ export class LifeBajajProposalComponent implements OnInit {
         this.idProofPath = [];
         this.photoPath = [];
         this.otherdocsPath = [];
+       this.bigeneration=false;
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -547,6 +549,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
     public customerListSuccess(successData) {
         if (successData.IsSuccess) {
+            this.bigeneration=true;
             this.customerList = successData.ResponseObject;
             this.biURL = this.customerList.biUrlLink;
             this.Premium = this.customerList.Premium;
@@ -557,6 +560,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
         }
         else{
+            this.bigeneration=false;
             this.toastr.error(successData.ErrorObject);
 
         }
@@ -567,12 +571,23 @@ export class LifeBajajProposalComponent implements OnInit {
 
 
     proposalnext(stepper){
-       if(this.biURL == '' || this.biURL == null || this.biURL == undefined)
-       {
-        this.toastr.error(' BI form not generated');
+       if(this.bigeneration==true) {
+           this.proposer.controls['title'].patchValue (this.customer.controls['title'].value);
+           this.proposer.controls['firstName'].patchValue (this.customer.controls['firstName'].value);
+           this.proposer.controls['midName'].patchValue (this.customer.controls['midName'].value);
+           this.proposer.controls['lastName'].patchValue (this.customer.controls['lastName'].value);
+           this.proposer.controls['age'].patchValue (this.customer.controls['age'].value);
+           this.proposer.controls['dob'].patchValue (this.customer.controls['dob'].value);
+           this.proposer.controls['gender'].patchValue (this.customer.controls['gender'].value);
+           this.proposer.controls['mobile'].patchValue (this.customer.controls['mobile'].value);
+           this.proposer.controls['email'].patchValue (this.customer.controls['email'].value);
+           this.proposer.controls['annualIncome'].patchValue (this.enquiryFormData.lifeannualIncome);
+           stepper.next();
+
        }
        else{
-           stepper.next();
+           this.bigeneration=false;
+           this.toastr.error(' BI form not generated');
        }
 
     }
@@ -588,18 +603,6 @@ export class LifeBajajProposalComponent implements OnInit {
         sessionStorage.customerDetails = JSON.stringify(value);
         console.log(sessionStorage.customerDetails, 'session');
         console.log(this.customer.valid, 'this.customer.valid');
-
-        this.proposer.controls['title'].patchValue (this.customer.controls['title'].value);
-        this.proposer.controls['firstName'].patchValue (this.customer.controls['firstName'].value);
-        this.proposer.controls['midName'].patchValue (this.customer.controls['midName'].value);
-        this.proposer.controls['lastName'].patchValue (this.customer.controls['lastName'].value);
-        this.proposer.controls['age'].patchValue (this.customer.controls['age'].value);
-        this.proposer.controls['dob'].patchValue (this.customer.controls['dob'].value);
-        this.proposer.controls['gender'].patchValue (this.customer.controls['gender'].value);
-        this.proposer.controls['mobile'].patchValue (this.customer.controls['mobile'].value);
-        this.proposer.controls['email'].patchValue (this.customer.controls['email'].value);
-
-
         if (this.customer.valid) {
             stepper.next();
             this.topScroll();
@@ -1809,49 +1812,52 @@ samerelationShip(){
   public getModeOfTransactionFailure(error) {
   }
 
-
-  getProposalNext(stepper) {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'pos_status': '0',
-      'policy_id': this.getEnquiryDetials.policy_id
-    };
-      this.settings.loadingSpinner = true;
-      this.termService.getProposalNext(data).subscribe(
-        (successData) => {
-          this.ProposalNextSuccess(successData,stepper);
-        },
-        (error) => {
-          this.ProposalNextFailure(error);
-        }
-    );
-  }
-
-  public ProposalNextSuccess(successData,stepper) {
-      this.settings.loadingSpinner = false;
-      if (successData.IsSuccess) {
-        // this.toastr.success(successData.ResponseObject);
-
+    getProposalNext(stepper){
         stepper.next();
-          this.topScroll();
-          this.proposalGenStatus = false;
-          this.proposalNextList = successData.ResponseObject;
-          this.proposalFormPdf = this.proposalNextList.proposal_form;
-          console.log(this.proposalFormPdf, 'dffs');
-          // this.biURL = this.proposalNextList.bi_link;
-          console.log(this.biURL, 'biii');
-          // this.otpGen();
-      } else {
-            this.proposalGenStatus = true;
-        this.toastr.error(successData.ErrorObject);
-
-      }
-  }
-  public ProposalNextFailure(error) {
-      this.settings.loadingSpinner = false;
-  }
+       this.topScroll();
+    }
+  // getProposalNext(stepper) {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //     'pos_status': '0',
+  //     'policy_id': this.getEnquiryDetials.policy_id
+  //   };
+  //     this.settings.loadingSpinner = true;
+  //     this.termService.getProposalNext(data).subscribe(
+  //       (successData) => {
+  //         this.ProposalNextSuccess(successData,stepper);
+  //       },
+  //       (error) => {
+  //         this.ProposalNextFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // public ProposalNextSuccess(successData,stepper) {
+  //     this.settings.loadingSpinner = false;
+  //     if (successData.IsSuccess) {
+  //       // this.toastr.success(successData.ResponseObject);
+  //
+  //       stepper.next();
+  //         this.topScroll();
+  //         this.proposalGenStatus = false;
+  //         this.proposalNextList = successData.ResponseObject;
+  //         this.proposalFormPdf = this.proposalNextList.proposal_form;
+  //         console.log(this.proposalFormPdf, 'dffs');
+  //         // this.biURL = this.proposalNextList.bi_link;
+  //         console.log(this.biURL, 'biii');
+  //         // this.otpGen();
+  //     } else {
+  //           this.proposalGenStatus = true;
+  //       this.toastr.error(successData.ErrorObject);
+  //
+  //     }
+  // }
+  // public ProposalNextFailure(error) {
+  //     this.settings.loadingSpinner = false;
+  // }
   getIdProof() {
     const data = {
       'platform': 'web',
@@ -2482,7 +2488,9 @@ samerelationShip(){
       this.premium = this.summaryData.Premium;
       // this.requestedUrl = this.summaryData.biUrlLink;
         this.proposalFormPdf = this.summaryData.proposal_form;
-        this.proposalFormPdf = this.summaryData.proposal_form;
+        console.log(this.proposalFormPdf,'proposalFormPdf...')
+        console.log(this.summaryData.proposal_form,'this.summaryData.proposal_form...')
+        // this.proposalFormPdf = this.summaryData.proposal_form;
 
 
         console.log(this.requestedUrl, 'req');

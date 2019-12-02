@@ -457,7 +457,7 @@ export class TermLifeCommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTerm() + 'bajaj/bigeneration';
+        const url = this.configurationService.getHostTerm() + 'bajaj/proposal';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -468,7 +468,7 @@ export class TermLifeCommonService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTerm() + 'bajaj/bi_generation';
+        const url = this.configurationService.getHostTerm() + 'bajaj/bigeneration';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
