@@ -3424,7 +3424,7 @@ travelOutside(){
           }
         },
         "DeathBenefitOptions": {
-          "payoutOption": "",
+          "payoutOption": this.insureArray.controls['payoutOption'].value,
           "payoutPercentageIncome":this.insureArray.controls['payoutPercentageIncome'].value,
           "noOfMonths": this.insureArray.controls['noOfMonths'].value,
         }
