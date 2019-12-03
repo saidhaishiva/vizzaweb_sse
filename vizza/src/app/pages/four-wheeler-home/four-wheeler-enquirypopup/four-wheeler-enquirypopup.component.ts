@@ -219,17 +219,22 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
 
 
     this.claimpercent();
+    this.manifactureList();
     this.dataList();
     this.getCityLists();
-    this.getRegionLists();
+
 
     this.vehicalDetails.controls['manufacture'].patchValue(this.ListDetails.vehicle_manufacture);
     this.vehicalDetails.controls['vehicleModel'].patchValue(this.ListDetails.vehicle_model);
     this.vehicalDetails.controls['variant'].patchValue(this.ListDetails.vehicle_variant);
     this.vehicalDetails.controls['vehicleCC'].patchValue(this.ListDetails.vehicle_cc);
-
+    // alert('console..')
+    // console.log(this.vehicalDetails.controls['manufacture'].value,'345678....')
+    this.getRegionLists();
   }
   dataList(){
+    console.log('dataList...')
+    console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle.....');
     this.vehicalDetails.patchValue({
       'vehicalNumber': this.ListDetails.vehicle_no,
       'registrationDate': this.datePipe.transform(this.ListDetails.registration_date, 'y-MM-dd'),
@@ -247,7 +252,11 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'engine': this.ListDetails.engine_no,
       'previousPolicyExpiry': this.datePipe.transform(this.ListDetails.previous_policy_expiry_date, 'y-MM-dd'),
       'previousPolicyStart': this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd')
+
     });
+    // console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle1111111.....');
+    // console.log(this.vehicalDetails.controls['variant'].value,'variantttttt.....');
+    // console.log(this.vehicalDetails.controls['manufacture'].value,'manufacture.....');//bajai2
   }
   /// manufacture
   manifactureList() {

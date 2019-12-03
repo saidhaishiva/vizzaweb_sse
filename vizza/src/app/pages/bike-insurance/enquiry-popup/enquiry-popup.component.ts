@@ -203,15 +203,15 @@
       this.vehicalDetails.controls['variant'].patchValue(this.ListDetails.vehicle_variant);
       this.vehicalDetails.controls['vehicleCC'].patchValue(this.ListDetails.vehicle_cc);
       // alert('console..')
-      console.log(this.vehicalDetails.controls['manufacture'].value,'345678....')
+      // console.log(this.vehicalDetails.controls['manufacture'].value,'345678....')
 
       this.getRegionLists();
     }
 
 
     dataList(){
-      console.log('dataList...')
-      console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle.....');
+      // console.log('dataList...')
+      // console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle.....');
       this.vehicalDetails.patchValue({
         'vehicalNumber': this.ListDetails.vehicle_no,
         'registrationDate': this.datePipe.transform(this.ListDetails.registration_date, 'y-MM-dd'),
@@ -230,9 +230,9 @@
         'previousPolicyStart': this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd')
 
       });
-      console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle1111111.....');
-      console.log(this.vehicalDetails.controls['variant'].value,'variantttttt.....');
-      console.log(this.vehicalDetails.controls['manufacture'].value,'manufacture.....');//bajai2
+      // console.log(this.vehicalDetails.controls['vehicleCC'].value,'vehicle1111111.....');
+      // console.log(this.vehicalDetails.controls['variant'].value,'variantttttt.....');
+      // console.log(this.vehicalDetails.controls['manufacture'].value,'manufacture.....');//bajai2
   }
                                /// manufacture
 
