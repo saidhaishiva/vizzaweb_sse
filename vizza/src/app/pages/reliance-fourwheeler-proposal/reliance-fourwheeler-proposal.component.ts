@@ -302,13 +302,13 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       nrelation: [''],
       nOtherRelation: [''],
       cnAddress: [''],
-      npappointeeName: [''],
-      npnomineeName: [''],
-      npDob: [''],
-      nprelation: [''],
-      nprelationValue: [''],
-      npOtherRelation: [''],
-      npOtherRelationValue: [''],
+      // npappointeeName: [''],
+      // npnomineeName: [''],
+      // npDob: [''],
+      // nprelation: [''],
+      // nprelationValue: [''],
+      // npOtherRelation: [''],
+      // npOtherRelationValue: [''],
       npAddress: [''],
       namedPassengersSI: [''],
       nppassengerName: [''],
@@ -981,20 +981,13 @@ changeOwnerDriver(){
   }
   updateElectricalItem(event){
     if(this.coverDetails.controls['IsElectricalItemFitted'].value==true){
-      // this.coverDetails.controls['IsElectricalItemFitted'].patchValue(true);
-      //
-      // this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('15000');
       this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators([Validators.required]);
-      // this.coverDetails.controls['totalElectricalItemPremium'].setValidators([Validators.required]);
     }else {
-      // this.coverDetails.controls['IsElectricalItemFitted'].patchValue(false);
       this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('');
       this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators(null);
-      // this.coverDetails.controls['totalElectricalItemPremium'].patchValue('');
-      // this.coverDetails.controls['totalElectricalItemPremium'].setValidators(null);
+
     }
     this.coverDetails.controls['ElectricalItemsTotalSI'].updateValueAndValidity();
-    // this.coverDetails.controls['totalElectricalItemPremium'].updateValueAndValidity();
 
   }
 
@@ -1026,20 +1019,13 @@ changeOwnerDriver(){
 
   updatenonElectricalItem(event){
     if(this.coverDetails.controls['IsNonElectricalItemFitted'].value==true){
-      this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(true);
-      // this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('12000');
       this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators([Validators.required]);
     }else {
-      // this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(false);
-
-
       this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('');
       this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators(null);
-      // this.coverDetails.controls['totalNonElectricalItemPremium'].patchValue('');
-      // this.coverDetails.controls['totalNonElectricalItemPremium'].setValidators(null);
+
     }
     this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
-    // this.coverDetails.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
 
   }
 
@@ -1071,15 +1057,15 @@ changeNonElect(){
 }
 
     updatenonBiFuelKit(event){
-        if(event.checked){
-            this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-            this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
+        if(this.coverDetails.controls['IsBiFuelKit'].value==true){
+            // this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+            // this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
             this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
             this.coverDetails.controls['cpgLpgKit'].setValidators([Validators.required]);
             this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
             this.getCover()
         }else {
-            this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+            // this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
             this.coverDetails.controls['cpgLpgKit'].patchValue('');
             this.coverDetails.controls['BiFuelKitSi'].patchValue('');
             this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
@@ -1323,7 +1309,12 @@ changeNonElect(){
     } else if (type == 'stepper3') {
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
-      if (this.coverDetails.valid && (this.errorRateMsg==false||this.errorRateMsg=='')&&(this.electricalSumAount==false||this.electricalSumAount=='')&&(this.nonElectricalSumAount==false||this.nonElectricalSumAount=='')) {
+      console.log(this.coverDetails.value,'value...');
+      console.log(this.errorRateMsg,'errorRateMsg...');
+      console.log(this.electricalSumAount,'electricalSumAount...');
+      console.log(this.nonElectricalSumAount,'electricalSumAount...');
+
+      if (this.coverDetails.valid && (this.errorRateMsg==false)&&(this.electricalSumAount==false)&&(this.nonElectricalSumAount==false)) {
         console.log(typeof (this.buyProduct.business_type),'type');
         if (this.buyProduct.business_type == 1){
 
@@ -1500,12 +1491,12 @@ changeNonElect(){
         nrelation: this.getStepper3.nrelation,
         nOtherRelation: this.getStepper3.nOtherRelation,
         cnAddress: this.getStepper3.cnAddress,
-        npappointeeName: this.getStepper3.npappointeeName,
-        npnomineeName: this.getStepper3.npnomineeName,
-        npDob: this.datepipe.transform(this.getStepper3.npDob, 'y-MM-dd'),
-        nprelation: this.getStepper3.nprelation,
-        npOtherRelation: this.getStepper3.npOtherRelation,
-        npAddress: this.getStepper3.npAddress,
+        // npappointeeName: this.getStepper3.npappointeeName,
+        // npnomineeName: this.getStepper3.npnomineeName,
+        // npDob: this.datepipe.transform(this.getStepper3.npDob, 'y-MM-dd'),
+        // nprelation: this.getStepper3.nprelation,
+        // npOtherRelation: this.getStepper3.npOtherRelation,
+        // npAddress: this.getStepper3.npAddress,
         fuelType: this.getStepper3.fuelType,
         nOtherRelationValue: this.getStepper3.nOtherRelationValue,
         npOtherRelationValue: this.getStepper3.npOtherRelationValue,

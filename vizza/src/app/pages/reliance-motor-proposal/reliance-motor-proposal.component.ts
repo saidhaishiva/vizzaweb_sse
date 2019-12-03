@@ -962,10 +962,12 @@ export class RelianceMotorProposalComponent implements OnInit {
 
       }
     } else if (type == 'stepper3') {
-      console.log(this.coverDetails.value,'this.coverDetails.....')
+      console.log(this.coverDetails.value,'this.coverDetails.....');
+      console.log(this.electricalSumAount,'electricalSumAount...');
+      console.log(this.nonElectricalSumAount,'electricalSumAount...');
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
-      if (this.coverDetails.valid&&(this.electricalSumAount==false||this.electricalSumAount=='')&&(this.nonElectricalSumAount==false||this.nonElectricalSumAount=='')) {
+      if (this.coverDetails.valid&&(this.electricalSumAount==false)&&(this.nonElectricalSumAount==false)) {
         console.log(typeof (this.buyProduct.business_type),'type');
         if (this.buyProduct.business_type == 1){
 
@@ -2070,7 +2072,6 @@ export class RelianceMotorProposalComponent implements OnInit {
   updateElectricalItem(event){
     if(this.coverDetails.controls['IsElectricalItemFitted'].value==true){
 
-      // this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('');
       this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators([Validators.required]);
 
     }else {
@@ -2106,17 +2107,13 @@ export class RelianceMotorProposalComponent implements OnInit {
   updatenonElectricalItem(){
     if(this.coverDetails.controls['IsNonElectricalItemFitted'].value==true){
 
-      // this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('12000');
       this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators([Validators.required]);
-      // this.coverDetails.controls['NonElectricalItemsTotalPremium'].setValidators([Validators.required]);
     }else {
       this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('');
       this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators(null);
-      // this.coverDetails.controls['NonElectricalItemsTotalPremium'].patchValue('');
-      // this.coverDetails.controls['NonElectricalItemsTotalPremium'].setValidators(null);
+
     }
     this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
-    // this.coverDetails.controls['NonElectricalItemsTotalPremium'].updateValueAndValidity();
 
   }
   changeConditionNonElect(event:any){
@@ -2284,7 +2281,6 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
   nilDepApplyingChange(){
     if (this.coverDetails.controls.NilDepreciationCoverage.value == true) {
-      // this.coverDetails.controls['totalBasicODPremium'].patchValue(this.coverDetails.controls['totalBasicODPremium'].value);
 
       this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators([Validators.required]);
       this.coverDetails.controls['totalDepreciationPremium'].setValidators([Validators.required]);
@@ -2373,15 +2369,14 @@ export class RelianceMotorProposalComponent implements OnInit {
 
 
   //
-  updateUnnamedPassenger(event){
-    if (event.checked) {
-      this.coverDetails.controls['UnnamedPassengerCovered'].patchValue(true);
+  updateUnnamedPassenger(){
+    if (this.coverDetails.controls['UnnamedPassengerCovered'].value==true) {
+      // this.coverDetails.controls['UnnamedPassengerCovered'].patchValue(true);
       this.coverDetails.controls['UnnamedPassengersSI'].setValidators([Validators.required]);
       // this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].patchValue('5');
       this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].setValidators([Validators.required]);
       this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators([Validators.required]);
     }else{
-      this.coverDetails.controls['UnnamedPassengerCovered'].patchValue(false);
 
 
       this.coverDetails.controls['UnnamedPassengersSI'].patchValue('');

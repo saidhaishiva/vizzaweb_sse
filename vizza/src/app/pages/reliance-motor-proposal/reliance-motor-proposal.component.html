@@ -460,7 +460,7 @@
                             <div class="col-md-12 mt-2" >
                                 <div class="row">
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger($event);">PA to Unnamed Passenger</mat-checkbox>
+                                <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger();">PA to Unnamed Passenger</mat-checkbox>
                             </div>
                             <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
                                 <mat-form-field class="w-100">
@@ -583,7 +583,7 @@
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.IsElectricalItemFitted.value == true">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Sum Insured"  formControlName="ElectricalItemsTotalSI" (keypress)="nameValidate($event)" (input)="changeConditionElect($event)" (input)="changeSumElectric()"  autocomplete="off"  required >
+                                    <input matInput placeholder="Sum Insured"  formControlName="ElectricalItemsTotalSI" (keypress)="numberValidate($event)" (input)="changeConditionElect($event)" (input)="changeSumElectric()"  autocomplete="off"  required >
                                     <!--<mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
                                 </mat-form-field>
                                 <div class="error" *ngIf="electricalSumAount !='' && electricalSumAount != true">{{electricalSumAount}}</div>
@@ -604,7 +604,7 @@
                             </div>
                             <div class="col-md-4" *ngIf="coverDetails.controls.IsNonElectricalItemFitted.value == true">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Sum Insured"  formControlName="NonElectricalItemsTotalSI"   autocomplete="off" (keypress)="nameValidate($event)" (input)="changeConditionNonElect()" (input)="changeSumNonElectric()" required  >
+                                    <input matInput placeholder="Sum Insured"  formControlName="NonElectricalItemsTotalSI"   autocomplete="off" (keypress)="numberValidate($event)" (input)="changeConditionNonElect()" (input)="changeSumNonElectric()" required  >
                                     <!--<mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
                                 </mat-form-field>
                                 <div class="error" *ngIf="nonElectricalSumAount !='' && nonElectricalSumAount != true">{{nonElectricalSumAount}}</div>
@@ -1162,7 +1162,7 @@
                               </ul>
                           </div>
 
-                          <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''||coverFormData.UnnamedPassengerCovered == false">
+                          <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered == true||coverFormData.UnnamedPassengerCovered == false">
                               <h2 class="color-blue m-2">PA to Unnamed Passenger</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered == false"><strong>PA to Unnamed Passenger :</strong><span *ngIf="coverFormData.UnnamedPassengerCovered == false">N/A</span> </li>
@@ -1171,7 +1171,7 @@
 
                               </ul>
                           </div>
-                          <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''">
+                          <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered == true">
                               <h4 style="margin-top: 29px !important;"></h4>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
@@ -1225,7 +1225,7 @@
                               </ul>
                           </div>
 
-                          <div class="col-md-6" *ngIf="coverFormData.IsBiFuelKit != ''||coverFormData.IsBiFuelKit == false">
+                          <div class="col-md-6" *ngIf="coverFormData.IsBiFuelKit != ''||coverFormData.IsBiFuelKit == false||coverFormData.IsBiFuelKit == true">
                               <h2 class="color-blue m-2">BiFuel Kit</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit == false"><strong>BiFuel Kit:</strong><span *ngIf="coverFormData.IsBiFuelKit == false">N/A</span> </li>
@@ -1242,7 +1242,7 @@
                               </ul>
                           </div>
 
-                          <div class="col-md-6" *ngIf="coverFormData.NilDepreciationCoverage != ''||coverFormData.NilDepreciationCoverage == false">
+                          <div class="col-md-6" *ngIf="coverFormData.NilDepreciationCoverage != ''||coverFormData.NilDepreciationCoverage == false||coverFormData.NilDepreciationCoverage == true">
                               <h2 class="color-blue m-2">Nil Depreciation</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage == false"><strong>Nil Depreciation:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == false">N/A</span> </li>
@@ -1270,7 +1270,7 @@
                               <!--</ul>-->
                           <!--</div>-->
 
-                          <div class="col-md-6" *ngIf="coverFormData.IsElectricalItemFitted != ''||coverFormData.IsElectricalItemFitted == false">
+                          <div class="col-md-6" *ngIf="coverFormData.IsElectricalItemFitted != ''||coverFormData.IsElectricalItemFitted == false||coverFormData.IsElectricalItemFitted == true">
                               <h2 class="color-blue m-2">Electrical Accessories</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.IsElectricalItemFitted == false"><strong>Electrical Accessories:</strong><span *ngIf="coverFormData.IsElectricalItemFitted == false">N/A</span> </li>
@@ -1280,7 +1280,7 @@
                               </ul>
                           </div>
 
-                          <div class="col-md-6" *ngIf="coverFormData.IsNonElectricalItemFitted != ''||coverFormData.IsNonElectricalItemFitted == false">
+                          <div class="col-md-6" *ngIf="coverFormData.IsNonElectricalItemFitted != ''||coverFormData.IsNonElectricalItemFitted == false||coverFormData.IsNonElectricalItemFitted == true">
                               <h2 class="color-blue m-2">Non Electrical Accessories</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted == false"><strong>Non Electrical Accessories:</strong><span *ngIf="coverFormData.IsNonElectricalItemFitted != true">N/A</span> </li>
