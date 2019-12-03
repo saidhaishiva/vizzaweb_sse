@@ -965,7 +965,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       console.log(this.coverDetails.value,'this.coverDetails.....')
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
-      if (this.coverDetails.valid) {
+      if (this.coverDetails.valid&&(this.electricalSumAount==false||this.electricalSumAount=='')&&(this.nonElectricalSumAount==false||this.nonElectricalSumAount=='')) {
         console.log(typeof (this.buyProduct.business_type),'type');
         if (this.buyProduct.business_type == 1){
 
@@ -2085,8 +2085,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     if((this.coverDetails.controls['ElectricalItemsTotalSI'].value >1000)&&(this.coverDetails.controls['ElectricalItemsTotalSI'].value <60000) ){
      this.electricalSumAount=false;
      this.electricalSumAount='';
-
-      this.getCover();
+     this.getCover();
     }else{
       this.electricalSumAount=true;
       this.electricalSumAount = 'Electrical Accessories Sum Insured Should be greater than 1000 and lesser than 60000';
