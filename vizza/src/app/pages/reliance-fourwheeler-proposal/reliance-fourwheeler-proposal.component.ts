@@ -999,6 +999,7 @@ changeOwnerDriver(){
     }else{
       this.electricalSumAount=true;
       this.electricalSumAount = 'Electrical Accessories Sum Insured Should be greater than 5000 and lesser than 60000';
+      this.getCover();
     }
   }
   changeSumElectric(){
@@ -1037,6 +1038,7 @@ changeOwnerDriver(){
     }else{
       this.nonElectricalSumAount=true;
       this.nonElectricalSumAount = 'Electrical Accessories Sum Insured Should be greater than 5000 and lesser than 60000';
+      this.getCover();
     }
   }
   changeSumNonElectric(){
