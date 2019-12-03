@@ -848,7 +848,7 @@ export class StarHealthProposalComponent implements OnInit {
             this.familyMembers[i].ins_illness = '';
             this.familyMembers[i].ins_weight = '';
             this.familyMembers[i].ins_height = '';
-            this.familyMembers[i].ins_buyBack_cash = '';
+            // this.familyMembers[i].ins_buyBack_cash = '';
             this.familyMembers[i].ins_occupation_id = '';
             this.familyMembers[i].ins_occupation_name = '';
             this.familyMembers[i].ins_relationship = '';
@@ -892,7 +892,7 @@ export class StarHealthProposalComponent implements OnInit {
         let errorMessage = true;
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++) {
-                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].insurerDobError == ''  && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != ''&& this.familyMembers[i].ins_buyBack_cash != '' && this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined ) {
+                if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].insurerDobError == ''  && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != ''&&  this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined ) {
                     errorMessage = false;
                     if (this.familyMembers[i].illness != 'false') {
                         if (this.familyMembers[i].ins_illness == '') {

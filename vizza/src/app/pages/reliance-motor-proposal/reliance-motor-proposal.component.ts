@@ -2069,7 +2069,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
 
   //
-  updateElectricalItem(event){
+  updateElectricalItem(){
     if(this.coverDetails.controls['IsElectricalItemFitted'].value==true){
 
       this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators([Validators.required]);
