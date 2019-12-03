@@ -716,8 +716,8 @@ changeOwnerDriver(){
 
 
   updateUnnamedPassenger(event){
-    if (event.checked) {
-      this.coverDetails.controls['UnnamedPassengerCovered'].patchValue(true);
+    if (this.coverDetails.controls['UnnamedPassengerCovered'].value==true) {
+      // this.coverDetails.controls['UnnamedPassengerCovered'].patchValue(true);
 
       //
       // this.coverDetails.controls['UnnamedPassengersSI'].patchValue('100000');
@@ -730,7 +730,7 @@ changeOwnerDriver(){
 
 
     }else{
-      this.coverDetails.controls['UnnamedPassengerCovered'].patchValue(false);
+      // this.coverDetails.controls['UnnamedPassengerCovered'].patchValue(false);
 
 
       this.coverDetails.controls['UnnamedPassengersSI'].patchValue('');
@@ -951,16 +951,43 @@ changeOwnerDriver(){
   //   }
   // }
 
+
+  changesumInsu(){
+    if(this.coverDetails.controls.NoOfUnnamedPassenegersCovered.value) {
+      this.coverDetails.controls['UnnamedPassengersSI'].setValidators([Validators.required]);
+      this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators([Validators.required]);
+      this.getCover();
+    }else{
+        this.coverDetails.controls['UnnamedPassengersSI'].patchValue('');
+        this.coverDetails.controls['UnnamedPassengersSI'].setValidators(null);
+        this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue('');
+        this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators(null);
+      }
+    this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
+    this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
+
+  }
+  changeValueUnpass(){
+      if(this.coverDetails.controls.UnnamedPassengersSI.value){
+      this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue(this.pa_unnamed_passenger);
+      this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators([Validators.required]);
+      this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
+  }else {
+
+  this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue('');
+  this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators(null);
+  this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
+    }
+  }
   updateElectricalItem(event){
-    if(event.checked){
-      this.coverDetails.controls['IsElectricalItemFitted'].patchValue(true);
+    if(this.coverDetails.controls['IsElectricalItemFitted'].value==true){
+      // this.coverDetails.controls['IsElectricalItemFitted'].patchValue(true);
       //
       // this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('15000');
       this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators([Validators.required]);
       // this.coverDetails.controls['totalElectricalItemPremium'].setValidators([Validators.required]);
-      this.getCover();
     }else {
-      this.coverDetails.controls['IsElectricalItemFitted'].patchValue(false);
+      // this.coverDetails.controls['IsElectricalItemFitted'].patchValue(false);
       this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('');
       this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators(null);
       // this.coverDetails.controls['totalElectricalItemPremium'].patchValue('');
@@ -993,45 +1020,17 @@ changeOwnerDriver(){
 
   }
   changeElect(){
-          this.coverDetails.controls['totalElectricalItemPremium'].patchValue(this.electrical_accessories);
+    this.coverDetails.controls['totalElectricalItemPremium'].patchValue(this.electrical_accessories);
 
-  }
-
-  changesumInsu(){
-    if(this.coverDetails.controls.NoOfUnnamedPassenegersCovered.value) {
-      this.coverDetails.controls['UnnamedPassengersSI'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators([Validators.required]);
-      this.getCover();
-    }else{
-        this.coverDetails.controls['UnnamedPassengersSI'].patchValue('');
-        this.coverDetails.controls['UnnamedPassengersSI'].setValidators(null);
-        this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue('');
-        this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators(null);
-      }
-    this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
-    this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
-
-  }
-  changeValueUnpass(){
-      if(this.coverDetails.controls.UnnamedPassengersSI.value){
-      this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue(this.pa_unnamed_passenger);
-      this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators([Validators.required]);
-      this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
-  }else {
-
-  this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue('');
-  this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators(null);
-  this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
-    }
   }
 
   updatenonElectricalItem(event){
-    if(event.checked){
+    if(this.coverDetails.controls['IsNonElectricalItemFitted'].value==true){
       this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(true);
       // this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('12000');
       this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators([Validators.required]);
     }else {
-      this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(false);
+      // this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(false);
 
 
       this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('');
@@ -1324,7 +1323,7 @@ changeNonElect(){
     } else if (type == 'stepper3') {
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
-      if (this.coverDetails.valid && this.errorRateMsg==false) {
+      if (this.coverDetails.valid && (this.errorRateMsg==false||this.errorRateMsg=='')&&(this.electricalSumAount==false||this.electricalSumAount=='')&&(this.nonElectricalSumAount==false||this.nonElectricalSumAount=='')) {
         console.log(typeof (this.buyProduct.business_type),'type');
         if (this.buyProduct.business_type == 1){
 
