@@ -44,6 +44,7 @@ export class AddDmComponent implements OnInit {
     range: boolean;
     header: boolean;
     public settings: Settings;
+
     checked: boolean;
     public fileUploadPath: any;
     getUrl: any;

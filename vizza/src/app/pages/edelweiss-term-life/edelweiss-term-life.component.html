@@ -526,7 +526,7 @@
                                            </div>
                                            <div class="col-md-4" >
                                                <mat-form-field class="w-100" >
-                                                   <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  (keypress)="idValidate($event)" autocomplete="off" >
+                                                   <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  (keypress)="idValidate($event)" autocomplete="off" required >
                                                    <mat-error *ngIf="insureArray.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                                                    <mat-error *ngIf="insureArray.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                                                    <mat-error *ngIf="insureArray.controls.pan.errors?.required">PAN Number is required</mat-error>
@@ -534,14 +534,21 @@
                                            </div>
                                            <div class="col-md-4" >
                                                <mat-form-field class="w-100">
-                                                   <input matInput placeholder="Aadhaar No" formControlName="aadhaarNo" minlength="12"  maxlength="12" autocomplete="off" required (keypress)="numberValidate($event)" >
-                                                   <mat-error *ngIf="insureArray.controls.aadhaarNo.errors?.required">Aadhaar No is required</mat-error>
+                                                   <input matInput placeholder="Aadhaar No" formControlName="aadhaarNo" minlength="12"  maxlength="12" autocomplete="off" (keypress)="numberValidate($event)" >
+                                                   <!--<mat-error *ngIf="insureArray.controls.aadhaarNo.errors?.required">Aadhaar No is required</mat-error>-->
                                                </mat-form-field>
                                            </div>
+
                                            <div class="col-md-4" >
                                                <mat-form-field class="w-100">
                                                    <input matInput placeholder="Father / Husband Name" formControlName="fatherhusbandName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)" required >
                                                    <mat-error *ngIf="insureArray.controls.fatherhusbandName.errors?.required">Father / Husband Name is required</mat-error>
+                                               </mat-form-field>
+                                           </div>
+                                           <div class="col-md-4" >
+                                               <mat-form-field class="w-100">
+                                                   <input matInput placeholder="Mother name" formControlName="motherMaidName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)" required >
+                                                   <mat-error *ngIf="insureArray.controls.motherMaidName.errors?.required">Mother name is required</mat-error>
                                                </mat-form-field>
                                            </div>
                                            <div class="col-md-4">
@@ -914,10 +921,10 @@
                            </div>
                            <div class="col-md-4">
                            <mat-form-field class="w-100">
-                           <mat-select  placeholder="Height Inches" formControlName="heightInches" (selectionChange)="geteHeightInches()"  class="w-100">
+                           <mat-select  placeholder="Height Inches" formControlName="heightInches" (selectionChange)="geteHeightInches()"  class="w-100" required>
                            <mat-option *ngFor="let list of eHeightInches | keys" [value]= list.key> {{list.value}} </mat-option>
                            </mat-select>
-                           <!--<mat-error *ngIf="insureArray.controls.heightInches.errors?.required">Height Inches is required</mat-error>-->
+                           <mat-error *ngIf="insureArray.controls.heightInches.errors?.required">Height Inches is required</mat-error>
                            </mat-form-field>
                            </div>
                            <div class="col-md-4">
@@ -1913,7 +1920,7 @@
 
                            <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
                                <div class="col-md-12 ">
-                                   <mat-checkbox  formControlName="healthInformation"   (selectionChange)="diseaseReq()" >Disese/Health Information</mat-checkbox>
+                                   <mat-checkbox  formControlName="healthInformation"   (change)="diseaseReq()" >Disese/Health Information</mat-checkbox>
                                </div>
                            </div>
                            <div *ngIf="medicalDetail.controls['healthInformation'].value == true">
@@ -2470,7 +2477,7 @@
                                        <!--<li class="list-group-item" *ngIf="insuredFormData.workSiteFlag != '' && lifePremiumList.product_id=='112'"><strong>Work Site Flag :</strong> {{insuredFormData.workSiteFlag}}</li>-->
                                        <!--<li class="list-group-item" *ngIf="insuredFormData.investmentStrategy != '' && lifePremiumList.product_id=='112'"><strong>Investment Strategy </strong> {{insuredFormData.investmentStrategy}}</li>-->
                                        <!--<li class="list-group-item" *ngIf="insuredFormData.risingStar != '' && lifePremiumList.product_id=='112'"><strong>Rising Star:</strong> {{insuredFormData.risingStar}}</li>-->
-                                       <li class="list-group-item" *ngIf="insuredFormData.policyOption != '' && lifePremiumList.product_id=='112'"><strong>Policy Option:</strong> {{insuredFormData.policyOption}}</li>
+                                       <!--<li class="list-group-item" *ngIf="insuredFormData.policyOption != '' && lifePremiumList.product_id=='112'"><strong>Policy Option:</strong> {{insuredFormData.policyOption}}</li>-->
                                        <li class="list-group-item" *ngIf="insuredFormData.additionalBenefit != '' && lifePremiumList.product_id=='112'"><strong>Additional Benefit:</strong> {{insuredFormData.additionalBenefit}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.TopUpBenefit != '' && lifePremiumList.product_id=='112'"><strong>Top Up Benefit:</strong> {{insuredFormData.TopUpBenefit}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.topUpBenefitPercentage != '' && lifePremiumList.product_id=='112'"><strong>Top Up Benefit Percentage:</strong> {{insuredFormData.topUpBenefitPercentage}}</li>

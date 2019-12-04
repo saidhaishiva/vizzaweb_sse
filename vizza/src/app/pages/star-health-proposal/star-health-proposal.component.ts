@@ -147,6 +147,8 @@ export class StarHealthProposalComponent implements OnInit {
                     this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
                     this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
                     this.proposalId = this.summaryData.policy_id;
+                    console.log(this.summaryData.policy_id, 'policy id')
+                    console.log(this.proposalId, 'this.proposalId id')
                     sessionStorage.proposalID = this.proposalId;
                 }
             }
@@ -1849,8 +1851,12 @@ export class StarHealthProposalComponent implements OnInit {
             'platform': 'web',
             'user_id': '0',
             'role_id': '4',
-            'proposal_id': this.proposal_Id
+            'proposal_id': this.proposal_Id,
+            // 'proposal_id': this.proposalId=undefined?0:this.proposalId,
         };
+        console.log(this.proposalId, 'proposalid');
+        // console.log(proposal_id, 'proposalid');
+        console.log(data, 'data');
         this.proposalservice.proposalGetRequest(data).subscribe(
             (successData) => {
                 this.getBackResSuccess(successData);
@@ -1867,7 +1873,7 @@ export class StarHealthProposalComponent implements OnInit {
             console.log(this.requestDetails, 'requestDetailsrequestDetails');
             this.proposalNumber = this.requestDetails[0].proposalNum;
             this.pos_status = this.requestDetails[0].role_id;
-            this.proposalId = this.requestDetails[0].proposal_id;
+            this.proposalId = this.requestDetails[0].proposalId;
             console.log(this.pos_status , 'requestDetailsrequestDetails');
             this.requestDetails = this.requestDetails[0];
             this.requestInsuredDetails = this.requestDetails.insured_details;
