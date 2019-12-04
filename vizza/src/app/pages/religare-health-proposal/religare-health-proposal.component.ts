@@ -149,6 +149,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     public religareMobileTrue3: boolean;
     public religareMobileTrue4: boolean;
     public payLaterr: boolean;
+    public checkBoxValue: any;
 
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public validation: ValidationService ,public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -202,6 +203,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.isDisable = false;
         this.insureCity = false;
         this.insureSingle = true;
+        this.checkBoxValue = false;
         this.selectMr = true;
         this.genderStatus = false;
         this.proposerInsureData = [];
@@ -1382,6 +1384,17 @@ export class ReligareHealthProposalComponent implements OnInit {
             }
         }
     }
+
+    // medicalDetails(stepper: MatStepper){
+    //     for (let i = 0; i < this.religareQuestionsList.length; i++) {
+    //         if(this.religareQuestionsList[i].mStatus == 'No'){
+    //             this.medicalStatus.push('No');
+    //         } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
+    //             alert('yes...')
+    //             this.medicalStatus.push('Yes');
+    //             }
+    //         }
+    // }
     medicalHistoryDetails(stepper: MatStepper) {
         sessionStorage.stepper3Details = '';
         sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
@@ -1413,6 +1426,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             if(this.religareQuestionsList[i].mStatus == 'No'){
                 this.medicalStatus.push('No');
             } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
+                // alert('yes...')
                 this.medicalStatus.push('Yes');
             }
             for (let i = 0; i < this.totalReligareData.length; i++) {
@@ -1445,6 +1459,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 }
                 if (statusChecked.length == 0){
                     statusChecked.push(2);
+
                 }
             } else {
                 if (i == this.religareQuestionsList.length - 1) {
@@ -1469,6 +1484,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     subStatus(value: any, i, k, j) {
         // alert('check value')
         console.log(value,'value...')
+
         if (value.checked) {
         } else {
             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
