@@ -1362,8 +1362,8 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
     public religareQuestionsFailure(error) {
     }
-    questionYes(id, value: any) {
-        if (value.checked) {
+    questionYes(id, event: any) {
+        if (event.checked==true) {
             // alert('inn');
             this.religareQuestionsList[id].mStatus = 'Yes';
             this.religareQuestionsList[id].answer_status = true;
@@ -1467,6 +1467,8 @@ export class ReligareHealthProposalComponent implements OnInit {
         }
     }
     subStatus(value: any, i, k, j) {
+        // alert('check value')
+        console.log(value,'value...')
         if (value.checked) {
         } else {
             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
