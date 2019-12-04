@@ -442,7 +442,7 @@
                                        <!--<span> INSURED DETAILS FOR {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} </span>-->
                                    <!--</mat-panel-title>-->
                                <!--</mat-expansion-panel-header>-->
-                               <div class="row" >
+<!--                               < class="row" >-->
                                    <!--<div class="col-md-6 box-card pt-3">-->
                                        <!--&lt;!&ndash;<mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure()" ><strong>Same as proposer</strong></mat-checkbox>&ndash;&gt;-->
                                        <!--<mat-form-field class="w-100">-->
@@ -835,16 +835,21 @@
                                        <!--</div>-->
                                    <!--</div>-->
 
+
                        <div class="row p-3">
                            <div class="col-md-12">
                                <h6 class="color-blue">OTHER DETAILS</h6>
                            </div>
+                       </div>
+
 
                            <div class="row p-3" >
                                <div class="col-md-12 ">
                                    <mat-checkbox   formControlName="isPoliticallyExposed" (change)="isPolitical($event)" >Politically Exposed Person</mat-checkbox>
                                </div>
                            </div>
+
+
 
                            <div class="row p-3" >
                                <div class="col-md-4" *ngIf="insureArray.controls['isPoliticallyExposed'].value == true" >
@@ -952,9 +957,8 @@
                                <!--</mat-radio-group>-->
                            <!--</div>-->
                        </div>
-
-                           <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
-                               <div class="col-md-12">
+                           <div class="row p-3">
+                               <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                    <h6 class="color-blue">ADDON</h6>
                                </div>
 
@@ -1359,18 +1363,18 @@
                            </div>
 
                         </div>
-                       </div>
+<!--                       </div>-->
                     <div class="proposal-buttom mt-3 text-right w-100">
                        <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                        <button mat-raised-button color="primaryBlue"  (click)="edelweissInsureDetails(stepper, insureArray.value)">Next</button>
                    </div>
-                  </div>
+                       </mat-expansion-panel>
+                   </form>
+               </mat-accordion>
+           </mat-step>
 
-                </mat-expansion-panel>
 
-       </form>
-   </mat-accordion>
-</mat-step>
+
 
            <mat-step [stepControl]="">
                <ng-template matStepLabel > QUESTIONNAIRES </ng-template>
