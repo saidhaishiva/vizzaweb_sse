@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import {FormGroup, FormBuilder,Validators} from "@angular/forms";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
@@ -9,7 +10,6 @@ import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {Settings} from '../../app.settings.model';
 import {CommonService} from '../../shared/services/common.service';
-import {FormGroup, FormBuilder,Validators} from "@angular/forms";
 import {MatDialog} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import { WINDOW } from '@ng-toolkit/universal';
@@ -154,7 +154,7 @@ export class DmProfileComponent implements OnInit {
             pannumber: ['', Validators.compose([Validators.required, Validators.pattern('^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$')])],
             aadharfront: ['',Validators.compose( [Validators.required])],
             aadharback: ['',Validators.compose( [Validators.required])],
-            pancard: ['',Validators.compose( [Validators.required])]
+            pancard: '',
         });
         this.educationlist = this.fb.group({
             qualification: ['', Validators.compose([Validators.required])],
@@ -174,11 +174,12 @@ export class DmProfileComponent implements OnInit {
         this.profile='';
         this.type = '';
         this.chequeleaf ='';
-        this.getDmProfile();
+        // this.getDmProfile();
 
     }
 
     ngOnInit() {
+        this.getDmProfile();
         this.getDmTrainingDetails();
         this.getDmExamDetails();
         this.settings.loadingSpinner = false;
@@ -293,11 +294,20 @@ export class DmProfileComponent implements OnInit {
             'roleid': this.auth.getDmRoleId(),
             'userid': this.auth.getDmUserId(),
             'dm_id': this.auth.getDmUserId()
+
         };
-        this.settings.loadingSpinner = true;
+
+        // console.log(this.auth.getDmRoleId(), 'role id');
+        // console.log(this.auth.getDmUserId(), 'user id');
+        // console.log(this.auth.getDmUserId(), 'dm id');
+        console.log(data, 'data');
+
+
+        // this.settings.loadingSpinner = true;
         this.common.getDmProfile(data).subscribe(
 
             (successData) => {
+
                 this.getDmProfileSuccess(successData);
 
             },
@@ -363,10 +373,12 @@ export class DmProfileComponent implements OnInit {
             this.pancard = this.personalshow.doc_pan_img;
             this.education = this.personalshow.doc_edu_certificate_img;
             this.chequeleaf = this.personalshow.check_leaf_upload_img;
+            console.log(this.profile ,'jhgjg');
+            console.log(this.personalshow.dm_profile_img ,'jhgjg');
+
 
         }
     }
-
     getDmProfileFailure(error) {
         this.settings.loadingSpinner = false;
 
