@@ -398,33 +398,33 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6" >
-                                    <!--*ngIf="item.previnsdtls.insurePIName !='' || item.insureCName !='' || item.insurePINumber !='' || (item.insurePItDate !='' && item.insurePItDate != null) || (item.insureSInsurance !='' && item.insureSInsurance != 0.00) || (item.insurePIClaims !='' && item.insurePIClaims !='0') || item.insurePIAddress !=''"-->
-                                    <div class="p-3">
-                                        <h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>
-                                        <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="item.insurePIName !='' && i == 0"><strong>Previous Insured Name:</strong> {{item.insurePIName}}</li>
-                                            <li class="list-group-item" *ngIf="item.insureCName !=''"><strong>Company Name:</strong> {{item.insureCName}}</li>
-                                            <li class="list-group-item" *ngIf="item.insurePINumber !='' "><strong>Previous Policy Number:</strong> {{item.insurePINumber}}</li>
-                                            <li class="list-group-item" *ngIf="item.insurePItDate !='' && item.insurePItDate != null"><strong>Previous Policy Expiry Date:</strong> {{item.insurePItDate | date: 'dd/MM/yyyy'}}</li>
-                                            <li class="list-group-item" *ngIf="item.insureSInsurance !='' && item.insureSInsurance != 0.00"><strong>Previous Sum Insurance:</strong> {{item.insureSInsurance}}</li>
-                                            <li class="list-group-item" *ngIf="item.insurePIClaims !='' && i == 0 && item.insurePIClaims != 0"><strong>Number Of Claims:</strong> {{item.insurePIClaims}}</li>
-                                            <li class="list-group-item" *ngIf="item.insurePIAddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{item.insurePIAddress}}</li>
-                                        </ul>
-                                    </div>
-                                    <div class="p-3" *ngIf="i != 0">
-                                        <h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>
-                                        <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="summaryData.prop_previnsname !='' && i == 0"><strong>Previous Insured Name:</strong> {{summaryData.prop_previnsname}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memcompname !=''"><strong>Company Name:</strong> {{item.ins_memcompname}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memprvpolno !='' "><strong>Previous Policy Number:</strong> {{item.ins_memprvpolno}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate | date: 'dd/MM/yyyy'}}</li>
-                                            <li class="list-group-item" *ngIf="item.ins_memprvsi !='' && item.ins_memprvsi != 0.00"><strong>Previous Sum Insurance:</strong> {{item.ins_memprvsi}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.prop_noofclaims !='' && i == 0 && summaryData.prop_noofclaims != 0"><strong>Number Of Claims:</strong> {{summaryData.prop_noofclaims}}</li>
-                                            <li class="list-group-item" *ngIf="summaryData.prop_previnsaddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{summaryData.prop_previnsaddress}}</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <!--<div class="col-md-6" >-->
+                                    <!--&lt;!&ndash;*ngIf="item.previnsdtls.insurePIName !='' || item.insureCName !='' || item.insurePINumber !='' || (item.insurePItDate !='' && item.insurePItDate != null) || (item.insureSInsurance !='' && item.insureSInsurance != 0.00) || (item.insurePIClaims !='' && item.insurePIClaims !='0') || item.insurePIAddress !=''"&ndash;&gt;-->
+                                    <!--<div class="p-3">-->
+                                        <!--<h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>-->
+                                        <!--<ul class="m-0 list-group">-->
+                                            <!--<li class="list-group-item" *ngIf="item.insurePIName !='' && i == 0"><strong>Previous Insured Name:</strong> {{item.insurePIName}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insureCName !=''"><strong>Company Name:</strong> {{item.insureCName}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insurePINumber !='' "><strong>Previous Policy Number:</strong> {{item.insurePINumber}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insurePItDate !='' && item.insurePItDate != null"><strong>Previous Policy Expiry Date:</strong> {{item.insurePItDate | date: 'dd/MM/yyyy'}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insureSInsurance !='' && item.insureSInsurance != 0.00"><strong>Previous Sum Insurance:</strong> {{item.insureSInsurance}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insurePIClaims !='' && i == 0 && item.insurePIClaims != 0"><strong>Number Of Claims:</strong> {{item.insurePIClaims}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insurePIAddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{item.insurePIAddress}}</li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                    <!--<div class="p-3" *ngIf="i != 0">-->
+                                        <!--<h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>-->
+                                        <!--<ul class="m-0 list-group">-->
+                                            <!--<li class="list-group-item" *ngIf="summaryData.prop_previnsname !='' && i == 0"><strong>Previous Insured Name:</strong> {{summaryData.prop_previnsname}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.ins_memcompname !=''"><strong>Company Name:</strong> {{item.ins_memcompname}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.ins_memprvpolno !='' "><strong>Previous Policy Number:</strong> {{item.ins_memprvpolno}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate | date: 'dd/MM/yyyy'}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.ins_memprvsi !='' && item.ins_memprvsi != 0.00"><strong>Previous Sum Insurance:</strong> {{item.ins_memprvsi}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="summaryData.prop_noofclaims !='' && i == 0 && summaryData.prop_noofclaims != 0"><strong>Number Of Claims:</strong> {{summaryData.prop_noofclaims}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="summaryData.prop_previnsaddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{summaryData.prop_previnsaddress}}</li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
 
                                 <div class="col-md-6">
