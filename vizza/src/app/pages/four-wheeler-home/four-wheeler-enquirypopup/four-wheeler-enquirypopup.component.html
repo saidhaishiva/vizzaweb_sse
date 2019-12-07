@@ -5,7 +5,9 @@
 </div>
 
 <form [formGroup]="vehicalDetails">
-  <h5 class="text-center mb-5">Verify Your Vehicle Details For {{vehicalDetails.controls['vehicalNumber'].value | uppercase}}</h5>
+  <h5 class="text-center mb-5"><span *ngIf="carListDetails.business_type != '1'">Verify Your Vehicle Details For {{vehicalDetails.controls['vehicalNumber'].value | uppercase}}</span> <span *ngIf="carListDetails.business_type == '1'">Verify Your Vehicle Details </span></h5>
+
+  <!--<h5 class="text-center mb-5">Verify Your Vehicle Details For {{vehicalDetails.controls['vehicalNumber'].value | uppercase}}</h5>-->
   <div class="row">
     <!--<div class="col-md-3">-->
     <!--<mat-form-field class="w-100">-->

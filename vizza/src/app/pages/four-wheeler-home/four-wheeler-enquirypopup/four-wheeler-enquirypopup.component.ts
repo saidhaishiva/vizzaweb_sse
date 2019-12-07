@@ -67,6 +67,9 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public getLength: any;
   public regionDetails: any;
   public vehicleRegNumber: any;
+  public newCompanyName: any;
+  public renewelCompanyName: any;
+  public typeList: any;
   public CityValid : boolean;
   public regionValid : boolean;
   public manifactureValid: boolean;
@@ -189,6 +192,11 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
     this.carListDetails = JSON.parse(sessionStorage.carListDetails);
     this.rto = sessionStorage.RtoFour;
+    this.newCompanyName =  sessionStorage.newCompanyName;
+    this.renewelCompanyName =  sessionStorage.renewelCompanyName;
+    this.typeList =  sessionStorage.typeList;
+    // alert(this.typeList);
+    console.log(this.typeList,'this.typeList...')
 
     let stringToSplit;
     stringToSplit = this.carListDetails.vehicle_no.toUpperCase();
@@ -260,11 +268,14 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   }
   /// manufacture
   manifactureList() {
+    console.log(this.newCompanyName,'this.newCompanyName')
+    console.log(this.renewelCompanyName,'this.newCompanyName')
     const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      'company_id':this.typeList='new' ? this.newCompanyName : this.renewelCompanyName,
 
     }
     this.fwService.getManifactureList(data).subscribe(
@@ -322,6 +333,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
       'model':  this.vehicalDetails.controls['vehicleModel'].value,
+      'company_id':this.typeList='new' ? this.newCompanyName : this.renewelCompanyName,
        // 'variant':  this.vehicalDetails.controls['variant'].value
 
     }
@@ -352,6 +364,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
+      'company_id':this.typeList='new' ? this.newCompanyName : this.renewelCompanyName,
       // 'variant':  this.vehicalDetails.controls['variant'].value
 
     }
@@ -382,10 +395,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
       'model':  this.vehicalDetails.controls['vehicleModel'].value,
-      'variant':  this.vehicalDetails.controls['variant'].value
-
-
-
+      'variant':  this.vehicalDetails.controls['variant'].value,
+      'company_id':this.typeList='new' ? this.newCompanyName : this.renewelCompanyName,
     }
     this.fwService.getCCList(data).subscribe(
         (successData) => {
