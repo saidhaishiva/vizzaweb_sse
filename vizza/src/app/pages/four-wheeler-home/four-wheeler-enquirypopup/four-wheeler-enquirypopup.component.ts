@@ -92,8 +92,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'bussiness': ['', Validators.required],
       'ncb': '',
       'manufactureYear': ['', Validators.required],
-      'vehicleCC': ['', Validators.required],
-      'variant':  ['', Validators.required],
+      'vehicleCC': '',
+      'variant':  '',
       'chasissNumber': ['', Validators.required],
       'engine': ['', Validators.required],
       'previousPolicyExpiry':'',
@@ -151,6 +151,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       search: true,
       limitTo: 5
     };
+
     this.variantValid = false;
 
     this.config = {
@@ -681,6 +682,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
       'business_type':this.ListDetails.business_type,
       'registration_city': this.vehicalDetails.controls['city'].value,
+      'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
       'rto_code': this.rto,
        'region_name': this.vehicalDetails.controls['regionList'].value,
       'prev_insurance_name': this.enquiryFormData.prev_insurance_name == null ? '' :this.enquiryFormData.prev_insurance_name
