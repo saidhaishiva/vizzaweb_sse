@@ -196,7 +196,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     this.renewelCompanyName =  sessionStorage.renewelCompanyName;
     this.typeList =  sessionStorage.typeList;
     // alert(this.typeList);
-    console.log(this.typeList,'this.typeList...')
+    console.log(this.typeList,'this.typeList...');
+    // alert(this.typeList)
 
     let stringToSplit;
     stringToSplit = this.carListDetails.vehicle_no.toUpperCase();
@@ -275,7 +276,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'company_id':this.typeList='new' ? this.newCompanyName : this.renewelCompanyName,
+      'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
 
     }
     this.fwService.getManifactureList(data).subscribe(
@@ -324,38 +325,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
 
   // model
 
-  // variant
-  variantList() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'manufacture': this.vehicalDetails.controls['manufacture'].value,
-      'model':  this.vehicalDetails.controls['vehicleModel'].value,
-      'company_id':this.typeList='new' ? this.newCompanyName : this.renewelCompanyName,
-       // 'variant':  this.vehicalDetails.controls['variant'].value
 
-    }
-    this.fwService.getvariantList(data).subscribe(
-        (successData) => {
-          this.variantSuccess(successData);
-        },
-        (error) => {
-          this.variantFailure(error);
-        }
-    );
-  }
-  public variantSuccess(successData){
-    if (successData.IsSuccess) {
-      this.variantDetails = successData.ResponseObject;
-        this.ccList();
-
-
-    }
-  }
-  public variantFailure(error) {
-  }
   modelList1() {
     const data = {
 
@@ -364,7 +334,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
-      'company_id':this.typeList='new' ? this.newCompanyName : this.renewelCompanyName,
+      'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
       // 'variant':  this.vehicalDetails.controls['variant'].value
 
     }
@@ -386,6 +356,39 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   }
   public modelFailure(error) {
   }
+  // variant
+  variantList() {
+    // alert(this.vehicalDetails.controls['vehicleModel'].value);
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      'manufacture': this.vehicalDetails.controls['manufacture'].value,
+      'model':  this.vehicalDetails.controls['vehicleModel'].value,
+      'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
+      // 'variant':  this.vehicalDetails.controls['variant'].value
+
+    }
+    this.fwService.getvariantList(data).subscribe(
+        (successData) => {
+          this.variantSuccess(successData);
+        },
+        (error) => {
+          this.variantFailure(error);
+        }
+    );
+  }
+  public variantSuccess(successData){
+    if (successData.IsSuccess) {
+      this.variantDetails = successData.ResponseObject;
+      this.ccList();
+
+
+    }
+  }
+  public variantFailure(error) {
+  }
   // cc
   ccList() {
     const data = {
@@ -396,7 +399,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
       'model':  this.vehicalDetails.controls['vehicleModel'].value,
       'variant':  this.vehicalDetails.controls['variant'].value,
-      'company_id':this.typeList='new' ? this.newCompanyName : this.renewelCompanyName,
+      'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
     }
     this.fwService.getCCList(data).subscribe(
         (successData) => {

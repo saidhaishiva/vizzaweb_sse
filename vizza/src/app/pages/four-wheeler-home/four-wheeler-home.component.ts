@@ -588,9 +588,11 @@ export class FourWheelerHomeComponent implements OnInit {
 
   getType(event) {
     console.log(event, 'value');
+    // alert(event);
     this.typeList = '';
     if (event == 0) {
       this.typeList = 'new'
+      // alert(this.typeList)
       this.fourWheeler.controls['registrationDateNew'].setValidators([Validators.required]);
     this.fourWheeler.controls['companyNameNew'].setValidators([Validators.required]);
     this.fourWheeler.controls['city'].setValidators([Validators.required]);
@@ -623,6 +625,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
   } else if(event == 1) {
     this.typeList = 'other'
+      // alert(this.typeList)
       this.fourWheeler.controls['registrationDate'].setValidators([Validators.required]);
       this.fourWheeler.controls['companyNameRenewel'].setValidators([Validators.required]);
       this.fourWheeler.controls['previousPolicyExpiry'].setValidators([Validators.required]);
