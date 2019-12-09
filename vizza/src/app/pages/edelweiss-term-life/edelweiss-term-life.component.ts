@@ -411,7 +411,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       isHCB: 'No',
       sumAssuredHCB: '',
       payoutOption: '',
-        // DSA:'No',
+        DSA:'No',
       noOfMonths: '',
       payoutPercentageIncome: '',
       sameAsProposer: false,
