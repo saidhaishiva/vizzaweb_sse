@@ -70,7 +70,7 @@
     </div>
 
       <div class="col-md-3 mt-2">
-          <mat-placeholder>Vehicle Manufacture <span class="color-red">*</span></mat-placeholder>
+          <mat-placeholder>Vehicle Manufacture <span class="color-red" >*</span></mat-placeholder>
           <ngx-select-dropdown  [config]="config"  formControlName="manufacture"  [options]="manifactureDetails" (change)="modelList1()"  required></ngx-select-dropdown>
           <!--<div class="error help-block" *ngIf=" this.vehicalDetails['controls'].manufacture.value == ''||(this.vehicalDetails['controls'].manufacture.value == null && vehicalDetails.get('manufacture').touched)" >Vehicle Manufacture is required</div>-->
         <!--<div class="error help-block" *ngIf="!(this.vehicalDetails['controls'].manufacture.value == null && vehicalDetails.get('manufacture').touched)">Vehicle Manufacture  is required</div>-->
@@ -92,14 +92,14 @@
 
     </div>
     <div class="col-md-3 mt-2">
-      <mat-placeholder>Variant<span class="error">*</span></mat-placeholder>
-      <ngx-select-dropdown  [config]="config"  formControlName="variant"  [options]="variantDetails" (change)="ccList()" required></ngx-select-dropdown>
+      <mat-placeholder>Variant<span class="error"  *ngIf="(typeList=='new'&& newCompanyName!=12) || (typeList=='other'&& renewelCompanyName!=12)">*</span></mat-placeholder>
+      <ngx-select-dropdown  [config]="config"  formControlName="variant"  [options]="variantDetails" (change)="ccList()" [required]="(typeList=='new'&& newCompanyName!=12) || (typeList=='other'&& renewelCompanyName!=12)"></ngx-select-dropdown>
       <div class="error help-block" *ngIf="!vehicalDetails.get('variant').valid && (vehicalDetails.get('variant').dirty || vehicalDetails.get('variant').touched)">Variant is required</div>
 
     </div>
     <div class="col-md-3 mt-2">
-      <mat-placeholder>Vehicle CC<span class="error">*</span></mat-placeholder>
-      <ngx-select-dropdown  [config]="config"  formControlName="vehicleCC"  [options]="ccDetails" required ></ngx-select-dropdown >
+      <mat-placeholder>Vehicle CC<span class="error"  *ngIf="(typeList=='new'&& newCompanyName!=12) || (typeList=='other'&& renewelCompanyName!=12)">*</span></mat-placeholder>
+      <ngx-select-dropdown  [config]="config"  formControlName="vehicleCC"  [options]="ccDetails" [required]="(typeList=='new'&& newCompanyName!=12) || (typeList=='other'&& renewelCompanyName!=12)" ></ngx-select-dropdown >
       <div class="error help-block" *ngIf="!vehicalDetails.get('vehicleCC').valid && (vehicalDetails.get('vehicleCC').dirty || vehicalDetails.get('vehicleCC').touched)">Vehicle CC is required</div>
 
     </div>
