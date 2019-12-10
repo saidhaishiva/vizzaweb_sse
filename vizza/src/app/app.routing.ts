@@ -193,7 +193,7 @@ export const routes: Routes = [
         path: '',
         component: PagesComponent, children: [
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
-            { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
+            { path: 'contact', component: ContactComponent, loadChildren: 'app/pages/tables/tables.module#TablesModule', data: { breadcrumb: 'Contact us' } },
             { path: 'contacts', component: NewContactComponent, data: { breadcrumb: 'Contact us' } },
             { path: 'renewal-reminder', component: RenewalReminderComponent, data: { breadcrumb: 'Renewal Reminder' } },
             { path: 'renew-existing-policy', component: RenewExistingPolicyComponent, data: { breadcrumb: 'Renew Existing Policy' } },

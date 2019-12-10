@@ -866,8 +866,10 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     addCompare(value,index) {
+
         value.index = index;
         console.log(value, 'value');
+
         // const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
         this.allProductLists[index].compare = true;
         this.compareArray.push(value);
@@ -878,6 +880,7 @@ export class HealthInsuranceComponent implements OnInit {
         }
 
     }
+
     removeCompare(index , pindex) {
         this.compareArray.splice(index, 1);
         let getCount;
