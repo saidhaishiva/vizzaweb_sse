@@ -190,12 +190,13 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   //   }
   // }
   ngOnInit() {
-    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
-    this.carListDetails = JSON.parse(sessionStorage.carListDetails);
-    this.rto = sessionStorage.RtoFour;
     this.newCompanyName =  sessionStorage.newCompanyName;
     this.renewelCompanyName =  sessionStorage.renewelCompanyName;
     this.typeList =  sessionStorage.typeList;
+    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
+    this.carListDetails = JSON.parse(sessionStorage.carListDetails);
+    this.rto = sessionStorage.RtoFour;
+
     // alert(this.typeList);
     console.log(this.typeList,'this.typeList...');
     // alert(this.typeList)
@@ -232,15 +233,13 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     this.manifactureList();
     this.dataList();
     this.getCityLists();
-
-
+    this.getRegionLists();
     this.vehicalDetails.controls['manufacture'].patchValue(this.ListDetails.vehicle_manufacture);
     this.vehicalDetails.controls['vehicleModel'].patchValue(this.ListDetails.vehicle_model);
     this.vehicalDetails.controls['variant'].patchValue(this.ListDetails.vehicle_variant);
     this.vehicalDetails.controls['vehicleCC'].patchValue(this.ListDetails.vehicle_cc);
     // alert('console..')
     // console.log(this.vehicalDetails.controls['manufacture'].value,'345678....')
-    this.getRegionLists();
   }
   dataList(){
     console.log('dataList...')

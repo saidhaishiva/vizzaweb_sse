@@ -158,8 +158,12 @@
     }
 
     ngOnInit() {
+      this.newCompanyName =  sessionStorage.newCompanyName;
+      this.renewelCompanyName =  sessionStorage.renewelCompanyName;
+      this.typeList =  sessionStorage.typeList;
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeListDetails = JSON.parse(sessionStorage.bikeListDetails);
+
       // alert('ngonit')
       //   this.vehicalDetails['controls'].city.patchValue(null);
       //   this.vehicalDetails['controls'].regionList.patchValue(null);
@@ -194,14 +198,13 @@
       // }
       this.CityValid = false;
       this.regionValid = false;
-
       this.claimpercent();
       this.manifactureList();
       this.dataList();
       this.getCityLists();
-      this.newCompanyName =  sessionStorage.newCompanyName;
-      this.renewelCompanyName =  sessionStorage.renewelCompanyName;
-      this.typeList =  sessionStorage.typeList;
+      this.getRegionLists();
+
+
       this.vehicalDetails.controls['bussiness'].patchValue(this.ListDetails.business_type);
       this.vehicalDetails.controls['manufacture'].patchValue(this.ListDetails.vehicle_manufacture);
       this.vehicalDetails.controls['vehicleModel'].patchValue(this.ListDetails.vehicle_model);
@@ -210,7 +213,6 @@
       // alert('console..')
       // console.log(this.vehicalDetails.controls['manufacture'].value,'345678....')
 
-      this.getRegionLists();
     }
 
 
@@ -242,7 +244,6 @@
                                /// manufacture
 
     manifactureList() {
-      // alert('in ma')
       const data = {
         'platform': 'web',
         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
