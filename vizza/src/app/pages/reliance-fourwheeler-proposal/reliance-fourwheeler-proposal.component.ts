@@ -120,6 +120,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public discountAmount: any;
   public electricalSumAount: any;
   public nonElectricalSumAount: any;
+  public bifuelChangeList: any;
 
   //dob
   proposerAge : any;
@@ -290,6 +291,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       cpgLpgKit: [''],
       fittngType: [''],
       IsBiFuelKit: [''],
+      bifuelAmount: [''],
+
       // IsTotalCover: [''],
       IsRegistrationCover: [''],
       // IsPAToDriverCovered: [''],
@@ -387,7 +390,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.unnamedSi();
     this.getPaidDriverSi();
     this.getTppdSi();
-    this.getCover();
+    // this.getCover();
+    // this.getBifuelChange();
+    // this.coverDetails.controls['fuelType'].patchValue(this.bifuelChangeList)
 
   }
 
@@ -481,17 +486,18 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   changeFuel(){
     this.coverDetails.controls['fuelTypeValue'].patchValue(this.fuelTypeList[this.coverDetails.controls['fuelType'].value]);
+    console.log(this.coverDetails.controls['fuelTypeValue'].value);
     if(this.coverDetails.controls['fuelType'].value == 5){
-        this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-      this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
-        //
-        this.coverDetails.controls['BiFuelKitSi'].patchValue( this.coverDetails.controls['BiFuelKitSi'].value);
+      //   this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+      // this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
+      //   //
+      //   this.coverDetails.controls['BiFuelKitSi'].patchValue( this.coverDetails.controls['BiFuelKitSi'].value);
 
         this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
-        this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+        // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
 
         this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
-        this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+        // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
       }else {
         this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
       this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
@@ -499,12 +505,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
       this.coverDetails.controls['BiFuelKitSi'].patchValue('');
         this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
-        this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+        // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
 
         this.coverDetails.controls['bifueltype'].patchValue('');
         this.coverDetails.controls['bifueltype'].setValidators(null);
-        this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+        // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
       }
+    this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+    this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+    this.coverDetails.controls['cpgLpgKit'].updateValueAndValidity();
   }
   changeInsurer(){
     this.previousInsurance.controls['prevInsuranceValue'].patchValue(this.prevInsurerList[this.previousInsurance.controls['prevInsurance'].value]);
@@ -788,7 +797,7 @@ changeOwnerDriver(){
       this.coverDetails.controls['applicableRate'].patchValue( this.coverDetails.controls['applicableRate'].value);
       this.coverDetails.controls['applicableRate'].setValidators([Validators.required]);
       this.coverDetails.controls['totalDepreciationPremium'].setValidators([Validators.required]);
-      this.getCover();
+      // this.getCover();
     }else {
       this.coverDetails.controls['NilDepreciationCoverage'].patchValue(false);
 
@@ -1065,7 +1074,7 @@ changeNonElect(){
             this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
             this.coverDetails.controls['cpgLpgKit'].setValidators([Validators.required]);
             this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
-            this.getCover()
+            // this.getCover()
         }else {
             // this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
             this.coverDetails.controls['cpgLpgKit'].patchValue('');
@@ -1082,7 +1091,7 @@ changeNonElect(){
 
   cpgLpgKitChange(){
     if(this.coverDetails.controls.cpgLpgKit.value == 'Yes'){
-      this.coverDetails.controls['fittngType'].patchValue(this.coverDetails.controls['fittngType'].value);
+      // this.coverDetails.controls['fittngType'].patchValue(this.coverDetails.controls['fittngType'].value);
       this.coverDetails.controls['fittngType'].setValidators([Validators.required]);
 
     }else {
@@ -1093,7 +1102,10 @@ changeNonElect(){
 
   }
     changeBifuel(){
+    // alert(this.Bifuel_Kit)
+    // alert(this.coverDetails.controls['bifuelAmount'].value)
       this.coverDetails.controls['bifuelAmount'].patchValue(this.Bifuel_Kit);
+      // this.coverDetails.controls['totalNonElectricalItemPremium'].patchValue(this.non_electrical_accessories);
     }
 
   // updateDriverCovered(event){
@@ -1736,6 +1748,27 @@ changeNonElect(){
   public getPaidDriverSiFailure(error) {
   }
 
+  getBifuelChange() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'enquiry_id':this.bikeEnquiryId,
+    };
+    this.fourWheelerInsurance.fourWheelerBifuelChange(data).subscribe(
+        (successData) => {
+          this.getBifuelChangeSucccess(successData);
+        },
+        (error) => {
+          this.getBifuelChangeFailure(error);
+        }
+    );
+  }
+  public getBifuelChangeSucccess(successData){
+    this.bifuelChangeList = successData.ResponseObject.fuel_type;
+  }
+  public getBifuelChangeFailure(error) {
+  }
   ///
   getTppdSi() {
     const data = {
@@ -1936,7 +1969,7 @@ changeNonElect(){
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['fuelTypeValue'].value ,
+              "Fueltype": this.coverDetails.controls['bifueltype'].value ,
               "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value? 'true' : 'false' ,
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
@@ -2018,7 +2051,7 @@ changeNonElect(){
               'NoOfItems': '',
               'PackageName': '',
               'PolicyCoverID': '',
-              'ApplicableRate': '2.3',
+              'ApplicableRate': this.coverDetails.controls['applicableRate'].value,
             }
           }
         }
@@ -2070,6 +2103,7 @@ changeNonElect(){
       this.pa_owner_driver=this.coverListValue.coverlist[0].pa_owner_driver;
       console.log(this.pa_owner_driver,'this.pa_owner_driver....');
       this.Bifuel_Kit=this.coverListValue.coverlist[0].Bifuel_Kit;
+      // alert(this.Bifuel_Kit)
       console.log(this.Bifuel_Kit,'this.Bifuel_Kit....');
       console.log(this.unnamedList,'valueOfPermium....');
       this.changeValueUnpass();
@@ -2264,7 +2298,7 @@ changeNonElect(){
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['fuelTypeValue'].value,
+              "Fueltype": this.coverDetails.controls['bifueltype'].value,
               "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ?'true' : 'false',
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,

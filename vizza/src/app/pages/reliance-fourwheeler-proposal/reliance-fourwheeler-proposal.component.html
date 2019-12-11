@@ -528,7 +528,7 @@
                       </div>
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()"required>
+                          <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()"required >
                             <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                           </mat-select>
@@ -545,6 +545,59 @@
                     <div class="row">
                       <div class="col-md-12 mt-2">
                         <h3 class="color-blue">Vehicle Details</h3>
+                      </div>
+                      <div class="col-md-12 mt-2" >
+                        <div class="row">
+                          <div class="col-md-4" *ngIf="coverDetails.controls['fuelType'].value == 5">
+                            <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit($event)" >BiFuel Kit</mat-checkbox>
+                          </div>
+
+                          <!--<div class="col-md-12 mt-2" >-->
+
+                          <!--<div class="row">-->
+                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Sum Insured"  formControlName="BiFuelKitSi" maxlength="5"  autocomplete="off" required >
+                              <mat-error *ngIf="coverDetails.controls.BiFuelKitSi.errors?.required">Sum Insured is required</mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
+                            <mat-form-field class="w-100">
+                              <mat-select placeholder="Bifuel type" formControlName="bifueltype"  (selectionChange)="getCover();changeBifuel()" required>
+                                <mat-option *ngFor="let type of bifueltypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="coverDetails.controls.bifueltype.errors?.required">Bifuel type is required</mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
+                            <p>Is CPG/LPG kit ?</p>
+                            <mat-radio-group formControlName="cpgLpgKit" (change)="cpgLpgKitChange()">
+                              <mat-radio-button value='Yes' >Yes</mat-radio-button>
+                              <mat-radio-button value='No'>No</mat-radio-button>
+                            </mat-radio-group>
+                          </div>
+
+                          <!--<div class="col-md-4">-->
+                          <!--<mat-checkbox  formControlName="cpgLpgKit" >Is CPG/LPG kit ?</mat-checkbox>-->
+                          <!--</div>-->
+
+                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true && coverDetails.controls.cpgLpgKit.value == 'Yes'">
+                            <mat-form-field class="w-100">
+                              <mat-select placeholder="Type of Fitting" formControlName="fittngType" (selectionChange)="getCover()">
+                                <mat-option *ngFor="let type of fittngTypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
+                              </mat-select>
+                              <!--                                    <mat-error *ngIf="coverDetails.controls.fittngType.errors?.required">Type of Fitting is required</mat-error>-->
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Cover Premium"  formControlName="bifuelAmount"  autocomplete="off" [required]="coverDetails.controls.IsBiFuelKit.value == true" readonly>
+                            </mat-form-field>
+                          </div>
+                          <!--</div>-->
+                          <!--</div>-->
+                        </div>
                       </div>
                       <div class="col-md-12 mt-2" >
                       <div class="row">
@@ -660,7 +713,7 @@
                       </div>
                       <div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Applicable Rate"  formControlName="applicableRate"  (input)="changeRate($event)"  (keypress)="changeRate($event);getCover()"  autocomplete="off" required >
+                          <input matInput placeholder="Applicable Rate"  formControlName="applicableRate"  (input)="changeRate($event);getCover()"  (keypress)="changeRate($event)"  autocomplete="off" required >
                           <mat-error *ngIf="coverDetails.controls.applicableRate.errors?.required">Applicable Rate is required</mat-error>
                         </mat-form-field>
                         <div class="error" *ngIf="errorRateMsg !='' && errorRateMsg != true">{{errorRateMsg}}</div>
@@ -734,59 +787,7 @@
                       </div>
                       </div>
                       </div>
-                      <div class="col-md-12 mt-2" >
-                        <div class="row">
-                          <div class="col-md-4" *ngIf="coverDetails.controls['fuelType'].value == 5">
-                            <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit($event)" >BiFuel Kit</mat-checkbox>
-                          </div>
 
-                          <!--<div class="col-md-12 mt-2" >-->
-
-                          <!--<div class="row">-->
-                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Sum Insured"  formControlName="BiFuelKitSi" maxlength="5"  autocomplete="off" required >
-                              <mat-error *ngIf="coverDetails.controls.BiFuelKitSi.errors?.required">Sum Insured is required</mat-error>
-                            </mat-form-field>
-                          </div>
-
-                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
-                            <mat-form-field class="w-100">
-                              <mat-select placeholder="Bifuel type" formControlName="bifueltype"  (selectionChange)="getCover();changeBifuel()" required>
-                                <mat-option *ngFor="let type of bifueltypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
-                              </mat-select>
-                              <mat-error *ngIf="coverDetails.controls.bifueltype.errors?.required">Bifuel type is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-md-4" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
-                            <p>Is CPG/LPG kit ?</p>
-                            <mat-radio-group formControlName="cpgLpgKit" (change)="cpgLpgKitChange()">
-                              <mat-radio-button value='Yes' >Yes</mat-radio-button>
-                              <mat-radio-button value='No'>No</mat-radio-button>
-                            </mat-radio-group>
-                          </div>
-
-                          <!--<div class="col-md-4">-->
-                          <!--<mat-checkbox  formControlName="cpgLpgKit" >Is CPG/LPG kit ?</mat-checkbox>-->
-                          <!--</div>-->
-
-                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true && coverDetails.controls.cpgLpgKit.value == 'Yes'">
-                            <mat-form-field class="w-100">
-                              <mat-select placeholder="Type of Fitting" formControlName="fittngType" (selectionChange)="getCover()">
-                                <mat-option *ngFor="let type of fittngTypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
-                              </mat-select>
-                              <!--                                    <mat-error *ngIf="coverDetails.controls.fittngType.errors?.required">Type of Fitting is required</mat-error>-->
-                            </mat-form-field>
-                          </div>
-                          <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Cover Premium"  formControlName="bifuelAmount"  autocomplete="off" [required]="coverDetails.controls.IsBiFuelKit.value == true" readonly>
-                            </mat-form-field>
-                          </div>
-                          <!--</div>-->
-                          <!--</div>-->
-                        </div>
-                      </div>
 
                       <div class="col-md-12 mt-2" >
                             <div class="row">

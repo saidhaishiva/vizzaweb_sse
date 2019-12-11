@@ -332,7 +332,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.getTppdSi();
     this.getFinancialType();
     this.getPaSi();
-    this.getCover();
+    // this.getCover();
 
   }
 
@@ -380,26 +380,26 @@ export class RelianceMotorProposalComponent implements OnInit {
   changeFuel(){
     this.coverDetails.controls['fuelTypeValue'].patchValue(this.fuelTypeList[this.coverDetails.controls['fuelType'].value]);
     if(this.coverDetails.controls['fuelType'].value == 5){
-      this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+      // this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
       //
-      this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
-
+      // this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
       this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
-      this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
-
       this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
-      this.coverDetails.controls['bifueltype'].updateValueAndValidity();
     }else {
       this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
 
       this.coverDetails.controls['BiFuelKitSi'].patchValue('');
       this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
-      this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+      // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
 
       this.coverDetails.controls['bifueltype'].patchValue('');
       this.coverDetails.controls['bifueltype'].setValidators(null);
-      this.coverDetails.controls['bifueltype'].updateValueAndValidity();
-    }  }
+      // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+    }
+    this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+    this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+
+  }
   changeInsurer(){
     this.previousInsurance.controls['prevInsuranceValue'].patchValue(this.prevInsurerList[this.previousInsurance.controls['prevInsurance'].value]);
   }
@@ -799,7 +799,7 @@ export class RelianceMotorProposalComponent implements OnInit {
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['fuelTypeValue'].value ,
+              "Fueltype": this.coverDetails.controls['bifueltype'].value ,
               "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ? 'true' : 'false',
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
@@ -1644,7 +1644,7 @@ export class RelianceMotorProposalComponent implements OnInit {
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['fuelTypeValue'].value ,
+              "Fueltype": this.coverDetails.controls['bifueltype'].value ,
               "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ? 'true' : 'false',
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
@@ -2148,19 +2148,19 @@ export class RelianceMotorProposalComponent implements OnInit {
   updatenonBiFuelKit(){
     if(this.coverDetails.controls['IsBiFuelKit'].value==true){
 
-      this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
-
-      this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
+      // this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
+      //
+      // this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
 
       this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
 
       this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
 
       this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
-      this.getCover();
+      // this.getCover();
     }else {
 
-      this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
+      // this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
 
 
       this.coverDetails.controls['BiFuelKitSi'].patchValue('');
@@ -2168,6 +2168,9 @@ export class RelianceMotorProposalComponent implements OnInit {
 
       this.coverDetails.controls['bifueltype'].patchValue('');
       this.coverDetails.controls['bifueltype'].setValidators(null);
+
+      this.coverDetails.controls['cpgLpgKit'].patchValue('');
+      this.coverDetails.controls['cpgLpgKit'].setValidators(null);
 
       this.coverDetails.controls['bifuelAmount'].patchValue('');
       this.coverDetails.controls['bifuelAmount'].setValidators(null);
