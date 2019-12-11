@@ -67,6 +67,9 @@
     public dobStartError: any;
     public dobendError: any;
     public regionDetails: any;
+    public newCompanyName: any;
+    public renewelCompanyName: any;
+    public typeList: any;
     public manifactureValid: boolean;
     public modelValid: any;
     public variantValid: boolean;
@@ -88,8 +91,8 @@
         'bussiness': '',
         'ncb': ['', Validators.required],
         'manufactureYear': ['', Validators.required],
-        'vehicleCC': ['', Validators.required],
-        'variant':  ['', Validators.required],
+        'vehicleCC': '',
+        'variant':  '',
         'chasissNumber': ['', Validators.required],
         'engine': ['', Validators.required],
         'previousPolicyExpiry':'',
@@ -155,8 +158,12 @@
     }
 
     ngOnInit() {
+      this.newCompanyName =  sessionStorage.newCompanyName;
+      this.renewelCompanyName =  sessionStorage.renewelCompanyName;
+      this.typeList =  sessionStorage.typeList;
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeListDetails = JSON.parse(sessionStorage.bikeListDetails);
+
       // alert('ngonit')
       //   this.vehicalDetails['controls'].city.patchValue(null);
       //   this.vehicalDetails['controls'].regionList.patchValue(null);
@@ -191,11 +198,12 @@
       // }
       this.CityValid = false;
       this.regionValid = false;
-
       this.claimpercent();
       this.manifactureList();
       this.dataList();
       this.getCityLists();
+      this.getRegionLists();
+
 
       this.vehicalDetails.controls['bussiness'].patchValue(this.ListDetails.business_type);
       this.vehicalDetails.controls['manufacture'].patchValue(this.ListDetails.vehicle_manufacture);
@@ -205,7 +213,6 @@
       // alert('console..')
       // console.log(this.vehicalDetails.controls['manufacture'].value,'345678....')
 
-      this.getRegionLists();
     }
 
 
@@ -237,12 +244,13 @@
                                /// manufacture
 
     manifactureList() {
-      // alert('in ma')
       const data = {
         'platform': 'web',
         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+        'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
+
 
       }
       this.bikeService.getManifactureList(data).subscribe(
@@ -278,13 +286,8 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
         "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
         "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
         "manufacture": this.vehicalDetails.controls['manufacture'].value,
+        'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
 
-        // 'platform': 'web',
-        // 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        // 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-        // 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-        // 'manufacture': this.vehicalDetails.controls['manufacture'].value,
-        // 'variant':  this.vehicalDetails.controls['variant'].value
       }
       console.log(data,'data....')
       this.bikeService.getModelList(data).subscribe(
@@ -316,11 +319,8 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
         "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
         "manufacture": this.vehicalDetails.controls['manufacture'].value,
         "model": this.vehicalDetails.controls['vehicleModel'].value,
-        // 'platform': 'web',
-        // 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        // 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-        // 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-        // 'manufacture': this.vehicalDetails.controls['manufacture'].value,
+        'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
+
       }
       this.bikeService.getvariantList(data).subscribe(
           (successData) => {
@@ -351,7 +351,9 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
         'manufacture': this.vehicalDetails.controls['manufacture'].value,
         'model':  this.vehicalDetails.controls['vehicleModel'].value,
-        'variant':  this.vehicalDetails.controls['variant'].value
+        'variant':  this.vehicalDetails.controls['variant'].value,
+        'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
+
 
       }
       this.bikeService.getCCList(data).subscribe(
@@ -669,6 +671,7 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
         'region_name': this.vehicalDetails.controls['regionList'].value,
         'rto_code': this.rto,
         'type': this.enquiryFormData.type,
+        'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
          'prev_insurer':this.enquiryFormData.previousCompany== null ? '' :this.enquiryFormData.previousCompany,
          'prev_insurance_name':this.enquiryFormData.prev_insurance_name== null ? '':this.enquiryFormData.prev_insurance_name,
       };

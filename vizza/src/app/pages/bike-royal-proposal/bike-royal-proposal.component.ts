@@ -1187,6 +1187,7 @@ proposal(stepper){
       sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
       sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
     } else{
+
       this.toastr.error(successData.ErrorObject);
 
     }
