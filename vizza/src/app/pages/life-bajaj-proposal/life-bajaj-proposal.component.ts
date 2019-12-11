@@ -548,10 +548,14 @@ export class LifeBajajProposalComponent implements OnInit {
     }
 
     public customerListSuccess(successData) {
+        // this.settings.loadingSpinner=true;
+
         if (successData.IsSuccess) {
+
             this.bigeneration=true;
             this.customerList = successData.ResponseObject;
             this.biURL = this.customerList.biUrlLink;
+            console.log( this.biURL,'this.biURL')
             this.Premium = this.customerList.Premium;
             this.ProposalNumber = this.customerList.ProposalNumber;
             this.policyId = this.customerList.policyId;
