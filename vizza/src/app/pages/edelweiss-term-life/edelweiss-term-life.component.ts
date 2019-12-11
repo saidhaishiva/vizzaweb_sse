@@ -981,7 +981,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['semailId'].patchValue(this.proposer.controls['semailId'].value),
           this.insureArray.controls['smobileNo'].patchValue(this.proposer.controls['smobileNo'].value),
           this.insureArray.controls['isSmokerSpouse'].patchValue(this.proposer.controls['isSmokerSpouse'].value),
-          this.insureArray.controls['isStaffSpouse'].patchValue(this.proposer.controls['isStaffSpouse'].value),
+          // this.insureArray.controls['isStaffSpouse'].patchValue(this.proposer.controls['isStaffSpouse'].value),
           this.insureArray.controls['employeeCodeSpouse'].patchValue(this.proposer.controls['employeeCodeSpouse'].value),
           this.insureArray.controls['relationSpouseInsurer'].patchValue(this.proposer.controls['relationSpouseProposer'].value),
           this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.proposer.controls['relationSpouseProposerName'].value),
@@ -1039,7 +1039,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['semailId'].patchValue(''),
           this.insureArray.controls['smobileNo'].patchValue(''),
           this.insureArray.controls['isSmokerSpouse'].patchValue(''),
-          this.insureArray.controls['isStaffSpouse'].patchValue(''),
+          // this.insureArray.controls['isStaffSpouse'].patchValue(''),
           this.insureArray.controls['currAddr1'].patchValue(''),
           this.insureArray.controls['currAddr2'].patchValue(''),
           this.insureArray.controls['currAddr3'].patchValue(''),
@@ -2390,7 +2390,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   changeMaritalInsuReq() {
 
-    if (this.insureArray.controls['maritalStatus'].value == 'M') {
+    if (this.insureArray.controls['betterHalfBenefit'].value == 'Yes') {
       this.insureArray.controls['stitle'].patchValue(this.insureArray.controls['stitle'].value);
       this.insureArray.controls['sfirstName'].patchValue(this.insureArray.controls['sfirstName'].value);
       this.insureArray.controls['smidName'].patchValue(this.insureArray.controls['smidName'].value);
@@ -2399,7 +2399,32 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['semailId'].patchValue(this.insureArray.controls['semailId'].value);
       this.insureArray.controls['smobileNo'].patchValue(this.insureArray.controls['smobileNo'].value);
       this.insureArray.controls['isSmokerSpouse'].patchValue(this.insureArray.controls['isSmokerSpouse'].value);
-      this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
+      // this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
+      this.insureArray.controls['sppan'].patchValue(this.insureArray.controls['sppan'].value);
+      this.insureArray.controls['saadhaarNo'].patchValue(this.insureArray.controls['saadhaarNo'].value);
+      this.insureArray.controls['sfatherhusbandName'].patchValue(this.insureArray.controls['sfatherhusbandName'].value);
+      this.insureArray.controls['smotherMaidName'].patchValue(this.insureArray.controls['smotherMaidName'].value);
+      this.insureArray.controls['sageProofId'].patchValue(this.insureArray.controls['sageProofId'].value);
+      this.insureArray.controls['shighestQualification'].patchValue(this.insureArray.controls['shighestQualification'].value);
+      this.insureArray.controls['sotherQualification'].patchValue(this.insureArray.controls['sotherQualification'].value);
+      this.insureArray.controls['scurrAddr1'].patchValue(this.insureArray.controls['scurrAddr1'].value);
+      this.insureArray.controls['scurrAddr2'].patchValue(this.insureArray.controls['scurrAddr2'].value);
+      this.insureArray.controls['scurrAddr3'].patchValue(this.insureArray.controls['scurrAddr3'].value);
+      this.insureArray.controls['scurrCity'].patchValue(this.insureArray.controls['scurrCity'].value);
+      this.insureArray.controls['scurrPincode'].patchValue(this.insureArray.controls['scurrPincode'].value);
+      this.insureArray.controls['scurrState'].patchValue(this.insureArray.controls['scurrState'].value);
+      this.insureArray.controls['sperAddr1'].patchValue(this.insureArray.controls['sperAddr1'].value);
+      this.insureArray.controls['sperAddr2'].patchValue(this.insureArray.controls['sperAddr2'].value);
+      this.insureArray.controls['sperAddr3'].patchValue(this.insureArray.controls['sperAddr3'].value);
+      this.insureArray.controls['sperCity'].patchValue(this.insureArray.controls['sperCity'].value);
+      this.insureArray.controls['sperPincode'].patchValue(this.insureArray.controls['sperPincode'].value);
+      this.insureArray.controls['sperState'].patchValue(this.insureArray.controls['sperState'].value);
+      this.insureArray.controls['sheightFeets'].patchValue(this.insureArray.controls['sheightFeets'].value);
+      this.insureArray.controls['sheightInches'].patchValue(this.insureArray.controls['sheightInches'].value);
+      this.insureArray.controls['sweight'].patchValue(this.insureArray.controls['sweight'].value);
+      this.insureArray.controls['shasWeightChanged'].patchValue(this.insureArray.controls['shasWeightChanged'].value);
+      this.insureArray.controls['sweightChangedreason'].patchValue(this.insureArray.controls['sweightChangedreason'].value);
+      this.insureArray.controls['betterHalfsumAssured'].patchValue(this.insureArray.controls['betterHalfsumAssured'].value);
       // this.insureArray.controls['relationSpouseInsurer'].patchValue(this.insureArray.controls['relationSpouseInsurer'].value);
 
       this.insureArray.controls['stitle'].setValidators([Validators.required]);
@@ -2410,7 +2435,32 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['semailId'].setValidators([Validators.required]);
       this.insureArray.controls['smobileNo'].setValidators([Validators.required]);
       this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
-      this.insureArray.controls['isStaffSpouse'].setValidators([Validators.required]);
+      // this.insureArray.controls['isStaffSpouse'].setValidators([Validators.required]);
+      this.insureArray.controls['sppan'].setValidators([Validators.required]);
+      this.insureArray.controls['saadhaarNo'].setValidators([Validators.required]);
+      this.insureArray.controls['sfatherhusbandName'].setValidators([Validators.required]);
+      this.insureArray.controls['smotherMaidName'].setValidators([Validators.required]);
+      this.insureArray.controls['sageProofId'].setValidators([Validators.required]);
+      this.insureArray.controls['shighestQualification'].setValidators([Validators.required]);
+      this.insureArray.controls['sotherQualification'].setValidators([Validators.required]);
+      this.insureArray.controls['scurrAddr1'].setValidators([Validators.required]);
+      this.insureArray.controls['scurrAddr2'].setValidators([Validators.required]);
+      this.insureArray.controls['scurrAddr3'].setValidators([Validators.required]);
+      this.insureArray.controls['scurrCity'].setValidators([Validators.required]);
+      this.insureArray.controls['scurrPincode'].setValidators([Validators.required]);
+      this.insureArray.controls['scurrState'].setValidators([Validators.required]);
+      this.insureArray.controls['sperAddr1'].setValidators([Validators.required]);
+      this.insureArray.controls['sperAddr2'].setValidators([Validators.required]);
+      this.insureArray.controls['sperAddr3'].setValidators([Validators.required]);
+      this.insureArray.controls['sperCity'].setValidators([Validators.required]);
+      this.insureArray.controls['sperPincode'].setValidators([Validators.required]);
+      this.insureArray.controls['sperState'].setValidators([Validators.required]);
+      this.insureArray.controls['sheightFeets'].setValidators([Validators.required]);
+      this.insureArray.controls['sheightInches'].setValidators([Validators.required]);
+      this.insureArray.controls['sweight'].setValidators([Validators.required]);
+      this.insureArray.controls['shasWeightChanged'].setValidators([Validators.required]);
+      this.insureArray.controls['sweightChangedreason'].setValidators([Validators.required]);
+      this.insureArray.controls['betterHalfsumAssured'].setValidators([Validators.required]);
       // this.insureArray.controls['relationSpouseInsurer'].setValidators([Validators.required]);
     } else {
       this.insureArray.controls['stitle'].patchValue('');
@@ -2421,7 +2471,32 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['semailId'].patchValue('');
       this.insureArray.controls['smobileNo'].patchValue('');
       this.insureArray.controls['isSmokerSpouse'].patchValue('No');
-      this.insureArray.controls['isStaffSpouse'].patchValue('No');
+      // this.insureArray.controls['isStaffSpouse'].patchValue('No');
+      this.insureArray.controls['sppan'].patchValue('');
+      this.insureArray.controls['saadhaarNo'].patchValue('');
+      this.insureArray.controls['sfatherhusbandName'].patchValue('');
+      this.insureArray.controls['smotherMaidName'].patchValue('');
+      this.insureArray.controls['sageProofId'].patchValue('');
+      this.insureArray.controls['shighestQualification'].patchValue('');
+      this.insureArray.controls['sotherQualification'].patchValue('');
+      this.insureArray.controls['scurrAddr1'].patchValue('');
+      this.insureArray.controls['scurrAddr2'].patchValue('');
+      this.insureArray.controls['scurrAddr3'].patchValue('');
+      this.insureArray.controls['scurrCity'].patchValue('');
+      this.insureArray.controls['scurrPincode'].patchValue('');
+      this.insureArray.controls['scurrState'].patchValue('');
+      this.insureArray.controls['sperAddr1'].patchValue('');
+      this.insureArray.controls['sperAddr2'].patchValue('');
+      this.insureArray.controls['sperAddr3'].patchValue('');
+      this.insureArray.controls['sperCity'].patchValue('');
+      this.insureArray.controls['sperPincode'].patchValue('');
+      this.insureArray.controls['sperState'].patchValue('');
+      this.insureArray.controls['sheightFeets'].patchValue('');
+      this.insureArray.controls['sheightInches'].patchValue('');
+      this.insureArray.controls['sweight'].patchValue('');
+      this.insureArray.controls['shasWeightChanged'].patchValue('');
+      this.insureArray.controls['sweightChangedreason'].patchValue('');
+      this.insureArray.controls['betterHalfsumAssured'].patchValue('');
       // this.insureArray.controls['relationSpouseInsurer'].patchValue('3');
 
       this.insureArray.controls['stitle'].setValidators(null);
@@ -2432,11 +2507,36 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['semailId'].setValidators(null);
       this.insureArray.controls['smobileNo'].setValidators(null);
       this.insureArray.controls['isSmokerSpouse'].setValidators(null);
-      this.insureArray.controls['isStaffSpouse'].setValidators(null);
+      // this.insureArray.controls['isStaffSpouse'].setValidators(null);
+      this.insureArray.controls['sppan'].setValidators(null);
+      this.insureArray.controls['saadhaarNo'].setValidators(null);
+      this.insureArray.controls['sfatherhusbandName'].setValidators(null);
+      this.insureArray.controls['smotherMaidName'].setValidators(null);
+      this.insureArray.controls['sageProofId'].setValidators(null);
+      this.insureArray.controls['shighestQualification'].setValidators(null);
+      this.insureArray.controls['sotherQualification'].setValidators(null);
+      this.insureArray.controls['scurrAddr1'].setValidators(null);
+      this.insureArray.controls['scurrAddr2'].setValidators(null);
+      this.insureArray.controls['scurrAddr3'].setValidators(null);
+      this.insureArray.controls['scurrCity'].setValidators(null);
+      this.insureArray.controls['scurrPincode'].setValidators(null);
+      this.insureArray.controls['scurrState'].setValidators(null);
+      this.insureArray.controls['sperAddr1'].setValidators(null);
+      this.insureArray.controls['sperAddr2'].setValidators(null);
+      this.insureArray.controls['sperAddr3'].setValidators(null);
+      this.insureArray.controls['sperCity'].setValidators(null);
+      this.insureArray.controls['sperPincode'].setValidators(null);
+      this.insureArray.controls['sperState'].setValidators(null);
+      this.insureArray.controls['sheightFeets'].setValidators(null);
+      this.insureArray.controls['sheightInches'].setValidators(null);
+      this.insureArray.controls['sweight'].setValidators(null);
+      this.insureArray.controls['shasWeightChanged'].setValidators(null);
+      this.insureArray.controls['sweightChangedreason'].setValidators(null);
+      this.insureArray.controls['betterHalfsumAssured'].setValidators(null);
       // this.insureArray.controls['relationSpouseInsurer'].setValidators(null);
 
     }
-    this.insureArray.controls['employeeCode'].updateValueAndValidity();
+    // this.insureArray.controls['employeeCode'].updateValueAndValidity();
     this.insureArray.controls['stitle'].updateValueAndValidity();
     this.insureArray.controls['sfirstName'].updateValueAndValidity();
     this.insureArray.controls['smidName'].updateValueAndValidity();
@@ -2445,7 +2545,32 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['semailId'].updateValueAndValidity();
     this.insureArray.controls['smobileNo'].updateValueAndValidity();
     this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
-    this.insureArray.controls['isStaffSpouse'].updateValueAndValidity();
+    // this.insureArray.controls['isStaffSpouse'].updateValueAndValidity();
+    this.insureArray.controls['sppan'].updateValueAndValidity();
+    this.insureArray.controls['saadhaarNo'].updateValueAndValidity();
+    this.insureArray.controls['sfatherhusbandName'].updateValueAndValidity();
+    this.insureArray.controls['smotherMaidName'].updateValueAndValidity();
+    this.insureArray.controls['sageProofId'].updateValueAndValidity();
+    this.insureArray.controls['shighestQualification'].updateValueAndValidity();
+    this.insureArray.controls['sotherQualification'].updateValueAndValidity();
+    this.insureArray.controls['scurrAddr1'].updateValueAndValidity();
+    this.insureArray.controls['scurrAddr2'].updateValueAndValidity();
+    this.insureArray.controls['scurrAddr3'].updateValueAndValidity();
+    this.insureArray.controls['scurrCity'].updateValueAndValidity();
+    this.insureArray.controls['scurrPincode'].updateValueAndValidity();
+    this.insureArray.controls['scurrState'].updateValueAndValidity();
+    this.insureArray.controls['sperAddr1'].updateValueAndValidity();
+    this.insureArray.controls['sperAddr2'].updateValueAndValidity();
+    this.insureArray.controls['sperAddr3'].updateValueAndValidity();
+    this.insureArray.controls['sperCity'].updateValueAndValidity();
+    this.insureArray.controls['sperPincode'].updateValueAndValidity();
+    this.insureArray.controls['sperState'].updateValueAndValidity();
+    this.insureArray.controls['sheightFeets'].updateValueAndValidity();
+    this.insureArray.controls['sheightInches'].updateValueAndValidity();
+    this.insureArray.controls['sweight'].updateValueAndValidity();
+    this.insureArray.controls['shasWeightChanged'].updateValueAndValidity();
+    this.insureArray.controls['sweightChangedreason'].updateValueAndValidity();
+    this.insureArray.controls['betterHalfsumAssured'].updateValueAndValidity();
     // this.insureArray.controls['relationSpouseInsurer'].updateValueAndValidity();
 
   }
@@ -5289,7 +5414,7 @@ console.log(this.proposalId,'proposalId');
         semailId: this.getStepper1.semailId,
         smobileNo: this.getStepper1.smobileNo,
         isSmokerSpouse: this.getStepper1.isSmokerSpouse,
-        isStaffSpouse: this.getStepper1.isStaffSpouse,
+        // isStaffSpouse: this.getStepperper1.isStaffSpouse,
         employeeCodeSpouse: this.getStepper1.employeeCodeSpouse,
         relationSpouseProposer: this.getStepper1.relationSpouseProposer,
         relationSpouseProposerName: this.getStepper1.relationSpouseProposerName,
@@ -5359,7 +5484,7 @@ console.log(this.proposalId,'proposalId');
         semailId: this.getStepper2.semailId,
         smobileNo: this.getStepper2.smobileNo,
         isSmokerSpouse: this.getStepper2.isSmokerSpouse,
-        isStaffSpouse: this.getStepper2.isStaffSpouse,
+        // isStaffSpouse: this.getStepper2.isStaffSpouse,
         employeeCodeSpouse: this.getStepper2.employeeCodeSpouse,
         // relationSpouseInsurer: this.getStepper2.relationSpouseInsurer,
         currAddr1: this.getStepper2.currAddr1,
