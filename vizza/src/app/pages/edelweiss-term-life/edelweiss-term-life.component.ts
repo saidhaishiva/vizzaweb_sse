@@ -343,34 +343,34 @@ export class EdelweissTermLifeComponent implements OnInit {
       // smobileNo: '',
       snationality: '',
       semailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-      sppan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+      sppan: ['', Validators.compose([Validators.minLength(10)])],
       saadhaarNo:'',
       sageProofIdName: '',
       sfatherhusbandName: '',
       smotherMaidName: '',
-      sageProofId: ['', Validators.compose([Validators.required])],
-      shighestQualification: ['', Validators.compose([Validators.required])],
+      sageProofId: '',
+      shighestQualification: '',
       shighestQualificationName: '',
       sotherQualification: '',
       smobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
 
-      scurrAddr1: ['', Validators.compose([Validators.required])],
-      scurrAddr2: ['', Validators.compose([Validators.required])],
+      scurrAddr1: '',
+      scurrAddr2: '',
       scurrAddr3: '',
-      scurrPincode: ['', Validators.compose([Validators.required])],
-      scurrState: ['', Validators.compose([Validators.required])],
-      scurrCity: ['', Validators.compose([Validators.required])],
-      sperAddr1: ['', Validators.compose([Validators.required])],
-      sperAddr2: ['', Validators.compose([Validators.required])],
+      scurrPincode: '',
+      scurrState: '',
+      scurrCity: '',
+      sperAddr1: '',
+      sperAddr2: '',
       sperAddr3: '',
-      sperPincode: ['', Validators.compose([Validators.required])],
-      sperState: ['', Validators.compose([Validators.required])],
-      sperCity: ['', Validators.compose([Validators.required])],
+      sperPincode: '',
+      sperState: '',
+      sperCity: '',
       sisCurrPerAddrSame: '',
-      sheightFeets: ['', Validators.compose([Validators.required])],
-      sheightInches: ['', Validators.compose([Validators.required])],
-      sweight: ['', Validators.compose([Validators.required])],
-      shasWeightChanged: ['', Validators.compose([Validators.required])],
+      sheightFeets: '',
+      sheightInches: '',
+      sweight: '',
+      shasWeightChanged: '',
       sinbetweenweight: '',
       sweightChangedreason: '',
 
@@ -437,6 +437,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       waiverOfPremiumBenefit: 'No',
       DSumAssured: 'No',
       criticalIllness: 'No',
+      criticalClaim: 'No',
       criticalsumAssured: '',
       isADB: 'No',
       sumAssuredADB: '',
@@ -3440,15 +3441,20 @@ travelOutside(){
 
     if (this.insureArray.controls['criticalIllness'].value == 'Yes') {
       this.insureArray.controls['criticalsumAssured'].patchValue(this.insureArray.controls['criticalsumAssured'].value);
+      this.insureArray.controls['criticalClaim'].patchValue(this.insureArray.controls['criticalClaim'].value);
 
       this.insureArray.controls['criticalsumAssured'].setValidators([Validators.required]);
+      this.insureArray.controls['criticalClaim'].setValidators([Validators.required]);
     } else {
       this.insureArray.controls['criticalsumAssured'].patchValue('');
+      this.insureArray.controls['criticalClaim'].patchValue('');
 
       this.insureArray.controls['criticalsumAssured'].setValidators(null);
+      this.insureArray.controls['criticalClaim'].setValidators(null);
 
     }
     this.insureArray.controls['criticalsumAssured'].updateValueAndValidity();
+    this.insureArray.controls['criticalClaim'].updateValueAndValidity();
 
   }
 
@@ -5484,6 +5490,31 @@ console.log(this.proposalId,'proposalId');
         semailId: this.getStepper2.semailId,
         smobileNo: this.getStepper2.smobileNo,
         isSmokerSpouse: this.getStepper2.isSmokerSpouse,
+        sppan: this.getStepper2.sppan,
+        saadhaarNo: this.getStepper2.saadhaarNo,
+        sfatherhusbandName: this.getStepper2.sfatherhusbandName,
+        smotherMaidName: this.getStepper2.smotherMaidName,
+        sageProofId: this.getStepper2.sageProofId,
+        shighestQualification: this.getStepper2.shighestQualification,
+        sotherQualification: this.getStepper2.sotherQualification,
+        scurrAddr1: this.getStepper2.scurrAddr1,
+        scurrAddr2: this.getStepper2.scurrAddr2,
+        scurrAddr3: this.getStepper2.scurrAddr3,
+        scurrCity: this.getStepper2.scurrCity,
+        scurrPincode: this.getStepper2.scurrPincode,
+        scurrState: this.getStepper2.scurrState,
+        sperAddr1: this.getStepper2.sperAddr1,
+        sperAddr2: this.getStepper2.sperAddr2,
+        sperAddr3: this.getStepper2.sperAddr3,
+        sperCity: this.getStepper2.sperCity,
+        sperPincode: this.getStepper2.sperPincode,
+        sperState: this.getStepper2.sperState,
+        sheightFeets: this.getStepper2.sheightFeets,
+        sheightInches: this.getStepper2.sheightInches,
+        sweight: this.getStepper2.sweight,
+        shasWeightChanged: this.getStepper2.shasWeightChanged,
+        sinbetweenweight: this.getStepper2.sinbetweenweight,
+        sweightChangedreason: this.getStepper2.sweightChangedreason,
         // isStaffSpouse: this.getStepper2.isStaffSpouse,
         employeeCodeSpouse: this.getStepper2.employeeCodeSpouse,
         // relationSpouseInsurer: this.getStepper2.relationSpouseInsurer,
@@ -5547,6 +5578,7 @@ console.log(this.proposalId,'proposalId');
         waiverOfPremiumBenefit: this.getStepper2.waiverOfPremiumBenefit,
         DSumAssured: this.getStepper2.DSumAssured,
         criticalIllness:  this.getStepper2.criticalIllness,
+        criticalClaim:  this.getStepper2.criticalClaim,
         criticalsumAssured: this.getStepper2.criticalsumAssured,
         isADB:  this.getStepper2.isADB,
         sumAssuredADB:  this.getStepper2.sumAssuredADB,
