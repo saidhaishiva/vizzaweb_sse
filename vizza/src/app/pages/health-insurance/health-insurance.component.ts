@@ -654,7 +654,7 @@ export class HealthInsuranceComponent implements OnInit {
             this.allProductLists = [].concat.apply([], this.productListArray);
 
             console.log(typeof this.allProductLists[0].premium_amount, 'oooooo');
-            console.log(typeof this.allProductLists[1].premium_amount, 'oooooo');
+            // console.log(typeof this.allProductLists[1].premium_amount, 'oooooo');
 
         }
         for (let i = 0; i < this.allProductLists.length; i++) {
@@ -1150,6 +1150,9 @@ export class HealthInsuranceComponent implements OnInit {
             this.allProductLists[i].compare = false;
             this.allProductLists[i].shortlist = false;
             this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
+            console.log(this.allProductLists[i].premium_amount, 'premium123');
+            console.log(this.allProductLists[i].premium_amount_format, 'premium123');
+
             this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
         }
         this.allProductLists.sort((a,b) => a.premium_amount - b.premium_amount);

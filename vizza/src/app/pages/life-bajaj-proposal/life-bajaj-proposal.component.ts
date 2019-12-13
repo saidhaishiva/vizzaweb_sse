@@ -1214,6 +1214,7 @@ samerelationShip(){
         if (this.documentDetail.valid) {
             console.log('11111111doc');
             this.window.open(this.proposalNextList.payment_link,'_top')
+            console.log(this.proposalNextList.payment_link,'payment link')
             console.log('22222');
         } else {
             console.log('3333333333else');

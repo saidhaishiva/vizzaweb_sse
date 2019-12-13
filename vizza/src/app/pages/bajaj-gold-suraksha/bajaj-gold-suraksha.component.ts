@@ -274,7 +274,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
             "paymentTerm": this.bajajgold.controls['paymentTerm'].value,
             "premium": this.bajajgold.controls['premium'].value,
             "paymentFrequency": this.bajajgold.controls['frequency'].value,
-            "pos_id": this.auth.getPosUserId() == '' || this.auth.getPosUserId() == undefined ? '197' : this.auth.getPosUserId() ,
+            "pos_id": this.auth.getPosUserId() == '' || this.auth.getPosUserId() == undefined ? '0' : this.auth.getPosUserId() ,
 
             // this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
 
