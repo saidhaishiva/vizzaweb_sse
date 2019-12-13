@@ -464,7 +464,7 @@
                                            <div class="col-md-4">
                                                <mat-form-field class="w-100"  >
                                                    <input matInput placeholder="First Name" formControlName="firstName" maxlength="15" (keypress)="nameValidate($event)" autocomplete="off"   required  >
-                                                   <mat-error *ngIf="insureArray.controls.firstName.errors?.required">Title is required</mat-error>
+                                                   <mat-error *ngIf="insureArray.controls.firstName.errors?.required">First Name is required</mat-error>
                                                </mat-form-field>
                                            </div>
                                            <div class="col-md-4">
@@ -475,7 +475,7 @@
                                            <div class="col-md-4">
                                                <mat-form-field class="w-100">
                                                    <input matInput placeholder="Last Name" formControlName="lastName" class="nospace" maxlength="15"  (keypress)="nameValidate($event)" autocomplete="off" required >
-                                                   <mat-error *ngIf="insureArray.controls.lastName.errors?.required">Title is required</mat-error>
+                                                   <mat-error *ngIf="insureArray.controls.lastName.errors?.required">Last Name is required</mat-error>
                                                </mat-form-field>
                                            </div>
                                            <div class="col-md-4">
@@ -500,7 +500,7 @@
                                            </div>
                                            <div class="col-md-4"  >
                                                <mat-form-field class="w-100" >
-                                                   <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="geteMaritalStatus();changeMarital1();changeMaritalInsuReq()"required  class="w-100" >
+                                                   <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="geteMaritalStatus()"required  class="w-100" >
                                                        <mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                                                    </mat-select>
                                                    <mat-error *ngIf="insureArray.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
@@ -921,7 +921,7 @@
                                <!--</mat-form-field>-->
                            <!--</div>-->
                                <div class="col-md-4"  *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
-                                   <mat-radio-group formControlName="betterHalfBenefit" (selectionChange)="isbetterHalfBenefit()" >
+                                   <mat-radio-group formControlName="betterHalfBenefit" (selectionChange)="changeMaritalInsuReq()" >
                                        <p>Better Half Benefit</p>
                                        <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                        <mat-radio-button value="No">No</mat-radio-button>
@@ -989,7 +989,9 @@
                                    </div>
                                    <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100" >
-                                           <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="sppan"  (keypress)="idValidate($event)" autocomplete="off" required >
+                                           <mat-placeholder>PAN Number<span class="error" >*</span></mat-placeholder>
+
+                                           <input matInput  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="sppan"  (keypress)="idValidate($event)" autocomplete="off" >
                                            <!--<mat-error *ngIf="insureArray.controls.sppan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
                                            <!--<mat-error *ngIf="insureArray.controls.sppan.hasError('pattern')"> Enter Valid PAN Number </mat-error>-->
                                            <!--<mat-error *ngIf="insureArray.controls.sppan.errors?.required">PAN Number is required</mat-error>-->
@@ -997,26 +999,30 @@
                                    </div>
                                    <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
-                                           <input matInput placeholder="Aadhaar No" formControlName="saadhaarNo" minlength="12"  maxlength="12" autocomplete="off" (keypress)="numberValidate($event)" >
+                                           <mat-placeholder>Aadhaar No<span class="error" >*</span></mat-placeholder>
+                                           <input matInput formControlName="saadhaarNo" minlength="12"  maxlength="12" autocomplete="off" (keypress)="numberValidate($event)" >
                                            <!--<mat-error *ngIf="insureArray.controls.aadhaarNo.errors?.required">Aadhaar No is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
 
                                    <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
-                                           <input matInput placeholder="Father / Husband Name" formControlName="sfatherhusbandName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)" required >
+                                           <mat-placeholder>Father / Husband Name<span class="error" >*</span></mat-placeholder>
+                                           <input matInput formControlName="sfatherhusbandName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)"  >
                                            <!--<mat-error *ngIf="insureArray.controls.sfatherhusbandName.errors?.required">Father / Husband Name is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
-                                           <input matInput placeholder="Mother name" formControlName="smotherMaidName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)" required >
+                                           <mat-placeholder>Mother name<span class="error" >*</span></mat-placeholder>
+                                           <input matInput  formControlName="smotherMaidName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)"  >
                                            <!--<mat-error *ngIf="insureArray.controls.smotherMaidName.errors?.required">Mother name is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4"*ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
-                                           <mat-select  placeholder="Age Proof Id" formControlName="sageProofId" required (selectionChange)="ageProofName1()" class="w-100" >
+                                           <mat-placeholder>Age Proof Id<span class="error" >*</span></mat-placeholder>
+                                           <mat-select  formControlName="sageProofId"  (selectionChange)="ageProofName1()" class="w-100" >
                                                <mat-option *ngFor="let list of eAgeProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
                                            <!--<mat-error *ngIf="insureArray.controls.sageProofId.errors?.required">Age Proof Id is required</mat-error>-->
@@ -1024,7 +1030,8 @@
                                    </div>
                                    <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
-                                           <mat-select  placeholder="Highest Qualification" formControlName="shighestQualification" (selectionChange)="qualificationName1();othrhighQualify1()" required  class="w-100" >
+                                           <mat-placeholder>Highest Qualification<span class="error" >*</span></mat-placeholder>
+                                           <mat-select formControlName="shighestQualification" (selectionChange)="qualificationName1();othrhighQualify1()"   class="w-100" >
                                                <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
                                            <!--<mat-error *ngIf="insureArray.controls.shighestQualification.errors?.required">Highest Qualification is required</mat-error>-->
@@ -1036,13 +1043,14 @@
                                            <input matInput   formControlName="sotherQualification"   maxlength="45" autocomplete="off">
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
-                                       <mat-form-field class="w-100">
-                                           <input matInput placeholder="Mobile No" (keypress)="numberValidate($event)"  maxlength="10" formControlName="smobileNo" autocomplete="off" required >
-                                           <!--<mat-error *ngIf="insureArray.controls.smobileNo.errors?.required">Mobile Number is required</mat-error>-->
-                                           <!--<mat-error *ngIf="insureArray.controls.smobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
-                                       </mat-form-field>
-                                   </div>
+<!--                                   <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">-->
+<!--                                       <mat-form-field class="w-100">-->
+<!--                                           <mat-placeholder>Mobile No<span class="error" >*</span></mat-placeholder>-->
+<!--                                           <input matInput (keypress)="numberValidate($event)"  maxlength="10" formControlName="smobileNo" autocomplete="off" required >-->
+<!--                                           &lt;!&ndash;<mat-error *ngIf="insureArray.controls.smobileNo.errors?.required">Mobile Number is required</mat-error>&ndash;&gt;-->
+<!--                                           &lt;!&ndash;<mat-error *ngIf="insureArray.controls.smobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>&ndash;&gt;-->
+<!--                                       </mat-form-field>-->
+<!--                                   </div>-->
 
 
 
@@ -1057,30 +1065,35 @@
                                            <div class="row" >
                                                <div class="col-md-12">
                                                    <mat-form-field class="w-100">
-                                                       <input matInput placeholder=" Address 1" formControlName="scurrAddr1" maxlength="80" (keyup)="typeAddressDeatils1()" autocomplete="off" required >
+                                                       <mat-placeholder>Address 1<span class="error" >*</span></mat-placeholder>
+                                                       <input matInput  formControlName="scurrAddr1" maxlength="80" (keyup)="typeAddressDeatils1()" autocomplete="off"  >
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrAddr1.errors?.required"> Address 1 is required</mat-error>-->
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-12">
                                                    <mat-form-field class="w-100">
-                                                       <input matInput placeholder=" Address 2" formControlName="scurrAddr2" maxlength="80" (keyup)="typeAddressDeatils1()" required autocomplete="off"  >
+                                                       <mat-placeholder>Address 2<span class="error" >*</span></mat-placeholder>
+                                                       <input matInput formControlName="scurrAddr2" maxlength="80" (keyup)="typeAddressDeatils1()"  autocomplete="off"  >
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrAddr2.errors?.required"> Address 2 is required</mat-error>-->
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-12">
                                                    <mat-form-field class="w-100">
-                                                       <input matInput placeholder=" Address 3" formControlName="scurrAddr3" (keyup)="typeAddressDeatils1()"  autocomplete="off"  >
+                                                       <mat-placeholder>Address 3<span class="error" >*</span></mat-placeholder>
+                                                       <input matInput formControlName="scurrAddr3" (keyup)="typeAddressDeatils1()"  autocomplete="off"  >
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-4">
                                                    <mat-form-field class="w-100">
-                                                       <input matInput placeholder="City" formControlName="scurrCity" maxlength="50" autocomplete="off" (keyup)="typeAddressDeatils1()" required (keypress)="nameValidate($event);" >
+                                                       <mat-placeholder>City<span class="error" >*</span></mat-placeholder>
+                                                       <input matInput formControlName="scurrCity" maxlength="50" autocomplete="off" (keyup)="typeAddressDeatils1()"  (keypress)="nameValidate($event);" >
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrCity.errors?.required"> City is required</mat-error>-->
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-4">
                                                    <mat-form-field class="w-100">
-                                                       <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6" (keyup)="typeAddressDeatils1()" formControlName="scurrPincode"autocomplete="off" required >
+                                                       <mat-placeholder>PIN Code<span class="error" >*</span></mat-placeholder>
+                                                       <input matInput  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6" (keyup)="typeAddressDeatils1()" formControlName="scurrPincode"autocomplete="off"  >
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrPincode.hasError('required')">Pincode Is Required</mat-error>-->
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
@@ -1089,7 +1102,8 @@
 
                                                <div class="col-md-4">
                                                    <mat-form-field class="w-100">
-                                                       <mat-select  placeholder="State" formControlName="scurrState"  required (selectionChange)="typeAddressDeatils1()" class="w-100" >
+                                                       <mat-placeholder>State<span class="error" >*</span></mat-placeholder>
+                                                       <mat-select  formControlName="scurrState"   (selectionChange)="typeAddressDeatils1()" class="w-100" >
                                                            <mat-option *ngFor="let list of eState | keys" [value]= list.key> {{list.value}} </mat-option>
                                                        </mat-select>
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrState.errors?.required"> State is required</mat-error>-->
@@ -1110,29 +1124,34 @@
 
                                                <div class="col-md-12">
                                                    <mat-form-field class="w-100">
-                                                       <input matInput placeholder=" Address 1" formControlName="sperAddr1"  required autocomplete="off"  >
+                                                       <mat-placeholder>Address 1<span class="error" >*</span></mat-placeholder>
+                                                       <input matInput formControlName="sperAddr1"   autocomplete="off"  >
                                                        <!--<mat-error *ngIf="insureArray.controls.sperAddr1.errors?.required"> Address 1 is required</mat-error>-->
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-12">
                                                    <mat-form-field class="w-100" >
-                                                       <input matInput placeholder=" Address 2" formControlName="sperAddr2"  autocomplete="off" required (keypress)="nameValidate($event)" >
+                                                       <mat-placeholder>Address 2<span class="error" >*</span></mat-placeholder>
+                                                       <input matInput formControlName="sperAddr2"  autocomplete="off"  (keypress)="nameValidate($event)" >
                                                        <!--<mat-error *ngIf="insureArray.controls.sperAddr2.errors?.required"> Address 2 is required</mat-error>-->
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-12">
                                                    <mat-form-field class="w-100">
-                                                       <input matInput placeholder=" Address 3" formControlName="sperAddr3" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" >
+                                                       <mat-placeholder>Address 3<span class="error" >*</span></mat-placeholder>
+                                                       <input matInput  formControlName="sperAddr3" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" >
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-4">
                                                    <mat-form-field class="w-100" >
-                                                       <input matInput placeholder="City" formControlName="sperCity" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
+                                                       <mat-placeholder>City<span class="error" >*</span></mat-placeholder>
+                                                       <input matInput formControlName="sperCity" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" >
                                                        <!--<mat-error *ngIf="insureArray.controls.sperCity.errors?.required"> City is required</mat-error>-->
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-4"><mat-form-field class="w-100" >
-                                                   <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="sperPincode" autocomplete="off" required >
+                                                   <mat-placeholder>PIN Code<span class="error" >*</span></mat-placeholder>
+                                                   <input matInput  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="sperPincode" autocomplete="off"  >
                                                    <!--<mat-error *ngIf="insureArray.controls.sperPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                                                    <!--<mat-error *ngIf="insureArray.controls.sperPincode.hasError('required')">Pincode Is Required</mat-error>-->
                                                    <!--<mat-error *ngIf="insureArray.controls.sperPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
@@ -1140,7 +1159,8 @@
 
                                                <div class="col-md-4">
                                                    <mat-form-field class="w-100">
-                                                       <mat-select  placeholder="State" formControlName="sperState"  required  class="w-100" >
+                                                       <mat-placeholder>State<span class="error" >*</span></mat-placeholder>
+                                                       <mat-select formControlName="sperState"   class="w-100" >
                                                            <mat-option *ngFor="let list of eState | keys" [value]= list.key> {{list.value}} </mat-option>
                                                        </mat-select>
                                                        <!--<mat-error *ngIf="insureArray.controls.sperState.errors?.required"> State is required</mat-error>-->
@@ -1158,29 +1178,33 @@
                                    </div>
                                    <div class="col-md-4">
                                        <mat-form-field class="w-100">
-                                           <mat-select  placeholder="Height Feets" formControlName="sheightFeets" (selectionChange)="geteHeightFeet()"  class="w-100" required>
+                                           <mat-placeholder>Height Feets<span class="error" >*</span></mat-placeholder>
+                                           <mat-select  formControlName="sheightFeets" (selectionChange)="geteHeightFeet()"  class="w-100" >
                                                <mat-option *ngFor="let list of eHeightFeet | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
-                                           <mat-error *ngIf="insureArray.controls.sheightFeets.errors?.required">Height Feets is required</mat-error>
+<!--                                           <mat-error *ngIf="insureArray.controls.sheightFeetsts.errors?.required">Height Feets is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
                                        <mat-form-field class="w-100">
-                                           <mat-select  placeholder="Height Inches" formControlName="sheightInches" (selectionChange)="geteHeightInches()"  class="w-100" required>
+                                           <mat-placeholder>Height Inches<span class="error" >*</span></mat-placeholder>
+                                           <mat-select  formControlName="sheightInches" (selectionChange)="geteHeightInches()"  class="w-100" >
                                                <mat-option *ngFor="let list of eHeightInches | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
-                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>
+<!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
                                        <mat-form-field class="w-100">
-                                           <input matInput placeholder="Weight (kg)" formControlName="sweight" maxlength="3" autocomplete="off" required (keypress)="numberValidate($event)" >
+                                           <mat-placeholder>Weight (kg)<span class="error" >*</span></mat-placeholder>
+                                           <input matInput formControlName="sweight" maxlength="3" autocomplete="off"  (keypress)="numberValidate($event)" >
                                            <!--<mat-error *ngIf="insureArray.controls.weight.errors?.required">weight is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
                                        <mat-form-field class="w-100">
-                                           <mat-select  placeholder="Change in weight past 6 months" formControlName="shasWeightChanged" (selectionChange)="geteWeightChanged()"  class="w-100">
+                                           <mat-placeholder>Change in weight past 6 months<span class="error" >*</span></mat-placeholder>
+                                           <mat-select  formControlName="shasWeightChanged" (selectionChange)="geteWeightChanged()"  class="w-100">
                                                <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
                                            <!--<mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>-->
@@ -1217,7 +1241,7 @@
                                    </mat-form-field>
                                </div>
                            <div class="col-md-4">
-                               <mat-radio-group formControlName="TopUpBenefit" (selectionChange)="isTopUpBenefit()" >
+                               <mat-radio-group formControlName="TopUpBenefit" (change)="isTopUpBenefit()" >
                                    <p>Top Up Benefit</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
@@ -1440,7 +1464,7 @@
                                </div>
                                <div class="col-md-4">
                                <mat-radio-group formControlName="criticalIllness" (selectionChange)="iscriticalIllness()" >
-                               <p>Critical Illness</p>
+                               <p>Critical Illness Rider</p>
                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
@@ -1451,6 +1475,12 @@
                                <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (selectionChange)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                </mat-form-field>
                                <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
+                               </div>
+                               <div class="col-md-4" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'">
+                                   <mat-radio-group formControlName="criticalClaim"  >
+                                       <mat-radio-button value="Yes" class="mr-2"> Single Claim</mat-radio-button>
+                                       <mat-radio-button value="No">Multi Claim</mat-radio-button>
+                                   </mat-radio-group>
                                </div>
                                <div class="col-md-4">
                                    <mat-radio-group formControlName="isHCB" (selectionChange)="isHospitalCash()" >
@@ -1588,7 +1618,7 @@
 
 
 
-
+           <table>
            <mat-step [stepControl]="">
                <ng-template matStepLabel > QUESTIONNAIRES </ng-template>
                <mat-accordion class="w-100 float-left">
@@ -1598,21 +1628,39 @@
                            <mat-expansion-panel-header>
                                <mat-panel-title> QUESTIONNAIRES </mat-panel-title>
                            </mat-expansion-panel-header>
+                           <tr>
+                               <th style="width: 501px;"></th>
+                               <th>Life Assured</th>
+                               <th>Spouse</th>
+                           </tr>
+                           <tr>
                        <div class="row mt-3">
+
                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                <mat-radio-group formControlName="travelOutsideIndia"  (selectionChange)="travelOutside()">
+
                                    <p>Do you plan to live or travel outside india for more than 30 days?</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                   <mat-radio-button value="No">No</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+
                                </mat-radio-group>
+
                                <div class="error" *ngIf="errortravelOutside != ''">{{errortravelOutside}}</div>
 
                            </div>
+
                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                <mat-radio-group formControlName="pilot" >
                                    <p>Have you in the past 5 years flown as a pilot, co-pilot, pilot instructor, student pilot or do you intend to fly?</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
+                                   <p>Spouse</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+
                                </mat-radio-group>
                            </div>
                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
@@ -1620,6 +1668,10 @@
                                    <p>Do you take part in any of the following activities  </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
+                                   <p>Spouse</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+
                                </mat-radio-group>
                            </div>
                            <div class="col-md-12 " *ngIf="medicalDetail.controls['activity'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1650,6 +1702,10 @@
                                    <p>Have you in the past used or do you use any habit forming drugs or narcotics or received any drug abstinence treatment?<span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
+                                   <p>Spouse</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+
                                </mat-radio-group>
                            </div>
 
@@ -1664,6 +1720,10 @@
                                    <p>Do you consume alcohol? If yes, details about consumption (per week) <span class="error" >*</span> </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
+                                   <p>Spouse</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+
                                </mat-radio-group>
                            </div>
 
@@ -1733,6 +1793,10 @@
                                    <p>Do you smoke or consume tobacco in any form e.g(paan,tobacco,gutka) or have done so in the past 12 months? <span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
+                                   <p>Spouse</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+
                                </mat-radio-group>
                            </div>
                            <div class="col-md-4 " *ngIf="medicalDetail.controls['tobaccoInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1748,6 +1812,10 @@
                                    <p>Did you stop tobacco consumption (in any form)? <span class="error" >*</span> </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
+                                   <p>Spouse</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+
                                </mat-radio-group>
                            </div>
                            <div class="col-md-4 " *ngIf="medicalDetail.controls['tobaccoStopInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1765,6 +1833,10 @@
                                            <p>Consulted any doctor or other health practitioner,except for common cold/influenza lasting less than four days  <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-8 " *ngIf="medicalDetail.controls['consultDoctorInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1778,6 +1850,10 @@
                                            <p>Had ECG, X-rays, blood test or any other tests done <span class="error" >*</span> </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-8 " *ngIf="medicalDetail.controls['ECGInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1792,6 +1868,10 @@
                                            <p>Been attended by or admitted/advised to be admitted to any hospital/medical facility or availed leave on medical grounds<span class="error" >*</span> </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-8 " *ngIf="medicalDetail.controls['admitInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1808,6 +1888,10 @@
                                    <p>Are you taking any medication at present or following a diet prescribed by a doctor? <span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
+                                   <p>Spouse</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+
                                </mat-radio-group>
                            </div>
                            <div class="col-md-8 " *ngIf="medicalDetail.controls['medicalTreatment'].value == 'Yes'" >
@@ -1825,6 +1909,10 @@
                                            <p>Any disorder of the heart <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-8 " *ngIf="medicalDetail.controls['heartDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1838,6 +1926,10 @@
                                                <p>Any other respiratory or lung trouble <span class="error" >*</span> </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['respiratoryDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1851,6 +1943,10 @@
                                                <p>Diabetes or sugar in the urine ? <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['diabetesInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1864,6 +1960,10 @@
                                                <p>Disease or disorder of kidneys, bladder, prostrate or reproductive organs <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['kidneyDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1877,6 +1977,10 @@
                                                <p>Any disorder of the digestive system, gall bladder or liver <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['digestiveDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1890,6 +1994,10 @@
                                                <p>Cancer, enlarged gland, growth or tumor, chemotherapy or radiotherapy of any kind? <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8" *ngIf="medicalDetail.controls['cancerDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1903,6 +2011,10 @@
                                                <p>Tropical Diseases? <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['tropicalDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1916,6 +2028,10 @@
                                                <p>Thyroid Disorder? <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['thyroidDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1929,6 +2045,10 @@
                                                <p>Anemia, bleeding or any other disorder of the blood <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['bloodDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1942,6 +2062,10 @@
                                                <p>Any nervous or neurological disorder <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['nervousDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1955,6 +2079,10 @@
                                                <p>Disorder or disease of muscle, bones, joints, limbs, spine <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['muscleDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1968,6 +2096,10 @@
                                                <p>A test indicating the presence of HIV/AIDS, Hepatitis B or Hepatitis C<span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment2'].value == 'Yes'" >
@@ -1981,6 +2113,10 @@
                                                <p>Excessive alcohol consumption or to stop drinking or received alcohol abstinence treatment<span class="error" >*</span> </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['alcoholicInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -1994,6 +2130,10 @@
                                                <p>Any other illness, disorder, operation, disability? <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
+                                               <p>Spouse</p>
+                                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                               <mat-radio-button value="No">No</mat-radio-button>
+
                                            </mat-radio-group>
                                        </div>
                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['otherIllnessInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -2016,6 +2156,10 @@
                                            <p>Any deformity or physical abnormality? </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-12 " *ngIf="medicalDetail.controls['deformityInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -2031,6 +2175,10 @@
                                            <p>Have you ever been diagnosed or / received treatment for any heart, kidney, liver disease including Hepatitis B, cerebrovascular disease including stroke, paralysis, lung disease, cancer, tumor or physical deformity? </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment1'].value == 'Yes'" >
@@ -2045,6 +2193,10 @@
                                            <p>Any health related complaints or symptoms for which a physician has not been consulted or treatment received?</p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-8 " *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -2058,6 +2210,10 @@
                                            <p>Have you ever been hospitalized for this condition?  </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-8 " *ngIf="medicalDetail.controls['isHospitalized'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -2074,6 +2230,10 @@
                                            <p>Are you now fully recovered and off all medications? </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-8" *ngIf="medicalDetail.controls['isRecovered'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -2094,6 +2254,10 @@
                                            <p>Are you Pregnant?  </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-12 " *ngIf="medicalDetail.controls['pregnantInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
@@ -2107,6 +2271,10 @@
                                            <p>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement? </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
+                                           <p>Spouse</p>
+                                           <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+
                                        </mat-radio-group>
                                    </div>
                                    <div class="col-md-12 " *ngIf="medicalDetail.controls['femaleDieaseInd'].value == 'Yes'  && lifePremiumList.product_id=='112'" >
@@ -2237,7 +2405,7 @@
                                    </div>
                                </div>
                            </div>
-                       </div>
+                       </div></tr>
                            <div class="proposal-buttom mt-3 text-right w-100">
                                <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
                                <button mat-raised-button color="primaryBlue" (click)="medicalDetails(stepper, medicalDetail.value)">Next</button>
@@ -2247,7 +2415,7 @@
                    </form>
                </mat-accordion>
            </mat-step>
-
+           </table>
 
 
 

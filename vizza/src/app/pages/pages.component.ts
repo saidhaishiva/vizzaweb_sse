@@ -8,6 +8,7 @@ import {PosstatusAlert} from './health-insurance/health-insurance.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ContactComponent} from './contact/contact.component';
 import { WINDOW } from '@ng-toolkit/universal';
+import {ConfigurationService} from '../shared/services/configuration.service';
 
 
 @Component({
@@ -33,8 +34,10 @@ export class PagesComponent implements OnInit {
   public breadcrumbHome: boolean;
   public userId: any;
   public mHorizontal: any;
+  public webhost: any;
 
-  constructor(@Inject(WINDOW) private window: Window, public appSettings:AppSettings, public router:Router, private menuService: MenuService, public auth: AuthService, public dialog: MatDialog){
+
+  constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService,public appSettings:AppSettings, public router:Router, private menuService: MenuService, public auth: AuthService, public dialog: MatDialog){
     this.settings = this.appSettings.settings;
     this.breadcrumbHome = true;
     this.userId = 0;
@@ -42,6 +45,8 @@ export class PagesComponent implements OnInit {
     this.settings.menu = 'vertical';
     this.settings.sidenavIsOpened = true;
     this.settings.sidenavIsPinned = true;
+    this.webhost = this.config.getimgUrl();
+
   }
   
   ngOnInit() {
