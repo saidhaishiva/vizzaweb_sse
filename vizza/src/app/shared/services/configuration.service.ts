@@ -18,7 +18,7 @@ export class ConfigurationService {
   apiHostmiscproduct: string = environment.apiHostmiscproduct;
   apiHostMotorFour: string = environment.apiHostMotorFour;
   apiHostEdelweissPos: string = environment.apiHostEdelweissPos;
-  apiHostAdmin: string = environment.apiHostAdmin;
+  // apiHostAdmin: string = environment.apiHostAdmin;
   apiHostLife: string = environment.apiHostLife;
   paAccident: boolean = environment.paAccident;
   travelInsurance: boolean = environment.travelInsurance;
@@ -59,7 +59,7 @@ export class ConfigurationService {
     this.motorInsurance = this.motorInsurance;
     this.apiHostmiscproduct = this.apiHostmiscproduct;
     this.apiHostEdelweissPos = this.apiHostEdelweissPos;
-    this.apiHostAdmin = this.apiHostAdmin;
+    // this.apiHostAdmin = this.apiHostAdmin;
   }
     // getHost() {
     //     return this.apiHost;
@@ -122,7 +122,7 @@ export class ConfigurationService {
     getedelweisspos() {
       return this.apiHostEdelweissPos;
     }
-    getadmin() {
-      return this.apiHostAdmin;
-    }
+    // getadmin() {
+    //   return this.apiHostAdmin;
+    // }
 }
