@@ -567,7 +567,7 @@
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item" *ngIf="summaryData.cover.electrical_cover!=''|| summaryData.cover=='electrical_cover'"><strong>Electrical Cover:</strong> {{summaryData.cover.electrical_cover}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.cover.anti_theft_cover!=''|| summaryData.cover=='anti_theft_cover'"><strong>Anti Theft Cover:</strong> {{summaryData.cover.anti_theft_cover}}</li>
-                                                <li class="list-group-item" *ngIf=" summaryData.cover.Nil_depreciation_cover!=''||summaryData.cover=='Nil_depreciation_cover'"><strong>Nil Depreciation:</strong> {{summaryData.cover.Nil_depreciation_cover}}</li>
+                                                <li class="list-group-item" *ngIf=" summaryData.cover.length < 10"><strong>Nil Depreciation:</strong> {{summaryData.cover.Nil_depreciation_cover}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.cover.pa_owner_driver!=''|| summaryData.cover=='pa_owner_driver'"><strong>PA Owner Driver:</strong> {{summaryData.cover.pa_owner_driver}}</li>
                                                 <li class="list-group-item" *ngIf="summaryData.cover.ncb!=''|| summaryData.cover=='ncb'"><strong>NCB:</strong> {{summaryData.cover.ncb}}</li>
                                             </ul>
