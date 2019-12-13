@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ValidationService} from '../../shared/services/validation.service';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
@@ -24,6 +24,12 @@ export const MY_FORMATS = {
         monthYearA11yLabel: 'MM YYYY',
     },
 };
+// export interface DialogData {
+//     name: string;
+//     question1:string;
+//     question2:string;
+//     id:any;
+// }
 declare const global: any;
 // tslint:disable-next-line:variable-name
 const MouseEvent = (global as any).MouseEvent as MouseEvent;
@@ -77,7 +83,8 @@ export class BikeShriramProposalComponent implements OnInit {
   public electricalValid: boolean;
   public nonelectricalValid: boolean;
   public policyTypeDetails: boolean;
-  public perviousDate: boolean;
+  public electricalSumAount: any;
+  public nonElectricalSumAount: any;
   public paUnNamed: boolean;
   public pType: boolean;
   public proposerFormData : any;
@@ -85,8 +92,8 @@ export class BikeShriramProposalComponent implements OnInit {
   public previousFormData : any;
   public nomineeFormData : any;
   public buyBikeDetails : any;
-  public pincodeState : any;
-  public stateList : any;
+  public pASumAount : any;
+  public errorObject : any;
   public pincodeCity : any;
   public pincodeHypoList : any;
   public pincodeHypoState : any;
@@ -107,10 +114,16 @@ export class BikeShriramProposalComponent implements OnInit {
     public packagelist : any;
     public config:any;
     public photos:any;
+    public idvValuess:any;
+    public electricalMaxValue:any;
+    public idvAmount:any;
+    public electricAmount:any;
+    public nonElectricAmount:any;
+    public voluntaryList:any;
 
 
   public genderList: boolean;
-    constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+    constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
@@ -135,7 +148,9 @@ export class BikeShriramProposalComponent implements OnInit {
         console.log(this.currentStep,'this.currentStep');
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
-
+        this.electricalSumAount=false;
+        this.nonElectricalSumAount=false;
+        this.pASumAount = false;
     this.settings = this.appSettings.settings;
         this.webhost = this.configs.getimgUrl();
 
@@ -197,6 +212,7 @@ export class BikeShriramProposalComponent implements OnInit {
       nonElectricalAccessSI: '',
       paforUnnamed: '',
       paforUnnamedSI: '',
+      voluntaryExcess: ['', Validators.required],
       hypothecationType: '',
         hypothecationTypeName: '',
       hypothecationAddress1: '',
@@ -207,7 +223,7 @@ export class BikeShriramProposalComponent implements OnInit {
       lltoPaidDriver: '',
       addonPackage:'',
       hypothecationBankName:'',
-        // hypothecationBankNamevalue:'',
+        hypothecationBankNamevalue:'',
       pincode:'',
       state:'',
       city:'',
@@ -217,7 +233,7 @@ export class BikeShriramProposalComponent implements OnInit {
     });
     this.previousInsure = this.fb.group({
       policyNumber:['', Validators.required],
-      // previousInsured: ['', Validators.required],
+      previousInsured: ['', Validators.required],
       // policyUwYear:  ['', Validators.compose([Validators.pattern('[2]{1}[0-9]{3}')])],
       previousPolicyType: ['', Validators.required],
       policyNilDescription: '0',
@@ -255,11 +271,59 @@ export class BikeShriramProposalComponent implements OnInit {
          this.nomineeRelationShip();
          this.changehypothecationType();
          this.getHBankLists();
+         this.changeCalcMax();
+         this.voluntaryExcess();
 
       this.sessionData();
   }
+    changeCalcMax(){
+        let values=this.buyBikeDetails.Idv;
+        console.log(values,'values....');
+        let valid = 20/100;
+        console.log(valid,'valid....');
+        this.electricalMaxValue = valid * values;
+        console.log(this.electricalMaxValue ,'this.electricalMaxValue ...')
 
+    }
 
+    changeCalcElect(event:any){
+        let electricSum=event.target.value;
+        console.log(electricSum,'electricSum...');
+        console.log(this.electricalMaxValue,'electricalMaxValue...');
+        if(electricSum < this.electricalMaxValue){
+            this.electricalSumAount=false;
+            this.electricalSumAount='';
+        }else{
+            this.electricalSumAount=true;
+            this.electricalSumAount = 'Electrical Accessories Sum Insured Should be lesser than';
+        }
+
+    }
+    changeCalcNonElect(event:any){
+        let nonElectricSum=event.target.value;
+        console.log(nonElectricSum,'electricSum...');
+        console.log(this.electricalMaxValue,'electricalMaxValue...');
+        if(nonElectricSum < this.electricalMaxValue){
+            this.nonElectricalSumAount=false;
+            this.nonElectricalSumAount='';
+        }else{
+            this.nonElectricalSumAount=true;
+            this.nonElectricalSumAount = 'Non Electrical Accessories Sum Insured Should be lesser than';
+        }
+
+    }
+    // changeCalcPA(event:any){
+    //     let nonPASum=event.target.value;
+    //     console.log(nonPASum,'nonPASum...');
+    //     console.log(this.electricalMaxValue,'electricalMaxValue...');
+    //     if(nonPASum < this.electricalMaxValue){
+    //         this.pASumAount=false;
+    //         this.pASumAount='';
+    //     }else{
+    //         this.pASumAount=true;
+    //         this.pASumAount = 'PA to Unnamed Passenger Sum Insured Should be lesser than';
+    //     }
+    // }
 
   // FIRST STEPPER
 
@@ -497,6 +561,72 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['hypothecationTypeName'].patchValue(this.hypothecationTypeDetails[this.vehical.controls['hypothecationType'].value]);
 
     }
+    voluntaryExcess() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+        }
+        this.bikeInsurance.getvoluntaryExcess(data).subscribe(
+            (successData) => {
+                this.voluntaryExcessSuccess(successData);
+            },
+            (error) => {
+                this.voluntaryExcessFailure(error);
+            }
+        );
+    }
+    public voluntaryExcessSuccess(successData){
+        if (successData.IsSuccess) {
+            this.voluntaryList = successData.ResponseObject;
+        }
+    }
+    public voluntaryExcessFailure(error) {
+    }
+
+    updateElectricalItem(){
+        if(this.vehical.controls.electricalAccess.value == true){
+            this.vehical.controls['electricalAccessSI'].setValidators([Validators.required]);
+        } else {
+            this.vehical.controls['electricalAccessSI'].patchValue('');
+
+            this.vehical.controls['electricalAccessSI'].setValidators(null);
+            this.electricalSumAount=false;
+            this.electricalSumAount='';
+
+        }
+        this.vehical.controls['electricalAccessSI'].updateValueAndValidity();
+    }
+
+    updatenonElectricalItem(){
+        if(this.vehical.controls.nonElectricalAccess.value == true){
+            this.vehical.controls['nonElectricalAccessSI'].setValidators([Validators.required]);
+        } else {
+            this.vehical.controls['nonElectricalAccessSI'].patchValue('');
+
+            this.vehical.controls['nonElectricalAccessSI'].setValidators(null);
+            this.nonElectricalSumAount=false;
+            this.nonElectricalSumAount='';
+
+        }
+        this.vehical.controls['nonElectricalAccessSI'].updateValueAndValidity();
+    }
+
+    updateUnnamedPassenger(){
+        if(this.vehical.controls.paforUnnamed.value == true){
+            this.vehical.controls['paforUnnamedSI'].setValidators([Validators.required]);
+        } else {
+            this.vehical.controls['paforUnnamedSI'].patchValue('');
+
+            this.vehical.controls['paforUnnamedSI'].setValidators(null);
+            this.pASumAount=false;
+            this.pASumAount='';
+
+        }
+        this.vehical.controls['paforUnnamedSI'].updateValueAndValidity();
+    }
     // changefinancecompany() {
     //     this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.getBankHypoDetails[this.vehical.controls['hypothecationBankName'].value]);
     //     console.log(this.vehical.controls['bankNamevalue'].value,'11111111111111111111');
@@ -604,6 +734,7 @@ export class BikeShriramProposalComponent implements OnInit {
             // this.errortoaster = true;
 
             this.photos = successData.ResponseObject.bank_name;
+            this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.photos)
             console.log(this.photos,'photos');
 
         }
@@ -749,6 +880,7 @@ export class BikeShriramProposalComponent implements OnInit {
             this.vehical.controls['hypothecationAddress2'].patchValue('');
             this.vehical.controls['hypothecationAddress3'].patchValue('');
             this.vehical.controls['hypothecationAgreementNo'].patchValue('');
+            this.vehical.controls['hypothecationBankNamevalue'].patchValue('');
             this.vehical.controls['pincode'].patchValue('');
             this.vehical.controls['stateName'].patchValue('');
             this.vehical.controls['cityName'].patchValue('');
@@ -758,6 +890,7 @@ export class BikeShriramProposalComponent implements OnInit {
             this.vehical.controls['hypothecationTypeName'].setValidators(null);
             this.vehical.controls['hypothecationAddress1'].setValidators(null);
             this.vehical.controls['hypothecationBankName'].setValidators(null);
+            this.vehical.controls['hypothecationBankNamevalue'].setValidators(null);
             this.finance = false;
 
         }
@@ -765,6 +898,7 @@ export class BikeShriramProposalComponent implements OnInit {
         // this.proposer.controls['hypothecationTypeName'].updateValueAndValidity();
         this.vehical.controls['hypothecationAddress1'].updateValueAndValidity();
         this.vehical.controls['hypothecationBankName'].updateValueAndValidity();
+        this.vehical.controls['hypothecationBankNamevalue'].updateValueAndValidity();
 
     }
 
@@ -811,11 +945,12 @@ export class BikeShriramProposalComponent implements OnInit {
             this.vehical.controls['electricalAccess'].patchValue('');
             this.vehical.controls['nonElectricalAccess'].patchValue('');
             this.vehical.controls['antiTheft'].patchValue('');
+            this.vehical.controls['paforUnnamed'].patchValue('');
+
 
         } else {
             this.policyTypeDetails = false;
             this.vehical.controls['lltoPaidDriver'].patchValue('');
-            this.vehical.controls['paforUnnamed'].patchValue('');
 
         }
     }
@@ -826,7 +961,7 @@ export class BikeShriramProposalComponent implements OnInit {
               let valid = 20/100;
               this.siValue = valid * this.buyBikeDetails.Idv;
               console.log(this.siValue, 'sdfdfdadf');
-              if(this.vehical.valid){
+              if(this.vehical.valid && this.electricalSumAount==false && this.nonElectricalSumAount==false && this.pASumAount==false){
                        stepper.next();
                   this.topScroll();
 
@@ -1098,7 +1233,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "CNGKitSI": "",
               "LimitedTPPDYN": "0",
               "InBuiltCNGKitYN": "0",
-              "VoluntaryExcess": "TWVE1",
+              "VoluntaryExcess": this.vehical.controls['voluntaryExcess'].value,
               "Bangladesh": "0",
               "Bhutan": "0",
               "SriLanka": "0",
@@ -1112,11 +1247,11 @@ export class BikeShriramProposalComponent implements OnInit {
               "AddonPackage": this.buyBikeDetails.plan_code,
               "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
               "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
-              "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamed'].value == true ? this.siValue : '',
+              "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value,
               "ElectricalaccessYN": this.vehical.controls['electricalAccess'].value == true ? '1' : '0',
-              "ElectricalaccessSI": this.vehical.controls['electricalAccess'].value == true ? this.siValue : '',
+              "ElectricalaccessSI": this.vehical.controls['electricalAccessSI'].value,
               "NonElectricalaccessYN": this.vehical.controls['nonElectricalAccess'].value == true ? '1' : '0',
-              "NonElectricalaccessSI":  this.vehical.controls['nonElectricalAccess'].value == true ? this.siValue : '',
+              "NonElectricalaccessSI":  this.vehical.controls['nonElectricalAccessSI'].value,
               "PAPaidDriverConductorCleanerYN": "0",
               "PAPaidDriverConductorCleanerSI": "",
               "PAPaidDriverCount": "",
@@ -1135,7 +1270,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "LLtoPaidDriverYN": this.vehical.controls['lltoPaidDriver'].value == true ? '1' : '0',
               "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
               "PreviousPolicyNo": this.previousInsure.controls['policyNumber'].value,
-              // "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
+              "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
               // "PreviousPolicyUWYear": this.previousInsure.controls['policyUwYear'].value,
               "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
               // "PreviousPolicyClaimYN": this.previousInsure.controls['policyClaim'].value == true ? '1' : '0',
@@ -1144,7 +1279,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
               "HypothecationType": this.vehical.controls['hypothecationType'].value ? this.vehical.controls['hypothecationType'].value : '',
               // "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value ? this.vehical.controls['hypothecationBankName'].value : '' ,
-              "HypothecationBankName": this.photos==undefined||null?'':this.photos,
+              "HypothecationBankName": this.vehical.controls['hypothecationBankNamevalue'].value==undefined||null?'':this.vehical.controls['hypothecationBankNamevalue'].value,
               "HypothecationAddress1": this.vehical.controls['hypothecationAddress1'].value ?  this.vehical.controls['hypothecationAddress1'].value: '',
               "HypothecationAddress2": this.vehical.controls['hypothecationAddress2'].value?  this.vehical.controls['hypothecationAddress2'].value : '',
               "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value? this.vehical.controls['hypothecationAddress3'].value: '',
@@ -1170,6 +1305,25 @@ export class BikeShriramProposalComponent implements OnInit {
     public proposalSuccess(successData, stepper){
         this.settings.loadingSpinner = false;
         if(successData.IsSuccess){
+            // let dialogRef = this.dialog.open(BikeShriramIDVComponent, {
+            //     width: '700px',
+            //     data: {name: this.errorObject}
+            // });
+            // dialogRef.disableClose = true;
+            // dialogRef.afterClosed().subscribe(result => {
+            //     if (result) {
+            //         this.idvValuess = result;
+            //         this.idvAmount=this.idvValuess.id;
+            //         this.electricAmount=this.idvValuess.question1;
+            //         this.nonElectricAmount=this.idvValuess.question2;
+            //         console.log(result,'resulit.........');
+            //         console.log(this.idvValuess,'23456787656789876');
+            //         // console.log(this.checkValue,'23451111111');
+            //
+            //     }
+            //     this.updateProposal(stepper);
+            //     console.log('The dialog was closed');
+            // });
           stepper.next();
             this.topScroll();
 
@@ -1189,14 +1343,184 @@ export class BikeShriramProposalComponent implements OnInit {
             sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
             sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
-      } else{
-            this.toastr.error(successData.ErrorObject);
-
-        }
+      }
+        // else {
+            // this.settings.loadingSpinner = false;
+            // if(successData.ErrorObject.type == 'idv') {
+            //     this.errorObject=successData.ErrorObject.ErrorObject;
+            //     console.log(this.errorObject,'this.errorObject...')
+            //     this.toastr.error(successData.ErrorObject.ErrorObject);
+            //     let dialogRef = this.dialog.open(BikeShriramIDVComponent, {
+            //         width: '700px',
+            //         data: {name: this.errorObject}
+            //     });
+            //     dialogRef.disableClose = true;
+            //     dialogRef.afterClosed().subscribe(result => {
+            //         if (result) {
+            //             this.idvValuess = result;
+            //             this.idvAmount=this.idvValuess.id;
+            //             this.electricAmount=this.idvValuess.question1;
+            //             this.nonElectricAmount=this.idvValuess.question2;
+            //             console.log(result,'resulit.........');
+            //             console.log(this.idvValuess,'23456787656789876');
+            //             // console.log(this.checkValue,'23451111111');
+            //
+            //         }
+            //         this.updateProposal(stepper);
+            //         console.log('The dialog was closed');
+            //     });
+            // }
+            else{
+                this.toastr.error(successData.ErrorObject);
+            }
+        // }
     }
     public proposalFailure(error){
 
     }
+    // updateProposal(stepper){
+    //         const data = {
+    //             'platform': 'web',
+    //             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+    //             'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    //             'enquiry_id': this.bikeEnquiryId,
+    //             "created_by": "",
+    //             'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
+    //             "geogrophicalExtensionCover": "false",
+    //             "package_type": this.packagelist,
+    //             "motorProposalObj": {
+    //                 // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
+    //                 "InsuredPrefix": "1",
+    //                 "InsuredName": this.proposer.controls['name'].value,
+    //                 "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
+    //                 "Address1": this.proposer.controls['address'].value,
+    //                 "Address2": this.proposer.controls['address2'].value,
+    //                 "Address3": this.proposer.controls['address3'].value,
+    //                 "State": 'TN',
+    //                 "City": this.proposer.controls['city'].value,
+    //                 "PinCode": this.proposer.controls['pincode'].value,
+    //                 "PanNo": this.proposer.controls['pan'].value,
+    //                 "TelephoneNo": "",
+    //                 "FaxNo": "",
+    //                 "GSTNo": "",
+    //                 "EMailID": this.proposer.controls['email'].value,
+    //                 "PolType": this.vehical.controls['policyType'].value,
+    //                 "ProposalType": this.vehical.controls['proposalType'].value,
+    //                 "MobileNo": this.proposer.controls['mobile'].value,
+    //                 "DateOfBirth": this.proposer.controls['dob'].value,
+    //                 "CoverNoteNo": "",
+    //                 "CoverNoteDt": "",
+    //                 "IDV_of_Vehicle": this.idvAmount,
+    //                 "Colour": this.vehical.controls['vehicleColour'].value,
+    //                 "NoEmpCoverLL": "",
+    //                 "VehiclePurposeYN": "",
+    //                 "DriverAgeYN": "0",
+    //                 "LimitOwnPremiseYN": "0",
+    //                 "CNGKitYN": "0",
+    //                 "CNGKitSI": "",
+    //                 "LimitedTPPDYN": "0",
+    //                 "InBuiltCNGKitYN": "0",
+    //                 "VoluntaryExcess": "TWVE1",
+    //                 "Bangladesh": "0",
+    //                 "Bhutan": "0",
+    //                 "SriLanka": "0",
+    //                 "Pakistan": "0",
+    //                 "Nepal": "0",
+    //                 "Maldives": "0",
+    //                 "DeTariff": "0",
+    //                 "PreInspectionReportYN": "0",
+    //                 "PreInspection": "",
+    //                 "BreakIn": "NO",
+    //                 "AddonPackage": this.buyBikeDetails.plan_code,
+    //                 "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
+    //                 "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
+    //                 "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value,
+    //                 "ElectricalaccessYN": this.electricAmount != '' ? '1' : '0',
+    //                 "ElectricalaccessSI": this.electricAmount,
+    //                 "NonElectricalaccessYN": this.nonElectricAmount != '' ? '1' : '0',
+    //                 "NonElectricalaccessSI":  this.nonElectricAmount,
+    //                 "PAPaidDriverConductorCleanerYN": "0",
+    //                 "PAPaidDriverConductorCleanerSI": "",
+    //                 "PAPaidDriverCount": "",
+    //                 "PAPaidConductorCount": "",
+    //                 "PAPaidCleanerCount": "",
+    //                 "ElectricalaccessRemarks": "",
+    //                 "NonElectricalaccessRemarks": "",
+    //                 "SpecifiedPersonField": "",
+    //                 "PAOwnerDriverExclusion": "",
+    //                 "PAOwnerDriverExReason": "",
+    //                 "NomineeNameforPAOwnerDriver": this.nomineeDetail.controls['nomineeName'].value,
+    //                 "NomineeAgeforPAOwnerDriver": this.nomineeDetail.controls['nomineeAge'].value,
+    //                 "NomineeRelationforPAOwnerDriver": this.nomineeDetail.controls['nomineeRelationship'].value,
+    //                 "AppointeeNameforPAOwnerDriver": this.nomineeDetail.controls['appointeeName'].value,
+    //                 "AppointeeRelationforPAOwnerDriver": this.nomineeDetail.controls['appointeeRelationship'].value,
+    //                 "LLtoPaidDriverYN": this.vehical.controls['lltoPaidDriver'].value == true ? '1' : '0',
+    //                 "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
+    //                 "PreviousPolicyNo": this.previousInsure.controls['policyNumber'].value,
+    //                 "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
+    //                 // "PreviousPolicyUWYear": this.previousInsure.controls['policyUwYear'].value,
+    //                 "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
+    //                 // "PreviousPolicyClaimYN": this.previousInsure.controls['policyClaim'].value == true ? '1' : '0',
+    //                 // / "PreviousPolicyNCBPerc": this.previousInsure.controls['previousPolicyNcb'].value ? this.previousInsure.controls['previousPolicyNcb'].value : 0,
+    //                 "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
+    //                 "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
+    //                 "HypothecationType": this.vehical.controls['hypothecationType'].value ? this.vehical.controls['hypothecationType'].value : '',
+    //                 // "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value ? this.vehical.controls['hypothecationBankName'].value : '' ,
+    //                 "HypothecationBankName": this.vehical.controls['hypothecationBankNamevalue'].value==undefined||null?'':this.vehical.controls['hypothecationBankNamevalue'].value,
+    //                 "HypothecationAddress1": this.vehical.controls['hypothecationAddress1'].value ?  this.vehical.controls['hypothecationAddress1'].value: '',
+    //                 "HypothecationAddress2": this.vehical.controls['hypothecationAddress2'].value?  this.vehical.controls['hypothecationAddress2'].value : '',
+    //                 "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value? this.vehical.controls['hypothecationAddress3'].value: '',
+    //                 "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value ? this.vehical.controls['hypothecationAgreementNo'].value: '',
+    //                 "HypothecationCountry": "",
+    //                 "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
+    //                 "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
+    //                 "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : ''
+    //             },
+    //         }
+    //         console.log(data,'fileeee');
+    //         this.settings.loadingSpinner = true;
+    //
+    //         this.bikeInsurance.proposalCreation(data).subscribe(
+    //             (successData) => {
+    //                 this.updateProposalSuccess(successData,stepper);
+    //             },
+    //             (error) => {
+    //                 this.updateProposalFailure(error);
+    //             }
+    //         );
+    //     }
+    // public updateProposalSuccess(successData, stepper){
+    //         this.settings.loadingSpinner = false;
+    //         if(successData.IsSuccess){
+    //             stepper.next();
+    //             this.topScroll();
+    //
+    //             this.toastr.success('Proposal created successfully!!');
+    //             this.summaryData = successData.ResponseObject;
+    //             this.ProposalId =   this.summaryData.ProposalId;
+    //             this.PaymentRedirect =   this.summaryData.PaymentRedirect;
+    //             this.PolicySisID =   this.summaryData.PolicySisID;
+    //             this.PaymentReturn =   this.summaryData.PaymentReturn;
+    //             sessionStorage.shiramBikeproposalID = this.ProposalId;
+    //             this.proposerFormData = this.proposer.value;
+    //             this.vehicalFormData = this.vehical.value;
+    //             this.previousFormData = this.previousInsure.value;
+    //             this.nomineeFormData = this.nomineeDetail.value;
+    //             console.log(this.vehicalFormData,'this.proposerFormData');
+    //             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+    //             sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
+    //             sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
+    //             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+    //         } else{
+    //                 this.toastr.error(successData.ErrorObject);
+    //             }
+    //
+    //     }
+    // public updateProposalFailure(error){
+    //
+    //     }
+
 
 
 
@@ -1246,6 +1570,7 @@ export class BikeShriramProposalComponent implements OnInit {
         hypothecationTypeName: stepper2.hypothecationTypeName,
         paforUnnamed: stepper2.paforUnnamed,
         paforUnnamedSI: stepper2.paforUnnamedSI,
+          voluntaryExcess:stepper2.voluntaryExcess,
         hypothecationAddress1:stepper2.hypothecationAddress1,
         hypothecationAddress2: stepper2.hypothecationAddress2,
         hypothecationAddress3:stepper2.hypothecationAddress3,
@@ -1254,7 +1579,7 @@ export class BikeShriramProposalComponent implements OnInit {
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
         hypothecationBankName:stepper2.hypothecationBankName,
-          // hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
+          hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
           isFinanced:stepper2.isFinanced,
         pincode:stepper2.pincode,
         state:stepper2.state,
@@ -1272,7 +1597,7 @@ export class BikeShriramProposalComponent implements OnInit {
       let stepper3 = JSON.parse(sessionStorage.stepper3);
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
-        // previousInsured: stepper3.previousInsured,
+        previousInsured: stepper3.previousInsured,
         policySi: stepper3.policySi,
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
@@ -1297,3 +1622,183 @@ export class BikeShriramProposalComponent implements OnInit {
   }
 
 }
+
+// @Component({
+//     selector: 'BikeShriramIDVComponent',
+//     template: `
+//         <div class="container-fluid">
+//             <div class="row" [formGroup]="idfGroup">
+//                 <h5 class="card-title">{{data.name}}</h5>
+//                 <div class="col-md-12 box-card pt-3 pb-3" >
+//
+//                     <div class="row">
+//                         <div class="col-md-4">
+//                             <mat-form-field class="w-100">
+//                                 <input matInput placeholder="IDV Amount"  formControlName="idvAmount" (keypress)="numberValidate($event)" (input)="changeCalcElect($event)"  autocomplete="off"  required >
+//                                 <mat-error *ngIf="idfGroup.controls.idvAmount.errors?.required">IDV Amount is required</mat-error>
+//                             </mat-form-field>
+//                         </div>
+//                     </div>
+//
+//                     <div class="col-md-12 mt-2" >
+//                         <div class="row">
+//                             <div class="col-md-4 " >
+//                                 <mat-checkbox  formControlName="electricalAccessPop" (change)="updateElectricalItem();changeCalcMax()" >Electrical Accessories</mat-checkbox>
+//                             </div>
+//                             <div class="col-md-4 " *ngIf="idfGroup.controls.electricalAccessPop.value == true">
+//                                 <mat-form-field class="w-100">
+//                                     <input matInput placeholder="Sum Insured"  formControlName="electricalAccessSIPop" (keypress)="numberValidate($event)" (input)="changeCalcElect($event)"  autocomplete="off"  [required]="idfGroup.controls.electricalAccessPop.value == true" >
+//                                     <!--<mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
+//                                 </mat-form-field>
+//                                 <div class="error" *ngIf="electricalSumAount !='' && electricalSumAount != true">{{electricalSumAount}} {{electricalMaxValue}}</div>
+//                             </div>
+//
+//                         </div>
+//                     </div>
+//
+//                     <div class="col-md-12 mt-2" >
+//                         <div class="row">
+//                             <div class="col-md-4">
+//                                 <mat-checkbox  formControlName="nonElectricalAccessPop" (change)="updatenonElectricalItem();changeCalcMax()">Non Electrical Accessories</mat-checkbox>
+//                             </div>
+//                             <div class="col-md-4" *ngIf="idfGroup.controls.nonElectricalAccessPop.value == true">
+//                                 <mat-form-field class="w-100">
+//                                     <input matInput placeholder="Sum Insured"  formControlName="nonElectricalAccessSIPop"   autocomplete="off" (input)="changeCalcNonElect($event)" (keypress)="numberValidate($event)"  [required]="idfGroup.controls.nonElectricalAccessPop.value == true"  >
+//                                     <!--<mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
+//                                 </mat-form-field>
+//                                 <div class="error" *ngIf="nonElectricalSumAount !='' && nonElectricalSumAount != true">{{nonElectricalSumAount}} {{electricalMaxValue}}</div>
+//                             </div>
+//
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//         <div mat-dialog-actions style="justify-content: center">
+//              <button mat-button class="secondary-bg-color" (click)="onClick()" >Submit</button>
+//         </div>
+//     `,
+//     styleUrls: ['./bike-shriram-proposal.component.scss']
+//
+//
+// })
+//
+// export class BikeShriramIDVComponent {
+//     public idfGroup : FormGroup;
+//     public idv : any;
+//     public buyBikeDetails : any;
+//     public electricalMaxValue : any;
+//     public electricalSumAount : any;
+//     public nonElectricalSumAount : any;
+//
+//     constructor(
+//         public dialogRef: MatDialogRef<BikeShriramIDVComponent>,
+//         @Inject(MAT_DIALOG_DATA) public data: DialogData, public fb: FormBuilder,public validation: ValidationService) {
+//         // alert(data.name);
+//         console.log(data.name,'previous........');
+//         this.electricalSumAount=false;
+//         this.nonElectricalSumAount=false;
+//
+//
+//         this.idfGroup = this.fb.group({
+//             idvAmount: ['', Validators.required],
+//             electricalAccessPop: ['', Validators.required],
+//             nonElectricalAccessPop: ['', Validators.required],
+//             electricalAccessSIPop: '',
+//             nonElectricalAccessSIPop: '',
+//             }
+//         );
+//
+//     }
+//     ngOnInit(){
+//         // alert(this.buyBikeDetails);
+//         this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
+//         this.electricalSumAount=false;
+//         this.nonElectricalSumAount=false;
+//         this. changeCalcMax();
+//         // this.idv = JSON.parse(sessionStorage.changeIdvDetail);
+//     }
+//
+//     changeCalcMax(){
+//         let values=this.buyBikeDetails.Idv;
+//         console.log(values,'values....');
+//         let valid = 20/100;
+//         console.log(valid,'valid....');
+//         this.electricalMaxValue = valid * values;
+//         console.log(this.electricalMaxValue ,'this.electricalMaxValue ...')
+//
+//     }
+//     updateElectricalItem(){
+//         if(this.idfGroup.controls.electricalAccessPop.value == true){
+//             this.idfGroup.controls['electricalAccessSIPop'].setValidators([Validators.required]);
+//         } else {
+//             this.idfGroup.controls['electricalAccessSIPop'].patchValue('');
+//
+//             this.idfGroup.controls['electricalAccessSIPop'].setValidators(null);
+//             this.electricalSumAount=false;
+//             this.electricalSumAount='';
+//
+//         }
+//         this.idfGroup.controls['electricalAccessSIPop'].updateValueAndValidity();
+//     }
+//
+//     updatenonElectricalItem(){
+//         if(this.idfGroup.controls.nonElectricalAccessPop.value == true){
+//             this.idfGroup.controls['nonElectricalAccessSIPop'].setValidators([Validators.required]);
+//         } else {
+//             this.idfGroup.controls['nonElectricalAccessSIPop'].patchValue('');
+//
+//             this.idfGroup.controls['nonElectricalAccessSIPop'].setValidators(null);
+//             this.nonElectricalSumAount=false;
+//             this.nonElectricalSumAount='';
+//
+//         }
+//         this.idfGroup.controls['nonElectricalAccessSIPop'].updateValueAndValidity();
+//     }
+//
+//
+//     changeCalcElect(event:any){
+//         let electricSum=event.target.value;
+//         console.log(electricSum,'electricSum...');
+//         console.log(this.electricalMaxValue,'electricalMaxValue...');
+//         if(electricSum < this.electricalMaxValue){
+//             this.electricalSumAount=false;
+//             this.electricalSumAount='';
+//         }else{
+//             this.electricalSumAount=true;
+//             this.electricalSumAount = 'Electrical Accessories Sum Insured Should be lesser than';
+//         }
+//
+//     }
+//     changeCalcNonElect(event:any){
+//         let nonElectricSum=event.target.value;
+//         console.log(nonElectricSum,'electricSum...');
+//         console.log(this.electricalMaxValue,'electricalMaxValue...');
+//         if(nonElectricSum < this.electricalMaxValue){
+//             this.nonElectricalSumAount=false;
+//             this.nonElectricalSumAount='';
+//         }else{
+//             this.nonElectricalSumAount=true;
+//             this.nonElectricalSumAount = 'Non Electrical Accessories Sum Insured Should be lesser than';
+//         }
+//
+//     }
+//     numberValidate(event: any) {
+//         this.validation.numberValidate(event);
+//     }
+//
+//     onClick(): void {
+//         console.log(this.idfGroup.controls['electricalAccessSIPop'].value)
+//         console.log(this.idfGroup.controls['nonElectricalAccessSIPop'].value)
+//         console.log(this.idfGroup.controls['idvAmount'].value)
+//
+//         this.dialogRef.close({question1:this.idfGroup.controls['electricalAccessSIPop'].value, question2:this.idfGroup.controls['nonElectricalAccessSIPop'].value, id:this.idfGroup.controls['idvAmount'].value});
+//         // this.dialogRef.close(this.data.question1);
+//     }
+//
+//     // onClick(result) {
+//     //     if(result !=''){
+//     //         this.dialogRef.close(this.idfGroup.controls.IDV.value);
+//     //     }
+//     // }
+// }

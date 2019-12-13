@@ -206,59 +206,149 @@
                                             <h6 class="color-blue mt-4 ml-2">OTHER ADDONS LIST</h6>
                                         </div>
                                         <div class="row mt-2" *ngIf="!policyTypeDetails">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 ml-3">
                                                 <mat-checkbox  formControlName="nilDepreciationCover">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="!policyTypeDetails">
-                                            <div class="col-md-6">
-                                                <mat-checkbox  formControlName="electricalAccess">electricalAccess</mat-checkbox>
+                                        <div class="row"  *ngIf="!policyTypeDetails">
+                                            <div class="col-md-6 ml-3">
+                                                <mat-checkbox  formControlName="antiTheft">Anti Theft</mat-checkbox>
                                             </div>
-
-                                        </div>
-
-                                        <div class="row" *ngIf="!policyTypeDetails">
-                                            <div class="col-md-6">
-                                                <mat-checkbox  formControlName="nonElectricalAccess">Non Electrical Access</mat-checkbox>
-                                            </div>
-
-                                        </div>
-                                        <div class="row" *ngIf="policyTypeDetails">
-                                            <div class="col-md-6">
-                                                <mat-checkbox  formControlName="paforUnnamed">Pa For Unnamed Passenger</mat-checkbox>
-                                            </div>
-
-                                        </div>  <div class="row">
-                                            <div class="col-md-6">
-                                                <mat-checkbox  formControlName="CNGKit">CNGKit</mat-checkbox>
-                                            </div>
-
                                         </div>
                                         <div class="row" *ngIf="policyTypeDetails">
                                             <div class="col-md-6">
                                                 <mat-checkbox  formControlName="lltoPaidDriver">Legal Liability</mat-checkbox>
                                             </div>
                                         </div>
-                                        <div class="row"  *ngIf="!policyTypeDetails">
-                                            <div class="col-md-6">
-                                                <mat-checkbox  formControlName="antiTheft">Anti Theft</mat-checkbox>
+
+                                        <div class="col-md-12 mt-2" *ngIf="!policyTypeDetails">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  formControlName="electricalAccess" (change)="updateElectricalItem();changeCalcMax()" >Electrical Accessories</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4 " *ngIf="vehical.controls.electricalAccess.value == true">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Sum Insured"  formControlName="electricalAccessSI" (keypress)="numberValidate($event)" (input)="changeCalcElect($event)"   autocomplete="off"  [required]="vehical.controls.electricalAccess.value == true" >
+                                                        <!--<mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
+                                                    </mat-form-field>
+                                                    <div class="error" *ngIf="electricalSumAount !='' && electricalSumAount != true">{{electricalSumAount}} {{electricalMaxValue}}</div>
+                                                </div>
+
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <mat-checkbox (change)="financeType()" formControlName="isFinanced">Is Vehicle in finance</mat-checkbox>
+
+                                        <div class="col-md-12 mt-2" *ngIf="!policyTypeDetails">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  formControlName="nonElectricalAccess" (change)="updatenonElectricalItem();changeCalcMax()">Non Electrical Accessories</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4" *ngIf="vehical.controls.nonElectricalAccess.value == true">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Sum Insured"  formControlName="nonElectricalAccessSI"   autocomplete="off" (input)="changeCalcNonElect($event)" (keypress)="numberValidate($event)"  [required]="vehical.controls.nonElectricalAccess.value == true"  >
+                                                        <!--<mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
+                                                    </mat-form-field>
+                                                    <div class="error" *ngIf="nonElectricalSumAount !='' && nonElectricalSumAount != true">{{nonElectricalSumAount}} {{electricalMaxValue}}</div>
+                                                </div>
+
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="finance">
+
+                                        <div class="col-md-12 mt-2" *ngIf="!policyTypeDetails">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  formControlName="paforUnnamed" (change)="updateUnnamedPassenger()">PA to Unnamed Passenger</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4" *ngIf="vehical.controls.paforUnnamed.value ==true">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Sum Insured"  formControlName="paforUnnamedSI"  autocomplete="off"  [required]="vehical.controls.paforUnnamed.value==true" >
+                                                    </mat-form-field>
+                                                    <!--<div class="error" *ngIf="pASumAount !='' && pASumAount != true">{{pASumAount}} {{electricalMaxValue}}</div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2" >
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  formControlName="CNGKit" (change)="updateCNGKit()">CNG Kit</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4" *ngIf="vehical.controls.CNGKit.value ==true">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Sum Insured"  formControlName="CNGKitSI"  autocomplete="off"  [required]="vehical.controls.CNGKit.value==true" >
+                                                    </mat-form-field>
+                                                    <!--<div class="error" *ngIf="pASumAount !='' && pASumAount != true">{{pASumAount}} {{electricalMaxValue}}</div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2" >
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  formControlName="paPaidDriver" (change)="updatePAPaidDriver()">PA Paid Driver Conductor Cleaner</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-3" *ngIf="vehical.controls.paPaidDriver.value ==true">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Sum Insured"  formControlName="paPaidDriverSI"  autocomplete="off"  [required]="vehical.controls.paPaidDriver.value==true" >
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" >
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (selectionChange)="changehypothecation(); hypoName()" [required]="finance" >
+                                                    <mat-select placeholder="Voluntary Excess"  formControlName="voluntaryExcess"   (selectionChange)="voluntaryExcess()"  required>
+                                                        <mat-option *ngFor="let vehiclebk of voluntaryList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="vehical.controls.voluntaryExcess.errors?.required">Voluntary Excess is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="PA Paid Driver Count"  formControlName="PAPaidDriverCount"  autocomplete="off"  >
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="PA Paid Conductor Count"  formControlName="PAPaidConductorCount"  autocomplete="off"   >
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="PA Paid Cleaner Count"  formControlName="PAPaidCleanerCount"  autocomplete="off"  >
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-checkbox  formControlName="limitOwnPremise">Limit Own Premise</mat-checkbox>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-checkbox  formControlName="limitedTPPD">Limited TPPD</mat-checkbox>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-checkbox  formControlName="builtCNGKit">In Built CNGKit</mat-checkbox>
+                                            </div>
+
+                                        </div>
+
+
+
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-6 ml-0">
+                                                <mat-checkbox  formControlName="isFinanced" (change)="financeType()">Is Vehicle in finance</mat-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="row" *ngIf="vehical.controls['isFinanced'].value==true">
+                                            <div class="col-md-3" *ngIf="vehical.controls['isFinanced'].value==true">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (selectionChange)="changehypothecation(); hypoName()" [required]="vehical.controls['isFinanced'].value == true" >
                                                         <mat-option *ngFor="let hypothecationTypebk of hypothecationTypeDetails | keys " value="{{hypothecationTypebk.key}}" > {{hypothecationTypebk.value}} </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3 "  >
-                                                <mat-form-field class="w-100"  *ngIf="vehical.controls['isFinanced'].value == true">
+                                            <div class="col-md-3 "  *ngIf="vehical.controls['isFinanced'].value==true">
+                                                <mat-form-field class="w-100"  >
                                                     <mat-placeholder>Hypothecation Bank Name<span class="error" >*</span></mat-placeholder>
                                                     <mat-select  formControlName="hypothecationBankName" (selectionChange)="hypothecationBankListName()">
                                                         <cdk-virtual-scroll-viewport [itemSize]="50" [style.height.px]=5*50>
@@ -281,30 +371,30 @@
                                                     <!--<input matInput placeholder="Hypothecation Bank Name" formControlName="hypothecationBankName" autocomplete="off" [required]="finance" >-->
                                                 <!--</mat-form-field>-->
                                             <!--</div>-->
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="vehical.controls['isFinanced'].value == true">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Hypothecation Address 1" formControlName="hypothecationAddress1" autocomplete="off" maxlength="30" [required]="finance" >
+                                                    <input matInput placeholder="Hypothecation Address 1" formControlName="hypothecationAddress1" autocomplete="off" maxlength="30" [required]="vehical.controls['isFinanced'].value == true" >
                                                     <mat-error *ngIf="vehical.controls.hypothecationAddress1.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="vehical.controls['isFinanced'].value == true">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Hypothecation Address 2" formControlName="hypothecationAddress2"  autocomplete="off" maxlength="30" [required]="finance">
+                                                    <input matInput placeholder="Hypothecation Address 2" formControlName="hypothecationAddress2"  autocomplete="off" maxlength="30" [required]="vehical.controls['isFinanced'].value == true">
                                                     <mat-error *ngIf="vehical.controls.hypothecationAddress2.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="vehical.controls['isFinanced'].value == true">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Hypothecation Address 3"  formControlName="hypothecationAddress3" autocomplete="off" maxlength="30" >
                                                     <!--<mat-error *ngIf="vehical.controls.hypothecationAddress3.errors?.required">Address is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="vehical.controls['isFinanced'].value == true">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Hypothecation AgreementNo "  formControlName="hypothecationAgreementNo" maxlength="20" autocomplete="off" (keypress)="numberValidate($event)">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="vehical.controls['isFinanced'].value == true">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6"  maxlength="6" (input)="getHypoPostalCode($event.target.value)" formControlName="pincode"   autocomplete="off" >
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
@@ -313,13 +403,13 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="vehical.controls['isFinanced'].value == true">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="State" formControlName="stateName"  autocomplete="off" readonly>
                                                     <!--<mat-error *ngIf="vehical.controls.state.errors?.required">State is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="vehical.controls['isFinanced'].value == true">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="City" formControlName="cityName"  autocomplete="off" readonly >
                                                     <!--<mat-error *ngIf="vehical.controls.city.errors?.required">City is required</mat-error>-->
@@ -328,7 +418,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 ml-3">
                                                 <mat-checkbox formControlName="geographicalArea">Geographical Area</mat-checkbox>
                                             </div>
                                         </div>
@@ -388,14 +478,14 @@
 
                                                 </mat-form-field>
                                             </div>
-                                            <!--<div class="col-md-3">-->
-                                                <!--<mat-form-field class="w-100">-->
-                                                    <!--<mat-select placeholder="Previous Insurer"  formControlName="previousInsured" required>-->
-                                                        <!--<mat-option *ngFor="let paCity of previousList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
-                                                    <!--</mat-select>-->
-                                                    <!--<mat-error *ngIf="previousInsure.controls.previousInsured.errors?.required">Previous Insurer is required</mat-error>-->
-                                                <!--</mat-form-field>-->
-                                            <!--</div>-->
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Previous Insurer"  formControlName="previousInsured" required>
+                                                        <mat-option *ngFor="let paCity of previousList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="previousInsure.controls.previousInsured.errors?.required">Previous Insurer is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
@@ -514,7 +604,7 @@
                     <ng-template matStepLabel>SUMMARY</ng-template>
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 mt-4">
                                 <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.plan_name}}/ IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyBikeDetails.Idv}}</span> </span></h4>
                             </div>
                             <div class="col-md-8 mt-3">
@@ -526,6 +616,40 @@
                                 </ul>
                             </div>
                         </div>
+                        <section>
+                            <h5 class="mt-3 sub-title" >PREMIUM </h5>
+                            <div class="row box-card">
+                                <div class="col-md-6">
+                                    <h4 class="mt-4"></h4>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="m-0 list-group">
+                                                <li class="list-group-item" *ngIf="summaryData.cover.basic_od_cover!=''|| summaryData.cover=='basic_od_cover'"><strong>Basic OD Cover:</strong> {{summaryData.cover.basic_od_cover}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.cover.basic_tp_cover!=''||summaryData.cover=='basic_tp_cover'"><strong>Basic TP Cover:</strong> {{summaryData.cover.basic_tp_cover}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.cover.od_total!=''|| summaryData.cover=='od_total'"><strong>OD Total:</strong> {{summaryData.cover.od_total}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.cover.cng_lpg_cover!=''|| summaryData.cover=='cng_lpg_cover'"><strong>CNG LPG Cover:</strong> {{summaryData.cover.cng_lpg_cover}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.cover.gst!=''|| summaryData.cover=='gst'"><strong>GST:</strong> {{summaryData.cover.gst}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="mt-4"></h4>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="m-0 list-group">
+                                                <li class="list-group-item" *ngIf="summaryData.cover.electrical_cover!=''||summaryData.cover=='electrical_cover'"><strong>Electrical Cover:</strong> {{summaryData.cover.electrical_cover}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.cover.anti_theft_cover!=''|| summaryData.cover=='anti_theft_cover'"><strong>Anti Theft Cover:</strong> {{summaryData.cover.anti_theft_cover}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.cover.Nil_depreciation_cover!=''|| summaryData.cover=='Nil_depreciation_cover'"><strong>Nil Depreciation:</strong> {{summaryData.cover.Nil_depreciation_cover}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.cover.LL_paid_driver!=''|| summaryData.cover=='LL_paid_driver'"><strong>LL Paid Driver:</strong> {{summaryData.cover.LL_paid_driver}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.cover.pa_owner_driver!=''|| summaryData.cover=='pa_owner_driver'"><strong>PA Owner Driver:</strong> {{summaryData.cover.pa_owner_driver}}</li>
+                                                <li class="list-group-item" *ngIf="summaryData.cover.ncb!=''|| summaryData.cover=='ncb'"><strong>NCB:</strong> {{summaryData.cover.Ncb}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                         <section>
                             <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
                             <div class="row box-card">
@@ -590,15 +714,25 @@
                                             <li class="list-group-item"><strong>AddOn Package:</strong> {{vehicalFormData.addonPackage}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''"><strong>Nil Depreciation Cover:</strong> <span *ngIf="vehicalFormData.nilDepreciationCover == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Access:</strong><span *ngIf="vehicalFormData.electricalAccess == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.electricalAccessSI != ''"><strong>Electrical Accessories Sum Insured :</strong>{{vehicalFormData.electricalAccessSI}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong><span *ngIf="vehicalFormData.nonElectricalAccess == true">Yes</span></li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccessSI != ''"><strong>Non Electrical Accessories Sum Insured :</strong>{{vehicalFormData.nonElectricalAccessSI}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamed != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.paforUnnamed == true">Yes</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Is Vehicle Financed:</strong> <span *ngIf="vehicalFormData.isFinanced == true">Yes</span></li>
-                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationTypeName}}</li>
-                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankName != ''"><strong>Hypothecation Bank Name:</strong> {{photos}}</li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.CNGKit != ''" ><strong>CNGKit:</strong> <span *ngIf="vehicalFormData.CNGKit == true">Yes</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.geographicalArea != ''" ><strong>Geographical Area:</strong> <span *ngIf="vehicalFormData.geographicalArea == true">Yes</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.Bangladesh != ''" ><strong>Bangladesh:</strong> <span *ngIf="vehicalFormData.Bangladesh == true">Yes</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.SriLanka != ''" ><strong>SriLanka:</strong> <span *ngIf="vehicalFormData.SriLanka == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamedSI != ''" ><strong>Pa For Unnamed Sum Insured:</strong> {{vehicalFormData.paforUnnamedSI}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.CNGKit != ''" ><strong>CNG Kit:</strong> <span *ngIf="vehicalFormData.CNGKit == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.CNGKitSI != ''" ><strong>CNG Kit Sum Insured:</strong> {{vehicalFormData.CNGKitSI}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.paPaidDriver != ''" ><strong>PA Paid Driver Conductor Cleaner :</strong> <span *ngIf="vehicalFormData.paPaidDriver == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.paPaidDriverSI != ''" ><strong>PA Paid Driver Conductor Cleaner Sum Insured:</strong> {{vehicalFormData.paPaidDriverSI}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.voluntaryExcess != ''"><strong>Voluntary Excess :</strong>{{vehicalFormData.voluntaryExcess}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.PAPaidDriverCount != ''"><strong>PA Paid Driver Count :</strong>{{vehicalFormData.PAPaidDriverCount}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.PAPaidConductorCount != ''"><strong>PA Paid Conductor Count :</strong>{{vehicalFormData.PAPaidConductorCount}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.PAPaidCleanerCount != ''"><strong>PA Paid Cleaner Count :</strong>{{vehicalFormData.PAPaidCleanerCount}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.limitOwnPremise != ''"><strong>Limit Own Premise:</strong><span *ngIf="vehicalFormData.limitOwnPremise == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.limitedTPPD != ''"><strong>Limited TPPD:</strong><span *ngIf="vehicalFormData.limitedTPPD == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.builtCNGKit != ''"><strong>In Built CNGKit:</strong><span *ngIf="vehicalFormData.builtCNGKit == true">Yes</span></li>
+
+
+
 
 
 
@@ -608,6 +742,12 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Is Vehicle Financed:</strong> <span *ngIf="vehicalFormData.isFinanced == true">Yes</span></li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationTypeName}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankNamevalue != ''"><strong>Hypothecation Bank Name:</strong> {{vehicalFormData.hypothecationBankNamevalue}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.geographicalArea != ''" ><strong>Geographical Area:</strong> <span *ngIf="vehicalFormData.geographicalArea == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.Bangladesh != ''" ><strong>Bangladesh:</strong> <span *ngIf="vehicalFormData.Bangladesh == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.SriLanka != ''" ><strong>SriLanka:</strong> <span *ngIf="vehicalFormData.SriLanka == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.Pakistan != ''" ><strong>Pakistan:</strong> <span *ngIf="vehicalFormData.Pakistan == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.Nepal != ''" ><strong>Nepal:</strong> <span *ngIf="vehicalFormData.Nepal == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.Bhutan != ''" ><strong>Bhutan:</strong> <span *ngIf="vehicalFormData.Bhutan == true">Yes</span></li>
@@ -637,7 +777,7 @@
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
-                                                    <!--<li class="list-group-item"><strong>Previous Insurer:</strong> {{previousFormData.previousInsured}}</li>-->
+                                                    <li class="list-group-item"><strong>Previous Insurer:</strong> {{previousFormData.previousInsured}}</li>
                                                     <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyTypeName}}</li>
 
                                                 </ul>
