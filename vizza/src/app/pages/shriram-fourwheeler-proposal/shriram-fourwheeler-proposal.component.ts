@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Settings} from '../../app.settings.model';
 import {ValidationService} from '../../shared/services/validation.service';
@@ -8,7 +8,7 @@ import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 export const MY_FORMATS = {
@@ -23,6 +23,12 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MM YYYY',
   },
 };
+// export interface DialogData {
+//   name: string;
+//   question1:string;
+//   question2:string;
+//   id:any;
+// }
 
 declare const global: any;
 // tslint:disable-next-line:variable-name
@@ -98,12 +104,21 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public config : any;
   public getBankHypoDetails: any;
   public photos: any;
+  public electricalSumAount: any;
+  public pASumAount: any;
+  public nonElectricalSumAount: any;
+  public electricalMaxValue: any;
+  public idvValuess: any;
+  public idvAmount: any;
+  public electricAmount: any;
+  public nonElectricAmount: any;
+  public voluntaryList: any;
   // public policyDatevalidate : any;
   public currentStep : any;
   public mobileNumber : any;
 
   public genderList: boolean;
-  constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
+  constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
@@ -128,7 +143,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     console.log(this.currentStep,'this.currentStep');
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
-
+    this.electricalSumAount=false
+    this.nonElectricalSumAount=false
+    this.pASumAount=false
     this.settings = this.appSettings.settings;
     this.webhost = this.configs.getimgUrl();
 
@@ -201,7 +218,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       lltoPaidDriver: '',
       addonPackage:'',
       hypothecationBankName:'',
-      // hypothecationBankNamevalue:'',
+      hypothecationBankNamevalue:'',
       pincode:'',
       state:'',
       city:'',
@@ -217,13 +234,23 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       Bhutan: '',
       geographicalArea:'',
       CNGKit:'',
+      CNGKitSI:'',
+      paPaidDriver:'',
+      paPaidDriverSI:'',
+      PAPaidDriverCount:'',
+      PAPaidConductorCount:'',
+      PAPaidCleanerCount:'',
+      limitOwnPremise:'',
+      limitedTPPD:'',
+      builtCNGKit:'',
+      voluntaryExcess: ['', Validators.required],
       vehicleColour: ['', Validators.required],
 
 
     });
     this.previousInsure = this.fb.group({
       policyNumber:['', Validators.required],
-      // previousInsured: ['', Validators.required],
+      previousInsured: ['', Validators.required],
       previousPolicyType: ['', Validators.required],
       policyNilDescription: '0',
       previousPolicyTypeName:'',
@@ -259,12 +286,62 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.previousInsureType();
     this.changehypothecationType();
     this.getHBankLists();
+    this.changeCalcMax();
+    this.voluntaryExcess();
 
 
     this.sessionData();
+
   }
 
+  changeCalcMax(){
+    let values=this.buyBikeDetails.Idv;
+    console.log(values,'values....');
+    let valid = 20/100;
+    console.log(valid,'valid....');
+    this.electricalMaxValue = valid * values;
+    console.log(this.electricalMaxValue ,'this.electricalMaxValue ...')
 
+  }
+
+  changeCalcElect(event:any){
+    let electricSum=event.target.value;
+    console.log(electricSum,'electricSum...');
+    console.log(this.electricalMaxValue,'electricalMaxValue...');
+    if(electricSum < this.electricalMaxValue){
+      this.electricalSumAount=false;
+      this.electricalSumAount='';
+    }else{
+      this.electricalSumAount=true;
+      this.electricalSumAount = 'Electrical Accessories Sum Insured Should be lesser than';
+    }
+
+  }
+  changeCalcNonElect(event:any){
+    let nonElectricSum=event.target.value;
+    console.log(nonElectricSum,'electricSum...');
+    console.log(this.electricalMaxValue,'electricalMaxValue...');
+    if(nonElectricSum < this.electricalMaxValue){
+      this.nonElectricalSumAount=false;
+      this.nonElectricalSumAount='';
+    }else{
+      this.nonElectricalSumAount=true;
+      this.nonElectricalSumAount = 'Non Electrical Accessories Sum Insured Should be lesser than';
+    }
+
+  }
+  // changeCalcPA(event:any){
+  //   let nonPASum=event.target.value;
+  //   console.log(nonPASum,'nonPASum...');
+  //   console.log(this.electricalMaxValue,'electricalMaxValue...');
+  //   if(nonPASum < this.electricalMaxValue){
+  //     this.pASumAount=false;
+  //     this.pASumAount='';
+  //   }else{
+  //     this.pASumAount=true;
+  //     this.pASumAount = 'PA to Unnamed Passenger Sum Insured Should be lesser than';
+  //   }
+  // }
 
   // FIRST STEPPER
 
@@ -491,6 +568,78 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public proposalTypeFailure(error) {
   }
 
+  updateElectricalItem(){
+    if(this.vehical.controls.electricalAccess.value == true){
+      this.vehical.controls['electricalAccessSI'].setValidators([Validators.required]);
+    } else {
+      this.vehical.controls['electricalAccessSI'].patchValue('');
+
+      this.vehical.controls['electricalAccessSI'].setValidators(null);
+      this.electricalSumAount=false;
+      this.electricalSumAount='';
+
+    }
+    this.vehical.controls['electricalAccessSI'].updateValueAndValidity();
+  }
+
+  updatenonElectricalItem(){
+    if(this.vehical.controls.nonElectricalAccess.value == true){
+      this.vehical.controls['nonElectricalAccessSI'].setValidators([Validators.required]);
+    } else {
+      this.vehical.controls['nonElectricalAccessSI'].patchValue('');
+
+      this.vehical.controls['nonElectricalAccessSI'].setValidators(null);
+      this.nonElectricalSumAount=false;
+      this.nonElectricalSumAount='';
+
+    }
+    this.vehical.controls['nonElectricalAccessSI'].updateValueAndValidity();
+  }
+
+  updateUnnamedPassenger(){
+    if(this.vehical.controls.paforUnnamed.value == true){
+      this.vehical.controls['paforUnnamedSI'].setValidators([Validators.required]);
+    } else {
+      this.vehical.controls['paforUnnamedSI'].patchValue('');
+
+      this.vehical.controls['paforUnnamedSI'].setValidators(null);
+    }
+    this.vehical.controls['paforUnnamedSI'].updateValueAndValidity();
+  }
+
+  updateCNGKit(){
+    if(this.vehical.controls.CNGKit.value == true){
+      this.vehical.controls['CNGKitSI'].setValidators([Validators.required]);
+    } else {
+      this.vehical.controls['CNGKitSI'].patchValue('');
+
+      this.vehical.controls['CNGKitSI'].setValidators(null);
+    }
+    this.vehical.controls['CNGKitSI'].updateValueAndValidity();
+  }
+  updatePAPaidDriver(){
+    if(this.vehical.controls.paPaidDriver.value == true){
+      this.vehical.controls['paPaidDriverSI'].setValidators([Validators.required]);
+      // this.vehical.controls['PAPaidDriverCount'].setValidators([Validators.required]);
+      // this.vehical.controls['PAPaidConductorCount'].setValidators([Validators.required]);
+      // this.vehical.controls['PAPaidCleanerCount'].setValidators([Validators.required]);
+    } else {
+      this.vehical.controls['paPaidDriverSI'].patchValue('');
+      // this.vehical.controls['PAPaidDriverCount'].patchValue('');
+      // this.vehical.controls['PAPaidConductorCount'].patchValue('');
+      // this.vehical.controls['PAPaidCleanerCount'].patchValue('');
+
+      this.vehical.controls['paPaidDriverSI'].setValidators(null);
+      // this.vehical.controls['PAPaidDriverCount'].setValidators(null);
+      // this.vehical.controls['PAPaidConductorCount'].setValidators(null);
+      // this.vehical.controls['PAPaidCleanerCount'].setValidators(null);
+    }
+    this.vehical.controls['paPaidDriverSI'].updateValueAndValidity();
+    // this.vehical.controls['PAPaidDriverCount'].updateValueAndValidity();
+    // this.vehical.controls['PAPaidConductorCount'].updateValueAndValidity();
+    // this.vehical.controls['PAPaidCleanerCount'].updateValueAndValidity();
+  }
+
   policyDetail(){
     this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
   }
@@ -680,16 +829,18 @@ hypoName(){
   financeType() {
 
     if (this.vehical.controls['isFinanced'].value==true) {
+      // alert(this.photos)
       // alert('true')
-      this.vehical.controls['hypothecationType'].patchValue(this.vehical.controls['hypothecationType'].value);
-      this.vehical.controls['hypothecationAddress1'].patchValue(this.vehical.controls['hypothecationAddress1'].value);
-      this.vehical.controls['hypothecationAddress2'].patchValue(this.vehical.controls['hypothecationAddress2'].value);
-      this.vehical.controls['hypothecationBankName'].patchValue(this.vehical.controls['hypothecationBankName'].value);
+      // this.vehical.controls['hypothecationType'].patchValue(this.vehical.controls['hypothecationType'].value);
+      // this.vehical.controls['hypothecationAddress1'].patchValue(this.vehical.controls['hypothecationAddress1'].value);
+      // this.vehical.controls['hypothecationAddress2'].patchValue(this.vehical.controls['hypothecationAddress2'].value);
+      // this.vehical.controls['hypothecationBankName'].patchValue( this.photos);
 
       this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationAddress2'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
+      // this.photos
       this.finance = true;
     } else {
       // alert('false')
@@ -700,15 +851,16 @@ hypoName(){
       this.vehical.controls['hypothecationAddress2'].patchValue('');
       this.vehical.controls['hypothecationAddress3'].patchValue('');
       this.vehical.controls['hypothecationAgreementNo'].patchValue('');
+      this.vehical.controls['hypothecationBankNamevalue'].patchValue('');
       this.vehical.controls['pincode'].patchValue('');
       this.vehical.controls['stateName'].patchValue('');
       this.vehical.controls['cityName'].patchValue('');
       this.photos='';
-
       this.vehical.controls['hypothecationType'].setValidators(null);
       this.vehical.controls['hypothecationAddress2'].setValidators(null);
       this.vehical.controls['hypothecationAddress1'].setValidators(null);
       this.vehical.controls['hypothecationBankName'].setValidators(null);
+      this.vehical.controls['hypothecationBankNamevalue'].setValidators(null);
       this.finance = false;
 
     }
@@ -716,6 +868,7 @@ hypoName(){
     this.proposer.controls['hypothecationAddress2'].updateValueAndValidity();
     this.vehical.controls['hypothecationAddress1'].updateValueAndValidity();
     this.vehical.controls['hypothecationBankName'].updateValueAndValidity();
+    this.vehical.controls['hypothecationBankNamevalue'].updateValueAndValidity();
 
   }
 
@@ -752,12 +905,12 @@ hypoName(){
       this.vehical.controls['electricalAccess'].patchValue('');
       this.vehical.controls['nonElectricalAccess'].patchValue('');
       this.vehical.controls['antiTheft'].patchValue('');
+      this.vehical.controls['paforUnnamed'].patchValue('');
+
 
     } else {
       this.policyTypeDetails = false;
       this.vehical.controls['lltoPaidDriver'].patchValue('');
-      this.vehical.controls['paforUnnamed'].patchValue('');
-
     }
   }
   // NEXT BUTTON
@@ -767,7 +920,7 @@ hypoName(){
     let valid = 20 / 100;
     this.siValue = valid * this.buyBikeDetails.Idv;
     console.log(this.siValue, 'sdfdfdadf');
-    if (this.vehical.valid) {
+    if (this.vehical.valid && this.electricalSumAount==false && this.nonElectricalSumAount==false && this.pASumAount==false) {
       stepper.next();
       this.topScroll();
 
@@ -863,7 +1016,11 @@ hypoName(){
       // this.errortoaster = true;
 
       this.photos = successData.ResponseObject.bank_name;
+      this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.photos)
+alert(this.vehical.controls['hypothecationBankNamevalue'].value)
+
       console.log(this.photos,'photos');
+      console.log(this.vehical.controls['hypothecationBankNamevalue'].value,'hypothecationBankNamevalue...');
 
     }
     // else {
@@ -945,6 +1102,31 @@ hypoName(){
     }
   }
   public previousInsureFailure(error) {
+  }
+
+  voluntaryExcess() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.fwService.getvoluntaryExcess(data).subscribe(
+        (successData) => {
+          this.voluntaryExcessSuccess(successData);
+        },
+        (error) => {
+          this.voluntaryExcessFailure(error);
+        }
+    );
+  }
+  public voluntaryExcessSuccess(successData){
+    if (successData.IsSuccess) {
+      this.voluntaryList = successData.ResponseObject;
+    }
+  }
+  public voluntaryExcessFailure(error) {
   }
 
   uvYear(){
@@ -1092,17 +1274,17 @@ hypoName(){
         "DateOfBirth": this.proposer.controls['dob'].value,
         "CoverNoteNo": "",
         "CoverNoteDt": "",
-        "IDV_of_Vehicle": '',
+        "IDV_of_Vehicle": this.buyBikeDetails.Idv,
         "Colour": this.vehical.controls['vehicleColour'].value,
         "NoEmpCoverLL": "",
         "VehiclePurposeYN": "",
         "DriverAgeYN": "0",
-        "LimitOwnPremiseYN": "0",
-        "CNGKitYN": "0",
-        "CNGKitSI": "",
-        "LimitedTPPDYN": "0",
-        "InBuiltCNGKitYN": "0",
-        "VoluntaryExcess": "TWVE1",
+        "LimitOwnPremiseYN": this.vehical.controls['limitOwnPremise'].value == true ? '1' : '0',
+        "CNGKitYN": this.vehical.controls['CNGKit'].value == true ? '1' : '0',
+        "CNGKitSI": this.vehical.controls['CNGKitSI'].value,
+        "LimitedTPPDYN": this.vehical.controls['limitedTPPD'].value == true ? '1' : '0',
+        "InBuiltCNGKitYN": this.vehical.controls['builtCNGKit'].value == true ? '1' : '0',
+        "VoluntaryExcess": this.vehical.controls['voluntaryExcess'].value,
         "Bangladesh": this.vehical.controls['Bangladesh'].value == true ? '1' : '0',
         "Bhutan": this.vehical.controls['Bhutan'].value == true ? '1' : '0',
         "SriLanka": this.vehical.controls['SriLanka'].value == true ? '1' : '0',
@@ -1116,16 +1298,16 @@ hypoName(){
         "AddonPackage": this.buyBikeDetails.plan_code,
         "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
         "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
-        "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamed'].value == true ? this.siValue.toString() : '',
+        "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value,
         "ElectricalaccessYN": this.vehical.controls['electricalAccess'].value == true ? '1' : '0',
-        "ElectricalaccessSI": this.vehical.controls['electricalAccess'].value == true ? this.siValue.toString() : '',
+        "ElectricalaccessSI": this.vehical.controls['electricalAccessSI'].value,
         "NonElectricalaccessYN": this.vehical.controls['nonElectricalAccess'].value == true ? '1' : '0',
-        "NonElectricalaccessSI":  this.vehical.controls['nonElectricalAccess'].value == true ? this.siValue.toString() : '',
-        "PAPaidDriverConductorCleanerYN": "0",
-        "PAPaidDriverConductorCleanerSI": "",
-        "PAPaidDriverCount": "",
-        "PAPaidConductorCount": "",
-        "PAPaidCleanerCount": "",
+        "NonElectricalaccessSI":  this.vehical.controls['nonElectricalAccessSI'].value,
+        "PAPaidDriverConductorCleanerYN": this.vehical.controls['paPaidDriver'].value == true ? '1' : '0',
+        "PAPaidDriverConductorCleanerSI": this.vehical.controls['paPaidDriverSI'].value,
+        "PAPaidDriverCount": this.vehical.controls['PAPaidDriverCount'].value,
+        "PAPaidConductorCount": this.vehical.controls['PAPaidConductorCount'].value,
+        "PAPaidCleanerCount": this.vehical.controls['PAPaidCleanerCount'].value,
         "ElectricalaccessRemarks": "",
         "NonElectricalaccessRemarks": "",
         "SpecifiedPersonField": "",
@@ -1139,12 +1321,12 @@ hypoName(){
         "LLtoPaidDriverYN": this.vehical.controls['lltoPaidDriver'].value == true ? '1' : '0',
         "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
         "PreviousPolicyNo": this.previousInsure.controls['policyNumber'].value,
-        // "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
+        "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
         "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
         "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
         "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
         "HypothecationType": this.vehical.controls['hypothecationType'].value ? this.vehical.controls['hypothecationType'].value : '',
-        "HypothecationBankName": this.photos==undefined||null?'':this.photos,
+        "HypothecationBankName": this.vehical.controls['hypothecationBankNamevalue'].value==undefined||null?'':this.vehical.controls['hypothecationBankNamevalue'].value,
         // "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value ? this.vehical.controls['hypothecationBankName'].value : '' ,
         "HypothecationAddress1": this.vehical.controls['hypothecationAddress1'].value ?  this.vehical.controls['hypothecationAddress1'].value: '',
         "HypothecationAddress2": this.vehical.controls['hypothecationAddress2'].value?  this.vehical.controls['hypothecationAddress2'].value : '',
@@ -1194,14 +1376,188 @@ hypoName(){
       sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
       sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
       console.log(this.vehicalFormData,'this.proposerFormData');
-    } else{
-      this.toastr.error(successData.ErrorObject);
 
     }
+    // else if(successData.IsSuccess==false){
+      // this.settings.loadingSpinner = false;
+      // if(successData.ErrorObject.type == 'idv') {
+      //   this.toastr.error(successData.ErrorObject.ErrorObject);
+      //   let dialogRef = this.dialog.open(fourShriramIDVComponent, {
+      //     width: '700px',
+      //     data: {name: this.buyBikeDetails}
+      //   });
+      //   dialogRef.disableClose = true;
+      //   dialogRef.afterClosed().subscribe(result => {
+      //     if (result) {
+      //       this.idvValuess = result;
+      //       this.idvAmount=this.idvValuess.id;
+      //       this.electricAmount=this.idvValuess.question1;
+      //       this.nonElectricAmount=this.idvValuess.question2;
+      //       console.log(result,'resulit.........');
+      //       console.log(this.idvValuess,'23456787656789876');
+      //       // console.log(this.checkValue,'23451111111');
+      //
+      //     }
+      //     this.updateProposal(stepper);
+      //     console.log('The dialog was closed');
+      //   });
+      // }
+      else{
+      this.toastr.error(successData.ErrorObject);
+      }
+    // }
   }
   public proposalFailure(error){
 
   }
+
+  // updateProposal(stepper){
+  //     const data = {
+  //       'platform': 'web',
+  //       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+  //       'enquiry_id': this.bikeEnquiryId,
+  //       "created_by": "",
+  //       'proposal_id': sessionStorage.shiramFwProposalID == '' || sessionStorage.shiramFwProposalID == undefined ? '' : sessionStorage.shiramFwProposalID,
+  //       "geogrophicalExtensionCover": "false",
+  //       "package_type": this.packagelist,
+  //
+  //       "motorProposalObj": {
+  //         // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
+  //         "InsuredPrefix": "1",
+  //         "InsuredName": this.proposer.controls['name'].value,
+  //         "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
+  //         "Address1": this.proposer.controls['address'].value,
+  //         "Address2": this.proposer.controls['address2'].value,
+  //         "Address3": this.proposer.controls['address3'].value,
+  //         "State": 'TN',
+  //         "City": this.proposer.controls['city'].value,
+  //         "PinCode": this.proposer.controls['pincode'].value,
+  //         "PanNo": this.proposer.controls['pan'].value,
+  //         "TelephoneNo": "",
+  //         "FaxNo": "",
+  //         "GSTNo": "",
+  //         "EMailID": this.proposer.controls['email'].value,
+  //         "PolType": this.vehical.controls['policyType'].value,
+  //         "ProposalType": this.vehical.controls['proposalType'].value,
+  //         "MobileNo": this.proposer.controls['mobile'].value,
+  //         "DateOfBirth": this.proposer.controls['dob'].value,
+  //         "CoverNoteNo": "",
+  //         "CoverNoteDt": "",
+  //         "IDV_of_Vehicle": this.idvAmount,
+  //         "Colour": this.vehical.controls['vehicleColour'].value,
+  //         "NoEmpCoverLL": "",
+  //         "VehiclePurposeYN": "",
+  //         "DriverAgeYN": "0",
+  //         "LimitOwnPremiseYN": "0",
+  //         "CNGKitYN": "0",
+  //         "CNGKitSI": "",
+  //         "LimitedTPPDYN": "0",
+  //         "InBuiltCNGKitYN": "0",
+  //         "VoluntaryExcess": "TWVE1",
+  //         "Bangladesh": this.vehical.controls['Bangladesh'].value == true ? '1' : '0',
+  //         "Bhutan": this.vehical.controls['Bhutan'].value == true ? '1' : '0',
+  //         "SriLanka": this.vehical.controls['SriLanka'].value == true ? '1' : '0',
+  //         "Pakistan": this.vehical.controls['Pakistan'].value == true ? '1' : '0',
+  //         "Nepal": this.vehical.controls['Nepal'].value == true ? '1' : '0',
+  //         "Maldives": this.vehical.controls['Maldives'].value == true ? '1' : '0',
+  //         "DeTariff": this.vehical.controls['DeTariff'].value == true ? '1' : '0',
+  //         "PreInspectionReportYN": "0",
+  //         "PreInspection": "",
+  //         "BreakIn": "NO",
+  //         "AddonPackage": this.buyBikeDetails.plan_code,
+  //         "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
+  //         "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
+  //         "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value,
+  //         "ElectricalaccessYN": this.electricAmount != '' ? '1' : '0',
+  //         "ElectricalaccessSI":  this.electricAmount,
+  //         "NonElectricalaccessYN": this.nonElectricAmount != '' ? '1' : '0',
+  //         "NonElectricalaccessSI":  this.nonElectricAmount,
+  //         "PAPaidDriverConductorCleanerYN": "0",
+  //         "PAPaidDriverConductorCleanerSI": "",
+  //         "PAPaidDriverCount": "",
+  //         "PAPaidConductorCount": "",
+  //         "PAPaidCleanerCount": "",
+  //         "ElectricalaccessRemarks": "",
+  //         "NonElectricalaccessRemarks": "",
+  //         "SpecifiedPersonField": "",
+  //         "PAOwnerDriverExclusion": "",
+  //         "PAOwnerDriverExReason": "",
+  //         "NomineeNameforPAOwnerDriver": this.nomineeDetail.controls['nomineeName'].value,
+  //         "NomineeAgeforPAOwnerDriver": this.nomineeDetail.controls['nomineeAge'].value,
+  //         "NomineeRelationforPAOwnerDriver": this.nomineeDetail.controls['nomineeRelationship'].value,
+  //         "AppointeeNameforPAOwnerDriver": this.nomineeDetail.controls['appointeeName'].value,
+  //         "AppointeeRelationforPAOwnerDriver": this.nomineeDetail.controls['appointeeRelationship'].value,
+  //         "LLtoPaidDriverYN": this.vehical.controls['lltoPaidDriver'].value == true ? '1' : '0',
+  //         "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
+  //         "PreviousPolicyNo": this.previousInsure.controls['policyNumber'].value,
+  //         "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
+  //         "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
+  //         "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
+  //         "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
+  //         "HypothecationType": this.vehical.controls['hypothecationType'].value ? this.vehical.controls['hypothecationType'].value : '',
+  //         "HypothecationBankName": this.vehical.controls['hypothecationBankNamevalue'].value==undefined||null?'':this.vehical.controls['hypothecationBankNamevalue'].value,
+  //         // "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value ? this.vehical.controls['hypothecationBankName'].value : '' ,
+  //         "HypothecationAddress1": this.vehical.controls['hypothecationAddress1'].value ?  this.vehical.controls['hypothecationAddress1'].value: '',
+  //         "HypothecationAddress2": this.vehical.controls['hypothecationAddress2'].value?  this.vehical.controls['hypothecationAddress2'].value : '',
+  //         "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value? this.vehical.controls['hypothecationAddress3'].value: '',
+  //         "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value ? this.vehical.controls['hypothecationAgreementNo'].value: '',
+  //         "HypothecationCountry": "",
+  //         "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
+  //         "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
+  //         "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : '',
+  //         "MultiCarBenefitYN":"N",
+  //         "KeyReplacementYN":"Y",
+  //         "LossOfPersonBelongYN":"Y"
+  //       },
+  //     }
+  //     console.log(data,'fileeee');
+  //     this.settings.loadingSpinner = true;
+  //
+  //     this.fwService.proposalCreation(data).subscribe(
+  //         (successData) => {
+  //           this.updateProposalSuccess(successData,stepper);
+  //         },
+  //         (error) => {
+  //           this.updateProposalFailure(error);
+  //         }
+  //     );
+  //   }
+  // public updateProposalSuccess(successData, stepper){
+  //     this.settings.loadingSpinner = false;
+  //     if(successData.IsSuccess){
+  //       stepper.next();
+  //       this.topScroll();
+  //
+  //       this.toastr.success('Proposal created successfully!!');
+  //       this.summaryData = successData.ResponseObject;
+  //       sessionStorage.summaryData = JSON.stringify(this.summaryData);
+  //       this.ProposalId =   this.summaryData.ProposalId;
+  //       this.PaymentRedirect =   this.summaryData.PaymentRedirect;
+  //       this.PolicySisID =   this.summaryData.PolicySisID;
+  //       this.PaymentReturn =   this.summaryData.PaymentReturn;
+  //       sessionStorage.shiramFwProposalID = this.ProposalId;
+  //       this.proposerFormData = this.proposer.value;
+  //       this.vehicalFormData = this.vehical.value;
+  //       this.previousFormData = this.previousInsure.value;
+  //       this.nomineeFormData = this.nomineeDetail.value;
+  //       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+  //       sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
+  //       sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
+  //       sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+  //       console.log(this.vehicalFormData,'this.proposerFormData');
+  //
+  //     } else{
+  //         this.toastr.error(successData.ErrorObject);
+  //       }
+  //
+  //   }
+  // public updateProposalFailure(error){
+  //
+  //   }
+
+
 
 
 
@@ -1269,7 +1625,7 @@ hypoName(){
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
         hypothecationBankName:stepper2.hypothecationBankName,
-        // hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
+        hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
         isFinanced:stepper2.isFinanced,
         pincode:stepper2.pincode,
         state:stepper2.state,
@@ -1285,6 +1641,16 @@ hypoName(){
         Bhutan:stepper2.Bhutan,
         geographicalArea:stepper2.geographicalArea,
         CNGKit:stepper2.CNGKit,
+        CNGKitSI:stepper2.CNGKitSI,
+        paPaidDriver:stepper2.paPaidDriver,
+        paPaidDriverSI:stepper2.paPaidDriverSI,
+        PAPaidDriverCount:stepper2.PAPaidDriverCount,
+        PAPaidConductorCount:stepper2.PAPaidConductorCount,
+        PAPaidCleanerCount:stepper2.PAPaidCleanerCount,
+        limitOwnPremise:stepper2.limitOwnPremise,
+        limitedTPPD:stepper2.limitedTPPD,
+        builtCNGKit:stepper2.builtCNGKit,
+        voluntaryExcess:stepper2.voluntaryExcess,
         vehicleColour: stepper2.vehicleColour,
 
       });
@@ -1296,7 +1662,7 @@ hypoName(){
       let stepper3 = JSON.parse(sessionStorage.stepper3);
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
-        // previousInsured: stepper3.previousInsured,
+        previousInsured: stepper3.previousInsured,
         policySi: stepper3.policySi,
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
@@ -1322,3 +1688,172 @@ hypoName(){
   }
 
 }
+
+// @Component({
+//   selector: 'fourShriramIDVComponent',
+//   template: `
+//         <div class="container-fluid">
+//            <div class="row mt-3"[formGroup]="idfGroup">
+//                 <div class="col-md-12 box-card pt-3 pb-3" >
+//                 <div class="col-md-12 mt-2">
+//                     <div class="row">
+//                         <div class="col-md-4">
+//                           <mat-form-field class="w-100">
+//                             <input matInput placeholder="IDV Amount"  formControlName="idvAmount" (keypress)="numberValidate($event)" (input)="changeCalcElect($event)"  autocomplete="off"  required >
+//                             <mat-error *ngIf="idfGroup.controls.idvAmount.errors?.required">IDV Amount is required</mat-error>
+//                           </mat-form-field>
+//                         </div>
+//                     </div>
+//                 </div>
+//                     <div class="col-md-12 " >
+//                         <div class="row">
+//                             <div class="col-md-4 " >
+//                               <mat-checkbox  formControlName="electricalAccessPop" (change)="updateElectricalItem();changeCalcMax()" >Electrical Accessories</mat-checkbox>
+//                             </div>
+//                             <div class="col-md-4 " *ngIf="idfGroup.controls.electricalAccessPop.value == true">
+//                                 <mat-form-field class="w-100">
+//                                     <input matInput placeholder="Sum Insured"  formControlName="electricalAccessSIPop" (keypress)="numberValidate($event)" (input)="changeCalcElect($event)"  autocomplete="off"  [required]="idfGroup.controls.electricalAccessPop.value == true" >
+//                                     <!--<mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
+//                                 </mat-form-field>
+//                                 <div class="error" *ngIf="electricalSumAount !='' && electricalSumAount != true">{{electricalSumAount}} {{electricalMaxValue}}</div>
+//                             </div>
+//
+//                         </div>
+//                     </div>
+//
+//                     <div class="col-md-12 mt-2" >
+//                         <div class="row">
+//                             <div class="col-md-4">
+//                                 <mat-checkbox  formControlName="nonElectricalAccessPop" (change)="updatenonElectricalItem();changeCalcMax()">Non Electrical Accessories</mat-checkbox>
+//                             </div>
+//                             <div class="col-md-4" *ngIf="idfGroup.controls.nonElectricalAccessPop.value == true">
+//                                 <mat-form-field class="w-100">
+//                                     <input matInput placeholder="Sum Insured"  formControlName="nonElectricalAccessSIPop"   autocomplete="off" (input)="changeCalcNonElect($event)" (keypress)="numberValidate($event)"  [required]="idfGroup.controls.nonElectricalAccessPop.value == true"  >
+//                                     <!--<mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
+//                                 </mat-form-field>
+//                                 <div class="error" *ngIf="nonElectricalSumAount !='' && nonElectricalSumAount != true">{{nonElectricalSumAount}} {{electricalMaxValue}}</div>
+//                             </div>
+//
+//                         </div>
+//                     </div>
+//                 </div>
+//
+//            </div>
+//         </div>
+//         <div mat-dialog-actions style="justify-content: center">
+//              <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Submit</button>
+//         </div>
+//     `,
+//   styleUrls: ['./shriram-fourwheeler-proposal.component.scss']
+//
+//
+// })
+//
+// export class fourShriramIDVComponent {
+//   public idfGroup : FormGroup;
+//   public idv : any;
+//   public buyBikeDetails : any;
+//   public electricalMaxValue : any;
+//   public electricalSumAount : any;
+//   public nonElectricalSumAount : any;
+//
+//   constructor(public dialogRef: MatDialogRef<fourShriramIDVComponent>,
+//       @Inject(MAT_DIALOG_DATA) public data: DialogData, public fb: FormBuilder,public validation: ValidationService) {
+//     // alert(data.name);
+//     console.log(data.name,'previous........');
+//     this.electricalSumAount=false;
+//     this.nonElectricalSumAount=false;
+//
+//     this.idfGroup = this.fb.group({
+//           idvAmount: ['', Validators.required],
+//           electricalAccessPop: ['', Validators.required],
+//           nonElectricalAccessPop: ['', Validators.required],
+//           electricalAccessSIPop: '',
+//           nonElectricalAccessSIPop: '',
+//         }
+//     );
+//
+//   }
+//   ngOnInit(){
+//     this.buyBikeDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
+//     this.electricalSumAount=false;
+//     this.nonElectricalSumAount=false;
+//     this. changeCalcMax();
+//   }
+//   changeCalcMax(){
+//     // alert('calc')
+//     let values=this.buyBikeDetails.Idv;
+//     console.log(values,'values....');
+//     let valid = 20/100;
+//     console.log(valid,'valid....');
+//     this.electricalMaxValue = valid * values;
+//     console.log(this.electricalMaxValue ,'this.electricalMaxValue ...')
+//
+//   }
+//   updateElectricalItem(){
+//     if(this.idfGroup.controls.electricalAccessPop.value == true){
+//       this.idfGroup.controls['electricalAccessSIPop'].setValidators([Validators.required]);
+//     } else {
+//       this.idfGroup.controls['electricalAccessSIPop'].patchValue('');
+//
+//       this.idfGroup.controls['electricalAccessSIPop'].setValidators(null);
+//       this.electricalSumAount=false;
+//       this.electricalSumAount='';
+//
+//     }
+//     this.idfGroup.controls['electricalAccessSIPop'].updateValueAndValidity();
+//   }
+//
+//   updatenonElectricalItem(){
+//     if(this.idfGroup.controls.nonElectricalAccessPop.value == true){
+//       this.idfGroup.controls['nonElectricalAccessSIPop'].setValidators([Validators.required]);
+//     } else {
+//       this.idfGroup.controls['nonElectricalAccessSIPop'].patchValue('');
+//
+//       this.idfGroup.controls['nonElectricalAccessSIPop'].setValidators(null);
+//       this.nonElectricalSumAount=false;
+//       this.nonElectricalSumAount='';
+//
+//     }
+//     this.idfGroup.controls['nonElectricalAccessSIPop'].updateValueAndValidity();
+//   }
+//
+//   changeCalcElect(event:any){
+//     let electricSum=event.target.value;
+//     console.log(electricSum,'electricSum...');
+//     console.log(this.electricalMaxValue,'electricalMaxValue...');
+//     if(electricSum < this.electricalMaxValue){
+//       this.electricalSumAount=false;
+//       this.electricalSumAount='';
+//     }else{
+//       this.electricalSumAount=true;
+//       this.electricalSumAount = 'Electrical Accessories Sum Insured Should be lesser than';
+//     }
+//
+//   }
+//   changeCalcNonElect(event:any){
+//     let nonElectricSum=event.target.value;
+//     console.log(nonElectricSum,'electricSum...');
+//     console.log(this.electricalMaxValue,'electricalMaxValue...');
+//     if(nonElectricSum < this.electricalMaxValue){
+//       this.nonElectricalSumAount=false;
+//       this.nonElectricalSumAount='';
+//     }else{
+//       this.nonElectricalSumAount=true;
+//       this.nonElectricalSumAount = 'Non Electrical Accessories Sum Insured Should be lesser than';
+//     }
+//
+//   }
+//   numberValidate(event: any) {
+//     this.validation.numberValidate(event);
+//   }
+//
+//   onClick(): void {
+//     console.log(this.idfGroup.controls['electricalAccessSIPop'].value)
+//     console.log(this.idfGroup.controls['nonElectricalAccessSIPop'].value)
+//     console.log(this.idfGroup.controls['idvAmount'].value)
+//
+//     this.dialogRef.close({question1:this.idfGroup.controls['electricalAccessSIPop'].value, question2:this.idfGroup.controls['nonElectricalAccessSIPop'].value, id:this.idfGroup.controls['idvAmount'].value});
+//     // this.dialogRef.close(this.data.question1);
+//   }
+// }

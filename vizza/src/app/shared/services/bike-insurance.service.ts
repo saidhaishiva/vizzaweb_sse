@@ -151,6 +151,17 @@ export class BikeInsuranceService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  getvoluntaryExcess(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'shriram/voluntaryExcess';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   getProposalDetails(data) {
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
