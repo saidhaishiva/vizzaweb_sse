@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, Inject } from '@angular/core';
+import {Component, OnInit, ViewChild, HostListener, Inject, Injectable} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppSettings } from '../app.settings';
 import { Settings } from '../app.settings.model';
@@ -9,6 +9,9 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ContactComponent} from './contact/contact.component';
 import { WINDOW } from '@ng-toolkit/universal';
 import {ConfigurationService} from '../shared/services/configuration.service';
+import { environment } from '../../environments/environment';
+
+
 
 
 @Component({
@@ -35,6 +38,11 @@ export class PagesComponent implements OnInit {
   public userId: any;
   public mHorizontal: any;
   public webhost: any;
+  apiHostAdmin: string = environment.apiHostAdmin;
+
+
+
+
 
 
   constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService,public appSettings:AppSettings, public router:Router, private menuService: MenuService, public auth: AuthService, public dialog: MatDialog){
@@ -45,7 +53,9 @@ export class PagesComponent implements OnInit {
     this.settings.menu = 'vertical';
     this.settings.sidenavIsOpened = true;
     this.settings.sidenavIsPinned = true;
+    this.apiHostAdmin = this.apiHostAdmin;
     this.webhost = this.config.getimgUrl();
+
 
   }
   
