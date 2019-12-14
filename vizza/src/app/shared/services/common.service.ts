@@ -574,7 +574,7 @@ export class CommonService {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*','Accesstoken': token})
         };
         const url = this.configurationService.getmiscproduct() + 'bajaj/create_enquiry' ;
         return this.http.post(url, json, httpOptions)
@@ -1185,7 +1185,6 @@ export class CommonService {
         return body || {};
     }
     private handleError(error: Response | any) {
-        console.log(error);
         let errMsg: string;
         if (error instanceof Response) {
             // const body = error.json() || '';
