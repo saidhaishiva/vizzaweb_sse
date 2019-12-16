@@ -187,6 +187,22 @@ export class EdelweissTermLifeComponent implements OnInit {
   public otpGenList: any;
   public enquiryFromDetials:any;
   public errortravelOutside:any;
+  public premiumPayment:any;
+  public ageTill:any;
+  public ADB:any;
+  public sum:any;
+  public basePremium:any;
+  public premium:any;
+  public PDP:any;
+  public PW:any;
+  public CIP:any;
+  public BhP:any;
+  public hcp:any;
+  public planname:any;
+  public payingTerm:any;
+  public policyTerm:any;
+  public eePremiumTerm:any;
+
 
   constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
     this.requestedUrl = '';
@@ -403,6 +419,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       // taxResidence: ['', Validators.compose([Validators.required])],
       isPoliticallyExposed: false,
       specification: '',
+      Cover: '',
+      ageTillCoverd: '',
+      premiumPay: '',
+      modeOfPremium: '',
       isCriminal: 'No',
       criminalDetails: '',
       identityProof: ['', Validators.compose([Validators.required])],
@@ -625,12 +645,17 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getesalereqProof();
     this.geteAlcoholDetails();
     this.sessionData();
+    this.edelweissPrimium();
+    this.premiumPaymentTerm();
+    this.ageTillcoverd();
+
     this.insureArray.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
     let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
     this.proposerAge = this.ageCalculate(dob);
     sessionStorage.proposerAge = this.proposerAge;
     // this.proposer.controls['age'].patchValue(this.proposerAge);
     this.insureArray.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+    this.insureArray.controls['Cover'].patchValue(sessionStorage.selectedAmountTravel);
 
     // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
 
@@ -643,7 +668,6 @@ export class EdelweissTermLifeComponent implements OnInit {
       // }
     } else if (this.enquiryFromDetials.gender == 'f') {
       this.insureArray.controls['title'].patchValue('2');
-
     }
     this.insureArray.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
@@ -4000,8 +4024,8 @@ travelOutside(){
       sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
       sessionStorage.edelweiss_term_life_id = this.proposalId;
       // this.downloadFile(this.requestedUrl);
-console.log(this.summaryData,'summaryData');
-console.log(this.proposalId,'proposalId');
+      console.log(this.summaryData,'summaryData');
+      console.log(this.proposalId,'proposalId');
 
       console.log(this.proposerFormData, 'proposerFormData');
       console.log(this.insuredFormData,'insuredFormData');
@@ -4125,6 +4149,68 @@ console.log(this.proposalId,'proposalId');
 
   public geteInvestingFailure(error) {
   }
+
+  ageTillcoverd() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'age':sessionStorage.proposerAge,
+    }
+    this.termService.ageTillcoverd(data).subscribe(
+        (successData) => {
+          this.ageTillcoverdSuccess(successData);
+        },
+        (error) => {
+          this.ageTillcoverdFailure(error);
+        }
+    );
+  }
+
+  public ageTillcoverdSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.ageTill = successData.ResponseObject;
+    }else {
+      this.toastr.error(successData.ErrorObject);
+    }
+
+  }
+
+  public ageTillcoverdFailure(error) {
+  }
+  premiumPaymentTerm() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'agetillcovered':this.insureArray.controls['ageTillCoverd'].value,
+    }
+    console.log(this.insureArray.controls['ageTillCoverd'].value,'ageeeeee')
+
+    this.termService.premiumPaymentTerm(data).subscribe(
+        (successData) => {
+          this.premiumPaymentTermSuccess(successData);
+        },
+        (error) => {
+          this.premiumPaymentTermFailure(error);
+        }
+    );
+  }
+
+  public premiumPaymentTermSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.premiumPayment = successData.ResponseObject;
+    }
+    else {
+      this.toastr.error(successData.ErrorObject);
+    }
+  }
+
+  public premiumPaymentTermFailure(error) {
+  }
+
   setbdutyList() {
     const data = {
       'platform': 'web',
@@ -4230,6 +4316,152 @@ console.log(this.proposalId,'proposalId');
 
   public getePremiumTermFailure(error) {
   }
+
+  edelweissPrimium() {
+    const data = {
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status":  this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "platform": "web",
+      "product_id": this.lifePremiumList.product_id,
+      "sub_product_id": this.lifePremiumList.sub_product_id,
+      "term": this.lifePremiumList.termDetrails,
+      "suminsured_amount": sessionStorage.selectedAmountTravel,
+      "policy_id": this.getEnquiryDetials.policy_id,
+      "productDetails":{
+        "policyTerm":this.insureArray.controls['ageTillCoverd'].value,
+        "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
+        "frequency":this.insureArray.controls['modeOfPremium'].value,
+        "sumAssured": sessionStorage.selectedAmountTravel,
+        "planOption": this.insureArray.controls['premiumPay'].value,
+        "riderDetails": {
+          "workSiteFlag": 'N',
+          "investmentStrategy":'',
+          "risingStar":'N',
+          "policyOption":'',
+          "additionalBenefit":'',
+          "topUpBenefit": {
+            "isTopUpBenefit": this.insureArray.controls['TopUpBenefit'].value,
+            "topUpBenefitPercentage":this.insureArray.controls['topUpBenefitPercentage'].value,
+            "topUpRate": this.insureArray.controls['topUpRate'].value,
+          },
+          "betterHalf": {
+            "betterHalfBenefit":this.insureArray.controls['betterHalfBenefit'].value,
+            "sumAssured": this.insureArray.controls['betterHalfsumAssured'].value,
+          },
+          "WOP": {
+            "waiverOfPremiumBenefit": this.insureArray.controls['waiverOfPremiumBenefit'].value,
+          },
+          "CI": {
+            "criticalIllness": this.insureArray.controls['criticalIllness'].value,
+            "sumAssured":this.insureArray.controls['criticalsumAssured'].value,
+          },
+          "ADB": {
+            "isADB": this.insureArray.controls['isADB'].value,
+            "sumAssured": this.insureArray.controls['sumAssuredADB'].value,
+          },
+          "ATPD": {
+            "isATPD": this.insureArray.controls['isATPD'].value,
+            "sumAssured": this.insureArray.controls['sumAssuredATPD'].value,
+          },
+          "HCB": {
+            "isHCB": this.insureArray.controls['isHCB'].value,
+            "sumAssured": this.insureArray.controls['sumAssuredHCB'].value,
+          }
+        },
+        "DeathBenefitOptions": {
+          "payoutOption": this.insureArray.controls['payoutOption'].value,
+          "payoutPercentageIncome":this.insureArray.controls['payoutPercentageIncome'].value,
+          "noOfMonths": this.insureArray.controls['noOfMonths'].value,
+        }
+      },
+      "isLAProposerSame":"",
+
+
+        "LifeAssured": {
+          "title": this.insureArray.controls['title'].value,
+          "firstName": this.insureArray.controls['firstName'].value,
+          "middleName": this.insureArray.controls['midName'].value,
+          "lastName": this.insureArray.controls['lastName'].value,
+          "dob": this.datepipe.transform(this.insureArray.controls['dob'].value, 'y-MM-dd'),
+          "gender": this.insureArray.controls['gender'].value,
+          "isSmoker":"Y",
+          "maritalStatus": this.insureArray.controls['maritalStatus'].value,
+          "pan": this.insureArray.controls['pan'].value,
+          "maidName":"",
+          "motherMaidName":this.insureArray.controls['motherMaidName'].value,
+          "FHName":this.insureArray.controls['fatherhusbandName'].value,
+          "nationality":this.insureArray.controls['nationality'].value,
+          "otherNationality":"",
+          "ageProofId":this.insureArray.controls['ageProofId'].value,
+          "emailId":this.insureArray.controls['emailId'].value,
+          "phoneNo":this.insureArray.controls['mobileNo'].value,
+    },
+      "Spouse": {
+        "title":this.insureArray.controls['stitle'].value,
+        "firstName":this.insureArray.controls['sfirstName'].value,
+        "middleName":this.insureArray.controls['smidName'].value,
+        "lastName":this.insureArray.controls['slastName'].value,
+        "dob":this.datepipe.transform(this.insureArray.controls['sdob'].value, 'y-MM-dd'),
+        "emailId":this.insureArray.controls['semailId'].value,
+        "phoneNo":this.insureArray.controls['smobileNo'].value,
+        "isSmoker":this.insureArray.controls['isSmokerSpouse'].value,
+
+    }
+
+    }
+
+    this.termService.edelweissPrimium(data).subscribe(
+        (successData) => {
+          this.edelweissPrimiumSuccess(successData);
+
+        },
+        (error) => {
+          this.edelweissPrimiumFailure(error);
+        }
+    );
+  }
+
+  public edelweissPrimiumSuccess(successData) {
+    alert(this.eePremiumTerm)
+    if (successData.ResponseObject) {
+      this.eePremiumTerm = successData.ResponseObject;
+      alert(this.eePremiumTerm)
+      // this.eePremiumTerm = this.eePremiumTerm;
+      this.ADB = this.eePremiumTerm.accidental_death_premium;
+      alert(this.ADB)
+
+      this.sum = this.eePremiumTerm.sumAssured;
+      this.basePremium = this.eePremiumTerm.Basepremium;
+      this.premium = this.eePremiumTerm.Premium;
+      this.PDP = this.eePremiumTerm.permanent_disability_premium;
+      this.PW = this.eePremiumTerm.premium_waiver;
+      this.CIP = this.eePremiumTerm.critical_illness_premium;
+      this.BhP = this.eePremiumTerm.better_half_premium;
+      this.hcp = this.eePremiumTerm.hcb_premium;
+      this.planname = this.eePremiumTerm.planName;
+      this.payingTerm = this.eePremiumTerm.payingTerm;
+      this.policyTerm = this.eePremiumTerm.policyTerm;
+      console.log(this.ADB,'this.ADB');
+      console.log(this.eePremiumTerm,'this.this.eePremiumTerm');
+      console.log(this.sum,'this.sum');
+      console.log(this.basePremium,'this.basePremium');
+      console.log(this.premium,'this.premium');
+      console.log(this.PDP,'this.PDP');
+      console.log(this.PW,'this.PW');
+      console.log(this.CIP,'this.CIP');
+      console.log(this.BhP,'this.BhP');
+      console.log(this.hcp,'this.hcp');
+      console.log(this.planname,'this.planName');
+      console.log(this.payingTerm,'this.payingTerm');
+      console.log(this.policyTerm,'this.policyTerm');
+
+    }
+
+  }
+
+  public edelweissPrimiumFailure(error) {
+  }
   getePolicyTerm() {
     const data = {
       'platform': 'web',
@@ -4277,6 +4509,9 @@ console.log(this.proposalId,'proposalId');
   public getPremiumSuccess(successData) {
     if (successData.IsSuccess) {
       this.payingTermList = successData.ResponseObject;
+    }
+    else {
+      this.toastr.error(successData.ErrorObject);
     }
   }
 
