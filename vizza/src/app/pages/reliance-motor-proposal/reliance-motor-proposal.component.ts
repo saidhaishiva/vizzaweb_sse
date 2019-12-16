@@ -104,6 +104,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   public discountAmount: any;
   public electricalSumAount: any;
   public nonElectricalSumAount: any;
+  public otherSystemNameList: any;
 
   //dob
   proposerAge : any;
@@ -284,14 +285,14 @@ export class RelianceMotorProposalComponent implements OnInit {
 
     this.riskDetails = this.fb.group({
       // AgentName: [''],
-      // OtherSystemName: ['', Validators.required],
+      OtherSystemName: ['', Validators.required],
       IDV: ['', Validators.required],
       IsVehicleHypothicated: [''],
       FinancierName: [''],
       FinanceType: [''],
       FinancierAddress: [''],
       FinanceTypeValue: [''],
-      // OtherSystemNameValue: [''],
+      OtherSystemNameValue: [''],
         }
     );
     this.nationalityList = {
@@ -307,6 +308,10 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.fittngTypeList ={
       '0': 'Inbuilt',
       '1':'External',
+    }
+    this.otherSystemNameList = {
+      '0': 'Customer',
+      '1': 'Agent',
     }
 
   }
@@ -365,12 +370,12 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.riskDetails.controls['FinanceTypeValue'].patchValue(this.financialTypeList[this.riskDetails.controls['FinanceType'].value]);
   }
 
-  // changeOtherSystem(){
-  //   console.log(this.otherSystemNameList,'list');
-  //   console.log(this.riskDetails.controls['OtherSystemName'].value)
-  //   this.riskDetails.controls['OtherSystemNameValue'].patchValue(this.otherSystemNameList[this.riskDetails.controls['OtherSystemName'].value]);
-  //   console.log(this.riskDetails.controls['OtherSystemNameValue'],'valllllll')
-  // }
+  changeOtherSystem(){
+    console.log(this.otherSystemNameList,'list');
+    console.log(this.riskDetails.controls['OtherSystemName'].value)
+    this.riskDetails.controls['OtherSystemNameValue'].patchValue(this.otherSystemNameList[this.riskDetails.controls['OtherSystemName'].value]);
+    console.log(this.riskDetails.controls['OtherSystemNameValue'],'valllllll')
+  }
   changenRelation(){
     this.coverDetails.controls['nrelationValue'].patchValue(this.relationListData[this.coverDetails.controls['nrelation'].value]);
   }
@@ -469,6 +474,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.coverDetails.controls['totalPAToOwnerDriverPremium'].updateValueAndValidity();
 
   }
+
 
   //
   // updatenpMandatory(event) {
@@ -1060,13 +1066,14 @@ export class RelianceMotorProposalComponent implements OnInit {
     if(sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined ){
       this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
       this.riskDetails = this.fb.group({
-        // OtherSystemName: this.getStepper2.OtherSystemName,
+        OtherSystemName: this.getStepper2.OtherSystemName,
         IDV: this.getStepper2.IDV,
         IsVehicleHypothicated: this.getStepper2.IsVehicleHypothicated,
         FinanceTypeValue: this.getStepper2.FinanceTypeValue,
         FinanceType: this.getStepper2.FinanceType,
         FinancierName: this.getStepper2.FinancierName,
-        FinancierAddress: this.getStepper2.FinancierAddress,        // OtherSystemNameValue: this.getStepper2.OtherSystemNameValue,
+        FinancierAddress: this.getStepper2.FinancierAddress,
+        OtherSystemNameValue: this.getStepper2.OtherSystemNameValue,
       });
     }
 
@@ -1544,7 +1551,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         'Policy': {
 
           'AgentName': 'Direct',
-          'OtherSystemName': '1'
+          'OtherSystemName': this.riskDetails.controls['OtherSystemName'].value
 
         },
         'Risk': {
