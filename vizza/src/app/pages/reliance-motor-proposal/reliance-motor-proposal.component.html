@@ -339,18 +339,18 @@
                           </mat-panel-title>
                       </mat-expansion-panel-header>
                       <form [formGroup]="riskDetails">
-<!--                              <div class="col-md-12 mt-3">-->
-<!--                                  <div class="row">-->
-<!--                                  <div class="col-md-6">-->
-<!--                                      <mat-form-field class="w-100">-->
-<!--                                          <mat-select placeholder="Other System Name" formControlName="OtherSystemName" (change)="changeOtherSystem()" required>-->
-<!--                                          <mat-option *ngFor="let list of otherSystemNameList | keys" value="{{list.key}}" > {{list.value}} </mat-option>-->
-<!--                                          </mat-select>-->
-<!--                                          <mat-error *ngIf="riskDetails.controls.OtherSystemName.errors?.required">OtherSystemName  is required</mat-error>-->
-<!--                                      </mat-form-field>-->
-<!--                                  </div>-->
-<!--                                  </div>-->
-<!--                              </div>-->
+                              <div class="col-md-12 mt-3">
+                                  <div class="row">
+                                  <div class="col-md-6">
+                                      <mat-form-field class="w-100">
+                                          <mat-select placeholder="Buyer Type" formControlName="OtherSystemName" (change)="changeOtherSystem()" required>
+                                          <mat-option *ngFor="let list of otherSystemNameList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
+                                          </mat-select>
+                                          <mat-error *ngIf="riskDetails.controls.OtherSystemName.errors?.required">OtherSystemName  is required</mat-error>
+                                      </mat-form-field>
+                                  </div>
+                                  </div>
+                              </div>
                               <div class="col-md-12 mt-2">
                                   <h6 class="color-blue">Risk Details</h6>
                               </div>
@@ -1119,7 +1119,7 @@
                               <h4 class="mt-4"></h4>
                               <!--<div class="p-3">-->
                                   <ul class="m-0 list-group">
-<!--                                      <li class="list-group-item" ><strong>OtherSystem Name:</strong> {{riskFormData.OtherSystemNameValue}}</li>-->
+                                      <li class="list-group-item" ><strong>OtherSystem Name:</strong> {{riskFormData.OtherSystemNameValue}}</li>
                                       <li class="list-group-item" ><strong>IDV:</strong> {{riskFormData.IDV}}</li>
                                       <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated != ''"><strong>Vehicle Hypothecated:</strong><span *ngIf="riskFormData.IsVehicleHypothicated == true">Yes</span><span *ngIf="riskFormData.IsVehicleHypothicated == false">No</span> </li>
                                       <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated == true"><strong>Finance Type:</strong> {{riskFormData.FinanceTypeValue}}</li>
