@@ -245,7 +245,7 @@ export class BikeShriramProposalComponent implements OnInit {
       previousInsured: ['', Validators.required],
       // policyUwYear:  ['', Validators.compose([Validators.pattern('[2]{1}[0-9]{3}')])],
       previousPolicyType: ['', Validators.required],
-      policyNilDescription: '',
+      policyNilDescription: ['', Validators.required],
       // previousdob:['', Validators.required],
       previousPolicyTypeName:'',
         // previousdEndob:['', Validators.required],

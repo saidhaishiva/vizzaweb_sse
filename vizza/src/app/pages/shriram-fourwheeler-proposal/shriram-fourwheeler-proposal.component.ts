@@ -263,7 +263,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       policyNumber:['', Validators.required],
       previousInsured: ['', Validators.required],
       previousPolicyType: ['', Validators.required],
-      policyNilDescription: '0',
+      policyNilDescription: ['', Validators.required],
       previousPolicyTypeName:'',
       policySi:['', Validators.required],
 
