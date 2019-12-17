@@ -887,7 +887,7 @@ hypoName(){
     this.proposer.controls['hypothecationAddress2'].updateValueAndValidity();
     this.vehical.controls['hypothecationAddress1'].updateValueAndValidity();
     this.vehical.controls['hypothecationBankName'].updateValueAndValidity();
-    this.vehical.controls['hypothecationBankNamevalue'].updateValueAndValidity();
+    // this.vehical.controls['hypothecationBankNamevalue'].updateValueAndValidity();
 
   }
 
