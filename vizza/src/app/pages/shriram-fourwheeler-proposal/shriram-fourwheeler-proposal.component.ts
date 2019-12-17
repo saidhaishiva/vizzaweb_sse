@@ -115,7 +115,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public voluntaryList: any;
   // public policyDatevalidate : any;
   public currentStep : any;
-  public mobileNumber : any;
+  public electrical_cover :any;
+  public basic_od_cover:any;
+  public basic_tp_cover :any;
+  public od_total :any;
+  public cng_lpg_cover :any;
+  public gst :any;
+  public anti_theft_cover :any;
+  public Nil_depreciation_cover :any;
+  public LL_paid_driver:any;
+  public pa_owner_driver :any;
+  public Ncb :any;
+  public mobileNumber :any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -252,7 +263,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       policyNumber:['', Validators.required],
       previousInsured: ['', Validators.required],
       previousPolicyType: ['', Validators.required],
-      policyNilDescription: '0',
+      policyNilDescription: ['', Validators.required],
       previousPolicyTypeName:'',
       policySi:['', Validators.required],
 
@@ -342,6 +353,14 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   //     this.pASumAount = 'PA to Unnamed Passenger Sum Insured Should be lesser than';
   //   }
   // }
+
+
+  changeDepreciation() {
+    if (this.vehical.controls['nilDepreciationCover'].value == true) {
+      this.previousInsure.controls['policyNilDescription'].patchValue(1);
+
+    }
+  }
 
   // FIRST STEPPER
 
@@ -865,10 +884,10 @@ hypoName(){
 
     }
     this.vehical.controls['hypothecationType'].updateValueAndValidity();
-    this.proposer.controls['hypothecationAddress2'].updateValueAndValidity();
+    this.vehical.controls['hypothecationAddress2'].updateValueAndValidity();
     this.vehical.controls['hypothecationAddress1'].updateValueAndValidity();
     this.vehical.controls['hypothecationBankName'].updateValueAndValidity();
-    this.vehical.controls['hypothecationBankNamevalue'].updateValueAndValidity();
+    // this.vehical.controls['hypothecationBankNamevalue'].updateValueAndValidity();
 
   }
 
@@ -1017,7 +1036,6 @@ hypoName(){
 
       this.photos = successData.ResponseObject.bank_name;
       this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.photos)
-alert(this.vehical.controls['hypothecationBankNamevalue'].value)
 
       console.log(this.photos,'photos');
       console.log(this.vehical.controls['hypothecationBankNamevalue'].value,'hypothecationBankNamevalue...');
@@ -1156,9 +1174,12 @@ alert(this.vehical.controls['hypothecationBankNamevalue'].value)
     sessionStorage.stepper3 = JSON.stringify(value);
 
     if (this.previousInsure.valid) {
-      stepper.next();
-      this.topScroll();
-
+      if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+        stepper.next();
+        this.topScroll();
+      }else{
+        this.toastr.error('Previous Nil Description  should be Enable. If u select Nil Depreciation Cover ')
+      }
 
     }
 
@@ -1324,7 +1345,7 @@ alert(this.vehical.controls['hypothecationBankNamevalue'].value)
         "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
         "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
         "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
-        "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
+        "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value == 1? '1' : '0',
         "HypothecationType": this.vehical.controls['hypothecationType'].value ? this.vehical.controls['hypothecationType'].value : '',
         "HypothecationBankName": this.vehical.controls['hypothecationBankNamevalue'].value==undefined||null?'':this.vehical.controls['hypothecationBankNamevalue'].value,
         // "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value ? this.vehical.controls['hypothecationBankName'].value : '' ,
@@ -1371,6 +1392,18 @@ alert(this.vehical.controls['hypothecationBankNamevalue'].value)
       this.vehicalFormData = this.vehical.value;
       this.previousFormData = this.previousInsure.value;
       this.nomineeFormData = this.nomineeDetail.value;
+      this.electrical_cover = this.summaryData.cover.electrical_cover;
+      this.basic_od_cover = this.summaryData.cover.basic_od_cover;
+      this.basic_tp_cover = this.summaryData.cover.basic_tp_cover;
+      this.od_total = this.summaryData.cover.od_total;
+      this.cng_lpg_cover = this.summaryData.cover.cng_lpg_cover;
+      this.gst = this.summaryData.cover.gst;
+      this.anti_theft_cover = this.summaryData.cover.anti_theft_cover;
+      this.Nil_depreciation_cover = this.summaryData.cover.Nil_depreciation_cover;
+      this.LL_paid_driver = this.summaryData.cover.LL_paid_driver;
+      this.pa_owner_driver = this.summaryData.cover.pa_owner_driver;
+      this.Ncb = this.summaryData.cover.Ncb;
+
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
       sessionStorage.previousFormData = JSON.stringify(this.previousFormData);

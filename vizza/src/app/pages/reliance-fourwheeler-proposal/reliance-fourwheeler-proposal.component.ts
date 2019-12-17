@@ -121,6 +121,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public electricalSumAount: any;
   public nonElectricalSumAount: any;
   public bifuelChangeList: any;
+  public clientTypeField: boolean;
 
   //dob
   proposerAge : any;
@@ -165,16 +166,20 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.currentStep = stepperindex;
     this.setting = appsetting.settings;
     this.webhost = this.config.getimgUrl();
-    this.showInspection=false
-    this.errorRateMsg=false
+    this.showInspection=false;
+    this.errorRateMsg=false;
+    this.clientTypeField=false;
+
 
 
     this.relianceProposal = this.fb.group({
-      firstName : ['' , Validators.required],
-      lastName : ['',Validators.required],
+      clientType : ['' , Validators.required],
+      corporateName : ['' , Validators.required],
+      firstName : ['' ],
+      lastName : [''],
       middleName : [''],
       dob : ['' , Validators.required],
-      title : ['' , Validators.required],
+      title : [''],
       occupation : ['' , Validators.required],
       maritalStatus : [''],
       nationality : [''],
@@ -396,7 +401,59 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   }
 
+  clientTypeReq(){
+    if(this.relianceProposal.controls['clientType'].value == 0){
+      this.clientTypeField=true;
+      this.relianceProposal.controls['corporateName'].patchValue('');
+      this.relianceProposal.controls['corporateName'].setValidators(null);
 
+      this.relianceProposal.controls['title'].setValidators([Validators.required]);
+      this.relianceProposal.controls['firstName'].setValidators([Validators.required]);
+      this.relianceProposal.controls['middleName'].setValidators(null);
+      this.relianceProposal.controls['lastName'].setValidators([Validators.required]);
+    }else if(this.relianceProposal.controls['clientType'].value == 1) {
+      this.clientTypeField=false;
+      this.relianceProposal.controls['corporateName'].setValidators([Validators.required]);
+
+      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue('');
+
+      this.coverDetails.controls['PAToOwnerDriverCoverd'].setValidators(null);
+      this.coverDetails.controls['cappointeeName'].patchValue('');
+      this.coverDetails.controls['cappointeeName'].setValidators(null);
+      this.coverDetails.controls['cnomineeName'].patchValue('');
+      this.coverDetails.controls['cnomineeName'].setValidators(null);
+      this.coverDetails.controls['cnDob'].patchValue('');
+      this.coverDetails.controls['cnDob'].setValidators(null);
+      this.coverDetails.controls['nrelation'].patchValue('');
+      this.coverDetails.controls['nrelation'].setValidators(null);
+      this.coverDetails.controls['cnAddress'].patchValue('');
+      this.coverDetails.controls['cnAddress'].setValidators(null);
+      this.coverDetails.controls['nOtherRelation'].patchValue('');
+      this.coverDetails.controls['nOtherRelation'].setValidators(null);
+      this.coverDetails.controls['nrelationValue'].patchValue('');
+      this.coverDetails.controls['nrelationValue'].setValidators(null);
+      this.coverDetails.controls['totalPAToOwnerDriverPremium'].patchValue('');
+      this.coverDetails.controls['totalPAToOwnerDriverPremium'].setValidators(null);
+
+      this.relianceProposal.controls['title'].patchValue('');
+      this.relianceProposal.controls['title'].setValidators(null);
+
+      this.relianceProposal.controls['firstName'].patchValue('');
+      this.relianceProposal.controls['firstName'].setValidators(null);
+
+      this.relianceProposal.controls['middleName'].patchValue('');
+      this.relianceProposal.controls['middleName'].setValidators(null);
+
+      this.relianceProposal.controls['lastName'].patchValue('');
+      this.relianceProposal.controls['lastName'].setValidators(null);
+    }
+
+    this.relianceProposal.controls['corporateName'].updateValueAndValidity();
+    this.relianceProposal.controls['title'].updateValueAndValidity();
+    this.relianceProposal.controls['firstName'].updateValueAndValidity();
+    this.relianceProposal.controls['middleName'].updateValueAndValidity();
+    this.relianceProposal.controls['lastName'].updateValueAndValidity();
+  }
   /////////////
 
   idvCalculateDetails(value,type) {
@@ -607,9 +664,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     }
 
   }
-  updateMandatory(event) {
-    if (event.checked) {
-      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(true);
+  updateMandatory() {
+    if (this.coverDetails.controls['PAToOwnerDriverCoverd'].value==true) {
+      // this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(true);
 
       this.coverDetails.controls['cnomineeName'].setValidators([Validators.required]);
       this.coverDetails.controls['cnDob'].setValidators([Validators.required]);
@@ -621,7 +678,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.getCover();
 
     } else {
-      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
+      // this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
 
       this.coverDetails.controls['cappointeeName'].patchValue('');
       this.coverDetails.controls['cappointeeName'].setValidators(null);
@@ -777,12 +834,12 @@ changeOwnerDriver(){
   }
   //
   updateOwnerDriverSi(event){
-    if(event.checked){
-      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(true);
+    if(this.coverDetails.controls['PAToOwnerDriverCoverd'].value==true){
+      // this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(true);
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].patchValue('1500000');
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].setValidators([Validators.required]);
     }else {
-      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
+      // this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].patchValue('');
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].setValidators(null);
     }
@@ -1316,6 +1373,7 @@ changeNonElect(){
       if (this.riskDetails.valid) {
         stepper.next();
         this.topScroll();
+        this.clientTypeReq();
       }else{
         this.toastr.error('Please Select the Mandatory Fields')
 
@@ -1365,6 +1423,8 @@ changeNonElect(){
       this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
       console.log(this.getStepper1.dob, 'sessiondob');
       this.relianceProposal = this.fb.group({
+        clientType: this.getStepper1.clientType,
+        corporateName: this.getStepper1.corporateName,
         firstName: this.getStepper1.firstName,
         lastName: this.getStepper1.lastName,
         middleName: this.getStepper1.middleName,
@@ -2153,7 +2213,8 @@ changeNonElect(){
         'CoverDetails': '',
         'TrailerDetails': '',
         'ClientDetails': {
-          'ClientType': '0',
+          'ClientType': this.relianceProposal.controls['clientType'].value,
+          'CorporateName':this.relianceProposal.controls['corporateName'].value,
           'LastName': this.relianceProposal.controls['lastName'].value,
           'MidName': this.relianceProposal.controls['middleName'].value,
           'ForeName': this.relianceProposal.controls['firstName'].value,
@@ -2206,7 +2267,7 @@ changeNonElect(){
             'InspectionAddress':{}
           },
           'EmailID': this.relianceProposal.controls['email'].value,
-          'Salutation': this.relianceProposal.controls['title'].value,
+          'Salutation': this.relianceProposal.controls['title'].value==''?'M/S':this.relianceProposal.controls['title'].value,
           'MaritalStatus': this.relianceProposal.controls['maritalStatus'].value,
           'Nationality': this.relianceProposal.controls['nationality'].value
         },

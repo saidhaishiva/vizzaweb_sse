@@ -224,7 +224,7 @@
                                         </div>
                                         <div class="row mt-2" *ngIf="!policyTypeDetails">
                                             <div class="col-md-6 ml-3">
-                                                <mat-checkbox  formControlName="nilDepreciationCover">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
+                                                <mat-checkbox  formControlName="nilDepreciationCover" (change)="changeDepreciation()">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
                                             </div>
                                         </div>
 
@@ -268,7 +268,7 @@
                                                 </div>
                                                 <div class="col-md-4" *ngIf="vehical.controls.paforUnnamed.value ==true">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Sum Insured"  formControlName="paforUnnamedSI"  autocomplete="off" (input)="changeCalcPA($event)" [required]="vehical.controls.paforUnnamed.value==true" >
+                                                        <input matInput placeholder="Sum Insured"  formControlName="paforUnnamedSI"  autocomplete="off"  [required]="vehical.controls.paforUnnamed.value==true" >
                                                     </mat-form-field>
                                                     <!--<div class="error" *ngIf="pASumAount !='' && pASumAount != true">{{pASumAount}} {{electricalMaxValue}}</div>-->
                                                 </div>
@@ -428,7 +428,7 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-12 mt-3">
+                                            <div class="col-md-12 mt-3" >
                                                 <h6 class="color-blue">Previous Nil Description <span class="error">*</span></h6>
                                             </div>
                                             <div class="col-md-3  mt-3">
@@ -436,7 +436,7 @@
                                                     <mat-radio-button value="1">Yes</mat-radio-button>
                                                     <mat-radio-button value="0">No</mat-radio-button>
                                                 </mat-radio-group>
-                                                <!--<mat-error *ngIf="previousInsure.controls.policyNilDescription.errors?.required">Previous Nil Description is required</mat-error>-->
+                                                <mat-error *ngIf="previousInsure.controls.policyNilDescription.errors?.required">Previous Nil Description is required</mat-error>
 
                                             </div>
                                         </div>
@@ -551,11 +551,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="summaryData.cover.basic_od_cover!=''|| summaryData.cover=='basic_od_cover'"><strong>Basic OD Cover:</strong> {{summaryData.cover.basic_od_cover}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.basic_tp_cover!=''|| summaryData.cover=='basic_tp_cover'"><strong>Basic TP Cover:</strong> {{summaryData.cover.basic_tp_cover}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.od_total!=''|| summaryData.cover=='od_total'"><strong>OD Total:</strong> {{summaryData.cover.od_total}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.tp_total!=''|| summaryData.cover=='tp_total'"><strong>TP Total:</strong> {{summaryData.cover.tp_total}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.gst!=''|| summaryData.cover=='gst'"><strong>GST:</strong> {{summaryData.cover.gst}}</li>
+                                                <li class="list-group-item" *ngIf="basic_od_cover!=''||basic_od_cover!=undefined "><strong>Basic OD Cover:</strong> {{basic_od_cover}}</li>
+                                                <li class="list-group-item" *ngIf="basic_tp_cover!=''||basic_tp_cover!=undefined"><strong>Basic TP Cover:</strong> {{basic_tp_cover}}</li>
+                                                <li class="list-group-item" *ngIf="od_total!=''||od_total!=undefined"><strong>OD Total:</strong> {{od_total}}</li>
+                                                <li class="list-group-item" *ngIf="tp_total!=''||tp_total!=undefined"><strong>TP Total:</strong> {{tp_total}}</li>
+                                                <li class="list-group-item" *ngIf="gst!=''||gst!=undefined"><strong>GST:</strong> {{gst}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -565,11 +565,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="summaryData.cover.electrical_cover!=''|| summaryData.cover=='electrical_cover'"><strong>Electrical Cover:</strong> {{summaryData.cover.electrical_cover}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.anti_theft_cover!=''|| summaryData.cover=='anti_theft_cover'"><strong>Anti Theft Cover:</strong> {{summaryData.cover.anti_theft_cover}}</li>
-                                                <li class="list-group-item" *ngIf=" summaryData.cover.length < 10"><strong>Nil Depreciation:</strong> {{summaryData.cover.Nil_depreciation_cover}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.pa_owner_driver!=''|| summaryData.cover=='pa_owner_driver'"><strong>PA Owner Driver:</strong> {{summaryData.cover.pa_owner_driver}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.ncb!=''|| summaryData.cover=='ncb'"><strong>NCB:</strong> {{summaryData.cover.ncb}}</li>
+                                                <li class="list-group-item" *ngIf="electrical_cover!=''||electrical_cover!=undefined"><strong>Electrical Cover:</strong> {{electrical_cover}}</li>
+                                                <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>Anti Theft Cover:</strong> {{anti_theft_cover}}</li>
+                                                <li class="list-group-item" *ngIf="vehicalFormData.nilDepreciationCover != ''"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
+                                                <li class="list-group-item" *ngIf="pa_owner_driver!=''||pa_owner_driver!=undefined"><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
+                                                <li class="list-group-item" *ngIf="ncb!=''||ncb!=undefined"><strong>NCB:</strong> {{ncb}}</li>
                                             </ul>
                                         </div>
                                     </div>
