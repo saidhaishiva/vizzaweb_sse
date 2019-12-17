@@ -1550,6 +1550,33 @@
                                </div>
                            </div>
 
+                           <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
+                               <div class="col-md-12">
+                                   <h6 class="color-blue">PREMIUM</h6>
+                               </div>
+                               <div class="col-md-6">
+                               <div class="p-3">
+
+                               <ul class="m-0 list-group">
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="planname != 0"><strong> Plan Name Zindagi Plus Plan :</strong> {{planname}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="policyTerm != 0"><strong>   Policy Term 39 Years :</strong> {{policyTerm}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="payingTerm != 0"><strong>   Pay Term 39 Years :</strong> {{payingTerm}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="sum != 0"><strong>   Sum Assured :</strong> {{sum}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="basePremium != 0"><strong>   Base Premium :</strong> {{basePremium}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="hcp != 0"><strong>   Hospital Cash :</strong> {{hcp}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="ADB != 0"><strong>   ADB :</strong> {{ADB}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="CIP != 0"><strong>   CI :</strong> {{CIP}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="PW != 0"><strong>   WoP :</strong> {{PW}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="PDP != 0"><strong>   Disability :</strong> {{PDP}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="BhP != 0"><strong>   Better-Half :</strong> {{BhP}}</li>
+                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="premium != 0"><strong>   Total Premium :</strong> {{premium}}</li>
+                               </ul>
+                               </div>
+                               </div>
+
+                           </div>
+
+
 
                            <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
                                <div class="col-md-12">
@@ -1657,7 +1684,6 @@
 
 
 
-           <table>
            <mat-step [stepControl]="">
                <ng-template matStepLabel > QUESTIONNAIRES </ng-template>
                <mat-accordion class="w-100 float-left">
@@ -1667,12 +1693,7 @@
                            <mat-expansion-panel-header>
                                <mat-panel-title> QUESTIONNAIRES </mat-panel-title>
                            </mat-expansion-panel-header>
-                           <tr>
-                               <th style="width: 501px;"></th>
-                               <th>Life Assured</th>
-                               <th>Spouse</th>
-                           </tr>
-                           <tr>
+
                        <div class="row mt-3">
 
                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
@@ -2444,7 +2465,7 @@
                                    </div>
                                </div>
                            </div>
-                       </div></tr>
+                       </div>
                            <div class="proposal-buttom mt-3 text-right w-100">
                                <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
                                <button mat-raised-button color="primaryBlue" (click)="medicalDetails(stepper, medicalDetail.value)">Next</button>
@@ -2454,7 +2475,7 @@
                    </form>
                </mat-accordion>
            </mat-step>
-           </table>
+
 
 
 
