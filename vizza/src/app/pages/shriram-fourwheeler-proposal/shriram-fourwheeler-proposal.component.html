@@ -627,7 +627,7 @@
                                                 <li class="list-group-item" *ngIf="basic_od_cover!=''||basic_od_cover!=undefined"><strong>Basic OD Cover:</strong> {{basic_od_cover}}</li>
                                                 <li class="list-group-item" *ngIf="basic_tp_cover!=''||basic_tp_cover!=undefined"><strong>Basic TP Cover:</strong> {{basic_tp_cover}}</li>
                                                 <li class="list-group-item" *ngIf="od_total!=''|| od_total!=undefined"><strong>OD Total:</strong> {{od_total}}</li>
-                                                <li class="list-group-item" *ngIf="cng_lpg_cover !=''"><strong>CNG LPG Cover:</strong> {{cng_lpg_cover}}</li>
+                                                <li class="list-group-item" *ngIf="vehicalFormData.CNGKit != ''"><strong>CNG LPG Cover:</strong> {{cng_lpg_cover}}</li>
                                                 <li class="list-group-item" *ngIf="gst!=''|| gst!=undefined"><strong>GST:</strong> {{gst}}</li>
                                             </ul>
                                         </div>
@@ -640,8 +640,8 @@
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item" *ngIf="electrical_cover!=''||electrical_cover!=undefined"><strong>Electrical Cover:</strong> {{electrical_cover}}</li>
                                                 <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>Anti Theft Cover:</strong> {{anti_theft_cover}}</li>
-                                                <li class="list-group-item" *ngIf="Nil_depreciation_cover!=''&&vehicalFormData.nilDepreciationCover != ''"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
-                                                <li class="list-group-item" *ngIf="LL_paid_driver!=''&&vehicalFormData.lltoPaidDriver != ''"><strong>LL Paid Driver:</strong> {{LL_paid_driver}}</li>
+                                                <li class="list-group-item" *ngIf="vehicalFormData.nilDepreciationCover != ''"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
+                                                <li class="list-group-item" *ngIf="vehicalFormData.lltoPaidDriver != ''"><strong>LL Paid Driver:</strong> {{LL_paid_driver}}</li>
                                                 <li class="list-group-item" *ngIf="pa_owner_driver!=''||pa_owner_driver!=undefined"><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
                                                 <li class="list-group-item" *ngIf="Ncb!=''"><strong>NCB:</strong> {{Ncb}}</li>
                                             </ul>
@@ -832,7 +832,7 @@
                             </div>
                         </section>
                         <section>
-                            <h6 class="color-blue">APPOINTEE DETAILS</h6>
+                            <h6 class="color-blue" *ngIf="nomineeFormData.appointeeName != ''" >APPOINTEE DETAILS</h6>
                             <div class="row box-card">
 
                                 <div class="col-md-6">

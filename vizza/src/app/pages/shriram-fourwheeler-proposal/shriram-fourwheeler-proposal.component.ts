@@ -884,7 +884,7 @@ hypoName(){
 
     }
     this.vehical.controls['hypothecationType'].updateValueAndValidity();
-    this.proposer.controls['hypothecationAddress2'].updateValueAndValidity();
+    this.vehical.controls['hypothecationAddress2'].updateValueAndValidity();
     this.vehical.controls['hypothecationAddress1'].updateValueAndValidity();
     this.vehical.controls['hypothecationBankName'].updateValueAndValidity();
     // this.vehical.controls['hypothecationBankNamevalue'].updateValueAndValidity();
@@ -1345,7 +1345,7 @@ hypoName(){
         "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
         "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
         "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
-        "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
+        "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value == 1? '1' : '0',
         "HypothecationType": this.vehical.controls['hypothecationType'].value ? this.vehical.controls['hypothecationType'].value : '',
         "HypothecationBankName": this.vehical.controls['hypothecationBankNamevalue'].value==undefined||null?'':this.vehical.controls['hypothecationBankNamevalue'].value,
         // "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value ? this.vehical.controls['hypothecationBankName'].value : '' ,

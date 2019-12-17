@@ -268,7 +268,7 @@
                                                 </div>
                                                 <div class="col-md-4" *ngIf="vehical.controls.paforUnnamed.value ==true">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Sum Insured"  formControlName="paforUnnamedSI"  autocomplete="off" (input)="changeCalcPA($event)" [required]="vehical.controls.paforUnnamed.value==true" >
+                                                        <input matInput placeholder="Sum Insured"  formControlName="paforUnnamedSI"  autocomplete="off"  [required]="vehical.controls.paforUnnamed.value==true" >
                                                     </mat-form-field>
                                                     <!--<div class="error" *ngIf="pASumAount !='' && pASumAount != true">{{pASumAount}} {{electricalMaxValue}}</div>-->
                                                 </div>
