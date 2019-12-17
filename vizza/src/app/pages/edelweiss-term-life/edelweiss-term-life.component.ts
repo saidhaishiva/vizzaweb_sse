@@ -4423,13 +4423,10 @@ travelOutside(){
   }
 
   public edelweissPrimiumSuccess(successData) {
-    alert(this.eePremiumTerm)
     if (successData.ResponseObject) {
       this.eePremiumTerm = successData.ResponseObject;
-      alert(this.eePremiumTerm)
       // this.eePremiumTerm = this.eePremiumTerm;
       this.ADB = this.eePremiumTerm.accidental_death_premium;
-      alert(this.ADB)
 
       this.sum = this.eePremiumTerm.sumAssured;
       this.basePremium = this.eePremiumTerm.Basepremium;
