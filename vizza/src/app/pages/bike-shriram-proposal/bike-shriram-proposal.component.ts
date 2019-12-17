@@ -120,7 +120,16 @@ export class BikeShriramProposalComponent implements OnInit {
     public electricAmount:any;
     public nonElectricAmount:any;
     public voluntaryList:any;
-
+    public basic_od_cover:any;
+    public basic_tp_cover:any;
+    public od_total:any;
+    public tp_total:any;
+    public gst:any;
+    public electrical_cover:any;
+    public anti_theft_cover:any;
+    public Nil_depreciation_cover:any;
+    public pa_owner_driver:any;
+    public ncb:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -236,7 +245,7 @@ export class BikeShriramProposalComponent implements OnInit {
       previousInsured: ['', Validators.required],
       // policyUwYear:  ['', Validators.compose([Validators.pattern('[2]{1}[0-9]{3}')])],
       previousPolicyType: ['', Validators.required],
-      policyNilDescription: '0',
+      policyNilDescription: '',
       // previousdob:['', Validators.required],
       previousPolicyTypeName:'',
         // previousdEndob:['', Validators.required],
@@ -1106,8 +1115,13 @@ export class BikeShriramProposalComponent implements OnInit {
         sessionStorage.stepper3 = JSON.stringify(value);
 
         if (this.previousInsure.valid) {
+            if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
                 stepper.next();
-                        this.topScroll();
+                this.topScroll();
+            }else{
+                this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
+            }
+
 
 
         }
@@ -1187,7 +1201,13 @@ export class BikeShriramProposalComponent implements OnInit {
         topScroll() {
           document.getElementById('main-content').scrollTop = 0;
         }
+    changeDepreciation(){
+        if(this.vehical.controls['nilDepreciationCover'].value==true){
+            this.previousInsure.controls['policyNilDescription'].patchValue(1) ;
 
+        }
+
+    }
     // proposal Creation
 
   proposal(stepper) {
@@ -1338,6 +1358,16 @@ export class BikeShriramProposalComponent implements OnInit {
          this.vehicalFormData = this.vehical.value;
          this.previousFormData = this.previousInsure.value;
          this.nomineeFormData = this.nomineeDetail.value;
+         this.basic_od_cover= this.summaryData.cover.basic_od_cover;
+         this.basic_tp_cover= this.summaryData.cover.basic_tp_cover;
+         this.od_total= this.summaryData.cover.od_total;
+         this.tp_total= this.summaryData.cover.tp_total;
+         this.gst= this.summaryData.cover.gst;
+         this.electrical_cover= this.summaryData.cover.electrical_cover;
+         this.anti_theft_cover= this.summaryData.cover.anti_theft_cover;
+         this.Nil_depreciation_cover= this.summaryData.cover.Nil_depreciation_cover;
+         this.pa_owner_driver= this.summaryData.cover.pa_owner_driver;
+         this.ncb= this.summaryData.cover.ncb;
          console.log(this.vehicalFormData,'this.proposerFormData');
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);

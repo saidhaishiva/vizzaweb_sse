@@ -207,7 +207,7 @@
                                         </div>
                                         <div class="row mt-2" *ngIf="!policyTypeDetails">
                                             <div class="col-md-6 ml-3">
-                                                <mat-checkbox  formControlName="nilDepreciationCover">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
+                                                <mat-checkbox  formControlName="nilDepreciationCover" (change)="changeDepreciation()">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
                                             </div>
                                         </div>
                                         <div class="row"  *ngIf="!policyTypeDetails">
@@ -418,7 +418,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6 ml-3">
+                                            <div class="col-md-6">
                                                 <mat-checkbox formControlName="geographicalArea">Geographical Area</mat-checkbox>
                                             </div>
                                         </div>
@@ -624,11 +624,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="summaryData.cover.basic_od_cover!=''|| summaryData.cover=='basic_od_cover'"><strong>Basic OD Cover:</strong> {{summaryData.cover.basic_od_cover}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.basic_tp_cover!=''||summaryData.cover=='basic_tp_cover'"><strong>Basic TP Cover:</strong> {{summaryData.cover.basic_tp_cover}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.od_total!=''|| summaryData.cover=='od_total'"><strong>OD Total:</strong> {{summaryData.cover.od_total}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.length < 11"><strong>CNG LPG Cover:</strong> {{summaryData.cover.cng_lpg_cover}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.gst!=''|| summaryData.cover=='gst'"><strong>GST:</strong> {{summaryData.cover.gst}}</li>
+                                                <li class="list-group-item" *ngIf="basic_od_cover!=''||basic_od_cover!=undefined"><strong>Basic OD Cover:</strong> {{basic_od_cover}}</li>
+                                                <li class="list-group-item" *ngIf="basic_tp_cover!=''||basic_od_cover!=undefined"><strong>Basic TP Cover:</strong> {{basic_tp_cover}}</li>
+                                                <li class="list-group-item" *ngIf="od_total!=''|| basic_od_cover!=undefined"><strong>OD Total:</strong> {{od_total}}</li>
+                                                <li class="list-group-item" *ngIf="cng_lpg_cover !=''||basic_od_cover!=undefined"><strong>CNG LPG Cover:</strong> {{cng_lpg_cover}}</li>
+                                                <li class="list-group-item" *ngIf="gst!=''|| basic_od_cover!=undefined"><strong>GST:</strong> {{gst}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -638,12 +638,12 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="summaryData.cover.electrical_cover!=''||summaryData.cover=='electrical_cover'"><strong>Electrical Cover:</strong> {{summaryData.cover.electrical_cover}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.anti_theft_cover!=''|| summaryData.cover=='anti_theft_cover'"><strong>Anti Theft Cover:</strong> {{summaryData.cover.anti_theft_cover}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.Nil_depreciation_cover.length<11"><strong>Nil Depreciation:</strong> {{summaryData.cover.Nil_depreciation_cover}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.LL_paid_driver.length<11"><strong>LL Paid Driver:</strong> {{summaryData.cover.LL_paid_driver}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.pa_owner_driver!=''|| summaryData.cover=='pa_owner_driver'"><strong>PA Owner Driver:</strong> {{summaryData.cover.pa_owner_driver}}</li>
-                                                <li class="list-group-item" *ngIf="summaryData.cover.length<11"><strong>NCB:</strong> {{summaryData.cover.Ncb}}</li>
+                                                <li class="list-group-item" *ngIf="electrical_cover!=''||basic_od_cover!=undefined"><strong>Electrical Cover:</strong> {{electrical_cover}}</li>
+                                                <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''|| anti_theft_cover!=''"><strong>Anti Theft Cover:</strong> {{anti_theft_cover}}</li>
+                                                <li class="list-group-item" *ngIf="Nil_depreciation_cover!=''||Nil_depreciation_cover!=undefined"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
+                                                <li class="list-group-item" *ngIf="LL_paid_driver!=''||LL_paid_driver!=undefined"><strong>LL Paid Driver:</strong> {{LL_paid_driver}}</li>
+                                                <li class="list-group-item" *ngIf="pa_owner_driver!=''||pa_owner_driver!=undefined"><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
+                                                <li class="list-group-item" *ngIf="Ncb!=''||Ncb!=undefined"><strong>NCB:</strong> {{Ncb}}</li>
                                             </ul>
                                         </div>
                                     </div>
