@@ -1259,7 +1259,7 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd != false"><strong >PA to Owner Driver:</strong> {{summaryData.productlist.pa_to_owner_driver}}</li>
                           <li class="list-group-item" *ngIf="gstAmount.igst != ''"><strong>GST:</strong>{{gstAmount.igst}} </li>
-                          <li class="list-group-item" ><strong *ngIf="summaryData.productlist.comphensivePreminium != ''">Comphensive Premium:</strong> {{summaryData.productlist.comphensivePreminium}}</li>
+                          <li class="list-group-item" ><strong *ngIf="summaryData.productlist.comphensivePreminium != ''">Comprehensive Premium:</strong> {{summaryData.productlist.comphensivePreminium}}</li>
                         </ul>
                       </div>
                     <!--</div>-->
@@ -1279,7 +1279,7 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item" ><strong>Client Type:</strong><span *ngIf="proposerFormData.clientType == 0">Individual</span><span *ngIf="proposerFormData.clientType == 1">Corporate</span></li>
                       <li class="list-group-item" *ngIf="proposerFormData.corporateName != ''"><strong>Corporate Name:</strong>{{proposerFormData.corporateName}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.titleValue != ''"><strong>Name:</strong>{{proposerFormData.titleValue}}.{{proposerFormData.firstName}} {{proposerFormData.middleName}} {{proposerFormData.lastName}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.clientType == 0"><strong>Name:</strong>{{proposerFormData.titleValue}}.{{proposerFormData.firstName}} {{proposerFormData.middleName}} {{proposerFormData.lastName}}</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.maritalStatusValue !='' "><strong>Marital Status:</strong>{{proposerFormData.maritalStatusValue}}</li>
