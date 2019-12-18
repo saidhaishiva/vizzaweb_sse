@@ -419,7 +419,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       // taxResidence: ['', Validators.compose([Validators.required])],
       isPoliticallyExposed: false,
       specification: '',
-      Cover: '',
+      Cover:'',
       ageTillCoverd: '',
       premiumPay: '',
       modeOfPremium: '',
@@ -474,7 +474,75 @@ export class EdelweissTermLifeComponent implements OnInit {
     });
 
       this.medicalDetail = this.fb.group({
+        travelOutsideIndia1:'',
         travelOutsideIndia: '',
+        pilot1: '',
+        activity1: '',
+        adventurousActivities1: '',
+        adventurousActivitiesName1: '',
+        adventurousActivitiesDetails1: '',
+        medicalTreatment1: '',
+        medicationDetails1: '',
+        receivedTreatment11: '',
+        diagnosedDetails1:  '',
+        receivedTreatment21: '',
+        aidsDetails1: '',
+        healthInformation1: '',
+        drugsInd1: '',
+        drugsDetails1: '',
+        alcoholInd1: '',
+        alcoholDetails1: '',
+        alcoholBeer1: '',
+        alcoholliquar1: '',
+        alcoholWine1: '',
+        tobaccoInd1: '',
+        tobaccoDetails1: '',
+        tobaccoStopInd1: '',
+        tobaccoStopDetails1: '',
+        consultDoctorInd1: '',
+        consultDoctorDetails1: '',
+        ECGInd1: '',
+        ECGDetails1: '',
+        admitInd1: '',
+        admitDetails1:  '',
+        heartDieaseInd1: '',
+        heartDieaseDetails1: '',
+        isHospitalized1: '',
+        hospitalizedDate1:  '',
+        respiratoryDieaseInd1: '',
+        respiratoryDieaseDetails1: '',
+        diabetesInd1: '',
+        diabetesDetails1: '',
+        kidneyDieaseInd1: '',
+        kidneyDieaseDetails1: '',
+        digestiveDieaseInd1: '',
+        digestiveDieaseDetails1: '',
+        cancerDieaseInd1: '',
+        cancerDieaseDetails1: '',
+        tropicalDieaseInd1: '',
+        tropicalDieaseDetails1: '',
+        thyroidDieaseInd1: '',
+        thyroidDieaseDetails1: '',
+        bloodDieaseInd1: '',
+        bloodDieaseDetails1: '',
+        nervousDieaseInd1: '',
+        nervousDieaseDetails1: '',
+        isRecovered1: '',
+        nonRecoveryDetails1: '',
+        muscleDieaseInd1: '',
+        muscleDieaseDetails1: '',
+        alcoholicInd1: '',
+        alcoholicDetails1: '',
+        otherIllnessInd1: '',
+        otherIllnessDetails1: '',
+        deformityInd1: '',
+        deformityDetails1: '',
+        symptomsInd1: '',
+        symptomsDetails1: '',
+        pregnantInd1: '',
+        pregnantweeks1: '',
+        femaleDieaseInd1: '',
+
         pilot: '',
         activity: '',
         adventurousActivities: '',
@@ -3574,11 +3642,11 @@ travelOutside(){
       "suminsured_amount": sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
-        "policyTerm":this.lifePremiumList.termDetrails,
+        "policyTerm":this.insureArray.controls['ageTillCoverd'].value?this.insureArray.controls['ageTillCoverd'].value:'55' ,
         "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
-        "frequency":this.enquiryFormData.lifePayment,
+        "frequency":this.insureArray.controls['modeOfPremium'].value ? this.insureArray.controls['modeOfPremium'].value : 'yearly',
         "sumAssured": sessionStorage.selectedAmountTravel,
-        "planOption": "",
+        "planOption": this.insureArray.controls['premiumPay'].value? this.insureArray.controls['premiumPay'].value:'2',
         "riderDetails": {
           "workSiteFlag": 'N',
           "investmentStrategy":'',
@@ -3958,6 +4026,70 @@ travelOutside(){
         "isTaxResOfIndia":'LA is a tax resident of India',
         "aadhaarNo":this.insureArray.controls['saadhaarNo'].value,
 
+        "travelOutsideIndiaInd":this.medicalDetail.controls['travelOutsideIndia1'].value  == 'Yes' ? 'Y' : 'N',
+        "pilotInd":this.medicalDetail.controls['pilot1'].value  == 'Yes' ? 'Y' : 'N',
+        "adventurousActivitiesInd":this.medicalDetail.controls['adventurousActivities1'].value ,
+        "adventurousActivitiesDetails":this.medicalDetail.controls['adventurousActivitiesDetails1'].value,
+        "healthInformation":"",
+        "drugsInd":this.medicalDetail.controls['drugsInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "drugsDetails":this.medicalDetail.controls['drugsDetails1'].value,
+        "alcoholInd":this.medicalDetail.controls['alcoholInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "alcoholDetails":this.medicalDetail.controls['alcoholDetails1'].value,
+        "tobaccoInd":this.medicalDetail.controls['tobaccoInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "tobaccoDetails":this.medicalDetail.controls['tobaccoDetails1'].value ,
+        "tobaccoStopInd":this.medicalDetail.controls['tobaccoStopInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "tobaccoStopDetails":this.medicalDetail.controls['tobaccoStopDetails1'].value ,
+        "consultDoctorInd":this.medicalDetail.controls['consultDoctorInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "consultDoctorDetails":this.medicalDetail.controls['consultDoctorDetails1'].value,
+        "ECGInd":this.medicalDetail.controls['ECGInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "ECGDetails":this.medicalDetail.controls['ECGDetails1'].value,
+        "admitInd":this.medicalDetail.controls['admitInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "admitDetails":this.medicalDetail.controls['admitDetails1'].value,
+        "medicationInd":this.medicalDetail.controls['medicalTreatment1'].value  == 'Yes' ? 'Y' : 'N',
+        "medicationDetails":this.medicalDetail.controls['medicationDetails1'].value,
+        "diagnosedInd":this.medicalDetail.controls['receivedTreatment11'].value  == 'Yes' ? 'Y' : 'N',
+        "diagnosedDetails":this.medicalDetail.controls['diagnosedDetails1'].value,
+        "heartDieaseInd":this.medicalDetail.controls['heartDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "heartDieaseDetails":this.medicalDetail.controls['heartDieaseDetails1'].value,
+        "BPInd":"",
+        "BPDetails":"",
+        "respiratoryDieaseInd":this.medicalDetail.controls['respiratoryDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "respiratoryDieaseDetails":this.medicalDetail.controls['respiratoryDieaseDetails1'].value,
+        "diabetesInd":this.medicalDetail.controls['diabetesInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "diabetesDetails":this.medicalDetail.controls['diabetesDetails1'].value,
+        "kidneyDieaseInd":this.medicalDetail.controls['kidneyDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "kidneyDieaseDetails":this.medicalDetail.controls['kidneyDieaseDetails1'].value,
+        "digestiveDieaseInd":this.medicalDetail.controls['digestiveDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "digestiveDieaseDetails":this.medicalDetail.controls['digestiveDieaseDetails1'].value,
+        "cancerDieaseInd":this.medicalDetail.controls['cancerDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "cancerDieaseDetails":this.medicalDetail.controls['cancerDieaseDetails1'].value,
+        "tropicalDieaseInd":this.medicalDetail.controls['tropicalDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "tropicalDieaseDetails":this.medicalDetail.controls['tropicalDieaseDetails1'].value,
+        "thyroidDieaseInd":this.medicalDetail.controls['thyroidDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "thyroidDieaseDetails":this.medicalDetail.controls['thyroidDieaseDetails1'].value,
+        "bloodDieaseInd":this.medicalDetail.controls['bloodDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "bloodDieaseDetails":this.medicalDetail.controls['bloodDieaseDetails1'].value,
+        "nervousDieaseInd":this.medicalDetail.controls['nervousDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "nervousDieaseDetails":this.medicalDetail.controls['nervousDieaseDetails1'].value,
+        "ENTDieaseInd":"",
+        "ENTDieaseDetails":"",
+        "muscleDieaseInd":this.medicalDetail.controls['muscleDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "muscleDieaseDetails":this.medicalDetail.controls['muscleDieaseDetails1'].value,
+        "aidsInd":this.medicalDetail.controls['receivedTreatment21'].value  == 'Yes' ? 'Y' : 'N',
+        "aidsDetails":this.medicalDetail.controls['aidsDetails1'].value,
+        "alcoholicInd":this.medicalDetail.controls['alcoholicInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "alcoholicDetails":this.medicalDetail.controls['alcoholicDetails1'].value,
+        "otherIllnessInd":this.medicalDetail.controls['otherIllnessInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "otherIllnessDetails":this.medicalDetail.controls['otherIllnessDetails1'].value,
+        "deformityInd":this.medicalDetail.controls['deformityInd1'].value == 'Yes' ? 'Y' : 'N',
+        "deformityDetails":this.medicalDetail.controls['deformityDetails1'].value,
+        "symptomsInd":this.medicalDetail.controls['symptomsInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "symptomsDetails":this.medicalDetail.controls['symptomsDetails1'].value,
+        "pregnantInd":this.medicalDetail.controls['pregnantInd1'].value  == 'Yes' ? 'Y' : 'N',
+        "pregnantweeks":this.medicalDetail.controls['pregnantweeks1'].value ,
+        "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+        // "femaleDieaseWeeks":this.medicalDetail.controls['femaleDieaseWeeks1'].value,
+
         "questionnaires":{
           "medicationInd":"",
           "diagnosedInd":"",
@@ -4329,11 +4461,11 @@ travelOutside(){
       "suminsured_amount": sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
-        "policyTerm":this.insureArray.controls['ageTillCoverd'].value,
+        "policyTerm":this.insureArray.controls['ageTillCoverd'].value?this.insureArray.controls['ageTillCoverd'].value:'55' ,
         "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
-        "frequency":this.insureArray.controls['modeOfPremium'].value,
+        "frequency":this.insureArray.controls['modeOfPremium'].value ? this.insureArray.controls['modeOfPremium'].value : 'yearly',
         "sumAssured": sessionStorage.selectedAmountTravel,
-        "planOption": this.insureArray.controls['premiumPay'].value,
+        "planOption": this.insureArray.controls['premiumPay'].value? this.insureArray.controls['premiumPay'].value:'2',
         "riderDetails": {
           "workSiteFlag": 'N',
           "investmentStrategy":'',
@@ -5774,6 +5906,10 @@ travelOutside(){
         taxResidence: this.getStepper2.taxResidence,
         isPoliticallyExposed: this.getStepper2.isPoliticallyExposed,
         specification: this.getStepper2.specification,
+        Cover: this.getStepper2.Cover,
+        ageTillCoverd: this.getStepper2.ageTillCoverd,
+        premiumPay: this.getStepper2.premiumPay,
+        modeOfPremium: this.getStepper2.modeOfPremium,
         isCriminal: this.getStepper2.isCriminal,
         criminalDetails: this.getStepper2.criminalDetails,
         identityProof: this.getStepper2.identityProof,
@@ -5948,7 +6084,77 @@ travelOutside(){
         this.medicalDetail.controls['femaleDieaseInd'].patchValue(getMedicalDetail.femaleDieaseInd);
         this.medicalDetail.controls['femaleDieaseWeeks'].patchValue(getMedicalDetail.femaleDieaseWeeks);
 
-          console.log(this.medicalDetail,'medicalDetail');
+        this.medicalDetail.controls['healthInformation1'].patchValue(getMedicalDetail.healthInformation1);
+
+        //     this.medicalDetail.controls['travelOutsideIndia1'].patchValue(getMedicalDetail.travelOutsideIndia1);
+        //     this.medicalDetail.controls['pilot1'].patchValue(getMedicalDetail.pilot1);
+        //     this.medicalDetail.controls['activity1'].patchValue(getMedicalDetail.activity1);
+        //     this.medicalDetail.controls['adventurousActivities1'].patchValue(getMedicalDetail.adventurousActivities1);
+        //     this.medicalDetail.controls['adventurousActivitiesDetails1'].patchValue(getMedicalDetail.adventurousActivitiesDetails1);
+        //     this.medicalDetail.controls['drugsInd1'].patchValue(getMedicalDetail.drugsInd1);
+        //     this.medicalDetail.controls['drugsDetails1'].patchValue(getMedicalDetail.drugsDetails1);
+        //     this.medicalDetail.controls['alcoholInd1'].patchValue(getMedicalDetail.alcoholInd1);
+        //     this.medicalDetail.controls['alcoholDetails1'].patchValue(getMedicalDetail.alcoholDetails1);
+        //     this.medicalDetail.controls['alcoholBeer1'].patchValue(getMedicalDetail.alcoholBeer1);
+        //     this.medicalDetail.controls['alcoholliquar1'].patchValue(getMedicalDetail.alcoholliquar1);
+        //     this.medicalDetail.controls['alcoholWine1'].patchValue(getMedicalDetail.alcoholWine1);
+        //     this.medicalDetail.controls['tobaccoInd1'].patchValue(getMedicalDetail.tobaccoInd1);
+        //     this.medicalDetail.controls['tobaccoDetails1'].patchValue(getMedicalDetail.tobaccoDetails1);
+        //     this.medicalDetail.controls['tobaccoStopInd1'].patchValue(getMedicalDetail.tobaccoStopInd1);
+        //     this.medicalDetail.controls['tobaccoStopDetails1'].patchValue(getMedicalDetail.tobaccoStopDetails1);
+        //     this.medicalDetail.controls['consultDoctorInd1'].patchValue(getMedicalDetail.consultDoctorInd1);
+        //     this.medicalDetail.controls['consultDoctorDetails1'].patchValue(getMedicalDetail.consultDoctorDetails1);
+        //     this.medicalDetail.controls['ECGInd1'].patchValue(getMedicalDetail.ECGInd1);
+        //     this.medicalDetail.controls['ECGDetails1'].patchValue(getMedicalDetail.ECGDetails1);
+        //     this.medicalDetail.controls['admitInd1'].patchValue(getMedicalDetail.admitInd1);
+        //     this.medicalDetail.controls['admitDetails1'].patchValue(getMedicalDetail.admitDetails1);
+        //     this.medicalDetail.controls['medicalTreatment1'].patchValue(getMedicalDetail.medicalTreatment1);
+        //     this.medicalDetail.controls['medicationDetails1'].patchValue(getMedicalDetail.medicationDetails1);
+        //     this.medicalDetail.controls['receivedTreatment11'].patchValue(getMedicalDetail.receivedTreatment11);
+        // this.medicalDetail.controls['diagnosedDetails1'].patchValue(getMedicalDetail.diagnosedDetails1);
+        // this.medicalDetail.controls['heartDieaseInd1'].patchValue(getMedicalDetail.heartDieaseInd1);
+        // this.medicalDetail.controls['heartDieaseDetails1'].patchValue(getMedicalDetail.heartDieaseDetails1);
+        // this.medicalDetail.controls['isHospitalized1'].patchValue(getMedicalDetail.isHospitalized1);
+        // this.medicalDetail.controls['hospitalizedDate1'].patchValue(getMedicalDetail.hospitalizedDate1);
+        // this.medicalDetail.controls['respiratoryDieaseInd1'].patchValue(getMedicalDetail.respiratoryDieaseInd1);
+        // this.medicalDetail.controls['respiratoryDieaseDetails1'].patchValue(getMedicalDetail.respiratoryDieaseDetails1);
+        // this.medicalDetail.controls['diabetesInd1'].patchValue(getMedicalDetail.diabetesInd1);
+        // this.medicalDetail.controls['diabetesDetails1'].patchValue(getMedicalDetail.diabetesDetails1);
+        // this.medicalDetail.controls['kidneyDieaseInd1'].patchValue(getMedicalDetail.kidneyDieaseInd1);
+        // this.medicalDetail.controls['kidneyDieaseDetails1'].patchValue(getMedicalDetail.kidneyDieaseDetails1);
+        // this.medicalDetail.controls['digestiveDieaseInd1'].patchValue(getMedicalDetail.digestiveDieaseInd1);
+        // this.medicalDetail.controls['digestiveDieaseDetails1'].patchValue(getMedicalDetail.digestiveDieaseDetails1);
+        // this.medicalDetail.controls['cancerDieaseInd1'].patchValue(getMedicalDetail.cancerDieaseInd1);
+        // this.medicalDetail.controls['cancerDieaseDetails1'].patchValue(getMedicalDetail.cancerDieaseDetails1);
+        // this.medicalDetail.controls['tropicalDieaseInd1'].patchValue(getMedicalDetail.tropicalDieaseInd1);
+        // this.medicalDetail.controls['tropicalDieaseDetails1'].patchValue(getMedicalDetail.tropicalDieaseDetails1);
+        // this.medicalDetail.controls['thyroidDieaseInd1'].patchValue(getMedicalDetail.thyroidDieaseInd1);
+        // this.medicalDetail.controls['thyroidDieaseDetails1'].patchValue(getMedicalDetail.thyroidDieaseDetails1);
+        // this.medicalDetail.controls['bloodDieaseInd1'].patchValue(getMedicalDetail.bloodDieaseInd1);
+        // this.medicalDetail.controls['bloodDieaseDetails1'].patchValue(getMedicalDetail.bloodDieaseDetails1);
+        // this.medicalDetail.controls['nervousDieaseInd1'].patchValue(getMedicalDetail.nervousDieaseInd1);
+        // this.medicalDetail.controls['nervousDieaseDetails1'].patchValue(getMedicalDetail.nervousDieaseDetails1);
+        // this.medicalDetail.controls['isRecovered1'].patchValue(getMedicalDetail.isRecovered1);
+        // this.medicalDetail.controls['nonRecoveryDetails1'].patchValue(getMedicalDetail.nonRecoveryDetails1);
+        // this.medicalDetail.controls['muscleDieaseInd1'].patchValue(getMedicalDetail.muscleDieaseInd1);
+        // this.medicalDetail.controls['muscleDieaseDetails1'].patchValue(getMedicalDetail.muscleDieaseDetails1);
+        // this.medicalDetail.controls['receivedTreatment21'].patchValue(getMedicalDetail.receivedTreatment21);
+        // this.medicalDetail.controls['aidsDetails1'].patchValue(getMedicalDetail.aidsDetails1);
+        // this.medicalDetail.controls['alcoholicInd1'].patchValue(getMedicalDetail.alcoholicInd1);
+        // this.medicalDetail.controls['alcoholicDetails1'].patchValue(getMedicalDetail.alcoholicDetails1);
+        // this.medicalDetail.controls['otherIllnessInd1'].patchValue(getMedicalDetail.otherIllnessInd1);
+        // this.medicalDetail.controls['otherIllnessDetails1'].patchValue(getMedicalDetail.otherIllnessDetails1);
+        // this.medicalDetail.controls['deformityInd1'].patchValue(getMedicalDetail.deformityInd1);
+        // this.medicalDetail.controls['deformityDetails1'].patchValue(getMedicalDetail.deformityDetails1);
+        // this.medicalDetail.controls['symptomsInd1'].patchValue(getMedicalDetail.symptomsInd1);
+        // this.medicalDetail.controls['symptomsDetails1'].patchValue(getMedicalDetail.symptomsDetails1);
+        // this.medicalDetail.controls['pregnantInd1'].patchValue(getMedicalDetail.pregnantInd1);
+        // this.medicalDetail.controls['pregnantweeks1'].patchValue(getMedicalDetail.pregnantweeks1);
+        // this.medicalDetail.controls['femaleDieaseInd1'].patchValue(getMedicalDetail.femaleDieaseInd1);
+        // // this.medicalDetail.controls['femaleDieaseWeeks1'].patchValue(getMedicalDetail.femaleDieaseWeeks1);
+
+
+        console.log(this.medicalDetail,'medicalDetail');
       }
 
       console.log(this.medicalDetail, ' medicalQuesDetails ');
