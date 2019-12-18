@@ -33,7 +33,7 @@
                       </div>
                       <div class="col-md-3 mt-3" *ngIf="this.relianceProposal.controls['clientType'].value == 0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" required>
+                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" [required]="relianceProposal.controls['clientType'].value==0">
                             <mat-option *ngFor="let title of titleList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="relianceProposal.controls.title.errors?.required">Title is required</mat-error>
@@ -41,7 +41,7 @@
                       </div>
                       <div class="col-md-3 mt-3" *ngIf="this.relianceProposal.controls['clientType'].value == 0">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="firstName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="firstName"  (keypress)="nameValidate($event)" autocomplete="off" [required]="relianceProposal.controls['clientType'].value==0" >
                           <mat-error *ngIf="relianceProposal.controls.firstName.errors?.required">FirstName is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -53,7 +53,7 @@
                       </div>
                       <div class="col-md-3 mt-3" *ngIf="this.relianceProposal.controls['clientType'].value == 0">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastName" (keypress)="nameValidate($event)" required>
+                          <input matInput placeholder="Last Name" formControlName="lastName" (keypress)="nameValidate($event)" [required]="relianceProposal.controls['clientType'].value==0">
                           <mat-error *ngIf="relianceProposal.controls.lastName.errors?.required">lastName is required</mat-error>
                         </mat-form-field>
                       </div>

@@ -432,8 +432,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.coverDetails.controls['nOtherRelation'].setValidators(null);
       this.coverDetails.controls['nrelationValue'].patchValue('');
       this.coverDetails.controls['nrelationValue'].setValidators(null);
-      this.coverDetails.controls['totalPAToOwnerDriverPremium'].patchValue('');
-      this.coverDetails.controls['totalPAToOwnerDriverPremium'].setValidators(null);
+      this.coverDetails.controls['totalOwnerDriverPremium'].patchValue('');
+      this.coverDetails.controls['totalOwnerDriverPremium'].setValidators(null);
 
       this.relianceProposal.controls['title'].patchValue('');
       this.relianceProposal.controls['title'].setValidators(null);
