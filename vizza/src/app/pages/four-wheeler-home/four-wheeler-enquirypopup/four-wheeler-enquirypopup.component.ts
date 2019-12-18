@@ -507,7 +507,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       if (typeof event.value._i == 'string') {
         console.log('in');
         if (type == 'regitser') {
-          if (pattern.test(event.value._i) && event.value._i.length == 10 && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) {
+          if (pattern.test(event.value._i) && event.value._i.length == 10 ) {
             this.dobError = '';
           } else {
             this.dobError = 'Enter Valid Date';
@@ -519,7 +519,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
         if (type == 'regitser') {
           this.dobError = '';
           console.log('out');
-          if (pattern.test(event.value._i) && event.value._i.length == 10 && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) {
+          if (pattern.test(event.value._i) && event.value._i.length == 10 ) {
             this.dobError = '';
           }
         }
@@ -657,46 +657,51 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     }
 
     if(this.vehicalDetails.valid) {
-      const data = {
-      'platform': 'web',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'enquiry_id': '0',
-      'vehicle_no':this.vehicalDetails.controls['vehicalNumber'].value ? this.vehicalDetails.controls['vehicalNumber'].value : '',
-      'registration_date': this.vehicalDetails.controls['registrationDate'].value,
-      'previous_policy_expiry_date':this.vehicalDetails.controls['previousPolicyExpiry'].value == null ? '' :this.vehicalDetails.controls['previousPolicyExpiry'].value,
-      'previous_policy_no':"12344556",
-      'previous_claim_YN': this.vehicalDetails.controls['previousClaim'].value == 'No' ? '0' : '1',
-      // 'claim_amount':this.vehicalDetails.controls['claimamount'].value ? this.vehicalDetails.controls['claimamount'].value : '',
-      'vehicle_manufacture':this.vehicalDetails.controls['manufacture'].value,
-      'vehicle_model':this.vehicalDetails.controls['vehicleModel'].value,
-      'vehicle_variant':this.vehicalDetails.controls['variant'].value,
-      'vehicle_cc':this.vehicalDetails.controls['vehicleCC'].value,
-      'chassis_no':this.vehicalDetails.controls['chasissNumber'].value,
-      'engine_no':this.vehicalDetails.controls['engine'].value,
-      'manu_yr':this.vehicalDetails.controls['manufactureYear'].value,
-      'vehicle_category':"2W",
-      'ncb_percent': this.vehicalDetails.controls['ncb'].value ? this.vehicalDetails.controls['ncb'].value : '',
-      'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
-      'business_type':this.ListDetails.business_type,
-      'registration_city': this.vehicalDetails.controls['city'].value,
-      'company_id':this.typeList=='new' ? this.newCompanyName : this.renewelCompanyName,
-      'rto_code': this.rto,
-       'region_name': this.vehicalDetails.controls['regionList'].value,
-      'prev_insurance_name': this.enquiryFormData.prev_insurance_name == null ? '' :this.enquiryFormData.prev_insurance_name
+      if((this.carListDetails.business_type == '1' && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) || (this.carListDetails.business_type != '1' && this.vehicalDetails.controls['registrationDate'].value <= this.minDate)) {
 
-      };
-      console.log(data,'data');
-      sessionStorage.vehicledetailsfw = JSON.stringify(data);
-      this.fwService.getEnquiryDetails(data).subscribe(
-          (successData) => {
-            this.enquirySuccess(successData);
-          },
-          (error) => {
-            this.enquiryFailure(error);
-          }
-      );
+        const data = {
+          'platform': 'web',
+          'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+          'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+          'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+          'enquiry_id': '0',
+          'vehicle_no': this.vehicalDetails.controls['vehicalNumber'].value ? this.vehicalDetails.controls['vehicalNumber'].value : '',
+          'registration_date': this.vehicalDetails.controls['registrationDate'].value,
+          'previous_policy_expiry_date': this.vehicalDetails.controls['previousPolicyExpiry'].value == null ? '' : this.vehicalDetails.controls['previousPolicyExpiry'].value,
+          'previous_policy_no': "12344556",
+          'previous_claim_YN': this.vehicalDetails.controls['previousClaim'].value == 'No' ? '0' : '1',
+          // 'claim_amount':this.vehicalDetails.controls['claimamount'].value ? this.vehicalDetails.controls['claimamount'].value : '',
+          'vehicle_manufacture': this.vehicalDetails.controls['manufacture'].value,
+          'vehicle_model': this.vehicalDetails.controls['vehicleModel'].value,
+          'vehicle_variant': this.vehicalDetails.controls['variant'].value,
+          'vehicle_cc': this.vehicalDetails.controls['vehicleCC'].value,
+          'chassis_no': this.vehicalDetails.controls['chasissNumber'].value,
+          'engine_no': this.vehicalDetails.controls['engine'].value,
+          'manu_yr': this.vehicalDetails.controls['manufactureYear'].value,
+          'vehicle_category': "2W",
+          'ncb_percent': this.vehicalDetails.controls['ncb'].value ? this.vehicalDetails.controls['ncb'].value : '',
+          'previous_policy_start_date': this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value,
+          'business_type': this.ListDetails.business_type,
+          'registration_city': this.vehicalDetails.controls['city'].value,
+          'company_id': this.typeList == 'new' ? this.newCompanyName : this.renewelCompanyName,
+          'rto_code': this.rto,
+          'region_name': this.vehicalDetails.controls['regionList'].value,
+          'prev_insurance_name': this.enquiryFormData.prev_insurance_name == null ? '' : this.enquiryFormData.prev_insurance_name
+
+        };
+        console.log(data, 'data');
+        sessionStorage.vehicledetailsfw = JSON.stringify(data);
+        this.fwService.getEnquiryDetails(data).subscribe(
+            (successData) => {
+              this.enquirySuccess(successData);
+            },
+            (error) => {
+              this.enquiryFailure(error);
+            }
+        );
+      }else{
+        this.toastr.error('Please check the Registration Date');
+      }
     }else{
       this.toastr.error('Please select the Mandatory field');
     }
