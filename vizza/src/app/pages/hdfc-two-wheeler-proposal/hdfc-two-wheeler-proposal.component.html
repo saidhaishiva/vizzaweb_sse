@@ -62,7 +62,7 @@
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)" formControlName="dob" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>
@@ -334,7 +334,7 @@
                           <input matInput placeholder="vehicle Manufacture Year" maxlength="4" formControlName="manufactureyear" (keypress)="numberValidate($event)" readonly  required>
                         </mat-form-field>
                       </div>
-                        <div class="col-md-3 mt-3" >
+                        <div class="col-md-3">
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" readonly  required>
                             </mat-form-field>
