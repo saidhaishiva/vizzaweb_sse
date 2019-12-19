@@ -72,15 +72,17 @@
                                     <!--</mat-form-field>-->
                                     <!--</div>-->
 
-                                    <div class="col-md-12" *ngIf="typeList == 'new'">
+                                    <div class="col-md-12" *ngIf="typeList == 'new'" >
                                         <mat-placeholder>RTO AREA<span class="error">*</span></mat-placeholder>
-                                        <ngx-select-dropdown (change)="rtoCity()" formControlName="city"  [config]="config" [options]="getRtoDetails" [required]="typeList == 'new'"></ngx-select-dropdown>
+                                        <ngx-select-dropdown (change)="rtoCity();rtoError()" formControlName="city"  [config]="config" [options]="getRtoDetails" [required]="typeList == 'new'" ></ngx-select-dropdown>
+                                        <!--<mat-error *ngIf="bikeInsurance.controls.city.errors?.required">Registration Date is required</mat-error>-->
+                                        <div class="error" *ngIf="CityValid !='' && CityValid != true">{{CityValid}}</div>
 
                                         <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
                                         <!--</ngx-select-dropdown>-->
                                         <!--<em class="error help-block" *ngIf="!bikeInsurance.get('city').valid && (bikeInsurance.get('city').dirty || bikeInsurance.get('city').touched) ">Please Select RTO AREA</em>-->
 
-                                        <div class="error help-block" *ngIf=" this.bikeInsurance['controls'].city.value == ''||(this.bikeInsurance['controls'].city.value == null && bikeInsurance.get('city').touched)" >RTO AREA is required</div>
+                                        <!--<div class="error help-block" *ngIf=" this.bikeInsurance['controls'].city.value == ''||(this.bikeInsurance['controls'].city.value == null && bikeInsurance.get('city').touched)" >RTO AREA is required</div>-->
                                         <!--<div class="color-red" *ngIf="CityValid && CityValid != '' ">City is required</div>-->
                                     </div>
                                     <!--<div>{{getRtoDetails | json}}</div>-->
@@ -156,9 +158,10 @@
                                     <div class="col-md-12">
 
                                         <mat-placeholder>Previous Company<span class="error">*</span></mat-placeholder>
-                                        <ngx-select-dropdown  [config]="config"  formControlName="previousCompany"  [options]="companyList" ></ngx-select-dropdown>
+                                        <ngx-select-dropdown  [config]="config"  formControlName="previousCompany"  [options]="companyList" (change)="companyError()" ></ngx-select-dropdown>
                                         <!--<div class="color-red" *ngIf="modelValid">Region Name is required</div>-->
-                                        <div class="error help-block" *ngIf=" this.bikeInsurance['controls'].previousCompany.value == ''||(this.bikeInsurance['controls'].previousCompany.value == null && bikeInsurance.get('previousCompany').touched)" >Previous Company is required</div>
+                                        <!--<div class="error help-block" *ngIf=" this.bikeInsurance['controls'].previousCompany.value == ''||(this.bikeInsurance['controls'].previousCompany.value == null && bikeInsurance.get('previousCompany').touched)" >Previous Company is required</div>-->
+                                        <div class="error" *ngIf="CompanyValid !='' && CompanyValid != true">{{CompanyValid}}</div>
 
                                         <!--<mat-error *ngIf="bikeInsurance.controls.previousCompany.errors?.required">Previous Company is required</mat-error>-->
 
@@ -173,11 +176,12 @@
                                     <!--</div>-->
                                     <div class="col-md-12">
                                             <p class="mt-2">Previous Claim ? <span class="error">*</span></p>
-                                            <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="setSession();changeNcbAmt()"  [required]="typeList != 'new'">
+                                            <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="setSession();changeNcbAmt();claimError()"  [required]="typeList != 'new'">
                                             <mat-radio-button value="Yes">Yes</mat-radio-button>
                                             <mat-radio-button class="pl-3" value="No">No</mat-radio-button>
                                             </mat-radio-group>
-                                        <div class="error help-block" *ngIf=" this.bikeInsurance['controls'].previousClaim.value == ''||(this.bikeInsurance['controls'].previousClaim.value == null && bikeInsurance.get('previousClaim').touched)" >Previous Claim is required </div>
+                                        <!--<div class="error help-block" *ngIf=" this.bikeInsurance['controls'].previousClaim.value == ''||(this.bikeInsurance['controls'].previousClaim.value == null && bikeInsurance.get('previousClaim').touched)" >Previous Claim is required </div>-->
+                                        <div class="error" *ngIf="ClaimValid !='' && ClaimValid != true">{{ClaimValid}}</div>
 
                                     </div>
                                     <div class="col-md-10" *ngIf="bikeInsurance.controls['previousClaim'].value == 'No'">

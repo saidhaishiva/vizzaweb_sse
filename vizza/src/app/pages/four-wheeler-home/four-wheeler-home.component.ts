@@ -81,9 +81,11 @@ export class FourWheelerHomeComponent implements OnInit {
   metaDescription: any;
   public config: any;
   public regionDetails: any;
-  public CityValid: boolean;
   public vehicleRegNumber: any;
   public companyNameList: any;
+  public CityValid: any;
+  public CompanyValid: any;
+  public ClaimValid: any;
   public previousCompanyValid: boolean;
 
   constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
@@ -114,6 +116,9 @@ export class FourWheelerHomeComponent implements OnInit {
       limitTo: 5
     };
     this.previousCompanyValid = false;
+    this.CityValid = false;
+    this.CompanyValid = false;
+    this.ClaimValid = false;
 
 
     this.dobError = false;
@@ -263,6 +268,45 @@ export class FourWheelerHomeComponent implements OnInit {
     }
   }
 
+  rtoError(){
+    // alert('inn')
+    if ((this.fourWheeler.controls['city'].value==''||this.fourWheeler.controls['city'].value==undefined||this.fourWheeler.controls['city'].value==null)&&this.typeList == 'new') {
+      // alert(this.bikeInsurance.controls['city'].value)
+      this.CityValid=true;
+      this.CityValid = 'Please Select RTO AREA';
+
+    } else {
+      this.CityValid=false;
+      this.CityValid='';
+    }
+    console.log(this.CityValid,'this.CityValid///')
+  }
+  companyError(){
+    // alert('inn')
+    if ((this.fourWheeler.controls['previousCompany'].value==''||this.fourWheeler.controls['previousCompany'].value==undefined||this.fourWheeler.controls['previousCompany'].value==null)&&this.typeList != 'new') {
+      // alert(this.bikeInsurance.controls['previousCompany'].value)
+      this.CompanyValid=true;
+      this.CompanyValid = 'Please Select Previous Company';
+
+    } else {
+      this.CompanyValid=false;
+      this.CompanyValid='';
+    }
+    console.log(this.CompanyValid,'this.CompanyValid///')
+  }
+  claimError(){
+    // alert('inn')
+    if ((this.fourWheeler.controls['previousClaim'].value==''||this.fourWheeler.controls['previousClaim'].value==undefined||this.fourWheeler.controls['previousClaim'].value==null)&&this.typeList != 'new') {
+      // alert(this.bikeInsurance.controls['previousClaim'].value)
+      this.ClaimValid=true;
+      this.ClaimValid = 'Please Select Previous Claim';
+
+    } else {
+      this.ClaimValid=false;
+      this.ClaimValid='';
+    }
+    console.log(this.ClaimValid,'this.ClaimValid///')
+  }
 
   nameValidate(event: any) {
     this.validation.nameValidate(event);
@@ -366,7 +410,36 @@ export class FourWheelerHomeComponent implements OnInit {
   // home bike
   quationFirstStep(value) {
     sessionStorage.enquiryFormDatafw = JSON.stringify(value);
-    console.log(this.fourWheeler.controls['previousCompany'].value,'hgghhg...')
+    console.log(this.fourWheeler.controls['previousCompany'].value,'hgghhg...');
+    if ((this.fourWheeler.controls['city'].value==''||this.fourWheeler.controls['city'].value==undefined||this.fourWheeler.controls['city'].value==null)&&this.typeList == 'new') {
+      this.CityValid=true;
+      this.CityValid = 'Please Select RTO AREA';
+
+    } else {
+      this.CityValid=false;
+      this.CityValid='';
+    }
+    console.log(this.CityValid,'this.CityValid///')
+    if ((this.fourWheeler.controls['previousCompany'].value==''||this.fourWheeler.controls['previousCompany'].value==undefined||this.fourWheeler.controls['previousCompany'].value==null)&&this.typeList != 'new') {
+      // alert(this.bikeInsurance.controls['previousCompany'].value)
+      this.CompanyValid=true;
+      this.CompanyValid = 'Please Select Previous Company';
+
+    } else {
+      this.CompanyValid=false;
+      this.CompanyValid='';
+    }
+    console.log(this.CompanyValid,'this.CompanyValid///')
+    if ((this.fourWheeler.controls['previousClaim'].value==''||this.fourWheeler.controls['previousClaim'].value==undefined||this.fourWheeler.controls['previousClaim'].value==null)&&this.typeList != 'new') {
+      // alert(this.bikeInsurance.controls['previousClaim'].value)
+      this.ClaimValid=true;
+      this.ClaimValid = 'Please Select Previous Claim';
+
+    } else {
+      this.ClaimValid=false;
+      this.ClaimValid='';
+    }
+    console.log(this.ClaimValid,'this.ClaimValid///')
     const data = {
       "platform": "web",
       "created_by": "0",
@@ -385,7 +458,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
     }
     console.log(data, 'data');
-    if (this.fourWheeler.valid) {
+    if (this.fourWheeler.valid  && (this.CityValid==false && this.CompanyValid==false && this.ClaimValid==false)) {
       console.log(this.fourWheeler.value,'this.fourWheeler...')
       this.fwService.getMotorHomeDetails(data).subscribe(
           (successData) => {

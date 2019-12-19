@@ -41,7 +41,7 @@
     public bikeEnquiryId : any;
     public QuotationList : any;
     public claimDetails : any;
-    public claimAmountDetails : any;
+    public regDateDetails : any;
     public ListDetails : any;
     public bussinessList : any;
     public enquiryFormData : any;
@@ -80,6 +80,7 @@
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.ListDetails = this.data.listData;
       this.vehicalNo = this.ListDetails.vehicalNumber;
+      this.regDateDetails=false
       this.vehicalDetails = this.fb.group({
         'vehicalNumber':  '',
         'registrationDate':  ['', Validators.required],
@@ -242,6 +243,12 @@
       // console.log(this.vehicalDetails.controls['manufacture'].value,'manufacture.....');//bajai2
   }
                                /// manufacture
+
+  //   if((this.bikeListDetails.business_type == '1' && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) || (this.bikeListDetails.business_type != '1' && this.vehicalDetails.controls['registrationDate'].value <= this.minDate)){
+  //
+  // }else{
+  //   this.toastr.error('Please check the Registration Date ');
+  // }
 
     manifactureList() {
       const data = {
@@ -591,8 +598,23 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
         this.errorFutureDate=false;
         this.errorFutureDate='';
       }
-
     }
+    // changeDate(){
+    //   if((this.bikeListDetails.business_type == '1' && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) || (this.bikeListDetails.business_type != '1' && this.vehicalDetails.controls['registrationDate'].value <= this.minDate)){
+    //     alert(this.bikeListDetails.business_type)
+    //     alert(this.vehicalDetails.controls['registrationDate'].value);
+    //     this.regDateDetails=true;
+    //     this.regDateDetails = 'Please check the Registration Date';
+    //     alert(this.regDateDetails);
+    //
+    //   }else{
+    //     this.regDateDetails=false;
+    //     this.regDateDetails='';
+    //     alert(this.regDateDetails);
+    //
+    //   }
+    // }
+
     enquiryQuation(value) {
       if (this.vehicalDetails.controls['city'].value == '') {
 
@@ -641,8 +663,7 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
       // if(this.errorFutureDate == false) {
       //   console.log('innnnnnn');
 
-      if(this.vehicalDetails.valid) {
-        if((this.bikeListDetails.business_type == '1' && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) || (this.bikeListDetails.business_type != '1' && this.vehicalDetails.controls['registrationDate'].value <= this.minDate)){
+      if(this.vehicalDetails.valid&&this.regDateDetails==false) {
           const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -683,9 +704,6 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
               }
           );
 
-          }else{
-            this.toastr.error('Please check the Registration Date ');
-          }
       }else{
         this.toastr.error('Please select the Mandatory field');
       }
