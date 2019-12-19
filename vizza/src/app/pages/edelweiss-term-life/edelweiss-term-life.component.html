@@ -783,7 +783,7 @@
                                    </mat-form-field>
                                </div>
                                <div class="col-md-4" *ngIf="lifePremiumList.product_id=='112'">
-                                   <mat-radio-group formControlName="isCriminal" (selectionChange)="isCriminalInd()" >
+                                   <mat-radio-group formControlName="isCriminal" (change)="isCriminalInd()" >
                                        <p>Are You A Criminal</p>
                                        <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                        <mat-radio-button value="No">No</mat-radio-button>
@@ -924,41 +924,6 @@
                                    <h6 class="color-blue">ADDON</h6>
                                </div>
 
-                               <!--<div class="col-md-4">-->
-                                       <!--<mat-radio-group formControlName="workSiteFlag" >-->
-                                       <!--<p>WorkSite Flag</p>-->
-                                       <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
-                                       <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                   <!--</mat-radio-group>-->
-                               <!--</div>-->
-                               <!--<div class="col-md-4  mt-2">-->
-                                   <!--<mat-form-field class="w-100">-->
-                                       <!--<input matInput placeholder="Investment Strategy" formControlName="investmentStrategy" maxlength="50" autocomplete="off" required  >-->
-                                       <!--<mat-error *ngIf="insureArray.controls.investmentStrategy.errors?.required">Investment Strategy is required</mat-error>-->
-                                   <!--</mat-form-field>-->
-                               <!--</div>-->
-                               <!--<div class="col-md-4">-->
-                                   <!--<mat-radio-group formControlName="risingStar" >-->
-                                       <!--<p>Rising Star</p>-->
-                                       <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
-                                       <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                   <!--</mat-radio-group>-->
-                               <!--</div>-->
-
-                           <!--<div class="col-md-4  mt-2">-->
-                               <!--<mat-form-field class="w-100">-->
-                                   <!--<mat-select  placeholder="Policy Option" formControlName="policyOption" (change)="getPolicyOption()"  class="w-100" required>-->
-                                       <!--<mat-option *ngFor="let list of epolicyOption | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                                   <!--</mat-select>-->
-                                   <!--<mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Policy Option is required</mat-error>-->
-                               <!--</mat-form-field>-->
-                           <!--</div>-->
-                           <!--<div class="col-md-4  mt-2">-->
-                               <!--<mat-form-field class="w-100">-->
-                                   <!--<input matInput placeholder="Additional Benefit" formControlName="additionalBenefit" maxlength="50" autocomplete="off" required  >-->
-                                   <!--<mat-error *ngIf="insureArray.controls.additionalBenefit.errors?.required">additionalBenefit is required</mat-error>-->
-                               <!--</mat-form-field>-->
-                           <!--</div>-->
                                <div class="col-md-4"  *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
                                    <mat-radio-group formControlName="betterHalfBenefit" (change)="changeMaritalInsuReq();edelweissPrimium()" >
                                        <p>Better Half Benefit</p>
@@ -1286,13 +1251,13 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'" >
+                           <div class="col-md-3 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Top Up Benefit Percentage<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="topUpBenefitPercentage"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
                                </mat-form-field>
                            </div>
-                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'"  >
+                               <div class="col-md-3 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'"  >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Top Up Rate<span class="error" >*</span></mat-placeholder>
                                        <mat-select  formControlName="topUpRate"  (selectionChange)=" getetopUpRate()" >
