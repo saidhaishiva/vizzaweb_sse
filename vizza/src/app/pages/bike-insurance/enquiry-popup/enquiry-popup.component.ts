@@ -598,15 +598,23 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
         this.errorFutureDate=false;
         this.errorFutureDate='';
       }
-        if((this.bikeListDetails.business_type == '1' && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) || (this.bikeListDetails.business_type != '1' && this.vehicalDetails.controls['registrationDate'].value <= this.minDate)){
-          this.regDateDetails=true;
-          this.regDateDetails = 'Please check the Registration Date';
-      }else{
-          this.regDateDetails=false;
-          this.regDateDetails='';
-      }
-
     }
+    changeDate(){
+      if((this.bikeListDetails.business_type == '1' && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) || (this.bikeListDetails.business_type != '1' && this.vehicalDetails.controls['registrationDate'].value <= this.minDate)){
+        alert(this.bikeListDetails.business_type)
+        alert(this.vehicalDetails.controls['registrationDate'].value);
+        this.regDateDetails=true;
+        this.regDateDetails = 'Please check the Registration Date';
+        alert(this.regDateDetails);
+
+      }else{
+        this.regDateDetails=false;
+        this.regDateDetails='';
+        alert(this.regDateDetails);
+
+      }
+    }
+
     enquiryQuation(value) {
       if (this.vehicalDetails.controls['city'].value == '') {
 
