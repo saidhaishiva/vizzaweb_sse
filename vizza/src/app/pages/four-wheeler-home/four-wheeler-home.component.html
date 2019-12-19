@@ -54,7 +54,9 @@
 
                     <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
                     <!--</ngx-select-dropdown>-->
-                    <div class="error help-block" *ngIf=" this.fourWheeler['controls'].city.value == ''||(this.fourWheeler['controls'].city.value == null && fourWheeler.get('city').touched)" >RTO AREA is required</div>
+                    <div class="error" *ngIf="CityValid !='' && CityValid != true">{{CityValid}}</div>
+
+                    <!--<div class="error help-block" *ngIf=" this.fourWheeler['controls'].city.value == ''||(this.fourWheeler['controls'].city.value == null && fourWheeler.get('city').touched)" >RTO AREA is required</div>-->
 
                   </div>
                   <!--<div class="col-md-12" *ngIf="typeList == 'new'">-->
@@ -139,7 +141,8 @@
                     <mat-placeholder>Previous Company<span class="error">*</span></mat-placeholder>
                     <ngx-select-dropdown  [config]="config"  formControlName="previousCompany"  [options]="companyList" ></ngx-select-dropdown>
                     <!--<div class="color-red" *ngIf="previousCompanyValid">Previous Company is required</div>-->
-                    <div class="error help-block" *ngIf=" this.fourWheeler['controls'].previousCompany.value == ''||(this.fourWheeler['controls'].previousCompany.value == null && fourWheeler.get('previousCompany').touched)" >Previous Company is required</div>
+                    <!--<div class="error help-block" *ngIf=" this.fourWheeler['controls'].previousCompany.value == ''||(this.fourWheeler['controls'].previousCompany.value == null && fourWheeler.get('previousCompany').touched)" >Previous Company is required</div>-->
+                    <div class="error" *ngIf="CompanyValid !='' && CompanyValid != true">{{CompanyValid}}</div>
 
                     <!--<mat-error *ngIf="fourWheeler.controls.previousCompany.errors?.required">Previous Company is required</mat-error>-->
 
@@ -158,7 +161,8 @@
                       <mat-radio-button value="Yes">Yes</mat-radio-button>
                       <mat-radio-button class="pl-3" value="No">No</mat-radio-button>
                     </mat-radio-group>
-                    <div class="error help-block" *ngIf=" this.fourWheeler['controls'].previousClaim.value == ''||(this.fourWheeler['controls'].previousClaim.value == null && fourWheeler.get('previousClaim').touched)" >Previous Claim is required </div>
+                    <!--<div class="error help-block" *ngIf=" this.fourWheeler['controls'].previousClaim.value == ''||(this.fourWheeler['controls'].previousClaim.value == null && fourWheeler.get('previousClaim').touched)" >Previous Claim is required </div>-->
+                    <div class="error" *ngIf="ClaimValid !='' && ClaimValid != true">{{ClaimValid}}</div>
 
                   </div>
                   <!--<div class="col-md-12" *ngIf="fourWheeler.controls['previousClaim'].value == 'No'">-->
