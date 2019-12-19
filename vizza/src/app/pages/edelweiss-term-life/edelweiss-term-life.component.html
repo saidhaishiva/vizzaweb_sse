@@ -1520,7 +1520,7 @@
                                        <mat-radio-button value="No">No</mat-radio-button>
 
                                </mat-radio-group>
-                               <mat-radio-group formControlName="travelOutsideIndia1" >
+                               <mat-radio-group formControlName="travelOutsideIndia1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
 
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1538,7 +1538,7 @@
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
-                                   <mat-radio-group formControlName="pilot1" >
+                                   <mat-radio-group formControlName="pilot1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <p>Spouse</p>
                                        <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                        <mat-radio-button value="No">No</mat-radio-button>
@@ -1556,7 +1556,7 @@
 
 
                                </mat-radio-group>
-                               <mat-radio-group formControlName="activity1" >
+                               <mat-radio-group formControlName="activity1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
 
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1609,7 +1609,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
 
                                </mat-radio-group>
-                               <mat-radio-group formControlName="drugsInd1" >
+                               <mat-radio-group formControlName="drugsInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
 
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1637,7 +1637,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
 
                                </mat-radio-group>
-                               <mat-radio-group formControlName="alcoholInd1" >
+                               <mat-radio-group formControlName="alcoholInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
 
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1686,7 +1686,7 @@
                                <!--<mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>-->
 
                                <mat-form-field class="w-100" >
-                                   <mat-select placeholder="Beer(pint per week)" formControlName="alcoholBeer1"  >
+                                   <mat-select placeholder="Beer(pint per week)" formControlName="alcoholBeer1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-option value="1">1</mat-option>
                                        <mat-option value="2">2</mat-option>
                                        <mat-option value="3">3</mat-option>
@@ -1771,7 +1771,7 @@
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
-                               <mat-radio-group formControlName="tobaccoInd1" >
+                               <mat-radio-group formControlName="tobaccoInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
 
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1802,7 +1802,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
 
-                               <mat-radio-group formControlName="tobaccoStopInd">
+                               <mat-radio-group formControlName="tobaccoStopInd" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                    <p>Spouse </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
@@ -1832,7 +1832,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="consultDoctorInd1" (change)="isconsultDoctorInd()" >
+                                       <mat-radio-group formControlName="consultDoctorInd1" (change)="isconsultDoctorInd()" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse</p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -1857,7 +1857,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="ECGInd1"  >
+                                       <mat-radio-group formControlName="ECGInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse</p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -1884,7 +1884,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="admitInd1"  >
+                                       <mat-radio-group formControlName="admitInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse</p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -1912,7 +1912,7 @@
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
-                               <mat-radio-group formControlName="medicalTreatment1"  >
+                               <mat-radio-group formControlName="medicalTreatment1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
@@ -1941,7 +1941,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="heartDieaseInd1"  >
+                                       <mat-radio-group formControlName="heartDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse</p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -1967,7 +1967,7 @@
                                                <mat-radio-button value="No">No</mat-radio-button>
 
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="respiratoryDieaseInd1"  >
+                                           <mat-radio-group formControlName="respiratoryDieaseInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -1993,7 +1993,7 @@
                                                <mat-radio-button value="No">No</mat-radio-button>
 
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="diabetesInd1"  >
+                                           <mat-radio-group formControlName="diabetesInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2018,7 +2018,7 @@
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="kidneyDieaseInd1"  >
+                                           <mat-radio-group formControlName="kidneyDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2043,7 +2043,7 @@
                                                <mat-radio-button value="No">No</mat-radio-button>
 
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="digestiveDieaseInd1"  >
+                                           <mat-radio-group formControlName="digestiveDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2067,7 +2067,7 @@
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="cancerDieaseInd1"  >
+                                           <mat-radio-group formControlName="cancerDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2091,7 +2091,7 @@
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="tropicalDieaseInd1"  >
+                                           <mat-radio-group formControlName="tropicalDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2116,7 +2116,7 @@
                                                <mat-radio-button value="No">No</mat-radio-button>
 
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="thyroidDieaseInd1"  >
+                                           <mat-radio-group formControlName="thyroidDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2142,7 +2142,7 @@
                                                <mat-radio-button value="No">No</mat-radio-button>
 
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="bloodDieaseInd1" (change)="isbloodDieaseInd()" >
+                                           <mat-radio-group formControlName="bloodDieaseInd1" (change)="isbloodDieaseInd()" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2167,7 +2167,7 @@
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="nervousDieaseInd1"  >
+                                           <mat-radio-group formControlName="nervousDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2191,7 +2191,7 @@
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="muscleDieaseInd1" >
+                                           <mat-radio-group formControlName="muscleDieaseInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2215,7 +2215,7 @@
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="receivedTreatment21" >
+                                           <mat-radio-group formControlName="receivedTreatment21" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2240,7 +2240,7 @@
                                                <mat-radio-button value="No">No</mat-radio-button>
 
                                            </mat-radio-group>
-                                           <mat-radio-group formControlName="alcoholicInd1" >
+                                           <mat-radio-group formControlName="alcoholicInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2264,7 +2264,7 @@
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                              </mat-radio-group>
-                                           <mat-radio-group formControlName="otherIllnessInd1" >
+                                           <mat-radio-group formControlName="otherIllnessInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2298,7 +2298,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="deformityInd1" >
+                                       <mat-radio-group formControlName="deformityInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2325,7 +2325,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="receivedTreatment11" >
+                                       <mat-radio-group formControlName="receivedTreatment11" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2351,7 +2351,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="symptomsInd1" >
+                                       <mat-radio-group formControlName="symptomsInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2376,7 +2376,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="isHospitalized1" >
+                                       <mat-radio-group formControlName="isHospitalized1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2407,7 +2407,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="isRecovered1" >
+                                       <mat-radio-group formControlName="isRecovered1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2439,7 +2439,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="pregnantInd1" >
+                                       <mat-radio-group formControlName="pregnantInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2464,7 +2464,7 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
-                                       <mat-radio-group formControlName="femaleDieaseInd1" >
+                                       <mat-radio-group formControlName="femaleDieaseInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
