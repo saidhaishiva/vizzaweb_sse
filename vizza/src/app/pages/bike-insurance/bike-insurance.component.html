@@ -72,15 +72,17 @@
                                     <!--</mat-form-field>-->
                                     <!--</div>-->
 
-                                    <div class="col-md-12" *ngIf="typeList == 'new'">
+                                    <div class="col-md-12" *ngIf="typeList == 'new'" >
                                         <mat-placeholder>RTO AREA<span class="error">*</span></mat-placeholder>
-                                        <ngx-select-dropdown (change)="rtoCity()" formControlName="city"  [config]="config" [options]="getRtoDetails" [required]="typeList == 'new'"></ngx-select-dropdown>
+                                        <ngx-select-dropdown (change)="rtoCity();rtoError()" formControlName="city"  [config]="config" [options]="getRtoDetails" [required]="typeList == 'new'" ></ngx-select-dropdown>
+                                        <!--<mat-error *ngIf="bikeInsurance.controls.city.errors?.required">Registration Date is required</mat-error>-->
+                                        <div class="error" *ngIf="CityValid !='' && CityValid != true">{{CityValid}}</div>
 
                                         <!--<ngx-select-dropdown  [config]="config"  formControlName="city" (change)="rtoCity();getCityLists()" [options]="cityDetails">-->
                                         <!--</ngx-select-dropdown>-->
                                         <!--<em class="error help-block" *ngIf="!bikeInsurance.get('city').valid && (bikeInsurance.get('city').dirty || bikeInsurance.get('city').touched) ">Please Select RTO AREA</em>-->
 
-                                        <div class="error help-block" *ngIf=" this.bikeInsurance['controls'].city.value == ''||(this.bikeInsurance['controls'].city.value == null && bikeInsurance.get('city').touched)" >RTO AREA is required</div>
+                                        <!--<div class="error help-block" *ngIf=" this.bikeInsurance['controls'].city.value == ''||(this.bikeInsurance['controls'].city.value == null && bikeInsurance.get('city').touched)" >RTO AREA is required</div>-->
                                         <!--<div class="color-red" *ngIf="CityValid && CityValid != '' ">City is required</div>-->
                                     </div>
                                     <!--<div>{{getRtoDetails | json}}</div>-->

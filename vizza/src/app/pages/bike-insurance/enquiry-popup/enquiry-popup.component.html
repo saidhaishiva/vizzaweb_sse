@@ -20,6 +20,7 @@
         <mat-error *ngIf="vehicalDetails.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
       </mat-form-field>
       <div class="error" *ngIf="errorFutureDate !='' && errorFutureDate != true">{{errorFutureDate}}</div>
+      <div class="error" *ngIf="regDateDetails !='' && regDateDetails != true">{{regDateDetails}}</div>
       <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
     </div>
     <div class="col-md-3 mt-3" *ngIf="vehicalDetails.controls['bussiness'].value != '1' && vehicalDetails.controls['bussiness'].value != ''">
