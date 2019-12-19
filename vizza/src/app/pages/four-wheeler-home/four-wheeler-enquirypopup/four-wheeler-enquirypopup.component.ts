@@ -657,7 +657,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     }
 
     if(this.vehicalDetails.valid) {
-      if((this.carListDetails.business_type == '1' && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) || (this.carListDetails.business_type != '1' && this.vehicalDetails.controls['registrationDate'].value <= this.minDate)) {
+      // if((this.carListDetails.business_type == '1' && this.vehicalDetails.controls['registrationDate'].value >= this.minDate) || (this.carListDetails.business_type != '1' && this.vehicalDetails.controls['registrationDate'].value <= this.minDate)) {
 
         const data = {
           'platform': 'web',
@@ -699,9 +699,9 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
               this.enquiryFailure(error);
             }
         );
-      }else{
-        this.toastr.error('Please check the Registration Date');
-      }
+      // }else{
+      //   this.toastr.error('Please check the Registration Date');
+      // }
     }else{
       this.toastr.error('Please select the Mandatory field');
     }
