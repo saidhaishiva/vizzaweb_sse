@@ -451,7 +451,9 @@ export class HdfcCarProposalComponent implements OnInit {
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                let selDate = event.value._i;
+                let dateValue = this.datepipe.transform(selDate, 'dd/MM/y');
+                if (pattern.test(dateValue) && dateValue.length == 10) {
                     if (type == 'proposor') {
                         this.personalDobError = '';
                     } else if (type == 'nominee') {
@@ -464,7 +466,9 @@ export class HdfcCarProposalComponent implements OnInit {
                         this.personalDobError = 'Enter Valid Dob';
                     }
                 }
-                selectedDate = event.value._i;
+                // selectedDate = event.value._i;
+                let seltDate = event.value._i;
+                selectedDate = this.datepipe.transform(seltDate, 'dd/MM/y');
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10 && type == 'proposor') {
                     this.proposerAge = this.ageCalculate(dob);

@@ -641,7 +641,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             // this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
             console.log(this.proposer.valid, 'valid');
             if (this.proposer.valid) {
+                alert(1)
                 if (sessionStorage.proposerAge >= 18) {
+                    alert(2)
 
                     if (this.altererror == '') {
                         stepper.next();
@@ -943,13 +945,19 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     //dob
     addEvent(event, type) {
+        console.log(event, 'event')
+        console.log(type, 'type')
         if (event.value != null) {
             let selectedDate = '';
             this.proposerAge = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                console.log(pattern, 'pattern')
+                console.log(event.value._i, 'event.value._i')
+                let selDate = event.value._i;
+                let dateValue = this.datepipe.transform(selDate, 'dd/MM/y');
+                if (pattern.test(dateValue) && dateValue.length == 10) {
                     if (type == 'proposor') {
                         this.personalDobError = '';
                     } else if (type == 'nominee') {
@@ -974,10 +982,17 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                         this.personalDobError = 'Enter Valid Date';
                     }
                 }
-                selectedDate = event.value._i;
+                // selectedDate = event.value._i;
+                let seltDate = event.value._i;
+                selectedDate = this.datepipe.transform(seltDate, 'dd/MM/y');
+                console.log(selectedDate, 'selectedDate')
+                console.log(event.value, 'eventvalue in date')
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(dob, 'dobbbbbbbbinEventValue')
                 if (selectedDate.length == 10 && type == 'proposor') {
+                    // alert('inn')
                     this.proposerAge = this.ageCalculate(dob);
+                    console.log(this.proposerAge, 'this.proposerAgethis.proposerAge')
                     sessionStorage.proposerAge = this.proposerAge;
                 }
 
@@ -1181,7 +1196,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.proposer.controls['citypermanent'].setValue(this.proposer.controls['citycom'].value);
             this.proposer.controls['statepermanent'].setValue(this.proposer.controls['statecom'].value);
             this.proposer.controls['landmarkpermanent'].setValue(this.proposer.controls['landmarkcom'].value);
-
             // this.proposer.controls['residenceState'].setValue(this.proposer.controls['personalState'].value);
         }
     }
@@ -1427,13 +1441,20 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     //
     ageCalculate(dob) {
         let today = new Date();
+        console.log(today, 'todaytoday')
         let birthDate = new Date(dob);
+        console.log(birthDate, 'birthDatebirthDate')
         let age = today.getFullYear() - birthDate.getFullYear();
+        console.log(age, 'ageage')
         let m = today.getMonth() - birthDate.getMonth();
+        console.log(m, 'mmm')
         let dd = today.getDate() - birthDate.getDate();
+        console.log()
         if (m < 0 || m == 0 && today.getDate() < birthDate.getDate()) {
             age = age - 1;
+            console.log(age, 'age')
         }
+        console.log(age, 'ageageage')
         return age;
     }
 
