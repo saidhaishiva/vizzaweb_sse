@@ -277,6 +277,7 @@ export class PosComponent implements OnInit {
         const temp = this.temp.filter(function (d) {
             return d.pos_name.toLowerCase().indexOf(val) !== -1 || !val;
         });
+
         this.rows = temp;
         this.table.offset = 0;
     }
