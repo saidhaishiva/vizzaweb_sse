@@ -16,6 +16,7 @@
     <!--</mat-form-field>-->
     <!--</div>-->
 
+
     <div class="col-md-3 mt-3">
       <mat-form-field class="w-100">
         <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" (keypress)="dobValidate($event);maxDatechange()" (keyup)="maxDatechange()" (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')" formControlName="registrationDate"   maxlength="10" minlength="10" required>

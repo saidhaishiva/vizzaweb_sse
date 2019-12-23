@@ -21,6 +21,7 @@ export const MY_FORMATS = {
 
     monthYearA11yLabel: 'MM YYYY',
   },
+
 };
 
 @Component({
@@ -718,6 +719,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
         if(successData.status == true && this.errorFutureDate == '' && this.manfactureErrorDate == '' && (this.dobError == ''|| this.dobError ==undefined)){
           this.dialogRef.close();
           this.router.navigate(['/four-wheeler-list']);
+        }else{
+          this.toastr.error(successData.ErrorObject);
         }
     } else {
       this.toastr.error(successData.ErrorObject);
