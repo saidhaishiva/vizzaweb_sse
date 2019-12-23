@@ -107,6 +107,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public buyProductDetails: any;
     public finlist: any;
     public sameasper: boolean;
+    public nomineeAge : any;
 
 
     public financiercodevalue: any;
@@ -641,9 +642,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             // this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
             console.log(this.proposer.valid, 'valid');
             if (this.proposer.valid) {
-                alert(1)
                 if (sessionStorage.proposerAge >= 18) {
-                    alert(2)
 
                     if (this.altererror == '') {
                         stepper.next();
@@ -944,72 +943,136 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     //
 
     //dob
+
     addEvent(event, type) {
-        console.log(event, 'event')
-        console.log(type, 'type')
+
+        console.log(event.value,'valueeee')
         if (event.value != null) {
             let selectedDate = '';
             this.proposerAge = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                console.log(pattern, 'pattern')
-                console.log(event.value._i, 'event.value._i')
-                let selDate = event.value._i;
-                let dateValue = this.datepipe.transform(selDate, 'dd/MM/y');
-                if (pattern.test(dateValue) && dateValue.length == 10) {
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     if (type == 'proposor') {
                         this.personalDobError = '';
-                    } else if (type == 'nominee') {
-                        this.personalDobError = '';
                     }
-                    // else if (type == 'bank'&& this.BankDetails.controls['Paymentdate'].value._i!=this.tod) {
-                    //     this.personalDobError = 'Enter todays Date';
-                    // } else if (type == 'bank'&& this.BankDetails.controls['Paymentdate'].value._i == this.tod) {
-                    //     console.log('ii');
-                    //     console.log('ppp');
+                    // else if (type == 'nominee') {
+                    //     this.personalDobError = '';
+                    // }else if (type == 'iDate'){
                     //     this.personalDobError = '';
                     // }
-                    else if (type == 'bank') {
-                        this.personalDobError = '';
-                    }
-                } else {
-                    if (type == 'proposor') {
-                        this.personalDobError = 'Enter Valid Dob';
-                    } else if (type == 'insurer') {
-                        this.personalDobError = 'Enter Valid Dob';
-                    } else if (type == 'bank') {
-                        this.personalDobError = 'Enter Valid Date';
-                    }
                 }
-                // selectedDate = event.value._i;
-                let seltDate = event.value._i;
-                selectedDate = this.datepipe.transform(seltDate, 'dd/MM/y');
-                console.log(selectedDate, 'selectedDate')
-                console.log(event.value, 'eventvalue in date')
+                // else {
+                //     if (type == 'proposor') {
+                //         this.personalDobError = 'Enter Valid Dob';
+                //     }
+                //     // } else if (type == 'nominee') {
+                //     //     this.personalDobError = 'Enter Valid Dob';
+                //     // } else if (type == 'iDate') {
+                //     //     this.personalDobError = 'Enter Valid Dob';
+                //     // }
+                // }
+                selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob, 'dobbbbbbbbinEventValue')
+                console.log(dob,'dobvalue')
                 if (selectedDate.length == 10 && type == 'proposor') {
-                    // alert('inn')
-                    this.proposerAge = this.ageCalculate(dob);
-                    console.log(this.proposerAge, 'this.proposerAgethis.proposerAge')
-                    sessionStorage.proposerAge = this.proposerAge;
-                }
 
-            } else if (typeof event.value._i == 'object') {
+                    this.proposerAge = this.ageCalculate(dob);
+                    // sessionStorage.proposerAgeForTravel = this.proposerAge;
+                } else if (selectedDate.length == 10 && type == 'nominee') {
+                    this.nomineeAge = this.ageCalculate(dob);
+                }
+            }
+            else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10 && type == 'iDate') {
+                    this.personalDobError = '';
+                }
                 if (dob.length == 10 && type == 'proposor') {
                     this.proposerAge = this.ageCalculate(dob);
                     this.personalDobError = '';
-                    sessionStorage.proposerAge = this.proposerAge;
+                    // sessionStorage.proposerAgeForTravel = this.proposerAge;
+                } else if (type == "nominee") {
+                    this.nomineeAge = this.ageCalculate(dob);
                 }
+
             }
             if (type == 'proposor') {
+                this.proposerAge = this.ageCalculate(dob);
+
                 console.log(this.proposerAge, 'age');
                 sessionStorage.proposerAge = this.proposerAge;
             }
+
         }
     }
+    // addEvent(event, type) {
+    //     console.log(event, 'event')
+    //     console.log(type, 'type')
+    //     if (event.value != null) {
+    //         let selectedDate = '';
+    //         this.proposerAge = '';
+    //         let dob = '';
+    //         if (typeof event.value._i == 'string') {
+    //             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+    //             console.log(pattern, 'pattern')
+    //             console.log(event.value._i, 'event.value._i')
+    //             let selDate = event.value._i;
+    //             let dateValue = this.datepipe.transform(selDate, 'y-MM-dd');
+    //             if (pattern.test(dateValue) && dateValue.length == 10) {
+    //                 if (type == 'proposor') {
+    //                     this.personalDobError = '';
+    //                 } else if (type == 'nominee') {
+    //                     this.personalDobError = '';
+    //                 }
+    //                 // else if (type == 'bank'&& this.BankDetails.controls['Paymentdate'].value._i!=this.tod) {
+    //                 //     this.personalDobError = 'Enter todays Date';
+    //                 // } else if (type == 'bank'&& this.BankDetails.controls['Paymentdate'].value._i == this.tod) {
+    //                 //     console.log('ii');
+    //                 //     console.log('ppp');
+    //                 //     this.personalDobError = '';
+    //                 // }
+    //                 else if (type == 'bank') {
+    //                     this.personalDobError = '';
+    //                 }
+    //             } else {
+    //                 if (type == 'proposor') {
+    //                     this.personalDobError = 'Enter Valid Dob';
+    //                 } else if (type == 'insurer') {
+    //                     this.personalDobError = 'Enter Valid Dob';
+    //                 } else if (type == 'bank') {
+    //                     this.personalDobError = 'Enter Valid Date';
+    //                 }
+    //             }
+    //             // selectedDate = event.value._i;
+    //             let seltDate = event.value._i;
+    //             selectedDate = this.datepipe.transform(seltDate, 'dd/MM/y');
+    //             console.log(selectedDate, 'selectedDate')
+    //             console.log(event.value, 'eventvalue in date')
+    //             dob = this.datepipe.transform(event.value, 'y-MM-dd');
+    //             console.log(dob, 'dobbbbbbbbinEventValue')
+    //             if (selectedDate.length == 10 && type == 'proposor') {
+    //                 // alert('inn')
+    //                 this.proposerAge = this.ageCalculate(dob);
+    //                 console.log(this.proposerAge, 'this.proposerAgethis.proposerAge')
+    //                 sessionStorage.proposerAge = this.proposerAge;
+    //             }
+    //
+    //         } else if (typeof event.value._i == 'object') {
+    //             dob = this.datepipe.transform(event.value, 'y-MM-dd');
+    //             if (dob.length == 10 && type == 'proposor') {
+    //                 this.proposerAge = this.ageCalculate(dob);
+    //                 this.personalDobError = '';
+    //                 sessionStorage.proposerAge = this.proposerAge;
+    //             }
+    //         }
+    //         if (type == 'proposor') {
+    //             console.log(this.proposerAge, 'age');
+    //             sessionStorage.proposerAge = this.proposerAge;
+    //         }
+    //     }
+    // }
 
     sameaspermenant(event) {
         console.log(event);

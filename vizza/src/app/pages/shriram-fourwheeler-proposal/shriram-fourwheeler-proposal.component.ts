@@ -254,7 +254,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       limitOwnPremise:'',
       limitedTPPD:'',
       builtCNGKit:'',
-      voluntaryExcess: ['', Validators.required],
+      voluntaryExcess: [''],
       vehicleColour: ['', Validators.required],
 
 

@@ -221,7 +221,7 @@ export class BikeShriramProposalComponent implements OnInit {
       nonElectricalAccessSI: '',
       paforUnnamed: '',
       paforUnnamedSI: '',
-      voluntaryExcess: ['', Validators.required],
+      voluntaryExcess: [''],
       hypothecationType: '',
         hypothecationTypeName: '',
       hypothecationAddress1: '',
