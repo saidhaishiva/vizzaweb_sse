@@ -21,6 +21,7 @@ export const MY_FORMATS = {
 
     monthYearA11yLabel: 'MM YYYY',
   },
+
 };
 
 @Component({

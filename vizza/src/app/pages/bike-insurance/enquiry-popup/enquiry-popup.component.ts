@@ -660,10 +660,21 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
         this.CityValid = false;
         console.log(this.CityValid,'cityvalidfalse');
       }
+
+        if (this.getRegPolicyYear < this.getLength || this.RegYear > this.getLength ) {
+          this.manfactureErrorDate=true;
+          this.manfactureErrorDate = 'Manufacturing year should be equal to registration year or less than 1year from Registration year';
+          // this.toastr.error('Manufacturing year should be equal to registration year or less than 1year from Registration year.');
+        }else {
+          this.manfactureErrorDate=false;
+          this.manfactureErrorDate='';
+        }
+
+
       // if(this.errorFutureDate == false) {
       //   console.log('innnnnnn');
 
-      if(this.vehicalDetails.valid&&this.regDateDetails==false) {
+      if(this.vehicalDetails.valid) {
           const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -728,6 +739,9 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
 
       } else  if (successData.status == true ) {
         this.toastr.error(successData.ErrorObject);
+        if(successData.IsSuccess==false){
+          this.toastr.error(successData.ErrorObject);
+        }
         //   this.toastr.error('Please check');
 
       }
