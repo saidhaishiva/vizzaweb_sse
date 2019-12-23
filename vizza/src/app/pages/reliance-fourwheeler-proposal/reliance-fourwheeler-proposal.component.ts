@@ -169,6 +169,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.showInspection=false;
     this.errorRateMsg=false;
     this.clientTypeField=false;
+    this.proposerAge='';
 
 
 
@@ -411,6 +412,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.relianceProposal.controls['firstName'].setValidators([Validators.required]);
       this.relianceProposal.controls['middleName'].setValidators(null);
       this.relianceProposal.controls['lastName'].setValidators([Validators.required]);
+      this.relianceProposal.controls['gender'].setValidators([Validators.required]);
+      this.relianceProposal.controls['dob'].setValidators([Validators.required]);
+      this.relianceProposal.controls['occupation'].setValidators([Validators.required]);
+      this.relianceProposal.controls['maritalStatus'].setValidators(null);
     }else if(this.relianceProposal.controls['clientType'].value == 1) {
       this.clientTypeField=false;
       this.relianceProposal.controls['corporateName'].setValidators([Validators.required]);
@@ -446,6 +451,19 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
       this.relianceProposal.controls['lastName'].patchValue('');
       this.relianceProposal.controls['lastName'].setValidators(null);
+
+      this.relianceProposal.controls['gender'].patchValue('');
+      this.relianceProposal.controls['gender'].setValidators(null);
+
+      this.relianceProposal.controls['dob'].patchValue('');
+      this.relianceProposal.controls['dob'].setValidators(null);
+
+      this.relianceProposal.controls['occupation'].patchValue('');
+      this.relianceProposal.controls['occupation'].setValidators(null);
+
+      this.relianceProposal.controls['maritalStatus'].patchValue('');
+      this.relianceProposal.controls['maritalStatus'].setValidators(null);
+      this.proposerAge='';
     }
 
     this.relianceProposal.controls['corporateName'].updateValueAndValidity();
@@ -453,6 +471,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.relianceProposal.controls['firstName'].updateValueAndValidity();
     this.relianceProposal.controls['middleName'].updateValueAndValidity();
     this.relianceProposal.controls['lastName'].updateValueAndValidity();
+    this.relianceProposal.controls['gender'].updateValueAndValidity();
+    this.relianceProposal.controls['dob'].updateValueAndValidity();
+    this.relianceProposal.controls['occupation'].updateValueAndValidity();
+    this.relianceProposal.controls['maritalStatus'].updateValueAndValidity();
   }
   /////////////
 
@@ -1357,8 +1379,13 @@ changeNonElect(){
       sessionStorage.stepper1Details = '';
       sessionStorage.stepper1Details = JSON.stringify(value);
       this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
+      console.log(this.relianceProposal.value,'this.relianceProposal...')
+      console.log(this.proposerData,'this.proposerData...')
+      console.log(sessionStorage.proposerAge,'sessionStorage.proposerAge...')
+      console.log(this.relianceProposal.controls['clientType'].value,'clienttype...')
+      console.log(this.proposerAge,'age.....')
       if (this.relianceProposal.valid) {
-        if(sessionStorage.proposerAge >= 18 ){
+        if(sessionStorage.proposerAge >= 18 ||(this.relianceProposal.controls['clientType'].value == 1&&this.proposerAge=='')){
           stepper.next();
           this.topScroll();
         }else {

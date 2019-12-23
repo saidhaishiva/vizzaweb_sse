@@ -119,11 +119,13 @@
                         <!--</div>-->
 
                       <div class="row" fxLayoutAlign="center center">
-                          <div class="col-md-6">
+                          <div class="col-md-6 mb-4">
                           <div class="box-card addressBox">
                             <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                             <div class="row">
                               <div class="col-md-12">
+                                  <div class="col-md-12 ">
+                                  </div>
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Address 1" rows="2" formControlName="address4"  (keyup)="typeAddressDeatils()" autocomplete="off" maxlength="30" required>
                                   <mat-error *ngIf="proposer.controls.address4.errors?.required">Address is required</mat-error>
@@ -194,12 +196,12 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-0  p-3">
                           <div class="box-card addressBox">
                             <h6 class="color-blue">PERMANENT ADDRESS</h6>
                             <div class="row">
                               <div class="col-md-12">
-                                  <div class="col-md-12 mt-3">
+                                  <div class="col-md-12 ">
                                       <mat-checkbox formControlName="issameascmmunication"  (change)="sameaspermenant($event)" ><strong> Is Same As Communication Address </strong></mat-checkbox>
                                   </div>
                                 <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">

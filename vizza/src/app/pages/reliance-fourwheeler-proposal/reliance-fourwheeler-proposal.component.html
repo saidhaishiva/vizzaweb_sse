@@ -57,18 +57,18 @@
                           <mat-error *ngIf="relianceProposal.controls.lastName.errors?.required">lastName is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3 mt-3">
+                      <div class="col-md-3 mt-3" *ngIf="this.relianceProposal.controls['clientType'].value == 0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Gender" formControlName="gender" required >
+                          <mat-select placeholder="Gender" formControlName="gender" [required]="relianceProposal.controls['clientType'].value==0" >
                             <mat-option value="Male">Male</mat-option>
                             <mat-option value="Female">Female</mat-option>
                           </mat-select>
                           <mat-error *ngIf="relianceProposal.controls.gender.errors?.required">Gender is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3 mt-3">
+                      <div class="col-md-3 mt-3" *ngIf="this.relianceProposal.controls['clientType'].value == 0">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  [required]="relianceProposal.controls['clientType'].value==0" >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="relianceProposal.controls.dob.errors?.required">DOB is required</mat-error>
@@ -81,15 +81,15 @@
                         <mat-error *ngIf="relianceProposal.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                       </mat-form-field>
                       </div>
-                      <div class="col-md-3 mt-3">
+                      <div class="col-md-3 mt-3" *ngIf="this.relianceProposal.controls['clientType'].value == 0">
                         <mat-form-field class="w-100" >
-                          <mat-select placeholder="Occupation" formControlName="occupation" (selectionChange)="changeOccupation()" required>
+                          <mat-select placeholder="Occupation" formControlName="occupation" (selectionChange)="changeOccupation()" [required]="relianceProposal.controls['clientType'].value==0">
                             <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}" > {{occupation.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="relianceProposal.controls.occupation.errors?.required">occupation  is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3 mt-3">
+                      <div class="col-md-3 mt-3" *ngIf="this.relianceProposal.controls['clientType'].value == 0">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="changeMarital()">
                             <mat-option *ngFor="let marital of maritalList | keys" value="{{marital.key}}" > {{marital.value}} </mat-option>
@@ -1280,9 +1280,9 @@
                       <li class="list-group-item" ><strong>Client Type:</strong><span *ngIf="proposerFormData.clientType == 0">Individual</span><span *ngIf="proposerFormData.clientType == 1">Corporate</span></li>
                       <li class="list-group-item" *ngIf="proposerFormData.corporateName != ''"><strong>Corporate Name:</strong>{{proposerFormData.corporateName}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.clientType == 0"><strong>Name:</strong>{{proposerFormData.titleValue}}.{{proposerFormData.firstName}} {{proposerFormData.middleName}} {{proposerFormData.lastName}}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
-                      <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.maritalStatusValue !='' "><strong>Marital Status:</strong>{{proposerFormData.maritalStatusValue}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.clientType == 0"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.clientType == 0"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.maritalStatusValue !='' && proposerFormData.clientType == 0 "><strong>Marital Status:</strong>{{proposerFormData.maritalStatusValue}}</li>
                     </ul>
                   <!--</div>-->
                 </div>
@@ -1291,7 +1291,7 @@
                   <!--<div class="p-0">-->
                     <ul class="m-0 list-group">
                       <li class="list-group-item" *ngIf="proposerFormData.nationalityValue !='' "><strong>Nationality:</strong>{{proposerFormData.nationalityValue}}</li>
-                      <li class="list-group-item"><strong>Occupation:</strong>{{proposerFormData.occupationValue}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.clientType == 0"><strong>Occupation:</strong>{{proposerFormData.occupationValue}}</li>
                       <li class="list-group-item" ><strong>Email Id:</strong> {{proposerFormData.email}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.alternateContact != ''"><strong>Phone number:</strong> {{proposerFormData.alternateContact}}</li>

@@ -96,6 +96,7 @@ export class HdfcCarProposalComponent implements OnInit {
     public premiumType: any;
     public vehicleRegNumber: any;
     public vehicleRegNo: any;
+    public nomineeAge: any;
     public buyFourwheelerProductDetails: any;
     public errortoaster: boolean;
     public sameasper: boolean;
@@ -443,52 +444,115 @@ export class HdfcCarProposalComponent implements OnInit {
         this.vechicle.controls['fibranchname'].updateValueAndValidity();
     }
 
-
     addEvent(event, type) {
+
+        console.log(event.value,'valueeee')
         if (event.value != null) {
             let selectedDate = '';
             this.proposerAge = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                let selDate = event.value._i;
-                let dateValue = this.datepipe.transform(selDate, 'dd/MM/y');
-                if (pattern.test(dateValue) && dateValue.length == 10) {
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     if (type == 'proposor') {
                         this.personalDobError = '';
-                    } else if (type == 'nominee') {
-                        this.personalDobError = '';
                     }
-                } else {
-                    if (type == 'proposor') {
-                        this.personalDobError = 'Enter Valid Dob';
-                    } else if (type == 'insurer') {
-                        this.personalDobError = 'Enter Valid Dob';
-                    }
+                    // else if (type == 'nominee') {
+                    //     this.personalDobError = '';
+                    // }else if (type == 'iDate'){
+                    //     this.personalDobError = '';
+                    // }
                 }
-                // selectedDate = event.value._i;
-                let seltDate = event.value._i;
-                selectedDate = this.datepipe.transform(seltDate, 'dd/MM/y');
+                // else {
+                //     if (type == 'proposor') {
+                //         this.personalDobError = 'Enter Valid Dob';
+                //     }
+                //     // } else if (type == 'nominee') {
+                //     //     this.personalDobError = 'Enter Valid Dob';
+                //     // } else if (type == 'iDate') {
+                //     //     this.personalDobError = 'Enter Valid Dob';
+                //     // }
+                // }
+                selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(dob,'dobvalue')
                 if (selectedDate.length == 10 && type == 'proposor') {
-                    this.proposerAge = this.ageCalculate(dob);
-                    sessionStorage.proposerAge = this.proposerAge;
-                }
 
-            } else if (typeof event.value._i == 'object') {
+                    this.proposerAge = this.ageCalculate(dob);
+                    // sessionStorage.proposerAgeForTravel = this.proposerAge;
+                } else if (selectedDate.length == 10 && type == 'nominee') {
+                    this.nomineeAge = this.ageCalculate(dob);
+                }
+            }
+            else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10 && type == 'iDate') {
+                    this.personalDobError = '';
+                }
                 if (dob.length == 10 && type == 'proposor') {
                     this.proposerAge = this.ageCalculate(dob);
                     this.personalDobError = '';
-                    sessionStorage.proposerAge = this.proposerAge;
+                    // sessionStorage.proposerAgeForTravel = this.proposerAge;
+                } else if (type == "nominee") {
+                    this.nomineeAge = this.ageCalculate(dob);
                 }
+
             }
             if (type == 'proposor') {
+                this.proposerAge = this.ageCalculate(dob);
+
                 console.log(this.proposerAge, 'age');
                 sessionStorage.proposerAge = this.proposerAge;
             }
+
         }
     }
+
+    // addEvent(event, type) {
+    //     if (event.value != null) {
+    //         let selectedDate = '';
+    //         this.proposerAge = '';
+    //         let dob = '';
+    //         if (typeof event.value._i == 'string') {
+    //             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+    //             let selDate = event.value._i;
+    //             let dateValue = this.datepipe.transform(selDate, 'dd/MM/y');
+    //             if (pattern.test(dateValue) && dateValue.length == 10) {
+    //                 if (type == 'proposor') {
+    //                     this.personalDobError = '';
+    //                 } else if (type == 'nominee') {
+    //                     this.personalDobError = '';
+    //                 }
+    //             } else {
+    //                 if (type == 'proposor') {
+    //                     this.personalDobError = 'Enter Valid Dob';
+    //                 } else if (type == 'insurer') {
+    //                     this.personalDobError = 'Enter Valid Dob';
+    //                 }
+    //             }
+    //             // selectedDate = event.value._i;
+    //             let seltDate = event.value._i;
+    //             selectedDate = this.datepipe.transform(seltDate, 'dd/MM/y');
+    //             dob = this.datepipe.transform(event.value, 'y-MM-dd');
+    //             if (selectedDate.length == 10 && type == 'proposor') {
+    //                 this.proposerAge = this.ageCalculate(dob);
+    //                 sessionStorage.proposerAge = this.proposerAge;
+    //             }
+    //
+    //         } else if (typeof event.value._i == 'object') {
+    //             dob = this.datepipe.transform(event.value, 'y-MM-dd');
+    //             if (dob.length == 10 && type == 'proposor') {
+    //                 this.proposerAge = this.ageCalculate(dob);
+    //                 this.personalDobError = '';
+    //                 sessionStorage.proposerAge = this.proposerAge;
+    //             }
+    //         }
+    //         if (type == 'proposor') {
+    //             console.log(this.proposerAge, 'age');
+    //             sessionStorage.proposerAge = this.proposerAge;
+    //         }
+    //     }
+    // }
     Regdate($event){
         console.log('innn too');
         if($event.value!=''){
