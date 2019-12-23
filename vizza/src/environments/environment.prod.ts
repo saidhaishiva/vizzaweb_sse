@@ -22,7 +22,7 @@ export const environment = {
     lifeInsurance: true,
     motorInsurance: true,
     paAccident: true
-    //
+
     // apiHost: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
     // apiHostTravel: 'https://vizzainsurance.com/vizza/api/index.php/travel/',
     // apiHostPa: 'https://vizzainsurance.com/vizza/api/index.php/pa/',
@@ -32,9 +32,10 @@ export const environment = {
     // apiHostDm: 'https://vizzainsurance.com/vizza/api/index.php/dm/',
     // apiHostLife: 'https://vizzainsurance.com/vizza/api/index.php/endowment/',
     // apiHostTerm: 'https://vizzainsurance.com/vizza/api/index.php/termlife/',
-    // apiHostMotor: 'http://vizzainsurance.com/vizza/api/index.php/mtw/',
-    // apiHostMotorFour: 'http://vizzainsurance.com/vizza/api/index.php/mtw/',
-    // apiHostmiscproduct: 'http://vizzainsurance.com/vizza/api/index.php/misc_product/',
+    // apiHostMotor: 'https://vizzainsurance.com/vizza/api/index.php/mtw/',
+    // apiHostMotorFour: 'https://vizzainsurance.com/vizza/api/index.php/mtw/',
+    // apiHostmiscproduct: 'https://vizzainsurance.com/vizza/api/index.php/misc_product/',
+    // apiHostEdelweissPos: 'https://vizzainsurance.com/vizza/api/index.php/edelweiss_pos/',
     // apiHostAdmin: 'https://vizzainsurance.com/admin/',
     // webHost: 'https://vizzainsurance.com',
     // imgUrl: 'https://vizzainsurance.com/vizza',
