@@ -735,16 +735,16 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
           if (successData.status == true && this.errorFutureDate == '' && this.manfactureErrorDate == '' && (this.dobError == ''|| this.dobError ==undefined) ) {
             this.dialogRef.close();
             this.router.navigate(['/bikepremium']);
+          }else if (successData.status == true ){
+            this.toastr.error(successData.ErrorObject);
           }
 
-      } else  if (successData.status == true ) {
-        this.toastr.error(successData.ErrorObject);
-        if(successData.IsSuccess==false){
+      } else if(successData.IsSuccess==false){
           this.toastr.error(successData.ErrorObject);
         }
         //   this.toastr.error('Please check');
 
-      }
+
       // }else {
       //   console.log('outtttttt');
       //   this.toastr.error('Future Date is not Acceptable');
