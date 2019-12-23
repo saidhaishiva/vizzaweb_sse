@@ -265,7 +265,7 @@
                             <!--</mat-option>-->
                           </mat-select>
                         </mat-form-field>
-                        <div class="error" *ngIf="travelTypeError == ''">Required</div>
+                        <div class="error" *ngIf="travelTypeError != ''">Required</div>
 
                       </div>
                     </div>
@@ -303,7 +303,7 @@
                       <input matInput maxlength="6" [(ngModel)]="pincode"  placeholder="Pincode" (keypress)="numberOnly($event)" (keyup)="typePincode()" required>
                       <mat-icon matSuffix>place</mat-icon>
                     </mat-form-field>
-                    <div *ngIf="pinerror == ''" class="ngError">Required</div>
+                    <div *ngIf="pinerror" class="ngError">Required</div>
                     <!--<div fxLayoutAlign="center center" class="mt-3">-->
                       <!--<button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed <i class="material-icons">play_arrow</i></button>-->
                     <!--</div>-->

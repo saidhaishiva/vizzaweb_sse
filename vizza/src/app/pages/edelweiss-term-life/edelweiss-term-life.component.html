@@ -894,7 +894,7 @@
                                <div class="col-md-4 " >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Age Till Covered</mat-placeholder>
-                                       <mat-select  formControlName="ageTillCoverd"  >
+                                       <mat-select  formControlName="ageTillCoverd"  (selectionChange)="ageTillcoverd();premiumPaymentTerm()">
                                            <mat-option *ngFor="let list of ageTill | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                        </mat-select>
                                    </mat-form-field>
@@ -902,7 +902,7 @@
                                <div class="col-md-4 "  >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Premium Payment Term</mat-placeholder >
-                                       <mat-select  formControlName="premiumPay"   (selectionChange)="premiumPaymentTerm()">
+                                       <mat-select  formControlName="premiumPay"   (selectionChange)="premiumPaymentTerm();edelweissPrimium()">
                                            <mat-option *ngFor="let list of premiumPayment | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                        </mat-select>
                                    </mat-form-field>
