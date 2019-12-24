@@ -51,7 +51,7 @@ export class ApollomunichPaymentSuccessComponent implements OnInit {
   ngOnInit() {
   }
     retry() {
-        this.router.navigate(['/appollo-munich-health'  + '/' + true]);
+        this.router.navigate(['/appollo-health'  + '/' + true]);
     }
     pay(){
         sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
