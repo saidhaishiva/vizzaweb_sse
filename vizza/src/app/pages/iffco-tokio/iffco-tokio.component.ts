@@ -214,7 +214,7 @@ export class IffcoTokioComponent implements OnInit {
             proposerHomePhone: '',
             proposerOfficePhone: '',
             proposerPassport: '',
-            proposerOccupation: '',
+            proposerOccupation: ['', Validators.required],
             proposerOccupationName: '',
             proposerPan: '',
             proposerMarital: '',

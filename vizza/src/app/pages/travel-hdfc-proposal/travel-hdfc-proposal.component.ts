@@ -208,6 +208,8 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.getPedList();
             this.insuredRelationshipList();
             this.nomineeRelationshipList();
+
+
             this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
             console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
             let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
@@ -904,6 +906,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     }
 
 
+
     // proposal craetion
     createProposal(stepper) {
 
@@ -1018,6 +1021,13 @@ export class TravelHdfcProposalComponent implements OnInit {
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+            console.log(this.summaryData, 'summary datat');
+            console.log(this.proposerFormData, 'this.proposerFormData');
+            console.log(this.fullName, 'summary datat');
+            console.log(this.totalAmount, ' totalAmount');
+            console.log(this.summaryData.ProposalNumber,'proposal num')
+
+
 
         } else {
             this.toastr.error(successData.ErrorObject);
