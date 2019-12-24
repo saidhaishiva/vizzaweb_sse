@@ -851,7 +851,7 @@
                            </div>
                            <div class="col-md-4">
                                <mat-form-field class="w-100">
-                                   <mat-select  placeholder="Change in weight past 6 months" formControlName="hasWeightChanged" (selectionChange)="geteWeightChanged()"  class="w-100">
+                                   <mat-select  placeholder="Change in weight past 6 months" formControlName="hasWeightChanged" (selectionChange)="geteWeightChanged();edelweissPrimium()"  class="w-100">
                                        <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
                                    </mat-select>
                                    <!--<mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>-->
@@ -888,31 +888,36 @@
                                <div class="col-md-4 " >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Cover</mat-placeholder>
-                                       <input matInput  formControlName="Cover"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="15" >
+                                       <input matInput  formControlName="Cover"  required  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="15" >
+                                       <mat-error *ngIf="insureArray.controls.Cover.errors?.required">Cover is required</mat-error>
                                    </mat-form-field>
                                </div>
-                               <div class="col-md-4 " >
+                               <div class="col-md-4">
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Age Till Covered</mat-placeholder>
-                                       <mat-select  formControlName="ageTillCoverd"  (selectionChange)="ageTillcoverd();premiumPaymentTerm()">
+                                       <mat-select  formControlName="ageTillCoverd"  (selectionChange)="ageTillcoverd();premiumPaymentTerm()" required>
                                            <mat-option *ngFor="let list of ageTill | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                        </mat-select>
+                                       <mat-error *ngIf="insureArray.controls.ageTillCoverd.errors?.required">Age Till Covered is required</mat-error>
                                    </mat-form-field>
                                </div>
                                <div class="col-md-4 "  >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Premium Payment Term</mat-placeholder >
-                                       <mat-select  formControlName="premiumPay"   (selectionChange)="premiumPaymentTerm();edelweissPrimium()">
+                                       <mat-select  formControlName="premiumPay"   (selectionChange)="premiumPaymentTerm()" required>
                                            <mat-option *ngFor="let list of premiumPayment | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                        </mat-select>
+                                       <mat-error *ngIf="insureArray.controls.premiumPay.errors?.required">Premium Payment Term is required</mat-error>
+
                                    </mat-form-field>
                                </div>
                                 <div class="col-md-4 " >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Mode Of Premium</mat-placeholder >
-                                       <mat-select  formControlName="modeOfPremium"  >
+                                       <mat-select  formControlName="modeOfPremium"  (selectionChange)="edelweissPrimium()" required>
                                            <mat-option *ngFor="let list of frequencyList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                        </mat-select>
+                                       <mat-error *ngIf="insureArray.controls.modeOfPremium.errors?.required">Mode Of Premium is required</mat-error>
                                    </mat-form-field>
                                </div>
 

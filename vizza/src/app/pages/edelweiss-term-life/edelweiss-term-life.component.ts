@@ -419,10 +419,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       // taxResidence: ['', Validators.compose([Validators.required])],
       isPoliticallyExposed: false,
       specification: '',
-      Cover:'',
-      ageTillCoverd: '',
-      premiumPay: '',
-      modeOfPremium: '',
+      Cover:['', Validators.compose([Validators.required])],
+      ageTillCoverd: ['40', Validators.compose([Validators.required])],
+      premiumPay: ['Regular', Validators.compose([Validators.required])],
+      modeOfPremium: ['', Validators.compose([Validators.required])],
       isCriminal: 'No',
       criminalDetails: '',
       identityProof: ['', Validators.compose([Validators.required])],
@@ -456,14 +456,14 @@ export class EdelweissTermLifeComponent implements OnInit {
       betterHalfsumAssured: '',
       waiverOfPremiumBenefit: 'No',
       DSumAssured: 'No',
-      criticalIllness: 'Yes',
-      criticalClaim: 'Yes',
+      criticalIllness: 'No',
+      criticalClaim: 'No',
       criticalsumAssured: '',
-      isADB: 'Yes',
+      isADB: 'No',
       sumAssuredADB: '',
-      isATPD: 'Yes',
+      isATPD: 'No',
       sumAssuredATPD: '',
-      isHCB: 'Yes',
+      isHCB: 'No',
       sumAssuredHCB: '',
       payoutOption: '',
         // DSA:'No',
@@ -738,6 +738,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['title'].patchValue('2');
     }
     this.insureArray.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
+    this.insureArray.controls['modeOfPremium'].patchValue(this.enquiryFromDetials.lifePayment);
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
 
   }
