@@ -86,6 +86,7 @@ export class FourWheelerHomeComponent implements OnInit {
   public companyNameList: any;
   public CityValid: any;
   public CompanyValid: any;
+  public previousStartError: any;
   public ClaimValid: any;
   public previousCompanyValid: boolean;
 
@@ -123,6 +124,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
 
     this.dobError = false;
+    this.previousStartError = false;
 
     this.fourWheeler = this.fb.group({
       'companyNameNew': '',
@@ -193,6 +195,15 @@ export class FourWheelerHomeComponent implements OnInit {
   public regionFailure(error) {
   }
 
+  previousStart(event:any){
+    if(this.fourWheeler.controls['previousPolicyStart'].value > this.fourWheeler.controls['registrationDate'].value ){
+      this.previousStartError=false;
+      this.previousStartError='';
+    }else{
+      this.previousStartError=true;
+      this.previousStartError='previous policy start Date should be greater than register Date';
+    }
+  }
 
   changeCompanyName() {
     const data = {
@@ -459,7 +470,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
     }
     console.log(data, 'data');
-    if (this.fourWheeler.valid  && (this.CityValid==false && this.CompanyValid==false && this.ClaimValid==false)) {
+    if (this.fourWheeler.valid  && (this.CityValid==false && this.CompanyValid==false && this.ClaimValid==false&&this.previousStartError==false)) {
       console.log(this.fourWheeler.value,'this.fourWheeler...')
       this.fwService.getMotorHomeDetails(data).subscribe(
           (successData) => {
