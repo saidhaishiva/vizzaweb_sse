@@ -440,7 +440,7 @@ export class BikeInsuranceComponent implements OnInit {
     }
 
     previousStart(event:any){
-        if(this.bikeInsurance.controls['previousPolicyStart'].value > this.bikeInsurance.controls['registrationDate'].value ){
+        if(this.bikeInsurance.controls['previousPolicyStart'].value >= this.bikeInsurance.controls['registrationDate'].value ){
             this.previousStartError=false;
             this.previousStartError='';
         }else{

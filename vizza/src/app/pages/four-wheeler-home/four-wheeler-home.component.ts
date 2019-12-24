@@ -196,7 +196,7 @@ export class FourWheelerHomeComponent implements OnInit {
   }
 
   previousStart(event:any){
-    if(this.fourWheeler.controls['previousPolicyStart'].value > this.fourWheeler.controls['registrationDate'].value ){
+    if(this.fourWheeler.controls['previousPolicyStart'].value >= this.fourWheeler.controls['registrationDate'].value ){
       this.previousStartError=false;
       this.previousStartError='';
     }else{
