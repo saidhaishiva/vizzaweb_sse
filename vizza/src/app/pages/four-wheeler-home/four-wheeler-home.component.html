@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-raised-button color="primary"  (click)="quationFirstStep(fourWheeler.value)">Submit</button>
-                  <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
+                  <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;" (click)="getCityLists()"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </form>
             </mat-tab>
@@ -194,7 +194,7 @@
                 </div>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-raised-button color="primary"  (click)="quationFirstStep(fourWheeler.value);getRegionLists()">Submit</button>
-                  <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
+                  <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;" (click)="getpreviousCompany()"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </form>
             </mat-tab>
