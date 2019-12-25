@@ -44,7 +44,7 @@
                 <!--</mat-form-field>-->
               </th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Cover Age</th>
-              <th class="col-sm-2" style="padding: 15px 5px !important;">Policy Term</th>
+              <th class="col-sm-2" style="padding: 15px 5px !important;">Policy Term/ PPT</th>
               <!--<th class="col-md-1" style="padding: 15px 5px !important;">Policy Paying Term</th>-->
               <th class="col-md-1" style="padding: 15px 5px !important;">Payment</th>
               <th class="col-md-1" style="padding: 15px 5px !important;">View Details</th>
@@ -82,7 +82,7 @@
               <td class="col-md-1 text-center">
                 <p class="mt-4">{{plists.CoverageAge}}</p>
               </td>
-              <td class="col-md-2 text-center" >
+              <td class="col-md-1 text-center" >
                   <!--<form [formGroup]="form">-->
                     <!--<div formArrayName="items" *ngFor="let item of form.get('items')['controls']; let i = index;">-->
                       <!--<div [formGroupName]="i">-->
@@ -100,9 +100,11 @@
                             <!--{{termList}}-->
                         <!--</option>-->
                     <!--</select>-->
-
-
               </td>
+              <td class="col-md-1 text-center">
+                <p class="mt-2">{{plists.premium_paying_termm}}</p>
+              </td>
+
               <!--<td class="col-md-1 text-center">-->
                 <!--<p class="mt-4">{{plists.policy_paying_term}}</p>-->
               <!--</td>-->
