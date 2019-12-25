@@ -38,6 +38,7 @@ export class TermLifePremiumListComponent implements OnInit {
     dethBenfit: any;
     lifePremiumList: any;
     allHdfcList12: any;
+    premium_paying_termm: any;
     allhdfcProductList:any;
     totalpremiumTerm: any;
     termLists: any;
@@ -344,7 +345,10 @@ export class TermLifePremiumListComponent implements OnInit {
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
                 this.allProductLists[i].termDetrails = this.allProductLists[i].term[0];
-                console.log(this.allProductLists[i].termDetrails)
+                // this.allProductLists[i].premium_paying_termm = this.all ProductLists[i].premium_paying_term;
+                console.log(this.allProductLists[i].termDetrails, 'detrails')
+                console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
+                console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
                 this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
                 this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
                 let dob = this.datepipe.transform(this.allProductLists[i].dob, 'y-MM-dd');
@@ -573,6 +577,7 @@ export class TermLifePremiumListComponent implements OnInit {
             this.termListDetails = successData.ResponseObject;
                   this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
                   this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
+                  this.allProductLists[index].premium_paying_termm =  this.termListDetails.premium_paying_term;
 
               console.log(this.allProductLists, 'allProductLists');
             }
