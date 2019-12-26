@@ -1705,8 +1705,8 @@ export class AppollomunichpaComponent implements OnInit {
     public appolloQuestionsFailure(error) {
     }
 
-    questionYes(index, value: any) {
-        if (value.checked) {
+    questionYes(index, event: any) {
+        if (event.checked==true) {
             this.appolloQuestionsListPa[index].mStatus = 'Yes';
         } else {
             this.appolloQuestionsListPa[index].mStatus = 'No';
