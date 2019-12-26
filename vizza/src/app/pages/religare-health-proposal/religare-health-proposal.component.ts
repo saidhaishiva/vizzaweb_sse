@@ -1374,7 +1374,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.religareQuestionsList[id].answer_status = true;
         } else {
             this.religareQuestionsList[id].mStatus = 'No';
-            alert('off')
+            // alert('off')
             this.religareQuestionsList[id].answer_status = false;
             for (let i = 0; i < this.religareQuestionsList.length; i++) {
 
