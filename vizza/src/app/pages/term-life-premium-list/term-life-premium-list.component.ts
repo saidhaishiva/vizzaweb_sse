@@ -100,7 +100,8 @@ export class TermLifePremiumListComponent implements OnInit {
       this.getCompanyList();
       this.sessionData();
       this.getHDFcProduct();
-      // this.form.controls['termlists'].setValue(this.allProductLists[0].term[0]);
+      // this.form.controls['plists.termDetrails'].patchValue(this.allProductLists[0].term[0]);
+      //       if()
 
   }
     formarr() {
@@ -228,11 +229,11 @@ export class TermLifePremiumListComponent implements OnInit {
           {
 
               // this.allHdfcList12 = this.allHdfcList[i].id;
-              console.log( this.allHdfcList,'listtttt');
-              console.log( this.allHdfcList[i].id,'listid');
-              console.log(  this.allHdfcList12 ,'listid');
+              // console.log( this.allHdfcList,'listtttt');
+              // console.log( this.allHdfcList[i].id,'listid');
+              // console.log(  this.allHdfcList12 ,'listid');
           }
-          alert(this.allHdfcList12);
+          // alert(this.allHdfcList12);
           // console.log( this.allHdfcList,'listtttt');
           // console.log( this.allHdfcList.id,'listid');
           // this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
@@ -342,17 +343,36 @@ export class TermLifePremiumListComponent implements OnInit {
             }
             console.log(this.allProductLists, 'all');
             for (let i = 0; i < this.allProductLists.length; i++) {
+
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
                 this.allProductLists[i].termDetrails = this.allProductLists[i].term[0];
-                // this.allProductLists[i].premium_paying_termm = this.all ProductLists[i].premium_paying_term;
+                this.allProductLists[0].termDetrails = this.allProductLists[0].term[0];
+                this.allProductLists[1].termDetrails = this.allProductLists[1].term[0];
+                this.allProductLists[2].termDetrails = this.allProductLists[2].term[0];
+                this.allProductLists[3].termDetrails = this.allProductLists[3].term[0];
+                this.allProductLists[4].termDetrails = this.allProductLists[4].term[0];
+                this.allProductLists[5].termDetrails = this.allProductLists[5].term[0];
+                this.allProductLists[6].termDetrails = this.allProductLists[6].term[0];
+                this.allProductLists[7].termDetrails = this.allProductLists[7].term[0];
+                // this.allProductLists[8].termDetrails = this.allProductLists[8].term[0];
+                this.allProductLists[4].premium_paying_termm = this.allProductLists[i].premium_paying_term;
+                this.allProductLists[5].premium_paying_termm = this.allProductLists[i].premium_paying_term;
+                this.allProductLists[6].premium_paying_termm = this.allProductLists[i].premium_paying_term;
+                this.allProductLists[7].premium_paying_termm = this.allProductLists[i].premium_paying_term;
                 console.log(this.allProductLists[i].termDetrails, 'detrails')
+                console.log(this.allProductLists[4].termDetrails, 'detrails')
+                console.log(this.allProductLists[5].termDetrails, 'detrails')
+                console.log(this.allProductLists[6].termDetrails, 'detrails')
+                console.log(this.allProductLists[7].termDetrails, 'detrails')
                 console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
                 console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
                 this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
                 this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
                 let dob = this.datepipe.transform(this.allProductLists[i].dob, 'y-MM-dd');
                 this.allProductLists[i].age = this.ageCalculate(dob);
+                // this.lifeTermChange(plists, i);
+
                 // this.form['control'].items['controls'][i]['controls'].termlists.patchValue('40');
                 // console.log( this.form.controls['termlists'].value, 'fghj');
                 // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
@@ -578,7 +598,10 @@ export class TermLifePremiumListComponent implements OnInit {
                   this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
                   this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
                   this.allProductLists[index].premium_paying_termm =  this.termListDetails.premium_paying_term;
+                  // this.allProductLists[index].term =  this.termListDetails.term[0];
 
+                // console.log( this.allProductLists[index].term ,' this.allProductLists[index].term ')
+                // console.log(  this.termListDetails.term[0],' this.allProductLists[index].term ')
               console.log(this.allProductLists, 'allProductLists');
             }
             console.log(plists, 'plists');

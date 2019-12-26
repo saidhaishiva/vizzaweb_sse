@@ -82,24 +82,36 @@
               <td class="col-md-1 text-center">
                 <p class="mt-4">{{plists.CoverageAge}}</p>
               </td>
-              <td class="col-md-1 text-center" >
-                  <!--<form [formGroup]="form">-->
-                    <!--<div formArrayName="items" *ngFor="let item of form.get('items')['controls']; let i = index;">-->
-                      <!--<div [formGroupName]="i">-->
-                  <!--&lt;!&ndash;<p class="mt-4">{{plists.policy_term}}</p>&ndash;&gt;-->
-                <mat-form-field class="w-75">
-                  <mat-select placeholder="Term List" (selectionChange)="lifeTermChange(plists, i)" [value]="plists.termDetrails" [(ngModel)]="plists.termDetrails" >
-                    <mat-option   *ngFor="let termList of plists.term;let i = index"  [value]="termList">{{termList}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</form>-->
-                    <!--<select>-->
-                        <!--<option  *ngFor="let termList of plists.term;let i = index">-->
-                            <!--{{termList}}-->
-                        <!--</option>-->
-                    <!--</select>-->
+<!--              <td class="col-md-1 text-center" >-->
+<!--                  &lt;!&ndash;<form [formGroup]="form">&ndash;&gt;-->
+<!--                    &lt;!&ndash;<div formArrayName="items" *ngFor="let item of form.get('items')['controls']; let i = index;">&ndash;&gt;-->
+<!--                      &lt;!&ndash;<div [formGroupName]="i">&ndash;&gt;-->
+<!--                  &lt;!&ndash;&lt;!&ndash;<p class="mt-4">{{plists.policy_term}}</p>&ndash;&gt;&ndash;&gt;-->
+<!--                <mat-form-field class="w-75">-->
+<!--                  <mat-select placeholder="Term List" (selectionChange)="lifeTermChange(plists, i)" [value]="plists.termDetrails" [(ngModel)]="plists.termDetrails" >-->
+<!--                    <mat-option   *ngFor="let termList of plists.term;let i = index"  [value]="termList">{{termList}}</mat-option>-->
+<!--                  </mat-select>-->
+<!--                </mat-form-field>-->
+<!--                      &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                  &lt;!&ndash;</form>&ndash;&gt;-->
+<!--                    &lt;!&ndash;<select>&ndash;&gt;-->
+<!--                        &lt;!&ndash;<option  *ngFor="let termList of plists.term;let i = index">&ndash;&gt;-->
+<!--                            &lt;!&ndash;{{termList}}&ndash;&gt;-->
+<!--                        &lt;!&ndash;</option>&ndash;&gt;-->
+<!--                    &lt;!&ndash;</select>&ndash;&gt;-->
+<!--              </td>-->
+
+  <td class="col-md-1 text-center" >
+
+<!--  <div class="col-md-4"  >-->
+    <mat-form-field class="w-75" >
+      <mat-select  placeholder="Term List"  [(ngModel)]="plists.termDetrails" (selectionChange)="lifeTermChange(plists, i)" [value]="plists.termDetrails">
+        <mat-option *ngFor="let termList of plists.term;let i = index " [value]= "termList"> {{termList}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+<!--  </div>-->
+
               </td>
               <td class="col-md-1 text-center">
                 <p class="mt-2">{{plists.premium_paying_termm}}</p>
