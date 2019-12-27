@@ -172,16 +172,21 @@ export class EditposComponent implements OnInit {
         );
     }
     getPosProfileSuccess(successData) {
+        console.log(successData.ResponseObject);
         if (successData.IsSuccess) {
             this.settings.loadingSpinner = false;
             this. profileedit = successData.ResponseObject;
+            console.log(this. profileedit, 'this. profileedit')
             this.posDataAvailable = true;
            // let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
             let date;
             date = this. profileedit.pos_dob.split('/');
+            console.log(date, 'date')
             date = date[2] + '-' + date[1] + '-' + date[0];
+            console.log(date, 'date')
             date = this.datepipe.transform(date, 'y-MM-dd');
-          //  let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
+            console.log(date, 'date')
+            //  let date = this.datepipe.transform(this.personal.pos_dob, 'y-MM-dd');
 
 
 
@@ -191,7 +196,7 @@ export class EditposComponent implements OnInit {
                 lastname: this. profileedit.pos_lastname,
                 birthday: date,
                 gender: this. profileedit.pos_gender,
-                    referralconduct: this. profileedit.pos_referral_code,
+                referralconduct: this. profileedit.pos_referral_code,
                 });
           this.contacts = this.fb.group({
                     email: this. profileedit.pos_email,
@@ -308,12 +313,12 @@ export class EditposComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
+
     readUrl(event: any, type) {
         this.type = type;
         this.size = event.srcElement.files[0].size;
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
-
             reader.onload = (event: any) => {
                 this.getUrl1 = [];
                 this.url = event.target.result;

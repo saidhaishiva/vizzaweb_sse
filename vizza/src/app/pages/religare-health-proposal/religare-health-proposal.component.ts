@@ -2078,7 +2078,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         }
     }
 
-    payLater(){
+    payLater() {
         const data = {
             'platform': 'web',
             'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID : this.proposalId.toString(),

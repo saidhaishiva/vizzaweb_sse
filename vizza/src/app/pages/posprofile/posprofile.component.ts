@@ -315,6 +315,7 @@ export class PosprofileComponent implements OnInit {
         this.posDataAvailable = true;
         if (successData.IsSuccess) {
             this.personal = successData.ResponseObject;
+            console.log(this.personal, 'this.personal')
             this.documentStatus = this.personal.doc_verified_status;
             this.auth.setSessionData('examStatus', this.personal.exam_status);
             this.auth.setSessionData('trainingStatus', this.personal.training_status);
@@ -322,6 +323,7 @@ export class PosprofileComponent implements OnInit {
             this.auth.setSessionData('posStatus', this.personal.pos_status);
             // edit
             this.personalshow = successData.ResponseObject;
+            console.log(this.personalshow, 'this.personalshow')
             let date;
             date = this.personalshow.pos_dob.split('/');
             date = date[2] + '-' + date[1] + '-' + date[0];
