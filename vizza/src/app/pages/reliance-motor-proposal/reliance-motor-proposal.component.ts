@@ -495,25 +495,25 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
   changeFuel(){
     this.coverDetails.controls['fuelTypeValue'].patchValue(this.fuelTypeList[this.coverDetails.controls['fuelType'].value]);
-    if(this.coverDetails.controls['fuelType'].value == 5){
-      // this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-      //
-      // this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
-      this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
-      this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
-    }else {
-      this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
-
-      this.coverDetails.controls['BiFuelKitSi'].patchValue('');
-      this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
-      // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
-
-      this.coverDetails.controls['bifueltype'].patchValue('');
-      this.coverDetails.controls['bifueltype'].setValidators(null);
-      // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
-    }
-    this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
-    this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+    // if(this.coverDetails.controls['fuelType'].value == 5){
+    //   // this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+    //   //
+    //   // this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
+    //   this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
+    //   this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
+    // }else {
+    //   this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+    //
+    //   this.coverDetails.controls['BiFuelKitSi'].patchValue('');
+    //   this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
+    //   // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+    //
+    //   this.coverDetails.controls['bifueltype'].patchValue('');
+    //   this.coverDetails.controls['bifueltype'].setValidators(null);
+    //   // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+    // }
+    // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+    // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
 
   }
   changeInsurer(){
