@@ -1038,12 +1038,12 @@ export class TravelHomeComponent implements OnInit {
 
             let travelPeroid = true;
             let travelPeroidValue = '';
-            if(this.travelUserType==true && days > 366) {
+            if(this.travelUserType==true && days >= 365) {
                 travelPeroid = false;
-                travelPeroidValue = '366';
+                travelPeroidValue = '365';
                 // alert(travelPeroidValue)
 
-            } else  if(this.travelUserType == false && days > 180) {
+            } else  if(this.travelUserType == false && days >= 180) {
                 travelPeroid = false;
                 travelPeroidValue = '180';
                 // alert(travelPeroidValue)
@@ -1132,7 +1132,7 @@ export class TravelHomeComponent implements OnInit {
             } else {
                 this.travelProceed = true;
                 // alert(travelPeroidValue)
-                this.toast.error('Travel Period should be Lesser than' +' '+ travelPeroidValue + ' ' + 'days');
+                this.toast.error('Travel Period should be Lesser than Or Equal to  ' +' '+ travelPeroidValue + ' ' + 'days');
             }
         } else {
             this.travelProceed = true;
