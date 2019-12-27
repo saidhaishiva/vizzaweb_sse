@@ -341,7 +341,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       aadhaarNo:'',
       ageProofIdName: '',
       fatherhusbandName: '',
-      motherMaidName: '',
+      // motherMaidName: '',
       ageProofId: ['', Validators.compose([Validators.required])],
       highestQualification: ['', Validators.compose([Validators.required])],
       highestQualificationName: '',
@@ -1041,7 +1041,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   typeAddressDeatils1() {
-    if (this.insureArray.controls['isCurrPerAddrSame'].value) {
+    if (this.insureArray.controls['sisCurrPerAddrSame'].value) {
           this.insureArray.controls['perAddr1'].setValue( this.insureArray.controls['currAddr1'].value),
           this.insureArray.controls['perAddr2'].setValue( this.insureArray.controls['currAddr2'].value),
           this.insureArray.controls['perAddr3'].setValue( this.insureArray.controls['currAddr3'].value),
@@ -1075,7 +1075,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['nationality'].patchValue(this.proposer.controls['nationality'].value),
           this.insureArray.controls['emailId'].patchValue(this.proposer.controls['emailId'].value),
           this.insureArray.controls['pan'].patchValue(this.proposer.controls['pan'].value),
-          this.insureArray.controls['motherMaidName'].patchValue(this.proposer.controls['motherMaidName'].value),
+          // this.insureArray.controls['motherMaidName'].patchValue(this.proposer.controls['motherMaidName'].value),
           this.insureArray.controls['aadhaarNo'].patchValue(this.proposer.controls['aadhaarNo'].value),
           this.insureArray.controls['fatherhusbandName'].patchValue(this.proposer.controls['fatherhusbandName'].value),
           this.insureArray.controls['ageProofId'].patchValue(this.proposer.controls['ageProofId'].value),
@@ -2752,6 +2752,22 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
+othrhighQualify2() {
+
+    if (this.insureArray.controls['shighestQualification'].value == '8') {
+      this.insureArray.controls['sotherQualification'].patchValue(this.insureArray.controls['sotherQualification'].value);
+
+      this.insureArray.controls['sotherQualification'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['sotherQualification'].patchValue('');
+
+      this.insureArray.controls['sotherQualification'].setValidators(null);
+
+    }
+    this.insureArray.controls['sotherQualification'].updateValueAndValidity();
+
+  }
+
   // employmentTypereq() {
   //
   //   if (this.proposer.controls['employementType'].value == '9') {
@@ -3738,7 +3754,7 @@ travelOutside(){
         "maritalStatus": this.insureArray.controls['maritalStatus'].value,
         "pan": this.insureArray.controls['pan'].value,
         "maidName":"",
-        "motherMaidName":this.insureArray.controls['motherMaidName'].value,
+        "motherMaidName":"",
         "FHName":this.insureArray.controls['fatherhusbandName'].value,
         "nationality":this.insureArray.controls['nationality'].value,
         "otherNationality":"",
@@ -4543,7 +4559,7 @@ travelOutside(){
           "maritalStatus": this.insureArray.controls['maritalStatus'].value,
           "pan": this.insureArray.controls['pan'].value,
           "maidName":"",
-          "motherMaidName":this.insureArray.controls['motherMaidName'].value,
+          "motherMaidName":"",
           "FHName":this.insureArray.controls['fatherhusbandName'].value,
           "nationality":this.insureArray.controls['nationality'].value,
           "otherNationality":"",
@@ -5787,7 +5803,7 @@ travelOutside(){
         nationality: this.getStepper1.nationality,
         emailId: this.getStepper1.emailId,
         pan: this.getStepper1.pan,
-        motherMaidName: this.getStepper1.motherMaidName,
+        // motherMaidName: this.getStepper1.motherMaidName,
         aadhaarNo: this.getStepper1.aadhaarNo,
         fatherhusbandName: this.getStepper1.fatherhusbandName,
         ageProofId: this.getStepper1.ageProofId,
