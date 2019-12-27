@@ -2276,28 +2276,28 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(error);
   }
   sumAssuredADBError(event:any) {
-    if (this.insureArray.controls['sumAssuredADB'].value > 10000 && this.insureArray.controls['sumAssuredADB'].value < 10000000) {
+    if (this.insureArray.controls['sumAssuredADB'].value >= 100000 && this.insureArray.controls['sumAssuredADB'].value <= 10000000) {
       this.adbError ='';
     } else {
-      this.adbError = 'SumAssured Accidental Death Benefit should be 10000 - 10000000';
+      this.adbError = 'SumAssured Accidental Death Benefit should be 100000 - 10000000';
     }
   }
   sumAssuredATPDError(event:any) {
-    if (this.insureArray.controls['sumAssuredATPD'].value > 100000 && this.insureArray.controls['sumAssuredATPD'].value < 10000000) {
+    if (this.insureArray.controls['sumAssuredATPD'].value >= 100000 && this.insureArray.controls['sumAssuredATPD'].value <= 10000000) {
       this.atpdError ='';
     } else {
       this.atpdError = 'SumAssured Accidental Total and Permanent Disability should be 100000 - 10000000';
     }
   }
   sumAssuredCiError(event:any) {
-    if (this.insureArray.controls['criticalsumAssured'].value > 100000 && this.insureArray.controls['criticalsumAssured'].value < 5000000) {
+    if (this.insureArray.controls['criticalsumAssured'].value >= 100000 && this.insureArray.controls['criticalsumAssured'].value <= 5000000) {
       this.ciError ='';
     } else {
       this.ciError = 'SumAssured Critical Illness should be 100000 - 5000000';
     }
   }
   sumAssuredHCBError(event:any) {
-    if (this.insureArray.controls['sumAssuredHCB'].value > 100000 && this.insureArray.controls['sumAssuredHCB'].value < 600000) {
+    if (this.insureArray.controls['sumAssuredHCB'].value >= 100000 && this.insureArray.controls['sumAssuredHCB'].value <= 600000) {
       this.hcbdError ='';
     } else {
       this.hcbdError = 'SumAssured Hospital Cash Benefit should be 100000 - 600000';
