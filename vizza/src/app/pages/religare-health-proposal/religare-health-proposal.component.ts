@@ -79,7 +79,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     public sumTitle: any;
     public sumPin: any;
     public code: any;
-    public sumAreaName: any;
+    public checkBoxError: any;
     public pos_status: any;
     public product_id: any;
     public requestInsuredDetails: any;
@@ -189,6 +189,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.hideQuestion = false;
         this.declaration = false;
         this.setAddonDefault = true;
+        this.checkBoxError = false;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -1365,25 +1366,62 @@ export class ReligareHealthProposalComponent implements OnInit {
     public religareQuestionsFailure(error) {
     }
     questionYes(id, event: any) {
+
+        // alert('id');
+        // alert(id);
         if (event.checked==true) {
             // alert('inn');
             this.religareQuestionsList[id].mStatus = 'Yes';
             this.religareQuestionsList[id].answer_status = true;
+            // alert('yes')
+            // alert(this.religareQuestionsList[id].mStatus);
+            // alert('yes1')
+            // alert(this.religareQuestionsList[id].answer_status);
         } else {
             this.religareQuestionsList[id].mStatus = 'No';
+            // alert('no')
+            // alert( this.religareQuestionsList[id].answer_status);
+
             this.religareQuestionsList[id].answer_status = false;
             for (let i = 0; i < this.religareQuestionsList.length; i++) {
+
                 for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+
                     for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
-                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
+
+                        // alert(this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status)
+                        this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+                        this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].dobError = '';
+                        this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
+                        this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status = false;
                     }
                 }
             }
         }
     }
+
+    changeToggle(){
+        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+            if(this.religareQuestionsList[i].mStatus == 'Yes'){
+                // alert('yes')
+                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+                    // for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                        //      alert('checkbox...')
+                        // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
+                        if (this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.status == true) {
+                             this.checkBoxError=true;
+                        }else{
+                            this.checkBoxError=false;
+                            this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+
+                        }
+                    }
+                }
+
+            }
+        }
+
+
 
     // medicalDetails(stepper: MatStepper){
     //     for (let i = 0; i < this.religareQuestionsList.length; i++) {
@@ -1424,34 +1462,53 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.medicalStatus = [];
         for (let i = 0; i < this.religareQuestionsList.length; i++) {
             if(this.religareQuestionsList[i].mStatus == 'No'){
+                // alert('religareQuestionsList No')
+                // alert(this.religareQuestionsList[i].mStatus)  //no  toggle
                 this.medicalStatus.push('No');
-            } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
-                // alert('yes...')
+                // alert(this.medicalStatus)  ///no,ye,no   taoggle
+
+            } else if(this.religareQuestionsList[i].mStatus == 'Yes') {   ///first one yes means satisfied this condition
+                // alert('religareQuestionsList')
+                // alert(this.religareQuestionsList[i].mStatus)
                 this.medicalStatus.push('Yes');
+                // alert(this.medicalStatus)
+
             }
             for (let i = 0; i < this.totalReligareData.length; i++) {
-                this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'
+                this.totalReligareData[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'//toggle length
+                // alert('medi')
+                // alert(this.totalReligareData[i].medical_status)
             }
             if (this.religareQuestionsList[i].answer_status == true) {
+                // alert('answer_status');
+                // alert(this.religareQuestionsList[i].answer_status)
                 for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
                     for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-
+                   //      alert('checkbox...')
+                   // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
                         if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
 
                             if (this.religareQuestionsList[i].sub_questions_list[j].question_details.question_description != '') {
                                 statusChecked.push(1);
+                                // alert('question_description')
+                                // alert(statusChecked)
                                 if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
                                     statusChecked.push(0);
+                                    // alert('existingSince')
+                                    // alert(statusChecked)
                                 }
                             } else {
                                 if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
                                     if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
                                         statusChecked.push(0);
+
                                     } else {
                                         statusChecked.push(1);
+
                                     }
                                 }  else {
                                     statusChecked.push(1);
+
                                 }
                             }
                         }
@@ -1460,25 +1517,34 @@ export class ReligareHealthProposalComponent implements OnInit {
                 if (statusChecked.length == 0){
                     statusChecked.push(2);
 
+
                 }
             } else {
                 if (i == this.religareQuestionsList.length - 1) {
                     statusChecked.push(1);
+
                 }
 
             }
         }
         if (statusChecked.includes(0)) {
+            // alert('include000')
+            // alert(statusChecked)
             this.toastr.error('Please fill the empty field');
         } else if (statusChecked.includes(2)) {
-            this.toastr.error('Please check atleast one checkbox!');
+            // alert('include22')
+            // alert(statusChecked)
+            this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
         } else {
-            console.log(statusChecked,'ghhh');
+            // console.log(statusChecked,'ghhh');
+            // alert(statusChecked)
+            if(this.checkBoxError==true){
             stepper.next();
             this.topScroll();
             this.nextStep();
             this.religareMobileTrue2 = false;
             this.religareMobileTrue3 = false;
+            }
         }
     }
     subStatus(value: any, i, k, j) {
@@ -1486,6 +1552,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         console.log(value,'value...')
 
         if (value.checked) {
+
         } else {
             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
             this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';

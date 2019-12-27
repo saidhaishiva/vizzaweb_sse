@@ -302,7 +302,7 @@
                       <div class="row">
                         <h6 class="color-blue ml-3">HOME BURGLARY DETAILS</h6>
                         <div class="text-right w-50">
-                          <mat-checkbox formControlName="sameasBurglary" (selectionChange)="sameBurglaryAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                          <mat-checkbox formControlName="sameasBurglary" (change)="sameBurglaryAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                         </div>
                       </div>
                       <div class="row">
@@ -482,7 +482,7 @@
                       <div class="row">
                         <h6 class="color-blue ml-3">SPONSOR DETAILS</h6>
                         <div class="text-right w-50">
-                          <mat-checkbox formControlName="sameasSponsor" (selectionChange)="sameSponsorAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                          <mat-checkbox formControlName="sameasSponsor" (change)="sameSponsorAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                         </div>
                       </div>
                       <div class="row">
@@ -641,7 +641,7 @@
                         <h6 class="color-blue ml-3">DOCTOR DETAILS</h6>
                         <div class="text-left pl-3 w-100">
                           <p>Is Doctor Details</p>
-                          <mat-radio-group formControlName="IsDoctorDetails" (selectionChange)="underDoctorDetail($event)">
+                          <mat-radio-group formControlName="IsDoctorDetails" (change)="underDoctorDetail($event)">
                             <mat-radio-button value="true">Yes</mat-radio-button>
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
@@ -891,7 +891,7 @@
                             <div class="row">
                               <div class="col-md-3">
                                 <p>Is Under Medication</p>
-                                <mat-radio-group formControlName="IsUnderMedication" (selectionChange)="underMedication(i)">
+                                <mat-radio-group formControlName="IsUnderMedication" (change)="underMedication(i)">
                                   <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                                   <mat-radio-button value="false">No</mat-radio-button>
                                 </mat-radio-group>

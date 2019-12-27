@@ -357,11 +357,11 @@ export class EdelweissTermLifeComponent implements OnInit {
       sdob: '',
       // semailId: '',
       // smobileNo: '',
-      snationality: '',
+      // snationality: '',
       semailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       sppan: ['', Validators.compose([Validators.minLength(10)])],
       saadhaarNo:'',
-      sageProofIdName: '',
+      // sageProofIdName: '',
       sfatherhusbandName: '',
       smotherMaidName: '',
       sageProofId: '',
@@ -419,10 +419,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       // taxResidence: ['', Validators.compose([Validators.required])],
       isPoliticallyExposed: false,
       specification: '',
-      Cover:'',
-      ageTillCoverd: '',
-      premiumPay: '',
-      modeOfPremium: '',
+      Cover:['', Validators.compose([Validators.required])],
+      ageTillCoverd: ['40', Validators.compose([Validators.required])],
+      premiumPay: ['2', Validators.compose([Validators.required])],
+      modeOfPremium: ['', Validators.compose([Validators.required])],
       isCriminal: 'No',
       criminalDetails: '',
       identityProof: ['', Validators.compose([Validators.required])],
@@ -456,14 +456,14 @@ export class EdelweissTermLifeComponent implements OnInit {
       betterHalfsumAssured: '',
       waiverOfPremiumBenefit: 'No',
       DSumAssured: 'No',
-      criticalIllness: 'Yes',
-      criticalClaim: 'Yes',
+      criticalIllness: 'No',
+      criticalClaim: 'No',
       criticalsumAssured: '',
-      isADB: 'Yes',
+      isADB: 'No',
       sumAssuredADB: '',
-      isATPD: 'Yes',
+      isATPD: 'No',
       sumAssuredATPD: '',
-      isHCB: 'Yes',
+      isHCB: 'No',
       sumAssuredHCB: '',
       payoutOption: '',
         // DSA:'No',
@@ -738,6 +738,9 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['title'].patchValue('2');
     }
     this.insureArray.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
+    this.insureArray.controls['modeOfPremium'].patchValue(this.enquiryFromDetials.lifePayment);
+    console.log(this.enquiryFromDetials.lifePayment,'lifepayment');
+    console.log(this.insureArray.controls['modeOfPremium'].value,'lifepayment');
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
 
   }
@@ -1004,6 +1007,24 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['perCity'].patchValue(''),
           this.insureArray.controls['perPincode'].patchValue(''),
           this.insureArray.controls['perState'].patchValue('')
+    }
+  }
+  sameAddress2() {
+    if (this.insureArray.controls['sisCurrPerAddrSame'].value == true) {
+      this.insureArray.controls['sperAddr1'].patchValue( this.insureArray.controls['scurrAddr1'].value),
+          this.insureArray.controls['sperAddr2'].patchValue( this.insureArray.controls['scurrAddr2'].value),
+          this.insureArray.controls['sperAddr3'].patchValue( this.insureArray.controls['scurrAddr3'].value),
+          this.insureArray.controls['sperCity'].patchValue( this.insureArray.controls['scurrCity'].value),
+          this.insureArray.controls['sperPincode'].patchValue( this.insureArray.controls['scurrPincode'].value),
+          this.insureArray.controls['sperState'].patchValue( this.insureArray.controls['scurrState'].value)
+      console.log(this.insureArray.controls['sperCity'].value, 'ghghghj');
+    } else {
+      this.insureArray.controls['sperAddr1'].patchValue(''),
+          this.insureArray.controls['sperAddr2'].patchValue(''),
+          this.insureArray.controls['sperAddr3'].patchValue(''),
+          this.insureArray.controls['sperCity'].patchValue(''),
+          this.insureArray.controls['sperPincode'].patchValue(''),
+          this.insureArray.controls['sperState'].patchValue('')
     }
   }
 
@@ -4318,6 +4339,7 @@ travelOutside(){
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       'agetillcovered':this.insureArray.controls['ageTillCoverd'].value,
+      'age':sessionStorage.proposerAge,
     }
     console.log(this.insureArray.controls['ageTillCoverd'].value,'ageeeeee')
 

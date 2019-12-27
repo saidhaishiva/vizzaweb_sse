@@ -851,7 +851,7 @@
                            </div>
                            <div class="col-md-4">
                                <mat-form-field class="w-100">
-                                   <mat-select  placeholder="Change in weight past 6 months" formControlName="hasWeightChanged" (selectionChange)="geteWeightChanged()"  class="w-100">
+                                   <mat-select  placeholder="Change in weight past 6 months" formControlName="hasWeightChanged" (selectionChange)="geteWeightChanged();edelweissPrimium()"  class="w-100">
                                        <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
                                    </mat-select>
                                    <!--<mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>-->
@@ -888,31 +888,36 @@
                                <div class="col-md-4 " >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Cover</mat-placeholder>
-                                       <input matInput  formControlName="Cover"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="15" >
+                                       <input matInput  formControlName="Cover"  required  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="15" >
+                                       <mat-error *ngIf="insureArray.controls.Cover.errors?.required">Cover is required</mat-error>
                                    </mat-form-field>
                                </div>
-                               <div class="col-md-4 " >
+                               <div class="col-md-4">
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Age Till Covered</mat-placeholder>
-                                       <mat-select  formControlName="ageTillCoverd"  (selectionChange)="ageTillcoverd();premiumPaymentTerm()">
+                                       <mat-select  formControlName="ageTillCoverd"  (selectionChange)="ageTillcoverd();premiumPaymentTerm()" required>
                                            <mat-option *ngFor="let list of ageTill | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                        </mat-select>
+                                       <mat-error *ngIf="insureArray.controls.ageTillCoverd.errors?.required">Age Till Covered is required</mat-error>
                                    </mat-form-field>
                                </div>
                                <div class="col-md-4 "  >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Premium Payment Term</mat-placeholder >
-                                       <mat-select  formControlName="premiumPay"   (selectionChange)="premiumPaymentTerm();edelweissPrimium()">
+                                       <mat-select  formControlName="premiumPay"   (selectionChange)="premiumPaymentTerm()" required>
                                            <mat-option *ngFor="let list of premiumPayment | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                        </mat-select>
+                                       <mat-error *ngIf="insureArray.controls.premiumPay.errors?.required">Premium Payment Term is required</mat-error>
+
                                    </mat-form-field>
                                </div>
                                 <div class="col-md-4 " >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Mode Of Premium</mat-placeholder >
-                                       <mat-select  formControlName="modeOfPremium"  >
+                                       <mat-select  formControlName="modeOfPremium"  (selectionChange)="edelweissPrimium()" required>
                                            <mat-option *ngFor="let list of frequencyList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                        </mat-select>
+                                       <mat-error *ngIf="insureArray.controls.modeOfPremium.errors?.required">Mode Of Premium is required</mat-error>
                                    </mat-form-field>
                                </div>
 
@@ -1121,7 +1126,7 @@
                                            <div class="row p-1" [ngStyle]="{'pointer-events': this.insureArray.controls['sisCurrPerAddrSame'].value ? 'none' : ''}">
                                                <h6 class="color-blue ">PERMANENT ADDRESS</h6>
                                                <div class="text-right w-50">
-                                                   <mat-checkbox formControlName="sisCurrPerAddrSame" (change)="sameAddress1()" ><strong>Same as Communication</strong></mat-checkbox>
+                                                   <mat-checkbox formControlName="sisCurrPerAddrSame" (change)="sameAddress2()" ><strong>Same as Communication</strong></mat-checkbox>
                                                </div>
                                            </div>
                                            <div class="row">
@@ -1299,8 +1304,10 @@
                                <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isADB'].value == 'Yes'" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (selectionChange)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                    </mat-form-field>
+                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
+
                                    <div class="error" *ngIf="adbError != ''">{{adbError}}</div>
                                </div>
                                <div class="col-md-4">
@@ -1313,8 +1320,9 @@
                                <div class="col-md-4 mt-2 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (selectionChange)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
+                                       <input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (change)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                    </mat-form-field>
+                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
                                    <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>
                                </div>
                                <div class="col-md-4">
@@ -1327,9 +1335,10 @@
                                <div class="col-md-4 mt-2" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                               <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (selectionChange)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                               <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                </mat-form-field>
-                               <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
+                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000  Max: 50,00,000</p></div>
+                                   <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
                                </div>
                                <div class="col-md-4" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'">
                                    <mat-radio-group formControlName="criticalClaim"  >
@@ -1347,8 +1356,9 @@
                                <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (selectionChange)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
+                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                    </mat-form-field>
+                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 6,00,000</p></div>
                                    <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
                                </div>
                                <!--<div class="col-md-4">-->

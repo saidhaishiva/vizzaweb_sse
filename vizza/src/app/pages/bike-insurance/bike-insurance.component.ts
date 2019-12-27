@@ -92,6 +92,7 @@ export class BikeInsuranceComponent implements OnInit {
     public CompanyValid: any;
     public ClaimValid: any;
     public previousCompanyValid: boolean;
+    public previousStartError: any;
 
     constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder,  public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public bikeService: BikeInsuranceService,  public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
         this.settings = this.appSettings.settings;
@@ -108,6 +109,7 @@ export class BikeInsuranceComponent implements OnInit {
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.listDetails = false;
+        this.previousStartError = false;
         this.config = {
             displayKey: "city", //if objects array passed which key to be displayed defaults to description
             search: true,
@@ -437,6 +439,16 @@ export class BikeInsuranceComponent implements OnInit {
         }
     }
 
+    previousStart(event:any){
+        if(this.bikeInsurance.controls['previousPolicyStart'].value >= this.bikeInsurance.controls['registrationDate'].value ){
+            this.previousStartError=false;
+            this.previousStartError='';
+        }else{
+            this.previousStartError=true;
+            this.previousStartError='previous policy start Date should be greater than register Date';
+        }
+    }
+
 
     addstart(event) {
         if (event.value != null) {
@@ -446,12 +458,14 @@ export class BikeInsuranceComponent implements OnInit {
             if (typeof event.value._i == 'string') {
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.dobStartError = '';
-                } else {
+                }
+                else {
                     this.dobStartError = 'Enter Valid Date';
                 }
 
             }
         }
+
     }
 
     addend(event) {
@@ -574,7 +588,7 @@ export class BikeInsuranceComponent implements OnInit {
         console.log(this.bikeInsurance,'bikegroup');
 
         console.log(this.bikeInsurance.valid,'valuevalid');
-        if(this.bikeInsurance.valid && (this.CityValid==false && this.CompanyValid==false && this.ClaimValid==false)) {
+        if(this.bikeInsurance.valid && (this.CityValid==false && this.CompanyValid==false && this.ClaimValid==false&&this.previousStartError==false)) {
 
             this.bikeService.getMotorHomeDetails(data).subscribe(
                 (successData) => {

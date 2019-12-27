@@ -33,7 +33,7 @@
     </div>
      <div class="col-md-3 mt-3" *ngIf="vehicalDetails.controls['bussiness'].value != '1' && vehicalDetails.controls['bussiness'].value != ''">
        <mat-form-field class="w-100">
-         <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"   (dateInput)="ageCalculateInsurer($event)"  (dateChange)="ageCalculateInsurer($event)"  maxlength="10" minlength="10" required>
+         <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [min]="vehicalDetails.controls['previousPolicyStart'].value" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"   (dateInput)="ageCalculateInsurer($event)"  (dateChange)="ageCalculateInsurer($event)"  maxlength="10" minlength="10" required>
            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
            <mat-datepicker #picker3></mat-datepicker>
            <mat-error *ngIf="vehicalDetails.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
@@ -57,14 +57,14 @@
     <div class="col-md-3 mt-3">
       <mat-form-field class="w-100">
         <!--<input matInput placeholder="Chassis Number" class="text-uppercase" formControlName="chasissNumber" pattern="\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*" maxlength= "25" (keypress)="idValidate($event)" required>-->
-        <input matInput placeholder="Chassis Number" class="text-uppercase" formControlName="chasissNumber"  maxlength= "25" (keypress)="idValidate($event)" required>
+        <input matInput placeholder="Chassis Number" class="text-uppercase" formControlName="chasissNumber"  minlength="5"  maxlength= "25" (keypress)="idValidate($event)" required>
         <mat-error *ngIf="vehicalDetails.controls.chasissNumber.errors?.required">Chassis number is required</mat-error>
         <!--<mat-error *ngIf="vehicalDetails.controls.chasissNumber.hasError('pattern')">Vehicle No containing at least one number and letter</mat-error>-->
       </mat-form-field>
     </div>
     <div class="col-md-3 mt-3">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Engine number " class="text-uppercase" formControlName="engine"  maxlength= "25"  (keypress)="idValidate($event)" (input)="manifactureList()" required>
+        <input matInput placeholder="Engine number " class="text-uppercase" formControlName="engine" minlength="5"  maxlength= "25"  (keypress)="idValidate($event)" (input)="manifactureList()" required>
         <mat-error *ngIf="vehicalDetails.controls.engine.errors?.required">Engine number is required</mat-error>
         <!--<mat-error *ngIf="vehicalDetails.controls.engine.hasError('pattern')">Vehicle No containing at least one number and letter</mat-error>-->
       </mat-form-field>

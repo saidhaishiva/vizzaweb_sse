@@ -81,6 +81,7 @@ export class TravelHomeComponent implements OnInit {
     endDateError: any;
     today: any;
     daysCount: any;
+    multipleTripe: any;
 
     selectedAmountTravel: any;
     travelType: any;
@@ -142,6 +143,7 @@ export class TravelHomeComponent implements OnInit {
         this.showFamily = false;
         this.showGroup = false;
         this.showstudent = false;
+        this.multipleTripe = false;
         this.selfDetails();
         this.familyDetails();
         // this.studentDetails();
@@ -169,6 +171,38 @@ export class TravelHomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        sessionStorage.selfArray = '';
+        sessionStorage.familyArray = '';
+        sessionStorage.studentArray = '';
+        sessionStorage.selectedAmountTravel = '';
+        sessionStorage.Child3BTn = '';
+        sessionStorage.FatherBTn = '';
+        sessionStorage.Member6BTn = '';
+        sessionStorage.Member7BTn = '';
+        sessionStorage.Member8BTn = '';
+        sessionStorage.Member9BTn = '';
+        sessionStorage.Member10BTn = '';
+        sessionStorage.Student5BTn = '';
+        sessionStorage.Student6BTn = '';
+        sessionStorage.Student7BTn = '';
+        sessionStorage.Student8BTn = '';
+        sessionStorage.Student9BTn = '';
+        sessionStorage.Student10BTn = '';
+        sessionStorage.startDate = '';
+        sessionStorage.endDate = '';
+        sessionStorage.travelType = '';
+        sessionStorage.travelPlan = '';
+        sessionStorage.duration = '';
+        sessionStorage.medicalCondition = '';
+        sessionStorage.allTravelPremiumLists = '';
+        sessionStorage.travelPremiumList = '';
+        sessionStorage.stepper1DetailsForTravel = '';
+        sessionStorage.stepper2DetailsForTravel = '';
+        sessionStorage.proposerAgeForTravel = '';
+        sessionStorage.mobileNumberForTravel = '';
+        sessionStorage.daysCount = '';
+        sessionStorage.pincode = '';
+        sessionStorage.travelUserType = '';
         // clear session for list page
         sessionStorage.enquiryDetailsTravel = '';
         sessionStorage.filterCompany = '';
@@ -408,10 +442,21 @@ export class TravelHomeComponent implements OnInit {
     public contryFailure(error) {
         console.log(error);
     }
-    onSelectedIndexChange(event){
+
+    onSelectedIndexChange(event) {
         console.log(event, 'value');
         this.currentTab = '';
         if (event == 0) {
+            this.selectedAmountTravel='';
+            this.startDate='';
+            this.endDate='';
+            this.daysCount='';
+            this.travelPlan='';
+            this.travelType='';
+            this.duration='';
+            this.medicalCondition='';
+            this.pincode='';
+
             this.currentTab = 'self';
             this.selfDetails();
             this.showSelf = true;
@@ -419,6 +464,16 @@ export class TravelHomeComponent implements OnInit {
             this.showGroup = false;
             this.showstudent = false;
         } else if (event == 1) {
+            this.selectedAmountTravel='';
+            this.startDate='';
+            this.endDate='';
+            this.daysCount='';
+            this.travelPlan='';
+            this.travelType='';
+            this.duration='';
+            this.medicalCondition='';
+            this.pincode='';
+
             this.currentTab = 'family';
             this.familyDetails();
             this.showSelf = false;
@@ -428,6 +483,92 @@ export class TravelHomeComponent implements OnInit {
             this.travelUserType = false;
             console.log(this.travelPlan, 'travelPlantravelPlan');
         }
+    //     console.log(event, 'value');
+    //     this.typeList = '';
+    //     if (event == 0) {
+    //         this.typeList = 'new'
+    //         // alert(this.typeList)
+    //         this.bikeInsurance.controls['registrationDateNew'].setValidators([Validators.required]);
+    //         this.bikeInsurance.controls['companyNameNew'].setValidators([Validators.required]);
+    //         this.bikeInsurance.controls['city'].setValidators([Validators.required]);
+    //         this.dobError = false;
+    //
+    //         this.bikeInsurance.controls['companyNameRenewel'].setValidators(null);
+    //         this.bikeInsurance.controls['companyNameRenewel'].patchValue('');
+    //
+    //         this.bikeInsurance.controls['previousPolicyExpiry'].setValidators(null);
+    //         this.bikeInsurance.controls['previousPolicyExpiry'].patchValue('');
+    //
+    //         this.bikeInsurance.controls['previousPolicyStart'].setValidators(null);
+    //         this.bikeInsurance.controls['previousPolicyStart'].patchValue('');
+    //
+    //
+    //         this.bikeInsurance.controls['registrationDate'].setValidators(null);
+    //         this.bikeInsurance.controls['registrationDate'].patchValue('');
+    //
+    //         this.bikeInsurance.controls['previousCompany'].setValidators(null);
+    //         this.bikeInsurance.controls['previousCompany'].patchValue('');
+    //
+    //         this.bikeInsurance.controls['vehicalNumber'].setValidators(null);
+    //         this.bikeInsurance.controls['vehicalNumber'].patchValue('');
+    //
+    //
+    //         this.bikeInsurance.controls['previousClaim'].setValidators(null);
+    //         this.bikeInsurance.controls['previousClaim'].patchValue('');
+    //
+    //
+    //     } else if (event == 1) {
+    //         this.typeList = 'other'
+    //         // alert(this.typeList)
+    //         this.bikeInsurance.controls['registrationDate'].setValidators([Validators.required]);
+    //         this.bikeInsurance.controls['companyNameRenewel'].setValidators([Validators.required]);
+    //         this.bikeInsurance.controls['previousPolicyExpiry'].setValidators([Validators.required]);
+    //         this.bikeInsurance.controls['previousPolicyStart'].setValidators([Validators.required]);
+    //         this.bikeInsurance.controls['vehicalNumber'].setValidators(Validators.compose([Validators.minLength(9), Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
+    //         this.bikeInsurance.controls['previousCompany'].setValidators([Validators.required]);
+    //         this.bikeInsurance.controls['previousClaim'].setValidators([Validators.required]);
+    //
+    //         this.bikeInsurance.controls['registrationDateNew'].setValidators(null);
+    //         this.bikeInsurance.controls['companyNameNew'].setValidators(null);
+    //         this.bikeInsurance.controls['city'].setValidators(null);
+    //         this.bikeInsurance.controls['registrationDateNew'].patchValue('');
+    //         this.bikeInsurance.controls['companyNameNew'].patchValue('');
+    //         this.bikeInsurance.controls['city'].patchValue('');
+    //         this.dobError = ''
+    //     }
+    //     this.bikeInsurance.controls['registrationDateNew'].updateValueAndValidity();
+    //     this.bikeInsurance.controls['companyNameNew'].updateValueAndValidity();
+    //     this.bikeInsurance.controls['city'].updateValueAndValidity();
+    //
+    //     this.bikeInsurance.controls['registrationDate'].updateValueAndValidity();
+    //     this.bikeInsurance.controls['companyNameRenewel'].updateValueAndValidity();
+    //     this.bikeInsurance.controls['previousPolicyExpiry'].updateValueAndValidity();
+    //     this.bikeInsurance.controls['previousPolicyStart'].updateValueAndValidity();
+    //     this.bikeInsurance.controls['vehicalNumber'].updateValueAndValidity();
+    //     this.bikeInsurance.controls['previousCompany'].updateValueAndValidity();
+    //     this.bikeInsurance.controls['previousClaim'].updateValueAndValidity();
+    }
+
+    // onSelectedIndexChange(event){
+    //     console.log(event, 'value');
+    //     this.currentTab = '';
+    //     if (event == 0) {
+    //         this.currentTab = 'self';
+    //         this.selfDetails();
+    //         this.showSelf = true;
+    //         this.showFamily = false;
+    //         this.showGroup = false;
+    //         this.showstudent = false;
+    //     } else if (event == 1) {
+    //         this.currentTab = 'family';
+    //         this.familyDetails();
+    //         this.showSelf = false;
+    //         this.showFamily = true;
+    //         this.showGroup = false;
+    //         this.showstudent = false;
+    //         this.travelUserType = false;
+    //         console.log(this.travelPlan, 'travelPlantravelPlan');
+    //     }
         // else if (event == 2) {
         //     this.currentTab = 'group';
         //     this.groupDetails();
@@ -446,7 +587,18 @@ export class TravelHomeComponent implements OnInit {
         //     this.travelPlan = '';
         //     this.medicalCondition = '';
         // }
+    changeType(){
+        if(this.travelType=='Multi'){
+           if(this.daysCount == 365 || this.daysCount == 366) {
+            this.multipleTripe==true
+           }else if( this.daysCount != 365 || this.daysCount != 366){
+            this.multipleTripe==false
+
+            this.toast.error('Travel Period should be 365 Days or 366 Days');
+        }
+        }
     }
+
     ckeckedUser(index, checked, name) {
         console.log(this.currentTab, 'this.currentTab');
 
@@ -729,6 +881,7 @@ export class TravelHomeComponent implements OnInit {
             sessionStorage.endDate = this.endDate;
             let days = this.dyasCalculation();
             this.daysCount = days;
+            // alert(this.daysCount)
             sessionStorage.daysCount = days;
 
             console.log(days, 'daysdays');
@@ -737,6 +890,7 @@ export class TravelHomeComponent implements OnInit {
     }
 
     submit(groupname) {
+        // if( this.multipleTripe==true){}
         console.log(groupname, 'groupname');
         this.medicalerror = true;
         this.travelProceed = false;
@@ -871,23 +1025,32 @@ export class TravelHomeComponent implements OnInit {
             }
         }
         console.log(this.pinerror, 'this.pinerror');
-        if (this.pinerror == false && !memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60) {
+        if (this.pinerror == false && !memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60 &&this.travelType!='Multi' ) {
             sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();
             console.log(days, 'days');
 
+            // if((this.travelType=='Holiday')||(this.travelType=='Business')){
+            //         this.daysCount == 180 ;
+            //     }
+
             let travelPeroid = true;
             let travelPeroidValue = '';
-            if(this.travelUserType && days > 366) {
+            if(this.travelUserType==true && days > 366) {
                 travelPeroid = false;
                 travelPeroidValue = '366';
+                // alert(travelPeroidValue)
+
             } else  if(this.travelUserType == false && days > 180) {
                 travelPeroid = false;
                 travelPeroidValue = '180';
+                // alert(travelPeroidValue)
+
             }
             if (travelPeroid) {
+
 
                 let isStudentAgeValid = true;
                 let isMulititripAgeValid = true;
@@ -917,7 +1080,6 @@ export class TravelHomeComponent implements OnInit {
                     if (groupname == 'family' && getFiledData.length < 2) {
                         familyCountValid = false;
                     }
-                    console.log('as');
                     if (familyCountValid) {
                         const data = {
                             'platform': 'web',
@@ -945,8 +1107,10 @@ export class TravelHomeComponent implements OnInit {
                         } else {
                             data.travel_plan_type = this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType;
                         }
+                        // if(this.multipleTripe==true){
                         this.settings.loadingSpinner = true;
                         console.log(data, 'this.datadata');
+
                         this.travel.getEnquiryDetails(data).subscribe(
                             (successData) => {
                                 this.getTravelPremiumCalSuccess(successData);
@@ -955,6 +1119,9 @@ export class TravelHomeComponent implements OnInit {
                                 this.getTravelPremiumCalFailure(error);
                             }
                         );
+                        // }else{
+                        //     this.toast.error('Travel Period should be 365 Days or 366 Days');
+                        // }
                     } else {
                         this.travelProceed = true;
                         this.toast.error('Please select minimum two members');
@@ -964,10 +1131,57 @@ export class TravelHomeComponent implements OnInit {
                 }
             } else {
                 this.travelProceed = true;
-                this.toast.error('Travel period shoud not be greater than' +' '+ travelPeroidValue + ' ' + 'days');
+                // alert(travelPeroidValue)
+                this.toast.error('Travel Period should be Lesser than' +' '+ travelPeroidValue + ' ' + 'days');
             }
         } else {
             this.travelProceed = true;
+            if(this.travelType=='Multi'){
+                if(this.daysCount == 365 || this.daysCount == 366) {
+                    this.multipleTripe==true
+                    sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
+                    let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
+                    let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
+                    let days = this.dyasCalculation();
+                    console.log(days, 'days');
+                    const data = {
+                        'platform': 'web',
+                        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                        'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
+                        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+                        'sum_insured_id': this.selectedAmountTravel,
+                        'sum_insured_amount': sum_amount,
+                        'family_members': this.finalData,
+                        'travel_place': this.travelPlan,
+                        'travel_plan_type': this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType,
+                        'enquiry_id': '',
+                        'start_date': sDate,
+                        'end_date': eDate,
+                        'day_count': days,
+                        'pincode': this.pincode,
+                        'duration': this.duration ? this.duration : '',
+                        'travel_user_type': this.travelUserType ? 'student' : groupname,
+                        'medical_condition': this.medicalCondition,
+                        'course_duration': this.travelUserType ? this.courseDuration : '',
+                        'semester': this.travelUserType ? this.sem : ''
+                    };
+                    this.settings.loadingSpinner = true;
+                    console.log(data, 'this.datadata');
+
+                    this.travel.getEnquiryDetails(data).subscribe(
+                        (successData) => {
+                            this.getTravelPremiumCalSuccess(successData);
+                        },
+                        (error) => {
+                            this.getTravelPremiumCalFailure(error);
+                        }
+                    );
+                }else if( this.daysCount != 365 || this.daysCount != 366){
+                    this.multipleTripe==false
+
+                    this.toast.error('Travel Period should be 365 Days or 366 Days');
+                }
+            }
         }
 
     }
