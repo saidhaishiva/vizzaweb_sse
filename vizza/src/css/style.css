@@ -695,6 +695,9 @@ a:hover {
   .summary-details li strong {
     width: 150px;
     float: left; }
+.summary-details1 li strong {
+  width: 150px;
+  }
 .summary-details .summary-head {
   display: flex;
   justify-content: flex-end;
