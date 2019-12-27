@@ -1025,7 +1025,7 @@ export class TravelHomeComponent implements OnInit {
             }
         }
         console.log(this.pinerror, 'this.pinerror');
-        if (this.pinerror == false && !memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60 ) {
+        if (this.pinerror == false && !memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60 &&this.travelType!='Multi' ) {
             sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
@@ -1107,7 +1107,7 @@ export class TravelHomeComponent implements OnInit {
                         } else {
                             data.travel_plan_type = this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType;
                         }
-                        if(this.multipleTripe==true){
+                        // if(this.multipleTripe==true){
                         this.settings.loadingSpinner = true;
                         console.log(data, 'this.datadata');
 
@@ -1119,9 +1119,9 @@ export class TravelHomeComponent implements OnInit {
                                 this.getTravelPremiumCalFailure(error);
                             }
                         );
-                        }else{
-                            this.toast.error('Travel Period should be 365 Days or 366 Days');
-                        }
+                        // }else{
+                        //     this.toast.error('Travel Period should be 365 Days or 366 Days');
+                        // }
                     } else {
                         this.travelProceed = true;
                         this.toast.error('Please select minimum two members');
@@ -1136,6 +1136,52 @@ export class TravelHomeComponent implements OnInit {
             }
         } else {
             this.travelProceed = true;
+            if(this.travelType=='Multi'){
+                if(this.daysCount == 365 || this.daysCount == 366) {
+                    this.multipleTripe==true
+                    sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
+                    let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
+                    let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
+                    let days = this.dyasCalculation();
+                    console.log(days, 'days');
+                    const data = {
+                        'platform': 'web',
+                        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                        'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
+                        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+                        'sum_insured_id': this.selectedAmountTravel,
+                        'sum_insured_amount': sum_amount,
+                        'family_members': this.finalData,
+                        'travel_place': this.travelPlan,
+                        'travel_plan_type': this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType,
+                        'enquiry_id': '',
+                        'start_date': sDate,
+                        'end_date': eDate,
+                        'day_count': days,
+                        'pincode': this.pincode,
+                        'duration': this.duration ? this.duration : '',
+                        'travel_user_type': this.travelUserType ? 'student' : groupname,
+                        'medical_condition': this.medicalCondition,
+                        'course_duration': this.travelUserType ? this.courseDuration : '',
+                        'semester': this.travelUserType ? this.sem : ''
+                    };
+                    this.settings.loadingSpinner = true;
+                    console.log(data, 'this.datadata');
+
+                    this.travel.getEnquiryDetails(data).subscribe(
+                        (successData) => {
+                            this.getTravelPremiumCalSuccess(successData);
+                        },
+                        (error) => {
+                            this.getTravelPremiumCalFailure(error);
+                        }
+                    );
+                }else if( this.daysCount != 365 || this.daysCount != 366){
+                    this.multipleTripe==false
+
+                    this.toast.error('Travel Period should be 365 Days or 366 Days');
+                }
+            }
         }
 
     }
