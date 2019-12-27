@@ -1304,7 +1304,7 @@
                                <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isADB'].value == 'Yes'" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (selectionChange)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                    </mat-form-field>
                                    <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
 
@@ -1320,7 +1320,7 @@
                                <div class="col-md-4 mt-2 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (selectionChange)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
+                                       <input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (change)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                    </mat-form-field>
                                    <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
                                    <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>
@@ -1335,7 +1335,7 @@
                                <div class="col-md-4 mt-2" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                               <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (selectionChange)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                               <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                </mat-form-field>
                                    <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000  Max: 50,00,000</p></div>
                                    <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
@@ -1356,7 +1356,7 @@
                                <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (selectionChange)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
+                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                    </mat-form-field>
                                    <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 6,00,000</p></div>
                                    <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
