@@ -738,7 +738,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['title'].patchValue('2');
     }
     this.insureArray.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
-    this.insureArray.controls['modeOfPremium'].patchValue(this.enquiryFromDetials.lifePayment);
+    this.insureArray.controls['modeOfPremium'].patchValue(this.enquiryFromDetials.payment_mode);
     console.log(this.enquiryFromDetials.lifePayment,'lifepayment');
     console.log(this.insureArray.controls['modeOfPremium'].value,'lifepayment');
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');

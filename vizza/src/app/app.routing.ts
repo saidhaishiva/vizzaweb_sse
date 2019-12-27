@@ -264,6 +264,7 @@ export const routes: Routes = [
             { path: 'erection', component: ErectionComponent, data: {breadcrumb: 'Erection All rick Policy'}},
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
             { path: 'star-proposal/:stepper', component: StarHealthProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
+            { path: 'star-proposal/:accordion', component: StarHealthProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
             { path: 'proposal/:proposalId/:stepper', component: StarHealthProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
             { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' }, resolve: { companyDetails: HealthInsuranceResolver}},
             { path: 'health', component: HealthComponent, data: { breadcrumb: 'Health Form' }},
