@@ -63,7 +63,7 @@
                       </mat-form-field></div>
                         <div class="col-md-3" >
                             <mat-form-field class="w-100" >
-                                <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationCode" (selectionChange)="setinsureOccupationListCode(); changeOccupation()"   required>
+                                <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationCode" (selectionChange)="setinsureOccupationListCode();changeOccupation()"   required>
                                     <mat-option *ngFor="let occupation of occupationCode | keys" value="{{occupation.key}}">{{occupation.value}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredOccupationCode.errors?.required">Occupation is required</mat-error>

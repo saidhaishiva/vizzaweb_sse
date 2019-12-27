@@ -1365,23 +1365,17 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
     public religareQuestionsFailure(error) {
     }
+
+
     questionYes(id, event: any) {
 
-        // alert('id');
-        // alert(id);
         if (event.checked==true) {
             // alert('inn');
             this.religareQuestionsList[id].mStatus = 'Yes';
             this.religareQuestionsList[id].answer_status = true;
-            // alert('yes')
-            // alert(this.religareQuestionsList[id].mStatus);
-            // alert('yes1')
-            // alert(this.religareQuestionsList[id].answer_status);
+
         } else {
             this.religareQuestionsList[id].mStatus = 'No';
-            // alert('no')
-            // alert( this.religareQuestionsList[id].answer_status);
-
             this.religareQuestionsList[id].answer_status = false;
             for (let i = 0; i < this.religareQuestionsList.length; i++) {
 
@@ -1399,27 +1393,83 @@ export class ReligareHealthProposalComponent implements OnInit {
             }
         }
     }
+//     changeToggle(id, event: any){
+//       if (event.checked==true) {
+//     // alert('inn');
+//        this.religareQuestionsList[id].mStatus = 'Yes';
+//        this.religareQuestionsList[id].answer_status = true;
+//           for (let i = 0; i < this.religareQuestionsList.length; i++) {
+//
+//               for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+//
+//                   for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+//
+//                       // alert(this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status)
+//                       this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+//                       this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].dobError = '';
+//                       this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
+//                       this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status = false;
+//                   }
+//               }
+//           }
+//
+//       } else {
+//        this.religareQuestionsList[id].mStatus = 'No';
+//        this.religareQuestionsList[id].answer_status = false;
+//        for (let i = 0; i < this.religareQuestionsList.length; i++) {
+//
+//         for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+//
+//             for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+//
+//                 // alert(this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status)
+//                 this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+//                 this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].dobError = '';
+//                 this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
+//                 this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status = false;
+//             }
+//         }
+//     }
+// }
+    //     // for (let i = 0; i < this.religareQuestionsList.length; i++) {
+    //     if (event.checked==true) {
+    //         alert('inn');
+    //         this.religareQuestionsList[id].mStatus = 'Yes';
+    //             for (let j = 0; j < this.religareQuestionsList[id].sub_questions_list.length; j++) {
+    //                 for (let k = 0; k < this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group.length; k++) {
+    //                 //      alert('checkbox...')
+    //                 // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
+    //                 if (this.religareQuestionsList[id].mStatus = 'Yes'&&this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group.status == true) {
+    //                     alert(this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group.status)
+    //                     alert('checkboTrye')
+    //                     alert(this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status)
+    //
+    //                     this.checkBoxError=true;
+    //                 }else{
+    //                     alert('false')
+    //                     this.checkBoxError=false;
+    //                     this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+    //
+    //                 }
+    //             }
+    //         }
+    //
+    //     }
+    // }
 
-    changeToggle(){
-        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-            if(this.religareQuestionsList[i].mStatus == 'Yes'){
-                // alert('yes')
-                for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-                    // for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                        //      alert('checkbox...')
-                        // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
-                        if (this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.status == true) {
-                             this.checkBoxError=true;
-                        }else{
-                            this.checkBoxError=false;
-                            this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+    subStatus(value: any, i, k, j) {
+        // alert('check value')
+        console.log(value,'value...')
 
-                        }
-                    }
-                }
+        if (value.checked) {
 
-            }
+        } else {
+            this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+            this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
         }
+
+    }
+
 
 
 
@@ -1468,7 +1518,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 // alert(this.medicalStatus)  ///no,ye,no   taoggle
 
             } else if(this.religareQuestionsList[i].mStatus == 'Yes') {   ///first one yes means satisfied this condition
-                // alert('religareQuestionsList')
+                // alert('religareQuestionsList yes')
                 // alert(this.religareQuestionsList[i].mStatus)
                 this.medicalStatus.push('Yes');
                 // alert(this.medicalStatus)
@@ -1485,32 +1535,40 @@ export class ReligareHealthProposalComponent implements OnInit {
                 for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
                     for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
                    //      alert('checkbox...')
-                   // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
-                        if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
+                        if(this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
+                            this.checkBoxError=true;
+                            // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
+                            if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
 
-                            if (this.religareQuestionsList[i].sub_questions_list[j].question_details.question_description != '') {
-                                statusChecked.push(1);
-                                // alert('question_description')
-                                // alert(statusChecked)
-                                if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
-                                    statusChecked.push(0);
-                                    // alert('existingSince')
+                                if (this.religareQuestionsList[i].sub_questions_list[j].question_details.question_description != '') {
+                                    statusChecked.push(1);
+                                    // alert('question_description')
                                     // alert(statusChecked)
-                                }
-                            } else {
-                                if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
-                                    if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
+                                    if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
                                         statusChecked.push(0);
+                                        // alert('existingSince')
+                                        // alert(statusChecked)
+                                    }
+                                } else {
+                                    if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
+                                        if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
+                                            statusChecked.push(0);
 
+                                        } else {
+                                            statusChecked.push(1);
+
+                                        }
                                     } else {
                                         statusChecked.push(1);
 
                                     }
-                                }  else {
-                                    statusChecked.push(1);
-
                                 }
                             }
+                        }
+                        else{
+                            this.checkBoxError=false;
+                            // this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+
                         }
                     }
                 }
@@ -1545,20 +1603,14 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.religareMobileTrue2 = false;
             this.religareMobileTrue3 = false;
             }
+            else{
+                // alert('tostr')
+                this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+            }
         }
     }
-    subStatus(value: any, i, k, j) {
-        // alert('check value')
-        console.log(value,'value...')
 
-        if (value.checked) {
 
-        } else {
-            this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-            this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
-        }
-
-    }
 
     religareQuestion(stepper: MatStepper) {
         this.questionEmpty = false;

@@ -1421,6 +1421,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     }
     changeOccupation(){
         this.insured.controls['insuredOccupationCodeName'].patchValue(this.occupationCode[this.insured.controls['insuredOccupationCode'].value]);
+        console.log( this.insured.controls['insuredOccupationCode'].value,'occupied....');
+        console.log( this.insured.controls['insuredOccupationCodeName'].value,'nameOcc....');
     }
     changeRelationShip(){
         this.nomineeDetails.controls['religareRelationshipName'].patchValue(this.relationshipList[this.nomineeDetails.controls['religareRelationship'].value]);
