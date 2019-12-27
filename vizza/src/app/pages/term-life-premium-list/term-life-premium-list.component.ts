@@ -68,8 +68,11 @@ export class TermLifePremiumListComponent implements OnInit {
       }
       sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
       this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
+      // this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
       this.clearSession.clearSessiontermData();
       this.changepremiumList = false;
+      // this.premium_paying_termm = '55';
+
       // this.allHdfcList12 = [];
       // once user typing stoped after calling function
       const observable = this.keyUp
@@ -100,8 +103,15 @@ export class TermLifePremiumListComponent implements OnInit {
       this.getCompanyList();
       this.sessionData();
       this.getHDFcProduct();
-      // this.form.controls['plists.termDetrails'].patchValue(this.allProductLists[0].term[0]);
-      //       if()
+      for (let i = 0; i < this.allProductLists.length; i++) {
+          alert('fr')
+          this.premium_paying_termm = this.allProductLists[i].premium_paying_term;
+          console.log(this.premium_paying_termm,'this.premium_paying_termm');
+          console.log(this.allProductLists[i].premium_paying_term,'this.premium_paying_termm');
+
+      }
+          // this.form.controls['plists.termDetrails'].patchValue(this.allProductLists[0].term[0]);
+      // this.premium_paying_termm = '';
 
   }
     formarr() {
@@ -170,6 +180,8 @@ export class TermLifePremiumListComponent implements OnInit {
           if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
               console.log('inn');
               this.getProductList(this.allCompanyList, '5000000');
+              this.getProductList(this.allCompanyList, '5000000');
+
           }
 
       }
@@ -346,6 +358,8 @@ export class TermLifePremiumListComponent implements OnInit {
 
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
+
+
                 this.allProductLists[i].termDetrails = this.allProductLists[i].term[0];
                 this.allProductLists[0].termDetrails = this.allProductLists[0].term[0];
                 this.allProductLists[1].termDetrails = this.allProductLists[1].term[0];
@@ -355,17 +369,23 @@ export class TermLifePremiumListComponent implements OnInit {
                 this.allProductLists[5].termDetrails = this.allProductLists[5].term[0];
                 this.allProductLists[6].termDetrails = this.allProductLists[6].term[0];
                 this.allProductLists[7].termDetrails = this.allProductLists[7].term[0];
-                // this.allProductLists[8].termDetrails = this.allProductLists[8].term[0];
-                this.allProductLists[4].premium_paying_termm = this.allProductLists[i].premium_paying_term;
-                this.allProductLists[5].premium_paying_termm = this.allProductLists[i].premium_paying_term;
-                this.allProductLists[6].premium_paying_termm = this.allProductLists[i].premium_paying_term;
-                this.allProductLists[7].premium_paying_termm = this.allProductLists[i].premium_paying_term;
+                this.allProductLists[8].termDetrails = this.allProductLists[8].term[0];
+                this.allProductLists[9].termDetrails = this.allProductLists[9].term[0];
+                this.allProductLists[10].termDetrails = this.allProductLists[10].term[0];
+                this.allProductLists[11].termDetrails = this.allProductLists[11].term[0];
+                this.allProductLists[12].termDetrails = this.allProductLists[12].term[0];
+                this.allProductLists[0].premium_paying_termm = this.allProductLists[0].premium_paying_term;
+                this.allProductLists[1].premium_paying_termm = this.allProductLists[1].premium_paying_term;
+                this.allProductLists[2].premium_paying_termm = this.allProductLists[2].premium_paying_term;
+                this.allProductLists[3].premium_paying_termm = this.allProductLists[3].premium_paying_term;
+                console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
+
                 console.log(this.allProductLists[i].termDetrails, 'detrails')
                 console.log(this.allProductLists[4].termDetrails, 'detrails')
                 console.log(this.allProductLists[5].termDetrails, 'detrails')
                 console.log(this.allProductLists[6].termDetrails, 'detrails')
                 console.log(this.allProductLists[7].termDetrails, 'detrails')
-                console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
+
                 console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
                 this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
                 this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
@@ -597,7 +617,7 @@ export class TermLifePremiumListComponent implements OnInit {
             this.termListDetails = successData.ResponseObject;
                   this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
                   this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
-                  this.allProductLists[index].premium_paying_termm =  this.termListDetails.premium_paying_term;
+                  this.allProductLists[index].premium_paying_term =  this.termListDetails.premium_paying_term;
                   // this.allProductLists[index].term =  this.termListDetails.term[0];
 
                 // console.log( this.allProductLists[index].term ,' this.allProductLists[index].term ')
