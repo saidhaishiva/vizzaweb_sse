@@ -946,7 +946,7 @@
                                    <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
                                        <mat-form-field class="w-100" >
                                            <mat-placeholder>Title<span class="error" >*</span></mat-placeholder>
-                                           <mat-select  formControlName="stitle"  (selectionChange)=" changeTitle1()" >
+                                           <mat-select  formControlName="stitle"  (selectionChange)=" changeSpoTitle1()" >
                                                <mat-option *ngFor="let list of etitle | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                            </mat-select>
                                        </mat-form-field>
@@ -1028,6 +1028,8 @@
                                            <!--<mat-error *ngIf="insureArray.controls.smotherMaidName.errors?.required">Mother name is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
+
+
                                    <div class="col-md-4"*ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Age Proof Id<span class="error" >*</span></mat-placeholder>
@@ -1040,7 +1042,7 @@
                                    <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Highest Qualification<span class="error" >*</span></mat-placeholder>
-                                           <mat-select formControlName="shighestQualification" (selectionChange)="qualificationName1();othrhighQualify2()"   class="w-100" >
+                                           <mat-select formControlName="shighestQualification" (selectionChange)="squalificationName();othrhighQualify2()"   class="w-100" >
                                                <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
                                            <!--<mat-error *ngIf="insureArray.controls.shighestQualification.errors?.required">Highest Qualification is required</mat-error>-->
@@ -1048,7 +1050,7 @@
                                    </div>
                                    <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100" *ngIf="insureArray.controls['shighestQualification'].value == '8'" >
-                                           <mat-placeholder>Other Qualification Details<span class="error"  *ngIf="insureArray.controls['highestQualification'].value == '8'" >*</span></mat-placeholder>
+                                           <mat-placeholder>Other Qualification Details<span class="error"  *ngIf="insureArray.controls['shighestQualification'].value == '8'" >*</span></mat-placeholder>
                                            <input matInput   formControlName="sotherQualification"   maxlength="45" autocomplete="off">
                                        </mat-form-field>
                                    </div>
@@ -1213,7 +1215,7 @@
                                    <div class="col-md-4">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Change in weight past 6 months<span class="error" >*</span></mat-placeholder>
-                                           <mat-select  formControlName="shasWeightChanged" (selectionChange)="geteWeightChanged()"  class="w-100">
+                                           <mat-select  formControlName="shasWeightChanged" (selectionChange)="geteWeightChanged();shasweight()"  class="w-100">
                                                <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
                                            <!--<mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>-->
