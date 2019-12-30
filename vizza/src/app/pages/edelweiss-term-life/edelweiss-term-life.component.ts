@@ -2869,275 +2869,6 @@ othrhighQualify2() {
   // }
 
 
-// travelOutside(){
-//     if(this.medicalDetail.controls['travelOutsideIndia'].value == '') {
-//       this.errortravelOutside=true;
-//       this.errortravelOutside= 'Field is Mandatory';
-//
-//
-//     if(this.medicalDetail.controls['pilot'].value == '') {
-//       this.piloterror=true;
-//       this.piloterror= 'Field is Mandatory';
-//
-//       if(this.medicalDetail.controls['activity'].value == '')
-//
-//       {
-//         this.activityerror=true;
-//         this.activityerror= 'Field is Mandatory';
-//
-//       if(this.medicalDetail.controls['drugsInd'].value == '') {
-//         this.drugsInderror = true;
-//         this.drugsInderror = 'Field is Mandatory';
-//
-//         if (this.medicalDetail.controls['alcoholInd'].value == '') {
-//           this.alcoholInderror = true;
-//           this.alcoholInderror = 'Field is Mandatory';
-//
-//           if (this.medicalDetail.controls['tobaccoInd'].value == '') {
-//             this.tobaccoInderror = true;
-//             this.tobaccoInderror = 'Field is Mandatory';
-//
-//             // if (this.medicalDetail.controls['tobaccoStopInd'].value == '') {
-//             //   this.tobaccoStopInderror = true;
-//             //   this.tobaccoStopInderror = 'Field is Mandatory';
-//
-//               if (this.medicalDetail.controls['consultDoctorInd'].value == '') {
-//                 this.consultDoctorInderror = true;
-//                 this.consultDoctorInderror = 'Field is Mandatory';
-//
-//                 if (this.medicalDetail.controls['ECGInd'].value == '') {
-//                   this.ECGInderror = true;
-//                   this.ECGInderror = 'Field is Mandatory';
-//
-//                   if (this.medicalDetail.controls['admitInd'].value == '') {
-//                     this.admitInderror = true;
-//                     this.admitInderror = 'Field is Mandatory';
-//
-//                     if (this.medicalDetail.controls['medicalTreatment'].value == '') {
-//                       this.medicalTreatmenterror = true;
-//                       this.medicalTreatmenterror = 'Field is Mandatory';
-//                       if (this.medicalDetail.controls['heartDieaseInd'].value == '') {
-//                         this.heartDieaseInderror = true;
-//                         this.heartDieaseInderror = 'Field is Mandatory';
-//
-//                         if (this.medicalDetail.controls['respiratoryDieaseInd'].value == '') {
-//                         this.respiratoryDieaseInderror = true;
-//                         this.respiratoryDieaseInderror = 'Field is Mandatory';
-//
-//                         if (this.medicalDetail.controls['diabetesInd'].value == '') {
-//                           this.diabetesInderror = true;
-//                           this.diabetesInderror = 'Field is Mandatory';
-//
-//                           if (this.medicalDetail.controls['kidneyDieaseInd'].value == '') {
-//                             this.kidneyDieaseInderror = true;
-//                             this.kidneyDieaseInderror = 'Field is Mandatory';
-//                             if (this.medicalDetail.controls['digestiveDieaseInd'].value == '') {
-//                               this.digestiveDieaseInderror = true;
-//                               this.digestiveDieaseInderror = 'Field is Mandatory';
-//                               if (this.medicalDetail.controls['cancerDieaseInd'].value == '') {
-//                                 this.cancerDieaseInderror = true;
-//                                 this.cancerDieaseInderror = 'Field is Mandatory';
-//                                 if (this.medicalDetail.controls['tropicalDieaseInd'].value == '') {
-//                                   this.tropicalDieaseInderror = true;
-//                                   this.tropicalDieaseInderror = 'Field is Mandatory';
-//
-//                                   if (this.medicalDetail.controls['thyroidDieaseInd'].value == '') {
-//                                     this.thyroidDieaseInderror = true;
-//                                     this.thyroidDieaseInderror = 'Field is Mandatory';
-//                                     if (this.medicalDetail.controls['bloodDieaseInd'].value == '') {
-//                                       this.bloodDieaseInderror = true;
-//                                       this.bloodDieaseInderror = 'Field is Mandatory';
-//
-//                                       if (this.medicalDetail.controls['nervousDieaseInd'].value == '') {
-//                                         this.nervousDieaseInderror = true;
-//                                         this.nervousDieaseInderror = 'Field is Mandatory';
-//                                         if (this.medicalDetail.controls['muscleDieaseInd'].value == '') {
-//                                           this.muscleDieaseInderror = true;
-//                                           this.muscleDieaseInderror = 'Field is Mandatory';
-//                                           if (this.medicalDetail.controls['receivedTreatment2'].value == '') {
-//                                             this.receivedTreatment2error = true;
-//                                             this.receivedTreatment2error = 'Field is Mandatory';
-//                                             if (this.medicalDetail.controls['alcoholicInd'].value == '') {
-//                                               this.alcoholicInderror = true;
-//                                               this.alcoholicInderror = 'Field is Mandatory';
-//
-//                                               if (this.medicalDetail.controls['otherIllnessInd'].value == '') {
-//                                                 this.otherIllnessInderror = true;
-//                                                 this.otherIllnessInderror = 'Field is Mandatory';
-//
-//                                                 if (this.medicalDetail.controls['deformityInd'].value == '') {
-//                                                   this.deformityInderror = true;
-//                                                   this.deformityInderror = 'Field is Mandatory';
-//                                                   if (this.medicalDetail.controls['receivedTreatment1'].value == '') {
-//                                                     this.receivedTreatment1error = true;
-//                                                     this.receivedTreatment1error = 'Field is Mandatory';
-//                                                     if (this.medicalDetail.controls['symptomsInd'].value == '') {
-//                                                       this.symptomsInderror = true;
-//                                                       this.symptomsInderror = 'Field is Mandatory';
-//                                                       // if (this.medicalDetail.controls['isHospitalized'].value == '') {
-//                                                       //   this.isHospitalizederror = true;
-//                                                       //   this.isHospitalizederror = 'Field is Mandatory';
-//                                                         // if (this.medicalDetail.controls['isRecovered'].value == '') {
-//                                                         //   this.isRecoverederror = true;
-//                                                         //   this.isRecoverederror = 'Field is Mandatory';
-//                                                           if (this.medicalDetail.controls['pregnantInd'].value == '') {
-//                                                             this.pregnantInderror = true;
-//                                                             this.pregnantInderror = 'Field is Mandatory';
-//                                                             if (this.medicalDetail.controls['femaleDieaseInd'].value == '') {
-//                                                               this.femaleDieaseInderror = true;
-//                                                               this.femaleDieaseInderror = 'Field is Mandatory';
-//                                                             }
-//                                                             else {
-//                                                               this.femaleDieaseInderror = false;
-//                                                               this.femaleDieaseInderror = '';
-//                                                             }
-//                                                           }
-//                                                           else {
-//                                                             this.pregnantInderror = false;
-//                                                             this.pregnantInderror = '';
-//                                                           }
-//                                                         }
-//
-//
-//                                                     else {
-//                                                       this.symptomsInderror = false;
-//                                                       this.symptomsInderror = '';
-//                                                     }
-//                                                   }
-//                                                   else {
-//                                                     this.receivedTreatment1error = false;
-//                                                     this.receivedTreatment1error = '';
-//                                                   }
-//                                                 }
-//                                                 else {
-//                                                   this.deformityInderror = false;
-//                                                   this.deformityInderror = '';
-//                                                 }
-//                                               }
-//                                               else {
-//                                                 this.otherIllnessInderror = false;
-//                                                 this.otherIllnessInderror = '';
-//                                               }
-//                                             }
-//                                             else {
-//                                               this.alcoholicInderror = false;
-//                                               this.alcoholicInderror = '';
-//                                             }
-//                                           }
-//                                           else {
-//                                             this.receivedTreatment2error = false;
-//                                             this.receivedTreatment2error = '';
-//                                           }
-//                                         }
-//                                         else {
-//                                           this.muscleDieaseInderror = false;
-//                                           this.muscleDieaseInderror = '';
-//                                         }
-//                                       }
-//                                       else {
-//                                         this.nervousDieaseInderror = false;
-//                                         this.nervousDieaseInderror = '';
-//                                       }
-//                                     }
-//                                     else {
-//                                       this.bloodDieaseInderror = false;
-//                                       this.bloodDieaseInderror = '';
-//                                     }
-//                                   }
-//                                   else {
-//                                     this.thyroidDieaseInderror = false;
-//                                     this.thyroidDieaseInderror = '';
-//                                   }
-//                                 }
-//                                 else {
-//                                   this.tropicalDieaseInderror = false;
-//                                   this.tropicalDieaseInderror = '';
-//                                 }
-//                               }
-//                               else {
-//                                 this.cancerDieaseInderror = false;
-//                                 this.cancerDieaseInderror = '';
-//                               }
-//                             }
-//                             else {
-//                               this.digestiveDieaseInderror = false;
-//                               this.digestiveDieaseInderror = '';
-//                             }
-//                           }
-//                           else {
-//                             this.kidneyDieaseInderror = false;
-//                             this.kidneyDieaseInderror = '';
-//                           }
-//                         }
-//                         else {
-//                           this.diabetesInderror = false;
-//                           this.diabetesInderror = '';
-//                         }
-//                         }
-//                         else {
-//                           this.respiratoryDieaseInderror = false;
-//                           this.respiratoryDieaseInderror = '';
-//                         }
-//                       }
-//                       else {
-//                         this.heartDieaseInderror = false;
-//                         this.heartDieaseInderror = '';
-//                       }
-//                     }else{
-//                       this.medicalTreatmenterror=false;
-//                       this.medicalTreatmenterror= '';
-//                     }
-//                   }else{
-//                     this.admitInderror=false;
-//                     this.admitInderror= '';
-//                   }
-//                 }
-//                 else{
-//                   this.ECGInderror=false;
-//                   this.ECGInderror= '';
-//                 }
-//               }
-//               else{
-//                   this.consultDoctorInderror=false;
-//                   this.consultDoctorInderror= '';
-//                 }
-//
-//           }else{
-//             this.tobaccoInderror=false;
-//             this.tobaccoInderror= '';
-//           }
-//           }
-//         else{
-//           this.alcoholInderror=false;
-//           this.alcoholInderror= '';
-//         }
-//
-//       }
-//
-//       else{
-//        this.drugsInderror=false;
-//        this.drugsInderror= '';
-//       }
-//     }
-//
-//       else{
-//         this.activityerror=false;
-//         this.activityerror= '';
-//       }
-//     }
-//
-//     else
-//     {      this.piloterror=false;
-//             this.piloterror= '';
-//     }
-//     }
-//     else
-//     {  this.errortravelOutside=false;
-//       this.errortravelOutside= '';
-//
-//     }
-//
-// }
 
   travelOutside(){
 
@@ -3161,6 +2892,188 @@ othrhighQualify2() {
     }else if(this.medicalDetail.controls['activity'].value != ''){
       this.activityerror=false;
         this.activityerror= '';
+    }
+    if(this.medicalDetail.controls['drugsInd'].value == '') {
+        this.drugsInderror=true;
+        this.drugsInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['drugsInd'].value != ''){
+      this.drugsInderror=false;
+        this.drugsInderror= '';
+    }
+if(this.medicalDetail.controls['alcoholInd'].value == '') {
+        this.alcoholInderror=true;
+        this.alcoholInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['alcoholInd'].value != ''){
+      this.alcoholInderror=false;
+        this.alcoholInderror= '';
+    }
+if(this.medicalDetail.controls['tobaccoInd'].value == '') {
+        this.tobaccoInderror=true;
+        this.tobaccoInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tobaccoInd'].value != ''){
+      this.tobaccoInderror=false;
+        this.tobaccoInderror= '';
+    }
+if(this.medicalDetail.controls['consultDoctorInd'].value == '') {
+        this.consultDoctorInderror=true;
+        this.consultDoctorInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['consultDoctorInd'].value != ''){
+      this.consultDoctorInderror=false;
+        this.consultDoctorInderror= '';
+    }
+if(this.medicalDetail.controls['ECGInd'].value == '') {
+        this.ECGInderror=true;
+        this.ECGInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['ECGInd'].value != ''){
+      this.ECGInderror=false;
+        this.ECGInderror= '';
+    }
+if(this.medicalDetail.controls['admitInd'].value == '') {
+        this.admitInderror=true;
+        this.admitInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['admitInd'].value != ''){
+      this.admitInderror=false;
+        this.admitInderror= '';
+    }
+if(this.medicalDetail.controls['medicalTreatment'].value == '') {
+        this.medicalTreatmenterror=true;
+        this.medicalTreatmenterror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['medicalTreatment'].value != ''){
+      this.medicalTreatmenterror=false;
+        this.medicalTreatmenterror= '';
+    }
+if(this.medicalDetail.controls['heartDieaseInd'].value == '') {
+        this.heartDieaseInderror=true;
+        this.heartDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['heartDieaseInd'].value != ''){
+      this.heartDieaseInderror=false;
+        this.heartDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['respiratoryDieaseInd'].value == '') {
+        this.respiratoryDieaseInderror=true;
+        this.respiratoryDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['respiratoryDieaseInd'].value != ''){
+      this.respiratoryDieaseInderror=false;
+        this.respiratoryDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['diabetesInd'].value == '') {
+        this.diabetesInderror=true;
+        this.diabetesInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['diabetesInd'].value != ''){
+      this.diabetesInderror=false;
+        this.diabetesInderror= '';
+    }
+if(this.medicalDetail.controls['kidneyDieaseInd'].value == '') {
+        this.kidneyDieaseInderror=true;
+        this.kidneyDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['kidneyDieaseInd'].value != ''){
+      this.kidneyDieaseInderror=false;
+        this.kidneyDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['digestiveDieaseInd'].value == '') {
+        this.digestiveDieaseInderror=true;
+        this.digestiveDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['digestiveDieaseInd'].value != ''){
+      this.digestiveDieaseInderror=false;
+        this.digestiveDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['cancerDieaseInd'].value == '') {
+        this.cancerDieaseInderror=true;
+        this.cancerDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['cancerDieaseInd'].value != ''){
+      this.cancerDieaseInderror=false;
+        this.cancerDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['tropicalDieaseInd'].value == '') {
+        this.tropicalDieaseInderror=true;
+        this.tropicalDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tropicalDieaseInd'].value != ''){
+      this.tropicalDieaseInderror=false;
+        this.tropicalDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['thyroidDieaseInd'].value == '') {
+        this.thyroidDieaseInderror=true;
+        this.thyroidDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['thyroidDieaseInd'].value != ''){
+      this.thyroidDieaseInderror=false;
+        this.thyroidDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['bloodDieaseInd'].value == '') {
+        this.bloodDieaseInderror=true;
+        this.bloodDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['bloodDieaseInd'].value != ''){
+      this.bloodDieaseInderror=false;
+        this.bloodDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['nervousDieaseInd'].value == '') {
+        this.nervousDieaseInderror=true;
+        this.nervousDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['nervousDieaseInd'].value != ''){
+      this.nervousDieaseInderror=false;
+        this.nervousDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['femaleDieaseInd'].value == '') {
+        this.femaleDieaseInderror=true;
+        this.femaleDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['femaleDieaseInd'].value != ''){
+      this.femaleDieaseInderror=false;
+        this.femaleDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['muscleDieaseInd'].value == '') {
+        this.muscleDieaseInderror=true;
+        this.muscleDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['muscleDieaseInd'].value != ''){
+      this.muscleDieaseInderror=false;
+        this.muscleDieaseInderror= '';
+    }
+if(this.medicalDetail.controls['receivedTreatment2'].value == '') {
+        this.receivedTreatment2error=true;
+        this.receivedTreatment2error= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['receivedTreatment2'].value != ''){
+      this.receivedTreatment2error=false;
+        this.receivedTreatment2error= '';
+    }
+if(this.medicalDetail.controls['alcoholicInd'].value == '') {
+        this.alcoholicInderror=true;
+        this.alcoholicInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['alcoholicInd'].value != ''){
+      this.alcoholicInderror=false;
+        this.alcoholicInderror= '';
+    }
+if(this.medicalDetail.controls['otherIllnessInd'].value == '') {
+        this.otherIllnessInderror=true;
+        this.otherIllnessInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['otherIllnessInd'].value != ''){
+      this.otherIllnessInderror=false;
+        this.otherIllnessInderror= '';
+    }
+if(this.medicalDetail.controls['deformityInd'].value == '') {
+        this.deformityInderror=true;
+        this.deformityInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['deformityInd'].value != ''){
+      this.deformityInderror=false;
+        this.deformityInderror= '';
+    }
+if(this.medicalDetail.controls['receivedTreatment1'].value == '') {
+        this.receivedTreatment1error=true;
+        this.receivedTreatment1error= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['receivedTreatment1'].value != ''){
+      this.receivedTreatment1error=false;
+        this.receivedTreatment1error= '';
+    }
+if(this.medicalDetail.controls['symptomsInd'].value == '') {
+        this.symptomsInderror=true;
+        this.symptomsInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['symptomsInd'].value != ''){
+      this.symptomsInderror=false;
+        this.symptomsInderror= '';
+    }
+if(this.medicalDetail.controls['pregnantInd'].value == '') {
+        this.pregnantInderror=true;
+        this.pregnantInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['pregnantInd'].value != ''){
+      this.pregnantInderror=false;
+        this.pregnantInderror= '';
     }
 
   }

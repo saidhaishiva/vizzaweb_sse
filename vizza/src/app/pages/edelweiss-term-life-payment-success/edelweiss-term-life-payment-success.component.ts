@@ -25,6 +25,7 @@ export class EdelweissTermLifePaymentSuccessComponent implements OnInit {
   public applicationNo: any;
   public receipt_link: any;
   public bi_pdf_url: any;
+  public webhost: any;
   public proposal_form: any;
   public settings: Settings;
 
@@ -37,7 +38,11 @@ export class EdelweissTermLifePaymentSuccessComponent implements OnInit {
       this.policyId = params.proId;
       console.log(this.policyId,'this.policyId')
       // this.applicationNo = params.applicationNo;
+
     });
+
+    this.webhost = this.config.getimgUrl();
+
   }
 
   ngOnInit() {
@@ -83,8 +88,10 @@ export class EdelweissTermLifePaymentSuccessComponent implements OnInit {
 
       }
       if(type == 'proposl') {
-        this.window.open(this.proposal_form, '_blank');
+        this.window.open(this.webhost + '/' +this.proposal_form, '_blank');
         console.log(this.proposal_form, 'this.bi_pdf_url');
+        console.log(this.webhost , 'this.bi_pdf_url');
+        console.log(this.webhost + '/' +this.proposal_form, 'this.bi_pdf_url');
 
       }
     } else {
