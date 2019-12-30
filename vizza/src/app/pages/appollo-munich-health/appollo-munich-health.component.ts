@@ -2010,7 +2010,7 @@ export class AppolloMunichComponent implements OnInit {
 
 
     //Insure Details
-    AppolloInsureDetails(stepper: MatStepper, id, value, key) {
+    AppolloInsureDetails(stepper: MatStepper, id, value) {
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {

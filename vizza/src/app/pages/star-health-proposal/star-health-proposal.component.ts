@@ -365,19 +365,6 @@ export class StarHealthProposalComponent implements OnInit {
         if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
             this.proposalId = sessionStorage.proposalID;
         }
-        if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
-            this.personalCitys = JSON.parse(sessionStorage.personalCitys);
-        }
-        if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
-            this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
-        }
-        if (sessionStorage.rAreaNames != '' && sessionStorage.rAreaNames != undefined) {
-            this.rAreaNames = JSON.parse(sessionStorage.rAreaNames);
-        }
-        if (sessionStorage.areaNames != '' && sessionStorage.areaNames != undefined) {
-            this.areaNames = JSON.parse(sessionStorage.areaNames);
-        }
-
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             console.log(JSON.parse(sessionStorage.stepper1Details), 'sessionStorage.stepper1Details');
             this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
@@ -420,10 +407,10 @@ export class StarHealthProposalComponent implements OnInit {
                 residenceAreaName: this.getStepper1.residenceAreaName,
                 illnessCheck: this.getStepper1.illnessCheck,
                 personalgstIdType: this.getStepper1.personalgstIdType,
-
                 sameas: this.getStepper1.sameas
 
             });
+
             if (this.getStepper1.socialStatus == true || this.getStepper1.socialStatus == 'true') {
             } else {
                 this.personal.controls['socialAnswer1'].reset();
@@ -438,6 +425,19 @@ export class StarHealthProposalComponent implements OnInit {
             }
 
         }
+        if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+            this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+        }
+        if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+            this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+        }
+        if (sessionStorage.rAreaNames != '' && sessionStorage.rAreaNames != undefined) {
+            this.rAreaNames = JSON.parse(sessionStorage.rAreaNames);
+        }
+        if (sessionStorage.areaNames != '' && sessionStorage.areaNames != undefined) {
+            this.areaNames = JSON.parse(sessionStorage.areaNames);
+        }
+
 
         console.log(this.personal.value, 'this.personal');
 
@@ -459,8 +459,13 @@ export class StarHealthProposalComponent implements OnInit {
     }
     //Proposer Details
 
+//     stepper(){
+//
+// }
 
-    setOccupationList() {
+
+
+setOccupationList() {
         const data = {
             'platform': 'web',
             'product_id': this.buyProductdetails.product_id,
@@ -597,19 +602,36 @@ export class StarHealthProposalComponent implements OnInit {
             this.stopNext = false;
         }
     }
-    changeSocialStatus(result) {
-        let btn = this.personal.controls['socialStatus'].value;
-        if (btn == false || btn == 'false') {
+    // changeSocialStatus(event:any) {
+    //     if (event.checked==true) {
+    //     console.log(event);
+    //     }
+    //     let btn = this.personal.controls['socialStatus'].value;
+    //     if (btn == false || btn == 'false') {
+    //         this.personal.controls['socialAnswer1'].setValue('0');
+    //         this.personal.controls['socialAnswer2'].setValue('0');
+    //         this.personal.controls['socialAnswer3'].setValue('0');
+    //         this.personal.controls['socialAnswer4'].setValue('0');
+    //         this.socialNo = '';
+    //     } else {
+    //         this.socialNo = false;
+    //
+    //     }
+    // }
+
+    changeSocialStatus(event:any) {
+        if (event.checked==true) {
+            this.socialNo = false;
+        }else{
             this.personal.controls['socialAnswer1'].setValue('0');
             this.personal.controls['socialAnswer2'].setValue('0');
             this.personal.controls['socialAnswer3'].setValue('0');
             this.personal.controls['socialAnswer4'].setValue('0');
             this.socialNo = '';
-        } else {
-            this.socialNo = false;
-
         }
+
     }
+
     resetofgstType() {
         this.personal.controls['personalgstIdType'].patchValue('');
     }
@@ -809,6 +831,7 @@ export class StarHealthProposalComponent implements OnInit {
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         this.personalData = value;
+        console.log(this.personalData,'this.personalData...')
         if (this.personal.valid) {
             if (sessionStorage.proposerAge >= 18 && sessionStorage.proposerAge < 90) {
                 if(this.personal.controls['socialStatus'].value == true || this.personal.controls['socialStatus'].value == 'true') {
@@ -999,7 +1022,6 @@ export class StarHealthProposalComponent implements OnInit {
             }
         }
         // if(this.familyMembers.length == 1){
-        //     alert('same relation');
         //     this.sameRelationship = this.familyMembers[0].ins_relationship;
         //     console.log(this.sameRelationship,'same relationship')
         // }
@@ -1228,7 +1250,6 @@ export class StarHealthProposalComponent implements OnInit {
         // b.add(months, 'months');
         //
         // var days = a.diff(b, 'days');
-        // alert(months);
         //
         // console.log(years + ' years ' + months + ' months ' + days + ' days');
 
@@ -1575,6 +1596,8 @@ export class StarHealthProposalComponent implements OnInit {
                 this.personal.controls['residenceAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
             }
             this.proposerFormData = this.personal.value;
+            console.log(this.proposerFormData);
+            console.log(this.personal.value);
             this.insuredFormData = this.familyMembers;
             this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4;
 

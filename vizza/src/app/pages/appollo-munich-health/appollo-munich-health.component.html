@@ -475,7 +475,7 @@
                                   <h6 class="color-blue mb-4"> PERSONAL HABITS (PER DAY) </h6>
                               </div>
                               <div class="col-md-6">
-                                <mat-checkbox formControlName="SmokingStatus" (click)="selectHabitat($event, i, 'Smoking')">Smoking</mat-checkbox>
+                                <mat-checkbox formControlName="SmokingStatus" (change)="selectHabitat($event, i, 'Smoking')">Smoking</mat-checkbox>
                                 <mat-form-field class="w-100">
                                   <mat-select  placeholder="Smoking" formControlName="Smoking" (selectionChange)="smokingPersonalhabit(i)" [required]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.value != true">
                                     <mat-option value="1">1</mat-option>
@@ -491,9 +491,10 @@
                                     <mat-option value="11">Greater than 10</mat-option>
                                   </mat-select>
                                 </mat-form-field>
+                                  <mat-error *ngIf="insureArray['controls'].items['controls'][i]['controls'].Smoking.errors?.required">Smoking is required</mat-error>
                               </div>
                               <div class="col-md-6">
-                                <mat-checkbox formControlName="PouchesStatus" (click)="selectHabitat($event, i , 'Pouches')">Pouches</mat-checkbox>
+                                <mat-checkbox formControlName="PouchesStatus" (change)="selectHabitat($event, i , 'Pouches')">Pouches</mat-checkbox>
                                 <mat-form-field class="w-100">
                                   <mat-select  placeholder="Pouches" formControlName="Pouches" (selectionChange)="pouchesPersonalhabit(i)"[required]="insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].PouchesStatus.value != true">
                                     <mat-option value="1">1</mat-option>
@@ -509,6 +510,8 @@
                                     <!--<mat-option value="11">11</mat-option>-->
                                   </mat-select>
                                 </mat-form-field>
+                                  <mat-error *ngIf="insureArray['controls'].items['controls'][i]['controls'].Pouches.errors?.required">Smoking is required</mat-error>
+
                               </div>
                             </div>
                           </div>
@@ -518,7 +521,7 @@
                                 <h6 class="color-blue mb-4"> DRINKING HABITS (PER WEEK) </h6>
                               </div>
                               <div class="col-md-4">
-                                  <mat-checkbox formControlName="LiquorPegStatus" (click)="selectHabitat($event, i, 'Liquor')">Liquor Peg</mat-checkbox>
+                                  <mat-checkbox formControlName="LiquorPegStatus" (change)="selectHabitat($event, i, 'Liquor')">Liquor Peg</mat-checkbox>
                                   <mat-form-field class="w-100">
                                     <mat-select  placeholder="Liquor Peg" formControlName="LiquorPeg" (selectionChange)="liquorPegPersonalhabit(i)"[required]="insureArray['controls'].items['controls'][i]['controls'].LiquorPegStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].LiquorPegStatus.value != true">
                                       <mat-option value="1">1</mat-option>
@@ -533,11 +536,12 @@
                                       <mat-option value="10">Greater than 9</mat-option>
                                       <!--<mat-option value="11">11</mat-option>-->
                                     </mat-select>
-
                                   </mat-form-field>
+                                  <mat-error *ngIf="insureArray['controls'].items['controls'][i]['controls'].LiquorPeg.errors?.required">Liquor Peg is required</mat-error>
+
                               </div>
                               <div class="col-md-4">
-                                <mat-checkbox formControlName="WineGlassStatus" (click)="selectHabitat($event, i, 'Wine')">Wine Glass</mat-checkbox>
+                                <mat-checkbox formControlName="WineGlassStatus" (change)="selectHabitat($event, i, 'Wine')">Wine Glass</mat-checkbox>
                                 <mat-form-field class="w-100">
                                   <mat-select  placeholder="Wine Glass" formControlName="WineGlass" (selectionChange)="wineGlassPersonalhabit(i)" [required]="insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.value != true">
                                     <mat-option value="1">1</mat-option>
@@ -553,11 +557,12 @@
                                     <!--<mat-option value="10">10</mat-option>-->
                                     <!--<mat-option value="11">11</mat-option>-->
                                   </mat-select>
-
                                 </mat-form-field>
-                            </div>
+                                  <mat-error *ngIf="insureArray['controls'].items['controls'][i]['controls'].WineGlass.errors?.required">Wine Glass is required</mat-error>
+
+                              </div>
                               <div class="col-md-4">
-                                <mat-checkbox formControlName="BeerBottleStatus" (click)="selectHabitat($event, i, 'Beer')">Beer Bottle</mat-checkbox>
+                                <mat-checkbox formControlName="BeerBottleStatus" (change)="selectHabitat($event, i, 'Beer')">Beer Bottle</mat-checkbox>
                                 <mat-form-field class="w-100">
                                   <mat-select  placeholder="Beer Bottle" formControlName="BeerBottle" (selectionChange)="beerBottlePersonalhabit(i)"[required]="insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.value == true"  class="w-100" [disabled]="insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.value != true">
                                     <mat-option value="1">1</mat-option>
@@ -573,7 +578,9 @@
                                     <mat-option value="11">Greater than 10</mat-option>
                                   </mat-select>
                                 </mat-form-field>
-                            </div>
+                                  <mat-error *ngIf="insureArray['controls'].items['controls'][i]['controls'].BeerBottle.errors?.required">Beer Bottle is required</mat-error>
+
+                              </div>
                             </div>
                           </div>
                         </div>
