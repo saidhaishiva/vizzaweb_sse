@@ -334,6 +334,11 @@ export class AppolloMunichComponent implements OnInit {
     ngOnInit() {
         if (this.payLaterr == true) {
             this.stepperindex = 4;
+            this.step = 4;
+            this.appolloMobileTrue0 = true;
+            this.appolloMobileTrue1 = true;
+            this.appolloMobileTrue2 = true;
+            this.appolloMobileTrue3 = true;
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
             this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
