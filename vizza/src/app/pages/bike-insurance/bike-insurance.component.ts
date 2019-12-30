@@ -419,6 +419,7 @@ export class BikeInsuranceComponent implements OnInit {
                     } else {
                         this.dobError = true;
                         this.dobError = 'Enter Valid Date';
+
                     }
                 }
             } else if (typeof event.value._i == 'object') {
