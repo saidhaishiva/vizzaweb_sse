@@ -160,10 +160,10 @@ export class StarHealthProposalComponent implements OnInit {
                     console.log(this.status, 'this.proposalId');
                     this.getBackRequest();
                 }
-                // if(this.proposal_Id == undefined || this.proposal_Id == '') {
-                //     this.payLaterr = false;
-                //
-                // }
+                if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                    this.payLaterr = false;
+
+                }
 
         });
         this.currentStep = this.stepperindex;
@@ -236,6 +236,7 @@ export class StarHealthProposalComponent implements OnInit {
     }
     ngOnInit() {
         if (this.payLaterr == true) {
+            this.stepperindex = 3;
             this.step = 3;
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {

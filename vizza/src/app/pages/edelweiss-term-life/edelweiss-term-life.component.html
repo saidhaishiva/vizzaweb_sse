@@ -946,7 +946,7 @@
                                    <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
                                        <mat-form-field class="w-100" >
                                            <mat-placeholder>Title<span class="error" >*</span></mat-placeholder>
-                                           <mat-select  formControlName="stitle"  (selectionChange)=" changeTitle1()" >
+                                           <mat-select  formControlName="stitle"  (selectionChange)=" changeSpoTitle1()" >
                                                <mat-option *ngFor="let list of etitle | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                            </mat-select>
                                        </mat-form-field>
@@ -1028,6 +1028,8 @@
                                            <!--<mat-error *ngIf="insureArray.controls.smotherMaidName.errors?.required">Mother name is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
+
+
                                    <div class="col-md-4"*ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Age Proof Id<span class="error" >*</span></mat-placeholder>
@@ -1040,7 +1042,7 @@
                                    <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Highest Qualification<span class="error" >*</span></mat-placeholder>
-                                           <mat-select formControlName="shighestQualification" (selectionChange)="qualificationName1();othrhighQualify1()"   class="w-100" >
+                                           <mat-select formControlName="shighestQualification" (selectionChange)="squalificationName();othrhighQualify2()"   class="w-100" >
                                                <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
                                            <!--<mat-error *ngIf="insureArray.controls.shighestQualification.errors?.required">Highest Qualification is required</mat-error>-->
@@ -1048,7 +1050,7 @@
                                    </div>
                                    <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100" *ngIf="insureArray.controls['shighestQualification'].value == '8'" >
-                                           <mat-placeholder>Other Qualification Details<span class="error"  *ngIf="insureArray.controls['highestQualification'].value == '8'" >*</span></mat-placeholder>
+                                           <mat-placeholder>Other Qualification Details<span class="error"  *ngIf="insureArray.controls['shighestQualification'].value == '8'" >*</span></mat-placeholder>
                                            <input matInput   formControlName="sotherQualification"   maxlength="45" autocomplete="off">
                                        </mat-form-field>
                                    </div>
@@ -1075,34 +1077,34 @@
                                                <div class="col-md-12">
                                                    <mat-form-field class="w-100">
                                                        <mat-placeholder>Address 1<span class="error" >*</span></mat-placeholder>
-                                                       <input matInput  formControlName="scurrAddr1" maxlength="80" (keyup)="typeAddressDeatils1()" autocomplete="off"  >
+                                                       <input matInput  formControlName="scurrAddr1" maxlength="80"  autocomplete="off"  >
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrAddr1.errors?.required"> Address 1 is required</mat-error>-->
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-12">
                                                    <mat-form-field class="w-100">
                                                        <mat-placeholder>Address 2<span class="error" >*</span></mat-placeholder>
-                                                       <input matInput formControlName="scurrAddr2" maxlength="80" (keyup)="typeAddressDeatils1()"  autocomplete="off"  >
+                                                       <input matInput formControlName="scurrAddr2" maxlength="80"   autocomplete="off"  >
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrAddr2.errors?.required"> Address 2 is required</mat-error>-->
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-12">
                                                    <mat-form-field class="w-100">
                                                        <mat-placeholder>Address 3<span class="error" >*</span></mat-placeholder>
-                                                       <input matInput formControlName="scurrAddr3" (keyup)="typeAddressDeatils1()"  autocomplete="off"  >
+                                                       <input matInput formControlName="scurrAddr3"  autocomplete="off"  >
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-4">
                                                    <mat-form-field class="w-100">
                                                        <mat-placeholder>City<span class="error" >*</span></mat-placeholder>
-                                                       <input matInput formControlName="scurrCity" maxlength="50" autocomplete="off" (keyup)="typeAddressDeatils1()"  (keypress)="nameValidate($event);" >
+                                                       <input matInput formControlName="scurrCity" maxlength="50" autocomplete="off"   (keypress)="nameValidate($event);" >
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrCity.errors?.required"> City is required</mat-error>-->
                                                    </mat-form-field>
                                                </div>
                                                <div class="col-md-4">
                                                    <mat-form-field class="w-100">
                                                        <mat-placeholder>PIN Code<span class="error" >*</span></mat-placeholder>
-                                                       <input matInput  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6" (keyup)="typeAddressDeatils1()" formControlName="scurrPincode"autocomplete="off"  >
+                                                       <input matInput  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  formControlName="scurrPincode"autocomplete="off"  >
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrPincode.hasError('required')">Pincode Is Required</mat-error>-->
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
@@ -1112,7 +1114,7 @@
                                                <div class="col-md-4">
                                                    <mat-form-field class="w-100">
                                                        <mat-placeholder>State<span class="error" >*</span></mat-placeholder>
-                                                       <mat-select  formControlName="scurrState"   (selectionChange)="typeAddressDeatils1()" class="w-100" >
+                                                       <mat-select  formControlName="scurrState"   class="w-100" >
                                                            <mat-option *ngFor="let list of eState | keys" [value]= list.key> {{list.value}} </mat-option>
                                                        </mat-select>
                                                        <!--<mat-error *ngIf="insureArray.controls.scurrState.errors?.required"> State is required</mat-error>-->
@@ -1123,7 +1125,7 @@
                                    </div>
                                    <div class="col-md-6">
                                        <div class="box-card addressBox">
-                                           <div class="row p-1" [ngStyle]="{'pointer-events': this.insureArray.controls['sisCurrPerAddrSame'].value ? 'none' : ''}">
+                                           <div class="row p-1" >
                                                <h6 class="color-blue ">PERMANENT ADDRESS</h6>
                                                <div class="text-right w-50">
                                                    <mat-checkbox formControlName="sisCurrPerAddrSame" (change)="sameAddress2()" ><strong>Same as Communication</strong></mat-checkbox>
@@ -1213,7 +1215,7 @@
                                    <div class="col-md-4">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Change in weight past 6 months<span class="error" >*</span></mat-placeholder>
-                                           <mat-select  formControlName="shasWeightChanged" (selectionChange)="geteWeightChanged()"  class="w-100">
+                                           <mat-select  formControlName="shasWeightChanged" (selectionChange)="geteWeightChanged();shasweight()"  class="w-100">
                                                <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
                                            <!--<mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>-->

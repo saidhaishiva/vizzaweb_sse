@@ -103,13 +103,13 @@ export class TermLifePremiumListComponent implements OnInit {
       this.getCompanyList();
       this.sessionData();
       this.getHDFcProduct();
-      for (let i = 0; i < this.allProductLists.length; i++) {
-          alert('fr')
-          this.premium_paying_termm = this.allProductLists[i].premium_paying_term;
-          console.log(this.premium_paying_termm,'this.premium_paying_termm');
-          console.log(this.allProductLists[i].premium_paying_term,'this.premium_paying_termm');
-
-      }
+      // for (let i = 0; i < this.allProductLists.length; i++) {
+      //     alert('fr')
+      //     this.premium_paying_termm = this.allProductLists[i].premium_paying_term;
+      //     console.log(this.premium_paying_termm,'this.premium_paying_termm');
+      //     console.log(this.allProductLists[i].premium_paying_term,'this.premium_paying_termm');
+      //
+      // }
           // this.form.controls['plists.termDetrails'].patchValue(this.allProductLists[0].term[0]);
       // this.premium_paying_termm = '';
 
@@ -180,7 +180,7 @@ export class TermLifePremiumListComponent implements OnInit {
           if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
               console.log('inn');
               this.getProductList(this.allCompanyList, '5000000');
-              this.getProductList(this.allCompanyList, '5000000');
+              // this.getProductList(this.allCompanyList, '5000000');
 
           }
 
@@ -350,6 +350,7 @@ export class TermLifePremiumListComponent implements OnInit {
                 if (successData[i].IsSuccess) {
                     let policylists = successData[i].ResponseObject;
                     this.productListArray.push(policylists.productlist);
+
                 }
                 this.allProductLists = [].concat.apply([], this.productListArray);
             }
@@ -359,8 +360,7 @@ export class TermLifePremiumListComponent implements OnInit {
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
 
-
-                this.allProductLists[i].termDetrails = this.allProductLists[i].term[0];
+                this.allProductLists[i].termDetrails = this.allProductLists[i].term[i];
                 this.allProductLists[0].termDetrails = this.allProductLists[0].term[0];
                 this.allProductLists[1].termDetrails = this.allProductLists[1].term[0];
                 this.allProductLists[2].termDetrails = this.allProductLists[2].term[0];
@@ -374,7 +374,8 @@ export class TermLifePremiumListComponent implements OnInit {
                 this.allProductLists[10].termDetrails = this.allProductLists[10].term[0];
                 this.allProductLists[11].termDetrails = this.allProductLists[11].term[0];
                 this.allProductLists[12].termDetrails = this.allProductLists[12].term[0];
-                this.allProductLists[0].premium_paying_termm = this.allProductLists[0].premium_paying_term;
+
+                this.allProductLists[i].premium_paying_termm = this.allProductLists[i].premium_paying_term;
                 this.allProductLists[1].premium_paying_termm = this.allProductLists[1].premium_paying_term;
                 this.allProductLists[2].premium_paying_termm = this.allProductLists[2].premium_paying_term;
                 this.allProductLists[3].premium_paying_termm = this.allProductLists[3].premium_paying_term;
