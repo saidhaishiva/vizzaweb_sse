@@ -1605,6 +1605,7 @@ export class StarHealthProposalComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
+        console.log(data, 'dataaaa')
         this.settings.loadingSpinner = true;
         this.proposalservice.getPolicyToken(data).subscribe(
             (successData) => {
@@ -1877,7 +1878,8 @@ export class StarHealthProposalComponent implements OnInit {
             console.log(this.requestDetails, 'requestDetailsrequestDetails');
             this.proposalNumber = this.requestDetails[0].proposalNum;
             this.pos_status = this.requestDetails[0].role_id;
-            this.proposalId = this.requestDetails[0].proposalId;
+            this.proposalId = this.requestDetails[0].proposal_id;
+            console.log(this.proposalId, 'this.proposalId')
             console.log(this.pos_status , 'requestDetailsrequestDetails');
             this.requestDetails = this.requestDetails[0];
             this.requestInsuredDetails = this.requestDetails.insured_details;
