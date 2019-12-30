@@ -189,7 +189,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.hideQuestion = false;
         this.declaration = false;
         this.setAddonDefault = true;
-        this.checkBoxError = false;
+        this.checkBoxError = true;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -1565,7 +1565,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                                 }
                             }
                         }
-                        else{
+                        else if(this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status != true){
                             this.checkBoxError=false;
                             // this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
 

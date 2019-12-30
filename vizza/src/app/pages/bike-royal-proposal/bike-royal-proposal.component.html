@@ -516,8 +516,8 @@
                   <div class="col-md-6">
                       <div class="p-3">
                           <ul class="m-0 list-group">
-                              <li class="list-group-item"><strong>STD Code:</strong> {{proposerFormData.stdCode}}</li>
-                              <li class="list-group-item"><strong>Phone Number:</strong>{{proposerFormData.phoneNumber}}</li>
+                              <li class="list-group-item" *ngIf="proposerFormData.stdCode != ''"><strong>STD Code:</strong> {{proposerFormData.stdCode}}</li>
+                              <li class="list-group-item" *ngIf="proposerFormData.phoneNumber != ''"><strong>Phone Number:</strong>{{proposerFormData.phoneNumber}}</li>
                               <li class="list-group-item" ><strong>Occupation :</strong> {{proposerFormData.occupation}}</li>
 
                           </ul>
