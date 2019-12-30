@@ -108,6 +108,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public requestedUrl: any;
   public biURL: any;
   public Premium: any;
+  public payment_link: any;
   public ProposalNumber: any;
   public policyId: any;
   public diseaseLists: any;
@@ -1213,8 +1214,8 @@ samerelationShip(){
     uploadValid() {
         if (this.documentDetail.valid) {
             console.log('11111111doc');
-            this.window.open(this.proposalNextList.payment_link,'_top')
-            console.log(this.proposalNextList.payment_link,'payment link')
+            this.window.open(this.payment_link,'_top')
+            console.log(this.payment_link,'payment link')
             console.log('22222');
         } else {
             console.log('3333333333else');
@@ -2491,9 +2492,11 @@ samerelationShip(){
       this.toastr.success('Proposal Created successfully!!');
       this.summaryData = successData.ResponseObject;
       this.premium = this.summaryData.Premium;
+      this.payment_link = this.summaryData.payment_link;
       // this.requestedUrl = this.summaryData.biUrlLink;
         this.proposalFormPdf = this.summaryData.proposal_form;
         console.log(this.proposalFormPdf,'proposalFormPdf...')
+        console.log(this.payment_link);
         console.log(this.summaryData.proposal_form,'this.summaryData.proposal_form...')
         // this.proposalFormPdf = this.summaryData.proposal_form;
 
