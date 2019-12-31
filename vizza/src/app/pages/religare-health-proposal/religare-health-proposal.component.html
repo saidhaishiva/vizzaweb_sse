@@ -19,7 +19,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="changeGender()" required>
+                          <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>
                             <mat-option value="MR">Mr</mat-option>
                             <mat-option value="MS">Ms</mat-option>
                             <!--<mat-option value="MRS">Mrs</mat-option>-->
@@ -632,9 +632,9 @@
                               {{i+1}}. {{item.main_question}}
                             </mat-panel-title>
                             <mat-panel-description>
-                              <mat-slide-toggle (change)="questionYes(i, $event)" disabled readonly>{{item.mStatus}}</mat-slide-toggle>
                               <!--<mat-slide-toggle (change)="questionYes(i, $event)" disabled readonly>{{item.mStatus}}</mat-slide-toggle>-->
-                              <!--<p>{{item.mStatus | uppercase}}</p>-->
+                              <!--<mat-slide-toggle (change)="questionYes(i, $event)" disabled readonly>{{item.mStatus}}</mat-slide-toggle>-->
+                              <p>{{item.mStatus | uppercase}}</p>
                             </mat-panel-description>
                           </mat-expansion-panel-header>
                           <table class="qesTable able table-striped mt-3">
