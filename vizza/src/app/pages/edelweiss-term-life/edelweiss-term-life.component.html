@@ -649,8 +649,9 @@
                                        </div>
                                        <div class="col-md-6">
                                            <div class="box-card addressBox">
-                                               <div class="row p-1" [ngStyle]="{'pointer-events': this.insureArray.controls['isCurrPerAddrSame'].value ? 'none' : ''}">
+                                               <div class="row p-1" >
                                                    <h6 class="color-blue ">PERMANENT ADDRESS</h6>
+<!--                                                   [ngStyle]="{'pointer-events': this.insureArray.controls['isCurrPerAddrSame'].value ? 'none' : ''}"-->
                                                    <div class="text-right w-50">
                                                        <mat-checkbox formControlName="isCurrPerAddrSame" (change)="sameAddress1()" ><strong>Same as Communication</strong></mat-checkbox>
                                                    </div>
@@ -659,29 +660,29 @@
 
                                                    <div class="col-md-12">
                                                        <mat-form-field class="w-100">
-                                                           <input matInput placeholder=" Address 1" formControlName="perAddr1"  required autocomplete="off"  >
+                                                           <input matInput placeholder=" Address 1" formControlName="perAddr1"  required autocomplete="off"  [readonly]="this.insureArray.controls['isCurrPerAddrSame'].value">
                                                            <mat-error *ngIf="insureArray.controls.perAddr1.errors?.required"> Address 1 is required</mat-error>
                                                        </mat-form-field>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <mat-form-field class="w-100" >
-                                                           <input matInput placeholder=" Address 2" formControlName="perAddr2"  autocomplete="off" required (keypress)="nameValidate($event)" >
+                                                           <input matInput placeholder=" Address 2" formControlName="perAddr2"  autocomplete="off" required (keypress)="nameValidate($event)" [readonly]="this.insureArray.controls['isCurrPerAddrSame'].value" >
                                                            <mat-error *ngIf="insureArray.controls.perAddr2.errors?.required"> Address 2 is required</mat-error>
                                                        </mat-form-field>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <mat-form-field class="w-100">
-                                                           <input matInput placeholder=" Address 3" formControlName="perAddr3" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" >
+                                                           <input matInput placeholder=" Address 3" formControlName="perAddr3" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" [readonly]="this.insureArray.controls['isCurrPerAddrSame'].value">
                                                        </mat-form-field>
                                                    </div>
                                                    <div class="col-md-4">
                                                        <mat-form-field class="w-100" >
-                                                           <input matInput placeholder="City" formControlName="perCity" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
+                                                           <input matInput placeholder="City" formControlName="perCity" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" [readonly]="this.insureArray.controls['isCurrPerAddrSame'].value">
                                                            <mat-error *ngIf="insureArray.controls.perCity.errors?.required"> City is required</mat-error>
                                                        </mat-form-field>
                                                    </div>
                                                    <div class="col-md-4"><mat-form-field class="w-100" >
-                                                       <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="perPincode" autocomplete="off" required >
+                                                       <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="perPincode" autocomplete="off" required [readonly]="this.insureArray.controls['isCurrPerAddrSame'].value">
                                                        <mat-error *ngIf="insureArray.controls.perPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                                        <mat-error *ngIf="insureArray.controls.perPincode.hasError('required')">Pincode Is Required</mat-error>
                                                        <mat-error *ngIf="insureArray.controls.perPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
