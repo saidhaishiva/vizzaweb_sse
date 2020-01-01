@@ -272,6 +272,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       LiabilityToPaidDriverCovered: [''],
       // TPPDCover: [''],
       // TPPDCoverSi: [''],
+      fuelType: ['',Validators.required],
       BasicODCoverage: ['',Validators.required],
       BasicLiability: ['',Validators.required],
       nrelationValue: [''],
@@ -294,11 +295,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       NonElectricalItemsTotalSI: [''],
       BiFuelKitSi: [''],
       bifueltype: [''],
-      cpgLpgKit: [''],
+      cpgLpgKit: '',
       fittngType: [''],
       IsBiFuelKit: [''],
       bifuelAmount: [''],
-
       // IsTotalCover: [''],
       IsRegistrationCover: [''],
       // IsPAToDriverCovered: [''],
@@ -325,8 +325,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       roadtaxSI: [''],
       insuranceSI: [''],
       InsurancePremium: [''],
-      fuelType: ['',Validators.required],
-
       inspectionNo: [''],
       totalLiabilityToPaidDriverPremium: [''],
       totalAssociationPremium: [''],
@@ -563,37 +561,53 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
 
 
-  changeFuel(){
-    this.coverDetails.controls['fuelTypeValue'].patchValue(this.fuelTypeList[this.coverDetails.controls['fuelType'].value]);
-    console.log(this.coverDetails.controls['fuelTypeValue'].value);
-    if(this.coverDetails.controls['fuelType'].value == 5){
-      //   this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-      // this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
-      //   //
-      //   this.coverDetails.controls['BiFuelKitSi'].patchValue( this.coverDetails.controls['BiFuelKitSi'].value);
-
-        this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
-        // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
-
-        this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
-        // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
-      }else {
-        this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
-      this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
-
-
-      this.coverDetails.controls['BiFuelKitSi'].patchValue('');
-        this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
-        // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
-
-        this.coverDetails.controls['bifueltype'].patchValue('');
-        this.coverDetails.controls['bifueltype'].setValidators(null);
-        // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
-      }
-    this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
-    this.coverDetails.controls['bifueltype'].updateValueAndValidity();
-    this.coverDetails.controls['cpgLpgKit'].updateValueAndValidity();
-  }
+  // changeFuel() {
+  //   this.coverDetails.controls['fuelTypeValue'].patchValue(this.fuelTypeList[this.coverDetails.controls['fuelType'].value]);
+  //   console.log(this.coverDetails.controls['fuelType'].value);
+  //   console.log(this.coverDetails.controls['fuelTypeValue'].value);
+  // }
+  // changeFuelType(){
+  //   if(this.coverDetails.controls['fuelType'].value == 5){
+  //     alert('inn')
+  //     this.coverDetails.controls['IsBiFuelKit'].setValidators([Validators.required]);
+  //
+  //     //   this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+  //     // this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
+  //     //   //
+  //     //   this.coverDetails.controls['BiFuelKitSi'].patchValue( this.coverDetails.controls['BiFuelKitSi'].value);
+  //     // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+  //     // this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
+  //       // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+  //     }else if(this.coverDetails.controls['fuelType'].value != 5){
+  //     alert(this.coverDetails.controls['IsBiFuelKit'].value)
+  //     this.coverDetails.controls['IsBiFuelKit'].setValidators(null);
+  //     this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+  //       alert(this.coverDetails.controls['IsBiFuelKit'].value)
+  //     // this.coverDetails.controls['IsBiFuelKit'].patchValue('');
+  //     // this.coverDetails.controls['cpgLpgKit'].patchValue(this.coverDetails.controls['cpgLpgKit'].value);
+  //
+  //
+  //     // this.coverDetails.controls['IsBiFuelKit'].patchValue('');
+  //     // this.coverDetails.controls['BiFuelKitSi'].patchValue('');
+  //     //   this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
+  //     // this.coverDetails.controls['bifueltype'].patchValue('');
+  //     // this.coverDetails.controls['bifueltype'].setValidators(null);
+  //     // this.coverDetails.controls['cpgLpgKit'].patchValue('');
+  //     // this.coverDetails.controls['cpgLpgKit'].setValidators(null);
+  //     // this.coverDetails.controls['fittngType'].patchValue('');
+  //     // this.coverDetails.controls['fittngType'].setValidators(null);
+  //     // this.coverDetails.controls['bifuelAmount'].patchValue('');
+  //     // this.coverDetails.controls['bifuelAmount'].setValidators(null);
+  //       // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+  //
+  //
+  //       // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+  //     }
+  //   this.coverDetails.controls['IsBiFuelKit'].updateValueAndValidity();
+  //   // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+  //   // this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+  //   // this.coverDetails.controls['cpgLpgKit'].updateValueAndValidity();
+  // }
   changeInsurer(){
     this.previousInsurance.controls['prevInsuranceValue'].patchValue(this.prevInsurerList[this.previousInsurance.controls['prevInsurance'].value]);
   }
@@ -1146,46 +1160,70 @@ changeNonElect(){
 
 }
 
-    updatenonBiFuelKit(event){
+    changeFuel(){
+        this.coverDetails.controls['fuelTypeValue'].patchValue(this.fuelTypeList[this.coverDetails.controls['fuelType'].value]);
+        if(this.coverDetails.controls['fuelType'].value == 5){
+
+          this.coverDetails.controls['IsBiFuelKit'].setValidators([Validators.required]);
+
+        }else if(this.coverDetails.controls['fuelType'].value != 5) {
+            // alert('false')
+          this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+         this.updatenonBiFuelKit()
+
+        }
+        this.coverDetails.controls['IsBiFuelKit'].updateValueAndValidity();
+
+
+    }
+
+    updatenonBiFuelKit(){
         if(this.coverDetails.controls['IsBiFuelKit'].value==true){
-            // this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-            // this.coverDetails.controls['BiFuelKitSi'].patchValue(this.coverDetails.controls['BiFuelKitSi'].value);
             this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
+            this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
             this.coverDetails.controls['cpgLpgKit'].setValidators([Validators.required]);
             this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
-            // this.getCover()
-        }else {
-            // this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
-            this.coverDetails.controls['cpgLpgKit'].patchValue('');
+        }else if(this.coverDetails.controls['IsBiFuelKit'].value==false) {
             this.coverDetails.controls['BiFuelKitSi'].patchValue('');
             this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
+
+            this.coverDetails.controls['bifueltype'].patchValue('');
+            this.coverDetails.controls['bifueltype'].setValidators(null);
+
+            this.coverDetails.controls['cpgLpgKit'].patchValue('No');
+            this.coverDetails.controls['cpgLpgKit'].setValidators(null);
+            this.changeCpgLpgKit();
+
             this.coverDetails.controls['bifuelAmount'].patchValue('');
             this.coverDetails.controls['bifuelAmount'].setValidators(null);
         }
-      this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
-      this.coverDetails.controls['cpgLpgKit'].updateValueAndValidity();
-      this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
+        this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+        this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+        this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
 
     }
-
-  cpgLpgKitChange(){
-    if(this.coverDetails.controls.cpgLpgKit.value == 'Yes'){
-      // this.coverDetails.controls['fittngType'].patchValue(this.coverDetails.controls['fittngType'].value);
-      this.coverDetails.controls['fittngType'].setValidators([Validators.required]);
-
-    }else {
-      this.coverDetails.controls['fittngType'].patchValue('');
-      this.coverDetails.controls['fittngType'].setValidators(null);
-    }
-    this.coverDetails.controls['fittngType'].updateValueAndValidity();
-
-  }
     changeBifuel(){
-    // alert(this.Bifuel_Kit)
-    // alert(this.coverDetails.controls['bifuelAmount'].value)
-      this.coverDetails.controls['bifuelAmount'].patchValue(this.Bifuel_Kit);
-      // this.coverDetails.controls['totalNonElectricalItemPremium'].patchValue(this.non_electrical_accessories);
+        this.coverDetails.controls['bifuelAmount'].patchValue(this.Bifuel_Kit);
     }
+    changeCpgLpgKit(){
+        if (this.coverDetails.controls.cpgLpgKit.value == 'Yes') {
+            this.coverDetails.controls['fittngType'].setValidators([Validators.required]);
+            this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
+        } else  if (this.coverDetails.controls.cpgLpgKit.value == 'No'){
+            this.coverDetails.controls['fittngType'].patchValue('');
+            this.coverDetails.controls['bifuelAmount'].patchValue('');
+
+            this.coverDetails.controls['fittngType'].setValidators(null);
+            this.coverDetails.controls['bifuelAmount'].setValidators(null);
+
+        }
+        this.coverDetails.controls['fittngType'].updateValueAndValidity();
+        this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
+    }
+
+
+
+
 
   // updateDriverCovered(event){
   //   if(event.checked){
