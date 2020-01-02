@@ -210,7 +210,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.proposerInsureData = [];
         this.questions_list = [];
         this.arr = [];
-        this.religareMobileTrue0 = true;
+        this.religareMobileTrue0 = false;
         this.religareMobileTrue1 = true;
         this.religareMobileTrue2 = true;
         this.religareMobileTrue3 = true;
@@ -299,6 +299,13 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
     ngOnInit() {
         if (this.payLaterr == true) {
+            this.stepperindex = 4;
+            this.step = 4;
+            this.religareMobileTrue0 = true;
+            this.religareMobileTrue1 = true;
+            this.religareMobileTrue2 = true;
+            this.religareMobileTrue3 = true;
+            this.religareMobileTrue4 = false;
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
             this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
