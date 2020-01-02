@@ -73,6 +73,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public prevInsurerList: any;
   public maritalList: any;
   public webhost : any;
+  public bifuelType : any;
 
   public nationalityList: any;
   public otherSystemNameList: any;
@@ -122,6 +123,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public nonElectricalSumAount: any;
   public bifuelChangeList: any;
   public clientTypeField: boolean;
+  public bifuelCover: boolean;
 
   //dob
   proposerAge : any;
@@ -169,6 +171,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.showInspection=false;
     this.errorRateMsg=false;
     this.clientTypeField=false;
+    this.bifuelCover=false;
     this.proposerAge='';
 
 
@@ -272,7 +275,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       LiabilityToPaidDriverCovered: [''],
       // TPPDCover: [''],
       // TPPDCoverSi: [''],
-      fuelType: ['',Validators.required],
+      fuelType: [''],
       BasicODCoverage: ['',Validators.required],
       BasicLiability: ['',Validators.required],
       nrelationValue: [''],
@@ -1409,6 +1412,39 @@ changeNonElect(){
   }
   public failureSuccess(error) {
   }
+
+  changeBifuelDrop() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "enquiry_id": this.bikeEnquiryId,
+    };
+    this.fourWheelerInsurance.fourWheelerRelianceGetBifuelList(data).subscribe(
+        (successData) => {
+          this.Bifuelsucccess(successData);
+        },
+        (error) => {
+          this.BifuelfailureSuccess(error);
+        }
+    );
+  }
+  public Bifuelsucccess(successData){
+    this.bifuelType = successData.ResponseObject.fuel_type;
+    console.log(this.bifuelType,'this.bifuelType...');
+    this.dropdownFuelType();
+  }
+  public BifuelfailureSuccess(error) {
+  }
+  dropdownFuelType(){
+    if(this.bifuelType == '5'){
+    this.coverDetails['controls'].fuelType.patchValue('5');
+      this.bifuelCover=true;
+    }else{
+      this.bifuelCover=false;
+    }
+  }
+
 
   //stepper
   nextTab(stepper,value,type) {
