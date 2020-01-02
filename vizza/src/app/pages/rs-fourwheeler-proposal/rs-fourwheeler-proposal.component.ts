@@ -915,8 +915,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   bifuelcoverPremium(){
 
-    if (this.vehical.controls['isBiFuelKitYes'].value=='Yes') {
-      alert('1');
+    if (this.vehical.controls['isBiFuelKit'].value=='Yes') {
       this.vehical.controls['bifuelpremium'].setValidators([Validators.required]);
       this.coverPremium();
 
