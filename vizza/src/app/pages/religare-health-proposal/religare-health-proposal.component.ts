@@ -80,6 +80,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     public sumPin: any;
     public code: any;
     public checkBoxError: any;
+    public fillCheckbox: any;
     public pos_status: any;
     public product_id: any;
     public requestInsuredDetails: any;
@@ -190,6 +191,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.declaration = false;
         this.setAddonDefault = true;
         this.checkBoxError = true;
+        this.fillCheckbox = true;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -1391,78 +1393,16 @@ export class ReligareHealthProposalComponent implements OnInit {
                     for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
 
                         // alert(this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status)
-                        this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-                        this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].dobError = '';
-                        this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
+                        this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
                         this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status = false;
                     }
                 }
             }
         }
     }
-//     changeToggle(id, event: any){
-//       if (event.checked==true) {
-//     // alert('inn');
-//        this.religareQuestionsList[id].mStatus = 'Yes';
-//        this.religareQuestionsList[id].answer_status = true;
-//           for (let i = 0; i < this.religareQuestionsList.length; i++) {
-//
-//               for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-//
-//                   for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-//
-//                       // alert(this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status)
-//                       this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-//                       this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].dobError = '';
-//                       this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
-//                       this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status = false;
-//                   }
-//               }
-//           }
-//
-//       } else {
-//        this.religareQuestionsList[id].mStatus = 'No';
-//        this.religareQuestionsList[id].answer_status = false;
-//        for (let i = 0; i < this.religareQuestionsList.length; i++) {
-//
-//         for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
-//
-//             for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-//
-//                 // alert(this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status)
-//                 this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-//                 this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].dobError = '';
-//                 this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
-//                 this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status = false;
-//             }
-//         }
-//     }
-// }
-    //     // for (let i = 0; i < this.religareQuestionsList.length; i++) {
-    //     if (event.checked==true) {
-    //         alert('inn');
-    //         this.religareQuestionsList[id].mStatus = 'Yes';
-    //             for (let j = 0; j < this.religareQuestionsList[id].sub_questions_list.length; j++) {
-    //                 for (let k = 0; k < this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group.length; k++) {
-    //                 //      alert('checkbox...')
-    //                 // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
-    //                 if (this.religareQuestionsList[id].mStatus = 'Yes'&&this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group.status == true) {
-    //                     alert(this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group.status)
-    //                     alert('checkboTrye')
-    //                     alert(this.religareQuestionsList[id].sub_questions_list[j].question_details.family_group[k].status)
-    //
-    //                     this.checkBoxError=true;
-    //                 }else{
-    //                     alert('false')
-    //                     this.checkBoxError=false;
-    //                     this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
-    //
-    //                 }
-    //             }
-    //         }
-    //
-    //     }
-    // }
+
 
     subStatus(value: any, i, k, j) {
         // alert('check value')
@@ -1478,18 +1418,6 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
 
 
-
-
-    // medicalDetails(stepper: MatStepper){
-    //     for (let i = 0; i < this.religareQuestionsList.length; i++) {
-    //         if(this.religareQuestionsList[i].mStatus == 'No'){
-    //             this.medicalStatus.push('No');
-    //         } else if(this.religareQuestionsList[i].mStatus == 'Yes') {
-    //             alert('yes...')
-    //             this.medicalStatus.push('Yes');
-    //             }
-    //         }
-    // }
     medicalHistoryDetails(stepper: MatStepper) {
         sessionStorage.stepper3Details = '';
         sessionStorage.stepper3Details = JSON.stringify(this.religareQuestionsList);
@@ -1540,20 +1468,23 @@ export class ReligareHealthProposalComponent implements OnInit {
                 // alert('answer_status');
                 // alert(this.religareQuestionsList[i].answer_status)
                 for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
+
                     for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                   //      alert('checkbox...')
-                        if(this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
+                        // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
+                        if(this.religareQuestionsList[i].mStatus == 'Yes') {
+                        // if(this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
                             this.checkBoxError=true;
                             // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
-                            if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
-
+                            if (this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
+                                  this.fillCheckbox=true
                                 if (this.religareQuestionsList[i].sub_questions_list[j].question_details.question_description != '') {
                                     statusChecked.push(1);
                                     // alert('question_description')
                                     // alert(statusChecked)
+                                    // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince)
                                     if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
                                         statusChecked.push(0);
-                                        // alert('existingSince')
+
                                         // alert(statusChecked)
                                     }
                                 } else {
@@ -1570,9 +1501,11 @@ export class ReligareHealthProposalComponent implements OnInit {
 
                                     }
                                 }
+                            }else if (this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status != true){
+                                this.fillCheckbox=false
                             }
                         }
-                        else if(this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status != true){
+                        else if(this.religareQuestionsList[i].mStatus == 'No'){
                             this.checkBoxError=false;
                             // this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
 
@@ -1603,17 +1536,17 @@ export class ReligareHealthProposalComponent implements OnInit {
         } else {
             // console.log(statusChecked,'ghhh');
             // alert(statusChecked)
-            if(this.checkBoxError==true){
+            // if((this.checkBoxError==true&&this.fillCheckbox==true)){
             stepper.next();
             this.topScroll();
             this.nextStep();
             this.religareMobileTrue2 = false;
             this.religareMobileTrue3 = false;
-            }
-            else{
-                // alert('tostr')
-                this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
-            }
+            // }
+            // else{
+            //     alert('tostr')
+            //     this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+            // }
         }
     }
 

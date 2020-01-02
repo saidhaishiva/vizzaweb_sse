@@ -562,30 +562,7 @@
                         <h3 class="color-blue">Vehicle Details</h3>
                       </div>
 
-                      <div class="col-md-12 mt-2" >
-                        <div class="row">
-                          <div class="col-md-4" >
-                            <mat-checkbox  formControlName="BasicODCoverage" required  (change)="updateBasicODCoverage()"  >Basic OD<span class="error">*</span></mat-checkbox>
-                          </div>
-                          <div class="col-md-4 " *ngIf="coverDetails.controls.BasicODCoverage.value == true">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Cover Premium"  formControlName="totalBasicODCoveragePremium" autocomplete="off" [required]="coverDetails.controls.BasicODCoverage.value == true" readonly>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-12 mt-2" >
-                        <div class="row">
-                          <div class="col-md-4">
-                            <mat-checkbox  formControlName="BasicLiability" required  (change)="updateBasicLiabilityCoverage()"  >Basic Liability<span class="error">*</span></mat-checkbox>
-                          </div>
-                          <div class="col-md-4 " *ngIf="coverDetails.controls.BasicLiability.value == true">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Cover Premium"  formControlName="totalBasicLiabilityPremium" autocomplete="off" [required]="coverDetails.controls.BasicLiability.value == true" readonly>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </div>
+
                       <div class="col-md-12 mt-2" >
                       <div class="row">
                       <div class="col-md-3" *ngIf="coverDetails.controls['fuelType'].value == 5">
@@ -634,6 +611,31 @@
                       </mat-form-field>
                       </div>
                       </div>
+                      </div>
+
+                      <div class="col-md-12 mt-2" >
+                        <div class="row">
+                          <div class="col-md-4" >
+                            <mat-checkbox  formControlName="BasicODCoverage" required  (change)="updateBasicODCoverage()"  >Basic OD<span class="error">*</span></mat-checkbox>
+                          </div>
+                          <div class="col-md-4 " *ngIf="coverDetails.controls.BasicODCoverage.value == true">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Cover Premium"  formControlName="totalBasicODCoveragePremium" autocomplete="off" [required]="coverDetails.controls.BasicODCoverage.value == true" readonly>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mt-2" >
+                        <div class="row">
+                          <div class="col-md-4">
+                            <mat-checkbox  formControlName="BasicLiability" required  (change)="updateBasicLiabilityCoverage()"  >Basic Liability<span class="error">*</span></mat-checkbox>
+                          </div>
+                          <div class="col-md-4 " *ngIf="coverDetails.controls.BasicLiability.value == true">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Cover Premium"  formControlName="totalBasicLiabilityPremium" autocomplete="off" [required]="coverDetails.controls.BasicLiability.value == true" readonly>
+                            </mat-form-field>
+                          </div>
+                        </div>
                       </div>
 
                       <!--<div class="col-md-12 mt-2" >-->
