@@ -912,7 +912,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   }
   bifuelcoverPremium(){
+
     if (this.vehical.controls['isBiFuelKitYes'].value=='Yes') {
+      alert('1');
       this.vehical.controls['bifuelpremium'].setValidators([Validators.required]);
       this.coverPremium();
 
@@ -931,7 +933,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['bifuelpremium'].updateValueAndValidity();
 
   }
-  changebifuelpremium(){
+  changebifuelcoverpremium(){
     this.vehical.controls['bifuelpremium'].patchValue(this.BI_FUEL_KIT);
 
 
@@ -1483,8 +1485,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.LIABILITY_TO_PAID_DRIVERS=this.AddonList.LIABILITY_TO_PAID_DRIVERS,
       this.FIBER_GLASS_TANK=this.AddonList.FIBER_GLASS_TANK,
       this.BI_FUEL_KIT=this.AddonList.BI_FUEL_KIT,
-      console.log( this.LIABILITY_PA_COVER_TO_PAID_DRIVER,'road')
-      this.coverdriverpremium();
+      console.log( this.BI_FUEL_KIT,'BI_FUEL_KIT')
+      this.coverdriverpremiumchange();
       this.patchkeyreplacementpremium();
       this.patchdepreciationpremium();
       this.ncbprotecorchangepremium();
@@ -1494,7 +1496,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.changeengineprotectorpremium();
       this.legalliabilityToPaidDriverchangepremium();
       this.fibreGlasspremiumchangepremium();
-      this.changebifuelpremium();
+      this.changebifuelcoverpremium();
 
     }
   }
@@ -2110,7 +2112,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   carAccessories(){
     if (this.vehical.controls['cover_dri_othr_car_ass'].value=='Yes') {
-      alert('in')
+      // alert('in')
       this.vehical.controls['coverdriverpremium'].setValidators([Validators.required]);
       // this.vehical.controls['coverdriverpremium'].patchValue(this.LIABILITY_PA_COVER_TO_PAID_DRIVER);
       this.coverPremium();
@@ -2122,7 +2124,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   }
 
-  coverdriverpremium(){
+  coverdriverpremiumchange(){
     this.vehical.controls['coverdriverpremium'].patchValue(this.LIABILITY_PA_COVER_TO_PAID_DRIVER);
   }
 
