@@ -894,6 +894,7 @@ setOccupationList() {
             this.familyMembers[i].engage_manual_status = '0';
             this.familyMembers[i].engage_winter_status = '0';
             this.familyMembers[i].ageRestriction = '';
+            console.log(this.familyMembers[i].ins_buyBack_cash,'ins_buyBack_cash');
         }
 
     }
@@ -1023,6 +1024,7 @@ setOccupationList() {
                 this.nextStep();
                 this.healthStarTrue1 = false;
                 this.healthStarTrue2 = false;
+
             }
         }
         // if(this.familyMembers.length == 1){
