@@ -474,7 +474,7 @@
                                                 <div class="row" >
                                                     <div class="col-md-3 mt-3" >
                                                         <p>Is BiFuel Kit</p>
-                                                        <mat-radio-group formControlName="isBiFuelKit" (change)="isBiFuel();bifuelcoverPremium()">
+                                                        <mat-radio-group formControlName="isBiFuelKit" (change)="bifuelcoverPremium();isBiFuel()">
                                                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                             <mat-radio-button value="No">No</mat-radio-button>
                                                         </mat-radio-group>
@@ -491,15 +491,21 @@
                                                         </mat-form-field>
 
                                                     </div>
-
-                                                    <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKitYes'].value == 'Yes'" >
+                                                    <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'" >
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="bifuel"  formControlName="bifuelpremium"  autocomplete="off" >
+                                                            <input matInput placeholder="bifuel"  formControlName="bifuelpremium"  autocomplete="off" readonly >
                                                             <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKitYes'].value == 'Add On'" >
+                                                        <mat-form-field class="w-100">
+                                                            <mat-placeholder>Addon Value<span class="error" >*</span></mat-placeholder>
+                                                            <input matInput  formControlName="addonValue" maxlength="6" (keypress)="numberValidate($event)" (keypress)="addonlimit($event)"  autocomplete="off" >
                                                         </mat-form-field>
                                                     </div>
 
                                                 </div>
+
 
 
 
