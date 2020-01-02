@@ -130,6 +130,7 @@ export class BikeShriramProposalComponent implements OnInit {
     public Nil_depreciation_cover:any;
     public pa_owner_driver:any;
     public ncb:any;
+    public PreviousValid:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -180,6 +181,7 @@ export class BikeShriramProposalComponent implements OnInit {
     this.nonelectricalValid = false;
     this.paUnNamed = false;
     this.policyTypeDetails = false;
+    this.PreviousValid = false;
     this.policyDatevalidate = [];
         // this.config = {
         //     displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
@@ -284,6 +286,7 @@ export class BikeShriramProposalComponent implements OnInit {
          this.voluntaryExcess();
 
       this.sessionData();
+
   }
     changeCalcMax(){
         let values=this.buyBikeDetails.Idv;
@@ -496,6 +499,19 @@ export class BikeShriramProposalComponent implements OnInit {
         this.proposer.controls['vehicleTypeName'].patchValue(this.bkVehicleList[this.proposer.controls['vehicleType'].value]);
 
       }
+    previousNilError(){
+        console.log(this.previousInsure.controls['policyNilDescription'].value,'456787656789')
+        if ((this.previousInsure.controls['policyNilDescription'].value==''||this.previousInsure.controls['policyNilDescription'].value==undefined||this.previousInsure.controls['policyNilDescription'].value==null)) {
+            // alert(this.bikeInsurance.controls['previousClaim'].value)
+            this.PreviousValid=true;
+            this.PreviousValid = 'Please Select Previous Nil Description';
+
+        } else {
+            this.PreviousValid=false;
+            this.PreviousValid='';
+        }
+        console.log(this.PreviousValid,'this.ClaimValid///')
+    }
 
   // NEXT BUTTON
 
@@ -1203,12 +1219,14 @@ export class BikeShriramProposalComponent implements OnInit {
         }
     changeDepreciation(){
         if(this.vehical.controls['nilDepreciationCover'].value==true){
-            this.previousInsure.controls['policyNilDescription'].patchValue(1) ;
+            this.previousInsure.controls['policyNilDescription'].patchValue('') ;
 
+        }else{
+            this.previousInsure.controls['policyNilDescription'].patchValue('')
         }
 
     }
-    // proposal Creation
+  // proposal Creation
 
   proposal(stepper) {
       const data = {

@@ -127,6 +127,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public pa_owner_driver :any;
   public Ncb :any;
   public mobileNumber :any;
+  public PreviousValid:any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -172,6 +173,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.finance = false;
     this.claimList = false;
     this.apponiteeList = false;
+    this.PreviousValid = false;
     this.mobileNumber = 'true';
     // this.config = {
     //   displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
@@ -357,8 +359,10 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
   changeDepreciation() {
     if (this.vehical.controls['nilDepreciationCover'].value == true) {
-      this.previousInsure.controls['policyNilDescription'].patchValue(1);
+      this.previousInsure.controls['policyNilDescription'].patchValue('');
 
+    }else{
+      this.previousInsure.controls['policyNilDescription'].patchValue('');
     }
   }
 
@@ -1166,7 +1170,19 @@ hypoName(){
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
+  previousNilError(){
+    console.log(this.previousInsure.controls['policyNilDescription'].value,'456787656789')
+    if ((this.previousInsure.controls['policyNilDescription'].value==''||this.previousInsure.controls['policyNilDescription'].value==undefined||this.previousInsure.controls['policyNilDescription'].value==null)) {
+      // alert(this.bikeInsurance.controls['previousClaim'].value)
+      this.PreviousValid=true;
+      this.PreviousValid = 'Please Select Previous Nil Description';
 
+    } else {
+      this.PreviousValid=false;
+      this.PreviousValid='';
+    }
+    console.log(this.PreviousValid,'this.ClaimValid///')
+  }
 
   previousDetails(stepper: MatStepper, value) {
     console.log(value, 'vvvvvv');

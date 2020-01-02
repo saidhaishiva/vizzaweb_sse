@@ -408,8 +408,11 @@ export class FourWheelerHomeComponent implements OnInit {
 
 
   yearCalculate(dob) {
+
     let today = new Date();
+    console.log(today);
     let birthDate = new Date(dob);
+    console.log(birthDate);
     let age = today.getFullYear() - birthDate.getFullYear();
     let m = today.getMonth() - birthDate.getMonth();
     let dd = today.getDate() - birthDate.getDate();
@@ -452,6 +455,8 @@ export class FourWheelerHomeComponent implements OnInit {
       this.ClaimValid='';
     }
     console.log(this.ClaimValid,'this.ClaimValid///')
+    console.log(this.fourWheeler.controls['previousPolicyExpiry'].value,'4567876568')
+    console.log(this.fourWheeler.controls['previousPolicyStart'].value,'34567887456')
     const data = {
       "platform": "web",
       "created_by": "0",
@@ -460,10 +465,10 @@ export class FourWheelerHomeComponent implements OnInit {
       "enquiry_id": 0,
       "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       "vehicle_no": this.fourWheeler.controls['vehicalNumber'].value==null||undefined ?'': this.fourWheeler.controls['vehicalNumber'].value,
-      "registration_date": this.fourWheeler.controls['registrationDate'].value ? this.fourWheeler.controls['registrationDate'].value : this.fourWheeler.controls['registrationDateNew'].value,
+      "registration_date": this.datepipe.transform(this.fourWheeler.controls['registrationDate'].value, 'y-MM-dd') ? this.datepipe.transform(this.fourWheeler.controls['registrationDate'].value, 'y-MM-dd') : this.datepipe.transform(this.fourWheeler.controls['registrationDateNew'].value, 'y-MM-dd'),
       "previous_claim_YN": this.fourWheeler.controls['previousClaim'].value == 'No' ? '0' : '1',
-      "previous_policy_expiry_date": this.fourWheeler.controls['previousPolicyExpiry'].value ? this.fourWheeler.controls['previousPolicyExpiry'].value : '',
-      "previous_policy_start_date": this.fourWheeler.controls['previousPolicyStart'].value ? this.fourWheeler.controls['previousPolicyStart'].value : '',
+      "previous_policy_expiry_date": this.fourWheeler.controls['previousPolicyExpiry'].value ==''||this.fourWheeler.controls['previousPolicyExpiry'].value ==undefined||this.fourWheeler.controls['previousPolicyExpiry'].value ==null? '' : this.datepipe.transform(this.fourWheeler.controls['previousPolicyExpiry'].value, 'y-MM-dd'),
+      "previous_policy_start_date": this.fourWheeler.controls['previousPolicyStart'].value ==''||this.fourWheeler.controls['previousPolicyStart'].value ==undefined||this.fourWheeler.controls['previousPolicyStart'].value ==null ? '' : this.datePipe.transform(this.fourWheeler.controls['previousPolicyStart'].value, 'y-MM-dd'),
       "type": this.typeList,
       "ncb_percent": this.fourWheeler.controls['ncb'].value ? this.fourWheeler.controls['ncb'].value : '0',
       "prev_insurance_name": this.fourWheeler.controls['previousCompany'].value==null||undefined ?'': this.fourWheeler.controls['previousCompany'].value,

@@ -238,6 +238,10 @@ export class StarHealthProposalComponent implements OnInit {
         if (this.payLaterr == true) {
             this.stepperindex = 3;
             this.step = 3;
+            this.healthStarTrue0 = true;
+            this.healthStarTrue1 = true;
+            this.healthStarTrue2 = true;
+            this.healthStarTrue3 = false;
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
             this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);

@@ -1098,9 +1098,6 @@
 </section>
 
 
-
-
-
 <!--mobile view-->
 <section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">
   <div class="container-fluid">
@@ -1630,7 +1627,7 @@
             <div class="row">
               <div class="col-12"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
               <div class="col-12">
-                <ul class="summary-head">
+                <ul class="summary-head" style="list-style-type: none">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                   <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
                   <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>
@@ -1846,7 +1843,7 @@
                 <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.sum_insured_amount}}</span></h4>
               </div>
               <div class="col-12 mt-2">
-                <ul class="summary-head">
+                <ul class="summary-head" style="list-style-type: none">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                   <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.premium}}</span> /</li>
                   <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.servicetax}}</span> </li>
