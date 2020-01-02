@@ -482,7 +482,6 @@
 
 
 
-
                                                     <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'" >
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Value Of BiFuel Kit<span class="error" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'">*</span></mat-placeholder>
@@ -492,24 +491,16 @@
                                                         </mat-form-field>
 
                                                     </div>
-                                                    <!--<div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'" >-->
-                                                        <!--<mat-form-field class="w-100">-->
-                                                            <!--<mat-placeholder>Value Of BiFuel Kit<span class="error" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'">*</span></mat-placeholder>-->
-                                                            <!--<mat-select  formControlName="isBiFuelKitYes" (selectionChange)="changeBiFuelValue();changebifuel()">-->
-                                                                <!--<mat-option *ngFor="let BiFuels of BiFuelList | keys " value="{{BiFuels.key}}" > {{BiFuels.value}} </mat-option>-->
-                                                            <!--</mat-select>-->
-                                                        <!--</mat-form-field>-->
 
-                                                    <!--</div>-->
+                                                    <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKitYes'].value == 'Yes'" >
+                                                        <mat-form-field class="w-100">
+                                                            <input matInput placeholder="bifuel"  formControlName="bifuelpremium" maxlength="1" autocomplete="off" >
+                                                            <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                        </mat-form-field>
+                                                    </div>
 
+                                                </div>
 
-                                            </div>
-                                            <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKitYes'].value == 'Yes'" >
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="bifuel"  formControlName="bifuelpremium" maxlength="1" autocomplete="off" >
-                                                    <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                </mat-form-field>
-                                            </div>
 
 
 
