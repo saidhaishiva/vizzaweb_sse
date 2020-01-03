@@ -1470,6 +1470,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
 
                     for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
+                        if(this.religareQuestionsList[i].mStatus == 'Yes'){
 
                             if (this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
                                 this.checkBoxError=true;
@@ -1501,6 +1502,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                             this.checkBoxError=false;
 
                         }
+                        }
                     }
                 }
                 if (statusChecked.length == 0){
@@ -1524,14 +1526,14 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
         } else {
 
-            if((this.checkBoxError==true)){
+            if(this.checkBoxError==true){
             stepper.next();
             this.topScroll();
             this.nextStep();
             this.religareMobileTrue2 = false;
             this.religareMobileTrue3 = false;
             }
-            else{
+            else  if(this.checkBoxError==false){
                 this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
             }
         }
