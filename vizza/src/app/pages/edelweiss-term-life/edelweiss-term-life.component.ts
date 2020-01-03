@@ -411,22 +411,22 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.addon = this.fb.group({
 
         additionalBenefit: '',
-        TopUpBenefit: 'No',
-        topUpBenefitPercentage: '',
-        topUpRate: '',
-        betterHalfBenefit: 'No',
-        betterHalfsumAssured: '',
-        waiverOfPremiumBenefit: 'No',
-        DSumAssured: 'No',
-        criticalIllness: 'No',
+        // TopUpBenefit: 'No',
+        // topUpBenefitPercentage: '',
+        // topUpRate: '',
+        betterHalfBenefit: '',
+        betterHalfsumAssured: '5000000',
+        waiverOfPremiumBenefit: '',
+        // DSumAssured: 'No',
+        criticalIllness: '',
         criticalClaim: 'No',
-        criticalsumAssured: '',
-        isADB: 'No',
-        sumAssuredADB: '',
-        isATPD: 'No',
-        sumAssuredATPD: '',
-        isHCB: 'No',
-        sumAssuredHCB: '',
+        criticalsumAssured: '1000000',
+        isADB: '',
+        sumAssuredADB: '1000000',
+        isATPD: '',
+        sumAssuredATPD: '1000000',
+        isHCB: '',
+        sumAssuredHCB: '100000',
         payoutOption: '',
         // DSA:'No',
         noOfMonths: '',
@@ -840,7 +840,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     // this.insureArray.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
     // let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
-    this.addon.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    this.customerDetails.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
     let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
     this.customerAge = this.ageCalculate(dob);
     sessionStorage.customerAge = this.customerAge;
@@ -848,8 +848,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     sessionStorage.proposerAge = this.proposerAge;
     // this.proposer.controls['age'].patchValue(this.proposerAge);
     this.insureArray.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
-    this.addon.controls['isSmoker'].patchValue(this.enquiryFromDetials.lifesmoker == 'y' ? 'Yes' : 'No');
-    this.addon.controls['annualIncome'].patchValue(this.enquiryFromDetials.lifeannualIncome);
+    this.customerDetails.controls['isSmoker'].patchValue(this.enquiryFromDetials.smoker == 'y' ? 'Yes' : 'No');
+    this.customerDetails.controls['annualIncome'].patchValue(this.enquiryFromDetials.annualIncome);
     // this.insureArray.controls['Cover'].patchValue(sessionStorage.selectedAmountTravel);
 
     // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
@@ -1675,8 +1675,18 @@ export class EdelweissTermLifeComponent implements OnInit {
     // let dateErrorMsg = [];
     if (this.customerDetails.valid) {
       if (sessionStorage.customerAge >= 18) {
+        this.insureArray.controls['title'].patchValue (this.customerDetails.controls['title'].value);
+        this.insureArray.controls['firstName'].patchValue (this.customerDetails.controls['firstName'].value);
+        this.insureArray.controls['lastName'].patchValue (this.customerDetails.controls['lastName'].value);
+        this.insureArray.controls['dob'].patchValue (this.customerDetails.controls['dob'].value);
+        this.insureArray.controls['maritalStatus'].patchValue (this.customerDetails.controls['maritalStatus'].value);
+        this.insureArray.controls['emailId'].patchValue (this.customerDetails.controls['emailId'].value);
+        this.insureArray.controls['mobileNo'].patchValue (this.customerDetails.controls['mobileNo'].value);
+        this.insureArray.controls['annualIncome'].patchValue (this.customerDetails.controls['annualIncome'].value);
+        // this.insureArray.controls['isSmoker'].patchValue (this.customerDetails.controls['isSmoker'].value);
 
-      stepper.next();
+
+        stepper.next();
       this.topScroll();
 
       } else {
@@ -2920,6 +2930,7 @@ edelweissInsureDetails(stepper: MatStepper, value) {
   //
   // }
 
+
   staffSpouseChange1() {
 
     if (this.insureArray.controls['isStaffSpouse'].value == 'Yes') {
@@ -3990,17 +4001,17 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   }
   isbetterHalfBenefit() {
 
-    if (this.insureArray.controls['betterHalfBenefit'].value == 'Yes') {
-      this.insureArray.controls['betterHalfsumAssured'].patchValue(this.insureArray.controls['betterHalfsumAssured'].value);
+    if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+      this.addon.controls['betterHalfsumAssured'].patchValue(this.addon.controls['betterHalfsumAssured'].value);
 
-      this.insureArray.controls['betterHalfsumAssured'].setValidators([Validators.required]);
+      this.addon.controls['betterHalfsumAssured'].setValidators([Validators.required]);
     } else {
-      this.insureArray.controls['betterHalfsumAssured'].patchValue('');
+      this.addon.controls['betterHalfsumAssured'].patchValue('');
 
-      this.insureArray.controls['betterHalfsumAssured'].setValidators(null);
+      this.addon.controls['betterHalfsumAssured'].setValidators(null);
 
     }
-    this.insureArray.controls['betterHalfsumAssured'].updateValueAndValidity();
+    this.addon.controls['betterHalfsumAssured'].updateValueAndValidity();
 
   }
   iscriticalIllness() {
@@ -4116,11 +4127,11 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       "suminsured_amount": sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
-        "policyTerm":this.insureArray.controls['ageTillCoverd'].value?this.insureArray.controls['ageTillCoverd'].value:'55' ,
-        "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
-        "frequency":this.insureArray.controls['modeOfPremium'].value ? this.insureArray.controls['modeOfPremium'].value : 'yearly',
+        "policyTerm": this.lifePremiumList.termDetrails,
+        "premiumPayingTerm":this.lifePremiumList.premium_paying_term,
+        "frequency":this.enquiryFromDetials.payment_mode,
         "sumAssured": sessionStorage.selectedAmountTravel,
-        "planOption": this.insureArray.controls['premiumPay'].value? this.insureArray.controls['premiumPay'].value:'2',
+        "planOption": '',
         "riderDetails": {
           "workSiteFlag": 'N',
           "investmentStrategy":'',
@@ -4128,36 +4139,36 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
           "policyOption":'',
           "additionalBenefit":'',
           "topUpBenefit": {
-            "isTopUpBenefit": this.insureArray.controls['TopUpBenefit'].value,
-            "topUpBenefitPercentage":this.insureArray.controls['topUpBenefitPercentage'].value,
-            "topUpRate": this.insureArray.controls['topUpRate'].value,
+            "isTopUpBenefit": '',
+            "topUpBenefitPercentage":'',
+            "topUpRate": '',
           },
           "betterHalf": {
-            "betterHalfBenefit":this.insureArray.controls['betterHalfBenefit'].value,
-            "sumAssured": this.insureArray.controls['betterHalfsumAssured'].value,
+            "betterHalfBenefit":this.addon.controls['betterHalfBenefit'].value,
+            "sumAssured": this.addon.controls['betterHalfsumAssured'].value,
           },
           "WOP": {
-            "waiverOfPremiumBenefit": this.insureArray.controls['waiverOfPremiumBenefit'].value,
+            "waiverOfPremiumBenefit": this.addon.controls['waiverOfPremiumBenefit'].value,
           },
           "CI": {
-            "criticalIllness": this.insureArray.controls['criticalIllness'].value,
-            "sumAssured":this.insureArray.controls['criticalsumAssured'].value,
+            "criticalIllness": this.addon.controls['criticalIllness'].value,
+            "sumAssured":this.addon.controls['criticalsumAssured'].value,
           },
           "ADB": {
-            "isADB": this.insureArray.controls['isADB'].value,
-            "sumAssured": this.insureArray.controls['sumAssuredADB'].value,
+            "isADB": this.addon.controls['isADB'].value,
+            "sumAssured": this.addon.controls['sumAssuredADB'].value,
           },
           "ATPD": {
-            "isATPD": this.insureArray.controls['isATPD'].value,
-            "sumAssured": this.insureArray.controls['sumAssuredATPD'].value,
+            "isATPD": this.addon.controls['isATPD'].value,
+            "sumAssured": this.addon.controls['sumAssuredATPD'].value,
           },
           "HCB": {
-            "isHCB": this.insureArray.controls['isHCB'].value,
-            "sumAssured": this.insureArray.controls['sumAssuredHCB'].value,
+            "isHCB": this.addon.controls['isHCB'].value,
+            "sumAssured": this.addon.controls['sumAssuredHCB'].value,
           }
         },
         "DeathBenefitOptions": {
-          "payoutOption": this.insureArray.controls['payoutOption'].value,
+          "payoutOption": '',
           "payoutPercentageIncome":this.insureArray.controls['payoutPercentageIncome'].value,
           "noOfMonths": this.insureArray.controls['noOfMonths'].value,
         }
@@ -4957,7 +4968,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
             "sumAssured": this.addon.controls['betterHalfsumAssured'].value,
           },
           "WOP": {
-            "waiverOfPremiumBenefit": this.addon.controls['waiverOfPremiumBenefit'].value,
+            "waiverOfPremiumBenefit": this.addon.controls['waiverOfPremiumBenefit'].value ,
           },
           "CI": {
             "criticalIllness": this.addon.controls['criticalIllness'].value,
@@ -6774,6 +6785,13 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   }
   changeTitle1() {
     this.insureArray.controls['titleName'].patchValue(this.etitle[this.insureArray.controls['title'].value]);
+  }
+
+  changeTitle1s() {
+    this.insureArray.controls['title'].patchValue(this.etitle[this.customerDetails.controls['title'].value]);
+  }
+  changeFirstname() {
+    this.insureArray.controls['firstName'].patchValue(this.customerDetails.controls['firstName'].value);
   }
   changeSpoTitles() {
     this.addon.controls['stitleName'].patchValue(this.etitle[this.addon.controls['stitle'].value]);

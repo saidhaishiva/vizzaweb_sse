@@ -339,6 +339,12 @@ export class RelianceHeathProposalComponent implements OnInit {
     ngOnInit() {
         if(this.payLaterr == true){
             this.stepperindex = 4;
+            this.step = 4;
+            this.healthRelianceTrue0 = true;
+            this.healthRelianceTrue1 = true;
+            this.healthRelianceTrue2 = true;
+            this.healthRelianceTrue3 = true;
+            this.healthRelianceTrue4 = false;
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
