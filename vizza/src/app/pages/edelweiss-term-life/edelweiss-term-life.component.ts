@@ -39,6 +39,8 @@ export const MY_FORMATS = {
 })
 export class EdelweissTermLifeComponent implements OnInit {
   public proposer: FormGroup;
+  public customerDetails: FormGroup;
+  public addon: FormGroup;
   public insureArray: FormGroup;
   public medicalDetail: FormGroup;
   public bankDetail: FormGroup;
@@ -48,6 +50,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public addExistingInsurance: any;
   public addmedicalQuestions: any;
   public addmedFamilyQuestions: any;
+  public getStepperaddon: any;
   public adbError: any;
   public ciError: any;
   public atpdError: any;
@@ -59,6 +62,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public step: any;
   public taxRequired: any;
   public getStepper1: any;
+  public getSteppercustomer: any;
   public getStepper2: any;
   public getMedicalDetail: any;
   public getStepper3: any;
@@ -114,6 +118,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public proposerAge: any;
   public proposerSpouseAge: any;
   public dateError: any;
+  public dateError12: any;
+  public customerAge: any;
   public dateSpouseError: any;
   public today: any;
   public currentStep: any;
@@ -386,6 +392,54 @@ export class EdelweissTermLifeComponent implements OnInit {
     //   taxResidence: ['', Validators.compose([Validators.required])],
     //
     // });
+    this.customerDetails = this.fb.group({
+      // investing: ['', Validators.compose([Validators.required])],
+      title: ['', Validators.compose([Validators.required])],
+      firstName: ['', Validators.compose([Validators.required])],
+      titleName: '',
+      lastName: ['', Validators.compose([Validators.required])],
+      dob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+      maritalStatus: ['', Validators.required],
+      maritalStatusName: '',
+      annualIncome: '',
+      mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
+      isSmoker:'No',
+      emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      // motherMaidName: '',
+
+    });
+      this.addon = this.fb.group({
+
+        additionalBenefit: '',
+        TopUpBenefit: 'No',
+        topUpBenefitPercentage: '',
+        topUpRate: '',
+        betterHalfBenefit: 'No',
+        betterHalfsumAssured: '',
+        waiverOfPremiumBenefit: 'No',
+        DSumAssured: 'No',
+        criticalIllness: 'No',
+        criticalClaim: 'No',
+        criticalsumAssured: '',
+        isADB: 'No',
+        sumAssuredADB: '',
+        isATPD: 'No',
+        sumAssuredATPD: '',
+        isHCB: 'No',
+        sumAssuredHCB: '',
+        payoutOption: '',
+        // DSA:'No',
+        noOfMonths: '',
+        payoutPercentageIncome: '',
+        stitle: '',
+        // stitleName: '',
+        sfirstName: '',
+        slastName: '',
+        isSmokerSpouse: 'No',
+        sdob: '',
+        sameAsProposer: false,
+    });
+
 
     this.insureArray = this.fb.group({
       // investing: ['', Validators.compose([Validators.required])],
@@ -482,9 +536,9 @@ export class EdelweissTermLifeComponent implements OnInit {
       // taxResidence: ['', Validators.compose([Validators.required])],
       isPoliticallyExposed: false,
       specification: '',
-      Cover:['', Validators.compose([Validators.required])],
-      ageTillCoverd: ['40', Validators.compose([Validators.required])],
-      premiumPay: ['2', Validators.compose([Validators.required])],
+      // Cover:['', Validators.compose([Validators.required])],
+      // ageTillCoverd: ['40', Validators.compose([Validators.required])],
+      // premiumPay: ['2', Validators.compose([Validators.required])],
       modeOfPremium: ['', Validators.compose([Validators.required])],
       isCriminal: 'No',
       criminalDetails: '',
@@ -511,23 +565,23 @@ export class EdelweissTermLifeComponent implements OnInit {
       // investmentStrategy: '',
       // risingStar: 'No',
       // policyOption: '',
-      additionalBenefit: '',
-      TopUpBenefit: 'No',
-      topUpBenefitPercentage: '',
-      topUpRate: '',
-      betterHalfBenefit: 'No',
-      betterHalfsumAssured: '',
-      waiverOfPremiumBenefit: 'No',
-      DSumAssured: 'No',
-      criticalIllness: 'No',
-      criticalClaim: 'No',
-      criticalsumAssured: '',
-      isADB: 'No',
-      sumAssuredADB: '',
-      isATPD: 'No',
-      sumAssuredATPD: '',
-      isHCB: 'No',
-      sumAssuredHCB: '',
+      // additionalBenefit: '',
+      // TopUpBenefit: 'No',
+      // topUpBenefitPercentage: '',
+      // topUpRate: '',
+      // betterHalfBenefit: 'No',
+      // betterHalfsumAssured: '',
+      // waiverOfPremiumBenefit: 'No',
+      // DSumAssured: 'No',
+      // criticalIllness: 'No',
+      // criticalClaim: 'No',
+      // criticalsumAssured: '',
+      // isADB: 'No',
+      // sumAssuredADB: '',
+      // isATPD: 'No',
+      // sumAssuredATPD: '',
+      // isHCB: 'No',
+      // sumAssuredHCB: '',
       payoutOption: '',
         // DSA:'No',
       noOfMonths: '',
@@ -535,6 +589,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       sameAsProposer: false,
 
     });
+
+
 
       this.medicalDetail = this.fb.group({
         travelOutsideIndia1:'',
@@ -782,13 +838,19 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.premiumPaymentTerm();
     this.ageTillcoverd();
 
-    this.insureArray.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    // this.insureArray.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    // let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
+    this.addon.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
     let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
+    this.customerAge = this.ageCalculate(dob);
+    sessionStorage.customerAge = this.customerAge;
     this.proposerAge = this.ageCalculate(dob);
     sessionStorage.proposerAge = this.proposerAge;
     // this.proposer.controls['age'].patchValue(this.proposerAge);
     this.insureArray.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
-    this.insureArray.controls['Cover'].patchValue(sessionStorage.selectedAmountTravel);
+    this.addon.controls['isSmoker'].patchValue(this.enquiryFromDetials.lifesmoker == 'y' ? 'Yes' : 'No');
+    this.addon.controls['annualIncome'].patchValue(this.enquiryFromDetials.lifeannualIncome);
+    // this.insureArray.controls['Cover'].patchValue(sessionStorage.selectedAmountTravel);
 
     // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
 
@@ -953,6 +1015,40 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(index, 'this.index');
 
 
+  }
+  addEventcus(event) {
+    if (event.value != null) {
+      let selectedDate = '';
+      this.customerAge = '';
+      let dob = '';
+      if (typeof event.value._i == 'string') {
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (pattern.test(event.value._i) && event.value._i.length == 10) {
+          this.dateError12 = '';
+        } else {
+          this.dateError12 = 'Enter Valid Date';
+        }
+        selectedDate = event.value._i;
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (selectedDate.length == 10) {
+          this.customerAge = this.ageCalculate(dob);
+          // sessionStorage.proposerAge = this.proposerAge;
+
+        }
+
+      } else if (typeof event.value._i == 'object') {
+        // dob = this.datepipe.transform(event.value, 'MMM d, y');
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (dob.length == 10) {
+          this.customerAge = this.ageCalculate(dob);
+          // sessionStorage.insuredAgePA = this.proposerAge;
+
+        }
+        this.dateError12 = '';
+      }
+      sessionStorage.customerAge = this.customerAge;
+
+    }
   }
   addEvent(event) {
     if (event.value != null) {
@@ -1571,7 +1667,42 @@ export class EdelweissTermLifeComponent implements OnInit {
   // }
   // }
   // Insure Details
-  edelweissInsureDetails(stepper: MatStepper, value) {
+  edelweissCustomerDetail(stepper: MatStepper, value) {
+    sessionStorage.stepperCustomerDetails = '';
+    sessionStorage.stepperCustomerDetails = JSON.stringify(value);
+    console.log(this.customerDetails, 'customerDetails');
+    console.log(this.customerDetails.valid, 'this.valid');
+    // let dateErrorMsg = [];
+    if (this.customerDetails.valid) {
+      if (sessionStorage.customerAge >= 18) {
+
+      stepper.next();
+      this.topScroll();
+
+      } else {
+        this.toastr.error('Customer Age should be 18 or above');
+
+      }
+    } else {
+      this.toastr.error('please enter all the Mandatory field');
+    }
+
+  }
+  edelweissAddonDetail(stepper: MatStepper, value) {
+    sessionStorage.getStepperaddon = '';
+    sessionStorage.getStepperaddon = JSON.stringify(value);
+    console.log(this.addon, 'addon');
+    console.log(this.addon.valid, 'this.valid');
+    // let dateErrorMsg = [];
+    if (this.addon.valid) {
+           stepper.next();
+      this.topScroll();
+    } else {
+      this.toastr.error('please enter all the Mandatory field');
+    }
+
+  }
+edelweissInsureDetails(stepper: MatStepper, value) {
     sessionStorage.stepper2Details = '';
     sessionStorage.stepper2Details = JSON.stringify(value);
     console.log(this.insureArray, 'insureArray');
@@ -2578,197 +2709,197 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   changeMaritalInsuReq() {
 
-    if (this.insureArray.controls['betterHalfBenefit'].value == 'Yes') {
-      this.insureArray.controls['stitle'].patchValue(this.insureArray.controls['stitle'].value);
+    if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+      this.addon.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
       // this.insureArray.controls['stitleName'].patchValue(this.insureArray.controls['stitleName'].value);
-      this.insureArray.controls['sfirstName'].patchValue(this.insureArray.controls['sfirstName'].value);
+      this.addon.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
       // this.insureArray.controls['stitleName'].patchValue(this.insureArray.controls['stitleName'].value);
-      this.insureArray.controls['smidName'].patchValue(this.insureArray.controls['smidName'].value);
-      this.insureArray.controls['slastName'].patchValue(this.insureArray.controls['slastName'].value);
-      this.insureArray.controls['sdob'].patchValue(this.insureArray.controls['sdob'].value);
+      this.addon.controls['smidName'].patchValue(this.addon.controls['smidName'].value);
+      this.addon.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
+      this.addon.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
       this.insureArray.controls['semailId'].patchValue(this.insureArray.controls['semailId'].value);
-      this.insureArray.controls['smobileNo'].patchValue(this.insureArray.controls['smobileNo'].value);
-      this.insureArray.controls['isSmokerSpouse'].patchValue(this.insureArray.controls['isSmokerSpouse'].value);
-      // this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
-      this.insureArray.controls['sppan'].patchValue(this.insureArray.controls['sppan'].value);
-      this.insureArray.controls['saadhaarNo'].patchValue(this.insureArray.controls['saadhaarNo'].value);
-      this.insureArray.controls['sfatherhusbandName'].patchValue(this.insureArray.controls['sfatherhusbandName'].value);
-      this.insureArray.controls['smotherMaidName'].patchValue(this.insureArray.controls['smotherMaidName'].value);
-      this.insureArray.controls['sageProofId'].patchValue(this.insureArray.controls['sageProofId'].value);
-      this.insureArray.controls['shighestQualification'].patchValue(this.insureArray.controls['shighestQualification'].value);
-      this.insureArray.controls['sotherQualification'].patchValue(this.insureArray.controls['sotherQualification'].value);
-      this.insureArray.controls['scurrAddr1'].patchValue(this.insureArray.controls['scurrAddr1'].value);
-      this.insureArray.controls['scurrAddr2'].patchValue(this.insureArray.controls['scurrAddr2'].value);
-      this.insureArray.controls['scurrAddr3'].patchValue(this.insureArray.controls['scurrAddr3'].value);
-      this.insureArray.controls['scurrCity'].patchValue(this.insureArray.controls['scurrCity'].value);
-      this.insureArray.controls['scurrPincode'].patchValue(this.insureArray.controls['scurrPincode'].value);
-      this.insureArray.controls['scurrState'].patchValue(this.insureArray.controls['scurrState'].value);
-      this.insureArray.controls['sperAddr1'].patchValue(this.insureArray.controls['sperAddr1'].value);
-      this.insureArray.controls['sperAddr2'].patchValue(this.insureArray.controls['sperAddr2'].value);
-      this.insureArray.controls['sperAddr3'].patchValue(this.insureArray.controls['sperAddr3'].value);
-      this.insureArray.controls['sperCity'].patchValue(this.insureArray.controls['sperCity'].value);
-      this.insureArray.controls['sperPincode'].patchValue(this.insureArray.controls['sperPincode'].value);
-      this.insureArray.controls['sperState'].patchValue(this.insureArray.controls['sperState'].value);
-      this.insureArray.controls['sheightFeets'].patchValue(this.insureArray.controls['sheightFeets'].value);
-      this.insureArray.controls['sheightInches'].patchValue(this.insureArray.controls['sheightInches'].value);
-      this.insureArray.controls['sweight'].patchValue(this.insureArray.controls['sweight'].value);
-      this.insureArray.controls['shasWeightChanged'].patchValue(this.insureArray.controls['shasWeightChanged'].value);
-      this.insureArray.controls['sweightChangedreason'].patchValue(this.insureArray.controls['sweightChangedreason'].value);
-      this.insureArray.controls['betterHalfsumAssured'].patchValue(this.insureArray.controls['betterHalfsumAssured'].value);
+      // this.insureArray.controls['smobileNo'].patchValue(this.insureArray.controls['smobileNo'].value);
+      this.addon.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
+      // // this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
+      // this.insureArray.controls['sppan'].patchValue(this.insureArray.controls['sppan'].value);
+      // this.insureArray.controls['saadhaarNo'].patchValue(this.insureArray.controls['saadhaarNo'].value);
+      // this.insureArray.controls['sfatherhusbandName'].patchValue(this.insureArray.controls['sfatherhusbandName'].value);
+      // this.insureArray.controls['smotherMaidName'].patchValue(this.insureArray.controls['smotherMaidName'].value);
+      // this.insureArray.controls['sageProofId'].patchValue(this.insureArray.controls['sageProofId'].value);
+      // this.insureArray.controls['shighestQualification'].patchValue(this.insureArray.controls['shighestQualification'].value);
+      // this.insureArray.controls['sotherQualification'].patchValue(this.insureArray.controls['sotherQualification'].value);
+      // this.insureArray.controls['scurrAddr1'].patchValue(this.insureArray.controls['scurrAddr1'].value);
+      // this.insureArray.controls['scurrAddr2'].patchValue(this.insureArray.controls['scurrAddr2'].value);
+      // this.insureArray.controls['scurrAddr3'].patchValue(this.insureArray.controls['scurrAddr3'].value);
+      // this.insureArray.controls['scurrCity'].patchValue(this.insureArray.controls['scurrCity'].value);
+      // this.insureArray.controls['scurrPincode'].patchValue(this.insureArray.controls['scurrPincode'].value);
+      // this.insureArray.controls['scurrState'].patchValue(this.insureArray.controls['scurrState'].value);
+      // this.insureArray.controls['sperAddr1'].patchValue(this.insureArray.controls['sperAddr1'].value);
+      // this.insureArray.controls['sperAddr2'].patchValue(this.insureArray.controls['sperAddr2'].value);
+      // this.insureArray.controls['sperAddr3'].patchValue(this.insureArray.controls['sperAddr3'].value);
+      // this.insureArray.controls['sperCity'].patchValue(this.insureArray.controls['sperCity'].value);
+      // this.insureArray.controls['sperPincode'].patchValue(this.insureArray.controls['sperPincode'].value);
+      // this.insureArray.controls['sperState'].patchValue(this.insureArray.controls['sperState'].value);
+      // this.insureArray.controls['sheightFeets'].patchValue(this.insureArray.controls['sheightFeets'].value);
+      // this.insureArray.controls['sheightInches'].patchValue(this.insureArray.controls['sheightInches'].value);
+      // this.insureArray.controls['sweight'].patchValue(this.insureArray.controls['sweight'].value);
+      // this.insureArray.controls['shasWeightChanged'].patchValue(this.insureArray.controls['shasWeightChanged'].value);
+      // this.insureArray.controls['sweightChangedreason'].patchValue(this.insureArray.controls['sweightChangedreason'].value);
+      this.addon.controls['betterHalfsumAssured'].patchValue(this.addon.controls['betterHalfsumAssured'].value);
       // this.insureArray.controls['relationSpouseInsurer'].patchValue(this.insureArray.controls['relationSpouseInsurer'].value);
 
-      this.insureArray.controls['stitle'].setValidators([Validators.required]);
-      this.insureArray.controls['stitleName'].setValidators([Validators.required]);
-      this.insureArray.controls['sfirstName'].setValidators([Validators.required]);
-      this.insureArray.controls['stitleName'].setValidators([Validators.required]);
-      this.insureArray.controls['smidName'].setValidators(null);
-      this.insureArray.controls['slastName'].setValidators([Validators.required]);
-      this.insureArray.controls['sdob'].setValidators([Validators.required]);
-      this.insureArray.controls['semailId'].setValidators([Validators.required]);
-      this.insureArray.controls['smobileNo'].setValidators([Validators.required]);
-      this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
+      this.addon.controls['stitle'].setValidators([Validators.required]);
+      // this.addon.controls['stitleName'].setValidators([Validators.required]);
+      this.addon.controls['sfirstName'].setValidators([Validators.required]);
+      this.addon.controls['stitleName'].setValidators([Validators.required]);
+      this.addon.controls['smidName'].setValidators(null);
+      this.addon.controls['slastName'].setValidators([Validators.required]);
+      this.addon.controls['sdob'].setValidators([Validators.required]);
+      this.addon.controls['semailId'].setValidators([Validators.required]);
+      // this.addon.controls['smobileNo'].setValidators([Validators.required]);
+      this.addon.controls['isSmokerSpouse'].setValidators([Validators.required]);
       // this.insureArray.controls['isStaffSpouse'].setValidators([Validators.required]);
-      this.insureArray.controls['sppan'].setValidators([Validators.required]);
-      this.insureArray.controls['saadhaarNo'].setValidators([Validators.required]);
-      this.insureArray.controls['sfatherhusbandName'].setValidators([Validators.required]);
-      this.insureArray.controls['smotherMaidName'].setValidators([Validators.required]);
-      this.insureArray.controls['sageProofId'].setValidators([Validators.required]);
-      this.insureArray.controls['shighestQualification'].setValidators([Validators.required]);
-      this.insureArray.controls['sotherQualification'].setValidators([Validators.required]);
-      this.insureArray.controls['scurrAddr1'].setValidators([Validators.required]);
-      this.insureArray.controls['scurrAddr2'].setValidators([Validators.required]);
-      this.insureArray.controls['scurrAddr3'].setValidators([Validators.required]);
-      this.insureArray.controls['scurrCity'].setValidators([Validators.required]);
-      this.insureArray.controls['scurrPincode'].setValidators([Validators.required]);
-      this.insureArray.controls['scurrState'].setValidators([Validators.required]);
-      this.insureArray.controls['sperAddr1'].setValidators([Validators.required]);
-      this.insureArray.controls['sperAddr2'].setValidators([Validators.required]);
-      this.insureArray.controls['sperAddr3'].setValidators([Validators.required]);
-      this.insureArray.controls['sperCity'].setValidators([Validators.required]);
-      this.insureArray.controls['sperPincode'].setValidators([Validators.required]);
-      this.insureArray.controls['sperState'].setValidators([Validators.required]);
-      this.insureArray.controls['sheightFeets'].setValidators([Validators.required]);
-      this.insureArray.controls['sheightInches'].setValidators([Validators.required]);
-      this.insureArray.controls['sweight'].setValidators([Validators.required]);
-      this.insureArray.controls['shasWeightChanged'].setValidators([Validators.required]);
-      this.insureArray.controls['sweightChangedreason'].setValidators([Validators.required]);
-      this.insureArray.controls['betterHalfsumAssured'].setValidators([Validators.required]);
+      // this.insureArray.controls['sppan'].setValidators([Validators.required]);
+      // this.insureArray.controls['saadhaarNo'].setValidators([Validators.required]);
+      // this.insureArray.controls['sfatherhusbandName'].setValidators([Validators.required]);
+      // this.insureArray.controls['smotherMaidName'].setValidators([Validators.required]);
+      // this.insureArray.controls['sageProofId'].setValidators([Validators.required]);
+      // this.insureArray.controls['shighestQualification'].setValidators([Validators.required]);
+      // this.insureArray.controls['sotherQualification'].setValidators([Validators.required]);
+      // this.insureArray.controls['scurrAddr1'].setValidators([Validators.required]);
+      // this.insureArray.controls['scurrAddr2'].setValidators([Validators.required]);
+      // this.insureArray.controls['scurrAddr3'].setValidators([Validators.required]);
+      // this.insureArray.controls['scurrCity'].setValidators([Validators.required]);
+      // this.insureArray.controls['scurrPincode'].setValidators([Validators.required]);
+      // this.insureArray.controls['scurrState'].setValidators([Validators.required]);
+      // this.insureArray.controls['sperAddr1'].setValidators([Validators.required]);
+      // this.insureArray.controls['sperAddr2'].setValidators([Validators.required]);
+      // this.insureArray.controls['sperAddr3'].setValidators([Validators.required]);
+      // this.insureArray.controls['sperCity'].setValidators([Validators.required]);
+      // this.insureArray.controls['sperPincode'].setValidators([Validators.required]);
+      // this.insureArray.controls['sperState'].setValidators([Validators.required]);
+      // this.insureArray.controls['sheightFeets'].setValidators([Validators.required]);
+      // this.insureArray.controls['sheightInches'].setValidators([Validators.required]);
+      // this.insureArray.controls['sweight'].setValidators([Validators.required]);
+      // this.insureArray.controls['shasWeightChanged'].setValidators([Validators.required]);
+      // this.insureArray.controls['sweightChangedreason'].setValidators([Validators.required]);
+      this.addon.controls['betterHalfsumAssured'].setValidators([Validators.required]);
       // this.insureArray.controls['relationSpouseInsurer'].setValidators([Validators.required]);
     } else {
-      this.insureArray.controls['stitle'].patchValue('');
-      this.insureArray.controls['stitleName'].patchValue('');
-      this.insureArray.controls['sfirstName'].patchValue('');
-      this.insureArray.controls['stitleName'].patchValue('');
-      this.insureArray.controls['smidName'].patchValue('');
-      this.insureArray.controls['slastName'].patchValue('');
-      this.insureArray.controls['sdob'].patchValue('');
-      this.insureArray.controls['semailId'].patchValue('');
-      this.insureArray.controls['smobileNo'].patchValue('');
-      this.insureArray.controls['isSmokerSpouse'].patchValue('No');
+      this.addon.controls['stitle'].patchValue('');
+      this.addon.controls['stitleName'].patchValue('');
+      this.addon.controls['sfirstName'].patchValue('');
+      this.addon.controls['stitleName'].patchValue('');
+      this.addon.controls['smidName'].patchValue('');
+      this.addon.controls['slastName'].patchValue('');
+      this.addon.controls['sdob'].patchValue('');
+      this.addon.controls['semailId'].patchValue('');
+      // this.insureArray.controls['smobileNo'].patchValue('');
+      this.addon.controls['isSmokerSpouse'].patchValue('No');
       // this.insureArray.controls['isStaffSpouse'].patchValue('No');
-      this.insureArray.controls['sppan'].patchValue('');
-      this.insureArray.controls['saadhaarNo'].patchValue('');
-      this.insureArray.controls['sfatherhusbandName'].patchValue('');
-      this.insureArray.controls['smotherMaidName'].patchValue('');
-      this.insureArray.controls['sageProofId'].patchValue('');
-      this.insureArray.controls['shighestQualification'].patchValue('');
-      this.insureArray.controls['sotherQualification'].patchValue('');
-      this.insureArray.controls['scurrAddr1'].patchValue('');
-      this.insureArray.controls['scurrAddr2'].patchValue('');
-      this.insureArray.controls['scurrAddr3'].patchValue('');
-      this.insureArray.controls['scurrCity'].patchValue('');
-      this.insureArray.controls['scurrPincode'].patchValue('');
-      this.insureArray.controls['scurrState'].patchValue('');
-      this.insureArray.controls['sperAddr1'].patchValue('');
-      this.insureArray.controls['sperAddr2'].patchValue('');
-      this.insureArray.controls['sperAddr3'].patchValue('');
-      this.insureArray.controls['sperCity'].patchValue('');
-      this.insureArray.controls['sperPincode'].patchValue('');
-      this.insureArray.controls['sperState'].patchValue('');
-      this.insureArray.controls['sheightFeets'].patchValue('');
-      this.insureArray.controls['sheightInches'].patchValue('');
-      this.insureArray.controls['sweight'].patchValue('');
-      this.insureArray.controls['shasWeightChanged'].patchValue('');
-      this.insureArray.controls['sweightChangedreason'].patchValue('');
-      this.insureArray.controls['betterHalfsumAssured'].patchValue('');
+      // this.insureArray.controls['sppan'].patchValue('');
+      // this.insureArray.controls['saadhaarNo'].patchValue('');
+      // this.insureArray.controls['sfatherhusbandName'].patchValue('');
+      // this.insureArray.controls['smotherMaidName'].patchValue('');
+      // this.insureArray.controls['sageProofId'].patchValue('');
+      // this.insureArray.controls['shighestQualification'].patchValue('');
+      // this.insureArray.controls['sotherQualification'].patchValue('');
+      // this.insureArray.controls['scurrAddr1'].patchValue('');
+      // this.insureArray.controls['scurrAddr2'].patchValue('');
+      // this.insureArray.controls['scurrAddr3'].patchValue('');
+      // this.insureArray.controls['scurrCity'].patchValue('');
+      // this.insureArray.controls['scurrPincode'].patchValue('');
+      // this.insureArray.controls['scurrState'].patchValue('');
+      // this.insureArray.controls['sperAddr1'].patchValue('');
+      // this.insureArray.controls['sperAddr2'].patchValue('');
+      // this.insureArray.controls['sperAddr3'].patchValue('');
+      // this.insureArray.controls['sperCity'].patchValue('');
+      // this.insureArray.controls['sperPincode'].patchValue('');
+      // this.insureArray.controls['sperState'].patchValue('');
+      // this.insureArray.controls['sheightFeets'].patchValue('');
+      // this.insureArray.controls['sheightInches'].patchValue('');
+      // this.insureArray.controls['sweight'].patchValue('');
+      // this.insureArray.controls['shasWeightChanged'].patchValue('');
+      // this.insureArray.controls['sweightChangedreason'].patchValue('');
+      this.addon.controls['betterHalfsumAssured'].patchValue('');
       // this.insureArray.controls['relationSpouseInsurer'].patchValue('3');
 
-      this.insureArray.controls['stitle'].setValidators(null);
-      this.insureArray.controls['stitleName'].setValidators(null);
-      this.insureArray.controls['sfirstName'].setValidators(null);
-      this.insureArray.controls['smidName'].setValidators(null);
-      this.insureArray.controls['stitleName'].setValidators(null);
-      this.insureArray.controls['slastName'].setValidators(null);
-      this.insureArray.controls['sdob'].setValidators(null);
-      this.insureArray.controls['semailId'].setValidators(null);
-      this.insureArray.controls['smobileNo'].setValidators(null);
-      this.insureArray.controls['isSmokerSpouse'].setValidators(null);
+      this.addon.controls['stitle'].setValidators(null);
+      this.addon.controls['stitleName'].setValidators(null);
+      this.addon.controls['sfirstName'].setValidators(null);
+      this.addon.controls['smidName'].setValidators(null);
+      this.addon.controls['stitleName'].setValidators(null);
+      this.addon.controls['slastName'].setValidators(null);
+      this.addon.controls['sdob'].setValidators(null);
+      this.addon.controls['semailId'].setValidators(null);
+      // this.addon.controls['smobileNo'].setValidators(null);
+      this.addon.controls['isSmokerSpouse'].setValidators(null);
       // this.insureArray.controls['isStaffSpouse'].setValidators(null);
-      this.insureArray.controls['sppan'].setValidators(null);
-      this.insureArray.controls['saadhaarNo'].setValidators(null);
-      this.insureArray.controls['sfatherhusbandName'].setValidators(null);
-      this.insureArray.controls['smotherMaidName'].setValidators(null);
-      this.insureArray.controls['sageProofId'].setValidators(null);
-      this.insureArray.controls['shighestQualification'].setValidators(null);
-      this.insureArray.controls['sotherQualification'].setValidators(null);
-      this.insureArray.controls['scurrAddr1'].setValidators(null);
-      this.insureArray.controls['scurrAddr2'].setValidators(null);
-      this.insureArray.controls['scurrAddr3'].setValidators(null);
-      this.insureArray.controls['scurrCity'].setValidators(null);
-      this.insureArray.controls['scurrPincode'].setValidators(null);
-      this.insureArray.controls['scurrState'].setValidators(null);
-      this.insureArray.controls['sperAddr1'].setValidators(null);
-      this.insureArray.controls['sperAddr2'].setValidators(null);
-      this.insureArray.controls['sperAddr3'].setValidators(null);
-      this.insureArray.controls['sperCity'].setValidators(null);
-      this.insureArray.controls['sperPincode'].setValidators(null);
-      this.insureArray.controls['sperState'].setValidators(null);
-      this.insureArray.controls['sheightFeets'].setValidators(null);
-      this.insureArray.controls['sheightInches'].setValidators(null);
-      this.insureArray.controls['sweight'].setValidators(null);
-      this.insureArray.controls['shasWeightChanged'].setValidators(null);
-      this.insureArray.controls['sweightChangedreason'].setValidators(null);
-      this.insureArray.controls['betterHalfsumAssured'].setValidators(null);
+      // this.insureArray.controls['sppan'].setValidators(null);
+      // this.insureArray.controls['saadhaarNo'].setValidators(null);
+      // this.insureArray.controls['sfatherhusbandName'].setValidators(null);
+      // this.insureArray.controls['smotherMaidName'].setValidators(null);
+      // this.insureArray.controls['sageProofId'].setValidators(null);
+      // this.insureArray.controls['shighestQualification'].setValidators(null);
+      // this.insureArray.controls['sotherQualification'].setValidators(null);
+      // this.insureArray.controls['scurrAddr1'].setValidators(null);
+      // this.insureArray.controls['scurrAddr2'].setValidators(null);
+      // this.insureArray.controls['scurrAddr3'].setValidators(null);
+      // this.insureArray.controls['scurrCity'].setValidators(null);
+      // this.insureArray.controls['scurrPincode'].setValidators(null);
+      // this.insureArray.controls['scurrState'].setValidators(null);
+      // this.insureArray.controls['sperAddr1'].setValidators(null);
+      // this.insureArray.controls['sperAddr2'].setValidators(null);
+      // this.insureArray.controls['sperAddr3'].setValidators(null);
+      // this.insureArray.controls['sperCity'].setValidators(null);
+      // this.insureArray.controls['sperPincode'].setValidators(null);
+      // this.insureArray.controls['sperState'].setValidators(null);
+      // this.insureArray.controls['sheightFeets'].setValidators(null);
+      // this.insureArray.controls['sheightInches'].setValidators(null);
+      // this.insureArray.controls['sweight'].setValidators(null);
+      // this.insureArray.controls['shasWeightChanged'].setValidators(null);
+      // this.insureArray.controls['sweightChangedreason'].setValidators(null);
+      this.addon.controls['betterHalfsumAssured'].setValidators(null);
       // this.insureArray.controls['relationSpouseInsurer'].setValidators(null);
 
     }
     // this.insureArray.controls['employeeCode'].updateValueAndValidity();
-    this.insureArray.controls['stitle'].updateValueAndValidity();
-    this.insureArray.controls['stitleName'].updateValueAndValidity();
-    this.insureArray.controls['sfirstName'].updateValueAndValidity();
-    this.insureArray.controls['stitleName'].updateValueAndValidity();
-    this.insureArray.controls['smidName'].updateValueAndValidity();
-    this.insureArray.controls['slastName'].updateValueAndValidity();
-    this.insureArray.controls['sdob'].updateValueAndValidity();
-    this.insureArray.controls['semailId'].updateValueAndValidity();
-    this.insureArray.controls['smobileNo'].updateValueAndValidity();
-    this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
+    this.addon.controls['stitle'].updateValueAndValidity();
+    this.addon.controls['stitleName'].updateValueAndValidity();
+    this.addon.controls['sfirstName'].updateValueAndValidity();
+    this.addon.controls['stitleName'].updateValueAndValidity();
+    this.addon.controls['smidName'].updateValueAndValidity();
+    this.addon.controls['slastName'].updateValueAndValidity();
+    this.addon.controls['sdob'].updateValueAndValidity();
+    this.addon.controls['semailId'].updateValueAndValidity();
+    // this.addon.controls['smobileNo'].updateValueAndValidity();
+    this.addon.controls['isSmokerSpouse'].updateValueAndValidity();
     // this.insureArray.controls['isStaffSpouse'].updateValueAndValidity();
-    this.insureArray.controls['sppan'].updateValueAndValidity();
-    this.insureArray.controls['saadhaarNo'].updateValueAndValidity();
-    this.insureArray.controls['sfatherhusbandName'].updateValueAndValidity();
-    this.insureArray.controls['smotherMaidName'].updateValueAndValidity();
-    this.insureArray.controls['sageProofId'].updateValueAndValidity();
-    this.insureArray.controls['shighestQualification'].updateValueAndValidity();
-    this.insureArray.controls['sotherQualification'].updateValueAndValidity();
-    this.insureArray.controls['scurrAddr1'].updateValueAndValidity();
-    this.insureArray.controls['scurrAddr2'].updateValueAndValidity();
-    this.insureArray.controls['scurrAddr3'].updateValueAndValidity();
-    this.insureArray.controls['scurrCity'].updateValueAndValidity();
-    this.insureArray.controls['scurrPincode'].updateValueAndValidity();
-    this.insureArray.controls['scurrState'].updateValueAndValidity();
-    this.insureArray.controls['sperAddr1'].updateValueAndValidity();
-    this.insureArray.controls['sperAddr2'].updateValueAndValidity();
-    this.insureArray.controls['sperAddr3'].updateValueAndValidity();
-    this.insureArray.controls['sperCity'].updateValueAndValidity();
-    this.insureArray.controls['sperPincode'].updateValueAndValidity();
-    this.insureArray.controls['sperState'].updateValueAndValidity();
-    this.insureArray.controls['sheightFeets'].updateValueAndValidity();
-    this.insureArray.controls['sheightInches'].updateValueAndValidity();
-    this.insureArray.controls['sweight'].updateValueAndValidity();
-    this.insureArray.controls['shasWeightChanged'].updateValueAndValidity();
-    this.insureArray.controls['sweightChangedreason'].updateValueAndValidity();
-    this.insureArray.controls['betterHalfsumAssured'].updateValueAndValidity();
+    // this.insureArray.controls['sppan'].updateValueAndValidity();
+    // this.insureArray.controls['saadhaarNo'].updateValueAndValidity();
+    // this.insureArray.controls['sfatherhusbandName'].updateValueAndValidity();
+    // this.insureArray.controls['smotherMaidName'].updateValueAndValidity();
+    // this.insureArray.controls['sageProofId'].updateValueAndValidity();
+    // this.insureArray.controls['shighestQualification'].updateValueAndValidity();
+    // this.insureArray.controls['sotherQualification'].updateValueAndValidity();
+    // this.insureArray.controls['scurrAddr1'].updateValueAndValidity();
+    // this.insureArray.controls['scurrAddr2'].updateValueAndValidity();
+    // this.insureArray.controls['scurrAddr3'].updateValueAndValidity();
+    // this.insureArray.controls['scurrCity'].updateValueAndValidity();
+    // this.insureArray.controls['scurrPincode'].updateValueAndValidity();
+    // this.insureArray.controls['scurrState'].updateValueAndValidity();
+    // this.insureArray.controls['sperAddr1'].updateValueAndValidity();
+    // this.insureArray.controls['sperAddr2'].updateValueAndValidity();
+    // this.insureArray.controls['sperAddr3'].updateValueAndValidity();
+    // this.insureArray.controls['sperCity'].updateValueAndValidity();
+    // this.insureArray.controls['sperPincode'].updateValueAndValidity();
+    // this.insureArray.controls['sperState'].updateValueAndValidity();
+    // this.insureArray.controls['sheightFeets'].updateValueAndValidity();
+    // this.insureArray.controls['sheightInches'].updateValueAndValidity();
+    // this.insureArray.controls['sweight'].updateValueAndValidity();
+    // this.insureArray.controls['shasWeightChanged'].updateValueAndValidity();
+    // this.insureArray.controls['sweightChangedreason'].updateValueAndValidity();
+    this.addon.controls['betterHalfsumAssured'].updateValueAndValidity();
     // this.insureArray.controls['relationSpouseInsurer'].updateValueAndValidity();
 
   }
@@ -3839,22 +3970,22 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   }
   isTopUpBenefit() {
 
-    if (this.insureArray.controls['TopUpBenefit'].value == 'Yes') {
-      this.insureArray.controls['topUpRate'].patchValue(this.insureArray.controls['topUpRate'].value);
-      this.insureArray.controls['topUpBenefitPercentage'].patchValue(this.insureArray.controls['topUpBenefitPercentage'].value);
+    if (this.addon.controls['TopUpBenefit'].value == 'Yes') {
+      this.addon.controls['topUpRate'].patchValue(this.addon.controls['topUpRate'].value);
+      this.addon.controls['topUpBenefitPercentage'].patchValue(this.addon.controls['topUpBenefitPercentage'].value);
 
-      this.insureArray.controls['topUpBenefitPercentage'].setValidators([Validators.required]);
-      this.insureArray.controls['topUpRate'].setValidators([Validators.required]);
+      this.addon.controls['topUpBenefitPercentage'].setValidators([Validators.required]);
+      this.addon.controls['topUpRate'].setValidators([Validators.required]);
     } else {
-      this.insureArray.controls['topUpRate'].patchValue('');
-      this.insureArray.controls['topUpBenefitPercentage'].patchValue('');
+      this.addon.controls['topUpRate'].patchValue('');
+      this.addon.controls['topUpBenefitPercentage'].patchValue('');
 
-      this.insureArray.controls['topUpRate'].setValidators(null);
-      this.insureArray.controls['topUpBenefitPercentage'].setValidators(null);
+      this.addon.controls['topUpRate'].setValidators(null);
+      this.addon.controls['topUpBenefitPercentage'].setValidators(null);
 
     }
-    this.insureArray.controls['topUpRate'].updateValueAndValidity();
-    this.insureArray.controls['topUpBenefitPercentage'].updateValueAndValidity();
+    this.addon.controls['topUpRate'].updateValueAndValidity();
+    this.addon.controls['topUpBenefitPercentage'].updateValueAndValidity();
 
   }
   isbetterHalfBenefit() {
@@ -3874,68 +4005,68 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   }
   iscriticalIllness() {
 
-    if (this.insureArray.controls['criticalIllness'].value == 'Yes') {
-      this.insureArray.controls['criticalsumAssured'].patchValue(this.insureArray.controls['criticalsumAssured'].value);
-      this.insureArray.controls['criticalClaim'].patchValue(this.insureArray.controls['criticalClaim'].value);
+    if (this.addon.controls['criticalIllness'].value == 'Yes') {
+      this.addon.controls['criticalsumAssured'].patchValue(this.addon.controls['criticalsumAssured'].value);
+      this.addon.controls['criticalClaim'].patchValue(this.addon.controls['criticalClaim'].value);
 
-      this.insureArray.controls['criticalsumAssured'].setValidators([Validators.required]);
-      this.insureArray.controls['criticalClaim'].setValidators([Validators.required]);
+      this.addon.controls['criticalsumAssured'].setValidators([Validators.required]);
+      this.addon.controls['criticalClaim'].setValidators([Validators.required]);
     } else {
-      this.insureArray.controls['criticalsumAssured'].patchValue('');
-      this.insureArray.controls['criticalClaim'].patchValue('');
+      this.addon.controls['criticalsumAssured'].patchValue('');
+      this.addon.controls['criticalClaim'].patchValue('');
 
-      this.insureArray.controls['criticalsumAssured'].setValidators(null);
-      this.insureArray.controls['criticalClaim'].setValidators(null);
+      this.addon.controls['criticalsumAssured'].setValidators(null);
+      this.addon.controls['criticalClaim'].setValidators(null);
 
     }
-    this.insureArray.controls['criticalsumAssured'].updateValueAndValidity();
-    this.insureArray.controls['criticalClaim'].updateValueAndValidity();
+    this.addon.controls['criticalsumAssured'].updateValueAndValidity();
+    this.addon.controls['criticalClaim'].updateValueAndValidity();
 
   }
 
   isDeathBenefit() {
 
-    if (this.insureArray.controls['isADB'].value == 'Yes') {
-      this.insureArray.controls['sumAssuredADB'].patchValue(this.insureArray.controls['sumAssuredADB'].value);
-      this.insureArray.controls['sumAssuredADB'].setValidators([Validators.required]);
+    if (this.addon.controls['isADB'].value == 'Yes') {
+      this.addon.controls['sumAssuredADB'].patchValue(this.addon.controls['sumAssuredADB'].value);
+      this.addon.controls['sumAssuredADB'].setValidators([Validators.required]);
 
     } else {
-      this.insureArray.controls['sumAssuredADB'].patchValue('');
+      this.addon.controls['sumAssuredADB'].patchValue('');
 
-      this.insureArray.controls['sumAssuredADB'].setValidators(null);
+      this.addon.controls['sumAssuredADB'].setValidators(null);
 
     }
-    this.insureArray.controls['sumAssuredADB'].updateValueAndValidity();
+    this.addon.controls['sumAssuredADB'].updateValueAndValidity();
 
   }
   isAccidentalTotal() {
 
-    if (this.insureArray.controls['isATPD'].value == 'Yes') {
-      this.insureArray.controls['sumAssuredATPD'].patchValue(this.insureArray.controls['sumAssuredATPD'].value);
+    if (this.addon.controls['isATPD'].value == 'Yes') {
+      this.addon.controls['sumAssuredATPD'].patchValue(this.addon.controls['sumAssuredATPD'].value);
 
-      this.insureArray.controls['sumAssuredATPD'].setValidators([Validators.required]);
+      this.addon.controls['sumAssuredATPD'].setValidators([Validators.required]);
     } else {
-      this.insureArray.controls['sumAssuredATPD'].patchValue('');
+      this.addon.controls['sumAssuredATPD'].patchValue('');
 
-      this.insureArray.controls['sumAssuredATPD'].setValidators(null);
+      this.addon.controls['sumAssuredATPD'].setValidators(null);
 
     }
-    this.insureArray.controls['sumAssuredATPD'].updateValueAndValidity();
+    this.addon.controls['sumAssuredATPD'].updateValueAndValidity();
 
   }
   isHospitalCash() {
 
-    if (this.insureArray.controls['isHCB'].value == 'Yes') {
-      this.insureArray.controls['sumAssuredHCB'].patchValue(this.insureArray.controls['sumAssuredHCB'].value);
+    if (this.addon.controls['isHCB'].value == 'Yes') {
+      this.addon.controls['sumAssuredHCB'].patchValue(this.addon.controls['sumAssuredHCB'].value);
 
-      this.insureArray.controls['sumAssuredHCB'].setValidators([Validators.required]);
+      this.addon.controls['sumAssuredHCB'].setValidators([Validators.required]);
     } else {
-      this.insureArray.controls['sumAssuredHCB'].patchValue('');
+      this.addon.controls['sumAssuredHCB'].patchValue('');
 
-      this.insureArray.controls['sumAssuredHCB'].setValidators(null);
+      this.addon.controls['sumAssuredHCB'].setValidators(null);
 
     }
-    this.insureArray.controls['sumAssuredHCB'].updateValueAndValidity();
+    this.addon.controls['sumAssuredHCB'].updateValueAndValidity();
 
   }
   isadventurous() {
@@ -4805,11 +4936,11 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       "suminsured_amount": sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
-        "policyTerm":this.insureArray.controls['ageTillCoverd'].value ,
-        "premiumPayingTerm":this.lifePremiumList.policy_paying_term,
-        "frequency":this.insureArray.controls['modeOfPremium'].value ,
+        "policyTerm": this.lifePremiumList.termDetrails,
+        "premiumPayingTerm":this.lifePremiumList.premium_paying_term,
+        "frequency":this.enquiryFromDetials.payment_mode,
         "sumAssured": sessionStorage.selectedAmountTravel,
-        "planOption": this.insureArray.controls['premiumPay'].value,
+        "planOption": '',
         "riderDetails": {
           "workSiteFlag": 'N',
           "investmentStrategy":'',
@@ -4817,71 +4948,71 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
           "policyOption":'',
           "additionalBenefit":'',
           "topUpBenefit": {
-            "isTopUpBenefit": this.insureArray.controls['TopUpBenefit'].value,
-            "topUpBenefitPercentage":this.insureArray.controls['topUpBenefitPercentage'].value,
-            "topUpRate": this.insureArray.controls['topUpRate'].value,
+            "isTopUpBenefit": '',
+            "topUpBenefitPercentage":'',
+            "topUpRate": '',
           },
           "betterHalf": {
-            "betterHalfBenefit":this.insureArray.controls['betterHalfBenefit'].value,
-            "sumAssured": this.insureArray.controls['betterHalfsumAssured'].value,
+            "betterHalfBenefit":this.addon.controls['betterHalfBenefit'].value,
+            "sumAssured": this.addon.controls['betterHalfsumAssured'].value,
           },
           "WOP": {
-            "waiverOfPremiumBenefit": this.insureArray.controls['waiverOfPremiumBenefit'].value,
+            "waiverOfPremiumBenefit": this.addon.controls['waiverOfPremiumBenefit'].value,
           },
           "CI": {
-            "criticalIllness": this.insureArray.controls['criticalIllness'].value,
-            "sumAssured":this.insureArray.controls['criticalsumAssured'].value,
+            "criticalIllness": this.addon.controls['criticalIllness'].value,
+            "sumAssured":this.addon.controls['criticalsumAssured'].value,
           },
           "ADB": {
-            "isADB": this.insureArray.controls['isADB'].value,
-            "sumAssured": this.insureArray.controls['sumAssuredADB'].value,
+            "isADB": this.addon.controls['isADB'].value,
+            "sumAssured": this.addon.controls['sumAssuredADB'].value,
           },
           "ATPD": {
-            "isATPD": this.insureArray.controls['isATPD'].value,
-            "sumAssured": this.insureArray.controls['sumAssuredATPD'].value,
+            "isATPD": this.addon.controls['isATPD'].value,
+            "sumAssured": this.addon.controls['sumAssuredATPD'].value,
           },
           "HCB": {
-            "isHCB": this.insureArray.controls['isHCB'].value,
-            "sumAssured": this.insureArray.controls['sumAssuredHCB'].value,
+            "isHCB": this.addon.controls['isHCB'].value,
+            "sumAssured": this.addon.controls['sumAssuredHCB'].value,
           }
         },
         "DeathBenefitOptions": {
-          "payoutOption": this.insureArray.controls['payoutOption'].value,
-          "payoutPercentageIncome":this.insureArray.controls['payoutPercentageIncome'].value,
-          "noOfMonths": this.insureArray.controls['noOfMonths'].value,
+          "payoutOption": "",
+          "payoutPercentageIncome":'',
+          "noOfMonths": '',
         }
       },
       "isLAProposerSame":"",
 
 
         "LifeAssured": {
-          "title": this.insureArray.controls['title'].value,
-          "firstName": this.insureArray.controls['firstName'].value,
-          "middleName": this.insureArray.controls['midName'].value,
-          "lastName": this.insureArray.controls['lastName'].value,
-          "dob": this.datepipe.transform(this.insureArray.controls['dob'].value, 'y-MM-dd'),
-          "gender": this.insureArray.controls['gender'].value,
+          "title": this.customerDetails.controls['title'].value,
+          "firstName": this.customerDetails.controls['firstName'].value,
+          "middleName": '',
+          "lastName": this.customerDetails.controls['lastName'].value,
+          "dob": this.datepipe.transform(this.customerDetails.controls['dob'].value, 'y-MM-dd'),
+          "gender": '',
           "isSmoker":"Y",
-          "maritalStatus": this.insureArray.controls['maritalStatus'].value,
-          "pan": this.insureArray.controls['pan'].value,
+          "maritalStatus": this.customerDetails.controls['maritalStatus'].value,
+          "pan": '',
           "maidName":"",
           "motherMaidName":"",
-          "FHName":this.insureArray.controls['fatherhusbandName'].value,
-          "nationality":this.insureArray.controls['nationality'].value,
+          "FHName":'',
+          "nationality":'',
           "otherNationality":"",
-          "ageProofId":this.insureArray.controls['ageProofId'].value,
-          "emailId":this.insureArray.controls['emailId'].value,
-          "phoneNo":this.insureArray.controls['mobileNo'].value,
+          "ageProofId":'',
+          "emailId":this.customerDetails.controls['emailId'].value,
+          "phoneNo":this.customerDetails.controls['mobileNo'].value,
     },
       "Spouse": {
-        "title":this.insureArray.controls['stitle'].value,
-        "firstName":this.insureArray.controls['sfirstName'].value,
-        "middleName":this.insureArray.controls['smidName'].value,
-        "lastName":this.insureArray.controls['slastName'].value,
-        "dob":this.datepipe.transform(this.insureArray.controls['sdob'].value, 'y-MM-dd'),
-        "emailId":this.insureArray.controls['semailId'].value,
-        "phoneNo":this.insureArray.controls['smobileNo'].value,
-        "isSmoker":this.insureArray.controls['isSmokerSpouse'].value,
+        "title":'',
+        "firstName":this.addon.controls['sfirstName'].value,
+        "middleName":'',
+        "lastName":this.addon.controls['slastName'].value,
+        "dob":this.datepipe.transform(this.addon.controls['sdob'].value, 'y-MM-dd'),
+        "emailId":'',
+        "phoneNo":'',
+        "isSmoker":this.addon.controls['isSmokerSpouse'].value,
 
     }
 
@@ -6159,6 +6290,56 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       });
 
     }
+
+    if (sessionStorage.stepperCustomerDetails != '' && sessionStorage.stepperCustomerDetails != undefined) {
+      this.getSteppercustomer = JSON.parse(sessionStorage.stepperCustomerDetails);
+      this.customerDetails = this.fb.group({
+
+        title: this.getSteppercustomer.title,
+        titleName: this.getSteppercustomer.titleName,
+        // stitleName: this.getStepper1.stitleName,
+        firstName: this.getSteppercustomer.firstName,
+        lastName: this.getSteppercustomer.lastName,
+        dob: this.datepipe.transform(this.getSteppercustomer.dob, 'y-MM-dd'),
+        maritalStatus: this.getSteppercustomer.maritalStatus,
+        maritalStatusName: this.getSteppercustomer.maritalStatusName,
+        emailId: this.getSteppercustomer.emailId,
+        mobileNo: this.getSteppercustomer.mobileNo,
+        annualIncome: this.getSteppercustomer.annualIncome,
+        isSmoker: this.getSteppercustomer.isSmoker,
+
+      });
+
+    }
+    if (sessionStorage.stepperAddonDetails != '' && sessionStorage.stepperAddonDetails != undefined) {
+      this.getStepperaddon = JSON.parse(sessionStorage.stepperAddonDetails);
+      this.addon = this.fb.group({
+
+        additionalBenefit: this.getStepperaddon.additionalBenefit,
+        TopUpBenefit:  this.getStepperaddon.TopUpBenefit,
+        topUpBenefitPercentage:  this.getStepperaddon.topUpBenefitPercentage,
+        topUpRate:  this.getStepperaddon.topUpRate,
+        betterHalfBenefit:  this.getStepperaddon.betterHalfBenefit,
+        betterHalfsumAssured:  this.getStepperaddon.betterHalfsumAssured,
+        waiverOfPremiumBenefit: this.getStepperaddon.waiverOfPremiumBenefit,
+        DSumAssured: this.getStepperaddon.DSumAssured,
+        criticalIllness:  this.getStepperaddon.criticalIllness,
+        criticalClaim:  this.getStepperaddon.criticalClaim,
+        criticalsumAssured: this.getStepperaddon.criticalsumAssured,
+        isADB:  this.getStepperaddon.isADB,
+        sumAssuredADB:  this.getStepperaddon.sumAssuredADB,
+        isATPD:  this.getStepperaddon.isATPD,
+        sumAssuredATPD:  this.getStepperaddon.sumAssuredATPD,
+        isHCB:  this.getStepperaddon.isHCB,
+        sfirstName: this.getStepperaddon.sfirstName,
+        slastName: this.getStepperaddon.slastName,
+        isSmokerSpouse: this.getStepperaddon.isSmokerSpouse,
+        sdob: this.getStepperaddon.sdob,
+
+
+      });
+
+    }
     console.log(this.proposer, 'stepper1');
 
     if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
@@ -6253,9 +6434,9 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         taxResidence: this.getStepper2.taxResidence,
         isPoliticallyExposed: this.getStepper2.isPoliticallyExposed,
         specification: this.getStepper2.specification,
-        Cover: this.getStepper2.Cover,
-        ageTillCoverd: this.getStepper2.ageTillCoverd,
-        premiumPay: this.getStepper2.premiumPay,
+        // : this.getStepper2.Cover,
+        // ageTillCoverd: this.getStepper2.ageTillCoverd,Cover
+        // premiumPay: this.getStepper2.premiumPay,
         modeOfPremium: this.getStepper2.modeOfPremium,
         isCriminal: this.getStepper2.isCriminal,
         criminalDetails: this.getStepper2.criminalDetails,
@@ -6283,24 +6464,24 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         workSiteFlag:  this.getStepper2.workSiteFlag,
         investmentStrategy: this.getStepper2.investmentStrategy,
         risingStar:  this.getStepper2.risingStar,
-        // policyOption:  this.getStepper2.policyOption,
-        additionalBenefit: this.getStepper2.additionalBenefit,
-        TopUpBenefit:  this.getStepper2.TopUpBenefit,
-        topUpBenefitPercentage:  this.getStepper2.topUpBenefitPercentage,
-        topUpRate:  this.getStepper2.topUpRate,
-        betterHalfBenefit:  this.getStepper2.betterHalfBenefit,
-        betterHalfsumAssured:  this.getStepper2.betterHalfsumAssured,
-        waiverOfPremiumBenefit: this.getStepper2.waiverOfPremiumBenefit,
-        DSumAssured: this.getStepper2.DSumAssured,
-        criticalIllness:  this.getStepper2.criticalIllness,
-        criticalClaim:  this.getStepper2.criticalClaim,
-        criticalsumAssured: this.getStepper2.criticalsumAssured,
-        isADB:  this.getStepper2.isADB,
-        sumAssuredADB:  this.getStepper2.sumAssuredADB,
-        isATPD:  this.getStepper2.isATPD,
-        sumAssuredATPD:  this.getStepper2.sumAssuredATPD,
-        isHCB:  this.getStepper2.isHCB,
-        sumAssuredHCB: this.getStepper2.sumAssuredHCB,
+        policyOption:  this.getStepper2.policyOption,
+        // additionalBenefit: this.getStepper2.additionalBenefit,
+        // TopUpBenefit:  this.getStepper2.TopUpBenefit,
+        // topUpBenefitPercentage:  this.getStepper2.topUpBenefitPercentage,
+        // topUpRate:  this.getStepper2.topUpRate,
+        // betterHalfBenefit:  this.getStepper2.betterHalfBenefit,
+        // betterHalfsumAssured:  this.getStepper2.betterHalfsumAssured,
+        // waiverOfPremiumBenefit: this.getStepper2.waiverOfPremiumBenefit,
+        // DSumAssured: this.getStepper2.DSumAssured,
+        // criticalIllness:  this.getStepper2.criticalIllness,
+        // criticalClaim:  this.getStepper2.criticalClaim,
+        // criticalsumAssured: this.getStepper2.criticalsumAssured,
+        // isADB:  this.getStepper2.isADB,
+        // sumAssuredADB:  this.getStepper2.sumAssuredADB,
+        // isATPD:  this.getStepper2.isATPD,
+        // sumAssuredATPD:  this.getStepper2.sumAssuredATPD,
+        // isHCB:  this.getStepper2.isHCB,
+        // sumAssuredHCB: this.getStepper2.sumAssuredHCB,
         payoutOption:  this.getStepper2.payoutOption,
         payoutPercentageIncome:  this.getStepper2.payoutPercentageIncome,
         noOfMonths:  this.getStepper2.noOfMonths,
@@ -6593,6 +6774,9 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   }
   changeTitle1() {
     this.insureArray.controls['titleName'].patchValue(this.etitle[this.insureArray.controls['title'].value]);
+  }
+  changeSpoTitles() {
+    this.addon.controls['stitleName'].patchValue(this.etitle[this.addon.controls['stitle'].value]);
   }
   changeSpoTitle1() {
     this.insureArray.controls['stitleName'].patchValue(this.etitle[this.insureArray.controls['stitle'].value]);

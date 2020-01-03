@@ -2,432 +2,347 @@
   <div class="row bajajLifeProposal mb-4">
     <div class="col-md-12">
        <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
-        <!--<mat-step [stepControl]="">-->
-          <!--<ng-template matStepLabel >PROPOSER DETAILS</ng-template>-->
-          <!--<mat-accordion class=" w-100 float-left">-->
-            <!--<form [formGroup]="proposer" >-->
-              <!--<mat-expansion-panel expanded>-->
-                <!--<mat-expansion-panel-header>-->
-                  <!--<mat-panel-title> PROPOSER DETAILS </mat-panel-title>-->
-                <!--</mat-expansion-panel-header>-->
-                <!--<div class="row mt-1">-->
-                  <!--<div class="col-md-12 box-card pt-3">-->
-                    <!--<div class="row">-->
-                      <!--<div class="col-md-4" >-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" required>-->
-                            <!--<mat-option *ngFor="let list of etitle | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="First Name" formControlName="firstName"  maxlength="15" autocomplete="off" (keypress)="nameValidate($event)" required >-->
-                          <!--<mat-error *ngIf="proposer.controls.firstName.errors?.required">First Name is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Middle Name" formControlName="midName"  maxlength="15" (keypress)="nameValidate($event)" autocomplete="off">-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Last Name" formControlName="lastName" class="nospace" maxlength="15"  (keypress)="nameValidate($event)" autocomplete="off" required >-->
-                          <!--<mat-error *ngIf="proposer.controls.lastName.errors?.required">Last Name is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
 
-                       <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput [matDatepicker]="picker" [max]="minDate"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" autocomplete="off" maxlength="10" minlength="10" required>-->
-                          <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-                          <!--<mat-datepicker #picker></mat-datepicker>-->
-                            <!--<mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                        <!--&lt;!&ndash;<div class="error" *ngIf="dateError != ''">{{dateError}}</div>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>&ndash;&gt;-->
-                      <!--</div>-->
-                        <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<mat-select  placeholder="Gender" formControlName="gender" (change)="geteGender()" required  class="w-100">&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<mat-option *ngFor="let list of egender | keys" [value]= list.key> {{list.value}} </mat-option>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Gender" formControlName="gender" required>-->
-                            <!--<mat-option value="Male">Male</mat-option>-->
-                            <!--<mat-option value="Female">Female</mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="changeMarital();changeMaritalReq()" required  class="w-100">-->
-                                    <!--<mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                                <!--</mat-select>-->
-                                <!--<mat-error *ngIf="proposer.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<mat-select placeholder="Nationality" formControlName="nationality" required>-->
-                                    <!--<mat-option value="Indian">Indian</mat-option>-->
-                                    <!--<mat-option value="Others">Others</mat-option>-->
-                                <!--</mat-select>-->
-                                <!--<mat-error *ngIf="proposer.controls.nationality.errors?.required">Nationality is required</mat-error>-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
+           <mat-step [stepControl]="">
+               <ng-template matStepLabel >CUSTOMER DETAILS</ng-template>
+               <mat-accordion class="w-100 float-left">
+                   <form [formGroup]="customerDetails">
 
-                        <!--<div class="col-md-4">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Email ID" formControlName="emailId"  autocomplete="off" required>-->
-                                <!--<mat-error *ngIf="proposer.controls.emailId.errors?.required">Email ID is required</mat-error>-->
-                                <!--<mat-error *ngIf="proposer.controls.emailId.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<mat-form-field class="w-100" >-->
-                                <!--<input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  (keypress)="idValidate($event)" autocomplete="off" required>-->
-                                <!--<mat-error *ngIf="proposer.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
-                                <!--<mat-error *ngIf="proposer.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>-->
-                                <!--<mat-error *ngIf="proposer.controls.pan.errors?.required">PAN Number is required</mat-error>-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Aadhaar No" formControlName="aadhaarNo" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" autocomplete="off"  required>-->
-                                <!--<mat-error *ngIf="proposer.controls.aadhaarNo.errors?.required">Aadhaar No is required</mat-error>-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Father / Husband Name" formControlName="fatherhusbandName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)" required >-->
-                                <!--<mat-error *ngIf="proposer.controls.fatherhusbandName.errors?.required">Father / Husband Name is required</mat-error>-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<mat-select  placeholder="Age Proof Id" formControlName="ageProofId" (selectionChange)="ageProofName()" required  class="w-100">-->
-                                    <!--<mat-option *ngFor="let list of eAgeProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                                <!--</mat-select>-->
-                                <!--<mat-error *ngIf="proposer.controls.ageProofId.errors?.required">Age Proof Id is required</mat-error>-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<mat-select  placeholder="Highest Qualification" formControlName="highestQualification" (selectionChange)="qualificationName()" (change)="othrhighQualify()" required  class="w-100">-->
-                                    <!--<mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                                <!--</mat-select>-->
-                                <!--<mat-error *ngIf="proposer.controls.highestQualification.errors?.required">Highest Qualification is required</mat-error>-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<mat-form-field class="w-100" *ngIf="proposer.controls['highestQualification'].value == '8'" >-->
-                                <!--<mat-placeholder>Other Qualification Details<span class="error"  *ngIf="proposer.controls['highestQualification'].value == '8'" >*</span></mat-placeholder>-->
-                                <!--<input matInput   formControlName="otherQualification"   maxlength="45" autocomplete="off">-->
-                            <!--</mat-form-field>-->
+                       <mat-expansion-panel expanded>
+                           <mat-expansion-panel-header>
+                               <mat-panel-title> CUSTOMER DETAILS </mat-panel-title>
+                           </mat-expansion-panel-header>
 
-                        <!--</div>-->
-                        <!--<div class="col-md-4 ">-->
-                        <!--<mat-form-field class="w-100">-->
-                        <!--<input matInput placeholder="Mobile No" (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobileNo" autocomplete="off" required>-->
-                        <!--<mat-error *ngIf="proposer.controls.mobileNo.errors?.required">Mobile Number is required</mat-error>-->
-                        <!--<mat-error *ngIf="proposer.controls.mobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
-                        <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<p>Staff</p>-->
-                            <!--<mat-radio-group formControlName="isStaff" (selectionChange)="staffChange()">-->
-                                <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                                <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                            <!--</mat-radio-group>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4" *ngIf="proposer.controls['isStaff'].value == 'Yes'" >-->
-                            <!--<mat-form-field class="w-100"  >-->
-                                <!--<mat-placeholder>Employee Code<span class="error"  *ngIf="proposer.controls['isStaff'].value == 'Yes'" >*</span></mat-placeholder>-->
-                                <!--<input matInput   formControlName="employeeCode"   maxlength="10" autocomplete="off">-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
+                           <div class="row p-3" >
+                               <div class="col-md-4" >
+                                   <mat-form-field class="w-100" >
+                                       <mat-select  placeholder="Title" formControlName="title" (selectionChange)="changeTitle1()" class="w-100" required  >
+                                           <mat-option *ngFor="let list of etitle | keys" [value]= list.key> {{list.value}} </mat-option>
+                                       </mat-select>
+                                       <mat-error *ngIf="customerDetails.controls.title.errors?.required">Title is required</mat-error>
+                                   </mat-form-field>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-form-field class="w-100"  >
+                                       <input matInput placeholder="First Name" formControlName="firstName" maxlength="15" (keypress)="nameValidate($event)" autocomplete="off"   required  >
+                                       <mat-error *ngIf="customerDetails.controls.firstName.errors?.required">First Name is required</mat-error>
+                                   </mat-form-field>
+                               </div>
+<!--                               <div class="col-md-4">-->
+<!--                                   <mat-form-field class="w-100" >-->
+<!--                                       <input matInput placeholder="Mid Name" formControlName="midName"  maxlength="15" (keypress)="nameValidate($event)" autocomplete="off" >-->
+<!--                                   </mat-form-field>-->
+<!--                               </div>-->
+                               <div class="col-md-4">
+                                   <mat-form-field class="w-100">
+                                       <input matInput placeholder="Last Name" formControlName="lastName" class="nospace" maxlength="15"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                                       <mat-error *ngIf="customerDetails.controls.lastName.errors?.required">Last Name is required</mat-error>
+                                   </mat-form-field>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-form-field class="w-100">
+                                       <input matInput [matDatepicker]="picker12" [max]="minDate"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEventcus($event)" (dateChange)="addEventcus($event)" autocomplete="off" maxlength="10" minlength="10" required>
+                                       <mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>
+                                       <mat-datepicker #picker12></mat-datepicker>
+                                       <mat-error *ngIf="customerDetails.controls.dob.errors?.required">DOB is required</mat-error>
+                                   </mat-form-field>
+                                   <div class="error" *ngIf="dateError12 != ''">{{dateError12}}</div>
+                               </div>
 
-                       <!--</div>-->
-                      <!--</div>-->
-                     <!--</div>-->
-
-                  <!--<div class="row" *ngIf="proposer['controls'].maritalStatus.value == 'M'">-->
-                      <!--<div class="col-md-12">-->
-                          <!--<h6 class="color-blue">SPOUSE DETAILS</h6>-->
-                      <!--</div>-->
-
-                      <!--<div class="col-md-4 " *ngIf="proposer['controls'].maritalStatus.value == 'M'" >-->
-                          <!--<mat-form-field class="w-100">-->
-                              <!--<mat-placeholder>Title<span class="error" >*</span></mat-placeholder>-->
-                              <!--<mat-select  formControlName="stitle"  (selectionChange)=" changeTitle()" >-->
-                                  <!--<mat-option *ngFor="let list of etitle | keys" value="{{list.key}}" > {{list.value}} </mat-option>-->
-                              <!--</mat-select>-->
-                          <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4 " *ngIf="proposer['controls'].maritalStatus.value == 'M'">-->
-                          <!--<mat-form-field class="w-100">-->
-                              <!--<mat-placeholder>First Name<span class="error" >*</span></mat-placeholder>-->
-                              <!--<input matInput  formControlName="sfirstName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">-->
-                          <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4 " *ngIf="proposer['controls'].maritalStatus.value == 'M'">-->
-                          <!--<mat-form-field class="w-100">-->
-                              <!--<mat-placeholder>Middle Name</mat-placeholder>-->
-                              <!--<input matInput  formControlName="smidName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">-->
-                          <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4 " *ngIf="proposer['controls'].maritalStatus.value == 'M'">-->
-                          <!--<mat-form-field class="w-100">-->
-                              <!--<mat-placeholder>Last Name<span class="error" >*</span></mat-placeholder>-->
-                              <!--<input matInput  formControlName="slastName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">-->
-                          <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4 " *ngIf="proposer['controls'].maritalStatus.value == 'M'">-->
-                          <!--<mat-form-field class="w-100">-->
-                              <!--<mat-placeholder>DOB (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>-->
-                              <!--<input matInput [matDatepicker]="picker7" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="sdob" (dateInput)="addEventSpouse($event)" (dateChange)="addEventSpouse($event)" autocomplete="off" maxlength="10" minlength="10">-->
-                              <!--<mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>-->
-                              <!--<mat-datepicker #picker7></mat-datepicker>-->
-                          <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4 " *ngIf="proposer['controls'].maritalStatus.value == 'M'">-->
-                          <!--<mat-form-field class="w-100">-->
-                              <!--<mat-placeholder>Email ID<span class="error" >*</span></mat-placeholder>-->
-                              <!--<input matInput  formControlName="semailId"    autocomplete="off"  >-->
-                          <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4 " *ngIf="proposer['controls'].maritalStatus.value == 'M'">-->
-                          <!--<mat-form-field class="w-100">-->
-                              <!--<mat-placeholder>Mobile No<span class="error" >*</span></mat-placeholder>-->
-                              <!--<input matInput  formControlName="smobileNo"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">-->
-                          <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4" *ngIf="proposer['controls'].maritalStatus.value == 'M'">-->
-                          <!--<p>Smoker<span class="error" >*</span></p>-->
-                          <!--<mat-radio-group formControlName="isSmokerSpouse">-->
-                              <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                              <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                          <!--</mat-radio-group>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4" *ngIf="proposer['controls'].maritalStatus.value == 'M'">-->
-                          <!--<p>Staff<span class="error" >*</span></p>-->
-                          <!--<mat-radio-group formControlName="isStaffSpouse" (selectionChange)="staffSpouseChange()">-->
-                              <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
-                              <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                          <!--</mat-radio-group>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4" *ngIf="proposer.controls['isStaffSpouse'].value == 'Yes' && proposer['controls'].maritalStatus.value == 'M'" >-->
-                          <!--<mat-form-field class="w-100"  >-->
-                              <!--<mat-placeholder>Employee Code<span class="error"  *ngIf="proposer.controls['isStaffSpouse'].value == 'Yes'" >*</span></mat-placeholder>-->
-                              <!--<input matInput   formControlName="employeeCodeSpouse"   maxlength="10" autocomplete="off">-->
-                          <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4 " *ngIf="proposer['controls'].maritalStatus.value == 'M'">-->
-                          <!--<mat-form-field class="w-100">-->
-                              <!--<mat-placeholder>Relation To Proposer<span class="error" >*</span></mat-placeholder>-->
-                              <!--<mat-select  formControlName="relationSpouseProposer"  (selectionChange)=" geteSpouseeRelationName()" >-->
-                                  <!--<mat-option *ngFor="let list of eNomineeRelation | keys" value="{{list.key}}" > {{list.value}} </mat-option>-->
-                              <!--</mat-select>-->
-                          <!--</mat-form-field>-->
-                      <!--</div>-->
+                               <div class="col-md-4"  >
+                                   <mat-form-field class="w-100" >
+                                       <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="geteMaritalStatus()"required  class="w-100" >
+                                           <mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>
+                                       </mat-select>
+                                       <mat-error *ngIf="customerDetails.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
+                                   </mat-form-field>
+                               </div>
 
 
-                          <!--&lt;!&ndash;<div class="col-md-4" *ngIf="proposer['controls'].maritalStatus.value == 'M'">&ndash;&gt;-->
-                              <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                                  <!--&lt;!&ndash;<input matInput [matDatepicker]="picker7" [max]="minDate"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="sdob" (dateInput)="addEventSpouse($event)" (dateChange)="addEventSpouse($event)" autocomplete="off" maxlength="10" minlength="10" required>&ndash;&gt;-->
-                                  <!--&lt;!&ndash;<mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>&ndash;&gt;-->
-                                  <!--&lt;!&ndash;<mat-datepicker #picker7></mat-datepicker>&ndash;&gt;-->
-                                  <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.sdob.errors?.required">DOB is required</mat-error>&ndash;&gt;-->
-                              <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                              <!--&lt;!&ndash;<div class="error" *ngIf="dateSpouseError != ''">{{dateSpouseError}}</div>&ndash;&gt;-->
-                          <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-                  <!--</div>-->
-                <!--<div class="row" fxLayoutAlign="center center">-->
-                      <!--<div class="col-md-6">-->
-                        <!--<div class="box-card addressBox">-->
-                          <!--<h6 class="color-blue">CURRENT ADDRESS</h6>-->
-                          <!--<div class="row">-->
-                            <!--<div class="col-md-12">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<input maxlength="80" matInput placeholder="Address 1" formControlName="currAddr1" (keyup)="typeAddressDeatils()" autocomplete="off" required>-->
-
-                                <!--<mat-error *ngIf="proposer.controls.currAddr1.errors?.required"> Address 1 is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-12">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Address 2" formControlName="currAddr2" maxlength="80" (keyup)="typeAddressDeatils()" required autocomplete="off" required >-->
-                                <!--<mat-error *ngIf="proposer.controls.currAddr2.errors?.required"> Address 2 is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-12">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Address 3" formControlName="currAddr3"  maxlength="80"  (keyup)="typeAddressDeatils()" autocomplete="off" >-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-4">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" (keyup)="typeAddressDeatils()" required >-->
-                                <!--<mat-error *ngIf="proposer.controls.currCity.errors?.required"> City is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-4">-->
-                              <!--<mat-form-field class="w-100">-->
-                                  <!--<input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6" (keyup)="typeAddressDeatils()"  formControlName="currPincode"autocomplete="off" required >-->
-
-                                <!--<mat-error *ngIf="proposer.controls.currPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
-                                <!--<mat-error *ngIf="proposer.controls.currPincode.hasError('required')">Pincode Is Required</mat-error>-->
-                                <!--<mat-error *ngIf="proposer.controls.currPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
+                               <div class="col-md-4" >
+                                   <mat-form-field class="w-100">
+                                       <input matInput placeholder="Email ID" formControlName="emailId"  autocomplete="off" required >
+                                       <mat-error *ngIf="customerDetails.controls.emailId.errors?.required">Email ID is required</mat-error>
+                                       <mat-error *ngIf="customerDetails.controls.emailId.hasError('pattern')">Please Enter Correct Format</mat-error>
+                                   </mat-form-field>
+                               </div>
 
 
-                            <!--<div class="col-md-4">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<mat-select  placeholder=" State" formControlName="currState" (selectionChange)="typeAddressDeatils()" required  class="w-100">-->
-                                  <!--<mat-option *ngFor="let list of eState | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                                <!--</mat-select>-->
-                                <!--<mat-error *ngIf="proposer.controls.currState.errors?.required"> State is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                          <!--</div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-6">-->
-                        <!--<div class="box-card addressBox">-->
-                          <!--<div class="row">-->
-                            <!--<h6 class="color-blue ml-3">PERMANENT ADDRESS</h6>-->
-                            <!--<div class="text-right w-50">-->
-                              <!--<mat-checkbox formControlName="isCurrPerAddrSame" (change)="sameAddress()" ><strong>Same as Communication</strong></mat-checkbox>-->
-                            <!--</div>-->
-                          <!--</div>-->
-                          <!--<div class="row">-->
-
-                            <!--<div class="col-md-12">-->
-                              <!--<mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.proposer.controls['isCurrPerAddrSame'].value ? 'none' : ''}">-->
-                                <!--<input matInput placeholder=" Address1" formControlName="perAddr1" maxlength="50"  required autocomplete="off"  >-->
-                                <!--<mat-error *ngIf="proposer.controls.perAddr1.errors?.required"> Address1 is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-12">-->
-                              <!--<mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.proposer.controls['isCurrPerAddrSame'].value ? 'none' : ''}">-->
-                                <!--<input matInput placeholder=" Address2" formControlName="perAddr2" maxlength="50"  autocomplete="off" required  >-->
-                                <!--<mat-error *ngIf="proposer.controls.perAddr2.errors?.required"> Address2 is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-12" [ngStyle]="{'pointer-events': this.proposer.controls['isCurrPerAddrSame'].value ? 'none' : ''}">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder=" Address3" formControlName="perAddr3" maxlength="50" autocomplete="off"  >-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-4" [ngStyle]="{'pointer-events': this.proposer.controls['isCurrPerAddrSame'].value ? 'none' : ''}">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder=" City" formControlName="perCity" maxlength="50" autocomplete="off" required  >-->
-                                <!--<mat-error *ngIf="proposer.controls.perCity.errors?.required"> City is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-4" [ngStyle]="{'pointer-events': this.proposer.controls['isCurrPerAddrSame'].value ? 'none' : ''}">-->
-                                <!--<mat-form-field class="w-100">-->
-                              <!--<input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="perPincode" autocomplete="off" required >-->
-                              <!--<mat-error *ngIf="proposer.controls.perPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
-                              <!--<mat-error *ngIf="proposer.controls.perPincode.hasError('required')">Pincode Is Required</mat-error>-->
-                              <!--<mat-error *ngIf="proposer.controls.perPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
-                            <!--</mat-form-field></div>-->
-
-                            <!--<div class="col-md-4" [ngStyle]="{'pointer-events': this.proposer.controls['isCurrPerAddrSame'].value ? 'none' : ''}">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<mat-select  placeholder=" State" formControlName="perState"  required  class="w-100" >-->
-                                  <!--<mat-option *ngFor="let list of eState | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                                <!--</mat-select>-->
-                                <!--<mat-error *ngIf="proposer.controls.perState.errors?.required"> State is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                          <!--</div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-
-                <!--<div class="row">-->
-                  <!--<div class="col-md-12 mt-2">-->
-                    <!--<h6 class="color-blue">EMPLOYMENT</h6>-->
-                  <!--</div>-->
-                    <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                            <!--<input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" required >-->
-                            <!--<mat-error *ngIf="proposer.controls.employerName.errors?.required">Employer Name  is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                    <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select  placeholder="Employment Type" formControlName="employementType"  required (selectionChange)="employmentTypereq();employementTypeName()" class="w-100">-->
-                            <!--<mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="proposer.controls.employementType.errors?.required">Employment Type is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                  <!--<div class="col-md-4" >-->
-                      <!--<mat-form-field class="w-100" *ngIf="proposer.controls['employementType'].value == '9'" >-->
-                          <!--<mat-placeholder>Other Employment Type <span class="error"  *ngIf="proposer.controls['employementType'].value == '9'" >*</span></mat-placeholder>-->
-                          <!--<input matInput   formControlName="employementTypeOther"   maxlength="45" autocomplete="off">-->
-                      <!--</mat-form-field>-->
-
-                  <!--</div>-->
-                    <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                            <!--<mat-select  placeholder="Nature of Duty/Business" formControlName="natureduty"  required (selectionChange)="setbdutyList();setbdutyListName()" class="w-100">-->
-                                <!--<mat-option *ngFor="let list of bduty | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                            <!--</mat-select>-->
-                            <!--<mat-error *ngIf="proposer.controls.natureduty.errors?.required">Nature of Duty/Business is required</mat-error>-->
-                        <!--</mat-form-field>-->
-
-                    <!--</div>-->
+                               <div class="col-md-4" >
+                                   <mat-form-field class="w-100">
+                                       <input matInput placeholder="Mobile No" (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobileNo" autocomplete="off" required >
+                                       <mat-error *ngIf="customerDetails.controls.mobileNo.errors?.required">Mobile Number is required</mat-error>
+                                       <mat-error *ngIf="customerDetails.controls.mobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                                   </mat-form-field>
+                               </div>
+                               <div class="col-md-4">
+                                   <p>Smoker<span class="error" >*</span></p>
+                                   <mat-radio-group formControlName="isSmoker">
+                                       <mat-radio-button value="Yes" >Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-form-field class="w-100">
+                                       <input matInput placeholder="Annual Income" formControlName="annualIncome" maxlength="15" autocomplete="off" required (keypress)="numberValidate($event)" (selectionChange)="edelweissPrimium()"  >
+                                       <mat-error *ngIf="customerDetails.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
+                                   </mat-form-field>
+                               </div>
 
 
-                    <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                            <!--<input matInput placeholder="Address of employer" formControlName="employerAddr" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >-->
-                            <!--<mat-error *ngIf="proposer.controls.employerAddr.errors?.required"> Employer Address   is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                    <!--</div>-->
-                    <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                            <!--<input matInput placeholder="Annual Income" formControlName="annualIncome" maxlength="15" autocomplete="off" required (keypress)="heightValidate($event)" >-->
-                            <!--<mat-error *ngIf="proposer.controls.annualIncome.errors?.required">Annual Income is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                    <!--</div>-->
+                           </div>
+                           <!--</div>-->
+                           <div class="proposal-buttom mt-3 text-right w-100">
+<!--                               <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
+                               <button mat-raised-button color="primaryBlue"  (click)="edelweissPrimium();edelweissCustomerDetail(stepper, customerDetails.value)">Next</button>
+                           </div>
+                       </mat-expansion-panel>
+                   </form>
+               </mat-accordion>
+           </mat-step>
+           <mat-step [stepControl]="">
+               <ng-template matStepLabel >ADDON</ng-template>
+               <mat-accordion class="w-100 float-left">
+                   <form [formGroup]="addon">
+
+                       <mat-expansion-panel expanded>
+                           <mat-expansion-panel-header>
+                               <mat-panel-title> ADDON  </mat-panel-title>
+                           </mat-expansion-panel-header>
 
 
-                <!--</div>-->
+                           <div class="row p-3">
+                               <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                   <h6 class="color-blue">ADDON</h6>
+                               </div>
 
-                  <!--<div class="row">-->
-                      <!--<div class="col-md-12 mt-2">-->
-                          <!--<h6 class="color-blue">TAX RESIDENCE DECLARATION <span class="error" > *</span></h6>-->
-                  <!--<div class="col-md-6 ">-->
-                      <!--<mat-radio-group formControlName="taxResidence" class="mr-2" required >-->
-                          <!--<mat-radio-button value="LA is a tax resident of Other Country">If LA is tax resident of another country then please fill in the FATCA/CRS form which will be mailed to you after payment</mat-radio-button>-->
-                          <!--<mat-radio-button value="LA is a tax resident of India" class="mr-2"> LA is a tax resident of India and not of any other country</mat-radio-button>-->
-                      <!--</mat-radio-group>-->
-                  <!--</div>-->
-                      <!--</div>-->
-                  <!--</div>-->
+                               <div class="col-md-4" *ngIf="customerDetails.controls['maritalStatus'].value == 'M'">
+                                   <mat-radio-group formControlName="betterHalfBenefit" (change)="changeMaritalInsuReq();edelweissPrimium()" >
+                                       <p>Better Half Benefit</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
 
-                  <!--<div class="proposal-buttom mt-3 text-right w-100">-->
-                      <!--<button mat-raised-button color="primaryBlue"  (click)="proposerDetails(stepper, proposer.value)" >Next</button>-->
-                  <!--</div>-->
+                               </div>
 
-              <!--</mat-expansion-panel>-->
-            <!--</form>-->
-          <!--</mat-accordion>-->
-        <!--</mat-step>-->
+                               <div class="row p-3"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
+                                   <!--[ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}"
+                                   -->
+                                   <div class="col-md-12 mt-2" >
+                                       <h6 class="color-blue">SPOUSE DETAILS</h6>
+                                   </div>
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
+                                       <mat-form-field class="w-100" >
+                                           <mat-placeholder>Title<span class="error" >*</span></mat-placeholder>
+                                           <mat-select  formControlName="stitle"  (selectionChange)=" changeSpoTitles()" >
+                                               <mat-option *ngFor="let list of etitle | keys" value="{{list.key}}" > {{list.value}} </mat-option>
+                                           </mat-select>
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
+                                       <mat-form-field class="w-100">
+                                           <mat-placeholder>First Name<span class="error" >*</span></mat-placeholder>
+                                           <input matInput  formControlName="sfirstName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
+                                       </mat-form-field>
+                                   </div>
+<!--                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">-->
+<!--                                       <mat-form-field class="w-100">-->
+<!--                                           <mat-placeholder>Middle Name</mat-placeholder>-->
+<!--                                           <input matInput  formControlName="smidName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">-->
+<!--                                       </mat-form-field>-->
+<!--                                   </div>-->
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
+                                       <mat-form-field class="w-100">
+                                           <mat-placeholder>Last Name<span class="error" >*</span></mat-placeholder>
+                                           <input matInput  formControlName="slastName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-form-field class="w-100">
+                                           <mat-placeholder>DOB (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
+                                           <input matInput [matDatepicker]="picker8" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="sdob" (dateInput)="addEventSpouse($event)" (dateChange)="addEventSpouse($event)" autocomplete="off" maxlength="10" minlength="10">
+                                           <mat-datepicker-toggle matSuffix [for]="picker8"></mat-datepicker-toggle>
+                                           <mat-datepicker #picker8></mat-datepicker>
+                                       </mat-form-field>
+                                   </div>
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
+                                       <mat-form-field class="w-100">
+                                           <mat-placeholder>Email ID<span class="error" >*</span></mat-placeholder>
+                                           <input matInput  formControlName="semailId"    autocomplete="off"  >
+                                       </mat-form-field>
+                                   </div>
+
+                                   <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <p>Smoker<span class="error" >*</span></p>
+                                       <mat-radio-group formControlName="isSmokerSpouse">
+                                           <mat-radio-button value="Yes" >Yes</mat-radio-button>
+                                           <mat-radio-button value="No">No</mat-radio-button>
+                                       </mat-radio-group>
+                                   </div>
+
+
+
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="TopUpBenefit" (change)="isTopUpBenefit();edelweissPrimium()" >
+                                       <p>Top Up Benefit</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-3 mt-2" *ngIf="addon.controls['TopUpBenefit'].value == 'Yes'" >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Top Up Benefit Percentage<span class="error" >*</span></mat-placeholder>
+                                       <input matInput  formControlName="topUpBenefitPercentage"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
+                                   </mat-form-field>
+                               </div>
+                               <div class="col-md-3 mt-2" *ngIf="addon.controls['TopUpBenefit'].value == 'Yes'"  >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Top Up Rate<span class="error" >*</span></mat-placeholder>
+                                       <mat-select  formControlName="topUpRate"  (selectionChange)=" getetopUpRate()" >
+                                           <mat-option *ngFor="let topUpRates of etopUpRates | keys" value="{{topUpRates.key}}" > {{topUpRates.value}} </mat-option>
+                                       </mat-select>
+                                   </mat-form-field>
+                               </div>
+
+
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="waiverOfPremiumBenefit"  (change)="edelweissPrimium()">
+                                       <p>Waiver Of Premium Benefit</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="DSumAssured" >
+                                       <p>Decreasing Sum Assured</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+
+
+                           </div>
+                           <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
+                               <div class="col-md-12">
+                                   <h6 class="color-blue">ALL RIDER</h6>
+                               </div>
+
+
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="isADB" (change)="isDeathBenefit();edelweissPrimium()" >
+                                       <p>Accidental Death Benefit</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isADB'].value == 'Yes'" >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                                   </mat-form-field>
+                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
+
+                                   <div class="error" *ngIf="adbError != ''">{{adbError}}</div>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="isATPD" (change)="isAccidentalTotal();edelweissPrimium()" >
+                                       <p>Accidental Total and Permanent Disability</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4 mt-2 " *ngIf="addon.controls['isATPD'].value == 'Yes'" >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                       <input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (change)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
+                                   </mat-form-field>
+                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
+                                   <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="criticalIllness" (change)="iscriticalIllness();edelweissPrimium()" >
+                                       <p>Critical Illness Rider</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4 mt-2" *ngIf="addon.controls['criticalIllness'].value == 'Yes'" >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                       <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                                   </mat-form-field>
+                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000  Max: 50,00,000</p></div>
+                                   <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
+                               </div>
+                               <div class="col-md-4" *ngIf="addon.controls['criticalIllness'].value == 'Yes'">
+                                   <mat-radio-group formControlName="criticalClaim"  >
+                                       <mat-radio-button value="Yes" class="mr-2"> Single Claim</mat-radio-button>
+                                       <mat-radio-button value="No">Multi Claim</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="isHCB" (change)="isHospitalCash();edelweissPrimium()" >
+                                       <p>Hospital Cash Benefit</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isHCB'].value == 'Yes'" >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
+                                   </mat-form-field>
+                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 6,00,000</p></div>
+                                   <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
+                               </div>
+
+                               <div class="col-md-4">
+
+                               </div>
+                           </div>
+
+                           <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
+                               <div class="col-md-12">
+                                   <h6 class="color-blue">PREMIUM</h6>
+                               </div>
+                               <div class="col-md-6">
+                                   <div class="p-3">
+
+                                       <ul class="m-0 list-group">
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="planname != 0"><strong> Plan Name :</strong> {{planname}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="policyTerm != 0"><strong>   Policy Term :</strong> {{policyTerm}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="payingTerm != 0"><strong>   Pay Term :</strong> {{payingTerm}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="sum != 0"><strong>   Sum Assured :</strong> {{sum}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="basePremium != 0"><strong>   Base Premium :</strong> {{basePremium}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="hcp != 0"><strong>   Hospital Cash :</strong> {{hcp}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="ADB != 0"><strong>   ADB :</strong> {{ADB}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="CIP != 0"><strong>   CI :</strong> {{CIP}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="PW != 0"><strong>   WoP :</strong> {{PW}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="PDP != 0"><strong>   Disability :</strong> {{PDP}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="BhP != 0"><strong>   Better-Half :</strong> {{BhP}}</li>
+                                           <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="premium != 0"><strong>   Total Premium :</strong> {{premium}}</li>
+                                       </ul>
+                                   </div>
+                               </div>
+
+                           </div>
+
+
+
+
+
+                           <!--</div>-->
+                           <div class="proposal-buttom mt-3 text-right w-100">
+                               <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                               <button mat-raised-button color="primaryBlue"  (click)="edelweissAddonDetail(stepper, customerDetails.value)">Next</button>
+                           </div>
+                       </mat-expansion-panel>
+                   </form>
+               </mat-accordion>
+           </mat-step>
+
            <mat-step [stepControl]="">
                <ng-template matStepLabel >PROPOSER/INSURED DETAILS</ng-template>
                <mat-accordion class="w-100 float-left">
@@ -882,69 +797,60 @@
                            <!--</div>-->
                        </div>
 
+<!--                           <div class="row p-3">-->
+<!--                               <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
+<!--                                   <h6 class="color-blue">PREMIUM INFO</h6>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4 " >-->
+<!--                                   <mat-form-field class="w-100">-->
+<!--                                       <mat-placeholder>Cover</mat-placeholder>-->
+<!--                                       <input matInput  formControlName="Cover"  required  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="15" >-->
+<!--                                       <mat-error *ngIf="insureArray.controls.Cover.errors?.required">Cover is required</mat-error>-->
+<!--                                   </mat-form-field>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4">-->
+<!--                                   <mat-form-field class="w-100">-->
+<!--                                       <mat-placeholder>Age Till Covered</mat-placeholder>-->
+<!--                                       <mat-select  formControlName="ageTillCoverd"  (selectionChange)="ageTillcoverd();premiumPaymentTerm()" required>-->
+<!--                                           <mat-option *ngFor="let list of ageTill | keys" value="{{list.key}}" > {{list.value}} </mat-option>-->
+<!--                                       </mat-select>-->
+<!--                                       <mat-error *ngIf="insureArray.controls.ageTillCoverd.errors?.required">Age Till Covered is required</mat-error>-->
+<!--                                   </mat-form-field>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4 "  >-->
+<!--                                   <mat-form-field class="w-100">-->
+<!--                                       <mat-placeholder>Premium Payment Term</mat-placeholder >-->
+<!--                                       <mat-select  formControlName="premiumPay"   (selectionChange)="premiumPaymentTerm()" required>-->
+<!--                                           <mat-option *ngFor="let list of premiumPayment | keys" value="{{list.key}}" > {{list.value}} </mat-option>-->
+<!--                                       </mat-select>-->
+<!--                                       <mat-error *ngIf="insureArray.controls.premiumPay.errors?.required">Premium Payment Term is required</mat-error>-->
+
+<!--                                   </mat-form-field>-->
+<!--                               </div>-->
+<!--                                <div class="col-md-4 " >-->
+<!--                                   <mat-form-field class="w-100">-->
+<!--                                       <mat-placeholder>Mode Of Premium</mat-placeholder >-->
+<!--                                       <mat-select  formControlName="modeOfPremium"  (selectionChange)="edelweissPrimium()" required>-->
+<!--                                           <mat-option *ngFor="let list of frequencyList | keys" value="{{list.key}}" > {{list.value}} </mat-option>-->
+<!--                                       </mat-select>-->
+<!--                                       <mat-error *ngIf="insureArray.controls.modeOfPremium.errors?.required">Mode Of Premium is required</mat-error>-->
+<!--                                   </mat-form-field>-->
+<!--                               </div>-->
+
+
+
+<!--                           </div>-->
                            <div class="row p-3">
-                               <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                   <h6 class="color-blue">PREMIUM INFO</h6>
-                               </div>
-                               <div class="col-md-4 " >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Cover</mat-placeholder>
-                                       <input matInput  formControlName="Cover"  required  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="15" >
-                                       <mat-error *ngIf="insureArray.controls.Cover.errors?.required">Cover is required</mat-error>
-                                   </mat-form-field>
-                               </div>
-                               <div class="col-md-4">
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Age Till Covered</mat-placeholder>
-                                       <mat-select  formControlName="ageTillCoverd"  (selectionChange)="ageTillcoverd();premiumPaymentTerm()" required>
-                                           <mat-option *ngFor="let list of ageTill | keys" value="{{list.key}}" > {{list.value}} </mat-option>
-                                       </mat-select>
-                                       <mat-error *ngIf="insureArray.controls.ageTillCoverd.errors?.required">Age Till Covered is required</mat-error>
-                                   </mat-form-field>
-                               </div>
-                               <div class="col-md-4 "  >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Premium Payment Term</mat-placeholder >
-                                       <mat-select  formControlName="premiumPay"   (selectionChange)="premiumPaymentTerm()" required>
-                                           <mat-option *ngFor="let list of premiumPayment | keys" value="{{list.key}}" > {{list.value}} </mat-option>
-                                       </mat-select>
-                                       <mat-error *ngIf="insureArray.controls.premiumPay.errors?.required">Premium Payment Term is required</mat-error>
-
-                                   </mat-form-field>
-                               </div>
-                                <div class="col-md-4 " >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Mode Of Premium</mat-placeholder >
-                                       <mat-select  formControlName="modeOfPremium"  (selectionChange)="edelweissPrimium()" required>
-                                           <mat-option *ngFor="let list of frequencyList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
-                                       </mat-select>
-                                       <mat-error *ngIf="insureArray.controls.modeOfPremium.errors?.required">Mode Of Premium is required</mat-error>
-                                   </mat-form-field>
-                               </div>
-
-
-
-                           </div>
-                           <div class="row p-3">
-                               <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                   <h6 class="color-blue">ADDON</h6>
-                               </div>
-
-                               <div class="col-md-4"  *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
-                                   <mat-radio-group formControlName="betterHalfBenefit" (change)="changeMaritalInsuReq();edelweissPrimium()" >
-                                       <p>Better Half Benefit</p>
-                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                       <mat-radio-button value="No">No</mat-radio-button>
-                                   </mat-radio-group>
-
+                               <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' && addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <h6 class="color-blue">Spouse Detail</h6>
                                </div>
 
                                <div class="row p-3"  >
                                    <!--[ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}"-->
-                                   <div class="col-md-12 mt-2" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+                                   <div class="col-md-12 mt-2" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                        <h6 class="color-blue">SPOUSE DETAILS</h6>
                                    </div>
-                                   <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                        <mat-form-field class="w-100" >
                                            <mat-placeholder>Title<span class="error" >*</span></mat-placeholder>
                                            <mat-select  formControlName="stitle"  (selectionChange)=" changeSpoTitle1()" >
@@ -952,25 +858,28 @@
                                            </mat-select>
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+
+
+
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>First Name<span class="error" >*</span></mat-placeholder>
                                            <input matInput  formControlName="sfirstName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Middle Name</mat-placeholder>
                                            <input matInput  formControlName="smidName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Last Name<span class="error" >*</span></mat-placeholder>
                                            <input matInput  formControlName="slastName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>DOB (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
                                            <input matInput [matDatepicker]="picker8" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="sdob" (dateInput)="addEventSpouse($event)" (dateChange)="addEventSpouse($event)" autocomplete="off" maxlength="10" minlength="10">
@@ -978,26 +887,26 @@
                                            <mat-datepicker #picker8></mat-datepicker>
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Email ID<span class="error" >*</span></mat-placeholder>
                                            <input matInput  formControlName="semailId"    autocomplete="off"  >
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4 "  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+                                   <div class="col-md-4 "  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Mobile No<span class="error" >*</span></mat-placeholder>
                                            <input matInput  formControlName="smobileNo"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <p>Smoker<span class="error" >*</span></p>
                                        <mat-radio-group formControlName="isSmokerSpouse">
                                            <mat-radio-button value="Yes" >Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
                                    </div>
-                                   <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100" >
                                            <mat-placeholder>PAN Number<span class="error" >*</span></mat-placeholder>
 
@@ -1007,7 +916,7 @@
                                            <!--<mat-error *ngIf="insureArray.controls.sppan.errors?.required">PAN Number is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Aadhaar No<span class="error" >*</span></mat-placeholder>
                                            <input matInput formControlName="saadhaarNo" minlength="12"  maxlength="12" autocomplete="off" (keypress)="numberValidate($event)" >
@@ -1015,14 +924,14 @@
                                        </mat-form-field>
                                    </div>
 
-                                   <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Father / Husband Name<span class="error" >*</span></mat-placeholder>
                                            <input matInput formControlName="sfatherhusbandName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)"  >
                                            <!--<mat-error *ngIf="insureArray.controls.sfatherhusbandName.errors?.required">Father / Husband Name is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Mother name<span class="error" >*</span></mat-placeholder>
                                            <input matInput  formControlName="smotherMaidName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)"  >
@@ -1031,7 +940,7 @@
                                    </div>
 
 
-                                   <div class="col-md-4"*ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <div class="col-md-4"*ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Age Proof Id<span class="error" >*</span></mat-placeholder>
                                            <mat-select  formControlName="sageProofId"  (selectionChange)="ageProofName1()" class="w-100" >
@@ -1040,7 +949,7 @@
                                            <!--<mat-error *ngIf="insureArray.controls.sageProofId.errors?.required">Age Proof Id is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Highest Qualification<span class="error" >*</span></mat-placeholder>
                                            <mat-select formControlName="shighestQualification" (selectionChange)="squalificationName();othrhighQualify2()"   class="w-100" >
@@ -1049,7 +958,7 @@
                                            <!--<mat-error *ngIf="insureArray.controls.shighestQualification.errors?.required">Highest Qualification is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-4" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100" *ngIf="insureArray.controls['shighestQualification'].value == '8'" >
                                            <mat-placeholder>Other Qualification Details<span class="error"  *ngIf="insureArray.controls['shighestQualification'].value == '8'" >*</span></mat-placeholder>
                                            <input matInput   formControlName="sotherQualification"   maxlength="45" autocomplete="off">
@@ -1068,7 +977,7 @@
 
 
                                </div>
-                               <div class="row p-3" fxLayoutAlign="center center" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                               <div class="row p-3" fxLayoutAlign="center center" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                    <div class="col-md-6">
                                        <div class="box-card addressBox">
                                            <div class="row p-1">
@@ -1184,7 +1093,7 @@
                                </div>
 
 
-                               <div class="row p-3" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                               <div class="row p-3" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                    <div class="col-md-12 ">
                                        <h6 class="color-blue">LIFESTYLE DETAILS</h6>
                                    </div>
@@ -1246,164 +1155,164 @@
                                    <!--</div>-->
                                </div>
 
-                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
-                                   </mat-form-field>
-                               </div>
-                           <div class="col-md-4">
-                               <mat-radio-group formControlName="TopUpBenefit" (change)="isTopUpBenefit();edelweissPrimium()" >
-                                   <p>Top Up Benefit</p>
-                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                   <mat-radio-button value="No">No</mat-radio-button>
-                               </mat-radio-group>
-                           </div>
-                           <div class="col-md-3 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'" >
-                               <mat-form-field class="w-100">
-                                   <mat-placeholder>Top Up Benefit Percentage<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="topUpBenefitPercentage"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
-                               </mat-form-field>
-                           </div>
-                               <div class="col-md-3 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'"  >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Top Up Rate<span class="error" >*</span></mat-placeholder>
-                                       <mat-select  formControlName="topUpRate"  (selectionChange)=" getetopUpRate()" >
-                                           <mat-option *ngFor="let topUpRates of etopUpRates | keys" value="{{topUpRates.key}}" > {{topUpRates.value}} </mat-option>
-                                       </mat-select>
-                                   </mat-form-field>
-                               </div>
+<!--                               <div class="col-md-4 mt-2" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >-->
+<!--                                   <mat-form-field class="w-100">-->
+<!--                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>-->
+<!--                                       <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">-->
+<!--                                   </mat-form-field>-->
+<!--                               </div>-->
+<!--                           <div class="col-md-4">-->
+<!--                               <mat-radio-group formControlName="TopUpBenefit" (change)="isTopUpBenefit();edelweissPrimium()" >-->
+<!--                                   <p>Top Up Benefit</p>-->
+<!--                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+<!--                                   <mat-radio-button value="No">No</mat-radio-button>-->
+<!--                               </mat-radio-group>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-3 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'" >-->
+<!--                               <mat-form-field class="w-100">-->
+<!--                                   <mat-placeholder>Top Up Benefit Percentage<span class="error" >*</span></mat-placeholder>-->
+<!--                                   <input matInput  formControlName="topUpBenefitPercentage"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">-->
+<!--                               </mat-form-field>-->
+<!--                           </div>-->
+<!--                               <div class="col-md-3 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'"  >-->
+<!--                                   <mat-form-field class="w-100">-->
+<!--                                       <mat-placeholder>Top Up Rate<span class="error" >*</span></mat-placeholder>-->
+<!--                                       <mat-select  formControlName="topUpRate"  (selectionChange)=" getetopUpRate()" >-->
+<!--                                           <mat-option *ngFor="let topUpRates of etopUpRates | keys" value="{{topUpRates.key}}" > {{topUpRates.value}} </mat-option>-->
+<!--                                       </mat-select>-->
+<!--                                   </mat-form-field>-->
+<!--                               </div>-->
 
 
-                           <div class="col-md-4">
-                           <mat-radio-group formControlName="waiverOfPremiumBenefit"  (change)="edelweissPrimium()">
-                               <p>Waiver Of Premium Benefit</p>
-                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                               <mat-radio-button value="No">No</mat-radio-button>
-                           </mat-radio-group>
-                           </div>
-                               <div class="col-md-4">
-                           <mat-radio-group formControlName="DSumAssured" >
-                               <p>Decreasing Sum Assured</p>
-                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                               <mat-radio-button value="No">No</mat-radio-button>
-                           </mat-radio-group>
-                           </div>
+<!--                           <div class="col-md-4">-->
+<!--                           <mat-radio-group formControlName="waiverOfPremiumBenefit"  (change)="edelweissPrimium()">-->
+<!--                               <p>Waiver Of Premium Benefit</p>-->
+<!--                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+<!--                               <mat-radio-button value="No">No</mat-radio-button>-->
+<!--                           </mat-radio-group>-->
+<!--                           </div>-->
+<!--                               <div class="col-md-4">-->
+<!--                           <mat-radio-group formControlName="DSumAssured" >-->
+<!--                               <p>Decreasing Sum Assured</p>-->
+<!--                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+<!--                               <mat-radio-button value="No">No</mat-radio-button>-->
+<!--                           </mat-radio-group>-->
+<!--                           </div>-->
 
                          </div>
-                           <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
-                               <div class="col-md-12">
-                                   <h6 class="color-blue">ALL RIDER</h6>
-                               </div>
+<!--                           <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">-->
+<!--                               <div class="col-md-12">-->
+<!--                                   <h6 class="color-blue">ALL RIDER</h6>-->
+<!--                               </div>-->
 
 
-                               <div class="col-md-4">
-                                   <mat-radio-group formControlName="isADB" (change)="isDeathBenefit();edelweissPrimium()" >
-                                       <p>Accidental Death Benefit</p>
-                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                       <mat-radio-button value="No">No</mat-radio-button>
-                                   </mat-radio-group>
-                               </div>
-                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isADB'].value == 'Yes'" >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
-                                   </mat-form-field>
-                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
+<!--                               <div class="col-md-4">-->
+<!--                                   <mat-radio-group formControlName="isADB" (change)="isDeathBenefit();edelweissPrimium()" >-->
+<!--                                       <p>Accidental Death Benefit</p>-->
+<!--                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+<!--                                       <mat-radio-button value="No">No</mat-radio-button>-->
+<!--                                   </mat-radio-group>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isADB'].value == 'Yes'" >-->
+<!--                                   <mat-form-field class="w-100">-->
+<!--                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>-->
+<!--                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">-->
+<!--                                   </mat-form-field>-->
+<!--                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>-->
 
-                                   <div class="error" *ngIf="adbError != ''">{{adbError}}</div>
-                               </div>
-                               <div class="col-md-4">
-                                   <mat-radio-group formControlName="isATPD" (change)="isAccidentalTotal();edelweissPrimium()" >
-                                       <p>Accidental Total and Permanent Disability</p>
-                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                       <mat-radio-button value="No">No</mat-radio-button>
-                                   </mat-radio-group>
-                               </div>
-                               <div class="col-md-4 mt-2 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (change)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
-                                   </mat-form-field>
-                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
-                                   <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>
-                               </div>
-                               <div class="col-md-4">
-                               <mat-radio-group formControlName="criticalIllness" (change)="iscriticalIllness();edelweissPrimium()" >
-                               <p>Critical Illness Rider</p>
-                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                               <mat-radio-button value="No">No</mat-radio-button>
-                               </mat-radio-group>
-                               </div>
-                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
-                               <mat-form-field class="w-100">
-                               <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                               <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
-                               </mat-form-field>
-                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000  Max: 50,00,000</p></div>
-                                   <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
-                               </div>
-                               <div class="col-md-4" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'">
-                                   <mat-radio-group formControlName="criticalClaim"  >
-                                       <mat-radio-button value="Yes" class="mr-2"> Single Claim</mat-radio-button>
-                                       <mat-radio-button value="No">Multi Claim</mat-radio-button>
-                                   </mat-radio-group>
-                               </div>
-                               <div class="col-md-4">
-                                   <mat-radio-group formControlName="isHCB" (change)="isHospitalCash();edelweissPrimium()" >
-                                       <p>Hospital Cash Benefit</p>
-                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                       <mat-radio-button value="No">No</mat-radio-button>
-                                   </mat-radio-group>
-                               </div>
-                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
-                                   </mat-form-field>
-                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 6,00,000</p></div>
-                                   <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
-                               </div>
-                               <!--<div class="col-md-4">-->
-                                   <!--<mat-radio-group formControlName="DSA" (selectionChange)="isHospitalCash()" >-->
-                                       <!--<p>Decreasing Sum Assured</p>-->
-                                       <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
-                                       <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                                   <!--</mat-radio-group>-->
-                               <!--</div>-->
-                               <div class="col-md-4">
+<!--                                   <div class="error" *ngIf="adbError != ''">{{adbError}}</div>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4">-->
+<!--                                   <mat-radio-group formControlName="isATPD" (change)="isAccidentalTotal();edelweissPrimium()" >-->
+<!--                                       <p>Accidental Total and Permanent Disability</p>-->
+<!--                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+<!--                                       <mat-radio-button value="No">No</mat-radio-button>-->
+<!--                                   </mat-radio-group>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4 mt-2 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >-->
+<!--                                   <mat-form-field class="w-100">-->
+<!--                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>-->
+<!--                                       <input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (change)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">-->
+<!--                                   </mat-form-field>-->
+<!--                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>-->
+<!--                                   <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4">-->
+<!--                               <mat-radio-group formControlName="criticalIllness" (change)="iscriticalIllness();edelweissPrimium()" >-->
+<!--                               <p>Critical Illness Rider</p>-->
+<!--                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+<!--                               <mat-radio-button value="No">No</mat-radio-button>-->
+<!--                               </mat-radio-group>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >-->
+<!--                               <mat-form-field class="w-100">-->
+<!--                               <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>-->
+<!--                               <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">-->
+<!--                               </mat-form-field>-->
+<!--                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000  Max: 50,00,000</p></div>-->
+<!--                                   <div class="error" *ngIf="ciError != ''">{{ciError}}</div>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'">-->
+<!--                                   <mat-radio-group formControlName="criticalClaim"  >-->
+<!--                                       <mat-radio-button value="Yes" class="mr-2"> Single Claim</mat-radio-button>-->
+<!--                                       <mat-radio-button value="No">Multi Claim</mat-radio-button>-->
+<!--                                   </mat-radio-group>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4">-->
+<!--                                   <mat-radio-group formControlName="isHCB" (change)="isHospitalCash();edelweissPrimium()" >-->
+<!--                                       <p>Hospital Cash Benefit</p>-->
+<!--                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
+<!--                                       <mat-radio-button value="No">No</mat-radio-button>-->
+<!--                                   </mat-radio-group>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >-->
+<!--                                   <mat-form-field class="w-100">-->
+<!--                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>-->
+<!--                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">-->
+<!--                                   </mat-form-field>-->
+<!--                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 6,00,000</p></div>-->
+<!--                                   <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>-->
+<!--                               </div>-->
+<!--                               &lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+<!--                                   &lt;!&ndash;<mat-radio-group formControlName="DSA" (selectionChange)="isHospitalCash()" >&ndash;&gt;-->
+<!--                                       &lt;!&ndash;<p>Decreasing Sum Assured</p>&ndash;&gt;-->
+<!--                                       &lt;!&ndash;<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>&ndash;&gt;-->
+<!--                                       &lt;!&ndash;<mat-radio-button value="No">No</mat-radio-button>&ndash;&gt;-->
+<!--                                   &lt;!&ndash;</mat-radio-group>&ndash;&gt;-->
+<!--                               &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                               <div class="col-md-4">-->
 
-                               </div>
-                               <div class="col-md-4">
+<!--                               </div>-->
+<!--                               <div class="col-md-4">-->
 
-                               </div>
-                           </div>
+<!--                               </div>-->
+<!--                           </div>-->
 
-                           <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
-                               <div class="col-md-12">
-                                   <h6 class="color-blue">PREMIUM</h6>
-                               </div>
-                               <div class="col-md-6">
-                               <div class="p-3">
+<!--                           <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">-->
+<!--                               <div class="col-md-12">-->
+<!--                                   <h6 class="color-blue">PREMIUM</h6>-->
+<!--                               </div>-->
+<!--                               <div class="col-md-6">-->
+<!--                               <div class="p-3">-->
 
-                               <ul class="m-0 list-group">
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="planname != 0"><strong> Plan Name :</strong> {{planname}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="policyTerm != 0"><strong>   Policy Term :</strong> {{policyTerm}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="payingTerm != 0"><strong>   Pay Term :</strong> {{payingTerm}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="sum != 0"><strong>   Sum Assured :</strong> {{sum}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="basePremium != 0"><strong>   Base Premium :</strong> {{basePremium}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="hcp != 0"><strong>   Hospital Cash :</strong> {{hcp}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="ADB != 0"><strong>   ADB :</strong> {{ADB}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="CIP != 0"><strong>   CI :</strong> {{CIP}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="PW != 0"><strong>   WoP :</strong> {{PW}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="PDP != 0"><strong>   Disability :</strong> {{PDP}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="BhP != 0"><strong>   Better-Half :</strong> {{BhP}}</li>
-                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="premium != 0"><strong>   Total Premium :</strong> {{premium}}</li>
-                               </ul>
-                               </div>
-                               </div>
+<!--                               <ul class="m-0 list-group">-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="planname != 0"><strong> Plan Name :</strong> {{planname}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="policyTerm != 0"><strong>   Policy Term :</strong> {{policyTerm}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="payingTerm != 0"><strong>   Pay Term :</strong> {{payingTerm}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="sum != 0"><strong>   Sum Assured :</strong> {{sum}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="basePremium != 0"><strong>   Base Premium :</strong> {{basePremium}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="hcp != 0"><strong>   Hospital Cash :</strong> {{hcp}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="ADB != 0"><strong>   ADB :</strong> {{ADB}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="CIP != 0"><strong>   CI :</strong> {{CIP}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="PW != 0"><strong>   WoP :</strong> {{PW}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="PDP != 0"><strong>   Disability :</strong> {{PDP}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="BhP != 0"><strong>   Better-Half :</strong> {{BhP}}</li>-->
+<!--                               <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="premium != 0"><strong>   Total Premium :</strong> {{premium}}</li>-->
+<!--                               </ul>-->
+<!--                               </div>-->
+<!--                               </div>-->
 
-                           </div>
+<!--                           </div>-->
 
 
 
@@ -1535,7 +1444,7 @@
                                </mat-radio-group>
                                <div class="error" *ngIf="errortravelOutside != ''&& errortravelOutside != true ">{{errortravelOutside}}</div>
 
-                               <mat-radio-group formControlName="travelOutsideIndia1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                               <mat-radio-group formControlName="travelOutsideIndia1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1554,7 +1463,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                                <div class="error" *ngIf="piloterror != ''&& piloterror != true ">{{piloterror}}</div>
-                               <mat-radio-group formControlName="pilot1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                               <mat-radio-group formControlName="pilot1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <p>Spouse</p>x
                                        <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                        <mat-radio-button value="No">No</mat-radio-button>
@@ -1573,7 +1482,7 @@
 
                                </mat-radio-group>
                                <div class="error" *ngIf="activityerror != ''&& activityerror != true ">{{activityerror}}</div>
-                               <mat-radio-group formControlName="activity1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                               <mat-radio-group formControlName="activity1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1628,7 +1537,7 @@
                                </mat-radio-group>
                                <div class="error" *ngIf="drugsInderror != ''&& drugsInderror != true ">{{drugsInderror}}</div>
 
-                               <mat-radio-group formControlName="drugsInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                               <mat-radio-group formControlName="drugsInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1658,7 +1567,7 @@
                                </mat-radio-group>
                                <div class="error" *ngIf="alcoholInderror != ''&& alcoholInderror != true ">{{alcoholInderror}}</div>
 
-                               <mat-radio-group formControlName="alcoholInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                               <mat-radio-group formControlName="alcoholInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1707,7 +1616,7 @@
                                <!--<mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>-->
 
                                <mat-form-field class="w-100" >
-                                   <mat-select placeholder="Beer(pint per week)" formControlName="alcoholBeer1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                   <mat-select placeholder="Beer(pint per week)" formControlName="alcoholBeer1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-option value="1">1</mat-option>
                                        <mat-option value="2">2</mat-option>
                                        <mat-option value="3">3</mat-option>
@@ -1793,7 +1702,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                                <div class="error" *ngIf="tobaccoInderror != ''&& tobaccoInderror != true ">{{tobaccoInderror}}</div>
-                               <mat-radio-group formControlName="tobaccoInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                               <mat-radio-group formControlName="tobaccoInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1825,7 +1734,7 @@
                                </mat-radio-group>
 <!--                               <div class="error" *ngIf="tobaccoStopInderror != ''&& tobaccoStopInderror != true ">{{tobaccoStopInderror}}</div>-->
 
-                               <mat-radio-group formControlName="tobaccoStopInd" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                               <mat-radio-group formControlName="tobaccoStopInd" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                    <p>Spouse </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
@@ -1857,7 +1766,7 @@
                                        </mat-radio-group>
                                        <div class="error" *ngIf="consultDoctorInderror != ''&& consultDoctorInderror != true ">{{consultDoctorInderror}}</div>
 
-                                       <mat-radio-group formControlName="consultDoctorInd1" (change)="isconsultDoctorInd()" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="consultDoctorInd1" (change)="isconsultDoctorInd()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse</p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -1884,7 +1793,7 @@
                                        </mat-radio-group>
                                        <div class="error" *ngIf="ECGInderror != ''&& ECGInderror != true ">{{ECGInderror}}</div>
 
-                                       <mat-radio-group formControlName="ECGInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="ECGInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse</p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -1913,7 +1822,7 @@
                                        </mat-radio-group>
                                        <div class="error" *ngIf="admitInderror != ''&& admitInderror != true ">{{admitInderror}}</div>
 
-                                       <mat-radio-group formControlName="admitInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="admitInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse</p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -1942,7 +1851,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                                <div class="error" *ngIf="medicalTreatmenterror != ''&& medicalTreatmenterror != true ">{{medicalTreatmenterror}}</div>
-                               <mat-radio-group formControlName="medicalTreatment1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                               <mat-radio-group formControlName="medicalTreatment1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                    <p>Spouse</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
@@ -1973,7 +1882,7 @@
                                        </mat-radio-group>
                                        <div class="error" *ngIf="heartDieaseInderror != ''&& heartDieaseInderror != true ">{{heartDieaseInderror}}</div>
 
-                                       <mat-radio-group formControlName="heartDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="heartDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse</p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2001,7 +1910,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="respiratoryDieaseInderror != ''&& respiratoryDieaseInderror != true ">{{respiratoryDieaseInderror}}</div>
 
-                                           <mat-radio-group formControlName="respiratoryDieaseInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+                                           <mat-radio-group formControlName="respiratoryDieaseInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2029,7 +1938,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="diabetesInderror != ''&& diabetesInderror != true ">{{diabetesInderror}}</div>
 
-                                           <mat-radio-group formControlName="diabetesInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="diabetesInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2056,7 +1965,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="kidneyDieaseInderror != ''&& kidneyDieaseInderror != true ">{{kidneyDieaseInderror}}</div>
 
-                                           <mat-radio-group formControlName="kidneyDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="kidneyDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2083,7 +1992,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="digestiveDieaseInderror != ''&& digestiveDieaseInderror != true ">{{digestiveDieaseInderror}}</div>
 
-                                           <mat-radio-group formControlName="digestiveDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="digestiveDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2108,7 +2017,7 @@
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                            <div class="error" *ngIf="cancerDieaseInderror != ''&& cancerDieaseInderror != true ">{{cancerDieaseInderror}}</div>
-                                           <mat-radio-group formControlName="cancerDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="cancerDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2134,7 +2043,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="tropicalDieaseInderror != ''&& tropicalDieaseInderror != true ">{{tropicalDieaseInderror}}</div>
 
-                                           <mat-radio-group formControlName="tropicalDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="tropicalDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2160,7 +2069,7 @@
 
                                            </mat-radio-group>
                                            <div class="error" *ngIf="thyroidDieaseInderror != ''&& thyroidDieaseInderror != true ">{{thyroidDieaseInderror}}</div>
-                                           <mat-radio-group formControlName="thyroidDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="thyroidDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2188,7 +2097,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="bloodDieaseInderror != ''&& bloodDieaseInderror != true ">{{bloodDieaseInderror}}</div>
 
-                                           <mat-radio-group formControlName="bloodDieaseInd1" (change)="isbloodDieaseInd()" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="bloodDieaseInd1" (change)="isbloodDieaseInd()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2214,7 +2123,7 @@
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                            <div class="error" *ngIf="nervousDieaseInderror != ''&& nervousDieaseInderror != true ">{{nervousDieaseInderror}}</div>
-                                           <mat-radio-group formControlName="nervousDieaseInd1"  *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="nervousDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2239,7 +2148,7 @@
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                            <div class="error" *ngIf="muscleDieaseInderror != ''&& muscleDieaseInderror != true ">{{muscleDieaseInderror}}</div>
-                                           <mat-radio-group formControlName="muscleDieaseInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="muscleDieaseInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2265,7 +2174,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="receivedTreatment2error != ''&& receivedTreatment2error != true ">{{receivedTreatment2error}}</div>
 
-                                           <mat-radio-group formControlName="receivedTreatment21" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="receivedTreatment21" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2291,7 +2200,7 @@
 
                                            </mat-radio-group>
                                            <div class="error" *ngIf="alcoholicInderror != ''&& alcoholicInderror != true ">{{alcoholicInderror}}</div>
-                                           <mat-radio-group formControlName="alcoholicInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="alcoholicInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2316,7 +2225,7 @@
                                                <mat-radio-button value="No">No</mat-radio-button>
                                              </mat-radio-group>
                                            <div class="error" *ngIf="otherIllnessInderror != ''&& otherIllnessInderror != true ">{{otherIllnessInderror}}</div>
-                                           <mat-radio-group formControlName="otherIllnessInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-radio-group formControlName="otherIllnessInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                <p>Spouse </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
@@ -2351,7 +2260,7 @@
 
                                        </mat-radio-group>
                                        <div class="error" *ngIf="deformityInderror != ''&& deformityInderror != true ">{{deformityInderror}}</div>
-                                       <mat-radio-group formControlName="deformityInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="deformityInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2380,7 +2289,7 @@
                                        </mat-radio-group>
                                        <div class="error" *ngIf="receivedTreatment1error != ''&& receivedTreatment1error != true ">{{receivedTreatment1error}}</div>
 
-                                       <mat-radio-group formControlName="receivedTreatment11" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="receivedTreatment11" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2408,7 +2317,7 @@
                                        </mat-radio-group>
 
                                        <div class="error" *ngIf="symptomsInderror != ''&& symptomsInderror != true ">{{symptomsInderror}}</div>
-                                       <mat-radio-group formControlName="symptomsInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="symptomsInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2434,7 +2343,7 @@
 
                                        </mat-radio-group>
 <!--                                       <div class="error" *ngIf="isHospitalizederror != ''&& isHospitalizederror != true ">{{isHospitalizederror}}</div>-->
-                                       <mat-radio-group formControlName="isHospitalized1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="isHospitalized1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2466,7 +2375,7 @@
 
                                        </mat-radio-group>
 <!--                                       <div class="error" *ngIf="isRecoverederror != ''&& isRecoverederror != true ">{{isRecoverederror}}</div>-->
-                                       <mat-radio-group formControlName="isRecovered1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="isRecovered1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2500,7 +2409,7 @@
                                        </mat-radio-group>
                                        <div class="error" *ngIf="pregnantInderror != ''&& pregnantInderror != true ">{{pregnantInderror}}</div>
 
-                                       <mat-radio-group formControlName="pregnantInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="pregnantInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
@@ -2526,7 +2435,7 @@
 
                                        </mat-radio-group>
                                        <div class="error" *ngIf="femaleDieaseInderror != ''&& femaleDieaseInderror != true ">{{femaleDieaseInderror}}</div>
-                                       <mat-radio-group formControlName="femaleDieaseInd1" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <mat-radio-group formControlName="femaleDieaseInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                            <p>Spouse </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>

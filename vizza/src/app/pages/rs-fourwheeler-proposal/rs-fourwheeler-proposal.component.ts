@@ -316,6 +316,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changepolicyType();
     this.changeAccidentPaidDriver();
     this.changeBiFuelValue();
+    this.coverPremium();
+
 
     this.sessionData();
 
@@ -913,8 +915,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   bifuelcoverPremium(){
 
-    if (this.vehical.controls['isBiFuelKitYes'].value=='Yes') {
-      alert('1');
+    if (this.vehical.controls['isBiFuelKit'].value=='Yes') {
       this.vehical.controls['bifuelpremium'].setValidators([Validators.required]);
       this.coverPremium();
 
@@ -1453,6 +1454,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
       }
     };
+    this.settings.loadingSpinner = true;
+
     this.fourWheeler.calculatrepremiumrs(data).subscribe(
         (successData) => {
           this.calculatrepremiumrsSuccess(successData);
@@ -1463,6 +1466,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     );
   }
   public calculatrepremiumrsSuccess(successData) {
+    this.settings.loadingSpinner = false;
+
     if (successData.IsSuccess) {
       this.AddonList = successData.ResponseObject;
       this.LIABILITY_PA_COVER_TO_PAID_DRIVER=this.AddonList.LIABILITY_PA_COVER_TO_PAID_DRIVER,
@@ -2155,6 +2160,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   depreciationpremium(){
 
+
     if (this.vehical.controls['depreciationWaiver'].value=='On') {
       this.coverPremium();
       this.vehical.controls['depreciationWaiverpremium'].setValidators([Validators.required]);
@@ -2190,7 +2196,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
       this.vehical.controls['windShieldGlasspremium'].patchValue('');
-      this.vehical.controls['windShieldGlasspremium'].setValidators(null);
+      // this.vehical.controls['windShieldGlasspremium'].setValidators(null);
+      this.vehical.controls['windShieldGlasspremium'].setValidators([]);
 
 
 
@@ -2215,7 +2222,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
       this.vehical.controls['engineprotectorpremium'].patchValue('');
-      this.vehical.controls['engineprotectorpremium'].setValidators(null);
+      this.vehical.controls['engineprotectorpremium'].setValidators([]);
+      // this.vehical.controls['engineprotectorpremium'].setValidators(null);
 
 
 
@@ -2240,7 +2248,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
       this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue('');
-      this.vehical.controls['registrationchargesRoadtaxpremium'].setValidators(null);
+      // this.vehical.controls['registrationchargesRoadtaxpremium'].setValidators(null);
+      this.vehical.controls['registrationchargesRoadtaxpremium'].setValidators([]);
 
 
 
