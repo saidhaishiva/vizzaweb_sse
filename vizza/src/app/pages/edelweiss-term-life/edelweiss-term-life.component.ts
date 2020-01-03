@@ -243,6 +243,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public drugsInderror:any;
   public alcoholInderror:any;
   public tobaccoInderror:any;
+  public tittleread :boolean;
 
 
   constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
@@ -317,6 +318,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     // this.tobaccoStopInderror =false;
     this.piloterror =false;
     this.activityerror =false;
+    this.tittleread == false;
     this.drugsInderror =false;
     this.alcoholInderror =false;
     this.tobaccoInderror =false;
@@ -1254,7 +1256,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   // }
 
   typeAddressDeatils1() {
-    if (this.insureArray.controls['sisCurrPerAddrSame'].value) {
+    if (this.insureArray.controls['isCurrPerAddrSame'].value) {
           this.insureArray.controls['perAddr1'].setValue( this.insureArray.controls['currAddr1'].value),
           this.insureArray.controls['perAddr2'].setValue( this.insureArray.controls['currAddr2'].value),
           this.insureArray.controls['perAddr3'].setValue( this.insureArray.controls['currAddr3'].value),
@@ -1748,6 +1750,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addon.valid, 'this.valid');
     // let dateErrorMsg = [];
     if (this.addon.valid) {
+      this.tittleread == true;
       this.insureArray.controls['title'].patchValue (this.customerDetails.controls['title'].value);
       this.insureArray.controls['firstName'].patchValue (this.customerDetails.controls['firstName'].value);
       this.insureArray.controls['lastName'].patchValue (this.customerDetails.controls['lastName'].value);
