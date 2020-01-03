@@ -186,6 +186,9 @@ export class BajajAlianzComponent implements OnInit {
     ngOnInit() {
         if (this.payLaterr == true) {
             this.stepperindex = 1;
+            this.step = 1;
+            this.healthBajajTrue0 = true;
+            this.healthBajajTrue1 = false;
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
         this.setOccupationList();
@@ -1140,9 +1143,10 @@ console.log(sessionStorage.insuredFormData,'insuredFormData');
             for(let k=0;k<=this.requestList.length;k++){
                 this.type=[];
                 this.type = this.requestList[0].hcpdtmemlist;
+                console.log(this.type, 'this.type')
                 for(let i=0;i<=this.type.length;i++){
-                    this.relationshipStatus=this.type[i].memrelation;
-
+                    this.relationshipStatus=this.type[0].memrelation;
+console.log(this.relationshipStatus," this.relationshipStatus")
 
                 }
             }
