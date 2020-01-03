@@ -848,8 +848,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     sessionStorage.proposerAge = this.proposerAge;
     // this.proposer.controls['age'].patchValue(this.proposerAge);
     this.insureArray.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
-    this.customerDetails.controls['isSmoker'].patchValue(this.enquiryFromDetials.lifesmoker == 'y' ? 'Yes' : 'No');
-    this.customerDetails.controls['annualIncome'].patchValue(this.enquiryFromDetials.lifeannualIncome);
+    this.customerDetails.controls['isSmoker'].patchValue(this.enquiryFromDetials.smoker == 'y' ? 'Yes' : 'No');
+    this.customerDetails.controls['annualIncome'].patchValue(this.enquiryFromDetials.annualIncome);
     // this.insureArray.controls['Cover'].patchValue(sessionStorage.selectedAmountTravel);
 
     // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
