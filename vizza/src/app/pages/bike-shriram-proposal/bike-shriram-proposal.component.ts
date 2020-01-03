@@ -129,8 +129,10 @@ export class BikeShriramProposalComponent implements OnInit {
     public anti_theft_cover:any;
     public Nil_depreciation_cover:any;
     public pa_owner_driver:any;
+    public pa_unnamed_passenger_cover:any;
     public ncb:any;
     public PreviousValid:any;
+    public coverPremium:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -219,8 +221,10 @@ export class BikeShriramProposalComponent implements OnInit {
       nilDepreciationCover: '',
       electricalAccess: '',
       electricalAccessSI: '',
+        totalElectricalItemPremium: '',
       nonElectricalAccess: '',
       nonElectricalAccessSI: '',
+        totalNonElectricalItemPremium: '',
       paforUnnamed: '',
       paforUnnamedSI: '',
       voluntaryExcess: [''],
@@ -614,29 +618,45 @@ export class BikeShriramProposalComponent implements OnInit {
     updateElectricalItem(){
         if(this.vehical.controls.electricalAccess.value == true){
             this.vehical.controls['electricalAccessSI'].setValidators([Validators.required]);
+            this.vehical.controls['totalElectricalItemPremium'].setValidators([Validators.required]);
+            this.getCover();
         } else {
             this.vehical.controls['electricalAccessSI'].patchValue('');
+            this.vehical.controls['totalElectricalItemPremium'].patchValue('');
 
             this.vehical.controls['electricalAccessSI'].setValidators(null);
+            this.vehical.controls['totalElectricalItemPremium'].setValidators(null);
             this.electricalSumAount=false;
             this.electricalSumAount='';
 
         }
         this.vehical.controls['electricalAccessSI'].updateValueAndValidity();
+        this.vehical.controls['totalElectricalItemPremium'].updateValueAndValidity();
+    }
+    electricalAmount(){
+        this.vehical.controls['totalElectricalItemPremium'].patchValue(this.electrical_cover);
     }
 
     updatenonElectricalItem(){
         if(this.vehical.controls.nonElectricalAccess.value == true){
             this.vehical.controls['nonElectricalAccessSI'].setValidators([Validators.required]);
+            this.vehical.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
         } else {
             this.vehical.controls['nonElectricalAccessSI'].patchValue('');
+            this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
 
             this.vehical.controls['nonElectricalAccessSI'].setValidators(null);
+            this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
             this.nonElectricalSumAount=false;
             this.nonElectricalSumAount='';
 
         }
         this.vehical.controls['nonElectricalAccessSI'].updateValueAndValidity();
+        this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
+    }
+
+    electricalNonAmount(){
+        this.vehical.controls['totalNonElectricalItemPremium'].patchValue(this.electrical_cover);
     }
 
     updateUnnamedPassenger(){
@@ -1226,6 +1246,136 @@ export class BikeShriramProposalComponent implements OnInit {
         }
 
     }
+
+    getCover() {
+
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            'enquiry_id': this.bikeEnquiryId,
+            "created_by": "",
+            'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
+            "geogrophicalExtensionCover": "false",
+            "package_type": this.packagelist,
+            "motorProposalObj": {
+                "InsuredPrefix": "1",
+                "InsuredName": this.proposer.controls['name'].value,
+                "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
+                "Address1": this.proposer.controls['address'].value,
+                "Address2": this.proposer.controls['address2'].value,
+                "Address3": this.proposer.controls['address3'].value,
+                "State": 'TN',
+                "City": this.proposer.controls['city'].value,
+                "PinCode": this.proposer.controls['pincode'].value,
+                "PanNo": this.proposer.controls['pan'].value,
+                "TelephoneNo": "",
+                "FaxNo": "",
+                "GSTNo": "",
+                "EMailID": this.proposer.controls['email'].value,
+                "PolType": this.vehical.controls['policyType'].value,
+                "ProposalType": this.vehical.controls['proposalType'].value,
+                "MobileNo": this.proposer.controls['mobile'].value,
+                "DateOfBirth": this.proposer.controls['dob'].value,
+                "CoverNoteNo": "",
+                "CoverNoteDt": "",
+                "IDV_of_Vehicle": this.buyBikeDetails.Idv,
+                "Colour": this.vehical.controls['vehicleColour'].value,
+                "NoEmpCoverLL": "",
+                "VehiclePurposeYN": "",
+                "DriverAgeYN": "0",
+                "LimitOwnPremiseYN": "0",
+                "CNGKitYN": "0",
+                "CNGKitSI": "",
+                "LimitedTPPDYN": "0",
+                "InBuiltCNGKitYN": "0",
+                "VoluntaryExcess": this.vehical.controls['voluntaryExcess'].value,
+                "Bangladesh": "0",
+                "Bhutan": "0",
+                "SriLanka": "0",
+                "Pakistan": "0",
+                "Nepal": "0",
+                "Maldives": "0",
+                "DeTariff": "0",
+                "PreInspectionReportYN": "0",
+                "PreInspection": "",
+                "BreakIn": "NO",
+                "AddonPackage": this.buyBikeDetails.plan_code,
+                "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
+                "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
+                "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value,
+                "ElectricalaccessYN": this.vehical.controls['electricalAccess'].value == true ? '1' : '0',
+                "ElectricalaccessSI": this.vehical.controls['electricalAccessSI'].value,
+                "NonElectricalaccessYN": this.vehical.controls['nonElectricalAccess'].value == true ? '1' : '0',
+                "NonElectricalaccessSI":  this.vehical.controls['nonElectricalAccessSI'].value,
+                "PAPaidDriverConductorCleanerYN": "0",
+                "PAPaidDriverConductorCleanerSI": "",
+                "PAPaidDriverCount": "",
+                "PAPaidConductorCount": "",
+                "PAPaidCleanerCount": "",
+                "ElectricalaccessRemarks": "",
+                "NonElectricalaccessRemarks": "",
+                "SpecifiedPersonField": "",
+                "PAOwnerDriverExclusion": "",
+                "PAOwnerDriverExReason": "",
+                "NomineeNameforPAOwnerDriver": "sdffsffsdfds",
+                "NomineeAgeforPAOwnerDriver": "23",
+                "NomineeRelationforPAOwnerDriver": "Brother",
+                "AppointeeNameforPAOwnerDriver": "",
+                "AppointeeRelationforPAOwnerDriver": "",
+                // "NomineeNameforPAOwnerDriver": this.nomineeDetail.controls['nomineeName'].value,
+                // "NomineeAgeforPAOwnerDriver": this.nomineeDetail.controls['nomineeAge'].value,
+                // "NomineeRelationforPAOwnerDriver": this.nomineeDetail.controls['nomineeRelationship'].value,
+                // "AppointeeNameforPAOwnerDriver": this.nomineeDetail.controls['appointeeName'].value,
+                // "AppointeeRelationforPAOwnerDriver": this.nomineeDetail.controls['appointeeRelationship'].value,
+                "LLtoPaidDriverYN": this.vehical.controls['lltoPaidDriver'].value == true ? '1' : '0',
+                "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
+                "PreviousPolicyNo": "eds33123qeweqweqw",
+                "PreviousInsurer": "HDFC ERGO GENERAL INSURANCE COMPANY LTD.",
+                "PreviousPolicySI": "32111",
+                "PreviousPolicyType": "MOT-PLT-001",
+                "PreviousNilDepreciation": "1",
+                // "PreviousPolicyNo": this.previousInsure.controls['policyNumber'].value,
+                // "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
+                // "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
+                // "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
+                // "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
+                "HypothecationType": this.vehical.controls['hypothecationType'].value ? this.vehical.controls['hypothecationType'].value : '',
+                "HypothecationBankName": this.vehical.controls['hypothecationBankNamevalue'].value==undefined||null?'':this.vehical.controls['hypothecationBankNamevalue'].value,
+                "HypothecationAddress1": this.vehical.controls['hypothecationAddress1'].value ?  this.vehical.controls['hypothecationAddress1'].value: '',
+                "HypothecationAddress2": this.vehical.controls['hypothecationAddress2'].value?  this.vehical.controls['hypothecationAddress2'].value : '',
+                "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value? this.vehical.controls['hypothecationAddress3'].value: '',
+                "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value ? this.vehical.controls['hypothecationAgreementNo'].value: '',
+                "HypothecationCountry": "",
+                "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
+                "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
+                "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : ''
+            },
+        }
+        this.bikeInsurance.getCoverPremium(data).subscribe(
+            (successData) => {
+                this.coverSuccess(successData);
+            },
+            (error) => {
+                this.coverFailure(error);
+            }
+        );
+    }
+    public coverSuccess(successData){
+        if (successData.IsSuccess) {
+            this.coverPremium = successData.ResponseObject.cover;
+            this.electrical_cover=this.coverPremium.electrical_cover;
+            this.anti_theft_cover=this.coverPremium.anti_theft_cover;
+            this.pa_owner_driver=this.coverPremium.pa_owner_driver;
+            this.pa_unnamed_passenger_cover=this.coverPremium.pa_unnamed_passenger_cover;
+            this.electricalAmount();
+        }
+        console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
+    }
+    public coverFailure(error) {
+    }
+
   // proposal Creation
 
   proposal(stepper) {
@@ -1612,8 +1762,10 @@ export class BikeShriramProposalComponent implements OnInit {
         nilDepreciationCover: stepper2.nilDepreciationCover,
         electricalAccess:stepper2.electricalAccess,
         electricalAccessSI: stepper2.electricalAccessSI,
+          totalElectricalItemPremium: stepper2.totalElectricalItemPremium,
         nonElectricalAccess:stepper2.nonElectricalAccess,
         nonElectricalAccessSI: stepper2.nonElectricalAccessSI,
+          totalNonElectricalItemPremium: stepper2.totalNonElectricalItemPremium,
         hypothecationType: stepper2.hypothecationType,
         hypothecationTypeName: stepper2.hypothecationTypeName,
         paforUnnamed: stepper2.paforUnnamed,

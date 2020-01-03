@@ -96,6 +96,17 @@ export class BikeInsuranceService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  getCoverPremium(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'shriram/coverPremium';
+    return this.http.post(url, json,httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   getHypoBankList(data) {
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
