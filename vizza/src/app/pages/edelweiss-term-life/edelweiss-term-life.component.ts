@@ -421,7 +421,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         waiverOfPremiumBenefit: '',
         // DSumAssured: 'No',
         criticalIllness: '',
-        criticalClaim: 'No',
+        // criticalClaim: 'No',
         criticalsumAssured: '1000000',
         isADB: '',
         sumAssuredADB: '1000000',
@@ -852,6 +852,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     sessionStorage.proposerAge = this.proposerAge;
     // this.proposer.controls['age'].patchValue(this.proposerAge);
     this.insureArray.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+    this.customerDetails.controls['title'].patchValue(this.enquiryFromDetials.gender == 'f' ? '2' : '1');
+
     this.customerDetails.controls['isSmoker'].patchValue(this.enquiryFromDetials.smoker == 'y' ? 'Yes' : 'No');
     console.log( this.customerDetails.controls['isSmoker'].value,'dob')
     console.log( this.enquiryFromDetials.smoker,'dob')
@@ -4039,20 +4041,20 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
 
     if (this.addon.controls['criticalIllness'].value == 'Yes') {
       this.addon.controls['criticalsumAssured'].patchValue(this.addon.controls['criticalsumAssured'].value);
-      this.addon.controls['criticalClaim'].patchValue(this.addon.controls['criticalClaim'].value);
+      // this.addon.controls['criticalClaim'].patchValue(this.addon.controls['criticalClaim'].value);
 
       this.addon.controls['criticalsumAssured'].setValidators([Validators.required]);
-      this.addon.controls['criticalClaim'].setValidators([Validators.required]);
+      // this.addon.controls['criticalClaim'].setValidators([Validators.required]);
     } else {
       this.addon.controls['criticalsumAssured'].patchValue('');
-      this.addon.controls['criticalClaim'].patchValue('');
+      // this.addon.controls['criticalClaim'].patchValue('');
 
       this.addon.controls['criticalsumAssured'].setValidators(null);
-      this.addon.controls['criticalClaim'].setValidators(null);
+      // this.addon.controls['criticalClaim'].setValidators(null);
 
     }
     this.addon.controls['criticalsumAssured'].updateValueAndValidity();
-    this.addon.controls['criticalClaim'].updateValueAndValidity();
+    // this.addon.controls['criticalClaim'].updateValueAndValidity();
 
   }
 
@@ -6358,7 +6360,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         waiverOfPremiumBenefit: this.getStepperaddon.waiverOfPremiumBenefit,
         DSumAssured: this.getStepperaddon.DSumAssured,
         criticalIllness:  this.getStepperaddon.criticalIllness,
-        criticalClaim:  this.getStepperaddon.criticalClaim,
+        // criticalClaim:  this.getStepperaddon.criticalClaim,
         criticalsumAssured: this.getStepperaddon.criticalsumAssured,
         isADB:  this.getStepperaddon.isADB,
         sumAssuredADB:  this.getStepperaddon.sumAssuredADB,

@@ -133,7 +133,7 @@
                                </div>
 
                                <div class="col-md-4" >
-                                   <p *ngIf="BhP != 0"><strong>   Better-Half :</strong> {{BhP}}</p>
+                                   <p *ngIf="BhP != 0"><strong> Better Half Benefit Premium :</strong> {{BhP}}</p>
                                </div>
 
                                <div class="row p-3"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
@@ -225,7 +225,7 @@
                                    </mat-radio-group>
                                </div>
                                <div class="col-md-4" >
-                                   <p *ngIf="PW != 0"><strong>   WoP :</strong> {{PW}}</p>
+                                   <p *ngIf="PW != 0"><strong>Waiver Of Premium :</strong> {{PW}}</p>
                                </div>
 <!--                               <div class="col-md-4">-->
 <!--                                   <mat-radio-group formControlName="DSumAssured" >-->
@@ -249,7 +249,7 @@
                                        <mat-radio-button value="No">No</mat-radio-button>
                                    </mat-radio-group>
                                </div>
-                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isHCB'].value == 'Yes'" >
+                               <div class="col-md-4 mt-2" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                        <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
@@ -258,7 +258,7 @@
                                    <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
                                </div>
                                <div class="col-md-4 mt-2"  >
-                                   <p *ngIf="hcp != 0"><strong>   Hospital Cash :</strong> {{hcp}}</p>
+                                   <p *ngIf="hcp != 0"><strong>   Hospital Cash Benefit Premium :</strong> {{hcp}}</p>
                                </div>
 
                                <div class="col-md-4">
@@ -268,7 +268,7 @@
                                        <mat-radio-button value="No">No</mat-radio-button>
                                    </mat-radio-group>
                                </div>
-                               <div class="col-md-4 mt-2" *ngIf="addon.controls['criticalIllness'].value == 'Yes'" >
+                               <div class="col-md-4 mt-2" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                        <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
@@ -276,15 +276,15 @@
                                    <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000  Max: 50,00,000</p></div>
                                    <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
                                </div>
-                               <div class="col-md-4" *ngIf="addon.controls['criticalIllness'].value == 'Yes'">
-                                   <mat-radio-group formControlName="criticalClaim"  >
-                                       <mat-radio-button value="Yes" class="mr-2"> Single Claim</mat-radio-button>
-                                       <mat-radio-button value="No">Multi Claim</mat-radio-button>
-                                   </mat-radio-group>
-                               </div>
+<!--                               <div class="col-md-4" *ngIf="addon.controls['criticalIllness'].value == 'Yes'">-->
+<!--                                   <mat-radio-group formControlName="criticalClaim"  >-->
+<!--                                       <mat-radio-button value="Yes" class="mr-2"> Single Claim</mat-radio-button>-->
+<!--                                       <mat-radio-button value="No">Multi Claim</mat-radio-button>-->
+<!--                                   </mat-radio-group>-->
+<!--                               </div>-->
 
                                <div class="col-md-4" >
-                                   <p *ngIf="CIP != 0"><strong>   CI :</strong> {{CIP}}</p>
+                                   <p *ngIf="CIP != 0"><strong>Enhanced Critical Illness Premium :</strong> {{CIP}}</p>
                                </div>
 
                                <div class="col-md-4">
@@ -294,7 +294,7 @@
                                        <mat-radio-button value="No">No</mat-radio-button>
                                    </mat-radio-group>
                                </div>
-                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isADB'].value == 'Yes'" >
+                               <div class="col-md-4 mt-2"  >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                        <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
@@ -303,17 +303,17 @@
 
                                    <div class="error" *ngIf="adbError != ''">{{adbError}}</div>
                                </div>
-                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isADB'].value == 'Yes'" >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
-                                   </mat-form-field>
-                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
+<!--                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isADB'].value == 'Yes'" >-->
+<!--                                   <mat-form-field class="w-100">-->
+<!--                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>-->
+<!--                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">-->
+<!--                                   </mat-form-field>-->
+<!--                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>-->
 
-                                   <div class="error" *ngIf="adbError != ''">{{adbError}}</div>
-                               </div>
+<!--                                   <div class="error" *ngIf="adbError != ''">{{adbError}}</div>-->
+<!--                               </div>-->
                                <div class="col-md-4 mt-2" >
-                                <p *ngIf="ADB != 0"><strong>   ADB :</strong> {{ADB}}</p>
+                                <p *ngIf="ADB != 0"><strong> Accidental Death Benefit Premium :</strong> {{ADB}}</p>
                                </div>
                                <div class="col-md-4">
                                    <mat-radio-group formControlName="isATPD" (change)="isAccidentalTotal();edelweissPrimium()" >
@@ -322,7 +322,7 @@
                                        <mat-radio-button value="No">No</mat-radio-button>
                                    </mat-radio-group>
                                </div>
-                               <div class="col-md-4 mt-2 " *ngIf="addon.controls['isATPD'].value == 'Yes'" >
+                               <div class="col-md-4 mt-2 " >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                        <input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (change)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
@@ -331,7 +331,7 @@
                                    <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>
                                </div>
                                <div class="col-md-4 mt-2 "  >
-                                   <p *ngIf="PDP != 0"><strong>   Disability rider :</strong> {{PDP}}</p>
+                                   <p *ngIf="PDP != 0"><strong> Permanent Disability Premium :</strong> {{PDP}}</p>
                                </div>
 
 
@@ -373,7 +373,7 @@
                            <!--</div>-->
                            <div class="proposal-buttom mt-3 text-right w-100">
                                <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                               <button mat-raised-button color="primaryBlue"  (click)="edelweissAddonDetail(stepper, customerDetails.value)">Next</button>
+                               <button mat-raised-button color="primaryBlue"  (click)="edelweissAddonDetail(stepper, addon.value)">Next</button>
                            </div>
                        </mat-expansion-panel>
                    </form>
