@@ -1536,17 +1536,17 @@ export class ReligareHealthProposalComponent implements OnInit {
         } else {
             // console.log(statusChecked,'ghhh');
             // alert(statusChecked)
-            // if((this.checkBoxError==true&&this.fillCheckbox==true)){
+            if((this.checkBoxError==true&&this.fillCheckbox==true)){
             stepper.next();
             this.topScroll();
             this.nextStep();
             this.religareMobileTrue2 = false;
             this.religareMobileTrue3 = false;
-            // }
-            // else{
-            //     alert('tostr')
-            //     this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
-            // }
+            }
+            else{
+                alert('tostr')
+                this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+            }
         }
     }
 
