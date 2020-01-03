@@ -131,6 +131,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public nomineeFormData: any;
   public insuredFormData: any;
   public medicalFormData: any;
+  public addonFormData: any;
   public bankFormData: any;
   public proposalId: any;
   public nomineeDetails: any;
@@ -256,6 +257,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
           this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
           this.medicalFormData = JSON.parse(sessionStorage.medicalFormData);
+          this.addonFormData = JSON.parse(sessionStorage.addonFormData);
           this.proposalId = this.summaryData.ProposalId;
           sessionStorage.edelweiss_term_life_id = this.proposalId;
         }
@@ -835,12 +837,14 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteAlcoholDetails();
     this.sessionData();
     this.edelweissPrimium();
-    this.premiumPaymentTerm();
-    this.ageTillcoverd();
+    // this.premiumPaymentTerm();
+    // this.ageTillcoverd();
 
     // this.insureArray.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
     // let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
     this.customerDetails.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    console.log(this.customerDetails.controls['dob'].value,'dob')
+    console.log(this.enquiryFromDetials.dob,'dob')
     let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
     this.customerAge = this.ageCalculate(dob);
     sessionStorage.customerAge = this.customerAge;
@@ -849,7 +853,13 @@ export class EdelweissTermLifeComponent implements OnInit {
     // this.proposer.controls['age'].patchValue(this.proposerAge);
     this.insureArray.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
     this.customerDetails.controls['isSmoker'].patchValue(this.enquiryFromDetials.smoker == 'y' ? 'Yes' : 'No');
+    console.log( this.customerDetails.controls['isSmoker'].value,'dob')
+    console.log( this.enquiryFromDetials.smoker,'dob')
+
     this.customerDetails.controls['annualIncome'].patchValue(this.enquiryFromDetials.annualIncome);
+    console.log( this.customerDetails.controls['annualIncome'].value,'dob')
+    console.log( this.enquiryFromDetials.annualIncome,'dob')
+
     // this.insureArray.controls['Cover'].patchValue(sessionStorage.selectedAmountTravel);
 
     // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
@@ -1705,7 +1715,18 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addon.valid, 'this.valid');
     // let dateErrorMsg = [];
     if (this.addon.valid) {
-           stepper.next();
+      if(this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+        this.insureArray.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
+        this.insureArray.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
+        this.insureArray.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
+        this.insureArray.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
+        this.insureArray.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
+        this.insureArray.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
+
+        stepper.next();
+        this.topScroll();
+      }
+      stepper.next();
       this.topScroll();
     } else {
       this.toastr.error('please enter all the Mandatory field');
@@ -4634,11 +4655,13 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       this.nomineeFormData = this.nomineeDetail.value.itemsNominee;
       this.insuredFormData = this.insureArray.value;
       this.medicalFormData = this.medicalDetail.value;
+      this.addonFormData = this.addon.value;
       // sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
       sessionStorage.medicalFormData = JSON.stringify(this.medicalFormData);
       sessionStorage.bankFormData = JSON.stringify(this.bankFormData);
       sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+      sessionStorage.addonFormData = JSON.stringify(this.addonFormData);
       sessionStorage.edelweiss_term_life_id = this.proposalId;
       // this.downloadFile(this.requestedUrl);
       console.log(this.summaryData,'summaryData');

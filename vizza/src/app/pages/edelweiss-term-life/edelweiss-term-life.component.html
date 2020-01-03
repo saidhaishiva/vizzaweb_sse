@@ -102,7 +102,7 @@
                </mat-accordion>
            </mat-step>
            <mat-step [stepControl]="">
-               <ng-template matStepLabel >ADDON</ng-template>
+               <ng-template matStepLabel >ADDON /</ng-template>
                <mat-accordion class="w-100 float-left">
                    <form [formGroup]="addon">
 
@@ -114,7 +114,7 @@
 
                            <div class="row p-3">
                                <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                   <h6 class="color-blue">ADDON</h6>
+                                   <h6 class="color-blue">Add On/ Riders Info</h6>
                                </div>
 
                                <div class="col-md-4" *ngIf="customerDetails.controls['maritalStatus'].value == 'M'">
@@ -131,6 +131,7 @@
                                        <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
                                    </mat-form-field>
                                </div>
+
                                <div class="col-md-4" >
                                    <p *ngIf="BhP != 0"><strong>   Better-Half :</strong> {{BhP}}</p>
                                </div>
@@ -237,10 +238,54 @@
 
                            </div>
                            <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
-                               <div class="col-md-12">
-                                   <h6 class="color-blue">ALL RIDER</h6>
+<!--                               <div class="col-md-12">-->
+<!--                                   <h6 class="color-blue">ALL RIDER</h6>-->
+<!--                               </div>-->
+
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="isHCB" (change)="isHospitalCash();edelweissPrimium()" >
+                                       <p>Hospital Cash Benefit</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isHCB'].value == 'Yes'" >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
+                                   </mat-form-field>
+                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 6,00,000</p></div>
+                                   <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
+                               </div>
+                               <div class="col-md-4 mt-2"  >
+                                   <p *ngIf="hcp != 0"><strong>   Hospital Cash :</strong> {{hcp}}</p>
                                </div>
 
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="criticalIllness" (change)="iscriticalIllness();edelweissPrimium()" >
+                                       <p> Enhanced Critical Illness Rider</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4 mt-2" *ngIf="addon.controls['criticalIllness'].value == 'Yes'" >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                       <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                                   </mat-form-field>
+                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000  Max: 50,00,000</p></div>
+                                   <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
+                               </div>
+                               <div class="col-md-4" *ngIf="addon.controls['criticalIllness'].value == 'Yes'">
+                                   <mat-radio-group formControlName="criticalClaim"  >
+                                       <mat-radio-button value="Yes" class="mr-2"> Single Claim</mat-radio-button>
+                                       <mat-radio-button value="No">Multi Claim</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+
+                               <div class="col-md-4" >
+                                   <p *ngIf="CIP != 0"><strong>   CI :</strong> {{CIP}}</p>
+                               </div>
 
                                <div class="col-md-4">
                                    <mat-radio-group formControlName="isADB" (change)="isDeathBenefit();edelweissPrimium()" >
@@ -288,49 +333,7 @@
                                <div class="col-md-4 mt-2 "  >
                                    <p *ngIf="PDP != 0"><strong>   Disability rider :</strong> {{PDP}}</p>
                                </div>
-                               <div class="col-md-4">
-                                   <mat-radio-group formControlName="criticalIllness" (change)="iscriticalIllness();edelweissPrimium()" >
-                                       <p>Critical Illness Rider</p>
-                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                       <mat-radio-button value="No">No</mat-radio-button>
-                                   </mat-radio-group>
-                               </div>
-                               <div class="col-md-4 mt-2" *ngIf="addon.controls['criticalIllness'].value == 'Yes'" >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
-                                   </mat-form-field>
-                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000  Max: 50,00,000</p></div>
-                                   <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
-                               </div>
-                               <div class="col-md-4" *ngIf="addon.controls['criticalIllness'].value == 'Yes'">
-                                   <mat-radio-group formControlName="criticalClaim"  >
-                                       <mat-radio-button value="Yes" class="mr-2"> Single Claim</mat-radio-button>
-                                       <mat-radio-button value="No">Multi Claim</mat-radio-button>
-                                   </mat-radio-group>
-                               </div>
 
-                               <div class="col-md-4" >
-                                   <p *ngIf="CIP != 0"><strong>   CI :</strong> {{CIP}}</p>
-                               </div>
-                               <div class="col-md-4">
-                                   <mat-radio-group formControlName="isHCB" (change)="isHospitalCash();edelweissPrimium()" >
-                                       <p>Hospital Cash Benefit</p>
-                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                       <mat-radio-button value="No">No</mat-radio-button>
-                                   </mat-radio-group>
-                               </div>
-                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isHCB'].value == 'Yes'" >
-                                   <mat-form-field class="w-100">
-                                       <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
-                                   </mat-form-field>
-                                   <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 6,00,000</p></div>
-                                   <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
-                               </div>
-                               <div class="col-md-4 mt-2"  >
-                                   <p *ngIf="hcp != 0"><strong>   Hospital Cash :</strong> {{hcp}}</p>
-                               </div>
 
                                <div class="col-md-4">
 
