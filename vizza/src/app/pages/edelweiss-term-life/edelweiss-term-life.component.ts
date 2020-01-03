@@ -137,6 +137,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public nomineeDetails: any;
   public insurePersons: any;
   public payingTermList: any;
+  public SpouseAge: any;
+  public SpouseError: any;
   public valid: any;
   public settings: any;
   public webhost: any;
@@ -231,6 +233,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public CIP:any;
   public BhP:any;
   public hcp:any;
+  public better_half_sum_assured:any;
   public planname:any;
   public payingTerm:any;
   public policyTerm:any;
@@ -437,6 +440,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         // stitleName: '',
         sfirstName: '',
         slastName: '',
+        semailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
         isSmokerSpouse: 'No',
         sdob: '',
         sameAsProposer: false,
@@ -1133,6 +1137,42 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     }
   }
+  addEventSpouse1(event) {
+    if (event.value != null) {
+      let selectedDate = '';
+      this.SpouseAge = '';
+      let dob = '';
+      if (typeof event.value._i == 'string') {
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (pattern.test(event.value._i) && event.value._i.length == 10) {
+          this.SpouseError = '';
+        } else {
+          this.SpouseError = 'Enter Valid Date';
+        }
+        selectedDate = event.value._i;
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (selectedDate.length == 10) {
+          this.SpouseAge = this.ageCalculate(dob);
+          // sessionStorage.proposerSpouseAge = this.proposerSpouseAge;
+
+        }
+
+      } else if (typeof event.value._i == 'object') {
+        // dob = this.datepipe.transform(event.value, 'MMM d, y');
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (dob.length == 10) {
+          this.SpouseAge = this.ageCalculate(dob);
+          // sessionStorage.insuredAgePA = this.proposerSpouseAge;
+
+        }
+        this.dateSpouseError = '';
+      }
+      sessionStorage.SpouseAge = this.SpouseAge;
+      console.log(sessionStorage.SpouseAge,'spousedetaill111')
+      console.log(this.SpouseAge,'spousedate222222')
+
+    }
+  }
 
   // AGE VALIDATION
   ageCalculate(dob) {
@@ -1687,15 +1727,6 @@ export class EdelweissTermLifeComponent implements OnInit {
     // let dateErrorMsg = [];
     if (this.customerDetails.valid) {
       if (sessionStorage.customerAge >= 18) {
-        this.insureArray.controls['title'].patchValue (this.customerDetails.controls['title'].value);
-        this.insureArray.controls['firstName'].patchValue (this.customerDetails.controls['firstName'].value);
-        this.insureArray.controls['lastName'].patchValue (this.customerDetails.controls['lastName'].value);
-        this.insureArray.controls['dob'].patchValue (this.customerDetails.controls['dob'].value);
-        this.insureArray.controls['maritalStatus'].patchValue (this.customerDetails.controls['maritalStatus'].value);
-        this.insureArray.controls['emailId'].patchValue (this.customerDetails.controls['emailId'].value);
-        this.insureArray.controls['mobileNo'].patchValue (this.customerDetails.controls['mobileNo'].value);
-        this.insureArray.controls['annualIncome'].patchValue (this.customerDetails.controls['annualIncome'].value);
-        // this.insureArray.controls['isSmoker'].patchValue (this.customerDetails.controls['isSmoker'].value);
 
 
         stepper.next();
@@ -1717,6 +1748,16 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addon.valid, 'this.valid');
     // let dateErrorMsg = [];
     if (this.addon.valid) {
+      this.insureArray.controls['title'].patchValue (this.customerDetails.controls['title'].value);
+      this.insureArray.controls['firstName'].patchValue (this.customerDetails.controls['firstName'].value);
+      this.insureArray.controls['lastName'].patchValue (this.customerDetails.controls['lastName'].value);
+      this.insureArray.controls['dob'].patchValue (this.customerDetails.controls['dob'].value);
+      this.insureArray.controls['maritalStatus'].patchValue (this.customerDetails.controls['maritalStatus'].value);
+      this.insureArray.controls['emailId'].patchValue (this.customerDetails.controls['emailId'].value);
+      this.insureArray.controls['mobileNo'].patchValue (this.customerDetails.controls['mobileNo'].value);
+      this.insureArray.controls['annualIncome'].patchValue (this.customerDetails.controls['annualIncome'].value);
+      // this.insureArray.controls['isSmoker'].patchValue (this.customerDetails.controls['isSmoker'].value);
+
       if(this.addon.controls['betterHalfBenefit'].value == 'Yes') {
         this.insureArray.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
         this.insureArray.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
@@ -1725,9 +1766,11 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.insureArray.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
         this.insureArray.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
 
-        stepper.next();
-        this.topScroll();
+        // stepper.next();
+        // this.topScroll();
       }
+
+
       stepper.next();
       this.topScroll();
     } else {
@@ -2747,10 +2790,10 @@ edelweissInsureDetails(stepper: MatStepper, value) {
       // this.insureArray.controls['stitleName'].patchValue(this.insureArray.controls['stitleName'].value);
       this.addon.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
       // this.insureArray.controls['stitleName'].patchValue(this.insureArray.controls['stitleName'].value);
-      this.addon.controls['smidName'].patchValue(this.addon.controls['smidName'].value);
+      // this.addon.controls['smidName'].patchValue(this.addon.controls['smidName'].value);
       this.addon.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
       this.addon.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
-      this.insureArray.controls['semailId'].patchValue(this.insureArray.controls['semailId'].value);
+      this.addon.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
       // this.insureArray.controls['smobileNo'].patchValue(this.insureArray.controls['smobileNo'].value);
       this.addon.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
       // // this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
@@ -2785,7 +2828,7 @@ edelweissInsureDetails(stepper: MatStepper, value) {
       // this.addon.controls['stitleName'].setValidators([Validators.required]);
       this.addon.controls['sfirstName'].setValidators([Validators.required]);
       this.addon.controls['stitleName'].setValidators([Validators.required]);
-      this.addon.controls['smidName'].setValidators(null);
+      // this.addon.controls['smidName'].setValidators(null);
       this.addon.controls['slastName'].setValidators([Validators.required]);
       this.addon.controls['sdob'].setValidators([Validators.required]);
       this.addon.controls['semailId'].setValidators([Validators.required]);
@@ -2823,7 +2866,7 @@ edelweissInsureDetails(stepper: MatStepper, value) {
       this.addon.controls['stitleName'].patchValue('');
       this.addon.controls['sfirstName'].patchValue('');
       this.addon.controls['stitleName'].patchValue('');
-      this.addon.controls['smidName'].patchValue('');
+      // this.addon.controls['smidName'].patchValue('');
       this.addon.controls['slastName'].patchValue('');
       this.addon.controls['sdob'].patchValue('');
       this.addon.controls['semailId'].patchValue('');
@@ -2860,7 +2903,7 @@ edelweissInsureDetails(stepper: MatStepper, value) {
       this.addon.controls['stitle'].setValidators(null);
       this.addon.controls['stitleName'].setValidators(null);
       this.addon.controls['sfirstName'].setValidators(null);
-      this.addon.controls['smidName'].setValidators(null);
+      // this.addon.controls['smidName'].setValidators(null);
       this.addon.controls['stitleName'].setValidators(null);
       this.addon.controls['slastName'].setValidators(null);
       this.addon.controls['sdob'].setValidators(null);
@@ -2901,7 +2944,7 @@ edelweissInsureDetails(stepper: MatStepper, value) {
     this.addon.controls['stitleName'].updateValueAndValidity();
     this.addon.controls['sfirstName'].updateValueAndValidity();
     this.addon.controls['stitleName'].updateValueAndValidity();
-    this.addon.controls['smidName'].updateValueAndValidity();
+    // this.addon.controls['smidName'].updateValueAndValidity();
     this.addon.controls['slastName'].updateValueAndValidity();
     this.addon.controls['sdob'].updateValueAndValidity();
     this.addon.controls['semailId'].updateValueAndValidity();
@@ -5082,6 +5125,8 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       this.planname = this.eePremiumTerm.planName;
       this.payingTerm = this.eePremiumTerm.payingTerm;
       this.policyTerm = this.eePremiumTerm.policyTerm;
+      this.better_half_sum_assured = this.eePremiumTerm.better_half_sum_assured;
+      this.betterhalf();
       console.log(this.ADB,'this.ADB');
       console.log(this.eePremiumTerm,'this.this.eePremiumTerm');
       console.log(this.sum,'this.sum');
@@ -5102,6 +5147,10 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
 
   public edelweissPrimiumFailure(error) {
   }
+  betterhalf(){
+    this.addon.controls['betterHalfsumAssured'].patchValue(this.better_half_sum_assured );
+  }
+
   getePolicyTerm() {
     const data = {
       'platform': 'web',

@@ -128,7 +128,7 @@
                                <div class="col-md-4 mt-2" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                                       <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10" (change)="betterhalf()" required>
                                    </mat-form-field>
                                </div>
 
@@ -171,9 +171,9 @@
                                    <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>DOB (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
-                                           <input matInput [matDatepicker]="picker8" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="sdob" (dateInput)="addEventSpouse($event)" (dateChange)="addEventSpouse($event)" autocomplete="off" maxlength="10" minlength="10">
-                                           <mat-datepicker-toggle matSuffix [for]="picker8"></mat-datepicker-toggle>
-                                           <mat-datepicker #picker8></mat-datepicker>
+                                           <input matInput [matDatepicker]="picker13" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="sdob" (dateInput)="addEventSpouse1($event)" (dateChange)="addEventSpouse1($event)" autocomplete="off" maxlength="10" minlength="10">
+                                           <mat-datepicker-toggle matSuffix [for]="picker13"></mat-datepicker-toggle>
+                                           <mat-datepicker #picker13></mat-datepicker>
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
@@ -407,7 +407,7 @@
                                        <div class="row p-3" >
                                            <div class="col-md-4" >
                                                <mat-form-field class="w-100" >
-                                                   <mat-select  placeholder="Title" formControlName="title" (selectionChange)="changeTitle1();changeTitle1s()" class="w-100" required  >
+                                                   <mat-select  placeholder="Title" formControlName="title" (selectionChange)="changeTitle1();changeTitle1s()" class="w-100" required  readonly>
                                                        <mat-option *ngFor="let list of etitle | keys" [value]= list.key> {{list.value}} </mat-option>
                                                    </mat-select>
                                                    <mat-error *ngIf="insureArray.controls.title.errors?.required">Title is required</mat-error>
@@ -415,7 +415,7 @@
                                            </div>
                                            <div class="col-md-4">
                                                <mat-form-field class="w-100"  >
-                                                   <input matInput placeholder="First Name" formControlName="firstName" maxlength="15" (change)="changeFirstname()" (keypress)="nameValidate($event)" autocomplete="off"   required  >
+                                                   <input matInput placeholder="First Name" formControlName="firstName" maxlength="15" (change)="changeFirstname()" (keypress)="nameValidate($event)" autocomplete="off"   required  readonly>
                                                    <mat-error *ngIf="insureArray.controls.firstName.errors?.required">First Name is required</mat-error>
                                                </mat-form-field>
                                            </div>
@@ -426,13 +426,13 @@
                                            </div>
                                            <div class="col-md-4">
                                                <mat-form-field class="w-100">
-                                                   <input matInput placeholder="Last Name" formControlName="lastName" class="nospace" maxlength="15"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                                                   <input matInput placeholder="Last Name" formControlName="lastName" class="nospace" maxlength="15"  (keypress)="nameValidate($event)" autocomplete="off" required readonly>
                                                    <mat-error *ngIf="insureArray.controls.lastName.errors?.required">Last Name is required</mat-error>
                                                </mat-form-field>
                                            </div>
                                            <div class="col-md-4">
                                                <mat-form-field class="w-100">
-                                                   <input matInput [matDatepicker]="picker1" [max]="minDate"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" autocomplete="off" maxlength="10" minlength="10" required>
+                                                   <input matInput [matDatepicker]="picker1" [max]="minDate"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" autocomplete="off" maxlength="10" minlength="10" required readonly>
                                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                                    <mat-datepicker #picker1></mat-datepicker>
                                                    <mat-error *ngIf="insureArray.controls.dob.errors?.required">DOB is required</mat-error>
@@ -452,7 +452,7 @@
                                            </div>
                                            <div class="col-md-4"  >
                                                <mat-form-field class="w-100" >
-                                                   <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="geteMaritalStatus()"required  class="w-100" >
+                                                   <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="geteMaritalStatus()"required  class="w-100" readonly>
                                                        <mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                                                    </mat-select>
                                                    <mat-error *ngIf="insureArray.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
@@ -471,7 +471,7 @@
 
                                            <div class="col-md-4" >
                                                <mat-form-field class="w-100">
-                                                   <input matInput placeholder="Email ID" formControlName="emailId"  autocomplete="off" required >
+                                                   <input matInput placeholder="Email ID" formControlName="emailId"  autocomplete="off" required readonly>
                                                    <mat-error *ngIf="insureArray.controls.emailId.errors?.required">Email ID is required</mat-error>
                                                    <mat-error *ngIf="insureArray.controls.emailId.hasError('pattern')">Please Enter Correct Format</mat-error>
                                                </mat-form-field>
@@ -527,7 +527,7 @@
                                            </div>
                                            <div class="col-md-4" >
                                                <mat-form-field class="w-100">
-                                                   <input matInput placeholder="Mobile No" (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobileNo" autocomplete="off" required >
+                                                   <input matInput placeholder="Mobile No" (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobileNo" autocomplete="off" required readonly>
                                                    <mat-error *ngIf="insureArray.controls.mobileNo.errors?.required">Mobile Number is required</mat-error>
                                                    <mat-error *ngIf="insureArray.controls.mobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                                                </mat-form-field>
