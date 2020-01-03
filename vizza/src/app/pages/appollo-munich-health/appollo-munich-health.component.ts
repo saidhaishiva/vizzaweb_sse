@@ -791,6 +791,7 @@ export class AppolloMunichComponent implements OnInit {
 
 
     pInsureStatus(title: any, id){
+        console.log(title)
       if(title.value == 'Yes') {
         this.previousDetails = true;
         this.validateprvious = true;

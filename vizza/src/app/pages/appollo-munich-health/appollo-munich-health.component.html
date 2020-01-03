@@ -586,7 +586,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <h6 class="mt-3 color-blue">PREVIOUS INSURER DETAILS </h6>
-                          <mat-radio-group formControlName="previousInsurerStatus" (click)="pInsureStatus($event, i)">
+                          <mat-radio-group formControlName="previousInsurerStatus" (change)="pInsureStatus($event, i)">
                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="No">No</mat-radio-button>
                           </mat-radio-group>
@@ -923,7 +923,7 @@
                             </ul>
                           </div>
                         </div>
-                          <div class="col-md-6" *ngIf="item.personalHabit">
+                          <div class="col-md-6" *ngIf="item.personalHabit==true">
                               <!--<div class="p-3" *ngIf="(item.Smoking != '' && item.Smoking != 0) || (item.Pouches != '' && item.Pouches != 0) || (item.LiquorPeg != '' && item.LiquorPeg != 0 && item.LiquorPeg != undefined || && item.LiquorPeg != null) || (item.WineGlass != '' && item.WineGlass != 0 && item.WineGlass != undefined && item.WineGlass != null) || (item.BeerBottle != ''  && item.BeerBottle != 0 && item.BeerBottle != undefined && item.BeerBottle != null)">-->
                               <div class="p-3">
                                 <h6>PERSONAL HABITS</h6>
@@ -936,7 +936,7 @@
                                   </ul>
                               </div>
                           </div>
-                          <div class="col-md-6" *ngIf="previousDetails">
+                          <div class="col-md-6" *ngIf="previousDetails==true">
                               <div class="p-3">
                                   <h6>PREVIOUS INSURER DETAILS</h6>
                                   <ul class="m-0 list-group">
