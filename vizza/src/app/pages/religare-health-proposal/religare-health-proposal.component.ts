@@ -1544,7 +1544,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.religareMobileTrue3 = false;
             }
             else{
-                alert('tostr')
+                // alert('tostr')
                 this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
             }
         }
