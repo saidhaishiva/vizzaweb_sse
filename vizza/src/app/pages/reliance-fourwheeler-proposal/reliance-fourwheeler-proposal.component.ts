@@ -402,13 +402,16 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     // this.coverDetails.controls['fuelType'].patchValue(this.bifuelChangeList)
 
   }
-
   clientTypeReq(){
-    if(this.relianceProposal.controls['clientType'].value == 0){
-      this.clientTypeField=true;
-      this.relianceProposal.controls['corporateName'].patchValue('');
-      this.relianceProposal.controls['corporateName'].setValidators(null);
+    if(this.relianceProposal.controls['clientType'].value == 0) {
+      this.clientTypeField = true;
+    }else{
+      this.clientTypeField = false;
+    }
 
+  }
+  clientReqField(){
+    if(this.relianceProposal.controls['clientType'].value == 0) {
       this.relianceProposal.controls['title'].setValidators([Validators.required]);
       this.relianceProposal.controls['firstName'].setValidators([Validators.required]);
       this.relianceProposal.controls['middleName'].setValidators(null);
@@ -417,66 +420,131 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.relianceProposal.controls['dob'].setValidators([Validators.required]);
       this.relianceProposal.controls['occupation'].setValidators([Validators.required]);
       this.relianceProposal.controls['maritalStatus'].setValidators(null);
-    }else if(this.relianceProposal.controls['clientType'].value == 1) {
-      this.clientTypeField=false;
+
+      this.relianceProposal.controls['corporateName'].patchValue('');
+      this.relianceProposal.controls['corporateName'].setValidators(null);
+    }else if(this.relianceProposal.controls['clientType'].value == 1){
+
       this.relianceProposal.controls['corporateName'].setValidators([Validators.required]);
 
-      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue('');
 
-      this.coverDetails.controls['PAToOwnerDriverCoverd'].setValidators(null);
-      this.coverDetails.controls['cappointeeName'].patchValue('');
-      this.coverDetails.controls['cappointeeName'].setValidators(null);
-      this.coverDetails.controls['cnomineeName'].patchValue('');
-      this.coverDetails.controls['cnomineeName'].setValidators(null);
-      this.coverDetails.controls['cnDob'].patchValue('');
-      this.coverDetails.controls['cnDob'].setValidators(null);
-      this.coverDetails.controls['nrelation'].patchValue('');
-      this.coverDetails.controls['nrelation'].setValidators(null);
-      this.coverDetails.controls['cnAddress'].patchValue('');
-      this.coverDetails.controls['cnAddress'].setValidators(null);
-      this.coverDetails.controls['nOtherRelation'].patchValue('');
-      this.coverDetails.controls['nOtherRelation'].setValidators(null);
-      this.coverDetails.controls['nrelationValue'].patchValue('');
-      this.coverDetails.controls['nrelationValue'].setValidators(null);
-      this.coverDetails.controls['totalOwnerDriverPremium'].patchValue('');
-      this.coverDetails.controls['totalOwnerDriverPremium'].setValidators(null);
+          this.relianceProposal.controls['title'].patchValue('');
+          this.relianceProposal.controls['title'].setValidators(null);
 
-      this.relianceProposal.controls['title'].patchValue('');
-      this.relianceProposal.controls['title'].setValidators(null);
+          this.relianceProposal.controls['firstName'].patchValue('');
+          this.relianceProposal.controls['firstName'].setValidators(null);
 
-      this.relianceProposal.controls['firstName'].patchValue('');
-      this.relianceProposal.controls['firstName'].setValidators(null);
+          this.relianceProposal.controls['middleName'].patchValue('');
+          this.relianceProposal.controls['middleName'].setValidators(null);
 
-      this.relianceProposal.controls['middleName'].patchValue('');
-      this.relianceProposal.controls['middleName'].setValidators(null);
+          this.relianceProposal.controls['lastName'].patchValue('');
+          this.relianceProposal.controls['lastName'].setValidators(null);
 
-      this.relianceProposal.controls['lastName'].patchValue('');
-      this.relianceProposal.controls['lastName'].setValidators(null);
+          this.relianceProposal.controls['gender'].patchValue('');
+          this.relianceProposal.controls['gender'].setValidators(null);
 
-      this.relianceProposal.controls['gender'].patchValue('');
-      this.relianceProposal.controls['gender'].setValidators(null);
+          this.relianceProposal.controls['dob'].patchValue('');
+          this.relianceProposal.controls['dob'].setValidators(null);
 
-      this.relianceProposal.controls['dob'].patchValue('');
-      this.relianceProposal.controls['dob'].setValidators(null);
+          this.relianceProposal.controls['occupation'].patchValue('');
+          this.relianceProposal.controls['occupation'].setValidators(null);
 
-      this.relianceProposal.controls['occupation'].patchValue('');
-      this.relianceProposal.controls['occupation'].setValidators(null);
+          this.relianceProposal.controls['maritalStatus'].patchValue('');
+          this.relianceProposal.controls['maritalStatus'].setValidators(null);
+          this.proposerAge='';
 
-      this.relianceProposal.controls['maritalStatus'].patchValue('');
-      this.relianceProposal.controls['maritalStatus'].setValidators(null);
-      this.proposerAge='';
+      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
+      this.updateMandatory();
+
     }
 
-    this.relianceProposal.controls['corporateName'].updateValueAndValidity();
-    this.relianceProposal.controls['title'].updateValueAndValidity();
-    this.relianceProposal.controls['firstName'].updateValueAndValidity();
-    this.relianceProposal.controls['middleName'].updateValueAndValidity();
-    this.relianceProposal.controls['lastName'].updateValueAndValidity();
-    this.relianceProposal.controls['gender'].updateValueAndValidity();
-    this.relianceProposal.controls['dob'].updateValueAndValidity();
-    this.relianceProposal.controls['occupation'].updateValueAndValidity();
-    this.relianceProposal.controls['maritalStatus'].updateValueAndValidity();
+      this.relianceProposal.controls['corporateName'].updateValueAndValidity();
+      this.relianceProposal.controls['title'].updateValueAndValidity();
+      this.relianceProposal.controls['firstName'].updateValueAndValidity();
+      this.relianceProposal.controls['middleName'].updateValueAndValidity();
+      this.relianceProposal.controls['lastName'].updateValueAndValidity();
+      this.relianceProposal.controls['gender'].updateValueAndValidity();
+      this.relianceProposal.controls['dob'].updateValueAndValidity();
+      this.relianceProposal.controls['occupation'].updateValueAndValidity();
+      this.relianceProposal.controls['maritalStatus'].updateValueAndValidity();
+
   }
+
+
+  // clientTypeReq(){
+  //   if(this.relianceProposal.controls['clientType'].value == 0){
+  //     this.clientTypeField=true;
+  //     this.relianceProposal.controls['corporateName'].patchValue('');
+  //     this.relianceProposal.controls['corporateName'].setValidators(null);
+  //
+  //     this.relianceProposal.controls['title'].setValidators([Validators.required]);
+  //     this.relianceProposal.controls['firstName'].setValidators([Validators.required]);
+  //     this.relianceProposal.controls['middleName'].setValidators(null);
+  //     this.relianceProposal.controls['lastName'].setValidators([Validators.required]);
+  //     this.relianceProposal.controls['gender'].setValidators([Validators.required]);
+  //     this.relianceProposal.controls['dob'].setValidators([Validators.required]);
+  //     this.relianceProposal.controls['occupation'].setValidators([Validators.required]);
+  //     this.relianceProposal.controls['maritalStatus'].setValidators(null);
+  //   }else if(this.relianceProposal.controls['clientType'].value == 1) {
+  //     this.clientTypeField=false;
+  //     this.relianceProposal.controls['corporateName'].setValidators([Validators.required]);
+  //
+  //     this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
+  //    this.updateMandatory();
+  //     // this.coverDetails.controls['PAToOwnerDriverCoverd'].setValidators(null);
+  //     // this.coverDetails.controls['cappointeeName'].patchValue('');
+  //     // this.coverDetails.controls['cappointeeName'].setValidators(null);
+  //     // this.coverDetails.controls['cnomineeName'].patchValue('');
+  //     // this.coverDetails.controls['cnomineeName'].setValidators(null);
+  //     // this.coverDetails.controls['cnDob'].patchValue('');
+  //     // this.coverDetails.controls['cnDob'].setValidators(null);
+  //     // this.coverDetails.controls['nrelation'].patchValue('');
+  //     // this.coverDetails.controls['nrelation'].setValidators(null);
+  //     // this.coverDetails.controls['cnAddress'].patchValue('');
+  //     // this.coverDetails.controls['cnAddress'].setValidators(null);
+  //     // this.coverDetails.controls['nOtherRelation'].patchValue('');
+  //     // this.coverDetails.controls['nOtherRelation'].setValidators(null);
+  //     // this.coverDetails.controls['nrelationValue'].patchValue('');
+  //     // this.coverDetails.controls['nrelationValue'].setValidators(null);
+  //     // this.coverDetails.controls['totalOwnerDriverPremium'].patchValue('');
+  //     // this.coverDetails.controls['totalOwnerDriverPremium'].setValidators(null);
+  //
+  //     this.relianceProposal.controls['title'].patchValue('');
+  //     this.relianceProposal.controls['title'].setValidators(null);
+  //
+  //     this.relianceProposal.controls['firstName'].patchValue('');
+  //     this.relianceProposal.controls['firstName'].setValidators(null);
+  //
+  //     this.relianceProposal.controls['middleName'].patchValue('');
+  //     this.relianceProposal.controls['middleName'].setValidators(null);
+  //
+  //     this.relianceProposal.controls['lastName'].patchValue('');
+  //     this.relianceProposal.controls['lastName'].setValidators(null);
+  //
+  //     this.relianceProposal.controls['gender'].patchValue('');
+  //     this.relianceProposal.controls['gender'].setValidators(null);
+  //
+  //     this.relianceProposal.controls['dob'].patchValue('');
+  //     this.relianceProposal.controls['dob'].setValidators(null);
+  //
+  //     this.relianceProposal.controls['occupation'].patchValue('');
+  //     this.relianceProposal.controls['occupation'].setValidators(null);
+  //
+  //     this.relianceProposal.controls['maritalStatus'].patchValue('');
+  //     this.relianceProposal.controls['maritalStatus'].setValidators(null);
+  //     this.proposerAge='';
+  //   }
+  //
+  //   this.relianceProposal.controls['corporateName'].updateValueAndValidity();
+  //   this.relianceProposal.controls['title'].updateValueAndValidity();
+  //   this.relianceProposal.controls['firstName'].updateValueAndValidity();
+  //   this.relianceProposal.controls['middleName'].updateValueAndValidity();
+  //   this.relianceProposal.controls['lastName'].updateValueAndValidity();
+  //   this.relianceProposal.controls['gender'].updateValueAndValidity();
+  //   this.relianceProposal.controls['dob'].updateValueAndValidity();
+  //   this.relianceProposal.controls['occupation'].updateValueAndValidity();
+  //   this.relianceProposal.controls['maritalStatus'].updateValueAndValidity();
+  // }
   /////////////
 
   idvCalculateDetails(value,type) {
@@ -716,7 +784,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.coverDetails.controls['totalOwnerDriverPremium'].setValidators([Validators.required]);
       this.getCover();
 
-    } else {
+    } else if(this.coverDetails.controls['PAToOwnerDriverCoverd'].value==false) {
       // this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
 
       this.coverDetails.controls['cappointeeName'].patchValue('');
