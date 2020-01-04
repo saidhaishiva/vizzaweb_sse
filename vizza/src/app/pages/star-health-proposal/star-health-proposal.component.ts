@@ -890,6 +890,7 @@ setOccupationList() {
             this.familyMembers[i].ins_engage_manual_labour = 'None';
             this.familyMembers[i].ins_engage_winter_sports = 'None';
             this.familyMembers[i].ins_personal_accident_applicable = '0';
+
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
             this.familyMembers[i].engage_manual_status = '0';
             this.familyMembers[i].engage_winter_status = '0';
