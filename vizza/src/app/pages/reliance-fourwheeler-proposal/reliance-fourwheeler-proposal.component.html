@@ -18,7 +18,7 @@
                     <div class="row">
                       <div class="col-md-3  mt-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Client Type" formControlName="clientType" (selectionChange)="clientTypeReq()" (change)="clientTypeReq()"required>
+                          <mat-select placeholder="Client Type" formControlName="clientType" (selectionChange)="clientTypeReq();clientReqField()" required>
                             <mat-option  value="0" > Individual </mat-option>
                             <mat-option  value="1" > Corporate </mat-option>
                           </mat-select>
@@ -415,7 +415,7 @@
 
                         <!-- <button mat-raised-button color="primaryBlue"  (click)="createProposal(relianceProposal.value)" >Next</button>-->
 
-                        <button mat-raised-button color="primaryBlue"  (click)="changeBifuelDrop();clientTypeReq();nextTab(stepper,relianceProposal.value,'stepper1')" >Next</button>
+                        <button mat-raised-button color="primaryBlue"  (click)="changeBifuelDrop();nextTab(stepper,relianceProposal.value,'stepper1')" >Next</button>
                       </div>
 
                     </div>
@@ -515,7 +515,7 @@
                     <div class="proposal-buttom mt-3 text-right w-100">
                       <button mat-button matStepperPrevious color="primaryBlue" class="text-light"  style="margin-right:17px" (click)="topScroll()">Back</button>
 
-                      <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
+                      <button mat-raised-button color="primaryBlue"  (click)="clientTypeReq();nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
                     </div>
               </form>
             </mat-expansion-panel>
@@ -542,9 +542,10 @@
                         <h3 class="color-blue">Vehicle Details</h3>
                       </div>
                       <div class="col-md-4 mt-0" *ngIf="bifuelCover == true">
-                        <mat-form-field class="w-100" [ngStyle]="{'pointer-events': bifuelCover == true ? 'none' : ''}">
-                          <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == true" >
-                            <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]=" type.key == '1'&&type.key =='2'&&type.key =='3'&&type.key =='4'&&type.key =='6'"> {{type.value}} </mat-option>
+                        <mat-form-field class="w-100" [ngStyle]="{'pointer-events': bifuelCover == true||this.bifuelType == '5' ? 'none' : ''}">
+                        <!--<mat-form-field class="w-100" >-->
+                          <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == true"  [disabled]="bifuelCover == true" >
+                            <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]="type.key == '1'&&type.key =='2'&&type.key =='3'&&type.key =='4'&&type.key =='6'" > {{type.value}} </mat-option>
 
                           </mat-select>
                           <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>
@@ -553,7 +554,7 @@
                       <div class="col-md-4 mt-0" *ngIf="bifuelCover == false">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == false" >
-                            <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]=" type.key == '5'"> {{type.value}} </mat-option>
+                            <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]="type.key == '5'"> {{type.value}} </mat-option>
 
                           </mat-select>
                           <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>
@@ -602,7 +603,7 @@
                         <p>Is CPG/LPG kit ?<span class="error">*</span></p>
                         <mat-radio-group formControlName="cpgLpgKit" (change)="changeCpgLpgKit();getCover()" [required]="coverDetails.controls.IsBiFuelKit.value == true">
                         <mat-radio-button value='Yes' >Yes</mat-radio-button>
-                        <mat-radio-button value='No'>No</mat-radio-button>
+                        <mat-radio-button class="ml-3" value='No'>No</mat-radio-button>
                         </mat-radio-group>
                         </div>
 
@@ -730,8 +731,8 @@
                       </div>
                       </div>
                       <div class="col-md-12 mt-2" *ngIf="clientTypeField==true" >
-                      <div class="row">
-                      <div class="col-md-3">
+                      <div class="row" *ngIf="clientTypeField==true">
+                      <div class="col-md-3" *ngIf="clientTypeField==true">
                         <mat-checkbox  formControlName="PAToOwnerDriverCoverd" (change)="updateOwnerDriverSi($event);updateMandatory()">PA to Owner Driver</mat-checkbox>
                       </div>
                       <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PAToOwnerDriverCoverd.value == true">
@@ -1363,7 +1364,7 @@
                   <!--</div>-->
                 </div>
                 <div class="col-md-6">
-                  <h4 class="color-blue">COMMUNICATION ADDRESS</h4>
+                  <h4 class="color-blue mt-2">COMMUNICATION ADDRESS</h4>
                   <!--<div class="p-0">-->
                     <ul class="m-0 list-group" >
                       <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address}}</li>
@@ -1387,7 +1388,7 @@
                 </div>
 
                   <div class="col-md-6">
-                      <h4 class="color-blue">PERMANENT ADDRESS</h4>
+                      <h4 class="color-blue mt-2">PERMANENT ADDRESS</h4>
                       <!--<div class="p-0">-->
                           <ul class="m-0 list-group" >
                               <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.paddress}}</li>
@@ -1411,7 +1412,7 @@
                   </div>
 
                   <div class="col-md-6">
-                      <h4 class="color-blue">REGISTRATION ADDRESS</h4>
+                      <h4 class="color-blue mt-2">REGISTRATION ADDRESS</h4>
                       <!--<div class="p-0">-->
                           <ul class="m-0 list-group" >
                               <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.raddress}}</li>
@@ -1436,7 +1437,7 @@
 
 
                 <div class="col-md-6" *ngIf="buyProduct.business_type ==6">
-                  <h4 class="color-blue">INSPECTION ADDRESS</h4>
+                  <h4 class="color-blue mt-2">INSPECTION ADDRESS</h4>
                   <h4 class="mt-4"></h4>
                   <!--<div class="p-0">-->
                     <ul class="m-0 list-group" >
@@ -1521,10 +1522,10 @@
                   </ul>
                 </div>
 
-                <div class="col-md-6"*ngIf="(coverFormData.PAToOwnerDriverCoverd != ''&&coverFormData.PAToOwnerDriverCoverd == false)||(coverFormData.PAToOwnerDriverCoverd != ''&&coverFormData.PAToOwnerDriverCoverd == true)" >
+                <div class="col-md-6" >
                   <h2 class="color-blue m-2">PA to Owner Driver</h2>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''&&coverFormData.PAToOwnerDriverCoverd == false"><strong>PA to Owner Driver:</strong><span *ngIf="coverFormData.PAToOwnerDriverCoverd == false">N/A</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd == false"><strong>PA to Owner Driver:</strong><span >N/A</span> </li>
                     <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverdSi != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>PA To Owner Driver Coverd SI:</strong> {{coverFormData.PAToOwnerDriverCoverdSi}}</li>
                     <li class="list-group-item" *ngIf="coverFormData.cnomineeName != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Nominee Name:</strong> {{coverFormData.cnomineeName}}</li>
                     <li class="list-group-item" *ngIf="coverFormData.cnDob != '' && coverFormData.PAToOwnerDriverCoverd ==true"><strong>Nominee Dob:</strong> {{coverFormData.cnDob | date: 'dd/MM/yyyy'}}</li>

@@ -4,7 +4,7 @@
 <!--<meta name="description" [content]=metaHealth.descrition />-->
 <div class="container dashboard h-100 d-none d-sm-none d-md-none d-lg-block" fxLayoutAlign="start start" *ngIf="firstPage">
   <div class="row my-flex-card">
-    <h3 class="svg-img w-100 text-center color-pink mb-3"><img class="logo-size" src="assets/img/Health-Insurance.svg" > Health Insurance</h3>
+    <h3 class="svg-img w-100 text-center color-pink mb-3"><img class="logo-size" src="assets/img/Health-Insurance.svg" alt="vizza-Health-Insurance" title=""  > Health Insurance</h3>
     <!--<p class="w-100 text-center"><a scrollTo href="#knowMoreShow">Know more</a></p>-->
     <div class="col-md-6 col-sm-12 col-12">
       <div class="card-block">
@@ -68,7 +68,7 @@
         <!--<mat-icon style="cursor: pointer">close</mat-icon>-->
         <!--</div>-->
         <div class="col-sm-12">
-          <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
+          <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.svg" class="logo-size"> About Health Insurance</h3>
         </div>
         <div mat-dialog-content>
           <mat-accordion>
@@ -233,7 +233,7 @@
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-6">
-              <h5 class="color-pink" style="cursor: pointer" ><img src="assets/img/Health-Insurance.png" class="logo-size"> <span (click)="headinghealthinsurance()"> Health Insurance</span> </h5>
+              <h5 class="color-pink" style="cursor: pointer" ><img src="assets/img/Health-Insurance.svg" class="logo-size"> <span (click)="headinghealthinsurance()"> Health Insurance</span> </h5>
             </div>
             <mat-tab-group #tabGroup class="col-md-6 w-100" [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event, 'purchase')">
               <mat-tab class="headerColor" *ngFor="let lists of groupList;let pi = index"  (click)="changeTab()">
@@ -433,7 +433,7 @@
   <div class="col-12 col-md-12">
     <div class="row">
       <div class="col-12 col-md-12">
-        <h5 class="color-pink" style="cursor: pointer" ><img src="assets/img/Health-Insurance.png" class="logo-size"> <span (click)="headinghealthinsurance()"> Health Insurance</span> </h5>
+        <h5 class="color-pink" style="cursor: pointer" ><img src="assets/img/Health-Insurance.svg" class="logo-size"> <span (click)="headinghealthinsurance()"> Health Insurance</span> </h5>
       </div>
       <div class="col-12 col-md-12">
         <mat-tab-group #tabGroup class="col-12 w-100" [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event, 'purchase')">

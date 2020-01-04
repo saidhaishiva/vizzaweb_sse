@@ -36,6 +36,8 @@ export class RelianceFourwheelerPaymentSuccessComponent implements OnInit {
   }
   retry() {
     this.router.navigate(['/reliance-fourwheeler-motor-proposal'  + '/' + true]);
+
+    // this.router.navigate(['/reliance-fourwheeler-motor-proposal'  + '/' + true]);
   }
 
   DownloadPdf() {

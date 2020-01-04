@@ -342,7 +342,7 @@
                               </div>
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Previous Insurance List" (keypress)="numberValidate($event)" [required]="prevList" formControlName="insuredPrevList" (change)="preInsureList(); changePrevName()" >
+                                  <mat-select placeholder="Previous Insurance List" (keypress)="numberValidate($event)" [required]="prevList" formControlName="insuredPrevList" (selectionChange)="preInsureList(); changePrevName()" >
                                     <mat-option *ngFor="let previous of preinsure | keys" value="{{previous.key}}" > {{previous.value}} </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="insured.controls.insuredPrevList.errors?.required">Previous Insurance List is required</mat-error>
