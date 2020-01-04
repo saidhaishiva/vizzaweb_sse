@@ -1881,7 +1881,6 @@ setOccupationList() {
     }
     // get request
     getBackRequest() {
-        alert('1')
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -1894,7 +1893,6 @@ setOccupationList() {
         console.log(data, 'data');
         this.proposalservice.proposalGetRequest(data).subscribe(
             (successData) => {
-                alert('in')
 
                 this.getBackResSuccess(successData);
             },
@@ -1906,9 +1904,7 @@ setOccupationList() {
 
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
-            alert('12');
             this.requestDetails = successData.ResponseObject;
-            alert('3456789876543');
             console.log(this.requestDetails, 'requestDetailsrequestDetails');
             console.log(this.requestDetails.social_status_disabled, 'social_status_disabled');
 
