@@ -1470,22 +1470,17 @@ export class ReligareHealthProposalComponent implements OnInit {
                 for (let j = 0; j < this.religareQuestionsList[i].sub_questions_list.length; j++) {
 
                     for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-                        // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
-                        if(this.religareQuestionsList[i].mStatus == 'Yes') {
-                        // if(this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
-                            this.checkBoxError=true;
-                            // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status)
+                        if(this.religareQuestionsList[i].mStatus == 'Yes'){
+
                             if (this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
-                                  this.fillCheckbox=true
+                                this.checkBoxError=true;
+
                                 if (this.religareQuestionsList[i].sub_questions_list[j].question_details.question_description != '') {
                                     statusChecked.push(1);
-                                    // alert('question_description')
-                                    // alert(statusChecked)
-                                    // alert(this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince)
+
                                     if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
                                         statusChecked.push(0);
 
-                                        // alert(statusChecked)
                                     }
                                 } else {
                                     if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
@@ -1501,14 +1496,12 @@ export class ReligareHealthProposalComponent implements OnInit {
 
                                     }
                                 }
-                            }else if (this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status != true){
-                                this.fillCheckbox=false
-                            }
-                        }
-                        else if(this.religareQuestionsList[i].mStatus == 'No'){
-                            this.checkBoxError=false;
-                            // this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
 
+                        }
+                        else if(this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status != true){
+                            this.checkBoxError=false;
+
+                        }
                         }
                     }
                 }
@@ -1526,27 +1519,23 @@ export class ReligareHealthProposalComponent implements OnInit {
             }
         }
         if (statusChecked.includes(0)) {
-            // alert('include000')
-            // alert(statusChecked)
+
             this.toastr.error('Please fill the empty field');
         } else if (statusChecked.includes(2)) {
-            // alert('include22')
-            // alert(statusChecked)
+
             this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
         } else {
-            // console.log(statusChecked,'ghhh');
-            // alert(statusChecked)
-            // if((this.checkBoxError==true&&this.fillCheckbox==true)){
+
+            if(this.checkBoxError==true){
             stepper.next();
             this.topScroll();
             this.nextStep();
             this.religareMobileTrue2 = false;
             this.religareMobileTrue3 = false;
-            // }
-            // else{
-            //     alert('tostr')
-            //     this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
-            // }
+            }
+            else  if(this.checkBoxError==false){
+                this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+            }
         }
     }
 

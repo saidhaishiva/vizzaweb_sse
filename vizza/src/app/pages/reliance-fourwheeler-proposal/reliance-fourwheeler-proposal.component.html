@@ -18,7 +18,7 @@
                     <div class="row">
                       <div class="col-md-3  mt-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Client Type" formControlName="clientType" (selectionChange)="clientTypeReq()" required>
+                          <mat-select placeholder="Client Type" formControlName="clientType" (selectionChange)="clientTypeReq()" (change)="clientTypeReq()"required>
                             <mat-option  value="0" > Individual </mat-option>
                             <mat-option  value="1" > Corporate </mat-option>
                           </mat-select>
@@ -415,7 +415,7 @@
 
                         <!-- <button mat-raised-button color="primaryBlue"  (click)="createProposal(relianceProposal.value)" >Next</button>-->
 
-                        <button mat-raised-button color="primaryBlue"  (click)="changeBifuelDrop();nextTab(stepper,relianceProposal.value,'stepper1')" >Next</button>
+                        <button mat-raised-button color="primaryBlue"  (click)="changeBifuelDrop();clientTypeReq();nextTab(stepper,relianceProposal.value,'stepper1')" >Next</button>
                       </div>
 
                     </div>
@@ -428,12 +428,12 @@
 
 
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>Policy/Risk Details</ng-template>
+          <ng-template matStepLabel>POLICY/RISK DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  Policy/Risk Details
+                  POLICY/RISK DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <form [formGroup]="riskDetails">
@@ -441,7 +441,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Buyer Type" formControlName="OtherSystemName" (selectionChange)="changeOtherSystem()" required>
+                          <mat-select placeholder="Buyer Type" formControlName="OtherSystemName" (selectionChange)="changeOtherSystem()" (change)="changeOtherSystem()" required>
                             <mat-option *ngFor="let list of otherSystemNameList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="riskDetails.controls.OtherSystemName.errors?.required">Buyer Type  is required</mat-error>
@@ -525,12 +525,12 @@
 
 
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>Vehicle/Cover Details</ng-template>
+          <ng-template matStepLabel>VEHICLE/COVER DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  Vehicle/Cover Details
+                  VEHICLE/COVER DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <form [formGroup]="coverDetails">
@@ -575,7 +575,7 @@
                       <div class="col-md-12 mt-2" >
                       <div class="row">
                       <div class="col-md-3" *ngIf="coverDetails.controls['fuelType'].value == 5">
-                      <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit()" >BiFuel Kit<span class="error" *ngIf="coverDetails.controls['fuelType'].value == 5">*</span></mat-checkbox>
+                      <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit()" [required]="bifuelCover == true" >BiFuel Kit<span class="error" *ngIf="coverDetails.controls['fuelType'].value == 5">*</span></mat-checkbox>
                       </div>
                       <!--</div>-->
                       <!--</div>-->
@@ -611,7 +611,7 @@
                       <mat-select placeholder="Type of Fitting" formControlName="fittngType" (selectionChange)="getCover()"  [required]="coverDetails.controls.cpgLpgKit.value == 'Yes'">
                       <mat-option *ngFor="let type of fittngTypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
                       </mat-select>
-                      <!--                                    <mat-error *ngIf="coverDetails.controls.fittngType.errors?.required">Type of Fitting is required</mat-error>-->
+                      <!--  <mat-error *ngIf="coverDetails.controls.fittngType.errors?.required">Type of Fitting is required</mat-error>-->
                       </mat-form-field>
                       </div>
                       <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
@@ -1180,13 +1180,13 @@
         </mat-step>
 
         <mat-step [stepControl]="" *ngIf="buyProduct.business_type !=1">
-          <ng-template matStepLabel>Previous Insurance Details</ng-template>
+          <ng-template matStepLabel>PREVIOUS INSURANCE DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <form [formGroup]="previousInsurance">
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    Previous Insurance details
+                    PREVIOUS INSURANCE DETAILS
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row">
@@ -1498,7 +1498,8 @@
                 <div class="col-md-6">
                   <h4 class="mt-4"></h4>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong >fuelType:</strong> {{coverFormData.fuelTypeValue}}</li>
+                    <li class="list-group-item" *ngIf="bifuelCover == false"><strong >fuelType:</strong> {{coverFormData.fuelTypeValue}}</li>
+                    <li class="list-group-item" *ngIf="bifuelCover == true"><strong >fuelType:</strong> Bifuel</li>
                     <li class="list-group-item" *ngIf="buyProduct.business_type ==6"><strong>Inspection No:</strong> {{coverFormData.inspectionNo}}</li>
                     <!--<li class="list-group-item" *ngIf="coverFormData.totalAssociationPremium != '' && coverFormData.AutomobileAssociationMember ==true "><strong>Automobile Association Membership Premium:</strong> {{coverFormData.totalAssociationPremium}}</li>-->
                     <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage == false"><strong>Basic OD :</strong><span *ngIf="coverFormData.BasicODCoverage == false">N/A</span> </li>

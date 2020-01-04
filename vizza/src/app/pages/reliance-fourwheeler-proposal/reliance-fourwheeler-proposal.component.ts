@@ -1193,7 +1193,7 @@ changeNonElect(){
             this.coverDetails.controls['bifueltype'].patchValue('');
             this.coverDetails.controls['bifueltype'].setValidators(null);
 
-            this.coverDetails.controls['cpgLpgKit'].patchValue('No');
+            this.coverDetails.controls['cpgLpgKit'].patchValue('');
             this.coverDetails.controls['cpgLpgKit'].setValidators(null);
             this.changeCpgLpgKit();
 
