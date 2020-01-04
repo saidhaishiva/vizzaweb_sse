@@ -241,6 +241,11 @@
                                                     </mat-form-field>
                                                     <div class="error" *ngIf="electricalSumAount !='' && electricalSumAount != true">{{electricalSumAount}} {{electricalMaxValue}}</div>
                                                 </div>
+                                                <div class="col-md-4 mt-0" *ngIf="vehical.controls.electricalAccess.value == true">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Cover Premium"  formControlName="totalElectricalItemPremium"  autocomplete="off" [required]="vehical.controls.electricalAccess.value == true" readonly>
+                                                    </mat-form-field>
+                                                </div>
 
                                             </div>
                                         </div>
@@ -256,6 +261,11 @@
                                                         <!--<mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
                                                     </mat-form-field>
                                                     <div class="error" *ngIf="nonElectricalSumAount !='' && nonElectricalSumAount != true">{{nonElectricalSumAount}} {{electricalMaxValue}}</div>
+                                                </div>
+                                                <div class="col-md-4 mt-0" *ngIf="vehical.controls.nonElectricalAccess.value == true">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Cover Premium"  formControlName="totalNonElectricalItemPremium"  autocomplete="off"  [required]="vehical.controls.nonElectricalAccess.value == true" readonly>
+                                                    </mat-form-field>
                                                 </div>
 
                                             </div>

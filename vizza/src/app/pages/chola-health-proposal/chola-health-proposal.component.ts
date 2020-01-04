@@ -96,6 +96,11 @@ export class CholaHealthProposalComponent implements OnInit {
   public proposerData: any;
   public insuredData: any;
   public nomineeDataPay: any;
+  public cholaMobileTrue0: boolean;
+    public cholaMobileTrue1: boolean;
+    public cholaMobileTrue2: boolean;
+    public cholaMobileTrue3: boolean;
+
 
   constructor(public fb: FormBuilder, public authservice: AuthService, public config: ConfigurationService, public appSettings: AppSettings, public http: HttpClient, public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, public termService: HealthService, private toastr: ToastrService,public router: Router, ) {
     this.stepperindex = 0;
@@ -143,6 +148,10 @@ export class CholaHealthProposalComponent implements OnInit {
     this.totalInsureDetails = [];
     this.arr = [];
     this.declaration = false;
+      this.cholaMobileTrue0 = false;
+      this.cholaMobileTrue1 = true;
+      this.cholaMobileTrue2 = true;
+      this.cholaMobileTrue3 = true;
     this.personal = this.fb.group({
       personalTitle: ['', Validators.required],
       personalFirstname: ['', Validators.required],
@@ -179,6 +188,11 @@ export class CholaHealthProposalComponent implements OnInit {
   ngOnInit() {
       if (this.payLaterr == true) {
           this.stepperindex = 3;
+          this.step = 3;
+          this.cholaMobileTrue0 = true;
+          this.cholaMobileTrue1 = true;
+          this.cholaMobileTrue2 = true;
+          this.cholaMobileTrue3 = false;
           console.log(this.payLaterr, 'this.payLaterrolll');
       } else {
           this.setOccupationList();
@@ -538,6 +552,8 @@ export class CholaHealthProposalComponent implements OnInit {
               stepper.next();
               this.topScroll();
               this.nextStep();
+              this.cholaMobileTrue1 = false;
+
           }
            console.log(this.personal, 'this.personal');
        } else {
@@ -603,6 +619,10 @@ export class CholaHealthProposalComponent implements OnInit {
             } else {
                 stepper.next();
                 this.topScroll();
+                this.nextStep();
+
+                this.cholaMobileTrue1 = false;
+                this.cholaMobileTrue2 = false
             }
         } else {
             this.toastr.error(' Sorry, PreExistingDisease are not allowed to purchase policy ');
@@ -620,11 +640,12 @@ console.log( sessionStorage.stepper3Details);
         this.nomineeData = value;
         console.log(this.nomineeData,'this.nomineeData');
         this.proposal(stepper);
-
       // mobile view
-     //this.nextStep();
-      // this.appolloMobileTrue3 = false;
-      // this.appolloMobileTrue4 = false;
+     this.nextStep();
+        // this.cholaMobileTrue2 = false;
+        // this.cholaMobileTrue3 = false;
+        // this.setStep(3);
+        this.step = 3;
     }
   }
 
@@ -1014,8 +1035,9 @@ console.log( sessionStorage.stepper3Details);
     public setCholaProposalSuccess(successData, stepper) {
       this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
-            stepper.next();
             this.topScroll();
+
+
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
@@ -1030,9 +1052,11 @@ console.log( sessionStorage.stepper3Details);
             this.createdDate = new Date();
             this.pos_status = this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4';
             this.PaymentActionUrl = this.summaryData.PaymentActionUrl;
-
             stepper.next();
-          this.nextStep();
+            this.nextStep();
+            this.cholaMobileTrue2 = false;
+            this.cholaMobileTrue3 = false;
+            this.step = 3;
 
         } else {
             this.toastr.error(successData.ErrorObject);

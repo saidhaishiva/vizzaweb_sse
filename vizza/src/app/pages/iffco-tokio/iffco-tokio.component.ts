@@ -302,6 +302,11 @@ export class IffcoTokioComponent implements OnInit {
     ngOnInit() {
         if (this.payLaterr == true) {
             this.stepperindex = 3;
+            this.step = 3;
+            this.healthIffcoTrue0 = true;
+            this.healthIffcoTrue1 = true;
+            this.healthIffcoTrue2 = true;
+            this.healthIffcoTrue3 = false;
             console.log(this.stepperindex, ' this.stepperindex');
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
