@@ -439,7 +439,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         noOfMonths: '',
         payoutPercentageIncome: '',
         stitle: '',
-        // stitleName: '',
+        stitleName: '',
         sfirstName: '',
         slastName: '',
         semailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -466,7 +466,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       aadhaarNo:'',
       ageProofIdName: '',
       fatherhusbandName: '',
-      // motherMaidName: '',
+      motherMaidName: '',
       ageProofId: ['', Validators.compose([Validators.required])],
       highestQualification: ['', Validators.compose([Validators.required])],
       highestQualificationName: '',
@@ -547,7 +547,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       // Cover:['', Validators.compose([Validators.required])],
       // ageTillCoverd: ['40', Validators.compose([Validators.required])],
       // premiumPay: ['2', Validators.compose([Validators.required])],
-      modeOfPremium: ['', Validators.compose([Validators.required])],
+      // modeOfPremium: ['', Validators.compose([Validators.required])],
       isCriminal: 'No',
       criminalDetails: '',
       identityProof: ['', Validators.compose([Validators.required])],
@@ -883,7 +883,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['title'].patchValue('2');
     }
     this.insureArray.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
-    this.insureArray.controls['modeOfPremium'].patchValue(this.enquiryFromDetials.payment_mode);
+    // this.insureArray.controls['modeOfPremium'].patchValue(this.enquiryFromDetials.payment_mode);
     console.log(this.enquiryFromDetials.lifePayment,'lifepayment');
     console.log(this.insureArray.controls['modeOfPremium'].value,'lifepayment');
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
@@ -1750,7 +1750,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addon.valid, 'this.valid');
     // let dateErrorMsg = [];
     if (this.addon.valid) {
-      this.tittleread == true;
+      // this.tittleread == true;
       this.insureArray.controls['title'].patchValue (this.customerDetails.controls['title'].value);
       this.insureArray.controls['firstName'].patchValue (this.customerDetails.controls['firstName'].value);
       this.insureArray.controls['lastName'].patchValue (this.customerDetails.controls['lastName'].value);
@@ -1788,6 +1788,7 @@ edelweissInsureDetails(stepper: MatStepper, value) {
     console.log(this.insureArray.valid, 'this.valid');
     // let dateErrorMsg = [];
     if (this.insureArray.valid) {
+      console.log(sessionStorage.proposerAge,'sessionStorage.proposerAge......')
       if (sessionStorage.proposerAge >= 18) {
         if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined) {
       stepper.next();
@@ -1798,7 +1799,7 @@ edelweissInsureDetails(stepper: MatStepper, value) {
 
         }
       } else {
-        this.toastr.error('Insurer Age should be 18 or above');
+        this.toastr.error('Proposer Age should be 18 or above');
 
       }
     } else {
@@ -2618,6 +2619,99 @@ edelweissInsureDetails(stepper: MatStepper, value) {
     this.insureArray.controls['employeeCode'].updateValueAndValidity();
 
   }
+
+  titlespouse() {
+
+    if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+      this.addon.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
+
+      this.addon.controls['stitle'].setValidators([Validators.required]);
+    } else {
+      this.addon.controls['stitle'].patchValue('');
+
+      this.addon.controls['stitle'].setValidators(null);
+
+    }
+    this.addon.controls['stitle'].updateValueAndValidity();
+
+  }
+  firstnamespouse() {
+
+    if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+      this.addon.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
+
+      this.addon.controls['sfirstName'].setValidators([Validators.required]);
+    } else {
+      this.addon.controls['sfirstName'].patchValue('');
+
+      this.addon.controls['sfirstName'].setValidators(null);
+
+    }
+    this.addon.controls['sfirstName'].updateValueAndValidity();
+
+  }
+  lastnamespouse() {
+
+    if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+      this.addon.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
+
+      this.addon.controls['slastName'].setValidators([Validators.required]);
+    } else {
+      this.addon.controls['slastName'].patchValue('');
+
+      this.addon.controls['slastName'].setValidators(null);
+
+    }
+    this.addon.controls['slastName'].updateValueAndValidity();
+
+  }
+  dobspouse() {
+
+    if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+      this.addon.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
+
+      this.addon.controls['sdob'].setValidators([Validators.required]);
+    } else {
+      this.addon.controls['sdob'].patchValue('');
+
+      this.addon.controls['sdob'].setValidators(null);
+
+    }
+    this.addon.controls['sdob'].updateValueAndValidity();
+
+  }
+  emailspouse() {
+
+    if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+      this.addon.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
+
+      this.addon.controls['semailId'].setValidators([Validators.required]);
+    } else {
+      this.addon.controls['semailId'].patchValue('');
+
+      this.addon.controls['semailId'].setValidators(null);
+
+    }
+    this.addon.controls['semailId'].updateValueAndValidity();
+
+  }
+  smokerSpouse() {
+
+    if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+      this.addon.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
+
+      this.addon.controls['isSmokerSpouse'].setValidators([Validators.required]);
+    } else {
+      this.addon.controls['isSmokerSpouse'].patchValue('');
+
+      this.addon.controls['isSmokerSpouse'].setValidators(null);
+
+    }
+    this.addon.controls['isSmokerSpouse'].updateValueAndValidity();
+
+  }
+
+
   uploadReq() {
 
     if (this.insureArray.controls['investing'].value == 'SELF') {
@@ -2789,43 +2883,43 @@ edelweissInsureDetails(stepper: MatStepper, value) {
   changeMaritalInsuReq() {
 
     if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
-      this.addon.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
-      // this.insureArray.controls['stitleName'].patchValue(this.insureArray.controls['stitleName'].value);
-      this.addon.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
-      // this.insureArray.controls['stitleName'].patchValue(this.insureArray.controls['stitleName'].value);
-      // this.addon.controls['smidName'].patchValue(this.addon.controls['smidName'].value);
-      this.addon.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
-      this.addon.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
-      this.addon.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
-      // this.insureArray.controls['smobileNo'].patchValue(this.insureArray.controls['smobileNo'].value);
-      this.addon.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
-      // // this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
-      // this.insureArray.controls['sppan'].patchValue(this.insureArray.controls['sppan'].value);
-      // this.insureArray.controls['saadhaarNo'].patchValue(this.insureArray.controls['saadhaarNo'].value);
-      // this.insureArray.controls['sfatherhusbandName'].patchValue(this.insureArray.controls['sfatherhusbandName'].value);
-      // this.insureArray.controls['smotherMaidName'].patchValue(this.insureArray.controls['smotherMaidName'].value);
-      // this.insureArray.controls['sageProofId'].patchValue(this.insureArray.controls['sageProofId'].value);
-      // this.insureArray.controls['shighestQualification'].patchValue(this.insureArray.controls['shighestQualification'].value);
-      // this.insureArray.controls['sotherQualification'].patchValue(this.insureArray.controls['sotherQualification'].value);
-      // this.insureArray.controls['scurrAddr1'].patchValue(this.insureArray.controls['scurrAddr1'].value);
-      // this.insureArray.controls['scurrAddr2'].patchValue(this.insureArray.controls['scurrAddr2'].value);
-      // this.insureArray.controls['scurrAddr3'].patchValue(this.insureArray.controls['scurrAddr3'].value);
-      // this.insureArray.controls['scurrCity'].patchValue(this.insureArray.controls['scurrCity'].value);
-      // this.insureArray.controls['scurrPincode'].patchValue(this.insureArray.controls['scurrPincode'].value);
-      // this.insureArray.controls['scurrState'].patchValue(this.insureArray.controls['scurrState'].value);
-      // this.insureArray.controls['sperAddr1'].patchValue(this.insureArray.controls['sperAddr1'].value);
-      // this.insureArray.controls['sperAddr2'].patchValue(this.insureArray.controls['sperAddr2'].value);
-      // this.insureArray.controls['sperAddr3'].patchValue(this.insureArray.controls['sperAddr3'].value);
-      // this.insureArray.controls['sperCity'].patchValue(this.insureArray.controls['sperCity'].value);
-      // this.insureArray.controls['sperPincode'].patchValue(this.insureArray.controls['sperPincode'].value);
-      // this.insureArray.controls['sperState'].patchValue(this.insureArray.controls['sperState'].value);
-      // this.insureArray.controls['sheightFeets'].patchValue(this.insureArray.controls['sheightFeets'].value);
-      // this.insureArray.controls['sheightInches'].patchValue(this.insureArray.controls['sheightInches'].value);
-      // this.insureArray.controls['sweight'].patchValue(this.insureArray.controls['sweight'].value);
-      // this.insureArray.controls['shasWeightChanged'].patchValue(this.insureArray.controls['shasWeightChanged'].value);
-      // this.insureArray.controls['sweightChangedreason'].patchValue(this.insureArray.controls['sweightChangedreason'].value);
-      this.addon.controls['betterHalfsumAssured'].patchValue(this.addon.controls['betterHalfsumAssured'].value);
-      // this.insureArray.controls['relationSpouseInsurer'].patchValue(this.insureArray.controls['relationSpouseInsurer'].value);
+      // this.addon.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
+      // // this.insureArray.controls['stitleName'].patchValue(this.insureArray.controls['stitleName'].value);
+      // this.addon.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
+      // // this.insureArray.controls['stitleName'].patchValue(this.insureArray.controls['stitleName'].value);
+      // // this.addon.controls['smidName'].patchValue(this.addon.controls['smidName'].value);
+      // this.addon.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
+      // this.addon.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
+      // this.addon.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
+      // // this.insureArray.controls['smobileNo'].patchValue(this.insureArray.controls['smobileNo'].value);
+      // this.addon.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
+      // // // this.insureArray.controls['isStaffSpouse'].patchValue(this.insureArray.controls['isStaffSpouse'].value);
+      // // this.insureArray.controls['sppan'].patchValue(this.insureArray.controls['sppan'].value);
+      // // this.insureArray.controls['saadhaarNo'].patchValue(this.insureArray.controls['saadhaarNo'].value);
+      // // this.insureArray.controls['sfatherhusbandName'].patchValue(this.insureArray.controls['sfatherhusbandName'].value);
+      // // this.insureArray.controls['smotherMaidName'].patchValue(this.insureArray.controls['smotherMaidName'].value);
+      // // this.insureArray.controls['sageProofId'].patchValue(this.insureArray.controls['sageProofId'].value);
+      // // this.insureArray.controls['shighestQualification'].patchValue(this.insureArray.controls['shighestQualification'].value);
+      // // this.insureArray.controls['sotherQualification'].patchValue(this.insureArray.controls['sotherQualification'].value);
+      // // this.insureArray.controls['scurrAddr1'].patchValue(this.insureArray.controls['scurrAddr1'].value);
+      // // this.insureArray.controls['scurrAddr2'].patchValue(this.insureArray.controls['scurrAddr2'].value);
+      // // this.insureArray.controls['scurrAddr3'].patchValue(this.insureArray.controls['scurrAddr3'].value);
+      // // this.insureArray.controls['scurrCity'].patchValue(this.insureArray.controls['scurrCity'].value);
+      // // this.insureArray.controls['scurrPincode'].patchValue(this.insureArray.controls['scurrPincode'].value);
+      // // this.insureArray.controls['scurrState'].patchValue(this.insureArray.controls['scurrState'].value);
+      // // this.insureArray.controls['sperAddr1'].patchValue(this.insureArray.controls['sperAddr1'].value);
+      // // this.insureArray.controls['sperAddr2'].patchValue(this.insureArray.controls['sperAddr2'].value);
+      // // this.insureArray.controls['sperAddr3'].patchValue(this.insureArray.controls['sperAddr3'].value);
+      // // this.insureArray.controls['sperCity'].patchValue(this.insureArray.controls['sperCity'].value);
+      // // this.insureArray.controls['sperPincode'].patchValue(this.insureArray.controls['sperPincode'].value);
+      // // this.insureArray.controls['sperState'].patchValue(this.insureArray.controls['sperState'].value);
+      // // this.insureArray.controls['sheightFeets'].patchValue(this.insureArray.controls['sheightFeets'].value);
+      // // this.insureArray.controls['sheightInches'].patchValue(this.insureArray.controls['sheightInches'].value);
+      // // this.insureArray.controls['sweight'].patchValue(this.insureArray.controls['sweight'].value);
+      // // this.insureArray.controls['shasWeightChanged'].patchValue(this.insureArray.controls['shasWeightChanged'].value);
+      // // this.insureArray.controls['sweightChangedreason'].patchValue(this.insureArray.controls['sweightChangedreason'].value);
+      // this.addon.controls['betterHalfsumAssured'].patchValue(this.addon.controls['betterHalfsumAssured'].value);
+      // // this.insureArray.controls['relationSpouseInsurer'].patchValue(this.insureArray.controls['relationSpouseInsurer'].value);
 
       this.addon.controls['stitle'].setValidators([Validators.required]);
       // this.addon.controls['stitleName'].setValidators([Validators.required]);
@@ -2864,11 +2958,11 @@ edelweissInsureDetails(stepper: MatStepper, value) {
       // this.insureArray.controls['sweightChangedreason'].setValidators([Validators.required]);
       this.addon.controls['betterHalfsumAssured'].setValidators([Validators.required]);
       // this.insureArray.controls['relationSpouseInsurer'].setValidators([Validators.required]);
-    } else {
+    } else if(this.addon.controls['betterHalfBenefit'].value == 'No'){
+      // alert('innn')
       this.addon.controls['stitle'].patchValue('');
       this.addon.controls['stitleName'].patchValue('');
       this.addon.controls['sfirstName'].patchValue('');
-      this.addon.controls['stitleName'].patchValue('');
       // this.addon.controls['smidName'].patchValue('');
       this.addon.controls['slastName'].patchValue('');
       this.addon.controls['sdob'].patchValue('');
@@ -2907,7 +3001,6 @@ edelweissInsureDetails(stepper: MatStepper, value) {
       this.addon.controls['stitleName'].setValidators(null);
       this.addon.controls['sfirstName'].setValidators(null);
       // this.addon.controls['smidName'].setValidators(null);
-      this.addon.controls['stitleName'].setValidators(null);
       this.addon.controls['slastName'].setValidators(null);
       this.addon.controls['sdob'].setValidators(null);
       this.addon.controls['semailId'].setValidators(null);
@@ -2946,13 +3039,15 @@ edelweissInsureDetails(stepper: MatStepper, value) {
     this.addon.controls['stitle'].updateValueAndValidity();
     this.addon.controls['stitleName'].updateValueAndValidity();
     this.addon.controls['sfirstName'].updateValueAndValidity();
-    this.addon.controls['stitleName'].updateValueAndValidity();
+    // this.addon.controls['stitleName'].updateValueAndValidity();
     // this.addon.controls['smidName'].updateValueAndValidity();
     this.addon.controls['slastName'].updateValueAndValidity();
     this.addon.controls['sdob'].updateValueAndValidity();
     this.addon.controls['semailId'].updateValueAndValidity();
     // this.addon.controls['smobileNo'].updateValueAndValidity();
     this.addon.controls['isSmokerSpouse'].updateValueAndValidity();
+    this.addon.controls['betterHalfsumAssured'].updateValueAndValidity();
+
     // this.insureArray.controls['isStaffSpouse'].updateValueAndValidity();
     // this.insureArray.controls['sppan'].updateValueAndValidity();
     // this.insureArray.controls['saadhaarNo'].updateValueAndValidity();
@@ -2978,7 +3073,6 @@ edelweissInsureDetails(stepper: MatStepper, value) {
     // this.insureArray.controls['sweight'].updateValueAndValidity();
     // this.insureArray.controls['shasWeightChanged'].updateValueAndValidity();
     // this.insureArray.controls['sweightChangedreason'].updateValueAndValidity();
-    this.addon.controls['betterHalfsumAssured'].updateValueAndValidity();
     // this.insureArray.controls['relationSpouseInsurer'].updateValueAndValidity();
 
   }
@@ -3422,12 +3516,14 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   // }
 
   existingInsureReq() {
+    console.log(this.bankDetail['controls'].existingInsurance['controls'].value,'345678954')
     console.log(this.bankDetail['controls'].existingInsurance['controls'].length,'value');
+    console.log(this.bankDetail.controls['existingInsuranceInd'].value ,'value');
     if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
 
       for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
-        if (i != 0) {
-        }
+        // if (i != 0) {
+        // }
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value );
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.value );
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.value );
@@ -4267,7 +4363,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         "lastName": this.insureArray.controls['lastName'].value,
         "dob": this.datepipe.transform(this.insureArray.controls['dob'].value, 'y-MM-dd'),
         "gender": this.insureArray.controls['gender'].value,
-        "isSmoker":"Y",
+        "isSmoker":this.customerDetails.controls['isSmoker'].value,
         "maritalStatus": this.insureArray.controls['maritalStatus'].value,
         "pan": this.insureArray.controls['pan'].value,
         "maidName":"",
@@ -5074,7 +5170,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
           "lastName": this.customerDetails.controls['lastName'].value,
           "dob": this.datepipe.transform(this.customerDetails.controls['dob'].value, 'y-MM-dd'),
           "gender": '',
-          "isSmoker":"Y",
+          "isSmoker":this.customerDetails.controls['isSmoker'].value,
           "maritalStatus": this.customerDetails.controls['maritalStatus'].value,
           "pan": '',
           "maidName":"",
@@ -6317,7 +6413,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
 
         title: this.getStepper1.title,
         titleName: this.getStepper1.titleName,
-        // stitleName: this.getStepper1.stitleName,
+        stitleName: this.getStepper1.stitleName,
         firstName: this.getStepper1.firstName,
         midName: this.getStepper1.midName,
         lastName: this.getStepper1.lastName,
@@ -6385,7 +6481,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
 
         title: this.getSteppercustomer.title,
         titleName: this.getSteppercustomer.titleName,
-        // stitleName: this.getStepper1.stitleName,
+        stitleName: this.getSteppercustomer.stitleName,
         firstName: this.getSteppercustomer.firstName,
         lastName: this.getSteppercustomer.lastName,
         dob: this.datepipe.transform(this.getSteppercustomer.dob, 'y-MM-dd'),
@@ -6522,10 +6618,11 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         taxResidence: this.getStepper2.taxResidence,
         isPoliticallyExposed: this.getStepper2.isPoliticallyExposed,
         specification: this.getStepper2.specification,
+        motherMaidName: this.getStepper2.motherMaidName,
         // : this.getStepper2.Cover,
         // ageTillCoverd: this.getStepper2.ageTillCoverd,Cover
         // premiumPay: this.getStepper2.premiumPay,
-        modeOfPremium: this.getStepper2.modeOfPremium,
+        // modeOfPremium: this.getStepper2.modeOfPremium,
         isCriminal: this.getStepper2.isCriminal,
         criminalDetails: this.getStepper2.criminalDetails,
         identityProof: this.getStepper2.identityProof,
@@ -6550,7 +6647,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         insureRepository: this.getStepper2.insureRepository,
         // planOption:  this.getStepper2.planOption,
         workSiteFlag:  this.getStepper2.workSiteFlag,
-        investmentStrategy: this.getStepper2.investmentStrategy,
+        // investmentStrategy: this.getStepper2.investmentStrategy,
         risingStar:  this.getStepper2.risingStar,
         policyOption:  this.getStepper2.policyOption,
         // additionalBenefit: this.getStepper2.additionalBenefit,
@@ -6844,7 +6941,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         this.bankDetail.controls['name'].patchValue(getStepper4.name);
         this.bankDetail.controls['location'].patchValue(getStepper4.location);
         this.bankDetail.controls['ifscCode'].patchValue(getStepper4.ifscCode);
-        this.bankDetail.controls['investmentStrategy'].patchValue(getStepper4.investmentStrategy);
+        // this.bankDetail.controls['investmentStrategy'].patchValue(getStepper4.investmentStrategy);
 
       console.log(this.bankDetail,'bankDetail');
     }

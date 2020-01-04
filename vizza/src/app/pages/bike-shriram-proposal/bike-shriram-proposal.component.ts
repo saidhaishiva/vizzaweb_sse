@@ -221,12 +221,16 @@ export class BikeShriramProposalComponent implements OnInit {
       nilDepreciationCover: '',
       electricalAccess: '',
       electricalAccessSI: '',
-        totalElectricalItemPremium: '',
+      totalElectricalItemPremium: '',
       nonElectricalAccess: '',
       nonElectricalAccessSI: '',
-        totalNonElectricalItemPremium: '',
+      totalNonElectricalItemPremium: '',
+        totalPaOwnerDriverPremium: '',
+        paOwnerDriver: '',
       paforUnnamed: '',
       paforUnnamedSI: '',
+      totalPaforUnnamedPremium: '',
+        totalAntiTheftPremium: '',
       voluntaryExcess: [''],
       hypothecationType: '',
         hypothecationTypeName: '',
@@ -506,7 +510,6 @@ export class BikeShriramProposalComponent implements OnInit {
     previousNilError(){
         console.log(this.previousInsure.controls['policyNilDescription'].value,'456787656789')
         if ((this.previousInsure.controls['policyNilDescription'].value==''||this.previousInsure.controls['policyNilDescription'].value==undefined||this.previousInsure.controls['policyNilDescription'].value==null)) {
-            // alert(this.bikeInsurance.controls['previousClaim'].value)
             this.PreviousValid=true;
             this.PreviousValid = 'Please Select Previous Nil Description';
 
@@ -635,6 +638,7 @@ export class BikeShriramProposalComponent implements OnInit {
     }
     electricalAmount(){
         this.vehical.controls['totalElectricalItemPremium'].patchValue(this.electrical_cover);
+        console.log(this.vehical.controls['totalElectricalItemPremium'].value,'456789087865456')
     }
 
     updatenonElectricalItem(){
@@ -907,7 +911,6 @@ export class BikeShriramProposalComponent implements OnInit {
     financeType() {
 
         if (this.vehical.controls['isFinanced'].value==true) {
-            // alert('true')
             this.vehical.controls['hypothecationType'].patchValue(this.vehical.controls['hypothecationType'].value);
             this.vehical.controls['hypothecationAddress1'].patchValue(this.vehical.controls['hypothecationAddress1'].value);
             this.vehical.controls['hypothecationBankName'].patchValue(this.vehical.controls['hypothecationBankName'].value);
@@ -917,7 +920,6 @@ export class BikeShriramProposalComponent implements OnInit {
             this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
             this.finance = true;
         } else {
-            // alert('false')
             this.vehical.controls['hypothecationType'].patchValue('');
             this.vehical.controls['hypothecationTypeName'].patchValue('');
             this.vehical.controls['hypothecationAddress1'].patchValue('');
@@ -948,7 +950,6 @@ export class BikeShriramProposalComponent implements OnInit {
     }
 
   //   financeType(){
-  //       alert('in')
   //
   //   if(this.vehical.controls['isFinanced'].value==true){
   //     this.finance = true;
@@ -1370,6 +1371,7 @@ export class BikeShriramProposalComponent implements OnInit {
             this.pa_owner_driver=this.coverPremium.pa_owner_driver;
             this.pa_unnamed_passenger_cover=this.coverPremium.pa_unnamed_passenger_cover;
             this.electricalAmount();
+            this.electricalNonAmount();
         }
         console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
     }
@@ -1766,6 +1768,10 @@ export class BikeShriramProposalComponent implements OnInit {
         nonElectricalAccess:stepper2.nonElectricalAccess,
         nonElectricalAccessSI: stepper2.nonElectricalAccessSI,
           totalNonElectricalItemPremium: stepper2.totalNonElectricalItemPremium,
+          totalPaforUnnamedPremium: stepper2.totalPaforUnnamedPremium,
+          totalAntiTheftPremium: stepper2.totalAntiTheftPremium,
+          paOwnerDriver: stepper2.paOwnerDriver,
+          totalPaOwnerDriverPremium: stepper2.totalPaOwnerDriverPremium,
         hypothecationType: stepper2.hypothecationType,
         hypothecationTypeName: stepper2.hypothecationTypeName,
         paforUnnamed: stepper2.paforUnnamed,
@@ -1894,7 +1900,6 @@ export class BikeShriramProposalComponent implements OnInit {
 //     constructor(
 //         public dialogRef: MatDialogRef<BikeShriramIDVComponent>,
 //         @Inject(MAT_DIALOG_DATA) public data: DialogData, public fb: FormBuilder,public validation: ValidationService) {
-//         // alert(data.name);
 //         console.log(data.name,'previous........');
 //         this.electricalSumAount=false;
 //         this.nonElectricalSumAount=false;
@@ -1911,7 +1916,6 @@ export class BikeShriramProposalComponent implements OnInit {
 //
 //     }
 //     ngOnInit(){
-//         // alert(this.buyBikeDetails);
 //         this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
 //         this.electricalSumAount=false;
 //         this.nonElectricalSumAount=false;
