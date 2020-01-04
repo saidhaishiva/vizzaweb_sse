@@ -106,7 +106,7 @@ export class StarHealthProposalComponent implements OnInit {
     public socialAnswer3: any;
     public socialAnswer4: any;
     public inputReadonly: any;
-    public requestDetailsss: any;
+    // public requestDetailsss: any;
     public previousInsurence: any;
     public premium: any;
     public servicetax: any;
@@ -1881,6 +1881,7 @@ setOccupationList() {
     }
     // get request
     getBackRequest() {
+        alert('1')
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -1893,6 +1894,8 @@ setOccupationList() {
         console.log(data, 'data');
         this.proposalservice.proposalGetRequest(data).subscribe(
             (successData) => {
+                alert('in')
+
                 this.getBackResSuccess(successData);
             },
             (error) => {
@@ -1903,8 +1906,12 @@ setOccupationList() {
 
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
+            alert('12');
             this.requestDetails = successData.ResponseObject;
+            alert('3456789876543');
             console.log(this.requestDetails, 'requestDetailsrequestDetails');
+            console.log(this.requestDetails.social_status_disabled, 'social_status_disabled');
+
             this.proposalNumber = this.requestDetails[0].proposalNum;
             this.pos_status = this.requestDetails[0].role_id;
             this.proposalId = this.requestDetails[0].proposal_id;

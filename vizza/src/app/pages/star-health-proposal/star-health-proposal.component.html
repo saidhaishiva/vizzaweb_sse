@@ -783,7 +783,7 @@
               </div>
 
             </section>
-            <section class="summary-details d-block d-sm-block d-xl-block d-lg-block d-md-block" *ngIf="payLaterr == true">
+            <section class="summary-details " *ngIf="payLaterr == true">
               <div class="row">
                 <div class="col-4">
                   <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.sum_insured_amount}}</span></h4>
@@ -1623,11 +1623,11 @@
         SUMMARY DETAILS
         </mat-panel-title>
         </mat-expansion-panel-header>
-          <section class="summary-details1" *ngIf="summaryData && payLaterr == false">
+          <section class="summary-details" *ngIf="summaryData && payLaterr == false">
             <div class="row">
-              <div class="col-12"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
-              <div class="col-12">
-                <ul class="summary-head" style="list-style-type: none">
+              <div class="col-md-4"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
+              <div class="col-md-8">
+                <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                   <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
                   <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>
@@ -1638,7 +1638,7 @@
             </div>
             <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
             <div class="row box-card">
-              <div class="col-12">
+              <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.personalTitle}}.{{proposerFormData.personalFirstname}} {{proposerFormData.personalLastname}}</li>
@@ -1649,7 +1649,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
                     <li class="list-group-item" *ngIf="proposerFormData.personalOccupationName !=''"><strong>Occupation:</strong> {{proposerFormData.personalOccupationName}}</li>
@@ -1661,7 +1661,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <div class="p-3">
                   <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                   <ul class="m-0 list-group">
@@ -1674,7 +1674,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <div class=" p-3">
                   <h6 class="color-blue">RESIDENCE DETAILS</h6>
                   <ul class="m-0 list-group">
@@ -1707,45 +1707,107 @@
               </div>
             </div>
 
-            <div class="col-12">
-              <h6 class="color-blue mt-3">SOCIAL STATUS</h6>
-              <div class="row">
-                <div class="col-12">
-                  <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
-                  <mat-button-toggle-group #group="matButtonToggleGroup">
-                    <mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer1 == 1" disabled>Yes</mat-button-toggle>
-                    <mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer1 == 0" disabled>No</mat-button-toggle>
-                  </mat-button-toggle-group>
-                </div>
-                <div class="col-12">
-                  <p>Please choose "Yes" if you are working in informal Sector</p>
-                  <mat-button-toggle-group #group="matButtonToggleGroup">
-                    <mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer2 == 1" disabled>Yes</mat-button-toggle>
-                    <mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer2 == 0" disabled>No</mat-button-toggle>
-                  </mat-button-toggle-group>
+            <h5 class="mt-3 sub-title">SOCIAL STATUS </h5>
+            <div class="row box-card">
+              <div class="col-md-6">
+                <div class="p-3">
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item"*ngIf="proposerFormData.socialAnswer1 == 1"><strong> Are you working in Unorganized Sector:</strong> <span >Yes</span> </li>
+                    <li class="list-group-item" *ngIf="proposerFormData.socialAnswer1 != 1||proposerFormData.socialAnswer1 ==''"><strong>Are you working in Unorganized Sector:</strong> <span >No</span></li>
+                    <li class="list-group-item" *ngIf="proposerFormData.socialAnswer2 == 1"><strong>Are you working in informal Sector:</strong> <span >Yes</span></li>
+                    <li class="list-group-item" *ngIf="proposerFormData.socialAnswer2 != 1||proposerFormData.socialAnswer2 ==''"><strong>Are you working in informal Sector:</strong><span >No</span></li>
+                  </ul>
                 </div>
               </div>
-              <hr>
-              <div class="row">
-                <div class="col-12">
-                  <p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>
-                  <mat-button-toggle-group #group="matButtonToggleGroup">
-                    <mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer3 == 1" disabled>Yes</mat-button-toggle>
-                    <mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer3 == 0" disabled>No</mat-button-toggle>
-                  </mat-button-toggle-group>
-                </div>
-                <div class="col-12">
-                  <p>Please Choose “Yes” if you are physical challenged person </p>
-                  <mat-button-toggle-group #group="matButtonToggleGroup">
-                    <mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer4 == 1" disabled>Yes</mat-button-toggle>
-                    <mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer4 == 0" disabled>No</mat-button-toggle>
-                  </mat-button-toggle-group>
+              <div class="col-md-6">
+                <div class="p-3">
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="proposerFormData.socialAnswer3 == 1"><strong>Are you Economically Vulnerable or Backward Classes:</strong><span >Yes</span></li>
+                    <li class="list-group-item" *ngIf="proposerFormData.socialAnswer3 != 1||proposerFormData.socialAnswer3 ==''"><strong>Are you Economically Vulnerable or Backward Classes:</strong><span >No</span></li>
+                    <li class="list-group-item" *ngIf="proposerFormData.socialAnswer4 == 1"><strong>Are you physical challenged person:</strong><span >Yes</span></li>
+                    <li class="list-group-item" *ngIf="proposerFormData.socialAnswer4 != 1||proposerFormData.socialAnswer4 ==''"><strong>Are you physical challenged person:</strong><span >No</span></li>
+
+                  </ul>
                 </div>
               </div>
             </div>
+
+            <!--<div class="col-md-12 box-card">-->
+            <!--<h6 class="color-blue">SOCIAL STATUS</h6>-->
+            <!--<div class="row">-->
+            <!--<div class="col-md-6 ">-->
+            <!--<p>Please choose "Yes" if you are working in Unorganized Sector</p>-->
+            <!--<mat-button-toggle-group #group="matButtonToggleGroup" >-->
+            <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer1 == 1" disabled>Yes</mat-button-toggle>-->
+            <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer1 == null" [disabled]="personal['controls'].socialStatus.value == false || personal['controls'].socialStatus.value == 'false'">No</mat-button-toggle>-->
+            <!--</mat-button-toggle-group>-->
+            <!--</div>-->
+            <!--<div class="col-md-6">-->
+            <!--<p>Please choose "Yes" if you are working in informal Sector</p>-->
+            <!--<mat-button-toggle-group #group="matButtonToggleGroup" >-->
+            <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer2 == 1" disabled>Yes</mat-button-toggle>-->
+            <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer2 == null" disabled>No</mat-button-toggle>-->
+            <!--</mat-button-toggle-group>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<hr>-->
+            <!--<div class="row">-->
+            <!--<div class="col-md-6 ">-->
+            <!--<p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>-->
+            <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
+            <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer3 == 1" disabled>Yes</mat-button-toggle>-->
+            <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer3 == null" disabled>No</mat-button-toggle>-->
+            <!--</mat-button-toggle-group>-->
+            <!--</div>-->
+            <!--<div class="col-md-6">-->
+            <!--<p>Please Choose “Yes” if you are physical challenged person </p>-->
+            <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
+            <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer4 == 1" disabled>Yes</mat-button-toggle>-->
+            <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer4 == null" disabled>No</mat-button-toggle>-->
+            <!--</mat-button-toggle-group>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="col-md-12">-->
+            <!--<h6 class="color-blue mt-3">SOCIAL STATUS</h6>-->
+            <!--<div class="row">-->
+            <!--<div class="col-md-6">-->
+            <!--<p>Please choose "Yes" if you are working in UnOrganized Sector</p>-->
+            <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
+            <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer1 == 1" disabled>Yes</mat-button-toggle>-->
+            <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer1 == null" disabled>No</mat-button-toggle>-->
+            <!--</mat-button-toggle-group>-->
+            <!--</div>-->
+            <!--<div class="col-md-6">-->
+            <!--<p>Please choose "Yes" if you are working in informal Sector</p>-->
+            <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
+            <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer2 == 1" disabled>Yes</mat-button-toggle>-->
+            <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer2 == 0" disabled>No</mat-button-toggle>-->
+            <!--</mat-button-toggle-group>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<hr>-->
+            <!--<div class="row">-->
+            <!--<div class="col-md-6">-->
+            <!--<p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>-->
+            <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
+            <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer3 == 1" disabled>Yes</mat-button-toggle>-->
+            <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer3 == 0" disabled>No</mat-button-toggle>-->
+            <!--</mat-button-toggle-group>-->
+            <!--</div>-->
+            <!--<div class="col-md-6">-->
+            <!--<p>Please Choose “Yes” if you are physical challenged person </p>-->
+            <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
+            <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer4 == 1" disabled>Yes</mat-button-toggle>-->
+            <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer4 == 0" disabled>No</mat-button-toggle>-->
+            <!--</mat-button-toggle-group>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
             <h5 class="mt-3 sub-title">INSURED DETAILS </h5>
             <div class="row box-card" *ngFor="let list of insuredFormData">
-              <div class="col-12">
+              <div class="col-md-6">
                 <div class="p-3">
                   <h6 class="color-blue"> INSURED DETAILS FOR {{list.type | uppercase}}</h6>
                   <ul class="m-0 list-group">
@@ -1758,7 +1820,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <div class="p-3">
                   <h6 class="color-blue mt-4"></h6>
                   <ul class="m-0 list-group">
@@ -1766,7 +1828,9 @@
                     <li class="list-group-item"><strong>Do you have any health problem: </strong> <span *ngIf="list.illness == 'true'">Yes</span> <span *ngIf="list.illness == 'false'">No</span></li>
                     <li class="list-group-item" *ngIf="list.ins_illness"><strong>Illness:</strong> {{list.ins_illness}}</li>
                     <li *ngIf="this.buyProductdetails.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> <span *ngIf="list.ins_hospital_cash == '1'">Yes</span> <span *ngIf="list.ins_hospital_cash == '0'">No</span></li>
+                    <!--                      <li *ngIf="this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8" class="list-group-item"><strong>Buy back PED:</strong> </li>-->
                     <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Buy back PED:</strong> <span *ngIf="list.ins_buyBack_cash == '1'">Yes</span> <span *ngIf="list.ins_buyBack_cash == '0'">No</span></li>
+
                     <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>personal Accident Applicable:</strong> <span *ngIf="list.ins_personal_accident_applicable == '2'"> Yes</span> <span *ngIf="list.ins_personal_accident_applicable == '0'"> No</span></li>
                     <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Manual Labour:</strong> {{list.ins_engage_manual_labour}}</li>
                     <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Winter Sports:</strong> {{list.ins_engage_winter_sports}}</li>
@@ -1777,10 +1841,10 @@
 
             <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
             <div class="row box-card" *ngFor="let allList of nomineeDate">
-              <div class="col-12" *ngFor="let list of allList.nominee; let i = index">
+              <div class="col-md-12" *ngFor="let list of allList.nominee; let i = index">
                 <div class="p-3" >
                   <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-6">
                       <div class="p-3">
                         <ul class="m-0 list-group">
                           <li class="list-group-item">
@@ -1792,7 +1856,7 @@
                         </ul>
                       </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-md-6">
                       <div class="p-3">
                         <ul class="m-0 list-group">
                           <li class="list-group-item">
@@ -1815,7 +1879,7 @@
 
                 <div class="p-3" *ngIf="list.aname !=''">
                   <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-6">
                       <div class="p-3">
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="list.aname !=''"><strong>Appointiee Name:</strong> {{list.aname}}</li>
@@ -1823,7 +1887,7 @@
                         </ul>
                       </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-md-6">
                       <div class="p-3">
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="list.arelationship !=''"><strong>Relationship with insured:</strong> {{list.arelationship}}</li>
@@ -1837,13 +1901,13 @@
             </div>
 
           </section>
-          <section class="summary-details1" *ngIf="payLaterr == true">
+          <section class="summary-details" *ngIf="payLaterr == true">
             <div class="row">
-              <div class="col-12">
+              <div class="col-4">
                 <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.sum_insured_amount}}</span></h4>
               </div>
-              <div class="col-12 mt-2">
-                <ul class="summary-head" style="list-style-type: none">
+              <div class="col-8 mt-2">
+                <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                   <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.premium}}</span> /</li>
                   <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.servicetax}}</span> </li>
@@ -1858,7 +1922,7 @@
               <div class="row box-card">
                 <div class="col-12">
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{requestDetails.title}}.{{requestDetails.proposer_fname}} {{requestDetails.proposer_lname}}</li>
@@ -1870,7 +1934,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item" *ngIf="requestDetails.prop_occupationName !=''"><strong>Occupation:</strong> {{requestDetails.prop_occupationName}}</li>
@@ -1883,7 +1947,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                   <div class="p-3">
                     <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
@@ -1896,7 +1960,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                   <div class=" p-3">
                     <h6 class="color-blue">RESIDENCE DETAILS</h6>
                     <ul class="m-0 list-group">
@@ -1927,48 +1991,72 @@
                     </ul>
                   </div>
                 </div>
-
-
               </div>
-              <div class="col-12">
-                <h6 class="color-blue mt-3">SOCIAL STATUS</h6>
-                <div class="row">
-                  <div class="col-12">
-                    <p>Please choose "Yes" if you are working in UnOrganized Sector</p>
-                    <mat-button-toggle-group #group="matButtonToggleGroup">
-                      <mat-button-toggle value="1" [checked]="requestDetails.social_status_bpl == 1" disabled>Yes</mat-button-toggle>
-                      <mat-button-toggle value="0" [checked]="requestDetails.social_status_bpl == 0" disabled>No</mat-button-toggle>
-                    </mat-button-toggle-group>
-                  </div>
-                  <div class="col-12">
-                    <p>Please choose "Yes" if you are working in informal Sector</p>
-                    <mat-button-toggle-group #group="matButtonToggleGroup">
-                      <mat-button-toggle value="1" [checked]="requestDetails.social_status_disabled == 1" disabled>Yes</mat-button-toggle>
-                      <mat-button-toggle value="0" [checked]="requestDetails.social_status_disabled == 0" disabled>No</mat-button-toggle>
-                    </mat-button-toggle-group>
+
+              <h5 class="mt-3 sub-title">SOCIAL STATUS </h5>
+              <div class="row box-card">
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"*ngIf="requestDetails.social_status_bpl == 1"><strong> Are you working in Unorganized Sector:</strong> <span >Yes</span> </li>
+                      <li class="list-group-item" *ngIf="requestDetails.social_status_bpl != 1||requestDetails.social_status_bpl ==''"><strong>Are you working in Unorganized Sector:</strong> <span >No</span></li>
+                      <li class="list-group-item" *ngIf="requestDetails.social_status_disabled == 1"><strong>Are you working in informal Sector:</strong> <span >Yes</span></li>
+                      <li class="list-group-item" *ngIf="requestDetails.social_status_disabled != 1||prequestDetails.social_status_disabled ==''"><strong>Are you working in informal Sector:</strong><span >No</span></li>
+                    </ul>
                   </div>
                 </div>
-                <hr>
-                <div class="row">
-                  <div class="col-12">
-                    <p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>
-                    <mat-button-toggle-group #group="matButtonToggleGroup">
-                      <mat-button-toggle value="1" [checked]="requestDetails.social_status_informal == 1" disabled>Yes</mat-button-toggle>
-                      <mat-button-toggle value="0" [checked]="requestDetails.social_status_informal == 0" disabled>No</mat-button-toggle>
-                    </mat-button-toggle-group>
-                  </div>
-                  <div class="col-12">
-                    <p>Please Choose “Yes” if you are physical challenged person </p>
-                    <mat-button-toggle-group #group="matButtonToggleGroup">
-                      <mat-button-toggle value="1" [checked]="requestDetails.social_status_unorganized == 1" disabled>Yes</mat-button-toggle>
-                      <mat-button-toggle value="0" [checked]="requestDetails.social_status_unorganized == 0" disabled>No</mat-button-toggle>
-                    </mat-button-toggle-group>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item" *ngIf="requestDetails.social_status_informal == 1"><strong>Are you Economically Vulnerable or Backward Classes:</strong><span >Yes</span></li>
+                      <li class="list-group-item" *ngIf="requestDetails.social_status_informal != 1||requestDetails.social_status_informal ==''"><strong>Are you Economically Vulnerable or Backward Classes:</strong><span >No</span></li>
+                      <li class="list-group-item" *ngIf="requestDetails.social_status_unorganized == 1"><strong>Are you physical challenged person:</strong><span >Yes</span></li>
+                      <li class="list-group-item" *ngIf="requestDetails.social_status_unorganized != 1||requestDetails.social_status_unorganized ==''"><strong>Are you physical challenged person:</strong><span >No</span></li>
+
+                    </ul>
                   </div>
                 </div>
               </div>
+
+              <!--<div class="col-12">-->
+              <!--<h6 class="color-blue mt-3">SOCIAL STATUS</h6>-->
+              <!--<div class="row">-->
+              <!--<div class="col-6">-->
+              <!--<p>Please choose "Yes" if you are working in UnOrganized Sector</p>-->
+              <!--<mat-button-toggle-group #group="matButtonToggleGroup">-->
+              <!--<mat-button-toggle value="1" [checked]="requestDetails.social_status_bpl == 1" disabled>Yes</mat-button-toggle>-->
+              <!--<mat-button-toggle value="0" [checked]="requestDetails.social_status_bpl == 0" disabled>No</mat-button-toggle>-->
+              <!--</mat-button-toggle-group>-->
+              <!--</div>-->
+              <!--<div class="col-6">-->
+              <!--<p>Please choose "Yes" if you are working in informal Sector</p>-->
+              <!--<mat-button-toggle-group #group="matButtonToggleGroup">-->
+              <!--<mat-button-toggle value="1" [checked]="requestDetails.social_status_disabled == 1" disabled>Yes</mat-button-toggle>-->
+              <!--<mat-button-toggle value="0" [checked]="requestDetails.social_status_disabled == 0" disabled>No</mat-button-toggle>-->
+              <!--</mat-button-toggle-group>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<hr>-->
+              <!--<div class="row">-->
+              <!--<div class="col-6">-->
+              <!--<p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>-->
+              <!--<mat-button-toggle-group #group="matButtonToggleGroup">-->
+              <!--<mat-button-toggle value="1" [checked]="requestDetails.social_status_informal == 1" disabled>Yes</mat-button-toggle>-->
+              <!--<mat-button-toggle value="0" [checked]="requestDetails.social_status_informal == 0" disabled>No</mat-button-toggle>-->
+              <!--</mat-button-toggle-group>-->
+              <!--</div>-->
+              <!--<div class="col-6">-->
+              <!--<p>Please Choose “Yes” if you are physical challenged person </p>-->
+              <!--<mat-button-toggle-group #group="matButtonToggleGroup">-->
+              <!--<mat-button-toggle value="1" [checked]="requestDetails.social_status_unorganized == 1" disabled>Yes</mat-button-toggle>-->
+              <!--<mat-button-toggle value="0" [checked]="requestDetails.social_status_unorganized == 0" disabled>No</mat-button-toggle>-->
+              <!--</mat-button-toggle-group>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
               <h5 class="mt-3 sub-title">INSURED DETAILS </h5>
               <div class="row box-card" *ngFor="let list of requestInsuredDetails">
-                <div class="col-12">
+                <div class="col-6">
                   <div class="p-3">
                     <h6 class="color-blue"> INSURED DETAILS FOR {{list.type | uppercase}}</h6>
                     <ul class="m-0 list-group">
@@ -1981,7 +2069,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                   <div class="p-3">
                     <h6 class="color-blue mt-4"></h6>
                     <ul class="m-0 list-group">
@@ -2001,7 +2089,7 @@
                 <div class="col-12">
                   <div class="p-3" >
                     <div class="row">
-                      <div class="col-12">
+                      <div class="col-6">
                         <div class="p-3">
                           <ul class="m-0 list-group">
                             <li class="list-group-item">
@@ -2013,7 +2101,7 @@
                           </ul>
                         </div>
                       </div>
-                      <div class="col-12">
+                      <div class="col-6">
                         <div class="p-3">
                           <ul class="m-0 list-group">
                             <li class="list-group-item">
@@ -2036,7 +2124,7 @@
 
                   <div class="p-3">
                     <div class="row">
-                      <div class="col-12">
+                      <div class="col-6">
                         <div class="p-3">
                           <ul class="m-0 list-group">
                             <li class="list-group-item" *ngIf="requestDetails.appointee_name_one !=''"><strong>Appointiee Name:</strong> {{requestDetails.appointee_name_one}}</li>
@@ -2044,7 +2132,7 @@
                           </ul>
                         </div>
                       </div>
-                      <div class="col-12">
+                      <div class="col-6">
                         <div class="p-3">
                           <ul class="m-0 list-group">
                             <li class="list-group-item" *ngIf="requestDetails.appointee_relationship_one !=''"><strong>Relationship with insured:</strong> {{requestDetails.appointee_relationship_one}}</li>
@@ -2056,7 +2144,7 @@
                   </div>
                   <div class="p-3" *ngIf="requestDetails.nominee_name_two != ''">
                     <div class="row">
-                      <div class="col-12">
+                      <div class="col-6">
                         <div class="p-3">
                           <ul class="m-0 list-group">
                             <li class="list-group-item">
@@ -2068,7 +2156,7 @@
                           </ul>
                         </div>
                       </div>
-                      <div class="col-12">
+                      <div class="col-6">
                         <div class="p-3">
                           <ul class="m-0 list-group">
                             <li class="list-group-item">
@@ -2085,7 +2173,7 @@
                   </div>
                   <div class="p-3">
                     <div class="row">
-                      <div class="col-12">
+                      <div class="col-6">
                         <div class="p-3">
                           <ul class="m-0 list-group">
                             <li class="list-group-item" *ngIf="requestDetails.appointee_name_two !=''"><strong>Appointiee Name:</strong> {{requestDetails.appointee_name_two}}</li>
