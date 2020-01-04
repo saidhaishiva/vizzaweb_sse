@@ -1828,6 +1828,7 @@
                     <li class="list-group-item"><strong>Do you have any health problem: </strong> <span *ngIf="list.illness == 'true'">Yes</span> <span *ngIf="list.illness == 'false'">No</span></li>
                     <li class="list-group-item" *ngIf="list.ins_illness"><strong>Illness:</strong> {{list.ins_illness}}</li>
                     <li *ngIf="this.buyProductdetails.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> <span *ngIf="list.ins_hospital_cash == '1'">Yes</span> <span *ngIf="list.ins_hospital_cash == '0'">No</span></li>
+
                     <!--                      <li *ngIf="this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8" class="list-group-item"><strong>Buy back PED:</strong> </li>-->
                     <li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Buy back PED:</strong> <span *ngIf="list.ins_buyBack_cash == '1'">Yes</span> <span *ngIf="list.ins_buyBack_cash == '0'">No</span></li>
 
