@@ -1,7 +1,7 @@
 <mat-toolbar  [fxLayoutAlign]="(settings.menuType != 'mini') ? 'center center' : 'center center'" class="sidenav-header" style="height: 97px !important;">
     <!--<a mat-raised-button color="accent" routerLink="/" (click)="closeSubMenus()" class="small-logo">V</a>-->
     <!--<a *ngIf="settings.menuType == 'default'" class="logo" routerLink="/" (click)="closeSubMenus()">Vizza</a>-->
-    <img src="assets/img/vizza-logoNew.png" alt="" routerLink="/" style="cursor: pointer;">
+    <img src="assets/img/vizza-logoNew.png" alt="Vizza-Insurance" title="Vizza Insurance-Logo" routerLink="/" style="cursor: pointer;">
     <!--<svg *ngIf="settings.menuType != 'mini'" class="pin" (click)="settings.sidenavIsPinned = !settings.sidenavIsPinned">-->
         <!--<path *ngIf="!settings.sidenavIsPinned" d="M16,12V4H17V2H7V4H8V12L6,14V16H11.2V22H12.8V16H18V14L16,12Z" />-->
         <!--<path *ngIf="settings.sidenavIsPinned" d="M2,5.27L3.28,4L20,20.72L18.73,22L12.8,16.07V22H11.2V16H6V14L8,12V11.27L2,5.27M16,12L18,14V16H17.82L8,6.18V4H7V2H17V4H16V12Z" />-->
@@ -38,7 +38,7 @@
         <!--desktop view-->
         <ul class="navbar-nav w-100" id="myNav">
             <li class="nav-item" routerLink="/four-wheeler-home" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/car.png"></p>
+                <p class="icon"><img src="assets/img/car.svg"></p>
                 <a class="nav-link"><h6>Motor Car Insurance</h6>
                     <p><small>Accidents will happen, no matter how careful we are.</small></p></a>
             </li>
@@ -53,63 +53,63 @@
                     <p><small>Illness is expensive, Better protect your savings.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/personalaccident" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/Personal.png"></p>
+                <p class="icon"><img src="assets/img/Personal.svg"></p>
                 <a class="nav-link"><h6>Personal Accident</h6>
                     <p><small>Being safe is in your own hands. We can help you.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/travel" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/travel.png"></p>
+                <p class="icon"><img src="assets/img/travel.svg"></p>
                 <a class="nav-link"><h6>Travel Insurance</h6>
                     <p><small>Sometimes, things don’t go as planned. Wherever you go, we protect you.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/term-life" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/term.png"></p>
+                <p class="icon"><img src="assets/img/term.svg"></p>
                 <a class="nav-link"><h6>Life Insurance-Term</h6>
                     <p><small>For those who live for you, and after you.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/endowment-life-insurance" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/life-insurance.png" routerLinkActive="active"></p>
+                <p class="icon"><img src="assets/img/life-insurance.svg" routerLinkActive="active"></p>
                 <a class="nav-link"><h6>Life Insurance - Endowment</h6>
                     <p><small>We serve to protect your employees and your Business.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/fire" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/fire.png"></p>
+                <p class="icon"><img src="assets/img/fire.svg"></p>
                 <a class="nav-link"><h6>Fire Insurance</h6>
                 <p><small>Think of fire before it starts, whatever burns never returns.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/burglary" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/burglary.png"></p>
+                <p class="icon"><img src="assets/img/burglary.svg"></p>
                 <a class="nav-link"><h6>Burglary Insurance</h6>
                 <p><small>We aim to protect every individual’s movable property.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/household" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/house.png"></p>
+                <p class="icon"><img src="assets/img/house.svg"></p>
                 <a class="nav-link"><h6>House Holders Policy</h6>
                     <p><small>Protect your house today and remain a householder forever.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/shopkeeperpolicy" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/shopkeepers-policy.png"></p>
+                <p class="icon"><img src="assets/img/shopkeepers-policy.svg"></p>
                 <a class="nav-link"><h6>Shopkeepers Policy</h6>
                 <p><small>If you’re insured, your shop is always “open”.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/workmen" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/workman-compensation.png"></p>
+                <p class="icon"><img src="assets/img/workman-compensation.svg"></p>
                 <a class="nav-link"><h6>Workmen Compensation</h6>
                     <p><small>We serve to protect your employees and your Business.</small></p></a>
             </li>
 
             <li class="nav-item" routerLink="/grouphealth" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/group-health.png"></p>
+                <p class="icon"><img src="assets/img/group-health.svg"></p>
                 <a class="nav-link"><h6>Group Health Insurance</h6>
                     <p><small>You manage their business, they manage your health.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/groupterm" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/group-term-life.png"></p>
+                <p class="icon"><img src="assets/img/group-term-life.svg"></p>
                 <a class="nav-link"><h6>Group Term Life</h6>
                     <p><small>Let your workplace benefit your future.</small></p></a>
             </li>
             <li class="nav-item" routerLink="/grouppersonal" routerLinkActive="active" *ngIf="!sideNavMobile">
-                <p class="icon"><img src="assets/img/group-personal-accident.png"></p>
+                <p class="icon"><img src="assets/img/group-personal-accident.svg"></p>
                 <a class="nav-link"><h6>Group Personal Accident</h6>
                     <p><small>Your accident affects others too. We can help you.</small></p></a>
             </li>
@@ -118,29 +118,29 @@
 
             <!--Mobile View-->
             <li class="nav-item" routerLink="/four-wheeler-home" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/car.png"></p>
+                <p class="icon p-2"><img src="assets/img/car.svg"></p>
                 <a class="nav-link"><h6>Motor Car Insurance</h6></a>
             </li>
             <li class="nav-item" routerLink="/bike-insurance" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/bike.png"></p>
+                <p class="icon p-2"><img src="assets/img/Motor Bike Insurance.svg"></p>
                 <a class="nav-link"><h6>Motor Bike Insurance</h6></a>
             </li>
             <li class="nav-item" routerLink="/healthinsurance" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/health-icon.png"></p>
+                <p class="icon p-2"><img src="assets/img/Health Insurance(1).svg"></p>
                 <a class="nav-link"><h6>Health Insurance</h6></a>
             </li>
             <li class="nav-item" routerLink="/personalaccident" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/Personal.png"></p>
+                <p class="icon p-2"><img src="assets/img/Personal.svg"></p>
                 <a class="nav-link"><h6>Personal Accident</h6></a>
             </li>
             <li class="nav-item" routerLink="/travel" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/travel.png"></p>
+                <p class="icon p-2"><img src="assets/img/travel.svg"></p>
                 <a class="nav-link"><h6>Travel Insurance</h6></a>
             </li>
 
             <!--life insurance drop down mobile-->
             <li class="nav-item" (click)="subMenu(1)" *ngIf="sideNavMobile">
-                <p class="icon p-2" style="background: #9ECA3A"><img src="assets/img/term.png"></p>
+                <p class="icon p-2" style="background: #9ECA3A"><img src="assets/img/term.svg"></p>
                 <h6 class="nav-link" href="#">Life Insurance <i class="fa fa-caret-down"></i></h6>
             </li>
             <li class="nav-item" routerLink="/term-life" routerLinkActive="active" *ngIf="showMenu">
@@ -157,15 +157,15 @@
             </li>
 
             <li class="nav-item" routerLink="/household" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2" style="background: #4CB8E4"><img src="assets/img/house.png"></p>
+                <p class="icon p-2" style="background: #4CB8E4"><img src="assets/img/house.svg"></p>
                 <a class="nav-link"><h6>House Holder Policy</h6></a>
             </li>
             <li class="nav-item" routerLink="/shopkeeperpolicy" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2" style="background: #F246A2"><img src="assets/img/shopkeepers-policy.png"></p>
+                <p class="icon p-2" style="background: #F246A2"><img src="assets/img/shopkeepers-policy.svg"></p>
                 <a class="nav-link"><h6>Shopkeepers Policy</h6></a>
             </li>
             <li class="nav-item" routerLink="/workmen" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2" style="background: #FBD100"><img src="assets/img/workman-compensation.png"></p>
+                <p class="icon p-2" style="background: #FBD100"><img src="assets/img/workman-compensation.svg"></p>
                 <a class="nav-link"><h6>Workmen Compensation</h6></a>
             </li>
 
