@@ -5,12 +5,12 @@
 
 <div class="container h-100 d-none d-sm-none d-md-none d-lg-block" fxLayoutAlign="start start" id="car-home">
   <div class="row my-flex-card">
-    <h2 class="w-100 text-center" style="color:#22B9C6;"><img src="assets/img/Motor Car Insurance.svg" class="logo-size">&nbsp;Motor Car Insurance</h2>
+    <h2 class="w-100 text-center" style="color:#22B9C6;"><img src="assets/img/Motor Car Insurance.svg " alt="vizza-car-logo" title="vizza-FourWheeler" class="logo-size">&nbsp;Motor Car Insurance</h2>
     <div class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-block">
           <div class="aboutImg">
-            <img src="assets/img/car-Inner-bannernw.jpg" class="w-100">
+            <img src="assets/img/car-Inner-bannernw.jpg"alt="vizza-car-banner" title="vizza-FourWheelerInsuranceBanner" class="w-100">
             <div class="aboutContent">
               <h4>About Car Insurance</h4>
               <p style="text-align: left;">Accidents will happen, no matter how careful we are..… <button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow" style="color: #000000;">Know more</a></span></button></p>
@@ -114,16 +114,17 @@
                   </div>
                   <div class="col-md-12">
                     <mat-form-field class="w-100 text-left">
-                      <input matInput [matDatepicker]="picker4" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser')"   (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" [required]="typeList != 'new'">
+                      <input matInput [matDatepicker]="picker4" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (input)="dobValidate($event);registrationStart()"  formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser');registrationStart()"   (dateChange)="addEvent($event, 'regitser');registrationStart()"  maxlength="10" minlength="10" [required]="typeList != 'new'">
                       <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                       <mat-datepicker #picker4 ></mat-datepicker>
                       <mat-error *ngIf="fourWheeler.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
-
                     </mat-form-field>
+                    <div class="error" *ngIf="registrationStartError !='' && registrationStartError != true">{{registrationStartError}}</div>
+
                   </div>
                   <div class="col-md-12">
                     <mat-form-field class="w-100 text-left">
-                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="fourWheeler.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart" (input)="previousStart($event)" (dateInput)="addstart($event);previousStart($event)"  (dateChange)="addstart($event);previousStart($event)"  maxlength="10" minlength="10" [required]="typeList != 'new'">
+                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="fourWheeler.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart" (input)="previousStart($event)" (change)="previousStart($event)" (dateInput)="addstart($event);previousStart($event)"  (dateChange)="addstart($event);previousStart($event)"  maxlength="10" minlength="10" [required]="typeList != 'new'">
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                       <mat-error *ngIf="fourWheeler.controls.previousPolicyStart.errors?.required">Start Date is required</mat-error>
@@ -195,7 +196,7 @@
 
                 </div>
                 <div class="col-md-12 text-center mt-3">
-                  <button mat-raised-button color="primary"  (click)="quationFirstStep(fourWheeler.value);getRegionLists()">Submit</button>
+                  <button mat-raised-button color="primary"  (click)="registrationStart();previousStart();quationFirstStep(fourWheeler.value);getRegionLists()">Submit</button>
                   <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;" (click)="getpreviousCompany()"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </form>
@@ -210,7 +211,7 @@
       <div class="col-12 mt-4 border border-dark p-4">
         <div class="row">
           <div class="col-sm-12">
-            <h3 class="text-center" style="color: #22B9C6 "><img src="assets/img/Motor Car Insurance.svg" class="logo-size"> About Car Insurance</h3>
+            <h3 class="text-center" style="color: #22B9C6 "><img src="assets/img/Motor Car Insurance.svg" class="logo-size" alt="vizza-car-logo" title="vizza-FourWheeler"> About Car Insurance</h3>
           </div>
           <p>The owners of motor vehicles are not aware of  the important aspects of the risks andliabilities associated with owning and /or driving a  motor vehicle. Even though the Motor insurance policies can be bought or renewed online through internet the renewal dates are missed and the vehicle plies on the road without insurance. It is essential to know that as the owner of the vehicle the liability if any in the event of an accident rests on the motor vehicle owner and all negligence arising out of driving is with the driver. </p>
           <p>The motor vehicle insurance has two parts</p>

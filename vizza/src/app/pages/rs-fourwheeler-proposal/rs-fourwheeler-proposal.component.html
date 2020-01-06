@@ -166,7 +166,7 @@
 
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">
-                                                        <input  matInput placeholder="City" formControlName="rcity"  autocomplete="off"  [readonly]="sameasper">
+                                                        <input  matInput placeholder="City" formControlName="rcity"  autocomplete="off"  [readonly]="sameasper" required>
                                                         <mat-error *ngIf="proposer.controls.rcity.errors?.required">City is required</mat-error>
                                                     </mat-form-field></div>
 
