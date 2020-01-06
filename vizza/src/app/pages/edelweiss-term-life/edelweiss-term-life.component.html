@@ -198,7 +198,7 @@
                                        <p>Smoker<span class="error" >*</span></p>
                                        <mat-radio-group formControlName="isSmokerSpouse" (change)="smokerSpouse()">
                                            <mat-radio-button value="Yes" >Yes</mat-radio-button>
-                                           <mat-radio-button value="No">No</mat-radio-button>
+                                           <mat-radio-button value="No" style="padding-left: 9px;">No</mat-radio-button>
                                        </mat-radio-group>
                                    </div>
 
@@ -245,7 +245,7 @@
 <!--                               </div>-->
 
                                <div class="col-md-4">
-                                   <mat-radio-group formControlName="isHCB" (change)="isHospitalCash();edelweissPrimium()" >
+                                   <mat-radio-group formControlName="isHCB" (change)="edelweissPrimium()" >
                                        <p>Hospital Cash Benefit</p>
                                        <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                        <mat-radio-button value="No">No</mat-radio-button>
@@ -254,7 +254,7 @@
                                <div class="col-md-4 mt-2" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
+                                       <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (input)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                    </mat-form-field>
                                    <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 6,00,000</p></div>
                                    <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
@@ -264,7 +264,7 @@
                                </div>
 
                                <div class="col-md-4">
-                                   <mat-radio-group formControlName="criticalIllness" (change)="iscriticalIllness();edelweissPrimium()" >
+                                   <mat-radio-group formControlName="criticalIllness" (change)="edelweissPrimium()" >
                                        <p> Enhanced Critical Illness Rider</p>
                                        <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                        <mat-radio-button value="No">No</mat-radio-button>
@@ -273,7 +273,7 @@
                                <div class="col-md-4 mt-2">
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                                       <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (input)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                    </mat-form-field>
                                    <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000  Max: 50,00,000</p></div>
                                    <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
@@ -290,7 +290,7 @@
                                </div>
 
                                <div class="col-md-4">
-                                   <mat-radio-group formControlName="isADB" (change)="isDeathBenefit();edelweissPrimium()" >
+                                   <mat-radio-group formControlName="isADB" (change)="edelweissPrimium()" >
                                        <p>Accidental Death Benefit</p>
                                        <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                        <mat-radio-button value="No">No</mat-radio-button>
@@ -299,7 +299,7 @@
                                <div class="col-md-4 mt-2"  >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                                       <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (input)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                    </mat-form-field>
                                    <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
 
@@ -318,7 +318,7 @@
                                 <p *ngIf="ADB != 0"><strong> Accidental Death Benefit Premium :</strong> {{ADB}}</p>
                                </div>
                                <div class="col-md-4">
-                                   <mat-radio-group formControlName="isATPD" (change)="isAccidentalTotal();edelweissPrimium()" >
+                                   <mat-radio-group formControlName="isATPD" (change)="edelweissPrimium()" >
                                        <p>Permanent Disability Rider</p>
                                        <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                        <mat-radio-button value="No">No</mat-radio-button>
@@ -1383,6 +1383,7 @@
 
                                </mat-radio-group>
 
+
                            </div>
 
 
@@ -1395,7 +1396,7 @@
                                </mat-radio-group>
                                <div class="error" *ngIf="piloterror != ''&& piloterror != true ">{{piloterror}}</div>
                                <mat-radio-group formControlName="pilot1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                       <p>Spouse</p>
+                                       <p>Spouse<span class="error" >*</span></p>
                                        <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                        <mat-radio-button value="No">No</mat-radio-button>
 
@@ -1415,7 +1416,7 @@
                                <div class="error" *ngIf="activityerror != ''&& activityerror != true ">{{activityerror}}</div>
                                <mat-radio-group formControlName="activity1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                   <p>Spouse</p>
+                                   <p>Spouse<span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
 
@@ -1470,7 +1471,7 @@
 
                                <mat-radio-group formControlName="drugsInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                   <p>Spouse</p>
+                                   <p>Spouse<span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
 
@@ -1500,7 +1501,7 @@
 
                                <mat-radio-group formControlName="alcoholInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                   <p>Spouse</p>
+                                   <p>Spouse <span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
 
@@ -1635,7 +1636,7 @@
                                <div class="error" *ngIf="tobaccoInderror != ''&& tobaccoInderror != true ">{{tobaccoInderror}}</div>
                                <mat-radio-group formControlName="tobaccoInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                   <p>Spouse</p>
+                                   <p>Spouse <span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
 
@@ -1666,7 +1667,7 @@
 <!--                               <div class="error" *ngIf="tobaccoStopInderror != ''&& tobaccoStopInderror != true ">{{tobaccoStopInderror}}</div>-->
 
                                <mat-radio-group formControlName="tobaccoStopInd" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                   <p>Spouse </p>
+                                   <p>Spouse <span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
@@ -1698,7 +1699,7 @@
                                        <div class="error" *ngIf="consultDoctorInderror != ''&& consultDoctorInderror != true ">{{consultDoctorInderror}}</div>
 
                                        <mat-radio-group formControlName="consultDoctorInd1" (change)="isconsultDoctorInd()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse</p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -1725,7 +1726,7 @@
                                        <div class="error" *ngIf="ECGInderror != ''&& ECGInderror != true ">{{ECGInderror}}</div>
 
                                        <mat-radio-group formControlName="ECGInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse</p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -1754,7 +1755,7 @@
                                        <div class="error" *ngIf="admitInderror != ''&& admitInderror != true ">{{admitInderror}}</div>
 
                                        <mat-radio-group formControlName="admitInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse</p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -1783,7 +1784,7 @@
                                </mat-radio-group>
                                <div class="error" *ngIf="medicalTreatmenterror != ''&& medicalTreatmenterror != true ">{{medicalTreatmenterror}}</div>
                                <mat-radio-group formControlName="medicalTreatment1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                   <p>Spouse</p>
+                                   <p>Spouse <span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
@@ -1814,7 +1815,7 @@
                                        <div class="error" *ngIf="heartDieaseInderror != ''&& heartDieaseInderror != true ">{{heartDieaseInderror}}</div>
 
                                        <mat-radio-group formControlName="heartDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse</p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -1842,7 +1843,7 @@
                                            <div class="error" *ngIf="respiratoryDieaseInderror != ''&& respiratoryDieaseInderror != true ">{{respiratoryDieaseInderror}}</div>
 
                                            <mat-radio-group formControlName="respiratoryDieaseInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
-                                               <p>Spouse</p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1870,7 +1871,7 @@
                                            <div class="error" *ngIf="diabetesInderror != ''&& diabetesInderror != true ">{{diabetesInderror}}</div>
 
                                            <mat-radio-group formControlName="diabetesInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse</p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1897,7 +1898,7 @@
                                            <div class="error" *ngIf="kidneyDieaseInderror != ''&& kidneyDieaseInderror != true ">{{kidneyDieaseInderror}}</div>
 
                                            <mat-radio-group formControlName="kidneyDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse</p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1924,7 +1925,7 @@
                                            <div class="error" *ngIf="digestiveDieaseInderror != ''&& digestiveDieaseInderror != true ">{{digestiveDieaseInderror}}</div>
 
                                            <mat-radio-group formControlName="digestiveDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse</p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1949,7 +1950,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="cancerDieaseInderror != ''&& cancerDieaseInderror != true ">{{cancerDieaseInderror}}</div>
                                            <mat-radio-group formControlName="cancerDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse</p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1975,7 +1976,7 @@
                                            <div class="error" *ngIf="tropicalDieaseInderror != ''&& tropicalDieaseInderror != true ">{{tropicalDieaseInderror}}</div>
 
                                            <mat-radio-group formControlName="tropicalDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse</p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -2001,7 +2002,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="thyroidDieaseInderror != ''&& thyroidDieaseInderror != true ">{{thyroidDieaseInderror}}</div>
                                            <mat-radio-group formControlName="thyroidDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse</p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
 
@@ -2029,7 +2030,7 @@
                                            <div class="error" *ngIf="bloodDieaseInderror != ''&& bloodDieaseInderror != true ">{{bloodDieaseInderror}}</div>
 
                                            <mat-radio-group formControlName="bloodDieaseInd1" (change)="isbloodDieaseInd()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse</p>
+                                               <p>Spouse<span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
 
@@ -2055,7 +2056,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="nervousDieaseInderror != ''&& nervousDieaseInderror != true ">{{nervousDieaseInderror}}</div>
                                            <mat-radio-group formControlName="nervousDieaseInd1"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse</p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -2080,7 +2081,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="muscleDieaseInderror != ''&& muscleDieaseInderror != true ">{{muscleDieaseInderror}}</div>
                                            <mat-radio-group formControlName="muscleDieaseInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse </p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -2106,7 +2107,7 @@
                                            <div class="error" *ngIf="receivedTreatment2error != ''&& receivedTreatment2error != true ">{{receivedTreatment2error}}</div>
 
                                            <mat-radio-group formControlName="receivedTreatment21" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse </p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -2132,7 +2133,7 @@
                                            </mat-radio-group>
                                            <div class="error" *ngIf="alcoholicInderror != ''&& alcoholicInderror != true ">{{alcoholicInderror}}</div>
                                            <mat-radio-group formControlName="alcoholicInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse </p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -2157,7 +2158,7 @@
                                              </mat-radio-group>
                                            <div class="error" *ngIf="otherIllnessInderror != ''&& otherIllnessInderror != true ">{{otherIllnessInderror}}</div>
                                            <mat-radio-group formControlName="otherIllnessInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                               <p>Spouse </p>
+                                               <p>Spouse <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -2185,14 +2186,14 @@
                                <div class="col-md-12 mt-2">
                                    <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                        <mat-radio-group formControlName="deformityInd" (change)="isdeformityInd();travelOutside()" >
-                                           <p>Any deformity or physical abnormality? </p>
+                                           <p>Any deformity or physical abnormality? <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
 
                                        </mat-radio-group>
                                        <div class="error" *ngIf="deformityInderror != ''&& deformityInderror != true ">{{deformityInderror}}</div>
                                        <mat-radio-group formControlName="deformityInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse </p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -2221,7 +2222,7 @@
                                        <div class="error" *ngIf="receivedTreatment1error != ''&& receivedTreatment1error != true ">{{receivedTreatment1error}}</div>
 
                                        <mat-radio-group formControlName="receivedTreatment11" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse </p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -2249,7 +2250,7 @@
 
                                        <div class="error" *ngIf="symptomsInderror != ''&& symptomsInderror != true ">{{symptomsInderror}}</div>
                                        <mat-radio-group formControlName="symptomsInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse </p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -2275,7 +2276,7 @@
                                        </mat-radio-group>
 <!--                                       <div class="error" *ngIf="isHospitalizederror != ''&& isHospitalizederror != true ">{{isHospitalizederror}}</div>-->
                                        <mat-radio-group formControlName="isHospitalized1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse </p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -2307,7 +2308,7 @@
                                        </mat-radio-group>
 <!--                                       <div class="error" *ngIf="isRecoverederror != ''&& isRecoverederror != true ">{{isRecoverederror}}</div>-->
                                        <mat-radio-group formControlName="isRecovered1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse </p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -2341,7 +2342,7 @@
                                        <div class="error" *ngIf="pregnantInderror != ''&& pregnantInderror != true ">{{pregnantInderror}}</div>
 
                                        <mat-radio-group formControlName="pregnantInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse </p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -2367,7 +2368,7 @@
                                        </mat-radio-group>
                                        <div class="error" *ngIf="femaleDieaseInderror != ''&& femaleDieaseInderror != true ">{{femaleDieaseInderror}}</div>
                                        <mat-radio-group formControlName="femaleDieaseInd1" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                           <p>Spouse </p>
+                                           <p>Spouse <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -3343,7 +3344,7 @@
 
 
                                <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                               <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Next</button>
+                               <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)=" getotp(stepper)">Next</button>
                                <!--<button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>-->
                            <!--</form>-->
                        </div>

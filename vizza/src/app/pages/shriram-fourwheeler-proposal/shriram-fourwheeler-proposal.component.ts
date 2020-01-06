@@ -109,6 +109,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public nonElectricalSumAount: any;
   public electricalMaxValue: any;
   public idvValuess: any;
+  public coverPremium: any;
   public idvAmount: any;
   public electricAmount: any;
   public nonElectricAmount: any;
@@ -125,6 +126,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public Nil_depreciation_cover :any;
   public LL_paid_driver:any;
   public pa_owner_driver :any;
+  public pa_unnamed_passenger_cover :any;
   public Ncb :any;
   public mobileNumber :any;
   public PreviousValid:any;
@@ -215,6 +217,11 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       policyTypeName: '',
       policyType: ['', Validators.required],
       nilDepreciationCover: '',
+      totalAntiTheftPremium: '',
+      totalDepreciationPremium: '',
+      totalPaforUnnamedPremium: '',
+      totalElectricalItemPremium: '',
+      totalNonElectricalItemPremium: '',
       electricalAccess: '',
       electricalAccessSI: '',
       nonElectricalAccess: '',
@@ -591,11 +598,52 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public proposalTypeFailure(error) {
   }
 
+  // updateElectricalItem(){
+  //   if(this.vehical.controls.electricalAccess.value == true){
+  //     this.vehical.controls['electricalAccessSI'].setValidators([Validators.required]);
+  //   } else {
+  //     this.vehical.controls['electricalAccessSI'].patchValue('');
+  //
+  //     this.vehical.controls['electricalAccessSI'].setValidators(null);
+  //     this.electricalSumAount=false;
+  //     this.electricalSumAount='';
+  //
+  //   }
+  //   this.vehical.controls['electricalAccessSI'].updateValueAndValidity();
+  // }
+  //
+  // updatenonElectricalItem(){
+  //   if(this.vehical.controls.nonElectricalAccess.value == true){
+  //     this.vehical.controls['nonElectricalAccessSI'].setValidators([Validators.required]);
+  //   } else {
+  //     this.vehical.controls['nonElectricalAccessSI'].patchValue('');
+  //
+  //     this.vehical.controls['nonElectricalAccessSI'].setValidators(null);
+  //     this.nonElectricalSumAount=false;
+  //     this.nonElectricalSumAount='';
+  //
+  //   }
+  //   this.vehical.controls['nonElectricalAccessSI'].updateValueAndValidity();
+  // }
+  //
+  // updateUnnamedPassenger(){
+  //   if(this.vehical.controls.paforUnnamed.value == true){
+  //     this.vehical.controls['paforUnnamedSI'].setValidators([Validators.required]);
+  //   } else {
+  //     this.vehical.controls['paforUnnamedSI'].patchValue('');
+  //
+  //     this.vehical.controls['paforUnnamedSI'].setValidators(null);
+  //   }
+  //   this.vehical.controls['paforUnnamedSI'].updateValueAndValidity();
+  // }
+
   updateElectricalItem(){
     if(this.vehical.controls.electricalAccess.value == true){
       this.vehical.controls['electricalAccessSI'].setValidators([Validators.required]);
+
     } else {
       this.vehical.controls['electricalAccessSI'].patchValue('');
+      // this.vehical.controls['totalElectricalItemPremium'].patchValue('');
 
       this.vehical.controls['electricalAccessSI'].setValidators(null);
       this.electricalSumAount=false;
@@ -604,30 +652,133 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     }
     this.vehical.controls['electricalAccessSI'].updateValueAndValidity();
   }
+  electricalSumInsure(){
+    if(this.vehical.controls['electricalAccessSI'].value){
+      this.vehical.controls['totalElectricalItemPremium'].setValidators([Validators.required]);
+      this.getCover();
+    }else{
+      this.vehical.controls['totalElectricalItemPremium'].patchValue('');
+      this.vehical.controls['totalElectricalItemPremium'].setValidators(null);
+    }
+    this.vehical.controls['totalElectricalItemPremium'].updateValueAndValidity();
+  }
+  electricalAmount(){
+    this.vehical.controls['totalElectricalItemPremium'].patchValue(this.electrical_cover);
+    console.log(this.vehical.controls['totalElectricalItemPremium'].value,'456789087865456')
+  }
 
   updatenonElectricalItem(){
     if(this.vehical.controls.nonElectricalAccess.value == true){
       this.vehical.controls['nonElectricalAccessSI'].setValidators([Validators.required]);
+      // this.vehical.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
     } else {
       this.vehical.controls['nonElectricalAccessSI'].patchValue('');
+      // this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
 
       this.vehical.controls['nonElectricalAccessSI'].setValidators(null);
+      // this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
       this.nonElectricalSumAount=false;
       this.nonElectricalSumAount='';
 
     }
     this.vehical.controls['nonElectricalAccessSI'].updateValueAndValidity();
+    // this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
+  }
+
+  electricalNonSumInsure(){
+    if(this.vehical.controls['nonElectricalAccessSI'].value){
+      this.vehical.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
+      this.getCover();
+    }else{
+      this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
+      this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
+    }
+    this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
+  }
+
+  electricalNonAmount(){
+    this.vehical.controls['totalNonElectricalItemPremium'].patchValue(this.electrical_cover);
   }
 
   updateUnnamedPassenger(){
     if(this.vehical.controls.paforUnnamed.value == true){
       this.vehical.controls['paforUnnamedSI'].setValidators([Validators.required]);
+      // this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
     } else {
       this.vehical.controls['paforUnnamedSI'].patchValue('');
+      // this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
 
       this.vehical.controls['paforUnnamedSI'].setValidators(null);
+      // this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
+      this.pASumAount=false;
+      this.pASumAount='';
+
     }
     this.vehical.controls['paforUnnamedSI'].updateValueAndValidity();
+    // this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
+  }
+
+  unnamedPassengerSumInsure(){
+    if(this.vehical.controls['paforUnnamedSI'].value){
+      this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
+      this.getCover();
+    }else{
+      this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
+      this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
+    }
+    this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
+  }
+  unnamedPassengerAmount(){
+    this.vehical.controls['totalPaforUnnamedPremium'].patchValue(this.pa_unnamed_passenger_cover);
+  }
+
+  updateAntiTheft(){
+    if(this.vehical.controls.antiTheft.value == true){
+      this.vehical.controls['totalAntiTheftPremium'].setValidators([Validators.required]);
+      this.getCover();
+    } else {
+      this.vehical.controls['totalAntiTheftPremium'].patchValue('');
+
+      this.vehical.controls['totalAntiTheftPremium'].setValidators(null);
+
+    }
+    this.vehical.controls['totalAntiTheftPremium'].updateValueAndValidity();
+  }
+  antiTheftAmount(){
+    this.vehical.controls['totalAntiTheftPremium'].patchValue(this.anti_theft_cover);
+  }
+
+  updateDepreciation(){
+    if(this.vehical.controls.nilDepreciationCover.value == true){
+      this.vehical.controls['totalDepreciationPremium'].setValidators([Validators.required]);
+      this.getCover();
+    } else {
+      this.vehical.controls['totalDepreciationPremium'].patchValue('');
+
+      this.vehical.controls['totalDepreciationPremium'].setValidators(null);
+
+    }
+    this.vehical.controls['totalDepreciationPremium'].updateValueAndValidity();
+  }
+  depreciationAmount(){
+    this.vehical.controls['totalDepreciationPremium'].patchValue(this.Nil_depreciation_cover);
+  }
+
+  updatePaOwnerDriver(){
+    if(this.vehical.controls.paOwnerDriver.value == true){
+      this.vehical.controls['totalPaOwnerDriverPremium'].setValidators([Validators.required]);
+      this.getCover();
+    } else {
+      this.vehical.controls['totalPaOwnerDriverPremium'].patchValue('');
+
+      this.vehical.controls['totalPaOwnerDriverPremium'].setValidators(null);
+
+    }
+    this.vehical.controls['totalPaOwnerDriverPremium'].updateValueAndValidity();
+  }
+
+  paOwnerDriverAmount(){
+    this.vehical.controls['totalPaOwnerDriverPremium'].patchValue(this.pa_owner_driver);
   }
 
   updateCNGKit(){
@@ -1275,6 +1426,138 @@ hypoName(){
     document.getElementById('main-content').scrollTop = 0;
   }
 
+  getCover() {
+
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'enquiry_id': this.bikeEnquiryId,
+      "created_by": "",
+      'proposal_id': sessionStorage.shiramFwProposalID == '' || sessionStorage.shiramFwProposalID == undefined ? '' : sessionStorage.shiramFwProposalID,
+      "geogrophicalExtensionCover": "false",
+      "package_type": this.packagelist,
+
+      "motorProposalObj": {
+        // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
+        "InsuredPrefix": "1",
+        "InsuredName": this.proposer.controls['name'].value,
+        "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
+        "Address1": this.proposer.controls['address'].value,
+        "Address2": this.proposer.controls['address2'].value,
+        "Address3": this.proposer.controls['address3'].value,
+        "State": 'TN',
+        "City": this.proposer.controls['city'].value,
+        "PinCode": this.proposer.controls['pincode'].value,
+        "PanNo": this.proposer.controls['pan'].value,
+        "TelephoneNo": "",
+        "FaxNo": "",
+        "GSTNo": "",
+        "EMailID": this.proposer.controls['email'].value,
+        "PolType": this.vehical.controls['policyType'].value,
+        "ProposalType": this.vehical.controls['proposalType'].value,
+        "MobileNo": this.proposer.controls['mobile'].value,
+        "DateOfBirth": this.proposer.controls['dob'].value,
+        "CoverNoteNo": "",
+        "CoverNoteDt": "",
+        "IDV_of_Vehicle": this.buyBikeDetails.Idv,
+        "Colour": this.vehical.controls['vehicleColour'].value,
+        "NoEmpCoverLL": "",
+        "VehiclePurposeYN": "",
+        "DriverAgeYN": "0",
+        "LimitOwnPremiseYN": "1",
+        "CNGKitYN": this.vehical.controls['CNGKit'].value == true ? '1' : '0',
+        "CNGKitSI": this.vehical.controls['CNGKitSI'].value,
+        "LimitedTPPDYN": "1",
+        "InBuiltCNGKitYN": "0",
+        "VoluntaryExcess": this.vehical.controls['voluntaryExcess'].value,
+        "Bangladesh": "0",
+        "Bhutan": "0",
+        "SriLanka": "0",
+        "Pakistan": "0",
+        "Nepal": "0",
+        "Maldives": "0",
+        "DeTariff": "0",
+        "PreInspectionReportYN": "0",
+        "PreInspection": "",
+        "BreakIn": "NO",
+        "AddonPackage": this.buyBikeDetails.plan_code,
+        "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
+        "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
+        "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value,
+        "ElectricalaccessYN": this.vehical.controls['electricalAccess'].value == true ? '1' : '0',
+        "ElectricalaccessSI": this.vehical.controls['electricalAccessSI'].value,
+        "NonElectricalaccessYN": this.vehical.controls['nonElectricalAccess'].value == true ? '1' : '0',
+        "NonElectricalaccessSI":  this.vehical.controls['nonElectricalAccessSI'].value,
+        "PAPaidDriverConductorCleanerYN": this.vehical.controls['paPaidDriver'].value == true ? '1' : '0',
+        "PAPaidDriverConductorCleanerSI": this.vehical.controls['paPaidDriverSI'].value,
+        "PAPaidDriverCount": this.vehical.controls['PAPaidDriverCount'].value,
+        "PAPaidConductorCount": this.vehical.controls['PAPaidConductorCount'].value,
+        "PAPaidCleanerCount": this.vehical.controls['PAPaidCleanerCount'].value,
+        "ElectricalaccessRemarks": "",
+        "NonElectricalaccessRemarks": "",
+        "SpecifiedPersonField": "",
+        "PAOwnerDriverExclusion": "",
+        "PAOwnerDriverExReason": "",
+        "NomineeNameforPAOwnerDriver": "Dhinedh",
+        "NomineeAgeforPAOwnerDriver": "22",
+        "NomineeRelationforPAOwnerDriver": "Son",
+        "AppointeeNameforPAOwnerDriver": "",
+        "AppointeeRelationforPAOwnerDriver": "",
+        "LLtoPaidDriverYN": this.vehical.controls['lltoPaidDriver'].value == true ? '1' : '0',
+        "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
+        "PreviousPolicyNo": "879797979",
+        "PreviousInsurer": "Bajaj Allianz General Insurance Company Limited",
+        "PreviousPolicySI": "100000",
+        "PreviousPolicyType": "MOT-PLT-001",
+        "PreviousNilDepreciation": "1",
+        "HypothecationType": "",
+        "HypothecationBankName": "",
+        "HypothecationAddress1": "",
+        "HypothecationAddress2": "",
+        "HypothecationAddress3": "",
+        "HypothecationAgreementNo": "",
+        "HypothecationCountry": "",
+        "HypothecationState": "",
+        "HypothecationCity": "",
+        "HypothecationPinCode": "",
+        "MultiCarBenefitYN": "N",
+        "KeyReplacementYN": "Y",
+        "LossOfPersonBelongYN": "Y"
+      },
+    }
+    this.fwService.getCoverPremium(data).subscribe(
+        (successData) => {
+          this.coverSuccess(successData);
+        },
+        (error) => {
+          this.coverFailure(error);
+        }
+    );
+  }
+  public coverSuccess(successData){
+    if (successData.IsSuccess) {
+      this.coverPremium = successData.ResponseObject.cover;
+      this.electrical_cover = this.coverPremium.electrical_cover;
+      this.anti_theft_cover = this.coverPremium.anti_theft_cover;
+      this.Nil_depreciation_cover = this.coverPremium.Nil_depreciation_cover;
+      this.pa_owner_driver = this.coverPremium.pa_owner_driver;
+      this.pa_unnamed_passenger_cover = this.coverPremium.pa_unnamed_passenger_cover;
+      this.electricalAmount();
+      this.electricalNonAmount();
+      this.unnamedPassengerAmount();
+      this.antiTheftAmount();
+      this.paOwnerDriverAmount();
+      this.depreciationAmount();
+    }
+    else{
+        this.toastr.error(successData.ErrorObject);
+      }
+  }
+  public coverFailure(error) {
+  }
+
   // proposal Creation
 
   proposal(stepper) {
@@ -1658,6 +1941,11 @@ hypoName(){
         policyTypeName: stepper2.policyTypeName,
         proposalType:stepper2.proposalType ,
         nilDepreciationCover: stepper2.nilDepreciationCover,
+        totalAntiTheftPremium: stepper2.totalAntiTheftPremium,
+        totalDepreciationPremium: stepper2.totalDepreciationPremium,
+        totalNonElectricalItemPremium: stepper2.totalNonElectricalItemPremium,
+        totalElectricalItemPremium: stepper2.totalElectricalItemPremium,
+        totalPaforUnnamedPremium: stepper2.totalPaforUnnamedPremium,
         electricalAccess:stepper2.electricalAccess,
         electricalAccessSI: stepper2.electricalAccessSI,
         nonElectricalAccess:stepper2.nonElectricalAccess,

@@ -93,6 +93,8 @@ export class BikeInsuranceComponent implements OnInit {
     public ClaimValid: any;
     public previousCompanyValid: boolean;
     public previousStartError: any;
+    public registrationStartError: any;
+    public lesserDate: any;
 
     constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder,  public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public bikeService: BikeInsuranceService,  public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, public titleService: Title) {
         this.settings = this.appSettings.settings;
@@ -108,8 +110,12 @@ export class BikeInsuranceComponent implements OnInit {
         }
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+        const lateDate=minDate.getFullYear()-1;
+        this.lesserDate = new Date(lateDate, minDate.getMonth(), minDate.getDate());
+
         this.listDetails = false;
         this.previousStartError = false;
+        this.registrationStartError = false;
         this.config = {
             displayKey: "city", //if objects array passed which key to be displayed defaults to description
             search: true,
@@ -440,8 +446,18 @@ export class BikeInsuranceComponent implements OnInit {
         }
     }
 
+    registrationStart(event:any){
+        if(this.lesserDate > this.bikeInsurance.controls['registrationDate'].value ){
+            this.registrationStartError=false;
+            this.registrationStartError='';
+        }else{
+            this.registrationStartError=true;
+            this.registrationStartError='Registration Date should be lesser than Current Date';
+        }
+    }
+
     previousStart(event:any){
-        if(this.bikeInsurance.controls['previousPolicyStart'].value >= this.bikeInsurance.controls['registrationDate'].value ){
+        if(this.bikeInsurance.controls['previousPolicyStart'].value > this.bikeInsurance.controls['registrationDate'].value ){
             this.previousStartError=false;
             this.previousStartError='';
         }else{
@@ -589,7 +605,7 @@ export class BikeInsuranceComponent implements OnInit {
         console.log(this.bikeInsurance,'bikegroup');
 
         console.log(this.bikeInsurance.valid,'valuevalid');
-        if(this.bikeInsurance.valid && (this.CityValid==false && this.CompanyValid==false && this.ClaimValid==false&&this.previousStartError==false)) {
+        if(this.bikeInsurance.valid && (this.CityValid==false && this.CompanyValid==false && this.ClaimValid==false&&this.previousStartError==false&&this.registrationStartError==false)) {
 
             this.bikeService.getMotorHomeDetails(data).subscribe(
                 (successData) => {

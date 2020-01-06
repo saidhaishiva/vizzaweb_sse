@@ -9,7 +9,7 @@
       "outDir": "admin",
       "assets": [
         "assets",
-        "favicon.svg"
+        "favicon.gif"
       ],
       "index": "index.html",
       "main": "main.ts",

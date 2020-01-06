@@ -207,12 +207,22 @@
                                         </div>
                                         <div class="row mt-2" *ngIf="!policyTypeDetails">
                                             <div class="col-md-6 ml-3">
-                                                <mat-checkbox  formControlName="nilDepreciationCover" (change)="changeDepreciation()">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
+                                                <mat-checkbox  formControlName="nilDepreciationCover" (change)="changeDepreciation();updateDepreciation()">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
+                                            </div>
+                                            <div class="col-md-4 mt-0" *ngIf="vehical.controls.nilDepreciationCover.value == true">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Cover Premium"  formControlName="totalDepreciationPremium"  autocomplete="off"  [required]="vehical.controls.nilDepreciationCover.value == true" readonly>
+                                                </mat-form-field>
                                             </div>
                                         </div>
                                         <div class="row"  *ngIf="!policyTypeDetails">
                                             <div class="col-md-6 ml-3">
-                                                <mat-checkbox  formControlName="antiTheft">Anti Theft</mat-checkbox>
+                                                <mat-checkbox  formControlName="antiTheft" (change)="updateAntiTheft()">Anti Theft</mat-checkbox>
+                                            </div>
+                                            <div class="col-md-4 mt-0" *ngIf="vehical.controls.antiTheft.value == true">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Cover Premium"  formControlName="totalAntiTheftPremium"  autocomplete="off"  [required]="vehical.controls.antiTheft.value == true" readonly>
+                                                </mat-form-field>
                                             </div>
                                         </div>
                                         <div class="row" *ngIf="policyTypeDetails">
@@ -228,10 +238,15 @@
                                                 </div>
                                                 <div class="col-md-4 " *ngIf="vehical.controls.electricalAccess.value == true">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Sum Insured"  formControlName="electricalAccessSI" (keypress)="numberValidate($event)" (input)="changeCalcElect($event)"   autocomplete="off"  [required]="vehical.controls.electricalAccess.value == true" >
+                                                        <input matInput placeholder="Sum Insured"  formControlName="electricalAccessSI" (keypress)="numberValidate($event)" (input)="changeCalcElect($event);electricalSumInsure()"   autocomplete="off"  [required]="vehical.controls.electricalAccess.value == true" >
                                                         <!--<mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
                                                     </mat-form-field>
                                                     <div class="error" *ngIf="electricalSumAount !='' && electricalSumAount != true">{{electricalSumAount}} {{electricalMaxValue}}</div>
+                                                </div>
+                                                <div class="col-md-4 mt-0" *ngIf="vehical.controls.electricalAccessSI.value">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Cover Premium"  formControlName="totalElectricalItemPremium"  autocomplete="off" [required]="vehical.controls.electricalAccessSI.value" readonly>
+                                                    </mat-form-field>
                                                 </div>
 
                                             </div>
@@ -244,10 +259,15 @@
                                                 </div>
                                                 <div class="col-md-4" *ngIf="vehical.controls.nonElectricalAccess.value == true">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Sum Insured"  formControlName="nonElectricalAccessSI"   autocomplete="off" (input)="changeCalcNonElect($event)" (keypress)="numberValidate($event)"  [required]="vehical.controls.nonElectricalAccess.value == true"  >
+                                                        <input matInput placeholder="Sum Insured"  formControlName="nonElectricalAccessSI"   autocomplete="off" (input)="changeCalcNonElect($event);electricalNonSumInsure()" (keypress)="numberValidate($event)"  [required]="vehical.controls.nonElectricalAccess.value == true"  >
                                                         <!--<mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
                                                     </mat-form-field>
                                                     <div class="error" *ngIf="nonElectricalSumAount !='' && nonElectricalSumAount != true">{{nonElectricalSumAount}} {{electricalMaxValue}}</div>
+                                                </div>
+                                                <div class="col-md-4 mt-0" *ngIf="vehical.controls.nonElectricalAccessSI.value">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Cover Premium"  formControlName="totalNonElectricalItemPremium"  autocomplete="off"  [required]="vehical.controls.nonElectricalAccessSI.value" readonly>
+                                                    </mat-form-field>
                                                 </div>
 
                                             </div>
@@ -260,9 +280,14 @@
                                                 </div>
                                                 <div class="col-md-4" *ngIf="vehical.controls.paforUnnamed.value ==true">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Sum Insured"  formControlName="paforUnnamedSI"  autocomplete="off"  [required]="vehical.controls.paforUnnamed.value==true" >
+                                                        <input matInput placeholder="Sum Insured"  formControlName="paforUnnamedSI"  autocomplete="off" (input)="unnamedPassengerSumInsure()" [required]="vehical.controls.paforUnnamed.value==true" >
                                                     </mat-form-field>
                                                     <!--<div class="error" *ngIf="pASumAount !='' && pASumAount != true">{{pASumAount}} {{electricalMaxValue}}</div>-->
+                                                </div>
+                                                <div class="col-md-4 mt-0" *ngIf="vehical.controls.paforUnnamedSI.value">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Cover Premium"  formControlName="totalPaforUnnamedPremium"  autocomplete="off"  [required]="vehical.controls.paforUnnamedSI.value" readonly>
+                                                    </mat-form-field>
                                                 </div>
                                             </div>
                                         </div>

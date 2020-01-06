@@ -243,6 +243,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public drugsInderror:any;
   public alcoholInderror:any;
   public tobaccoInderror:any;
+  public otpGen:any;
   public tittleread :boolean;
 
 
@@ -2561,28 +2562,28 @@ edelweissInsureDetails(stepper: MatStepper, value) {
     console.log(error);
   }
   sumAssuredADBError(event:any) {
-    if (this.insureArray.controls['sumAssuredADB'].value >= 100000 && this.insureArray.controls['sumAssuredADB'].value <= 10000000) {
+    if (this.addon.controls['sumAssuredADB'].value >= 100000 && this.addon.controls['sumAssuredADB'].value <= 10000000) {
       this.adbError ='';
     } else {
       this.adbError = 'SumAssured Accidental Death Benefit should be 100000 - 10000000';
     }
   }
   sumAssuredATPDError(event:any) {
-    if (this.insureArray.controls['sumAssuredATPD'].value >= 100000 && this.insureArray.controls['sumAssuredATPD'].value <= 10000000) {
+    if (this.addon.controls['sumAssuredATPD'].value >= 100000 && this.addon.controls['sumAssuredATPD'].value <= 10000000) {
       this.atpdError ='';
     } else {
       this.atpdError = 'SumAssured Accidental Total and Permanent Disability should be 100000 - 10000000';
     }
   }
   sumAssuredCiError(event:any) {
-    if (this.insureArray.controls['criticalsumAssured'].value >= 100000 && this.insureArray.controls['criticalsumAssured'].value <= 5000000) {
+    if (this.addon.controls['criticalsumAssured'].value >= 100000 && this.addon.controls['criticalsumAssured'].value <= 5000000) {
       this.ciError ='';
     } else {
       this.ciError = 'SumAssured Critical Illness should be 100000 - 5000000';
     }
   }
   sumAssuredHCBError(event:any) {
-    if (this.insureArray.controls['sumAssuredHCB'].value >= 100000 && this.insureArray.controls['sumAssuredHCB'].value <= 600000) {
+    if (this.addon.controls['sumAssuredHCB'].value >= 100000 && this.addon.controls['sumAssuredHCB'].value <= 600000) {
       this.hcbdError ='';
     } else {
       this.hcbdError = 'SumAssured Hospital Cash Benefit should be 100000 - 600000';
@@ -3519,7 +3520,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
     console.log(this.bankDetail['controls'].existingInsurance['controls'].value,'345678954')
     console.log(this.bankDetail['controls'].existingInsurance['controls'].length,'value');
     console.log(this.bankDetail.controls['existingInsuranceInd'].value ,'value');
-    if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
+    // if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
 
       for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
         // if (i != 0) {
@@ -3541,10 +3542,10 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.setValidators([Validators.required]);
       }
 
-    } else if (this.bankDetail.controls['existingInsuranceInd'].value == false) {
+    // } else if (this.bankDetail.controls['existingInsuranceInd'].value == false) {
       for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
-      if ( i !=  0) {
-        }
+      // if ( i !=  0) {
+      //   }
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue('');
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue('');
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue('');
@@ -3561,11 +3562,11 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators(null);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.setValidators(null);
       }
-     }
+     // }
     for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
 
-      if ( i !=  0) {
-      }
+      // if ( i !=  0) {
+      // }
           this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.updateValueAndValidity();
           this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.updateValueAndValidity();
           this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.updateValueAndValidity();
@@ -4179,72 +4180,72 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
     this.addon.controls['betterHalfsumAssured'].updateValueAndValidity();
 
   }
-  iscriticalIllness() {
+  // iscriticalIllness() {
+  //
+  //   if (this.addon.controls['criticalIllness'].value == 'Yes') {
+  //     this.addon.controls['criticalsumAssured'].patchValue(this.addon.controls['criticalsumAssured'].value);
+  //     // this.addon.controls['criticalClaim'].patchValue(this.addon.controls['criticalClaim'].value);
+  //
+  //     this.addon.controls['criticalsumAssured'].setValidators([Validators.required]);
+  //     // this.addon.controls['criticalClaim'].setValidators([Validators.required]);
+  //   } else {
+  //     this.addon.controls['criticalsumAssured'].patchValue('');
+  //     // this.addon.controls['criticalClaim'].patchValue('');
+  //
+  //     this.addon.controls['criticalsumAssured'].setValidators(null);
+  //     // this.addon.controls['criticalClaim'].setValidators(null);
+  //
+  //   }
+  //   this.addon.controls['criticalsumAssured'].updateValueAndValidity();
+  //   // this.addon.controls['criticalClaim'].updateValueAndValidity();
+  //
+  // }
 
-    if (this.addon.controls['criticalIllness'].value == 'Yes') {
-      this.addon.controls['criticalsumAssured'].patchValue(this.addon.controls['criticalsumAssured'].value);
-      // this.addon.controls['criticalClaim'].patchValue(this.addon.controls['criticalClaim'].value);
-
-      this.addon.controls['criticalsumAssured'].setValidators([Validators.required]);
-      // this.addon.controls['criticalClaim'].setValidators([Validators.required]);
-    } else {
-      this.addon.controls['criticalsumAssured'].patchValue('');
-      // this.addon.controls['criticalClaim'].patchValue('');
-
-      this.addon.controls['criticalsumAssured'].setValidators(null);
-      // this.addon.controls['criticalClaim'].setValidators(null);
-
-    }
-    this.addon.controls['criticalsumAssured'].updateValueAndValidity();
-    // this.addon.controls['criticalClaim'].updateValueAndValidity();
-
-  }
-
-  isDeathBenefit() {
-
-    if (this.addon.controls['isADB'].value == 'Yes') {
-      this.addon.controls['sumAssuredADB'].patchValue(this.addon.controls['sumAssuredADB'].value);
-      this.addon.controls['sumAssuredADB'].setValidators([Validators.required]);
-
-    } else {
-      this.addon.controls['sumAssuredADB'].patchValue('');
-
-      this.addon.controls['sumAssuredADB'].setValidators(null);
-
-    }
-    this.addon.controls['sumAssuredADB'].updateValueAndValidity();
-
-  }
-  isAccidentalTotal() {
-
-    if (this.addon.controls['isATPD'].value == 'Yes') {
-      this.addon.controls['sumAssuredATPD'].patchValue(this.addon.controls['sumAssuredATPD'].value);
-
-      this.addon.controls['sumAssuredATPD'].setValidators([Validators.required]);
-    } else {
-      this.addon.controls['sumAssuredATPD'].patchValue('');
-
-      this.addon.controls['sumAssuredATPD'].setValidators(null);
-
-    }
-    this.addon.controls['sumAssuredATPD'].updateValueAndValidity();
-
-  }
-  isHospitalCash() {
-
-    if (this.addon.controls['isHCB'].value == 'Yes') {
-      this.addon.controls['sumAssuredHCB'].patchValue(this.addon.controls['sumAssuredHCB'].value);
-
-      this.addon.controls['sumAssuredHCB'].setValidators([Validators.required]);
-    } else {
-      this.addon.controls['sumAssuredHCB'].patchValue('');
-
-      this.addon.controls['sumAssuredHCB'].setValidators(null);
-
-    }
-    this.addon.controls['sumAssuredHCB'].updateValueAndValidity();
-
-  }
+  // isDeathBenefit() {
+  //
+  //   if (this.addon.controls['isADB'].value == 'Yes') {
+  //     this.addon.controls['sumAssuredADB'].patchValue(this.addon.controls['sumAssuredADB'].value);
+  //     this.addon.controls['sumAssuredADB'].setValidators([Validators.required]);
+  //
+  //   } else {
+  //     this.addon.controls['sumAssuredADB'].patchValue('');
+  //
+  //     this.addon.controls['sumAssuredADB'].setValidators(null);
+  //
+  //   }
+  //   this.addon.controls['sumAssuredADB'].updateValueAndValidity();
+  //
+  // }
+  // isAccidentalTotal() {
+  //
+  //   if (this.addon.controls['isATPD'].value == 'Yes') {
+  //     this.addon.controls['sumAssuredATPD'].patchValue(this.addon.controls['sumAssuredATPD'].value);
+  //
+  //     this.addon.controls['sumAssuredATPD'].setValidators([Validators.required]);
+  //   } else {
+  //     this.addon.controls['sumAssuredATPD'].patchValue('');
+  //
+  //     this.addon.controls['sumAssuredATPD'].setValidators(null);
+  //
+  //   }
+  //   this.addon.controls['sumAssuredATPD'].updateValueAndValidity();
+  //
+  // }
+  // isHospitalCash() {
+  //
+  //   if (this.addon.controls['isHCB'].value == 'Yes') {
+  //     this.addon.controls['sumAssuredHCB'].patchValue(this.addon.controls['sumAssuredHCB'].value);
+  //
+  //     this.addon.controls['sumAssuredHCB'].setValidators([Validators.required]);
+  //   } else {
+  //     this.addon.controls['sumAssuredHCB'].patchValue('');
+  //
+  //     this.addon.controls['sumAssuredHCB'].setValidators(null);
+  //
+  //   }
+  //   this.addon.controls['sumAssuredHCB'].updateValueAndValidity();
+  //
+  // }
   isadventurous() {
 
     if (this.medicalDetail.controls['adventurousActivities'].value == '9~') {
@@ -6202,7 +6203,24 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   public geteSalesReqProofDocFailure(error) {
   }
 
+
+  getotp(stepper)
+  {
+    let dialogRef = this.dialog.open(EdelweissOpt, {
+      width: '400px'
+    });
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+
+      }
+
+    });
+    this.getProposalNext(stepper);
+  }
+
   getProposalNext(stepper) {
+
     const data = {
       // 'platform': 'web',
       // 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -6218,7 +6236,9 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       "transaction_id":this.summaryData.receipt_no,
       "policy_no":this.summaryData.policy_no,
     };
-    this.settings.loadingSpinner = true;
+    // this.getotp();
+    // this.settings.loadingSpinner = true;
+
     this.termService.edelweissDownloadPdf(data).subscribe(
         (successData) => {
           this.ProposalNextSuccess(successData,stepper);
@@ -6230,6 +6250,18 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   }
 
   public ProposalNextSuccess(successData,stepper) {
+    // let dialogRef = this.dialog.open(EdelweissOpt, {
+    //   width: '400px'
+    // });
+    // dialogRef.disableClose = true;
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if(result) {
+    //
+    //   }
+    //
+    // });x
+    // this.getotp();
+
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
       // this.toastr.success(successData.ResponseObject);
@@ -6238,18 +6270,19 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       this.topScroll();
       this.proposalGenStatus = false;
       this.proposalNextList = successData.ResponseObject;
+      this.settings.loadingSpinner = true;
       this.proposalFormPdf = this.proposalNextList.path;
       console.log(this.proposalFormPdf,'this.proposalFormPdf');
-      let dialogRef = this.dialog.open(EdelweissOpt, {
-        width: '400px'
-      });
-      dialogRef.disableClose = true;
-      dialogRef.afterClosed().subscribe(result => {
-        if(result) {
-
-        }
-
-      });
+      // let dialogRef = this.dialog.open(EdelweissOpt, {
+      //   width: '400px'
+      // });
+      // dialogRef.disableClose = true;
+      // dialogRef.afterClosed().subscribe(result => {
+      //   if(result) {
+      //
+      //   }
+      //
+      // });
 
     } else {
       this.proposalGenStatus = true;
@@ -6583,6 +6616,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         sperAddr2: this.getStepper2.sperAddr2,
         sperAddr3: this.getStepper2.sperAddr3,
         sperCity: this.getStepper2.sperCity,
+        sisCurrPerAddrSame: this.getStepper2.sisCurrPerAddrSame,
         sperPincode: this.getStepper2.sperPincode,
         sperState: this.getStepper2.sperState,
         sheightFeets: this.getStepper2.sheightFeets,
@@ -7057,17 +7091,39 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
             </div>
         </div>
         <div mat-dialog-actions style="justify-content: center">
-          <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>
-          <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
+          <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Close</button>
+          <button mat-button class="secondary-bg-color" (click)="otpEdVal();onNoClick()" >Ok</button>
+          <button mat-button class="secondary-bg-color" (click)="edelweissOTP()" >Resend OTP</button>
+          
         </div>
     `
 })
 export class EdelweissOpt {
     otpCode: any;
+  otpGen: any;
+  enquiryFormData:any;
+  lifePremiumList:any;
+  summaryData:any;
+  addonFormData:any;
+  policyId:any;
     constructor(
         public dialogRef: MatDialogRef<EdelweissOpt>,
         @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
         this.otpCode = '';
+      if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+        let summaryData = JSON.parse(sessionStorage.summaryData);
+        this.summaryData = summaryData;
+        this.addonFormData = JSON.parse(sessionStorage.addonFormData);
+        this.policyId = this.summaryData.policyId;
+        sessionStorage.edelweiss_term_life_id = this.policyId;
+      }
+
+
+    }
+    ngOnInit(){
+      this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+      this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+
 
     }
     // // Number validation
@@ -7077,9 +7133,46 @@ export class EdelweissOpt {
 
      onNoClick(): void {
     this.dialogRef.close(true);
-      }
 
-    otpEdVal() {
+     }
+  // otpEdVal2(stepper)
+  // {
+  //   this.proposal(stepper);
+  // }
+
+  edelweissOTP() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "product_id": this.lifePremiumList.product_id,
+      "sub_product_id": this.lifePremiumList.sub_product_id,
+      "policy_id": this.policyId,
+      "policyTerm": this.lifePremiumList.policy_term,
+      "premiumPayingTerm": this.lifePremiumList.premium_paying_term,
+      "betterHalfBenefit": this.addonFormData.betterHalfBenefit,
+
+    }
+    this.termService.edelweissOTP(data).subscribe(
+        (successData) => {
+          this.getOtpSuccess(successData);
+        },
+        (error) => {
+          this.getOtpFailure(error);
+        }
+    );
+  }
+
+  public getOtpSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.otpGen = successData.ResponseObject;
+    }
+  }
+  public getOtpFailure(error) {
+  }
+
+      otpEdVal() {
         let summaryData = JSON.parse(sessionStorage.summaryData);
         summaryData = summaryData;
         console.log(summaryData,'44444444')
@@ -7114,6 +7207,7 @@ export class EdelweissOpt {
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
             this.dialogRef.close(true);
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }

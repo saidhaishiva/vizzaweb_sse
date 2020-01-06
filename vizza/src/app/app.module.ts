@@ -360,6 +360,8 @@ import { MatCheckboxModule} from '@angular/material';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { NgtUniversalModule } from '@ng-toolkit/universal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+// import { FaqComponentComponent } from '../faq-component/faq-component.component';
+import {FaqComponentComponent} from './pages/faq-component/faq-component.component';
 
 
 @NgModule({
@@ -677,7 +679,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         EdelweissPosComponent,
         EdelweissposOpt,
         ViewdetailscomponentComponent,
-        EdelweissposPaymnetSuccessComponent
+        EdelweissposPaymnetSuccessComponent,
+        FaqComponentComponent
     ],
 
     providers: [
