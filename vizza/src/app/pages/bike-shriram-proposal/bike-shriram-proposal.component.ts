@@ -687,7 +687,6 @@ export class BikeShriramProposalComponent implements OnInit {
         if(this.vehical.controls.paforUnnamed.value == true){
             this.vehical.controls['paforUnnamedSI'].setValidators([Validators.required]);
             // this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
-            this.getCover();
         } else {
             this.vehical.controls['paforUnnamedSI'].patchValue('');
             // this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
@@ -732,22 +731,22 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['totalAntiTheftPremium'].patchValue(this.anti_theft_cover);
     }
 
-    updatePaOwnerDriver(){
-        if(this.vehical.controls.paOwnerDriver.value == true){
-            this.vehical.controls['totalPaOwnerDriverPremium'].setValidators([Validators.required]);
-            this.getCover();
-        } else {
-            this.vehical.controls['totalPaOwnerDriverPremium'].patchValue('');
-
-            this.vehical.controls['totalPaOwnerDriverPremium'].setValidators(null);
-
-        }
-        this.vehical.controls['totalPaOwnerDriverPremium'].updateValueAndValidity();
-    }
-
-    paOwnerDriverAmount(){
-        this.vehical.controls['totalPaOwnerDriverPremium'].patchValue(this.pa_owner_driver);
-    }
+    // updatePaOwnerDriver(){
+    //     if(this.vehical.controls.paOwnerDriver.value == true){
+    //         this.vehical.controls['totalPaOwnerDriverPremium'].setValidators([Validators.required]);
+    //         this.getCover();
+    //     } else {
+    //         this.vehical.controls['totalPaOwnerDriverPremium'].patchValue('');
+    //
+    //         this.vehical.controls['totalPaOwnerDriverPremium'].setValidators(null);
+    //
+    //     }
+    //     this.vehical.controls['totalPaOwnerDriverPremium'].updateValueAndValidity();
+    // }
+    //
+    // paOwnerDriverAmount(){
+    //     this.vehical.controls['totalPaOwnerDriverPremium'].patchValue(this.pa_owner_driver);
+    // }
     // changefinancecompany() {
     //     this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.getBankHypoDetails[this.vehical.controls['hypothecationBankName'].value]);
     //     console.log(this.vehical.controls['bankNamevalue'].value,'11111111111111111111');
@@ -1446,9 +1445,11 @@ export class BikeShriramProposalComponent implements OnInit {
             this.electricalNonAmount();
             this.unnamedPassengerAmount();
             this.antiTheftAmount();
-            this.paOwnerDriverAmount();
+            // this.paOwnerDriverAmount();
         }
-        console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
+        else{
+            this.toastr.error(successData.ErrorObject);
+        }
     }
     public coverFailure(error) {
     }
