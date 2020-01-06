@@ -685,6 +685,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
           'business_type': this.ListDetails.business_type,
           'registration_city': this.vehicalDetails.controls['city'].value,
           'company_id': this.typeList == 'new' ? this.newCompanyName : this.renewelCompanyName,
+          'type': this.enquiryFormData.type,
           'rto_code': this.rto,
           'region_name': this.vehicalDetails.controls['regionList'].value,
           'prev_insurance_name': this.enquiryFormData.prev_insurance_name == null ? '' : this.enquiryFormData.prev_insurance_name
