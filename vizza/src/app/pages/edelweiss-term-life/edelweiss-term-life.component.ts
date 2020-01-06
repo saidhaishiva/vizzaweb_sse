@@ -6202,7 +6202,23 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   public geteSalesReqProofDocFailure(error) {
   }
 
+  getotp(stepper)
+  {
+    let dialogRef = this.dialog.open(EdelweissOpt, {
+      width: '400px'
+    });
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+
+      }
+
+    });
+    this.getProposalNext(stepper);
+  }
+
   getProposalNext(stepper) {
+
     const data = {
       // 'platform': 'web',
       // 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -6218,7 +6234,9 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       "transaction_id":this.summaryData.receipt_no,
       "policy_no":this.summaryData.policy_no,
     };
+    // this.getotp();
     this.settings.loadingSpinner = true;
+
     this.termService.edelweissDownloadPdf(data).subscribe(
         (successData) => {
           this.ProposalNextSuccess(successData,stepper);
@@ -6230,6 +6248,18 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   }
 
   public ProposalNextSuccess(successData,stepper) {
+    // let dialogRef = this.dialog.open(EdelweissOpt, {
+    //   width: '400px'
+    // });
+    // dialogRef.disableClose = true;
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if(result) {
+    //
+    //   }
+    //
+    // });
+    // this.getotp();
+
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
       // this.toastr.success(successData.ResponseObject);
@@ -6240,16 +6270,16 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       this.proposalNextList = successData.ResponseObject;
       this.proposalFormPdf = this.proposalNextList.path;
       console.log(this.proposalFormPdf,'this.proposalFormPdf');
-      let dialogRef = this.dialog.open(EdelweissOpt, {
-        width: '400px'
-      });
-      dialogRef.disableClose = true;
-      dialogRef.afterClosed().subscribe(result => {
-        if(result) {
-
-        }
-
-      });
+      // let dialogRef = this.dialog.open(EdelweissOpt, {
+      //   width: '400px'
+      // });
+      // dialogRef.disableClose = true;
+      // dialogRef.afterClosed().subscribe(result => {
+      //   if(result) {
+      //
+      //   }
+      //
+      // });
 
     } else {
       this.proposalGenStatus = true;
@@ -6583,6 +6613,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
         sperAddr2: this.getStepper2.sperAddr2,
         sperAddr3: this.getStepper2.sperAddr3,
         sperCity: this.getStepper2.sperCity,
+        sisCurrPerAddrSame: this.getStepper2.sisCurrPerAddrSame,
         sperPincode: this.getStepper2.sperPincode,
         sperState: this.getStepper2.sperState,
         sheightFeets: this.getStepper2.sheightFeets,
@@ -7057,8 +7088,10 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
             </div>
         </div>
         <div mat-dialog-actions style="justify-content: center">
-          <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>
-          <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
+          <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Close</button>
+          <button mat-button class="secondary-bg-color" (click)="otpEdVal();onNoClick()" >Ok</button>
+<!--          <button mat-button class="secondary-bg-color" (click)="otpEdVal2()" >Resend OTP</button>-->
+          
         </div>
     `
 })
@@ -7077,9 +7110,14 @@ export class EdelweissOpt {
 
      onNoClick(): void {
     this.dialogRef.close(true);
-      }
 
-    otpEdVal() {
+     }
+  // otpEdVal2(stepper)
+  // {
+  //   this.proposal(stepper);
+  // }
+
+      otpEdVal() {
         let summaryData = JSON.parse(sessionStorage.summaryData);
         summaryData = summaryData;
         console.log(summaryData,'44444444')
@@ -7114,6 +7152,7 @@ export class EdelweissOpt {
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
             this.dialogRef.close(true);
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }
