@@ -311,6 +311,7 @@ export class BikeShriramProposalComponent implements OnInit {
         console.log(electricSum,'electricSum...');
         console.log(this.electricalMaxValue,'electricalMaxValue...');
         if(electricSum < this.electricalMaxValue){
+            this.getCover();
             this.electricalSumAount=false;
             this.electricalSumAount='';
         }else{
@@ -324,6 +325,7 @@ export class BikeShriramProposalComponent implements OnInit {
         console.log(nonElectricSum,'electricSum...');
         console.log(this.electricalMaxValue,'electricalMaxValue...');
         if(nonElectricSum < this.electricalMaxValue){
+            this.getCover();
             this.nonElectricalSumAount=false;
             this.nonElectricalSumAount='';
         }else{
@@ -621,19 +623,26 @@ export class BikeShriramProposalComponent implements OnInit {
     updateElectricalItem(){
         if(this.vehical.controls.electricalAccess.value == true){
             this.vehical.controls['electricalAccessSI'].setValidators([Validators.required]);
-            this.vehical.controls['totalElectricalItemPremium'].setValidators([Validators.required]);
-            this.getCover();
+
         } else {
             this.vehical.controls['electricalAccessSI'].patchValue('');
-            this.vehical.controls['totalElectricalItemPremium'].patchValue('');
+            // this.vehical.controls['totalElectricalItemPremium'].patchValue('');
 
             this.vehical.controls['electricalAccessSI'].setValidators(null);
-            this.vehical.controls['totalElectricalItemPremium'].setValidators(null);
             this.electricalSumAount=false;
             this.electricalSumAount='';
 
         }
         this.vehical.controls['electricalAccessSI'].updateValueAndValidity();
+    }
+    electricalSumInsure(){
+        if(this.vehical.controls['electricalAccessSI'].value){
+            this.vehical.controls['totalElectricalItemPremium'].setValidators([Validators.required]);
+            this.getCover();
+        }else{
+            this.vehical.controls['totalElectricalItemPremium'].patchValue('');
+            this.vehical.controls['totalElectricalItemPremium'].setValidators(null);
+        }
         this.vehical.controls['totalElectricalItemPremium'].updateValueAndValidity();
     }
     electricalAmount(){
@@ -666,15 +675,56 @@ export class BikeShriramProposalComponent implements OnInit {
     updateUnnamedPassenger(){
         if(this.vehical.controls.paforUnnamed.value == true){
             this.vehical.controls['paforUnnamedSI'].setValidators([Validators.required]);
+            this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
+            this.getCover();
         } else {
             this.vehical.controls['paforUnnamedSI'].patchValue('');
+            this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
 
             this.vehical.controls['paforUnnamedSI'].setValidators(null);
+            this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
             this.pASumAount=false;
             this.pASumAount='';
 
         }
         this.vehical.controls['paforUnnamedSI'].updateValueAndValidity();
+        this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
+    }
+    unnamedPassengerAmount(){
+        this.vehical.controls['totalPaforUnnamedPremium'].patchValue(this.pa_unnamed_passenger_cover);
+    }
+
+    updateAntiTheft(){
+        if(this.vehical.controls.antiTheft.value == true){
+            this.vehical.controls['totalAntiTheftPremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.vehical.controls['totalAntiTheftPremium'].patchValue('');
+
+            this.vehical.controls['totalAntiTheftPremium'].setValidators(null);
+
+        }
+        this.vehical.controls['totalAntiTheftPremium'].updateValueAndValidity();
+    }
+    antiTheftAmount(){
+        this.vehical.controls['totalAntiTheftPremium'].patchValue(this.anti_theft_cover);
+    }
+
+    updatePaOwnerDriver(){
+        if(this.vehical.controls.paOwnerDriver.value == true){
+            this.vehical.controls['totalPaOwnerDriverPremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.vehical.controls['totalPaOwnerDriverPremium'].patchValue('');
+
+            this.vehical.controls['totalPaOwnerDriverPremium'].setValidators(null);
+
+        }
+        this.vehical.controls['totalPaOwnerDriverPremium'].updateValueAndValidity();
+    }
+
+    paOwnerDriverAmount(){
+        this.vehical.controls['totalPaOwnerDriverPremium'].patchValue(this.pa_owner_driver);
     }
     // changefinancecompany() {
     //     this.vehical.controls['hypothecationBankNamevalue'].patchValue(this.getBankHypoDetails[this.vehical.controls['hypothecationBankName'].value]);
@@ -1372,6 +1422,9 @@ export class BikeShriramProposalComponent implements OnInit {
             this.pa_unnamed_passenger_cover=this.coverPremium.pa_unnamed_passenger_cover;
             this.electricalAmount();
             this.electricalNonAmount();
+            this.unnamedPassengerAmount();
+            this.antiTheftAmount();
+            this.paOwnerDriverAmount();
         }
         console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
     }

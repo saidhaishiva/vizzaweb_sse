@@ -89,6 +89,8 @@ export class FourWheelerHomeComponent implements OnInit {
   public previousStartError: any;
   public ClaimValid: any;
   public previousCompanyValid: boolean;
+  public registrationStartError: any;
+  public lesserDate: any;
 
   constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
     this.settings = this.appSettings.settings;
@@ -104,6 +106,8 @@ export class FourWheelerHomeComponent implements OnInit {
     }
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+    const lateDate=minDate.getFullYear()-1;
+    this.lesserDate = new Date(lateDate, minDate.getMonth(), minDate.getDate());
     this.listDetails = false;
     this.config = {
       displayKey: "city", //if objects array passed which key to be displayed defaults to description
@@ -194,9 +198,18 @@ export class FourWheelerHomeComponent implements OnInit {
   }
   public regionFailure(error) {
   }
+  registrationStart(event:any){
+    if(this.lesserDate > this.fourWheeler.controls['registrationDate'].value ){
+      this.registrationStartError=false;
+      this.registrationStartError='';
+    }else{
+      this.registrationStartError=true;
+      this.registrationStartError='Registration Date should be lesser than Current Date';
+    }
+  }
 
   previousStart(event:any){
-    if(this.fourWheeler.controls['previousPolicyStart'].value >= this.fourWheeler.controls['registrationDate'].value ){
+    if(this.fourWheeler.controls['previousPolicyStart'].value > this.fourWheeler.controls['registrationDate'].value ){
       this.previousStartError=false;
       this.previousStartError='';
     }else{
