@@ -653,18 +653,29 @@ export class BikeShriramProposalComponent implements OnInit {
     updatenonElectricalItem(){
         if(this.vehical.controls.nonElectricalAccess.value == true){
             this.vehical.controls['nonElectricalAccessSI'].setValidators([Validators.required]);
-            this.vehical.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
+            // this.vehical.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
         } else {
             this.vehical.controls['nonElectricalAccessSI'].patchValue('');
-            this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
+            // this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
 
             this.vehical.controls['nonElectricalAccessSI'].setValidators(null);
-            this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
+            // this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
             this.nonElectricalSumAount=false;
             this.nonElectricalSumAount='';
 
         }
         this.vehical.controls['nonElectricalAccessSI'].updateValueAndValidity();
+        // this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
+    }
+
+    electricalNonSumInsure(){
+        if(this.vehical.controls['nonElectricalAccessSI'].value){
+            this.vehical.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
+            this.getCover();
+        }else{
+            this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
+            this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
+        }
         this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
     }
 
@@ -675,19 +686,30 @@ export class BikeShriramProposalComponent implements OnInit {
     updateUnnamedPassenger(){
         if(this.vehical.controls.paforUnnamed.value == true){
             this.vehical.controls['paforUnnamedSI'].setValidators([Validators.required]);
-            this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
+            // this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
             this.getCover();
         } else {
             this.vehical.controls['paforUnnamedSI'].patchValue('');
-            this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
+            // this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
 
             this.vehical.controls['paforUnnamedSI'].setValidators(null);
-            this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
+            // this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
             this.pASumAount=false;
             this.pASumAount='';
 
         }
         this.vehical.controls['paforUnnamedSI'].updateValueAndValidity();
+        // this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
+    }
+
+    unnamedPassengerSumInsure(){
+        if(this.vehical.controls['paforUnnamedSI'].value){
+            this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
+            this.getCover();
+        }else{
+            this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
+            this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
+        }
         this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
     }
     unnamedPassengerAmount(){
