@@ -1140,6 +1140,7 @@ setOccupationList() {
             let dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
 
             let age = this.ageCalculate(this.ageCheck);
+            console.log(age)
 
                 this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.familyMembers[i].ins_age = age;
@@ -1152,8 +1153,8 @@ setOccupationList() {
                     // }
 
                     if (this.buyProductdetails.product_id == '9') {
-                        if (age < 18 || age > 60) {
-                            this.familyMembers[i].ageRestriction = ' Age between 18 years to 60 years';
+                        if (age < 18 || age > 65) {
+                            this.familyMembers[i].ageRestriction = ' Age between 18 years to 65 years';
                         } else {
                             this.familyMembers[i].ageRestriction = '';
                         }
@@ -1166,8 +1167,8 @@ setOccupationList() {
                     } else if (this.buyProductdetails.product_id == '6') {
                         let dobmonth = this.DobMonthCalculate(monthCheck);
                         console.log(dobmonth, 'dobmonth1');
-                        if (age < 18 || age > 60) {
-                            this.familyMembers[i].ageRestriction = 'Age between 18 years to 60 years';
+                        if (age < 18 || age > 65) {
+                            this.familyMembers[i].ageRestriction = 'Age between 18 years to 65 years';
                         } else {
                             this.familyMembers[i].ageRestriction = '';
                         }
