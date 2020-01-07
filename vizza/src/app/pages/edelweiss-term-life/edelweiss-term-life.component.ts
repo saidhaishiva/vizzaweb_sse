@@ -6211,12 +6211,13 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if(result != '') {
+        console.log(result,'result');
+        this.getProposalNext(stepper);
 
       }
 
     });
-    this.getProposalNext(stepper);
   }
 
   getProposalNext(stepper) {
@@ -7080,7 +7081,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
             <div class="row">
                 <div class="col-md-12 text-center w-100">
                     <mat-form-field class="w-50">
-                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)"  autocomplete="off" >
+                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)" autocomplete="off" >
                     </mat-form-field>
                 </div>
                 <!--<div class="col-md-12">-->
