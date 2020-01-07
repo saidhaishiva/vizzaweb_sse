@@ -1697,7 +1697,7 @@
                       <div class="col-md-6">
                         <div class="proposal-buttom text-left w-100">
                           <form action={{payment_link}}  method='post' #form>
-                            <button mat-raised-button color="primaryBlue" [disabled]="!documentDetail.valid" (click)="uploadValid()">Pay Now</button>
+                            <button mat-raised-button color="primaryBlue" [disabled]="fileUploadStatus" (click)="uploadValid()">Pay Now</button>
                           </form>
                         </div>
                       </div>
