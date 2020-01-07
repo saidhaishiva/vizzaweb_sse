@@ -143,7 +143,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <mat-form-field class="w-100 text-left">
-                                            <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart" (input)="addstart($event);previousStart($event)" (change)="previousStart($event)" (dateInput)="addstart($event);previousStart($event)"  (dateChange)="addstart($event);previousStart($event)"  maxlength="10" minlength="10"  [required]="typeList != 'new'">
+                                            <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart" (input)="addstart($event);previousStart()"  (dateInput)="addstart($event);previousStart()"  (dateChange)="addstart($event);previousStart()"  maxlength="10" minlength="10"  [required]="typeList != 'new'">
                                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
                                             <mat-error *ngIf="bikeInsurance.controls.previousPolicyStart.errors?.required">Start Date is required</mat-error>

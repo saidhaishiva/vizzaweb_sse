@@ -3522,59 +3522,59 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
     console.log(this.bankDetail.controls['existingInsuranceInd'].value ,'value');
     // if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
 
-      for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
-        // if (i != 0) {
-        // }
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value );
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.value );
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.value );
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.value );
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.value );
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value );
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.value );
-
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators([Validators.required]);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators([Validators.required]);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.setValidators([Validators.required]);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.setValidators([Validators.required]);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators([Validators.required]);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators([Validators.required]);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.setValidators([Validators.required]);
-      }
-
-    // } else if (this.bankDetail.controls['existingInsuranceInd'].value == false) {
-      for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
-      // if ( i !=  0) {
-      //   }
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.patchValue('');
-
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators(null);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators(null);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.setValidators(null);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.setValidators(null);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators(null);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators(null);
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.setValidators(null);
-      }
-     // }
-    for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
-
-      // if ( i !=  0) {
-      // }
-          this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.updateValueAndValidity();
-          this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.updateValueAndValidity();
-          this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.updateValueAndValidity();
-          this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.updateValueAndValidity();
-          this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.updateValueAndValidity();
-          this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.updateValueAndValidity();
-          this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.updateValueAndValidity();
-    }
+    //   for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
+    //     // if (i != 0) {
+    //     // }
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value );
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.value );
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.value );
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.value );
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.value );
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value );
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.value );
+    //
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators([Validators.required]);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators([Validators.required]);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.setValidators([Validators.required]);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.setValidators([Validators.required]);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators([Validators.required]);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators([Validators.required]);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.setValidators([Validators.required]);
+    //   }
+    //
+    // // } else if (this.bankDetail.controls['existingInsuranceInd'].value == false) {
+    //   for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
+    //   // if ( i !=  0) {
+    //   //   }
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue('');
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue('');
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue('');
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('');
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.patchValue('');
+    //
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators(null);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators(null);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.setValidators(null);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.setValidators(null);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators(null);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators(null);
+    //     this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.setValidators(null);
+    //   }
+    //  // }
+    // for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
+    //
+    //   // if ( i !=  0) {
+    //   // }
+    //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.updateValueAndValidity();
+    //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.updateValueAndValidity();
+    //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.updateValueAndValidity();
+    //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.updateValueAndValidity();
+    //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.updateValueAndValidity();
+    //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.updateValueAndValidity();
+    //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.updateValueAndValidity();
+    // }
 
 
   }
@@ -6211,12 +6211,13 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if(result != '') {
+        console.log(result,'result');
+        this.getProposalNext(stepper);
 
       }
 
     });
-    this.getProposalNext(stepper);
   }
 
   getProposalNext(stepper) {
@@ -7080,7 +7081,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
             <div class="row">
                 <div class="col-md-12 text-center w-100">
                     <mat-form-field class="w-50">
-                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)"  autocomplete="off" >
+                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" maxlength="6"  (keypress)="numberValidate($event)" autocomplete="off" >
                     </mat-form-field>
                 </div>
                 <!--<div class="col-md-12">-->

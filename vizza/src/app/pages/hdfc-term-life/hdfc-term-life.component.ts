@@ -195,7 +195,9 @@ export class HdfcTermLifeComponent implements OnInit {
       genderName: ['', Validators.required],
       dob: ['', Validators.required],
       fathernm: ['', Validators.required],
-      email: ['', Validators.required],
+      // email: ['', Validators.required],
+      email: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+
       maritalstatus: ['', Validators.required],
       maritalstatusName: ['', Validators.required],
       eduqual: ['', Validators.required],
@@ -251,7 +253,7 @@ export class HdfcTermLifeComponent implements OnInit {
       natureofoccu: ['', Validators.required],
       natureofoccuName: ['', Validators.required],
       addrline: ['', Validators.required],
-      existulipflag: 'N',
+      // existulipflag: 'N',
       sourcetype: ['', Validators.required],
       sourcetypeName: ['', Validators.required],
       // fundpcntg: ['', Validators.required],
@@ -2866,7 +2868,7 @@ getweightListHdfc() {
         annualincm: this.getStepper1.annualincm,
         natureofoccu: this.getStepper1.natureofoccu,
         addrline: this.getStepper1.addrline,
-        existulipflag: this.getStepper1.existulipflag,
+        // existulipflag: this.getStepper1.existulipflag,
         sourcetype: this.getStepper1.sourcetype,
         // fundpcntg: this.getStepper1.fundpcntg,
         fathernmtitle: this.getStepper1.fathernmtitle,
@@ -3148,7 +3150,7 @@ getweightListHdfc() {
           }
         },
         "existingulip": {
-          "existulipflag": this.personal.controls['existulipflag'].value
+          "existulipflag": '',
         },
         "fundsource": {
           "sourcetype": this.personal.controls['sourcetype'].value,

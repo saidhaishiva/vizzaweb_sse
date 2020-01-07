@@ -133,6 +133,8 @@ export class BikeShriramProposalComponent implements OnInit {
     public ncb:any;
     public PreviousValid:any;
     public coverPremium:any;
+    public lesserDate:any;
+    public nilDepValue:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -160,9 +162,12 @@ export class BikeShriramProposalComponent implements OnInit {
         console.log(this.currentStep,'this.currentStep');
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+        const lateDate=minDate.getFullYear()-4;
+        this.lesserDate = new Date(lateDate, minDate.getMonth(), minDate.getDate());
         this.electricalSumAount=false;
         this.nonElectricalSumAount=false;
         this.pASumAount = false;
+        this.nilDepValue = false;
     this.settings = this.appSettings.settings;
         this.webhost = this.configs.getimgUrl();
 
@@ -292,6 +297,7 @@ export class BikeShriramProposalComponent implements OnInit {
          this.getHBankLists();
          this.changeCalcMax();
          this.voluntaryExcess();
+         this.nilDepDateValidation();
 
       this.sessionData();
 
@@ -333,6 +339,21 @@ export class BikeShriramProposalComponent implements OnInit {
             this.nonElectricalSumAount = 'Non Electrical Accessories Sum Insured Should be lesser than';
         }
 
+    }
+    nilDepDateValidation(){
+        let valueDil=this.datepipe.transform(this.lesserDate, 'y-MM-dd')
+        console.log(this.lesserDate,'lesserDate....')
+        console.log(valueDil,'valueDil....')
+        // let valuessss=(valueDil > this.carListDetails.registration_date );
+        console.log(this.enquiryFormData.registration_date,'55555555555555....')
+        // console.log(valuessss,'valuessss....')
+
+        if(valueDil < this.enquiryFormData.registration_date ){
+            this.nilDepValue=true;
+        }else{
+            this.nilDepValue=false;
+        }
+        console.log(this.nilDepValue,'nilDepValue....')
     }
     // changeCalcPA(event:any){
     //     let nonPASum=event.target.value;
@@ -626,14 +647,17 @@ export class BikeShriramProposalComponent implements OnInit {
 
         } else {
             this.vehical.controls['electricalAccessSI'].patchValue('');
-            // this.vehical.controls['totalElectricalItemPremium'].patchValue('');
+            this.vehical.controls['totalElectricalItemPremium'].patchValue('');
 
             this.vehical.controls['electricalAccessSI'].setValidators(null);
+            this.vehical.controls['totalElectricalItemPremium'].setValidators(null);
+
             this.electricalSumAount=false;
             this.electricalSumAount='';
 
         }
         this.vehical.controls['electricalAccessSI'].updateValueAndValidity();
+        this.vehical.controls['totalElectricalItemPremium'].updateValueAndValidity();
     }
     electricalSumInsure(){
         if(this.vehical.controls['electricalAccessSI'].value){
@@ -656,16 +680,16 @@ export class BikeShriramProposalComponent implements OnInit {
             // this.vehical.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
         } else {
             this.vehical.controls['nonElectricalAccessSI'].patchValue('');
-            // this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
+            this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
 
             this.vehical.controls['nonElectricalAccessSI'].setValidators(null);
-            // this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
+            this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
             this.nonElectricalSumAount=false;
             this.nonElectricalSumAount='';
 
         }
         this.vehical.controls['nonElectricalAccessSI'].updateValueAndValidity();
-        // this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
+        this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
     }
 
     electricalNonSumInsure(){
@@ -689,16 +713,16 @@ export class BikeShriramProposalComponent implements OnInit {
             // this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
         } else {
             this.vehical.controls['paforUnnamedSI'].patchValue('');
-            // this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
+            this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
 
             this.vehical.controls['paforUnnamedSI'].setValidators(null);
-            // this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
+            this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
             this.pASumAount=false;
             this.pASumAount='';
 
         }
         this.vehical.controls['paforUnnamedSI'].updateValueAndValidity();
-        // this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
+        this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
     }
 
     unnamedPassengerSumInsure(){

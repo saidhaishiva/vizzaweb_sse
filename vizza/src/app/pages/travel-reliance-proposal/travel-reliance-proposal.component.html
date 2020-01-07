@@ -863,7 +863,7 @@
                             </mat-form-field>
                           </div>
                           <div class="col-md-3" ><mat-form-field class="w-100">
-                            <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passport" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" autocomplete="off"  (keypress)="idValidate($event)"  required>
+                            <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passport" pattern="^[A-Za-z]{1}[0-9]{7}$" autocomplete="off"  (keypress)="idValidate($event)"  required>
                             <mat-error *ngIf="relianceInsuredTravel.invalid">Pass Port is required</mat-error>
                           </mat-form-field>
                           </div>

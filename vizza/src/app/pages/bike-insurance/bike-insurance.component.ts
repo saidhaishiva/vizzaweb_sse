@@ -446,7 +446,7 @@ export class BikeInsuranceComponent implements OnInit {
         }
     }
 
-    registrationStart(event:any){
+    registrationStart(){
         if(this.lesserDate > this.bikeInsurance.controls['registrationDate'].value ){
             this.registrationStartError=false;
             this.registrationStartError='';
@@ -456,7 +456,7 @@ export class BikeInsuranceComponent implements OnInit {
         }
     }
 
-    previousStart(event:any){
+    previousStart(){
         if(this.bikeInsurance.controls['previousPolicyStart'].value > this.bikeInsurance.controls['registrationDate'].value ){
             this.previousStartError=false;
             this.previousStartError='';

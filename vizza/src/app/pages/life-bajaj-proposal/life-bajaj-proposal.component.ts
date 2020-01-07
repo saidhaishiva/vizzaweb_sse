@@ -509,6 +509,8 @@ export class LifeBajajProposalComponent implements OnInit {
 
 
     customerServices() {
+        this.settings.loadingSpinner = true;
+
         const data = {
 
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -549,9 +551,10 @@ export class LifeBajajProposalComponent implements OnInit {
     }
 
     public customerListSuccess(successData) {
-        // this.settings.loadingSpinner=true;
+        // this.settings.loadingSpinner = true;
 
         if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
 
             this.bigeneration=true;
             this.customerList = successData.ResponseObject;
@@ -566,6 +569,8 @@ export class LifeBajajProposalComponent implements OnInit {
         }
         else{
             this.bigeneration=false;
+            this.settings.loadingSpinner = false;
+
             this.toastr.error(successData.ErrorObject);
 
         }

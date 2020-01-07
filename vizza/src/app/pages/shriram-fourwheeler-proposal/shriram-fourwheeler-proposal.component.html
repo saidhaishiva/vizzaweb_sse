@@ -205,7 +205,7 @@
                                         <div class="row">
                                             <h6 class="color-blue mt-4 ml-2">OTHER ADDONS LIST</h6>
                                         </div>
-                                        <div class="row mt-2" *ngIf="!policyTypeDetails">
+                                        <div class="row mt-2" *ngIf="!policyTypeDetails && nilDepValue==true">
                                             <div class="col-md-6 ml-3">
                                                 <mat-checkbox  formControlName="nilDepreciationCover" (change)="changeDepreciation();updateDepreciation()">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
                                             </div>
@@ -663,12 +663,12 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="electrical_cover!=''"><strong>Electrical Cover:</strong> {{electrical_cover}}</li>
+                                                <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Cover:</strong> {{electrical_cover}}</li>
                                                 <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>Anti Theft Cover:</strong> {{anti_theft_cover}}</li>
-                                                <li class="list-group-item" *ngIf="vehicalFormData.nilDepreciationCover != ''"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
+                                                <li class="list-group-item" *ngIf="vehicalFormData.nilDepreciationCover != ''&&nilDepValue==true"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
                                                 <li class="list-group-item" *ngIf="vehicalFormData.lltoPaidDriver != ''"><strong>LL Paid Driver:</strong> {{LL_paid_driver}}</li>
                                                 <li class="list-group-item" *ngIf="pa_owner_driver!=''||pa_owner_driver!=undefined"><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
-                                                <li class="list-group-item" *ngIf="Ncb!=''"><strong>NCB:</strong> {{Ncb}}</li>
+                                                <li class="list-group-item" *ngIf="Ncb!='' || Ncb!=undefined"><strong>NCB:</strong> {{Ncb}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -737,7 +737,7 @@
                                             <li class="list-group-item"><strong>Proposal Type:</strong> {{vehicalFormData.proposalType}}</li>
                                             <li class="list-group-item"><strong>Vehicle Colour:</strong> {{vehicalFormData.vehicleColour}}</li>
                                             <li class="list-group-item"><strong>AddOn Package:</strong> {{vehicalFormData.addonPackage}}</li>
-                                            <li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''"><strong>Nil Depreciation Cover:</strong> <span *ngIf="vehicalFormData.nilDepreciationCover == true">Yes</span></li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''&&nilDepValue==true"><strong>Nil Depreciation Cover:</strong> <span *ngIf="vehicalFormData.nilDepreciationCover == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Access:</strong><span *ngIf="vehicalFormData.electricalAccess == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccessSI != ''"><strong>Electrical Accessories Sum Insured :</strong>{{vehicalFormData.electricalAccessSI}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong><span *ngIf="vehicalFormData.nonElectricalAccess == true">Yes</span></li>
