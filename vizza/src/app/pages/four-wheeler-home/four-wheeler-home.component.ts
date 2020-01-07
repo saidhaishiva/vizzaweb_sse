@@ -198,7 +198,7 @@ export class FourWheelerHomeComponent implements OnInit {
   }
   public regionFailure(error) {
   }
-  registrationStart(event:any){
+  registrationStart(){
     if(this.lesserDate > this.fourWheeler.controls['registrationDate'].value ){
       this.registrationStartError=false;
       this.registrationStartError='';
@@ -208,7 +208,7 @@ export class FourWheelerHomeComponent implements OnInit {
     }
   }
 
-  previousStart(event:any){
+  previousStart(){
     if(this.fourWheeler.controls['previousPolicyStart'].value > this.fourWheeler.controls['registrationDate'].value ){
       this.previousStartError=false;
       this.previousStartError='';
