@@ -754,7 +754,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       location: '',
       ifscCode: ['', Validators.compose([Validators.required])],
       // investmentStrategy: '',
-      existingInsuranceInd: false,
+      // existingInsuranceInd: false,
       existingInsurance : new FormArray([
         this.create()
       ]),
@@ -886,7 +886,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
     // this.insureArray.controls['modeOfPremium'].patchValue(this.enquiryFromDetials.payment_mode);
     console.log(this.enquiryFromDetials.lifePayment,'lifepayment');
-    console.log(this.insureArray.controls['modeOfPremium'].value,'lifepayment');
+    // console.log(this.insureArray.controls['modeOfPremium'].value,'lifepayment');
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
 
   }
@@ -1751,6 +1751,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addon.valid, 'this.valid');
     // let dateErrorMsg = [];
     if (this.addon.valid) {
+      if(this.adbError.value || this.hcbdError.value || this.ciError.value || this.atpdError.value){
+
+
+
       // this.tittleread == true;
       this.insureArray.controls['title'].patchValue (this.customerDetails.controls['title'].value);
       this.insureArray.controls['firstName'].patchValue (this.customerDetails.controls['firstName'].value);
@@ -1777,7 +1781,13 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       stepper.next();
       this.topScroll();
-    } else {
+    }
+    else
+      {
+        this.toastr.error('please enter Suminsured');
+
+      }
+    }else {
       this.toastr.error('please enter all the Mandatory field');
     }
 
@@ -3519,7 +3529,7 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   existingInsureReq() {
     console.log(this.bankDetail['controls'].existingInsurance['controls'].value,'345678954')
     console.log(this.bankDetail['controls'].existingInsurance['controls'].length,'value');
-    console.log(this.bankDetail.controls['existingInsuranceInd'].value ,'value');
+    // console.log(this.bankDetail.controls['existingInsuranceInd'].value ,'value');
     // if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
 
     //   for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
@@ -6204,21 +6214,21 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
   }
 
 
-  getotp(stepper)
-  {
-    let dialogRef = this.dialog.open(EdelweissOpt, {
-      width: '400px'
-    });
-    dialogRef.disableClose = true;
-    dialogRef.afterClosed().subscribe(result => {
-      if(result != '') {
-        console.log(result,'result');
-        this.getProposalNext(stepper);
-
-      }
-
-    });
-  }
+  // getotp(stepper)
+  // {
+  //   let dialogRef = this.dialog.open(EdelweissOpt, {
+  //     width: '400px'
+  //   });
+  //   dialogRef.disableClose = true;
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if(result != '') {
+  //       console.log(result,'result');
+  //       this.getProposalNext(stepper);
+  //
+  //     }
+  //
+  //   });
+  // }
 
   getProposalNext(stepper) {
 
@@ -6237,8 +6247,9 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       "transaction_id":this.summaryData.receipt_no,
       "policy_no":this.summaryData.policy_no,
     };
+
     // this.getotp();
-    // this.settings.loadingSpinner = true;
+    this.settings.loadingSpinner = true;
 
     this.termService.edelweissDownloadPdf(data).subscribe(
         (successData) => {
@@ -6274,16 +6285,16 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       this.settings.loadingSpinner = true;
       this.proposalFormPdf = this.proposalNextList.path;
       console.log(this.proposalFormPdf,'this.proposalFormPdf');
-      // let dialogRef = this.dialog.open(EdelweissOpt, {
-      //   width: '400px'
-      // });
-      // dialogRef.disableClose = true;
-      // dialogRef.afterClosed().subscribe(result => {
-      //   if(result) {
-      //
-      //   }
-      //
-      // });
+      let dialogRef = this.dialog.open(EdelweissOpt, {
+        width: '400px'
+      });
+      dialogRef.disableClose = true;
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+
+        }
+
+      });
 
     } else {
       this.proposalGenStatus = true;
@@ -6948,7 +6959,10 @@ if(this.medicalDetail.controls['pregnantInd'].value == '') {
       console.log(getStepper4.existingInsuranceInd,'indvalue');
 
 
-      this.bankDetail.controls['existingInsuranceInd'].patchValue(getStepper4.existingInsuranceInd);
+      // this.bankDetail.controls['existingInsuranceInd'].patchValue(getStepper4.existingInsuranceInd);
+
+
+
       // console.log(this.getStepper4.existingInsurance, ' getst2');
 
       console.log(getStepper4.existingInsurance.length,'lenght');
@@ -7172,6 +7186,7 @@ export class EdelweissOpt {
   }
   public getOtpFailure(error) {
   }
+
 
       otpEdVal() {
         let summaryData = JSON.parse(sessionStorage.summaryData);
