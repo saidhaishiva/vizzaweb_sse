@@ -375,7 +375,7 @@
 
 
                       <div class="col-md-3 mt-4">
-                        <mat-checkbox formControlName="isPancard" (selectionChange)="isPancardChecked($event)" ><strong>If PAN Card </strong></mat-checkbox>
+                        <mat-checkbox formControlName="isPancard" (change)="isPancardChecked($event)" ><strong>If PAN Card </strong></mat-checkbox>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value">
                         <mat-form-field class="w-100" >
