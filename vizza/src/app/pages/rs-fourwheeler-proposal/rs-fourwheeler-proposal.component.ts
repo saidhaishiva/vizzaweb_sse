@@ -125,6 +125,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public LIABILITY_TO_PAID_DRIVERS  : any;
   public BI_FUEL_KIT  : any;
   public FIBER_GLASS_TANK  : any;
+  public LOSS_OF_BAGGAGE  : any;
+  public ELECTRICAL_ACCESSORIES  : any;
+  public NON_ELECTRICAL_ACCESSORIES  : any;
   public sameasper: boolean;
 
 
@@ -223,6 +226,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       windShieldGlasspremium:'',
       engineprotectorpremium:'',
       keyreplacementpremium:'',
+        amountNonElectricalaccesss:'',
+        amountElectricalaccesss:'',
       // quoteId: '',
       personalAccidentCoverForUnnamedPassengers: '',
       financierName: '',
@@ -232,6 +237,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       lossOfBaggage: 'No',
       typeOfCover: '',
       // addon: '',
+      amountLossOfBaggage:'',
       total: '',
       subTotal: '',
       vechileOwnerShipChanged: 'No',
@@ -748,6 +754,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
   eleAccessReq() {
     console.log(this.vehical['controls'].electricalAccess['controls'].length,'value');
     if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+        this.vehical.controls['amountElectricalaccesss'].setValidators([Validators.required]);
+        // this.coverPremium();
 
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
 
@@ -766,6 +774,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
     } else
     if (this.vehical.controls['coverelectricalaccesss'].value == false)
       {
+          this.vehical.controls['amountElectricalaccesss'].setValidators(null);
+          this.vehical.controls['amountElectricalaccesss'].patchValue('');
+
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
 
         if ( i !=  0) {
@@ -781,7 +792,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
     }
-    for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+      this.vehical.controls['amountElectricalaccesss'].updateValueAndValidity();
+
+      for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
 
       if ( i !=  0) {
       }
@@ -789,12 +802,28 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.updateValueAndValidity();
       this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.updateValueAndValidity();
     }
-
-
   }
+
+  electricValueAmount(){
+    if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+      // this.vehical.controls['amountElectricalaccesss'].setValidators([Validators.required]);
+      this.coverPremium();
+    }else{
+      this.vehical.controls['amountElectricalaccesss'].patchValue('');
+
+    }
+  }
+    changeAmountElectri(){
+        this.vehical.controls['amountElectricalaccesss'].patchValue(this.ELECTRICAL_ACCESSORIES);
+
+    }
+
   noneleAccessReq() {
 
     if (this.vehical.controls['cover_non_elec_acc'].value == true) {
+        this.vehical.controls['amountNonElectricalaccesss'].setValidators([Validators.required]);
+        // this.coverPremium();
+
         for (let i=0; i < this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
 
             if (i != 0) {
@@ -812,6 +841,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     } else
     if (this.vehical.controls['cover_non_elec_acc'].value == false)
     {
+        this.vehical.controls['amountNonElectricalaccesss'].setValidators(null);
+        this.vehical.controls['amountNonElectricalaccesss'].patchValue('');
         for (let i=0; i < this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
 
             if ( i !=  0) {
@@ -827,6 +858,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
     }
+      this.vehical.controls['amountNonElectricalaccesss'].updateValueAndValidity();
+
       for (let i=0; i < this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
 
           if ( i !=  0) {
@@ -835,9 +868,23 @@ export class RsFourwheelerProposalComponent implements OnInit {
           this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.updateValueAndValidity();
           this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.updateValueAndValidity();
       }
+  }
 
+  electricNonValueAmount(){
+    if (this.vehical.controls['cover_non_elec_acc'].value == true) {
+      // this.vehical.controls['amountElectricalaccesss'].setValidators([Validators.required]);
+      this.coverPremium();
+    }else{
+      this.vehical.controls['amountNonElectricalaccesss'].patchValue('');
+
+    }
 
   }
+
+    changeAmountNonElectri(){
+        this.vehical.controls['amountNonElectricalaccesss'].patchValue(this.NON_ELECTRICAL_ACCESSORIES);
+
+    }
 
   guardianAgeValid(event:any) {
     if (this.guardianList == true) {
@@ -891,6 +938,24 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['valueOfLossOfBaggage'].updateValueAndValidity();
 
   }
+    valueBaggesChange(){
+        if (this.vehical.controls['valueOfLossOfBaggage'].value) {
+
+            this.vehical.controls['amountLossOfBaggage'].setValidators([Validators.required]);
+            this.coverPremium();
+        } else {
+            this.vehical.controls['amountLossOfBaggage'].patchValue('');
+
+            this.vehical.controls['amountLossOfBaggage'].setValidators(null);
+
+        }
+        this.vehical.controls['amountLossOfBaggage'].updateValueAndValidity();
+
+    }
+    amountBagges(){
+        this.vehical.controls['amountLossOfBaggage'].patchValue(this.LOSS_OF_BAGGAGE)
+    }
+
   isBiFuel() {
 
 
@@ -915,21 +980,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   bifuelcoverPremium(){
 
-    if (this.vehical.controls['isBiFuelKit'].value=='Yes') {
+    if (this.vehical.controls['isBiFuelKitYes'].value) {
       this.vehical.controls['bifuelpremium'].setValidators([Validators.required]);
       this.coverPremium();
-
-
-
-
     }else{
-
-
       this.vehical.controls['bifuelpremium'].patchValue('');
       this.vehical.controls['bifuelpremium'].setValidators(null);
-
-
-
     }
     this.vehical.controls['bifuelpremium'].updateValueAndValidity();
 
@@ -1469,6 +1525,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.LIABILITY_TO_PAID_DRIVERS=this.AddonList.LIABILITY_TO_PAID_DRIVERS,
       this.FIBER_GLASS_TANK=this.AddonList.FIBER_GLASS_TANK,
       this.BI_FUEL_KIT=this.AddonList.BI_FUEL_KIT,
+      this.LOSS_OF_BAGGAGE=this.AddonList.LOSS_OF_BAGGAGE,
+      this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES,
+      this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES,
       this.coverdriverpremiumchange();
       this.patchkeyreplacementpremium();
       this.patchdepreciationpremium();
@@ -1480,6 +1539,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.legalliabilityToPaidDriverchangepremium();
       this.fibreGlasspremiumchangepremium();
       this.changebifuelcoverpremium();
+      this.amountBagges();
+      this.changeAmountElectri();
+      this.changeAmountNonElectri();
 
     }
   }
@@ -2016,8 +2078,21 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['financierName'].patchValue(this.getStepper2.financierName);
       this.vehical.controls['addonValue'].patchValue(this.getStepper2.addonValue);
       this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.isFourWheelerFinanced);
+      this.vehical.controls['coverdriverpremium'].patchValue(this.getStepper2.coverdriverpremium);
+      this.vehical.controls['keyreplacementpremium'].patchValue(this.getStepper2.keyreplacementpremium);
+      this.vehical.controls['depreciationWaiverpremium'].patchValue(this.getStepper2.depreciationWaiverpremium);
+      this.vehical.controls['windShieldGlasspremium'].patchValue(this.getStepper2.windShieldGlasspremium);
+      this.vehical.controls['engineprotectorpremium'].patchValue(this.getStepper2.engineprotectorpremium);
+      this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue(this.getStepper2.registrationchargesRoadtaxpremium);
+      this.vehical.controls['ncbprotectorpremium'].patchValue(this.getStepper2.ncbprotectorpremium);
+      this.vehical.controls['invoicePricepremium'].patchValue(this.getStepper2.invoicePricepremium);
+      this.vehical.controls['automobileAssociationMembershippremium'].patchValue(this.getStepper2.automobileAssociationMembershippremium);
+      this.vehical.controls['amountLossOfBaggage'].patchValue(this.getStepper2.amountLossOfBaggage);
+      this.vehical.controls['amountElectricalaccesss'].patchValue(this.getStepper2.amountElectricalaccesss);
+      this.vehical.controls['amountNonElectricalaccesss'].patchValue(this.getStepper2.amountNonElectricalaccesss);
       // this.vehical.controls['isAddon'].patchValue(this.getStepper2.isAddon);
       this.vehical.controls['lossOfBaggage'].patchValue(this.getStepper2.lossOfBaggage);
+      this.vehical.controls['amountLossOfBaggage'].patchValue(this.getStepper2.amountLossOfBaggage);
       // this.vehical.controls['hypothecationType'].patchValue(this.getStepper2.hypothecationType);
       this.vehical.controls['typeOfCover'].patchValue(this.getStepper2.typeOfCover);
       this.vehical.controls['vechileOwnerShipChanged'].patchValue(this.getStepper2.vechileOwnerShipChanged);
