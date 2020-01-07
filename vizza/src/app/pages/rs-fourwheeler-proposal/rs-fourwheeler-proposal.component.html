@@ -252,32 +252,40 @@
 
                                                 </mat-form-field>
                                             </div>
-
-
-                                            <div class="col-md-6 ">
-                                                <p>Do you Need Cover for Driver / Other Passengers / Car Accessories? </p>
-                                                <mat-radio-group formControlName="cover_dri_othr_car_ass" (change)="carAccessories()">
-                                                    <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="No">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-
-                                            <div class="col-md-3"  *ngIf="vehical.controls['cover_dri_othr_car_ass'].value == 'Yes'">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="coverdriverpremium"  formControlName="coverdriverpremium"  autocomplete="off" readonly>
-                                                    <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                </mat-form-field>
-                                            </div>
-
-
-                                            <div class="col-md-6 ">
-                                                <p>Is Car Ownership Changed </p>
-                                                <mat-radio-group formControlName="isCarOwnershipChanged" required>
-                                                    <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="No">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
                                         </div>
+
+                                            <div class="col-md-12 mt-2" >
+                                                <div class="row">
+                                                    <div class="col-md-4" >
+                                                        <p>Do you Need Cover for Driver / Other Passengers / Car Accessories? </p>
+                                                        <mat-radio-group formControlName="cover_dri_othr_car_ass" (change)="carAccessories()">
+                                                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                            <mat-radio-button value="No">No</mat-radio-button>
+                                                        </mat-radio-group>
+                                                    </div>
+                                                    <div class="col-md-4"  *ngIf="vehical.controls['cover_dri_othr_car_ass'].value == 'Yes'">
+                                                        <mat-form-field class="w-100">
+                                                            <input matInput placeholder="coverdriverpremium"  formControlName="coverdriverpremium"  autocomplete="off" readonly>
+                                                            <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mt-2" >
+                                                <div class="row">
+                                                    <div class="col-md-4" >
+                                                        <p>Is Car Ownership Changed </p>
+                                                        <mat-radio-group formControlName="isCarOwnershipChanged" required>
+                                                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                            <mat-radio-button value="No">No</mat-radio-button>
+                                                        </mat-radio-group>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+
 
                                         <!--<div class="col-md-3"  *ngIf="vehical.controls['isCarOwnershipChanged'].value == 'Yes'">-->
                                             <!--<mat-form-field class="w-100">-->
@@ -307,11 +315,7 @@
                                                         </mat-select>
                                                     </mat-form-field>
                                                 </div>
-
-
-
-
-                                        </div>
+                                            </div>
 
 
                                         <div class="row mt-3" *ngIf="vehicledetailsfw.business_type != '1'">
@@ -320,154 +324,187 @@
 
                                             <div class="row" *ngIf="vehicledetailsfw.business_type != '1'">
 
-
-                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 5 ">
-                                                <p>Key Replacement</p>
-                                                <!--<a>(Applicable for only below 5 years of vehicle age)</a>-->
-                                                <mat-radio-group formControlName="keyreplacement" (change)="keyreplacementpremium()">
-                                                    <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="Off">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                                <div class="col-md-3"  *ngIf="vehical.controls['keyreplacement'].value == 'On'">
-                                                    <mat-form-field class="w-100">
-                                                        <input matInput placeholder="keyReplacement"  formControlName="keyreplacementpremium" autocomplete="off" readonly >
-                                                        <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                    </mat-form-field>
-                                                </div>
-                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 6 ">
-                                                <p>Depreciation Waiver</p>
-                                                <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
-                                                <mat-radio-group formControlName="depreciationWaiver" (change)="depreciationpremium()">
-                                                    <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="Off">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                                <div class="col-md-3"  *ngIf="vehical.controls['depreciationWaiver'].value == 'On'">
-                                                    <mat-form-field class="w-100">
-                                                        <input matInput placeholder="depreciationWaiver"  formControlName="depreciationWaiverpremium"  autocomplete="off" readonly>
-                                                        <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                    </mat-form-field>
-                                                </div>
-                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
-                                                <p>Wind Shield Glass </p>
-                                                <mat-radio-group formControlName="windShieldGlass" (change)="windShieldGlasspremi()">
-                                                    <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="Off">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                                <div class="col-md-3"  *ngIf="vehical.controls['windShieldGlass'].value == 'On'">
-                                                    <mat-form-field class="w-100">
-                                                        <input matInput placeholder="windShieldGlass"  formControlName="windShieldGlasspremium"  autocomplete="off" readonly>
-                                                        <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                    </mat-form-field>
-                                                </div>
-                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
-                                                <p>Engine Protector</p>
-                                                <!--<h6>(Applicable for only below 3 years of vehicle age)</h6>-->
-                                                <mat-radio-group formControlName="engineprotector" (change)="changeengineprotector()">
-                                                    <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="Off">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                                <div class="col-md-3"  *ngIf="vehical.controls['engineprotector'].value == 'On'">
-                                                    <mat-form-field class="w-100">
-                                                        <input matInput placeholder="engineprotector"  formControlName="engineprotectorpremium"  autocomplete="off" >
-                                                        <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                    </mat-form-field>
-                                                </div>
-                                                <div class="col-md-3  mt-3" >
-                                                    <p>Registration Charges Road Tax</p>
-                                                    <mat-radio-group formControlName="registrationchargesRoadtax"(change)="changeregistrationchargesRoadtax()">
-                                                        <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="Off">No</mat-radio-button>
-                                                    </mat-radio-group>
-                                                </div>
-                                                <div class="col-md-3"  *ngIf="vehical.controls['registrationchargesRoadtax'].value == 'On'">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="registrationchargesRoadtax"  formControlName="registrationchargesRoadtaxpremium"  autocomplete="off" readonly >
-                                                    <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                </mat-form-field>
-                                                </div>
-                                            <div class="col-md-3  mt-3" *ngIf="vehicledetailsfw.business_type != '1'">
-                                                <p>NCB Protector</p>
-                                                <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
-                                                <mat-radio-group formControlName="ncbprotector" (change)="ncbprotecorchange()">
-                                                    <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="Off">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-
-                                                <div class="col-md-3"  *ngIf="vehical.controls['ncbprotector'].value == 'On'">
-
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="ncbprotector"  formControlName="ncbprotectorpremium"  autocomplete="off" readonly>
-                                                    <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                </mat-form-field>
-                                                </div>
-                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
-                                                <p>Spare Car Covers</p>
-                                                <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
-                                                <mat-radio-group formControlName="spareCar" (change)="isSpareCar()">
-                                                    <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="Off">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                                <div class="col-md-3 mt-3" *ngIf="vehical.controls['spareCar'].value == 'On'" >
-                                                    <mat-form-field class="w-100">
-                                                        <mat-placeholder>SpareCar Limit<span class="error" >*</span></mat-placeholder>
-
-                                                        <input matInput  formControlName="spareCarLimit" maxlength="8" (keypress)="numberValidate($event)"   autocomplete="off" >
-                                                    </mat-form-field>
-                                                </div>
-                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
-                                                <p>Full Invoice Price Insurance Covers</p>
-                                                <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
-                                                <mat-radio-group formControlName="invoicePrice">
-                                                    <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="Off">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                                <div class="col-md-3"  *ngIf="vehical.controls['invoicePrice'].value == 'On'">
-
-                                                    <mat-form-field class="w-100">
-                                                        <input matInput placeholder="invoicePrice"  formControlName="invoicePricepremium"  autocomplete="off" >
-                                                        <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                    </mat-form-field>
-                                                </div>
-                                                <div class="col-md-3 mt-3" >
-                                                    <p>Automobile Association Membership</p>
-                                                    <mat-radio-group formControlName="automobileAssociationMembership"(change)="automobilepremium()">
-                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                        <mat-radio-button value="No">No</mat-radio-button>
-                                                    </mat-radio-group>
-                                                </div>
-                                                <div class="col-md-3"  *ngIf="vehical.controls['automobileAssociationMembership'].value == 'Yes'">
-
-                                                    <mat-form-field class="w-100">
-                                                        <input matInput placeholder="automobileAssociationMembership"  formControlName="automobileAssociationMembershippremium"  autocomplete="off" readonly>
-                                                        <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                    </mat-form-field>
-                                                </div>
-
-                                                    <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
-                                                        <p>Loss of Baggages</p>
-                                                        <mat-radio-group formControlName="lossOfBaggage" (change)="isBaggages()">
-                                                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                            <mat-radio-button value="No">No</mat-radio-button>
-                                                        </mat-radio-group>
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 5 ">
+                                                    <div class="row">
+                                                        <div class="col-md-4" >
+                                                            <p>Key Replacement</p>
+                                                            <!--<a>(Applicable for only below 5 years of vehicle age)</a>-->
+                                                            <mat-radio-group formControlName="keyreplacement" (change)="keyreplacementpremium()">
+                                                                <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
+                                                                <mat-radio-button value="Off">No</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <div class="col-md-3"  *ngIf="vehical.controls['keyreplacement'].value == 'On'">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="keyReplacement"  formControlName="keyreplacementpremium" autocomplete="off" readonly >
+                                                                <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                            </mat-form-field>
+                                                        </div>
                                                     </div>
+                                                </div>
 
-
-
-                                                    <div class="col-md-3 mt-3"  *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">
-                                                        <mat-form-field class="w-100">
-                                                            <mat-placeholder>Value Of Loss Of Baggage<span class="error" *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">*</span></mat-placeholder>
-                                                            <mat-select  formControlName="valueOfLossOfBaggage"  (change)=" changepbaggageValue()" >
-                                                                <mat-option *ngFor="let baggages of baggageList | keys" value="{{baggages.key}}" > {{baggages.value}} </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 6 ">
+                                                    <div class="row">
+                                                        <div class="col-md-4" >
+                                                            <p>Depreciation Waiver</p>
+                                                            <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
+                                                            <mat-radio-group formControlName="depreciationWaiver" (change)="depreciationpremium()">
+                                                                <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
+                                                                <mat-radio-button value="Off">No</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <div class="col-md-3"  *ngIf="vehical.controls['depreciationWaiver'].value == 'On'">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="depreciationWaiver"  formControlName="depreciationWaiverpremium"  autocomplete="off" readonly>
+                                                                <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                            </mat-form-field>
+                                                        </div>
                                                     </div>
+                                                </div>
+
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 ">
+                                                    <div class="row">
+                                                        <div class="col-md-4" >
+                                                            <p>Wind Shield Glass </p>
+                                                            <mat-radio-group formControlName="windShieldGlass" (change)="windShieldGlasspremi()">
+                                                                <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
+                                                                <mat-radio-button value="Off">No</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <div class="col-md-3"  *ngIf="vehical.controls['windShieldGlass'].value == 'On'">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="windShieldGlass"  formControlName="windShieldGlasspremium"  autocomplete="off" readonly>
+                                                                <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 ">
+                                                    <div class="row">
+                                                        <div class="col-md-4" >
+                                                            <p>Engine Protector</p>
+                                                            <!--<h6>(Applicable for only below 3 years of vehicle age)</h6>-->
+                                                            <mat-radio-group formControlName="engineprotector" (change)="changeengineprotector()">
+                                                                <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
+                                                                <mat-radio-button value="Off">No</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <div class="col-md-3"  *ngIf="vehical.controls['engineprotector'].value == 'On'">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="engineprotector"  formControlName="engineprotectorpremium"  autocomplete="off" >
+                                                                <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mt-2" >
+                                                    <div class="row">
+                                                        <div class="col-md-4" >
+                                                            <p>Registration Charges Road Tax</p>
+                                                            <mat-radio-group formControlName="registrationchargesRoadtax"(change)="changeregistrationchargesRoadtax()">
+                                                                <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
+                                                                <mat-radio-button value="Off">No</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <div class="col-md-3"  *ngIf="vehical.controls['registrationchargesRoadtax'].value == 'On'">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="registrationchargesRoadtax"  formControlName="registrationchargesRoadtaxpremium"  autocomplete="off" readonly >
+                                                                <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mt-2" *ngIf="vehicledetailsfw.business_type != '1'">
+                                                    <div class="row">
+                                                        <div class="col-md-4" >
+                                                            <p>NCB Protector</p>
+                                                            <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
+                                                            <mat-radio-group formControlName="ncbprotector" (change)="ncbprotecorchange()">
+                                                                <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
+                                                                <mat-radio-button value="Off">No</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <div class="col-md-3"  *ngIf="vehical.controls['ncbprotector'].value == 'On'">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="ncbprotector"  formControlName="ncbprotectorpremium"  autocomplete="off" readonly>
+                                                                <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 ">
+                                                    <div class="row">
+                                                        <div class="col-md-4" >
+                                                            <p>Spare Car Covers</p>
+                                                            <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
+                                                            <mat-radio-group formControlName="spareCar" (change)="isSpareCar()">
+                                                                <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
+                                                                <mat-radio-button value="Off">No</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <div class="col-md-3 mt-3" *ngIf="vehical.controls['spareCar'].value == 'On'" >
+                                                            <mat-form-field class="w-100">
+                                                                <mat-placeholder>SpareCar Limit<span class="error" >*</span></mat-placeholder>
+                                                                <input matInput  formControlName="spareCarLimit" maxlength="8" (keypress)="numberValidate($event)"   autocomplete="off" >
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 ">
+                                                    <div class="row">
+                                                        <div class="col-md-4" >
+                                                            <p>Full Invoice Price Insurance Covers</p>
+                                                            <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
+                                                            <mat-radio-group formControlName="invoicePrice">
+                                                                <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
+                                                                <mat-radio-button value="Off">No</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <div class="col-md-3"  *ngIf="vehical.controls['invoicePrice'].value == 'On'">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="invoicePrice"  formControlName="invoicePricepremium"  autocomplete="off" >
+                                                                <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mt-2" >
+                                                    <div class="row">
+                                                        <div class="col-md-4" >
+                                                            <p>Automobile Association Membership</p>
+                                                            <mat-radio-group formControlName="automobileAssociationMembership"(change)="automobilepremium()">
+                                                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                                <mat-radio-button value="No">No</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <div class="col-md-3"  *ngIf="vehical.controls['automobileAssociationMembership'].value == 'Yes'">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="automobileAssociationMembership"  formControlName="automobileAssociationMembershippremium"  autocomplete="off" readonly>
+                                                                <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mt-2" >
+                                                    <div class="row">
+                                                        <div class="col-md-4" >
+                                                            <p>Loss of Baggages</p>
+                                                            <mat-radio-group formControlName="lossOfBaggage" (change)="isBaggages()">
+                                                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                                <mat-radio-button value="No">No</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                        <div class="col-md-3 mt-3"  *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">
+                                                            <mat-form-field class="w-100">
+                                                                <mat-placeholder>Value Of Loss Of Baggage<span class="error" *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">*</span></mat-placeholder>
+                                                                <mat-select  formControlName="valueOfLossOfBaggage"  (change)=" changepbaggageValue()" >
+                                                                    <mat-option *ngFor="let baggages of baggageList | keys" value="{{baggages.key}}" > {{baggages.value}} </mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
 
 
