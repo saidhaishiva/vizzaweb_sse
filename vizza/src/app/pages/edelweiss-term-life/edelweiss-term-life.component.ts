@@ -507,7 +507,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       sperPincode: '',
       sperState: '',
       sperCity: '',
-      sisCurrPerAddrSame: '',
+      sisCurrPerAddrSame: false,
       sheightFeets: '',
       sheightInches: '',
       sweight: '',
@@ -4595,7 +4595,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "perPincode":this.insureArray.controls['sperPincode'].value,
         "perState":this.insureArray.controls['sperState'].value,
         "perCity":this.insureArray.controls['sperCity'].value,
-        "isCurrPerAddrSame":this.insureArray.controls['sisCurrPerAddrSame'].value,
+        "isCurrPerAddrSame":this.insureArray.controls['sisCurrPerAddrSame'].value==null?'':this.insureArray.controls['sisCurrPerAddrSame'].value,
         "isPerAddrIsCorrAddr":"",
         "education":"",
         "otherEducation":"",
@@ -6238,15 +6238,19 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.topScroll();
       this.proposalGenStatus = false;
       this.proposalNextList = successData.ResponseObject;
-      this.proposalFormPdf = this.proposalNextList.path;
-      console.log(this.proposalFormPdf,'this.proposalFormPdf');
+      // this.proposalFormPdf = this.proposalNextList.path;
+      // console.log(this.proposalFormPdf,'this.proposalFormPdf....');
       let dialogRef = this.dialog.open(EdelweissOpt, {
         width: '400px'
       });
       dialogRef.disableClose = true;
       dialogRef.afterClosed().subscribe(result => {
-        if(result) {
+        console.log(result,'result....')
+        if(result==true) {
+          // this.proposalFormPdf = this.proposalNextList.path;
+          this.proposalFormPdf = (this.webhost + '/' + this.proposalNextList.path);
 
+          console.log(this.proposalFormPdf,'this.proposalFormPdf....');
         }
 
       });
@@ -6436,6 +6440,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         mobileNo: this.getStepper1.mobileNo,
         isStaff: this.getStepper1.isStaff,
         employeeCode: this.getStepper1.employeeCode,
+        sisCurrPerAddrSame: this.getStepper1.sisCurrPerAddrSame,
         // stitle: this.getStepper1.stitle,
         // sfirstName: this.getStepper1.sfirstName,
         // smidName: this.getStepper1.smidName,
@@ -6549,6 +6554,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         pan: this.getStepper2.pan,
         aadhaarNo: this.getStepper2.aadhaarNo,
         fatherhusbandName: this.getStepper2.fatherhusbandName,
+        sisCurrPerAddrSame: this.getStepper2.sisCurrPerAddrSame,
         ageProofId: this.getStepper2.ageProofId,
         ageProofIdName: this.getStepper2.ageProofIdName,
         highestQualification: this.getStepper2.highestQualification,
@@ -7057,8 +7063,13 @@ export class EdelweissTermLifeComponent implements OnInit {
             </div>
         </div>
         <div mat-dialog-actions style="justify-content: center">
-          <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>
-          <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
+          <!--<button mat-button class="secondary-bg-color"  style="background-color: darkblue; color: white;" (click)="onNoClick()">Back</button>-->
+          <!--<button mat-button class="secondary-bg-color" (click)="resendOPT();clearOtp()">Resend</button>-->
+          <!--<button mat-button class="secondary-bg-color" (click)="otpEdVal()">Ok</button>-->
+
+          <button mat-raised-button style="background-color: darkblue; color: white;" (click)="resendOPT();clearOtp()">Resend</button>
+          <button mat-raised-button style="background-color: darkblue; color: white;" (click)="otpEdVal()">Ok</button>
+
         </div>
     `
 })
@@ -7075,9 +7086,9 @@ export class EdelweissOpt {
   //   this.validation.numberValidate(event);
   // }
 
-  onNoClick(): void {
-    this.dialogRef.close(true);
-  }
+  // onNoClick(): void {
+  //   this.dialogRef.close(true);
+  // }
 
   otpEdVal() {
     let summaryData = JSON.parse(sessionStorage.summaryData);
@@ -7121,6 +7132,53 @@ export class EdelweissOpt {
 
   public otpValidationListFailure(error) {
   }
+
+  resendOPT() {
+    let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    console.log(getEnquiryDetials,'11111111')
+    let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    console.log(enquiryFormData,'22222222')
+    let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    console.log(lifePremiumList,'333333333')
+    const data = {
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "platform": "web",
+      "product_id": lifePremiumList.product_id,
+      "sub_product_id": lifePremiumList.sub_product_id,
+      "policy_id": getEnquiryDetials.policy_id,
+      "policyTerm": lifePremiumList.policy_term,
+      "premiumPayingTerm": lifePremiumList.premium_paying_term  ,
+      // "betterHalfBenefit": lifePremiumList.sub_product_id
+    }
+    console.log(data, '999999999');
+    this.termService.edelweissResendOtp(data).subscribe(
+        (successData) => {
+          this.resendOTPListSuccess(successData);
+        },
+        (error) => {
+          this.resendOTPListFailure(error);
+        }
+    );
+  }
+
+  public resendOTPListSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.toastr.success(successData.ResponseMessage);
+      // this.dialogRef.close(true);
+    } else {
+      this.toastr.error(successData.ErrorObject);
+    }
+  }
+
+  public resendOTPListFailure(error) {
+  }
+
+  clearOtp(){
+    this.otpCode='';
+  }
+
 
   numberValidate(event: any) {
     this.validation.numberValidate(event);
