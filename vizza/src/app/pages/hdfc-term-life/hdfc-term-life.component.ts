@@ -571,6 +571,7 @@ export class HdfcTermLifeComponent implements OnInit {
           // console.log( this.nomineeDetail['controls'].showAppointee.patchValue(true),'  this.nomineeDetail[\'controls\'].itemsNominee[\'controls\'][i][\'controls\'].showAppointee.patchValue(true)')
 
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].showAppointee.patchValue(true);
+
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.value);
           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.value);

@@ -1,3 +1,96 @@
-<p>
-  faq-component works!
-</p>
+<!--<div class="container">-->
+  <!--<h2 class="text-center" style="color:#5d965d !important; ">FAQ</h2>-->
+  <!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+      <!--<mat-accordion class="question-panel" *ngFor="let item of faqQuestionsList; let i = index">-->
+        <!--<mat-expansion-panel>-->
+          <!--<mat-expansion-panel-header>-->
+            <!--<mat-panel-title>-->
+              <!--{{i+1}}. {{item.heading}}-->
+            <!--</mat-panel-title>-->
+          <!--</mat-expansion-panel-header>-->
+          <!--<table class="qesTable able table-striped mt-3">-->
+            <!--<tr *ngFor="let subQes of item.contents; let j = index">-->
+              <!--<td width="50%">-->
+                <!--{{j + 1}}) {{subQes.content_qstn}}<br>-->
+                   <!--{{subQes.content_ans}}-->
+              <!--</td>-->
+            <!--</tr>-->
+          <!--</table>-->
+        <!--</mat-expansion-panel>-->
+      <!--</mat-accordion>-->
+    <!--</div>-->
+  <!--</div>-->
+
+<!--</div>-->
+
+
+
+
+
+
+
+
+<div class="container p-0">
+  <h2 class="text-center" style="color:#5d965d !important; ">FAQ</h2>
+
+  <div class="row mb-3" >
+    <div id="view-details" class="container-fluid p-0">
+    <div class="healthScroll">
+      <div fxLayout="column">
+        <div class="container">
+
+
+              <div class="row">
+                <!--disktop view-->
+                <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block">
+                  <div class="row">
+
+
+                    <div class="col-md-3 pl-0 pr-1 bg-color">
+                      <div mat-dialog-content >
+                        <mat-nav-list  *ngFor="let item of faqQuestionsList;let i = index"  [style.background-color]="item.heading_id == 1 ? '#e8ccdb' : '#28a745;'" [ngClass]="{'active': heading_id === i }" (click)="addClass(heading_id=i,item.heading_id)">
+                          <mat-list-item class="nav-item">
+                            <i class="material-icons">keyboard_arrow_right</i>
+                            <a matLine  style="font-weight: bold !important;" matTooltip="{{item.heading }}"> {{item.heading}}</a>
+                          </mat-list-item>
+                        </mat-nav-list>
+                      </div>
+                    </div>
+
+
+
+                    <div class="col-md-9" [style.background-color]="bgColor == 'true' ? '#dc6e97' : '#d81b60'" ><br>
+                      <div mat-dialog-content *ngFor="let item of faqQuestionsList;let i = index">
+                        <div class="h-100">
+                          <div fxLayoutAlign="left left" class="well">
+                            <p  [innerHTML] ="item.contents"> {{i + 1}}) {{item.contents}}</p>
+
+                          </div>
+                          <!--<div fxLayoutAlign="left left" class="well">-->
+                            <!--<p [innerHTML] ="subQes.content_ans"> {{subQes.content_ans}}</p>-->
+
+                          <!--</div>-->
+
+                          <!--<div class="row" *ngIf="heading_id === i">-->
+                            <!--<div class="col-md-12">-->
+                              <!--<div fxLayoutAlign="left start">-->
+                                <!--<div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>-->
+                              <!--</div>-->
+                              <!--<p style="color: #000;text-align: right; font-size: 13px;">*Note: As per insurer issued Brochure</p>-->
+                            <!--</div>-->
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
+                    </div>
+                  </div>
+                </div>
+              </div></div>
+      </div>
+    </div>
+  </div>
+</div>
