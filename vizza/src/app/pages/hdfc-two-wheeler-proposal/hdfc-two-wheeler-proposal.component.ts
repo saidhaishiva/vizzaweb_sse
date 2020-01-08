@@ -108,6 +108,18 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public finlist: any;
     public sameasper: boolean;
     public nomineeAge : any;
+    public lesserDate:any;
+    public nilDepValue:any;
+    public coverPremium:any;
+    public Electical_Acc_Premium:any;
+    public Elec_ZD_Premium:any;
+    public NonElectical_Acc_Premium:any;
+    public NonElec_ZD_Premium:any;
+    public LimitedtoOwnPremises_OD_Premium:any;
+    public LimitedtoOwnPremises_TP_Premium:any;
+    public Basic_OD_Premium:any;
+    public Basic_TP_Premium:any;
+    public PAOwnerDriver_Premium:any;
 
 
     public financiercodevalue: any;
@@ -156,8 +168,11 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         var todaydate = new Date();
         this.gggg = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate());
         this.tod = this.datepipe.transform(this.gggg, 'dd/MM/y');
+        const lateDate = todaydate.getFullYear()-2;
+        this.lesserDate = new Date(lateDate, todaydate.getMonth(), todaydate.getDate());
         String;
         this.tod = this.tod.substring(0, 10);
+        this.nilDepValue=false;
 
         this.proposer = this.fb.group({
             firstName: ['', Validators.required],
@@ -240,6 +255,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             pacovername: [''],
             pasuminsured: [''],
             pacover: [''],
+            totalElectricPremium: [''],
+            totalNonElectricPremium: [''],
+            totalPaidDriverPremium: [''],
+            totalZerodeptPremium: [''],
+            totalLimitedtoOwnPremium: [''],
+            totalLoadDiscPremium: [''],
         });
         // this.BankDetails = this.fb.group({
         // banknamelist:[''],
@@ -309,20 +330,40 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.vechicle.controls['previousenddate'].patchValue(this.datepipe.transform(this.vehicledata.previous_policy_expiry_date, 'y-MM-dd'));
         if (this.vechicle.controls['Vehicleregdate'].value) {
             let regno = '';
+            console.log(this.vehicledata.registration_date,'this.vehicledata.registration_date...')
             regno = this.datepipe.transform(this.datepipe.transform(this.vehicledata.registration_date), 'yyyy-MM-dd');
+            console.log(regno,'regno...')
             this.RegDateage = this.regdatecalculate(regno);
         }
+        console.log(this.vehicledata.type,'456789')
         if (this.vehicledata.type == 'new') {
             this.regvalue = 'New Vehicle';
             this.validationForNew(this.regvalue);
-        } else {
+        } else if (this.vehicledata.type != 'new'){
             this.regvalue = 'Roll Over';
             this.validationForNew(this.regvalue);
         }
         this.altererror = '';
 
+       this.nilDepDateValidation();
+
     }
 
+    nilDepDateValidation(){
+        let valueDil=this.datepipe.transform(this.lesserDate, 'y-MM-dd')
+        console.log(this.lesserDate,'lesserDate....')
+        console.log(valueDil,'valueDil....')
+        // let valuessss=(valueDil > this.carListDetails.registration_date );
+        console.log(this.buyBikeDetails.registration_date,'55555555555555....')
+        // console.log(valuessss,'valuessss....')
+
+        if(valueDil < this.buyBikeDetails.registration_date ){
+            this.nilDepValue=true;
+        }else{
+            this.nilDepValue=false;
+        }
+        console.log(this.nilDepValue,'nilDepValue....')
+    }
     // dropdownForBank(value,type){
     //
     //     if(value.length >'5'&& type =='bank'){
@@ -822,6 +863,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 pacovername: this.getstepper3.pacovername,
                 pasuminsured: this.getstepper3.pasuminsured,
                 pacover: this.getstepper3.pacover,
+                totalElectricPremium: this.getstepper3.totalElectricPremium,
+                totalNonElectricPremium: this.getstepper3.totalNonElectricPremium,
+                totalPaidDriverPremium: this.getstepper3.totalPaidDriverPremium,
+                totalZerodeptPremium: this.getstepper3.totalZerodeptPremium,
+                totalLimitedtoOwnPremium: this.getstepper3.totalLimitedtoOwnPremium,
+                totalLoadDiscPremium: this.getstepper3.totalLoadDiscPremium,
 
 
             });
@@ -1242,6 +1289,215 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     proposerpincodeListFailure(error) {
 
+    }
+
+    electricChange(){
+        if(this.addOns.controls.ElecticalAccessoryIDV.value){
+            this.addOns.controls['totalElectricPremium'].setValidators([Validators.required]);
+            this.getCover();
+
+        } else {
+            this.addOns.controls['totalElectricPremium'].patchValue('');
+            this.addOns.controls['totalElectricPremium'].setValidators(null);
+
+        }
+        this.addOns.controls['totalElectricPremium'].updateValueAndValidity();
+    }
+
+    electricalNonChange(){
+        if(this.addOns.controls.NonElecticalAccessoryIDV.value){
+            this.addOns.controls['totalNonElectricPremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.addOns.controls['totalNonElectricPremium'].patchValue('');
+            this.addOns.controls['totalNonElectricPremium'].setValidators(null);
+
+        }
+        this.addOns.controls['totalNonElectricPremium'].updateValueAndValidity();
+    }
+
+    paidDriverChange(){
+        if(this.addOns.controls.IsPaidDriver.value == true){
+            this.addOns.controls['totalPaidDriverPremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.addOns.controls['totalPaidDriverPremium'].patchValue('');
+            this.addOns.controls['totalPaidDriverPremium'].setValidators(null);
+
+        }
+        this.addOns.controls['totalPaidDriverPremium'].updateValueAndValidity();
+    }
+    zerodeptChange(){
+        if(this.addOns.controls.zerodept.value == true){
+            this.addOns.controls['totalZerodeptPremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.addOns.controls['totalZerodeptPremium'].patchValue('');
+            this.addOns.controls['totalZerodeptPremium'].setValidators(null);
+
+        }
+        this.addOns.controls['totalZerodeptPremium'].updateValueAndValidity();
+    }
+    limitedtoOwnChange(){
+        if(this.addOns.controls.IsLimitedtoOwnPremises.value == true){
+            this.addOns.controls['totalLimitedtoOwnPremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.addOns.controls['totalLimitedtoOwnPremium'].patchValue('');
+            this.addOns.controls['totalLimitedtoOwnPremium'].setValidators(null);
+
+        }
+        this.addOns.controls['totalLimitedtoOwnPremium'].updateValueAndValidity();
+    }
+    loadDiscRateChange(){
+        if(this.addOns.controls.OtherLoadDiscRate.value == true){
+            this.addOns.controls['totalLoadDiscPremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.addOns.controls['totalLoadDiscPremium'].patchValue('');
+            this.addOns.controls['totalLoadDiscPremium'].setValidators(null);
+
+        }
+        this.addOns.controls['totalLoadDiscPremium'].updateValueAndValidity();
+    }
+
+
+    getCover() {
+        let stringToSplit;
+        stringToSplit = this.vehicledata.vehicle_no.toUpperCase();
+        var pos = stringToSplit.search('-');
+        if (pos == -1) {
+            let x = stringToSplit.slice(0, 2);
+            let y = stringToSplit.slice(2, 4);
+            let oo = stringToSplit.slice(5, 6);
+            let w = '';
+            let z = stringToSplit.slice(4, 6);
+
+            w = stringToSplit.slice(6);
+            let regno = x.concat('-', y, '-', z, '-', w);
+            this.vehicleRegNo=regno;
+            }
+        console.log(this.RegDateage);
+        console.log(this.tod);
+        console.log(this.companyList[this.vechicle.controls['Previouscompany'].value]);
+        console.log(this.vehicleRegNo,'vehicleRegNo...')
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosUserId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            'enquiry_id': this.bikeEnquiryId,
+            'created_by': '',
+            'policy_type': this.premiumType == 'ThridParty_premium' ? 'ThridParty_Premium' : 'Comprehensive_Premium',
+            'proposal_id': sessionStorage.hdfcBikeproposalID == '' || sessionStorage.hdfcBikeproposalID == undefined ? '' : sessionStorage.hdfcBikeproposalID,
+            'motorproposalObj': {
+                'Customer_Details': {
+                    'Customer_FirstName': this.proposer.controls['firstName'].value,
+                    'Customer_MiddleName': this.proposer.controls['middleName'].value,
+                    'Customer_LastName': this.proposer.controls['lastName'].value,
+                    'Customer_DateofBirth': this.datepipe.transform(this.proposer.controls['dob'].value, 'dd/MM/y'),
+                    'Customer_Email': this.proposer.controls['email'].value,
+                    'Customer_Mobile': this.proposer.controls['mobile'].value,
+                    'Customer_Telephone': this.proposer.controls['alternateContact'].value,
+                    'Customer_PanNo': this.proposer.controls['personalPan'].value,
+                    'Customer_Salutation': this.proposer.controls['title'].value,
+                    'Customer_Gender': this.proposer.controls['gender'].value,
+                    'Customer_Perm_Address1': this.proposer.controls['address'].value,
+                    'Customer_Perm_Address2': this.proposer.controls['address2'].value,
+                    'Customer_Perm_Apartment': this.proposer.controls['address3'].value,
+                    'Customer_Perm_Street': this.proposer.controls['landmarkpermanent'].value,
+                    'Customer_Perm_CityDistrictCode': '',
+                    'Customer_Perm_CityDistrict': this.proposer.controls['districtpermanent'].value,
+                    'Customer_Perm_StateCode': '',
+                    'Customer_Perm_State': this.proposer.controls['statepermanent'].value,
+                    'Customer_Perm_PinCode': this.proposer.controls['pincode'].value,
+                    'Customer_Perm_PinCodeLocality': this.proposer.controls['citypermanent'].value,
+                    'Customer_Mailing_Address1': this.proposer.controls['address4'].value,
+                    'Customer_Mailing_Address2': this.proposer.controls['address5'].value,
+                    'Customer_Mailing_Apartment': this.proposer.controls['address6'].value,
+                    'Customer_Mailing_Street': this.proposer.controls['landmarkcom'].value,
+                    'Customer_Mailing_CityDistrictCode': '',
+                    'Customer_Mailing_CityDistrict': this.proposer.controls['districtcom'].value,
+                    'Customer_Mailing_StateCode': '',
+                    'Customer_Mailing_State': this.proposer.controls['statecom'].value,
+                    'Customer_Mailing_PinCode': this.proposer.controls['pincode1'].value,
+                    'Customer_Mailing_PinCodeLocality': this.proposer.controls['citycom'].value,
+                    'Customer_GSTIN_Number': this.proposer.controls['gstNumber'].value,
+                    'Customer_GSTIN_State': ''
+                },
+                'Policy_Details': {
+                    'PolicyStartDate': this.tommarrow,
+                    'PreviousPolicyEndDate': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y') : '',
+                    'ProposalDate': this.tod,
+
+                    "AgreementType": this.vechicle.controls['Agreement'].value,
+                    "FinancierCode": this.vechicle.controls['financiercode'].value,
+                    "BranchName": this.vechicle.controls['fibranchname'].value,
+                    'PreviousPolicy_CorporateCustomerId_Mandatary': this.regvalue != 'New Vehicle' ? this.vechicle.controls['Previouscompany'].value : '',
+                    'PreviousPolicy_NCBPercentage': this.regvalue != 'New Vehicle' ? this.vechicle.controls['ncb'].value : '',
+                    'PreviousPolicy_PolicyEndDate': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'dd/MM/y') : '',
+                    'PreviousPolicy_PolicyNo': this.regvalue != 'New Vehicle' ? this.vechicle.controls['previouspolicyno'].value : '',
+                    'PreviousPolicy_PolicyClaim': this.regvalue != 'New Vehicle' ? this.vechicle.controls['previouspolicyclaim'].value : '',
+                    'BusinessType_Mandatary': this.RegDateage,
+                    'DateofDeliveryOrRegistration': this.regvalue != 'New Vehicle' ? this.datepipe.transform(this.vechicle.controls['Vehicleregdate'].value, 'dd/MM/y') : this.tod,
+                    'YearOfManufacture': this.vechicle.controls['manufactureyear'].value,
+                    'Registration_No': this.regvalue != 'New Vehicle' ? this.vehicleRegNo : '',
+                    'EngineNumber': this.vechicle.controls['engine'].value,
+                    'ChassisNumber': this.vechicle.controls['chassis'].value,
+                    'Vehicle_IDV': this.vehicleidv.Idv,
+                },
+                'Req_TW': {
+                    'ExtensionCountryCode': '',
+                    'POLICY_TENURE': this.addOns.controls['policytenture'].value,
+                    'ExtensionCountryName': this.addOns.controls['extentioncountryvalue'].value,
+                    'Effectivedrivinglicense': this.addOns.controls['drivinglicence'].value,
+                    'Paiddriver': this.addOns.controls['IsPaidDriver'].value == true ? '1' : '0',
+                    'BiFuelType': this.addOns.controls['biofuel'].value,
+                    'BiFuel_Kit_Value': this.addOns.controls['biofuelkit'].value,
+                    'Paiddriver_Si': '',
+                    'Owner_Driver_Nominee_Name': this.addOns.controls['NomineeName'].value,
+                    'Owner_Driver_Nominee_Age': this.addOns.controls['NomineeAge'].value,
+                    'Owner_Driver_Nominee_Relationship': this.addOns.controls['nomineeRelation'].value,
+                    'Owner_Driver_Appointee_Name': this.addOns.controls['appointeename'].value,
+                    'Owner_Driver_Appointee_Relationship': this.addOns.controls['appointeerelation'].value,
+                    'IsZeroDept_Cover': this.addOns.controls['zerodept'].value == true ? '1' : '0',
+                    'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
+                    'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
+                    'IsLimitedtoOwnPremises': this.addOns.controls['IsLimitedtoOwnPremises'].value == true ? '1' : '0',
+                    'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
+                    'AntiTheftDiscFlag': this.addOns.controls['Antitheftdiscflag'].value,
+                    'HandicapDiscFlag': this.addOns.controls['HandicapDiscFlag'].value,
+                    'UnnamedPersonSI': this.addOns.controls['pasuminsured'].value,
+                    'NoofUnnamedPerson': this.addOns.controls['pacovername'].value
+                },
+            }
+        };
+        this.bikeInsurance.hdfcCoverPremium(data).subscribe(
+            (successData) => {
+                this.coverPremiumsuccess(successData);
+            },
+            (error) => {
+                this.coverPremiumFailure(error);
+            }
+        );
+    }
+    public coverPremiumsuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.coverPremium = successData.ResponseObject;
+            console.log(this.coverPremium,'coverPremium');
+            this.Electical_Acc_Premium=this.coverPremium.Electical_Acc_Premium;
+            this.Elec_ZD_Premium=this.coverPremium.Elec_ZD_Premium;
+            this.NonElectical_Acc_Premium=this.coverPremium.NonElectical_Acc_Premium;
+            this.NonElec_ZD_Premium=this.coverPremium.NonElec_ZD_Premium;
+            this.LimitedtoOwnPremises_OD_Premium=this.coverPremium.LimitedtoOwnPremises_OD_Premium;
+            this.LimitedtoOwnPremises_TP_Premium=this.coverPremium.LimitedtoOwnPremises_TP_Premium;
+            this.Basic_OD_Premium=this.coverPremium.Basic_OD_Premium;
+            this.Basic_TP_Premium=this.coverPremium.Basic_TP_Premium;
+            this.PAOwnerDriver_Premium=this.coverPremium.PAOwnerDriver_Premium;
+        }
+    }
+
+    public coverPremiumFailure(error) {
     }
 
     typeAddressDeatils() {
