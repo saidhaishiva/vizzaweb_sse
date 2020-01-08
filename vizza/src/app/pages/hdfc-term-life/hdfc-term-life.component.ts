@@ -154,6 +154,7 @@ export class HdfcTermLifeComponent implements OnInit {
   public disabledAddress: any;
   public disabledPerAddress: any;
   public proposalGenStatus: boolean;
+  public appointee: any;
   public keyUp = new Subject<string>();
 
 
@@ -3246,6 +3247,9 @@ public setProposalSuccess(successData, stepper) {
     this.proposalId = this.summaryData.ProposalId;
     this.proposerFormData = this.personal.value;
     this.nomineeFormData = this.nomineeDetail.value;
+    this.appointee= this.appointee.value
+    console.log(this.appointee, 'this.appointee');
+    console.log(this.appointee.value, 'this.appointee.value');
     console.log(this.proposerFormData, 'this.proposerFormData');
     console.log(this.nomineeFormData, 'nomineeFormData');
     console.log(this.nomineeDetail.value, 'this.nomineeDetail.value');
