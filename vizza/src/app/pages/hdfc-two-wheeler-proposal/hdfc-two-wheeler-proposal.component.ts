@@ -256,10 +256,13 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             pasuminsured: [''],
             pacover: [''],
             totalElectricPremium: [''],
+            totalElectricPremium1: [''],
             totalNonElectricPremium: [''],
+            totalNonElectricPremium1: [''],
             totalPaidDriverPremium: [''],
             totalZerodeptPremium: [''],
             totalLimitedtoOwnPremium: [''],
+            totalLimitedtoOwnPremium1: [''],
             totalLoadDiscPremium: [''],
         });
         // this.BankDetails = this.fb.group({
@@ -864,10 +867,13 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 pasuminsured: this.getstepper3.pasuminsured,
                 pacover: this.getstepper3.pacover,
                 totalElectricPremium: this.getstepper3.totalElectricPremium,
+                totalElectricPremium1: this.getstepper3.totalElectricPremium1,
                 totalNonElectricPremium: this.getstepper3.totalNonElectricPremium,
+                totalNonElectricPremium1: this.getstepper3.totalNonElectricPremium1,
                 totalPaidDriverPremium: this.getstepper3.totalPaidDriverPremium,
                 totalZerodeptPremium: this.getstepper3.totalZerodeptPremium,
                 totalLimitedtoOwnPremium: this.getstepper3.totalLimitedtoOwnPremium,
+                totalLimitedtoOwnPremium1: this.getstepper3.totalLimitedtoOwnPremium1,
                 totalLoadDiscPremium: this.getstepper3.totalLoadDiscPremium,
 
 
@@ -1294,26 +1300,34 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     electricChange(){
         if(this.addOns.controls.ElecticalAccessoryIDV.value){
             this.addOns.controls['totalElectricPremium'].setValidators([Validators.required]);
+            this.addOns.controls['totalElectricPremium1'].setValidators([Validators.required]);
             this.getCover();
 
         } else {
             this.addOns.controls['totalElectricPremium'].patchValue('');
+            this.addOns.controls['totalElectricPremium1'].patchValue('');
             this.addOns.controls['totalElectricPremium'].setValidators(null);
+            this.addOns.controls['totalElectricPremium1'].setValidators(null);
 
         }
         this.addOns.controls['totalElectricPremium'].updateValueAndValidity();
+        this.addOns.controls['totalElectricPremium1'].updateValueAndValidity();
     }
 
     electricalNonChange(){
         if(this.addOns.controls.NonElecticalAccessoryIDV.value){
             this.addOns.controls['totalNonElectricPremium'].setValidators([Validators.required]);
+            this.addOns.controls['totalNonElectricPremium1'].setValidators([Validators.required]);
             this.getCover();
         } else {
             this.addOns.controls['totalNonElectricPremium'].patchValue('');
+            this.addOns.controls['totalNonElectricPremium1'].patchValue('');
             this.addOns.controls['totalNonElectricPremium'].setValidators(null);
+            this.addOns.controls['totalNonElectricPremium1'].setValidators(null);
 
         }
         this.addOns.controls['totalNonElectricPremium'].updateValueAndValidity();
+        this.addOns.controls['totalNonElectricPremium1'].updateValueAndValidity();
     }
 
     paidDriverChange(){
@@ -1341,13 +1355,17 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     limitedtoOwnChange(){
         if(this.addOns.controls.IsLimitedtoOwnPremises.value == true){
             this.addOns.controls['totalLimitedtoOwnPremium'].setValidators([Validators.required]);
+            this.addOns.controls['totalLimitedtoOwnPremium1'].setValidators([Validators.required]);
             this.getCover();
         } else {
             this.addOns.controls['totalLimitedtoOwnPremium'].patchValue('');
+            this.addOns.controls['totalLimitedtoOwnPremium1'].patchValue('');
             this.addOns.controls['totalLimitedtoOwnPremium'].setValidators(null);
+            this.addOns.controls['totalLimitedtoOwnPremium1'].setValidators(null);
 
         }
         this.addOns.controls['totalLimitedtoOwnPremium'].updateValueAndValidity();
+        this.addOns.controls['totalLimitedtoOwnPremium1'].updateValueAndValidity();
     }
     loadDiscRateChange(){
         if(this.addOns.controls.OtherLoadDiscRate.value == true){
@@ -1494,11 +1512,46 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.Basic_OD_Premium=this.coverPremium.Basic_OD_Premium;
             this.Basic_TP_Premium=this.coverPremium.Basic_TP_Premium;
             this.PAOwnerDriver_Premium=this.coverPremium.PAOwnerDriver_Premium;
+            this.electrical();
+            this.electricalzd();
+            this.nonelectrical();
+            this.nonelectricalZD();
+            this.limitedOD();
+            this.limitedTP();
+
+        }
+        else{
+            this.toastr.error(successData.ErrorObject);
         }
     }
 
     public coverPremiumFailure(error) {
     }
+    electrical(){
+        this.addOns.controls['totalElectricPremium1'].patchValue(this.Electical_Acc_Premium);
+
+    }
+    electricalzd(){
+        this.addOns.controls['totalElectricPremium'].patchValue(this.Elec_ZD_Premium );
+
+    }
+    nonelectrical(){
+        this.addOns.controls['totalNonElectricPremium'].patchValue(this.NonElectical_Acc_Premium );
+
+    }
+    nonelectricalZD(){
+    this.addOns.controls['totalNonElectricPremium1'].patchValue(this.NonElec_ZD_Premium );
+
+}
+limitedOD(){
+    this.addOns.controls['totalLimitedtoOwnPremium'].patchValue(this.LimitedtoOwnPremises_OD_Premium );
+
+}
+limitedTP(){
+    this.addOns.controls['totalLimitedtoOwnPremium1'].patchValue(this.LimitedtoOwnPremises_TP_Premium );
+
+}
+
 
     typeAddressDeatils() {
         if (this.proposer.controls['issameascmmunication'].value == true) {
