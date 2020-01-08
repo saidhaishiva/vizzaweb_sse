@@ -66,7 +66,7 @@ export const horizontalMenuItems = [
     new Menu (10, 'Personal Accident', '/personalaccident', null, null, null, false, 2),
     new Menu (8, 'Travel Insurance', '/travel', null, null, null, false, 2),
     new Menu (4, 'Life Insurance', '/term-life', null, null, null, false, 2),
-    new Menu (5, 'Term Life POS', '/', null, null, null, true, 2),
+    new Menu (5, 'Life-POS', '/', null, null, null, true, 2),
     new Menu (9, 'Life Insurance', '/', null, null, null, true, 0),
     new Menu (4, 'Life Insurance-Term', '/term-life', null, null, null, false, 9),
     new Menu (21, 'Life Insurance-Endowment', '/endowment-life-insurance', null, null, null, false, 9),
