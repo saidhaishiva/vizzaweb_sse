@@ -532,16 +532,8 @@
 
                                           </mat-form-field>
                                       </div>
-                                      <div class="col-md-3">
-                                          <mat-form-field class="w-100">
-                                              <input matInput placeholder="Electical Accessory IDV" rows="2"  formControlName="ElecticalAccessoryIDV"   maxlength="5"  (keypress)="numberValidate($event)" autocomplete="off">
-                                          </mat-form-field>
-                                      </div>
-                                      <div class="col-md-3">
-                                          <mat-form-field class="w-100">
-                                              <input matInput placeholder="Non Electical Accessory IDV" rows="2"  formControlName="NonElecticalAccessoryIDV"   maxlength="5"  (keypress)="numberValidate($event)" autocomplete="off">
-                                          </mat-form-field>
-                                      </div>
+
+
                                       <div class="col-md-3 ">
                                           <mat-form-field class="w-100">
                                               <mat-select placeholder="AntiTheft Discflag" [(ngModel)]="antitheftdisc" formControlName="Antitheftdiscflag"  >
@@ -558,19 +550,88 @@
                                               </mat-select>
                                           </mat-form-field>
                                       </div>
-                                      <div class="col-md-3 mt-1">
-                                          <mat-checkbox formControlName="IsPaidDriver"  ><strong> Is Paid Driver </strong></mat-checkbox>
-                                      </div>
-                                      <div class="col-md-3 ">
-                                          <mat-checkbox formControlName="zerodept"  ><strong> Is zerodept Cover </strong></mat-checkbox>
-                                      </div>
 
-                                      <div class="col-md-3 ">
-                                          <mat-checkbox formControlName="IsLimitedtoOwnPremises"  ><strong> Is Limited to Own Premises  </strong></mat-checkbox>
+                                      <div class="col-md-12 mt-2">
+                                          <h6 class="color-blue"> ADDONS </h6>
                                       </div>
-                                      <div class="col-md-3 mt-1">
-                                          <mat-checkbox formControlName="OtherLoadDiscRate"  ><strong> Other Load Disc Rate </strong></mat-checkbox>
+                                      <div class="col-md-12 mt-2">
+                                      <div class="row"  >
+                                          <div class="col-md-3">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput placeholder="Electical Accessory IDV" rows="2"  formControlName="ElecticalAccessoryIDV"   maxlength="5"  (keypress)="numberValidate($event);electricChange()" autocomplete="off">
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="col-md-4 mt-0" *ngIf="addOns.controls.ElecticalAccessoryIDV.value">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput placeholder="Cover Premium"  formControlName="totalElectricPremium"  autocomplete="off"  [required]="addOns.controls.ElecticalAccessoryIDV.value" readonly>
+                                              </mat-form-field>
+                                          </div>
                                       </div>
+                                      </div>
+                                      <div class="col-md-12 mt-2">
+                                      <div class="row"  >
+                                          <div class="col-md-3">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput placeholder="Non Electical Accessory IDV" rows="2"  formControlName="NonElecticalAccessoryIDV"   maxlength="5"  (keypress)="numberValidate($event);electricalNonChange()" autocomplete="off">
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="col-md-4 mt-0" *ngIf="addOns.controls.NonElecticalAccessoryIDV.value">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput placeholder="Cover Premium"  formControlName="totalNonElectricPremium"  autocomplete="off"  [required]="addOns.controls.NonElecticalAccessoryIDV.value" readonly>
+                                              </mat-form-field>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      <div class="col-md-12 mt-2">
+                                      <div class="row"  >
+                                          <div class="col-md-3 mt-1">
+                                              <mat-checkbox formControlName="IsPaidDriver" (change)="paidDriverChange()" ><strong> Is Paid Driver </strong></mat-checkbox>
+                                          </div>
+                                          <div class="col-md-4 mt-0" *ngIf="addOns.controls.IsPaidDriver.value==true">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput placeholder="Cover Premium"  formControlName="totalPaidDriverPremium"  autocomplete="off"  [required]="addOns.controls.IsPaidDriver.value==true" readonly>
+                                              </mat-form-field>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      <div class="col-md-12 mt-2">
+                                      <div class="row"  >
+                                          <div class="col-md-3 " *ngIf="nilDepValue==true">
+                                              <mat-checkbox formControlName="zerodept"  (change)="zerodeptChange()"><strong> Is zerodept Cover </strong></mat-checkbox>
+                                          </div>
+                                          <div class="col-md-4 mt-0" *ngIf="addOns.controls.zerodept.value==true">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput placeholder="Cover Premium"  formControlName="totalZerodeptPremium"  autocomplete="off"  [required]="addOns.controls.zerodept.value==true" readonly>
+                                              </mat-form-field>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      <div class="col-md-12 mt-2">
+                                      <div class="row"  >
+                                          <div class="col-md-3 ">
+                                              <mat-checkbox formControlName="IsLimitedtoOwnPremises" (change)="limitedtoOwnChange()" ><strong> Is Limited to Own Premises  </strong></mat-checkbox>
+                                          </div>
+                                          <div class="col-md-4 mt-0" *ngIf="addOns.controls.IsLimitedtoOwnPremises.value==true">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput placeholder="Cover Premium"  formControlName="totalLimitedtoOwnPremium"  autocomplete="off"  [required]="addOns.controls.IsLimitedtoOwnPremises.value==true" readonly>
+                                              </mat-form-field>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      <div class="col-md-12 mt-2">
+                                      <div class="row"  >
+                                          <div class="col-md-3 mt-1">
+                                              <mat-checkbox formControlName="OtherLoadDiscRate" (change)="loadDiscRateChange()"><strong> Other Load Disc Rate </strong></mat-checkbox>
+                                          </div>
+                                          <div class="col-md-4 mt-0" *ngIf="addOns.controls.OtherLoadDiscRate.value==true">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput placeholder="Cover Premium"  formControlName="totalLoadDiscPremium"  autocomplete="off"  [required]="addOns.controls.OtherLoadDiscRate.value==true" readonly>
+                                              </mat-form-field>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      <div class="col-md-12 mt-2">
+                                          <div class="row"  >
                                       <div class="col-md-3 mt-1">
                                           <mat-checkbox formControlName="pacover" (change)="ONcheck($event)"><strong> Personal Accident Cover </strong></mat-checkbox>
                                       </div>
@@ -590,6 +651,10 @@
 
                                           </mat-form-field>
                                       </div>
+                                          </div>
+                                      </div>
+
+
 
                                       <div class="col-md-12 mt-2">
                                           <h6 class="color-blue"> NOMINEE DETAILS </h6>

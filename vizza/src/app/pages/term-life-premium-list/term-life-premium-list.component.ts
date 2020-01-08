@@ -360,49 +360,48 @@ export class TermLifePremiumListComponent implements OnInit {
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
                 this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
-                if(this.allProductLists[0] != undefined) {
-                    this.allProductLists[0].product_name = this.allProductLists[0].product_display_name;
-                } if(this.allProductLists[1] != undefined) {
-                    this.allProductLists[1].product_name = this.allProductLists[1].product_display_name;
-                } if(this.allProductLists[2] != undefined) {
-                    this.allProductLists[2].product_name = this.allProductLists[2].product_display_name;
-                } if(this.allProductLists[3] != undefined) {
-                    this.allProductLists[3].product_name = this.allProductLists[3].product_display_name;
-                } if(this.allProductLists[4] != undefined) {
-                    this.allProductLists[4].product_name = this.allProductLists[4].product_display_name;
-                } if(this.allProductLists[5] != undefined) {
-                    this.allProductLists[5].product_name = this.allProductLists[5].product_display_name;
-                } if (this.allProductLists[6] != undefined) {
-                    this.allProductLists[6].product_name = this.allProductLists[6].product_display_name;
-                } if (this.allProductLists[7] != undefined) {
-                    this.allProductLists[7].product_name = this.allProductLists[7].product_display_name;
-                } if (this.allProductLists[8] != undefined) {
-                    this.allProductLists[8].product_name = this.allProductLists[8].product_display_name;
-                } if (this.allProductLists[9] != undefined) {
-                    this.allProductLists[9].product_name = this.allProductLists[9].product_display_name;
-                } if (this.allProductLists[10] != undefined) {
-                    this.allProductLists[10].product_name = this.allProductLists[10].product_display_name;
-                }
-
                 this.allProductLists[i].termDetrails = this.allProductLists[i].term[i];
-                this.allProductLists[0].termDetrails = this.allProductLists[0].term[0];
-                this.allProductLists[1].termDetrails = this.allProductLists[1].term[0];
-                this.allProductLists[2].termDetrails = this.allProductLists[2].term[0];
-                this.allProductLists[3].termDetrails = this.allProductLists[3].term[0];
-                this.allProductLists[4].termDetrails = this.allProductLists[4].term[0];
-                this.allProductLists[5].termDetrails = this.allProductLists[5].term[0];
-                this.allProductLists[6].termDetrails = this.allProductLists[6].term[0];
-                this.allProductLists[7].termDetrails = this.allProductLists[7].term[0];
-                this.allProductLists[8].termDetrails = this.allProductLists[8].term[0];
-                this.allProductLists[9].termDetrails = this.allProductLists[9].term[0];
-                this.allProductLists[10].termDetrails = this.allProductLists[10].term[0];
-                this.allProductLists[11].termDetrails = this.allProductLists[11].term[0];
-                this.allProductLists[12].termDetrails = this.allProductLists[12].term[0];
+                this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
 
+                if(this.allProductLists[0] != undefined) {
+                    this.allProductLists[0].product_name = this.allProductLists[0].product_display_name.split('/')[0];
+                    this.allProductLists[0].termDetrails = this.allProductLists[0].term[0];
+                } if(this.allProductLists[1] != undefined) {
+                    this.allProductLists[1].product_name = this.allProductLists[1].product_display_name.split('/')[0];
+                    this.allProductLists[1].termDetrails = this.allProductLists[1].term[0];
+                } if(this.allProductLists[2] != undefined) {
+                    this.allProductLists[2].product_name = this.allProductLists[2].product_display_name.split('/')[0];
+                    this.allProductLists[2].termDetrails = this.allProductLists[2].term[0];
+                } if(this.allProductLists[3] != undefined) {
+                    this.allProductLists[3].product_name = this.allProductLists[3].product_display_name.split('/')[0];
+                    this.allProductLists[3].termDetrails = this.allProductLists[3].term[0];
+                } if(this.allProductLists[4] != undefined) {
+                    this.allProductLists[4].product_name = this.allProductLists[4].product_display_name.split('/')[0];
+                    this.allProductLists[4].termDetrails = this.allProductLists[4].term[0];
+                } if(this.allProductLists[5] != undefined) {
+                    this.allProductLists[5].product_name = this.allProductLists[5].product_display_name.split('/')[0];
+                    this.allProductLists[5].termDetrails = this.allProductLists[5].term[0];
+                } if (this.allProductLists[6] != undefined) {
+                    this.allProductLists[6].product_name = this.allProductLists[6].product_display_name.split('/')[0];
+                    this.allProductLists[6].termDetrails = this.allProductLists[6].term[0];
+                } if (this.allProductLists[7] != undefined) {
+                    this.allProductLists[7].product_name = this.allProductLists[7].product_display_name.split('/')[0];
+                    this.allProductLists[7].termDetrails = this.allProductLists[7].term[0];
+                } if (this.allProductLists[8] != undefined) {
+                    this.allProductLists[8].product_name = this.allProductLists[8].product_display_name.split('/')[0];
+                    this.allProductLists[8].termDetrails = this.allProductLists[8].term[0];
+                } if (this.allProductLists[9] != undefined) {
+                    this.allProductLists[9].product_name = this.allProductLists[9].product_display_name.split('/')[0];
+                    this.allProductLists[9].termDetrails = this.allProductLists[9].term[0];
+                } if (this.allProductLists[10] != undefined) {
+                    this.allProductLists[10].product_name = this.allProductLists[10].product_display_name.split('/')[0];
+                    this.allProductLists[10].termDetrails = this.allProductLists[10].term[0];
+                }
                 this.allProductLists[i].premium_paying_termm = this.allProductLists[i].premium_paying_term;
                 this.allProductLists[1].premium_paying_termm = this.allProductLists[1].premium_paying_term;
                 this.allProductLists[2].premium_paying_termm = this.allProductLists[2].premium_paying_term;
                 this.allProductLists[3].premium_paying_termm = this.allProductLists[3].premium_paying_term;
+                console.log(this.allProductLists[1].premium_paying_termm, '0011premium_paying_termm')
                 console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
 
                 console.log(this.allProductLists[i].termDetrails, 'detrails')
@@ -413,7 +412,7 @@ export class TermLifePremiumListComponent implements OnInit {
 
                 console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
                // this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
-                this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
+               //  this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
                 let dob = this.datepipe.transform(this.allProductLists[i].dob, 'y-MM-dd');
                 this.allProductLists[i].age = this.ageCalculate(dob);
                 // this.lifeTermChange(plists, i);
