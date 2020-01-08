@@ -344,14 +344,21 @@ export class TermLifePremiumListComponent implements OnInit {
     }
     public getProductListSuccess(successData) {
         this.settings.loadingSpinner = false;
+        this.productListArray = [];
         console.log(successData, 'successData');
         if (successData) {
+            console.log(successData.length,'length.....')
             for(let i = 0; i < successData.length; i++) {
                 if (successData[i].IsSuccess) {
                     let policylists = successData[i].ResponseObject;
+                    console.log(policylists, 'policylistspolicylists')
                     this.productListArray.push(policylists.productlist);
+                    // console.log(this.productListArray, 'this.productListArray')
 
                 }
+                // console.log(policylists, 'policylistspolicylists')
+                console.log(this.productListArray, 'this.productListArray')
+
                 this.allProductLists = [].concat.apply([], this.productListArray);
             }
             console.log(this.allProductLists, 'all');
@@ -362,7 +369,10 @@ export class TermLifePremiumListComponent implements OnInit {
                 this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
                 this.allProductLists[i].termDetrails = this.allProductLists[i].term[i];
                 this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
-
+                this.allProductLists[i].premium_paying_termm = this.allProductLists[i].premium_paying_term;
+                this.allProductLists[1].premium_paying_termm = this.allProductLists[1].premium_paying_term;
+                this.allProductLists[2].premium_paying_termm = this.allProductLists[2].premium_paying_term;
+                this.allProductLists[3].premium_paying_termm = this.allProductLists[3].premium_paying_term;
                 if(this.allProductLists[0] != undefined) {
                     this.allProductLists[0].product_name = this.allProductLists[0].product_display_name.split('/')[0];
                     this.allProductLists[0].termDetrails = this.allProductLists[0].term[0];
@@ -396,21 +406,30 @@ export class TermLifePremiumListComponent implements OnInit {
                 } if (this.allProductLists[10] != undefined) {
                     this.allProductLists[10].product_name = this.allProductLists[10].product_display_name.split('/')[0];
                     this.allProductLists[10].termDetrails = this.allProductLists[10].term[0];
+                } if (this.allProductLists[11] != undefined) {
+                    this.allProductLists[11].product_name = this.allProductLists[11].product_display_name.split('/')[0];
+                    this.allProductLists[11].termDetrails = this.allProductLists[11].term[0];
+                } if (this.allProductLists[12] != undefined) {
+                    this.allProductLists[12].product_name = this.allProductLists[12].product_display_name.split('/')[0];
+                    this.allProductLists[12].termDetrails = this.allProductLists[12].term[0];
+                } if (this.allProductLists[13] != undefined) {
+                    this.allProductLists[13].product_name = this.allProductLists[13].product_display_name.split('/')[0];
+                    this.allProductLists[13].termDetrails = this.allProductLists[13].term[0];
                 }
-                this.allProductLists[i].premium_paying_termm = this.allProductLists[i].premium_paying_term;
-                this.allProductLists[1].premium_paying_termm = this.allProductLists[1].premium_paying_term;
-                this.allProductLists[2].premium_paying_termm = this.allProductLists[2].premium_paying_term;
-                this.allProductLists[3].premium_paying_termm = this.allProductLists[3].premium_paying_term;
-                console.log(this.allProductLists[1].premium_paying_termm, '0011premium_paying_termm')
-                console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
+                // this.allProductLists[i].premium_paying_termm = this.allProductLists[i].premium_paying_term;
+                // this.allProductLists[1].premium_paying_termm = this.allProductLists[1].premium_paying_term;
+                // this.allProductLists[2].premium_paying_termm = this.allProductLists[2].premium_paying_term;
+                // this.allProductLists[3].premium_paying_termm = this.allProductLists[3].premium_paying_term;
+                // console.log(this.allProductLists[1].premium_paying_termm, '0011premium_paying_termm')
+                // console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
 
-                console.log(this.allProductLists[i].termDetrails, 'detrails')
-                console.log(this.allProductLists[4].termDetrails, 'detrails')
-                console.log(this.allProductLists[5].termDetrails, 'detrails')
-                console.log(this.allProductLists[6].termDetrails, 'detrails')
-                console.log(this.allProductLists[7].termDetrails, 'detrails')
-
-                console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
+                // console.log(this.allProductLists[i].termDetrails, 'detrails')
+                // console.log(this.allProductLists[4].termDetrails, 'detrails')
+                // console.log(this.allProductLists[5].termDetrails, 'detrails')
+                // console.log(this.allProductLists[6].termDetrails, 'detrails')
+                // console.log(this.allProductLists[7].termDetrails, 'detrails')
+                //
+                // console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
                // this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
                //  this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
                 let dob = this.datepipe.transform(this.allProductLists[i].dob, 'y-MM-dd');
