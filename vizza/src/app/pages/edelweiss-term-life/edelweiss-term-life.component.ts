@@ -1749,7 +1749,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addon, 'addon');
     console.log(this.addon.valid, 'this.valid');
     // let dateErrorMsg = [];
-    if (this.addon.valid) {
+    if (this.addon.valid  ) {
+      // if(this.atpdError =='' && this.adbError=='' && this.ciError=='' && this.hcbdError==''){}
       // this.tittleread == true;
       this.insureArray.controls['title'].patchValue (this.customerDetails.controls['title'].value);
       this.insureArray.controls['firstName'].patchValue (this.customerDetails.controls['firstName'].value);
@@ -2561,28 +2562,28 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(error);
   }
   sumAssuredADBError(event:any) {
-    if (this.insureArray.controls['sumAssuredADB'].value >= 100000 && this.insureArray.controls['sumAssuredADB'].value <= 10000000) {
+    if (this.addon.controls['sumAssuredADB'].value >= 100000 && this.addon.controls['sumAssuredADB'].value <= 10000000) {
       this.adbError ='';
     } else {
       this.adbError = 'SumAssured Accidental Death Benefit should be 100000 - 10000000';
     }
   }
   sumAssuredATPDError(event:any) {
-    if (this.insureArray.controls['sumAssuredATPD'].value >= 100000 && this.insureArray.controls['sumAssuredATPD'].value <= 10000000) {
+    if (this.addon.controls['sumAssuredATPD'].value >= 100000 && this.addon.controls['sumAssuredATPD'].value <= 10000000) {
       this.atpdError ='';
     } else {
       this.atpdError = 'SumAssured Accidental Total and Permanent Disability should be 100000 - 10000000';
     }
   }
   sumAssuredCiError(event:any) {
-    if (this.insureArray.controls['criticalsumAssured'].value >= 100000 && this.insureArray.controls['criticalsumAssured'].value <= 5000000) {
+    if (this.addon.controls['criticalsumAssured'].value >= 100000 && this.addon.controls['criticalsumAssured'].value <= 5000000) {
       this.ciError ='';
     } else {
       this.ciError = 'SumAssured Critical Illness should be 100000 - 5000000';
     }
   }
   sumAssuredHCBError(event:any) {
-    if (this.insureArray.controls['sumAssuredHCB'].value >= 100000 && this.insureArray.controls['sumAssuredHCB'].value <= 600000) {
+    if (this.addon.controls['sumAssuredHCB'].value >= 100000 && this.addon.controls['sumAssuredHCB'].value <= 600000) {
       this.hcbdError ='';
     } else {
       this.hcbdError = 'SumAssured Hospital Cash Benefit should be 100000 - 600000';
@@ -3516,10 +3517,9 @@ export class EdelweissTermLifeComponent implements OnInit {
   // }
 
   existingInsureReq() {
-    console.log(this.bankDetail['controls'].existingInsurance['controls'].value,'345678954')
     console.log(this.bankDetail['controls'].existingInsurance['controls'].length,'value');
-    console.log(this.bankDetail.controls['existingInsuranceInd'].value ,'value');
     if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
+      console.log(this.bankDetail.controls['existingInsuranceInd'].value ,'value');
 
       for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
         // if (i != 0) {
@@ -7075,41 +7075,47 @@ export class EdelweissTermLifeComponent implements OnInit {
 })
 export class EdelweissOpt {
   otpCode: any;
+  receiptNo: any;
+  summaryData: any;
+  getEnquiryDetials: any;
+  enquiryFormData: any;
+  lifePremiumList: any;
+  settings: any;
   constructor(
       public dialogRef: MatDialogRef<EdelweissOpt>,
-      @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
+      @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute,  public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
     this.otpCode = '';
+    let summaryData = JSON.parse(sessionStorage.summaryData);
+    this.summaryData = summaryData;
+    console.log(this.summaryData,'44444444')
+    this. getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    console.log(this.getEnquiryDetials,'11111111')
+    this. enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    console.log(this.enquiryFormData,'22222222')
+    this. lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    console.log(this.lifePremiumList,'333333333')
+    this.settings = this.appSettings.settings;
+    this.settings.loadingSpinner = false;
 
   }
-  // // Number validation
-  // numberValidate(event: any) {
-  //   this.validation.numberValidate(event);
-  // }
 
-  // onNoClick(): void {
-  //   this.dialogRef.close(true);
-  // }
 
   otpEdVal() {
-    let summaryData = JSON.parse(sessionStorage.summaryData);
-    summaryData = summaryData;
-    console.log(summaryData,'44444444')
-    let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
-    console.log(getEnquiryDetials,'11111111')
-    let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    console.log(enquiryFormData,'22222222')
-    let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-    console.log(lifePremiumList,'333333333')
+
+    console.log(this.summaryData.receipt_no,'receipt....')
+    if(this.summaryData.receipt_no!=''){
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
-      "product_id": lifePremiumList.product_id,
-      "policy_id": getEnquiryDetials.policy_id,
-      "transaction_id": summaryData.receipt_no,
+      "product_id": this.lifePremiumList.product_id,
+      "policy_id": this.getEnquiryDetials.policy_id,
+      "transaction_id":this.summaryData.receipt_no,
       "otp":this.otpCode
     }
+      this.settings.loadingSpinner = true;
+
     console.log(data, '999999999');
     this.termService.edelweissOtp(data).subscribe(
         (successData) => {
@@ -7119,9 +7125,37 @@ export class EdelweissOpt {
           this.otpValidationListFailure(error);
         }
     );
+    }
+    if(this.summaryData.receipt_no == ''){
+      console.log('555555555555.....')
+      const data = {
+        "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+        "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+        "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+        "platform": "web",
+        "product_id": this.lifePremiumList.product_id,
+        "policy_id": this.getEnquiryDetials.policy_id,
+        "transaction_id":this.receiptNo,
+        "otp":this.otpCode
+      }
+      this.settings.loadingSpinner = true;
+
+      console.log(data, '999999999');
+      this.termService.edelweissOtp(data).subscribe(
+          (successData) => {
+            this.otpValidationListSuccess(successData);
+          },
+          (error) => {
+            this.otpValidationListFailure(error);
+          }
+      );
+
+    }
   }
 
+
   public otpValidationListSuccess(successData) {
+    this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
       this.toastr.success(successData.ResponseObject);
       this.dialogRef.close(true);
@@ -7134,24 +7168,20 @@ export class EdelweissOpt {
   }
 
   resendOPT() {
-    let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
-    console.log(getEnquiryDetials,'11111111')
-    let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    console.log(enquiryFormData,'22222222')
-    let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-    console.log(lifePremiumList,'333333333')
+
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
-      "product_id": lifePremiumList.product_id,
-      "sub_product_id": lifePremiumList.sub_product_id,
-      "policy_id": getEnquiryDetials.policy_id,
-      "policyTerm": lifePremiumList.policy_term,
-      "premiumPayingTerm": lifePremiumList.premium_paying_term  ,
+      "product_id": this.lifePremiumList.product_id,
+      "sub_product_id": this.lifePremiumList.sub_product_id,
+      "policy_id": this.getEnquiryDetials.policy_id,
+      "policyTerm": this.lifePremiumList.policy_term,
+      "premiumPayingTerm": this.lifePremiumList.premium_paying_term  ,
       // "betterHalfBenefit": lifePremiumList.sub_product_id
     }
+    this.settings.loadingSpinner = true;
     console.log(data, '999999999');
     this.termService.edelweissResendOtp(data).subscribe(
         (successData) => {
@@ -7164,8 +7194,11 @@ export class EdelweissOpt {
   }
 
   public resendOTPListSuccess(successData) {
+    this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
+      this.receiptNo = successData.ResponseObject.receipt_no;
       this.toastr.success(successData.ResponseMessage);
+      this.summaryData.receipt_no=''
       // this.dialogRef.close(true);
     } else {
       this.toastr.error(successData.ErrorObject);
