@@ -1428,9 +1428,9 @@
                                   <div class="col-sm-12 col-xs-12 col-md-12 mt-3" *ngIf="i == 0" >
                                     <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer()"><strong>Same as proposer</strong></mat-checkbox>
                                   </div>
-                                  <div class="col-sm-12 col-xs-12 col-md-12"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
+                                  <div class="col-12"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                                     <mat-form-field class="w-100" >
-                                      <mat-select placeholder="Title"  formControlName="proposerTitle" (change)="insureChangeGender(i);changetitleiList(i)" required >
+                                      <mat-select placeholder="Title"  formControlName="proposerTitle" (selectionChange)="insureChangeGender(i);changetitleiList(i)" required >
                                         <mat-option *ngFor="let titleCode of titleCodeList | keys" value="{{titleCode.key}}"  [hidden]="insureArray['controls'].items['controls'][i]['controls'].type.value =='Self' && (titleCode.key == 'MASTER' || titleCode.key == 'BABY') ||
                               insureArray['controls'].items['controls'][i]['controls'].type.value =='Spouse' && (titleCode.key == 'MASTER' || titleCode.key == 'BABY')
                               ">{{titleCode.value}}</mat-option>
@@ -1456,7 +1456,7 @@
                                       <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                                     </mat-form-field>
                                   </div>
-                                  <div class="col-sm-12 col-xs-12 col-md-12">
+                                  <div class="col-12">
                                     <mat-form-field class="w-100">
                                       <input matInput placeholder="Gender" formControlName="proposerGender" readonly autocomplete="off" required>
                                       <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
