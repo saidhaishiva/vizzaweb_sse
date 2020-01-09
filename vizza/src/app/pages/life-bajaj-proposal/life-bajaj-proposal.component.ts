@@ -2082,7 +2082,7 @@ samerelationShip(){
 
 
     politicalReson() {
-    if (this.proposer.controls['politicallyExposedPerson'].value == 'Yes') {
+    if (this.proposer.controls['politicallyExposedPerson'].value == 'Y') {
       this.proposer.controls['ifYesGiveDetails'].setValidators([Validators.required]);
       this.proposer.controls['ifYesGiveDetails'].updateValueAndValidity();
     } else {
