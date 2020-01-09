@@ -948,7 +948,11 @@
                                       <li class="list-group-item" *ngIf="previousFormData.biofuel !=''"><strong>Bio Fuel  :</strong>{{previousFormData.biofuel}}</li>
                                       <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>Bio Fuel kit Price :</strong>{{previousFormData.biofuelkit}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.ElecticalAccessoryIDV !=''"><strong>Electrical Accessory IDV  :</strong>{{previousFormData.ElecticalAccessoryIDV}}</li>
+                                      <li class="list-group-item" *ngIf="previousFormData.ElecticalAccessoryIDV !=''"><strong>Electrical Accessory Premium  :</strong>{{Electical_Acc_Premium}}</li>
+                                      <li class="list-group-item" *ngIf="previousFormData.ElecticalAccessoryIDV !=''"><strong>Electrical ZD Premium  :</strong>{{Elec_ZD_Premium}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.NonElecticalAccessoryIDV !=''"><strong>Non Electical Accessory IDV :</strong>{{previousFormData.NonElecticalAccessoryIDV}}</li>
+                                      <li class="list-group-item" *ngIf="previousFormData.NonElecticalAccessoryIDV !=''"><strong>Non Electical Accessory Premium :</strong>{{NonElectical_Acc_Premium}}</li>
+                                      <li class="list-group-item" *ngIf="previousFormData.NonElecticalAccessoryIDV !=''"><strong>Non Electical ZD Premium :</strong>{{NonElec_ZD_Premium}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.Antitheftdiscflag == true"><strong>Anti Theft Disc :</strong>Yes</li>
                                       <li class="list-group-item" *ngIf="previousFormData.Antitheftdiscflag == false"><strong>Anti Theft Disc :</strong>No</li>
                                       <li class="list-group-item" *ngIf="previousFormData.HandicapDiscFlag == true"><strong>Handicap Disc :</strong>Yes</li>
@@ -968,6 +972,8 @@
                                       <li class="list-group-item" *ngIf="previousFormData.zerodept == false"><strong>Is Zerodept Cover:</strong>No</li>
                                       <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == true"><strong>Is Limited to Own Premises:</strong>Yes</li>
                                       <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == false"><strong>Is Limited to Own Premises:</strong>No</li>
+                                      <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == true"><strong>OD Premium :</strong>{{LimitedtoOwnPremises_OD_Premium}}</li>
+                                      <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == true"><strong>TP Premium :</strong>{{LimitedtoOwnPremises_TP_Premium}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.OtherLoadDiscRate == true"><strong>Other Load DiscRate :</strong>Yes</li>
                                       <li class="list-group-item" *ngIf="previousFormData.OtherLoadDiscRate == false"><strong>Other Load DiscRate :</strong>No</li>
                                       <li class="list-group-item" *ngIf="previousFormData.pacover == true"><strong>Personal Accident Cover:</strong>Yes</li>
@@ -975,6 +981,7 @@
                                       <!--<li class="list-group-item" *ngIf="previousFormData.pacover !=''" ><strong>PA Cover  :</strong>{{previousFormData.pacover}}</li>-->
                                       <li class="list-group-item" *ngIf="previousFormData.pacovername !=''"><strong>Personal Accident Cover Name  :</strong>{{previousFormData.pacovername}}</li>
                                       <li class="list-group-item" *ngIf="previousFormData.pasuminsured !='' "><strong>Personal Accident Sum Insurance  :</strong>{{previousFormData.pasuminsured}}</li>
+                                      <li class="list-group-item" *ngIf="previousFormData.pacover == true "><strong>Personal Accident Cover Premium  :</strong>{{PAOwnerDriver_Premium}}</li>
 
 
 

@@ -1490,6 +1490,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 },
             }
         };
+        this.Setting.loadingSpinner = true;
         this.bikeInsurance.hdfcCoverPremium(data).subscribe(
             (successData) => {
                 this.coverPremiumsuccess(successData);
@@ -1500,6 +1501,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         );
     }
     public coverPremiumsuccess(successData) {
+        this.Setting.loadingSpinner = false;
         if (successData.IsSuccess == true) {
             this.coverPremium = successData.ResponseObject;
             console.log(this.coverPremium,'coverPremium');
