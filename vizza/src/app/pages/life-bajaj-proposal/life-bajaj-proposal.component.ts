@@ -558,7 +558,7 @@ export class LifeBajajProposalComponent implements OnInit {
         // this.settings.loadingSpinner = true;
 
         if (successData.IsSuccess) {
-            this.settings.loadingSpinner = false;
+            // this.settings.loadingSpinner = false;
 
             this.bigeneration=true;
             this.customerList = successData.ResponseObject;
@@ -567,8 +567,7 @@ export class LifeBajajProposalComponent implements OnInit {
             this.Premium = this.customerList.Premium;
             this.ProposalNumber = this.customerList.ProposalNumber;
             this.policyId = this.customerList.policyId;
-
-
+            // this.settings.loadingSpinner = false;
 
         }
         else{
@@ -578,6 +577,8 @@ export class LifeBajajProposalComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
 
         }
+        this.settings.loadingSpinner = false;
+
     }
 
     public customerListFailure(error) {

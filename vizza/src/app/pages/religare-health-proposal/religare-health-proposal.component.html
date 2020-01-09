@@ -271,10 +271,12 @@
                                 <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                               </mat-form-field>
                             </div>
-                            <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="Gender" formControlName="personalGender" required readonly>
-                              <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
-                            </mat-form-field></div>
+                            <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                <input matInput placeholder="Gender" formControlName="personalGender" required readonly>
+                                <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
+                              </mat-form-field>
+                            </div>
                             <div class="col-md-3"><mat-form-field class="w-100">
                               <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event, i, item.type)"  minlength="10"  maxlength="10" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                               <mat-datepicker-toggle matSuffix [for]="picker1" disabled="{{insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value}}"></mat-datepicker-toggle>
@@ -1166,9 +1168,9 @@
                           <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                         </div>
                         <div class="row">
-                          <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="genderStatus == false">
+                          <div class="col-12" *ngIf="genderStatus == false">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)" [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
+                              <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)" [ngStyle]="{'pointer-events':insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value  ? 'none' : ''} " required>
                                 <mat-option value="MR" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Daughter'">Mr</mat-option>
                                 <mat-option value="MS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Ms</mat-option>
                                 <!--<mat-option value="MRS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Mrs</mat-option>-->
@@ -1176,7 +1178,7 @@
                               <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="i == 0 && genderStatus == true">
+                          <div class="col-12" *ngIf="i == 0 && genderStatus == true">
                             <mat-form-field class="w-100">
                               <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)"  required>
                                 <mat-option value="MS" >Ms</mat-option>
@@ -1184,10 +1186,10 @@
                               <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="i != 0 && genderStatus == true">
-                            <mat-form-field class="w-100">
+                          <div class="col-12" *ngIf="i != 0 && genderStatus == true">
+                            <mat-form-field class="w-100" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                               <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)"  required>
-                                <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)" [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
+                                <mat-select placeholder="Title" formControlName="personalTitle" (selectionChange)="insureChangeGender(i)"  required>
                                   <mat-option value="MR" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Daughter'">Mr</mat-option>
                                   <mat-option value="MS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Ms</mat-option>
                                 </mat-select>
@@ -1209,10 +1211,12 @@
                               <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-sm-12 col-xs-12 col-md-12"><mat-form-field class="w-100">
-                            <input matInput placeholder="Gender" formControlName="personalGender" required readonly>
-                            <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
-                          </mat-form-field></div>
+                          <div class="col-12">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Gender" formControlName="personalGender" required readonly>
+                              <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
+                            </mat-form-field>
+                          </div>
                           <div class="col-sm-12 col-xs-12 col-md-12"><mat-form-field class="w-100">
                             <input matInput [matDatepicker]="picker5" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event, i, item.type)"  minlength="10"  maxlength="10" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                             <mat-datepicker-toggle matSuffix [for]="picker5" disabled="{{insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value}}"></mat-datepicker-toggle>
