@@ -159,6 +159,9 @@ export class LifeBajajProposalComponent implements OnInit {
   public bajajAge1: any;
   public picker10: any;
   public bigeneration:any;
+  public fileType:any;
+  public fileTypeImage:any;
+  public imageViews:any;
 
    constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
@@ -190,6 +193,7 @@ export class LifeBajajProposalComponent implements OnInit {
         this.photoPath = [];
         this.otherdocsPath = [];
        this.bigeneration=false;
+       this.fileTypeImage=false;
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -3010,8 +3014,11 @@ samerelationShip(){
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.documentPath = successData.ResponseObject.filePath;
+            this.fileType = this.documentPath.file_type;
+            this.imageType();
             this.toastr.success(successData.ResponseObject.message, 'Success');
             this.fileUploadStatus = false;
+
         } else {
 
             this.toastr.error(successData.ErrorObject);
@@ -3022,9 +3029,34 @@ samerelationShip(){
     public fileUploadFailure(error) {
         console.log(error);
     }
+    imageType(){
+        if(this.fileType=='Form60'){
+        this.fileTypeImage=true;
+        this.imageViews = 'assets/img/upload-icons/form_64.svg';
+        console.log(this.imageViews,'this.imageViews....')
+        }else{
+         this.fileTypeImage=false;
+        }
+    }
     skipUplod(){
       this.skipUploadStatus = false;
     }
+
+    viewImage(path, fileType) {
+       console.log(path,'path....')
+       console.log(fileType,'fileType....')
+        const dialogRef = this.dialog.open(BalajImageviewComponent, {
+            width: '900px',
+            data: {'img': path, 'title': fileType}
+
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
+
+
   nextDocUpload(stepper) {
     stepper.next();
       this.otpGen();
@@ -3045,6 +3077,73 @@ samerelationShip(){
     }
 
 }
+
+
+
+@Component({
+    selector: 'BalajImageviewComponent',
+    template: `
+        <div class="col-md-12 text-right" style="margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: -8px;" >
+            <!--<button  mat-button class="secondary-bg-color" (click)="saveImageAs1(webhost +'/' + data.img)" > Download </button>-->
+            <!--<mat-icon  *ngIf="imageView != ''" (click)="saveImageAs1(webhost +'/' + data.img)" style="cursor: pointer"> vertical_align_bottom</mat-icon>-->
+            <i class="material-icons"  *ngIf="data.title == 'Form60'" (click)="saveImageAs1(webhost +'/' + data.img)" style="cursor: pointer">
+                vertical_align_bottom
+            </i>
+            <i class="material-icons" (click)="onNoClick()" style="cursor: pointer">
+                cancel
+            </i>
+        </div>
+        <!--<div class="row">-->
+            <!--<div class="col-md-6 ">-->
+                <!--<div class="float-right">-->
+                    <!--<button  mat-button class="secondary-bg-color" (click)="saveImageAs1(webhost +'/' + data.img)">Download</button>-->
+                    <!--<mat-icon class="text-right h-100" (click)="onNoClick()" style="cursor: pointer;margin-bottom:27px">close</mat-icon>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div mat-dialog-content *ngIf="data.title != 'Form60'">
+            <img src="{{webhost +'/' + data.img}}"  alt="" class="w-100">
+        </div>
+        <!--<div mat-dialog-content *ngIf="data.title == 'Form60'">-->
+            <!--<iframe id="fred" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="{{webhost +'/' + data.img}}" frameborder="1" scrolling="auto" height="1100" width="850" ></iframe>-->
+          <div *ngIf="data.title == 'Form60'">
+            <img  src="{{imageView}}" style="height: 400px; width: 829px;" alt=" " title="">
+          </div>
+        <!--</div>-->
+    `
+})
+export class BalajImageviewComponent {
+    public webhost: any;
+    public settings: Settings;
+    public imageView: any;
+
+    constructor(
+        public dialogRef: MatDialogRef<BalajImageviewComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
+         this.image();
+         }
+    ngOnInit() {
+        this.settings = this.appSettings.settings;
+        this.webhost = this.config.getimgUrl();
+
+    }
+         image(){
+         if(this.data.title == 'Form60'){
+            this.imageView = 'assets/img/upload-icons/form_64.svg';
+            console.log(this.imageView,'this.imageView...')
+         }
+         }
+
+        onNoClick(): void {
+            this.dialogRef.close();
+         }
+        saveImageAs1(adress) {
+            window.open(adress);
+        }
+}
+
 
 @Component({
     selector: 'lifedocuments',
@@ -3140,10 +3239,10 @@ export class BajajLifeOpt {
         this.otpCode = '';
 
     }
-  // // Number validation
-  // numberValidate(event: any) {
-  //   this.validation.numberValidate(event);
-  // }
+    // // Number validation
+    // numberValidate(event: any) {
+    //   this.validation.numberValidate(event);
+    // }
 
     onNoClick(): void {
         this.dialogRef.close(true);

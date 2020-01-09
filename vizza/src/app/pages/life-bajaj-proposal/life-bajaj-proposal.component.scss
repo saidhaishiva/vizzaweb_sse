@@ -12,3 +12,12 @@
   padding: 20px 31px 9px 23px !important;
 
 }
+img.hover-shadow {
+  transition: 0.3s;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.05), 0 8px 20px 0 rgba(0, 0, 0, 0.29);
+  cursor: pointer;
+}
+

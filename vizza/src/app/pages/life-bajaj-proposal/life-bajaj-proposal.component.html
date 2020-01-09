@@ -1680,11 +1680,19 @@
                     </div>
 
                     <div class="row" *ngIf="documentPath">
-                      <div  class="col-md-3" *ngFor="let images of documentPath">
+                      <div  class="col-md-3 mt-3" *ngFor="let images of documentPath">
                         <p class="color-blue">{{images.file_type | uppercase}}</p>
+
                         <span class="imageclose mr-2" >
-                                        <img src="{{webhost + '/' + images.file_path}}" class="img-thumbnail" style="height:200px;width: 350px;"/>
-                                    </span>
+                           <!--<i class="material-icons"   (click)="viewImage(images.file_path, images.file_type)" style="cursor: pointer">photo_size_select_large</i>-->
+                          <div *ngIf="images.file_type!='Form60'">
+                            <img src="{{webhost + '/' + images.file_path}}" class="hover-shadow cursor " style="height:200px;width: 200px;" (click)="viewImage(images.file_path, images.file_type)" />
+                          </div>
+
+                          <div *ngIf="images.file_type=='Form60'">
+                            <img src="assets/img/upload-icons/form_64.svg" class="hover-shadow cursor" style="height:200px;width: 200px;" (click)="viewImage(images.file_path, images.file_type)" />
+                        </div>
+                        </span>
                       </div>
                     </div>
 
@@ -1703,19 +1711,6 @@
                       </div>
                     </div>
 
-
-
-
-
-
-                    <!--<div class="row mt-4" >-->
-                    <!--<div class="col-sm-12 col-xs-12 text-center">-->
-                    <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
-                    <!--&lt;!&ndash;<button mat-button color="warn" (click)="backAll()" >Back</button>&ndash;&gt;-->
-                    <!--<button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>-->
-                    <!--</form>-->
-                    <!--</div>-->
-                    <!--</div>-->
                   </form>
 
                 </div>

@@ -675,6 +675,7 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
       //   console.log('innnnnnn');
 
       if(this.vehicalDetails.valid) {
+        console.log(this.vehicalDetails.controls['previousClaim'].value,'previus 3245678')
           const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -685,7 +686,7 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
             'registration_date': this.vehicalDetails.controls['registrationDate'].value,
             'previous_policy_expiry_date':this.vehicalDetails.controls['previousPolicyExpiry'].value == null ? '' :this.vehicalDetails.controls['previousPolicyExpiry'].value,
             'previous_policy_no':"12344556",
-            'previous_claim_YN': this.vehicalDetails.controls['previousClaim'].value == 'No' ? '0' : '1',
+            'previous_claim_YN': this.enquiryFormData.previous_claim_YN,
             'vehicle_manufacture':this.vehicalDetails.controls['manufacture'].value||this.ListDetails.vehicle_manufacture,
             'vehicle_model':this.vehicalDetails.controls['vehicleModel'].value,
             'vehicle_variant':this.vehicalDetails.controls['variant'].value,
@@ -694,7 +695,7 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
             'engine_no':this.vehicalDetails.controls['engine'].value,
             'manu_yr':this.vehicalDetails.controls['manufactureYear'].value,
             'vehicle_category':"2W",
-            'ncb_percent': this.vehicalDetails.controls['ncb'].value ? this.vehicalDetails.controls['ncb'].value : '',
+            'ncb_percent': this.enquiryFormData.ncb_percent ,
             'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
             'business_type': this.vehicalDetails.controls['bussiness'].value,
             'registration_city': this.vehicalDetails.controls['city'].value,
