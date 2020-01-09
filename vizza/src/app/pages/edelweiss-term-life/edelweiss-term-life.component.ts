@@ -244,6 +244,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public alcoholInderror:any;
   public tobaccoInderror:any;
   public tittleread :boolean;
+  public otpFalseError :boolean;
 
 
   constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
@@ -315,6 +316,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.medicalTreatmenterror =false;
     this.admitInderror =false;
     this.ECGInderror =false;
+    this.otpFalseError =false;
     // this.tobaccoStopInderror =false;
     this.piloterror =false;
     this.activityerror =false;
@@ -1931,8 +1933,10 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   nextDocUpload(stepper) {
+    if(this.otpFalseError==false){
     stepper.next();
     this.topScroll();
+    }
   }
 
   summaryNext(stepper) {
@@ -6247,10 +6251,12 @@ export class EdelweissTermLifeComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log(result,'result....')
         if(result==true) {
+          this.otpFalseError=false
           // this.proposalFormPdf = this.proposalNextList.path;
           this.proposalFormPdf = (this.webhost + '/' + this.proposalNextList.path);
-
           console.log(this.proposalFormPdf,'this.proposalFormPdf....');
+        }else if(result==false){
+          this.otpFalseError=true
         }
 
       });
@@ -7048,6 +7054,14 @@ export class EdelweissTermLifeComponent implements OnInit {
 @Component({
   selector: ' edelweissopt ',
   template: `
+    <div class="col-md-12 text-right" style="margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: -8px;
+" >
+      <i class="material-icons" (click)="close()" style="cursor: pointer">
+        cancel
+      </i>
+    </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center w-100">
@@ -7210,6 +7224,9 @@ export class EdelweissOpt {
 
   clearOtp(){
     this.otpCode='';
+  }
+  close(): void {
+    this.dialogRef.close(false);
   }
 
 
