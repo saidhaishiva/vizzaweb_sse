@@ -159,6 +159,10 @@ export class LifeBajajProposalComponent implements OnInit {
   public bajajAge1: any;
   public picker10: any;
   public bigeneration:any;
+  public fileType:any;
+  public fileTypeImage:any;
+  public imageViews:any;
+  public PreviousValid:any;
 
    constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
@@ -190,6 +194,8 @@ export class LifeBajajProposalComponent implements OnInit {
         this.photoPath = [];
         this.otherdocsPath = [];
        this.bigeneration=false;
+       this.fileTypeImage=false;
+       this.PreviousValid = false;
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -507,6 +513,19 @@ export class LifeBajajProposalComponent implements OnInit {
     }
   }
 
+    previousNilError(){
+        console.log(this.proposer.controls['politicallyExposedPerson'].value,'456787656789')
+        if ((this.proposer.controls['politicallyExposedPerson'].value==''||this.proposer.controls['politicallyExposedPerson'].value==undefined||this.proposer.controls['politicallyExposedPerson'].value==null)) {
+            this.PreviousValid=true;
+            this.PreviousValid = 'Please Select Previous Nil Description';
+
+        } else {
+            this.PreviousValid=false;
+            this.PreviousValid='';
+        }
+        console.log(this.PreviousValid,'this.ClaimValid///')
+    }
+
 
     customerServices() {
         this.settings.loadingSpinner = true;
@@ -554,7 +573,7 @@ export class LifeBajajProposalComponent implements OnInit {
         // this.settings.loadingSpinner = true;
 
         if (successData.IsSuccess) {
-            this.settings.loadingSpinner = false;
+            // this.settings.loadingSpinner = false;
 
             this.bigeneration=true;
             this.customerList = successData.ResponseObject;
@@ -563,8 +582,7 @@ export class LifeBajajProposalComponent implements OnInit {
             this.Premium = this.customerList.Premium;
             this.ProposalNumber = this.customerList.ProposalNumber;
             this.policyId = this.customerList.policyId;
-
-
+            // this.settings.loadingSpinner = false;
 
         }
         else{
@@ -574,6 +592,8 @@ export class LifeBajajProposalComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
 
         }
+        this.settings.loadingSpinner = false;
+
     }
 
     public customerListFailure(error) {
@@ -1106,12 +1126,10 @@ samerelationShip(){
     public relationShipFailure(error) {
       }
 
-  isPancardChecked(event) {
-      if(event.checked) {
+  isPancardChecked() {
+      if(this.proposer.controls['isPancard'].value == true) {
         this.proposer.controls['aadharNum'].clearValidators();
-        this.proposer.controls['aadharNum'].updateValueAndValidity();
         this.proposer.controls['panNum'].setValidators([Validators.required]);
-        this.proposer.controls['panNum'].updateValueAndValidity();
 
       } else {
         this.proposer.controls['panNum'].patchValue('');
@@ -1120,6 +1138,9 @@ samerelationShip(){
         this.proposer.controls['aadharNum'].setValidators([Validators.required]);
         this.proposer.controls['aadharNum'].updateValueAndValidity();
       }
+      this.proposer.controls['panNum'].updateValueAndValidity();
+      this.proposer.controls['aadharNum'].updateValueAndValidity();
+
   }
 
   //Bank Details
@@ -2082,7 +2103,7 @@ samerelationShip(){
 
 
     politicalReson() {
-    if (this.proposer.controls['politicallyExposedPerson'].value == 'Yes') {
+    if (this.proposer.controls['politicallyExposedPerson'].value == 'Y') {
       this.proposer.controls['ifYesGiveDetails'].setValidators([Validators.required]);
       this.proposer.controls['ifYesGiveDetails'].updateValueAndValidity();
     } else {
@@ -3010,8 +3031,11 @@ samerelationShip(){
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.documentPath = successData.ResponseObject.filePath;
+            this.fileType = this.documentPath.file_type;
+            this.imageType();
             this.toastr.success(successData.ResponseObject.message, 'Success');
             this.fileUploadStatus = false;
+
         } else {
 
             this.toastr.error(successData.ErrorObject);
@@ -3022,9 +3046,37 @@ samerelationShip(){
     public fileUploadFailure(error) {
         console.log(error);
     }
+    imageType(){
+        if(this.fileType=='Form60'){
+        this.fileTypeImage=true;
+        this.imageViews = 'assets/img/upload-icons/form_64.svg';
+        console.log(this.imageViews,'this.imageViews....')
+        }else{
+         this.fileTypeImage=false;
+        }
+    }
+    saveImageAs1(adress) {
+        window.open(adress);
+    }
     skipUplod(){
       this.skipUploadStatus = false;
     }
+
+    viewImage(path, fileType) {
+       console.log(path,'path....')
+       console.log(fileType,'fileType....')
+        const dialogRef = this.dialog.open(BalajImageviewComponent, {
+            width: '900px',
+            data: {'img': path, 'title': fileType}
+
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
+
+
   nextDocUpload(stepper) {
     stepper.next();
       this.otpGen();
@@ -3045,6 +3097,72 @@ samerelationShip(){
     }
 
 }
+
+
+
+@Component({
+    selector: 'BalajImageviewComponent',
+    template: `
+        <div class="col-md-12 text-right" style="margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: -8px;" >
+            <!--<button  mat-button class="secondary-bg-color" (click)="saveImageAs1(webhost +'/' + data.img)" > Download </button>-->
+            <!--<mat-icon  *ngIf="imageView != ''" (click)="saveImageAs1(webhost +'/' + data.img)" style="cursor: pointer"> vertical_align_bottom</mat-icon>-->
+           
+            <i class="material-icons" (click)="onNoClick()" style="cursor: pointer">
+                cancel
+            </i>
+        </div>
+        <!--<div class="row">-->
+            <!--<div class="col-md-6 ">-->
+                <!--<div class="float-right">-->
+                    <!--<button  mat-button class="secondary-bg-color" (click)="saveImageAs1(webhost +'/' + data.img)">Download</button>-->
+                    <!--<mat-icon class="text-right h-100" (click)="onNoClick()" style="cursor: pointer;margin-bottom:27px">close</mat-icon>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div mat-dialog-content *ngIf="data.title != 'Form60'">
+            <img src="{{webhost +'/' + data.img}}"  alt="" class="w-100">
+        </div>
+        <!--<div mat-dialog-content *ngIf="data.title == 'Form60'">-->
+            <!--<iframe id="fred" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="{{webhost +'/' + data.img}}" frameborder="1" scrolling="auto" height="1100" width="850" ></iframe>-->
+          <!--<div *ngIf="data.title == 'Form60'">-->
+            <!--<img  src="{{imageView}}" style="height: 400px; width: 829px;" alt=" " title="">-->
+          <!--</div>-->
+        <!--</div>-->
+    `
+})
+export class BalajImageviewComponent {
+    public webhost: any;
+    public settings: Settings;
+    public imageView: any;
+
+    constructor(
+        public dialogRef: MatDialogRef<BalajImageviewComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
+         this.image();
+         }
+    ngOnInit() {
+        this.settings = this.appSettings.settings;
+        this.webhost = this.config.getimgUrl();
+
+    }
+         image(){
+         if(this.data.title == 'Form60'){
+            this.imageView = 'assets/img/upload-icons/form_60.svg';
+            console.log(this.imageView,'this.imageView...')
+         }
+         }
+    // saveImageAs1(adress) {
+    //     window.open(adress);
+    // }
+
+        onNoClick(): void {
+            this.dialogRef.close();
+         }
+
+}
+
 
 @Component({
     selector: 'lifedocuments',
@@ -3140,10 +3258,10 @@ export class BajajLifeOpt {
         this.otpCode = '';
 
     }
-  // // Number validation
-  // numberValidate(event: any) {
-  //   this.validation.numberValidate(event);
-  // }
+    // // Number validation
+    // numberValidate(event: any) {
+    //   this.validation.numberValidate(event);
+    // }
 
     onNoClick(): void {
         this.dialogRef.close(true);

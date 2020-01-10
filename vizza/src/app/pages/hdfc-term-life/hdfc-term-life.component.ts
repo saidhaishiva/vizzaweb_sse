@@ -238,7 +238,7 @@ export class HdfcTermLifeComponent implements OnInit {
       ccountry: ['', Validators.required],
       ccountryName: ['', Validators.required],
       // countrycode: ['', Validators.required],
-      mobilenum: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+      mobilenum: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
       expdurofstay: '',
       expdurofstayName: ['', Validators.required],
       prfdcommaddr: '',
@@ -383,7 +383,7 @@ export class HdfcTermLifeComponent implements OnInit {
           // nmaritalstatusName: ['', Validators.required],
           // entitlepctg: ['', Validators.required],
           nrelationship: ['', Validators.required],
-          nmobilenum: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+          nmobilenum: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
           nhouseno: ['', Validators.required],
           nstreet: ['', Validators.required],
           nlandmark: ['', Validators.required],
@@ -513,303 +513,241 @@ export class HdfcTermLifeComponent implements OnInit {
   }
 
 
-  addEventNominee(event, i, type) {
-    if(type == 'nominee') {
+  addEventNominee(event, i) {
+    // if(type == 'nominee') {
+    if (event.value != null) {
+      let selectedDate = '';
+      let dob = '';
+      let dob_days = '';
+      this.getAge = '';
+      this.getDays;
+      dob = this.datepipe.transform(event.value, 'y-MM-dd');
+      dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+
+      if (typeof event.value._i == 'string') {
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (pattern.test(event.value._i) && event.value._i.length == 10) {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+
+        } else {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
+        }
+
+        selectedDate = event.value._i;
+
+        if (selectedDate.length == 10) {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+          this.getAge = this.ageCalculate(dob);
+          this.getDays = this.ageCalculateInsurer(dob_days);
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
+
+        }
+
+      } else if (typeof event.value._i == 'object') {
+        if (dob.length == 10) {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+          this.getAge = this.ageCalculate(dob);
+          this.getDays = this.ageCalculateInsurer(dob_days);
+          console.log(this.getAge, 'getage')
+        }
+      }
+    }
+    if (i == 0) {
+      sessionStorage.nomineAge = this.getAge;
+      console.log(this.getAge, 'getaage');
+
+
+      if (i != 0) {
+        if (this.getAge < 18) {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(1);
+          console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value, 'nomineeagevalue');
+        } else {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(0);
+          console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value, 'nomineeagevalueelsee');
+        }
+
+      }
+      if (this.getAge < 18) {
+        console.log(this.getAge < 18, 'true');
+
+        // console.log( this.nomineeDetail['controls'].showAppointee.patchValue(true),'  this.nomineeDetail[\'controls\'].itemsNominee[\'controls\'][i][\'controls\'].showAppointee.patchValue(true)')
+        this.showAppointee == true;
+        // alert('get2');
+        //   this.nomineeDetail['controls'].showAppointee.patchValue(true);
+        // this.nomineeDetail.controls.showAppointee.patchValue(true);
+        // console.log(this.nomineeDetail.controls.
+
+
+      }
+    }
+  }
+
+    addEventappointee(event) {
       if (event.value != null) {
         let selectedDate = '';
+        this.appointeeAge = '';
         let dob = '';
-        let dob_days = '';
-        this.getAge = '';
-        this.getDays;
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
-
         if (typeof event.value._i == 'string') {
           const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
           if (pattern.test(event.value._i) && event.value._i.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
-
+            this.appointeeDobValidError = '';
           } else {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
+            this.appointeeDobValidError = 'Enter Valid Date';
           }
-
           selectedDate = event.value._i;
-
+          dob = this.datepipe.transform(event.value, 'y-MM-dd');
           if (selectedDate.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculateInsurer(dob_days);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
+            this.appointeeAge = this.ageCalculate(dob);
 
           }
 
         } else if (typeof event.value._i == 'object') {
+          // dob = this.datepipe.transform(event.value, 'MMM d, y');
+          dob = this.datepipe.transform(event.value, 'y-MM-dd');
           if (dob.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculateInsurer(dob_days);
-            console.log(this.getAge, 'getage')
+            this.appointeeAge = this.ageCalculate(dob);
+
           }
+          this.appointeeDobValidError = '';
         }
-      }
-      if (i == 0) {
-        sessionStorage.nomineAge = this.getAge;
-        console.log(this.getAge, 'getaage');
-
-
-        if ( i != 0){
-          if(this.getAge < 18){
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(1);
-            console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value,'nomineeagevalue');
-          }else{
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(0);
-            console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value,'nomineeagevalueelsee');
-          }
-
-        }
-        if (this.getAge < 18) {
-          console.log(this.getAge < 18, 'true');
-          // console.log( this.nomineeDetail['controls'].showAppointee.patchValue(true),'  this.nomineeDetail[\'controls\'].itemsNominee[\'controls\'][i][\'controls\'].showAppointee.patchValue(true)')
-
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].showAppointee.patchValue(true);
-
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.value);
-           this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.value);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.value);
-
-
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators([Validators.required]);
-        } else {
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].showAppointee.patchValue(false);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.setValidators(null);
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators(null);
-
-
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue('');
-        }
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.updateValueAndValidity();
-         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.updateValueAndValidity();
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.updateValueAndValidity();
-
+        sessionStorage.appointeeAge = this.appointeeAge;
 
       }
     }
-     else if(type == 'appointee') {
-
-      if (event.value != null) {
-        let selectedDate = '';
-        let dob = '';
-        let dob_days = '';
-        this.getAge = '';
-        this.getDays;
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
-
-        if (typeof event.value._i == 'string') {
-          const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-          if (pattern.test(event.value._i) && event.value._i.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDobValidError.patchValue('');
-
-          } else {
-            this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDobValidError.patchValue('Enter Valid DOB');
-          }
-
-          selectedDate = event.value._i;
-
-          if (selectedDate.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDobValidError.patchValue('');
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculate(dob_days);
-            this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue(dob);
-
-          }
-
-        }
-        else if (typeof event.value._i == 'object') {
-          if (dob.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDobValidError.patchValue('');
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculateInsurer(dob_days);
-          }
-        }
-      }
-      sessionStorage.appointeeAge = this.getAge;
-  console.log( sessionStorage.appointeeAge, ' sessionStorage.appointeeAge');
-    }
-  }
+  //   addEventNominee(event, i)
+  //   {
+  //     if (event.value != null) {
+  //       let selectedDate = '';
+  //       let dob = '';
+  //       let dob_days = '';
+  //       this.getAge = '';
+  //       this.getDays;
+  //       dob = this.datepipe.transform(event.value, 'y-MM-dd');
+  //       dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+  //
+  //       if (typeof event.value._i == 'string') {
+  //         const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+  //         if (pattern.test(event.value._i) && event.value._i.length == 10) {
+  //           this.appointeeDobValidError = ''
+  //         } else {
+  //           this.appointeeDobValidError = 'Enter Valid DOB';
+  //         }
+  //
+  //         selectedDate = event.value._i;
+  //
+  //         if (selectedDate.length == 10) {
+  //           this.appointeeDobValidError.patchValue('');
+  //           this.getAge = this.ageCalculate(dob);
+  //           this.getDays = this.ageCalculate(dob_days);
+  //           // this.aDob.patchValue(dob);
+  //
+  //         }
+  //
+  //       } else if (typeof event.value._i == 'object') {
+  //         if (dob.length == 10) {
+  //           this.nomineeDetail.controls.appointeeDobValidError.patchValue('');
+  //           this.getAge = this.ageCalculate(dob);
+  //           this.getDays = this.ageCalculateInsurer(dob_days);
+  //         }
+  //       }
+  //     }
+  //     sessionStorage.appointeeAge = this.getAge;
+  //     console.log(sessionStorage.appointeeAge, ' sessionStorage.appointeeAge');
+  //   }
+  // }
 
   appointeeAgeValid(event: any, i) {
-    if (this.nomineeDetail['controls'].showAppointee.value == true ) {
+    if (this.showAppointee == true ) {
+      // this.nomineeDetail.controls['atitle'].patchValue(this.nomineeDetail.controls['atitle'].value);
+      // this.nomineeDetail.controls['afirstnm'].patchValue(this.nomineeDetail.controls['afirstnm'].value);
+      // this.nomineeDetail.controls['alastnm'].patchValue(this.nomineeDetail.controls['alastnm'].value);
+      // this.nomineeDetail.controls['aDob'].patchValue(this.nomineeDetail.controls['aDob'].value);
+      // this.nomineeDetail.controls['amaritalstatus'].patchValue(this.nomineeDetail.controls['amaritalstatus'].value);
+      // this.nomineeDetail.controls['ahouseno'].patchValue(this.nomineeDetail.controls['ahouseno'].value);
+      // this.nomineeDetail.controls['astreet'].patchValue(this.nomineeDetail.controls['astreet'].value);
+      // this.nomineeDetail.controls['alandmark'].patchValue(this.nomineeDetail.controls['alandmark'].value);
+      // this.nomineeDetail.controls['acity'].patchValue(this.nomineeDetail.controls['acity'].value);
+      // this.nomineeDetail.controls['astate'].patchValue(this.nomineeDetail.controls['astate'].value);
+      // this.nomineeDetail.controls['acountry'].patchValue(this.nomineeDetail.controls['acountry'].value);
+      // this.nomineeDetail.controls['acityName'].patchValue(this.nomineeDetail.controls['acityName'].value);
+      // this.nomineeDetail.controls['astateName'].patchValue(this.nomineeDetail.controls['astateName'].value);
+      // this.nomineeDetail.controls['acountryName'].patchValue(this.nomineeDetail.controls['acountryName'].value);
+      // this.nomineeDetail.controls['arelationship'].patchValue(this.nomineeDetail.controls['arelationship'].value);
+      // this.nomineeDetail.controls['apincode'].patchValue(this.nomineeDetail.controls['apincode'].value);
 
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue(this.nomineeDetail['controls'].atitle.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue(this.nomineeDetail['controls'].afirstnm.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue(this.nomineeDetail['controls'].alastnm.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.patchValue(this.nomineeDetail['controls'].agender.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue(this.nomineeDetail['controls'].aDob.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.patchValue(this.nomineeDetail['controls'].amaritalstatus.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.patchValue(this.nomineeDetail['controls'].ahouseno.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue(this.nomineeDetail['controls'].astreet.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.patchValue(this.nomineeDetail['controls'].alandmark.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.patchValue(this.nomineeDetail['controls'].acity.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.patchValue(this.nomineeDetail['controls'].astate.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.patchValue(this.nomineeDetail['controls'].acountry.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue(this.nomineeDetail['controls'].arelationship.value);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue(this.nomineeDetail['controls'].apincode.value);
-
-
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.setValidators([Validators.required]);
-
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators([Validators.required]);
+      this.nomineeDetail.controls['atitle'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['afirstnm'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['alastnm'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['agender'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['aDob'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['amaritalstatus'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['ahouseno'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['astreet'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['alandmark'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['acity'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['astate'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['acountry'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['acityName'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['astateName'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['acountryName'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['arelationship'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['apincode'].setValidators([Validators.required]);
     } else {
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].showAppointee.patchValue(false);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.setValidators(null);
+      this.nomineeDetail.controls['atitle'].patchValue('');
+      this.nomineeDetail.controls['afirstnm'].patchValue('');
+      this.nomineeDetail.controls['alastnm'].patchValue('');
+      this.nomineeDetail.controls['agender'].patchValue('');
+      this.nomineeDetail.controls['aDob'].patchValue('');
+      this.nomineeDetail.controls['amaritalstatus'].patchValue('');
+      this.nomineeDetail.controls['ahouseno'].patchValue('');
+      this.nomineeDetail.controls['astreet'].patchValue('');
+      this.nomineeDetail.controls['alandmark'].patchValue('');
+      this.nomineeDetail.controls['acity'].patchValue('');
+      this.nomineeDetail.controls['astate'].patchValue('');
+      this.nomineeDetail.controls['acountry'].patchValue('');
+      this.nomineeDetail.controls['acityName'].patchValue('');
+      this.nomineeDetail.controls['astateName'].patchValue('');
+      this.nomineeDetail.controls['acountryName'].patchValue('');
+      this.nomineeDetail.controls['arelationship'].patchValue('');
+      this.nomineeDetail.controls['apincode'].patchValue('');
+      this.nomineeDetail.controls['apincode'].patchValue('');
 
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.setValidators(null);
+      this.nomineeDetail.controls['atitle'].setValidators(null);
+      this.nomineeDetail.controls['afirstnm'].setValidators(null);
+      this.nomineeDetail.controls['alastnm'].setValidators(null);
+      this.nomineeDetail.controls['agender'].setValidators(null);
+      this.nomineeDetail.controls['aDob'].setValidators(null);
+      this.nomineeDetail.controls['amaritalstatus'].setValidators(null);
+      this.nomineeDetail.controls['ahouseno'].setValidators(null);
+      this.nomineeDetail.controls['astreet'].setValidators(null);
+      this.nomineeDetail.controls['alandmark'].setValidators(null);
+      this.nomineeDetail.controls['acity'].setValidators(null);
+      this.nomineeDetail.controls['astate'].setValidators(null);
+      this.nomineeDetail.controls['acountry'].setValidators(null);
+      this.nomineeDetail.controls['acityName'].setValidators(null);
+      this.nomineeDetail.controls['astateName'].setValidators(null);
+      this.nomineeDetail.controls['arelationship'].setValidators(null);
+      this.nomineeDetail.controls['apincode'].setValidators(null);
 
 
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue('');
     }
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.updateValueAndValidity();
+    this.nomineeDetail.controls['atitle'].updateValueAndValidity();
+    this.nomineeDetail.controls['afirstnm'].updateValueAndValidity();
+    this.nomineeDetail.controls['alastnm'].updateValueAndValidity();
+    this.nomineeDetail.controls['agender'].updateValueAndValidity();
+    this.nomineeDetail.controls['aDob'].updateValueAndValidity();
+    this.nomineeDetail.controls['amaritalstatus'].updateValueAndValidity();
+    this.nomineeDetail.controls['ahouseno'].updateValueAndValidity();
+    this.nomineeDetail.controls['astreet'].updateValueAndValidity();
+    this.nomineeDetail.controls['alandmark'].updateValueAndValidity();
+    this.nomineeDetail.controls['acity'].updateValueAndValidity();
+    this.nomineeDetail.controls['acountry'].updateValueAndValidity();
+    this.nomineeDetail.controls['acityName'].updateValueAndValidity();
+    this.nomineeDetail.controls['astateName'].updateValueAndValidity();
+    this.nomineeDetail.controls['acountryName'].updateValueAndValidity();
+    this.nomineeDetail.controls['arelationship'].updateValueAndValidity();
+    this.nomineeDetail.controls['apincode'].updateValueAndValidity();
 
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.updateValueAndValidity();
-    this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.updateValueAndValidity();
 
   }
 
@@ -2903,74 +2841,125 @@ getweightListHdfc() {
 
 
 
-    if (sessionStorage.stepper3Details!= '' && sessionStorage.stepper3Details != undefined) {
-
-      let getStepper3 = JSON.parse(sessionStorage.stepper3Details);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].afirstnm.patchValue(getStepper3.afirstnm);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alastnm.patchValue(getStepper3.alastnm);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aDob.patchValue(this.datepipe.transform(getStepper3.aDob, 'y-MM-dd'));
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].agender.patchValue(getStepper3.agender);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ahouseno.patchValue(getStepper3.ahouseno);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astreet.patchValue(getStepper3.astreet);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alandmark.patchValue(getStepper3.alandmark);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acity.patchValue(getStepper3.acity);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astate.patchValue(getStepper3.astate);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.patchValue(getStepper3.acountry);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astreet.patchValue(getStepper3.astreet);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].apincode.patchValue(getStepper3.apincode);
-      // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(getStepper3.showAppointee);
-
-      if (getStepper3.itemsNominee.length > 1) {
-        this.addNominee(event);
-      }
-      console.log(getStepper3.itemsNominee[0].nomineeName, ' patchval ');
-      console.log(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nomineeName, ' nnName ');
-      console.log(getStepper3,'333333');
-      console.log(getStepper3.itemsNominee.length,'length');
-      for (let i = 0; i < getStepper3.itemsNominee.length; i++) {
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ntitle.patchValue(getStepper3.itemsNominee[i].ntitle);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nfirstnm.patchValue(getStepper3.itemsNominee[i].nfirstnm);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nlastnm.patchValue(getStepper3.itemsNominee[i].nlastnm);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(this.datepipe.transform(getStepper3.itemsNominee[i].nDob, 'y-MM-dd'));
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ngender.patchValue(getStepper3.itemsNominee[i].ngender);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nmaritalstatus.patchValue(getStepper3.itemsNominee[i].nmaritalstatus);
-        // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].entitlepctg.patchValue(getStepper3.itemsNominee[i].entitlepctg);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nhouseno.patchValue(getStepper3.itemsNominee[i].nhouseno);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nmobilenum.patchValue(getStepper3.itemsNominee[i].nmobilenum);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nrelationship.patchValue(getStepper3.itemsNominee[i].nrelationship);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstreet.patchValue(getStepper3.itemsNominee[i].nstreet);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nlandmark.patchValue(getStepper3.itemsNominee[i].nlandmark);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncity.patchValue(getStepper3.itemsNominee[i].ncity);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(getStepper3.itemsNominee[i].nstate);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountry.patchValue(getStepper3.itemsNominee[i].ncountryNmae);
-       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncityName.patchValue(getStepper3.itemsNominee[i].ncityName);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstateName.patchValue(getStepper3.itemsNominee[i].nstateName);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountryName.patchValue(getStepper3.itemsNominee[i].ncountry);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].npincode.patchValue(getStepper3.itemsNominee[i].npincode);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].atitle.patchValue(getStepper3.atitle);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].afirstnm.patchValue(getStepper3.afirstnm);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alastnm.patchValue(getStepper3.alastnm);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aDob.patchValue(this.datepipe.transform(getStepper3.aDob, 'y-MM-dd'));
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].amaritalstatus.patchValue(getStepper3.amaritalstatus);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].agender.patchValue(getStepper3.agender);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].ahouseno.patchValue(getStepper3.ahouseno);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue(getStepper3.astreet);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].alandmark.patchValue(getStepper3.alandmark);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acity.patchValue(getStepper3.acity);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astate.patchValue(getStepper3.astate);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountry.patchValue(getStepper3.acountry);
-         this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acityName.patchValue(getStepper3.acity);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astateName.patchValue(getStepper3.astate);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].acountryName.patchValue(getStepper3.acountry);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].arelationship.patchValue(getStepper3.arelationship);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].astreet.patchValue(getStepper3.astreet);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].apincode.patchValue(getStepper3.apincode);
-        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].showAppointee.patchValue(getStepper3.showAppointee);
-
-      }
-    }
-    console.log(this.nomineeDetail, ' stepper3 ');
-    console.log(this.getStepper3, ' getStepper3 ');
+    // if (sessionStorage.stepper3Details!= '' && sessionStorage.stepper3Details != undefined) {
+    //
+    //   let getStepper3 = JSON.parse(sessionStorage.stepper3Details);
+    //   this.nomineeDetail = this.fb.group({
+    //     // ntitle: this.getStepper3.ntitle,
+    //     // nfirstnm: this.getStepper3.nfirstnm,
+    //     // nlastnm: this.getStepper3.nlastnm,
+    //     // nDob: this.getStepper3.nDob,
+    //     // ngender: this.getStepper3.ngender,
+    //     // nmaritalstatus: this.getStepper3.nmaritalstatus,
+    //     // nhouseno: this.getStepper3.nhouseno,
+    //     // nmobilenum: this.getStepper3.nmobilenum,
+    //     // nrelationship: this.getStepper3.nrelationship,
+    //     // nstreet: this.getStepper3.nstreet,
+    //     // nlandmark: this.getStepper3.nlandmark,
+    //     // ncity: this.getStepper3.ncity,
+    //     // nstate: this.getStepper3.nstate,
+    //     // ncountry: this.getStepper3.ncountry,
+    //     // ncityName: this.getStepper3.ncityName,
+    //     // nstateName: this.getStepper3.nstateName,
+    //     // ncountryName: this.getStepper3.ncountryName,
+    //     // npincode: this.getStepper3.npincode,
+    //       afirstnm: this.getStepper3.afirstnm,
+    //
+    //       alastnm: this.getStepper3.alastnm,
+    //       aDob: this.getStepper3.aDob,
+    //     agender: this.getStepper3.agender,
+    //     ahouseno: this.getStepper3.ahouseno,
+    //     astreet: this.getStepper3.astreet,
+    //     alandmark: this.getStepper3.alandmark,
+    //     acity: this.getStepper3.acity,
+    //     astate: this.getStepper3.astate,
+    //     acountry: this.getStepper3.acountry,
+    //     // astreet: this.getStepper3.astreet,
+    //     apincode: this.getStepper3.apincode,
+    //     showAppointee: this.getStepper3.showAppointee,
+    //
+    //       // this.nomineeDetail.controls['atitle'].patchValue(getStepper3.atitle);
+    //   // this.nomineeDetail.controls['afirstnm'].patchValue(getStepper3.afirstnm);
+    //   // this.nomineeDetail.controls['alastnm'].patchValue(getStepper3.alastnm);
+    //   // this.nomineeDetail.controls['aDob'].patchValue(this.datepipe.transform(getStepper3.aDob, 'y-MM-dd'));
+    //   // this.nomineeDetail.controls['agender'].patchValue(getStepper3.agender);
+    //   // this.nomineeDetail.controls['ahouseno'].patchValue(getStepper3.ahouseno);
+    //   // this.nomineeDetail.controls['astreet'].patchValue(getStepper3.astreet);
+    //   // this.nomineeDetail.controls['alandmark'].patchValue(getStepper3.alandmark);
+    //   // this.nomineeDetail.controls['acity'].patchValue(getStepper3.acity);
+    //   // this.nomineeDetail.controls['astate'].patchValue(getStepper3.astate);
+    //   // this.nomineeDetail.controls['acountry'].patchValue(getStepper3.acountry);
+    //   // this.nomineeDetail.controls['astreet'].patchValue(getStepper3.astreet);
+    //   // this.nomineeDetail.controls['c'].patchValue(getStepper3.apincode);
+    //   // this.nomineeDetail.controls['showAppointee'].patchValue(getStepper3.showAppointee);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alastnm.patchValue(getStepper3.alastnm);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aDob.patchValue(this.datepipe.transform(getStepper3.aDob, 'y-MM-dd'));
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].agender.patchValue(getStepper3.agender);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ahouseno.patchValue(getStepper3.ahouseno);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astreet.patchValue(getStepper3.astreet);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alandmark.patchValue(getStepper3.alandmark);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acity.patchValue(getStepper3.acity);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astate.patchValue(getStepper3.astate);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.patchValue(getStepper3.acountry);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astreet.patchValue(getStepper3.astreet);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].apincode.patchValue(getStepper3.apincode);
+    //   // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(getStepper3.showAppointee);
+    // });
+    //
+    //   if (getStepper3.itemsNominee.length > 1) {
+    //     this.addNominee(event);
+    //   }
+    //   // console.log(getStepper3.itemsNominee[0].nomineeName, ' patchval ');
+    //   console.log(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nomineeName, ' nnName ');
+    //   console.log(getStepper3,'333333');
+    //   console.log(getStepper3.itemsNominee.length,'length');
+    //   for (let i = 0; i < getStepper3.itemsNominee.length; i++) {
+    //
+    //
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ntitle.patchValue(getStepper3.itemsNominee[i].ntitle);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nfirstnm.patchValue(getStepper3.itemsNominee[i].nfirstnm);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nlastnm.patchValue(getStepper3.itemsNominee[i].nlastnm);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(this.datepipe.transform(getStepper3.itemsNominee[i].nDob, 'y-MM-dd'));
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ngender.patchValue(getStepper3.itemsNominee[i].ngender);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nmaritalstatus.patchValue(getStepper3.itemsNominee[i].nmaritalstatus);
+    //     // this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].entitlepctg.patchValue(getStepper3.itemsNominee[i].entitlepctg);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nhouseno.patchValue(getStepper3.itemsNominee[i].nhouseno);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nmobilenum.patchValue(getStepper3.itemsNominee[i].nmobilenum);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nrelationship.patchValue(getStepper3.itemsNominee[i].nrelationship);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstreet.patchValue(getStepper3.itemsNominee[i].nstreet);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nlandmark.patchValue(getStepper3.itemsNominee[i].nlandmark);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncity.patchValue(getStepper3.itemsNominee[i].ncity);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(getStepper3.itemsNominee[i].nstate);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountry.patchValue(getStepper3.itemsNominee[i].ncountryNmae);
+    //    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncityName.patchValue(getStepper3.itemsNominee[i].ncityName);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstateName.patchValue(getStepper3.itemsNominee[i].nstateName);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncountryName.patchValue(getStepper3.itemsNominee[i].ncountry);
+    //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].npincode.patchValue(getStepper3.itemsNominee[i].npincode);
+    //     // this.nomineeDetail.controls['atitle'].patchValue(getStepper3.atitle);
+    //     // this.nomineeDetail.controls['afirstnm'].patchValue(getStepper3.afirstnm);
+    //     // this.nomineeDetail.controls['alastnm'].patchValue(getStepper3.alastnm);
+    //     // this.nomineeDetail.controls['aDob'].patchValue(getStepper3.aDob);
+    //     // this.nomineeDetail.controls['amaritalstatus'].patchValue(getStepper3.amaritalstatus);
+    //     // this.nomineeDetail.controls['agender'].patchValue(getStepper3.agender);
+    //     // this.nomineeDetail.controls['ahouseno'].patchValue(getStepper3.ahouseno);
+    //     // this.nomineeDetail.controls['astreet'].patchValue(getStepper3.astreet);
+    //     // this.nomineeDetail.controls['alandmark'].patchValue(getStepper3.alandmark);
+    //     // this.nomineeDetail.controls['acity'].patchValue(getStepper3.acity);
+    //     // this.nomineeDetail.controls['astate'].patchValue(getStepper3.astate);
+    //     // this.nomineeDetail.controls['acountry'].patchValue(getStepper3.acountry);
+    //     // this.nomineeDetail.controls['acityName'].patchValue(getStepper3.acityName);
+    //     // this.nomineeDetail.controls['astateName'].patchValue(getStepper3.astateName);
+    //     // this.nomineeDetail.controls['acountryName'].patchValue(getStepper3.acountryName);
+    //     // this.nomineeDetail.controls['arelationship'].patchValue(getStepper3.arelationship);
+    //     // this.nomineeDetail.controls['astreet'].patchValue(getStepper3.astreet);
+    //     // this.nomineeDetail.controls['apincode'].patchValue(getStepper3.apincode);
+    //     // this.nomineeDetail.controls['showAppointee'].patchValue(getStepper3.showAppointee);
+    //
+    //
+    //   }
+    // }
+    // console.log(this.nomineeDetail, ' stepper3 ');
+    // console.log(this.getStepper3, ' getStepper3 ');
 
 
 
@@ -3165,28 +3154,28 @@ getweightListHdfc() {
           "partyseqid": "APPOINTEE_0",
           "partytype": "PRT_INDIV",
           "personalinfo": {
-            "title": this.nomineeDetail.value.itemsNominee[0].atitle,
-            "firstnm": this.nomineeDetail.value.itemsNominee[0].afirstnm,
-            "lastnm": this.nomineeDetail.value.itemsNominee[0].alastnm,
-            "gender":this.nomineeDetail.value.itemsNominee[0].agender,
-            "dob": this.nomineeDetail.value.itemsNominee[0].aDob,
-            "maritalstatus": this.nomineeDetail.value.itemsNominee[0].amaritalstatus
+            "title": this.nomineeDetail.controls['atitle'].value ,
+            "firstnm": this.nomineeDetail.controls['afirstnm'].value ,
+            "lastnm":this.nomineeDetail.controls['alastnm'].value ,
+            "gender":this.nomineeDetail.controls['agender'].value,
+            "dob": this.nomineeDetail.controls['aDob'].value,
+            "maritalstatus":this.nomineeDetail.controls['amaritalstatus'].value
           },
           "addressinfo": {
             "addresstype": "ADD_PMNT",
             "addressdetails": {
-              "houseno": this.nomineeDetail.value.itemsNominee[0].ahouseno,
-              "street": this.nomineeDetail.value.itemsNominee[0].astreet,
-              "landmark": this.nomineeDetail.value.itemsNominee[0].alandmark,
-              "city": this.nomineeDetail.value.itemsNominee[0].acity,
-              "state": this.nomineeDetail.value.itemsNominee[0].astate,
-              "pincode":this.nomineeDetail.value.itemsNominee[0].apincode,
-              "country":this.nomineeDetail.value.itemsNominee[0].acountry
+              "houseno": this.nomineeDetail.controls['ahouseno'].value ,
+              "street": this.nomineeDetail.controls['astreet'].value ,
+              "landmark": this.nomineeDetail.controls['alandmark'].value,
+              "city": this.nomineeDetail.controls['acity'].value,
+              "state": this.nomineeDetail.controls['astate'].value ,
+              "pincode":this.nomineeDetail.controls['apincode'].value,
+              "country":this.nomineeDetail.controls['acountry'].value
             }
           },
           "relationshipinfo": {
             "relatedparty": "NOMINEE_1",
-            "relationship":this.nomineeDetail.value.itemsNominee[0].arelationship
+            "relationship":''
           }
         },
 

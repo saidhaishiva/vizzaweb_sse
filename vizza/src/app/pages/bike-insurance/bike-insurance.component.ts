@@ -712,6 +712,7 @@ export class BikeInsuranceComponent implements OnInit {
         if (sessionStorage.enquiryFormData != '' && sessionStorage.enquiryFormData != undefined) {
             let stepper = JSON.parse(sessionStorage.enquiryFormData);
             console.log(stepper,'stepper');
+            console.log(stepper.previousClaim,'stepper.previousClaim');
             this.bikeInsurance = this.fb.group({
                 'vehicalNumber': stepper.vehicalNumber,
                 'registrationDate': this.datePipe.transform(stepper.registrationDate, 'y-MM-dd'),

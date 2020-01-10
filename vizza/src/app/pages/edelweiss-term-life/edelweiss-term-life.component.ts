@@ -243,7 +243,10 @@ export class EdelweissTermLifeComponent implements OnInit {
   public drugsInderror:any;
   public alcoholInderror:any;
   public tobaccoInderror:any;
+  public hcb_sumassured_min:any;
+  public hcb_sumassured_max:any;
   public tittleread :boolean;
+  public otpFalseError :boolean;
 
 
   constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
@@ -315,6 +318,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.medicalTreatmenterror =false;
     this.admitInderror =false;
     this.ECGInderror =false;
+    this.otpFalseError =false;
     // this.tobaccoStopInderror =false;
     this.piloterror =false;
     this.activityerror =false;
@@ -1931,8 +1935,10 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   nextDocUpload(stepper) {
+    if(this.otpFalseError==false){
     stepper.next();
     this.topScroll();
+    }
   }
 
   summaryNext(stepper) {
@@ -5225,6 +5231,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.payingTerm = this.eePremiumTerm.payingTerm;
       this.policyTerm = this.eePremiumTerm.policyTerm;
       this.better_half_sum_assured = this.eePremiumTerm.better_half_sum_assured;
+      this.hcb_sumassured_min = this.eePremiumTerm.hcb_sumassured_min;
+      this.hcb_sumassured_max = this.eePremiumTerm.hcb_sumassured_max;
       this.betterhalf();
       console.log(this.ADB,'this.ADB');
       console.log(this.eePremiumTerm,'this.this.eePremiumTerm');
@@ -5239,7 +5247,12 @@ export class EdelweissTermLifeComponent implements OnInit {
       console.log(this.planname,'this.planName');
       console.log(this.payingTerm,'this.payingTerm');
       console.log(this.policyTerm,'this.policyTerm');
+      console.log(this.hcb_sumassured_max,'this.hcb_sumassured_max');
+      console.log(this.hcb_sumassured_min,'this.hcb_sumassured_min');
 
+    }
+    else {
+      this.toastr.error(successData.ErrorObject);
     }
 
   }
@@ -6247,10 +6260,12 @@ export class EdelweissTermLifeComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log(result,'result....')
         if(result==true) {
+          this.otpFalseError=false
           // this.proposalFormPdf = this.proposalNextList.path;
           this.proposalFormPdf = (this.webhost + '/' + this.proposalNextList.path);
-
           console.log(this.proposalFormPdf,'this.proposalFormPdf....');
+        }else if(result==false){
+          this.otpFalseError=true
         }
 
       });
@@ -7048,6 +7063,14 @@ export class EdelweissTermLifeComponent implements OnInit {
 @Component({
   selector: ' edelweissopt ',
   template: `
+    <div class="col-md-12 text-right" style="margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: -8px;
+" >
+      <i class="material-icons" (click)="close()" style="cursor: pointer">
+        cancel
+      </i>
+    </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center w-100">
@@ -7210,6 +7233,9 @@ export class EdelweissOpt {
 
   clearOtp(){
     this.otpCode='';
+  }
+  close(): void {
+    this.dialogRef.close(false);
   }
 
 

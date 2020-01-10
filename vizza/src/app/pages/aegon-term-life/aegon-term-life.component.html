@@ -144,7 +144,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" (input)="validateAnnual(personal.controls['annualIncome'].value,1);deathBenefitSA(personal.controls['deathBenefitSA'].value,1);" required autocomplete="off" min="100000"  maxlength="10">
+                            <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" (change)="validateAnnual(personal.controls['annualIncome'].value,1);deathBenefitSA(personal.controls['deathBenefitSA'].value,1);" required autocomplete="off" min="100000"  maxlength="10">
                             <mat-error *ngIf="personal.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                           </mat-form-field>
                           <div class="error" *ngIf="annaulIncomeMsg != ''">{{annaulIncomeMsg}}</div>

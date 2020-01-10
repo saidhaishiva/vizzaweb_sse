@@ -512,16 +512,12 @@ export class AegonTermLifeComponent implements OnInit {
   // }
 
   validateAnnual(annualIncome,type){
-    if(annualIncome!= '')
-    {
+    if(annualIncome!= '') {
       if(annualIncome >= 200000){
-
-        if(type == 1)
-        {
+        if(type == 1) {
           this.annaulIncomeMsg = '';
           this.errorMsg = '';
           this.getAnnual('annaulIncome');
-
         }
       }else{
         this.annaulIncomeMsg = 'Minimum AnnualIncome Should be 2Lac';
@@ -1725,6 +1721,7 @@ export class AegonTermLifeComponent implements OnInit {
   changeEmpType() {
     this.personal.controls['employeeTypeName'].patchValue(this.empTypeList[this.personal.controls['employeeType'].value]);
     this.getoccupationlist();
+    this.personal.controls['natureOfWork'].patchValue('');
 
   }
   changecState()

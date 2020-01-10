@@ -119,7 +119,12 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public LimitedtoOwnPremises_TP_Premium:any;
     public Basic_OD_Premium:any;
     public Basic_TP_Premium:any;
+    public PaidDriver_Premium:any;
+    public AntiTheftDisc_Premium:any;
     public PAOwnerDriver_Premium:any;
+    public HandicapDisc_Premium:any;
+    public BiFuel_Kit_TP_Premium:any;
+    public BiFuel_Kit_OD_Premium:any;
 
 
     public financiercodevalue: any;
@@ -251,7 +256,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             ElecticalAccessoryIDV: [''],
             NonElecticalAccessoryIDV: [''],
             IsLimitedtoOwnPremises: [''],
-            OtherLoadDiscRate: [''],
+            // OtherLoadDiscRate: [''],
             pacovername: [''],
             pasuminsured: [''],
             pacover: [''],
@@ -260,10 +265,14 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             totalNonElectricPremium: [''],
             totalNonElectricPremium1: [''],
             totalPaidDriverPremium: [''],
+            totalAntitheftdiscPremium: [''],
+            totalbiofuelkitPremium: [''],
+            totalbiofuelkitPremium1: [''],
+            totalHandicapDiscFlagPremium: [''],
             totalZerodeptPremium: [''],
             totalLimitedtoOwnPremium: [''],
             totalLimitedtoOwnPremium1: [''],
-            totalLoadDiscPremium: [''],
+            // totalLoadDiscPremium: 0,
         });
         // this.BankDetails = this.fb.group({
         // banknamelist:[''],
@@ -862,7 +871,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 ElecticalAccessoryIDV: this.getstepper3.ElecticalAccessoryIDV,
                 NonElecticalAccessoryIDV: this.getstepper3.NonElecticalAccessoryIDV,
                 IsLimitedtoOwnPremises: this.getstepper3.IsLimitedtoOwnPremises,
-                OtherLoadDiscRate: this.getstepper3.OtherLoadDiscRate,
+                // OtherLoadDiscRate: this.getstepper3.OtherLoadDiscRate,
                 pacovername: this.getstepper3.pacovername,
                 pasuminsured: this.getstepper3.pasuminsured,
                 pacover: this.getstepper3.pacover,
@@ -871,10 +880,14 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 totalNonElectricPremium: this.getstepper3.totalNonElectricPremium,
                 totalNonElectricPremium1: this.getstepper3.totalNonElectricPremium1,
                 totalPaidDriverPremium: this.getstepper3.totalPaidDriverPremium,
+                totalAntitheftdiscPremium: this.getstepper3.totalAntitheftdiscPremium,
+                totalHandicapDiscFlagPremium: this.getstepper3.totalHandicapDiscFlagPremium,
+                totalbiofuelkitPremium: this.getstepper3.totalbiofuelkitPremium,
+                totalbiofuelkitPremium1: this.getstepper3.totalbiofuelkitPremium1,
                 totalZerodeptPremium: this.getstepper3.totalZerodeptPremium,
                 totalLimitedtoOwnPremium: this.getstepper3.totalLimitedtoOwnPremium,
                 totalLimitedtoOwnPremium1: this.getstepper3.totalLimitedtoOwnPremium1,
-                totalLoadDiscPremium: this.getstepper3.totalLoadDiscPremium,
+                // totalLoadDiscPremium: this.getstepper3.totalLoadDiscPremium,
 
 
             });
@@ -952,13 +965,36 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     bioFuelValidation(event) {
         if (this.addOns.controls['biofuel'].value != '') {
             this.addOns.controls['biofuelkit'].setValidators([Validators.required]);
-            this.addOns.controls['biofuelkit'].updateValueAndValidity();
         } else {
             this.addOns.controls['biofuelkit'].patchValue('');
             this.addOns.controls['biofuelkit'].setValidators(null);
-            this.addOns.controls['biofuelkit'].updateValueAndValidity();
         }
+        this.addOns.controls['biofuelkit'].updateValueAndValidity();
+
     }
+    bifuelChange(){
+        if (this.addOns.controls['biofuelkit'].value ) {
+
+            this.addOns.controls['totalbiofuelkitPremium'].setValidators([Validators.required]);
+            this.addOns.controls['totalbiofuelkitPremium1'].setValidators([Validators.required]);
+
+            this.getCover();
+
+        } else {
+            this.addOns.controls['totalbiofuelkitPremium'].patchValue('');
+            this.addOns.controls['totalbiofuelkitPremium1'].patchValue('');
+            this.addOns.controls['totalbiofuelkitPremium'].setValidators(null);
+            this.addOns.controls['totalbiofuelkitPremium1'].setValidators(null);
+        }
+        this.addOns.controls['totalbiofuelkitPremium'].updateValueAndValidity();
+        this.addOns.controls['totalbiofuelkitPremium1'].updateValueAndValidity();
+
+    }
+    bifuelValue(){
+        this.addOns.controls['totalbiofuelkitPremium'].patchValue(this.BiFuel_Kit_OD_Premium);
+        this.addOns.controls['totalbiofuelkitPremium1'].patchValue(this.BiFuel_Kit_TP_Premium);
+    }
+
 
 
     // if(this.nomineename !=''){
@@ -1329,7 +1365,34 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.addOns.controls['totalNonElectricPremium'].updateValueAndValidity();
         this.addOns.controls['totalNonElectricPremium1'].updateValueAndValidity();
     }
+    antitheftdiscChange(){
+        if(this.antitheftdisc != 'false'){
+            this.addOns.controls['totalAntitheftdiscPremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.addOns.controls['totalAntitheftdiscPremium'].patchValue('');
+            this.addOns.controls['totalAntitheftdiscPremium'].setValidators(null);
 
+        }
+        this.addOns.controls['totalAntitheftdiscPremium'].updateValueAndValidity();
+    }
+    antitheftdiscAmount(){
+        this.addOns.controls['totalAntitheftdiscPremium'].patchValue(this.AntiTheftDisc_Premium)
+    }
+    HandicapDiscFlagChange(){
+        if(this.handicapdic != 'false'){
+            this.addOns.controls['totalHandicapDiscFlagPremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.addOns.controls['totalHandicapDiscFlagPremium'].patchValue('');
+            this.addOns.controls['totalHandicapDiscFlagPremium'].setValidators(null);
+
+        }
+        this.addOns.controls['totalHandicapDiscFlagPremium'].updateValueAndValidity();
+    }
+    HandicapDiscFlagAmount(){
+        this.addOns.controls['totalHandicapDiscFlagPremium'].patchValue(this.HandicapDisc_Premium)
+    }
     paidDriverChange(){
         if(this.addOns.controls.IsPaidDriver.value == true){
             this.addOns.controls['totalPaidDriverPremium'].setValidators([Validators.required]);
@@ -1341,17 +1404,20 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         }
         this.addOns.controls['totalPaidDriverPremium'].updateValueAndValidity();
     }
-    zerodeptChange(){
-        if(this.addOns.controls.zerodept.value == true){
-            this.addOns.controls['totalZerodeptPremium'].setValidators([Validators.required]);
-            this.getCover();
-        } else {
-            this.addOns.controls['totalZerodeptPremium'].patchValue('');
-            this.addOns.controls['totalZerodeptPremium'].setValidators(null);
-
-        }
-        this.addOns.controls['totalZerodeptPremium'].updateValueAndValidity();
+    paidDriverAmount(){
+        this.addOns.controls['totalPaidDriverPremium'].patchValue(this.PaidDriver_Premium)
     }
+    // zerodeptChange(){
+    //     if(this.addOns.controls.zerodept.value == true){
+    //         this.addOns.controls['totalZerodeptPremium'].setValidators([Validators.required]);
+    //         this.getCover();
+    //     } else {
+    //         this.addOns.controls['totalZerodeptPremium'].patchValue('');
+    //         this.addOns.controls['totalZerodeptPremium'].setValidators(null);
+    //
+    //     }
+    //     this.addOns.controls['totalZerodeptPremium'].updateValueAndValidity();
+    // }
     limitedtoOwnChange(){
         if(this.addOns.controls.IsLimitedtoOwnPremises.value == true){
             this.addOns.controls['totalLimitedtoOwnPremium'].setValidators([Validators.required]);
@@ -1367,17 +1433,18 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.addOns.controls['totalLimitedtoOwnPremium'].updateValueAndValidity();
         this.addOns.controls['totalLimitedtoOwnPremium1'].updateValueAndValidity();
     }
-    loadDiscRateChange(){
-        if(this.addOns.controls.OtherLoadDiscRate.value == true){
-            this.addOns.controls['totalLoadDiscPremium'].setValidators([Validators.required]);
-            this.getCover();
-        } else {
-            this.addOns.controls['totalLoadDiscPremium'].patchValue('');
-            this.addOns.controls['totalLoadDiscPremium'].setValidators(null);
-
-        }
-        this.addOns.controls['totalLoadDiscPremium'].updateValueAndValidity();
-    }
+    // loadDiscRateChange(){
+    //     if(this.addOns.controls.OtherLoadDiscRate.value == true){
+    //         this.addOns.controls['totalLoadDiscPremium'].patchValue(0);
+    //         this.addOns.controls['totalLoadDiscPremium'].setValidators([Validators.required]);
+    //
+    //     } else {
+    //         this.addOns.controls['totalLoadDiscPremium'].patchValue('');
+    //         this.addOns.controls['totalLoadDiscPremium'].setValidators(null);
+    //
+    //     }
+    //     this.addOns.controls['totalLoadDiscPremium'].updateValueAndValidity();
+    // }
 
 
     getCover() {
@@ -1482,7 +1549,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
                     'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
                     'IsLimitedtoOwnPremises': this.addOns.controls['IsLimitedtoOwnPremises'].value == true ? '1' : '0',
-                    'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
+                    // 'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
                     'AntiTheftDiscFlag': this.addOns.controls['Antitheftdiscflag'].value,
                     'HandicapDiscFlag': this.addOns.controls['HandicapDiscFlag'].value,
                     'UnnamedPersonSI': this.addOns.controls['pasuminsured'].value,
@@ -1490,7 +1557,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 },
             }
         };
-        this.Setting.loadingSpinner = true;
+        // this.Setting.loadingSpinner = true;
         this.bikeInsurance.hdfcCoverPremium(data).subscribe(
             (successData) => {
                 this.coverPremiumsuccess(successData);
@@ -1501,7 +1568,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         );
     }
     public coverPremiumsuccess(successData) {
-        this.Setting.loadingSpinner = false;
+        // this.Setting.loadingSpinner = false;
         if (successData.IsSuccess == true) {
             this.coverPremium = successData.ResponseObject;
             console.log(this.coverPremium,'coverPremium');
@@ -1514,12 +1581,21 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.Basic_OD_Premium=this.coverPremium.Basic_OD_Premium;
             this.Basic_TP_Premium=this.coverPremium.Basic_TP_Premium;
             this.PAOwnerDriver_Premium=this.coverPremium.PAOwnerDriver_Premium;
+            this.PaidDriver_Premium=this.coverPremium.PaidDriver_Premium;
+            this.AntiTheftDisc_Premium=this.coverPremium.AntiTheftDisc_Premium;
+            this.HandicapDisc_Premium=this.coverPremium.HandicapDisc_Premium;
+            this.BiFuel_Kit_OD_Premium=this.coverPremium.BiFuel_Kit_OD_Premium;
+            this.BiFuel_Kit_TP_Premium=this.coverPremium.BiFuel_Kit_TP_Premium;
             this.electrical();
             this.electricalzd();
             this.nonelectrical();
             this.nonelectricalZD();
+            this.paidDriverAmount();
+            this.HandicapDiscFlagAmount();
             this.limitedOD();
             this.limitedTP();
+            this.antitheftdiscAmount();
+            this.bifuelValue();
 
         }
         else{
@@ -1708,7 +1784,7 @@ limitedTP(){
                     'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
                     'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
                     'IsLimitedtoOwnPremises': this.addOns.controls['IsLimitedtoOwnPremises'].value == true ? '1' : '0',
-                    'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
+                    // 'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
                     'AntiTheftDiscFlag': this.addOns.controls['Antitheftdiscflag'].value,
                     'HandicapDiscFlag': this.addOns.controls['HandicapDiscFlag'].value,
                     'UnnamedPersonSI': this.addOns.controls['pasuminsured'].value,

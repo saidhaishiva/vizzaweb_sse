@@ -305,6 +305,7 @@
 
                     </mat-accordion>
                 </mat-step>
+
                 <mat-step [stepControl]="">
                     <ng-template matStepLabel>SUMMARY</ng-template>
                     <section class="summary-details" *ngIf="summaryData">
@@ -598,7 +599,7 @@
 <!--mobile view-->
 <section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">
     <div class="container-fluid">
-        <div class="row bajajHealthProposal">
+        <div class="row bajajHealthProposalMob">
             <div class="col-sm-12 col-xs-12 col-md-12">
                 <mat-accordion>
                     <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" [disabled]="healthBajajTrue0">
@@ -610,7 +611,7 @@
                             <mat-accordion class="mt-4 w-100" *ngIf="payLaterr == false">
                                 <form [formGroup]="insureArray">
                                     <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
-                                        <mat-expansion-panel class="mt-2" [formGroupName]="i" [expanded]="i == 0">
+                                        <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                                             <mat-expansion-panel-header>
                                                 <mat-panel-title >
                                                     <span *ngIf="i == 0">PROPOSER / INSURED DETAILS</span>
@@ -624,10 +625,10 @@
                                             <!--</mat-expansion-panel-header>-->
                                             <ng-template matStepLabel>INSURED DETAILS </ng-template>
                                             <div class="row">
-                                                <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3">
+                                                <div class="col-12 box-card pt-3">
                                                     <!--<h6 class="color-blue">{{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h6>-->
                                                     <div class="row">
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <mat-select placeholder="Title" formControlName="insureTitle" (selectionChange)="insureChangeGender(i)" required>
                                                                     <mat-option value="MR">Mr</mat-option>
@@ -636,35 +637,35 @@
                                                                 <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="First Name" formControlName="insureName"  (keypress)="nameValidate($event)" maxlength="20"  autocomplete="off" required>
                                                                 <mat-error *ngIf="insureArray.invalid">Insured Name is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-md-3">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Middle Name" formControlName="insuremiddleName"  (keypress)="nameValidate($event)" maxlength="20"  autocomplete="off">
                                                                 <mat-error *ngIf="insureArray.invalid">Insured Name is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Last Name" formControlName="insureLastName"  (keypress)="nameValidate($event)" maxlength="50"  autocomplete="off" required>
                                                                 <mat-error *ngIf="insureArray.invalid">Insured Name is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
-                                                                <input matInput [matDatepicker]="picker4" [max]="minDate" maxlength="10" placeholder="DOB (DD/MM/YYYY)" minlength="10" formControlName="insureDob" (dateInput)="addEvent($event, 'insurer', i, insureArray['controls'].items['controls'][i]['controls'].type.value )" (dateChange)="addEvent($event, 'insurer', i, insureArray['controls'].items['controls'][i]['controls'].type.value  )" (keypress)="dobValidate($event, 'insurer', i)" autocomplete="off" required>
-                                                                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-                                                                <mat-datepicker #picker4></mat-datepicker>
+                                                                <input matInput [matDatepicker]="picker6" [max]="minDate" maxlength="10" placeholder="DOB (DD/MM/YYYY)" minlength="10" formControlName="insureDob" (dateInput)="addEvent($event, 'insurer', i, insureArray['controls'].items['controls'][i]['controls'].type.value )" (dateChange)="addEvent($event, 'insurer', i, insureArray['controls'].items['controls'][i]['controls'].type.value  )" (keypress)="dobValidate($event, 'insurer', i)" autocomplete="off" required>
+                                                                <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                                                                <mat-datepicker #picker6></mat-datepicker>
                                                                 <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
                                                             </mat-form-field>
                                                             <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
                                                             <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="i == 0">
+                                                        <div class="col-12" *ngIf="i == 0">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Email ID"   formControlName="insureEmail"   autocomplete="off" [required]="i == 0">
                                                                 <!--<mat-error *ngIf="insureArray.invalid">Email ID is required</mat-error>-->
@@ -672,31 +673,31 @@
                                                                 <mat-error *ngIf="insureArray['controls'].items['controls'][i]['controls'].insureEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Gender" formControlName="insureGender" required readonly autocomplete="off">
                                                                 <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Age" formControlName="insureAge" autocomplete="off" autocomplete="off" readonly required>
                                                                 <mat-error *ngIf="insureArray.invalid">Age is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Height(cm)" formControlName="insureHeight" required (keypress)="numberValidate($event)" maxlength="3" autocomplete="off">
                                                                 <mat-error *ngIf="insureArray.invalid">Height is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Weight" formControlName="insureWeight" (keypress)="numberValidate($event)"  maxlength="3" required  autocomplete="off">
                                                                 <mat-error *ngIf="insureArray.invalid">Weight is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
+                                                        <div class="col-12" *ngIf="i == 0">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insureMobile" autocomplete="off" [required]="i == 0">
                                                                 <!--<mat-error *ngIf="insureArray.invalid">Mobile Number is required</mat-error>-->
@@ -704,13 +705,13 @@
 
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="i == 0">
+                                                        <div class="col-12" *ngIf="i == 0">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Alternate Number"  (keypress)="numberValidate($event)" (keyup)="alternateChange($event,i)"   maxlength="10" formControlName="insurePhone" autocomplete="off" >
                                                             </mat-form-field>
                                                             <div class="error" *ngIf="insuremobileNumber != '' && insuremobileNumber != 'true'">{{insuremobileNumber}}</div>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <mat-select  placeholder="Occupation" formControlName="insureoccupation" (selectionChange)="selectOccupation(i)" required  class="w-100">
                                                                     <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}">{{occupation.value}}</mat-option>
@@ -718,12 +719,12 @@
                                                                 <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="i == 0">
+                                                        <div class="col-12" *ngIf="i == 0">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Relationship with Insured" value="SELF" readonly>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="i != 0">
+                                                        <div class="col-12" *ngIf="i != 0">
                                                             <mat-form-field class="w-100">
                                                                 <mat-select placeholder="Relationship with Insured"  formControlName="insurerelationship" required >
                                                                     <mat-option *ngFor="let relation of relationshipList | keys" value="{{relation.value}}" >{{relation.value}}</mat-option>
@@ -731,7 +732,7 @@
                                                                 <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insureAge.value >= 18">
+                                                        <div class="col-12" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insureAge.value >= 18">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Gross Monthly Income"  (keypress)="numberValidate($event)" (keyup)="grossValid($event,i)"   maxlength="10" formControlName="insureGMIncome" autocomplete="off"  [required] = "insureArray['controls'].items['controls'][i]['controls'].insureAge.value >= 18">
                                                                 <mat-error *ngIf="insureArray.invalid">Gross Monthly Income is required</mat-error>
@@ -740,50 +741,50 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3" *ngIf="i == 0">
+                                                <div class="col-12 box-card pt-3" *ngIf="i == 0">
                                                     <h6 class="color-blue"> COMMUNICATION ADDRESS</h6>
                                                     <div class="row">
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
-                                                                <input matInput placeholder="Address 1" formControlName="insureAddress" autocomplete="off" [required]="i == 0">
+                                                                <input matInput placeholder="Address 1" formControlName="insureAddress" maxlength="30" autocomplete="off" [required]="i == 0">
                                                                 <mat-error *ngIf="insureArray.invalid">Address is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
-                                                                <input matInput placeholder="Address 2" formControlName="insureAddress2" autocomplete="off">
+                                                                <input matInput placeholder="Address 2" formControlName="insureAddress2" maxlength="30" autocomplete="off">
                                                                 <mat-error *ngIf="insureArray.invalid">Address2 is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" minlength="6" (keypress)="numberValidate($event)" maxlength="6"  formControlName="insurePincode" (input)="commonPincode($event.target.value, 'insurer'); zoneValidate($event.target.value, 'insurer')" autocomplete="off" [required]="i == 0">
                                                                 <mat-error *ngIf="insureArray.invalid">Pincode is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="State" formControlName="insureState" autocomplete="off" [required]="i == 0" readonly>
                                                                 <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
 
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field  class="w-100">
                                                                 <input matInput placeholder="City" formControlName="insureCity" autocomplete="off" [required]="i == 0" readonly>
                                                                 <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Area" formControlName="insureArea" autocomplete="off" [required]="i == 0" >
                                                                 <mat-error *ngIf="insureArray.invalid">Area is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12" *ngIf = "zoneList">
+                                                        <div class="col-2" *ngIf = "zoneList">
                                                             <mat-checkbox formControlName="zoneCheck" (selectionChange)="zonecheckingList($event)">Pan India cover</mat-checkbox>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="zonemessage !=''">
+                                                        <div class="col-12" *ngIf="zonemessage !=''">
                                                             <div class="card notes">
                                                                 <div class="card-body">
                                                                     <p style="margin-bottom: 0rem;"> <strong>Note : </strong></p>
@@ -803,76 +804,76 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3 addressBox">
+                                                <div class="col-12 box-card pt-3 addressBox">
                                                     <h6 class="color-blue mb-3">PRE-EXISTING DISEASES<mat-slide-toggle formControlName="insureDisease" (selectionChange)="previousDisease($event, i)" class="pl-3"></mat-slide-toggle></h6>
                                                     <div class="row">
-                                                        <div class="col-sm-12 col-xs-12 col-md-12"><p>1. previous Establishing Disease</p></div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12"><p>2. Asthma</p></div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12"><p>3. Cholesterol Disorder</p></div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12"><p>4. Heartburn Disease</p></div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12"><p>5. Hypertension</p></div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12"><p>6. Diabetes</p></div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12"><p>7. Obesity</p></div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12"><p>8. Smoking</p></div>
+                                                        <div class="col-12"><p>1. previous Establishing Disease</p></div>
+                                                        <div class="col-12"><p>2. Asthma</p></div>
+                                                        <div class="col-12"><p>3. Cholesterol Disorder</p></div>
+                                                        <div class="col-12"><p>4. Heartburn Disease</p></div>
+                                                        <div class="col-12"><p>5. Hypertension</p></div>
+                                                        <div class="col-12"><p>6. Diabetes</p></div>
+                                                        <div class="col-12"><p>7. Obesity</p></div>
+                                                        <div class="col-12"><p>8. Smoking</p></div>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-12 box-card pt-3">
-                                                <h6 class="color-blue"> PREVIOUS INSURANCE DETAILS</h6>
-                                                <div class="row">
-                                                <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="i == 0">
-                                                <mat-form-field class="w-100">
-                                                <input matInput placeholder="Previous Insured Name" formControlName="insurePIName"  (keypress)="nameValidate($event)"  autocomplete="off">
-                                                </mat-form-field>
-                                                </div>
-                                                <div class="col-sm-12 col-xs-12 col-md-12">
-                                                <mat-form-field class="w-100">
-                                                <input matInput placeholder="Company Name" formControlName="insureCName"  (keypress)="nameValidate($event)" autocomplete="off">
-                                                </mat-form-field>
-                                                </div>
-                                                <div class="col-sm-12 col-xs-12 col-md-12">
-                                                <mat-form-field class="w-100">
-                                                <input matInput placeholder="Previous Policy Number"  (keypress)="numberValidate($event)"  formControlName="insurePINumber" autocomplete="off">
-                                                </mat-form-field>
-                                                </div>
-                                                <div class="col-sm-12 col-xs-12 col-md-12">
-                                                <mat-form-field class="w-100">
-                                                <input matInput [matDatepicker]="picker5"  placeholder="Previous Policy Expiry Date(DD/MM/YYYY)" maxlength="10"  formControlName="insurePItDate"  (dateInput)="addEvent($event, 'expiry', i, insureArray['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEvent( $event, 'expiry',i, insureArray['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  autocomplete="off" autocomplete="off">
-                                                <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker5></mat-datepicker>
-                                                <mat-error *ngIf="insureArray.invalid">Previous Policy Expiry Date is required</mat-error>
-                                                </mat-form-field>
-                                                <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.value}}</p>
+                                                <div class="col-12 box-card pt-3">
+                                                    <h6 class="color-blue"> PREVIOUS INSURANCE DETAILS</h6>
+                                                    <div class="row">
+                                                        <div class="col-12" *ngIf="i == 0">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Previous Insured Name" formControlName="insurePIName"  (keypress)="nameValidate($event)"  autocomplete="off">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Company Name" formControlName="insureCName"  (keypress)="nameValidate($event)" autocomplete="off">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Previous Policy Number"  (keypress)="numberValidate($event)"  formControlName="insurePINumber" autocomplete="off">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput [matDatepicker]="picker3"  placeholder="Previous Policy Expiry Date(DD/MM/YYYY)" maxlength="10"  formControlName="insurePItDate"  (dateInput)="addEvent($event, 'expiry', i, insureArray['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEvent( $event, 'expiry',i, insureArray['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  autocomplete="off" autocomplete="off">
+                                                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                                                <mat-datepicker #picker3></mat-datepicker>
+                                                                <mat-error *ngIf="insureArray.invalid">Previous Policy Expiry Date is required</mat-error>
+                                                            </mat-form-field>
+                                                            <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.value}}</p>
 
-                                                </div>
-                                                <div class="col-sm-12 col-xs-12 col-md-12">
-                                                <mat-form-field class="w-100">
-                                                <input matInput placeholder="Previous Sum Insurance"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insureSInsurance" autocomplete="off">
-                                                </mat-form-field>
-                                                </div>
-                                                <div class="col-sm-12 col-xs-12 col-md-12">
-                                                <mat-form-field class="w-100">
-                                                <input matInput placeholder="Number Of Claims"  maxlength="2" (keypress)="numberValidate($event)"  formControlName="insurePIClaims" autocomplete="off">
-                                                </mat-form-field>
-                                                </div>
-                                                <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="i == 0">
-                                                <mat-form-field class="w-100">
-                                                <input matInput placeholder="Previous Insured Address" formControlName="insurePIAddress" autocomplete="off">
-                                                </mat-form-field>
-                                                </div>
-                                                </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Previous Sum Insurance"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insureSInsurance" autocomplete="off">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Number Of Claims"  maxlength="2" (keypress)="numberValidate($event)"  formControlName="insurePIClaims" autocomplete="off">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-12" *ngIf="i == 0">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Previous Insured Address" formControlName="insurePIAddress" autocomplete="off">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3">
+                                                <div class="col-12 box-card pt-3">
                                                     <h6 class="color-blue">NOMINEE DETAILS</h6>
                                                     <div class="row">
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Name of Nominee"  formControlName="bajajNomineeName" (keypress)="nameValidate($event)" maxlength="200" autocomplete="off" required>
                                                                 <mat-error *ngIf="insureArray.invalid">Name of Nominee is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-12">
                                                             <mat-form-field class="w-100">
                                                                 <mat-select placeholder="Relationship with Insured" formControlName="bajajRelationship" required>
                                                                     <mat-option  *ngFor="let relation of nomeeRelation | keys" [hidden]="sameRelationship == relation.value" value="{{relation.value}}">{{relation.value}}</mat-option>
@@ -882,11 +883,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3" *ngIf ="i == 0">
-                                                    <div class="col-sm-12 col-xs-12 col-md-12">
-                                                        <mat-checkbox formControlName="insureCheckCopay"  (selectionChange)="changeCoPayment($event,i)" class="pr-3"></mat-checkbox> Voluntary Co-Payment <small class="pl-3">(Note: Your premium may differ based on your Co-Payment.)</small>
+                                                <div class="col-12 box-card pt-3" *ngIf ="i == 0">
+                                                    <div class="col-12">
+                                                        <mat-checkbox formControlName="insureCheckCopay"  (change)="changeCoPayment($event,i)" class="pr-3"></mat-checkbox> Voluntary Co-Payment <small class="pl-3">(Note: Your premium may differ based on your Co-Payment.)</small>
                                                     </div>
-                                                    <div class ="col-sm-12 col-xs-12 col-md-12" *ngIf="copaymentShow">
+                                                    <div class ="col-12" *ngIf="copaymentShow">
                                                         <mat-form-field class="w-100">
                                                             <mat-select placeholder="Co-Payment" formControlName="insureCoPayment">
                                                                 <mat-option value="10">10%</mat-option>
@@ -898,7 +899,6 @@
                                                 </div>
                                                 <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
                                                     <button mat-raised-button color="primaryBlue"  (click)="bajajInsureDetails(stepper, i, insureArray.value)">Next</button>
-                                                    <!--<button mat-button matStepperNext >Next</button>-->
                                                 </div>
                                             </div>
                                         </mat-expansion-panel>
@@ -919,11 +919,10 @@
                                     <h4 class="mt-0"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
                                 </div>
                                 <div class="col-12">
-                                    <ul class="summary-head">
-                                        <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                        <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /<small>Tax Excluded</small></li>
-                                        <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> /<small>Tax Included</small></li>
-                                        <li></li>
+                                    <ul>
+                                        <li style="padding: 8px; font-size: 17px; color: #666;"><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                                        <li style="padding: 8px; font-size: 17px; color: #666;"><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /<small>Tax Excluded</small></li>
+                                        <li style="padding: 8px; font-size: 17px; color: #666;"><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> /<small>Tax Included</small></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1058,11 +1057,10 @@
                                     <h4 class="mt-0"><span style="font-size: 17px; color: #666;">{{grouPName}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{sumInsuredAmount}}</span></h4>
                                 </div>
                                 <div class="col-12">
-                                    <ul class="summary-head">
-                                        <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + companyLogo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                        <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{premium}}</span> /<small>Tax Excluded</small></li>
-                                        <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{totalPremium}}</span> /<small>Tax Included</small></li>
-                                        <li></li>
+                                    <ul>
+                                        <li style="padding: 8px; font-size: 17px; color: #666;"><span>Insurer: </span> &nbsp;<img src="{{webhost + '/' + companyLogo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                                        <li style="padding: 8px; font-size: 17px; color: #666;"><span>Premium: <i class="fas fa-rupee-sign"></i> {{premium}}</span> /<small>Tax Excluded</small></li>
+                                        <li style="padding: 8px; font-size: 17px; color: #666;"><span>Total Premium: <i class="fas fa-rupee-sign"></i> {{totalPremium}}</span> /<small>Tax Included</small></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1184,7 +1182,7 @@
                         <div class="row">
                                 <div class="col-12 text-center">
                                     <button  mat-button color="warn" (click)="backAll()" *ngIf="payLaterr == false">Back</button>
-                                    <button mat-button class="mat-primaryBlue" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
+                                    <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
 
                                 </div>
                                 <div class="col-12 text-center">
