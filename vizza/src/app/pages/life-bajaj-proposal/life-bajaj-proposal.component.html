@@ -359,11 +359,12 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-radio-group formControlName="politicallyExposedPerson" (selectionChange)="politicalReson()">
-                          <p>Politically Exposed Person</p>
+                        <mat-radio-group formControlName="politicallyExposedPerson" (change)="politicalReson();previousNilError()" required>
+                          <p>Politically Exposed Person <span class="error">*</span></p>
                           <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                           <mat-radio-button value="N">No</mat-radio-button>
                         </mat-radio-group>
+                        <div class="error" *ngIf="PreviousValid !='' && PreviousValid != true">{{PreviousValid}}</div>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['politicallyExposedPerson'].value == 'Y'">
                         <mat-form-field class="w-100">
@@ -375,7 +376,7 @@
 
 
                       <div class="col-md-3 mt-4">
-                        <mat-checkbox formControlName="isPancard" (change)="isPancardChecked($event)" ><strong>If PAN Card </strong></mat-checkbox>
+                        <mat-checkbox formControlName="isPancard" (change)="isPancardChecked()" ><strong>If PAN Card </strong></mat-checkbox>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value">
                         <mat-form-field class="w-100" >
@@ -386,7 +387,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNum"  autocomplete="off" >
+                        <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNum"  autocomplete="off" [required]="proposer.controls['isPancard'].value == false" >
                         <mat-error *ngIf="proposer.controls.aadharNum.errors?.required">Aadhar Number is required</mat-error>
                         <mat-error *ngIf="proposer.controls.aadharNum.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
                       </mat-form-field></div>
@@ -747,7 +748,7 @@
                   <div class="proposal-buttom mt-3 text-right w-100">
                     <!--<button mat-button matStepperPrevious (click)="topScroll()">Back</button>-->
                     <!--<button mat-button matStepperNext>Next</button>-->
-                    <button mat-raised-button color="primaryBlue"  (click)="proposerDetails(stepper, proposer.value)" >Next</button>
+                    <button mat-raised-button color="primaryBlue"  (click)="proposerDetails(stepper, proposer.value);previousNilError()" >Next</button>
                   </div>
                 </div>
               </mat-expansion-panel>
@@ -1692,7 +1693,7 @@
                           </div>
 
                           <div *ngIf="images.file_type=='Form60'">
-                            <img src="assets/img/upload-icons/form_64.svg" class="cursor" style="height:200px;width: 200px;"  />
+                            <img src="assets/img/upload-icons/form_60.svg" class="cursor" style="height:200px;width: 200px;"  />
                         </div>
                         </span>
                       </div>

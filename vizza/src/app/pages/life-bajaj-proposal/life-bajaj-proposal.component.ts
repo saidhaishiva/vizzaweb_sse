@@ -162,6 +162,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public fileType:any;
   public fileTypeImage:any;
   public imageViews:any;
+  public PreviousValid:any;
 
    constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
@@ -194,6 +195,7 @@ export class LifeBajajProposalComponent implements OnInit {
         this.otherdocsPath = [];
        this.bigeneration=false;
        this.fileTypeImage=false;
+       this.PreviousValid = false;
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -510,6 +512,19 @@ export class LifeBajajProposalComponent implements OnInit {
         familyForm.push(this.getFamilyContols());
     }
   }
+
+    previousNilError(){
+        console.log(this.proposer.controls['politicallyExposedPerson'].value,'456787656789')
+        if ((this.proposer.controls['politicallyExposedPerson'].value==''||this.proposer.controls['politicallyExposedPerson'].value==undefined||this.proposer.controls['politicallyExposedPerson'].value==null)) {
+            this.PreviousValid=true;
+            this.PreviousValid = 'Please Select Previous Nil Description';
+
+        } else {
+            this.PreviousValid=false;
+            this.PreviousValid='';
+        }
+        console.log(this.PreviousValid,'this.ClaimValid///')
+    }
 
 
     customerServices() {
@@ -1111,12 +1126,10 @@ samerelationShip(){
     public relationShipFailure(error) {
       }
 
-  isPancardChecked(event) {
-      if(event.checked) {
+  isPancardChecked() {
+      if(this.proposer.controls['isPancard'].value == true) {
         this.proposer.controls['aadharNum'].clearValidators();
-        this.proposer.controls['aadharNum'].updateValueAndValidity();
         this.proposer.controls['panNum'].setValidators([Validators.required]);
-        this.proposer.controls['panNum'].updateValueAndValidity();
 
       } else {
         this.proposer.controls['panNum'].patchValue('');
@@ -1125,6 +1138,9 @@ samerelationShip(){
         this.proposer.controls['aadharNum'].setValidators([Validators.required]);
         this.proposer.controls['aadharNum'].updateValueAndValidity();
       }
+      this.proposer.controls['panNum'].updateValueAndValidity();
+      this.proposer.controls['aadharNum'].updateValueAndValidity();
+
   }
 
   //Bank Details
@@ -3133,7 +3149,7 @@ export class BalajImageviewComponent {
     }
          image(){
          if(this.data.title == 'Form60'){
-            this.imageView = 'assets/img/upload-icons/form_64.svg';
+            this.imageView = 'assets/img/upload-icons/form_60.svg';
             console.log(this.imageView,'this.imageView...')
          }
          }
