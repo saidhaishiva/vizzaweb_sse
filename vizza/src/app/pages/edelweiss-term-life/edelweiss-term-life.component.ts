@@ -243,6 +243,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public drugsInderror:any;
   public alcoholInderror:any;
   public tobaccoInderror:any;
+  public hcb_sumassured_min:any;
+  public hcb_sumassured_max:any;
   public tittleread :boolean;
   public otpFalseError :boolean;
 
@@ -5229,6 +5231,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.payingTerm = this.eePremiumTerm.payingTerm;
       this.policyTerm = this.eePremiumTerm.policyTerm;
       this.better_half_sum_assured = this.eePremiumTerm.better_half_sum_assured;
+      this.hcb_sumassured_min = this.eePremiumTerm.hcb_sumassured_min;
+      this.hcb_sumassured_max = this.eePremiumTerm.hcb_sumassured_max;
       this.betterhalf();
       console.log(this.ADB,'this.ADB');
       console.log(this.eePremiumTerm,'this.this.eePremiumTerm');
@@ -5244,6 +5248,9 @@ export class EdelweissTermLifeComponent implements OnInit {
       console.log(this.payingTerm,'this.payingTerm');
       console.log(this.policyTerm,'this.policyTerm');
 
+    }
+    else {
+      this.toastr.error(successData.ErrorObject);
     }
 
   }
