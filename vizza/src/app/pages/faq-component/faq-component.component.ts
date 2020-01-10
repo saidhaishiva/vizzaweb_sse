@@ -13,19 +13,29 @@ export class FaqComponentComponent implements OnInit {
   public faqQuestionsList: any;
   public id: any;
   public bgColor: any;
-  panelOpenState = false;
+  public step: any;
+  // step  = false;
+  searchval: any;
+  search: any;
+  faqsearchList: any;
 
 
-  constructor(public learning: LearningcenterService,public auth: AuthService) { }
+  constructor(public learning: LearningcenterService, public auth: AuthService) {
+  }
 
   ngOnInit() {
     this.faqQuestions();
+    // this.faqsearch();
   }
 
-  addClass(id: any,type) {
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  addClass(id: any, type) {
     this.id = id;
-    console.log(id,'idddd')
-    if (type == id){
+    console.log(id, 'idddd')
+    if (type == id) {
       this.bgColor = 'true';
     } else {
       console.log('inn');
@@ -34,12 +44,20 @@ export class FaqComponentComponent implements OnInit {
     }
   }
 
+  updateFilter(event) {
+    const search = event.target.value.toLowerCase();
+    console.log(this.search, 'val');
+
+  }
+
   //Risk Details
   faqQuestions() {
     const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'search': this.searchval
+
     }
     this.learning.getfaqQuestions(data).subscribe(
         (successData) => {
@@ -54,28 +72,49 @@ export class FaqComponentComponent implements OnInit {
 
   public getfaqQuestionsSuccess(successData) {
     this.faqQuestionsList = successData.ResponseObject;
-    console.log(this.faqQuestionsList,'this.faqQuestionsList')
+    console.log(this.faqQuestionsList, 'this.faqQuestionsList')
 
     for (let i = 0; i < this.faqQuestionsList.length; i++) {
 
-      for (let j = 0; j < this.faqQuestionsList[i].contents[j]; j++) {
+      for (let j = 0; j < this.faqQuestionsList[i].contents; j++) {
         // alert('1')
-        console.log(this.faqQuestionsList[i].contents[j].content_qstn,"09876546789");
-        console.log(this.faqQuestionsList[i].contents[j].content_ans,"qnhaSAFFDG");
-      //
-      //   for (let k = 0; k < this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group.length; k++) {
-      //     this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince = '';
-      //     this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription = '';
-      //     this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].dobError = '';
-      //     this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status = false;
-      //
-      //   }
+        console.log(this.faqQuestionsList[i].contents[j].content_qstn, "09876546789");
+        console.log(this.faqQuestionsList[i].contents[j].content_ans, "qnhaSAFFDG");
+
       }
     }
-    // sessionStorage.religareQuestionsList = JSON.stringify(this.religareQuestionsList);
-  }
-  public getfaqQuestionsFailure(error) {
   }
 
+  public getfaqQuestionsFailure(error) {
+  }
+// //Risk Details
+//   faqsearch() {
+//     const data = {
+//       'platform': 'web',
+//       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+//       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+//       'search': this.searchval
+//     }
+//     this.learning.getfaqsearch(data).subscribe(
+//         (successData) => {
+//           this.getfaqsearchSuccess(successData);
+//         },
+//         (error) => {
+//           this.getfaqsearchFailure(error);
+//         }
+//     );
+//
+//   }
+//
+//   public getfaqsearchSuccess(successData) {
+//     this.faqsearchList = successData.ResponseObject;
+//     console.log(this.faqsearchList, 'this.faqsearchList')
+//
+//
+//
+//   }
+//
+//   public getfaqsearchFailure(error) {
+//   }
 
 }
