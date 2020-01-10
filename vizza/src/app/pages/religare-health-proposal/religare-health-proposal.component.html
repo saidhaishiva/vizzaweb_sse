@@ -1083,7 +1083,7 @@
                         <div class="col-sm-12 col-xs-12 col-md-12">
                         <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                         </div>
-                        <div class="col-sm-12 col-xs-12 col-md-12">
+                        <div class="col-sm-12 col-xs-12 col-md-12 mt-2">
                           <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox>
                         </div>
                       </div>
@@ -1135,7 +1135,7 @@
                 <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="buyProductdetails.product_id == 1 && (buyProductdetails.suminsured_amount != 300000.00 || buyProductdetails.suminsured_amount != 300000)">
                   <h6 class="color-blue mb-4 w-100">ADDON</h6>
                   <span *ngFor="let item of objectKeys; let i = index;">
-                      <mat-checkbox class="mr-4" (selectionChange)="addonItem($event, i)" [checked]="item.checked">{{item.value}}</mat-checkbox>
+                      <mat-checkbox class="mr-4" (change)="addonItem($event, i)" [checked]="item.checked">{{item.value}}</mat-checkbox>
                     </span>
                 </div>
                 <div class="proposal-buttom mt-3 text-right w-100">
@@ -1763,7 +1763,7 @@
                     <input type='hidden' name='returnURL' value={{returnURL}}/>
                   </div>
                   <button mat-button color="warn" (click)="backAll()" *ngIf="payLaterr == false" >Back</button>
-                  <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
+                  <button mat-button class="mat-primaryBlue mr-2 mb-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
                   <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                 </form>
 
