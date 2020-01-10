@@ -257,7 +257,7 @@
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                             <input matInput  formControlName="sumAssuredHCB"  (input)="edelweissPrimium()"  autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
-                                        <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 6,00,000</p></div>
+                                        <div><p style="font-size: 10px; color: #3378bd;">Min:{{hcb_sumassured_min}} Max: {{hcb_sumassured_max}}</p></div>
                                         <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
                                     </div>
                                     <div class="col-md-4 mt-2"  *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
