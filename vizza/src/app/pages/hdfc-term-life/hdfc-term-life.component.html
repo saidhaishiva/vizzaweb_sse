@@ -626,7 +626,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Title" formControlName="ntitle"  autocomplete="off"   >
+                                                        <mat-select placeholder="Title" formControlName="ntitle"  autocomplete="off"   required>
                                                             <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.key'>
                                                                 {{list.value}}
                                                             </mat-option>
@@ -660,7 +660,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput [matDatepicker]="picker2" [max]="minDate"   placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event);appointeeAgeValid($event,i)"  formControlName="nDob" (dateInput)="addEventNominee($event,i ,'nominee')" (dateChange)="addEventNominee($event,i, 'nominee')" required minlength="10" maxlength="10"
+                                                        <input matInput [matDatepicker]="picker2" [max]="minDate"   placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)"  formControlName="nDob" (dateInput)="addEventNominee($event,i ,'nominee')" (dateChange)="addEventNominee($event,i, 'nominee')" required minlength="10" maxlength="10"
                                                                autocomplete="off"   required>
                                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker2></mat-datepicker>
@@ -825,7 +825,7 @@
                                                 <div class="col-md-4" >
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder >Appointee DOB (DD/MM/YYYY)<span class="error"  *ngIf="showAppointee== true">*</span></mat-placeholder>
-                                                        <input matInput [matDatepicker]="picker4" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="aDob" (dateInput)="addEventNominee($event,i ,'appointee')" (dateChange)="addEventNominee($event,i, 'appointee')" minlength="10" maxlength="10"
+                                                        <input matInput [matDatepicker]="picker4" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="aDob" (dateInput)="addEventappointee($event)" (dateChange)="addEventappointee($event)" minlength="10" maxlength="10"
                                                                autocomplete="off" >
                                                         <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker4></mat-datepicker>

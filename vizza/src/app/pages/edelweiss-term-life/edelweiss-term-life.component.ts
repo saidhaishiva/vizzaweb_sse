@@ -5247,6 +5247,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       console.log(this.planname,'this.planName');
       console.log(this.payingTerm,'this.payingTerm');
       console.log(this.policyTerm,'this.policyTerm');
+      console.log(this.hcb_sumassured_max,'this.hcb_sumassured_max');
+      console.log(this.hcb_sumassured_min,'this.hcb_sumassured_min');
 
     }
     else {
