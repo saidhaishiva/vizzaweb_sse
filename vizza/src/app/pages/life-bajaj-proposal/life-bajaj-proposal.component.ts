@@ -3039,6 +3039,9 @@ samerelationShip(){
          this.fileTypeImage=false;
         }
     }
+    saveImageAs1(adress) {
+        window.open(adress);
+    }
     skipUplod(){
       this.skipUploadStatus = false;
     }
@@ -3089,9 +3092,7 @@ samerelationShip(){
     margin-top: -8px;" >
             <!--<button  mat-button class="secondary-bg-color" (click)="saveImageAs1(webhost +'/' + data.img)" > Download </button>-->
             <!--<mat-icon  *ngIf="imageView != ''" (click)="saveImageAs1(webhost +'/' + data.img)" style="cursor: pointer"> vertical_align_bottom</mat-icon>-->
-            <i class="material-icons"  *ngIf="data.title == 'Form60'" (click)="saveImageAs1(webhost +'/' + data.img)" style="cursor: pointer">
-                vertical_align_bottom
-            </i>
+           
             <i class="material-icons" (click)="onNoClick()" style="cursor: pointer">
                 cancel
             </i>
@@ -3109,9 +3110,9 @@ samerelationShip(){
         </div>
         <!--<div mat-dialog-content *ngIf="data.title == 'Form60'">-->
             <!--<iframe id="fred" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="{{webhost +'/' + data.img}}" frameborder="1" scrolling="auto" height="1100" width="850" ></iframe>-->
-          <div *ngIf="data.title == 'Form60'">
-            <img  src="{{imageView}}" style="height: 400px; width: 829px;" alt=" " title="">
-          </div>
+          <!--<div *ngIf="data.title == 'Form60'">-->
+            <!--<img  src="{{imageView}}" style="height: 400px; width: 829px;" alt=" " title="">-->
+          <!--</div>-->
         <!--</div>-->
     `
 })
@@ -3136,13 +3137,14 @@ export class BalajImageviewComponent {
             console.log(this.imageView,'this.imageView...')
          }
          }
+    // saveImageAs1(adress) {
+    //     window.open(adress);
+    // }
 
         onNoClick(): void {
             this.dialogRef.close();
          }
-        saveImageAs1(adress) {
-            window.open(adress);
-        }
+
 }
 
 

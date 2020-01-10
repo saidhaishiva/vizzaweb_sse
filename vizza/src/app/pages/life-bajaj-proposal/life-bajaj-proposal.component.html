@@ -1684,13 +1684,15 @@
                         <p class="color-blue">{{images.file_type | uppercase}}</p>
 
                         <span class="imageclose mr-2" >
-                           <!--<i class="material-icons"   (click)="viewImage(images.file_path, images.file_type)" style="cursor: pointer">photo_size_select_large</i>-->
+                           <i class="material-icons"  *ngIf="images.file_type=='Form60'" (click)="saveImageAs1(webhost +'/' + images.file_path)" style="cursor: pointer">
+                            vertical_align_bottom</i>
+                            <!--<i class="material-icons"   (click)="viewImage(images.file_path, images.file_type)" style="cursor: pointer">photo_size_select_large</i>-->
                           <div *ngIf="images.file_type!='Form60'">
                             <img src="{{webhost + '/' + images.file_path}}" class="hover-shadow cursor " style="height:200px;width: 200px;" (click)="viewImage(images.file_path, images.file_type)" />
                           </div>
 
                           <div *ngIf="images.file_type=='Form60'">
-                            <img src="assets/img/upload-icons/form_64.svg" class="hover-shadow cursor" style="height:200px;width: 200px;" (click)="viewImage(images.file_path, images.file_type)" />
+                            <img src="assets/img/upload-icons/form_64.svg" class="cursor" style="height:200px;width: 200px;"  />
                         </div>
                         </span>
                       </div>
