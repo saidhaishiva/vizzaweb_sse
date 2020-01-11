@@ -577,7 +577,7 @@
                     <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.personalrelationshipName}}</li>
                     <li class="list-group-item" *ngIf="item.personalEmail"><strong>Email Id:</strong> {{item.personalEmail}}</li>
                     <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
-                    <li class="list-group-item" ><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
+                    <li class="list-group-item" *ngIf="item.personalMobile" ><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
                     <li class="list-group-item" *ngIf="item.personalAltnumber" ><strong>Alternate Number:</strong> {{item.personalAltnumber}}</li>
                   </ul>
                 </div>
@@ -763,9 +763,9 @@
                       <li class="list-group-item"><strong>D.O.B:</strong> {{item.prop_dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{item.prop_gender}}</li>
                       <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.relationship_cd}}</li>
-                      <li class="list-group-item"><strong>Email Id:</strong> {{item.prop_email_list[0].email}}</li>
+                      <li class="list-group-item" *ngIf="item.prop_email_list[0].email"><strong>Email Id:</strong> {{item.prop_email_list[0].email}}</li>
                       <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
-                      <li class="list-group-item" ><strong>Mobile Number:</strong> {{item.prop_contact_list[0].contact_no}}</li>
+                      <li class="list-group-item" *ngIf="item.prop_contact_list[0].contact_no"><strong>Mobile Number:</strong> {{item.prop_contact_list[0].contact_no}}</li>
                       <!--<li class="list-group-item" *ngIf="item.prop_contact_list[1].contact_no != ''" ><strong>Alternate Number:</strong> {{item.prop_contact_list[1].contact_no}}</li>-->
                     </ul>
                   </div>
@@ -1418,7 +1418,7 @@
                         <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.personalrelationshipName}}</li>
                         <li class="list-group-item" *ngIf="item.personalEmail"><strong>Email Id:</strong> {{item.personalEmail}}</li>
                         <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
-                        <li class="list-group-item" ><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
+                        <li class="list-group-item" *ngIf="item.personalMobile"><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
                         <li class="list-group-item" *ngIf="item.personalAltnumber" ><strong>Alternate Number:</strong> {{item.personalAltnumber}}</li>
                       </ul>
                     </div>
@@ -1604,9 +1604,9 @@
                         <li class="list-group-item"><strong>D.O.B:</strong> {{item.prop_dob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Gender:</strong> {{item.prop_gender}}</li>
                         <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.relationship_cd}}</li>
-                        <li class="list-group-item"><strong>Email Id:</strong> {{item.prop_email_list[0].email}}</li>
+                        <li class="list-group-item" *ngIf="item.prop_email_list[0].email"><strong>Email Id:</strong> {{item.prop_email_list[0].email}}</li>
                         <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
-                        <li class="list-group-item" ><strong>Mobile Number:</strong> {{item.prop_contact_list[0].contact_no}}</li>
+                        <li class="list-group-item" *ngIf="item.prop_contact_list[0].contact_no" ><strong>Mobile Number:</strong> {{item.prop_contact_list[0].contact_no}}</li>
                         <!--<li class="list-group-item" *ngIf="item.prop_contact_list[1].contact_no != ''" ><strong>Alternate Number:</strong> {{item.prop_contact_list[1].contact_no}}</li>-->
                       </ul>
                     </div>

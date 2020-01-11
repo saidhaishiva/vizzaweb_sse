@@ -66,7 +66,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public nationalityList: any;
   public citizenshipList: any;
   public countryList: any;
-  public TitleList: any;
+  public titleList: any;
   public weightList: any;
   public occupationList: any;
   public politicalDetails: boolean;
@@ -1643,7 +1643,8 @@ samerelationShip(){
 
   public TitleListSuccess(successData) {
     if (successData.IsSuccess) {
-      this.TitleList = successData.ResponseObject;
+      this.titleList = successData.ResponseObject;
+      console.log(this.titleList,'this.TitleList....')
     }
   }
 
@@ -2276,11 +2277,18 @@ samerelationShip(){
 
   changeTitle(){
 
-    this.proposer.controls['titleValue'].patchValue(this.TitleList[this.proposer.controls['title'].value]);
-    console.log(this.TitleList[this.proposer.controls['title'].value],'tittle value')
-    console.log(this.proposer.controls['titleValue'],'tittle2 value')
+      this.proposer.controls['titleValue'].patchValue(this.titleList[this.proposer.controls['title'].value]);
+    console.log(this.proposer.controls['title'].value,'tittle value')
+    console.log(this.proposer.controls['titleValue'],'tittle2....')
 
   }
+    changeTitle1(){
+
+        this.customer.controls['titleValue'].patchValue(this.titleList[this.customer.controls['title'].value]);
+        console.log(this.customer.controls['title'].value,'tittle value')
+        console.log(this.customer.controls['titleValue'],'tittle2....')
+
+    }
 
   changeProposerType() {
     this.proposer.controls['proposerTypeName'].patchValue(this.proposerTypeList[this.proposer.controls['proposerType'].value]);
@@ -2597,6 +2605,7 @@ samerelationShip(){
             let customerDetails = JSON.parse(sessionStorage.customerDetails);
             this.customer = this.Proposer.group({
                 title: customerDetails.title,
+                titleValue: lifeBajaj1.titleValue,
                 firstName: customerDetails.firstName,
                 midName: customerDetails.midName,
                 lastName: customerDetails.lastName,
