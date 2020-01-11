@@ -188,6 +188,7 @@ import {EdelweissPosHomeComponent} from './pages/edelweiss-pos-home/edelweiss-po
 import {EdelweissposPremiumListComponent} from './pages/edelweisspos-premium-list/edelweisspos-premium-list.component';
 import {EdelweissPosComponent} from './pages/edelweiss-pos/edelweiss-pos.component';
 import {EdelweissposPaymnetSuccessComponent} from './pages/edelweisspos-paymnet-success/edelweisspos-paymnet-success.component';
+import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.service';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -305,8 +306,8 @@ export const routes: Routes = [
             { path: 'travelproposal/:stepper', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
             { path: 'star-travelproposal/:proposalId/:stepper', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
             { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
-            { path: 'iffcoProposal/:stepper', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
-            { path: 'iffco/:proposalId/:stepper', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
+            { path: 'iffcoProposal/:stepper', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'},canDeactivate: [IffcoDeactivatedGuardService] },
+            { path: 'iffco/:proposalId/:stepper', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'},canDeactivate: [IffcoDeactivatedGuardService] },
             { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'travel-reliance-payment-success/:status/:proId/:mailStatus', component:TravelReliancePaymentSuccessComponent, data: { breadcrumb: 'Travel reliance payment success'} },
             { path: 'apollomunich-pa-payment-success/:status/:proId/:applicationNo', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },

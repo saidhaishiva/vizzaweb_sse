@@ -17,8 +17,8 @@
 
                       <div class="col-md-3" >
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" required>
-                            <mat-option *ngFor="let list of TitleList | keys" [value]= list.key> {{list.value}} </mat-option>
+                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="title();changeTitle1()" required>
+                            <mat-option *ngFor="let list of titleList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="customer.controls.title.errors?.required">Title is required</mat-error>
                         </mat-form-field>
@@ -168,7 +168,7 @@
                       <div class="col-md-3" >
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" required readonly>
-                            <mat-option *ngFor="let list of TitleList | keys" [value]= list.key> {{list.value}} </mat-option>
+                            <mat-option *ngFor="let list of titleList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
                         </mat-form-field>

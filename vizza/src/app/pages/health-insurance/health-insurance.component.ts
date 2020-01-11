@@ -744,8 +744,10 @@ export class HealthInsuranceComponent implements OnInit {
         );
     }
     public getSumInsuredAmountSuccess(successData) {
+        console.log(successData.ResponseObject, 'kilo1234kg')
         if (successData.IsSuccess) {
             this.sumInsuredAmountLists = successData.ResponseObject;
+            console.log(this.sumInsuredAmountLists, 'hello1234')
         }
     }
     public getSumInsuredAmountFailure(error) {
@@ -1382,7 +1384,7 @@ export class HealthInsuranceComponent implements OnInit {
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
             <div class="col-sm-12">
-                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
+                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.svg" class="logo-size"> About Health Insurance</h3>
             </div>
             
         </div>

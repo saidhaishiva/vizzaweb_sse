@@ -366,6 +366,7 @@ import { NgtUniversalModule } from '@ng-toolkit/universal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 // import { FaqComponentComponent } from '../faq-component/faq-component.component';
 import {FaqComponentComponent} from './pages/faq-component/faq-component.component';
+import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.service';
 
 
 @NgModule({
@@ -733,6 +734,7 @@ import {FaqComponentComponent} from './pages/faq-component/faq-component.compone
         ClearSessionFourwheelerService,
         ClearSessionTermlifeService,
         MetaService,
+        IffcoDeactivatedGuardService,
 
         { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
         { provide: OverlayContainer, useClass: CustomOverlayContainer }

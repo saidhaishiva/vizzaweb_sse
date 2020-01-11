@@ -846,7 +846,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getesalereqProof();
     this.geteAlcoholDetails();
     this.sessionData();
-    this.edelweissPrimium();
+    // this.edelweissPrimium();
     // this.premiumPaymentTerm();
     // this.ageTillcoverd();
 
@@ -4373,7 +4373,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "maritalStatus": this.insureArray.controls['maritalStatus'].value,
         "pan": this.insureArray.controls['pan'].value,
         "maidName":"",
-        "motherMaidName":"",
+        "motherMaidName":this.insureArray.controls['motherMaidName'].value,
         "FHName":this.insureArray.controls['fatherhusbandName'].value,
         "nationality":this.insureArray.controls['nationality'].value,
         "otherNationality":"",
