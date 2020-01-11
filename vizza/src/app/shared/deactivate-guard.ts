@@ -14,7 +14,7 @@ export  class DeactivateGuard implements CanDeactivate<StarHealthProposalCompone
         console.log(proposal, 'candeactivate');
 
         const can = proposal.proposalId;
-        if (can == 0) {
+        if (can == 0 || can != '') {
             let txt;
             let r = confirm("You haven't closed the star-health-proposal form.Are you sure you want to navigate from this page?");
             if (r == true) {
