@@ -660,7 +660,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput [matDatepicker]="picker2" [max]="minDate"   placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)"  formControlName="nDob" (dateInput)="addEventNominee($event,i ,'nominee')" (dateChange)="addEventNominee($event,i, 'nominee')"  required minlength="10" maxlength="10"
+                                                        <input matInput [matDatepicker]="picker2" [max]="minDate"   placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)"  formControlName="nDob" (dateInput)="addEventNominee($event,i )" (dateChange)="addEventNominee($event,i)"  required minlength="10" maxlength="10"
                                                                autocomplete="off"   required>
                                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker2></mat-datepicker>
@@ -762,7 +762,10 @@
                                                 </mat-form-field>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
 
+                                            <div *ngIf = "this.showAppointee == true">
                                                 <div class="row"  *ngIf = "this.showAppointee == true">
 <!--                                                    *ngIf="nomineeDetail.controls.showAppointee.value ==true"*ngIf="nomineeDetail.controls['showAppointee'].value ==true"-->
 <!--                                                    *ngIf="showAppointee== true")-->
@@ -870,7 +873,7 @@
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100"  *ngIf = "this.showAppointee == true">
                                                         <mat-placeholder> PIN Code <span class="error"  >*</span></mat-placeholder>
-                                                        <input matInput  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  formControlName="apincode" autocomplete="off"  (input)="getPostal($event,'appointee')" >
+                                                        <input matInput  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  formControlName="apincode" autocomplete="off"  (input)="getPostal($event.target.value,'appointee')" >
                                                     <!--<mat-error *ngIf="personal.controls.pPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                                                     <!--<mat-error *ngIf="personal.controls.pPincode.hasError('required')">Pincode is required</mat-error>-->
                                                     <!--<mat-error *ngIf="personal.controls.pPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
@@ -900,7 +903,7 @@
                                                 </div>
 
                                         </div>
-                                    </div>
+
                                 </form>
                             </div>
                         </div>
