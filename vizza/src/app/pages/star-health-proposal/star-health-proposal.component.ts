@@ -152,18 +152,18 @@ export class StarHealthProposalComponent implements OnInit {
                     sessionStorage.proposalID = this.proposalId;
                 }
             }
-                this.status = params.stepper;
-                this.proposal_Id = params.proposalId;
-                if(this.proposal_Id != '' || this.proposal_Id != undefined ){
-                    this.payLaterr = true;
-                    console.log(this.proposal_Id, 'this.proposalId');
-                    console.log(this.status, 'this.proposalId');
-                    this.getBackRequest();
-                }
-                if(this.proposal_Id == undefined || this.proposal_Id == '') {
-                    this.payLaterr = false;
+            this.status = params.stepper;
+            this.proposal_Id = params.proposalId;
+            if(this.proposal_Id != '' || this.proposal_Id != undefined ){
+                this.payLaterr = true;
+                console.log(this.proposal_Id, 'this.proposalId');
+                console.log(this.status, 'this.proposalId');
+                this.getBackRequest();
+            }
+            if(this.proposal_Id == undefined || this.proposal_Id == '') {
+                this.payLaterr = false;
 
-                }
+            }
 
         });
         this.currentStep = this.stepperindex;
@@ -469,7 +469,7 @@ export class StarHealthProposalComponent implements OnInit {
 
 
 
-setOccupationList() {
+    setOccupationList() {
         const data = {
             'platform': 'web',
             'product_id': this.buyProductdetails.product_id,
@@ -519,7 +519,9 @@ setOccupationList() {
     }
     public setRelationshipFailure(error) {
         console.log(error);
+
     }
+
 
     nomineRelationship() {
         const data = {
@@ -540,7 +542,7 @@ setOccupationList() {
     public setNomieRelationshipSuccess(successData) {
         if (successData.IsSuccess) {
             this.relationshipListNomine = successData.ResponseObject;
-         console.log(this.relationshipListNomine, 'nominee relation');
+            console.log(this.relationshipListNomine, 'nominee relation');
         }
     }
     public setNomieRelationshipFailure(error) {
@@ -857,9 +859,9 @@ setOccupationList() {
                     }
                 } else {
                     // if(value.socialAnswer1 == '0' || value.socialAnswer2 == '0' || value.socialAnswer3 =='0' || value.socialAnswer4 == '0') {
-                        stepper.next();
-                        this.topScroll()
-                        this.nextStep();
+                    stepper.next();
+                    this.topScroll()
+                    this.nextStep();
                     // }
                 }
             } else {
@@ -1142,65 +1144,65 @@ setOccupationList() {
             let age = this.ageCalculate(this.ageCheck);
             console.log(age)
 
-                this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                this.familyMembers[i].ins_age = age;
-                if (this.buyProductdetails.company_name.toLowerCase() == 'star health') {
+            this.familyMembers[i].ins_dob = this.datepipe.transform(event.value, 'y-MM-dd');
+            this.familyMembers[i].ins_age = age;
+            if (this.buyProductdetails.company_name.toLowerCase() == 'star health') {
 
-                    // if (age < 18 && (type == 'Self' || type == 'Spouse')) {
-                    //     this.familyMembers[i].ageRestriction = 'Self or Spouse age should be 18 and above ';
-                    // } else {
-                    //     this.familyMembers[i].ageRestriction = '';
-                    // }
+                // if (age < 18 && (type == 'Self' || type == 'Spouse')) {
+                //     this.familyMembers[i].ageRestriction = 'Self or Spouse age should be 18 and above ';
+                // } else {
+                //     this.familyMembers[i].ageRestriction = '';
+                // }
 
-                    if (this.buyProductdetails.product_id == '9') {
-                        if (age < 18 || age > 65) {
-                            this.familyMembers[i].ageRestriction = ' Age between 18 years to 65 years';
-                        } else {
-                            this.familyMembers[i].ageRestriction = '';
-                        }
-                    } else if (this.buyProductdetails.product_id == '10') {
-                        if (age < 60 || age > 75) {
-                            this.familyMembers[i].ageRestriction = 'Age between 60 years to 75 years';
-                        } else {
-                            this.familyMembers[i].ageRestriction = '';
-                        }
-                    } else if (this.buyProductdetails.product_id == '6') {
-                        let dobmonth = this.DobMonthCalculate(monthCheck);
-                        console.log(dobmonth, 'dobmonth1');
-                        if (age < 18 || age > 65) {
-                            this.familyMembers[i].ageRestriction = 'Age between 18 years to 65 years';
-                        } else {
-                            this.familyMembers[i].ageRestriction = '';
-                        }
+                if (this.buyProductdetails.product_id == '9') {
+                    if (age < 18 || age > 65) {
+                        this.familyMembers[i].ageRestriction = ' Age between 18 years to 65 years';
+                    } else {
+                        this.familyMembers[i].ageRestriction = '';
+                    }
+                } else if (this.buyProductdetails.product_id == '10') {
+                    if (age < 60 || age > 75) {
+                        this.familyMembers[i].ageRestriction = 'Age between 60 years to 75 years';
+                    } else {
+                        this.familyMembers[i].ageRestriction = '';
+                    }
+                } else if (this.buyProductdetails.product_id == '6') {
+                    let dobmonth = this.DobMonthCalculate(monthCheck);
+                    console.log(dobmonth, 'dobmonth1');
+                    if (age < 18 || age > 65) {
+                        this.familyMembers[i].ageRestriction = 'Age between 18 years to 65 years';
+                    } else {
+                        this.familyMembers[i].ageRestriction = '';
+                    }
 
-                    } else if (this.buyProductdetails.product_id == '7' && (type == 'Son' || type == 'Daughter')) {
-                        let dobdays = this.DobDaysCalculate(dob_days);
-                        if (dobdays < 16 || age > 25) {
-                            this.familyMembers[i].ageRestriction = ' Age between 16 days to 25 years';
-                        } else {
-                            this.familyMembers[i].ageRestriction = '';
-                        }
-                    } else if (this.buyProductdetails.product_id == '7' && (type != 'Son' || type != 'Daughter')) {
-                        if (age < 18 || age > 60) {
-                            this.familyMembers[i].ageRestriction = ' Age between 18 years to 60 years';
-                        } else {
-                            this.familyMembers[i].ageRestriction = '';
-                        }
-                    } else if (this.buyProductdetails.product_id == '8' && (type == 'Son' || type == 'Daughter')) {
-                        let dobmonth = this.DobMonthCalculate(monthCheck);
-                        if (dobmonth < 3 || age > 25) {
-                            this.familyMembers[i].ageRestriction = ' Age between 3 months to 25 years';
-                        } else {
-                            this.familyMembers[i].ageRestriction = '';
-                        }
-                    } else if (this.buyProductdetails.product_id == '8' && (type != 'Son' || type != 'Daughter')) {
-                        if (age < 18 || age > 60) {
-                            this.familyMembers[i].ageRestriction = 'Age between 18 years to 60 years';
-                        } else {
-                            this.familyMembers[i].ageRestriction = '';
-                        }
+                } else if (this.buyProductdetails.product_id == '7' && (type == 'Son' || type == 'Daughter')) {
+                    let dobdays = this.DobDaysCalculate(dob_days);
+                    if (dobdays < 16 || age > 25) {
+                        this.familyMembers[i].ageRestriction = ' Age between 16 days to 25 years';
+                    } else {
+                        this.familyMembers[i].ageRestriction = '';
+                    }
+                } else if (this.buyProductdetails.product_id == '7' && (type != 'Son' || type != 'Daughter')) {
+                    if (age < 18 || age > 60) {
+                        this.familyMembers[i].ageRestriction = ' Age between 18 years to 60 years';
+                    } else {
+                        this.familyMembers[i].ageRestriction = '';
+                    }
+                } else if (this.buyProductdetails.product_id == '8' && (type == 'Son' || type == 'Daughter')) {
+                    let dobmonth = this.DobMonthCalculate(monthCheck);
+                    if (dobmonth < 3 || age > 25) {
+                        this.familyMembers[i].ageRestriction = ' Age between 3 months to 25 years';
+                    } else {
+                        this.familyMembers[i].ageRestriction = '';
+                    }
+                } else if (this.buyProductdetails.product_id == '8' && (type != 'Son' || type != 'Daughter')) {
+                    if (age < 18 || age > 60) {
+                        this.familyMembers[i].ageRestriction = 'Age between 18 years to 60 years';
+                    } else {
+                        this.familyMembers[i].ageRestriction = '';
                     }
                 }
+            }
 
         } else {
             this.familyMembers[i].insurerDobError = 'Enter valid dob';
@@ -1351,43 +1353,43 @@ setOccupationList() {
         }
 
     }
-       // sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
+    // sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
 
-        //
-        // if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
-        //     this.nomineeDate[0].nominee.push({
-        //         nname: '',
-        //         nage: '',
-        //         nrelationship: '',
-        //         nrelationshipName: '',
-        //         nclaim: '',
-        //         aname: '',
-        //         aage: '',
-        //         arelationship: '',
-        //         arelationshipName: '',
-        //         removeBtn: false,
-        //         addBtn: false,
-        //         ageSetting: false,
-        //         colorStatus: 'green'
-        //
-        //     });
-        //     this.nomineeDate[0].nominee[0].addBtn = false;
-        //
-        //     //
-        //     this.nomineeAdd = true;
-        //     this.nomineeRemove = false;
-        // } if (value == 'delete') {
-        //     if (this.nomineeDate[0].nominee.length == 2) {
-        //         this.nomineeDate[0].nominee.splice(1, 1);
-        //         this.nomineeAdd = false;
-        //         this.nomineeRemove = true;
-        //         this.nomineeDate[0].nominee[0].removeBtn = true;
-        //         this.nomineeDate[0].nominee[0].addBtn = true;
-        //     }
-        // }
-        // sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
+    //
+    // if (value == 'add' && this.nomineeDate[0].nominee.length != 2) {
+    //     this.nomineeDate[0].nominee.push({
+    //         nname: '',
+    //         nage: '',
+    //         nrelationship: '',
+    //         nrelationshipName: '',
+    //         nclaim: '',
+    //         aname: '',
+    //         aage: '',
+    //         arelationship: '',
+    //         arelationshipName: '',
+    //         removeBtn: false,
+    //         addBtn: false,
+    //         ageSetting: false,
+    //         colorStatus: 'green'
+    //
+    //     });
+    //     this.nomineeDate[0].nominee[0].addBtn = false;
+    //
+    //     //
+    //     this.nomineeAdd = true;
+    //     this.nomineeRemove = false;
+    // } if (value == 'delete') {
+    //     if (this.nomineeDate[0].nominee.length == 2) {
+    //         this.nomineeDate[0].nominee.splice(1, 1);
+    //         this.nomineeAdd = false;
+    //         this.nomineeRemove = true;
+    //         this.nomineeDate[0].nominee[0].removeBtn = true;
+    //         this.nomineeDate[0].nominee[0].addBtn = true;
+    //     }
+    // }
+    // sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
 
-   // }
+    // }
 
 
 
@@ -1592,7 +1594,7 @@ setOccupationList() {
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposalId = this.summaryData.policy_id;
-           this.proposalNumber= this.summaryData.proposalNum;
+            this.proposalNumber= this.summaryData.proposalNum;
             sessionStorage.proposalID = this.proposalId;
             this.personal.controls['personalOccupationName'].patchValue(this.occupationList[this.personal.controls['personalOccupation'].value]);
             if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined && !this.personal.controls['sameas'].value) {
@@ -1625,7 +1627,7 @@ setOccupationList() {
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
     }
-        // payment
+    // payment
     public payNow() {
         const data = {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
