@@ -497,6 +497,14 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <div class="col-md-6" >
+                                        <div class="p-3">
+                                            <h6 class="mt-2"></h6>
+                                            <ul class="m-0 list-group">
+                                                <li class="list-group-item" *ngIf="polcovvolntrycp !=''  && i == 0"><strong>Voluntary Co-Payment:</strong> {{polcovvolntrycp}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
 
                                     <div class="col-md-6" *ngFor="let item of requestList; let i = index;">
@@ -1094,12 +1102,19 @@
                                         <div class="p-3">
                                             <h6 class="mt-2"></h6>
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="item.polcovvolntrycp !=''  && i == 0"><strong>Voluntary Co-Payment:</strong> {{item.polcovvolntrycp}}</li>
 
                                                 <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{item.tycpdetails.email}}</li>
                                                 <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{item.tycpdetails.contact1}}</li>
                                                 <li class="list-group-item" *ngIf="item.tycpdetails.telephone !='' && i == 0"><strong>Alternate Number:</strong> {{item.tycpdetails.telephone}}</li>
 
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-12" >
+                                        <div class="p-3">
+                                            <h6 class="mt-2"></h6>
+                                            <ul class="m-0 list-group">
+                                                <li class="list-group-item" *ngIf="polcovvolntrycp !=''  && i == 0"><strong>Voluntary Co-Payment:</strong> {{polcovvolntrycp}}</li>
                                             </ul>
                                         </div>
                                     </div>
