@@ -960,7 +960,7 @@
 
                                                 <li class="list-group-item"><strong>Height:</strong> {{item.insureHeight}}</li>
                                                 <li class="list-group-item"><strong>Weight:</strong> {{item.insureWeight}}</li>
-                                                <li class="list-group-item"><strong>Occupation:</strong> {{item.insureoccupationName}}</li>
+                                                <li class="list-group-item"><strong>Occupation:</strong> {{item.insureoccupationName }}</li>
                                                 <li class="list-group-item" *ngIf="item.insureGMIncome !=''"><strong>Gross Monthly Income:</strong> {{item.insureGMIncome}}</li>
                                             </ul>
                                         </div>
@@ -1079,11 +1079,12 @@
                                                 <!--<li class="list-group-item" *ngIf="summaryData.proposer_age !='' && i == 0"><strong>Age :</strong> {{summaryData.proposer_age}}</li>-->
                                                 <li class="list-group-item" *ngIf="item.memage !=''"><strong>Age :</strong> {{item.memage}}</li>
                                                 <li class="list-group-item"><strong>Relationship:</strong> {{item.memrelation}}</li>
+
                                                 <!--<li class="list-group-item" *ngIf="item.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{item.polcovvolntrycp}} %</li>-->
                                                 <!--<li class="list-group-item" *ngIf="item.tycpdetails.insureCoPayment !=''  && i == 0"><strong>Voluntary Co-Payment:</strong> {{item.tycpdetails.insureCoPayment}}</li>-->
                                                 <li class="list-group-item"><strong>Height:</strong> {{item.memheightcm}}</li>
                                                 <li class="list-group-item"><strong>Weight:</strong> {{item.memweightkg}}</li>
-                                                <li class="list-group-item"><strong>Occupation:</strong> {{item.insureoccupationName}}</li>
+                                                <li class="list-group-item"><strong>Occupation:</strong> {{item.insureoccupationName }}</li>
                                                 <li class="list-group-item" *ngIf="item.memgrossmonthlyincome !=''"><strong>Gross Monthly Income:</strong> {{item.memgrossmonthlyincome }}</li>
                                             </ul>
                                         </div>
@@ -1093,6 +1094,8 @@
                                         <div class="p-3">
                                             <h6 class="mt-2"></h6>
                                             <ul class="m-0 list-group">
+                                                <li class="list-group-item" *ngIf="item.polcovvolntrycp !=''  && i == 0"><strong>Voluntary Co-Payment:</strong> {{item.polcovvolntrycp}}</li>
+
                                                 <li class="list-group-item" *ngIf="i == 0"><strong>Email :</strong> {{item.tycpdetails.email}}</li>
                                                 <li class="list-group-item" *ngIf="i == 0"><strong>Mobile Number :</strong> {{item.tycpdetails.contact1}}</li>
                                                 <li class="list-group-item" *ngIf="item.tycpdetails.telephone !='' && i == 0"><strong>Alternate Number:</strong> {{item.tycpdetails.telephone}}</li>
@@ -1180,17 +1183,19 @@
                         <hr>
 
                         <div class="row">
-                                <div class="col-12 text-center">
-                                    <button  mat-button color="warn" (click)="backAll()" *ngIf="payLaterr == false">Back</button>
-                                    <button mat-button class="mat-primaryBlue" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
+                            <!--<div class="col-md-6 text-right">-->
+                                <!--<button mat-button matStepperPrevious (click)="topScroll()" *ngIf="payLaterr == false">Back</button>-->
+                                <!--<button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>-->
+                            <!--</div>-->
+                            <div class="col-12 col-md-6 text-center">
+                                <form action={{RediretUrlLink}} method='post' #form>
+                                    <button mat-button  (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
+                                    <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()"  *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
 
-                                </div>
-                                <div class="col-12 text-center">
-                                    <form action={{RediretUrlLink}} method='post' #form>
-                                        <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
-                                    </form>
-                                </div>
+                                    <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                                </form>
                             </div>
+                        </div>
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>

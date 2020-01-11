@@ -100,6 +100,10 @@ import { TruncatePipe} from '../limit.pipe';
 import { ReligareHealthProposalComponent } from './pages/religare-health-proposal/religare-health-proposal.component';
 import { ViewdetailsComponent } from './pages/health-insurance/viewdetails/viewdetails.component';
 import { SplitLastPipe} from '../splitpipe';
+import {faqPipe} from '../faq-pipe';
+// import { EllipsisPipe } from '../ellipsis.pipe';
+import { EllipsisPipe} from '../ellipse';
+
 import { TestimonialComponent } from './pages/home/testimonial/testimonial.component';
 import { ExamComponent } from './pages/exam/exam.component';
 import { ResultpageComponent } from './pages/exam/resultpage/resultpage.component';
@@ -452,6 +456,8 @@ import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.ser
         ReligareHealthProposalComponent,
         ViewdetailsComponent,
         SplitLastPipe,
+        faqPipe,
+        EllipsisPipe,
         KeysPipe,
         TestimonialComponent,
         ExamComponent,
