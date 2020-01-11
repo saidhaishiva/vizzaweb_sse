@@ -744,8 +744,10 @@ export class HealthInsuranceComponent implements OnInit {
         );
     }
     public getSumInsuredAmountSuccess(successData) {
+        console.log(successData.ResponseObject, 'kilo1234kg')
         if (successData.IsSuccess) {
             this.sumInsuredAmountLists = successData.ResponseObject;
+            console.log(this.sumInsuredAmountLists, 'hello1234')
         }
     }
     public getSumInsuredAmountFailure(error) {
