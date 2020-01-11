@@ -72,6 +72,7 @@ export class BajajAlianzComponent implements OnInit {
     public insureMArea: any;
     public zonemessage: any;
     public requestDetails: any;
+    public subString: any;
 
 
     public setDate: any;
@@ -114,6 +115,8 @@ export class BajajAlianzComponent implements OnInit {
     public type: any;
     public relationshipStatus: any;
     public relType: any;
+    public hcpdtmemlist: any;
+    public polcovvolntrycp: any;
 
 
 
@@ -898,6 +901,16 @@ export class BajajAlianzComponent implements OnInit {
             // alert('innnnnnnn....');
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.insuredFormData = this.insurerData;
+            this.hcpdtmemlist= this.insurerData[0].insureoccupationName;
+            console.log(this.insuredFormData,'insuredFormData');
+            console.log(this.hcpdtmemlist,'hcpdtmemlist');
+            // let str = this.hcpdtmemlist.length;
+            // console.log(str,'hcpdtmemlist');
+            // this.subString=str.slice(1,6);
+            // console.log(this.subString,'subString');
+            //
+
+
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             this.RediretUrlLink = this.summaryData.payment_url;
             this.proposalId = this.summaryData.policy_id;
@@ -1143,10 +1156,12 @@ console.log(sessionStorage.insuredFormData,'insuredFormData');
             for(let k=0;k<=this.requestList.length;k++){
                 this.type=[];
                 this.type = this.requestList[0].hcpdtmemlist;
-                console.log(this.type, 'this.type')
+                this.polcovvolntrycp = this.requestList[0].hcpdtpolcovobj.polcovvolntrycp;
+                console.log(this.polcovvolntrycp, 'this.polcovvolntrycp...')
                 for(let i=0;i<=this.type.length;i++){
                     this.relationshipStatus=this.type[0].memrelation;
 console.log(this.relationshipStatus," this.relationshipStatus")
+console.log(this.requestDetails," this.requestDetails")
 
                 }
             }
