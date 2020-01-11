@@ -1382,7 +1382,7 @@ export class HealthInsuranceComponent implements OnInit {
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
             <div class="col-sm-12">
-                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
+                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.svg" class="logo-size"> About Health Insurance</h3>
             </div>
             
         </div>
