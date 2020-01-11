@@ -473,7 +473,7 @@
                       </span>
                 </mat-select-trigger>
 
-                <mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
+                <mat-option  *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -485,10 +485,15 @@
             <!--</mat-select>-->
             <!--</mat-form-field>-->
             <mat-form-field class="w-100">
-              <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
+              <mat-placeholder class="myclass font-weight-bold">Sum insured</mat-placeholder>
               <mat-select [(ngModel)]="changeSuninsuredAmount" (selectionChange)="updateSumInsured()">
-                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
+
+                <mat-option style="touch-action: auto !important;" *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">{{amounts.si_amount_shortform}}</mat-option>
               </mat-select>
+              <!--<mat-placeholder>Sum insured</mat-placeholder>-->
+              <!--<mat-select [(ngModel)]="changeSuninsuredAmount" (selectionChange)="updateSumInsured()">-->
+                <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">{{amounts.si_amount_shortform}}&nbsp;</mat-option>-->
+              <!--</mat-select>-->
             </mat-form-field>
           </div>
         </div>

@@ -1394,7 +1394,8 @@
             </mat-expansion-panel-header>
             <section class="summary-details" *ngIf="summaryData">
               <div class="row">
-                <div class="col-12"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
+                <div class="col-12"> <h4 class="mt-4">{{summaryData.group_name}} /</h4>
+                  <h4 style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</h4></div>
                 <div class="col-12">
                   <ul class="summary-head">
                     <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
@@ -1465,7 +1466,7 @@
 
               <div class="row box-card">
                 <div class="col-12">
-                  <div class="p-3">
+                  <div class="p-0">
                     <div class="row" style="pointer-events: none;">
                       <div class="col-12 box-card pt-3 pb-3" >
                         <mat-accordion class="question-panel" *ngFor="let item of religareQuestionsList; let i = index">
@@ -1583,7 +1584,9 @@
             </section>
             <section class="summary-details" *ngIf="payLaterr == true">
               <div class="row">
-                <div class="col-12"> <h4 class="mt-4">{{gname}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{gsum_insured}}</span></h4></div>
+                <div class="col-12"> <h4 class="mt-4">{{gname}} /</h4>
+                  <h4 style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{gsum_insured}}</h4></div>
+                <!--<div class="col-12"> <h4 class="mt-4">{{gname}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{gsum_insured}}</span></h4></div>-->
                 <div class="col-12">
                   <ul class="summary-head">
                     <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + gcompanylogo}}" class="img-thumbnail" style="width: 125px;" /> </li>
@@ -1654,7 +1657,7 @@
 
               <div class="row box-card">
                 <div class="col-12">
-                  <div class="p-3">
+                  <div class="p-0">
                     <div class="row" style="pointer-events: none;">
                       <div class="col-12 box-card pt-3 pb-3" >
                         <mat-accordion class="question-panel" *ngFor="let item of requestmedicalQuestion; let i = index">
