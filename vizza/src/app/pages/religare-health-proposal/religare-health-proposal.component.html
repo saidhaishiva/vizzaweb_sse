@@ -941,7 +941,7 @@
 <!--mobile view-->
 <section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">
   <div class="container-fluid">
-    <div class="row religareHealthProposal">
+    <div class="row religareHealthProposalMob">
       <div class="col-sm-12 col-xs-12">
         <mat-accordion>
 
@@ -1397,11 +1397,10 @@
                 <div class="col-12"> <h4 class="mt-4">{{summaryData.group_name}} /</h4>
                   <h4 style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</h4></div>
                 <div class="col-12">
-                  <ul class="summary-head">
-                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                  <ul>
+                    <li style="padding: 8px; font-size: 17px; color: #666;"><span>Insurer: </span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                     <!--<li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>-->
-                    <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> </li>
-                    <li></li>
+                    <li style="padding: 8px; font-size: 17px; color: #666;"><span>Total Premium: <i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> </li>
                   </ul>
                 </div>
               </div>
@@ -1588,10 +1587,9 @@
                   <h4 style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{gsum_insured}}</h4></div>
                 <!--<div class="col-12"> <h4 class="mt-4">{{gname}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{gsum_insured}}</span></h4></div>-->
                 <div class="col-12">
-                  <ul class="summary-head">
-                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + gcompanylogo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{gtotalPremium}}</span> </li>
-                    <li></li>
+                  <ul>
+                    <li style="padding: 8px; font-size: 17px; color: #666;"><span>Insurer: </span> &nbsp;<img src="{{webhost + '/' + gcompanylogo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                    <li style="padding: 8px; font-size: 17px; color: #666;"><span>Total Premium: <i class="fas fa-rupee-sign"></i> {{gtotalPremium}}</span> </li>
                   </ul>
                 </div>
               </div>
