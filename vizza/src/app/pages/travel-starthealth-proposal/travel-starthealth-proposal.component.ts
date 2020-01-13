@@ -148,6 +148,7 @@ export class TravelProposalComponent implements OnInit {
     gstListType: any;
     public passportPattern: any;
     public patternError: any;
+    public passportany: any;
     public placevisting: any;
     public status: any;
     public proposal_Id: any;
@@ -299,6 +300,19 @@ export class TravelProposalComponent implements OnInit {
     backAll() {
         this.topScroll();
         this.prevStep();
+    }
+    passportval(i)
+    {
+        console.log(this.insureArray['controls'].items['controls'][i]['controls'].passportNumber.value,'5678')
+        if( this.insureArray['controls'].items['controls'][i]['controls'].passportNumber.value != ''){
+            this.passportany = false;
+            this.passportany = '';
+        }
+        else{
+            this.passportany = true;
+            this.passportany = 'Pass Port is required'
+        }
+
     }
 
 

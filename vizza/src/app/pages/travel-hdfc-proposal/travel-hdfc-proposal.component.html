@@ -320,9 +320,11 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="PassPort" class="text-uppercase" formControlName="PassportNo" (keypress)="idValidate($event)" maxlength="8" minlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" autocomplete="off" required>
-                            <mat-error *ngIf="hdfcInsuredTravel.invalid">PassPort is required</mat-error>
+                            <input matInput placeholder="PassPort" class="text-uppercase" formControlName="PassportNo" maxlength="8" minlength="8" autocomplete="off" (input)="passportval(i)" required>
+<!--                            <mat-error *ngIf="hdfcInsuredTravel.invalid">PassPort is required</mat-error>-->
                           </mat-form-field>
+                          <div class="error" *ngIf="passportany !=''&& passportany !=true">{{passportany}}</div>
+
                         </div>
                       </div>
                     </div>

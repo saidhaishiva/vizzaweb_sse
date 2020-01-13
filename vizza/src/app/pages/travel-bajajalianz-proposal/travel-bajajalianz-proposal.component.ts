@@ -78,6 +78,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     public acceptSummaryDeclaration: any;
     public placeOfVisit: any;
     public purposeOfVisitss: any;
+    public passportany: any;
     // public bajajTravelMobileTrue0 = boolean;
 
     constructor(public appsetting: AppSettings,public auth: AuthService,public route: ActivatedRoute,public config: ConfigurationService, private toastr: ToastrService, public travelservice: TravelService, public fb: FormBuilder, public datepipe: DatePipe, public validation: ValidationService) {
@@ -188,6 +189,19 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     backAll(){
         this.topScroll();
         this.prevStep();
+    }
+    passportval(i)
+    {
+        console.log(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.value,'5678')
+        if( this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.value != ''){
+            this.passportany = false;
+            this.passportany = '';
+        }
+        else{
+            this.passportany = true;
+            this.passportany = 'Pass Port is required'
+        }
+
     }
 
 

@@ -140,7 +140,7 @@
                                     <div class="col-md-4 mt-2" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10" (change)="betterhalf()" >
+                                            <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10" (change)="betterhalf()" readonly>
                                         </mat-form-field>
                                     </div>
 
@@ -276,7 +276,7 @@
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                             <input matInput  formControlName="criticalsumAssured"  (input)="edelweissPrimium()"  autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
-                                        <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000  Max: 50,00,000</p></div>
+                                        <div><p style="font-size: 10px; color: #3378bd;">Min: {{ci_sumassured_min}}  Max: {{ci_sumassured_max}}</p></div>
                                         <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
                                     </div>
                                     <!--                               <div class="col-md-4" *ngIf="addon.controls['criticalIllness'].value == 'Yes'">-->
@@ -302,7 +302,7 @@
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                             <input matInput  formControlName="sumAssuredADB"  (input)="edelweissPrimium()"  autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
-                                        <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
+                                        <div><p style="font-size: 10px; color: #3378bd;">Min: {{adb_sumassured_min}} Max: {{adb_sumassured_max}}</p></div>
 
                                         <div class="error" *ngIf="adbError != ''">{{adbError}}</div>
                                     </div>
@@ -330,7 +330,7 @@
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                             <input matInput  formControlName="sumAssuredATPD" (input)="edelweissPrimium()"   autocomplete="off" (change)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
-                                        <div><p style="font-size: 10px; color: #3378bd;">Min: 1,00,000 Max: 1,00,00,000</p></div>
+                                        <div><p style="font-size: 10px; color: #3378bd;">Min: {{atpd_sumassured_min}} Max: {{atpd_sumassured_min}}</p></div>
                                         <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>
                                     </div>
                                     <div class="col-md-4 mt-2 "  >

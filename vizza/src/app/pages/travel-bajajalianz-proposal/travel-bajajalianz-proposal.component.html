@@ -233,9 +233,9 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" formControlName="passportNo" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required readonly="{{i==0}}">
-                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.errors?.required">Passport number is required</mat-error>
-                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.hasError('pattern')">Enter Valid  Passport number</mat-error>
+                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" formControlName="passportNo" autocomplete="off" (input)="passportval(i)" style="text-transform: uppercase" required readonly="{{i==0}}">
+<!--                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.errors?.required">Passport number is required</mat-error>-->
+<!--                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.hasError('pattern')">Enter Valid  Passport number</mat-error>-->
                         </mat-form-field></div>
                         <div class="col-md-4" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
                           <mat-form-field class="w-100">

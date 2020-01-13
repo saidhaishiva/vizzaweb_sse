@@ -95,6 +95,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public sameinsure: any;
     public allLists: any;
     public addon: any;
+    public passportany: any;
     public sameRelationship: any;
     public insurer: any;
     public getEnquiryDetails: any;
@@ -160,7 +161,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             lastname: new FormControl(''),
             gender: ['', Validators.compose([Validators.required])],
             dob: ['', Validators.compose([Validators.required])],
-            passport: ['', Validators.compose([Validators.minLength(8)])],
+            passport: '',
             address1: ['', Validators.required],
             address2: '',
             pincode: ['', Validators.required],
@@ -260,6 +261,19 @@ export class ReliagretravelproposalComponent implements OnInit {
     backAll() {
         this.topScroll();
         this.prevStep();
+    }
+    passportval(i)
+    {
+        console.log(this.insureReligareArray['controls'].items['controls'][i]['controls'].passports.value,'5678')
+        if( this.insureReligareArray['controls'].items['controls'][i]['controls'].passports.value != ''){
+            this.passportany = false;
+            this.passportany = '';
+        }
+        else{
+            this.passportany = true;
+            this.passportany = 'Pass Port is required'
+        }
+
     }
     // PROPOSER PAGE
     // title change function

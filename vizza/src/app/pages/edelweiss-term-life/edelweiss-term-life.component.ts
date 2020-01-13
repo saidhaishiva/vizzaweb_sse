@@ -245,6 +245,12 @@ export class EdelweissTermLifeComponent implements OnInit {
   public tobaccoInderror:any;
   public hcb_sumassured_min:any;
   public hcb_sumassured_max:any;
+  public atpd_sumassured_min:any;
+  public atpd_sumassured_max:any;
+  public adb_sumassured_min:any;
+  public adb_sumassured_max:any;
+  public ci_sumassured_min:any;
+  public ci_sumassured_max:any;
   public tittleread :boolean;
   public otpFalseError :boolean;
 
@@ -2568,28 +2574,28 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(error);
   }
   sumAssuredADBError(event:any) {
-    if (this.addon.controls['sumAssuredADB'].value >= 100000 && this.addon.controls['sumAssuredADB'].value <= 10000000) {
+    if (this.addon.controls['sumAssuredADB'].value >= this.atpd_sumassured_min && this.addon.controls['sumAssuredADB'].value <= this.atpd_sumassured_min) {
       this.adbError ='';
     } else {
-      this.adbError = 'SumAssured Accidental Death Benefit should be 100000 - 10000000';
+      this.adbError = 'SumAssured Accidental Death Benefit should be{{this.atpd_sumassured_min}} - {{this.atpd_sumassured_min}}';
     }
   }
   sumAssuredATPDError(event:any) {
-    if (this.addon.controls['sumAssuredATPD'].value >= 100000 && this.addon.controls['sumAssuredATPD'].value <= 10000000) {
+    if (this.addon.controls['sumAssuredATPD'].value >= this.atpd_sumassured_min && this.addon.controls['sumAssuredATPD'].value <= this.atpd_sumassured_min) {
       this.atpdError ='';
     } else {
       this.atpdError = 'SumAssured Accidental Total and Permanent Disability should be 100000 - 10000000';
     }
   }
   sumAssuredCiError(event:any) {
-    if (this.addon.controls['criticalsumAssured'].value >= 100000 && this.addon.controls['criticalsumAssured'].value <= 5000000) {
+    if (this.addon.controls['criticalsumAssured'].value >= this.ci_sumassured_min && this.addon.controls['criticalsumAssured'].value <= this.ci_sumassured_max) {
       this.ciError ='';
     } else {
       this.ciError = 'SumAssured Critical Illness should be 100000 - 5000000';
     }
   }
   sumAssuredHCBError(event:any) {
-    if (this.addon.controls['sumAssuredHCB'].value >= 100000 && this.addon.controls['sumAssuredHCB'].value <= 600000) {
+    if (this.addon.controls['sumAssuredHCB'].value >= this.hcb_sumassured_min && this.addon.controls['sumAssuredHCB'].value <= this.hcb_sumassured_max) {
       this.hcbdError ='';
     } else {
       this.hcbdError = 'SumAssured Hospital Cash Benefit should be 100000 - 600000';
@@ -5233,6 +5239,12 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.better_half_sum_assured = this.eePremiumTerm.better_half_sum_assured;
       this.hcb_sumassured_min = this.eePremiumTerm.hcb_sumassured_min;
       this.hcb_sumassured_max = this.eePremiumTerm.hcb_sumassured_max;
+      this.atpd_sumassured_min = this.eePremiumTerm.atpd_sumassured_min;
+      this.atpd_sumassured_max = this.eePremiumTerm.atpd_sumassured_max;
+      this.ci_sumassured_min = this.eePremiumTerm.ci_sumassured_min;
+      this.ci_sumassured_max = this.eePremiumTerm.ci_sumassured_max;
+      this.adb_sumassured_min = this.eePremiumTerm.adb_sumassured_min;
+      this.adb_sumassured_max = this.eePremiumTerm.adb_sumassured_max;
       this.betterhalf();
       console.log(this.ADB,'this.ADB');
       console.log(this.eePremiumTerm,'this.this.eePremiumTerm');

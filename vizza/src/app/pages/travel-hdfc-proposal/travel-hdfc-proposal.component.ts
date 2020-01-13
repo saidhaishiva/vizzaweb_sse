@@ -92,6 +92,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public stepperindex: any;
     public payLaterr: any;
     public status: any;
+    public passportany: any;
     public proposal_Id: any;
     public mobileView: boolean;
     public pedValid: boolean;
@@ -354,6 +355,19 @@ export class TravelHdfcProposalComponent implements OnInit {
     nameValidateNospace(event: any){
         this.validation.nameValidateNospace(event);
     }
+    passportval(i)
+    {
+        console.log(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].PassportNo.value,'5678')
+        if( this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].PassportNo.value != ''){
+            this.passportany = false;
+            this.passportany = '';
+        }
+        else{
+            this.passportany = true;
+            this.passportany = 'Pass Port is required'
+        }
+
+    }
     canDeactivate() {
         return this.hdfc_Travel_proposal_id;
     }
@@ -371,7 +385,7 @@ export class TravelHdfcProposalComponent implements OnInit {
                 InsuredAge: '',
                 insurerDobError: '',
                 insurerDobValidError: '',
-                PassportNo: ['', Validators.compose([Validators.minLength(7)])],
+                PassportNo: '',
                 rolecd: 'PRIMARY',
                 type: '',
                 ins_age: '',
