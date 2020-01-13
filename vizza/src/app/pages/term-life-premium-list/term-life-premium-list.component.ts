@@ -645,7 +645,7 @@ export class TermLifePremiumListComponent implements OnInit {
             // 'hdfcplan':
         };
         console.log(data,'data');
-        // this.settings.loadingSpinner = true;
+        this.settings.loadingSpinner = true;
         this.life.getTermChangeList(data).subscribe(
             (successData) => {
                 this.termChangeSuccess(successData,plists,index);
@@ -661,6 +661,7 @@ export class TermLifePremiumListComponent implements OnInit {
                   this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
                   this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
                   this.allProductLists[index].premium_paying_term =  this.termListDetails.premium_paying_term;
+                  console.log(this.allProductLists[index].premium_paying_term,'4567898765678');
                   // this.allProductLists[index].term =  this.termListDetails.term[0];
 
                 // console.log( this.allProductLists[index].term ,' this.allProductLists[index].term ')
