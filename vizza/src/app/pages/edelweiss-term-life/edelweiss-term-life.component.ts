@@ -331,6 +331,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.tittleread == false;
     this.drugsInderror =false;
     this.alcoholInderror =false;
+    this.hcbdError =false;
+    this.ciError =false;
+    this.adbError =false;
+    this.atpdError =false;
     this.tobaccoInderror =false;
     this.proposalGenStatus = true;
     this.proposalNextList = '';
@@ -1760,34 +1764,40 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addon.valid, 'this.valid');
     // let dateErrorMsg = [];
     if (this.addon.valid  ) {
-      // if(this.atpdError =='' && this.adbError=='' && this.ciError=='' && this.hcbdError==''){}
-      // this.tittleread == true;
-      this.insureArray.controls['title'].patchValue (this.customerDetails.controls['title'].value);
-      this.insureArray.controls['firstName'].patchValue (this.customerDetails.controls['firstName'].value);
-      this.insureArray.controls['lastName'].patchValue (this.customerDetails.controls['lastName'].value);
-      this.insureArray.controls['dob'].patchValue (this.customerDetails.controls['dob'].value);
-      this.insureArray.controls['maritalStatus'].patchValue (this.customerDetails.controls['maritalStatus'].value);
-      this.insureArray.controls['emailId'].patchValue (this.customerDetails.controls['emailId'].value);
-      this.insureArray.controls['mobileNo'].patchValue (this.customerDetails.controls['mobileNo'].value);
-      this.insureArray.controls['annualIncome'].patchValue (this.customerDetails.controls['annualIncome'].value);
-      // this.insureArray.controls['isSmoker'].patchValue (this.customerDetails.controls['isSmoker'].value);
+      if (this.atpdError == '' && this.adbError == '' && this.ciError == '' && this.hcbdError == '') {
+        // this.tittleread == true;
+        this.insureArray.controls['title'].patchValue(this.customerDetails.controls['title'].value);
+        this.insureArray.controls['firstName'].patchValue(this.customerDetails.controls['firstName'].value);
+        this.insureArray.controls['lastName'].patchValue(this.customerDetails.controls['lastName'].value);
+        this.insureArray.controls['dob'].patchValue(this.customerDetails.controls['dob'].value);
+        this.insureArray.controls['maritalStatus'].patchValue(this.customerDetails.controls['maritalStatus'].value);
+        this.insureArray.controls['emailId'].patchValue(this.customerDetails.controls['emailId'].value);
+        this.insureArray.controls['mobileNo'].patchValue(this.customerDetails.controls['mobileNo'].value);
+        this.insureArray.controls['annualIncome'].patchValue(this.customerDetails.controls['annualIncome'].value);
+        // this.insureArray.controls['isSmoker'].patchValue (this.customerDetails.controls['isSmoker'].value);
 
-      if(this.addon.controls['betterHalfBenefit'].value == 'Yes') {
-        this.insureArray.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
-        this.insureArray.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
-        this.insureArray.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
-        this.insureArray.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
-        this.insureArray.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
-        this.insureArray.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
+        if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+          this.insureArray.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
+          this.insureArray.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
+          this.insureArray.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
+          this.insureArray.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
+          this.insureArray.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
+          this.insureArray.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
 
-        // stepper.next();
-        // this.topScroll();
+          // stepper.next();
+          // this.topScroll();
+        }
+
+
+        stepper.next();
+        this.topScroll();
       }
+      else{
+        this.toastr.error('please enter correct Sum Assured Amount');
+      }
+    }
 
-
-      stepper.next();
-      this.topScroll();
-    } else {
+    else {
       this.toastr.error('please enter all the Mandatory field');
     }
 
@@ -2574,31 +2584,42 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(error);
   }
   sumAssuredADBError(event:any) {
-    if (this.addon.controls['sumAssuredADB'].value >= this.atpd_sumassured_min && this.addon.controls['sumAssuredADB'].value <= this.atpd_sumassured_min) {
+    alert('inn');
+    if (this.addon.controls['sumAssuredADB'].value >= this.adb_sumassured_min && this.addon.controls['sumAssuredADB'].value <= this.adb_sumassured_max) {
+      this.adbError =false;
       this.adbError ='';
     } else {
-      this.adbError = 'SumAssured Accidental Death Benefit should be{{this.atpd_sumassured_min}} - {{this.atpd_sumassured_min}}';
+      this.adbError =true;
+      this.adbError = "SumAssured Accidental Death Benefit should be";
+
     }
   }
   sumAssuredATPDError(event:any) {
-    if (this.addon.controls['sumAssuredATPD'].value >= this.atpd_sumassured_min && this.addon.controls['sumAssuredATPD'].value <= this.atpd_sumassured_min) {
-      this.atpdError ='';
+    if (this.addon.controls['sumAssuredATPD'].value >= this.atpd_sumassured_min && this.addon.controls['sumAssuredATPD'].value <= this.atpd_sumassured_max) {
+      this.atpdError =false;
+      this.atpdError =''
     } else {
-      this.atpdError = 'SumAssured Accidental Total and Permanent Disability should be 100000 - 10000000';
+      this.atpdError =true;
+      this.atpdError = 'SumAssured Accidental Total and Permanent Disability should be ';
+
     }
   }
   sumAssuredCiError(event:any) {
     if (this.addon.controls['criticalsumAssured'].value >= this.ci_sumassured_min && this.addon.controls['criticalsumAssured'].value <= this.ci_sumassured_max) {
+      this.ciError =false;
       this.ciError ='';
     } else {
-      this.ciError = 'SumAssured Critical Illness should be 100000 - 5000000';
+      this.ciError = true;
+      this.ciError = 'SumAssured Critical Illness should be ';
     }
   }
   sumAssuredHCBError(event:any) {
     if (this.addon.controls['sumAssuredHCB'].value >= this.hcb_sumassured_min && this.addon.controls['sumAssuredHCB'].value <= this.hcb_sumassured_max) {
+      this.hcbdError=false;
       this.hcbdError ='';
     } else {
-      this.hcbdError = 'SumAssured Hospital Cash Benefit should be 100000 - 600000';
+      this.hcbdError=true;
+      this.hcbdError = 'SumAssured Hospital Cash Benefit should be ';
     }
   }
   // staffChange() {

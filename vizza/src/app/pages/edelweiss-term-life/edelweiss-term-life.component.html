@@ -258,7 +258,7 @@
                                             <input matInput  formControlName="sumAssuredHCB"  (input)="edelweissPrimium()"  autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min:{{hcb_sumassured_min}} Max: {{hcb_sumassured_max}}</p></div>
-                                        <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
+                                        <div class="error" *ngIf="hcbdError != ''">{{hcbdError}} {{this.hcb_sumassured_min}} - {{this.hcb_sumassured_max}}</div>
                                     </div>
                                     <div class="col-md-4 mt-2"  *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
                                         <p *ngIf="hcp != 0"><strong>   Hospital Cash Benefit Premium :</strong> {{hcp}}</p>
@@ -277,7 +277,7 @@
                                             <input matInput  formControlName="criticalsumAssured"  (input)="edelweissPrimium()"  autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{ci_sumassured_min}}  Max: {{ci_sumassured_max}}</p></div>
-                                        <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
+                                        <div class="error" *ngIf="ciError != ''">{{ciError}} {{this.ci_sumassured_min}}- {{this.ci_sumassured_max}}</div>
                                     </div>
                                     <!--                               <div class="col-md-4" *ngIf="addon.controls['criticalIllness'].value == 'Yes'">-->
                                     <!--                                   <mat-radio-group formControlName="criticalClaim"  >-->
@@ -304,7 +304,7 @@
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{adb_sumassured_min}} Max: {{adb_sumassured_max}}</p></div>
 
-                                        <div class="error" *ngIf="adbError != ''">{{adbError}}</div>
+                                        <div class="error" *ngIf="adbError != ''">{{adbError}} {{this.adb_sumassured_min}} - {{this.adb_sumassured_max}}</div>
                                     </div>
                                     <!--                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isADB'].value == 'Yes'" >-->
                                     <!--                                   <mat-form-field class="w-100">-->
@@ -331,7 +331,7 @@
                                             <input matInput  formControlName="sumAssuredATPD" (input)="edelweissPrimium()"   autocomplete="off" (change)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{atpd_sumassured_min}} Max: {{atpd_sumassured_min}}</p></div>
-                                        <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>
+                                        <div class="error" *ngIf="atpdError != ''">{{atpdError}} {{this.atpd_sumassured_min }} - {{this.atpd_sumassured_max}}</div>
                                     </div>
                                     <div class="col-md-4 mt-2 "  >
                                         <p *ngIf="PDP != 0"><strong> Permanent Disability Premium :</strong> {{PDP}}</p>
