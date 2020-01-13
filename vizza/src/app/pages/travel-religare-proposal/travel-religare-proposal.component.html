@@ -373,9 +373,11 @@
                         </mat-form-field></div>
 
                         <div class="col-md-4" ><mat-form-field class="w-100">
-                          <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passport" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" autocomplete="off"  (keypress)="idValidate($event)" required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
-                          <mat-error *ngIf="insureReligareArray.invalid">Pass Port is required</mat-error>
-                        </mat-form-field></div>
+                          <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passport" (input)="passportval(i)" autocomplete="off"   required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+<!--                          <mat-error *ngIf="insureReligareArray.invalid">Pass Port is required</mat-error>-->
+                        </mat-form-field>
+                          <div class="error" *ngIf="passportany !=''&& passportany !=true">{{passportany}}</div>
+                        </div>
                         <div class="col-md-4" ><mat-form-field class="w-100">
                           <input matInput placeholder="Pan Number" class="text-uppercase" minlength="10" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pannumber" autocomplete="off"  (keypress)="idValidate($event)" readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-error *ngIf="insureReligareArray.invalid">Pan Number is required</mat-error>

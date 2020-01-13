@@ -121,6 +121,7 @@ export class TravelShriramProposalComponent implements OnInit {
     public medicalStatus : any;
     public arr : any;
     public nomineeRelationList : any;
+    public passportany : any;
     array: any;
     placeOfVisiLists: any;
     assigneeRelationList: any;
@@ -202,7 +203,7 @@ export class TravelShriramProposalComponent implements OnInit {
             dob: ['', Validators.compose([Validators.required])],
             purposeofVisit: ['', Validators.required],
             occupation: ['', Validators.required],
-            passportNumber: ['', Validators.required],
+            passportNumber: '',
             faxNo: '',
             preExistingAilments: '',
             handicapped: ['', Validators.required],
@@ -278,6 +279,20 @@ export class TravelShriramProposalComponent implements OnInit {
     }
     canDeactivate() {
         return this.travel_shriram_proposal_id;
+    }
+
+    passportval()
+    {
+        console.log(this.personal.controls['passportNumber'].value,'5678')
+        if( this.personal.controls['passportNumber'].value != ''){
+            this.passportany = false;
+            this.passportany = '';
+        }
+        else{
+            this.passportany = true;
+            this.passportany = 'Pass Port is required'
+        }
+
     }
     public onAlternative(event: any) {
         if (event.charCode !== 0) {

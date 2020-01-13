@@ -862,10 +862,12 @@
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Relationship is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-md-3" ><mat-form-field class="w-100">
-                            <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passport" pattern="^[A-Za-z]{1}[0-9]{7}$" autocomplete="off"  (keypress)="idValidate($event)"  required>
-                            <mat-error *ngIf="relianceInsuredTravel.invalid">Pass Port is required</mat-error>
-                          </mat-form-field>
+                          <div class="col-md-3" >
+                            <mat-form-field class="w-100">
+                            <input matInput placeholder="Passport" class="text-uppercase"  maxlength="8" formControlName="passports"  autocomplete="off"  (input)="passportval(i)"  required>
+<!--                            <mat-error *ngIf="relianceInsuredTravel.invalid">Pass Port is required</mat-error>-->
+                            </mat-form-field>
+                            <div class="error" *ngIf="passportany !=''&& passportany !=true">{{passportany}}</div>
                           </div>
                           <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
@@ -1699,7 +1701,7 @@
                       <div class="p-3">
                         <h6 class="color-blue mt-4"></h6>
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Passport Number:</strong> {{item.passport}}</li>
+                          <li class="list-group-item"><strong>Passport Number:</strong> {{item.passports}}</li>
                           <li class="list-group-item" *ngIf="item.insureVisitingCountryName != ''">
                             <strong>Visiting Countries:</strong>
                             <span *ngFor="let lists of item.insureVisitingCountryName; let last = last;" > {{lists}} <span *ngIf="!last">,</span> </span>
@@ -2761,7 +2763,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-12" ><mat-form-field class="w-100">
-                        <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passport" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" autocomplete="off"  (keypress)="idValidate($event)"  required>
+                        <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passports" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" autocomplete="off"  (keypress)="idValidate($event)"  required>
                         <mat-error *ngIf="relianceInsuredTravel.invalid">Pass Port is required</mat-error>
                       </mat-form-field>
                       </div>
@@ -3418,7 +3420,7 @@
                 <div class="p-3">
                   <h6 class="color-blue mt-4"></h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Passport Number:</strong> {{item.passport}}</li>
+                    <li class="list-group-item"><strong>Passport Number:</strong> {{item.passports}}</li>
                     <li class="list-group-item" *ngIf="item.insureVisitingCountryName != ''">
                       <strong>Visiting Countries:</strong>
                       <span *ngFor="let lists of item.insureVisitingCountryName; let last = last;" > {{lists}} <span *ngIf="!last">,</span> </span>
