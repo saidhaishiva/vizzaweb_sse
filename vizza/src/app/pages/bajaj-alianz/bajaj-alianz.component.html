@@ -610,7 +610,7 @@
         <div class="row bajajHealthProposalMob">
             <div class="col-sm-12 col-xs-12 col-md-12">
                 <mat-accordion>
-                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" [disabled]="healthBajajTrue0">
+                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" [disabled]="healthBajajTrue0" (click)="topScroll()">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 INSURED DETAILS
