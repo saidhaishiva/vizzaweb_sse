@@ -19,6 +19,7 @@ export class FaqComponentComponent implements OnInit {
   search: any;
   faqsearchList: any;
   faq_question: any;
+  ans: any;
 
 
   constructor(public learning: LearningcenterService, public auth: AuthService) {
@@ -76,12 +77,23 @@ export class FaqComponentComponent implements OnInit {
     console.log(this.faqQuestionsList, 'this.faqQuestionsList')
 
     for (let i = 0; i < this.faqQuestionsList.length; i++) {
+      console.log(this.faqQuestionsList[i].contents, "12345678");
 
-      for (let j = 0; j < this.faqQuestionsList[i].contents; j++) {
-        this.faq_question=this.faqQuestionsList[i].contents[j].content_qstn;
-        // alert('1')
-        console.log(this.faqQuestionsList[i].contents[j].content_qstn, "09876546789");
-        console.log(this.faqQuestionsList[i].contents[j].content_ans, "qnhaSAFFDG");
+
+      for (let j = 0; j < this.faqQuestionsList[i].contents.length; j++) {
+        for(let k = 0; k < this.faqQuestionsList[i].contents[j].content_ans.length; k++){
+
+        }
+        //
+        // this.faq_question=this.faqQuestionsList[i].contents[j].content_ans;
+        // console.log(this.faq_question, "12345678");
+        //
+        //
+        // this.faq_question=this.faq_question.replace(new RegExp('•', 'g'), "<br _ngcontent-vizza-app-c14>");
+        // console.log(this.faq_question, "12345678");
+        //
+
+
 
       }
     }
