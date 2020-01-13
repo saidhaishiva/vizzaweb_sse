@@ -2001,8 +2001,8 @@ export class AegonTermLifeComponent implements OnInit {
       this.topScroll();
       this.toastr.success('BI Generated Sucessfully!!');
       this.summaryData = successData.ResponseObject;
-      // this.requestedUrl = this.summaryData.bilink;
-      this.requestedUrl = "http://13.127.24.123/vizza/uploads/term_life/3897/D4ULjSC.pdf";
+      this.requestedUrl = this.summaryData.bilink;
+      // this.requestedUrl = "http://13.127.24.123/vizza/uploads/term_life/3897/D4ULjSC.pdf";
       console.log( this.requestedUrl,' requestedUrl...')
       this.redirectUrl = this.summaryData.redirectLink;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
