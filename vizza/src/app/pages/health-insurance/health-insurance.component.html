@@ -55,7 +55,7 @@
         </mat-form-field>
         <div *ngIf="pinerror" class="ngError">Required</div>
         <div fxLayoutAlign="center center" class="mt-1">
-          <button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" [disabled]="!healthProceed" (click)="getPolicyQuotationList()">Proceed</button>
+          <button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" [disabled]="!healthProceed" (click)="getPolicyQuotationList('desktop')">Proceed</button>
           <button mat-button (click)="reset()" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
         </div>
       </mat-card>
@@ -222,9 +222,6 @@
   </div>
 </div>
 
-
-
-
 <!--second page-->
 <div class="row d-none d-sm-none d-md-none d-lg-block" id="product-list" fxLayoutAlign="start start">
   <div class="col-sm-12">
@@ -360,14 +357,6 @@
   </div>
 </div>
 
-<!--<form action="http://localhost:4203/#/paymentSuccess"  method='POST' enctype='text/plain' #form>-->
-<!--<div>-->
-<!--<input type='hidden' name='csrf' value="test"/>-->
-<!--<input type='hidden' name='policyNumber' value="india"/>-->
-<!--</div>-->
-<!--&lt;!&ndash;<button mat-raised-button color="primary"  (click)="form.submit()">Pay Now</button>&ndash;&gt;-->
-<!--</form>-->
-
 <style>
   .bgImg{
     background-image: url('assets/img/health-Insurance-inner.png');
@@ -380,7 +369,7 @@
 <!--Mobile firstpage-->
 <div class="container dashboard h-100 d-block d-sm-block d-md-block d-lg-none d-xl-none" fxLayoutAlign="start start" *ngIf="firstPage">
   <div class="row my-flex-card">
-    <h3 class="w-100 text-center color-pink mb-3"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>
+    <h3 class="w-100 text-center color-pink mb-3"><img src="assets/img/Health-Insurance.svg" class="logo-size"> Health Insurance</h3>
 
     <p class="w-100 text-center"><button class="btn btn-sm" (click)="healthInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
 
@@ -388,20 +377,33 @@
       <mat-card class="p-4" style="background: linear-gradient(to top, #A4AEDD 0%, #F285C0 100%) !important;">
         <!--<h4 class=" text-center">Get Instant Quotes</h4>-->
         <div class="w-100 mb-2 son" >
-          <div>
+          <div id="clonehead">
             <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">
-              <div class="col-sm-3 col-3">{{item.name}}</div>
-              <div class="col-sm-5 col-6"> <mat-form-field class="w-100">
+              <div class="col-3">{{item.name}}</div>
+              <div class="col-5"> <mat-form-field class="w-100">
                 <input matInput placeholder="Age" [(ngModel)]="item.age" autocomplete="off" [disabled]="item.disabled" maxlength="3" (keypress)="numberOnly($event)"  alt="{{i}}" (keyup)="typeAge(item.checked, item.name, i, item.age)" max="{{item.name}}" >
               </mat-form-field>
                 <div *ngIf="item.error != ''" class="ngError">Required</div>
               </div>
-              <div class="col-sm-2 col-3"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (selectionChange)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>
+              <div class="col-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>
             </div>
           </div>
+
+          <!--<div id="clonehead">-->
+            <!--<div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">-->
+              <!--<div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>-->
+              <!--<div class="col-md-3">{{item.name}}</div>-->
+              <!--<div class="col-md-5"> <mat-form-field class="w-100">-->
+                <!--<input matInput placeholder="Age" [(ngModel)]="item.age" autocomplete="off" [disabled]="item.disabled" maxlength="3" (keypress)="numberOnly($event)"  alt="{{i}}" (keyup)="typeAge(item.checked, item.name, i, item.age)" max="{{item.name}}" >-->
+              <!--</mat-form-field>-->
+                <!--<div *ngIf="item.error != ''" class="ngError">Required</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+
           <div class="mt-3 text-center">
-            <button mat-raised-button color="primary" style="margin-bottom: 4px;" type="button" [disabled]="sonBTn" (click)="addUser('Son', 2)"><i class="material-icons">add_circle_outline</i> Son</button>
-            <button mat-raised-button color="accent" style="margin-bottom: 4px;" class="accentDaughter" type="button" [disabled]="daughterBTn" (click)="addUser('Daughter', 3)"><i class="material-icons">add_circle_outline</i> Daughter</button>
+            <button mat-raised-button color="primary" type="button" [disabled]="sonBTn" (click)="addUser('Son', 2)"><i class="material-icons">add_circle_outline</i> Son</button>
+            <button mat-raised-button color="accent" class="accentDaughter" type="button" [disabled]="daughterBTn" (click)="addUser('Daughter', 3)"><i class="material-icons">add_circle_outline</i> Daughter</button>
             <button mat-raised-button color="accent" type="button" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> Relatives</button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="addOthers('Father')" [disabled]="fatherBTn">Father</button>
@@ -420,7 +422,7 @@
         </mat-form-field>
         <div *ngIf="pinerror" class="ngError">Required</div>
         <div fxLayoutAlign="center center" class="mt-1">
-          <button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" (click)="getPolicyQuotationList('mobile'); topScroll();">Proceed</button>
+          <button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" (click)="getPolicyQuotationList('mobile')">Proceed</button>
           <button mat-button (click)="reset()" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
         </div>
       </mat-card>
@@ -486,7 +488,7 @@
             <!--</mat-form-field>-->
             <mat-form-field class="w-100">
               <mat-placeholder class="myclass font-weight-bold">Sum insured</mat-placeholder>
-              <mat-select [(ngModel)]="changeSuninsuredAmount" (selectionChange)="updateSumInsured()">
+              <mat-select [(ngModel)]="changeSuninsuredAmount" (selectionChange)="updateSumInsured()"  (click)="topScroll()">
 
                 <mat-option style="touch-action: auto !important;" *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">{{amounts.si_amount_shortform}}</mat-option>
               </mat-select>

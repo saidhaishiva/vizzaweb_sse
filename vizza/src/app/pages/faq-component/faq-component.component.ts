@@ -18,6 +18,7 @@ export class FaqComponentComponent implements OnInit {
   searchval: any;
   search: any;
   faqsearchList: any;
+  faq_question: any;
 
 
   constructor(public learning: LearningcenterService, public auth: AuthService) {
@@ -77,6 +78,7 @@ export class FaqComponentComponent implements OnInit {
     for (let i = 0; i < this.faqQuestionsList.length; i++) {
 
       for (let j = 0; j < this.faqQuestionsList[i].contents; j++) {
+        this.faq_question=this.faqQuestionsList[i].contents[j].content_qstn;
         // alert('1')
         console.log(this.faqQuestionsList[i].contents[j].content_qstn, "09876546789");
         console.log(this.faqQuestionsList[i].contents[j].content_ans, "qnhaSAFFDG");

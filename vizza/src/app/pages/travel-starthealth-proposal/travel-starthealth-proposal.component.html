@@ -248,9 +248,11 @@
                         </mat-form-field></div>
 
                         <div class="col-md-6"><mat-form-field class="w-100">
-                            <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" required>
-                            <mat-error *ngIf="insureArray.invalid">Enter Valid Passport number</mat-error>
+                            <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" formControlName="passportNumber" autocomplete="off" (input)="passportval(i)" required>
+<!--                            <mat-error *ngIf="insureArray.invalid">Enter Valid Passport number</mat-error>-->
                         </mat-form-field>
+                            <div class="error" *ngIf="passportany !=''&& passportany !=true">{{passportany}}</div>
+
                             <!--<div *ngIf="patternError != ''" style="color: #ff5252">{{patternError}}</div>-->
                         </div>
 

@@ -88,6 +88,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     public today: any;
     public maxDate: any;
     public sufferingError: any;
+    public passportany: any;
 
 
     public insurerData: any;
@@ -179,6 +180,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
         this.acceptSummaryDeclaration = false;
+        this.passportany = false;
         this.webhost = this.config.getimgUrl();
         this.reliance_Travel_proposal_id = '0';
         this.step = 0;
@@ -486,7 +488,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                 personalEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
                 relationship: ['', Validators.required],
                 insureRelationshipName: '',
-                passport: ['', Validators.compose([Validators.minLength(8)])],
+                passports: '',
                 personalMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
                 personalPhone1: '',
                 VisitingCountries: '',
@@ -617,7 +619,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                     this.totalInsureDetails = {};
                     this.totalInsureDetails = {
                         'RelationshipWithProposerID': this.insurerData[a].relationship,
-                        'PassportNumber': this.insurerData[a].passport,
+                        'PassportNumber': this.insurerData[a].passports,
                         'NameofNominee': this.insurerData[a].nomineeName,
                         'RelationshipWithNomineeID': this.insurerData[a].nomineeRelationship,
                         'VisitingCountries': this.insurerData[a].VisitingCountries,
@@ -643,7 +645,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                         'FirstName': this.insurerData[a].insurespouseFullname,
                         'RelationshipwithInsuredID': this.insurerData[a].relationship,
                         'DOB': this.datepipe.transform(this.insurerData[a].InsDOB, 'dd/MM/y'),
-                        'PassportNo': this.insurerData[a].passport,
+                        'PassportNo': this.insurerData[a].passports,
                         'NomineeName': this.insurerData[a].nomineeName,
                         'NomineeRelationshipID': this.insurerData[a].nomineeRelationship,
                         'IsUnderMedication': this.insurerData[a].IsUnderMedication.toString(),
@@ -657,7 +659,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                         'ChildName': this.insurerData[a].insurechildFullname,
                         'ChildRelationID': this.insurerData[a].relationship,
                         'DOB': this.datepipe.transform(this.insurerData[a].InsDOB, 'dd/MM/y'),
-                        'PassportNo': this.insurerData[a].passport,
+                        'PassportNo': this.insurerData[a].passports,
                         'NomineeName': this.insurerData[a].nomineeName,
                         'NomineeRelationshipID': this.insurerData[a].nomineeRelationship,
                         'IsUnderMedication': this.insurerData[a].IsUnderMedication.toString(),
@@ -809,7 +811,7 @@ export class TravelRelianceProposalComponent implements OnInit {
             },
             'InsuredDetail': {
                 'RelationshipWithProposerID': this.insurerData[0].relationship,
-                'PassportNumber': this.insurerData[0].passport,
+                'PassportNumber': this.insurerData[0].passports,
                 'NameofNominee': this.insurerData[0].nomineeName,
                 'RelationshipWithNomineeID': this.insurerData[0].nomineeRelationship,
                 'VisitingCountries': this.insurerData[0].VisitingCountries,
@@ -1149,6 +1151,19 @@ export class TravelRelianceProposalComponent implements OnInit {
 
     idValidate(event: any) {
         this.validation.idValidate(event);
+    }
+    passportval(i)
+    {
+        console.log(this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].passports.value,'5678')
+        if( this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].passports.value != ''){
+            this.passportany = false;
+            this.passportany = '';
+        }
+        else{
+            this.passportany = true;
+            this.passportany = 'Pass Port is required'
+        }
+
     }
     addEvent(event, type) {
         this.maxDate = '';
@@ -1773,7 +1788,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                 this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insureRelationshipName.patchValue(this.getStepper2.items[i].insureRelationshipName);
                 this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].VisitingCountries.patchValue(this.getStepper2.items[i].VisitingCountries);
                 this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insureVisitingCountryName.patchValue(this.getStepper2.items[i].insureVisitingCountryName);
-                this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].passport.patchValue(this.getStepper2.items[i].passport);
+                this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].passports.patchValue(this.getStepper2.items[i].passports);
                 this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
                 this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalPhone1.patchValue(this.getStepper2.items[i].personalPhone1);
                 this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.patchValue(this.getStepper2.items[i].IsUnderMedication);

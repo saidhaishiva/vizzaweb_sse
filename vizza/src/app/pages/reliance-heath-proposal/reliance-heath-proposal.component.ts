@@ -1986,7 +1986,6 @@ export class RelianceHeathProposalComponent implements OnInit {
             }
         );
     }
-
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.requestDetails = successData.ResponseObject;
