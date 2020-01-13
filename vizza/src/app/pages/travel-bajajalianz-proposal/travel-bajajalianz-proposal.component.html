@@ -228,7 +228,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Age" formControlName="age"   autocomplete="off"  readonly required readonly>
+                            <input matInput placeholder="Age" formControlName="age"   autocomplete="off"   required readonly>
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.errors?.required">Age is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -236,7 +236,9 @@
                           <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" formControlName="passportNo" autocomplete="off" (input)="passportval(i)" style="text-transform: uppercase" required readonly="{{i==0}}">
 <!--                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.errors?.required">Passport number is required</mat-error>-->
 <!--                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.hasError('pattern')">Enter Valid  Passport number</mat-error>-->
-                        </mat-form-field></div>
+                        </mat-form-field>
+                          <div class="error" *ngIf="passportany !=''&& passportany !=true">{{passportany}}</div>
+                        </div>
                         <div class="col-md-4" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="relation" required >
