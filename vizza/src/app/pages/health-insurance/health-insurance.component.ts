@@ -495,6 +495,7 @@ export class HealthInsuranceComponent implements OnInit {
 
     // new policy lists
     getPolicyQuotationList(type) {
+        console.log(type,'health')
         this.healthProceed = false;
         this.selectedAmount = ''
         if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
