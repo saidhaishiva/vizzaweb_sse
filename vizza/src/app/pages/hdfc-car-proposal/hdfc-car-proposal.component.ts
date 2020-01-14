@@ -884,7 +884,7 @@ ChangeGender(){
 }
 
     bioFuelValidation(event) {
-        if (this.addOns.controls['biofuel'].value != '') {
+        if (this.addOns.controls['biofuel'].value ) {
             this.addOns.controls['biofuelkit'].setValidators([Validators.required]);
         } else {
             this.addOns.controls['biofuelkit'].patchValue('');
@@ -930,7 +930,7 @@ ChangeGender(){
         this.addOns.controls['totalAntitheftdiscPremium'].updateValueAndValidity();
     }
     antiValue(){
-        this.addOns.controls['totalbiofuelkitPremium'].patchValue(this.AntiTheftDisc_Premium);
+        this.addOns.controls['totalAntitheftdiscPremium'].patchValue(this.AntiTheftDisc_Premium);
 
     }
     handicapDiscFlagChange(){
@@ -944,7 +944,7 @@ ChangeGender(){
         this.addOns.controls['totalHandicapDiscFlagPremium'].updateValueAndValidity();
     }
     handicapValue(){
-        this.addOns.controls['totalbiofuelkitPremium'].patchValue(this.HandicapDisc_Premium);
+        this.addOns.controls['totalHandicapDiscFlagPremium'].patchValue(this.HandicapDisc_Premium);
 
     }
 
@@ -959,7 +959,7 @@ ChangeGender(){
         this.addOns.controls['totalElecticAccessIDVPremium'].updateValueAndValidity();
     }
     ElecticAccesValue(){
-        this.addOns.controls['totalbiofuelkitPremium'].patchValue(this.Electical_Acc_Premium);
+        this.addOns.controls['totalElecticAccessIDVPremium'].patchValue(this.Electical_Acc_Premium);
 
     }
     nonElecticAccesIDVChange(){
@@ -973,7 +973,7 @@ ChangeGender(){
         this.addOns.controls['totalNonElecticAccessIDVPremium'].updateValueAndValidity();
     }
     nonElecticAccesValue(){
-        this.addOns.controls['totalbiofuelkitPremium'].patchValue(this.NonElectical_Acc_Premium);
+        this.addOns.controls['totalNonElecticAccessIDVPremium'].patchValue(this.NonElectical_Acc_Premium);
 
     }
     UnnamedPersonChange(){
@@ -987,7 +987,7 @@ ChangeGender(){
         this.addOns.controls['totalUnnamedPersonSIPremium'].updateValueAndValidity();
     }
     UnnamedPersonValue(){
-        this.addOns.controls['totalbiofuelkitPremium'].patchValue(this.UnnamedPerson_premium);
+        this.addOns.controls['totalUnnamedPersonSIPremium'].patchValue(this.UnnamedPerson_premium);
 
     }
     namedPersonSIChange(){
@@ -1001,7 +1001,7 @@ ChangeGender(){
         this.addOns.controls['totalNamedPersonPremium'].updateValueAndValidity();
     }
     namedPersonSIValue(){
-        this.addOns.controls['totalbiofuelkitPremium'].patchValue(this.NamedPerson_premium);
+        this.addOns.controls['totalNamedPersonPremium'].patchValue(this.NamedPerson_premium);
 
     }
     limitedtoOwnChange(){
@@ -1044,7 +1044,7 @@ ChangeGender(){
         this.addOns.controls['totalpaiddriversiPremium'].updateValueAndValidity();
     }
     paiddriverValue(){
-        this.addOns.controls['totalbiofuelkitPremium'].patchValue(this.PaidDriver_Premium);
+        this.addOns.controls['totalpaiddriversiPremium'].patchValue(this.PaidDriver_Premium);
 
     }
     // paidDriverValue(){

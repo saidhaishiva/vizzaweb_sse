@@ -593,21 +593,21 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3 mt-0" *ngIf="addOns.controls['biofuel'].value!='' ">
+                                        <div class="col-md-3 mt-0" *ngIf="addOns.controls['biofuel'].value ">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Biofuel Kit Price<span class="error" *ngIf="addOns.controls['biofuel'].value!='' ">*</span></mat-placeholder>
                                                 <input matInput  rows="2" maxlength="8" formControlName="biofuelkit"   (keypress)="numberValidate($event)"  (input)="bifuelChange();numberValidate($event);" autocomplete="off">
                                                 <mat-error *ngIf="addOns.controls.biofuelkit.errors?.required">Biofuel Kit Price cover is Required</mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3 mt-0" *ngIf="addOns.controls.biofuelkit.value">
+                                        <div class="col-md-3 mt-0" *ngIf="addOns.controls.biofuelkit.value!=''">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="BiFuel Kit OD Premium"  formControlName="totalbiofuelkitPremium"  autocomplete="off"  [required]="addOns.controls.biofuelkit.value" readonly >
+                                                <input matInput placeholder="BiFuel Kit OD Premium"  formControlName="totalbiofuelkitPremium"  autocomplete="off"  [required]="addOns.controls.biofuelkit.value!=''" readonly >
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3 mt-0" *ngIf="addOns.controls.biofuelkit.value">
+                                        <div class="col-md-3 mt-0" *ngIf="addOns.controls.biofuelkit.value!=''">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="BiFuel Kit TP Premium"  formControlName="totalbiofuelkitPremium1"  autocomplete="off"  [required]="addOns.controls.biofuelkit.value" readonly >
+                                                <input matInput placeholder="BiFuel Kit TP Premium"  formControlName="totalbiofuelkitPremium1"  autocomplete="off"  [required]="addOns.controls.biofuelkit.value!=''" readonly >
                                             </mat-form-field>
                                         </div>
                                             </div>
@@ -1055,31 +1055,37 @@
                                         <li class="list-group-item"*ngIf="previousFormData.drivinglicence !=''"><strong>Effective Driving Licence :</strong>{{previousFormData.drivinglicence}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.biofuel !=''"><strong>BioFuel Type  :</strong>{{previousFormData.biofuel}}</li>
                                         <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>BioFuel kit Price :</strong>{{previousFormData.biofuelkit}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>BiFuel_Kit_OD_Premium :</strong>{{BiFuel_Kit_OD_Premium}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>BiFuel_Kit_TP_Premium :</strong>{{BiFuel_Kit_TP_Premium}}</li>
                                         <li class="list-group-item"*ngIf="previousFormData.Antitheftdiscflag !=''"><strong>Anti Theft Disc Flag :</strong>{{previousFormData.Antitheftdiscflag}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.Antitheftdiscflag !=''"><strong>Anti Theft Disc Cover Premium :</strong>{{AntiTheftDisc_Premium}}</li>
                                         <li class="list-group-item"*ngIf="previousFormData.HandicapDiscFlag !=''"><strong>Handicap Disc Flag :</strong>{{previousFormData.HandicapDiscFlag}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.HandicapDiscFlag !=''"><strong>Handicap Disc Cover Premium :</strong>{{HandicapDisc_Premium}}</li>
                                         <!--<li class="list-group-item" *ngIf="previousFormData.HandicapDiscFlag == true"><strong>Handicap Disc Flag :</strong>Yes</li>-->
                                         <!--<li class="list-group-item" *ngIf="previousFormData.HandicapDiscFlag == false"><strong>Handicap Disc Flag :</strong>No</li>-->
                                         <li class="list-group-item"*ngIf="previousFormData.numdrivers !=''"><strong>Number of Drivers :</strong>{{previousFormData.numdrivers}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.paiddriversi !=''"><strong>Paid Driver Sum Insure  :</strong>{{previousFormData.paiddriversi}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.paiddriversi !=''"><strong>Paid Driver Cover Premium  :</strong>{{previousFormData.paiddriversi}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.ElecticalAccessoryIDV !=''"><strong>Electrical Accessory IDV  :</strong>{{previousFormData.ElecticalAccessoryIDV}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.ElecticalAccessoryIDV !=''"><strong>Electrical Accessory Cover Premium  :</strong>{{Electical_Acc_Premium}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.NonElecticalAccessoryIDV !=''"><strong>Non Electical Accessory IDV :</strong>{{previousFormData.NonElecticalAccessoryIDV}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.NonElecticalAccessoryIDV !=''"><strong>Non Electical Accessory Cover Premium :</strong>{{NonElectical_Acc_Premium}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.NoofUnnamedPerson == true"><strong>No of Unnamed Person:</strong>Yes</li>
                                         <li class="list-group-item" *ngIf="previousFormData.NoofUnnamedPerson == false"><strong>No of Unnamed Person :</strong>No</li>
                                         <li class="list-group-item" *ngIf="previousFormData.UnnamedPersonSI !=''"><strong>Unnamed Person SI :</strong>{{previousFormData.UnnamedPersonSI}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.UnnamedPersonSI !=''"><strong>Unnamed Person Cover Premium :</strong>{{UnnamedPerson_premium}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.VoluntaryExcessDiscount !=''"><strong>Voluntary Excess Discount :</strong>{{previousFormData.VoluntaryExcessDiscount}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.TPPDLimit !=''"><strong>TPPD Limit :</strong>{{previousFormData.TPPDLimit}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.NoofnamedPerson == true"><strong>No of Named Person:</strong>Yes</li>
                                         <li class="list-group-item" *ngIf="previousFormData.NoofnamedPerson == false"><strong>No of Named Person :</strong>No</li>
                                         <li class="list-group-item" *ngIf="previousFormData.namedPerson !=''"><strong> Person Name :</strong>{{previousFormData.namedPerson}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.namedPersonSI !=''"><strong>Named Person SI :</strong>{{previousFormData.namedPersonSI}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.namedPersonSI !=''"><strong>Named Person Cover Premium :</strong>{{NamedPerson_premium}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.IsEMIprotector_Cover == true"><strong>Is EMI Protector_Cover:</strong>Yes</li>
                                         <li class="list-group-item" *ngIf="previousFormData.IsEMIprotector_Cover == false"><strong>Is EMI Protector_Cover :</strong>No</li>
                                         <li class="list-group-item" *ngIf="previousFormData.noOfEmi !=''"><strong>No Of EMI :</strong>{{previousFormData.noOfEmi}}</li>
                                         <li class="list-group-item" *ngIf="previousFormData.EMIamount !=''"><strong>EMI Amount :</strong>{{previousFormData.EMIamount}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.IsNCBProtection == true"><strong>Is NCB Protection:</strong>Yes</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.IsNCBProtection == false"><strong>Is NCB Protection :</strong>No</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == true"><strong>Is Limited to Own Premises  :</strong>Yes</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == false"><strong>Is Limited to Own Premises  :</strong>No</li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -1089,8 +1095,12 @@
                                     <ul class="m-0 list-group">
 
 
-
-                                        <li class="list-group-item" *ngIf="previousFormData.IsRTIcover == true"><strong>Is Return To Invoice:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsNCBProtection == true"><strong>Is NCB Protection:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsNCBProtection == false"><strong>Is NCB Protection :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == true"><strong>Is Limited to Own Premises  :</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == false"><strong>Is Limited to Own Premises  :</strong>No</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises ==true||previousFormData.IsLimitedtoOwnPremises ==false"><strong>LimitedtoOwnPremises_OD_Premium :</strong>{{LimitedtoOwnPremises_OD_Premium}}</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises ==true||previousFormData.IsLimitedtoOwnPremises ==false"><strong>LimitedtoOwnPremises_TP_Premium:</strong>{{LimitedtoOwnPremises_TP_Premium}}</li>                                        <li class="list-group-item" *ngIf="previousFormData.IsRTIcover == true"><strong>Is Return To Invoice:</strong>Yes</li>
                                         <li class="list-group-item" *ngIf="previousFormData.IsRTIcover == false"><strong>Is Return To Invoice :</strong>No</li>
                                         <li class="list-group-item" *ngIf="previousFormData.IsCOCcover == true"><strong>Is Cost Of Consumables:</strong>Yes</li>
                                         <li class="list-group-item" *ngIf="previousFormData.IsCOCcover == false"><strong>Is Cost Of Consumables :</strong>No</li>
