@@ -129,6 +129,7 @@ export const horizontalMenuItems = [
     new Menu (49, 'Learning Center', '/learning-center', null, null, null, false, 33),
     new Menu (50, 'Media Library ', '/mediacenter', null, null, null, false, 33),
     new Menu (50, 'FAQ', '/faq', null, null, null, false, 33),
+    new Menu (50, 'Insurance Dictionary', '/ins-dic', null, null, null, false, 33),
     new Menu (34, 'POS', '/pos', null, null, null, true, 0),
     // new Menu (36, 'About POS', '/about-pos', null, null, null, false, 34),
     // new Menu (37, 'POS Login', '/pos', null, null, null, false, 34),
