@@ -71,10 +71,12 @@
                         <mat-error *ngIf="religarePersonal.controls.phone.hasError('pattern')">Enter Valid Residence Mobile Number</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="PassPort" class="text-uppercase" minlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" (keypress)="idValidate($event)" maxlength="8" formControlName="passport" autocomplete="off" required>
-                        <mat-error *ngIf="religarePersonal.controls.passport.errors?.required">PassPort is required</mat-error>
-                        <mat-error *ngIf="religarePersonal.controls.passport.hasError('pattern')">Enter Valid  Passport</mat-error>
-                      </mat-form-field></div>
+                        <input matInput placeholder="PassPort" class="text-uppercase" minlength="8"  maxlength="8" formControlName="passports" autocomplete="off" required (input)="passportval1()">
+<!--                        <mat-error *ngIf="religarePersonal.controls.passport.errors?.required">PassPort is required</mat-error>-->
+<!--                        <mat-error *ngIf="religarePersonal.controls.passport.hasError('pattern')">Enter Valid  Passport</mat-error>-->
+                      </mat-form-field>
+                        <div class="error" *ngIf="passportany !=''&& passportany !=true">{{passportany}}</div>
+                      </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="Pan Number" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"  (keypress)="idValidate($event)" formControlName="pannumber" autocomplete="off" >
                         <mat-error *ngIf="religarePersonal.controls.pannumber.errors?.required">Pan Number is required</mat-error>
@@ -373,7 +375,7 @@
                         </mat-form-field></div>
 
                         <div class="col-md-4" ><mat-form-field class="w-100">
-                          <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passport" (input)="passportval(i)" autocomplete="off"   required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                          <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passports" (input)="passportval(i)" autocomplete="off"   required readonly = "{{insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
 <!--                          <mat-error *ngIf="insureReligareArray.invalid">Pass Port is required</mat-error>-->
                         </mat-form-field>
                           <div class="error" *ngIf="passportany !=''&& passportany !=true">{{passportany}}</div>
@@ -615,7 +617,7 @@
                         <li class="list-group-item" *ngIf="i != 0"> <strong>Relationship with Proposer:</strong> {{item.relationshipName}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile}}</li>
                         <li class="list-group-item" *ngIf="item.phone != '' && item.phone != null"><strong>Phone:</strong> {{item.phone}}</li>
-                        <li class="list-group-item" *ngIf="item.passport != ''"><strong>PassPort:</strong> {{item.passport}}</li>
+                        <li class="list-group-item" *ngIf="item.passports != ''"><strong>PassPort:</strong> {{item.passports}}</li>
                         <li class="list-group-item" *ngIf="studentdetails"><strong>Month:</strong> {{item.betweenMonth}}</li>
                         <li class="list-group-item" *ngIf="studentdetails"><strong>StartDate:</strong> {{item.startDate }}</li>
                         <li class="list-group-item" *ngIf="studentdetails"><strong>EndDate:</strong> {{item.endDate }}</li>
