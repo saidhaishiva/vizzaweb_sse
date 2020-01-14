@@ -206,6 +206,10 @@ export class HdfcCarProposalComponent implements OnInit {
           drivinglicence: [''],
           biofuel: [''],
           biofuelkit: [''],
+          totalbiofuelkitPremium: [''],
+          totalbiofuelkitPremium1: [''],
+          totalLimitedtoOwnPremium: [''],
+          totalLimitedtoOwnPremium1: [''],
           Antitheftdiscflag: [''],
           HandicapDiscFlag: [''],
           NomineeName: [''],
@@ -214,7 +218,8 @@ export class HdfcCarProposalComponent implements OnInit {
           appointeename: [''],
           appointeerelation: [''],
           extentioncountryvalue: [''],
-          // IsPaidDriver: [''],
+          IsPaidDriver: [''],
+          totalPaidDriverPremium: [''],
           zerodept: [''],
           ElecticalAccessoryIDV: [''],
           NonElecticalAccessoryIDV: [''],
@@ -817,22 +822,22 @@ console.log(this.addOns.controls['numdrivers'].value,'valueeeeeeeee')
             this.addOns.controls['namedPersonSI'].updateValueAndValidity();
         }
     }
-    validationforEmi(event){
-    if(event.checked==true) {
-        this.addOns.controls['noOfEmi'].setValidators([Validators.required]);
-        this.addOns.controls['noOfEmi'].updateValueAndValidity();
-        this.addOns.controls['EMIamount'].setValidators([Validators.required]);
-        this.addOns.controls['EMIamount'].updateValueAndValidity();
-    }else if(event.checked==false){
-        this.addOns.controls['noOfEmi'].patchValue('');
-        this.addOns.controls['noOfEmi'].setValidators(null);
-        this.addOns.controls['noOfEmi'].updateValueAndValidity();
-        this.addOns.controls['EMIamount'].patchValue('');
-        this.addOns.controls['EMIamount'].setValidators(null);
-        this.addOns.controls['EMIamount'].updateValueAndValidity();
+    validationforEmi(event) {
+        if (event.checked == true) {
+            this.addOns.controls['noOfEmi'].setValidators([Validators.required]);
+            this.addOns.controls['noOfEmi'].updateValueAndValidity();
+            this.addOns.controls['EMIamount'].setValidators([Validators.required]);
+            this.addOns.controls['EMIamount'].updateValueAndValidity();
+        } else if (event.checked == false) {
+            this.addOns.controls['noOfEmi'].patchValue('');
+            this.addOns.controls['noOfEmi'].setValidators(null);
+            this.addOns.controls['noOfEmi'].updateValueAndValidity();
+            this.addOns.controls['EMIamount'].patchValue('');
+            this.addOns.controls['EMIamount'].setValidators(null);
+            this.addOns.controls['EMIamount'].updateValueAndValidity();
 
+        }
     }
-}
 ChangeGender(){
     if (this.proposer.controls['title'].value == 'Mr') {
         this.proposer.controls['gender'].patchValue('MALE');
@@ -841,20 +846,60 @@ ChangeGender(){
     }
 }
 
-   bioFuelReq() {
-
-        if (this.addOns.controls['biofuel'].value == 'LPG' || this.addOns.controls['biofuel'].value == 'CNG') {
-            this.addOns.controls['biofuelkit'].patchValue(this.addOns.controls['biofuelkit'].value);
-
+    bioFuelValidation(event) {
+        if (this.addOns.controls['biofuel'].value != '') {
             this.addOns.controls['biofuelkit'].setValidators([Validators.required]);
         } else {
             this.addOns.controls['biofuelkit'].patchValue('');
-
             this.addOns.controls['biofuelkit'].setValidators(null);
-
         }
         this.addOns.controls['biofuelkit'].updateValueAndValidity();
-
+        // if (this.addOns.controls['biofuel'].value == 'LPG' || this.addOns.controls['biofuel'].value == 'CNG') {
+        //     this.addOns.controls['biofuelkit'].patchValue(this.addOns.controls['biofuelkit'].value);
+        //     this.addOns.controls['biofuelkit'].setValidators([Validators.required]);
+        // } else {
+        //     this.addOns.controls['biofuelkit'].patchValue('');
+        //     this.addOns.controls['biofuelkit'].setValidators(null);
+        // }
+        // this.addOns.controls['biofuelkit'].updateValueAndValidity();
+    }
+    bifuelChange(){
+        if (this.addOns.controls['biofuelkit'].value ) {
+            this.addOns.controls['totalbiofuelkitPremium'].setValidators([Validators.required]);
+            this.addOns.controls['totalbiofuelkitPremium1'].setValidators([Validators.required]);
+            // this.getCover();
+        } else {
+            this.addOns.controls['totalbiofuelkitPremium'].patchValue('');
+            this.addOns.controls['totalbiofuelkitPremium1'].patchValue('');
+            this.addOns.controls['totalbiofuelkitPremium'].setValidators(null);
+            this.addOns.controls['totalbiofuelkitPremium1'].setValidators(null);
+        }
+        this.addOns.controls['totalbiofuelkitPremium'].updateValueAndValidity();
+        this.addOns.controls['totalbiofuelkitPremium1'].updateValueAndValidity();
+    }
+    limitedtoOwnChange(){
+        if(this.addOns.controls.IsLimitedtoOwnPremises.value == true){
+            this.addOns.controls['totalLimitedtoOwnPremium'].setValidators([Validators.required]);
+            this.addOns.controls['totalLimitedtoOwnPremium1'].setValidators([Validators.required]);
+            // this.getCover();
+        } else {
+            this.addOns.controls['totalLimitedtoOwnPremium'].patchValue('');
+            this.addOns.controls['totalLimitedtoOwnPremium1'].patchValue('');
+            this.addOns.controls['totalLimitedtoOwnPremium'].setValidators(null);
+            this.addOns.controls['totalLimitedtoOwnPremium1'].setValidators(null);
+        }
+        this.addOns.controls['totalLimitedtoOwnPremium'].updateValueAndValidity();
+        this.addOns.controls['totalLimitedtoOwnPremium1'].updateValueAndValidity();
+    }
+    paidDriverChange(){
+        if(this.addOns.controls.IsPaidDriver.value == true){
+            this.addOns.controls['totalPaidDriverPremium'].setValidators([Validators.required]);
+            // this.getCover();
+        } else {
+            this.addOns.controls['totalPaidDriverPremium'].patchValue('');
+            this.addOns.controls['totalPaidDriverPremium'].setValidators(null);
+        }
+        this.addOns.controls['totalPaidDriverPremium'].updateValueAndValidity();
     }
 
     public banksuccess(successData) {
