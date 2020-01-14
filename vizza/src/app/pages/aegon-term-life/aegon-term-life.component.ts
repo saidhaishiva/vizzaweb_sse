@@ -20,6 +20,7 @@ import * as moment from 'moment';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {Observable, Subject} from 'rxjs';
 import {any} from 'codelyzer/util/function';
+import { PdfViewerModule} from 'ng2-pdf-viewer';
 import { WINDOW } from '@ng-toolkit/universal';
 
 
@@ -1043,7 +1044,9 @@ export class AegonTermLifeComponent implements OnInit {
     console.log(this.personal.valid, 'checked');
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
-        if(this.errorMsg == '') {
+        if(sessionStorage.proposerAge <=65) {
+
+          if(this.errorMsg == '') {
           this.validateAnnual(this.personal.controls['annualIncome'].value, 2);
           this.deathBenefitSA(this.personal.controls['deathBenefitSA'].value, 2);
           if (this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP') {
@@ -1073,9 +1076,13 @@ export class AegonTermLifeComponent implements OnInit {
         } else {
           this.toastr.error(this.errorMsg);
         }
+        }else{
+          this.toastr.error('Proposer Age should be Lesser than Or Equal to 65');
+
+        }
 
         } else {
-        this.toastr.error('Proposer age should be 18 or above');
+        this.toastr.error('Proposer Age should be 18 or above');
 
       }
 
@@ -1341,40 +1348,38 @@ export class AegonTermLifeComponent implements OnInit {
   getPremium(type) {
     this.errorMsg='';
     if(sessionStorage.proposerAge >= 18){
-      this.validateAnnual(this.personal.controls['annualIncome'].value,2);
-      this.deathBenefitSA(this.personal.controls['deathBenefitSA'].value,2);
-      if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP')
-      {
-        this.adbrSumAssured(this.personal.controls['adbrSumAssured'].value,2);
-      }
-      else if(this.lifePremiumList.benefit_option == 'LHP')
-      {
-        this.enchancedCISA(this.personal.controls['enchancedCISA'].value,2);
-      }
-      else if(this.lifePremiumList.benefit_option == 'LH')
-      {
-        this.icirSumAssured(this.personal.controls['icirSumAssured'].value,2);
-      }
-      console.log(this.errorMsg, 'Next Button Error');
-      if(this.errorMsg == '')
-      {
-        this.icicMsg = '';
-        this.ecsaMsg = '';
-        this.adbsaMsg = '';
-        this.dbsaMsg = '';
-        this.husMsg = '';
-        this.wifeMsg = '';
-        this.smokerMsg = '';
-        this.qulMsg = '';
-        this.dobMsg = '';
-        this.titleMsg = '';
-      }
-      else {
-        this.toastr.error(this.errorMsg);
+      if(sessionStorage.proposerAge <=65) {
+        this.validateAnnual(this.personal.controls['annualIncome'].value, 2);
+        this.deathBenefitSA(this.personal.controls['deathBenefitSA'].value, 2);
+        if (this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP') {
+          this.adbrSumAssured(this.personal.controls['adbrSumAssured'].value, 2);
+        } else if (this.lifePremiumList.benefit_option == 'LHP') {
+          this.enchancedCISA(this.personal.controls['enchancedCISA'].value, 2);
+        } else if (this.lifePremiumList.benefit_option == 'LH') {
+          this.icirSumAssured(this.personal.controls['icirSumAssured'].value, 2);
+        }
+        console.log(this.errorMsg, 'Next Button Error');
+        if (this.errorMsg == '') {
+          this.icicMsg = '';
+          this.ecsaMsg = '';
+          this.adbsaMsg = '';
+          this.dbsaMsg = '';
+          this.husMsg = '';
+          this.wifeMsg = '';
+          this.smokerMsg = '';
+          this.qulMsg = '';
+          this.dobMsg = '';
+          this.titleMsg = '';
+        } else {
+          this.toastr.error(this.errorMsg);
+        }
+
+      }else{
+        this.toastr.error('Proposer Age should be Lesser than Or Equal to 65');
       }
 
     } else {
-      this.toastr.error('Proposer age should be 18 or above');
+      this.toastr.error('Proposer Age should be 18 or Above');
     }
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -1997,6 +2002,8 @@ export class AegonTermLifeComponent implements OnInit {
       this.toastr.success('BI Generated Sucessfully!!');
       this.summaryData = successData.ResponseObject;
       this.requestedUrl = this.summaryData.bilink;
+      // this.requestedUrl = "http://13.127.24.123/vizza/uploads/term_life/3897/D4ULjSC.pdf";
+      console.log( this.requestedUrl,' requestedUrl...')
       this.redirectUrl = this.summaryData.redirectLink;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposalId = this.summaryData.ProposalId;
@@ -2012,6 +2019,10 @@ export class AegonTermLifeComponent implements OnInit {
     }
   }
   public setProposalFailure(error) {
+  }
+  saveImageAs1(adress) {
+    console.log(adress,'adress')
+    window.open(adress);
   }
 
 

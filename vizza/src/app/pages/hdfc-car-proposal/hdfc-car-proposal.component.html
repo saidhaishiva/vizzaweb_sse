@@ -489,42 +489,11 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3 ">
+                                        <div class="col-md-3">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Effective driving license" formControlName="drivinglicence"  >
                                                     <mat-option value="true">True</mat-option>
                                                     <mat-option value="false">False</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3 ">
-                                            <mat-form-field class="w-100">
-                                                <mat-select placeholder="Biofuel Type" formControlName="biofuel" (change)="bioFuelReq" >
-                                                    <mat-option value="LPG">LPG</mat-option>
-                                                    <mat-option value="CNG">CNG</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <mat-form-field class="w-100">
-                                                <input matInput placeholder="Biofuel Kit Price" formControlName="biofuelkit" autocomplete="off"  maxlength="10" (keypress)="numberValidate($event)"  [required]="addOns.controls['biofuel'].value == 'LPG' || addOns.controls['biofuel'].value == 'CNG'">
-                                                <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
-
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3 ">
-                                            <mat-form-field class="w-100">
-                                                <mat-select placeholder="AntiTheft Discflag"  formControlName="Antitheftdiscflag"  >
-                                                    <mat-option value="false">false</mat-option>
-                                                    <mat-option value="true">true</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3 ">
-                                            <mat-form-field class="w-100">
-                                                <mat-select placeholder="Handicap DiscFlag"  formControlName="HandicapDiscFlag"  >
-                                                    <mat-option value="false">false</mat-option>
-                                                    <mat-option value="true">true</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -535,119 +504,10 @@
 
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3">
-                                            <mat-form-field class="w-100">
-                                                <mat-placeholder>Paid Driver SI<span class="error" *ngIf="addOns.controls['numdrivers'].value !=''">*</span></mat-placeholder>
-                                                <input matInput  formControlName="paiddriversi" maxlength="7" autocomplete="off" (keypress)="numberValidate($event)"  >
-                                                <mat-error *ngIf="addOns.controls.paiddriversi.errors?.required">Paid DriverSi is required</mat-error>
-
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <mat-form-field class="w-100">
-                                                <input matInput placeholder="Electical Accessory IDV" maxlength="7" formControlName="ElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event)"  >
-                                                <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
-
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <mat-form-field class="w-100">
-                                                <input matInput placeholder="Non Electical Accessory IDV" maxlength="7" formControlName="NonElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event)"  >
-                                                <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
-
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="NoofUnnamedPerson" maxlength="7" (change)="validationforadons($event,'unamed')"><strong> No of Unnamed Person </strong></mat-checkbox>
-                                        </div>
-
-
-                                        <div class="col-md-3" *ngIf="addOns.controls['NoofUnnamedPerson'].value !=''">
-                                            <mat-form-field class="w-100">
-                                                <mat-placeholder>Unnamed Person SI<span class="error" *ngIf="addOns.controls['NoofUnnamedPerson'].value !=''">*</span></mat-placeholder>
-                                                <input matInput  formControlName="UnnamedPersonSI" autocomplete="off" maxlength="7" (keypress)="numberValidate($event)"  >
-                                                <mat-error *ngIf="addOns.controls.UnnamedPersonSI.errors?.required  ">Unnamed Person SI is required</mat-error>
-
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3 ">
-                                            <mat-form-field class="w-100">
-                                                <mat-select placeholder="Voluntary Excess Discount"  formControlName="VoluntaryExcessDiscount"  >
-                                                    <mat-option value="0">0</mat-option>
-                                                    <mat-option value="500">500</mat-option>
-                                                    <mat-option value="750">750</mat-option>
-                                                    <mat-option value="1000">1000</mat-option>
-                                                    <mat-option value="1500">1500</mat-option>
-                                                    <mat-option value="3000">3000</mat-option>
-                                                    <mat-option value="5000">5000</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3 ">
-                                            <mat-form-field class="w-100">
-                                                <mat-select placeholder="TPPD Limit"  formControlName="TPPDLimit"  >
-                                                    <mat-option value="0">0</mat-option>
-                                                    <mat-option value="100000">100000</mat-option>
-                                                    <mat-option value="6000">6000</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="NoofnamedPerson" (change)="validationforadons($event,'named')"><strong> No of named Person </strong></mat-checkbox>
-                                        </div>
-                                        <div class="col-md-3" *ngIf="addOns.controls['NoofnamedPerson'].value ">
-                                            <mat-form-field class="w-100">
-                                                <mat-placeholder>Person Name<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
-                                                <input matInput  formControlName="namedPerson" autocomplete="off" maxlength="25" (keypress)="nameValidate($event)"  >
-                                                <mat-error *ngIf="addOns.controls.namedPerson.errors?.required  ">Person Name Is Required</mat-error>
-
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="col-md-3" *ngIf="addOns.controls['NoofnamedPerson'].value ">
-                                            <mat-form-field class="w-100">
-                                                <mat-placeholder>Named Person SI<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
-                                                <input matInput  formControlName="namedPersonSI" maxlength="10" autocomplete="off" (keypress)="numberValidate($event)"  >
-                                                <mat-error *ngIf="addOns.controls.namedPersonSI.errors?.required  ">Named Person SI is required</mat-error>
-
-                                            </mat-form-field>
-                                        </div>
-                                        <!--<div class="col-md-3">-->
-                                            <!--<mat-form-field class="w-100">-->
-                                                <!--<input matInput placeholder="Number Of Drivers" formControlName="IsPaidDriver" autocomplete="off"  maxlength="10" (keypress)="numberValidate($event)"  >-->
-                                                <!--&lt;!&ndash;<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>&ndash;&gt;-->
-
-                                            <!--</mat-form-field>-->
-                                        <!--</div>-->
-                                        <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="IsEMIprotector_Cover" (change)="validationforEmi($event)"><strong> Is EMI Protector_Cover</strong></mat-checkbox>
-                                        </div>
-                                        <div class="col-md-3 " *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">
-                                            <mat-form-field class="w-100">
-                                                <mat-placeholder>NO of EMI<span class="error" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">*</span></mat-placeholder>
-                                                <mat-select   formControlName="noOfEmi"  >
-                                                    <mat-option value="1emi">1 EMI</mat-option>
-                                                    <mat-option value="2emi">2 EMI</mat-option>
-                                                    <mat-option value="3emi">3 EMI</mat-option>
-                                                </mat-select>
-                                                <mat-error *ngIf="addOns.controls.noOfEmi.errors?.required  ">NO Of EMI Is Required</mat-error>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">
-                                            <mat-form-field class="w-100">
-                                                <mat-placeholder>EMI Amount<span class="error" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">*</span></mat-placeholder>
-                                                <input matInput  formControlName="EMIamount" autocomplete="off" maxlength="10" (keypress)="numberValidate($event)"  >
-                                                <mat-error *ngIf="addOns.controls.EMIamount.errors?.required  ">EMI Amount Is Required</mat-error>
-
-                                            </mat-form-field>
-                                        </div>
-
                                         <div class="col-md-3 mt-1">
                                             <mat-checkbox formControlName="IsNCBProtection" ><strong> Is NCB Protection </strong></mat-checkbox>
                                         </div>
-                                        <div class="col-md-3 mt-1">
-                                            <mat-checkbox formControlName="IsLimitedtoOwnPremises" ><strong> Is Limited to Own Premises </strong></mat-checkbox>
-                                        </div>
+
                                         <div class="col-md-3 mt-1">
                                             <mat-checkbox formControlName="IsRTIcover" ><strong> Is Return To Invoice </strong></mat-checkbox>
                                         </div>
@@ -672,12 +532,257 @@
                                             <mat-checkbox formControlName="zerodept" ><strong> Is zerodept Cover </strong></mat-checkbox>
                                         </div>
 
-                                        <div class="col-md-3 ">
-                                            <mat-checkbox formControlName="IsLimitedtoOwnPremises" ><strong> Is Limited to Own Premises </strong></mat-checkbox>
-                                        </div>
+
                                         <div class="col-md-3 mt-1">
                                             <mat-checkbox formControlName="OtherLoadDiscRate" ><strong> Other Load Disc Rate </strong></mat-checkbox>
                                         </div>
+
+                                        <div class="col-md-3 mt-1">
+                                            <mat-checkbox formControlName="IsEMIprotector_Cover" (change)="validationforEmi($event)"><strong> Is EMI Protector_Cover</strong></mat-checkbox>
+                                        </div>
+                                        <div class="col-md-3 " *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>NO of EMI<span class="error" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">*</span></mat-placeholder>
+                                                <mat-select   formControlName="noOfEmi"  >
+                                                    <mat-option value="1emi">1 EMI</mat-option>
+                                                    <mat-option value="2emi">2 EMI</mat-option>
+                                                    <mat-option value="3emi">3 EMI</mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="addOns.controls.noOfEmi.errors?.required  ">NO Of EMI Is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>EMI Amount<span class="error" *ngIf="addOns.controls['IsEMIprotector_Cover'].value !=''">*</span></mat-placeholder>
+                                                <input matInput  formControlName="EMIamount" autocomplete="off" maxlength="10" (keypress)="numberValidate($event)"  >
+                                                <mat-error *ngIf="addOns.controls.EMIamount.errors?.required  ">EMI Amount Is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 ">
+                                            <mat-form-field class="w-100">
+                                                <mat-select placeholder="Voluntary Excess Discount"  formControlName="VoluntaryExcessDiscount"  >
+                                                    <mat-option value="0">0</mat-option>
+                                                    <mat-option value="500">500</mat-option>
+                                                    <mat-option value="750">750</mat-option>
+                                                    <mat-option value="1000">1000</mat-option>
+                                                    <mat-option value="1500">1500</mat-option>
+                                                    <mat-option value="3000">3000</mat-option>
+                                                    <mat-option value="5000">5000</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 ">
+                                            <mat-form-field class="w-100">
+                                                <mat-select placeholder="TPPD Limit"  formControlName="TPPDLimit"  >
+                                                    <mat-option value="0">0</mat-option>
+                                                    <mat-option value="100000">100000</mat-option>
+                                                    <mat-option value="6000">6000</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <h6 class="color-blue">OTHER ADDONS </h6>
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <div class="row"  >
+                                        <div class="col-md-3 ">
+                                            <mat-form-field class="w-100">
+                                                <mat-select placeholder="Biofuel Type" formControlName="biofuel" (change)="bioFuelValidation($event)" >
+                                                    <mat-option value="LPG">LPG</mat-option>
+                                                    <mat-option value="CNG">CNG</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 mt-0" *ngIf="addOns.controls['biofuel'].value!='' ">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Biofuel Kit Price<span class="error" *ngIf="addOns.controls['biofuel'].value!='' ">*</span></mat-placeholder>
+                                                <input matInput  rows="2" maxlength="8" formControlName="biofuelkit"   (keypress)="numberValidate($event)"  (input)="bifuelChange();numberValidate($event);" autocomplete="off">
+                                                <mat-error *ngIf="addOns.controls.biofuelkit.errors?.required">Biofuel Kit Price cover is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 mt-0" *ngIf="addOns.controls.biofuelkit.value">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="BiFuel Kit OD Premium"  formControlName="totalbiofuelkitPremium"  autocomplete="off"  [required]="addOns.controls.biofuelkit.value" readonly >
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 mt-0" *ngIf="addOns.controls.biofuelkit.value">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="BiFuel Kit TP Premium"  formControlName="totalbiofuelkitPremium1"  autocomplete="off"  [required]="addOns.controls.biofuelkit.value" readonly >
+                                            </mat-form-field>
+                                        </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-12 mt-2">
+                                            <div class="row"  >
+                                                <div class="col-md-3 mt-1">
+                                                    <mat-form-field class="w-100">
+                                                        <mat-select placeholder="AntiTheft Discflag"  formControlName="Antitheftdiscflag" (change)="antitheftdiscChange()" >
+                                                            <mat-option value="false">NO</mat-option>
+                                                            <mat-option value="true">YES</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4 mt-0" *ngIf="addOns.controls.Antitheftdiscflag.value ">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Cover Premium"  formControlName="totalAntitheftdiscPremium"  autocomplete="off"  [required]="addOns.controls.Antitheftdiscflag.value " readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <div class="row"  >
+                                        <div class="col-md-3 ">
+                                            <mat-form-field class="w-100">
+                                                <mat-select placeholder="Handicap DiscFlag"  formControlName="HandicapDiscFlag" (change)="handicapDiscFlagChange()" >
+                                                    <mat-option value="false">false</mat-option>
+                                                    <mat-option value="true">true</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                            <div class="col-md-4 mt-0" *ngIf="addOns.controls.HandicapDiscFlag.value">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Cover Premium"  formControlName="totalHandicapDiscFlagPremium"  autocomplete="off"  [required]="addOns.controls.HandicapDiscFlag.value" readonly>
+                                                </mat-form-field>
+                                            </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-12 mt-2">
+                                            <div class="row"  >
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="Electical Accessory IDV" maxlength="7" formControlName="ElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event);ElecticAccesIDVChange()"  >
+                                                <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
+                                            </mat-form-field>
+                                        </div>
+                                            <div class="col-md-4 mt-0" *ngIf="addOns.controls.ElecticalAccessoryIDV.value ">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Cover Premium"  formControlName="totalElecticAccessIDVPremium"  autocomplete="off"  [required]="addOns.controls.ElecticalAccessoryIDV.value " readonly>
+                                                </mat-form-field>
+                                            </div>
+
+                                            </div>
+                                        </div>
+                                       <div class="col-md-12 mt-2">
+                                        <div class="row"  >
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="Non Electical Accessory IDV" maxlength="7" formControlName="NonElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event);nonElecticAccesIDVChange()"  >
+                                                <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
+                                            </mat-form-field>
+                                        </div>
+                                            <div class="col-md-4 mt-0" *ngIf="addOns.controls.NonElecticalAccessoryIDV.value ">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Cover Premium"  formControlName="totalNonElecticAccessIDVPremium"  autocomplete="off"  [required]="addOns.controls.NonElecticalAccessoryIDV.value" readonly>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                       </div>
+
+                                        <div class="col-md-12 mt-2">
+                                            <div class="row">
+                                                <div class="col-md-3 ">
+                                                    <mat-checkbox formControlName="IsLimitedtoOwnPremises" (change)="limitedtoOwnChange()"><strong> Is Limited to Own Premises </strong></mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4 mt-0" *ngIf="addOns.controls.IsLimitedtoOwnPremises.value==true">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Limited to Own Premises OD Premium"  formControlName="totalLimitedtoOwnPremium"  autocomplete="off"  [required]="addOns.controls.IsLimitedtoOwnPremises.value==true" readonly >
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4 mt-0" *ngIf="addOns.controls.IsLimitedtoOwnPremises.value==true">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Limited to Own Premises TP Premium"  formControlName="totalLimitedtoOwnPremium1"  autocomplete="off"  [required]="addOns.controls.IsLimitedtoOwnPremises.value==true" readonly >
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2">
+                                            <div class="row"  >
+                                                <div class="col-md-3 mt-1">
+                                                    <mat-checkbox formControlName="IsPaidDriver" (change)="paidDriverChange()" ><strong> Is Paid Driver </strong></mat-checkbox>
+                                                </div>
+                                                <div class="col-md-3" *ngIf="addOns.controls.IsPaidDriver.value==true">
+                                                    <mat-form-field class="w-100">
+                                                        <mat-placeholder>Paid Driver SI<span class="error" *ngIf="addOns.controls.IsPaidDriver.value==true">*</span></mat-placeholder>
+                                                        <input matInput  formControlName="paiddriversi" maxlength="7" autocomplete="off" (keypress)="numberValidate($event);paiddriverFlagChange()"  >
+                                                        <mat-error *ngIf="addOns.controls.paiddriversi.errors?.required">Paid DriverSi is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4 mt-0" *ngIf="addOns.controls.paiddriversi.value ">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Cover Premium"  formControlName="totalpaiddriversiPremium"  autocomplete="off"  [required]="addOns.controls.paiddriversi.value" readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                                <!--<div class="col-md-4 mt-0" *ngIf="addOns.controls.IsPaidDriver.value==true">-->
+                                                    <!--<mat-form-field class="w-100">-->
+                                                        <!--<input matInput placeholder="Cover Premium"  formControlName="totalPaidDriverPremium"  autocomplete="off"  [required]="addOns.controls.IsPaidDriver.value==true" readonly>-->
+                                                    <!--</mat-form-field>-->
+                                                <!--</div>-->
+                                            </div>
+                                        </div>
+                                      <div class="col-md-12 mt-2">
+                                       <div class="row"  >
+                                        <div class="col-md-3 mt-1">
+                                            <mat-checkbox formControlName="NoofUnnamedPerson" maxlength="7" (change)="validationforadons($event,'unamed')"><strong> No of Unnamed Person </strong></mat-checkbox>
+                                        </div>
+                                           <div class="col-md-3" *ngIf="addOns.controls['NoofUnnamedPerson'].value ==true">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Unnamed Person SI<span class="error" *ngIf="addOns.controls['NoofUnnamedPerson'].value ==true">*</span></mat-placeholder>
+                                                <input matInput  formControlName="UnnamedPersonSI" autocomplete="off" maxlength="7" (keypress)="numberValidate($event);UnnamedPersonChange()"  >
+                                                <mat-error *ngIf="addOns.controls.UnnamedPersonSI.errors?.required  ">Unnamed Person SI is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                           <div class="col-md-4 mt-0" *ngIf="addOns.controls.UnnamedPersonSI.value ">
+                                               <mat-form-field class="w-100">
+                                                   <input matInput placeholder="Cover Premium"  formControlName="totalUnnamedPersonSIPremium"  autocomplete="off"  [required]="addOns.controls.UnnamedPersonSI.value" readonly>
+                                               </mat-form-field>
+                                           </div>
+                                       </div>
+                                      </div>
+
+                                                <div class="col-md-12 mt-2">
+                                                    <div class="row"  >
+                                        <div class="col-md-3 mt-1">
+                                            <mat-checkbox formControlName="NoofnamedPerson" (change)="validationforadons($event,'named')"><strong> No of named Person </strong></mat-checkbox>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="addOns.controls['NoofnamedPerson'].value ==true">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Person Name<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ==true">*</span></mat-placeholder>
+                                                <input matInput  formControlName="namedPerson" autocomplete="off" maxlength="25" (keypress)="nameValidate($event)"  >
+                                                <mat-error *ngIf="addOns.controls.namedPerson.errors?.required  ">Person Name Is Required</mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="addOns.controls['NoofnamedPerson'].value ">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Named Person SI<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
+                                                <input matInput  formControlName="namedPersonSI" maxlength="10" autocomplete="off" (keypress)="numberValidate($event);namedPersonSIChange()"  >
+                                                <mat-error *ngIf="addOns.controls.namedPersonSI.errors?.required  ">Named Person SI is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4 mt-0" *ngIf="addOns.controls['namedPersonSI'].value">
+                                             <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Cover Premium"  formControlName="totalNamedPersonPremium"  autocomplete="off"  [required]="addOns.controls['namedPersonSI'].value" readonly>
+                                             </mat-form-field>
+                                           </div>
+                                                    </div>
+                                                </div>
+                                        <!--<div class="col-md-3">-->
+                                            <!--<mat-form-field class="w-100">-->
+                                                <!--<input matInput placeholder="Number Of Drivers" formControlName="IsPaidDriver" autocomplete="off"  maxlength="10" (keypress)="numberValidate($event)"  >-->
+                                                <!--&lt;!&ndash;<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>&ndash;&gt;-->
+
+                                            <!--</mat-form-field>-->
+                                        <!--</div>-->
+
+
+
 
 
                                         <div class="col-md-12 mt-2">

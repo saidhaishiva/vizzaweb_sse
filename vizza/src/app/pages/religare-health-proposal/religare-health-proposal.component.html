@@ -762,7 +762,7 @@
                       <li class="list-group-item"><strong>Name:</strong> {{item.title}}. {{item.proposer_fname}} {{item.proposer_lname  }}</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{item.prop_dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{item.prop_gender}}</li>
-                      <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.relationship_cd}}</li>
+                      <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.type}}</li>
                       <li class="list-group-item" *ngIf="item.prop_email_list[0].email"><strong>Email Id:</strong> {{item.prop_email_list[0].email}}</li>
                       <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
                       <li class="list-group-item" *ngIf="item.prop_contact_list[0].contact_no"><strong>Mobile Number:</strong> {{item.prop_contact_list[0].contact_no}}</li>
@@ -1604,7 +1604,7 @@
                         <li class="list-group-item"><strong>Name:</strong> {{item.title}}. {{item.proposer_fname}} {{item.proposer_lname  }}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{item.prop_dob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Gender:</strong> {{item.prop_gender}}</li>
-                        <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.relationship_cd}}</li>
+                        <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.type}}</li>
                         <li class="list-group-item" *ngIf="item.prop_email_list[0].email"><strong>Email Id:</strong> {{item.prop_email_list[0].email}}</li>
                         <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
                         <li class="list-group-item" *ngIf="item.prop_contact_list[0].contact_no" ><strong>Mobile Number:</strong> {{item.prop_contact_list[0].contact_no}}</li>

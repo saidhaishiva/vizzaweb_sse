@@ -14,17 +14,22 @@
 
 
           <table class="qesTable able table-striped mt-3" *ngFor="let item of faqQuestionsList; let i = index" style="width:1000px !important;">
-              <thead class="m-3"  [ngStyle]="{'background-color': '#306DA6','color':'#fff'}"  *ngIf="item.contents !=''">
+              <thead class="m-3"  [ngStyle]="{'background-color': '#306DA6','color':'#fff','height': '40px','font-size': '20px','text-align': 'center'}"  *ngIf="item.contents !=''">
               <tr>
-                  <th scope="col">{{i+1}}. {{item.heading}} </th>
+                  <th scope="col">{{item.heading}} </th>
 
               </tr>
               </thead>
             <tr *ngFor="let subQes of item.contents ; let j = index" >
               <td >
-                {{j + 1}}) {{subQes.content_qstn}}<br>
-                   {{subQes.content_ans}}
+                <span style="font-weight: bold;color: #28a745;">{{j + 1}}){{subQes.content_qstn}}</span> <br>
+                  <ul *ngFor="let list of subQes.content_ans ; let k = index"><li *ngIf="list!= ''" style="margin-left: 48px;">{{list}}</li> </ul>
+
+
               </td>
+
+
+
             </tr>
           </table>
         </div>

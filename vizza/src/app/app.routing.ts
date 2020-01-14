@@ -83,6 +83,7 @@ import {DmConfirmpasswordComponent} from './pages/dm-confirmpassword/dm-confirmp
 import {AboutVizzaComponent} from './pages/about-vizza/about-vizza.component';
 import {MediaCenterComponent} from './pages/media-center/media-center.component';
 import {FaqComponentComponent} from './pages/faq-component/faq-component.component';
+import {InsuranceDictionaryComponent} from './pages/insurance-dictionary/insurance-dictionary.component';
 
 // import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
 
@@ -297,6 +298,7 @@ export const routes: Routes = [
             { path: 'about-vizza', component:AboutVizzaComponent, data: { breadcrumb: 'About Vizza'} },
             { path: 'mediacenter', component:MediaCenterComponent, data: { breadcrumb: 'Learning Center'} },
             { path: 'faq', component:FaqComponentComponent, data: { breadcrumb: 'faq '} },
+            { path: 'ins-dic', component:InsuranceDictionaryComponent, data: { breadcrumb: 'Insurance Dictionary '} },
             // { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personal-accident-religare/:stepper', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'},canDeactivate: [ReligarePaproposaldeactivateGuardService] },
             { path: 'religare-pa/:proposalId/:stepper', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'},canDeactivate: [ReligarePaproposaldeactivateGuardService] },

@@ -781,10 +781,18 @@
                 </div>
               </section>
               <div>
+               <p>  To Download BI Form Click <a href *ngIf="requestedUrl !=''" (click)="saveImageAs1(requestedUrl)" style="cursor: pointer;margin-left: 10px;color: blueviolet">
+                   <u> Here </u></a></p>
                 <pdf-viewer src="{{requestedUrl}}"
                             [render-text]="true"
                             style="display: block;"
                 ></pdf-viewer>
+                <!--<img src="{{requestedUrl}}" class="cursor" style="height:200px;width: 200px;"  />-->
+
+                <!--<pdf-viewer src="{{requestedUrl}}"-->
+                            <!--[render-text]="true"-->
+                            <!--style="display: block;"-->
+                <!--&gt;</pdf-viewer>-->
               </div>
               <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
               <hr>

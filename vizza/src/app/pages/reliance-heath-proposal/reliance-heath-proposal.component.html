@@ -1833,16 +1833,12 @@
 
                         <section class="summary-details" *ngIf="payLaterr == true">
                             <div class="row">
-                                <div class="col-12">
-                                    <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{requestDetails.sum_insured_amount}}</span></h4>
-                                </div>
-                                <div class="col-12 mt-2">
-                                    <ul class="summary-head">
-                                        <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + requestDetails.company_logo}}" class="img-thumbnail" style="width: 125px;"></li>
-                                        <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{requestDetails.premium}}</span></li>
-                                        <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{requestDetails.total_premium}}</span></li>
-                                        <li></li>
-                                    </ul>
+                                <div class="col-sm-12 col-xs-12 col-md-12">
+                                    <h4 class="mt-2">{{summaryData.group_name}}</h4>
+                                    <h4 class="mt-2"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
+                                    <h4 class="mt-2"><span style="font-size: 17px; color: #666;"> Insurer: &nbsp; <img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;"/></span></h4>
+                                    <h4 class="mt-2 mr-2"><span style="font-size: 17px; color: #666;"> Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></h4>
+                                    <h4 class="mt-2 mr-2"><span style="font-size: 17px; color: #666;"> Total Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span></h4>
                                 </div>
                             </div>
                             <section>
