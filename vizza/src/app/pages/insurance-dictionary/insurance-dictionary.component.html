@@ -1,3 +1,149 @@
-<p>
-  insurance-dictionary works!
-</p>
+<div class="container">
+  <div class="card p-3">
+    <h2 class="text-center" style="color:#5d965d !important; ">Insurance Dictionary</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="w-100">
+          <input matInput placeholder="Search ..." [(ngModel)]="searchval" (input)="updateFilter($event)">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row" >
+          <div class="col-1 mb-2 mr-1">
+            <button type="button" class="btn btn-success" value="A" (click)="insurancebuttonclick($event)">A</button>
+          </div>
+          <div class="col-1 mb-2 mr-1">
+
+            <button type="button" class="btn btn-success" value="B" (click)="insurancebuttonclick($event)">B</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1" >
+            <button type="button" class="btn btn-success" value="C" (click)="insurancebuttonclick($event)">C</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1" >
+            <button type="button" class="btn btn-success" value="D" (click)="insurancebuttonclick($event)">D</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1">
+            <button type="button" class="btn btn-success" value="E" (click)="insurancebuttonclick($event)">E</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1">
+            <button type="button" class="btn btn-success" value="F" (click)="insurancebuttonclick($event)">F</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1" >
+            <button type="button" class="btn btn-success" value="G" (click)="insurancebuttonclick($event)">G</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1">
+            <button type="button" class="btn btn-success" value="H" (click)="insurancebuttonclick($event)">H</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1">
+            <button type="button" class="btn btn-success" value="I" (click)="insurancebuttonclick($event)">I</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1" >
+            <button type="button" class="btn btn-success" value="J" (click)="insurancebuttonclick($event)">J</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1" >
+            <button type="button" class="btn btn-success" value="K" (click)="insurancebuttonclick($event)">K</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1">
+            <button type="button" class="btn btn-success" value="L" (click)="insurancebuttonclick($event)">L</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1" >
+            <button type="button" class="btn btn-success" value="M" (click)="insurancebuttonclick($event)">M</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1" >
+            <button type="button" class="btn btn-success" value="N" (click)="insurancebuttonclick($event)">N</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1" >
+            <button type="button" class="btn btn-success" value="O" (click)="insurancebuttonclick($event)">O</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1" >
+            <button type="button" class="btn btn-success" value="P" (click)="insurancebuttonclick($event)">P</button>
+
+          </div>
+          <div class="col-1 mb-2 mr-1" >
+          <button type="button" class="btn btn-success" value="Q" (click)="insurancebuttonclick($event)">Q</button>
+
+        </div>
+          <div class="col-1 mb-2 mr-1" >
+          <button type="button" class="btn btn-success" value="R" (click)="insurancebuttonclick($event)">R</button>
+
+        </div>
+          <div class="col-1 mb-2 mr-2" >
+          <button type="button" class="btn btn-success" value="S" (click)="insurancebuttonclick($event)">S</button>
+
+        </div>
+          <div class="col-1 mb-2 mr-1" >
+            <button type="button" class="btn btn-success" value="T" (click)="insurancebuttonclick($event)">T</button>
+
+        </div> <div class="col-1 mb-2 mr-1" >
+          <button type="button" class="btn btn-success" value="U" (click)="insurancebuttonclick($event)">U</button>
+
+        </div> <div class="col-1 mb-2 mr-1">
+          <button type="button" class="btn btn-success" value="V" (click)="insurancebuttonclick($event)">V</button>
+
+        </div> <div class="col-1 mb-2 mr-1" >
+          <button type="button" class="btn btn-success" value="W" (click)="insurancebuttonclick($event)">W</button>
+
+        </div>
+          <div class="col-1 mb-2 mr-1" >
+          <button type="button" class="btn btn-success" value="X" (click)="insurancebuttonclick($event)">X</button>
+
+        </div> <div class="col-1 mb-2 mr-1" >
+          <button type="button" class="btn btn-success" value="Y" (click)="insurancebuttonclick($event)">Y</button>
+
+        </div> <div class="col-1 mb-2 mr-1" >
+          <button type="button" class="btn btn-success" value="Z" (click)="insurancebuttonclick($event)">Z</button>
+
+        </div>
+
+        </div>
+      </div>
+</div>
+    <div class="row">
+      <div class="col-md-12">
+
+
+        <table class="qesTable able table-striped mt-3" >
+          <!--<thead class="m-3"  [ngStyle]="{'background-color': '#306DA6','color':'#fff','height': '40px','font-size': '20px','text-align': 'center'}"  *ngIf="item.contents !=''">-->
+          <!--<tr>-->
+            <!--<th scope="col">{{item.title}} </th>-->
+
+          <!--</tr>-->
+          <!--</thead>-->
+          <tr *ngFor="let item of getinsurancedicList.content; let i = index">
+            <td >
+              {{item.title}}
+
+
+            </td> <td >
+              {{item.meaning}}
+
+
+            </td>
+
+            <div class="error" *ngIf="dictionary != '' && dictionary != true">{{dictionary}}</div>
+
+
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
