@@ -161,7 +161,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             lastname: new FormControl(''),
             gender: ['', Validators.compose([Validators.required])],
             dob: ['', Validators.compose([Validators.required])],
-            passport: '',
+            passports: '',
             address1: ['', Validators.required],
             address2: '',
             pincode: ['', Validators.required],
@@ -266,6 +266,19 @@ export class ReliagretravelproposalComponent implements OnInit {
     {
         console.log(this.insureReligareArray['controls'].items['controls'][i]['controls'].passports.value,'5678')
         if( this.insureReligareArray['controls'].items['controls'][i]['controls'].passports.value != ''){
+            this.passportany = false;
+            this.passportany = '';
+        }
+        else{
+            this.passportany = true;
+            this.passportany = 'Pass Port is required'
+        }
+
+    }
+    passportval1()
+    {
+        console.log(this.religarePersonal.controls['passports'].value,'5678')
+        if( this.religarePersonal.controls['passports'].value != ''){
             this.passportany = false;
             this.passportany = '';
         }
@@ -642,7 +655,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 relationshipName: '',
                 insurerDobError: '',
                 insurerDobValidError: '',
-                passport: ['', Validators.compose([Validators.minLength(8)])],
+                passports: '',
                 pannumber: '',
                 adharnumber: '',
                 sameAsInsuredProposer: false,
@@ -797,7 +810,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.insureReligareArray['controls'].items['controls'][0]['controls'].relationship.patchValue('SELF');
             this.insureReligareArray['controls'].items['controls'][0]['controls'].email.patchValue(this.religarePersonal.controls['email'].value);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].mobile.patchValue(this.religarePersonal.controls['mobile'].value);
-            this.insureReligareArray['controls'].items['controls'][0]['controls'].passport.patchValue(this.religarePersonal.controls['passport'].value);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].passports.patchValue(this.religarePersonal.controls['passports'].value);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].pannumber.patchValue(this.religarePersonal.controls['pannumber'].value);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].adharnumber.patchValue(this.religarePersonal.controls['adharnumber'].value);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].phone.patchValue(this.religarePersonal.controls['phone'].value);
@@ -814,7 +827,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.insureReligareArray['controls'].items['controls'][0]['controls'].relationship.patchValue('');
             this.insureReligareArray['controls'].items['controls'][0]['controls'].email.patchValue('');
             this.insureReligareArray['controls'].items['controls'][0]['controls'].mobile.patchValue('');
-            this.insureReligareArray['controls'].items['controls'][0]['controls'].passport.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].passports.patchValue('');
             this.insureReligareArray['controls'].items['controls'][0]['controls'].pannumber.patchValue('');
             this.insureReligareArray['controls'].items['controls'][0]['controls'].adharnumber.patchValue('');
             this.insureReligareArray['controls'].items['controls'][0]['controls'].phone.patchValue('');
@@ -864,7 +877,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     }],
                     'prop_identity_list': [
                         {
-                            'identity_number': this.proposerInsureData[i].passport,
+                            'identity_number': this.proposerInsureData[i].passports,
                             'identity_type': 'passport',
                         },
                         {
@@ -1327,7 +1340,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 coursedetails: getProposerDetails.coursedetails,
                 guideAddress: getProposerDetails.guideAddress,
                 mobile: getProposerDetails.mobile,
-                passport: getProposerDetails.passport,
+                passports: getProposerDetails.passports,
                 phone: getProposerDetails.phone,
                 addon: getProposerDetails.addon,
                 studentRelationShipName: getProposerDetails.studentRelationShipName,
@@ -1372,7 +1385,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].gender.patchValue(this.religareTravel2.items[i].gender);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].dob.patchValue(this.datepipe.transform(this.religareTravel2.items[i].dob, 'y-MM-dd'));
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].relationship.patchValue(this.religareTravel2.items[i].relationship);
-                this.insureReligareArray['controls'].items['controls'][i]['controls'].passport.patchValue(this.religareTravel2.items[i].passport);
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].passports.patchValue(this.religareTravel2.items[i].passports);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].email.patchValue(this.religareTravel2.items[i].email);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].mobile.patchValue(this.religareTravel2.items[i].mobile);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].sameAsInsuredProposer.patchValue(this.religareTravel2.items[i].sameAsInsuredProposer);
