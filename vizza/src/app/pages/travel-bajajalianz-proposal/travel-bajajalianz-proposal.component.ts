@@ -99,7 +99,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             mobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
             telephone: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
-            passportNumber: ['', Validators.required],
+            passportNumber1: ['', Validators.required],
             streetName: ['', Validators.required],
             fax: [''],
             building: ['', Validators.required],
@@ -190,10 +190,25 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         this.topScroll();
         this.prevStep();
     }
-    passportval(i)
+
+    passportval()
     {
-        console.log(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.value,'5678')
-        if( this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.value != ''){
+        console.log(this.bajajProposal.controls['passportNumber1'].value,'5678')
+        if( this.bajajProposal.controls['passportNumber1'].value != ''){
+            this.passportany = false;
+            this.passportany = '';
+        }
+        else{
+            this.passportany = true;
+            this.passportany = 'Pass Port is required'
+        }
+
+    }
+    passportval1(i)
+    {
+        console.log(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo1,'5678')
+        alert('inn')
+        if( this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo1.value != ''){
             this.passportany = false;
             this.passportany = '';
         }
@@ -206,13 +221,14 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
 
 
+
     initItemRows() {
         return this.fb.group(
             {
                 assigneeName: ['', Validators.required],
                 relation: ['', Validators.required],
                 name: ['', Validators.required],
-                passportNo: ['', Validators.required],
+                passportNo1: ['', Validators.required],
                 age: ['', Validators.required],
                 sex: ['', Validators.required],
                 idob: ['', Validators.required],
@@ -272,7 +288,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].assigneeName.patchValue(this.bajajProposal.controls.assigneeName.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].relation.patchValue('SELF');
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].name.patchValue(this.bajajProposal.controls.firstName.value +' '+ this.bajajProposal.controls.middlename.value + ' ' + this.bajajProposal.controls.lastName.value);
-            this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].passportNo.patchValue(this.bajajProposal.controls.passportNumber.value);
+            this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].passportNo1.patchValue(this.bajajProposal.controls.passportNumber1.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].sex.patchValue(this.bajajProposal.controls.gender.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].idob.patchValue(this.bajajProposal.controls.dob.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].age.patchValue(sessionStorage.proposerAge);
@@ -296,7 +312,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 dob: this.datepipe.transform(this.getStepper1.dob, 'y-MM-dd'),
                 email: this.getStepper1.email,
                 mobile: this.getStepper1.mobile,
-                passportNumber: this.getStepper1.passportNumber,
+                passportNumber1: this.getStepper1.passportNumber1,
                 streetName: this.getStepper1.streetName,
                 building: this.getStepper1.building,
                 country: this.getStepper1.country,
@@ -315,7 +331,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2.items[i].assigneeName);
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].relation.patchValue(this.getStepper2.items[i].relation);
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.patchValue(this.getStepper2.items[i].name);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.patchValue(this.getStepper2.items[i].passportNo);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo1.patchValue(this.getStepper2.items[i].passportNo1);
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.patchValue(this.getStepper2.items[i].sex);
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.patchValue(this.datepipe.transform(this.getStepper2.items[i].idob, 'y-MM-dd'));
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.patchValue(this.getStepper2.items[i].age);
@@ -427,7 +443,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                     'pvassignee': this.insurerData.items[i].assigneeName,
                     'pvrelation': this.insurerData.items[i].relation,
                     'pvname': this.insurerData.items[i].name,
-                    'pvpassportNo': this.insurerData.items[i].passportNo,
+                    'pvpassportNo': this.insurerData.items[i].passportNo1,
                     'pvage': this.insurerData.items[i].age,
                     'pvsex': this.insurerData.items[i].sex,
                     'pvdob': this.datepipe.transform(this.insurerData.items[i].idob, 'y-MM-dd')
@@ -464,7 +480,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 "maritalstatus": this.bajajProposal.controls['maritalStatus'].value,
                 "streetname": this.bajajProposal.controls['streetName'].value,
                 "building": this.bajajProposal.controls['building'].value,
-                "passportno": this.bajajProposal.controls['passportNumber'].value,
+                "passportno": this.bajajProposal.controls['passportNumber1'].value,
                 "assigneeName": this.bajajProposal.controls['assigneeName'].value,
                 "firstname": this.bajajProposal.controls['firstName'].value,
                 "country": this.bajajProposal.controls['country'].value,

@@ -91,10 +91,12 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[0-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required>
-                        <mat-error *ngIf="bajajProposal.controls.passportNumber.errors?.required">Passport number is required</mat-error>
-                        <mat-error *ngIf="bajajProposal.controls.passportNumber.hasError('pattern')">Enter Valid  Passport number</mat-error>
-                      </mat-form-field></div>
+                        <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" formControlName="passportNumber1" autocomplete="off" (input)="passportval()" style="text-transform: uppercase" required>
+<!--                        <mat-error *ngIf="bajajProposal.controls.passportNumber.errors?.required">Passport number is required</mat-error>-->
+<!--                        <mat-error *ngIf="bajajProposal.controls.passportNumber.hasError('pattern')">Enter Valid  Passport number</mat-error>-->
+                      </mat-form-field>
+                        <div class="error" *ngIf="passportany !=''&& passportany !=true">{{passportany}}</div>
+                      </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <mat-select matInput placeholder="Marital Status"  formControlName="maritalStatus" autocomplete="off" required>
                           <mat-option *ngFor="let  marital of getMaritalDetails | keys" value="{{marital.value}}">{{marital.value}}</mat-option>
@@ -233,7 +235,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" formControlName="passportNo" autocomplete="off" (input)="passportval(i)" style="text-transform: uppercase" required readonly="{{i==0}}">
+                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" formControlName="passportNo1" autocomplete="off" (input)="passportval(i)" style="text-transform: uppercase" required readonly="{{i==0}}">
 <!--                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.errors?.required">Passport number is required</mat-error>-->
 <!--                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.hasError('pattern')">Enter Valid  Passport number</mat-error>-->
                         </mat-form-field>
@@ -345,7 +347,7 @@
                       <li class="list-group-item" *ngIf="proposerFormData.fax !='' "><strong>Alternate No:</strong> {{proposerFormData.telephone}}</li>
                       <li class="list-group-item" *ngIf = "proposerFormData.fax !=''"><strong>Fax:</strong> {{proposerFormData.fax}}</li>
                       <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationality}}</li>
-                      <li class="list-group-item"><strong>Passport No:</strong> {{proposerFormData.passportNumber}}</li>
+                      <li class="list-group-item"><strong>Passport No:</strong> {{proposerFormData.passportNumber1}}</li>
                       <li class="list-group-item"><strong>Assignee Name:</strong> {{proposerFormData.assigneeName}}</li>
 
                     </ul>
@@ -387,7 +389,7 @@
                           <li class="list-group-item" ><strong>Name:</strong>{{item.name}}</li>
                           <li class="list-group-item" ><strong>Gender:</strong> {{item.sex}}</li>
                           <li class="list-group-item"><strong>D.O.B:</strong> {{item.idob | date: 'dd/MM/yyyy'}}</li>
-                          <li class="list-group-item" ><strong>passport number:</strong> {{item.passportNo}}</li>
+                          <li class="list-group-item" ><strong>passport number:</strong> {{item.passportNo1}}</li>
                         </ul>
                       </div>
                     </div>
@@ -515,10 +517,13 @@
                     </mat-form-field>
                   </div>
                   <div class="col-12"><mat-form-field class="w-100">
-                    <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required>
-                    <mat-error *ngIf="bajajProposal.controls.passportNumber.errors?.required">Passport number is required</mat-error>
-                    <mat-error *ngIf="bajajProposal.controls.passportNumber.hasError('pattern')">Enter Valid  Passport number</mat-error>
-                  </mat-form-field></div>
+                    <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" formControlName="passportNumber1" autocomplete="off" style="text-transform: uppercase"  (input)="passportval()" required>
+<!--                    <mat-error *ngIf="bajajProposal.controls.passportNumber.errors?.required">Passport number is required</mat-error>-->
+<!--                    <mat-error *ngIf="bajajProposal.controls.passportNumber.hasError('pattern')">Enter Valid  Passport number</mat-error>-->
+                  </mat-form-field>
+                    <div class="error" *ngIf="passportany !=''&& passportany !=true">{{passportany}}</div>
+
+                  </div>
                   <div class="col-12"><mat-form-field class="w-100">
                     <mat-select matInput placeholder="Marital Status"  formControlName="maritalStatus" autocomplete="off" required>
                       <mat-option *ngFor="let  marital of getMaritalDetails | keys" value="{{marital.value}}">{{marital.value}}</mat-option>
@@ -651,10 +656,12 @@
                           </mat-form-field>
                         </div>
                         <div class="col-12"><mat-form-field class="w-100">
-                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNo" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required readonly="{{i==0}}">
-                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.errors?.required">Passport number is required</mat-error>
-                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.hasError('pattern')">Enter Valid  Passport number</mat-error>
-                        </mat-form-field></div>
+                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" formControlName="passportNo" autocomplete="off" (input)="passportval1(i)" style="text-transform: uppercase" required readonly="{{i==0}}">
+<!--                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.errors?.required">Passport number is required</mat-error>-->
+<!--                          <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.hasError('pattern')">Enter Valid  Passport number</mat-error>-->
+                        </mat-form-field>
+                          <div class="error" *ngIf="passportany !=''&& passportany !=true">{{passportany}}</div>
+                        </div>
                         <div class="col-12" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="relation" required >
