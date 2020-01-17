@@ -813,13 +813,13 @@
                       <div class="col-md-4">
                         <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="updateNildeprecition($event)">Nil Depreciation</mat-checkbox>
                       </div>
-                      <div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Applicable Rate"  formControlName="applicableRate"  (input)="changeRate($event);getCover()"  (keypress)="changeRate($event)"  autocomplete="off" required >
-                          <mat-error *ngIf="coverDetails.controls.applicableRate.errors?.required">Applicable Rate is required</mat-error>
-                        </mat-form-field>
-                        <div class="error" *ngIf="errorRateMsg !='' && errorRateMsg != true">{{errorRateMsg}}</div>
-                      </div>
+                      <!--<div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Applicable Rate"  formControlName="applicableRate"  (input)="changeRate($event);getCover()"  (keypress)="changeRate($event)"  autocomplete="off" required >-->
+                          <!--<mat-error *ngIf="coverDetails.controls.applicableRate.errors?.required">Applicable Rate is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                        <!--<div class="error" *ngIf="errorRateMsg !='' && errorRateMsg != true">{{errorRateMsg}}</div>-->
+                      <!--</div>-->
                       <div class="col-md-4 " *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Cover Premium"  formControlName="totalDepreciationPremium" autocomplete="off" [required]="coverDetails.controls.NilDepreciationCoverage.value == true" readonly>
@@ -1620,7 +1620,7 @@
                         <h2 class="color-blue m-2">Nil Depreciation</h2>
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage == false"><strong>Nil Depreciation:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == false">N/A</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.applicableRate != '' && coverFormData.NilDepreciationCoverage == true "><strong>Applicable Rate:</strong> {{coverFormData.applicableRate}}</li>
+                          <!--<li class="list-group-item" *ngIf="coverFormData.applicableRate != '' && coverFormData.NilDepreciationCoverage == true "><strong>Applicable Rate:</strong> {{coverFormData.applicableRate}}</li>-->
                           <li class="list-group-item" *ngIf="(coverFormData.totalDepreciationPremium != '' || coverFormData.totalDepreciationPremium !=undefined)&&coverFormData.NilDepreciationCoverage == true "><strong>Nil Depreciation Premium:</strong> {{coverFormData.totalDepreciationPremium}}</li>
 
                         </ul>

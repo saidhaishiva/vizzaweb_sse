@@ -1402,7 +1402,7 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
                 appointeename: this.getstepper3.appointeename,
                 appointeerelation: this.getstepper3.appointeerelation,
                 extentioncountryvalue: this.getstepper3.extentioncountryvalue,
-                // IsPaidDriver: this.getstepper3.IsPaidDriver,
+                IsPaidDriver: this.getstepper3.IsPaidDriver,
                 zerodept: this.getstepper3.zerodept,
                 ElecticalAccessoryIDV: this.getstepper3.ElecticalAccessoryIDV,
                 NonElecticalAccessoryIDV: this.getstepper3.NonElecticalAccessoryIDV,
