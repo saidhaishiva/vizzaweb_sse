@@ -920,7 +920,7 @@ ChangeGender(){
 
     }
     antitheftdiscChange(){
-        if (this.addOns.controls['Antitheftdiscflag'].value ) {
+        if (this.addOns.controls['Antitheftdiscflag'].value=='true' ) {
             this.addOns.controls['totalAntitheftdiscPremium'].setValidators([Validators.required]);
             this.getCover();
         } else {
@@ -934,7 +934,7 @@ ChangeGender(){
 
     }
     handicapDiscFlagChange(){
-        if (this.addOns.controls['HandicapDiscFlag'].value ) {
+        if (this.addOns.controls['HandicapDiscFlag'].value=='true' ) {
             this.addOns.controls['totalHandicapDiscFlagPremium'].setValidators([Validators.required]);
             this.getCover();
         } else {
