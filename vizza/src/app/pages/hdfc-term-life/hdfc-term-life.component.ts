@@ -665,7 +665,7 @@ export class HdfcTermLifeComponent implements OnInit {
       this.nomineeDetail.controls['acountryName'].patchValue('');
       this.nomineeDetail.controls['arelationship'].patchValue('');
       this.nomineeDetail.controls['apincode'].patchValue('');
-      this.nomineeDetail.controls['apincode'].patchValue('');
+      // this.nomineeDetail.controls['apincode'].patchValue('');
 
       this.nomineeDetail.controls['atitle'].setValidators(null);
       this.nomineeDetail.controls['afirstnm'].setValidators(null);
@@ -836,7 +836,7 @@ export class HdfcTermLifeComponent implements OnInit {
       this.nomineeDetail.controls['acountryName'].patchValue('');
       this.nomineeDetail.controls['arelationship'].patchValue('');
       this.nomineeDetail.controls['apincode'].patchValue('');
-      this.nomineeDetail.controls['apincode'].patchValue('');
+      // this.nomineeDetail.controls['apincode'].patchValue('');
 
       this.nomineeDetail.controls['atitle'].setValidators(null);
       this.nomineeDetail.controls['afirstnm'].setValidators(null);
