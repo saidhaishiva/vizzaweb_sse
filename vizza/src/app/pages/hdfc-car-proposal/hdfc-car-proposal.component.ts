@@ -113,6 +113,8 @@ export class HdfcCarProposalComponent implements OnInit {
     public  UnnamedPerson_premium: any;
     public NonElectical_Acc_Premium: any;
     public Electical_Acc_Premium: any;
+    public electricValid: any;
+    public electricNonValid: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -154,6 +156,8 @@ export class HdfcCarProposalComponent implements OnInit {
       this.tod=this.datepipe.transform(this.todaydate,'dd/MM/y');
       String ;this.tod = this.tod.substring(0, 10);
       this.sameasper = false;
+      this.electricValid = false;
+      this.electricNonValid = false;
 
 
       this.proposer = this.fb.group({
@@ -951,13 +955,25 @@ ChangeGender(){
     ElecticAccesIDVChange(){
         if (this.addOns.controls['ElecticalAccessoryIDV'].value ) {
             this.addOns.controls['totalElecticAccessIDVPremium'].setValidators([Validators.required]);
-            this.getCover();
+
         } else {
             this.addOns.controls['totalElecticAccessIDVPremium'].patchValue('');
             this.addOns.controls['totalElecticAccessIDVPremium'].setValidators(null);
         }
         this.addOns.controls['totalElecticAccessIDVPremium'].updateValueAndValidity();
     }
+    electricValidation(){
+      if(this.addOns.controls.ElecticalAccessoryIDV.value >= 10000){
+          this.electricValid=false;
+          this.electricValid='';
+          this.getCover();
+      }else{
+          this.electricValid=true;
+          this.electricValid='Electical Accessory IDV should be Equal to Or Greater than 10000';
+      }
+
+    }
+
     ElecticAccesValue(){
         this.addOns.controls['totalElecticAccessIDVPremium'].patchValue(this.Electical_Acc_Premium);
 
@@ -965,12 +981,23 @@ ChangeGender(){
     nonElecticAccesIDVChange(){
         if (this.addOns.controls['NonElecticalAccessoryIDV'].value ) {
             this.addOns.controls['totalNonElecticAccessIDVPremium'].setValidators([Validators.required]);
-            this.getCover();
+
         } else {
             this.addOns.controls['totalNonElecticAccessIDVPremium'].patchValue('');
             this.addOns.controls['totalNonElecticAccessIDVPremium'].setValidators(null);
         }
         this.addOns.controls['totalNonElecticAccessIDVPremium'].updateValueAndValidity();
+    }
+    electricNonValidation(){
+        if(this.addOns.controls.ElecticalAccessoryIDV.value >= 10000){
+            this.electricNonValid=false;
+            this.electricNonValid='';
+            this.getCover();
+        }else{
+            this.electricNonValid=true;
+            this.electricNonValid='Non Electical Accessory IDV should be Equal to Or Greater than 10000';
+        }
+
     }
     nonElecticAccesValue(){
         this.addOns.controls['totalNonElecticAccessIDVPremium'].patchValue(this.NonElectical_Acc_Premium);
