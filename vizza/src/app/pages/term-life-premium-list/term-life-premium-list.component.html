@@ -58,16 +58,16 @@
               <td align="center"  class="col-md-3 text-center">
                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
 
-                <div class="col-md-12"  *ngIf="plists.company_id == 5">
-                <mat-form-field class="w-100">
-                  <mat-select placeholder="Life"  [(ngModel)]="plists.planList" autocomplete="off" (selectionChange)="gethdfcPremium(plists,i)" >
-                    <mat-option *ngFor="let alist of allHdfcList " [value]= 'alist.id'>
-                      {{alist.name}}
-                    </mat-option>
-                  </mat-select>
-                  <!--<mat-error *ngIf="personal.controls.pCity.errors?.required">city is required</mat-error> {{id | json}}-->
-                </mat-form-field>
-              </div>
+<!--                <div class="col-md-12"  *ngIf="plists.company_id == 5">-->
+<!--                <mat-form-field class="w-100">-->
+<!--                  <mat-select placeholder="Life"  [(ngModel)]="plists.planList" autocomplete="off" (selectionChange)="gethdfcPremium(plists,i)" >-->
+<!--                    <mat-option *ngFor="let alist of allHdfcList " [value]= 'alist.id'>-->
+<!--                      {{alist.name}}-->
+<!--                    </mat-option>-->
+<!--                  </mat-select>-->
+<!--                  &lt;!&ndash;<mat-error *ngIf="personal.controls.pCity.errors?.required">city is required</mat-error> {{id | json}}&ndash;&gt;-->
+<!--                </mat-form-field>-->
+<!--              </div>-->
 
 
                 <p  *ngIf="plists.product_id != 87 && plists.product_id != 86" class="pTitle" matTooltip="{{plists.product_display_name}}">{{plists.product_display_name | titlecase }}</p>

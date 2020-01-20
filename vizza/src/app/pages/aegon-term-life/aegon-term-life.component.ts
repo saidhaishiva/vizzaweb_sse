@@ -1270,7 +1270,7 @@ export class AegonTermLifeComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'gender': this.nominee.controls['ntitle'].value  == 'MR' ? 'M' : 'F',
+      'gender': this.nominee.controls['ntitle'].value  == 'Mr' ? 'M' : 'F',
       'marital_status' : this.personal.controls['maritalStatus'].value
     }
     this.TermLifeService.getnomineerelationship(data).subscribe(

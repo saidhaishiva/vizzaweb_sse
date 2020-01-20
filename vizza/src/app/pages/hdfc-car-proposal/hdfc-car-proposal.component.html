@@ -625,9 +625,9 @@
                                                         </mat-select>
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-4 mt-0" *ngIf="addOns.controls.Antitheftdiscflag.value ">
+                                                <div class="col-md-4 mt-0" *ngIf="addOns.controls.Antitheftdiscflag.value=='true' ">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Cover Premium"  formControlName="totalAntitheftdiscPremium"  autocomplete="off"  [required]="addOns.controls.Antitheftdiscflag.value " readonly>
+                                                        <input matInput placeholder="Cover Premium"  formControlName="totalAntitheftdiscPremium"  autocomplete="off"  [required]="addOns.controls.Antitheftdiscflag.value=='true' " readonly>
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -642,9 +642,9 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                            <div class="col-md-4 mt-0" *ngIf="addOns.controls.HandicapDiscFlag.value">
+                                            <div class="col-md-4 mt-0" *ngIf="addOns.controls.HandicapDiscFlag.value=='true'">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Cover Premium"  formControlName="totalHandicapDiscFlagPremium"  autocomplete="off"  [required]="addOns.controls.HandicapDiscFlag.value" readonly>
+                                                    <input matInput placeholder="Cover Premium"  formControlName="totalHandicapDiscFlagPremium"  autocomplete="off"  [required]="addOns.controls.HandicapDiscFlag.value=='true'" readonly>
                                                 </mat-form-field>
                                             </div>
 
@@ -656,9 +656,10 @@
                                             <div class="row"  >
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Electical Accessory IDV" maxlength="7" formControlName="ElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event);ElecticAccesIDVChange()"  >
+                                                <input matInput placeholder="Electical Accessory IDV" maxlength="7" formControlName="ElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event);" (input)="ElecticAccesIDVChange();electricValidation()"  >
                                                 <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
                                             </mat-form-field>
+                                            <div class="error" *ngIf="electricValid != '' && electricValid != true">{{electricValid}}</div>
                                         </div>
                                             <div class="col-md-4 mt-0" *ngIf="addOns.controls.ElecticalAccessoryIDV.value ">
                                                 <mat-form-field class="w-100">
@@ -672,9 +673,10 @@
                                         <div class="row"  >
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Non Electical Accessory IDV" maxlength="7" formControlName="NonElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event);nonElecticAccesIDVChange()"  >
+                                                <input matInput placeholder="Non Electical Accessory IDV" maxlength="7" formControlName="NonElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event)" (input)="nonElecticAccesIDVChange();electricNonValidation()" >
                                                 <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
                                             </mat-form-field>
+                                            <div class="error" *ngIf="electricNonValid != '' && electricNonValid != true">{{electricNonValid}}</div>
                                         </div>
                                             <div class="col-md-4 mt-0" *ngIf="addOns.controls.NonElecticalAccessoryIDV.value ">
                                                 <mat-form-field class="w-100">
@@ -1057,10 +1059,10 @@
                                         <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>BioFuel kit Price :</strong>{{previousFormData.biofuelkit}}</li>
                                         <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>BiFuel_Kit_OD_Premium :</strong>{{BiFuel_Kit_OD_Premium}}</li>
                                         <li class="list-group-item"*ngIf="previousFormData.biofuelkit !=''"><strong>BiFuel_Kit_TP_Premium :</strong>{{BiFuel_Kit_TP_Premium}}</li>
-                                        <li class="list-group-item"*ngIf="previousFormData.Antitheftdiscflag !=''"><strong>Anti Theft Disc Flag :</strong>{{previousFormData.Antitheftdiscflag}}</li>
-                                        <li class="list-group-item"*ngIf="previousFormData.Antitheftdiscflag !=''"><strong>Anti Theft Disc Cover Premium :</strong>{{AntiTheftDisc_Premium}}</li>
-                                        <li class="list-group-item"*ngIf="previousFormData.HandicapDiscFlag !=''"><strong>Handicap Disc Flag :</strong>{{previousFormData.HandicapDiscFlag}}</li>
-                                        <li class="list-group-item"*ngIf="previousFormData.HandicapDiscFlag !=''"><strong>Handicap Disc Cover Premium :</strong>{{HandicapDisc_Premium}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.Antitheftdiscflag !='false'"><strong>Anti Theft Disc Flag :</strong>{{previousFormData.Antitheftdiscflag}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.Antitheftdiscflag !='false'"><strong>Anti Theft Disc Cover Premium :</strong>{{AntiTheftDisc_Premium}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.HandicapDiscFlag !='false'"><strong>Handicap Disc Flag :</strong>{{previousFormData.HandicapDiscFlag}}</li>
+                                        <li class="list-group-item"*ngIf="previousFormData.HandicapDiscFlag !='false'"><strong>Handicap Disc Cover Premium :</strong>{{HandicapDisc_Premium}}</li>
                                         <!--<li class="list-group-item" *ngIf="previousFormData.HandicapDiscFlag == true"><strong>Handicap Disc Flag :</strong>Yes</li>-->
                                         <!--<li class="list-group-item" *ngIf="previousFormData.HandicapDiscFlag == false"><strong>Handicap Disc Flag :</strong>No</li>-->
                                         <li class="list-group-item"*ngIf="previousFormData.numdrivers !=''"><strong>Number of Drivers :</strong>{{previousFormData.numdrivers}}</li>
