@@ -656,9 +656,10 @@
                                             <div class="row"  >
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Electical Accessory IDV" maxlength="7" formControlName="ElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event);ElecticAccesIDVChange()"  >
+                                                <input matInput placeholder="Electical Accessory IDV" maxlength="7" formControlName="ElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event);" (input)="ElecticAccesIDVChange();electricValidation()"  >
                                                 <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
                                             </mat-form-field>
+                                            <div class="error" *ngIf="electricValid != '' && electricValid != true">{{electricValid}}</div>
                                         </div>
                                             <div class="col-md-4 mt-0" *ngIf="addOns.controls.ElecticalAccessoryIDV.value ">
                                                 <mat-form-field class="w-100">
@@ -672,9 +673,10 @@
                                         <div class="row"  >
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Non Electical Accessory IDV" maxlength="7" formControlName="NonElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event);nonElecticAccesIDVChange()"  >
+                                                <input matInput placeholder="Non Electical Accessory IDV" maxlength="7" formControlName="NonElecticalAccessoryIDV" autocomplete="off" (keypress)="numberValidate($event)" (input)="nonElecticAccesIDVChange();electricNonValidation()" >
                                                 <!--<mat-error *ngIf="addOns.controls.biofuelkit.errors?.required && addOns.controls.[biofuel].value!='' ">Address2 is required</mat-error>-->
                                             </mat-form-field>
+                                            <div class="error" *ngIf="electricNonValid != '' && electricNonValid != true">{{electricNonValid}}</div>
                                         </div>
                                             <div class="col-md-4 mt-0" *ngIf="addOns.controls.NonElecticalAccessoryIDV.value ">
                                                 <mat-form-field class="w-100">

@@ -1229,7 +1229,8 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['perPincode'].patchValue( this.insureArray.controls['currPincode'].value),
           this.insureArray.controls['perState'].patchValue( this.insureArray.controls['currState'].value)
       console.log(this.insureArray.controls['perCity'].value, 'ghghghj');
-    } else {
+    }
+    else if (this.insureArray.controls['isCurrPerAddrSame'].value == false){
       this.insureArray.controls['perAddr1'].patchValue(''),
           this.insureArray.controls['perAddr2'].patchValue(''),
           this.insureArray.controls['perAddr3'].patchValue(''),
@@ -1247,7 +1248,8 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['sperPincode'].patchValue( this.insureArray.controls['scurrPincode'].value),
           this.insureArray.controls['sperState'].patchValue( this.insureArray.controls['scurrState'].value)
       console.log(this.insureArray.controls['sperCity'].value, 'ghghghj');
-    } else {
+    }
+    else if (this.insureArray.controls['sisCurrPerAddrSame'].value == false){
       this.insureArray.controls['sperAddr1'].patchValue(''),
           this.insureArray.controls['sperAddr2'].patchValue(''),
           this.insureArray.controls['sperAddr3'].patchValue(''),
@@ -1269,24 +1271,25 @@ export class EdelweissTermLifeComponent implements OnInit {
   //   }
   // }
 
-  typeAddressDeatils1() {
-    if (this.insureArray.controls['isCurrPerAddrSame'].value) {
-      this.insureArray.controls['perAddr1'].setValue( this.insureArray.controls['currAddr1'].value),
-          this.insureArray.controls['perAddr2'].setValue( this.insureArray.controls['currAddr2'].value),
-          this.insureArray.controls['perAddr3'].setValue( this.insureArray.controls['currAddr3'].value),
-          this.insureArray.controls['perCity'].setValue( this.insureArray.controls['currCity'].value),
-          this.insureArray.controls['perPincode'].setValue( this.insureArray.controls['currPincode'].value),
-          this.insureArray.controls['perState'].setValue( this.insureArray.controls['currState'].value)
-
-    } else {
-      this.insureArray.controls['perAddr1'].setValue(''),
-          this.insureArray.controls['perAddr2'].setValue(''),
-          this.insureArray.controls['perAddr3'].setValue(''),
-          this.insureArray.controls['perCity'].setValue(''),
-          this.insureArray.controls['perPincode'].setValue(''),
-          this.insureArray.controls['perState'].setValue('')
-    }
-  }
+  // typeAddressDeatils1() {
+  //   if (this.insureArray.controls['isCurrPerAddrSame'].value==true) {
+  //     this.insureArray.controls['perAddr1'].setValue( this.insureArray.controls['currAddr1'].value),
+  //         this.insureArray.controls['perAddr2'].setValue( this.insureArray.controls['currAddr2'].value),
+  //         this.insureArray.controls['perAddr3'].setValue( this.insureArray.controls['currAddr3'].value),
+  //         this.insureArray.controls['perCity'].setValue( this.insureArray.controls['currCity'].value),
+  //         this.insureArray.controls['perPincode'].setValue( this.insureArray.controls['currPincode'].value),
+  //         this.insureArray.controls['perState'].setValue( this.insureArray.controls['currState'].value)
+  //
+  //   }
+  //   else if (this.insureArray.controls['isCurrPerAddrSame'].value==false){
+  //     this.insureArray.controls['perAddr1'].setValue(''),
+  //         this.insureArray.controls['perAddr2'].setValue(''),
+  //         this.insureArray.controls['perAddr3'].setValue(''),
+  //         this.insureArray.controls['perCity'].setValue(''),
+  //         this.insureArray.controls['perPincode'].setValue(''),
+  //         this.insureArray.controls['perState'].setValue('')
+  //   }
+  // }
 
   // sameAsInsure() {
   //
