@@ -1252,25 +1252,38 @@
                                         <h6 class="color-blue">PAYOUT OPTIONS</h6>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <mat-form-field class="w-100">
-                                            <mat-select  placeholder="Payout Option" formControlName="payoutOption" (selectionChange)="getpayoutOption()"  class="w-100" required>
+                                            <mat-select  placeholder="Payout Option" formControlName="payoutOption" (selectionChange)="getpayoutOption();payOutReq()"  class="w-100" required>
                                                 <mat-option *ngFor="let list of epayoutOption | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="insureArray.controls.payoutOption.errors?.required">Payout Option is required</mat-error>
                                         </mat-form-field>
                                     </div>
+                                    <div class="col-md-3" *ngIf="insureArray.controls.payoutOption.value=='combination'||insureArray.controls.payoutOption.value=='income_benefit'"  style="margin-top: -21px;">
+                                        <h6 class="color-blue">Select Income Type</h6>
 
-                                    <div class="col-md-6">
+                                        <mat-button-toggle-group class="mat-button-toggle-group1"  name="fontStyle" formControlName="payoutOptionToggle" aria-label="Font Style" [required]="insureArray.controls.payoutOption.value=='combination'||insureArray.controls.payoutOption.value=='income_benefit'">
+                                            <mat-button-toggle  value="levelIncome"><span style="display: block;margin-top: -12px;">Level </span><span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
+                                            <mat-button-toggle  value="increasingIncome"><span style="display: block;margin-top: -12px;">Increasing</span> <span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
+                                        </mat-button-toggle-group>
+                                    </div>
+                                    <!--<div class="col-md-3" *ngIf="insureArray.controls.payoutOption.value=='income_benefit'">-->
+                                        <!--<mat-form-field class="w-100">-->
+                                            <!--<mat-slide-toggle formControlName="payoutOptionToggle" (change)="togglePayOption1( $event)">{{mStatus}}</mat-slide-toggle>-->
+                                        <!--</mat-form-field>-->
+                                    <!--</div>-->
+
+                                    <div class="col-md-2 ml-5" *ngIf="insureArray.controls.payoutOption.value=='combination'">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Payout Percentage Income" formControlName="payoutPercentageIncome" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" required  >
+                                            <input matInput placeholder="Payout Percentage Income" formControlName="payoutPercentageIncome" maxlength="2" (keypress)="numberValidate($event)" autocomplete="off" [required]="insureArray.controls.payoutOption.value=='combination'"  >
                                             <mat-error *ngIf="insureArray.controls.payoutPercentageIncome.errors?.required">Payout Percentage Income is required</mat-error>
                                         </mat-form-field>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-2 ml-5" *ngIf="insureArray.controls.payoutOption.value=='combination'||insureArray.controls.payoutOption.value=='income_benefit'">
                                         <mat-form-field class="w-100">
-                                            <mat-select  placeholder="No Of Months" formControlName="noOfMonths" (selectionChange)="getpayoutMonth()"  class="w-100" required>
+                                            <mat-select  placeholder="No Of Months" formControlName="noOfMonths" (selectionChange)="getpayoutMonth()"  class="w-100" [required]="insureArray.controls.payoutOption.value=='combination'||insureArray.controls.payoutOption.value=='income_benefit'">
                                                 <mat-option *ngFor="let list of epayoutMonth | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="insureArray.controls.noOfMonths.errors?.required">No Of Months is required</mat-error>

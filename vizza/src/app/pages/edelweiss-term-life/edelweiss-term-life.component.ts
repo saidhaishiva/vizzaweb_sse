@@ -253,6 +253,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public ci_sumassured_max:any;
   public tittleread :boolean;
   public otpFalseError :boolean;
+  public mStatus :any;
 
 
   constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
@@ -605,6 +606,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       // isHCB: 'No',
       // sumAssuredHCB: '',
       payoutOption: '',
+      payoutOptionToggle: '',
       // DSA:'No',
       noOfMonths: '',
       payoutPercentageIncome: '',
@@ -4369,7 +4371,8 @@ export class EdelweissTermLifeComponent implements OnInit {
           }
         },
         "DeathBenefitOptions": {
-          "payoutOption": '',
+          "payoutOption": this.insureArray.controls['payoutOption'].value,
+          "incomeOption":this.insureArray.controls['payoutOptionToggle'].value,
           "payoutPercentageIncome":this.insureArray.controls['payoutPercentageIncome'].value,
           "noOfMonths": this.insureArray.controls['noOfMonths'].value,
         }
@@ -6424,6 +6427,36 @@ export class EdelweissTermLifeComponent implements OnInit {
   //
   // public otpGenerationListFailure(error) {
   // }
+    payOutReq() {
+        if (this.insureArray.controls.payoutOption.value == 'combination' ) {
+            this.medicalDetail.controls['payoutOptionToggle'].setValidators([Validators.required]);
+            this.medicalDetail.controls['payoutPercentageIncome'].setValidators([Validators.required]);
+            this.medicalDetail.controls['noOfMonths'].setValidators([Validators.required]);
+
+        } else if (this.insureArray.controls['payoutOption'].value == 'income_benefit') {
+            this.medicalDetail.controls['payoutOptionToggle'].setValidators([Validators.required]);
+            this.medicalDetail.controls['noOfMonths'].setValidators([Validators.required]);
+
+            this.medicalDetail.controls['payoutPercentageIncome'].patchValue('');
+
+            this.medicalDetail.controls['payoutPercentageIncome'].setValidators(null);
+
+        }
+        this.medicalDetail.controls['payoutOptionToggle'].updateValueAndValidity();
+        this.medicalDetail.controls['payoutPercentageIncome'].updateValueAndValidity();
+        this.medicalDetail.controls['noOfMonths'].updateValueAndValidity();
+
+    }
+    // togglePayOption( event: any) {
+    //   if (event.checked == true) {
+    //         // alert('inn');
+    //         this.mStatus = 'Level Income';
+    //
+    //     } else {
+    //         this.mStatus = 'Increasing Income';
+    //     }
+    // }
+
 
 
   getifscEdelweissDetails(ifsc) {
@@ -6725,6 +6758,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         // isHCB:  this.getStepper2.isHCB,
         // sumAssuredHCB: this.getStepper2.sumAssuredHCB,
         payoutOption:  this.getStepper2.payoutOption,
+          payoutOptionToggle:  this.getStepper2.payoutOptionToggle,
         payoutPercentageIncome:  this.getStepper2.payoutPercentageIncome,
         noOfMonths:  this.getStepper2.noOfMonths,
         sameasreadonly: this.getStepper2.sameasreadonly,
