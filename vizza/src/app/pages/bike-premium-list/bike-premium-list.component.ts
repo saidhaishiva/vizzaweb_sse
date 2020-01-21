@@ -332,4 +332,8 @@ console.log(sessionStorage.packae_list,'sessionStorage packae_list');
             this.router.navigate(['/hdfc-twoWheeler-proposal'+ '/' + false]);
         }
     }
+    back(){
+        this.router.navigate(['/bike-insurance']);
+
+    }
 }

@@ -289,5 +289,8 @@ export class FourWheelerProductListComponent implements OnInit {
       this.router.navigate(['/hdfc-car-proposal' + '/' + false]);
     }
   }
+  back(){
+    this.router.navigate(['/four-wheeler-home'])
+  }
 }
 

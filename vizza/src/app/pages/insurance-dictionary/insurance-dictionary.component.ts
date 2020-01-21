@@ -109,11 +109,15 @@ export class InsuranceDictionaryComponent implements OnInit {
 
   public getinsurancedicsearchSuccess(successData) {
     if (successData.IsSuccess == true) {
-
+      this.dictionary = false;
+      this.dictionary = '';
       // this.getinsurancedicsearch = successData.ResponseObject;
       this.getinsurancediccontent = successData.ResponseObject.content;
       console.log(this.getinsurancedicsearch, 'this.getinsurancedicsearch');
 
+    } else{
+      this.dictionary = true;
+      this.dictionary = 'No data found';
     }
   }
 

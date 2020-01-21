@@ -253,8 +253,6 @@ export class BajajGoldSurakshaComponent implements OnInit {
     if (this.bajajgold.valid) {
       if (sessionStorage.age >= 18 && sessionStorage.age <= 65 ) {
         if (this.bajajgold.controls.premium.value >= 30000 && this.bajajgold.controls.premium.value <= 1000000) {
-          console.log(this.auth.getPosId() ,'posid')
-          console.log(this.auth.getPosUserId() ,'posid')
 
 
           const data = {
@@ -274,15 +272,17 @@ export class BajajGoldSurakshaComponent implements OnInit {
             "paymentTerm": this.bajajgold.controls['paymentTerm'].value,
             "premium": this.bajajgold.controls['premium'].value,
             "paymentFrequency": this.bajajgold.controls['frequency'].value,
-            "pos_id": this.auth.getPosUserId() == '' || this.auth.getPosUserId() == undefined ? '0' : this.auth.getPosUserId() ,
+            "pos_id": this.auth.getPosUserId() == '' || this.auth.getPosUserId() == undefined || this.auth.getPosUserId() == null ? '0' : this.auth.getPosUserId() ,
 
             // this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
 
           };
           console.log(data, 'data');
+
           this.commonservices.getUpdateDetails(data).subscribe(
               (successData) => {
                 this.getUpdateSuccess(successData);
+
                 // this.redirectUrl = successData.ResponseObject.redirect_url;
 
               },
@@ -305,6 +305,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
   }
 
   getUpdateSuccess(successData) {
+
     this.redirectUrl = successData.ResponseObject.redirect_url;
     console.log(this.redirectUrl, 'redirect')
     this.window.open(this.redirectUrl,'_top');
