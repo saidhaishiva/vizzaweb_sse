@@ -2,3 +2,18 @@
   border: 1px solid gray !important;
   padding: 22px 31px 9px 23px !important;
 }
+.mat-button-toggle-group1 .mat-button-toggle-checked:first-child{
+  background-color:#3378bd !important;
+  color: #fff !important;
+  font-weight: bold !important;
+}
+.mat-button-toggle-group1 .mat-button-toggle-checked:last-child{
+  background-color: #3378bd !important;
+  color: #fff !important;
+  font-weight: bold !important;
+}
+.app.teal-light .mat-button-toggle-appearance-standard {
+  color: rgba(0, 0, 0, 0.87);
+  background: white;
+  height: 42px !important;
+}

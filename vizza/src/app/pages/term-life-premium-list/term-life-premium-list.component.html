@@ -105,7 +105,8 @@
   <td class="col-md-1 text-center" >
 
 <!--  <div class="col-md-4"  >-->
-    <mat-form-field class="w-75" style="margin-left: 40px;margin-right: -28px;">
+    <mat-form-field class="w-50">
+      <!--style="margin-left: 40px;margin-right: -28px;"-->
       <mat-select  placeholder="Term List"  [(ngModel)]="plists.termDetrails" (selectionChange)="lifeTermChange(plists, i)" [value]="plists.termDetrails">
         <mat-option *ngFor="let termList of plists.term;let i = index " [value]= "termList"> {{termList}} </mat-option>
       </mat-select>
