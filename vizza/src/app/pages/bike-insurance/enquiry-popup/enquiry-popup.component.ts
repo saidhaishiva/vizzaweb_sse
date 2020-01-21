@@ -565,6 +565,7 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
     }
     manufactureYear() {
       this.start = new Date(this.vehicalDetails.controls['registrationDate'].value);
+      console.log(this.vehicalDetails.controls['registrationDate'].value,'456789')
       this.getRegPolicyYear = this.start.getFullYear();
       this.RegYear = this.start.getFullYear()-1;
       console.log(this.getRegPolicyYear, 'getPolicyYear');
@@ -585,7 +586,9 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
 
     }
     maxDatechange() {
+
       let startDate = new Date(this.vehicalDetails.controls['registrationDate'].value);
+      console.log(this.vehicalDetails.controls['registrationDate'].value,'567879')
       let regPolicyYear = startDate.getFullYear();
       console.log(regPolicyYear,'registeryear');
       this.maxDateValidate =this.maxDate.getFullYear();
@@ -683,7 +686,8 @@ console.log(this.manifactureDetails,'this.manifactureDetails...')
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'enquiry_id': '0',
             'vehicle_no':this.vehicalDetails.controls['vehicalNumber'].value,
-            'registration_date': this.vehicalDetails.controls['registrationDate'].value,
+            // 'registration_date': this.vehicalDetails.controls['registrationDate'].value,
+            'registration_date': this.datePipe.transform(this.vehicalDetails.controls['registrationDate'].value, 'y-MM-dd'),
             'previous_policy_expiry_date':this.vehicalDetails.controls['previousPolicyExpiry'].value == null ? '' :this.vehicalDetails.controls['previousPolicyExpiry'].value,
             'previous_policy_no':"12344556",
             'previous_claim_YN': this.enquiryFormData.previous_claim_YN,
