@@ -546,6 +546,10 @@ export class TravelPremiumListComponent implements OnInit {
             }
         }
     }
+    back(){
+        this.router.navigate(['/travel']);
+
+    }
     dyasCalculation() {
         let fDate = this.datePipe.transform(this.startDate, 'MM/dd/yyyy');
         let tDate = this.datePipe.transform(this.endDate, 'MM/dd/yyyy');

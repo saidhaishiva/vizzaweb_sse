@@ -596,9 +596,10 @@
                                         <div class="col-md-3 mt-0" *ngIf="addOns.controls['biofuel'].value ">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Biofuel Kit Price<span class="error" *ngIf="addOns.controls['biofuel'].value!='' ">*</span></mat-placeholder>
-                                                <input matInput  rows="2" maxlength="8" formControlName="biofuelkit"   (keypress)="numberValidate($event)"  (input)="bifuelChange();numberValidate($event);" autocomplete="off">
+                                                <input matInput  rows="2" maxlength="8" formControlName="biofuelkit"   (keypress)="numberValidate($event)"  (input)="bifuelChange();numberValidate($event);bifuelValidation()" autocomplete="off">
                                                 <mat-error *ngIf="addOns.controls.biofuelkit.errors?.required">Biofuel Kit Price cover is Required</mat-error>
                                             </mat-form-field>
+                                            <div class="error" *ngIf="biFuelValid != '' && biFuelValid != true">{{biFuelValid}}</div>
                                         </div>
                                         <div class="col-md-3 mt-0" *ngIf="addOns.controls.biofuelkit.value!=''">
                                             <mat-form-field class="w-100">
@@ -712,9 +713,11 @@
                                                 <div class="col-md-3" *ngIf="addOns.controls.IsPaidDriver.value==true">
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>Paid Driver SI<span class="error" *ngIf="addOns.controls.IsPaidDriver.value==true">*</span></mat-placeholder>
-                                                        <input matInput  formControlName="paiddriversi" maxlength="7" autocomplete="off" (keypress)="numberValidate($event);paiddriverFlagChange()"  >
+                                                        <input matInput  formControlName="paiddriversi" maxlength="7" autocomplete="off" (input)="numberValidate($event);paiddriverFlagChange();paidPersonValidation()"  >
                                                         <mat-error *ngIf="addOns.controls.paiddriversi.errors?.required">Paid DriverSi is required</mat-error>
                                                     </mat-form-field>
+                                                    <div class="error" *ngIf="paidPersonSiValid != '' && paidPersonSiValid != true">{{paidPersonSiValid}}</div>
+
                                                 </div>
                                                 <div class="col-md-4 mt-0" *ngIf="addOns.controls.paiddriversi.value ">
                                                     <mat-form-field class="w-100">
@@ -736,10 +739,11 @@
                                            <div class="col-md-3" *ngIf="addOns.controls['NoofUnnamedPerson'].value ==true">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Unnamed Person SI<span class="error" *ngIf="addOns.controls['NoofUnnamedPerson'].value ==true">*</span></mat-placeholder>
-                                                <input matInput  formControlName="UnnamedPersonSI" autocomplete="off" maxlength="7" (keypress)="numberValidate($event);UnnamedPersonChange()"  >
+                                                <input matInput  formControlName="UnnamedPersonSI" autocomplete="off" maxlength="7" (input)="numberValidate($event);UnnamedPersonChange();unnamedPersonValidation()"  >
                                                 <mat-error *ngIf="addOns.controls.UnnamedPersonSI.errors?.required  ">Unnamed Person SI is required</mat-error>
                                             </mat-form-field>
-                                        </div>
+                                               <div class="error" *ngIf="unnamedPersonSiValid != '' && unnamedPersonSiValid != true">{{unnamedPersonSiValid}}</div>
+                                           </div>
                                            <div class="col-md-4 mt-0" *ngIf="addOns.controls.UnnamedPersonSI.value ">
                                                <mat-form-field class="w-100">
                                                    <input matInput placeholder="Cover Premium"  formControlName="totalUnnamedPersonSIPremium"  autocomplete="off"  [required]="addOns.controls.UnnamedPersonSI.value" readonly>
@@ -764,9 +768,10 @@
                                         <div class="col-md-3" *ngIf="addOns.controls['NoofnamedPerson'].value ">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Named Person SI<span class="error" *ngIf="addOns.controls['NoofnamedPerson'].value ">*</span></mat-placeholder>
-                                                <input matInput  formControlName="namedPersonSI" maxlength="10" autocomplete="off" (keypress)="numberValidate($event);namedPersonSIChange()"  >
+                                                <input matInput  formControlName="namedPersonSI" maxlength="10" autocomplete="off" (input)="numberValidate($event);namedPersonSIChange();namedPersonValidation()"  >
                                                 <mat-error *ngIf="addOns.controls.namedPersonSI.errors?.required  ">Named Person SI is required</mat-error>
                                             </mat-form-field>
+                                            <div class="error" *ngIf="namedPersonSiValid != '' && namedPersonSiValid != true">{{namedPersonSiValid}}</div>
                                         </div>
                                         <div class="col-md-4 mt-0" *ngIf="addOns.controls['namedPersonSI'].value">
                                              <mat-form-field class="w-100">
