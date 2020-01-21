@@ -573,10 +573,15 @@ export class CommonService {
     getUpdateDetails(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
+        alert('inn');
+        console.log(HttpHeaders,'hgfhgf' );
+        console.log(HttpHeaders );
         const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*','Accesstoken': token})
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*','Accesstoken': token ? token:''})
         };
-        const url = this.configurationService.getmiscproduct() + 'bajaj/create_enquiry' ;
+        console.log(httpOptions,'hjfghgf');
+
+        const url = this.configurationService.getmiscproduct() + 'bajaj/create_enquiry';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
