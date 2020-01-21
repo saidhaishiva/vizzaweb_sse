@@ -134,13 +134,24 @@ export class LearningcenterService {
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
-    }getinsurancedic(data) {
+    }
+    getinsurancedic(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostHome() + '/dictionary/get_details';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }getinsurancedicsearch(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHome() + 'dictionary/search';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
