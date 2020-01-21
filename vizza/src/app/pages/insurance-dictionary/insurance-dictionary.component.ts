@@ -16,7 +16,10 @@ export class InsuranceDictionaryComponent implements OnInit {
   getinsurancedicsearch: any;
   dictionary:any;
 
-  constructor(public learning: LearningcenterService, public auth: AuthService) { }
+  constructor(public learning: LearningcenterService, public auth: AuthService) {
+    this.searchval='';
+    this.search='';
+  }
 
   ngOnInit() {
     this.value='A';
@@ -25,10 +28,10 @@ export class InsuranceDictionaryComponent implements OnInit {
     this.dictionary=false;
   }
   updateFilter(event) {
+
     this.search = event.target.value.toLowerCase();
     console.log(this.search, 'val');
     this.insurancedicSearch();
-    this.insurancedic();
 
 
   }
@@ -37,6 +40,8 @@ export class InsuranceDictionaryComponent implements OnInit {
     // console.log(event,'87345678');
     // console.log(event.target.value,'87345678');
     this.value= event.target.value;
+    this.searchval='';
+    this.search='';
     this.insurancedic();
 
   }
@@ -48,7 +53,7 @@ export class InsuranceDictionaryComponent implements OnInit {
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'alphabets':this.value,
-      'search': this.search
+      'search': ''
     }
     this.learning.getinsurancedic(data).subscribe(
         (successData) => {
@@ -71,7 +76,6 @@ export class InsuranceDictionaryComponent implements OnInit {
       console.log(this.getinsurancediccontent, 'this.getinsurancediccontent');
       for (let i = 0; i < this.getinsurancedicList.length; i++) {
         console.log(this.getinsurancedicList.content[i], "12345678");
-        this.insurancedicSearch();
       }
     }else {
       this.dictionary = true;
@@ -106,7 +110,8 @@ export class InsuranceDictionaryComponent implements OnInit {
   public getinsurancedicsearchSuccess(successData) {
     if (successData.IsSuccess == true) {
 
-      this.getinsurancedicsearch = successData.ResponseObject;
+      // this.getinsurancedicsearch = successData.ResponseObject;
+      this.getinsurancediccontent = successData.ResponseObject.content;
       console.log(this.getinsurancedicsearch, 'this.getinsurancedicsearch');
 
     }
