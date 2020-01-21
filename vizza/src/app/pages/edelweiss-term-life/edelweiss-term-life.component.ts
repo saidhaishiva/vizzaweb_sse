@@ -6429,22 +6429,22 @@ export class EdelweissTermLifeComponent implements OnInit {
   // }
     payOutReq() {
         if (this.insureArray.controls.payoutOption.value == 'combination' ) {
-            this.medicalDetail.controls['payoutOptionToggle'].setValidators([Validators.required]);
-            this.medicalDetail.controls['payoutPercentageIncome'].setValidators([Validators.required]);
-            this.medicalDetail.controls['noOfMonths'].setValidators([Validators.required]);
+            this.insureArray.controls['payoutOptionToggle'].setValidators([Validators.required]);
+            this.insureArray.controls['payoutPercentageIncome'].setValidators([Validators.required]);
+            this.insureArray.controls['noOfMonths'].setValidators([Validators.required]);
 
         } else if (this.insureArray.controls['payoutOption'].value == 'income_benefit') {
-            this.medicalDetail.controls['payoutOptionToggle'].setValidators([Validators.required]);
-            this.medicalDetail.controls['noOfMonths'].setValidators([Validators.required]);
+            this.insureArray.controls['payoutOptionToggle'].setValidators([Validators.required]);
+            this.insureArray.controls['noOfMonths'].setValidators([Validators.required]);
 
-            this.medicalDetail.controls['payoutPercentageIncome'].patchValue('');
+            this.insureArray.controls['payoutPercentageIncome'].patchValue('');
 
-            this.medicalDetail.controls['payoutPercentageIncome'].setValidators(null);
+            this.insureArray.controls['payoutPercentageIncome'].setValidators(null);
 
         }
-        this.medicalDetail.controls['payoutOptionToggle'].updateValueAndValidity();
-        this.medicalDetail.controls['payoutPercentageIncome'].updateValueAndValidity();
-        this.medicalDetail.controls['noOfMonths'].updateValueAndValidity();
+        this.insureArray.controls['payoutOptionToggle'].updateValueAndValidity();
+        this.insureArray.controls['payoutPercentageIncome'].updateValueAndValidity();
+        this.insureArray.controls['noOfMonths'].updateValueAndValidity();
 
     }
     // togglePayOption( event: any) {

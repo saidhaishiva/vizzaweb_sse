@@ -517,7 +517,7 @@ export class LifeBajajProposalComponent implements OnInit {
         console.log(this.proposer.controls['politicallyExposedPerson'].value,'456787656789')
         if ((this.proposer.controls['politicallyExposedPerson'].value==''||this.proposer.controls['politicallyExposedPerson'].value==undefined||this.proposer.controls['politicallyExposedPerson'].value==null)) {
             this.PreviousValid=true;
-            this.PreviousValid = 'Please Select Previous Nil Description';
+            this.PreviousValid = 'Please Select Politically Exposed Person';
 
         } else {
             this.PreviousValid=false;

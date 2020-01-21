@@ -781,8 +781,7 @@
                 </div>
               </section>
               <div>
-               <p>  To Download BI Form Click <a href *ngIf="requestedUrl !=''" (click)="saveImageAs1(requestedUrl)" style="cursor: pointer;margin-left: 10px;color: blueviolet">
-                   <u> Here </u></a></p>
+               <p>  To Download BI Form Click <a href *ngIf="requestedUrl !=''" (click)="saveImageAs1(requestedUrl)" style="cursor: pointer;margin-left: 10px;color: blueviolet"><u> Here </u></a></p>
                 <pdf-viewer src="{{requestedUrl}}"
                             [render-text]="true"
                             style="display: block;"

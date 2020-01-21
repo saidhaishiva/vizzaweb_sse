@@ -2020,9 +2020,10 @@ export class AegonTermLifeComponent implements OnInit {
   }
   public setProposalFailure(error) {
   }
-  saveImageAs1(adress) {
-    console.log(adress,'adress')
-    window.open(adress);
+  saveImageAs1(document) {
+    console.log(document,'document')
+    // window.open(document);
+    this.window.open(document, '_blank');
   }
 
 
