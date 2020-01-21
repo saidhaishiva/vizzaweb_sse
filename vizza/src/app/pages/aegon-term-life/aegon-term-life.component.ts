@@ -15,7 +15,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {ValidationService} from '../../shared/services/validation.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {Observable, Subject} from 'rxjs';
@@ -132,7 +132,7 @@ export class AegonTermLifeComponent implements OnInit {
 
 
 
-  constructor(@Inject(WINDOW) private window: Window, public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public config: ConfigurationService) {
+  constructor(@Inject(WINDOW) private window: Window,public router: Router, public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public config: ConfigurationService) {
     let stepperindex = 0;
     this.requestedUrl = '';
     this.redirectUrl='';
@@ -2020,10 +2020,8 @@ export class AegonTermLifeComponent implements OnInit {
   }
   public setProposalFailure(error) {
   }
-  saveImageAs1(document) {
-    console.log(document,'document')
-    // window.open(document);
-    this.window.open(document, '_blank');
+  saveImageAs1() {
+    this.window.open(this.requestedUrl, '_blank');
   }
 
 
