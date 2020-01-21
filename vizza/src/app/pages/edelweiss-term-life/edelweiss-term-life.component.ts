@@ -556,7 +556,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       naturedutyName: '',
       employerAddr: ['', Validators.compose([Validators.required])],
       annualIncome: ['', Validators.compose([Validators.required])],
-      // taxResidence: ['', Validators.compose([Validators.required])],
+      taxResidence: ['', Validators.compose([Validators.required])],
       isPoliticallyExposed: false,
       specification: '',
       // Cover:['', Validators.compose([Validators.required])],
@@ -578,10 +578,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       weightChangedreason: '',
       insureHistory: 'No',
       insureAccNo: '',
-      provideAccNo: '',
-      epolicy: 'No',
-      einsureAccNo: 'No',
-      epolicy1: 'No',
+      // provideAccNo: '',
+      // epolicy: 'No',
+      // einsureAccNo: 'No',
+      // epolicy1: 'No',
       insureRepository: '',
       // planOption: 'No',
       // workSiteFlag: 'No',
@@ -901,7 +901,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
     // this.insureArray.controls['modeOfPremium'].patchValue(this.enquiryFromDetials.payment_mode);
     console.log(this.enquiryFromDetials.lifePayment,'lifepayment');
-    console.log(this.insureArray.controls['modeOfPremium'].value,'lifepayment');
+    // console.log(this.insureArray.controls['modeOfPremium'].value,'lifepayment');
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
 
   }
@@ -3422,6 +3422,128 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
+  travelOutside1(){
+
+    if(this.medicalDetail.controls['travelOutsideIndia'].value != ''){
+      this.errortravelOutside=false;
+      this.errortravelOutside= '';
+    }
+     if(this.medicalDetail.controls['pilot'].value != ''){
+      this.piloterror=false;
+      this.piloterror= '';
+    }
+     if(this.medicalDetail.controls['activity'].value != ''){
+      this.activityerror=false;
+      this.activityerror= '';
+    }
+     if(this.medicalDetail.controls['drugsInd'].value != ''){
+      this.drugsInderror=false;
+      this.drugsInderror= '';
+    }
+    if(this.medicalDetail.controls['alcoholInd'].value != ''){
+      this.alcoholInderror=false;
+      this.alcoholInderror= '';
+    }
+     if(this.medicalDetail.controls['tobaccoInd'].value != ''){
+      this.tobaccoInderror=false;
+      this.tobaccoInderror= '';
+    }
+    if(this.medicalDetail.controls['consultDoctorInd'].value != ''){
+      this.consultDoctorInderror=false;
+      this.consultDoctorInderror= '';
+    }
+    if(this.medicalDetail.controls['ECGInd'].value != ''){
+      this.ECGInderror=false;
+      this.ECGInderror= '';
+    }
+    if(this.medicalDetail.controls['admitInd'].value != ''){
+      this.admitInderror=false;
+      this.admitInderror= '';
+    }
+   if(this.medicalDetail.controls['medicalTreatment'].value != ''){
+      this.medicalTreatmenterror=false;
+      this.medicalTreatmenterror= '';
+    }
+    if(this.medicalDetail.controls['heartDieaseInd'].value != ''){
+      this.heartDieaseInderror=false;
+      this.heartDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['respiratoryDieaseInd'].value != ''){
+      this.respiratoryDieaseInderror=false;
+      this.respiratoryDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['diabetesInd'].value != ''){
+      this.diabetesInderror=false;
+      this.diabetesInderror= '';
+    }
+    if(this.medicalDetail.controls['kidneyDieaseInd'].value != ''){
+      this.kidneyDieaseInderror=false;
+      this.kidneyDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['digestiveDieaseInd'].value != ''){
+      this.digestiveDieaseInderror=false;
+      this.digestiveDieaseInderror= '';
+    }
+   if(this.medicalDetail.controls['cancerDieaseInd'].value != ''){
+      this.cancerDieaseInderror=false;
+      this.cancerDieaseInderror= '';
+    }
+   if(this.medicalDetail.controls['tropicalDieaseInd'].value != ''){
+      this.tropicalDieaseInderror=false;
+      this.tropicalDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['thyroidDieaseInd'].value != ''){
+      this.thyroidDieaseInderror=false;
+      this.thyroidDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['bloodDieaseInd'].value != ''){
+      this.bloodDieaseInderror=false;
+      this.bloodDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['nervousDieaseInd'].value != ''){
+      this.nervousDieaseInderror=false;
+      this.nervousDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['femaleDieaseInd'].value != ''){
+      this.femaleDieaseInderror=false;
+      this.femaleDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['muscleDieaseInd'].value != ''){
+      this.muscleDieaseInderror=false;
+      this.muscleDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['receivedTreatment2'].value != ''){
+      this.receivedTreatment2error=false;
+      this.receivedTreatment2error= '';
+    }
+    if(this.medicalDetail.controls['alcoholicInd'].value != ''){
+      this.alcoholicInderror=false;
+      this.alcoholicInderror= '';
+    }
+    if(this.medicalDetail.controls['otherIllnessInd'].value != ''){
+      this.otherIllnessInderror=false;
+      this.otherIllnessInderror= '';
+    }
+    if(this.medicalDetail.controls['deformityInd'].value != ''){
+      this.deformityInderror=false;
+      this.deformityInderror= '';
+    }
+    if(this.medicalDetail.controls['receivedTreatment1'].value != ''){
+      this.receivedTreatment1error=false;
+      this.receivedTreatment1error= '';
+    }
+     if(this.medicalDetail.controls['symptomsInd'].value != ''){
+      this.symptomsInderror=false;
+      this.symptomsInderror= '';
+    }
+    if(this.medicalDetail.controls['pregnantInd'].value != ''){
+      this.pregnantInderror=false;
+      this.pregnantInderror= '';
+    }
+
+  }
+
+
 
 
 
@@ -3656,48 +3778,56 @@ export class EdelweissTermLifeComponent implements OnInit {
 
 
   isInsureAccNo() {
-
     if (this.insureArray.controls['insureAccNo'].value == 'Yes') {
-      this.insureArray.controls['provideAccNo'].patchValue(this.insureArray.controls['provideAccNo'].value);
-      this.insureArray.controls['epolicy'].patchValue(this.insureArray.controls['epolicy'].value);
-
-      this.insureArray.controls['provideAccNo'].setValidators([Validators.required]);
-      this.insureArray.controls['epolicy'].setValidators([Validators.required]);
-
-    } else {
-      this.insureArray.controls['provideAccNo'].patchValue('');
-      this.insureArray.controls['epolicy'].patchValue('No');
-      this.insureArray.controls['einsureAccNo'].patchValue('');
-
+      this.insureArray.controls['insureRepository'].setValidators(null);
+      this.insureArray.controls['insureRepository'].patchValue('');
+    }else if (this.insureArray.controls['insureAccNo'].value == 'No'){
+      this.insureArray.controls['insureRepository'].setValidators([Validators.required]);
     }
-
-    if (this.insureArray.controls['insureAccNo'].value == 'No') {
-      this.insureArray.controls['einsureAccNo'].patchValue(this.insureArray.controls['einsureAccNo'].value);
-      this.insureArray.controls['einsureAccNo'].setValidators([Validators.required]);
-
-
-      if ( this.insureArray.controls['insureAccNo'].value == 'No'  && this.insureArray.controls['einsureAccNo'].value == 'Yes') {
-        this.insureArray.controls['epolicy1'].patchValue(this.insureArray.controls['epolicy1'].value);
-        this.insureArray.controls['insureRepository'].patchValue(this.insureArray.controls['insureRepository'].value);
-
-        this.insureArray.controls['epolicy1'].setValidators([Validators.required]);
-        this.insureArray.controls['insureRepository'].setValidators([Validators.required]);
-      } else {
-        this.insureArray.controls['epolicy1'].patchValue('No');
-        this.insureArray.controls['insureRepository'].patchValue('NSDL Data Management Limited');
-
-        this.insureArray.controls['provideAccNo'].setValidators(null);
-        this.insureArray.controls['epolicy'].setValidators(null);
-        this.insureArray.controls['einsureAccNo'].setValidators(null);
-        this.insureArray.controls['epolicy1'].setValidators(null);
-        this.insureArray.controls['insureRepository'].setValidators(null);
-      }
-    }
-    this.insureArray.controls['provideAccNo'].updateValueAndValidity();
-    this.insureArray.controls['epolicy'].updateValueAndValidity();
-    this.insureArray.controls['einsureAccNo'].updateValueAndValidity();
-    this.insureArray.controls['epolicy1'].updateValueAndValidity();
     this.insureArray.controls['insureRepository'].updateValueAndValidity();
+
+
+    // if (this.insureArray.controls['insureAccNo'].value == 'Yes') {
+    //   this.insureArray.controls['provideAccNo'].patchValue(this.insureArray.controls['provideAccNo'].value);
+    //   this.insureArray.controls['epolicy'].patchValue(this.insureArray.controls['epolicy'].value);
+    //
+    //   this.insureArray.controls['provideAccNo'].setValidators([Validators.required]);
+    //   this.insureArray.controls['epolicy'].setValidators([Validators.required]);
+    //
+    // } else {
+    //   this.insureArray.controls['provideAccNo'].patchValue('');
+    //   this.insureArray.controls['epolicy'].patchValue('No');
+    //   this.insureArray.controls['einsureAccNo'].patchValue('');
+    //
+    // }
+    //
+    // if (this.insureArray.controls['insureAccNo'].value == 'No') {
+    //   this.insureArray.controls['einsureAccNo'].patchValue(this.insureArray.controls['einsureAccNo'].value);
+    //   this.insureArray.controls['einsureAccNo'].setValidators([Validators.required]);
+    //
+    //
+    //   if ( this.insureArray.controls['insureAccNo'].value == 'No'  && this.insureArray.controls['einsureAccNo'].value == 'Yes') {
+    //     this.insureArray.controls['epolicy1'].patchValue(this.insureArray.controls['epolicy1'].value);
+    //     this.insureArray.controls['insureRepository'].patchValue(this.insureArray.controls['insureRepository'].value);
+    //
+    //     this.insureArray.controls['epolicy1'].setValidators([Validators.required]);
+    //     this.insureArray.controls['insureRepository'].setValidators([Validators.required]);
+    //   } else {
+    //     this.insureArray.controls['epolicy1'].patchValue('No');
+    //     this.insureArray.controls['insureRepository'].patchValue('NSDL Data Management Limited');
+    //
+    //     this.insureArray.controls['provideAccNo'].setValidators(null);
+    //     this.insureArray.controls['epolicy'].setValidators(null);
+    //     this.insureArray.controls['einsureAccNo'].setValidators(null);
+    //     this.insureArray.controls['epolicy1'].setValidators(null);
+    //     this.insureArray.controls['insureRepository'].setValidators(null);
+    //   }
+    // }
+    // this.insureArray.controls['provideAccNo'].updateValueAndValidity();
+    // this.insureArray.controls['epolicy'].updateValueAndValidity();
+    // this.insureArray.controls['einsureAccNo'].updateValueAndValidity();
+    // this.insureArray.controls['epolicy1'].updateValueAndValidity();
+    // this.insureArray.controls['insureRepository'].updateValueAndValidity();
 
   }
   isdrugsInd() {
@@ -4479,10 +4609,10 @@ export class EdelweissTermLifeComponent implements OnInit {
         "incomeProof":"",
         "incomeProofText": "",
         "hasEIAccount":this.insureArray.controls['insureAccNo'].value,
-        "EIAccountNo":this.insureArray.controls['einsureAccNo'].value ,
-        "applyEIAccount":this.insureArray.controls['provideAccNo'].value,
+        "EIAccountNo":'',
+        "applyEIAccount":'',
         "EIARepository":this.insureArray.controls['insureRepository'].value,
-        "wantEPolicy":this.insureArray.controls['epolicy'].value  ,
+        "wantEPolicy":'',
         "relationLAProposer":'SELF',
         "height":"",
         "heightFeets":this.insureArray.controls['heightFeets'].value,
@@ -6730,10 +6860,10 @@ export class EdelweissTermLifeComponent implements OnInit {
         weightChangedreason: this.getStepper2.weightChangedreason,
         insureHistory: this.getStepper2.insureHistory,
         insureAccNo: this.getStepper2.insureAccNo,
-        provideAccNo: this.getStepper2.provideAccNo,
-        epolicy: this.getStepper2.epolicy,
-        einsureAccNo: this.getStepper2.einsureAccNo,
-        epolicy1: this.getStepper2.epolicy1,
+        // provideAccNo: this.getStepper2.provideAccNo,
+        // epolicy: this.getStepper2.epolicy,
+        // einsureAccNo: this.getStepper2.einsureAccNo,
+        // epolicy1: this.getStepper2.epolicy1,
         insureRepository: this.getStepper2.insureRepository,
         // planOption:  this.getStepper2.planOption,
         workSiteFlag:  this.getStepper2.workSiteFlag,
