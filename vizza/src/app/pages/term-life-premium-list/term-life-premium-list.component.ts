@@ -682,6 +682,12 @@ export class TermLifePremiumListComponent implements OnInit {
     public termChangeFailure(error){
 
     }
+    back(){
+        this.router.navigate(['/term-life']);
+
+
+    }
+
 }
 
 @Component({
