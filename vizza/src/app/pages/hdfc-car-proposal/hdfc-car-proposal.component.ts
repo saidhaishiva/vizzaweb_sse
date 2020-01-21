@@ -115,6 +115,10 @@ export class HdfcCarProposalComponent implements OnInit {
     public Electical_Acc_Premium: any;
     public electricValid: any;
     public electricNonValid: any;
+    public biFuelValid: any;
+    public namedPersonSiValid: any;
+    public unnamedPersonSiValid: any;
+    public paidPersonSiValid: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -157,6 +161,10 @@ export class HdfcCarProposalComponent implements OnInit {
       String ;this.tod = this.tod.substring(0, 10);
       this.sameasper = false;
       this.electricValid = false;
+      this.namedPersonSiValid = false;
+      this.unnamedPersonSiValid = false;
+      this.paidPersonSiValid = false;
+      this.biFuelValid = false;
       this.electricNonValid = false;
 
 
@@ -918,6 +926,17 @@ ChangeGender(){
         this.addOns.controls['totalbiofuelkitPremium'].updateValueAndValidity();
         this.addOns.controls['totalbiofuelkitPremium1'].updateValueAndValidity();
     }
+    bifuelValidation() {
+    if(this.addOns.controls.biofuelkit.value >= 1000){
+    this.biFuelValid=false;
+    this.biFuelValid='';
+    this.getCover();
+}else{
+    this.biFuelValid=true;
+    this.biFuelValid='Biofuel Kit Price should be Equal to Or Greater than 1000';
+}
+
+}
     bifuelChangeValue(){
         this.addOns.controls['totalbiofuelkitPremium'].patchValue(this.BiFuel_Kit_OD_Premium);
         this.addOns.controls['totalbiofuelkitPremium1'].patchValue(this.BiFuel_Kit_TP_Premium);
@@ -971,7 +990,6 @@ ChangeGender(){
           this.electricValid=true;
           this.electricValid='Electical Accessory IDV should be Equal to Or Greater than 10000';
       }
-
     }
 
     ElecticAccesValue(){
@@ -989,7 +1007,7 @@ ChangeGender(){
         this.addOns.controls['totalNonElecticAccessIDVPremium'].updateValueAndValidity();
     }
     electricNonValidation(){
-        if(this.addOns.controls.ElecticalAccessoryIDV.value >= 10000){
+        if(this.addOns.controls.NonElecticalAccessoryIDV.value >= 10000){
             this.electricNonValid=false;
             this.electricNonValid='';
             this.getCover();
@@ -1026,6 +1044,36 @@ ChangeGender(){
             this.addOns.controls['totalNamedPersonPremium'].setValidators(null);
         }
         this.addOns.controls['totalNamedPersonPremium'].updateValueAndValidity();
+    }
+    namedPersonValidation(){
+        if(this.addOns.controls.namedPersonSI.value >= 100000 ){
+            this.namedPersonSiValid=false;
+            this.namedPersonSiValid='';
+            this.getCover();
+        }else{
+            this.namedPersonSiValid=true;
+            this.namedPersonSiValid='Named Person SI should be Equal to Or Greater than 100000';
+        }
+    }
+    unnamedPersonValidation(){
+        if(this.addOns.controls.UnnamedPersonSI.value >= 100000 ){
+            this.unnamedPersonSiValid=false;
+            this.unnamedPersonSiValid='';
+            this.getCover();
+        }else{
+            this.unnamedPersonSiValid=true;
+            this.unnamedPersonSiValid='Unnamed Person SI should be Equal to Or Greater than 100000';
+        }
+    }
+    paidPersonValidation(){
+        if(this.addOns.controls.paiddriversi.value >= 10000  ){
+            this.paidPersonSiValid=false;
+            this.paidPersonSiValid='';
+            this.getCover();
+        }else{
+            this.paidPersonSiValid=true;
+            this.paidPersonSiValid='Unnamed Person SI should be Equal to Or Greater than 10000 ';
+        }
     }
     namedPersonSIValue(){
         this.addOns.controls['totalNamedPersonPremium'].patchValue(this.NamedPerson_premium);
