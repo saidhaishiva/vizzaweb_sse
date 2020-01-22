@@ -607,6 +607,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       // isHCB: 'No',
       // sumAssuredHCB: '',
       payoutOption: '',
+      payoutOptionName: '',
       payoutOptionToggle: '',
       // DSA:'No',
       noOfMonths: '',
@@ -1035,7 +1036,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       age :  new FormControl(),
       ageOnDeath :  new FormControl(),
       healthStatus :  new FormControl(),
-      // relationName :  new FormControl(),
+      relationName :  new FormControl(),
       causeOfDeath :  new FormControl(),
       // causeDeathName :  new FormControl(),
 
@@ -1774,7 +1775,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addon.valid, 'this.valid');
     // let dateErrorMsg = [];
     if (this.addon.valid  ) {
-      if (this.atpdError == '' && this.adbError == '' && this.ciError == '' && this.hcbdError == '') {
+      if (this.atpdError == false && this.adbError == false && this.ciError == false && this.hcbdError == false) {
         // this.tittleread == true;
         this.insureArray.controls['title'].patchValue(this.customerDetails.controls['title'].value);
         this.insureArray.controls['firstName'].patchValue(this.customerDetails.controls['firstName'].value);
@@ -2848,11 +2849,11 @@ export class EdelweissTermLifeComponent implements OnInit {
         if (i != 0) {
         }
         this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue('');
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue('');
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(null);
         this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue('');
         this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue('');
         this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue('');
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue('');
+        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(null);
         this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue('');
         this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue('');
 
@@ -5392,6 +5393,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
 
     }
+    this.settings.loadingSpinner = true;
 
     this.termService.edelweissPrimium(data).subscribe(
         (successData) => {
@@ -5405,6 +5407,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   public edelweissPrimiumSuccess(successData) {
+    this.settings.loadingSpinner = false;
     if (successData.ResponseObject) {
       this.eePremiumTerm = successData.ResponseObject;
       // this.eePremiumTerm = this.eePremiumTerm;
@@ -6605,10 +6608,16 @@ export class EdelweissTermLifeComponent implements OnInit {
   // public otpGenerationListFailure(error) {
   // }
     payOutReq() {
+
         if (this.insureArray.controls.payoutOption.value == 'combination' ) {
             this.insureArray.controls['payoutOptionToggle'].setValidators([Validators.required]);
             this.insureArray.controls['payoutPercentageIncome'].setValidators([Validators.required]);
             this.insureArray.controls['noOfMonths'].setValidators([Validators.required]);
+
+          this.insureArray.controls['payoutOptionToggle'].patchValue('');
+          this.insureArray.controls['noOfMonths'].patchValue('');
+
+
 
         } else if (this.insureArray.controls['payoutOption'].value == 'income_benefit') {
             this.insureArray.controls['payoutOptionToggle'].setValidators([Validators.required]);
@@ -6624,6 +6633,17 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.insureArray.controls['noOfMonths'].updateValueAndValidity();
 
     }
+  payoutLumpSum() {
+    if (this.insureArray.controls.payoutOption.value == 'lumpsum') {
+      this.insureArray.controls['payoutOptionToggle'].setValidators(null);
+      this.insureArray.controls['payoutPercentageIncome'].setValidators(null);
+      this.insureArray.controls['noOfMonths'].setValidators(null);
+
+      this.insureArray.controls['payoutOptionToggle'].patchValue('');
+      this.insureArray.controls['payoutPercentageIncome'].patchValue('');
+      this.insureArray.controls['noOfMonths'].patchValue('');
+    }
+  }
     // togglePayOption( event: any) {
     //   if (event.checked == true) {
     //         // alert('inn');
@@ -6935,6 +6955,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         // isHCB:  this.getStepper2.isHCB,
         // sumAssuredHCB: this.getStepper2.sumAssuredHCB,
         payoutOption:  this.getStepper2.payoutOption,
+        payoutOptionName:  this.getStepper2.payoutOptionName,
           payoutOptionToggle:  this.getStepper2.payoutOptionToggle,
         payoutPercentageIncome:  this.getStepper2.payoutPercentageIncome,
         noOfMonths:  this.getStepper2.noOfMonths,
@@ -6986,7 +7007,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].age.patchValue(getMedicalDetail.medicalFamilyQuestions[i].age);
           this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].ageOnDeath.patchValue(getMedicalDetail.medicalFamilyQuestions[i].ageOnDeath);
           this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.patchValue(getMedicalDetail.medicalFamilyQuestions[i].healthStatus);
-          // this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relationName.patchValue(getMedicalDetail.medicalFamilyQuestions[i].relationName);
+          this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relationName.patchValue(getMedicalDetail.medicalFamilyQuestions[i].relationName);
           this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].causeOfDeath.patchValue(getMedicalDetail.medicalFamilyQuestions[i].causeOfDeath);
           // this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].causeDeathName.patchValue(getMedicalDetail.medicalFamilyQuestions[i].causeDeathName);
 
@@ -6997,7 +7018,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].ageOnDeath.patchValue(getMedicalDetail.medicalFamilyQuestions[i].ageOnDeath);
           this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.patchValue(getMedicalDetail.medicalFamilyQuestions[i].healthStatus);
           this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].causeOfDeath.patchValue(getMedicalDetail.medicalFamilyQuestions[i].causeOfDeath);
-          // this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].causeDeathName.patchValue(getMedicalDetail.medicalFamilyQuestions[i].causeDeathName);
+          this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relationName.patchValue(getMedicalDetail.medicalFamilyQuestions[i].relationName);
 
         }
       }
@@ -7289,15 +7310,18 @@ export class EdelweissTermLifeComponent implements OnInit {
   idProofName() {
     this.insureArray.controls['identityProofName'].patchValue(this.eIdProof[this.insureArray.controls['identityProof'].value]);
   }
+  payoutName(){
+    this.insureArray.controls['payoutOptionName'].patchValue(this.epayoutOption[this.insureArray.controls['payoutOption'].value]);
+  }
   addressProofName() {
     this.insureArray.controls['addrProofName'].patchValue(this.eAddressProof[this.insureArray.controls['addrProof'].value]);
   }
   geteNomineeRelationName(i) {
     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName.patchValue(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship.value] );
   }
-  // geteFamRelationshipName(i) {
-  //   this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relationName.patchValue(this.eNomineeRelation[this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relation.value] );
-  // }
+  geteFamRelationshipName(i) {
+    this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relationName.patchValue(this.eNomineeRelation[this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relation.value] );
+  }
   // geteFacauseDeath(i) {
   //   this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].causeDeathName.patchValue(this.eCauseDeath[this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].causeOfDeath.value] );
   // }
