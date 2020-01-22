@@ -455,7 +455,7 @@ export class CommonService {
     //         .catch(this.handleError);
     // }
     //referral code
-    getReferralCode(data){
+    getReferralCode(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -573,14 +573,9 @@ export class CommonService {
     getUpdateDetails(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
-        alert('inn');
-        console.log(HttpHeaders,'hgfhgf' );
-        console.log(HttpHeaders );
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*','Accesstoken': token ? token:''})
         };
-        console.log(httpOptions,'hjfghgf');
-
         const url = this.configurationService.getmiscproduct() + 'bajaj/create_enquiry';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)

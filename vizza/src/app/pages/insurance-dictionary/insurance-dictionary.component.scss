@@ -5,17 +5,17 @@
   }
 
   tbody {
-    height: 300px;
+    height: 700px;
     overflow: auto;
     overflow-x: hidden;
     display: block;
-    width: 100%;
+    //width: 100%;
     margin-top: 15px;
   }
 
   tbody tr {
-    display: table;
-    width: 100%;
+    //display: table;
+    width: 817px;
     table-layout: fixed;
   }
 }
