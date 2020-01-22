@@ -1174,7 +1174,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <mat-form-field class="w-100">
-                                                <mat-placeholder>Change in weight past 6 months<span class="error" >*</span></mat-placeholder>
+                                                <mat-placeholder>Change in weight past 6 months <span class="error" >*</span></mat-placeholder>
                                                 <mat-select  formControlName="shasWeightChanged" (selectionChange)="geteWeightChanged();shasweight()"  class="w-100">
                                                     <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
                                                 </mat-select>
@@ -1271,8 +1271,8 @@
                                         <h6 class="color-blue">Select Income Type</h6>
 
                                         <mat-button-toggle-group class="mat-button-toggle-group1"  name="fontStyle" formControlName="payoutOptionToggle" aria-label="Font Style" [required]="insureArray.controls.payoutOption.value=='combination'||insureArray.controls.payoutOption.value=='income_benefit'">
-                                            <mat-button-toggle  value="levelIncome"><span style="display: block;margin-top: -12px;">Level </span><span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
-                                            <mat-button-toggle  value="increasingIncome"><span style="display: block;margin-top: -12px;">Increasing</span> <span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
+                                            <mat-button-toggle  value="levelIncome"><span style="display: block;margin-top: -7px;">Level </span><span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
+                                            <mat-button-toggle  value="increasingIncome"><span style="display: block;margin-top: -7px;">Increasing</span> <span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
                                         </mat-button-toggle-group>
                                     </div>
                                     <!--<div class="col-md-3" *ngIf="insureArray.controls.payoutOption.value=='income_benefit'">-->
@@ -2502,19 +2502,33 @@
                                                                 <mat-error *ngIf="medicalDetail.invalid">Relation is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-md-2">
-                                                            <mat-form-field class="w-100">
-                                                                <input matInput placeholder="Age" formControlName="age" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" required  >
-                                                                <mat-error *ngIf="medicalDetail.invalid">Age is required</mat-error>
-                                                            </mat-form-field>
-                                                        </div>
 
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <mat-form-field class="w-100">
-                                                                <mat-select  placeholder="Health Status" formControlName="healthStatus" (selectionChange)="getHealthStaus()" required class="w-100">
+                                                                <mat-select  placeholder="Health Status" formControlName="healthStatus" (selectionChange)="getHealthStaus();healthStatusReq(i)" required class="w-100">
                                                                     <mat-option *ngFor="let list of ehealthStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                                                                 </mat-select>
                                                                 <mat-error *ngIf="medicalDetail.invalid">Health Status is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-2"*ngIf="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value && this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value!='Deceased'">
+                                                            <mat-form-field class="w-100" >
+                                                                <input matInput placeholder="Age" formControlName="age" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" [required]="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value && this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value!='Deceased'"  >
+                                                                <mat-error *ngIf="medicalDetail.invalid">Age is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-2"*ngIf="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value=='Deceased'">
+                                                            <mat-form-field class="w-100" >
+                                                                <input matInput placeholder="Age at Death" formControlName="ageOnDeath" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" [required]="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value=='Deceased'"  >
+                                                                <mat-error *ngIf="medicalDetail.invalid">Age at Death is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-2"*ngIf="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value=='Deceased'">
+                                                            <mat-form-field class="w-100">
+                                                                <mat-select  placeholder="Cause Of Death" formControlName="causeOfDeath" (selectionChange)="geteFacauseDeath(i)"  class="w-100" [required]="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value=='Deceased'">
+                                                                    <mat-option *ngFor="let list of eCauseDeath | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                                </mat-select>
+                                                                <mat-error *ngIf="medicalDetail.invalid">Cause Of Death is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
 
@@ -3185,10 +3199,10 @@
                                         <div class="col-md-6" >
                                             <div class="p-3">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.disease != null"><strong>Disease:</strong>{{item.disease}}</li>
-                                                    <li class="list-group-item" *ngIf=" item.datediagnois != null"><strong>Diagnois Date:</strong>{{item.datediagnois | date: 'dd/MM/yyyy'}}</li>
-                                                    <li class="list-group-item" *ngIf="item.treatment != null"><strong>Treatment:</strong> {{item.treatment}}</li>
-                                                    <li class="list-group-item" *ngIf="item.dosage != null"><strong>Dosage:</strong> {{item.dosage}}</li>
+                                                    <li class="list-group-item" *ngIf="item.disease != ''"><strong>Disease:</strong>{{item.disease}}</li>
+                                                    <li class="list-group-item" *ngIf="item.datediagnois != ''"><strong>Diagnois Date:</strong>{{item.datediagnois | date: 'dd/MM/yyyy'}}</li>
+                                                    <li class="list-group-item" *ngIf="item.treatment != ''"><strong>Treatment:</strong> {{item.treatment}}</li>
+                                                    <li class="list-group-item" *ngIf="item.dosage != ''"><strong>Dosage:</strong> {{item.dosage}}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -3198,10 +3212,10 @@
                                         <div class="col-md-6" >
                                             <div class="p-3">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.doctor != null"><strong>Doctor:</strong> {{item.doctor}}</li>
-                                                    <li class="list-group-item" *ngIf="item.datefollowup != null"><strong>FollowUp Date:</strong> {{item.datefollowup | date: 'dd/MM/yyyy'}}</li>
-                                                    <li class="list-group-item" *ngIf="item.anycomplications != null"><strong>Complications:</strong> {{item.anycomplications}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.remarks != null"><strong>Remarks:</strong> {{item.remarks}}</li>
+                                                    <li class="list-group-item" *ngIf="item.doctor != ''"><strong>Doctor:</strong> {{item.doctor}}</li>
+                                                    <li class="list-group-item" *ngIf="item.datefollowup != ''"><strong>FollowUp Date:</strong> {{item.datefollowup | date: 'dd/MM/yyyy'}}</li>
+                                                    <li class="list-group-item" *ngIf="item.anycomplications != ''"><strong>Complications:</strong> {{item.anycomplications}}</li>
+                                                    <li class="list-group-item" *ngIf="item.remarks != ''"><strong>Remarks:</strong> {{item.remarks}}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -3216,7 +3230,9 @@
                                             <div class="p-3">
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item" *ngIf="item.relation != null"><strong>RelationShip:</strong>{{item.relation}}</li>
-                                                    <li class="list-group-item" *ngIf="item.age != null"><strong>Age:</strong> {{item.age}}</li>
+                                                    <li class="list-group-item" *ngIf="item.healthStatus != null"><strong>Health Status:</strong> {{item.healthStatus}}</li>
+                                                    <li class="list-group-item" *ngIf="item.age != ''"><strong>Age:</strong> {{item.age}}</li>
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -3226,7 +3242,9 @@
                                         <div class="col-md-6" >
                                             <div class="p-3">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.healthStatus != null"><strong>Health Status:</strong> {{item.healthStatus}}</li>
+                                                    <li class="list-group-item" *ngIf="item.ageOnDeath != ''"><strong>Age at Death:</strong> {{item.ageOnDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="item.causeOfDeath != ''"><strong>Cause Of Death:</strong> {{item.causeOfDeath}}</li>
+
                                                 </ul>
                                             </div>
                                         </div>
