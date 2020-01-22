@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-4">
             <mat-form-field class="w-100">
-                <input matInput placeholder="Search ..." [(ngModel)]="searchval" (input)="updateFilter($event);faqQuestions()">
+                <input matInput placeholder="Search ..." [(ngModel)]="searchval" (keyup)="updateFilter($event)">
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
         </div>
@@ -15,13 +15,13 @@
 
           <table class="qesTable able table-striped mt-3" *ngFor="let item of faqQuestionsList; let i = index" style="width:1000px !important;">
               <thead class="m-3"  [ngStyle]="{'background-color': '#306DA6','color':'#fff','height': '40px','font-size': '20px','text-align': 'center'}"  *ngIf="item.contents !=''">
-              <tr>
+              <tr *ngIf="dictionary == false">
                   <th scope="col">{{item.heading}} </th>
 
               </tr>
               </thead>
             <tr *ngFor="let subQes of item.contents ; let j = index" >
-              <td >
+              <td *ngIf="dictionary == false">
                 <span style="font-weight: bold;color: #28a745;">{{j + 1}}){{subQes.content_qstn}}</span> <br>
                   <ul *ngFor="let list of subQes.content_ans ; let k = index"><li *ngIf="list!= ''" style="margin-left: 48px;">{{list}}</li> </ul>
 
@@ -29,10 +29,14 @@
               </td>
 
 
-
             </tr>
+
           </table>
+        <div style="margin-left: 408px">
+        <div class="error"  style="font-size: x-large" *ngIf="dictionary != '' && dictionary != true">{{dictionary}}</div>
         </div>
+
+    </div>
     </div>
   </div>
 
