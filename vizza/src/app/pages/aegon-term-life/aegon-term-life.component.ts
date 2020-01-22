@@ -36,6 +36,7 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MM YYYY',
   },
 };
+
 @Component({
   selector: 'app-aegon-term-life',
   templateUrl: './aegon-term-life.component.html',

@@ -73,24 +73,25 @@ export class BajajGoldSurakshaComponent implements OnInit {
     }
     this.bajajgold = this.fb.group({
       'gender': ['', Validators.required],
-      'fname': ['', Validators.required],
-      'lname': ['', Validators.required],
-      'frequency': ['', Validators.required],
+      'name': ['', Validators.required],
+      // 'fname': ['', Validators.required],
+      // 'lname': ['', Validators.required],
+      // 'frequency': ['', Validators.required],
       'dob': ['', Validators.required],
       'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
       'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       'pincode': ['', Validators.required],
-      'paymentTerm': ['', Validators.required],
-      'policyTerm': ['', Validators.required],
-      'premium': ['', Validators.required]
+      // 'paymentTerm': ['', Validators.required],
+      // 'policyTerm': ['', Validators.required],
+      // 'premium': ['', Validators.required]
     });
     this.productName = '';
   }
 
   ngOnInit() {
-    this.getPolicyTerm();
-    this.getPaymentTerm();
-    this.getPaymentFreq();
+    // this.getPolicyTerm();
+    // this.getPaymentTerm();
+    // this.getPaymentFreq();
     this.setDate = Date.now();
     this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
     this.route.params.forEach((params) => {
@@ -252,7 +253,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
 
     if (this.bajajgold.valid) {
       if (sessionStorage.age >= 18 && sessionStorage.age <= 65 ) {
-        if (this.bajajgold.controls.premium.value >= 30000 && this.bajajgold.controls.premium.value <= 1000000) {
+        // if (this.bajajgold.controls.premium.value >= 30000 && this.bajajgold.controls.premium.value <= 1000000) {
 
 
           const data = {
@@ -261,17 +262,18 @@ export class BajajGoldSurakshaComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-            "firstName": this.bajajgold.controls['fname'].value,
-            "lastName": this.bajajgold.controls['lname'].value,
+            "name": this.bajajgold.controls['name'].value,
+            // "firstName": this.bajajgold.controls['fname'].value,
+            // "lastName": this.bajajgold.controls['lname'].value,
             "dob": this.bajajgold.controls['dob'].value,
             "gender": this.bajajgold.controls['gender'].value,
             "mobile": this.bajajgold.controls['mobile'].value,
             "email": this.bajajgold.controls['email'].value,
             "pincode": this.bajajgold.controls['pincode'].value,
-            "policyTerm": this.bajajgold.controls['policyTerm'].value,
-            "paymentTerm": this.bajajgold.controls['paymentTerm'].value,
-            "premium": this.bajajgold.controls['premium'].value,
-            "paymentFrequency": this.bajajgold.controls['frequency'].value,
+            // "policyTerm": this.bajajgold.controls['policyTerm'].value,
+            // "paymentTerm": this.bajajgold.controls['paymentTerm'].value,
+            // "premium": this.bajajgold.controls['premium'].value,
+            // "paymentFrequency": this.bajajgold.controls['frequency'].value,
             "pos_id": this.auth.getPosUserId() == '' || this.auth.getPosUserId() == undefined || this.auth.getPosUserId() == null ? '0' : this.auth.getPosUserId() ,
 
             // this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
@@ -290,10 +292,10 @@ export class BajajGoldSurakshaComponent implements OnInit {
                 this.getUpdateFailure(error);
               }
           );
-        } else {
-          this.toastr.error(' Sum Assured Should Be between 30,000 to 10,00,000.');
-
-        }
+        // } else {
+        //   this.toastr.error(' Sum Assured Should Be between 30,000 to 10,00,000.');
+        //
+        // }
       }
     else
       {

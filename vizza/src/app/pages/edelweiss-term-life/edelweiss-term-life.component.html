@@ -255,10 +255,10 @@
                                     <div class="col-md-4 mt-2" *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="sumAssuredHCB"  (input)="edelweissPrimium()"  autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="sumAssuredHCB"  (input)="edelweissPrimium();sumAssuredHCBError()"  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min:{{hcb_sumassured_min}} Max: {{hcb_sumassured_max}}</p></div>
-                                        <div class="error" *ngIf="hcbdError != ''">{{hcbdError}} {{this.hcb_sumassured_min}} - {{this.hcb_sumassured_max}}</div>
+                                        <div class="error" style="margin-top: -20px" *ngIf="hcbdError != ''&&hcbdError != true">{{hcbdError}}<br> {{this.hcb_sumassured_min}} - {{this.hcb_sumassured_max}}</div>
                                     </div>
                                     <div class="col-md-4 mt-2"  *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
                                         <p *ngIf="hcp != 0"><strong>   Hospital Cash Benefit Premium :</strong> {{hcp}}</p>
@@ -274,10 +274,10 @@
                                     <div class="col-md-4 mt-2">
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="criticalsumAssured"  (input)="edelweissPrimium()"  autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="criticalsumAssured"  (input)="edelweissPrimium();sumAssuredCiError()"  autocomplete="off"   (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{ci_sumassured_min}}  Max: {{ci_sumassured_max}}</p></div>
-                                        <div class="error" *ngIf="ciError != ''">{{ciError}} {{this.ci_sumassured_min}}- {{this.ci_sumassured_max}}</div>
+                                        <div class="error" style="margin-top: -20px"  *ngIf="ciError != ''&&ciError != true">{{ciError}} <br>{{this.ci_sumassured_min}}- {{this.ci_sumassured_max}}</div>
                                     </div>
                                     <!--                               <div class="col-md-4" *ngIf="addon.controls['criticalIllness'].value == 'Yes'">-->
                                     <!--                                   <mat-radio-group formControlName="criticalClaim"  >-->
@@ -300,11 +300,11 @@
                                     <div class="col-md-4 mt-2"  >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="sumAssuredADB"  (input)="edelweissPrimium()"  autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="sumAssuredADB"  (input)="edelweissPrimium();sumAssuredADBError()"  autocomplete="off"    (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{adb_sumassured_min}} Max: {{adb_sumassured_max}}</p></div>
 
-                                        <div class="error" *ngIf="adbError != ''">{{adbError}} {{this.adb_sumassured_min}} - {{this.adb_sumassured_max}}</div>
+                                        <div class="error" style="margin-top: -20px"  *ngIf="adbError != ''&&adbError != true">{{adbError}}<br> {{this.adb_sumassured_min}} - {{this.adb_sumassured_max}}</div>
                                     </div>
                                     <!--                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isADB'].value == 'Yes'" >-->
                                     <!--                                   <mat-form-field class="w-100">-->
@@ -328,10 +328,10 @@
                                     <div class="col-md-4 mt-2 " >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="sumAssuredATPD" (input)="edelweissPrimium()"   autocomplete="off" (change)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="sumAssuredATPD" (input)="edelweissPrimium();sumAssuredATPDError()"   autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{atpd_sumassured_min}} Max: {{atpd_sumassured_min}}</p></div>
-                                        <div class="error" *ngIf="atpdError != ''">{{atpdError}} {{this.atpd_sumassured_min }} - {{this.atpd_sumassured_max}}</div>
+                                        <div class="error" style="margin-top: -20px"  *ngIf="atpdError != '' && atpdError != true">{{atpdError}}<br> {{this.atpd_sumassured_min }} - {{this.atpd_sumassured_max}}</div>
                                     </div>
                                     <div class="col-md-4 mt-2 "  >
                                         <p *ngIf="PDP != 0"><strong> Permanent Disability Premium :</strong> {{PDP}}</p>
@@ -707,8 +707,8 @@
                                 <h6 class="color-blue p-3">TAX RESIDENCE DECLARATION <span class="error" > *</span></h6>
                                 <div class="col-md-6 mr-2">
                                 <mat-radio-group formControlName="taxResidence" required>
-                                <mat-radio-button value="LA is a tax resident of Other Country">If LA is tax resident of another country then please fill in the FATCA/CRS form which will be mailed to you after payment</mat-radio-button>
-                                <mat-radio-button value="LA is a tax resident of India" class="mr-2"> LA is a tax resident of India and not of any other country</mat-radio-button>
+                                    <mat-radio-button value="LA is a tax resident of India" > LA is a tax resident of India and not of any other country</mat-radio-button>
+                                    <mat-radio-button value="LA is a tax resident of Other Country" class="mr-2">If LA is tax resident of another country then please fill in the FATCA/CRS form which will be mailed to you after payment</mat-radio-button>
                                 </mat-radio-group>
                                 </div>
                                 </div>
@@ -1174,7 +1174,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <mat-form-field class="w-100">
-                                                <mat-placeholder>Change in weight past 6 months<span class="error" >*</span></mat-placeholder>
+                                                <mat-placeholder>Change in weight past 6 months <span class="error" >*</span></mat-placeholder>
                                                 <mat-select  formControlName="shasWeightChanged" (selectionChange)="geteWeightChanged();shasweight()"  class="w-100">
                                                     <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
                                                 </mat-select>
@@ -1271,8 +1271,8 @@
                                         <h6 class="color-blue">Select Income Type</h6>
 
                                         <mat-button-toggle-group class="mat-button-toggle-group1"  name="fontStyle" formControlName="payoutOptionToggle" aria-label="Font Style" [required]="insureArray.controls.payoutOption.value=='combination'||insureArray.controls.payoutOption.value=='income_benefit'">
-                                            <mat-button-toggle  value="levelIncome"><span style="display: block;margin-top: -12px;">Level </span><span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
-                                            <mat-button-toggle  value="increasingIncome"><span style="display: block;margin-top: -12px;">Increasing</span> <span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
+                                            <mat-button-toggle  value="levelIncome"><span style="display: block;margin-top: -7px;">Level </span><span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
+                                            <mat-button-toggle  value="increasingIncome"><span style="display: block;margin-top: -7px;">Increasing</span> <span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
                                         </mat-button-toggle-group>
                                     </div>
                                     <!--<div class="col-md-3" *ngIf="insureArray.controls.payoutOption.value=='income_benefit'">-->
@@ -1313,7 +1313,7 @@
                                 </div>
                                 <div class="row p-3">
                                     <div class="col-md-12 ">
-                                        <h6 class="color-blue">INSURANCE REPOSITORY</h6>
+                                        <h6 class="color-blue">E INSURANCE ACCOUNT INFORMATION</h6>
                                     </div>
 
                                     <div class="col-md-4 mt-3">
@@ -1351,9 +1351,9 @@
                                             <!--<mat-radio-button value="No">No</mat-radio-button>-->
                                         <!--</mat-radio-group>-->
                                     <!--</div>-->
-                                    <div class="col-md-6 " *ngIf="insureArray.controls['insureAccNo'].value == 'No' " >
+                                    <div class="col-md-4 " *ngIf="insureArray.controls['insureAccNo'].value == 'No' " >
                                         <mat-form-field class="w-100">
-                                            <p style="color: dimgrey"> Specify the Insurance Repository Name for eIA creation. List of Insurance Repository: <span class="error" >*</span></p>
+                                            <p style="color: dimgrey"> Specify the Insurance Repository Name For EIA creation. <span class="error" >*</span></p>
                                             <mat-select  formControlName="insureRepository"  (selectionChange)=" geteInsuranceRepository()" >
                                                 <mat-option *ngFor="let insureRepositorys of eInsuranceRepository | keys" value="{{insureRepositorys.key}}" > {{insureRepositorys.value}} </mat-option>
                                             </mat-select>
@@ -2502,19 +2502,33 @@
                                                                 <mat-error *ngIf="medicalDetail.invalid">Relation is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-md-2">
-                                                            <mat-form-field class="w-100">
-                                                                <input matInput placeholder="Age" formControlName="age" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" required  >
-                                                                <mat-error *ngIf="medicalDetail.invalid">Age is required</mat-error>
-                                                            </mat-form-field>
-                                                        </div>
 
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <mat-form-field class="w-100">
-                                                                <mat-select  placeholder="Health Status" formControlName="healthStatus" (selectionChange)="getHealthStaus()" required class="w-100">
+                                                                <mat-select  placeholder="Health Status" formControlName="healthStatus" (selectionChange)="getHealthStaus();healthStatusReq(i)" required class="w-100">
                                                                     <mat-option *ngFor="let list of ehealthStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                                                                 </mat-select>
                                                                 <mat-error *ngIf="medicalDetail.invalid">Health Status is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-2"*ngIf="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value && this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value!='Deceased'">
+                                                            <mat-form-field class="w-100" >
+                                                                <input matInput placeholder="Age" formControlName="age" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" [required]="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value && this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value!='Deceased'"  >
+                                                                <mat-error *ngIf="medicalDetail.invalid">Age is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-2"*ngIf="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value=='Deceased'">
+                                                            <mat-form-field class="w-100" >
+                                                                <input matInput placeholder="Age at Death" formControlName="ageOnDeath" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" [required]="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value=='Deceased'"  >
+                                                                <mat-error *ngIf="medicalDetail.invalid">Age at Death is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-2"*ngIf="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value=='Deceased'">
+                                                            <mat-form-field class="w-100">
+                                                                <mat-select  placeholder="Cause Of Death" formControlName="causeOfDeath" (selectionChange)="geteFacauseDeath(i)"  class="w-100" [required]="this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.value=='Deceased'">
+                                                                    <mat-option *ngFor="let list of eCauseDeath | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                                </mat-select>
+                                                                <mat-error *ngIf="medicalDetail.invalid">Cause Of Death is required</mat-error>
                                                             </mat-form-field>
                                                         </div>
 
@@ -3170,7 +3184,7 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.pregnantweeks != '' && lifePremiumList.product_id=='112'" ><strong>Pregnant weeks:</strong> {{medicalFormData.pregnantweeks}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseInd != '' && lifePremiumList.product_id=='112'" ><strong>Female Disease:</strong> {{medicalFormData.femaleDieaseInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseWeeks != '' && lifePremiumList.product_id=='112'"><strong>Female Disease Weeks:</strong> {{medicalFormData.femaleDieaseWeeks}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.healthInformation != '' && lifePremiumList.product_id=='112'"><strong>Health Information:</strong> {{medicalFormData.healthInformation}}</li>
+                                                    <li class="list-group-item" ><strong>Health Information:</strong> {{medicalFormData.healthInformation}}</li>
 
                                                 </ul>
                                             </div>
@@ -3185,10 +3199,10 @@
                                         <div class="col-md-6" >
                                             <div class="p-3">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.disease != null"><strong>Disease:</strong>{{item.disease}}</li>
-                                                    <li class="list-group-item" *ngIf=" item.datediagnois != null"><strong>Diagnois Date:</strong>{{item.datediagnois | date: 'dd/MM/yyyy'}}</li>
-                                                    <li class="list-group-item" *ngIf="item.treatment != null"><strong>Treatment:</strong> {{item.treatment}}</li>
-                                                    <li class="list-group-item" *ngIf="item.dosage != null"><strong>Dosage:</strong> {{item.dosage}}</li>
+                                                    <li class="list-group-item" *ngIf="item.disease != ''"><strong>Disease:</strong>{{item.disease}}</li>
+                                                    <li class="list-group-item" *ngIf="item.datediagnois != ''"><strong>Diagnois Date:</strong>{{item.datediagnois | date: 'dd/MM/yyyy'}}</li>
+                                                    <li class="list-group-item" *ngIf="item.treatment != ''"><strong>Treatment:</strong> {{item.treatment}}</li>
+                                                    <li class="list-group-item" *ngIf="item.dosage != ''"><strong>Dosage:</strong> {{item.dosage}}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -3198,10 +3212,10 @@
                                         <div class="col-md-6" >
                                             <div class="p-3">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.doctor != null"><strong>Doctor:</strong> {{item.doctor}}</li>
-                                                    <li class="list-group-item" *ngIf="item.datefollowup != null"><strong>FollowUp Date:</strong> {{item.datefollowup | date: 'dd/MM/yyyy'}}</li>
-                                                    <li class="list-group-item" *ngIf="item.anycomplications != null"><strong>Complications:</strong> {{item.anycomplications}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.remarks != null"><strong>Remarks:</strong> {{item.remarks}}</li>
+                                                    <li class="list-group-item" *ngIf="item.doctor != ''"><strong>Doctor:</strong> {{item.doctor}}</li>
+                                                    <li class="list-group-item" *ngIf="item.datefollowup != ''"><strong>FollowUp Date:</strong> {{item.datefollowup | date: 'dd/MM/yyyy'}}</li>
+                                                    <li class="list-group-item" *ngIf="item.anycomplications != ''"><strong>Complications:</strong> {{item.anycomplications}}</li>
+                                                    <li class="list-group-item" *ngIf="item.remarks != ''"><strong>Remarks:</strong> {{item.remarks}}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -3216,7 +3230,9 @@
                                             <div class="p-3">
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item" *ngIf="item.relation != null"><strong>RelationShip:</strong>{{item.relation}}</li>
-                                                    <li class="list-group-item" *ngIf="item.age != null"><strong>Age:</strong> {{item.age}}</li>
+                                                    <li class="list-group-item" *ngIf="item.healthStatus != null"><strong>Health Status:</strong> {{item.healthStatus}}</li>
+                                                    <li class="list-group-item" *ngIf="item.age != ''"><strong>Age:</strong> {{item.age}}</li>
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -3226,7 +3242,9 @@
                                         <div class="col-md-6" >
                                             <div class="p-3">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.healthStatus != null"><strong>Health Status:</strong> {{item.healthStatus}}</li>
+                                                    <li class="list-group-item" *ngIf="item.ageOnDeath != ''"><strong>Age at Death:</strong> {{item.ageOnDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="item.causeOfDeath != ''"><strong>Cause Of Death:</strong> {{item.causeOfDeath}}</li>
+
                                                 </ul>
                                             </div>
                                         </div>
