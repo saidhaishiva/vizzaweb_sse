@@ -2588,9 +2588,11 @@ export class EdelweissTermLifeComponent implements OnInit {
   public fileUploadFailure(error) {
     console.log(error);
   }
-  sumAssuredADBError(event:any) {
-    alert('inn');
-    if (this.addon.controls['sumAssuredADB'].value >= this.adb_sumassured_min && this.addon.controls['sumAssuredADB'].value <= this.adb_sumassured_max) {
+  sumAssuredADBError() {
+    console.log(this.adb_sumassured_min,'adb_sumassured_min...')
+    console.log(this.adb_sumassured_max,'adb_sumassured_max...')
+    console.log(this.addon.controls['sumAssuredADB'].value,'adb_sumassured_max...')
+    if (this.addon.controls['sumAssuredADB'].value <= this.adb_sumassured_max && this.addon.controls['sumAssuredADB'].value >= this.adb_sumassured_min) {
       this.adbError =false;
       this.adbError ='';
     } else {
@@ -2599,8 +2601,8 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     }
   }
-  sumAssuredATPDError(event:any) {
-    if (this.addon.controls['sumAssuredATPD'].value >= this.atpd_sumassured_min && this.addon.controls['sumAssuredATPD'].value <= this.atpd_sumassured_max) {
+  sumAssuredATPDError() {
+    if (this.addon.controls['sumAssuredATPD'].value <= this.atpd_sumassured_max && this.addon.controls['sumAssuredATPD'].value >= this.atpd_sumassured_min) {
       this.atpdError =false;
       this.atpdError =''
     } else {
@@ -2609,8 +2611,8 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     }
   }
-  sumAssuredCiError(event:any) {
-    if (this.addon.controls['criticalsumAssured'].value >= this.ci_sumassured_min && this.addon.controls['criticalsumAssured'].value <= this.ci_sumassured_max) {
+  sumAssuredCiError() {
+    if (this.addon.controls['criticalsumAssured'].value <= this.ci_sumassured_max && this.addon.controls['criticalsumAssured'].value >= this.ci_sumassured_min) {
       this.ciError =false;
       this.ciError ='';
     } else {
@@ -2618,8 +2620,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.ciError = 'SumAssured Critical Illness should be ';
     }
   }
-  sumAssuredHCBError(event:any) {
-    if (this.addon.controls['sumAssuredHCB'].value >= this.hcb_sumassured_min && this.addon.controls['sumAssuredHCB'].value <= this.hcb_sumassured_max) {
+  sumAssuredHCBError() {
+    if (this.addon.controls['sumAssuredHCB'].value <= this.hcb_sumassured_max && this.addon.controls['sumAssuredHCB'].value >= this.hcb_sumassured_min) {
       this.hcbdError=false;
       this.hcbdError ='';
     } else {
@@ -5403,21 +5405,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.adb_sumassured_min = this.eePremiumTerm.adb_sumassured_min;
       this.adb_sumassured_max = this.eePremiumTerm.adb_sumassured_max;
       this.betterhalf();
-      console.log(this.ADB,'this.ADB');
-      console.log(this.eePremiumTerm,'this.this.eePremiumTerm');
-      console.log(this.sum,'this.sum');
-      console.log(this.basePremium,'this.basePremium');
-      console.log(this.premium,'this.premium');
-      console.log(this.PDP,'this.PDP');
-      console.log(this.PW,'this.PW');
-      console.log(this.CIP,'this.CIP');
-      console.log(this.BhP,'this.BhP');
-      console.log(this.hcp,'this.hcp');
-      console.log(this.planname,'this.planName');
-      console.log(this.payingTerm,'this.payingTerm');
-      console.log(this.policyTerm,'this.policyTerm');
-      console.log(this.hcb_sumassured_max,'this.hcb_sumassured_max');
-      console.log(this.hcb_sumassured_min,'this.hcb_sumassured_min');
+      // this.sumAssuredHCBError();
+      // this.sumAssuredCiError();
+      // this.sumAssuredADBError();
+      // this.sumAssuredATPDError();
 
     }
     else {
