@@ -409,7 +409,7 @@
                                 <!--</div>-->
                                 <div class="row p-3" >
                                     <div class="col-md-4" >
-                                        <mat-form-field class="w-100"  >
+                                        <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': this.customerDetails.controls['title'].value ? 'none' : ''}">
                                             <!--                                                   [ngStyle]="{'pointer-events': this.tittleread == true ? 'none' : ''}"-->
                                             <mat-select  placeholder="Title" formControlName="title" (selectionChange)="changeTitle1()" class="w-100" required  readonly>
                                                 <mat-option *ngFor="let list of etitle | keys" [value]= list.key> {{list.value}} </mat-option>
