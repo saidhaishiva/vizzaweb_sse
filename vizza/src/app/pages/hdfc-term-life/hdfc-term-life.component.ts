@@ -47,6 +47,7 @@ export class HdfcTermLifeComponent implements OnInit {
 
   public personal: FormGroup;
   public nomineeDetail: FormGroup;
+  public otherDetails: FormGroup;
   public proposerAge: any;
   public nomineeAge: any;
   public dateError: any;
@@ -56,6 +57,7 @@ export class HdfcTermLifeComponent implements OnInit {
   public summaryData: any;
   public getStepper1: any;
   public getStepper3: any;
+  public getStepper4: any;
   public appTypeHdfcList: any;
   public addressHdfcList: any;
   public alcoholHdfcList: any;
@@ -195,6 +197,7 @@ export class HdfcTermLifeComponent implements OnInit {
       firstnm: ['', Validators.required],
       lastnm: ['', Validators.required],
       gender: ['', Validators.required],
+      pptOption: ['', Validators.required],
       genderName: ['', Validators.required],
       dob: ['', Validators.required],
       fathernm: ['', Validators.required],
@@ -210,14 +213,7 @@ export class HdfcTermLifeComponent implements OnInit {
       residentstatus: ['', Validators.required],
       residentstatusName: ['', Validators.required],
       birthplace: ['', Validators.required],
-      ishdfcempflg: 'N',
-      exstngcustflg: 'N',
-      isdisabledflg: 'N',
-      pepflg: 'N',
-      nriflg:'N',
-      dematflg: 'N',
-      smokerstatusflg: 'N',
-      historyofconviction: 'N',
+
       houseno: ['', Validators.required],
       street: ['', Validators.required],
       landmark: ['', Validators.required],
@@ -241,6 +237,21 @@ export class HdfcTermLifeComponent implements OnInit {
       ccountryName: ['', Validators.required],
       // countrycode: ['', Validators.required],
       mobilenum: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
+
+
+    });
+
+
+    this.otherDetails = this.fb.group({
+
+      ishdfcempflg: 'N',
+      exstngcustflg: 'N',
+      isdisabledflg: 'N',
+      pepflg: 'N',
+      nriflg:'N',
+      dematflg: 'N',
+      smokerstatusflg: 'N',
+      historyofconviction: 'N',
       expdurofstay: '',
       expdurofstayName: ['', Validators.required],
       prfdcommaddr: '',
@@ -330,69 +341,71 @@ export class HdfcTermLifeComponent implements OnInit {
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     this.getAddressHdfc();
-    this.appTypeHdfc();
-    this.accountTypeHdfc();
-    this.getAlcoholHdfc();
-    this.getAnnualValueHdfc();
-    this.getannuityOptionHdfc();
-    this.getannualPolicyHdfc();
-    this.getappModeHdfc();
-    this.getassignmentTypeHdfc();
-    this.getavocationHdfc();
     this.getrelationAppointeeHdfc();
-    this.getappSourceHdfc();
-    this.getbussinessHdfc();
-    this.getbankMasterHdfc();
-    this.getcareOfHdfc();
-    this.getcityListHdfc();
     this.getcommunicationModeHdfc();
     this.getcountryListHdfc();
-    this.getdocattributeHdfc();
     this.geteducationListHdfc();
     this.getexpectedStayHdfc();
-    this.getfhDiseaseHdfc();
-    this.getfhAliveHdfc();
-    this.getfrequencyPayHdfc();
-    this.getfundOptionHdfc();
     this.getgenderListHdfc();
     this.getmaritalListHdfc();
-    this.getheightListHdfc();
-    this.getimpairmentHdfc();
-    this.getimpairmentEver2Hdfc();
-    this.getimpairmentEver3ListHdfc();
-    this.getimpairmentEver4ListHdfc();
-    this.getincomeDocTypeHdfc();
-    this.getindustryTypeHdfc();
-    this.getinsuranceTypeHdfc();
-    this.getinsObjLstHdfc();
-    this.getnationalityListHdfc();
     this.getnatureOfWorkHdfc();
     this.getnomineeLifeassuredListHdfc();
     this.getoccupationListHdfc();
     this.getoccupationTypeHdfc();
-    this.getoccupationHighRiskHdfc();
-    this.getmagnumRelationHdfc();
-    this.getmedicalExamLocationHdfc();
-    this.getmodeOfPaymentHdfc();
-    this.getpartTypeListHdfc();
-    this.getpayerwithLifeHdfc();
     this.getprefferedLangHdfc();
-    this.getpreviousInsurerHdfc();
-    this.getproductionCategoryHdfc();
-    this.getproposerWithLifeAssureHdfc();
-    this.getquestionTypeHdfc();
-    this.getrelWithHdfc();
     this.gethdfcSecuritiesHdfc();
     this.getresidentialStatusHdfc();
-    this.getriderHdfc();
-    this.getsimultaneousHdfc();
     this.getsourceOfFundHdfc();
-    this.getstateListHdfc();
     this.gettitleListHdfc();
-    this.gettobbacoTypeHdfc();
-    this.gettypeOfContactListHdfc();
-    this.getweightListHdfc();
     this.sessionData();
+    // this.appTypeHdfc();
+    // this.accountTypeHdfc();
+    // this.getAlcoholHdfc();
+    // this.getAnnualValueHdfc();
+    // this.getannuityOptionHdfc();
+    // this.getannualPolicyHdfc();
+    // this.getappModeHdfc();
+    // this.getassignmentTypeHdfc();
+    // this.getavocationHdfc();
+    // this.gettobbacoTypeHdfc();
+    // this.gettypeOfContactListHdfc();
+    // this.getweightListHdfc();
+    // this.getstateListHdfc();
+    // this.getriderHdfc();
+    // this.getsimultaneousHdfc();
+    // this.getpreviousInsurerHdfc();
+    // this.getproductionCategoryHdfc();
+    // this.getproposerWithLifeAssureHdfc();
+    // this.getquestionTypeHdfc();
+    // this.getrelWithHdfc();
+    // this.getoccupationHighRiskHdfc();
+    // this.getmagnumRelationHdfc();
+    // this.getmedicalExamLocationHdfc();
+    // this.getmodeOfPaymentHdfc();
+    // this.getpartTypeListHdfc();
+    // this.getpayerwithLifeHdfc();
+    // this.getheightListHdfc();
+    // this.getimpairmentHdfc();
+    // this.getimpairmentEver2Hdfc();
+    // this.getimpairmentEver3ListHdfc();
+    // this.getimpairmentEver4ListHdfc();
+    // this.getincomeDocTypeHdfc();
+    // this.getindustryTypeHdfc();
+    // this.getinsuranceTypeHdfc();
+    // this.getinsObjLstHdfc();
+    // this.getnationalityListHdfc();
+    // this.getfhDiseaseHdfc();
+    // this.getfhAliveHdfc();
+    // this.getfrequencyPayHdfc();
+    // this.getfundOptionHdfc();
+    // this.getdocattributeHdfc();
+    // this.getappSourceHdfc();
+    // this.getbussinessHdfc();
+    // this.getbankMasterHdfc();
+    // this.getcareOfHdfc();
+    // this.getcityListHdfc();
+
+
   }
   initItemRows() {
 
@@ -925,7 +938,7 @@ export class HdfcTermLifeComponent implements OnInit {
       this.personal.controls['cstateName'].setValue(this.personal.controls['stateName'].value);
       this.personal.controls['cpincode'].setValue(this.personal.controls['pincode'].value);
       this.personal.controls['ccountryName'].setValue(this.personal.controls['countryName'].value);
-      // this.cityList = JSON.parse(sessionStorage.citycList);
+      // this.cityList = JSON.parse(sessionStorage.citycList);0
 
     }
   }
@@ -946,39 +959,39 @@ export class HdfcTermLifeComponent implements OnInit {
   }changeResident() {
     this.personal.controls['residentstatusName'].patchValue(this.residentialStatusHdfcList[this.personal.controls['residentstatus'].value]);
   }changeexp() {
-    this.personal.controls['expdurofstayName'].patchValue(this.expectedStayHdfcList[this.personal.controls['expdurofstay'].value]);
+    this.otherDetails.controls['expdurofstayName'].patchValue(this.expectedStayHdfcList[this.otherDetails.controls['expdurofstay'].value]);
   }changeprfdcommaddr() {
-    this.personal.controls['prfdcommaddrName'].patchValue(this.addressHdfcList[this.personal.controls['prfdcommaddr'].value]);
+    this.otherDetails.controls['prfdcommaddrName'].patchValue(this.addressHdfcList[this.otherDetails.controls['prfdcommaddr'].value]);
   }changecommodename() {
-    this.personal.controls['prfdcommmodeName'].patchValue(this.communicationModeHdfcList[this.personal.controls['prfdcommmode'].value]);
+    this.otherDetails.controls['prfdcommmodeName'].patchValue(this.communicationModeHdfcList[this.otherDetails.controls['prfdcommmode'].value]);
   }changeLang() {
-    this.personal.controls['prfdcommlangName'].patchValue(this.prefferedLangHdfcList[this.personal.controls['prfdcommlang'].value]);
+    this.otherDetails.controls['prfdcommlangName'].patchValue(this.prefferedLangHdfcList[this.otherDetails.controls['prfdcommlang'].value]);
   }changeoccutype() {
-    this.personal.controls['occutypeName'].patchValue(this. occupationTypeHdfcList[this.personal.controls['occutype'].value]);
+    this.otherDetails.controls['occutypeName'].patchValue(this. occupationTypeHdfcList[this.otherDetails.controls['occutype'].value]);
   }changenatureOfOccu() {
-    this.personal.controls['natureofoccuName'].patchValue(this.natureOfWorkHdfcList[this.personal.controls['natureofoccu'].value]);
+    this.otherDetails.controls['natureofoccuName'].patchValue(this.natureOfWorkHdfcList[this.otherDetails.controls['natureofoccu'].value]);
   }changesourcetype() {
-    this.personal.controls['sourcetypeName'].patchValue(this.sourceOfFundHdfcList[this.personal.controls['sourcetype'].value]);
+    this.otherDetails.controls['sourcetypeName'].patchValue(this.sourceOfFundHdfcList[this.otherDetails.controls['sourcetype'].value]);
   }changefathernmtitle() {
-    this.personal.controls['fathernmtitleName'].patchValue(this.titleListHdfcList[this.personal.controls['fathernmtitle'].value]);
+    this.otherDetails.controls['fathernmtitleName'].patchValue(this.titleListHdfcList[this.otherDetails.controls['fathernmtitle'].value]);
   }
   changemothernmtitle() {
-    this.personal.controls['mothernmtitleName'].patchValue(this.titleListHdfcList[this.personal.controls['mothernmtitle'].value]);
+    this.otherDetails.controls['mothernmtitleName'].patchValue(this.titleListHdfcList[this.otherDetails.controls['mothernmtitle'].value]);
   }
   changemmaritalstatus() {
-    this.personal.controls['mmaritalstatusName'].patchValue(this.maritalListHdfcList[this.personal.controls['mmaritalstatus'].value]);
+    this.otherDetails.controls['mmaritalstatusName'].patchValue(this.maritalListHdfcList[this.otherDetails.controls['mmaritalstatus'].value]);
   }
  changespousenmtitle() {
-    this.personal.controls['spousenmtitleName'].patchValue(this.titleListHdfcList[this.personal.controls['spousenmtitle'].value]);
+    this.otherDetails.controls['spousenmtitleName'].patchValue(this.titleListHdfcList[this.otherDetails.controls['spousenmtitle'].value]);
   }
  changeoccutypesp() {
-    this.personal.controls['occutypespName'].patchValue(this.occupationTypeHdfcList[this.personal.controls['occutypesp'].value]);
+    this.otherDetails.controls['occutypespName'].patchValue(this.occupationTypeHdfcList[this.otherDetails.controls['occutypesp'].value]);
   }
 changecatofoccupation() {
-    this.personal.controls['catofoccupationName'].patchValue(this.occupationListHdfcList[this.personal.controls['catofoccupation'].value]);
+    this.otherDetails.controls['catofoccupationName'].patchValue(this.occupationListHdfcList[this.otherDetails.controls['catofoccupation'].value]);
   }
 changecountryofbirth() {
-    this.personal.controls['countryofbirthName'].patchValue(this.countryListHdfcList[this.personal.controls['countryofbirth'].value]);
+    this.otherDetails.controls['countryofbirthName'].patchValue(this.countryListHdfcList[this.otherDetails.controls['countryofbirth'].value]);
   }
 //   geteNomineeTitle(i) {
 //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ntitleName.patchValue(this.titleListHdfcList[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ntitle.value] );
@@ -1042,6 +1055,23 @@ changecountryofbirth() {
         this.toastr.error('Proposer age should be 18 or above');
 
       }
+    }
+
+  }
+  public otherDetailsStepper(stepper: MatStepper, value) {
+
+    // console.log(this.personal.controls['titleName'].value,'titlw nme')
+    console.log(value, 'eeeeeeeeeee');
+    sessionStorage.stepper3Details = '';
+    sessionStorage.stepper3Details = JSON.stringify(value);
+    // console.log(this.personal.valid, 'checked');
+
+    if(this.otherDetails.valid) {
+
+
+        stepper.next();
+        this.topScroll();
+
     }
 
   }
@@ -2882,13 +2912,12 @@ getweightListHdfc() {
     if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
       this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
       this.personal = this.fb.group({
-
-
         title: this.getStepper1.title,
         titleName: this.getStepper1.titleName,
         firstnm: this.getStepper1.firstnm,
         lastnm: this.getStepper1.lastnm,
         gender: this.getStepper1.gender,
+        pptOption: this.getStepper1.pptOption,
         genderName: this.getStepper1.genderName,
         dob: this.datepipe.transform(this.getStepper1.dob, 'y-MM-dd'),
         fathernm: this.getStepper1.fathernm,
@@ -2900,12 +2929,7 @@ getweightListHdfc() {
         nationalityName: this.getStepper1.nationalityName,
         residentstatus: this.getStepper1.residentstatus,
         residentstatusName: this.getStepper1.residentstatusName,
-        ishdfcempflg: this.getStepper1.ishdfcempflg,
-        exstngcustflg: this.getStepper1.exstngcustflg,
-        isdisabledflg: this.getStepper1.isdisabledflg,
-        dematflg: this.getStepper1.dematflg,
-        smokerstatusflg: this.getStepper1.smokerstatusflg,
-        historyofconviction: this.getStepper1.historyofconviction,
+        birthplace: this.getStepper1.birthplace,
         houseno: this.getStepper1.houseno,
         street: this.getStepper1.street,
         landmark: this.getStepper1.landmark,
@@ -2929,40 +2953,56 @@ getweightListHdfc() {
         // countrycode: this.getStepper1.countrycode,
         mobilenum: this.getStepper1.mobilenum,
         email: this.getStepper1.email,
-        expdurofstay: this.getStepper1.expdurofstay,
-        pepflg: this.getStepper1.pepflg,
-        nriflg: this.getStepper1.nriflg,
-        prfdcommaddr: this.getStepper1.prfdcommaddr,
-        prfdcommmode: this.getStepper1.prfdcommmode,
-        prfdcommlang: this.getStepper1.prfdcommlang,
-        occutype: this.getStepper1.occutype,
-        employernm: this.getStepper1.employernm,
-        annualincm: this.getStepper1.annualincm,
-        natureofoccu: this.getStepper1.natureofoccu,
-        addrline: this.getStepper1.addrline,
-        // existulipflag: this.getStepper1.existulipflag,
-        sourcetype: this.getStepper1.sourcetype,
-        // fundpcntg: this.getStepper1.fundpcntg,
-        fathernmtitle: this.getStepper1.fathernmtitle,
-        fatherfirstnm: this.getStepper1.fatherfirstnm,
-        fathermiddlenm: this.getStepper1.fathermiddlenm,
-        fatherlastnm: this.getStepper1.fatherlastnm,
-        mothernmtitle: this.getStepper1.mothernmtitle,
-        motherfirstnm: this.getStepper1.motherfirstnm,
-        mothermiddlenm: this.getStepper1.mothermiddlenm,
-        motherlastnm: this.getStepper1.motherlastnm,
-        mmaritalstatus: this.getStepper1.mmaritalstatus,
-        spousenmtitle: this.getStepper1.spousenmtitle,
-        spousefirstnm: this.getStepper1.spousefirstnm,
-        spousemiddlenm: this.getStepper1.spousemiddlenm,
-        spouselastnm: this.getStepper1.spouselastnm,
-        occutypesp: this.getStepper1.occutypesp,
-        catofoccupation: this.getStepper1.catofoccupation,
-        countryofbirth: this.getStepper1.countryofbirth,
         isAddressSame: this.getStepper1.isAddressSame,
-        birthplace: this.getStepper1.birthplace,
 
 
+
+
+      });
+      console.log( this.getStepper1, ' this.getStepper1')
+      console.log( this.personal, ' this.personal')
+
+    }
+    if (sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined) {
+      this.getStepper4 = JSON.parse(sessionStorage.stepper4Details);
+      this.otherDetails = this.fb.group({
+
+        ishdfcempflg: this.getStepper4.ishdfcempflg,
+        exstngcustflg: this.getStepper4.exstngcustflg,
+        isdisabledflg: this.getStepper4.isdisabledflg,
+        dematflg: this.getStepper4.dematflg,
+        smokerstatusflg: this.getStepper4.smokerstatusflg,
+        historyofconviction: this.getStepper4.historyofconviction,
+        expdurofstay: this.getStepper4.expdurofstay,
+        pepflg: this.getStepper4.pepflg,
+        nriflg: this.getStepper4.nriflg,
+        prfdcommaddr: this.getStepper4.prfdcommaddr,
+        prfdcommmode: this.getStepper4.prfdcommmode,
+        prfdcommlang: this.getStepper4.prfdcommlang,
+        occutype: this.getStepper4.occutype,
+        employernm: this.getStepper4.employernm,
+        annualincm: this.getStepper4.annualincm,
+        natureofoccu: this.getStepper4.natureofoccu,
+        addrline: this.getStepper4.addrline,
+        // existulipflag: this.getStepper1.existulipflag,
+        sourcetype: this.getStepper4.sourcetype,
+        // fundpcntg: this.getStepper1.fundpcntg,
+        fathernmtitle: this.getStepper4.fathernmtitle,
+        fatherfirstnm: this.getStepper4.fatherfirstnm,
+        fathermiddlenm: this.getStepper4.fathermiddlenm,
+        fatherlastnm: this.getStepper4.fatherlastnm,
+        mothernmtitle: this.getStepper4.mothernmtitle,
+        motherfirstnm: this.getStepper4.motherfirstnm,
+        mothermiddlenm: this.getStepper4.mothermiddlenm,
+        motherlastnm: this.getStepper4.motherlastnm,
+        mmaritalstatus: this.getStepper4.mmaritalstatus,
+        spousenmtitle: this.getStepper4.spousenmtitle,
+        spousefirstnm: this.getStepper4.spousefirstnm,
+        spousemiddlenm: this.getStepper4.spousemiddlenm,
+        spouselastnm: this.getStepper4.spouselastnm,
+        occutypesp: this.getStepper4.occutypesp,
+        catofoccupation: this.getStepper4.catofoccupation,
+        countryofbirth: this.getStepper4.countryofbirth,
       });
       console.log( this.getStepper1, ' this.getStepper1')
       console.log( this.personal, ' this.personal')
@@ -3149,6 +3189,7 @@ getweightListHdfc() {
       "term": this.lifePremiumList.termDetrails,
       "product_id": this.lifePremiumList.product_id,
       "policy_id": this.getEnquiryDetials.policy_id,
+      "pptOption": this.personal.controls['pptOption'].value,
       "appsubmission": {
 
           "applctndetails": {
@@ -3211,16 +3252,16 @@ getweightListHdfc() {
               "nationality": this.personal.controls['nationality'].value,
               "residentstatus": this.personal.controls['residentstatus'].value,
               "birthplace": this.personal.controls['birthplace'].value,
-              "nriflg": this.personal.controls['nriflg'].value
+              "nriflg": this.otherDetails.controls['nriflg'].value
         },
         "additionalinfo": {
-          "ishdfcempflg": this.personal.controls['ishdfcempflg'].value,
-              "exstngcustflg": this.personal.controls['exstngcustflg'].value,
-              "isdisabledflg": this.personal.controls['isdisabledflg'].value,
-              "pepflg": this.personal.controls['pepflg'].value,
-              "dematflg": this.personal.controls['dematflg'].value,
-              "smokerstatusflg": this.personal.controls['smokerstatusflg'].value,
-              "historyofconviction": this.personal.controls['historyofconviction'].value
+          "ishdfcempflg": this.otherDetails.controls['ishdfcempflg'].value,
+              "exstngcustflg": this.otherDetails.controls['exstngcustflg'].value,
+              "isdisabledflg": this.otherDetails.controls['isdisabledflg'].value,
+              "pepflg": this.otherDetails.controls['pepflg'].value,
+              "dematflg": this.otherDetails.controls['dematflg'].value,
+              "smokerstatusflg": this.otherDetails.controls['smokerstatusflg'].value,
+              "historyofconviction": this.otherDetails.controls['historyofconviction'].value
         },
         "addressinfo": [{
           "addresstype": "ADD_PMNT",
@@ -3258,25 +3299,25 @@ getweightListHdfc() {
           }
         ],
             "commpreference": {
-          "expdurofstay": this.personal.controls['expdurofstay'].value,
-              "prfdcommaddr": this.personal.controls['prfdcommaddr'].value,
-              "prfdcommmode": this.personal.controls['prfdcommmode'].value,
-              "prfdcommlang":this.personal.controls['prfdcommlang'].value
+          "expdurofstay": this.otherDetails.controls['expdurofstay'].value,
+              "prfdcommaddr": this.otherDetails.controls['prfdcommaddr'].value,
+              "prfdcommmode": this.otherDetails.controls['prfdcommmode'].value,
+              "prfdcommlang":this.otherDetails.controls['prfdcommlang'].value
         },
         "employmentdetails": {
-          "occutype": this.personal.controls['occutype'].value,
-              "employernm": this.personal.controls['employernm'].value,
-              "annualincm": this.personal.controls['annualincm'].value,
-              "natureofoccu": this.personal.controls['natureofoccu'].value,
+          "occutype": this.otherDetails.controls['occutype'].value,
+              "employernm": this.otherDetails.controls['employernm'].value,
+              "annualincm": this.otherDetails.controls['annualincm'].value,
+              "natureofoccu": this.otherDetails.controls['natureofoccu'].value,
               "employeraddr": {
-            "addrline": this.personal.controls['addrline'].value
+            "addrline": this.otherDetails.controls['addrline'].value
           }
         },
         "existingulip": {
           "existulipflag": '',
         },
         "fundsource": {
-          "sourcetype": this.personal.controls['sourcetype'].value,
+            "sourcetype": this.otherDetails.controls['sourcetype'].value,
               "fundpcntg": "100"
         }
       },
@@ -3321,26 +3362,26 @@ getweightListHdfc() {
     },
       "ckyc": {
       "ckycno": "",
-          "fathernmtitle": this.personal.controls['fathernmtitle'].value,
-          "fatherfirstnm": this.personal.controls['fatherfirstnm'].value,
-          "fathermiddlenm":this.personal.controls['fathermiddlenm'].value,
-          "fatherlastnm": this.personal.controls['fatherlastnm'].value,
-          "mothernmtitle": this.personal.controls['mothernmtitle'].value,
-          "motherfirstnm": this.personal.controls['motherfirstnm'].value,
-          "mothermiddlenm": this.personal.controls['mothermiddlenm'].value,
-          "motherlastnm": this.personal.controls['motherlastnm'].value,
-          "maritalstatus": this.personal.controls['mmaritalstatus'].value,
+          "fathernmtitle": this.otherDetails.controls['fathernmtitle'].value,
+          "fatherfirstnm": this.otherDetails.controls['fatherfirstnm'].value,
+          "fathermiddlenm":this.otherDetails.controls['fathermiddlenm'].value,
+          "fatherlastnm": this.otherDetails.controls['fatherlastnm'].value,
+          "mothernmtitle": this.otherDetails.controls['mothernmtitle'].value,
+          "motherfirstnm": this.otherDetails.controls['motherfirstnm'].value,
+          "mothermiddlenm": this.otherDetails.controls['mothermiddlenm'].value,
+          "motherlastnm": this.otherDetails.controls['motherlastnm'].value,
+          "maritalstatus": this.otherDetails.controls['mmaritalstatus'].value,
           "cersaipostedflag": [
         "",
         "N"
       ],
-          "spousenmtitle":this.personal.controls['spousenmtitle'].value,
-          "spousefirstnm": this.personal.controls['spousefirstnm'].value,
-          "spousemiddlenm": this.personal.controls['spousemiddlenm'].value,
-          "spouselastnm": this.personal.controls['spouselastnm'].value,
-          "occutype": this.personal.controls['occutypesp'].value,
-          "catofoccupation": this.personal.controls['catofoccupation'].value,
-          "countryofbirth": this.personal.controls['countryofbirth'].value
+          "spousenmtitle":this.otherDetails.controls['spousenmtitle'].value,
+          "spousefirstnm": this.otherDetails.controls['spousefirstnm'].value,
+          "spousemiddlenm": this.otherDetails.controls['spousemiddlenm'].value,
+          "spouselastnm": this.otherDetails.controls['spouselastnm'].value,
+          "occutype": this.otherDetails.controls['occutypesp'].value,
+          "catofoccupation": this.otherDetails.controls['catofoccupation'].value,
+          "countryofbirth": this.otherDetails.controls['countryofbirth'].value
     }
     };
 

@@ -262,7 +262,7 @@ export class BajajGoldSurakshaComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-            "name": this.bajajgold.controls['name'].value,
+            "firstName": this.bajajgold.controls['name'].value,
             // "firstName": this.bajajgold.controls['fname'].value,
             // "lastName": this.bajajgold.controls['lname'].value,
             "dob": this.bajajgold.controls['dob'].value,
