@@ -866,7 +866,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteAlcoholDetails();
     this.getCauseDeath();
     this.sessionData();
-    // this.edelweissPrimium();
+    this.edelweissPrimium();
     // this.premiumPaymentTerm();
     // this.ageTillcoverd();
 
@@ -1752,6 +1752,14 @@ export class EdelweissTermLifeComponent implements OnInit {
   // }
   // Insure Details
   edelweissCustomerDetail(stepper: MatStepper, value) {
+    // alert('innn')
+
+      this.addon.controls['sumAssuredHCB'].patchValue(this.hcb_sumassured);
+      // alert(this.addon.controls['sumAssuredHCB'].value);
+      this.addon.controls['sumAssuredATPD'].patchValue(this.atpd_sumassured);
+      this.addon.controls['sumAssuredADB'].patchValue(this.adb_sumassured);
+      this.addon.controls['criticalsumAssured'].patchValue(this.ci_sumassured);
+
     sessionStorage.stepperCustomerDetails = '';
     sessionStorage.stepperCustomerDetails = JSON.stringify(value);
     console.log(this.customerDetails, 'customerDetails');
@@ -1759,22 +1767,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     // let dateErrorMsg = [];
     if (this.customerDetails.valid) {
       if (sessionStorage.customerAge >= 18) {
-        if(this.premiumValue==true) {
-          this.addon.controls['sumAssuredHCB'].patchValue(this.hcb_sumassured);
-          console.log(this.addon.controls['sumAssuredHCB'].value, '4567890')
-          this.addon.controls['sumAssuredATPD'].patchValue(this.atpd_sumassured);
-
-          this.addon.controls['sumAssuredADB'].patchValue(this.adb_sumassured);
-
-          this.addon.controls['criticalsumAssured'].patchValue(this.ci_sumassured);
-        }
-
-
         stepper.next();
         this.topScroll();
-
-
-
 
       } else {
         this.toastr.error('Customer Age should be 18 or above');
@@ -5438,6 +5432,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.eePremiumTerm = successData.ResponseObject;
       // this.eePremiumTerm = this.eePremiumTerm;
       this.premiumValue=true;
+      // alert(this.premiumValue);
       this.ADB = this.eePremiumTerm.accidental_death_premium;
       this.sum = this.eePremiumTerm.sumAssured;
       this.basePremium = this.eePremiumTerm.Basepremium;
