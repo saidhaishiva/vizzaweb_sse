@@ -1528,7 +1528,7 @@
                                     <div class="col-md-10 " *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Alcohol Details<span class="error" >*</span></mat-placeholder>
-                                            <mat-select  formControlName="alcoholDetails"  (selectionChange)=" geteAlcoholDetails()" multiple >
+                                            <mat-select  formControlName="alcoholDetails"  (selectionChange)=" geteAlcoholDetails();changeAlcoholValue()" multiple >
                                                 <mat-option *ngFor="let alcoholDets of eAlcoholDetails | keys" value="{{alcoholDets.key}}" > {{alcoholDets.value}} </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -1536,7 +1536,7 @@
                                     <div class="col-md-10 " *ngIf="medicalDetail.controls['alcoholInd1'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Alcohol Details<span class="error" >*</span></mat-placeholder>
-                                            <mat-select  formControlName="alcoholDetails1"  (selectionChange)=" geteAlcoholDetails()" multiple >
+                                            <mat-select  formControlName="alcoholDetails1"  (selectionChange)=" geteAlcoholDetails();changeAlcoholValue1()" multiple >
                                                 <mat-option *ngFor="let alcoholDets of eAlcoholDetails | keys" value="{{alcoholDets.key}}" > {{alcoholDets.value}} </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -3169,7 +3169,7 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.drugsInd != '' && lifePremiumList.product_id=='112'"><strong>Are u Drugs User:</strong> {{medicalFormData.drugsInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.drugsDetails != '' && lifePremiumList.product_id=='112'"><strong>Drugs Details:</strong> {{medicalFormData.drugsDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholInd != '' && lifePremiumList.product_id=='112'"><strong>Are u Alcohol User:</strong> {{medicalFormData.alcoholInd}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.alcoholDetails != '' && lifePremiumList.product_id=='112'"><strong>Alcohol Details:</strong> {{medicalFormData.alcoholDetails}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.alcoholDetails != '' && lifePremiumList.product_id=='112'"><strong>Alcohol Details:</strong> {{medicalFormData.alcoholDetailName}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholBeer != '' && lifePremiumList.product_id=='112'"><strong>Alcohol Beer:</strong> {{medicalFormData.alcoholBeer}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholliquar != '' && lifePremiumList.product_id=='112'"><strong>Alcohol liquar:</strong> {{medicalFormData.alcoholliquar}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholWine != '' && lifePremiumList.product_id=='112'"><strong>Alcohol Wine:</strong> {{medicalFormData.alcoholWine}}</li>

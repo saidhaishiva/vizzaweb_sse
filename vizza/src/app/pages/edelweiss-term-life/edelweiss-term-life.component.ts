@@ -643,6 +643,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       drugsDetails1: '',
       alcoholInd1: '',
       alcoholDetails1: '',
+      alcoholDetailName1: '',
       alcoholBeer1: '',
       alcoholliquar1: '',
       alcoholWine1: '',
@@ -709,6 +710,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       drugsDetails: '',
       alcoholInd: '',
       alcoholDetails: '',
+      alcoholDetailName: '',
       alcoholBeer: '',
       alcoholliquar: '',
       alcoholWine: '',
@@ -7064,6 +7066,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['drugsDetails'].patchValue(getMedicalDetail.drugsDetails);
       this.medicalDetail.controls['alcoholInd'].patchValue(getMedicalDetail.alcoholInd);
       this.medicalDetail.controls['alcoholDetails'].patchValue(getMedicalDetail.alcoholDetails);
+      this.medicalDetail.controls['alcoholDetailName'].patchValue(getMedicalDetail.alcoholDetailName);
       this.medicalDetail.controls['alcoholBeer'].patchValue(getMedicalDetail.alcoholBeer);
       this.medicalDetail.controls['alcoholliquar'].patchValue(getMedicalDetail.alcoholliquar);
       this.medicalDetail.controls['alcoholWine'].patchValue(getMedicalDetail.alcoholWine);
@@ -7121,6 +7124,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['pregnantweeks'].patchValue(getMedicalDetail.pregnantweeks);
       this.medicalDetail.controls['femaleDieaseInd'].patchValue(getMedicalDetail.femaleDieaseInd);
       this.medicalDetail.controls['femaleDieaseWeeks'].patchValue(getMedicalDetail.femaleDieaseWeeks);
+      this.medicalDetail.controls['alcoholDetails1'].patchValue(getMedicalDetail.alcoholDetails1);
+      this.medicalDetail.controls['alcoholDetailName1'].patchValue(getMedicalDetail.alcoholDetailName1);
 
       this.medicalDetail.controls['healthInformation1'].patchValue(getMedicalDetail.healthInformation1);
 
@@ -7132,7 +7137,6 @@ export class EdelweissTermLifeComponent implements OnInit {
       //     this.medicalDetail.controls['drugsInd1'].patchValue(getMedicalDetail.drugsInd1);
       //     this.medicalDetail.controls['drugsDetails1'].patchValue(getMedicalDetail.drugsDetails1);
       //     this.medicalDetail.controls['alcoholInd1'].patchValue(getMedicalDetail.alcoholInd1);
-      //     this.medicalDetail.controls['alcoholDetails1'].patchValue(getMedicalDetail.alcoholDetails1);
       //     this.medicalDetail.controls['alcoholBeer1'].patchValue(getMedicalDetail.alcoholBeer1);
       //     this.medicalDetail.controls['alcoholliquar1'].patchValue(getMedicalDetail.alcoholliquar1);
       //     this.medicalDetail.controls['alcoholWine1'].patchValue(getMedicalDetail.alcoholWine1);
@@ -7289,11 +7293,6 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.proposer.controls['stitleName'].patchValue(this.etitle[this.proposer.controls['stitle'].value]);
   }
 
-
-  changeTitle1s() {
-    this.insureArray.controls['title'].patchValue(this.etitle[this.customerDetails.controls['title'].value]);
-    console.log(this.customerDetails.controls['title'].value,'456789')
-  }
   changeFirstname() {
     this.insureArray.controls['firstName'].patchValue(this.customerDetails.controls['firstName'].value);
   }
@@ -7303,6 +7302,13 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   changeSpoTitle1() {
     this.insureArray.controls['stitleName'].patchValue(this.etitle[this.insureArray.controls['stitle'].value]);
+  }
+  changeAlcoholValue(){
+    this.medicalDetail.controls['alcoholDetailName'].patchValue(this.eAlcoholDetails[this.medicalDetail.controls['alcoholDetails'].value]);
+    console.log(this.medicalDetail.controls['alcoholDetailName'].value,'45fdghjk')
+  }
+  changeAlcoholValue1(){
+    this.medicalDetail.controls['alcoholDetailName1'].patchValue(this.eAlcoholDetails[this.medicalDetail.controls['alcoholDetails1'].value]);
   }
   isadventurousName() {
     this.medicalDetail.controls['adventurousActivitiesName'].patchValue(this.eAdActivity[this.medicalDetail.controls['adventurousActivities'].value]);
