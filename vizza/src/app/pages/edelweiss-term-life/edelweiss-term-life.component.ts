@@ -5001,7 +5001,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (successData.IsSuccess == true) {
       stepper.next();
       this.topScroll();
-      this.toastr.success('BI Genereated successfully!!');
+      this.toastr.success('Proposal Genereated successfully!!');
       this.summaryData = successData.ResponseObject;
       this.requestedUrl = this.summaryData.payment_link;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
