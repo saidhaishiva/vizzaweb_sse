@@ -261,6 +261,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public ci_sumassured:any;
   public hcb_sumassured:any;
   public pdp_sumassured:any;
+  public premiumValue:boolean;
 
 
   constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
@@ -334,6 +335,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.admitInderror =false;
     this.ECGInderror =false;
     this.otpFalseError =false;
+    this.premiumValue =false;
     // this.tobaccoStopInderror =false;
     this.piloterror =false;
     this.activityerror =false;
@@ -1757,14 +1759,22 @@ export class EdelweissTermLifeComponent implements OnInit {
     // let dateErrorMsg = [];
     if (this.customerDetails.valid) {
       if (sessionStorage.customerAge >= 18) {
+        if(this.premiumValue==true) {
+          this.addon.controls['sumAssuredHCB'].patchValue(this.hcb_sumassured);
+          console.log(this.addon.controls['sumAssuredHCB'].value, '4567890')
+          this.addon.controls['sumAssuredATPD'].patchValue(this.atpd_sumassured);
 
-        this.edelweissPrimium();
-        this.sumHCBError();
-        this.sumCiError();
-        this.sumADBError();
-        this.sumATPDError();
+          this.addon.controls['sumAssuredADB'].patchValue(this.adb_sumassured);
+
+          this.addon.controls['criticalsumAssured'].patchValue(this.ci_sumassured);
+        }
+
+
         stepper.next();
         this.topScroll();
+
+
+
 
       } else {
         this.toastr.error('Customer Age should be 18 or above');
@@ -5427,8 +5437,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (successData.ResponseObject) {
       this.eePremiumTerm = successData.ResponseObject;
       // this.eePremiumTerm = this.eePremiumTerm;
+      this.premiumValue=true;
       this.ADB = this.eePremiumTerm.accidental_death_premium;
-
       this.sum = this.eePremiumTerm.sumAssured;
       this.basePremium = this.eePremiumTerm.Basepremium;
       this.premium = this.eePremiumTerm.Premium;
@@ -5469,18 +5479,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
 
-  sumHCBError(){
-    this.addon.controls['sumAssuredHCB'].patchValue(this.hcb_sumassured);
-  }
-  sumATPDError(){
-    this.addon.controls['sumAssuredATPD'].patchValue(this.atpd_sumassured);
-  }
-  sumADBError(){
-    this.addon.controls['sumAssuredADB'].patchValue(this.adb_sumassured);
-  }
-  sumCiError(){
-    this.addon.controls['criticalsumAssured'].patchValue(this.ci_sumassured);
-  }
+
 
   betterhalf(){
     this.addon.controls['betterHalfsumAssured'].patchValue(this.better_half_sum_assured );
