@@ -2601,7 +2601,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.adb_sumassured_min,'adb_sumassured_min...')
     console.log(this.adb_sumassured_max,'adb_sumassured_max...')
     console.log(this.addon.controls['sumAssuredADB'].value,'adb_sumassured_max...')
-    if (this.addon.controls['sumAssuredADB'].value <= this.adb_sumassured_max && this.addon.controls['sumAssuredADB'].value >= this.adb_sumassured_min) {
+    if ((this.addon.controls['sumAssuredADB'].value <= this.adb_sumassured_max) && (this.addon.controls['sumAssuredADB'].value >= this.adb_sumassured_min)) {
       this.adbError =false;
       this.adbError ='';
     } else {
@@ -2611,7 +2611,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
   }
   sumAssuredATPDError() {
-    if (this.addon.controls['sumAssuredATPD'].value <= this.atpd_sumassured_max && this.addon.controls['sumAssuredATPD'].value >= this.atpd_sumassured_min) {
+    if ((this.addon.controls['sumAssuredATPD'].value <= this.atpd_sumassured_max) && (this.addon.controls['sumAssuredATPD'].value >= this.atpd_sumassured_min)) {
       this.atpdError =false;
       this.atpdError =''
     } else {
@@ -2621,7 +2621,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
   }
   sumAssuredCiError() {
-    if (this.addon.controls['criticalsumAssured'].value <= this.ci_sumassured_max && this.addon.controls['criticalsumAssured'].value >= this.ci_sumassured_min) {
+    if ((this.addon.controls['criticalsumAssured'].value <= this.ci_sumassured_max) && (this.addon.controls['criticalsumAssured'].value >= this.ci_sumassured_min)) {
       this.ciError =false;
       this.ciError ='';
     } else {
@@ -2630,7 +2630,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
   }
   sumAssuredHCBError() {
-    if (this.addon.controls['sumAssuredHCB'].value <= this.hcb_sumassured_max && this.addon.controls['sumAssuredHCB'].value >= this.hcb_sumassured_min) {
+    if ((this.addon.controls['sumAssuredHCB'].value <= this.hcb_sumassured_max) && (this.addon.controls['sumAssuredHCB'].value >= this.hcb_sumassured_min)) {
       this.hcbdError=false;
       this.hcbdError ='';
     } else {
