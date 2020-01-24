@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {LearningcenterService} from '../../shared/services/learningcenter.service';
 import {AuthService} from '../../shared/services/auth.service';
 
+
 @Component({
   selector: 'app-insurance-dictionary',
   templateUrl: './insurance-dictionary.component.html',
@@ -15,6 +16,7 @@ export class InsuranceDictionaryComponent implements OnInit {
   getinsurancediccontent: any;
   getinsurancedicsearch: any;
   dictionary:any;
+  public scrolledContent:any;
 
   constructor(public learning: LearningcenterService, public auth: AuthService) {
     this.searchval='';
@@ -76,6 +78,7 @@ export class InsuranceDictionaryComponent implements OnInit {
       console.log(this.getinsurancediccontent, 'this.getinsurancediccontent');
       for (let i = 0; i < this.getinsurancedicList.length; i++) {
         console.log(this.getinsurancedicList.content[i], "12345678");
+        this.topScroll();
       }
     }else {
       this.dictionary = true;
@@ -114,6 +117,8 @@ export class InsuranceDictionaryComponent implements OnInit {
       // this.getinsurancedicsearch = successData.ResponseObject;
       this.getinsurancediccontent = successData.ResponseObject.content;
       console.log(this.getinsurancedicsearch, 'this.getinsurancedicsearch');
+      this.topScroll();
+
 
     } else{
       this.dictionary = true;
@@ -124,5 +129,8 @@ export class InsuranceDictionaryComponent implements OnInit {
 
 
   public getinsurancedicsearchFailure(error) {
+  }
+  topScroll() {
+    document.getElementById('main-content').scrollTop = 0;
   }
 }
