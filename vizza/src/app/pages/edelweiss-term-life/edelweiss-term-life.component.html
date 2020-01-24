@@ -2847,7 +2847,7 @@
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item" ><strong>Name:</strong> {{customerFormData.titleName}}.{{customerFormData.firstName}} {{customerFormData.lastName}}</li>
-                                                    <li class="list-group-item" *ngIf="customerFormData.dob != ''" ><strong>DOB:</strong> {{customerFormData.dob}}</li>
+                                                    <li class="list-group-item" *ngIf="customerFormData.dob != ''" ><strong>DOB:</strong> {{customerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                                     <li class="list-group-item" *ngIf="customerFormData.maritalStatus != ''" ><strong>Marital Status:</strong> {{customerFormData.maritalStatusName}}</li>
                                                     <li class="list-group-item" *ngIf="customerFormData.emailId != ''" ><strong>Email ID:</strong> {{customerFormData.emailId}}</li>
 
@@ -2926,7 +2926,7 @@
                                                 <h6 class="color-blue" >SPOUSE DETAILS</h6>
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item" ><strong>Name:</strong> {{addonFormData.stitleName}}{{addonFormData.sfirstName}}{{addonFormData.slastName}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.sdob != ''" ><strong>DOB:</strong> {{addonFormData.sdob}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.sdob != ''" ><strong>DOB:</strong> {{addonFormData.sdob | date: 'dd/MM/yyyy'}}</li>
 
                                                 </ul>
                                             </div>
@@ -3526,7 +3526,7 @@
                                             <div class="col-md-12">
                                                 <div class="proposal-buttom text-center w-100">
                                                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                                    <button mat-raised-button color="primaryBlue" [disabled]="otpFalseError==true" (click)="nextDocUpload(stepper)">Next</button>
+                                                    <button mat-raised-button color="primaryBlue" [disabled]="otpFalseError==false" (click)="nextDocUpload(stepper)">Next</button>
                                                 </div>
                                             </div>
 

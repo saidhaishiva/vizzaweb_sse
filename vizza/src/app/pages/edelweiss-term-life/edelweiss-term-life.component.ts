@@ -821,6 +821,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     // this.geteGender();
     this.geteTitle();
+
     this.geteMaritalStatus();
     this.geteInvesting();
     this.getePremiumTerm();
@@ -1964,7 +1965,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   nextDocUpload(stepper) {
-    if(this.otpFalseError==false){
+    if(this.otpFalseError==true){
     stepper.next();
     this.topScroll();
     }
@@ -5051,6 +5052,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public geteTitleSuccess(successData) {
     if (successData.IsSuccess) {
       this.etitle = successData.ResponseObject;
+      this.changeTitle();
+      this.changeTitle1();
     }
   }
 
@@ -5105,6 +5108,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public geteMaritalStatusSuccess(successData) {
     if (successData.IsSuccess) {
       this.emaritalStatus = successData.ResponseObject;
+      this.changeMarital();
     }
   }
 
@@ -6505,12 +6509,12 @@ export class EdelweissTermLifeComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log(result,'result....')
         if(result==true) {
-          this.otpFalseError=false
+          this.otpFalseError=true
           // this.proposalFormPdf = this.proposalNextList.path;
           this.proposalFormPdf = (this.webhost + '/' + this.proposalNextList.path);
           console.log(this.proposalFormPdf,'this.proposalFormPdf....');
         }else if(result==false){
-          this.otpFalseError=true
+          this.otpFalseError=false
         }
 
       });
@@ -7275,14 +7279,18 @@ export class EdelweissTermLifeComponent implements OnInit {
   changeTitle() {
 
     this.customerDetails.controls['titleName'].patchValue(this.etitle[this.customerDetails.controls['title'].value]);
-  }
-  changeSpoTitle() {
-
-    this.proposer.controls['stitleName'].patchValue(this.etitle[this.proposer.controls['stitle'].value]);
+    console.log(this.customerDetails.controls['titleName'].value,'456789');
+    console.log(this.customerDetails.controls['title'].value,'456789');
   }
   changeTitle1() {
     this.insureArray.controls['titleName'].patchValue(this.etitle[this.insureArray.controls['title'].value]);
+    console.log(this.insureArray.controls['titleName'].value,'this.insu54678')
+    console.log(this.insureArray.controls['title'].value,'76.insu54678')
   }
+  changeSpoTitle() {
+    this.proposer.controls['stitleName'].patchValue(this.etitle[this.proposer.controls['stitle'].value]);
+  }
+
 
   changeTitle1s() {
     this.insureArray.controls['title'].patchValue(this.etitle[this.customerDetails.controls['title'].value]);
