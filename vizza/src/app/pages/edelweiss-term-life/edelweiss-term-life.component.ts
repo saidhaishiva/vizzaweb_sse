@@ -1758,7 +1758,11 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (this.customerDetails.valid) {
       if (sessionStorage.customerAge >= 18) {
 
-
+        this.edelweissPrimium();
+        this.sumHCBError();
+        this.sumCiError();
+        this.sumADBError();
+        this.sumATPDError();
         stepper.next();
         this.topScroll();
 
@@ -1805,6 +1809,8 @@ export class EdelweissTermLifeComponent implements OnInit {
 
         stepper.next();
         this.topScroll();
+
+
       }
       else{
         this.toastr.error('please enter correct Sum Assured Amount');
@@ -2598,9 +2604,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(error);
   }
   sumAssuredADBError() {
-    console.log(this.adb_sumassured_min,'adb_sumassured_min...')
-    console.log(this.adb_sumassured_max,'adb_sumassured_max...')
-    console.log(this.addon.controls['sumAssuredADB'].value,'adb_sumassured_max...')
+
+    console.log(this.addon.controls['sumAssuredADB'].value,'valuess...')
+    console.log(this.addon.controls['sumAssuredADB'].value <= this.adb_sumassured_max,'adb_sumassured_max...')
+    console.log(this.addon.controls['sumAssuredADB'].value >= this.adb_sumassured_min,'adb_sumassured_min...')
     if ((this.addon.controls['sumAssuredADB'].value <= this.adb_sumassured_max) && (this.addon.controls['sumAssuredADB'].value >= this.adb_sumassured_min)) {
       this.adbError =false;
       this.adbError ='';
@@ -5449,10 +5456,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.pdp_sumassured = this.eePremiumTerm.pdp_sumassured;
 
       this.betterhalf();
-      this.sumHCBError();
-      this.sumCiError();
-      this.sumADBError();
-      this.sumATPDError();
+
 
     }
     else {
