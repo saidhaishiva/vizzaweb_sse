@@ -255,10 +255,10 @@
                                     <div class="col-md-4 mt-2" *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="sumAssuredHCB"  (change)="edelweissPrimium();sumAssuredHCBError()"  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="sumAssuredHCB"  (change)="edelweissPrimium()" (input)="sumAssuredHCBError()" autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min:{{hcb_sumassured_min}} Max: {{hcb_sumassured_max}}</p></div>
-                                        <div class="error" style="margin-top: -20px" *ngIf="hcbdError != ''&&hcbdError != true">{{hcbdError}}<br> {{this.hcb_sumassured_min}} - {{this.hcb_sumassured_max}}</div>
+                                        <div class="error" style="margin-top: -20px" *ngIf="hcbdError != '' && hcbdError != true">{{hcbdError}}<br> {{this.hcb_sumassured_min}} - {{this.hcb_sumassured_max}}</div>
                                     </div>
                                     <div class="col-md-4 mt-2"  *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
                                         <p *ngIf="hcp != 0"><strong>   Hospital Cash Benefit Premium :</strong> {{hcp}}</p>
@@ -274,10 +274,10 @@
                                     <div class="col-md-4 mt-2">
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="criticalsumAssured"  (change)="edelweissPrimium();sumAssuredCiError()"  autocomplete="off"   (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="criticalsumAssured"  (change)="edelweissPrimium()" (input)="sumAssuredCiError()" autocomplete="off"   (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{ci_sumassured_min}}  Max: {{ci_sumassured_max}}</p></div>
-                                        <div class="error" style="margin-top: -20px"  *ngIf="ciError != ''&&ciError != true">{{ciError}} <br>{{this.ci_sumassured_min}}- {{this.ci_sumassured_max}}</div>
+                                        <div class="error" style="margin-top: -20px"  *ngIf="ciError != '' && ciError != true">{{ciError}} <br>{{this.ci_sumassured_min}}- {{this.ci_sumassured_max}}</div>
                                     </div>
                                     <!--                               <div class="col-md-4" *ngIf="addon.controls['criticalIllness'].value == 'Yes'">-->
                                     <!--                                   <mat-radio-group formControlName="criticalClaim"  >-->
@@ -300,11 +300,11 @@
                                     <div class="col-md-4 mt-2"  >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="sumAssuredADB"  (change)="edelweissPrimium();sumAssuredADBError()"  autocomplete="off"    (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="sumAssuredADB"  (change)="edelweissPrimium()" (input)="sumAssuredADBError()" autocomplete="off"    (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{adb_sumassured_min}} Max: {{adb_sumassured_max}}</p></div>
 
-                                        <div class="error" style="margin-top: -20px"  *ngIf="adbError != ''&&adbError != true">{{adbError}}<br> {{this.adb_sumassured_min}} - {{this.adb_sumassured_max}}</div>
+                                        <div class="error" style="margin-top: -20px"  *ngIf="adbError != '' && adbError != true">{{adbError}}<br> {{this.adb_sumassured_min}} - {{this.adb_sumassured_max}}</div>
                                     </div>
                                     <!--                               <div class="col-md-4 mt-2" *ngIf="addon.controls['isADB'].value == 'Yes'" >-->
                                     <!--                                   <mat-form-field class="w-100">-->
@@ -328,7 +328,7 @@
                                     <div class="col-md-4 mt-2 " >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="sumAssuredATPD" (change)="edelweissPrimium();sumAssuredATPDError()"   autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="sumAssuredATPD" (change)="edelweissPrimium()" (input)="sumAssuredATPDError()"  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{atpd_sumassured_min}} Max: {{atpd_sumassured_min}}</p></div>
                                         <div class="error" style="margin-top: -20px"  *ngIf="atpdError != '' && atpdError != true">{{atpdError}}<br> {{this.atpd_sumassured_min }} - {{this.atpd_sumassured_max}}</div>
@@ -2825,14 +2825,14 @@
                     <ng-template matStepLabel>SUMMARY</ng-template>
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
-                            <div class="col-md-4 mt-1">
-                                <h4 class="mt-3"><span style="font-size: 17px; color: #666;"> Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{lifePremiumList.sum_insured_amount}}</span></h4>
+                            <div class="col-md-3 mt-3">
+                                <h4 class="mt-3"><span > Sum Insured: &nbsp;</span><br><span style="font-size: 17px; color: #666;"><i class="fas fa-rupee-sign"></i> {{lifePremiumList.sum_insured_amount}}</span></h4>
                             </div>
-                            <div class="col-md-8 mt-4">
+                            <div class="col-md-9 mt-4">
                                 <ul class="summary-head">
-                                    <li><span>Plan Name: </span><span style="font-size: 16px; color: #666;">{{summaryData.plan_name}}</span></li>
-                                    <li><span>Insurer:</span><img src="{{ webhost + '/' + lifePremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                    <li><span>Total Premium:</span><span><br><i class="fas fa-rupee-sign"></i> {{summaryData.Premium}}</span></li>
+                                    <li><span>Plan Name: </span><br><span style="font-size: 16px; color: #666;">{{summaryData.plan_name}}</span></li>
+                                    <li><span>Insurer:</span><br><img src="{{ webhost + '/' + lifePremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                                    <li><span>Total Premium:</span><br><span><i class="fas fa-rupee-sign"></i> {{summaryData.Premium}}</span></li>
                                     <li></li>
                                 </ul>
                             </div>
@@ -2968,7 +2968,7 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 mt-3">
                                                 <h6 class="color-blue" ></h6>
                                                 <ul class="m-0 list-group">
 
@@ -3013,9 +3013,7 @@
                                             <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Employer Address :</strong> {{insuredFormData.employerAddr}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.annualIncome != ''"><strong>Annual Income :</strong> {{insuredFormData.annualIncome}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == true"><strong>Is Politically Exposed :</strong>Yes</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == false"><strong>Is Politically Exposed :</strong>No</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.specification != ''"><strong>Specification :</strong> {{insuredFormData.specification}}</li>
+
 
 
                                         </ul>
@@ -3025,6 +3023,9 @@
                                     <div class="p-3">
 
                                         <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == true"><strong>Is Politically Exposed :</strong>Yes</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == false"><strong>Is Politically Exposed :</strong>No</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.specification != ''"><strong>Specification :</strong> {{insuredFormData.specification}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.isCriminal != '' && lifePremiumList.product_id=='112'"><strong>Are u Criminal :</strong> {{insuredFormData.isCriminal}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.criminalDetails != '' && lifePremiumList.product_id=='112'"><strong>Criminal Details :</strong> {{insuredFormData.criminalDetails}}</li>
                                             <!--<li class="list-group-item" *ngIf="insuredFormData.categorization != '' && lifePremiumList.product_id=='112'"><strong>Categorization :</strong> {{insuredFormData.categorization}}</li>-->
@@ -3194,6 +3195,7 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.respiratoryDieaseDetails != ''&& lifePremiumList.product_id=='112'" ><strong>Respiratory Disease Details:</strong> {{medicalFormData.respiratoryDieaseDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.diabetesInd != '' && lifePremiumList.product_id=='112'"><strong>Diabetes:</strong> {{medicalFormData.diabetesInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.diabetesDetails != '' && lifePremiumList.product_id=='112'"><strong>Diabetes Details:</strong> {{medicalFormData.diabetesDetails}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment2 != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalFormData.receivedTreatment2}}</li>
 
                                                 </ul>
                                             </div>
@@ -3205,7 +3207,6 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment2 != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalFormData.receivedTreatment2}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.aidsDetails != ''"><strong>AIDS Details:</strong> {{medicalFormData.aidsDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.kidneyDieaseInd != '' && lifePremiumList.product_id=='112'"><strong>Kidney Disease:</strong> {{medicalFormData.kidneyDieaseInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.kidneyDieaseDetails != '' && lifePremiumList.product_id=='112'"><strong>Kidney Disease Details:</strong> {{medicalFormData.kidneyDieaseDetails}}</li>
