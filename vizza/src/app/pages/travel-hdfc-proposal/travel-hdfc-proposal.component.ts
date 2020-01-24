@@ -94,6 +94,8 @@ export class TravelHdfcProposalComponent implements OnInit {
     public status: any;
     public passportany: any;
     public proposal_Id: any;
+    public productcode: any;
+    public hdfc_ergo_payment: any;
     public mobileView: boolean;
     public pedValid: boolean;
 
@@ -514,7 +516,6 @@ export class TravelHdfcProposalComponent implements OnInit {
         }
 
     }
-
 
     DobDaysCalculate(getDays) {
         let a = moment(getDays, 'DD/MM/YYYY');
@@ -1021,6 +1022,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             console.log(this.PaymentActionUrl,'payyyyyy')
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposerFormData = this.hdfcTravel.value;
+            // this.productcode = this.hdfcTravel.value;
             this.insuredFormData = this.hdfcInsuredTravel.value.items;
             this.nomineeFormData = this.nomineeTravelDetails.value;
             this.fullName = this.proposerFormData.firstname + ' ' + this.proposerFormData.lastname;
@@ -1036,6 +1038,8 @@ export class TravelHdfcProposalComponent implements OnInit {
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
             console.log(this.summaryData, 'summary datat');
+            console.log(this.summaryData.productcode, 'summary datat');
+            // console.log(this.productcode, 'summary datat');
             console.log(this.proposerFormData, 'this.proposerFormData');
             console.log(this.fullName, 'summary datat');
             console.log(this.totalAmount, ' totalAmount');
