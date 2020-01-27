@@ -20,6 +20,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   templateUrl: './term-life-premium-list.component.html',
   styleUrls: ['./term-life-premium-list.component.scss']
 })
+
 export class TermLifePremiumListComponent implements OnInit {
     public settings: Settings;
     allCompanyList: any;
