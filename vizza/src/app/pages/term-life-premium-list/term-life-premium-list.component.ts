@@ -15,17 +15,11 @@ import {ClearSessionTermlifeService} from '../../shared/services/clear-session-t
 import {TermViewKeyfeaturesComponent} from './term-view-keyfeatures/term-view-keyfeatures.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-export interface DialogData{
-    companyid: any;
-}
-
 @Component({
-  selector: 'app-term-life-premium-list',
-  templateUrl: './term-life-premium-list.component.html',
-  styleUrls: ['./term-life-premium-list.component.scss']
+    selector: 'app-term-life-premium-list',
+    templateUrl: './term-life-premium-list.component.html',
+    styleUrls: ['./term-life-premium-list.component.scss']
 })
-
-
 export class TermLifePremiumListComponent implements OnInit {
     public settings: Settings;
     allCompanyList: any;
@@ -59,67 +53,67 @@ export class TermLifePremiumListComponent implements OnInit {
     checkAllStatus: boolean;
     changepremiumList: boolean;
     public keyUp = new Subject<string>();
-  constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService,public clearSession: ClearSessionTermlifeService) {
-      this.settings = this.appSettings.settings;
-      this.settings.HomeSidenavUserBlock = false;
-      this.settings.sidenavIsOpened = false;
-      this.settings.sidenavIsPinned = false;
-      this.webhost = this.config.getimgUrl();
-      this.compareArray = [];
-      this.selectedAmountTravel = '5000000';
-      this.dethBenfit = sessionStorage.deathBenefitSA;
-      if(this.selectedAmountTravel == '5000000'){
-      } else{
-         this.selectedAmountTravel = this.dethBenfit;
-      }
-      sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
-      this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
-      // this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-      this.clearSession.clearSessiontermData();
-      this.changepremiumList = false;
-      // this.premium_paying_termm = '55';
+    constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService,public clearSession: ClearSessionTermlifeService) {
+        this.settings = this.appSettings.settings;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
+        this.webhost = this.config.getimgUrl();
+        this.compareArray = [];
+        this.selectedAmountTravel = '5000000';
+        this.dethBenfit = sessionStorage.deathBenefitSA;
+        if(this.selectedAmountTravel == '5000000'){
+        } else{
+            this.selectedAmountTravel = this.dethBenfit;
+        }
+        sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
+        this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
+        // this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+        this.clearSession.clearSessiontermData();
+        this.changepremiumList = false;
+        // this.premium_paying_termm = '55';
 
-      // this.allHdfcList12 = [];
-      // once user typing stoped after calling function
-      const observable = this.keyUp
-          .map(value => event)
-          .debounceTime(1000)
-          .distinctUntilChanged()
-          .flatMap((search) => {
-              return Observable.of(search).delay(1000);
-          })
-          .subscribe((data) => {
-              console.log(data, 'data');
-              this.updateSumInsured();
-          });
-         this.form= this.fb.group({
-             termlists:'',
-             // planList:''
-         });
-      this.form = this.fb.group({
-          'items' : this.fb.array([
-              this.formarr()
-          ])
-      });
+        // this.allHdfcList12 = [];
+        // once user typing stoped after calling function
+        const observable = this.keyUp
+            .map(value => event)
+            .debounceTime(1000)
+            .distinctUntilChanged()
+            .flatMap((search) => {
+                return Observable.of(search).delay(1000);
+            })
+            .subscribe((data) => {
+                console.log(data, 'data');
+                this.updateSumInsured();
+            });
+        this.form= this.fb.group({
+            termlists:'',
+            // planList:''
+        });
+        this.form = this.fb.group({
+            'items' : this.fb.array([
+                this.formarr()
+            ])
+        });
 
-      // this.form.controls['termlists'].setValue(this.default, {onlySelf: true});
+        // this.form.controls['termlists'].setValue(this.default, {onlySelf: true});
 
-  }
-  ngOnInit() {
-      this.getCompanyList();
-      this.sessionData();
-      // this.getHDFcProduct();
-      // for (let i = 0; i < this.allProductLists.length; i++) {
-      //     alert('fr')
-      //     this.premium_paying_termm = this.allProductLists[i].premium_paying_term;
-      //     console.log(this.premium_paying_termm,'this.premium_paying_termm');
-      //     console.log(this.allProductLists[i].premium_paying_term,'this.premium_paying_termm');
-      //
-      // }
-          // this.form.controls['plists.termDetrails'].patchValue(this.allProductLists[0].term[0]);
-      // this.premium_paying_termm = '';
+    }
+    ngOnInit() {
+        this.getCompanyList();
+        this.sessionData();
+        // this.getHDFcProduct();
+        // for (let i = 0; i < this.allProductLists.length; i++) {
+        //     alert('fr')
+        //     this.premium_paying_termm = this.allProductLists[i].premium_paying_term;
+        //     console.log(this.premium_paying_termm,'this.premium_paying_termm');
+        //     console.log(this.allProductLists[i].premium_paying_term,'this.premium_paying_termm');
+        //
+        // }
+        // this.form.controls['plists.termDetrails'].patchValue(this.allProductLists[0].term[0]);
+        // this.premium_paying_termm = '';
 
-  }
+    }
     formarr() {
         return this.fb.group({
             termlists: '',
@@ -127,7 +121,7 @@ export class TermLifePremiumListComponent implements OnInit {
     }
     sessionData() {
         if(sessionStorage.getEnquiryDetials != '' && sessionStorage.getEnquiryDetials !=undefined) {
-          this.getEnquiryDetials  = JSON.parse(sessionStorage.getEnquiryDetials);
+            this.getEnquiryDetials  = JSON.parse(sessionStorage.getEnquiryDetials);
         }
         if(sessionStorage.setAllProductLists != '' && sessionStorage.setAllProductLists !=undefined) {
             this.setAllProductLists  = JSON.parse(sessionStorage.setAllProductLists);
@@ -159,161 +153,161 @@ export class TermLifePremiumListComponent implements OnInit {
     }
 
     getCompanyList() {
-    const data = {
-        'platform': 'web',
-        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-        'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-    };
-    this.life.getComapnyList(data).subscribe(
-        (successData) => {
-            this.companyListSuccess(successData);
-        },
-        (error) => {
-            this.companyListFailure(error);
-        });
-  }
-  public companyListSuccess(successData) {
-      console.log(successData.ResponseObject);
-      if (successData.IsSuccess) {
-          this.allCompanyList = successData.ResponseObject;
-          let all = ['All'];
-          for (let i = 0; i < this.allCompanyList.length; i++) {
-              all.push(this.allCompanyList[i].company_name)
-          }
-          this.filterCompany = all;
-          console.log(sessionStorage.allProductLists, 'ppp');
-          if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
-              console.log('inn');
-              this.getProductList(this.allCompanyList, '5000000');
-              // this.getProductList(this.allCompanyList, '5000000');
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+        };
+        this.life.getComapnyList(data).subscribe(
+            (successData) => {
+                this.companyListSuccess(successData);
+            },
+            (error) => {
+                this.companyListFailure(error);
+            });
+    }
+    public companyListSuccess(successData) {
+        console.log(successData.ResponseObject);
+        if (successData.IsSuccess) {
+            this.allCompanyList = successData.ResponseObject;
+            let all = ['All'];
+            for (let i = 0; i < this.allCompanyList.length; i++) {
+                all.push(this.allCompanyList[i].company_name)
+            }
+            this.filterCompany = all;
+            console.log(sessionStorage.allProductLists, 'ppp');
+            if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
+                console.log('inn');
+                this.getProductList(this.allCompanyList, '5000000');
+                // this.getProductList(this.allCompanyList, '5000000');
 
-          }
+            }
 
-      }
-  }
-  public companyListFailure(error) {
-      console.log(error);
-  }
+        }
+    }
+    public companyListFailure(error) {
+        console.log(error);
+    }
 
 
-  getHdfcproduct() {
-    const data = {
-        'platform': 'web',
-        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-        'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-    };
-    this.life.getHDFcProduct(data).subscribe(
-        (successData) => {
-            this.productListSuccess(successData);
-        },
-        (error) => {
-            this.productListFailure(error);
-        });
-  }
-  public productListSuccess(successData) {
-      console.log(successData.ResponseObject);
-      if (successData.IsSuccess) {
-          this.allhdfcProductList = successData.ResponseObject;
+    getHdfcproduct() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+        };
+        this.life.getHDFcProduct(data).subscribe(
+            (successData) => {
+                this.productListSuccess(successData);
+            },
+            (error) => {
+                this.productListFailure(error);
+            });
+    }
+    public productListSuccess(successData) {
+        console.log(successData.ResponseObject);
+        if (successData.IsSuccess) {
+            this.allhdfcProductList = successData.ResponseObject;
 
-      }
-  }
-  public productListFailure(error) {
-      console.log(error);
-  }
-  //   getHDFcProduct() {
-  //     // console.log(event,'event');
-  //   const data = {
-  //       'platform': 'web',
-  //       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-  //       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-  //       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-  //   };
-  //   this.life.getHDFcProduct(data).subscribe(
-  //       (successData) => {
-  //           this.productHdfcSuccess(successData);
-  //       },
-  //       (error) => {
-  //           this.productHdfcFailure(error);
-  //       });
-  // }
-  // public productHdfcSuccess(successData) {
-  //     console.log(successData.ResponseObject);
-  //     if (successData.IsSuccess) {
-  //         this.allHdfcList = successData.ResponseObject;
-  //           // alert('inn');
-  //         for(let i=0; i<=this.allHdfcList.length; i++)
-  //         {
-  //
-  //             // this.allHdfcList12 = this.allHdfcList[i].id;
-  //             // console.log( this.allHdfcList,'listtttt');
-  //             // console.log( this.allHdfcList[i].id,'listid');
-  //             // console.log(  this.allHdfcList12 ,'listid');
-  //         }
-  //         // alert(this.allHdfcList12);
-  //         // console.log( this.allHdfcList,'listtttt');
-  //         // console.log( this.allHdfcList.id,'listid');
-  //         // this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
-  //         // this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
-  //         // this.getProductList(companyList, sum_assured);
-  //         // this.getProductList(companyList, sum_assured);
-  //         console.log(this.allProductLists, 'allProductLists');
-  //     }
-  //
-  // }
-  //
-  // public productHdfcFailure(error) {
-  //     console.log(error);
-  // }
+        }
+    }
+    public productListFailure(error) {
+        console.log(error);
+    }
+    //   getHDFcProduct() {
+    //     // console.log(event,'event');
+    //   const data = {
+    //       'platform': 'web',
+    //       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+    //       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+    //   };
+    //   this.life.getHDFcProduct(data).subscribe(
+    //       (successData) => {
+    //           this.productHdfcSuccess(successData);
+    //       },
+    //       (error) => {
+    //           this.productHdfcFailure(error);
+    //       });
+    // }
+    // public productHdfcSuccess(successData) {
+    //     console.log(successData.ResponseObject);
+    //     if (successData.IsSuccess) {
+    //         this.allHdfcList = successData.ResponseObject;
+    //           // alert('inn');
+    //         for(let i=0; i<=this.allHdfcList.length; i++)
+    //         {
+    //
+    //             // this.allHdfcList12 = this.allHdfcList[i].id;
+    //             // console.log( this.allHdfcList,'listtttt');
+    //             // console.log( this.allHdfcList[i].id,'listid');
+    //             // console.log(  this.allHdfcList12 ,'listid');
+    //         }
+    //         // alert(this.allHdfcList12);
+    //         // console.log( this.allHdfcList,'listtttt');
+    //         // console.log( this.allHdfcList.id,'listid');
+    //         // this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
+    //         // this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
+    //         // this.getProductList(companyList, sum_assured);
+    //         // this.getProductList(companyList, sum_assured);
+    //         console.log(this.allProductLists, 'allProductLists');
+    //     }
+    //
+    // }
+    //
+    // public productHdfcFailure(error) {
+    //     console.log(error);
+    // }
 
-  gethdfcPremium(plists,i) {
-    const data = {
-        'platform': 'web',
-        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-        'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-        'policy_id': this.getEnquiryDetials.policy_id,
-        'sum_assured': this.selectedAmountTravel,
-        'company_id': '5',
-        "product_id": plists.planList,
-    };
-      this.settings.loadingSpinner = true;
+    gethdfcPremium(plists,i) {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'policy_id': this.getEnquiryDetials.policy_id,
+            'sum_assured': this.selectedAmountTravel,
+            'company_id': '5',
+            "product_id": plists.planList,
+        };
+        this.settings.loadingSpinner = true;
 
-      this.life.gethdfcPremium(data).subscribe(
-        (successData) => {
-            this.hdfcPremiumSuccess(successData,i);
-        },
-        (error) => {
-            this.hdfcPremiumFailure(error);
-        });
-  }
-  public hdfcPremiumSuccess(successData,i) {
-      this.settings.loadingSpinner = false;
+        this.life.gethdfcPremium(data).subscribe(
+            (successData) => {
+                this.hdfcPremiumSuccess(successData,i);
+            },
+            (error) => {
+                this.hdfcPremiumFailure(error);
+            });
+    }
+    public hdfcPremiumSuccess(successData,i) {
+        this.settings.loadingSpinner = false;
 
-      console.log(successData.ResponseObject);
-      if (successData.IsSuccess) {
-          this.HdfcPremiumList = successData.ResponseObject;
-          console.log( this.HdfcPremiumList,'ghfhfgvhgh');
-          this.allProductLists[i].totalpremium =   this.HdfcPremiumList.productlist[0].totalpremium;
-        console.log(this.allProductLists[i].totalpremium, ' this.allProductLists[i].totalpremium');
-          // this.CoverageAge =  this.HdfcPremiumList.CoverageAge;
-          // this.allProductLists.totalpremium = this.HdfcPremiumList.productlist[0].totalpremium;
-          // this.allProductLists.CoverageAge =  this.HdfcPremiumList.productlist[0].CoverageAge;
-          // console.log(this.HdfcPremiumList.productlist[0].totalpremium,'totalpremium');
-          // console.log(this.HdfcPremiumList.productlist[0].CoverageAge,'CoverageAge');
-          // console.log(this.allProductLists.totalpremium,'total2');
-          // console.log(this.allProductLists.CoverageAge,'CoverageAge2');
-          //
-          // // this.getProductList(companyList, sum_assured);
-          // console.log(this.allProductLists, 'allProductLists');
-      }
+        console.log(successData.ResponseObject);
+        if (successData.IsSuccess) {
+            this.HdfcPremiumList = successData.ResponseObject;
+            console.log( this.HdfcPremiumList,'ghfhfgvhgh');
+            this.allProductLists[i].totalpremium =   this.HdfcPremiumList.productlist[0].totalpremium;
+            console.log(this.allProductLists[i].totalpremium, ' this.allProductLists[i].totalpremium');
+            // this.CoverageAge =  this.HdfcPremiumList.CoverageAge;
+            // this.allProductLists.totalpremium = this.HdfcPremiumList.productlist[0].totalpremium;
+            // this.allProductLists.CoverageAge =  this.HdfcPremiumList.productlist[0].CoverageAge;
+            // console.log(this.HdfcPremiumList.productlist[0].totalpremium,'totalpremium');
+            // console.log(this.HdfcPremiumList.productlist[0].CoverageAge,'CoverageAge');
+            // console.log(this.allProductLists.totalpremium,'total2');
+            // console.log(this.allProductLists.CoverageAge,'CoverageAge2');
+            //
+            // // this.getProductList(companyList, sum_assured);
+            // console.log(this.allProductLists, 'allProductLists');
+        }
 
-  }
+    }
 
-  public hdfcPremiumFailure(error) {
-      console.log(error);
-  }
+    public hdfcPremiumFailure(error) {
+        console.log(error);
+    }
 
     //
     // getValue()
@@ -443,8 +437,8 @@ export class TermLifePremiumListComponent implements OnInit {
                 // console.log(this.allProductLists[7].termDetrails, 'detrails')
                 //
                 // console.log(this.allProductLists[i].premium_paying_term, 'premium_paying_term')
-               // this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
-               //  this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
+                // this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
+                //  this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
                 let dob = this.datepipe.transform(this.allProductLists[i].dob, 'y-MM-dd');
                 this.allProductLists[i].age = this.ageCalculate(dob);
                 // this.lifeTermChange(plists, i);
@@ -528,40 +522,31 @@ export class TermLifePremiumListComponent implements OnInit {
     }
 
     buyProduct(value) {
-      alert('input');
         console.log(value, 'vlitss');
         sessionStorage.lifePremiumList = JSON.stringify(value);
         if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() ==3)) {
 
             let dialogRef = this.dialog.open(PosstatusAlertTravel, {
                 width: '700px',
-                data:{ companyid: value.company_id}
-
             });
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
-                    alert(result);
-                    alert('inn8');
-
                     let paymentModeValid = true;
-                    if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000 || value.payment_mode == 'yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000) {
+                    if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300 || value.payment_mode == 'quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
+                    if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 || value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 2000) {
+                    if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450 || value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 500) {
+                    if(value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450) {
                         paymentModeValid = false;
                     }
 
                     if(paymentModeValid) {
-                        alert(paymentModeValid);
-                        alert('inn6');
-
                         if (value.product_id <= 81 && value.product_id >=78) {
                             this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
                         } else if (value.product_id == 87 ) {
@@ -573,11 +558,8 @@ export class TermLifePremiumListComponent implements OnInit {
                             this.router.navigate(['/hdfc-term-life'  + '/' + false]);
                         }
                     } else {
-                        alert('inn');
-
                         let dialogRef = this.dialog.open(PaymentModeValidate, {
                             width: '700px',
-                            data:{ companyid: value.company_id}
                         });
                         dialogRef.disableClose = true;
                         dialogRef.afterClosed().subscribe(result => {
@@ -588,24 +570,20 @@ export class TermLifePremiumListComponent implements OnInit {
             });
         }  else {
             let paymentModeValid = true;
-            alert('inn333')
-            if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000 ||value.payment_mode == 'yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000) {
+            if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300 || value.payment_mode == 'quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
+            if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 || value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 2000 ) {
+            if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 ) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'monthly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450 || value.payment_mode == 'monthly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 500) {
+            if(value.payment_mode == 'monthly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450) {
                 paymentModeValid = false;
             }
 
             if(paymentModeValid) {
-                alert(paymentModeValid)
-                alert('inn5');
-
                 if (value.product_id <= 81 && value.product_id >=78) {
                     this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
                 } else if (value.product_id <= 87 && value.product_id >=86) {
@@ -616,12 +594,8 @@ export class TermLifePremiumListComponent implements OnInit {
                     this.router.navigate(['/hdfc-term-life'  + '/' + false]);
                 }
             } else {
-                alert('inn2');
-
                 let dialogRef = this.dialog.open(PaymentModeValidate, {
                     width: '700px',
-                    data:{ companyid: value.company_id}
-
                 });
                 dialogRef.disableClose = true;
                 dialogRef.afterClosed().subscribe(result => {
@@ -652,15 +626,15 @@ export class TermLifePremiumListComponent implements OnInit {
         let productname;
 
         // this.termLists = plists.term[index];
-      if(plists.company_id == '6'){
-          cover = plists.cover;
-      }
-      if(plists.company_id == '9'){
-          benefit = plists.benefit_option;
-      }
-      if(plists.company_id == '5'){
-          productname = plists.productname;
-      }
+        if(plists.company_id == '6'){
+            cover = plists.cover;
+        }
+        if(plists.company_id == '9'){
+            benefit = plists.benefit_option;
+        }
+        if(plists.company_id == '5'){
+            productname = plists.productname;
+        }
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -691,19 +665,19 @@ export class TermLifePremiumListComponent implements OnInit {
         if (successData.IsSuccess == true) {
             this.settings.loadingSpinner = false;
             this.termListDetails = successData.ResponseObject;
-                  this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
-                  this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
-                  this.allProductLists[index].premium_paying_term =  this.termListDetails.premium_paying_term;
-                  console.log(this.allProductLists[index].premium_paying_term,'4567898765678');
-                  // this.allProductLists[index].term =  this.termListDetails.term[0];
+            this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
+            this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
+            this.allProductLists[index].premium_paying_term =  this.termListDetails.premium_paying_term;
+            console.log(this.allProductLists[index].premium_paying_term,'4567898765678');
+            // this.allProductLists[index].term =  this.termListDetails.term[0];
 
-                // console.log( this.allProductLists[index].term ,' this.allProductLists[index].term ')
-                // console.log(  this.termListDetails.term[0],' this.allProductLists[index].term ')
-              console.log(this.allProductLists, 'allProductLists');
-            }
-            console.log(plists, 'plists');
-
+            // console.log( this.allProductLists[index].term ,' this.allProductLists[index].term ')
+            // console.log(  this.termListDetails.term[0],' this.allProductLists[index].term ')
+            console.log(this.allProductLists, 'allProductLists');
         }
+        console.log(plists, 'plists');
+
+    }
 
     public termChangeFailure(error){
 
@@ -722,41 +696,36 @@ export class TermLifePremiumListComponent implements OnInit {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <p *ngIf="data.companyid == 6"> Minimum Premium for Bajaj Allianz Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.</p>
-                    <p *ngIf="data.companyid == 14"> Minimum Premium for Edelweiss Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.</p>
+                    <p> Minimum Premium for Bajaj Allianz Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.</p>
                     <table class="table table-bordered">
                         <thead class="thead-light">
                         <tr>
-                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Monthly</th>
-                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Quarterly</th>
-                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Half-Yearly</th>
-                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Yearly</th>
+                            <th scope="col">Monthly</th>
+                            <th scope="col">Quarterly</th>
+                            <th scope="col">Half-Yearly</th>
+                            <th scope="col">Yearly</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td *ngIf="data.companyid == 6">Rs. 450</td>
-                            <td *ngIf="data.companyid == 14">Rs. 500</td>
-                            <td *ngIf="data.companyid == 6"> Rs. 1300</td>
-                            <td *ngIf="data.companyid == 14"> Rs. 1250</td>
-                            <td *ngIf="data.companyid == 6"> Rs. 2550</td>
-                            <td *ngIf="data.companyid == 14"> Rs. 2000</td>
-                            <td *ngIf="data.companyid == 6">Rs. 5000</td>
-                            <td *ngIf="data.companyid == 14">Rs. 3000</td>
+                            <td>Rs. 450</td>
+                            <td> Rs. 1300</td>
+                            <td> Rs. 2550</td>
+                            <td>Rs. 5000</td>
                         </tr>
                         </tbody>
                     </table>
-                    
-<!--                    Monthly - Rs. 450-->
-<!--                    Quarterly - Rs. 1300-->
-<!--                    Half-Yearly - Rs. 2550-->
-<!--                    Yearly - Rs. 5000</p>-->
+
+                    <!--                    Monthly - Rs. 450-->
+                    <!--                    Quarterly - Rs. 1300-->
+                    <!--                    Half-Yearly - Rs. 2550-->
+                    <!--                    Yearly - Rs. 5000</p>-->
                 </div>
             </div>
         </div>
         <div mat-dialog-actions style="justify-content: center">
-<!--            <button mat-button class="secondary-bg-color" (click)="onClick(false)" >Cancel</button>-->
-             <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
+            <!--            <button mat-button class="secondary-bg-color" (click)="onClick(false)" >Cancel</button>-->
+            <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
 
         </div>
     `
@@ -764,13 +733,9 @@ export class TermLifePremiumListComponent implements OnInit {
 export class PaymentModeValidate {
     constructor(
         public dialogRef: MatDialogRef<PaymentModeValidate>,
-        @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-        alert('inn');
-        console.log(data.companyid,'hgffghgfghfg');
+        @Inject(MAT_DIALOG_DATA) public data: any) {
     }
     onClick(result) {
         this.dialogRef.close(result);
     }
 }
-
-
