@@ -476,10 +476,11 @@
                             <div class="carousel-inner text-center col-sm-12 col-xs-12 col-md-12" >
                                 <div class="col-sm-10 col-xs-10 col-md-10">
                                     <div  *ngFor="let list of testimonialLists; let i = index" class="carousel-item {{i == 0 ? 'active' : ''}}">
-                                        <div class="float-left border-right border-secondary pr-2 mr-3">
+                                        <!--<div class="float-left border-right border-secondary pr-2 mr-3">-->
+                                        <div>
                                             <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}"  class="rounded-circle " alt="vizza-profile-pic" title="vizza-profile-pic">
                                             <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle mr-3" width="100" height="100"  alt="vizza-profile-pic1" title="vizza-profile-pic1">
-                                            <p class="text-center"><strong>{{list.customer_name}}</strong><br><span class="text-center">{{list.designation}}</span><br><span class="text-center">{{list.company_name}}</span></p>
+                                            <p class="text-center pt-3"><strong>{{list.customer_name}}</strong><br><span class="text-center">{{list.designation}}</span><br><span class="text-center">{{list.company_name}}</span></p>
                                         </div>
                                         <div>
                                             <p class="visible text-center">{{list.comments}}</p>
