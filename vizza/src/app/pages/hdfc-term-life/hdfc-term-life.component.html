@@ -116,7 +116,7 @@
                             <mat-error *ngIf="personal.controls.residentstatus.errors?.required">Residential Status is required</mat-error>
                           </mat-form-field>
                         </div>
-                          <div class="col-md-4">
+                          <div class="col-md-3">
                               <mat-form-field class="w-100" >
                                   <mat-select placeholder="Premium Paying term" formControlName="pptOption" required >
                                       <mat-option value="REGULAR">Regular</mat-option>
@@ -124,6 +124,19 @@
                                       <mat-option value="SINGLE">Single</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="personal.controls.pptOption.errors?.required">Premium Paying term is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Mobile Number" formControlName="mobilenum" maxlength="10" (keypress)="numberValidate($event)" autocomplete="off" required>
+                                  <mat-error *ngIf="personal.controls.mobilenum.errors?.required">Mobile Number is required</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Email ID" formControlName="email"  autocomplete="off" required>
+                                  <mat-error *ngIf="personal.controls.email.errors?.required">Email ID is required</mat-error>
+                                  <mat-error *ngIf="personal.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                               </mat-form-field>
                           </div>
 
@@ -256,7 +269,7 @@
             </form>
           </mat-step>
 
-            <mat-step [stepControl]="otherDetails">
+            <mat-step [stepControl]="OtherDetails">
                 <form [formGroup]="otherDetails" >
                     <ng-template matStepLabel>OTHER DETAILS</ng-template>
                     <mat-accordion class="w-100 float-left">
@@ -269,7 +282,6 @@
                             <div class="row">
                                 <div class="col-md-12 box-card pt-3">
                                     <div class="row">
-
 
                                         <div class="col-md-3">
                                             <mat-radio-group formControlName="ishdfcempflg" required >
@@ -343,8 +355,9 @@
                                                         {{list.value}}
                                                     </mat-option>
                                                 </mat-select>
-                                                <mat-error *ngIf="otherDetails.controls.expdurofstay.errors?.required">State is required</mat-error>
-                                            </mat-form-field></div>
+                                                <mat-error *ngIf="otherDetails.controls.expdurofstay.errors?.required">Expected Duration is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Preferred Communication Address Type" formControlName="prfdcommaddr" (selectionChange)="changeprfdcommaddr()" autocomplete="off"  required>
@@ -470,7 +483,7 @@
                                                         {{list.value}}
                                                     </mat-option>
                                                 </mat-select>
-                                                <mat-error *ngIf="otherDetails.controls.fathernmtitle.errors?.required">Father Name is required</mat-error>
+                                                <mat-error *ngIf="otherDetails.controls.fathernmtitle.errors?.required">Father Title is required</mat-error>
                                             </mat-form-field>
                                         </div>
 
@@ -935,8 +948,6 @@
             </mat-step>
 
 
-
-
             <mat-step [stepControl]="">
                 <ng-template matStepLabel>SUMMARY</ng-template>
                 <section class="summary-details" *ngIf="summaryData">
@@ -959,112 +970,25 @@
                                 <ul class="m-0 list-group">
                                     <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.titleName}}.{{proposerFormData.firstnm}} {{proposerFormData.lastnm}} </li>
                                     <li class="list-group-item" ><strong>Gender:</strong> {{proposerFormData.genderName}} </li>
-                                    <li class="list-group-item" ><strong>Mobile Number:</strong> {{proposerFormData.mobilenum}}</li>
                                     <li class="list-group-item" ><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
                                     <li class="list-group-item" ><strong>Father Name:</strong> {{proposerFormData.fathernm}}</li>
-
+                                    <li class="list-group-item" ><strong>Mobile Number:</strong> {{proposerFormData.mobilenum}}</li>
+                                    <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="p-3">
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>Birth place:</strong> {{proposerFormData.birthplace}}</li>
-                                    <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
                                     <li class="list-group-item" ><strong>Marital Status:</strong> {{proposerFormData.maritalstatusName}}</li>
                                     <li class="list-group-item"><strong>Education:</strong> {{proposerFormData.eduqualName}}</li>
-                                    <li class="list-group-item"><strong>Expected duration of stay Name:</strong> {{proposerFormData.expdurofstayName}}</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <ul class="m-0 list-group">
                                     <li class="list-group-item" ><strong>Nationality:</strong> {{proposerFormData.nationalityName}}</li>
+                                    <li class="list-group-item"><strong>Birth place:</strong> {{proposerFormData.birthplace}}</li>
                                     <li class="list-group-item" ><strong>Resident Status:</strong> {{proposerFormData.residentstatusName}}</li>
-                                    <li class="list-group-item" ><strong>Is hdfc employee:</strong> {{proposerFormData.ishdfcempflg}}</li>
-                                    <li class="list-group-item" ><strong>Smoker Status:</strong> {{proposerFormData.smokerstatusflg}}</li>
-
-                                </ul>
+                                    <li class="list-group-item" ><strong>Premium Paying Term:</strong> {{proposerFormData.pptOption}}</li>
+                              </ul>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <ul class="m-0 list-group">
-                                    <li class="list-group-item" ><strong>History of conviction:</strong> {{proposerFormData.historyofconviction}}</li>
-                                    <li class="list-group-item" ><strong>Existing customer:</strong> {{proposerFormData.exstngcustflg}}</li>
-                                    <li class="list-group-item" ><strong>Pep:</strong> {{proposerFormData.pepflg}}</li>
-                                    <li class="list-group-item" ><strong>Demat :</strong> {{proposerFormData.dematflg}}</li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <h6 class="color-blue">FAMILY DETAILS</h6>
-                                <ul class="m-0 list-group">
-                                    <li class="list-group-item" ><strong>Preffered communcation Address:</strong> {{proposerFormData.prfdcommaddrName}}</li>
-                                    <li class="list-group-item" ><strong>Preffered communcation language:</strong> {{proposerFormData.prfdcommlangName}}</li>
-                                    <li class="list-group-item" ><strong>Occupation:</strong> {{proposerFormData.occutypeName}}</li>
-                                    <li class="list-group-item" ><strong>Preffered communcation mode:</strong> {{proposerFormData.prfdcommmodeName}}</li>
-                                    <li class="list-group-item" ><strong>Employer Name:</strong> {{proposerFormData.employernm}}</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <ul class="m-0 list-group">
-                                    <li class="list-group-item" ><strong>Annual income:</strong> {{proposerFormData.annualincm}}</li>
-                                    <li class="list-group-item" ><strong>Nature of occupation:</strong> {{proposerFormData.natureofoccuName}}</li>
-                                    <li class="list-group-item" ><strong>Address line:</strong> {{proposerFormData.addrline}}</li>
-                                    <li class="list-group-item" ><strong>Exist ulip :</strong> {{proposerFormData.existulipflag}}</li>
-                                    <li class="list-group-item" ><strong>Occupation:</strong> {{proposerFormData.occutypeName}}</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <h6 class="color-blue">FAMILY DETAILS</h6>
-                                <ul class="m-0 list-group">
-                                    <li class="list-group-item" ><strong>Father Title:</strong> {{proposerFormData.fathernmtitleName}}</li>
-                                    <li class="list-group-item" ><strong>Father First Name:</strong> {{proposerFormData.fatherfirstnm}}</li>
-                                    <li class="list-group-item" ><strong>Father Middle Name:</strong> {{proposerFormData.fathermiddlenm}}</li>
-                                    <li class="list-group-item" ><strong>Father Last Name:</strong> {{proposerFormData.fatherlastnm}}</li>
-                                    <li class="list-group-item" ><strong>Mother Title:</strong> {{proposerFormData.mmaritalstatusName}}</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <ul class="m-0 list-group">
-                                    <li class="list-group-item" ><strong>Mother FirstName:</strong> {{proposerFormData.motherfirstnm}}</li>
-                                    <li class="list-group-item" ><strong>Mother Middle Name:</strong> {{proposerFormData.mothermiddlenm}}</li>
-                                    <li class="list-group-item" ><strong>Mother LastName:</strong> {{proposerFormData.motherlastnm}}</li>
-                                    <li class="list-group-item" ><strong>Marital Status:</strong> {{proposerFormData.mmaritalstatus}}</li>
-                                    <li class="list-group-item" ><strong>Spouse Title:</strong> {{proposerFormData.spousenmtitleName}}</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <ul class="m-0 list-group">
-                                    <li class="list-group-item" ><strong>Spouse First Name:</strong> {{proposerFormData.spousefirstnm}}</li>
-                                    <li class="list-group-item" ><strong>Spouse Middle Name:</strong> {{proposerFormData.spousemiddlenm}}</li>
-                                    <li class="list-group-item" ><strong>Spouse Last Name:</strong> {{proposerFormData.spouselastnm}}</li>
-                                    <li class="list-group-item" ><strong>Occupation Type:</strong> {{proposerFormData.occutypespName}}</li>
-                                    <li class="list-group-item" ><strong>Categori of Occupation:</strong> {{proposerFormData.catofoccupationName}}</li>
-                                    <li class="list-group-item" ><strong>Country of birth:</strong> {{proposerFormData.countryofbirthName}}</li>
-
-                                </ul>
-                            </div>
-                        </div>
-
                         <div class="col-md-6">
                             <div class="p-3">
                                 <h6 class="color-blue">RESIDENCY DETAILS</h6>
@@ -1073,14 +997,7 @@
                                     <li class="list-group-item" ><strong>Street:</strong> {{proposerFormData.street}}</li>
                                     <li class="list-group-item" ><strong>Landmark:</strong> {{proposerFormData.landmark}}</li>
                                     <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.cityName}}</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <ul class="m-0 list-group">
-                                     <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.stateName}}</li>
+                                    <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.stateName}}</li>
                                     <li class="list-group-item" ><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
                                     <li class="list-group-item"><strong>country:</strong> {{proposerFormData.countryName}}</li>
                                 </ul>
@@ -1094,12 +1011,6 @@
                                     <li class="list-group-item"><strong>Street:</strong> {{proposerFormData.cstreet}}</li>
                                     <li class="list-group-item"><strong>LandMark:</strong> {{proposerFormData.clandmark}}</li>
                                     <li class="list-group-item"><strong>City:</strong> {{proposerFormData.ccityName}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3">
-                                <ul class="m-0 list-group">
                                     <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.cstateName}}</li>
                                     <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.cpincode}}</li>
                                     <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.ccountryName}}</li>
@@ -1109,15 +1020,113 @@
 
                         <div class="col-md-6">
                             <div class="p-3">
-                                <h6 class="color-blue"> FAMILY DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>House No:</strong> {{proposerFormData.chouseno}}</li>
-                                    <li class="list-group-item"><strong>Street:</strong> {{proposerFormData.cstreet}}</li>
-                                    <li class="list-group-item"><strong>LandMark:</strong> {{proposerFormData.clandmark}}</li>
-                                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.ccityName}}</li>
+                                    <li class="list-group-item" ><strong>Is hdfc employee:</strong> {{otherFormData.ishdfcempflg}}</li>
+                                    <li class="list-group-item" ><strong>Existing customer:</strong> {{otherFormData.exstngcustflg}}</li>
+                                    <li class="list-group-item" ><strong>Is The Client Disabled:</strong> {{otherFormData.isdisabledflg}}</li>
+                                    <li class="list-group-item" ><strong>Pep:</strong> {{otherFormData.pepflg}}</li>
                                 </ul>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" ><strong>NRI:</strong> {{otherFormData.nriflg}}</li>
+                                    <li class="list-group-item" ><strong>Demat:</strong> {{otherFormData.dematflg}}</li>
+                                    <li class="list-group-item" ><strong>Smoking For Life Assured:</strong> {{otherFormData.smokerstatusflg}}</li>
+                                    <li class="list-group-item" ><strong>History Of Conviction:</strong> {{otherFormData.historyofconviction}}</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="p-3">
+                                <h6 class="color-blue">COMMUNICATION PREFERENCE</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" ><strong>Expected Duration Of Stay At The Correspondence Address:</strong> {{otherFormData.expdurofstay}}</li>
+                                            <li class="list-group-item" ><strong>Preferred Communication Address Type:</strong> {{otherFormData.prfdcommaddr}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" ><strong>Preferred Communication Mode:</strong> {{otherFormData.prfdcommmode}}</li>
+                                            <li class="list-group-item" ><strong>Preferred Communication Language:</strong> {{otherFormData.prfdcommlang}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="p-3">
+                                <h6 class="color-blue">EMPLOYMENT DETAILS</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" ><strong>Occupation Type:</strong> {{otherFormData.occutype}}</li>
+                                            <li class="list-group-item" ><strong>Employer Name:</strong> {{otherFormData.employernm}}</li>
+                                            <li class="list-group-item" ><strong>Annual Income:</strong> {{otherFormData.annualincm}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" ><strong>Nature Of Occupation:</strong> {{otherFormData.natureofoccu}}</li>
+                                            <li class="list-group-item" ><strong>Employer Address:</strong> {{otherFormData.addrline}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="p-3">
+                                <h6 class="color-blue">FUND SOURCE</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" ><strong>Source Type:</strong> {{otherFormData.sourcetype}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <h6 class="color-blue">FAMILY DETAILS</h6>
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" ><strong>Father Name:</strong> {{otherFormData.fathernmtitleName}} {{otherFormData.fatherfirstnm}} {{otherFormData.fathermiddlenm}} {{otherFormData.fatherlastnm}}</li>
+                                    <li class="list-group-item" ><strong>Mother Name:</strong> {{otherFormData.mothernmtitleName}} {{otherFormData.motherfirstnm}} {{otherFormData.mothermiddlenm}} {{otherFormData.motherlastnm}}</li>
+                                    <li class="list-group-item" ><strong>Spouse Name:</strong> {{otherFormData.spousenmtitleName}} {{otherFormData.spousefirstnm}} {{otherFormData.spousemiddlenm}} {{otherFormData.spouselastnm}}</li>
+                                    <li class="list-group-item" ><strong>Marital Status:</strong> {{otherFormData.mmaritalstatusName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="p-3">
+                                <ul class="m-0 list-group">
+                                    <li class="list-group-item" ><strong>Occupation Type:</strong> {{otherFormData.occutypespName}}</li>
+                                    <li class="list-group-item" ><strong>Categori of Occupation:</strong> {{otherFormData.catofoccupationName}}</li>
+                                    <li class="list-group-item" ><strong>Country of birth:</strong> {{otherFormData.countryofbirthName}}</li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!--<div class="col-md-6">-->
+                            <!--<div class="p-3">-->
+                                <!--<h6 class="color-blue"> FAMILY DETAILS</h6>-->
+                                <!--<ul class="m-0 list-group">-->
+                                    <!--<li class="list-group-item"><strong>House No:</strong> {{proposerFormData.chouseno}}</li>-->
+                                    <!--<li class="list-group-item"><strong>Street:</strong> {{proposerFormData.cstreet}}</li>-->
+                                    <!--<li class="list-group-item"><strong>LandMark:</strong> {{proposerFormData.clandmark}}</li>-->
+                                    <!--<li class="list-group-item"><strong>City:</strong> {{proposerFormData.ccityName}}</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
                     </div>
 

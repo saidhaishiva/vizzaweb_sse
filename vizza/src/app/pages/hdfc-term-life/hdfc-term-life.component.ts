@@ -157,6 +157,7 @@ export class HdfcTermLifeComponent implements OnInit {
   public disabledPerAddress: any;
   public proposalGenStatus: boolean;
   public appointee: any;
+  public otherFormData: any;
   public keyUp = new Subject<string>();
 
 
@@ -393,7 +394,7 @@ export class HdfcTermLifeComponent implements OnInit {
     // this.getindustryTypeHdfc();
     // this.getinsuranceTypeHdfc();
     // this.getinsObjLstHdfc();
-    // this.getnationalityListHdfc();
+    this.getnationalityListHdfc();
     // this.getfhDiseaseHdfc();
     // this.getfhAliveHdfc();
     // this.getfrequencyPayHdfc();
@@ -3384,7 +3385,7 @@ getweightListHdfc() {
           "countryofbirth": this.otherDetails.controls['countryofbirth'].value
     }
     };
-
+console.log(data, 'totaldataaaa...')
   this.settings.loadingSpinner = true;
   this.TermLifeService.getProposalhdfc(data).subscribe(
 (successData) => {
@@ -3397,6 +3398,7 @@ getweightListHdfc() {
 
 }
 public setProposalSuccess(successData, stepper) {
+    console.log(successData.ResponseObject, 'summary data...')
   this.settings.loadingSpinner = false;
   if (successData.IsSuccess == true) {
     stepper.next();
@@ -3408,10 +3410,12 @@ public setProposalSuccess(successData, stepper) {
     sessionStorage.summaryData = JSON.stringify(this.summaryData);
     this.proposalId = this.summaryData.ProposalId;
     this.proposerFormData = this.personal.value;
+    this.otherFormData = this.otherDetails.value;
+    console.log(this.otherFormData, 'this.otherFormData...')
     this.nomineeFormData = this.nomineeDetail.value;
     this.appointee= this.appointee.value
     console.log(this.appointee, 'this.appointee');
-    console.log(this.appointee.value, 'this.appointee.value');
+    // console.log(this.appointee.value, 'this.appointee.value');
     console.log(this.proposerFormData, 'this.proposerFormData');
     console.log(this.nomineeFormData, 'nomineeFormData');
     console.log(this.nomineeDetail.value, 'this.nomineeDetail.value');
