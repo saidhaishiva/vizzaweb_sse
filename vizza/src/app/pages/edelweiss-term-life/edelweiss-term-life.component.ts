@@ -198,31 +198,57 @@ export class EdelweissTermLifeComponent implements OnInit {
   public otpGenList: any;
   public enquiryFromDetials:any;
   public errortravelOutside:any;
-  // public isHospitalizederror:any;
+  public serrortravelOutside:any;
   public pregnantInderror:any;
+  public spregnantInderror:any;
   public femaleDieaseInderror:any;
-  // public isRecoverederror:any;
+  public sfemaleDieaseInderror:any;
   public bloodDieaseInderror:any;
+  public sbloodDieaseInderror:any;
   public otherIllnessInderror:any;
+  public sotherIllnessInderror:any;
   public receivedTreatment1error:any;
+  public sreceivedTreatment1error:any;
   public symptomsInderror:any;
+  public ssymptomsInderror:any;
+  public isHospitalizederror:any;
+  public sHospitalizederror:any;
+  public sRecoverederror:any;
+  public isRecoverederror:any;
   public deformityInderror:any;
+  public sdeformityInderror:any;
   public receivedTreatment2error:any;
+  public sreceivedTreatment2error:any;
   public alcoholicInderror:any;
+  public salcoholicInderror:any;
   public nervousDieaseInderror:any;
+  public snervousDieaseInderror:any;
   public muscleDieaseInderror:any;
+  public smuscleDieaseInderror:any;
   public thyroidDieaseInderror:any;
+  public sthyroidDieaseInderror:any;
   public cancerDieaseInderror:any;
+  public scancerDieaseInderror:any;
   public tropicalDieaseInderror:any;
+  public stropicalDieaseInderror:any;
   public digestiveDieaseInderror:any;
+  public sdigestiveDieaseInderror:any;
   public kidneyDieaseInderror:any;
+  public skidneyDieaseInderror:any;
   public respiratoryDieaseInderror:any;
+  public srespiratoryDieaseInderror:any;
   public diabetesInderror:any;
+  public sdiabetesInderror:any;
   public consultDoctorInderror:any;
+  public sconsultDoctorInderror:any;
   public heartDieaseInderror:any;
+  public sheartDieaseInderror:any;
   public admitInderror:any;
+  public sadmitInderror:any;
   public medicalTreatmenterror:any;
+  public smedicalTreatmenterror:any;
   public ECGInderror:any;
+  public sECGInderror:any;
   // public tobaccoStopInderror:any;
   public premiumPayment:any;
   public ageTill:any;
@@ -241,10 +267,17 @@ export class EdelweissTermLifeComponent implements OnInit {
   public policyTerm:any;
   public eePremiumTerm:any;
   public piloterror:any;
+  public spiloterror:any;
   public activityerror:any;
+  public sactivityerror:any;
   public drugsInderror:any;
+  public sdrugsInderror:any;
   public alcoholInderror:any;
+  public salcoholInderror:any;
   public tobaccoInderror:any;
+  public stobaccoInderror:any;
+  public tobaccoStopInderror:any;
+  public stobaccoStopInderror:any;
   public hcb_sumassured_min:any;
   public hcb_sumassured_max:any;
   public atpd_sumassured_min:any;
@@ -309,44 +342,78 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.allImage = [];
     this.fileUploadStatus = true;
     this.errortravelOutside =false;
+    this.serrortravelOutside =false;
     this.muscleDieaseInderror =false;
+    this.smuscleDieaseInderror =false;
     // this.isRecoverederror =false;
     this.pregnantInderror =false;
+    this.spregnantInderror =false;
     this.femaleDieaseInderror =false;
-    // this.isHospitalizederror =false;
+    this.sfemaleDieaseInderror =false;
+    this.isRecoverederror =false;
     this.receivedTreatment2error =false;
+    this.sreceivedTreatment2error =false;
     this.receivedTreatment1error =false;
+    this.sreceivedTreatment1error =false;
     this.symptomsInderror =false;
+    this.ssymptomsInderror =false;
+    this.isHospitalizederror =false;
+    this.sHospitalizederror =false;
+    this.sRecoverederror =false;
     this.deformityInderror =false;
+    this.sdeformityInderror =false;
     this.otherIllnessInderror =false;
+    this.sotherIllnessInderror =false;
     this.alcoholicInderror =false;
+    this.salcoholicInderror =false;
     this.cancerDieaseInderror =false;
+    this.scancerDieaseInderror =false;
     this.nervousDieaseInderror =false;
+    this.snervousDieaseInderror =false;
     this.bloodDieaseInderror =false;
+    this.sbloodDieaseInderror =false;
     this.thyroidDieaseInderror =false;
+    this.sthyroidDieaseInderror =false;
     this.tropicalDieaseInderror =false;
+    this.stropicalDieaseInderror =false;
     this.digestiveDieaseInderror =false;
+    this.sdigestiveDieaseInderror =false;
     this.kidneyDieaseInderror =false;
+    this.skidneyDieaseInderror =false;
     this.respiratoryDieaseInderror =false;
+    this.srespiratoryDieaseInderror =false;
     this.heartDieaseInderror =false;
+    this.sheartDieaseInderror =false;
     this.diabetesInderror =false;
+    this.sdiabetesInderror =false;
     this.consultDoctorInderror =false;
+    this.sconsultDoctorInderror =false;
     this.medicalTreatmenterror =false;
+    this.smedicalTreatmenterror =false;
     this.admitInderror =false;
+    this.sadmitInderror =false;
     this.ECGInderror =false;
+    this.sECGInderror =false;
     this.otpFalseError =false;
     this.premiumValue =false;
     // this.tobaccoStopInderror =false;
     this.piloterror =false;
+    this.spiloterror =false;
     this.activityerror =false;
+    this.sactivityerror =false;
     this.tittleread == false;
     this.drugsInderror =false;
+    this.sdrugsInderror =false;
     this.alcoholInderror =false;
+    this.salcoholInderror =false;
     this.hcbdError =false;
     this.ciError =false;
     this.adbError =false;
     this.atpdError =false;
     this.tobaccoInderror =false;
+    this.stobaccoInderror =false;
+    this.tobaccoStopInderror =false;
+    this.stobaccoStopInderror =false;
     this.proposalGenStatus = true;
     this.proposalNextList = '';
     this.optGenStatus = true;
@@ -436,7 +503,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       annualIncome: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
       isSmoker:'No',
-      emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      emailId: ['', Validators.compose([ Validators.required,Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       // motherMaidName: '',
 
     });
@@ -1261,13 +1328,13 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   sameAddress2() {
     if (this.insureArray.controls['sisCurrPerAddrSame'].value == true) {
-      this.insureArray.controls['sperAddr1'].patchValue( this.insureArray.controls['scurrAddr1'].value),
-          this.insureArray.controls['sperAddr2'].patchValue( this.insureArray.controls['scurrAddr2'].value),
-          this.insureArray.controls['sperAddr3'].patchValue( this.insureArray.controls['scurrAddr3'].value),
-          this.insureArray.controls['sperCity'].patchValue( this.insureArray.controls['scurrCity'].value),
-          this.insureArray.controls['sperPincode'].patchValue( this.insureArray.controls['scurrPincode'].value),
-          this.insureArray.controls['sperState'].patchValue( this.insureArray.controls['scurrState'].value)
-      console.log(this.insureArray.controls['sperCity'].value, 'ghghghj');
+      this.insureArray.controls['sperAddr1'].patchValue( this.insureArray.controls['perAddr1'].value),
+          this.insureArray.controls['sperAddr2'].patchValue( this.insureArray.controls['perAddr2'].value),
+          this.insureArray.controls['sperAddr3'].patchValue( this.insureArray.controls['perAddr3'].value),
+          this.insureArray.controls['sperCity'].patchValue( this.insureArray.controls['perCity'].value),
+          this.insureArray.controls['sperPincode'].patchValue( this.insureArray.controls['perPincode'].value),
+          this.insureArray.controls['sperState'].patchValue( this.insureArray.controls['perState'].value)
+      console.log(this.insureArray.controls['perCity'].value, 'ghghghj');
     }
     else if (this.insureArray.controls['sisCurrPerAddrSame'].value == false){
       this.insureArray.controls['sperAddr1'].patchValue(''),
@@ -1869,10 +1936,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.medicalDetail, 'medicalDetail');
     console.log(this.medicalDetail.valid, 'this.valid');
     console.log(this.errortravelOutside,'errortravelOutside');
-    if (this.medicalDetail.valid && (this.errortravelOutside == false && this.piloterror ==false && this.activityerror ==false && this.drugsInderror == false && this.alcoholInderror == false && this.tobaccoInderror == false  && this.consultDoctorInderror == false&& this.ECGInderror == false
-        && this.admitInderror == false&& this.medicalTreatmenterror == false&& this.heartDieaseInderror == false && this.respiratoryDieaseInderror == false&& this.diabetesInderror == false&& this.kidneyDieaseInderror == false
-        && this.digestiveDieaseInderror == false && this.cancerDieaseInderror == false&& this.tropicalDieaseInderror == false&& this.thyroidDieaseInderror == false&& this.bloodDieaseInderror == false&& this.nervousDieaseInderror == false && this.femaleDieaseInderror == false
-        && this.muscleDieaseInderror == false&& this.receivedTreatment2error == false&& this.alcoholicInderror == false&& this.otherIllnessInderror == false&& this.deformityInderror == false&& this.receivedTreatment1error == false&& this.symptomsInderror == false&& this.pregnantInderror == false)) {
+    if (this.medicalDetail.valid && (this.errortravelOutside == false && this.serrortravelOutside == false && this.piloterror ==false && this.spiloterror ==false && this.activityerror ==false && this.sactivityerror ==false && this.drugsInderror == false &&this.sdrugsInderror == false && this.alcoholInderror == false && this.salcoholInderror == false && this.tobaccoInderror == false  &&this.stobaccoInderror == false  && this.consultDoctorInderror == false && this.sconsultDoctorInderror == false && this.ECGInderror == false && this.sECGInderror == false
+        && this.admitInderror == false && this.sadmitInderror == false && this.medicalTreatmenterror == false && this.smedicalTreatmenterror == false && this.heartDieaseInderror == false &&this.sheartDieaseInderror == false && this.respiratoryDieaseInderror == false&&this.srespiratoryDieaseInderror == false && this.diabetesInderror == false&&this.sdiabetesInderror == false&& this.kidneyDieaseInderror == false&& this.skidneyDieaseInderror == false
+        && this.digestiveDieaseInderror == false &&this.sdigestiveDieaseInderror == false && this.cancerDieaseInderror == false&&this.scancerDieaseInderror == false&& this.tropicalDieaseInderror == false&&this.stropicalDieaseInderror == false&& this.thyroidDieaseInderror == false&&this.sthyroidDieaseInderror == false&& this.bloodDieaseInderror == false&&this.sbloodDieaseInderror == false&& this.nervousDieaseInderror == false &&this.snervousDieaseInderror == false && this.femaleDieaseInderror == false&& this.sfemaleDieaseInderror == false
+        && this.muscleDieaseInderror == false&&this.smuscleDieaseInderror == false&& this.receivedTreatment2error == false&&this.sreceivedTreatment2error == false&& this.alcoholicInderror == false&& this.salcoholicInderror == false&& this.otherIllnessInderror == false&&this.sotherIllnessInderror == false&& this.deformityInderror == false&&this.sdeformityInderror == false&& this.receivedTreatment1error == false&&this.sreceivedTreatment1error == false&& this.symptomsInderror == false&&this.ssymptomsInderror == false && this.pregnantInderror == false && this.spregnantInderror == false)) {
       console.log(this.errortravelOutside,'errortravelOutside');
 
 
@@ -2617,13 +2684,16 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(error);
   }
   sumAssuredADBError() {
-
-    console.log(this.addon.controls['sumAssuredADB'].value,'valuess...')
-    console.log(this.addon.controls['sumAssuredADB'].value <= this.adb_sumassured_max,'adb_sumassured_max...')
-    console.log(this.addon.controls['sumAssuredADB'].value >= this.adb_sumassured_min,'adb_sumassured_min...')
-    if ((this.addon.controls['sumAssuredADB'].value <= this.adb_sumassured_max) && (this.addon.controls['sumAssuredADB'].value >= this.adb_sumassured_min)) {
+    if ((this.addon.controls['sumAssuredADB'].value <= this.adb_sumassured_max) ) {
       this.adbError =false;
       this.adbError ='';
+      if(this.addon.controls['sumAssuredADB'].value >= this.adb_sumassured_min){
+        this.adbError =false;
+        this.adbError ='';
+      }else{
+        this.adbError =true;
+        this.adbError = "SumAssured Accidental Death Benefit should be";
+      }
     } else {
       this.adbError =true;
       this.adbError = "SumAssured Accidental Death Benefit should be";
@@ -2631,9 +2701,16 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
   }
   sumAssuredATPDError() {
-    if ((this.addon.controls['sumAssuredATPD'].value <= this.atpd_sumassured_max) && (this.addon.controls['sumAssuredATPD'].value >= this.atpd_sumassured_min)) {
+    if ((this.addon.controls['sumAssuredATPD'].value <= this.atpd_sumassured_max)) {
       this.atpdError =false;
       this.atpdError =''
+      if(this.addon.controls['sumAssuredATPD'].value >= this.atpd_sumassured_min){
+        this.atpdError =false;
+        this.atpdError =''
+      }else{
+        this.atpdError =true;
+        this.atpdError = 'SumAssured Accidental Total and Permanent Disability should be ';
+      }
     } else {
       this.atpdError =true;
       this.atpdError = 'SumAssured Accidental Total and Permanent Disability should be ';
@@ -2641,18 +2718,33 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
   }
   sumAssuredCiError() {
-    if ((this.addon.controls['criticalsumAssured'].value <= this.ci_sumassured_max) && (this.addon.controls['criticalsumAssured'].value >= this.ci_sumassured_min)) {
+    if (this.addon.controls['criticalsumAssured'].value <= this.ci_sumassured_max) {
       this.ciError =false;
       this.ciError ='';
+      if (this.addon.controls['criticalsumAssured'].value >= this.ci_sumassured_min){
+        this.ciError =false;
+        this.ciError ='';
+      }else{
+        this.ciError = true;
+        this.ciError = 'SumAssured Critical Illness should be ';
+      }
+
     } else {
       this.ciError = true;
       this.ciError = 'SumAssured Critical Illness should be ';
     }
   }
   sumAssuredHCBError() {
-    if ((this.addon.controls['sumAssuredHCB'].value <= this.hcb_sumassured_max) && (this.addon.controls['sumAssuredHCB'].value >= this.hcb_sumassured_min)) {
+    if (this.addon.controls['sumAssuredHCB'].value <= this.hcb_sumassured_max)  {
       this.hcbdError=false;
       this.hcbdError ='';
+      if(this.addon.controls['sumAssuredHCB'].value >= this.hcb_sumassured_min){
+        this.hcbdError=false;
+        this.hcbdError ='';
+      }else{
+        this.hcbdError=true;
+        this.hcbdError = 'SumAssured Hospital Cash Benefit should be ';
+      }
     } else {
       this.hcbdError=true;
       this.hcbdError = 'SumAssured Hospital Cash Benefit should be ';
@@ -2977,7 +3069,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.addon.controls['stitle'].setValidators([Validators.required]);
       this.addon.controls['sfirstName'].setValidators([Validators.required]);
       this.addon.controls['stitleName'].setValidators([Validators.required]);
-      this.addon.controls['smidName'].setValidators([Validators.required]);
+      this.addon.controls['smidName'].setValidators(null);
       this.addon.controls['slastName'].setValidators([Validators.required]);
       this.addon.controls['sdob'].setValidators([Validators.required]);
       this.addon.controls['semailId'].setValidators([Validators.required]);
@@ -2987,7 +3079,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       this.insureArray.controls['stitle'].setValidators([Validators.required]);
       this.insureArray.controls['sfirstName'].setValidators([Validators.required]);
-      this.insureArray.controls['smidName'].setValidators([Validators.required]);
+      this.insureArray.controls['smidName'].setValidators(null);
       this.insureArray.controls['slastName'].setValidators([Validators.required]);
       this.insureArray.controls['sdob'].setValidators([Validators.required]);
       this.insureArray.controls['semailId'].setValidators([Validators.required]);
@@ -3310,12 +3402,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.errortravelOutside=false;
       this.errortravelOutside= '';
     }
+    if(this.medicalDetail.controls['travelOutsideIndia1'].value == '') {
+      this.serrortravelOutside = true;
+      this.serrortravelOutside = 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['travelOutsideIndia1'].value != ''){
+      this.serrortravelOutside=false;
+      this.serrortravelOutside= '';
+    }
     if(this.medicalDetail.controls['pilot'].value == '') {
       this.piloterror=true;
       this.piloterror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['pilot'].value != ''){
       this.piloterror=false;
       this.piloterror= '';
+    }
+    if(this.medicalDetail.controls['pilot1'].value == '') {
+      this.spiloterror=true;
+      this.spiloterror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['pilot1'].value != ''){
+      this.spiloterror=false;
+      this.spiloterror= '';
     }
     if(this.medicalDetail.controls['activity'].value == '') {
       this.activityerror=true;
@@ -3324,12 +3430,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.activityerror=false;
       this.activityerror= '';
     }
+    if(this.medicalDetail.controls['activity1'].value == '') {
+      this.sactivityerror=true;
+      this.sactivityerror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['activity1'].value != ''){
+      this.sactivityerror=false;
+      this.sactivityerror= '';
+    }
     if(this.medicalDetail.controls['drugsInd'].value == '') {
       this.drugsInderror=true;
       this.drugsInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['drugsInd'].value != ''){
       this.drugsInderror=false;
       this.drugsInderror= '';
+    }
+    if(this.medicalDetail.controls['drugsInd1'].value == '') {
+      this.sdrugsInderror=true;
+      this.sdrugsInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['drugsInd1'].value != ''){
+      this.sdrugsInderror=false;
+      this.sdrugsInderror= '';
     }
     if(this.medicalDetail.controls['alcoholInd'].value == '') {
       this.alcoholInderror=true;
@@ -3338,12 +3458,40 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.alcoholInderror=false;
       this.alcoholInderror= '';
     }
+    if(this.medicalDetail.controls['alcoholInd1'].value == '') {
+      this.salcoholInderror=true;
+      this.salcoholInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['alcoholInd1'].value != ''){
+      this.salcoholInderror=false;
+      this.salcoholInderror= '';
+    }
     if(this.medicalDetail.controls['tobaccoInd'].value == '') {
       this.tobaccoInderror=true;
       this.tobaccoInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['tobaccoInd'].value != ''){
       this.tobaccoInderror=false;
       this.tobaccoInderror= '';
+    }
+    if(this.medicalDetail.controls['tobaccoInd1'].value == '') {
+      this.stobaccoInderror=true;
+      this.stobaccoInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tobaccoInd1'].value != ''){
+      this.stobaccoInderror=false;
+      this.stobaccoInderror= '';
+    }
+    if(this.medicalDetail.controls['tobaccoStopInd'].value == '') {
+      this.tobaccoStopInderror=true;
+      this.tobaccoStopInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tobaccoStopInd'].value != ''){
+      this.tobaccoStopInderror=false;
+      this.tobaccoStopInderror= '';
+    }
+    if(this.medicalDetail.controls['tobaccoStopInd1'].value == '') {
+      this.stobaccoStopInderror=true;
+      this.stobaccoStopInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tobaccoStopInd1'].value != ''){
+      this.stobaccoStopInderror=false;
+      this.stobaccoStopInderror= '';
     }
     if(this.medicalDetail.controls['consultDoctorInd'].value == '') {
       this.consultDoctorInderror=true;
@@ -3352,12 +3500,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.consultDoctorInderror=false;
       this.consultDoctorInderror= '';
     }
+    if(this.medicalDetail.controls['consultDoctorInd1'].value == '') {
+      this.sconsultDoctorInderror=true;
+      this.sconsultDoctorInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['consultDoctorInd1'].value != ''){
+      this.sconsultDoctorInderror=false;
+      this.sconsultDoctorInderror= '';
+    }
     if(this.medicalDetail.controls['ECGInd'].value == '') {
       this.ECGInderror=true;
       this.ECGInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['ECGInd'].value != ''){
       this.ECGInderror=false;
       this.ECGInderror= '';
+    }
+    if(this.medicalDetail.controls['ECGInd1'].value == '') {
+      this.sECGInderror=true;
+      this.sECGInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['ECGInd1'].value != ''){
+      this.sECGInderror=false;
+      this.sECGInderror= '';
     }
     if(this.medicalDetail.controls['admitInd'].value == '') {
       this.admitInderror=true;
@@ -3366,12 +3528,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.admitInderror=false;
       this.admitInderror= '';
     }
+    if(this.medicalDetail.controls['admitInd1'].value == '') {
+      this.sadmitInderror=true;
+      this.sadmitInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['admitInd1'].value != ''){
+      this.sadmitInderror=false;
+      this.sadmitInderror= '';
+    }
     if(this.medicalDetail.controls['medicalTreatment'].value == '') {
       this.medicalTreatmenterror=true;
       this.medicalTreatmenterror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['medicalTreatment'].value != ''){
       this.medicalTreatmenterror=false;
       this.medicalTreatmenterror= '';
+    }
+    if(this.medicalDetail.controls['medicalTreatment1'].value == '') {
+      this.smedicalTreatmenterror=true;
+      this.smedicalTreatmenterror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['medicalTreatment1'].value != ''){
+      this.smedicalTreatmenterror=false;
+      this.smedicalTreatmenterror= '';
     }
     if(this.medicalDetail.controls['heartDieaseInd'].value == '') {
       this.heartDieaseInderror=true;
@@ -3380,12 +3556,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.heartDieaseInderror=false;
       this.heartDieaseInderror= '';
     }
+    if(this.medicalDetail.controls['heartDieaseInd1'].value == '') {
+      this.sheartDieaseInderror=true;
+      this.sheartDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['heartDieaseInd1'].value != ''){
+      this.sheartDieaseInderror=false;
+      this.sheartDieaseInderror= '';
+    }
     if(this.medicalDetail.controls['respiratoryDieaseInd'].value == '') {
       this.respiratoryDieaseInderror=true;
       this.respiratoryDieaseInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['respiratoryDieaseInd'].value != ''){
       this.respiratoryDieaseInderror=false;
       this.respiratoryDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['respiratoryDieaseInd1'].value == '') {
+      this.srespiratoryDieaseInderror=true;
+      this.srespiratoryDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['respiratoryDieaseInd1'].value != ''){
+      this.srespiratoryDieaseInderror=false;
+      this.srespiratoryDieaseInderror= '';
     }
     if(this.medicalDetail.controls['diabetesInd'].value == '') {
       this.diabetesInderror=true;
@@ -3394,12 +3584,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.diabetesInderror=false;
       this.diabetesInderror= '';
     }
+    if(this.medicalDetail.controls['diabetesInd1'].value == '') {
+      this.sdiabetesInderror=true;
+      this.sdiabetesInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['diabetesInd1'].value != ''){
+      this.sdiabetesInderror=false;
+      this.sdiabetesInderror= '';
+    }
     if(this.medicalDetail.controls['kidneyDieaseInd'].value == '') {
       this.kidneyDieaseInderror=true;
       this.kidneyDieaseInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['kidneyDieaseInd'].value != ''){
       this.kidneyDieaseInderror=false;
       this.kidneyDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['kidneyDieaseInd1'].value == '') {
+      this.skidneyDieaseInderror=true;
+      this.skidneyDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['kidneyDieaseInd1'].value != ''){
+      this.skidneyDieaseInderror=false;
+      this.skidneyDieaseInderror= '';
     }
     if(this.medicalDetail.controls['digestiveDieaseInd'].value == '') {
       this.digestiveDieaseInderror=true;
@@ -3408,12 +3612,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.digestiveDieaseInderror=false;
       this.digestiveDieaseInderror= '';
     }
+    if(this.medicalDetail.controls['digestiveDieaseInd1'].value == '') {
+      this.sdigestiveDieaseInderror=true;
+      this.sdigestiveDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['digestiveDieaseInd1'].value != ''){
+      this.sdigestiveDieaseInderror=false;
+      this.sdigestiveDieaseInderror= '';
+    }
     if(this.medicalDetail.controls['cancerDieaseInd'].value == '') {
       this.cancerDieaseInderror=true;
       this.cancerDieaseInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['cancerDieaseInd'].value != ''){
       this.cancerDieaseInderror=false;
       this.cancerDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['cancerDieaseInd1'].value == '') {
+      this.scancerDieaseInderror=true;
+      this.scancerDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['cancerDieaseInd1'].value != ''){
+      this.scancerDieaseInderror=false;
+      this.scancerDieaseInderror= '';
     }
     if(this.medicalDetail.controls['tropicalDieaseInd'].value == '') {
       this.tropicalDieaseInderror=true;
@@ -3422,12 +3640,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.tropicalDieaseInderror=false;
       this.tropicalDieaseInderror= '';
     }
+    if(this.medicalDetail.controls['tropicalDieaseInd1'].value == '') {
+      this.stropicalDieaseInderror=true;
+      this.stropicalDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tropicalDieaseInd1'].value != ''){
+      this.stropicalDieaseInderror=false;
+      this.stropicalDieaseInderror= '';
+    }
     if(this.medicalDetail.controls['thyroidDieaseInd'].value == '') {
       this.thyroidDieaseInderror=true;
       this.thyroidDieaseInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['thyroidDieaseInd'].value != ''){
       this.thyroidDieaseInderror=false;
       this.thyroidDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['thyroidDieaseInd1'].value == '') {
+      this.sthyroidDieaseInderror=true;
+      this.sthyroidDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['thyroidDieaseInd1'].value != ''){
+      this.sthyroidDieaseInderror=false;
+      this.sthyroidDieaseInderror= '';
     }
     if(this.medicalDetail.controls['bloodDieaseInd'].value == '') {
       this.bloodDieaseInderror=true;
@@ -3436,6 +3668,13 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.bloodDieaseInderror=false;
       this.bloodDieaseInderror= '';
     }
+    if(this.medicalDetail.controls['bloodDieaseInd1'].value == '') {
+      this.sbloodDieaseInderror=true;
+      this.sbloodDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['bloodDieaseInd1'].value != ''){
+      this.sbloodDieaseInderror=false;
+      this.sbloodDieaseInderror= '';
+    }
     if(this.medicalDetail.controls['nervousDieaseInd'].value == '') {
       this.nervousDieaseInderror=true;
       this.nervousDieaseInderror= 'Field is Mandatory';
@@ -3443,19 +3682,27 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.nervousDieaseInderror=false;
       this.nervousDieaseInderror= '';
     }
-    if(this.medicalDetail.controls['femaleDieaseInd'].value == '') {
-      this.femaleDieaseInderror=true;
-      this.femaleDieaseInderror= 'Field is Mandatory';
-    }else if(this.medicalDetail.controls['femaleDieaseInd'].value != ''){
-      this.femaleDieaseInderror=false;
-      this.femaleDieaseInderror= '';
+    if(this.medicalDetail.controls['nervousDieaseInd1'].value == '') {
+      this.snervousDieaseInderror=true;
+      this.snervousDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['nervousDieaseInd1'].value != ''){
+      this.snervousDieaseInderror=false;
+      this.snervousDieaseInderror= '';
     }
+
     if(this.medicalDetail.controls['muscleDieaseInd'].value == '') {
       this.muscleDieaseInderror=true;
       this.muscleDieaseInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['muscleDieaseInd'].value != ''){
       this.muscleDieaseInderror=false;
       this.muscleDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['muscleDieaseInd1'].value == '') {
+      this.smuscleDieaseInderror=true;
+      this.smuscleDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['muscleDieaseInd1'].value != ''){
+      this.smuscleDieaseInderror=false;
+      this.smuscleDieaseInderror= '';
     }
     if(this.medicalDetail.controls['receivedTreatment2'].value == '') {
       this.receivedTreatment2error=true;
@@ -3464,12 +3711,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.receivedTreatment2error=false;
       this.receivedTreatment2error= '';
     }
+    if(this.medicalDetail.controls['receivedTreatment21'].value == '') {
+      this.sreceivedTreatment2error=true;
+      this.sreceivedTreatment2error= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['receivedTreatment21'].value != ''){
+      this.sreceivedTreatment2error=false;
+      this.sreceivedTreatment2error= '';
+    }
     if(this.medicalDetail.controls['alcoholicInd'].value == '') {
       this.alcoholicInderror=true;
       this.alcoholicInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['alcoholicInd'].value != ''){
       this.alcoholicInderror=false;
       this.alcoholicInderror= '';
+    }
+    if(this.medicalDetail.controls['alcoholicInd1'].value == '') {
+      this.salcoholicInderror=true;
+      this.salcoholicInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['alcoholicInd1'].value != ''){
+      this.salcoholicInderror=false;
+      this.salcoholicInderror= '';
     }
     if(this.medicalDetail.controls['otherIllnessInd'].value == '') {
       this.otherIllnessInderror=true;
@@ -3478,12 +3739,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.otherIllnessInderror=false;
       this.otherIllnessInderror= '';
     }
+    if(this.medicalDetail.controls['otherIllnessInd1'].value == '') {
+      this.sotherIllnessInderror=true;
+      this.sotherIllnessInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['otherIllnessInd1'].value != ''){
+      this.sotherIllnessInderror=false;
+      this.sotherIllnessInderror= '';
+    }
     if(this.medicalDetail.controls['deformityInd'].value == '') {
       this.deformityInderror=true;
       this.deformityInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['deformityInd'].value != ''){
       this.deformityInderror=false;
       this.deformityInderror= '';
+    }
+    if(this.medicalDetail.controls['deformityInd1'].value == '') {
+      this.sdeformityInderror=true;
+      this.sdeformityInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['deformityInd1'].value != ''){
+      this.sdeformityInderror=false;
+      this.sdeformityInderror= '';
     }
     if(this.medicalDetail.controls['receivedTreatment1'].value == '') {
       this.receivedTreatment1error=true;
@@ -3492,12 +3767,54 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.receivedTreatment1error=false;
       this.receivedTreatment1error= '';
     }
+    if(this.medicalDetail.controls['receivedTreatment11'].value == '') {
+      this.sreceivedTreatment1error=true;
+      this.sreceivedTreatment1error= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['receivedTreatment11'].value != ''){
+      this.sreceivedTreatment1error=false;
+      this.sreceivedTreatment1error= '';
+    }
     if(this.medicalDetail.controls['symptomsInd'].value == '') {
       this.symptomsInderror=true;
       this.symptomsInderror= 'Field is Mandatory';
     }else if(this.medicalDetail.controls['symptomsInd'].value != ''){
       this.symptomsInderror=false;
       this.symptomsInderror= '';
+    }
+    if(this.medicalDetail.controls['symptomsInd1'].value == '') {
+      this.ssymptomsInderror=true;
+      this.ssymptomsInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['symptomsInd1'].value != ''){
+      this.ssymptomsInderror=false;
+      this.ssymptomsInderror= '';
+    }
+    if(this.medicalDetail.controls['isHospitalized'].value == '') {
+      this.isHospitalizederror=true;
+      this.isHospitalizederror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['symptomsInd'].value != ''){
+      this.isHospitalizederror=false;
+      this.isHospitalizederror= '';
+    }
+    if(this.medicalDetail.controls['isHospitalized1'].value == '') {
+      this.sHospitalizederror=true;
+      this.sHospitalizederror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['isHospitalized1'].value != ''){
+      this.sHospitalizederror=false;
+      this.sHospitalizederror= '';
+    }
+    if(this.medicalDetail.controls['isRecovered'].value == '') {
+      this.isRecoverederror=true;
+      this.isRecoverederror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['isRecovered'].value != ''){
+      this.isRecoverederror=false;
+      this.isRecoverederror= '';
+    }
+    if(this.medicalDetail.controls['isRecovered1'].value == '') {
+      this.sRecoverederror=true;
+      this.sRecoverederror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['isRecovered1'].value != ''){
+      this.sRecoverederror=false;
+      this.sRecoverederror= '';
     }
     if(this.medicalDetail.controls['pregnantInd'].value == '') {
       this.pregnantInderror=true;
@@ -3506,126 +3823,480 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.pregnantInderror=false;
       this.pregnantInderror= '';
     }
+    if(this.medicalDetail.controls['pregnantInd1'].value == '') {
+      this.spregnantInderror=true;
+      this.spregnantInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['pregnantInd1'].value != ''){
+      this.spregnantInderror=false;
+      this.spregnantInderror= '';
+    }
+    if(this.medicalDetail.controls['femaleDieaseInd'].value == '') {
+      this.femaleDieaseInderror=true;
+      this.femaleDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['femaleDieaseInd'].value != ''){
+      this.femaleDieaseInderror=false;
+      this.femaleDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['femaleDieaseInd1'].value == '') {
+      this.sfemaleDieaseInderror=true;
+      this.sfemaleDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['femaleDieaseInd1'].value != ''){
+      this.sfemaleDieaseInderror=false;
+      this.sfemaleDieaseInderror= '';
+    }
 
   }
 
   travelOutside1(){
 
-    if(this.medicalDetail.controls['travelOutsideIndia'].value != ''){
+    if(this.medicalDetail.controls['travelOutsideIndia'].value == '') {
+      this.errortravelOutside = true;
+      this.errortravelOutside = 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['travelOutsideIndia'].value != ''){
       this.errortravelOutside=false;
       this.errortravelOutside= '';
     }
-     if(this.medicalDetail.controls['pilot'].value != ''){
+    if(this.medicalDetail.controls['travelOutsideIndia1'].value == '') {
+      this.serrortravelOutside = true;
+      this.serrortravelOutside = 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['travelOutsideIndia1'].value != ''){
+      this.serrortravelOutside=false;
+      this.serrortravelOutside= '';
+    }
+    if(this.medicalDetail.controls['pilot'].value == '') {
+      this.piloterror=true;
+      this.piloterror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['pilot'].value != ''){
       this.piloterror=false;
       this.piloterror= '';
     }
-     if(this.medicalDetail.controls['activity'].value != ''){
+    if(this.medicalDetail.controls['pilot1'].value == '') {
+      this.spiloterror=true;
+      this.spiloterror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['pilot1'].value != ''){
+      this.spiloterror=false;
+      this.spiloterror= '';
+    }
+    if(this.medicalDetail.controls['activity'].value == '') {
+      this.activityerror=true;
+      this.activityerror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['activity'].value != ''){
       this.activityerror=false;
       this.activityerror= '';
     }
-     if(this.medicalDetail.controls['drugsInd'].value != ''){
+    if(this.medicalDetail.controls['activity1'].value == '') {
+      this.sactivityerror=true;
+      this.sactivityerror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['activity1'].value != ''){
+      this.sactivityerror=false;
+      this.sactivityerror= '';
+    }
+    if(this.medicalDetail.controls['drugsInd'].value == '') {
+      this.drugsInderror=true;
+      this.drugsInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['drugsInd'].value != ''){
       this.drugsInderror=false;
       this.drugsInderror= '';
     }
-    if(this.medicalDetail.controls['alcoholInd'].value != ''){
+    if(this.medicalDetail.controls['drugsInd1'].value == '') {
+      this.sdrugsInderror=true;
+      this.sdrugsInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['drugsInd1'].value != ''){
+      this.sdrugsInderror=false;
+      this.sdrugsInderror= '';
+    }
+    if(this.medicalDetail.controls['alcoholInd'].value == '') {
+      this.alcoholInderror=true;
+      this.alcoholInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['alcoholInd'].value != ''){
       this.alcoholInderror=false;
       this.alcoholInderror= '';
     }
-     if(this.medicalDetail.controls['tobaccoInd'].value != ''){
+    if(this.medicalDetail.controls['alcoholInd1'].value == '') {
+      this.salcoholInderror=true;
+      this.salcoholInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['alcoholInd1'].value != ''){
+      this.salcoholInderror=false;
+      this.salcoholInderror= '';
+    }
+    if(this.medicalDetail.controls['tobaccoInd'].value == '') {
+      this.tobaccoInderror=true;
+      this.tobaccoInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tobaccoInd'].value != ''){
       this.tobaccoInderror=false;
       this.tobaccoInderror= '';
     }
-    if(this.medicalDetail.controls['consultDoctorInd'].value != ''){
+    if(this.medicalDetail.controls['tobaccoInd1'].value == '') {
+      this.stobaccoInderror=true;
+      this.stobaccoInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tobaccoInd1'].value != ''){
+      this.stobaccoInderror=false;
+      this.stobaccoInderror= '';
+    }
+    if(this.medicalDetail.controls['tobaccoStopInd'].value == '') {
+      this.tobaccoStopInderror=true;
+      this.tobaccoStopInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tobaccoStopInd'].value != ''){
+      this.tobaccoStopInderror=false;
+      this.tobaccoStopInderror= '';
+    }
+    if(this.medicalDetail.controls['tobaccoStopInd1'].value == '') {
+      this.stobaccoStopInderror=true;
+      this.stobaccoStopInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tobaccoStopInd1'].value != ''){
+      this.stobaccoStopInderror=false;
+      this.stobaccoStopInderror= '';
+    }
+    if(this.medicalDetail.controls['consultDoctorInd'].value == '') {
+      this.consultDoctorInderror=true;
+      this.consultDoctorInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['consultDoctorInd'].value != ''){
       this.consultDoctorInderror=false;
       this.consultDoctorInderror= '';
     }
-    if(this.medicalDetail.controls['ECGInd'].value != ''){
+    if(this.medicalDetail.controls['consultDoctorInd1'].value == '') {
+      this.sconsultDoctorInderror=true;
+      this.sconsultDoctorInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['consultDoctorInd1'].value != ''){
+      this.sconsultDoctorInderror=false;
+      this.sconsultDoctorInderror= '';
+    }
+    if(this.medicalDetail.controls['ECGInd'].value == '') {
+      this.ECGInderror=true;
+      this.ECGInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['ECGInd'].value != ''){
       this.ECGInderror=false;
       this.ECGInderror= '';
     }
-    if(this.medicalDetail.controls['admitInd'].value != ''){
+    if(this.medicalDetail.controls['ECGInd1'].value == '') {
+      this.sECGInderror=true;
+      this.sECGInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['ECGInd1'].value != ''){
+      this.sECGInderror=false;
+      this.sECGInderror= '';
+    }
+    if(this.medicalDetail.controls['admitInd'].value == '') {
+      this.admitInderror=true;
+      this.admitInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['admitInd'].value != ''){
       this.admitInderror=false;
       this.admitInderror= '';
     }
-   if(this.medicalDetail.controls['medicalTreatment'].value != ''){
+    if(this.medicalDetail.controls['admitInd1'].value == '') {
+      this.sadmitInderror=true;
+      this.sadmitInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['admitInd1'].value != ''){
+      this.sadmitInderror=false;
+      this.sadmitInderror= '';
+    }
+    if(this.medicalDetail.controls['medicalTreatment'].value == '') {
+      this.medicalTreatmenterror=true;
+      this.medicalTreatmenterror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['medicalTreatment'].value != ''){
       this.medicalTreatmenterror=false;
       this.medicalTreatmenterror= '';
     }
-    if(this.medicalDetail.controls['heartDieaseInd'].value != ''){
+    if(this.medicalDetail.controls['medicalTreatment1'].value == '') {
+      this.smedicalTreatmenterror=true;
+      this.smedicalTreatmenterror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['medicalTreatment1'].value != ''){
+      this.smedicalTreatmenterror=false;
+      this.smedicalTreatmenterror= '';
+    }
+    if(this.medicalDetail.controls['heartDieaseInd'].value == '') {
+      this.heartDieaseInderror=true;
+      this.heartDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['heartDieaseInd'].value != ''){
       this.heartDieaseInderror=false;
       this.heartDieaseInderror= '';
     }
-    if(this.medicalDetail.controls['respiratoryDieaseInd'].value != ''){
+    if(this.medicalDetail.controls['heartDieaseInd1'].value == '') {
+      this.sheartDieaseInderror=true;
+      this.sheartDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['heartDieaseInd1'].value != ''){
+      this.sheartDieaseInderror=false;
+      this.sheartDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['respiratoryDieaseInd'].value == '') {
+      this.respiratoryDieaseInderror=true;
+      this.respiratoryDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['respiratoryDieaseInd'].value != ''){
       this.respiratoryDieaseInderror=false;
       this.respiratoryDieaseInderror= '';
     }
-    if(this.medicalDetail.controls['diabetesInd'].value != ''){
+    if(this.medicalDetail.controls['respiratoryDieaseInd1'].value == '') {
+      this.srespiratoryDieaseInderror=true;
+      this.srespiratoryDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['respiratoryDieaseInd1'].value != ''){
+      this.srespiratoryDieaseInderror=false;
+      this.srespiratoryDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['diabetesInd'].value == '') {
+      this.diabetesInderror=true;
+      this.diabetesInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['diabetesInd'].value != ''){
       this.diabetesInderror=false;
       this.diabetesInderror= '';
     }
-    if(this.medicalDetail.controls['kidneyDieaseInd'].value != ''){
+    if(this.medicalDetail.controls['diabetesInd1'].value == '') {
+      this.sdiabetesInderror=true;
+      this.sdiabetesInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['diabetesInd1'].value != ''){
+      this.sdiabetesInderror=false;
+      this.sdiabetesInderror= '';
+    }
+    if(this.medicalDetail.controls['kidneyDieaseInd'].value == '') {
+      this.kidneyDieaseInderror=true;
+      this.kidneyDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['kidneyDieaseInd'].value != ''){
       this.kidneyDieaseInderror=false;
       this.kidneyDieaseInderror= '';
     }
-    if(this.medicalDetail.controls['digestiveDieaseInd'].value != ''){
+    if(this.medicalDetail.controls['kidneyDieaseInd1'].value == '') {
+      this.skidneyDieaseInderror=true;
+      this.skidneyDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['kidneyDieaseInd1'].value != ''){
+      this.skidneyDieaseInderror=false;
+      this.skidneyDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['digestiveDieaseInd'].value == '') {
+      this.digestiveDieaseInderror=true;
+      this.digestiveDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['digestiveDieaseInd'].value != ''){
       this.digestiveDieaseInderror=false;
       this.digestiveDieaseInderror= '';
     }
-   if(this.medicalDetail.controls['cancerDieaseInd'].value != ''){
+    if(this.medicalDetail.controls['digestiveDieaseInd1'].value == '') {
+      this.sdigestiveDieaseInderror=true;
+      this.sdigestiveDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['digestiveDieaseInd1'].value != ''){
+      this.sdigestiveDieaseInderror=false;
+      this.sdigestiveDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['cancerDieaseInd'].value == '') {
+      this.cancerDieaseInderror=true;
+      this.cancerDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['cancerDieaseInd'].value != ''){
       this.cancerDieaseInderror=false;
       this.cancerDieaseInderror= '';
     }
-   if(this.medicalDetail.controls['tropicalDieaseInd'].value != ''){
+    if(this.medicalDetail.controls['cancerDieaseInd1'].value == '') {
+      this.scancerDieaseInderror=true;
+      this.scancerDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['cancerDieaseInd1'].value != ''){
+      this.scancerDieaseInderror=false;
+      this.scancerDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['tropicalDieaseInd'].value == '') {
+      this.tropicalDieaseInderror=true;
+      this.tropicalDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tropicalDieaseInd'].value != ''){
       this.tropicalDieaseInderror=false;
       this.tropicalDieaseInderror= '';
     }
-    if(this.medicalDetail.controls['thyroidDieaseInd'].value != ''){
+    if(this.medicalDetail.controls['tropicalDieaseInd1'].value == '') {
+      this.stropicalDieaseInderror=true;
+      this.stropicalDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['tropicalDieaseInd1'].value != ''){
+      this.stropicalDieaseInderror=false;
+      this.stropicalDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['thyroidDieaseInd'].value == '') {
+      this.thyroidDieaseInderror=true;
+      this.thyroidDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['thyroidDieaseInd'].value != ''){
       this.thyroidDieaseInderror=false;
       this.thyroidDieaseInderror= '';
     }
-    if(this.medicalDetail.controls['bloodDieaseInd'].value != ''){
+    if(this.medicalDetail.controls['thyroidDieaseInd1'].value == '') {
+      this.sthyroidDieaseInderror=true;
+      this.sthyroidDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['thyroidDieaseInd1'].value != ''){
+      this.sthyroidDieaseInderror=false;
+      this.sthyroidDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['bloodDieaseInd'].value == '') {
+      this.bloodDieaseInderror=true;
+      this.bloodDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['bloodDieaseInd'].value != ''){
       this.bloodDieaseInderror=false;
       this.bloodDieaseInderror= '';
     }
-    if(this.medicalDetail.controls['nervousDieaseInd'].value != ''){
+    if(this.medicalDetail.controls['bloodDieaseInd1'].value == '') {
+      this.sbloodDieaseInderror=true;
+      this.sbloodDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['bloodDieaseInd1'].value != ''){
+      this.sbloodDieaseInderror=false;
+      this.sbloodDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['nervousDieaseInd'].value == '') {
+      this.nervousDieaseInderror=true;
+      this.nervousDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['nervousDieaseInd'].value != ''){
       this.nervousDieaseInderror=false;
       this.nervousDieaseInderror= '';
     }
-    if(this.medicalDetail.controls['femaleDieaseInd'].value != ''){
-      this.femaleDieaseInderror=false;
-      this.femaleDieaseInderror= '';
+    if(this.medicalDetail.controls['nervousDieaseInd1'].value == '') {
+      this.snervousDieaseInderror=true;
+      this.snervousDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['nervousDieaseInd1'].value != ''){
+      this.snervousDieaseInderror=false;
+      this.snervousDieaseInderror= '';
     }
-    if(this.medicalDetail.controls['muscleDieaseInd'].value != ''){
+
+    if(this.medicalDetail.controls['muscleDieaseInd'].value == '') {
+      this.muscleDieaseInderror=true;
+      this.muscleDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['muscleDieaseInd'].value != ''){
       this.muscleDieaseInderror=false;
       this.muscleDieaseInderror= '';
     }
-    if(this.medicalDetail.controls['receivedTreatment2'].value != ''){
+    if(this.medicalDetail.controls['muscleDieaseInd1'].value == '') {
+      this.smuscleDieaseInderror=true;
+      this.smuscleDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['muscleDieaseInd1'].value != ''){
+      this.smuscleDieaseInderror=false;
+      this.smuscleDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['receivedTreatment2'].value == '') {
+      this.receivedTreatment2error=true;
+      this.receivedTreatment2error= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['receivedTreatment2'].value != ''){
       this.receivedTreatment2error=false;
       this.receivedTreatment2error= '';
     }
-    if(this.medicalDetail.controls['alcoholicInd'].value != ''){
+    if(this.medicalDetail.controls['receivedTreatment21'].value == '') {
+      this.sreceivedTreatment2error=true;
+      this.sreceivedTreatment2error= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['receivedTreatment21'].value != ''){
+      this.sreceivedTreatment2error=false;
+      this.sreceivedTreatment2error= '';
+    }
+    if(this.medicalDetail.controls['alcoholicInd'].value == '') {
+      this.alcoholicInderror=true;
+      this.alcoholicInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['alcoholicInd'].value != ''){
       this.alcoholicInderror=false;
       this.alcoholicInderror= '';
     }
-    if(this.medicalDetail.controls['otherIllnessInd'].value != ''){
+    if(this.medicalDetail.controls['alcoholicInd1'].value == '') {
+      this.salcoholicInderror=true;
+      this.salcoholicInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['alcoholicInd1'].value != ''){
+      this.salcoholicInderror=false;
+      this.salcoholicInderror= '';
+    }
+    if(this.medicalDetail.controls['otherIllnessInd'].value == '') {
+      this.otherIllnessInderror=true;
+      this.otherIllnessInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['otherIllnessInd'].value != ''){
       this.otherIllnessInderror=false;
       this.otherIllnessInderror= '';
     }
-    if(this.medicalDetail.controls['deformityInd'].value != ''){
+    if(this.medicalDetail.controls['otherIllnessInd1'].value == '') {
+      this.sotherIllnessInderror=true;
+      this.sotherIllnessInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['otherIllnessInd1'].value != ''){
+      this.sotherIllnessInderror=false;
+      this.sotherIllnessInderror= '';
+    }
+    if(this.medicalDetail.controls['deformityInd'].value == '') {
+      this.deformityInderror=true;
+      this.deformityInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['deformityInd'].value != ''){
       this.deformityInderror=false;
       this.deformityInderror= '';
     }
-    if(this.medicalDetail.controls['receivedTreatment1'].value != ''){
+    if(this.medicalDetail.controls['deformityInd1'].value == '') {
+      this.sdeformityInderror=true;
+      this.sdeformityInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['deformityInd1'].value != ''){
+      this.sdeformityInderror=false;
+      this.sdeformityInderror= '';
+    }
+    if(this.medicalDetail.controls['receivedTreatment1'].value == '') {
+      this.receivedTreatment1error=true;
+      this.receivedTreatment1error= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['receivedTreatment1'].value != ''){
       this.receivedTreatment1error=false;
       this.receivedTreatment1error= '';
     }
-     if(this.medicalDetail.controls['symptomsInd'].value != ''){
+    if(this.medicalDetail.controls['receivedTreatment11'].value == '') {
+      this.sreceivedTreatment1error=true;
+      this.sreceivedTreatment1error= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['receivedTreatment11'].value != ''){
+      this.sreceivedTreatment1error=false;
+      this.sreceivedTreatment1error= '';
+    }
+    if(this.medicalDetail.controls['symptomsInd'].value == '') {
+      this.symptomsInderror=true;
+      this.symptomsInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['symptomsInd'].value != ''){
       this.symptomsInderror=false;
       this.symptomsInderror= '';
     }
-    if(this.medicalDetail.controls['pregnantInd'].value != ''){
+    if(this.medicalDetail.controls['symptomsInd1'].value == '') {
+      this.ssymptomsInderror=true;
+      this.ssymptomsInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['symptomsInd1'].value != ''){
+      this.ssymptomsInderror=false;
+      this.ssymptomsInderror= '';
+    }
+    if(this.medicalDetail.controls['isHospitalized'].value == '') {
+      this.isHospitalizederror=true;
+      this.isHospitalizederror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['symptomsInd'].value != ''){
+      this.isHospitalizederror=false;
+      this.isHospitalizederror= '';
+    }
+    if(this.medicalDetail.controls['isHospitalized1'].value == '') {
+      this.sHospitalizederror=true;
+      this.sHospitalizederror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['isHospitalized1'].value != ''){
+      this.sHospitalizederror=false;
+      this.sHospitalizederror= '';
+    }
+    if(this.medicalDetail.controls['isRecovered'].value == '') {
+      this.isRecoverederror=true;
+      this.isRecoverederror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['isRecovered'].value != ''){
+      this.isRecoverederror=false;
+      this.isRecoverederror= '';
+    }
+    if(this.medicalDetail.controls['isRecovered1'].value == '') {
+      this.sRecoverederror=true;
+      this.sRecoverederror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['isRecovered1'].value != ''){
+      this.sRecoverederror=false;
+      this.sRecoverederror= '';
+    }
+    if(this.medicalDetail.controls['pregnantInd'].value == '') {
+      this.pregnantInderror=true;
+      this.pregnantInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['pregnantInd'].value != ''){
       this.pregnantInderror=false;
       this.pregnantInderror= '';
+    }
+    if(this.medicalDetail.controls['pregnantInd1'].value == '') {
+      this.spregnantInderror=true;
+      this.spregnantInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['pregnantInd1'].value != ''){
+      this.spregnantInderror=false;
+      this.spregnantInderror= '';
+    }
+    if(this.medicalDetail.controls['femaleDieaseInd'].value == '') {
+      this.femaleDieaseInderror=true;
+      this.femaleDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['femaleDieaseInd'].value != ''){
+      this.femaleDieaseInderror=false;
+      this.femaleDieaseInderror= '';
+    }
+    if(this.medicalDetail.controls['femaleDieaseInd1'].value == '') {
+      this.sfemaleDieaseInderror=true;
+      this.sfemaleDieaseInderror= 'Field is Mandatory';
+    }else if(this.medicalDetail.controls['femaleDieaseInd1'].value != ''){
+      this.sfemaleDieaseInderror=false;
+      this.sfemaleDieaseInderror= '';
     }
 
   }
@@ -7331,72 +8002,72 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       this.medicalDetail.controls['healthInformation1'].patchValue(getMedicalDetail.healthInformation1);
 
-      //     this.medicalDetail.controls['travelOutsideIndia1'].patchValue(getMedicalDetail.travelOutsideIndia1);
-      //     this.medicalDetail.controls['pilot1'].patchValue(getMedicalDetail.pilot1);
-      //     this.medicalDetail.controls['activity1'].patchValue(getMedicalDetail.activity1);
-      //     this.medicalDetail.controls['adventurousActivities1'].patchValue(getMedicalDetail.adventurousActivities1);
-      //     this.medicalDetail.controls['adventurousActivitiesDetails1'].patchValue(getMedicalDetail.adventurousActivitiesDetails1);
-      //     this.medicalDetail.controls['drugsInd1'].patchValue(getMedicalDetail.drugsInd1);
-      //     this.medicalDetail.controls['drugsDetails1'].patchValue(getMedicalDetail.drugsDetails1);
-      //     this.medicalDetail.controls['alcoholInd1'].patchValue(getMedicalDetail.alcoholInd1);
-      //     this.medicalDetail.controls['alcoholBeer1'].patchValue(getMedicalDetail.alcoholBeer1);
-      //     this.medicalDetail.controls['alcoholliquar1'].patchValue(getMedicalDetail.alcoholliquar1);
-      //     this.medicalDetail.controls['alcoholWine1'].patchValue(getMedicalDetail.alcoholWine1);
-      //     this.medicalDetail.controls['tobaccoInd1'].patchValue(getMedicalDetail.tobaccoInd1);
+          this.medicalDetail.controls['travelOutsideIndia1'].patchValue(getMedicalDetail.travelOutsideIndia1);
+          this.medicalDetail.controls['pilot1'].patchValue(getMedicalDetail.pilot1);
+          this.medicalDetail.controls['activity1'].patchValue(getMedicalDetail.activity1);
+          this.medicalDetail.controls['adventurousActivities1'].patchValue(getMedicalDetail.adventurousActivities1);
+          this.medicalDetail.controls['adventurousActivitiesDetails1'].patchValue(getMedicalDetail.adventurousActivitiesDetails1);
+          this.medicalDetail.controls['drugsInd1'].patchValue(getMedicalDetail.drugsInd1);
+          this.medicalDetail.controls['drugsDetails1'].patchValue(getMedicalDetail.drugsDetails1);
+          this.medicalDetail.controls['alcoholInd1'].patchValue(getMedicalDetail.alcoholInd1);
+          this.medicalDetail.controls['alcoholBeer1'].patchValue(getMedicalDetail.alcoholBeer1);
+          this.medicalDetail.controls['alcoholliquar1'].patchValue(getMedicalDetail.alcoholliquar1);
+          this.medicalDetail.controls['alcoholWine1'].patchValue(getMedicalDetail.alcoholWine1);
+          this.medicalDetail.controls['tobaccoInd1'].patchValue(getMedicalDetail.tobaccoInd1);
           this.medicalDetail.controls['tobaccoDetails1'].patchValue(getMedicalDetail.tobaccoDetails1);
           this.medicalDetail.controls['tobaccoDetailName1'].patchValue(getMedicalDetail.tobaccoDetailName1);
-      //     this.medicalDetail.controls['tobaccoStopInd1'].patchValue(getMedicalDetail.tobaccoStopInd1);
-      //     this.medicalDetail.controls['tobaccoStopDetails1'].patchValue(getMedicalDetail.tobaccoStopDetails1);
-      //     this.medicalDetail.controls['consultDoctorInd1'].patchValue(getMedicalDetail.consultDoctorInd1);
-      //     this.medicalDetail.controls['consultDoctorDetails1'].patchValue(getMedicalDetail.consultDoctorDetails1);
-      //     this.medicalDetail.controls['ECGInd1'].patchValue(getMedicalDetail.ECGInd1);
-      //     this.medicalDetail.controls['ECGDetails1'].patchValue(getMedicalDetail.ECGDetails1);
-      //     this.medicalDetail.controls['admitInd1'].patchValue(getMedicalDetail.admitInd1);
-      //     this.medicalDetail.controls['admitDetails1'].patchValue(getMedicalDetail.admitDetails1);
-      //     this.medicalDetail.controls['medicalTreatment1'].patchValue(getMedicalDetail.medicalTreatment1);
-      //     this.medicalDetail.controls['medicationDetails1'].patchValue(getMedicalDetail.medicationDetails1);
-      //     this.medicalDetail.controls['receivedTreatment11'].patchValue(getMedicalDetail.receivedTreatment11);
-      // this.medicalDetail.controls['diagnosedDetails1'].patchValue(getMedicalDetail.diagnosedDetails1);
-      // this.medicalDetail.controls['heartDieaseInd1'].patchValue(getMedicalDetail.heartDieaseInd1);
-      // this.medicalDetail.controls['heartDieaseDetails1'].patchValue(getMedicalDetail.heartDieaseDetails1);
-      // this.medicalDetail.controls['isHospitalized1'].patchValue(getMedicalDetail.isHospitalized1);
-      // this.medicalDetail.controls['hospitalizedDate1'].patchValue(getMedicalDetail.hospitalizedDate1);
-      // this.medicalDetail.controls['respiratoryDieaseInd1'].patchValue(getMedicalDetail.respiratoryDieaseInd1);
-      // this.medicalDetail.controls['respiratoryDieaseDetails1'].patchValue(getMedicalDetail.respiratoryDieaseDetails1);
-      // this.medicalDetail.controls['diabetesInd1'].patchValue(getMedicalDetail.diabetesInd1);
-      // this.medicalDetail.controls['diabetesDetails1'].patchValue(getMedicalDetail.diabetesDetails1);
-      // this.medicalDetail.controls['kidneyDieaseInd1'].patchValue(getMedicalDetail.kidneyDieaseInd1);
-      // this.medicalDetail.controls['kidneyDieaseDetails1'].patchValue(getMedicalDetail.kidneyDieaseDetails1);
-      // this.medicalDetail.controls['digestiveDieaseInd1'].patchValue(getMedicalDetail.digestiveDieaseInd1);
-      // this.medicalDetail.controls['digestiveDieaseDetails1'].patchValue(getMedicalDetail.digestiveDieaseDetails1);
-      // this.medicalDetail.controls['cancerDieaseInd1'].patchValue(getMedicalDetail.cancerDieaseInd1);
-      // this.medicalDetail.controls['cancerDieaseDetails1'].patchValue(getMedicalDetail.cancerDieaseDetails1);
-      // this.medicalDetail.controls['tropicalDieaseInd1'].patchValue(getMedicalDetail.tropicalDieaseInd1);
-      // this.medicalDetail.controls['tropicalDieaseDetails1'].patchValue(getMedicalDetail.tropicalDieaseDetails1);
-      // this.medicalDetail.controls['thyroidDieaseInd1'].patchValue(getMedicalDetail.thyroidDieaseInd1);
-      // this.medicalDetail.controls['thyroidDieaseDetails1'].patchValue(getMedicalDetail.thyroidDieaseDetails1);
-      // this.medicalDetail.controls['bloodDieaseInd1'].patchValue(getMedicalDetail.bloodDieaseInd1);
-      // this.medicalDetail.controls['bloodDieaseDetails1'].patchValue(getMedicalDetail.bloodDieaseDetails1);
-      // this.medicalDetail.controls['nervousDieaseInd1'].patchValue(getMedicalDetail.nervousDieaseInd1);
-      // this.medicalDetail.controls['nervousDieaseDetails1'].patchValue(getMedicalDetail.nervousDieaseDetails1);
-      // this.medicalDetail.controls['isRecovered1'].patchValue(getMedicalDetail.isRecovered1);
-      // this.medicalDetail.controls['nonRecoveryDetails1'].patchValue(getMedicalDetail.nonRecoveryDetails1);
-      // this.medicalDetail.controls['muscleDieaseInd1'].patchValue(getMedicalDetail.muscleDieaseInd1);
-      // this.medicalDetail.controls['muscleDieaseDetails1'].patchValue(getMedicalDetail.muscleDieaseDetails1);
-      // this.medicalDetail.controls['receivedTreatment21'].patchValue(getMedicalDetail.receivedTreatment21);
-      // this.medicalDetail.controls['aidsDetails1'].patchValue(getMedicalDetail.aidsDetails1);
-      // this.medicalDetail.controls['alcoholicInd1'].patchValue(getMedicalDetail.alcoholicInd1);
-      // this.medicalDetail.controls['alcoholicDetails1'].patchValue(getMedicalDetail.alcoholicDetails1);
-      // this.medicalDetail.controls['otherIllnessInd1'].patchValue(getMedicalDetail.otherIllnessInd1);
-      // this.medicalDetail.controls['otherIllnessDetails1'].patchValue(getMedicalDetail.otherIllnessDetails1);
-      // this.medicalDetail.controls['deformityInd1'].patchValue(getMedicalDetail.deformityInd1);
-      // this.medicalDetail.controls['deformityDetails1'].patchValue(getMedicalDetail.deformityDetails1);
-      // this.medicalDetail.controls['symptomsInd1'].patchValue(getMedicalDetail.symptomsInd1);
-      // this.medicalDetail.controls['symptomsDetails1'].patchValue(getMedicalDetail.symptomsDetails1);
-      // this.medicalDetail.controls['pregnantInd1'].patchValue(getMedicalDetail.pregnantInd1);
-      // this.medicalDetail.controls['pregnantweeks1'].patchValue(getMedicalDetail.pregnantweeks1);
-      // this.medicalDetail.controls['femaleDieaseInd1'].patchValue(getMedicalDetail.femaleDieaseInd1);
-      // // this.medicalDetail.controls['femaleDieaseWeeks1'].patchValue(getMedicalDetail.femaleDieaseWeeks1);
+          this.medicalDetail.controls['tobaccoStopInd1'].patchValue(getMedicalDetail.tobaccoStopInd1);
+          this.medicalDetail.controls['tobaccoStopDetails1'].patchValue(getMedicalDetail.tobaccoStopDetails1);
+          this.medicalDetail.controls['consultDoctorInd1'].patchValue(getMedicalDetail.consultDoctorInd1);
+          this.medicalDetail.controls['consultDoctorDetails1'].patchValue(getMedicalDetail.consultDoctorDetails1);
+          this.medicalDetail.controls['ECGInd1'].patchValue(getMedicalDetail.ECGInd1);
+          this.medicalDetail.controls['ECGDetails1'].patchValue(getMedicalDetail.ECGDetails1);
+          this.medicalDetail.controls['admitInd1'].patchValue(getMedicalDetail.admitInd1);
+          this.medicalDetail.controls['admitDetails1'].patchValue(getMedicalDetail.admitDetails1);
+          this.medicalDetail.controls['medicalTreatment1'].patchValue(getMedicalDetail.medicalTreatment1);
+          this.medicalDetail.controls['medicationDetails1'].patchValue(getMedicalDetail.medicationDetails1);
+          this.medicalDetail.controls['receivedTreatment11'].patchValue(getMedicalDetail.receivedTreatment11);
+      this.medicalDetail.controls['diagnosedDetails1'].patchValue(getMedicalDetail.diagnosedDetails1);
+      this.medicalDetail.controls['heartDieaseInd1'].patchValue(getMedicalDetail.heartDieaseInd1);
+      this.medicalDetail.controls['heartDieaseDetails1'].patchValue(getMedicalDetail.heartDieaseDetails1);
+      this.medicalDetail.controls['isHospitalized1'].patchValue(getMedicalDetail.isHospitalized1);
+      this.medicalDetail.controls['hospitalizedDate1'].patchValue(getMedicalDetail.hospitalizedDate1);
+      this.medicalDetail.controls['respiratoryDieaseInd1'].patchValue(getMedicalDetail.respiratoryDieaseInd1);
+      this.medicalDetail.controls['respiratoryDieaseDetails1'].patchValue(getMedicalDetail.respiratoryDieaseDetails1);
+      this.medicalDetail.controls['diabetesInd1'].patchValue(getMedicalDetail.diabetesInd1);
+      this.medicalDetail.controls['diabetesDetails1'].patchValue(getMedicalDetail.diabetesDetails1);
+      this.medicalDetail.controls['kidneyDieaseInd1'].patchValue(getMedicalDetail.kidneyDieaseInd1);
+      this.medicalDetail.controls['kidneyDieaseDetails1'].patchValue(getMedicalDetail.kidneyDieaseDetails1);
+      this.medicalDetail.controls['digestiveDieaseInd1'].patchValue(getMedicalDetail.digestiveDieaseInd1);
+      this.medicalDetail.controls['digestiveDieaseDetails1'].patchValue(getMedicalDetail.digestiveDieaseDetails1);
+      this.medicalDetail.controls['cancerDieaseInd1'].patchValue(getMedicalDetail.cancerDieaseInd1);
+      this.medicalDetail.controls['cancerDieaseDetails1'].patchValue(getMedicalDetail.cancerDieaseDetails1);
+      this.medicalDetail.controls['tropicalDieaseInd1'].patchValue(getMedicalDetail.tropicalDieaseInd1);
+      this.medicalDetail.controls['tropicalDieaseDetails1'].patchValue(getMedicalDetail.tropicalDieaseDetails1);
+      this.medicalDetail.controls['thyroidDieaseInd1'].patchValue(getMedicalDetail.thyroidDieaseInd1);
+      this.medicalDetail.controls['thyroidDieaseDetails1'].patchValue(getMedicalDetail.thyroidDieaseDetails1);
+      this.medicalDetail.controls['bloodDieaseInd1'].patchValue(getMedicalDetail.bloodDieaseInd1);
+      this.medicalDetail.controls['bloodDieaseDetails1'].patchValue(getMedicalDetail.bloodDieaseDetails1);
+      this.medicalDetail.controls['nervousDieaseInd1'].patchValue(getMedicalDetail.nervousDieaseInd1);
+      this.medicalDetail.controls['nervousDieaseDetails1'].patchValue(getMedicalDetail.nervousDieaseDetails1);
+      this.medicalDetail.controls['isRecovered1'].patchValue(getMedicalDetail.isRecovered1);
+      this.medicalDetail.controls['nonRecoveryDetails1'].patchValue(getMedicalDetail.nonRecoveryDetails1);
+      this.medicalDetail.controls['muscleDieaseInd1'].patchValue(getMedicalDetail.muscleDieaseInd1);
+      this.medicalDetail.controls['muscleDieaseDetails1'].patchValue(getMedicalDetail.muscleDieaseDetails1);
+      this.medicalDetail.controls['receivedTreatment21'].patchValue(getMedicalDetail.receivedTreatment21);
+      this.medicalDetail.controls['aidsDetails1'].patchValue(getMedicalDetail.aidsDetails1);
+      this.medicalDetail.controls['alcoholicInd1'].patchValue(getMedicalDetail.alcoholicInd1);
+      this.medicalDetail.controls['alcoholicDetails1'].patchValue(getMedicalDetail.alcoholicDetails1);
+      this.medicalDetail.controls['otherIllnessInd1'].patchValue(getMedicalDetail.otherIllnessInd1);
+      this.medicalDetail.controls['otherIllnessDetails1'].patchValue(getMedicalDetail.otherIllnessDetails1);
+      this.medicalDetail.controls['deformityInd1'].patchValue(getMedicalDetail.deformityInd1);
+      this.medicalDetail.controls['deformityDetails1'].patchValue(getMedicalDetail.deformityDetails1);
+      this.medicalDetail.controls['symptomsInd1'].patchValue(getMedicalDetail.symptomsInd1);
+      this.medicalDetail.controls['symptomsDetails1'].patchValue(getMedicalDetail.symptomsDetails1);
+      this.medicalDetail.controls['pregnantInd1'].patchValue(getMedicalDetail.pregnantInd1);
+      this.medicalDetail.controls['pregnantweeks1'].patchValue(getMedicalDetail.pregnantweeks1);
+      this.medicalDetail.controls['femaleDieaseInd1'].patchValue(getMedicalDetail.femaleDieaseInd1);
+      // this.medicalDetail.controls['femaleDieaseWeeks1'].patchValue(getMedicalDetail.femaleDieaseWeeks1);
 
 
       console.log(this.medicalDetail,'medicalDetail');
