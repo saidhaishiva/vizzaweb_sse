@@ -1800,6 +1800,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.insureArray.controls['lastName'].patchValue(this.customerDetails.controls['lastName'].value);
         this.insureArray.controls['dob'].patchValue(this.customerDetails.controls['dob'].value);
         this.insureArray.controls['maritalStatus'].patchValue(this.customerDetails.controls['maritalStatus'].value);
+        this.changeMarital1()
         this.insureArray.controls['emailId'].patchValue(this.customerDetails.controls['emailId'].value);
         this.insureArray.controls['mobileNo'].patchValue(this.customerDetails.controls['mobileNo'].value);
         this.insureArray.controls['annualIncome'].patchValue(this.customerDetails.controls['annualIncome'].value);
@@ -7528,6 +7529,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   changeMarital() {
     this.customerDetails.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.customerDetails.controls['maritalStatus'].value]);
+    console.log(this.customerDetails.controls['maritalStatusName'].value,'sadfghjj')
 
   }
   changeMarital1() {
