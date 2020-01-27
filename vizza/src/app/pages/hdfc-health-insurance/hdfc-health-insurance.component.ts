@@ -330,6 +330,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 accepted: '',
                 titleName:'',
                 relationshipName:'',
+                height:'',
+                weight:''
             }
         );
     }
@@ -593,7 +595,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         return days;
 
     }
-
+TierID
     // city lists
     selectedSate(event, type, i) {
         console.log(this.hdfcPersonal.controls['state'].value,'0000');
@@ -981,7 +983,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                     },
                     'PlanDetails': {
                         'suminsured': this.getHdfcHealthPremiumList.suminsured_amount,
-                        'product_id': this.getHdfcHealthPremiumList.product_id
+                        'product_id': this.getHdfcHealthPremiumList.product_id,
+                        'TierID':this.getHdfcHealthPremiumList.tier_zone
                     },
                     'PaymentDetails': {
                         'PaymentMode': this.hdfcpersonalValues.paymentmode,
@@ -1012,12 +1015,27 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.insuredFormData = this.insurerData.items;
             this.nomineeFromData = this.nomineeDetails.value;
             this.PaymentActionUrl = this.summaryData.PaymentActionUrl;
+            console.log(this.PaymentActionUrl, 'this.PaymentActionUrl');
+
             this.ProposalNumber = this.summaryData.ProposalNumber;
+            console.log(this.ProposalNumber, 'this.ProposalNumber');
+
             this.AdditionalInfo1 = this.summaryData.AdditionalInfo1;
+            console.log(this.AdditionalInfo1, 'this.AdditionalInfo1');
+
             this.AdditionalInfo2 = this.summaryData.AdditionalInfo2;
+            console.log(this.AdditionalInfo2, 'this.AdditionalInfo2');
+
+
             this.AdditionalInfo3 = this.summaryData.AdditionalInfo3;
+            console.log(this.AdditionalInfo3, 'this.AdditionalInfo3');
+
             this.ProductCd = this.summaryData.ProductCd;
+            console.log(this.ProductCd, 'this.ProductCd');
+
             this.productcode = this.summaryData.productcode;
+            console.log(this.productcode, 'this.productcode');
+
             this.returnURL = this.summaryData.returnURL;
             this.basePremium = this.summaryData.basePremium;
             this.serviceTax = this.summaryData.serviceTax;
@@ -1199,7 +1217,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 },
                 'PlanDetails': {
                     'suminsured': this.getHdfcHealthPremiumList.suminsured_amount,
-                    'product_id': this.getHdfcHealthPremiumList.product_id
+                    'product_id': this.getHdfcHealthPremiumList.product_id,
+                    'TierID':this.getHdfcHealthPremiumList.tier_zone
+
                 },
                 'PaymentDetails': {
                     'PaymentMode': this.hdfcpersonalValues.paymentmode,

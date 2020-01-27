@@ -283,8 +283,22 @@
                           </div>
                           <div class="col-md-4">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Pre Existing Disease" formControlName="preexdisease"  (keypress)="nameValidate($event)" autocomplete="off"  >
+                              <input matInput placeholder="Pre Existing Disease" formControlName="preexdisease"  (keypress)="nameValidate($event)" autocomplete="off" required  >
                               <mat-error *ngIf="hdfcInsureArray.invalid">Pre Existing Disease is required</mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4" >
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Height" formControlName="height"  required >
+                              <mat-error *ngIf="hdfcInsureArray.invalid">Height is required</mat-error>
+
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4" >
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="Weight" formControlName="Weight"  required >
+                              <mat-error *ngIf="hdfcInsureArray.invalid">Weight is required</mat-error>
+
                             </mat-form-field>
                           </div>
 
@@ -576,29 +590,105 @@
             <p class="mt-3 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
             <div class="row">
               <div class="col-md-12 text-center">
-                <form action={{PaymentActionUrl}}  method='POST' #form>
-                  <input id="__VIEWSTATE" type="hidden" value="/wEPDwUKMTgyOTc0NDQ4NGRk" name="__VIEWSTATE">
-                  <input id="__EVENTVALIDATION" type="hidden" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="
-                         name="__EVENTVALIDATION">
-                  <input id="CustomerId" type="hidden" value={{ProposalNumber}} name="CustomerId">
-                  <input id="TxnAmount" type="hidden" value={{totalAmount}} name="TxnAmount">
-                  <input id="AdditionalInfo1" type="hidden" value={{AdditionalInfo1}} name="AdditionalInfo1">
-                  <input id="AdditionalInfo2" type="hidden" value={{AdditionalInfo2}} name="AdditionalInfo2">
-                  <input id="AdditionalInfo3" type="hidden" value={{AdditionalInfo3}} name="AdditionalInfo3">
-                  <input id="hdnPayMode" type="hidden" value={{paymentmode}} name="hdnPayMode">
-                  <input id="UserName" type="hidden" value={{fullName}} name="UserName">
-                  <input id="UserMailId" type="hidden" value={{email}} name="UserMailId">
-                  <input id="ProductCd" type="hidden" value={{ProductCd}} name="ProductCd">
-                  <input id="ProducerCd" type="hidden" value={{productcode}} name="ProducerCd">
 
-                  <!--<input type='text' name='returnURL' value={{returnURL}}/>-->
-                  <button mat-button matStepperPrevious (click)="topScroll()" *ngIf="payLaterr == false">Back</button>
-                  <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
-                  <button mat-raised-button color="primaryBlue"  [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
-                </form>
+                  <!--<form action=''  method='POST' #form>&ndash;&gt;-->
+                      <form action={{PaymentActionUrl}}  method='POST' #form>
+                          <input id="__EVENTVALIDATION" type="hidden" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="
+                                 name="__EVENTVALIDATION">
+                          <input id="CustomerId" type="hidden" value="{{ProposalNumber}}" name="CustomerId"><br/>
+                          <input id="TxnAmount" type="hidden" value="{{totalAmount}}" name="TxnAmount"><br/>
+                          <input id="AdditionalInfo1" type="hidden" value="{{AdditionalInfo1}}" name="AdditionalInfo1"><br/>
+                          <input id="AdditionalInfo2" type="hidden" value="{{AdditionalInfo2}}" name="AdditionalInfo2"><br/>
+                          <input id="AdditionalInfo3" type="hidden" value="{{AdditionalInfo3}}" name="AdditionalInfo3"><br/>
+                          <input id="hdnPayMode" type="hidden" value="{{paymentmode}}" name="hdnPayMode"><br/>
+                          <input id="UserName" type="hidden" value="{{fullName}}" name="UserName"><br/>
+                          <input id="UserMailId" type="hidden" value="{{email}}" name="UserMailId"><br/>
+                          <input id="ProductCd" type="hidden" value="{{ProductCd}}" name="ProductCd"><br/>
+                          <input id="ProducerCd" type="hidden" value="{{productcode}}" name="ProducerCd"><br/>
+                          <!--                  <input type='hiddenidden' name='returnURL' value="{{summaryData.returnURL}}"/>-->
+                          <button mat-button matStepperPrevious (click)="backAll()">Back</button>
+                          <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
+
+                          <button mat-raised-button color="primaryBlue" class="mb-4"  [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                      </form>
+                  <!--</form>-->
+
+                <!-- saved from url=(0058)http://testpb.policybazaar.com/HDFCErgoPaymentRequest.aspx -->
+                <!--<form action="{{PaymentActionUrl}}" method="post" #form>-->
+                  <!--&lt;!&ndash; <div>-->
+                      <!--<input id="__VIEWSTATE" type="hidden" value="/wEPDwUKMTgyOTc0NDQ4NGRk" name="__VIEWSTATE">-->
+                  <!--</div>&ndash;&gt;-->
+                  <!--<div>-->
+                    <!--<input id="__EVENTVALIDATION" type="hidden" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="-->
+                           <!--name="__EVENTVALIDATION">-->
+                  <!--</div>-->
+                  <!--CustomerID-->
+                  <!--<input type="hidden" id="CustomerId" value="{{ProposalNumber}}" name="CustomerId"><br/>-->
+
+                  <!--<input type="hidden" id="TxnAmount" value="{{totalAmount}}" name="TxnAmount"><br/>-->
+
+                  <!--<input type="hidden" id="AdditionalInfo1" value="{{AdditionalInfo1}}" name="AdditionalInfo1"><br/>-->
+
+                  <!--<input type="hidden" id="AdditionalInfo2" value="{{AdditionalInfo2}}" name="  AdditionalInfo2"><br/>-->
+
+                  <!--<input type="hidden" id="AdditionalInfo3" value="{{AdditionalInfo3}}" name="AdditionalInfo3"><br/>-->
+
+                  <!--<input type="hidden" id="hdnPayMode" value="{{paymentmode}}" name="hdnPayMode"><br/>-->
+
+                  <!--<input type="hidden" id="UserName" value="{{fullName}}" name="UserName"><br/>-->
+
+                  <!--<input type="hidden" id="UserMailId" value="{{email}}" name="UserMailId"><br/>-->
+
+                  <!--<input type="hidden" id="ProductCd" value="{{ProductCd}}" name="ProductCd"><br/>-->
+
+                  <!--<input type="hidden" id="ProducerCd" value="{{productcode}}" name="ProducerCd"><br/>-->
+                  <!--<button mat-button matStepperPrevious (click)="topScroll()" *ngIf="payLaterr == false">Back</button>-->
+                  <!--<button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>-->
+                  <!--<button mat-raised-button color="primaryBlue"  [disabled]="!declaration" (click)="form.submit()">Pay Now</button>-->
+                  <!--<input  type="button" value="CALL HDFC GATEWAY">-->
+
+                <!--</form>-->
 
 
-              </div>
+
+
+                <!--<form action="http://202.191.196.210/UAT/OnlineProducts/HealthSurakshaOnline/tim.aspx"  method='POST' #form>-->
+                  <!--&lt;!&ndash;<form action={{PaymentActionUrl}}  method='POST' #form>&ndash;&gt;-->
+
+                  <!--&lt;!&ndash;<input id="__VIEWSTATE" type="hidden" value="/wEPDwUKMTgyOTc0NDQ4NGRk" name="__VIEWSTATE">&ndash;&gt;-->
+                  <!--<input id="__EVENTVALIDATION" type="hidden" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="-->
+                         <!--name="__EVENTVALIDATION">-->
+                  <!--&lt;!&ndash;<input id="CustomerId" type="hidden" value={{ProposalNumber}} name="CustomerId">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<input id="TxnAmount" type="hidden" value={{totalAmount}} name="TxnAmount">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<input id="AdditionalInfo1" type="hidden" value={{AdditionalInfo1}} name="AdditionalInfo1">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<input id="AdditionalInfo2" type="hidden" value={{AdditionalInfo2}} name="AdditionalInfo2">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<input id="AdditionalInfo3" type="hidden" value={{AdditionalInfo3}} name="AdditionalInfo3">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<input id="hdnPayMode" type="hidden" value={{paymentmode}} name="hdnPayMode">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<input id="UserName" type="hidden" value={{fullName}} name="UserName">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<input id="UserMailId" type="hidden" value={{email}} name="UserMailId">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<input id="ProductCd" type="hidden" value={{ProductCd}} name="ProductCd">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<input id="ProducerCd" type="hidden" value={{productcode}} name="ProducerCd">&ndash;&gt;-->
+
+                  <!--<input id="CustomerId" type="hidden" value="MH2001004203T" name="CustomerId">-->
+                  <!--<input id="TxnAmount" type="hidden" value="6305" name="TxnAmount">-->
+                  <!--<input id="AdditionalInfo1" type="hidden" value="NB" name="AdditionalInfo1">-->
+                  <!--<input id="AdditionalInfo2" type="hidden" value="HSP" name="AdditionalInfo2">-->
+                  <!--<input id="AdditionalInfo3" type="hidden" value="1" name="AdditionalInfo3">-->
+                  <!--<input id="hdnPayMode" type="hidden" value="CC" name="hdnPayMode">-->
+                  <!--<input id="UserName" type="hidden" value="jgyuygu" name="UserName">-->
+                  <!--<input id="UserMailId" type="hidden" value="lathalakshmanan96@gmail.com" name="UserMailId">-->
+                  <!--<input id="ProductCd" type="hidden" value="HSP" name="ProductCd">-->
+                  <!--<input id="ProducerCd" type="hidden" value="MHC00060" name="ProducerCd">-->
+
+                  <!--&lt;!&ndash;<input type='text' name='returnURL' value={{returnURL}}/>&ndash;&gt;-->
+                  <!--<button mat-button matStepperPrevious (click)="topScroll()" *ngIf="payLaterr == false">Back</button>-->
+                  <!--<button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>-->
+                  <!--<button mat-raised-button color="primaryBlue"  [disabled]="!declaration" (click)="form.submit()">Pay Now</button>-->
+                <!--</form>-->
+
+
+
+            </div>
             </div>
 
 
@@ -1037,27 +1127,27 @@
       <p class="mt-3 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
       <div class="row">
       <div class="col-sm-12 col-xs-12 col-md-12 text-center">
-      <form action={{summaryData.PaymentActionUrl}}  method='POST' #form>
-      <!--<input id="__VIEWSTATE" type="text" value="/wEPDwUKMTgyOTc0NDQ4NGRk" name="__VIEWSTATE">-->
-      <input id="__EVENTVALIDATION" type="hidden" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="
-      name="__EVENTVALIDATION">
-      <input id="CustomerId" type="hidden" value={{summaryData.ProposalNumber}} name="CustomerId">
-      <input id="TxnAmount" type="hidden" value="{{totalAmount}}" name="TxnAmount">
-      <input id="AdditionalInfo1" type="hidden" value={{summaryData.AdditionalInfo1}} name="AdditionalInfo1">
-      <input id="AdditionalInfo2" type="hidden" value={{summaryData.AdditionalInfo2}} name="AdditionalInfo2">
-      <input id="AdditionalInfo3" type="hidden" value={{summaryData.AdditionalInfo3}} name="AdditionalInfo3">
-      <input id="hdnPayMode" type="hidden" value="{{personlData.paymentmode}}" name="hdnPayMode">
-      <input id="UserName" type="hidden" value="{{fullName}}" name="UserName">
-      <input id="UserMailId" type="hidden" value="{{personlData.email}}" name="UserMailId">
-      <input id="ProductCd" type="hidden" value={{summaryData.ProductCd}} name="ProductCd">
-      <input id="ProducerCd" type="hidden" value={{summaryData.productcode}} name="ProducerCd">
+      <!--<form action={{summaryData.PaymentActionUrl}}  method='POST' #form>-->
+      <!--&lt;!&ndash;<input id="__VIEWSTATE" type="text" value="/wEPDwUKMTgyOTc0NDQ4NGRk" name="__VIEWSTATE">&ndash;&gt;-->
+      <!--<input id="__EVENTVALIDATION" type="hidden" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="-->
+      <!--name="__EVENTVALIDATION">-->
+      <!--<input id="CustomerId" type="hidden" value={{summaryData.ProposalNumber}} name="CustomerId">-->
+      <!--<input id="TxnAmount" type="hidden" value="{{totalAmount}}" name="TxnAmount">-->
+      <!--<input id="AdditionalInfo1" type="hidden" value={{summaryData.AdditionalInfo1}} name="AdditionalInfo1">-->
+      <!--<input id="AdditionalInfo2" type="hidden" value={{summaryData.AdditionalInfo2}} name="AdditionalInfo2">-->
+      <!--<input id="AdditionalInfo3" type="hidden" value={{summaryData.AdditionalInfo3}} name="AdditionalInfo3">-->
+      <!--<input id="hdnPayMode" type="hidden" value="{{personlData.paymentmode}}" name="hdnPayMode">-->
+      <!--<input id="UserName" type="hidden" value="{{fullName}}" name="UserName">-->
+      <!--<input id="UserMailId" type="hidden" value="{{personlData.email}}" name="UserMailId">-->
+      <!--<input id="ProductCd" type="hidden" value={{summaryData.ProductCd}} name="ProductCd">-->
+      <!--<input id="ProducerCd" type="hidden" value={{summaryData.productcode}} name="ProducerCd">-->
 
-      <!--<input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>-->
-      <button mat-button mat-button color="warn" (click)="backAll()">Back</button>
-      <button mat-button class="mat-primaryBlue" (click)="payLater()">Pay Later</button>
+      <!--&lt;!&ndash;<input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>&ndash;&gt;-->
+      <!--<button mat-button mat-button color="warn" (click)="backAll()">Back</button>-->
+      <!--<button mat-button class="mat-primaryBlue" (click)="payLater()">Pay Later</button>-->
 
-      <button mat-raised-button color="primaryBlue"  [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
-      </form>
+      <!--<button mat-raised-button color="primaryBlue"  [disabled]="!declaration" (click)="form.submit()">Pay Now</button>-->
+      <!--</form>-->
 
 
       </div>
