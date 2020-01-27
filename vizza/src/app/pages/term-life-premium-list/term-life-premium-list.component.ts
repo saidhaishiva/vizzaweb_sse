@@ -15,6 +15,10 @@ import {ClearSessionTermlifeService} from '../../shared/services/clear-session-t
 import {TermViewKeyfeaturesComponent} from './term-view-keyfeatures/term-view-keyfeatures.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
+export interface DialogData{
+    companyid: any;
+}
+
 @Component({
   selector: 'app-term-life-premium-list',
   templateUrl: './term-life-premium-list.component.html',
@@ -524,31 +528,40 @@ export class TermLifePremiumListComponent implements OnInit {
     }
 
     buyProduct(value) {
+      alert('input');
         console.log(value, 'vlitss');
         sessionStorage.lifePremiumList = JSON.stringify(value);
         if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() ==3)) {
 
             let dialogRef = this.dialog.open(PosstatusAlertTravel, {
                 width: '700px',
+                data:{ companyid: value.company_id}
+
             });
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
+                    alert(result);
+                    alert('inn8');
+
                     let paymentModeValid = true;
-                    if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000) {
+                    if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000 || value.payment_mode == 'yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300) {
+                    if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300 || value.payment_mode == 'quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550) {
+                    if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 || value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 2000) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450) {
+                    if(value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450 || value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 500) {
                         paymentModeValid = false;
                     }
 
                     if(paymentModeValid) {
+                        alert(paymentModeValid);
+                        alert('inn6');
+
                         if (value.product_id <= 81 && value.product_id >=78) {
                             this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
                         } else if (value.product_id == 87 ) {
@@ -560,8 +573,11 @@ export class TermLifePremiumListComponent implements OnInit {
                             this.router.navigate(['/hdfc-term-life'  + '/' + false]);
                         }
                     } else {
+                        alert('inn');
+
                         let dialogRef = this.dialog.open(PaymentModeValidate, {
                             width: '700px',
+                            data:{ companyid: value.company_id}
                         });
                         dialogRef.disableClose = true;
                         dialogRef.afterClosed().subscribe(result => {
@@ -572,20 +588,24 @@ export class TermLifePremiumListComponent implements OnInit {
             });
         }  else {
             let paymentModeValid = true;
-            if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000) {
+            alert('inn333')
+            if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000 ||value.payment_mode == 'yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300) {
+            if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300 || value.payment_mode == 'quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 ) {
+            if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 || value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 2000 ) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'monthly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450) {
+            if(value.payment_mode == 'monthly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450 || value.payment_mode == 'monthly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 500) {
                 paymentModeValid = false;
             }
 
             if(paymentModeValid) {
+                alert(paymentModeValid)
+                alert('inn5');
+
                 if (value.product_id <= 81 && value.product_id >=78) {
                     this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
                 } else if (value.product_id <= 87 && value.product_id >=86) {
@@ -596,8 +616,12 @@ export class TermLifePremiumListComponent implements OnInit {
                     this.router.navigate(['/hdfc-term-life'  + '/' + false]);
                 }
             } else {
+                alert('inn2');
+
                 let dialogRef = this.dialog.open(PaymentModeValidate, {
                     width: '700px',
+                    data:{ companyid: value.company_id}
+
                 });
                 dialogRef.disableClose = true;
                 dialogRef.afterClosed().subscribe(result => {
@@ -698,22 +722,27 @@ export class TermLifePremiumListComponent implements OnInit {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <p> Minimum Premium for Bajaj Allianz Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.</p>
+                    <p *ngIf="data.companyid == 6"> Minimum Premium for Bajaj Allianz Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.</p>
+                    <p *ngIf="data.companyid == 14"> Minimum Premium for Edelweiss Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.</p>
                     <table class="table table-bordered">
                         <thead class="thead-light">
                         <tr>
-                            <th scope="col">Monthly</th>
-                            <th scope="col">Quarterly</th>
-                            <th scope="col">Half-Yearly</th>
-                            <th scope="col">Yearly</th>
+                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Monthly</th>
+                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Quarterly</th>
+                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Half-Yearly</th>
+                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Yearly</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>Rs. 450</td>
-                            <td> Rs. 1300</td>
-                            <td> Rs. 2550</td>
-                            <td>Rs. 5000</td>
+                            <td *ngIf="data.companyid == 6">Rs. 450</td>
+                            <td *ngIf="data.companyid == 14">Rs. 500</td>
+                            <td *ngIf="data.companyid == 6"> Rs. 1300</td>
+                            <td *ngIf="data.companyid == 14"> Rs. 1250</td>
+                            <td *ngIf="data.companyid == 6"> Rs. 2550</td>
+                            <td *ngIf="data.companyid == 14"> Rs. 2000</td>
+                            <td *ngIf="data.companyid == 6">Rs. 5000</td>
+                            <td *ngIf="data.companyid == 14">Rs. 3000</td>
                         </tr>
                         </tbody>
                     </table>
@@ -735,9 +764,13 @@ export class TermLifePremiumListComponent implements OnInit {
 export class PaymentModeValidate {
     constructor(
         public dialogRef: MatDialogRef<PaymentModeValidate>,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
+        @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+        alert('inn');
+        console.log(data.companyid,'hgffghgfghfg');
     }
     onClick(result) {
         this.dialogRef.close(result);
     }
 }
+
+
