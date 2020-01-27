@@ -28,11 +28,11 @@
                                             <mat-error *ngIf="customerDetails.controls.firstName.errors?.required">First Name is required</mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <!--                               <div class="col-md-4">-->
-                                    <!--                                   <mat-form-field class="w-100" >-->
-                                    <!--                                       <input matInput placeholder="Mid Name" formControlName="midName"  maxlength="15" (keypress)="nameValidate($event)" autocomplete="off" >-->
-                                    <!--                                   </mat-form-field>-->
-                                    <!--                               </div>-->
+                                   <div class="col-md-4">
+                                       <mat-form-field class="w-100" >
+                                           <input matInput placeholder="Mid Name" formControlName="midName"  maxlength="15" (keypress)="nameValidate($event)" autocomplete="off" >
+                                       </mat-form-field>
+                                   </div>
                                     <div class="col-md-4">
                                         <mat-form-field class="w-100">
                                             <input matInput placeholder="Last Name" formControlName="lastName" class="nospace" maxlength="15"  (keypress)="nameValidate($event)" autocomplete="off" required >
@@ -95,7 +95,7 @@
                                 <!--</div>-->
                                 <div class="proposal-buttom mt-3 text-right w-100">
                                     <!--                               <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
-                                    <button mat-raised-button color="primaryBlue"  (click)="edelweissPrimium();edelweissCustomerDetail(stepper, customerDetails.value)">Next</button>
+                                    <button mat-raised-button color="primaryBlue"  (click)="getCover();edelweissCustomerDetail(stepper, customerDetails.value)">Next</button>
                                 </div>
                             </mat-expansion-panel>
                         </form>
@@ -168,12 +168,12 @@
                                                 <input matInput  formControlName="sfirstName"  (selectionChange)="firstnamespouse()"  autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
                                             </mat-form-field>
                                         </div>
-                                        <!--                                   <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">-->
-                                        <!--                                       <mat-form-field class="w-100">-->
-                                        <!--                                           <mat-placeholder>Middle Name</mat-placeholder>-->
-                                        <!--                                           <input matInput  formControlName="smidName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">-->
-                                        <!--                                       </mat-form-field>-->
-                                        <!--                                   </div>-->
+                                       <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                           <mat-form-field class="w-100">
+                                               <mat-placeholder>Middle Name</mat-placeholder>
+                                               <input matInput  formControlName="smidName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
+                                           </mat-form-field>
+                                       </div>
                                         <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Last Name<span class="error" >*</span></mat-placeholder>
@@ -455,7 +455,7 @@
                                     </div>
                                     <div class="col-md-4"  >
                                         <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.tittleread == true ? 'none' : ''}">
-                                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="geteMaritalStatus()"required  class="w-100" readonly>
+                                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="geteMaritalStatus();changeMarital1()"required  class="w-100" readonly>
                                                 <mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="insureArray.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
@@ -816,7 +816,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <mat-form-field class="w-100">
-                                            <mat-select  placeholder="Change in weight past 6 months" formControlName="hasWeightChanged" (selectionChange)="geteWeightChanged();edelweissPrimium()" required class="w-100">
+                                            <mat-select  placeholder="Change in weight past 6 months" formControlName="hasWeightChanged" (selectionChange)="geteWeightChanged()" required class="w-100">
                                                 <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>
@@ -890,9 +890,6 @@
 
                                 <!--                           </div>-->
                                 <div class="row p-3" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                    <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' && addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                        <h6 class="color-blue">Spouse Detail</h6>
-                                    </div>
 
                                     <div class="row p-3"  >
                                         <!--[ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}"-->
@@ -952,7 +949,7 @@
                                             <p>Smoker<span class="error" >*</span></p>
                                             <mat-radio-group formControlName="isSmokerSpouse">
                                                 <mat-radio-button value="Yes" >Yes</mat-radio-button>
-                                                <mat-radio-button value="No">No</mat-radio-button>
+                                                <mat-radio-button class="ml-2" value="No">No</mat-radio-button>
                                             </mat-radio-group>
                                         </div>
                                         <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
@@ -1662,7 +1659,7 @@
                                     <div class="col-md-4 " *ngIf="medicalDetail.controls['tobaccoInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Tobacco Details<span class="error" >*</span></mat-placeholder>
-                                            <mat-select  formControlName="tobaccoDetails"  (selectionChange)=" geteTobaccoDetail()" >
+                                            <mat-select  formControlName="tobaccoDetails"  (selectionChange)=" geteTobaccoDetail();TobaccoValues()" >
                                                 <mat-option *ngFor="let tobaccoDets of eTobaccoDetails | keys" value="{{tobaccoDets.key}}" > {{tobaccoDets.value}} </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -1670,7 +1667,7 @@
                                     <div class="col-md-4 " *ngIf="medicalDetail.controls['tobaccoInd1'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Tobacco Details<span class="error" >*</span></mat-placeholder>
-                                            <mat-select  formControlName="tobaccoDetails1"  >
+                                            <mat-select  formControlName="tobaccoDetails1" (selectionChange)=" geteTobaccoDetail();TobaccoValues()" >
                                                 <mat-option *ngFor="let tobaccoDets of eTobaccoDetails | keys" value="{{tobaccoDets.key}}" > {{tobaccoDets.value}} </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -2846,7 +2843,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" ><strong>Name:</strong> {{customerFormData.titleName}}.{{customerFormData.firstName}} {{customerFormData.lastName}}</li>
+                                                    <li class="list-group-item" ><strong>Name:</strong> {{customerFormData.titleName}}.{{customerFormData.firstName}} {{customerFormData.midName}} {{customerFormData.lastName}}</li>
                                                     <li class="list-group-item" *ngIf="customerFormData.dob != ''" ><strong>DOB:</strong> {{customerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                                     <li class="list-group-item" *ngIf="customerFormData.maritalStatus != ''" ><strong>Marital Status:</strong> {{customerFormData.maritalStatusName}}</li>
                                                     <li class="list-group-item" *ngIf="customerFormData.emailId != ''" ><strong>Email ID:</strong> {{customerFormData.emailId}}</li>
@@ -2925,7 +2922,7 @@
                                             <div class="col-md-12">
                                                 <h6 class="color-blue" >SPOUSE DETAILS</h6>
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" ><strong>Name:</strong> {{addonFormData.stitleName}}{{addonFormData.sfirstName}}{{addonFormData.slastName}}</li>
+                                                    <li class="list-group-item" ><strong>Name:</strong> {{addonFormData.stitleName}}.{{addonFormData.sfirstName}} {{addonFormData.smidName}} {{addonFormData.slastName}}</li>
                                                     <li class="list-group-item" *ngIf="addonFormData.sdob != ''" ><strong>DOB:</strong> {{addonFormData.sdob | date: 'dd/MM/yyyy'}}</li>
 
                                                 </ul>
@@ -2941,7 +2938,7 @@
                                                 <ul class="m-0 list-group">
 
                                                     <li class="list-group-item" *ngIf="addonFormData.semailId != ''" ><strong>Email ID:</strong> {{addonFormData.semailId}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.isSmokerSpouse != 'No'" ><strong>Smoker:</strong> {{addonFormData.isSmokerSpouse}}</li>
+                                                    <li class="list-group-item"  ><strong>Smoker:</strong> {{addonFormData.isSmokerSpouse}}</li>
 
                                                 </ul>
                                             </div>
@@ -2989,32 +2986,15 @@
                             <div class="row box-card">
                                 <div class="col-md-6">
                                     <div class="p-3">
-
                                         <ul class="m-0 list-group">
                                             <!--<li class="list-group-item" *ngIf="insuredFormData.investing != ''"><strong>Are you investing for :</strong> {{insuredFormData.investing}}</li>-->
-
                                             <li class="list-group-item"><strong>Name:</strong> {{insuredFormData.titleName}} {{insuredFormData.firstName}} {{insuredFormData.midName}} {{insuredFormData.lastName}}</li>
                                             <li class="list-group-item"><strong>D.O.B:</strong> {{insuredFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.gender != ''"><strong>Gender :</strong> {{insuredFormData.gender}}</li>
-                                            <!-- <li class="list-group-item" *ngIf="insuredFormData.maritalStatus != ''"><strong>Marital Status :</strong> {{insuredFormData.maritalStatusName}}</li>-->
+                                            <li class="list-group-item" *ngIf="insuredFormData.maritalStatus != ''"><strong>Marital Status :</strong> {{insuredFormData.maritalStatusName}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.nationality != ''"><strong>Nationality :</strong> {{insuredFormData.nationality}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.emailId != ''"><strong>Email Id :</strong>{{insuredFormData.emailId}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.pan != ''"><strong>PAN No :</strong>{{insuredFormData.pan | uppercase}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.aadhaarNo != ''"><strong>Aadhaar No :</strong> {{insuredFormData.aadhaarNo}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.fatherhusbandName != ''"><strong>Father / Husband Name :</strong> {{insuredFormData.fatherhusbandName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.ageProofId != ''"><strong>Age Proof Id :</strong> {{insuredFormData.ageProofIdName }}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.mobileNo != ''"><strong>Mobile No :</strong> {{insuredFormData.mobileNo}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.highestQualification != ''"><strong>Highest Qualification :</strong> {{insuredFormData.highestQualificationName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.otherQualification != ''"><strong>Other Qualification :</strong> {{insuredFormData.otherQualification}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.employerName != ''"><strong>Employer Name :</strong> {{insuredFormData.employerName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.employementType != ''"><strong>Employment Type :</strong> {{insuredFormData.employementTypeName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.employementTypeOther != ''"><strong>Employment Type Other :</strong> {{insuredFormData.employementTypeOther}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.natureduty != ''"><strong>Nature Of Duty :</strong> {{insuredFormData.naturedutyName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Employer Address :</strong> {{insuredFormData.employerAddr}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.annualIncome != ''"><strong>Annual Income :</strong> {{insuredFormData.annualIncome}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
-
-
+                                            <li class="list-group-item" *ngIf="insuredFormData.emailId != ''"><strong>Email Id :</strong>{{insuredFormData.emailId}}</li>
 
                                         </ul>
                                     </div>
@@ -3023,65 +3003,25 @@
                                     <div class="p-3">
 
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == true"><strong>Is Politically Exposed :</strong>Yes</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == false"><strong>Is Politically Exposed :</strong>No</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.specification != ''"><strong>Specification :</strong> {{insuredFormData.specification}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.isCriminal != '' && lifePremiumList.product_id=='112'"><strong>Are u Criminal :</strong> {{insuredFormData.isCriminal}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.criminalDetails != '' && lifePremiumList.product_id=='112'"><strong>Criminal Details :</strong> {{insuredFormData.criminalDetails}}</li>
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.categorization != '' && lifePremiumList.product_id=='112'"><strong>Categorization :</strong> {{insuredFormData.categorization}}</li>-->
-                                            <li class="list-group-item" *ngIf="insuredFormData.addrProof != ''"><strong>Address Proof :</strong> {{insuredFormData.addrProofName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.identityProof != ''"><strong>Identity Proof :</strong> {{insuredFormData.identityProofName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.heightFeets != ''"><strong>Height Feets :</strong> {{insuredFormData.heightFeets}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.heightInches != ''"><strong>Height Inches :</strong> {{insuredFormData.heightInches}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.weight != ''"><strong>Weight :</strong> {{insuredFormData.weight}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.hasWeightChanged != ''"><strong>Change in weight past 6 months :</strong> {{insuredFormData.hasWeightChanged}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.inbetweenweight != ''"><strong>Changed Weight :</strong> {{insuredFormData.inbetweenweight}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.weightChangedreason != ''"><strong>Reason for weight changed :</strong> {{insuredFormData.weightChangedreason}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.payoutOption != '' "><strong>Payout Option:</strong> {{insuredFormData.payoutOptionName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.payoutOptionToggle == 'levelIncome' "><strong>Payout Option Toggle:</strong> <span>Level Income</span></li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.payoutOptionToggle == 'increasingIncome' "><strong>Payout Option Toggle:</strong> <span>Increasing Income</span></li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.payoutPercentageIncome != '' "><strong>Payout Percentage Income:</strong> {{insuredFormData.payoutPercentageIncome}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.noOfMonths != ''"><strong>No Of Months:</strong> {{insuredFormData.noOfMonths}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any application or proposal for life, health, accident or critical illness:</strong> {{insuredFormData.insureHistory}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.insureAccNo != ''"><strong>Do you have an E-Insurance Account No.?:</strong> {{insuredFormData.insureAccNo}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.insureRepository != ''"><strong>Insurance Repository :</strong> {{insuredFormData.insureRepository}}</li>
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.planOption != '' && lifePremiumList.product_id=='112'"><strong>Plan Option :</strong> {{insuredFormData.planOption}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.workSiteFlag != '' && lifePremiumList.product_id=='112'"><strong>Work Site Flag :</strong> {{insuredFormData.workSiteFlag}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.investmentStrategy != '' && lifePremiumList.product_id=='112'"><strong>Investment Strategy </strong> {{insuredFormData.investmentStrategy}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.risingStar != '' && lifePremiumList.product_id=='112'"><strong>Rising Star:</strong> {{insuredFormData.risingStar}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.policyOption != '' && lifePremiumList.product_id=='112'"><strong>Policy Option:</strong> {{insuredFormData.policyOption}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.additionalBenefit != '' && lifePremiumList.product_id=='112'"><strong>Additional Benefit:</strong> {{insuredFormData.additionalBenefit}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.TopUpBenefit != '' && lifePremiumList.product_id=='112'"><strong>Top Up Benefit:</strong> {{insuredFormData.TopUpBenefit}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.topUpBenefitPercentage != '' && lifePremiumList.product_id=='112'"><strong>Top Up Benefit Percentage:</strong> {{insuredFormData.topUpBenefitPercentage}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.topUpRate != '' && lifePremiumList.product_id=='112'"><strong>Top Up Rate:</strong> {{insuredFormData.topUpRate}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.betterHalfBenefit != '' && lifePremiumList.product_id=='112'"><strong>Better Half Benefit:</strong> {{insuredFormData.betterHalfBenefit}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.betterHalfsumAssured != '' && lifePremiumList.product_id=='112'"><strong>Better Half SumAssured:</strong> {{insuredFormData.betterHalfsumAssured}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.waiverOfPremiumBenefit != '' && lifePremiumList.product_id=='112'"><strong>Waiver Of Premium Benefit:</strong> {{insuredFormData.waiverOfPremiumBenefit}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.criticalIllness != '' && lifePremiumList.product_id=='112'"><strong>Critical Illness:</strong> {{insuredFormData.criticalIllness}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.criticalsumAssured != '' && lifePremiumList.product_id=='112'"><strong>Critical SumAssured:</strong> {{insuredFormData.criticalsumAssured}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.isADB != '' && lifePremiumList.product_id=='112'"><strong> Accidental Death Benefit:</strong> {{insuredFormData.isADB}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.sumAssuredADB != '' && lifePremiumList.product_id=='112'"><strong>Sum Assured Of Accidental Death Benefit:</strong> {{insuredFormData.sumAssuredADB}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.isATPD != '' && lifePremiumList.product_id=='112'"><strong>Accidental Total and Permanent Disability:</strong> {{insuredFormData.isATPD}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.sumAssuredATPD != '' && lifePremiumList.product_id=='112'"><strong>SumAssured Of Accidental Total and Permanent Disability:</strong> {{insuredFormData.sumAssuredATPD}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.isHCB != '' && lifePremiumList.product_id=='112'"><strong>Hospital Cash Benefit:</strong> {{insuredFormData.isHCB}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.provideAccNo != ''"><strong>Provide Account No:</strong> {{insuredFormData.provideAccNo}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.epolicy != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.einsureAccNo != ''"><strong>E-Insurance Account Number:</strong> {{insuredFormData.einsureAccNo}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.epolicy1 != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy1}}</li>-->
-                                            <!--                                       <li class="list-group-item" *ngIf="insuredFormData.sumAssuredHCB != '' && lifePremiumList.product_id=='112'"><strong>SumAssured Of Hospital Cash Benefit:</strong> {{insuredFormData.sumAssuredHCB}}</li>-->
+
+                                            <li class="list-group-item" *ngIf="insuredFormData.pan != ''"><strong>PAN No :</strong>{{insuredFormData.pan | uppercase}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.aadhaarNo != ''"><strong>Aadhaar No :</strong> {{insuredFormData.aadhaarNo}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.fatherhusbandName != ''"><strong>Father / Husband Name :</strong> {{insuredFormData.fatherhusbandName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.motherMaidName != ''"><strong>Mother Name :</strong> {{insuredFormData.motherMaidName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.ageProofId != ''"><strong>Age Proof Id :</strong> {{insuredFormData.ageProofIdName }}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.highestQualification != ''"><strong>Highest Qualification :</strong> {{insuredFormData.highestQualificationName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.otherQualification != ''"><strong>Other Qualification :</strong> {{insuredFormData.otherQualification}}</li>
                                         </ul>
                                     </div>
                                 </div>
+
                                 <div class="col-md-6" *ngIf="insuredFormData.maritalStatus == 'M'">
                                     <div class="p-3">
                                         <h6 class="color-blue" *ngIf="insuredFormData.maritalStatus == 'M'">SPOUSE DETAILS</h6>
                                         <ul class="m-0 list-group">
-
                                             <li class="list-group-item" *ngIf="insuredFormData.stitleName != '' && insuredFormData.sfirstName != '' && insuredFormData.smidName != '' && insuredFormData.slastName != '' "><strong>Name:</strong> {{insuredFormData.stitleName}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.sdob != '' || insuredFormData.sdob != null"><strong>D.O.B:</strong> {{insuredFormData.sdob | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.semailId != ''"><strong>Email Id:</strong> {{insuredFormData.semailId}}</li>
-
-
                                         </ul>
                                     </div>
                                 </div>
@@ -3091,34 +3031,10 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="insuredFormData.smobileNo != ''"><strong>Mobile No:</strong> {{insuredFormData.smobileNo}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Smoker:</strong> {{insuredFormData.isSmokerSpouse}}</li>
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{insuredFormData.isStaffSpouse}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{insuredFormData.employeeCodeSpouse}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="insuredFormData.relationSpouseInsurer != ''"><strong>Relation To Insurer:</strong> {{insuredFormData.relationSpouseInsurerName}}</li>-->
+
                                         </ul>
                                     </div>
                                 </div>
-                                <!--<div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">-->
-                                    <!--<div class="p-3">-->
-                                        <!--<h6 class="color-blue" *ngIf="(lifePremiumList.product_id=='112')&&(addonFormData.isADB != '' || addonFormData.isATPD != '' ||  addonFormData.criticalIllness != '' || addonFormData.waiverOfPremiumBenefit != '' || addonFormData.betterHalfBenefit != ''|| addonFormData.isHCB != '')">ADDON DETAILS</h6>-->
-                                        <!--<ul class="m-0 list-group">-->
-
-                                            <!--<li class="list-group-item" *ngIf="addonFormData.isADB != ''"><strong>Accidental Death Premium:</strong> {{summaryData.accidental_death_premium}} </li>-->
-                                            <!--<li class="list-group-item" *ngIf="addonFormData.isATPD != ''"><strong>Permanent Disability Premium:</strong> {{summaryData.permanent_disability_premium}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="addonFormData.criticalIllness != ''"><strong>Critical Illness Premium:</strong> {{summaryData.critical_illness_premium}}</li>-->
-
-                                        <!--</ul>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">-->
-                                    <!--<div class=" p-3">-->
-                                        <!--<h6 class="color-blue mt-4" *ngIf="lifePremiumList.product_id=='112'"></h6>-->
-                                        <!--<ul class="m-0 list-group">-->
-                                            <!--<li class="list-group-item" *ngIf="addonFormData.waiverOfPremiumBenefit != ''"><strong>Premium Waiver:</strong> {{summaryData.premium_waiver}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="addonFormData.betterHalfBenefit != ''"><strong>Better Half Premium:</strong> {{summaryData.better_half_premium}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="addonFormData.isHCB != ''"><strong>HCB Premium:</strong> {{summaryData.hcb_premium}}</li>-->
-                                        <!--</ul>-->
-                                    <!--</div>-->
-                                <!--</div>-->
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <h6 class="color-blue">CURRENT ADDRESS</h6>
@@ -3144,8 +3060,95 @@
                                             <li class="list-group-item" *ngIf="insuredFormData.perCity != ''"><strong> City:</strong> {{insuredFormData.perCity}}</li>
                                         </ul>
                                     </div>
-
                                 </div>
+                                <div class="col-md-6" >
+                                    <div class="p-3">
+                                        <h6 class="color-blue">EMPLOYMENT</h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.employerName != ''"><strong>Employer Name :</strong> {{insuredFormData.employerName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.employementType != ''"><strong>Employment Type :</strong> {{insuredFormData.employementTypeName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.employementTypeOther != ''"><strong>Employment Type Other :</strong> {{insuredFormData.employementTypeOther}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.natureduty != ''"><strong>Nature Of Duty :</strong> {{insuredFormData.naturedutyName}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div class=" p-3">
+                                        <h6 class="color-blue mt-4" ></h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Employer Address :</strong> {{insuredFormData.employerAddr}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.annualIncome != ''"><strong>Annual Income :</strong> {{insuredFormData.annualIncome}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div class="p-3">
+                                        <h6 class="color-blue">OTHER DETAILS</h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == true"><strong>Is Politically Exposed :</strong>Yes</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == false"><strong>Is Politically Exposed :</strong>No</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.specification != ''"><strong>Specification :</strong> {{insuredFormData.specification}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div class=" p-3">
+                                        <h6 class="color-blue mt-4" ></h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.isCriminal != '' && lifePremiumList.product_id=='112'"><strong>Are u Criminal :</strong> {{insuredFormData.isCriminal}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.criminalDetails != '' && lifePremiumList.product_id=='112'"><strong>Criminal Details :</strong> {{insuredFormData.criminalDetails}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.identityProof != ''"><strong>Identity Proof :</strong> {{insuredFormData.identityProofName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.addrProof != ''"><strong>Address Proof :</strong> {{insuredFormData.addrProofName}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div class="p-3">
+                                        <h6 class="color-blue">LIFESTYLE DETAILS</h6>
+                                        <ul class="m-0 list-group">
+
+                                            <li class="list-group-item" *ngIf="insuredFormData.weight != ''"><strong>Weight :</strong> {{insuredFormData.weight}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.hasWeightChanged != ''"><strong>Change in weight past 6 months :</strong> {{insuredFormData.hasWeightChanged}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.inbetweenweight != ''"><strong>Changed Weight :</strong> {{insuredFormData.inbetweenweight}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.weightChangedreason != ''"><strong>Reason for weight changed :</strong> {{insuredFormData.weightChangedreason}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div class=" p-3">
+                                        <h6 class="color-blue mt-4" ></h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.heightFeets != ''"><strong>Height Feets :</strong> {{insuredFormData.heightFeets}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.heightInches != ''"><strong>Height Inches :</strong> {{insuredFormData.heightInches}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class=" col-md-6 mt-4" >
+                                    <div class="p-3">
+                                        <h6 class="color-blue">PAYOUT OPTIONS </h6>
+                                        <ul class="m-0 list-group">
+
+                                            <li class="list-group-item" *ngIf="insuredFormData.payoutOption != '' "><strong>Payout Option:</strong> {{insuredFormData.payoutOptionName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.payoutOptionToggle == 'levelIncome' "><strong>Payout Option Toggle:</strong> <span>Level Income</span></li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.payoutOptionToggle == 'increasingIncome' "><strong>Payout Option Toggle:</strong> <span>Increasing Income</span></li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.payoutPercentageIncome != '' "><strong>Payout Percentage Income:</strong> {{insuredFormData.payoutPercentageIncome}}</li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div class=" p-3">
+                                        <h6 class="color-blue mt-4" >INSURANCE</h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.noOfMonths != ''"><strong>No Of Months:</strong> {{insuredFormData.noOfMonths}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any application or proposal for life, health, accident or critical illness:</strong> {{insuredFormData.insureHistory}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.insureAccNo != ''"><strong>Do you have an E-Insurance Account No.?:</strong> {{insuredFormData.insureAccNo}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.insureRepository != ''"><strong>Insurance Repository :</strong> {{insuredFormData.insureRepository}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
                             </div>
                         </section>
 
@@ -3169,13 +3172,13 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.drugsInd != '' && lifePremiumList.product_id=='112'"><strong>Are u Drugs User:</strong> {{medicalFormData.drugsInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.drugsDetails != '' && lifePremiumList.product_id=='112'"><strong>Drugs Details:</strong> {{medicalFormData.drugsDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholInd != '' && lifePremiumList.product_id=='112'"><strong>Are u Alcohol User:</strong> {{medicalFormData.alcoholInd}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.alcoholDetails != '' && lifePremiumList.product_id=='112'"><strong>Alcohol Details:</strong> {{medicalFormData.alcoholDetailName}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.alcoholDetails != '' && lifePremiumList.product_id=='112'"><strong>Alcohol Details:</strong> {{alcoholDetailValues}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholBeer != '' && lifePremiumList.product_id=='112'"><strong>Alcohol Beer:</strong> {{medicalFormData.alcoholBeer}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholliquar != '' && lifePremiumList.product_id=='112'"><strong>Alcohol liquar:</strong> {{medicalFormData.alcoholliquar}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholWine != '' && lifePremiumList.product_id=='112'"><strong>Alcohol Wine:</strong> {{medicalFormData.alcoholWine}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd != '' && lifePremiumList.product_id=='112'"><strong>Are u Tobacco User:</strong> {{medicalFormData.tobaccoInd}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoDetails != '' && lifePremiumList.product_id=='112'"><strong>Tobacco Details:</strong> {{medicalFormData.tobaccoDetails}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd != '' && lifePremiumList.product_id=='112'"><strong>Are u Stopped using Tobacco:</strong> {{medicalFormData.tobaccoDetails}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoDetails != '' && lifePremiumList.product_id=='112'"><strong>Tobacco Details:</strong> {{medicalFormData.tobaccoDetailName}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd != '' && lifePremiumList.product_id=='112'"><strong>Are u Stopped using Tobacco:</strong> {{medicalFormData.tobaccoStopInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopDetails != '' && lifePremiumList.product_id=='112'" ><strong>Tobacco Stop Details:</strong> {{medicalFormData.tobaccoStopDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.consultDoctorInd != '' && lifePremiumList.product_id=='112'" ><strong>Are You Consulting Doctor:</strong> {{medicalFormData.consultDoctorInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.consultDoctorDetails != '' && lifePremiumList.product_id=='112'"><strong>Consulting Doctor Details:</strong> {{medicalFormData.consultDoctorDetails}}</li>
@@ -3195,7 +3198,6 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.respiratoryDieaseDetails != ''&& lifePremiumList.product_id=='112'" ><strong>Respiratory Disease Details:</strong> {{medicalFormData.respiratoryDieaseDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.diabetesInd != '' && lifePremiumList.product_id=='112'"><strong>Diabetes:</strong> {{medicalFormData.diabetesInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.diabetesDetails != '' && lifePremiumList.product_id=='112'"><strong>Diabetes Details:</strong> {{medicalFormData.diabetesDetails}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment2 != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalFormData.receivedTreatment2}}</li>
 
                                                 </ul>
                                             </div>
@@ -3207,6 +3209,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
+                                                    <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment2 != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalFormData.receivedTreatment2}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.aidsDetails != ''"><strong>AIDS Details:</strong> {{medicalFormData.aidsDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.kidneyDieaseInd != '' && lifePremiumList.product_id=='112'"><strong>Kidney Disease:</strong> {{medicalFormData.kidneyDieaseInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.kidneyDieaseDetails != '' && lifePremiumList.product_id=='112'"><strong>Kidney Disease Details:</strong> {{medicalFormData.kidneyDieaseDetails}}</li>
