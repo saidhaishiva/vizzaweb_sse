@@ -113,7 +113,8 @@ public downloadPdfFailure(error) {
     }
     pay(){
         sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
-        this.router.navigate(['/healthinsurance']);
+        // this.router.navigate(['/healthinsurance']);
+         this.router.navigate(['/healthinsurance']);
     }
 
     downloadMessage() {
