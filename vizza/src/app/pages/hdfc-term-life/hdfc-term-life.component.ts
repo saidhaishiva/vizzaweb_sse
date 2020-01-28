@@ -158,6 +158,9 @@ export class HdfcTermLifeComponent implements OnInit {
   public proposalGenStatus: boolean;
   public appointee: any;
   public otherFormData: any;
+  public nomineeResObj: any;
+  public nomineeGender: any;
+  public personalStatus: any;
   public keyUp = new Subject<string>();
 
 
@@ -275,20 +278,20 @@ export class HdfcTermLifeComponent implements OnInit {
       fathernmtitle: ['', Validators.required],
       fathernmtitleName: ['', Validators.required],
       fatherfirstnm: ['', Validators.required],
-      fathermiddlenm: ['', Validators.required],
+      fathermiddlenm: [''],
       fatherlastnm: ['', Validators.required],
       mothernmtitle: ['', Validators.required],
       mothernmtitleName: ['', Validators.required],
       motherfirstnm: ['', Validators.required],
-      mothermiddlenm: ['', Validators.required],
+      mothermiddlenm: [''],
       motherlastnm: ['', Validators.required],
       mmaritalstatus: ['', Validators.required],
       mmaritalstatusName: ['', Validators.required],
-      spousenmtitle: ['', Validators.required],
-      spousenmtitleName: ['', Validators.required],
-      spousefirstnm: ['', Validators.required],
-      spousemiddlenm: ['', Validators.required],
-      spouselastnm: ['', Validators.required],
+      spousenmtitle: [''],
+      spousenmtitleName: [''],
+      spousefirstnm: [''],
+      spousemiddlenm: [''],
+      spouselastnm: [''],
       occutypesp: ['', Validators.required],
       occutypespName: ['', Validators.required],
       catofoccupation: ['', Validators.required],
@@ -449,11 +452,9 @@ export class HdfcTermLifeComponent implements OnInit {
   }
 
   uploadvalid() {
-
     console.log('11111111doc');
     this.window.open(this.redirectUrl,'_top')
     console.log('22222');
-
   }
   // Dame validation
   nameValidate(event: any) {
@@ -1041,6 +1042,9 @@ changecountryofbirth() {
   public personalDetails(stepper: MatStepper, value) {
 
     this.personalData = value;
+    console.log(this.personalData, 'llllll')
+    console.log(this.personalData.maritalstatusName, 'llooppp')
+    this.personalStatus = this.personalData.maritalstatusName;
     // console.log(this.personal.controls['titleName'].value,'titlw nme')
     console.log(value, 'eeeeeeeeeee');
     sessionStorage.stepper1Details = '';
@@ -3413,6 +3417,13 @@ public setProposalSuccess(successData, stepper) {
     this.otherFormData = this.otherDetails.value;
     console.log(this.otherFormData, 'this.otherFormData...')
     this.nomineeFormData = this.nomineeDetail.value;
+    console.log(this.nomineeFormData, 'nomineeFormData...');
+    this.nomineeResObj = this.summaryData.summary.nominee;
+    for (let i = 0; i < this.nomineeResObj.length; i++) {
+      console.log(this.nomineeResObj, 'loop')
+      this.nomineeGender = this.nomineeResObj[i].gender;
+    }
+
     this.appointee= this.appointee.value
     console.log(this.appointee, 'this.appointee');
     // console.log(this.appointee.value, 'this.appointee.value');

@@ -332,7 +332,7 @@ export const routes: Routes = [
             { path: 'hdfc-personalAccident/:stepper', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}, canDeactivate: [HdfcPaproposaldeactivateGuardService]},
             { path: 'shriram-travel-home/:stepper', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
             { path: 'shriram-travel/:proposalId/:stepper', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
-            { path: 'hdfc-payment-success/:status/:proId/:policyStatus', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
+            { path: 'hdfc-health-payment-success/:status/:proId/:policyStatus', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-pa-payment-success/:status/:proId', component: HdfcPaPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-travel-payment-success/:status/:proId', component: HdfcTravelPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'travel-religare-payment-success/:status/:proId/:policyNo/:policyStatus', component: TravelReligarePaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
