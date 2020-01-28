@@ -1661,6 +1661,9 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
             this.BiFuel_Kit_TP_Premium=this.coverPremium.BiFuel_Kit_TP_Premium;
             this.HandicapDisc_Premium=this.coverPremium.HandicapDisc_Premium;
             this.PaidDriver_Premium=this.coverPremium.PaidDriver_Premium;
+            console.log( this.PaidDriver_Premium,'PaidDriver_Premium');
+
+
             this.LimitedtoOwnPremises_OD_Premium=this.coverPremium.LimitedtoOwnPremises_OD_Premium;
                 console.log( this.LimitedtoOwnPremises_OD_Premium,'LimitedtoOwnPremises_OD_Premium');
 
@@ -1668,7 +1671,8 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
             console.log(this.LimitedtoOwnPremises_TP_Premium,'LimitedtoOwnPremises_TP_Premium');
 
             this. NamedPerson_premium=this.coverPremium.NamedPerson_premium;
-            this. UnnamedPerson_premium=this.coverPremium.UnnamedPerson_premium;
+            this.UnnamedPerson_premium=this.coverPremium.UnnamedPerson_premium;
+            console.log(this.UnnamedPerson_premium,'this.UnnamedPerson_premium')
             this.NonElectical_Acc_Premium=this.coverPremium.NonElectical_Acc_Premium;
             this.Electical_Acc_Premium=this.coverPremium.Electical_Acc_Premium;
             this.bifuelChangeValue();
