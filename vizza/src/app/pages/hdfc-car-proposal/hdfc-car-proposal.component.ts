@@ -1072,7 +1072,7 @@ ChangeGender(){
             this.getCover();
         }else{
             this.paidPersonSiValid=true;
-            this.paidPersonSiValid='Unnamed Person SI should be Equal to Or Greater than 10000 ';
+            this.paidPersonSiValid='Paid Driver SI should be Equal to Or Greater than 10000 ';
         }
     }
     namedPersonSIValue(){
@@ -1083,7 +1083,7 @@ ChangeGender(){
         if(this.addOns.controls.IsLimitedtoOwnPremises.value == true){
             this.addOns.controls['totalLimitedtoOwnPremium'].setValidators([Validators.required]);
             this.addOns.controls['totalLimitedtoOwnPremium1'].setValidators([Validators.required]);
-            // this.getCover();
+            this.getCover();
         } else {
             this.addOns.controls['totalLimitedtoOwnPremium'].patchValue('');
             this.addOns.controls['totalLimitedtoOwnPremium1'].patchValue('');
@@ -1101,7 +1101,7 @@ ChangeGender(){
     paidDriverChange(){
         if(this.addOns.controls.IsPaidDriver.value == true){
             this.addOns.controls['paiddriversi'].setValidators([Validators.required]);
-            // this.getCover();
+            this.getCover();
         } else {
             this.addOns.controls['paiddriversi'].patchValue('');
             this.addOns.controls['paiddriversi'].setValidators(null);
@@ -1661,10 +1661,18 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
             this.BiFuel_Kit_TP_Premium=this.coverPremium.BiFuel_Kit_TP_Premium;
             this.HandicapDisc_Premium=this.coverPremium.HandicapDisc_Premium;
             this.PaidDriver_Premium=this.coverPremium.PaidDriver_Premium;
+            console.log( this.PaidDriver_Premium,'PaidDriver_Premium');
+
+
             this.LimitedtoOwnPremises_OD_Premium=this.coverPremium.LimitedtoOwnPremises_OD_Premium;
+                console.log( this.LimitedtoOwnPremises_OD_Premium,'LimitedtoOwnPremises_OD_Premium');
+
             this.LimitedtoOwnPremises_TP_Premium=this.coverPremium.LimitedtoOwnPremises_TP_Premium;
+            console.log(this.LimitedtoOwnPremises_TP_Premium,'LimitedtoOwnPremises_TP_Premium');
+
             this. NamedPerson_premium=this.coverPremium.NamedPerson_premium;
-            this. UnnamedPerson_premium=this.coverPremium.UnnamedPerson_premium;
+            this.UnnamedPerson_premium=this.coverPremium.UnnamedPerson_premium;
+            console.log(this.UnnamedPerson_premium,'this.UnnamedPerson_premium')
             this.NonElectical_Acc_Premium=this.coverPremium.NonElectical_Acc_Premium;
             this.Electical_Acc_Premium=this.coverPremium.Electical_Acc_Premium;
             this.bifuelChangeValue();

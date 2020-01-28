@@ -11,6 +11,8 @@ import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import { WINDOW } from '@ng-toolkit/universal';
 
+
+
 @Component({
     selector: 'app-hdfc-health-payment-success',
     templateUrl: './hdfc-health-payment-success.component.html',
@@ -113,7 +115,8 @@ public downloadPdfFailure(error) {
     }
     pay(){
         sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
-        this.router.navigate(['/healthinsurance']);
+        // this.router.navigate(['/healthinsurance']);
+         this.router.navigate(['/healthinsurance']);
     }
 
     downloadMessage() {

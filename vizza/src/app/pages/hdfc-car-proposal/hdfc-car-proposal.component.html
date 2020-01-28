@@ -603,12 +603,12 @@
                                         </div>
                                         <div class="col-md-3 mt-0" *ngIf="addOns.controls.biofuelkit.value!=''">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="BiFuel Kit OD Premium"  formControlName="totalbiofuelkitPremium"  autocomplete="off"  [required]="addOns.controls.biofuelkit.value!=''" readonly >
+                                                <input matInput placeholder="BiFuel Kit OD Premium"  formControlName="totalbiofuelkitPremium"  autocomplete="off"  [required]="addOns.controls.biofuelkit.value!=''" readonly (input)="bifuelChange();numberValidate($event)">
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3 mt-0" *ngIf="addOns.controls.biofuelkit.value!=''">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="BiFuel Kit TP Premium"  formControlName="totalbiofuelkitPremium1"  autocomplete="off"  [required]="addOns.controls.biofuelkit.value!=''" readonly >
+                                                <input matInput placeholder="BiFuel Kit TP Premium"  formControlName="totalbiofuelkitPremium1"  autocomplete="off"  [required]="addOns.controls.biofuelkit.value!=''" readonly (input)="bifuelChange();numberValidate($event)">
                                             </mat-form-field>
                                         </div>
                                             </div>
@@ -721,7 +721,7 @@
                                                 </div>
                                                 <div class="col-md-4 mt-0" *ngIf="addOns.controls.paiddriversi.value ">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Cover Premium"  formControlName="totalpaiddriversiPremium"  autocomplete="off"  [required]="addOns.controls.paiddriversi.value" readonly>
+                                                        <input matInput placeholder="Cover Premium"  formControlName="totalpaiddriversiPremium"  autocomplete="off"  [required]="addOns.controls.paiddriversi.value" readonly  (input)="numberValidate($event);paiddriverFlagChange()">
                                                     </mat-form-field>
                                                 </div>
                                                 <!--<div class="col-md-4 mt-0" *ngIf="addOns.controls.IsPaidDriver.value==true">-->
@@ -746,7 +746,7 @@
                                            </div>
                                            <div class="col-md-4 mt-0" *ngIf="addOns.controls.UnnamedPersonSI.value ">
                                                <mat-form-field class="w-100">
-                                                   <input matInput placeholder="Cover Premium"  formControlName="totalUnnamedPersonSIPremium"  autocomplete="off"  [required]="addOns.controls.UnnamedPersonSI.value" readonly>
+                                                   <input matInput placeholder="Cover Premium"  formControlName="totalUnnamedPersonSIPremium"  autocomplete="off"  [required]="addOns.controls.UnnamedPersonSI.value" readonly (input)="numberValidate($event);UnnamedPersonChange()">
                                                </mat-form-field>
                                            </div>
                                        </div>
@@ -1106,8 +1106,8 @@
                                         <li class="list-group-item" *ngIf="previousFormData.IsNCBProtection == false"><strong>Is NCB Protection :</strong>No</li>
                                         <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == true"><strong>Is Limited to Own Premises  :</strong>Yes</li>
                                         <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises == false"><strong>Is Limited to Own Premises  :</strong>No</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises ==true||previousFormData.IsLimitedtoOwnPremises ==false"><strong>LimitedtoOwnPremises_OD_Premium :</strong>{{LimitedtoOwnPremises_OD_Premium}}</li>
-                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises ==true||previousFormData.IsLimitedtoOwnPremises ==false"><strong>LimitedtoOwnPremises_TP_Premium:</strong>{{LimitedtoOwnPremises_TP_Premium}}</li>                                        <li class="list-group-item" *ngIf="previousFormData.IsRTIcover == true"><strong>Is Return To Invoice:</strong>Yes</li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises ==true||previousFormData.IsLimitedtoOwnPremises ==false"><strong>LimitedtoOwnPremises_OD_Premium:</strong><span style="margin-left: 130px;">{{LimitedtoOwnPremises_OD_Premium}}</span></li>
+                                        <li class="list-group-item" *ngIf="previousFormData.IsLimitedtoOwnPremises ==true||previousFormData.IsLimitedtoOwnPremises ==false"><strong>LimitedtoOwnPremises_TP_Premium:</strong><span style="margin-left: 130px;">{{LimitedtoOwnPremises_TP_Premium}}</span></li>                                        <li class="list-group-item" *ngIf="previousFormData.IsRTIcover == true"><strong>Is Return To Invoice:</strong>Yes</li>
                                         <li class="list-group-item" *ngIf="previousFormData.IsRTIcover == false"><strong>Is Return To Invoice :</strong>No</li>
                                         <li class="list-group-item" *ngIf="previousFormData.IsCOCcover == true"><strong>Is Cost Of Consumables:</strong>Yes</li>
                                         <li class="list-group-item" *ngIf="previousFormData.IsCOCcover == false"><strong>Is Cost Of Consumables :</strong>No</li>
