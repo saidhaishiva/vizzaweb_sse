@@ -51,7 +51,7 @@
 
                                     <div class="col-md-4"  >
                                         <mat-form-field class="w-100" >
-                                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="geteMaritalStatus();changeMarital()"required  class="w-100" >
+                                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (selectionChange)="geteMaritalStatus();changeMarital();betterHalfReq()"required  class="w-100" >
                                                 <mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="customerDetails.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
@@ -778,14 +778,14 @@
                                             <mat-error *ngIf="insureArray.controls.addrProof.errors?.required">Address Proof is required</mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <!--<div class="col-md-4">-->
-                                    <!--<mat-form-field class="w-100">-->
-                                    <!--<mat-select  placeholder="Policy categorization" formControlName="categorization" (selectionChange)="getePolicyCategory()" required  class="w-100">-->
-                                    <!--<mat-option *ngFor="let list of ePolicyCategory | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                                    <!--</mat-select>-->
-                                    <!--<mat-error *ngIf="insureArray.controls.categorization.errors?.required">Policy categorization is required</mat-error>-->
-                                    <!--</mat-form-field>-->
-                                    <!--</div>-->
+                                    <div class="col-md-4">
+                                    <mat-form-field class="w-100">
+                                    <mat-select  placeholder="Income Proof" formControlName="incomeProof" (selectionChange)="getIncomeProof();incomeProofName()" required  class="w-100">
+                                        <mat-option *ngFor="let list of incomeProofs | keys" [value]= list.key> {{list.value}} </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="insureArray.controls.incomeProof.errors?.required">Income Proof is required</mat-error>
+                                    </mat-form-field>
+                                    </div>
 
                                 </div>
                                 </div>
@@ -1432,6 +1432,23 @@
 
                                         </mat-radio-group>
                                         <div class="error" *ngIf="activityerror != ''&& activityerror != true ">{{activityerror}}</div>
+                                    </div>
+                                        <div class="col-md-12 " *ngIf="medicalDetail.controls['activity'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Adventurous Activities <span class="error" >*</span></mat-placeholder>
+                                                <mat-select  formControlName="adventurousActivities"  (selectionChange)="isadventurous();isadventurousName()"  multiple >
+                                                    <mat-option *ngFor="let list of eAdActivity | keys" value="{{list.key}}" > {{list.value}} </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    <div class="col-md-8 mt-2" *ngIf="medicalDetail.controls['adventurousActivities'].value == '9~' && lifePremiumList.product_id=='112'" >
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Adventurous Activities Details<span class="error" >*</span></mat-placeholder>
+                                            <input matInput  formControlName="adventurousActivitiesDetails"    autocomplete="off"   maxlength="10">
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-12 " *ngIf="medicalDetail.controls['activity1'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                         <mat-radio-group formControlName="activity1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
                                             <p style="color: mediumblue;">Spouse <span class="error" >*</span></p>
@@ -1440,16 +1457,8 @@
 
                                         </mat-radio-group>
                                         <div class="error" *ngIf="sactivityerror != ''&& sactivityerror != true ">{{sactivityerror}}</div>
+                                    </div>
 
-                                    </div>
-                                    <div class="col-md-12 " *ngIf="medicalDetail.controls['activity'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                                        <mat-form-field class="w-100">
-                                            <mat-placeholder>Adventurous Activities <span class="error" >*</span></mat-placeholder>
-                                            <mat-select  formControlName="adventurousActivities"  (selectionChange)="isadventurous();isadventurousName()"  multiple >
-                                                <mat-option *ngFor="let list of eAdActivity | keys" value="{{list.key}}" > {{list.value}} </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
                                     <div class="col-md-12 " *ngIf="medicalDetail.controls['activity1'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Adventurous Activities </mat-placeholder>
@@ -1458,27 +1467,13 @@
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
-                                    <!--<div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">-->
-                                    <!--<mat-form-field class="w-100">-->
-                                    <!--<mat-select  placeholder="Do you take part in any of the following activities " formControlName="adventurousActivities" (change)="isadventurous()" (change)="isadventurousName()"  multiple required  class="w-100">-->
-                                    <!--<mat-option *ngFor="let list of eAdActivity | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                                    <!--</mat-select>-->
-                                    <!--<mat-error *ngIf="medicalDetail.controls.adventurousActivities.errors?.required">Adventurous Activities is required</mat-error>-->
-                                    <!--</mat-form-field>-->
-                                    <!--</div>-->
-
-                                    <div class="col-md-8 mt-2" *ngIf="medicalDetail.controls['adventurousActivities'].value == '9~' && lifePremiumList.product_id=='112'" >
-                                        <mat-form-field class="w-100">
-                                            <mat-placeholder>Adventurous Activities Details<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="adventurousActivitiesDetails"    autocomplete="off"   maxlength="10">
-                                        </mat-form-field>
-                                    </div>
                                     <div class="col-md-8 mt-2" *ngIf="medicalDetail.controls['adventurousActivities1'].value == '9~' && lifePremiumList.product_id=='112'" >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Adventurous Activities Details</mat-placeholder>
                                             <input matInput  formControlName="adventurousActivitiesDetails1"    autocomplete="off"   maxlength="10">
                                         </mat-form-field>
                                     </div>
+
                                     <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                         <mat-radio-group formControlName="drugsInd" (change)="isdrugsInd()" (change)="travelOutside1()" >
                                             <p>Have you in the past used or do you use any habit forming drugs or narcotics or received any drug abstinence treatment?<span class="error" >*</span></p>
@@ -1488,22 +1483,20 @@
                                         </mat-radio-group>
                                         <div class="error" *ngIf="drugsInderror != ''&& drugsInderror != true ">{{drugsInderror}}</div>
 
+                                        <div class="col-md-8 " *ngIf="medicalDetail.controls['drugsInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Drugs Details<span class="error" >*</span></mat-placeholder>
+                                                <input matInput  formControlName="drugsDetails"    autocomplete="off"   maxlength="45" >
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 " *ngIf="medicalDetail.controls['drugsInd1'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                         <mat-radio-group formControlName="drugsInd1"  (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-
                                             <p style="color: mediumblue;">Spouse <span class="error" >*</span></p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
-
                                         </mat-radio-group>
                                         <div class="error" *ngIf="sdrugsInderror != ''&& sdrugsInderror != true ">{{sdrugsInderror}}</div>
-
-                                    </div>
-
-                                    <div class="col-md-8 " *ngIf="medicalDetail.controls['drugsInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                                        <mat-form-field class="w-100">
-                                            <mat-placeholder>Drugs Details<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="drugsDetails"    autocomplete="off"   maxlength="45" >
-                                        </mat-form-field>
                                     </div>
                                     <div class="col-md-8 " *ngIf="medicalDetail.controls['drugsInd1'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                         <mat-form-field class="w-100">
@@ -1511,6 +1504,7 @@
                                             <input matInput  formControlName="drugsDetails1"    autocomplete="off"   maxlength="45">
                                         </mat-form-field>
                                     </div>
+
                                     <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                         <mat-radio-group formControlName="alcoholInd" (change)="isalcoholInd()" (change)="travelOutside1()" >
                                             <p>Do you consume alcohol? If yes, details about consumption (per week) <span class="error" >*</span> </p>
@@ -1519,26 +1513,24 @@
 
                                         </mat-radio-group>
                                         <div class="error" *ngIf="alcoholInderror != ''&& alcoholInderror != true ">{{alcoholInderror}}</div>
-
+                                    </div>
+                                        <div class="col-md-10 " *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Alcohol Details<span class="error" >*</span></mat-placeholder>
+                                                <mat-select  formControlName="alcoholDetails"  (selectionChange)=" geteAlcoholDetails();changeAlcoholValue()" multiple >
+                                                    <mat-option *ngFor="let alcoholDets of eAlcoholDetails | keys" value="{{alcoholDets.key}}" > {{alcoholDets.value}} </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    <div class="col-md-10 " *ngIf="medicalDetail.controls['alcoholInd1'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                         <mat-radio-group formControlName="alcoholInd1"  (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-
                                             <p style="color: mediumblue;">Spouse <span class="error" >*</span></p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
-
                                         </mat-radio-group>
                                         <div class="error" *ngIf="salcoholInderror != ''&& salcoholInderror != true ">{{salcoholInderror}}</div>
-
                                     </div>
 
-                                    <div class="col-md-10 " *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
-                                        <mat-form-field class="w-100">
-                                            <mat-placeholder>Alcohol Details<span class="error" >*</span></mat-placeholder>
-                                            <mat-select  formControlName="alcoholDetails"  (selectionChange)=" geteAlcoholDetails();changeAlcoholValue()" multiple >
-                                                <mat-option *ngFor="let alcoholDets of eAlcoholDetails | keys" value="{{alcoholDets.key}}" > {{alcoholDets.value}} </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
                                     <div class="col-md-10 " *ngIf="medicalDetail.controls['alcoholInd1'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Alcohol Details<span class="error" >*</span></mat-placeholder>
@@ -3163,6 +3155,7 @@
                                             <li class="list-group-item" *ngIf="insuredFormData.criminalDetails != '' && lifePremiumList.product_id=='112'"><strong>If yes, Please specify :</strong> {{insuredFormData.criminalDetails}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.identityProof != ''"><strong>Identity Proof :</strong> {{insuredFormData.identityProofName}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.addrProof != ''"><strong>Address Proof :</strong> {{insuredFormData.addrProofName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.incomeProof != ''"><strong>Income Proof :</strong> {{insuredFormData.incomeProofName}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -3403,7 +3396,7 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseInd1 =='Yes' && lifePremiumList.product_id=='112'" ><strong>Female Disease:</strong> {{medicalFormData.femaleDieaseInd1}}</li>
                                                     <!--<li class="list-group-item" *ngIf="medicalFormData.femaleDieaseWeeks1 != '' && lifePremiumList.product_id=='112'"><strong>Female Disease Weeks:</strong> {{medicalFormData.femaleDieaseWeeks1}}</li>-->
                                                     <li class="list-group-item" *ngIf="medicalFormData.healthInformation1 ==true"><strong>Health Information:</strong> Yes</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.healthInformation1 ==false"><strong>Health Information:</strong> No</li>
+                                                    <!--<li class="list-group-item" *ngIf="medicalFormData.healthInformation1 ==false"><strong>Health Information:</strong> No</li>-->
 
                                                 </ul>
                                             </div>
