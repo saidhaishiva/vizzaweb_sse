@@ -1308,14 +1308,16 @@
                         <mat-slide-toggle (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
                       </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <table class="qesTable able table-striped mt-3">
-                      <tr *ngFor="let subQes of item.sub_questions_list; let j = index">
+                    <table class="qesTable able table-striped mt-3" *ngFor="let subQes of item.sub_questions_list; let j = index">
+                      <tr >
                         <td width="50%" *ngIf="item.display_question == '1'">
                           {{j + 1}}) {{subQes.question_details.question_description}}
                         </td>
-                        <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index">
-                          <mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)" >
-                            <div class="checkBoxLabelMargin">
+                      </tr>
+                      <tr>
+                        <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index" [ngStyle]="{'display':'block','margin-left':'-23px','margin-top': '-20px'}">
+                          <mat-checkbox  [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)"  >
+                            <div class="checkBoxLabelMargin" [ngStyle]="{'margin-left':'-3px','text-align':'center'}">
                               {{fGroup.type}}
                             </div>
                         </mat-checkbox>
