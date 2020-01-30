@@ -1740,8 +1740,8 @@
 
                                     </div>
 
-                                    <div class="col-md-12" [ngStyle]="{'pointer-events': this.customerDetails.controls['isSmoker'].value ? 'none' : ''}">
-                                        <mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" (change)="travelOutside1()" >
+                                    <div class="col-md-12" >
+                                        <mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" (change)="travelOutside1()" [ngStyle]="{'pointer-events': this.customerDetails.controls['isSmoker'].value ? 'none' : ''}">
                                             <p>Do you smoke or consume tobacco in any form e.g(paan,tobacco,gutka) or have done so in the past 12 months? <span class="error" >*</span></p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -1782,9 +1782,9 @@
 
 
                                     </div>
-                                    <div class="col-md-12 " [ngStyle]="{'pointer-events': this.addon.controls['isSmokerSpouse'].value ? 'none' : ''}">
+                                    <div class="col-md-12 " >
 
-                                    <mat-radio-group formControlName="tobaccoInd1" (change)="travelOutside1()" (change)="istobaccoInd1()" >
+                                    <mat-radio-group formControlName="tobaccoInd1" (change)="travelOutside1()" (change)="istobaccoInd1()" [ngStyle]="{'pointer-events': this.addon.controls['isSmokerSpouse'].value ? 'none' : ''}">
                                         <p style="color: mediumblue;">Spouse</p>
                                         <!--<p>Do you smoke or consume tobacco in any form e.g(paan,tobacco,gutka) or have done so in the past 12 months? <span class="error" >*</span></p>-->
                                         <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2775,6 +2775,7 @@
                                      <div class="row ">
                                         <div class="col-md-12 mt-3 mb-2">
                                             <h5 class="color-blue" *ngIf="lifePremiumList.product_id=='112'">FAMILY HISTORY</h5>
+                                            <h6>(Kindly enter details about your Family below - Parents and Spouse (if Married) details are mandatory)</h6>
                                         </div>
                                      </div>
                                     </div>
@@ -2835,6 +2836,8 @@
                                         <div class="row ">
                                             <div class="col-md-12 mt-3 mb-2">
                                                 <h5 class="color-blue" *ngIf="lifePremiumList.product_id=='112' && addon.controls['betterHalfBenefit'].value == 'Yes'">FAMILY HISTORY FOR SPOUSE</h5>
+                                                <h6>(Kindly enter details about your Family below - Parents and Spouse (if Married) details are mandatory)</h6>
+
                                             </div>
                                         </div>
                                     </div>
