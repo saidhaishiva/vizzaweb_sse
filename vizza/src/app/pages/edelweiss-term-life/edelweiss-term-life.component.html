@@ -157,7 +157,7 @@
                                         <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                             <mat-form-field class="w-100" >
                                                 <mat-placeholder>Title<span class="error" >*</span></mat-placeholder>
-                                                <mat-select  formControlName="stitle"  (selectionChange)=" changeSpoTitles();titlespouse()" >
+                                                <mat-select  formControlName="stitle"  (selectionChange)=" changeSpoTitles()" >
                                                     <mat-option *ngFor="let list of etitle | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -165,7 +165,7 @@
                                         <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>First Name<span class="error" >*</span></mat-placeholder>
-                                                <input matInput  formControlName="sfirstName"  (selectionChange)="firstnamespouse()"  autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
+                                                <input matInput  formControlName="sfirstName"   autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
                                             </mat-form-field>
                                         </div>
                                        <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
@@ -177,13 +177,13 @@
                                         <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Last Name<span class="error" >*</span></mat-placeholder>
-                                                <input matInput  formControlName="slastName"    autocomplete="off" (change)="lastnamespouse()" (keypress)="nameValidate($event)" maxlength="15">
+                                                <input matInput  formControlName="slastName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>DOB (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
-                                                <input matInput [matDatepicker]="picker13" [max]="minDate" (keypress)="dobValidate($event)" (change)="dobspouse()"  formControlName="sdob" (dateInput)="addEventSpouse1($event)" (dateChange)="addEventSpouse1($event)" autocomplete="off" maxlength="10" minlength="10">
+                                                <input matInput [matDatepicker]="picker13" [max]="minDate" (keypress)="dobValidate($event)"   formControlName="sdob" (dateInput)="addEventSpouse1($event)" (dateChange)="addEventSpouse1($event)" autocomplete="off" maxlength="10" minlength="10">
                                                 <mat-datepicker-toggle matSuffix [for]="picker13"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker13></mat-datepicker>
                                             </mat-form-field>
@@ -191,7 +191,7 @@
                                         <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Email ID<span class="error" >*</span></mat-placeholder>
-                                                <input matInput  formControlName="semailId" (change)="emailspouse()"   autocomplete="off"  >
+                                                <input matInput  formControlName="semailId"    autocomplete="off"  >
                                                 <!--<mat-error *ngIf="addon.controls.semailId.errors?.required">Email ID is required</mat-error>-->
                                                 <mat-error *ngIf="addon.controls.semailId.hasError('pattern')">Please Enter Correct Format</mat-error>
                                             </mat-form-field>
@@ -199,7 +199,7 @@
 
                                         <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <p>Smoker<span class="error" >*</span></p>
-                                            <mat-radio-group formControlName="isSmokerSpouse" (change)="smokerSpouse();smokerChangeSpouse()">
+                                            <mat-radio-group formControlName="isSmokerSpouse" (change)="smokerChangeSpouse()">
                                                 <mat-radio-button value="Yes" >Yes</mat-radio-button>
                                                 <mat-radio-button class="ml-2" value="No">No</mat-radio-button>
                                             </mat-radio-group>
@@ -2887,7 +2887,7 @@
                                 </div>
                                 <div class="proposal-buttom mt-3 text-right w-100">
                                     <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                                    <button mat-raised-button color="primaryBlue" (click)="travelOutside();medicalDetails(stepper, medicalDetail.value)">Next</button>
+                                    <button mat-raised-button color="primaryBlue" (click)="travelOutside();medicalDetails(stepper, medicalDetail.value,i)">Next</button>
                                 </div>
 
                             </mat-expansion-panel>
