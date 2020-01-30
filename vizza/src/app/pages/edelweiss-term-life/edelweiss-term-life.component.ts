@@ -4542,7 +4542,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   } else if(this.customerDetails.controls['maritalStatus'].value != 'M' ){
 
-    this.medicalDetail.controls['betterHalfBenefit'].patchValue('');
+    this.addon.controls['betterHalfBenefit'].patchValue('');
     this.addon.controls['betterHalfBenefit'].setValidators(null);
 
   }
