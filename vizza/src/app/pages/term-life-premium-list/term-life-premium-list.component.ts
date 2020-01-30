@@ -14,12 +14,18 @@ import {Observable} from 'rxjs';
 import {ClearSessionTermlifeService} from '../../shared/services/clear-session-termlife.service';
 import {TermViewKeyfeaturesComponent} from './term-view-keyfeatures/term-view-keyfeatures.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
+
+export interface DialogData{
+    companyid: any;
+}
 
 @Component({
     selector: 'app-term-life-premium-list',
     templateUrl: './term-life-premium-list.component.html',
     styleUrls: ['./term-life-premium-list.component.scss']
 })
+
 export class TermLifePremiumListComponent implements OnInit {
     public settings: Settings;
     allCompanyList: any;
@@ -27,6 +33,8 @@ export class TermLifePremiumListComponent implements OnInit {
     webhost: any;
     public form: FormGroup;
     productListArray: any;
+    subpp: any;
+    sub_product_id: any;
     allProductLists: any;
     setAllProductLists: any;
     getEnquiryDetials: any;
@@ -49,15 +57,20 @@ export class TermLifePremiumListComponent implements OnInit {
     public totalpremiumlis: any;
     public planList: any;
     public id: any;
+    public tostebutton: boolean;
+    // pubilc tostebutton: boolean;
     CoverageAge: any;
+    // public paymentModeValid: boolean;
     checkAllStatus: boolean;
     changepremiumList: boolean;
     public keyUp = new Subject<string>();
-    constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService,public clearSession: ClearSessionTermlifeService) {
+    constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings,private toastr: ToastrService, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService,public clearSession: ClearSessionTermlifeService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
+        this.tostebutton = false;
+
         this.webhost = this.config.getimgUrl();
         this.compareArray = [];
         this.selectedAmountTravel = '5000000';
@@ -71,6 +84,7 @@ export class TermLifePremiumListComponent implements OnInit {
         // this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
         this.clearSession.clearSessiontermData();
         this.changepremiumList = false;
+        // this.paymentModeValid = true;
         // this.premium_paying_termm = '55';
 
         // this.allHdfcList12 = [];
@@ -528,25 +542,30 @@ export class TermLifePremiumListComponent implements OnInit {
 
             let dialogRef = this.dialog.open(PosstatusAlertTravel, {
                 width: '700px',
+                data:{ companyid: value.company_id}
+
             });
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
-                    let paymentModeValid = true;
-                    if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000) {
+
+                    let paymentModeValid;
+                    if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000 || value.payment_mode == 'Yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300) {
+                    if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300 || value.payment_mode == 'Quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550) {
+                    if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 || value.payment_mode == 'Halfyearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 2000) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450) {
+                    if(value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450 || value.payment_mode == 'Monthly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 500) {
                         paymentModeValid = false;
                     }
 
                     if(paymentModeValid) {
+
+
                         if (value.product_id <= 81 && value.product_id >=78) {
                             this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
                         } else if (value.product_id == 87 ) {
@@ -558,8 +577,10 @@ export class TermLifePremiumListComponent implements OnInit {
                             this.router.navigate(['/hdfc-term-life'  + '/' + false]);
                         }
                     } else {
+
                         let dialogRef = this.dialog.open(PaymentModeValidate, {
                             width: '700px',
+                            data:{ companyid: value.company_id}
                         });
                         dialogRef.disableClose = true;
                         dialogRef.afterClosed().subscribe(result => {
@@ -570,20 +591,24 @@ export class TermLifePremiumListComponent implements OnInit {
             });
         }  else {
             let paymentModeValid = true;
-            if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000) {
+            if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000 ||value.payment_mode == 'Yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300) {
+            if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300 || value.payment_mode == 'Quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 ) {
+            if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 || value.payment_mode == 'Halfyearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 2000 ) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'monthly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450) {
+            if(value.payment_mode == 'monthly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450 || value.payment_mode == 'Monthly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 500) {
                 paymentModeValid = false;
             }
 
+
+
             if(paymentModeValid) {
+
+
                 if (value.product_id <= 81 && value.product_id >=78) {
                     this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
                 } else if (value.product_id <= 87 && value.product_id >=86) {
@@ -594,13 +619,18 @@ export class TermLifePremiumListComponent implements OnInit {
                     this.router.navigate(['/hdfc-term-life'  + '/' + false]);
                 }
             } else {
+
                 let dialogRef = this.dialog.open(PaymentModeValidate, {
                     width: '700px',
+                    data:{ companyid: value.company_id}
+
                 });
                 dialogRef.disableClose = true;
                 dialogRef.afterClosed().subscribe(result => {
                 });
             }
+
+
 
 
         }
@@ -675,9 +705,21 @@ export class TermLifePremiumListComponent implements OnInit {
             // console.log(  this.termListDetails.term[0],' this.allProductLists[index].term ')
             console.log(this.allProductLists, 'allProductLists');
         }
+        else{
+            this.settings.loadingSpinner = false;
+            this.toastr.error(successData.ErrorObject);
+            this.sub_product_id = successData.subProducId;
+
+            console.log(successData.companyId,'ghfhgfhgfhfh')
+            if(successData.companyId) {
+
+                this.tostebutton = true;
+            }
+        }
         console.log(plists, 'plists');
 
     }
+
 
     public termChangeFailure(error){
 
@@ -696,22 +738,27 @@ export class TermLifePremiumListComponent implements OnInit {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <p> Minimum Premium for Bajaj Allianz Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.</p>
+                    <p *ngIf="data.companyid == 6"> Minimum Premium for Bajaj Allianz Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.</p>
+                    <p *ngIf="data.companyid == 14"> Minimum Premium for Edelweiss Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.</p>
                     <table class="table table-bordered">
                         <thead class="thead-light">
                         <tr>
-                            <th scope="col">Monthly</th>
-                            <th scope="col">Quarterly</th>
-                            <th scope="col">Half-Yearly</th>
-                            <th scope="col">Yearly</th>
+                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Monthly</th>
+                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Quarterly</th>
+                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Half-Yearly</th>
+                            <th scope="col" *ngIf="data.companyid == 6 || data.companyid == 14">Yearly</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>Rs. 450</td>
-                            <td> Rs. 1300</td>
-                            <td> Rs. 2550</td>
-                            <td>Rs. 5000</td>
+                            <td *ngIf="data.companyid == 6">Rs. 450</td>
+                            <td *ngIf="data.companyid == 14">Rs. 500</td>
+                            <td *ngIf="data.companyid == 6"> Rs. 1300</td>
+                            <td *ngIf="data.companyid == 14"> Rs. 1250</td>
+                            <td *ngIf="data.companyid == 6"> Rs. 2550</td>
+                            <td *ngIf="data.companyid == 14"> Rs. 2000</td>
+                            <td *ngIf="data.companyid == 6">Rs. 5000</td>
+                            <td *ngIf="data.companyid == 14">Rs. 3000</td>
                         </tr>
                         </tbody>
                     </table>
@@ -733,9 +780,12 @@ export class TermLifePremiumListComponent implements OnInit {
 export class PaymentModeValidate {
     constructor(
         public dialogRef: MatDialogRef<PaymentModeValidate>,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
+        @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+        console.log(data.companyid,'hgffghgfghfg');
     }
     onClick(result) {
         this.dialogRef.close(result);
     }
 }
+
+

@@ -100,45 +100,45 @@
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (selectionChange)="changeQualificationList();getAnnual('qul'); getPremium('qul')" required>
+                          <mat-select placeholder="Education Qualification" formControlName="qualifiction"  (selectionChange)="changeQualificationList();getAnnual('qul'); getPremium('qul')" required>
                             <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="personal.controls.qualifiction.errors?.required">Qualifiction is required</mat-error>
+                          <mat-error *ngIf="personal.controls.qualifiction.errors?.required"> Education Qualifiction is required</mat-error>
                         </mat-form-field>
                           <div class="error" *ngIf="qulMsg != ''">{{qulMsg}}</div>
 
                         </div>
                         <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Others'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Qualifiction Other" formControlName="qualifictionOther" (keypress)="nameValidate($event)" maxlength="25"  autocomplete="off"  [required]="qualificationList" >
+                            <input matInput placeholder="Education Qualifiction Other" formControlName="qualifictionOther" (keypress)="nameValidate($event)" maxlength="25"  autocomplete="off"  [required]="qualificationList" >
                             <mat-error *ngIf="personal.controls.qualifictionOther.errors?.required">Qualifiction Other is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Employee Type" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType()">
+                            <mat-select placeholder="Occupation and Employee Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType()">
                               <mat-option *ngFor="let list of empTypeList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="personal.controls.employeeType.errors?.required">Employee Type is required</mat-error>
+                            <mat-error *ngIf="personal.controls.employeeType.errors?.required">Occupation and Employee Details is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Nature Of Work" formControlName="natureOfWork" autocomplete="off" required (selectionChange)="changeOccupationlist()" >
+                            <mat-select placeholder="Nature Of Duties" formControlName="natureOfWork" autocomplete="off" required (selectionChange)="changeOccupationlist()" >
                               <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="personal.controls.natureOfWork.errors?.required">Nature of work is required</mat-error>
+                            <mat-error *ngIf="personal.controls.natureOfWork.errors?.required">Nature of Duties is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf=" personal.controls.natureOfWork.value == 'Others'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Nature of work Others" formControlName="natureOfWorkOthers" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                            <input matInput placeholder="Nature of Duties Others" formControlName="natureOfWorkOthers" (keypress)="nameValidate($event)"  autocomplete="off"  >
                             <!--<mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relationship with Other Other is required</mat-error>-->
                           </mat-form-field>
                         </div>
@@ -651,10 +651,10 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Qualification:</strong> {{proposerFormData.qualifiction}}</li>
-                        <li class="list-group-item"><strong>Employee Type:</strong> {{proposerFormData.employeeType}}</li>
-                        <li class="list-group-item"><strong>Nature Of Work:</strong>{{proposerFormData.natureOfWork}} </li>
-                        <li class="list-group-item" *ngIf="proposerFormData.natureOfWorkOthers!= ''"><strong>Nature Of Work Others:</strong>{{proposerFormData.natureOfWorkOthers}} </li>
+                        <li class="list-group-item"><strong>Education Qualification:</strong> {{proposerFormData.qualifiction}}</li>
+                        <li class="list-group-item"><strong>Occupation and Employee Details:</strong> {{proposerFormData.employeeType}}</li>
+                        <li class="list-group-item"><strong>Nature Of Duties:</strong>{{proposerFormData.natureOfWork}} </li>
+                        <li class="list-group-item" *ngIf="proposerFormData.natureOfWorkOthers!= ''"><strong>Nature Of Duties Others:</strong>{{proposerFormData.natureOfWorkOthers}} </li>
                         <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}} </li>
                         <li class="list-group-item"><strong>Smoker:</strong> <span *ngIf="proposerFormData.smoker == 'y'">Yes</span> <span *ngIf="proposerFormData.smoker == 'n'">No</span></li>
                         </ul>
