@@ -1726,6 +1726,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       if (sessionStorage.customerAge >= 18) {
         stepper.next();
         this.topScroll();
+        this.betterHalfReq();
 
       } else {
         this.toastr.error('Customer Age should be 18 or above');
@@ -2893,143 +2894,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   // }
 
 
-  changeMaritalInsuReq() {
 
-    if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
-      this.addon.controls['betterHalfsumAssured'].setValidators([Validators.required]);
-      this.maritalSpouseValue=true;
-
-      this.insureArray.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
-        this.insureArray.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
-        this.insureArray.controls['smidName'].patchValue(this.addon.controls['smidName'].value);
-        this.insureArray.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
-        this.insureArray.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
-        this.insureArray.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
-
-      this.addon.controls['stitle'].setValidators([Validators.required]);
-      this.addon.controls['sfirstName'].setValidators([Validators.required]);
-      this.addon.controls['smidName'].setValidators(null);
-      this.addon.controls['slastName'].setValidators([Validators.required]);
-      this.addon.controls['sdob'].setValidators([Validators.required]);
-      this.addon.controls['semailId'].setValidators([Validators.required]);
-      this.addon.controls['isSmokerSpouse'].setValidators([Validators.required]);
-
-
-      this.insureArray.controls['stitle'].setValidators([Validators.required]);
-      this.insureArray.controls['sfirstName'].setValidators([Validators.required]);
-      this.insureArray.controls['smidName'].setValidators(null);
-      this.insureArray.controls['slastName'].setValidators([Validators.required]);
-      this.insureArray.controls['sdob'].setValidators([Validators.required]);
-      this.insureArray.controls['semailId'].setValidators([Validators.required]);
-      // this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
-
-    } else if(this.addon.controls['betterHalfBenefit'].value == 'No'||this.addon.controls['betterHalfBenefit'].value == ''){
-      // alert('innn')
-      this.addon.controls['stitle'].patchValue('');
-      this.addon.controls['stitleName'].patchValue('');
-      this.addon.controls['sfirstName'].patchValue('');
-      this.addon.controls['smidName'].patchValue('');
-      this.addon.controls['slastName'].patchValue('');
-      this.addon.controls['sdob'].patchValue('');
-      this.addon.controls['semailId'].patchValue('');
-      // this.insureArray.controls['smobileNo'].patchValue('');
-      this.addon.controls['isSmokerSpouse'].patchValue('');
-      this.addon.controls['betterHalfsumAssured'].patchValue('');
-      sessionStorage.SpouseAge='';
-      this.isbetterHalfBenefit();
-
-      this.insureArray.controls['stitle'].patchValue('');
-      this.insureArray.controls['stitleName'].patchValue('');
-      this.insureArray.controls['sfirstName'].patchValue('');
-      this.insureArray.controls['smidName'].patchValue('');
-      this.insureArray.controls['slastName'].patchValue('');
-      this.insureArray.controls['sdob'].patchValue('');
-      this.insureArray.controls['semailId'].patchValue('');
-      // this.insureArray.controls['isSmokerSpouse'].patchValue('');
-
-
-
-     this.medicalDetail.controls['travelOutsideIndia1'].patchValue(null);
-     this.medicalDetail.controls['pilot1'].patchValue(null);
-     this.medicalDetail.controls['activity1'].patchValue(null);
-     this.medicalDetail.controls['drugsInd1'].patchValue(null);
-     this.medicalDetail.controls['alcoholInd1'].patchValue(null);
-     this.medicalDetail.controls['tobaccoInd1'].patchValue(null);
-     this.medicalDetail.controls['tobaccoStopInd1'].patchValue(null);
-     this.medicalDetail.controls['consultDoctorInd1'].patchValue(null);
-     this.medicalDetail.controls['ECGInd1'].patchValue(null);
-     this.medicalDetail.controls['admitInd1'].patchValue(null);
-     this.medicalDetail.controls['medicalTreatment1'].patchValue(null);
-     this.medicalDetail.controls['heartDieaseInd1'].patchValue(null);
-     this.medicalDetail.controls['respiratoryDieaseInd1'].patchValue(null);
-     this.medicalDetail.controls['diabetesInd1'].patchValue(null);
-     this.medicalDetail.controls['kidneyDieaseInd1'].patchValue(null);
-     this.medicalDetail.controls['digestiveDieaseInd1'].patchValue(null);
-     this.medicalDetail.controls['cancerDieaseInd1'].patchValue(null);
-     this.medicalDetail.controls['tropicalDieaseInd1'].patchValue(null);
-     this.medicalDetail.controls['thyroidDieaseInd1'].patchValue(null);
-     this.medicalDetail.controls['bloodDieaseInd1'].patchValue(null);
-     this.medicalDetail.controls['nervousDieaseInd1'].patchValue(null);
-     this.medicalDetail.controls['muscleDieaseInd1'].patchValue(null);
-     this.medicalDetail.controls['receivedTreatment21'].patchValue(null);
-     this.medicalDetail.controls['alcoholicInd1'].patchValue(null);
-     this.medicalDetail.controls['otherIllnessInd1'].patchValue(null);
-     this.medicalDetail.controls['deformityInd1'].patchValue(null);
-     this.medicalDetail.controls['receivedTreatment11'].patchValue(null);
-     this.medicalDetail.controls['symptomsInd1'].patchValue(null);
-     this.medicalDetail.controls['isHospitalized1'].patchValue(null);
-     this.medicalDetail.controls['isRecovered1'].patchValue(null);
-     this.medicalDetail.controls['pregnantInd1'].patchValue(null);
-     this.medicalDetail.controls['femaleDieaseInd1'].patchValue(null);
-
-
-
-
-
-
-
-      this.addon.controls['stitle'].setValidators(null);
-      this.addon.controls['stitleName'].setValidators(null);
-      this.addon.controls['sfirstName'].setValidators(null);
-      this.addon.controls['smidName'].setValidators(null);
-      this.addon.controls['slastName'].setValidators(null);
-      this.addon.controls['sdob'].setValidators(null);
-      this.addon.controls['semailId'].setValidators(null);
-      this.addon.controls['isSmokerSpouse'].setValidators(null);
-      this.addon.controls['betterHalfsumAssured'].setValidators(null);
-
-      this.insureArray.controls['stitle'].setValidators(null);
-      this.insureArray.controls['stitleName'].setValidators(null);
-      this.insureArray.controls['sfirstName'].setValidators(null);
-      this.insureArray.controls['smidName'].setValidators(null);
-      this.insureArray.controls['slastName'].setValidators(null);
-      this.insureArray.controls['sdob'].setValidators(null);
-      this.insureArray.controls['semailId'].setValidators(null);
-      // this.insureArray.controls['isSmokerSpouse'].setValidators(null);
-
-
-    }
-    // this.insureArray.controls['employeeCode'].updateValueAndValidity();
-    this.addon.controls['stitle'].updateValueAndValidity();
-    // this.addon.controls['stitleName'].updateValueAndValidity();
-    this.addon.controls['sfirstName'].updateValueAndValidity();
-    this.addon.controls['smidName'].updateValueAndValidity();
-    this.addon.controls['slastName'].updateValueAndValidity();
-    this.addon.controls['sdob'].updateValueAndValidity();
-    this.addon.controls['semailId'].updateValueAndValidity();
-    this.addon.controls['isSmokerSpouse'].updateValueAndValidity();
-    this.addon.controls['betterHalfsumAssured'].updateValueAndValidity();
-
-    this.insureArray.controls['stitle'].updateValueAndValidity();
-    this.insureArray.controls['sfirstName'].updateValueAndValidity();
-    this.insureArray.controls['smidName'].updateValueAndValidity();
-    this.insureArray.controls['slastName'].updateValueAndValidity();
-    this.insureArray.controls['sdob'].updateValueAndValidity();
-    this.insureArray.controls['semailId'].updateValueAndValidity();
-    // this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
-
-
-  }
 
 
 
@@ -4537,59 +4402,16 @@ export class EdelweissTermLifeComponent implements OnInit {
   betterHalfReq(){
   if(this.customerDetails.controls['maritalStatus'].value == 'M' ) {
     this.maritalValue=true;
-    this.addon.controls['betterHalfBenefit'].setValidators([Validators.required]);
-
-    this.addon.controls['stitle'].setValidators([Validators.required]);
-    this.addon.controls['sfirstName'].setValidators([Validators.required]);
-    this.addon.controls['smidName'].setValidators(null);
-    this.addon.controls['slastName'].setValidators([Validators.required]);
-    this.addon.controls['sdob'].setValidators([Validators.required]);
-    this.addon.controls['semailId'].setValidators([Validators.required]);
-    this.addon.controls['isSmokerSpouse'].setValidators([Validators.required]);
-
-    this.insureArray.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
-    this.insureArray.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
-    this.insureArray.controls['smidName'].patchValue(this.addon.controls['smidName'].value);
-    this.insureArray.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
-    this.insureArray.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
-    this.insureArray.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
-    this.insureArray.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
+    // this.addon.controls['betterHalfBenefit'].setValidators([Validators.required]);
+    this.addon.controls['betterHalfBenefit'].patchValue('');
 
   } else if(this.customerDetails.controls['maritalStatus'].value != 'M' ){
 
-    this.addon.controls['betterHalfBenefit'].patchValue('No');
-
-    this.addon.controls['stitle'].patchValue('');
-    this.addon.controls['sfirstName'].patchValue('');
-    this.addon.controls['smidName'].patchValue('');
-    this.addon.controls['slastName'].patchValue('');
-    this.addon.controls['sdob'].patchValue('');
-    this.addon.controls['semailId'].patchValue('');
-    this.addon.controls['isSmokerSpouse'].patchValue('');
-
+    this.addon.controls['betterHalfBenefit'].patchValue('');
     this.addon.controls['betterHalfBenefit'].setValidators(null);
-
-    this.addon.controls['stitle'].setValidators(null);
-    this.addon.controls['sfirstName'].setValidators(null);
-    this.addon.controls['smidName'].setValidators(null);
-    this.addon.controls['slastName'].setValidators(null);
-    this.addon.controls['sdob'].setValidators(null);
-    this.addon.controls['semailId'].setValidators(null);
-    this.addon.controls['isSmokerSpouse'].setValidators(null);
-
-    this.isbetterHalfBenefit();
-
+    sessionStorage.SpouseAge='';
   }
     this.addon.controls['betterHalfBenefit'].updateValueAndValidity();
-
-    this.addon.controls['stitle'].updateValueAndValidity();
-    this.addon.controls['sfirstName'].updateValueAndValidity();
-    this.addon.controls['smidName'].updateValueAndValidity();
-    this.addon.controls['slastName'].updateValueAndValidity();
-    this.addon.controls['sdob'].updateValueAndValidity();
-    this.addon.controls['semailId'].updateValueAndValidity();
-    this.addon.controls['isSmokerSpouse'].updateValueAndValidity();
-
   }
 
   isbetterHalfBenefit() {
@@ -4597,14 +4419,132 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
       this.addon.controls['betterHalfsumAssured'].patchValue(this.addon.controls['betterHalfsumAssured'].value);
       this.addon.controls['betterHalfsumAssured'].setValidators([Validators.required]);
+      this.maritalSpouseValue=true;
 
-    } else if (this.addon.controls['betterHalfBenefit'].value == 'No') {
+
+      this.addon.controls['stitle'].setValidators([Validators.required]);
+      this.addon.controls['sfirstName'].setValidators([Validators.required]);
+      this.addon.controls['smidName'].setValidators(null);
+      this.addon.controls['slastName'].setValidators([Validators.required]);
+      this.addon.controls['sdob'].setValidators([Validators.required]);
+      this.addon.controls['semailId'].setValidators([Validators.required]);
+      this.addon.controls['isSmokerSpouse'].setValidators([Validators.required]);
+
+      this.insureArray.controls['stitle'].patchValue(this.addon.controls['stitle'].value);
+      this.insureArray.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
+      this.insureArray.controls['smidName'].patchValue(this.addon.controls['smidName'].value);
+      this.insureArray.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
+      this.insureArray.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
+      this.insureArray.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
+
+      this.insureArray.controls['stitle'].setValidators([Validators.required]);
+      this.insureArray.controls['sfirstName'].setValidators([Validators.required]);
+      this.insureArray.controls['smidName'].setValidators(null);
+      this.insureArray.controls['slastName'].setValidators([Validators.required]);
+      this.insureArray.controls['sdob'].setValidators([Validators.required]);
+      this.insureArray.controls['semailId'].setValidators([Validators.required]);
+      // this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
+
+    } else if(this.addon.controls['betterHalfBenefit'].value == 'No'||this.addon.controls['betterHalfBenefit'].value == ''){
+      this.addon.controls['stitle'].patchValue('');
+      this.addon.controls['stitleName'].patchValue('');
+      this.addon.controls['sfirstName'].patchValue('');
+      this.addon.controls['smidName'].patchValue('');
+      this.addon.controls['slastName'].patchValue('');
+      this.addon.controls['sdob'].patchValue('');
+      this.addon.controls['semailId'].patchValue('');
+      // this.insureArray.controls['smobileNo'].patchValue('');
+      this.addon.controls['isSmokerSpouse'].patchValue('');
       this.addon.controls['betterHalfsumAssured'].patchValue('');
+      sessionStorage.SpouseAge='';
+
+      this.insureArray.controls['stitle'].patchValue('');
+      this.insureArray.controls['stitleName'].patchValue('');
+      this.insureArray.controls['sfirstName'].patchValue('');
+      this.insureArray.controls['smidName'].patchValue('');
+      this.insureArray.controls['slastName'].patchValue('');
+      this.insureArray.controls['sdob'].patchValue('');
+      this.insureArray.controls['semailId'].patchValue('');
+      // this.insureArray.controls['isSmokerSpouse'].patchValue('');
+
+
+
+      this.medicalDetail.controls['travelOutsideIndia1'].patchValue(null);
+      this.medicalDetail.controls['pilot1'].patchValue(null);
+      this.medicalDetail.controls['activity1'].patchValue(null);
+      this.medicalDetail.controls['drugsInd1'].patchValue(null);
+      this.medicalDetail.controls['alcoholInd1'].patchValue(null);
+      this.medicalDetail.controls['tobaccoInd1'].patchValue(null);
+      this.medicalDetail.controls['tobaccoStopInd1'].patchValue(null);
+      this.medicalDetail.controls['consultDoctorInd1'].patchValue(null);
+      this.medicalDetail.controls['ECGInd1'].patchValue(null);
+      this.medicalDetail.controls['admitInd1'].patchValue(null);
+      this.medicalDetail.controls['medicalTreatment1'].patchValue(null);
+      this.medicalDetail.controls['heartDieaseInd1'].patchValue(null);
+      this.medicalDetail.controls['respiratoryDieaseInd1'].patchValue(null);
+      this.medicalDetail.controls['diabetesInd1'].patchValue(null);
+      this.medicalDetail.controls['kidneyDieaseInd1'].patchValue(null);
+      this.medicalDetail.controls['digestiveDieaseInd1'].patchValue(null);
+      this.medicalDetail.controls['cancerDieaseInd1'].patchValue(null);
+      this.medicalDetail.controls['tropicalDieaseInd1'].patchValue(null);
+      this.medicalDetail.controls['thyroidDieaseInd1'].patchValue(null);
+      this.medicalDetail.controls['bloodDieaseInd1'].patchValue(null);
+      this.medicalDetail.controls['nervousDieaseInd1'].patchValue(null);
+      this.medicalDetail.controls['muscleDieaseInd1'].patchValue(null);
+      this.medicalDetail.controls['receivedTreatment21'].patchValue(null);
+      this.medicalDetail.controls['alcoholicInd1'].patchValue(null);
+      this.medicalDetail.controls['otherIllnessInd1'].patchValue(null);
+      this.medicalDetail.controls['deformityInd1'].patchValue(null);
+      this.medicalDetail.controls['receivedTreatment11'].patchValue(null);
+      this.medicalDetail.controls['symptomsInd1'].patchValue(null);
+      this.medicalDetail.controls['isHospitalized1'].patchValue(null);
+      this.medicalDetail.controls['isRecovered1'].patchValue(null);
+      this.medicalDetail.controls['pregnantInd1'].patchValue(null);
+      this.medicalDetail.controls['femaleDieaseInd1'].patchValue(null);
+
+      this.addon.controls['stitle'].setValidators(null);
+      this.addon.controls['stitleName'].setValidators(null);
+      this.addon.controls['sfirstName'].setValidators(null);
+      this.addon.controls['smidName'].setValidators(null);
+      this.addon.controls['slastName'].setValidators(null);
+      this.addon.controls['sdob'].setValidators(null);
+      this.addon.controls['semailId'].setValidators(null);
+      this.addon.controls['isSmokerSpouse'].setValidators(null);
       this.addon.controls['betterHalfsumAssured'].setValidators(null);
+
+      this.insureArray.controls['stitle'].setValidators(null);
+      this.insureArray.controls['stitleName'].setValidators(null);
+      this.insureArray.controls['sfirstName'].setValidators(null);
+      this.insureArray.controls['smidName'].setValidators(null);
+      this.insureArray.controls['slastName'].setValidators(null);
+      this.insureArray.controls['sdob'].setValidators(null);
+      this.insureArray.controls['semailId'].setValidators(null);
+      // this.insureArray.controls['isSmokerSpouse'].setValidators(null);
+
+
     }
+    // this.insureArray.controls['employeeCode'].updateValueAndValidity();
+    this.addon.controls['stitle'].updateValueAndValidity();
+    // this.addon.controls['stitleName'].updateValueAndValidity();
+    this.addon.controls['sfirstName'].updateValueAndValidity();
+    this.addon.controls['smidName'].updateValueAndValidity();
+    this.addon.controls['slastName'].updateValueAndValidity();
+    this.addon.controls['sdob'].updateValueAndValidity();
+    this.addon.controls['semailId'].updateValueAndValidity();
+    this.addon.controls['isSmokerSpouse'].updateValueAndValidity();
     this.addon.controls['betterHalfsumAssured'].updateValueAndValidity();
 
+    this.insureArray.controls['stitle'].updateValueAndValidity();
+    this.insureArray.controls['sfirstName'].updateValueAndValidity();
+    this.insureArray.controls['smidName'].updateValueAndValidity();
+    this.insureArray.controls['slastName'].updateValueAndValidity();
+    this.insureArray.controls['sdob'].updateValueAndValidity();
+    this.insureArray.controls['semailId'].updateValueAndValidity();
+    // this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
+
   }
+
+
 
   issymptomsInd() {
 
