@@ -51,6 +51,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public saddExistingInsurance: any;
   public addmedicalQuestions: any;
   public addmedFamilyQuestions: any;
+  public saddmedFamilyQuestions: any;
   public getStepperaddon: any;
   public adbError: any;
   public ciError: any;
@@ -300,6 +301,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public ci_sumassured:any;
   public hcb_sumassured:any;
   public pdp_sumassured:any;
+  public bi_pdf_url:any;
   public premiumValue:boolean;
 
 
@@ -542,7 +544,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       shasWeightChanged: '',
       sinbetweenweight: '',
       sweightChangedreason: '',
-      isSmokerSpouse: 'No',
+      isSmokerSpouse: '',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -764,11 +766,14 @@ export class EdelweissTermLifeComponent implements OnInit {
       pregnantweeks: '',
       femaleDieaseInd: '',
       femaleDieaseWeeks: '',
-      medicalQuestions : new FormArray([
-        this.medicalQuesCreate()
-      ]),
+      // medicalQuestions : new FormArray([
+      //   this.medicalQuesCreate()
+      // ]),
       medicalFamilyQuestions : new FormArray([
         this.medicalFamilyCreate()
+      ]),
+      smedicalFamilyQuestions : new FormArray([
+        this.smedicalFamilyCreate()
       ]),
 
     });
@@ -790,8 +795,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       ])
     });
 
-    this.addmedicalQuestions = this.medicalDetail.get('medicalQuestions') as FormArray;
-    this.addmedFamilyQuestions = this.medicalDetail.get('medicalFamilyQuestions') as FormArray;
+
 
     this.documentDetail = this.fb.group({
       incomeLA: '',
@@ -824,7 +828,6 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     // this.geteGender();
     this.geteTitle();
-
     this.geteMaritalStatus();
     this.geteInvesting();
     this.getePremiumTerm();
@@ -1031,35 +1034,35 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   // Medical Question Create
-  medicalQuesCreate() {
-    return new FormGroup({
-      disease : new FormControl(),
-      datediagnois :  new FormControl(),
-      treatment :  new FormControl(),
-      dosage: new FormControl(),
-      doctor :  new FormControl(),
-      datefollowup :  new FormControl(),
-      anycomplications :  new FormControl(),
-      remarks :  new FormControl(),
-      medicalDobValidError :  new FormControl(),
-      medicalfollowDobValidError :  new FormControl()
-    });
-  }
+  // medicalQuesCreate() {
+  //   return new FormGroup({
+  //     disease : new FormControl(),
+  //     datediagnois :  new FormControl(),
+  //     treatment :  new FormControl(),
+  //     dosage: new FormControl(),
+  //     doctor :  new FormControl(),
+  //     datefollowup :  new FormControl(),
+  //     anycomplications :  new FormControl(),
+  //     remarks :  new FormControl(),
+  //     medicalDobValidError :  new FormControl(),
+  //     medicalfollowDobValidError :  new FormControl()
+  //   });
+  // }
 
-  addMedItems() {
-    if (this.medicalDetail.get('medicalQuestions').value.length < 5) {
-      this.addmedicalQuestions.push(this.medicalQuesCreate());
-      console.log(this.addmedicalQuestions, 'this.addmedicalQuestions');
-    }
-  }
-  removeMedItems(index) {
-    let removeQue =  this.medicalDetail.get('medicalQuestions') as FormArray;
-    console.log(removeQue,'ssssss')
-    removeQue.removeAt(index);
-    console.log(index, 'this.index');
-
-
-  }
+  // addMedItems() {
+  //   if (this.medicalDetail.get('medicalQuestions').value.length < 5) {
+  //     this.addmedicalQuestions.push(this.medicalQuesCreate());
+  //     console.log(this.addmedicalQuestions, 'this.addmedicalQuestions');
+  //   }
+  // }
+  // removeMedItems(index) {
+  //   let removeQue =  this.medicalDetail.get('medicalQuestions') as FormArray;
+  //   console.log(removeQue,'ssssss')
+  //   removeQue.removeAt(index);
+  //   console.log(index, 'this.index');
+  //
+  //
+  // }
 
   // Medical Family Create
   medicalFamilyCreate() {
@@ -1076,6 +1079,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   addFamilyItems() {
     if (this.medicalDetail.get('medicalFamilyQuestions').value.length < 5) {
+      this.addmedFamilyQuestions = this.medicalDetail.get('medicalFamilyQuestions') as FormArray;
       this.addmedFamilyQuestions.push(this.medicalFamilyCreate());
       console.log(this.addmedFamilyQuestions, 'this.addmedFamilyQuestions');
     }
@@ -1085,8 +1089,32 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(removeFamily,'ssssss')
     removeFamily.removeAt(index);
     console.log(index, 'this.index');
+  }
+  smedicalFamilyCreate() {
+    return new FormGroup({
+      srelation : new FormControl(),
+      sage :  new FormControl(),
+      sageOnDeath :  new FormControl(),
+      shealthStatus :  new FormControl(),
+      srelationName :  new FormControl(),
+      scauseOfDeath :  new FormControl(),
+      // causeDeathName :  new FormControl(),
 
+    });
+  }
 
+  saddFamilyItems() {
+    if (this.medicalDetail.get('smedicalFamilyQuestions').value.length < 5) {
+      this.saddmedFamilyQuestions = this.medicalDetail.get('smedicalFamilyQuestions') as FormArray;
+      this.saddmedFamilyQuestions.push(this.smedicalFamilyCreate());
+      console.log(this.saddmedFamilyQuestions, 'this.saddmedFamilyQuestions');
+    }
+  }
+  sremoveFamilyItems(index) {
+    let removeFamily =  this.medicalDetail.get('smedicalFamilyQuestions') as FormArray;
+    console.log(removeFamily,'ssssss')
+    removeFamily.removeAt(index);
+    console.log(index, 'this.index');
   }
   addEventcus(event) {
     if (event.value != null) {
@@ -1316,65 +1344,73 @@ export class EdelweissTermLifeComponent implements OnInit {
     return age;
   }
 
+  smokerChange(){
+      this.medicalDetail.controls['tobaccoInd'].patchValue(this.customerDetails.controls['isSmoker'].value );
+  }
+
+  smokerChangeSpouse(){
+    this.medicalDetail.controls['tobaccoInd1'].patchValue(this.addon.controls['isSmokerSpouse'].value );
+  }
+
   typeAddressDeatils() {
     if (this.insureArray.controls['isCurrPerAddrSame'].value == true) {
-      this.insureArray.controls['perAddr1'].patchValue( this.insureArray.controls['currAddr1'].value),
-          this.insureArray.controls['perAddr2'].patchValue( this.insureArray.controls['currAddr2'].value),
-          this.insureArray.controls['perAddr3'].patchValue( this.insureArray.controls['currAddr3'].value),
-          this.insureArray.controls['perCity'].patchValue( this.insureArray.controls['currCity'].value),
-          this.insureArray.controls['perPincode'].patchValue( this.insureArray.controls['currPincode'].value),
-          this.insureArray.controls['perState'].patchValue( this.insureArray.controls['currState'].value)
+      this.insureArray.controls['perAddr1'].patchValue( this.insureArray.controls['currAddr1'].value);
+          this.insureArray.controls['perAddr2'].patchValue( this.insureArray.controls['currAddr2'].value);
+          this.insureArray.controls['perAddr3'].patchValue( this.insureArray.controls['currAddr3'].value);
+          this.insureArray.controls['perCity'].patchValue( this.insureArray.controls['currCity'].value);
+          this.insureArray.controls['perPincode'].patchValue( this.insureArray.controls['currPincode'].value);
+          this.insureArray.controls['perState'].patchValue( this.insureArray.controls['currState'].value);
       console.log(this.insureArray.controls['perCity'].value, 'ghghghj');
     }
   }
   sameAddress1() {
     if (this.insureArray.controls['isCurrPerAddrSame'].value == true) {
-      this.insureArray.controls['perAddr1'].patchValue( this.insureArray.controls['currAddr1'].value),
-          this.insureArray.controls['perAddr2'].patchValue( this.insureArray.controls['currAddr2'].value),
-          this.insureArray.controls['perAddr3'].patchValue( this.insureArray.controls['currAddr3'].value),
-          this.insureArray.controls['perCity'].patchValue( this.insureArray.controls['currCity'].value),
-          this.insureArray.controls['perPincode'].patchValue( this.insureArray.controls['currPincode'].value),
-          this.insureArray.controls['perState'].patchValue( this.insureArray.controls['currState'].value)
+      this.insureArray.controls['perAddr1'].patchValue( this.insureArray.controls['currAddr1'].value);
+          this.insureArray.controls['perAddr2'].patchValue( this.insureArray.controls['currAddr2'].value);
+          this.insureArray.controls['perAddr3'].patchValue( this.insureArray.controls['currAddr3'].value);
+          this.insureArray.controls['perCity'].patchValue( this.insureArray.controls['currCity'].value);
+          this.insureArray.controls['perPincode'].patchValue( this.insureArray.controls['currPincode'].value);
+          this.insureArray.controls['perState'].patchValue( this.insureArray.controls['currState'].value);
       console.log(this.insureArray.controls['perCity'].value, 'ghghghj');
     }
     else if (this.insureArray.controls['isCurrPerAddrSame'].value == false){
-      this.insureArray.controls['perAddr1'].patchValue(''),
-          this.insureArray.controls['perAddr2'].patchValue(''),
-          this.insureArray.controls['perAddr3'].patchValue(''),
-          this.insureArray.controls['perCity'].patchValue(''),
-          this.insureArray.controls['perPincode'].patchValue(''),
-          this.insureArray.controls['perState'].patchValue('')
+      this.insureArray.controls['perAddr1'].patchValue('');
+          this.insureArray.controls['perAddr2'].patchValue('');
+          this.insureArray.controls['perAddr3'].patchValue('');
+          this.insureArray.controls['perCity'].patchValue('');
+          this.insureArray.controls['perPincode'].patchValue('');
+          this.insureArray.controls['perState'].patchValue('');
     }
   }
 
   typeAddressDeatils1() {
     if (this.insureArray.controls['sisCurrPerAddrSame'].value == true) {
-      this.insureArray.controls['sperAddr1'].patchValue( this.insureArray.controls['perAddr1'].value),
-          this.insureArray.controls['sperAddr2'].patchValue( this.insureArray.controls['perAddr2'].value),
-          this.insureArray.controls['sperAddr3'].patchValue( this.insureArray.controls['perAddr3'].value),
-          this.insureArray.controls['sperCity'].patchValue( this.insureArray.controls['perCity'].value),
-          this.insureArray.controls['sperPincode'].patchValue( this.insureArray.controls['perPincode'].value),
-          this.insureArray.controls['sperState'].patchValue( this.insureArray.controls['perState'].value)
+      this.insureArray.controls['sperAddr1'].patchValue( this.insureArray.controls['perAddr1'].value);
+          this.insureArray.controls['sperAddr2'].patchValue( this.insureArray.controls['perAddr2'].value);
+          this.insureArray.controls['sperAddr3'].patchValue( this.insureArray.controls['perAddr3'].value);
+          this.insureArray.controls['sperCity'].patchValue( this.insureArray.controls['perCity'].value);
+          this.insureArray.controls['sperPincode'].patchValue( this.insureArray.controls['perPincode'].value);
+          this.insureArray.controls['sperState'].patchValue( this.insureArray.controls['perState'].value);
       console.log(this.insureArray.controls['perCity'].value, 'ghghghj');
     }
   }
   sameAddress2() {
     if (this.insureArray.controls['sisCurrPerAddrSame'].value == true) {
-      this.insureArray.controls['sperAddr1'].patchValue( this.insureArray.controls['perAddr1'].value),
-          this.insureArray.controls['sperAddr2'].patchValue( this.insureArray.controls['perAddr2'].value),
-          this.insureArray.controls['sperAddr3'].patchValue( this.insureArray.controls['perAddr3'].value),
-          this.insureArray.controls['sperCity'].patchValue( this.insureArray.controls['perCity'].value),
-          this.insureArray.controls['sperPincode'].patchValue( this.insureArray.controls['perPincode'].value),
-          this.insureArray.controls['sperState'].patchValue( this.insureArray.controls['perState'].value)
+      this.insureArray.controls['sperAddr1'].patchValue( this.insureArray.controls['perAddr1'].value);
+          this.insureArray.controls['sperAddr2'].patchValue( this.insureArray.controls['perAddr2'].value);
+          this.insureArray.controls['sperAddr3'].patchValue( this.insureArray.controls['perAddr3'].value);
+          this.insureArray.controls['sperCity'].patchValue( this.insureArray.controls['perCity'].value);
+          this.insureArray.controls['sperPincode'].patchValue( this.insureArray.controls['perPincode'].value);
+          this.insureArray.controls['sperState'].patchValue( this.insureArray.controls['perState'].value);
       console.log(this.insureArray.controls['perCity'].value, 'ghghghj');
     }
     else if (this.insureArray.controls['sisCurrPerAddrSame'].value == false){
-      this.insureArray.controls['sperAddr1'].patchValue(''),
-          this.insureArray.controls['sperAddr2'].patchValue(''),
-          this.insureArray.controls['sperAddr3'].patchValue(''),
-          this.insureArray.controls['sperCity'].patchValue(''),
-          this.insureArray.controls['sperPincode'].patchValue(''),
-          this.insureArray.controls['sperState'].patchValue('')
+      this.insureArray.controls['sperAddr1'].patchValue('');
+          this.insureArray.controls['sperAddr2'].patchValue('');
+          this.insureArray.controls['sperAddr3'].patchValue('');
+          this.insureArray.controls['sperCity'].patchValue('');
+          this.insureArray.controls['sperPincode'].patchValue('');
+          this.insureArray.controls['sperState'].patchValue('');
     }
   }
 
@@ -1545,92 +1581,92 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
 // // date of medical
-  addEventMedical(event, i, type) {
-    if(type == 'medical') {
-      if (event.value != null) {
-        let selectedDate = '';
-        let dob = '';
-        let dob_days = '';
-        this.getAge = '';
-        this.getDays;
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
-
-        if (typeof event.value._i == 'string') {
-          const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-          if (pattern.test(event.value._i) && event.value._i.length == 10) {
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
-
-          } else {
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('Enter Valid DOB');
-          }
-
-          selectedDate = event.value._i;
-
-          if (selectedDate.length == 10) {
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculatemedical(dob_days);
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(dob);
-
-          }
-
-        } else if (typeof event.value._i == 'object') {
-          if (dob.length == 10) {
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(dob);
-
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculatemedical(dob_days);
-          }
-        }
-      }
-
-
-    }
-    if(type == 'medicalfollowup') {
-
-      if (event.value != null) {
-        let selectedDate = '';
-        let dob = '';
-        let dob_days = '';
-        this.getAge = '';
-        this.getDays;
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
-
-        if (typeof event.value._i == 'string') {
-          const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-          if (pattern.test(event.value._i) && event.value._i.length == 10) {
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('');
-
-          } else {
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('Enter Valid DOB');
-          }
-
-          selectedDate = event.value._i;
-
-          if (selectedDate.length == 10) {
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('');
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculatemedical(dob_days);
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(dob);
-
-          }
-
-        }
-        else if (typeof event.value._i == 'object') {
-          if (dob.length == 10) {
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('');
-            this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(dob);
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculatemedical(dob_days);
-          }
-        }
-      }
-    }
-
-  }
+//   addEventMedical(event, i, type) {
+//     if(type == 'medical') {
+//       if (event.value != null) {
+//         let selectedDate = '';
+//         let dob = '';
+//         let dob_days = '';
+//         this.getAge = '';
+//         this.getDays;
+//         dob = this.datepipe.transform(event.value, 'y-MM-dd');
+//         dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+//
+//         if (typeof event.value._i == 'string') {
+//           const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+//           if (pattern.test(event.value._i) && event.value._i.length == 10) {
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
+//
+//           } else {
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('Enter Valid DOB');
+//           }
+//
+//           selectedDate = event.value._i;
+//
+//           if (selectedDate.length == 10) {
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
+//             this.getAge = this.ageCalculate(dob);
+//             this.getDays = this.ageCalculatemedical(dob_days);
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(dob);
+//
+//           }
+//
+//         } else if (typeof event.value._i == 'object') {
+//           if (dob.length == 10) {
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(dob);
+//
+//             this.getAge = this.ageCalculate(dob);
+//             this.getDays = this.ageCalculatemedical(dob_days);
+//           }
+//         }
+//       }
+//
+//
+//     }
+//     if(type == 'medicalfollowup') {
+//
+//       if (event.value != null) {
+//         let selectedDate = '';
+//         let dob = '';
+//         let dob_days = '';
+//         this.getAge = '';
+//         this.getDays;
+//         dob = this.datepipe.transform(event.value, 'y-MM-dd');
+//         dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+//
+//         if (typeof event.value._i == 'string') {
+//           const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+//           if (pattern.test(event.value._i) && event.value._i.length == 10) {
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('');
+//
+//           } else {
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('Enter Valid DOB');
+//           }
+//
+//           selectedDate = event.value._i;
+//
+//           if (selectedDate.length == 10) {
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('');
+//             this.getAge = this.ageCalculate(dob);
+//             this.getDays = this.ageCalculatemedical(dob_days);
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(dob);
+//
+//           }
+//
+//         }
+//         else if (typeof event.value._i == 'object') {
+//           if (dob.length == 10) {
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('');
+//             this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(dob);
+//             this.getAge = this.ageCalculate(dob);
+//             this.getDays = this.ageCalculatemedical(dob_days);
+//           }
+//         }
+//       }
+//     }
+//
+//   }
 
   ageCalculatemedical(getDays) {
     let a = moment(getDays, 'DD/MM/YYYY');
@@ -1677,13 +1713,6 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   // Insure Details
   edelweissCustomerDetail(stepper: MatStepper, value) {
-
-      this.addon.controls['sumAssuredHCB'].patchValue(this.hcb_sumassured);
-      // alert(this.addon.controls['sumAssuredHCB'].value);
-      this.addon.controls['sumAssuredATPD'].patchValue(this.atpd_sumassured);
-      this.addon.controls['sumAssuredADB'].patchValue(this.adb_sumassured);
-      this.addon.controls['criticalsumAssured'].patchValue(this.ci_sumassured);
-
     sessionStorage.stepperCustomerDetails = '';
     sessionStorage.stepperCustomerDetails = JSON.stringify(value);
     console.log(this.customerDetails, 'customerDetails');
@@ -1710,6 +1739,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addon.valid, 'this.valid');
     // let dateErrorMsg = [];
     if (this.addon.valid  ) {
+      if(this.addon.controls['betterHalfBenefit'].value == 'Yes'&& sessionStorage.SpouseAge>= 18||this.addon.controls['betterHalfBenefit'].value != 'Yes' && sessionStorage.SpouseAge==0){
       if (this.atpdError == false && this.adbError == false && this.ciError == false && this.hcbdError == false) {
         // this.tittleread == true;
         this.insureArray.controls['title'].patchValue(this.customerDetails.controls['title'].value);
@@ -1731,7 +1761,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
           this.insureArray.controls['sdob'].patchValue(this.addon.controls['sdob'].value);
           this.insureArray.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
-          this.insureArray.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
+          // this.insureArray.controls['isSmokerSpouse'].patchValue(this.addon.controls['isSmokerSpouse'].value);
 
           // stepper.next();
           // this.topScroll();
@@ -1742,11 +1772,22 @@ export class EdelweissTermLifeComponent implements OnInit {
       else{
         this.toastr.error('please enter correct Sum Assured Amount');
       }
+    } else {
+      this.toastr.error('Spouse Age should be 18 or above');
+
+    }
     }
     else {
       this.toastr.error('please enter all the Mandatory field');
     }
 
+  }
+
+  nextBIUpload(stepper) {
+    if(this.bi_pdf_url !=''){
+      stepper.next();
+      this.topScroll();
+    }
   }
   edelweissInsureDetails(stepper: MatStepper, value) {
     sessionStorage.stepper2Details = '';
@@ -1792,6 +1833,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       stepper.next();
       this.topScroll();
     }
+  }
+
+  saveImageAs1() {
+    this.window.open(this.bi_pdf_url, '_blank');
   }
 
   //upload document valid
@@ -2644,6 +2689,27 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].ageOnDeath.updateValueAndValidity();
     this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].causeOfDeath.updateValueAndValidity();
     }
+  shealthStatusReq(i){
+    if (this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.value =='Deceased') {
+      this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sage.setValidators(null);
+      this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sage.patchValue('');
+
+
+      this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sageOnDeath.setValidators([Validators.required]);
+      this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].scauseOfDeath.setValidators([Validators.required]);
+    } else {
+
+
+      this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sageOnDeath.patchValue('');
+      this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].scauseOfDeath.patchValue('');
+      this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sageOnDeath.setValidators(null);
+      this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].scauseOfDeath.setValidators(null);
+      this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sage.setValidators([Validators.required]);
+    }
+    this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sage.updateValueAndValidity();
+    this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sageOnDeath.updateValueAndValidity();
+    this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].scauseOfDeath.updateValueAndValidity();
+  }
 
   staffChange1() {
 
@@ -2827,75 +2893,75 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
-  diseaseReq() {
-
-    if (this.medicalDetail.controls['healthInformation'].value == true) {
-      for (let i = 0; i < this.medicalDetail['controls'].medicalQuestions['controls'].length; i++) {
-
-        if (i != 0) {
-        }
-
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.value);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(this.datepipe.transform(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.value, 'y-MM-dd'));
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.value);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.value);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.value);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(this.datepipe.transform(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.value, 'y-MM-dd'));
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.value);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.value);
-
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.setValidators([Validators.required]);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.setValidators([Validators.required]);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.setValidators([Validators.required]);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.setValidators([Validators.required]);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.setValidators([Validators.required]);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.setValidators([Validators.required]);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.setValidators([Validators.required]);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.setValidators([Validators.required]);
-      }
-
-    } else if (this.medicalDetail.controls['healthInformation'].value == false) {
-      for (let i = 0; i < this.medicalDetail['controls'].medicalQuestions['controls'].length; i++) {
-
-        if (i != 0) {
-        }
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue('');
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(null);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue('');
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue('');
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue('');
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(null);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue('');
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue('');
-
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.setValidators(null);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.setValidators(null);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.setValidators(null);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.setValidators(null);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.setValidators(null);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.setValidators(null);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.setValidators(null);
-        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.setValidators(null);
-      }
-
-
-    }
-    for (let i = 0; i < this.medicalDetail['controls'].medicalQuestions['controls'].length; i++) {
-
-      if (i != 0) {
-      }
-      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.updateValueAndValidity();
-      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.updateValueAndValidity();
-      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.updateValueAndValidity();
-      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.updateValueAndValidity();
-      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.updateValueAndValidity();
-      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.updateValueAndValidity();
-      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.updateValueAndValidity();
-      this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.updateValueAndValidity();
-
-
-    }
-  }
+  // diseaseReq() {
+  //
+  //   if (this.medicalDetail.controls['healthInformation'].value == true) {
+  //     for (let i = 0; i < this.medicalDetail['controls'].medicalQuestions['controls'].length; i++) {
+  //
+  //       if (i != 0) {
+  //       }
+  //
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.value);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(this.datepipe.transform(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.value, 'y-MM-dd'));
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.value);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.value);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.value);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(this.datepipe.transform(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.value, 'y-MM-dd'));
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.value);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue(this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.value);
+  //
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.setValidators([Validators.required]);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.setValidators([Validators.required]);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.setValidators([Validators.required]);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.setValidators([Validators.required]);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.setValidators([Validators.required]);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.setValidators([Validators.required]);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.setValidators([Validators.required]);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.setValidators([Validators.required]);
+  //     }
+  //
+  //   } else if (this.medicalDetail.controls['healthInformation'].value == false) {
+  //     for (let i = 0; i < this.medicalDetail['controls'].medicalQuestions['controls'].length; i++) {
+  //
+  //       if (i != 0) {
+  //       }
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue('');
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(null);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue('');
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue('');
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue('');
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(null);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue('');
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue('');
+  //
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.setValidators(null);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.setValidators(null);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.setValidators(null);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.setValidators(null);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.setValidators(null);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.setValidators(null);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.setValidators(null);
+  //       this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.setValidators(null);
+  //     }
+  //
+  //
+  //   }
+  //   for (let i = 0; i < this.medicalDetail['controls'].medicalQuestions['controls'].length; i++) {
+  //
+  //     if (i != 0) {
+  //     }
+  //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.updateValueAndValidity();
+  //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.updateValueAndValidity();
+  //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.updateValueAndValidity();
+  //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.updateValueAndValidity();
+  //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.updateValueAndValidity();
+  //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.updateValueAndValidity();
+  //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.updateValueAndValidity();
+  //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.updateValueAndValidity();
+  //
+  //
+  //   }
+  // }
 
 
   changeMaritalInsuReq() {
@@ -2919,7 +2985,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['slastName'].setValidators([Validators.required]);
       this.insureArray.controls['sdob'].setValidators([Validators.required]);
       this.insureArray.controls['semailId'].setValidators([Validators.required]);
-      this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
+      // this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
 
     } else if(this.addon.controls['betterHalfBenefit'].value == 'No'||this.addon.controls['betterHalfBenefit'].value == ''){
       // alert('innn')
@@ -2941,7 +3007,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['slastName'].patchValue('');
       this.insureArray.controls['sdob'].patchValue('');
       this.insureArray.controls['semailId'].patchValue('');
-      this.insureArray.controls['isSmokerSpouse'].patchValue('');
+      // this.insureArray.controls['isSmokerSpouse'].patchValue('');
 
 
 
@@ -3001,7 +3067,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['slastName'].setValidators(null);
       this.insureArray.controls['sdob'].setValidators(null);
       this.insureArray.controls['semailId'].setValidators(null);
-      this.insureArray.controls['isSmokerSpouse'].setValidators(null);
+      // this.insureArray.controls['isSmokerSpouse'].setValidators(null);
 
 
     }
@@ -3022,7 +3088,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['slastName'].updateValueAndValidity();
     this.insureArray.controls['sdob'].updateValueAndValidity();
     this.insureArray.controls['semailId'].updateValueAndValidity();
-    this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
+    // this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
 
 
   }
@@ -3794,11 +3860,6 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
 
   }
-
-
-
-
-
 
 
   employmentTypereq1() {
@@ -5184,7 +5245,8 @@ export class EdelweissTermLifeComponent implements OnInit {
           "pregnantweeks":this.medicalDetail.controls['pregnantweeks'].value ,
           "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "femaleDieaseWeeks":this.medicalDetail.controls['femaleDieaseWeeks'].value,
-          "medicalQuestions":this.medicalDetail.value.medicalQuestions,
+          // "medicalQuestions":this.medicalDetail.value.medicalQuestions,
+          "medicalQuestions":'',
         },
         "bank":{
           "accountNo":this.bankDetail.controls['accountNo'].value,
@@ -5216,7 +5278,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "dob":this.datepipe.transform(this.insureArray.controls['sdob'].value, 'y-MM-dd'),
         "emailId":this.insureArray.controls['semailId'].value,
         "phoneNo":this.insureArray.controls['smobileNo'].value,
-        "isSmoker":this.insureArray.controls['isSmokerSpouse'].value,
+        "isSmoker":'',
         "isStaff":'N',
         "employeeCode":'',
         "relationLAProposer":'Spouse',
@@ -5774,10 +5836,15 @@ export class EdelweissTermLifeComponent implements OnInit {
       "suminsured_amount": sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
+
         "policyTerm": this.lifePremiumList.termDetrails,
         "premiumPayingTerm":this.lifePremiumList.premium_paying_term,
         "frequency":this.enquiryFromDetials.payment_mode,
         "sumAssured": sessionStorage.selectedAmountTravel,
+        "payoutOption": this.addon.controls['payoutOption'].value,
+        "payoutMonths": this.addon.controls['noOfMonths'].value,
+        "payoutPercentageLumpsum": this.addon.controls['payoutPercentageIncome'].value,
+
         "planOption": '',
         "riderDetails": {
           "workSiteFlag": 'N',
@@ -5875,6 +5942,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       // this.eePremiumTerm = this.eePremiumTerm;
       this.premiumValue=true;
       // alert(this.premiumValue);
+      this.bi_pdf_url = this.eePremiumTerm.bi_pdf_url;
       this.ADB = this.eePremiumTerm.accidental_death_premium;
       this.sum = this.eePremiumTerm.sumAssured;
       this.basePremium = this.eePremiumTerm.Basepremium;
@@ -5903,6 +5971,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.pdp_sumassured = this.eePremiumTerm.pdp_sumassured;
 
       this.betterhalf();
+      console.log(sessionStorage.SpouseAge,'spouse agess');
 
 
     }
@@ -6056,6 +6125,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.pdp_sumassured = this.eePremiumTerm.pdp_sumassured;
 
       this.betterhalf();
+      this.sumAssuredAll();
 
 
     }
@@ -6069,7 +6139,13 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
 
-
+  sumAssuredAll(){
+    this.addon.controls['sumAssuredHCB'].patchValue(this.hcb_sumassured);
+    // alert(this.addon.controls['sumAssuredHCB'].value);
+    this.addon.controls['sumAssuredATPD'].patchValue(this.atpd_sumassured);
+    this.addon.controls['sumAssuredADB'].patchValue(this.adb_sumassured);
+    this.addon.controls['criticalsumAssured'].patchValue(this.ci_sumassured);
+  }
   betterhalf(){
     this.addon.controls['betterHalfsumAssured'].patchValue(this.better_half_sum_assured );
   }
@@ -7345,8 +7421,9 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (sessionStorage.stepperCustomerDetails != '' && sessionStorage.stepperCustomerDetails != undefined) {
       this.getSteppercustomer = JSON.parse(sessionStorage.stepperCustomerDetails);
-      this.customerDetails = this.fb.group({
+      console.log(this.getSteppercustomer,'customer....');
 
+      this.customerDetails = this.fb.group({
         title: this.getSteppercustomer.title,
         titleName: this.getSteppercustomer.titleName,
         stitleName: this.getSteppercustomer.stitleName,
@@ -7366,8 +7443,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
     if (sessionStorage.stepperAddonDetails != '' && sessionStorage.stepperAddonDetails != undefined) {
       this.getStepperaddon = JSON.parse(sessionStorage.stepperAddonDetails);
+      console.log(this.getStepperaddon,'addons....')
       this.addon = this.fb.group({
-
         additionalBenefit: this.getStepperaddon.additionalBenefit,
         TopUpBenefit:  this.getStepperaddon.TopUpBenefit,
         topUpBenefitPercentage:  this.getStepperaddon.topUpBenefitPercentage,
@@ -7400,11 +7477,12 @@ export class EdelweissTermLifeComponent implements OnInit {
       });
 
     }
-    console.log(this.proposer, 'stepper1');
+    console.log(this.getStepperaddon, 'getStepperaddon');
+    console.log(this.addon, 'addon');
 
     if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
       this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
-      console.log(this.getStepper2.existingInsuranceInd, 'indvalue');
+      console.log(this.getStepper2, 'getstepper2');
 
       this.insureArray.controls['existingInsuranceInd'].patchValue(this.getStepper2.existingInsuranceInd);
       // console.log(this.getStepper4.existingInsurance, ' getst2');
@@ -7460,7 +7538,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['sdob'].patchValue(this.datepipe.transform(this.getStepper2.sdob, 'y-MM-dd'));
       this.insureArray.controls['semailId'].patchValue(this.getStepper2.semailId);
       this.insureArray.controls['smobileNo'].patchValue(this.getStepper2.smobileNo);
-      this.insureArray.controls['isSmokerSpouse'].patchValue(this.getStepper2.isSmokerSpouse);
+      // this.insureArray.controls['isSmokerSpouse'].patchValue(this.getStepper2.isSmokerSpouse);
       this.insureArray.controls['sppan'].patchValue(this.getStepper2.sppan);
       this.insureArray.controls['saadhaarNo'].patchValue(this.getStepper2.saadhaarNo);
       this.insureArray.controls['sfatherhusbandName'].patchValue(this.getStepper2.sfatherhusbandName);
@@ -7566,32 +7644,32 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (sessionStorage.medicalQuesDetails != '' && sessionStorage.medicalQuesDetails != undefined) {
       let getMedicalDetail = JSON.parse(sessionStorage.medicalQuesDetails);
-      console.log(getMedicalDetail,'step4');
+      console.log(getMedicalDetail,'medical');
 
-      for (let i=0; i < getMedicalDetail.medicalQuestions.length; i++) {
-        if ( i !=  0) {
-          this.addMedItems();
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(getMedicalDetail.medicalQuestions[i].disease);
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(this.datepipe.transform(getMedicalDetail.medicalQuestions[i].datediagnois, 'y-MM-dd'));
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(getMedicalDetail.medicalQuestions[i].treatment);
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue(getMedicalDetail.medicalQuestions[i].dosage);
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue(getMedicalDetail.medicalQuestions[i].doctor);
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(this.datepipe.transform(getMedicalDetail.medicalQuestions[i].datefollowup, 'y-MM-dd'));
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue(getMedicalDetail.medicalQuestions[i].anycomplications);
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue(getMedicalDetail.medicalQuestions[i].remarks);
-        } else if (i == 0) {
-
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(getMedicalDetail.medicalQuestions[i].disease);
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(this.datepipe.transform(getMedicalDetail.medicalQuestions[i].datediagnois, 'y-MM-dd'));
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(getMedicalDetail.medicalQuestions[i].treatment);
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue(getMedicalDetail.medicalQuestions[i].dosage);
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue(getMedicalDetail.medicalQuestions[i].doctor);
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(this.datepipe.transform(getMedicalDetail.medicalQuestions[i].datefollowup, 'y-MM-dd'));
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue(getMedicalDetail.medicalQuestions[i].anycomplications);
-          this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue(getMedicalDetail.medicalQuestions[i].remarks);
-
-        }
-      }
+      // for (let i=0; i < getMedicalDetail.medicalQuestions.length; i++) {
+      //   if ( i !=  0) {
+      //     this.addMedItems();
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(getMedicalDetail.medicalQuestions[i].disease);
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(this.datepipe.transform(getMedicalDetail.medicalQuestions[i].datediagnois, 'y-MM-dd'));
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(getMedicalDetail.medicalQuestions[i].treatment);
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue(getMedicalDetail.medicalQuestions[i].dosage);
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue(getMedicalDetail.medicalQuestions[i].doctor);
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(this.datepipe.transform(getMedicalDetail.medicalQuestions[i].datefollowup, 'y-MM-dd'));
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue(getMedicalDetail.medicalQuestions[i].anycomplications);
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue(getMedicalDetail.medicalQuestions[i].remarks);
+      //   } else if (i == 0) {
+      //
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(getMedicalDetail.medicalQuestions[i].disease);
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(this.datepipe.transform(getMedicalDetail.medicalQuestions[i].datediagnois, 'y-MM-dd'));
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(getMedicalDetail.medicalQuestions[i].treatment);
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue(getMedicalDetail.medicalQuestions[i].dosage);
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue(getMedicalDetail.medicalQuestions[i].doctor);
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(this.datepipe.transform(getMedicalDetail.medicalQuestions[i].datefollowup, 'y-MM-dd'));
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue(getMedicalDetail.medicalQuestions[i].anycomplications);
+      //     this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue(getMedicalDetail.medicalQuestions[i].remarks);
+      //
+      //   }
+      // }
       for (let i=0; i < getMedicalDetail.medicalFamilyQuestions.length; i++) {
         // console.log(getMedicalDetail.medicalFamilyQuestions,'444444444')
         if ( i !=  0) {
@@ -7612,6 +7690,29 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.patchValue(getMedicalDetail.medicalFamilyQuestions[i].healthStatus);
           this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].causeOfDeath.patchValue(getMedicalDetail.medicalFamilyQuestions[i].causeOfDeath);
           this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relationName.patchValue(getMedicalDetail.medicalFamilyQuestions[i].relationName);
+
+        }
+      }
+
+      for (let i=0; i < getMedicalDetail.smedicalFamilyQuestions.length; i++) {
+        if ( i !=  0) {
+          this.saddFamilyItems();
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].srelation.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].srelation);
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sage.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].sage);
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sageOnDeath.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].sageOnDeath);
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].shealthStatus);
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].srelationName.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].srelationName);
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].scauseOfDeath.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].scauseOfDeath);
+          // this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].causeDeathName.patchValue(getMedicalDetail.medicalFamilyQuestions[i].causeDeathName);
+
+        } else if (i == 0) {
+
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].srelation.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].srelation);
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sage.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].sage);
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].sageOnDeath.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].sageOnDeath);
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].shealthStatus);
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].scauseOfDeath.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].scauseOfDeath);
+          this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].srelationName.patchValue(getMedicalDetail.smedicalFamilyQuestions[i].srelationName);
 
         }
       }
@@ -7806,6 +7907,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined) {
       this.getStepper4 = JSON.parse(sessionStorage.stepper4Details);
+      console.log(this.getStepper4 ,'this.getStepper4 ')
       this.bankDetail = this.fb.group({
 
           accountNo: this.getStepper4.accountNo,
@@ -7922,6 +8024,9 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   geteFamRelationshipName(i) {
     this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relationName.patchValue(this.eNomineeRelation[this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relation.value] );
+  }
+  sgeteFamRelationshipName(i) {
+    this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].srelationName.patchValue(this.eNomineeRelation[this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].srelation.value] );
   }
   // geteFacauseDeath(i) {
   //   this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].causeDeathName.patchValue(this.eCauseDeath[this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].causeOfDeath.value] );

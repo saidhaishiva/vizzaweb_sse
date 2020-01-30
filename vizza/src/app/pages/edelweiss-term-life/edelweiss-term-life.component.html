@@ -78,7 +78,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <p>Smoker<span class="error" >*</span></p>
-                                        <mat-radio-group formControlName="isSmoker">
+                                        <mat-radio-group formControlName="isSmoker" (change)="smokerChange()">
                                             <mat-radio-button value="Yes" >Yes</mat-radio-button>
                                             <mat-radio-button class="ml-2" value="No">No</mat-radio-button>
                                         </mat-radio-group>
@@ -95,7 +95,7 @@
                                 <!--</div>-->
                                 <div class="proposal-buttom mt-3 text-right w-100">
                                     <!--                               <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
-                                    <button mat-raised-button color="primaryBlue"  (click)="getCover();edelweissCustomerDetail(stepper, customerDetails.value)">Next</button>
+                                    <button mat-raised-button color="primaryBlue"  (click)="smokerChange();edelweissCustomerDetail(stepper, customerDetails.value);getCover()">Next</button>
                                 </div>
                             </mat-expansion-panel>
                         </form>
@@ -199,14 +199,11 @@
 
                                         <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <p>Smoker<span class="error" >*</span></p>
-                                            <mat-radio-group formControlName="isSmokerSpouse" (change)="smokerSpouse()">
+                                            <mat-radio-group formControlName="isSmokerSpouse" (change)="smokerSpouse();smokerChangeSpouse()">
                                                 <mat-radio-button value="Yes" >Yes</mat-radio-button>
-                                                <mat-radio-button value="No">No</mat-radio-button>
+                                                <mat-radio-button class="ml-2" value="No">No</mat-radio-button>
                                             </mat-radio-group>
                                         </div>
-
-
-
                                     </div>
                                     <!--                               <div class="col-md-4">-->
                                     <!--                                   <mat-radio-group formControlName="TopUpBenefit" (change)="isTopUpBenefit();edelweissPrimium()" >-->
@@ -414,18 +411,53 @@
                                     </div>
 
                                 </div>
-
-
-
-
-
+                                <!--<div class="row">-->
+                                    <!--<div class="col-md-12">-->
+                                        <!--<pdf-viewer src="{{bi_pdf_url}}"-->
+                                                <!--[render-text]="true"-->
+                                                <!--style="display: block;"-->
+                                       <!--&gt;</pdf-viewer>-->
+                                    <!--</div>-->
                                 <!--</div>-->
                                 <div class="proposal-buttom mt-3 text-right w-100">
                                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                    <button mat-raised-button color="primaryBlue"  (click)="edelweissAddonDetail(stepper, addon.value)">Next</button>
+                                    <button mat-raised-button color="primaryBlue"  (click)="smokerChangeSpouse();edelweissPrimium();edelweissAddonDetail(stepper, addon.value)">Next</button>
                                 </div>
                             </mat-expansion-panel>
                         </form>
+                    </mat-accordion>
+                </mat-step>
+
+                <mat-step [stepControl]="">
+                    <ng-template matStepLabel>BI FORM</ng-template>
+                    <mat-accordion class="mt-4 w-100 float-left">
+                        <mat-expansion-panel expanded>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>BI FORM
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="row mt-3">
+                                <div class="col-md-12 box-card pt-3 pb-3" >
+                                    <div class="row mt-3">
+                                        <div class="col-md-12 box-card pt-3 pb-3" >
+                                            <p style="margin-left: 17px">To Download BI Form<button mat-raised-button color="primary" *ngIf="bi_pdf_url !=''" style="margin-left: 13px;background-color: #3378BD" (click)="saveImageAs1()">Click Here</button></p>
+                                            <pdf-viewer src="{{bi_pdf_url}}"
+                                                        [render-text]="true"
+                                                        style="display: block;">
+                                            </pdf-viewer>
+                                            <div class="col-md-12 mt-3">
+                                                <div class="proposal-buttom text-center w-100">
+                                                    <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                                                    <button mat-raised-button color="primaryBlue"  (click)="nextBIUpload(stepper)">Next</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
                     </mat-accordion>
                 </mat-step>
 
@@ -907,7 +939,7 @@
                                         </mat-radio-group>
                                     </div>
 
-                                    <div class="row"  *ngIf="insureArray.controls['existingInsuranceInd'].value == 'Yes'">
+                                    <div class="row ml-0"  *ngIf="insureArray.controls['existingInsuranceInd'].value == 'Yes'">
 
                                         <div class="col-md-12 mt-3" >
                                             <h6 class="color-blue">EXISTING INSURANCE</h6>
@@ -915,7 +947,7 @@
                                         </div>
                                     </div>
 
-                                    <div >
+                                    <div class="ml-3">
                                         <div formArrayName="existingInsurance" *ngFor="let item of insureArray.get('existingInsurance')['controls']; let i = index;">
 
                                             <!--<div  formArrayName="existingInsurance" *ngFor="let item of bankDetail.get('existingInsurance').value; let i = index;">-->
@@ -1007,10 +1039,10 @@
 
                                 <div class="row p-3" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                    <div class="row p-3"  >
+                                    <div class="row ml-1"  >
                                         <!--[ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}"-->
-                                        <div class="col-md-12 mt-2" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
-                                            <p style="color: mediumblue;">SPOUSE DETAILS</p>
+                                        <div class="col-md-12 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
+                                            <p style="color: mediumblue;font-size: 13px;font-weight: bold;">SPOUSE DETAILS</p>
                                         </div>
                                         <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                             <mat-form-field class="w-100" >
@@ -1061,13 +1093,13 @@
                                                 <input matInput  formControlName="smobileNo"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                            <p>Smoker<span class="error" >*</span></p>
-                                            <mat-radio-group formControlName="isSmokerSpouse">
-                                                <mat-radio-button value="Yes" >Yes</mat-radio-button>
-                                                <mat-radio-button class="ml-2" value="No">No</mat-radio-button>
-                                            </mat-radio-group>
-                                        </div>
+                                        <!--<div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">-->
+                                            <!--<p>Smoker<span class="error" >*</span></p>-->
+                                            <!--<mat-radio-group formControlName="isSmokerSpouse">-->
+                                                <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
+                                                <!--<mat-radio-button class="ml-2" value="No">No</mat-radio-button>-->
+                                            <!--</mat-radio-group>-->
+                                        <!--</div>-->
                                         <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <mat-form-field class="w-100" >
                                                 <mat-placeholder>PAN Number<span class="error" >*</span></mat-placeholder>
@@ -1338,7 +1370,7 @@
                                         </mat-radio-group>
                                     </div>
 
-                                    <div class="row"  *ngIf="insureArray.controls['sexistingInsuranceInd'].value == 'Yes'">
+                                    <div class="row ml-0"  *ngIf="insureArray.controls['sexistingInsuranceInd'].value == 'Yes'">
 
                                         <div class="col-md-12 mt-3" >
                                             <h6 class="color-blue">EXISTING INSURANCE FOR SPOUSE</h6>
@@ -1346,7 +1378,7 @@
                                         </div>
                                     </div>
 
-                                    <div >
+                                    <div class="ml-3">
                                         <div formArrayName="sexistingInsurance" *ngFor="let item of insureArray.get('sexistingInsurance')['controls']; let i = index;">
 
                                             <!--<div  formArrayName="existingInsurance" *ngFor="let item of bankDetail.get('existingInsurance').value; let i = index;">-->
@@ -1699,8 +1731,8 @@
 
                                     </div>
 
-                                    <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                        <mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" (change)="travelOutside1()">
+                                    <div class="col-md-12" [ngStyle]="{'pointer-events': this.customerDetails.controls['isSmoker'].value ? 'none' : ''}">
+                                        <mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" (change)="travelOutside1()" >
                                             <p>Do you smoke or consume tobacco in any form e.g(paan,tobacco,gutka) or have done so in the past 12 months? <span class="error" >*</span></p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -1741,7 +1773,7 @@
 
 
                                     </div>
-                                    <div class="col-md-12 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                    <div class="col-md-12 " [ngStyle]="{'pointer-events': this.addon.controls['isSmokerSpouse'].value ? 'none' : ''}">
 
                                     <mat-radio-group formControlName="tobaccoInd1" (change)="travelOutside1()" (change)="istobaccoInd1()" >
                                         <p style="color: mediumblue;">Spouse</p>
@@ -2656,92 +2688,87 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--<div class="col-md-4" *ngIf="lifePremiumList.product_id=='112'">-->
-                                    <!--<mat-form-field class="w-100">-->
-                                    <!--<input matInput placeholder="Other Health Information" formControlName="healthInformation" maxlength="50" autocomplete="off"   >-->
-                                    <!--&lt;!&ndash;<mat-error *ngIf="medicalDetail.controls.healthInformation.errors?.required">Other Health Information is required</mat-error>&ndash;&gt;-->
-                                    <!--</mat-form-field>-->
+
+                                    <!--<div class="col-md-12 mt-3 " >-->
+                                    <!--<div class="row " *ngIf="lifePremiumList.product_id=='112'">-->
+                                        <!--<div class="col-md-12 mt-3">-->
+                                            <!--<mat-checkbox  formControlName="healthInformation"   (change)="diseaseReq()" >Disease/Health Information</mat-checkbox>-->
+                                        <!--</div>-->
                                     <!--</div>-->
-                                    <div class="col-md-12 mt-3 " >
-                                    <div class="row " *ngIf="lifePremiumList.product_id=='112'">
-                                        <div class="col-md-12 mt-3">
-                                            <mat-checkbox  formControlName="healthInformation"   (change)="diseaseReq()" >Disease/Health Information</mat-checkbox>
-                                        </div>
-                                    </div>
-                                    <div *ngIf="medicalDetail.controls['healthInformation'].value == true">
-                                        <div class="col-md-12  ">
+                                    <!--<div *ngIf="medicalDetail.controls['healthInformation'].value == true">-->
+                                        <!--<div class="col-md-12  ">-->
 
-                                            <div  formArrayName="medicalQuestions" *ngFor="let item of medicalDetail.get('medicalQuestions')['controls']; let i = index;">
-                                                <div class="row" [formGroupName]="i">
-                                                    <div class="col-md-4">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Disease" formControlName="disease" maxlength="50" autocomplete="off" required  >
-                                                            <mat-error *ngIf="medicalDetail.invalid">Disease is required</mat-error>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput [matDatepicker]="picker5" [max]="minDate"  placeholder="Date Diagnois (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datediagnois" (dateInput)="addEventMedical($event,i,'medical')" (dateChange)="addEventMedical($event,i,'medical')" autocomplete="off" maxlength="10" minlength="10" required>
-                                                            <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
-                                                            <mat-datepicker #picker5></mat-datepicker>
-                                                            <mat-error *ngIf="medicalDetail.invalid">Diagnois Date is required</mat-error>
-                                                        </mat-form-field>
-                                                        <p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.value}}</p>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Treatment" formControlName="treatment" maxlength="50" autocomplete="off" required  >
-                                                            <mat-error *ngIf="medicalDetail.invalid">Treatment is required</mat-error>
-                                                        </mat-form-field>
-                                                    </div>
+                                            <!--<div  formArrayName="medicalQuestions" *ngFor="let item of medicalDetail.get('medicalQuestions')['controls']; let i = index;">-->
+                                                <!--<div class="row" [formGroupName]="i">-->
+                                                    <!--<div class="col-md-4">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput placeholder="Disease" formControlName="disease" maxlength="50" autocomplete="off" required  >-->
+                                                            <!--<mat-error *ngIf="medicalDetail.invalid">Disease is required</mat-error>-->
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="col-md-4">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput [matDatepicker]="picker5" [max]="minDate"  placeholder="Date Diagnois (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datediagnois" (dateInput)="addEventMedical($event,i,'medical')" (dateChange)="addEventMedical($event,i,'medical')" autocomplete="off" maxlength="10" minlength="10" required>-->
+                                                            <!--<mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>-->
+                                                            <!--<mat-datepicker #picker5></mat-datepicker>-->
+                                                            <!--<mat-error *ngIf="medicalDetail.invalid">Diagnois Date is required</mat-error>-->
+                                                        <!--</mat-form-field>-->
+                                                        <!--<p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.value}}</p>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="col-md-4">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput placeholder="Treatment" formControlName="treatment" maxlength="50" autocomplete="off" required  >-->
+                                                            <!--<mat-error *ngIf="medicalDetail.invalid">Treatment is required</mat-error>-->
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
 
-                                                    <div class="col-md-4">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Dosage" formControlName="dosage" maxlength="50" autocomplete="off" required  >
-                                                            <mat-error *ngIf="medicalDetail.invalid">Dosage is required</mat-error>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Doctor" formControlName="doctor" maxlength="50" autocomplete="off" required  >
-                                                            <mat-error *ngIf="medicalDetail.invalid">Doctor is required</mat-error>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput [matDatepicker]="picker6" [max]="minDate"  placeholder="Follow Up Date (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datefollowup" (dateInput)="addEventMedical($event,i,'medicalfollowup')" (dateChange)="addEventMedical($event,i,'medicalfollowup')" autocomplete="off" maxlength="10" minlength="10" required>
-                                                            <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
-                                                            <mat-datepicker #picker6></mat-datepicker>
-                                                            <mat-error *ngIf="nomineeDetail.invalid">Follow Up Date is required</mat-error>
-                                                        </mat-form-field>
-                                                        <p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.value}}</p>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Complications" formControlName="anycomplications" maxlength="50" autocomplete="off" required  >
-                                                            <mat-error *ngIf="medicalDetail.invalid">Complications is required</mat-error>
-                                                        </mat-form-field>
-                                                    </div>
+                                                    <!--<div class="col-md-4">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput placeholder="Dosage" formControlName="dosage" maxlength="50" autocomplete="off" required  >-->
+                                                            <!--<mat-error *ngIf="medicalDetail.invalid">Dosage is required</mat-error>-->
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="col-md-4">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput placeholder="Doctor" formControlName="doctor" maxlength="50" autocomplete="off" required  >-->
+                                                            <!--<mat-error *ngIf="medicalDetail.invalid">Doctor is required</mat-error>-->
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="col-md-4">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput [matDatepicker]="picker6" [max]="minDate"  placeholder="Follow Up Date (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datefollowup" (dateInput)="addEventMedical($event,i,'medicalfollowup')" (dateChange)="addEventMedical($event,i,'medicalfollowup')" autocomplete="off" maxlength="10" minlength="10" required>-->
+                                                            <!--<mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>-->
+                                                            <!--<mat-datepicker #picker6></mat-datepicker>-->
+                                                            <!--<mat-error *ngIf="nomineeDetail.invalid">Follow Up Date is required</mat-error>-->
+                                                        <!--</mat-form-field>-->
+                                                        <!--<p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.value}}</p>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="col-md-4">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput placeholder="Complications" formControlName="anycomplications" maxlength="50" autocomplete="off" required  >-->
+                                                            <!--<mat-error *ngIf="medicalDetail.invalid">Complications is required</mat-error>-->
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
 
-                                                    <div class="col-md-4">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Remarks" formControlName="remarks" maxlength="50" autocomplete="off" required  >
-                                                            <mat-error *ngIf="medicalDetail.invalid">Remarks is required</mat-error>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <button mat-mini-fab	*ngIf=" i == 0 && medicalDetail.get('medicalQuestions').value.length < 5" color="accent"  (click)="addMedItems()">+</button>
-                                                    <button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="removeMedItems(i)">-</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
+                                                    <!--<div class="col-md-4">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput placeholder="Remarks" formControlName="remarks" maxlength="50" autocomplete="off" required  >-->
+                                                            <!--<mat-error *ngIf="medicalDetail.invalid">Remarks is required</mat-error>-->
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
+                                                    <!--<button mat-mini-fab	*ngIf=" i == 0 && medicalDetail.get('medicalQuestions').value.length < 5" color="accent"  (click)="addMedItems()">+</button>-->
+                                                    <!--<button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="removeMedItems(i)">-</button>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
                                     <div class="col-md-12"  >
-                                    <div class="row ">
+                                     <div class="row ">
                                         <div class="col-md-12 mt-3 mb-2">
                                             <h5 class="color-blue" *ngIf="lifePremiumList.product_id=='112'">FAMILY HISTORY</h5>
                                         </div>
-                                    </div>
+                                     </div>
                                     </div>
                                         <div class="col-md-12"  >
                                         <div class="row " *ngIf="lifePremiumList.product_id=='112'">
@@ -2790,6 +2817,66 @@
 
                                                         <button mat-mini-fab	*ngIf=" i == 0 && medicalDetail.get('medicalFamilyQuestions').value.length < 5" color="accent"  (click)="addFamilyItems()">+</button>
                                                         <button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="removeFamilyItems(i)">-</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12"  *ngIf="lifePremiumList.product_id=='112' && addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                        <div class="row ">
+                                            <div class="col-md-12 mt-3 mb-2">
+                                                <h5 class="color-blue" *ngIf="lifePremiumList.product_id=='112' && addon.controls['betterHalfBenefit'].value == 'Yes'">FAMILY HISTORY FOR SPOUSE</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12"  *ngIf=" addon.controls['betterHalfBenefit'].value == 'Yes'" >
+                                        <div class="row " *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12 ">
+
+                                                <div  formArrayName="smedicalFamilyQuestions" *ngFor="let item of medicalDetail.get('smedicalFamilyQuestions')['controls']; let i = index;">
+                                                    <div class="row" [formGroupName]="i">
+                                                        <div class="col-md-2">
+                                                            <mat-form-field class="w-100">
+                                                                <mat-select  placeholder="Relationship" formControlName="srelation" (selectionChange)="sgeteFamRelationshipName(i)" required class="w-100">
+                                                                    <mat-option *ngFor="let list of eNomineeRelation | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                                </mat-select>
+                                                                <mat-error *ngIf="medicalDetail.invalid">Relation is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <mat-form-field class="w-100">
+                                                                <mat-select  placeholder="Health Status" formControlName="shealthStatus" (selectionChange)="getHealthStaus();shealthStatusReq(i)" required class="w-100">
+                                                                    <mat-option *ngFor="let list of ehealthStatus | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                                </mat-select>
+                                                                <mat-error *ngIf="medicalDetail.invalid">Health Status is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-2"*ngIf="this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.value && this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.value!='Deceased'">
+                                                            <mat-form-field class="w-100" >
+                                                                <input matInput placeholder="Age" formControlName="sage" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" [required]="this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.value && this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.value!='Deceased'"  >
+                                                                <mat-error *ngIf="medicalDetail.invalid">Age is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-2"*ngIf="this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.value=='Deceased'">
+                                                            <mat-form-field class="w-100" >
+                                                                <input matInput placeholder="Age at Death" formControlName="sageOnDeath" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" [required]="this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.value=='Deceased'"  >
+                                                                <mat-error *ngIf="medicalDetail.invalid">Age at Death is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-3"*ngIf="this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.value=='Deceased'">
+                                                            <mat-form-field class="w-100">
+                                                                <mat-select  placeholder="Cause Of Death" formControlName="scauseOfDeath"  class="w-100" [required]="this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][i]['controls'].shealthStatus.value=='Deceased'">
+                                                                    <mat-option *ngFor="let list of eCauseDeath | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                                </mat-select>
+                                                                <mat-error *ngIf="medicalDetail.invalid">Cause Of Death is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+
+
+                                                        <button mat-mini-fab	*ngIf=" i == 0 && medicalDetail.get('smedicalFamilyQuestions').value.length < 5" color="accent"  (click)="saddFamilyItems()">+</button>
+                                                        <button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="sremoveFamilyItems(i)">-</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3133,6 +3220,26 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class=" col-md-6 mt-4" >
+                                    <div class="p-3">
+                                        <h6 class="color-blue">PAYOUT OPTIONS </h6>
+                                        <ul class="m-0 list-group">
+
+                                            <li class="list-group-item" *ngIf="addonFormData.payoutOption != '' "><strong>Payout Option:</strong> {{addonFormData.payoutOptionName}}</li>
+                                            <li class="list-group-item" *ngIf="addonFormData.payoutOptionToggle == 'levelIncome' "><strong>Payout Option Toggle:</strong> <span>Level Income</span></li>
+                                            <li class="list-group-item" *ngIf="addonFormData.payoutOptionToggle == 'increasingIncome' "><strong>Payout Option Toggle:</strong> <span>Increasing Income</span></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class=" col-md-6 mt-4" >
+                                    <div class="p-3">
+                                        <h6 class="color-blue"></h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="addonFormData.payoutPercentageIncome != '' "><strong>Payout Percentage Income:</strong> {{addonFormData.payoutPercentageIncome}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
 
                                 <div class="col-md-6">
                                     <div class="p-3">
@@ -3318,19 +3425,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class=" col-md-6 mt-4" >
-                                    <div class="p-3">
-                                        <h6 class="color-blue">PAYOUT OPTIONS </h6>
-                                        <ul class="m-0 list-group">
 
-                                            <li class="list-group-item" *ngIf="insuredFormData.payoutOption != '' "><strong>Payout Option:</strong> {{insuredFormData.payoutOptionName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.payoutOptionToggle == 'levelIncome' "><strong>Payout Option Toggle:</strong> <span>Level Income</span></li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.payoutOptionToggle == 'increasingIncome' "><strong>Payout Option Toggle:</strong> <span>Increasing Income</span></li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.payoutPercentageIncome != '' "><strong>Payout Percentage Income:</strong> {{insuredFormData.payoutPercentageIncome}}</li>
-
-                                        </ul>
-                                    </div>
-                                </div>
                                 <div class="col-md-6" >
                                     <div class=" p-3">
                                         <h6 class="color-blue mt-4" >INSURANCE</h6>
@@ -3473,6 +3568,36 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row box-card">
+                                <div class="col-md-12" *ngFor="let item of medicalFormData.medicalFamilyQuestions; let i = index;">
+                                    <div class="row">
+                                        <div class="col-md-6" >
+                                            <div class="p-3">
+                                                <h6 class="color-blue" >FAMILY HISTORY</h6>
+                                                <ul class="m-0 list-group">
+                                                    <li class="list-group-item" *ngIf="item.relation != null"><strong>RelationShip:</strong>{{item.relationName}}</li>
+                                                    <li class="list-group-item" *ngIf="item.healthStatus != null"><strong>Health Status:</strong> {{item.healthStatus}}</li>
+                                                    <li class="list-group-item" *ngIf="item.age != ''"><strong>Age:</strong> {{item.age}}</li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-6" >
+                                            <div class="p-3">
+                                                <h6 class="color-blue" ></h6>
+                                                <ul class="m-0 list-group">
+                                                    <li class="list-group-item" *ngIf="item.ageOnDeath != ''"><strong>Age at Death:</strong> {{item.ageOnDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="item.causeOfDeath != ''"><strong>Cause Of Death:</strong> {{item.causeOfDeath}}</li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row box-card">
                                 <div class="col-md-12" >
@@ -3572,46 +3697,47 @@
                                 </div>
                             </div>
 
-                            <div class="row box-card" *ngIf="medicalFormData.healthInformation ==true">
-                                <div class="col-md-12" *ngFor="let item of medicalFormData.medicalQuestions; let i = index;">
-                                    <div class="row">
-                                        <div class="col-md-6" >
-                                            <div class="p-3">
-                                                <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.disease != ''"><strong>Disease:</strong>{{item.disease}}</li>
-                                                    <li class="list-group-item" *ngIf=" item.datediagnois != null"><strong>Diagnois Date:</strong>{{item.datediagnois | date: 'dd/MM/yyyy'}}</li>
-                                                    <li class="list-group-item" *ngIf="item.treatment != ''"><strong>Treatment:</strong> {{item.treatment}}</li>
-                                                    <li class="list-group-item" *ngIf="item.dosage != ''"><strong>Dosage:</strong> {{item.dosage}}</li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                            <!--<div class="row box-card" *ngIf="medicalFormData.healthInformation ==true">-->
+                                <!--<div class="col-md-12" *ngFor="let item of medicalFormData.medicalQuestions; let i = index;">-->
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-md-6" >-->
+                                            <!--<div class="p-3">-->
+                                                <!--<ul class="m-0 list-group">-->
+                                                    <!--<li class="list-group-item" *ngIf="item.disease != ''"><strong>Disease:</strong>{{item.disease}}</li>-->
+                                                    <!--<li class="list-group-item" *ngIf=" item.datediagnois != null"><strong>Diagnois Date:</strong>{{item.datediagnois | date: 'dd/MM/yyyy'}}</li>-->
+                                                    <!--<li class="list-group-item" *ngIf="item.treatment != ''"><strong>Treatment:</strong> {{item.treatment}}</li>-->
+                                                    <!--<li class="list-group-item" *ngIf="item.dosage != ''"><strong>Dosage:</strong> {{item.dosage}}</li>-->
+                                                <!--</ul>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
 
 
 
-                                        <div class="col-md-6" >
-                                            <div class="p-3">
-                                                <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.doctor != ''"><strong>Doctor:</strong> {{item.doctor}}</li>
-                                                    <li class="list-group-item" *ngIf="item.datefollowup != null"><strong>FollowUp Date:</strong> {{item.datefollowup | date: 'dd/MM/yyyy'}}</li>
-                                                    <li class="list-group-item" *ngIf="item.anycomplications != ''"><strong>Complications:</strong> {{item.anycomplications}}</li>
-                                                    <li class="list-group-item" *ngIf="item.remarks != ''"><strong>Remarks:</strong> {{item.remarks}}</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        <!--<div class="col-md-6" >-->
+                                            <!--<div class="p-3">-->
+                                                <!--<ul class="m-0 list-group">-->
+                                                    <!--<li class="list-group-item" *ngIf="item.doctor != ''"><strong>Doctor:</strong> {{item.doctor}}</li>-->
+                                                    <!--<li class="list-group-item" *ngIf="item.datefollowup != null"><strong>FollowUp Date:</strong> {{item.datefollowup | date: 'dd/MM/yyyy'}}</li>-->
+                                                    <!--<li class="list-group-item" *ngIf="item.anycomplications != ''"><strong>Complications:</strong> {{item.anycomplications}}</li>-->
+                                                    <!--<li class="list-group-item" *ngIf="item.remarks != ''"><strong>Remarks:</strong> {{item.remarks}}</li>-->
+                                                <!--</ul>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
 
                             <div class="row box-card">
-                                <div class="col-md-12" *ngFor="let item of medicalFormData.medicalFamilyQuestions; let i = index;">
+                                <div class="col-md-12" *ngFor="let sitem of medicalFormData.smedicalFamilyQuestions; let i = index;">
                                     <div class="row">
                                         <div class="col-md-6" >
                                             <div class="p-3">
-                                                <h6 class="color-blue" >FAMILY HISTORY</h6>
+                                                <h6 class="color-blue" >FAMILY HISTORY FOR SPOUSE</h6>
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.relation != null"><strong>RelationShip:</strong>{{item.relationName}}</li>
-                                                    <li class="list-group-item" *ngIf="item.healthStatus != null"><strong>Health Status:</strong> {{item.healthStatus}}</li>
-                                                    <li class="list-group-item" *ngIf="item.age != ''"><strong>Age:</strong> {{item.age}}</li>
+                                                    <li class="list-group-item" *ngIf="sitem.srelation != null"><strong>RelationShip:</strong>{{item.srelationName}}</li>
+                                                    <li class="list-group-item" *ngIf="sitem.shealthStatus != null"><strong>Health Status:</strong> {{item.shealthStatus}}</li>
+                                                    <li class="list-group-item" *ngIf="sitem.sage != ''"><strong>Age:</strong> {{item.sage}}</li>
 
                                                 </ul>
                                             </div>
@@ -3623,8 +3749,8 @@
                                             <div class="p-3">
                                                 <h6 class="color-blue" ></h6>
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.ageOnDeath != ''"><strong>Age at Death:</strong> {{item.ageOnDeath}}</li>
-                                                    <li class="list-group-item" *ngIf="item.causeOfDeath != ''"><strong>Cause Of Death:</strong> {{item.causeOfDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="sitem.sageOnDeath != ''"><strong>Age at Death:</strong> {{item.sageOnDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="sitem.scauseOfDeath != ''"><strong>Cause Of Death:</strong> {{item.scauseOfDeath}}</li>
 
                                                 </ul>
                                             </div>
