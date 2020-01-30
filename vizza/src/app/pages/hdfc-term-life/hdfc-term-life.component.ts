@@ -158,6 +158,12 @@ export class HdfcTermLifeComponent implements OnInit {
   public proposalGenStatus: boolean;
   public appointee: any;
   public otherFormData: any;
+  public nomineeResObj: any;
+  public nomineeGender: any;
+  public personalStatus: any;
+  public appointeeResObj: any;
+  public ageOfNomin1: any;
+  public nationalityOthers: boolean;
   public keyUp = new Subject<string>();
 
 
@@ -187,6 +193,7 @@ export class HdfcTermLifeComponent implements OnInit {
 
     this.apponiteeList = false;
    this.showAppointee = false;
+   this.nationalityOthers = false;
 
         this.settings = this.appSettings.settings;
 
@@ -198,7 +205,7 @@ export class HdfcTermLifeComponent implements OnInit {
       firstnm: ['', Validators.required],
       lastnm: ['', Validators.required],
       gender: ['', Validators.required],
-      pptOption: ['', Validators.required],
+      // pptOption: ['', Validators.required],
       genderName: ['', Validators.required],
       dob: ['', Validators.required],
       fathernm: ['', Validators.required],
@@ -275,20 +282,20 @@ export class HdfcTermLifeComponent implements OnInit {
       fathernmtitle: ['', Validators.required],
       fathernmtitleName: ['', Validators.required],
       fatherfirstnm: ['', Validators.required],
-      fathermiddlenm: ['', Validators.required],
+      fathermiddlenm: [''],
       fatherlastnm: ['', Validators.required],
       mothernmtitle: ['', Validators.required],
       mothernmtitleName: ['', Validators.required],
       motherfirstnm: ['', Validators.required],
-      mothermiddlenm: ['', Validators.required],
+      mothermiddlenm: [''],
       motherlastnm: ['', Validators.required],
       mmaritalstatus: ['', Validators.required],
       mmaritalstatusName: ['', Validators.required],
-      spousenmtitle: ['', Validators.required],
-      spousenmtitleName: ['', Validators.required],
-      spousefirstnm: ['', Validators.required],
-      spousemiddlenm: ['', Validators.required],
-      spouselastnm: ['', Validators.required],
+      spousenmtitle: [''],
+      spousenmtitleName: [''],
+      spousefirstnm: [''],
+      spousemiddlenm: [''],
+      spouselastnm: [''],
       occutypesp: ['', Validators.required],
       occutypespName: ['', Validators.required],
       catofoccupation: ['', Validators.required],
@@ -359,6 +366,7 @@ export class HdfcTermLifeComponent implements OnInit {
     this.getsourceOfFundHdfc();
     this.gettitleListHdfc();
     this.sessionData();
+    this.nationOther();
     // this.appTypeHdfc();
     // this.accountTypeHdfc();
     // this.getAlcoholHdfc();
@@ -449,11 +457,9 @@ export class HdfcTermLifeComponent implements OnInit {
   }
 
   uploadvalid() {
-
     console.log('11111111doc');
     this.window.open(this.redirectUrl,'_top')
     console.log('22222');
-
   }
   // Dame validation
   nameValidate(event: any) {
@@ -561,7 +567,11 @@ export class HdfcTermLifeComponent implements OnInit {
           this.getAge = this.ageCalculate(dob);
           this.getDays = this.ageCalculateInsurer(dob_days);
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
-
+          console.log(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nDob.value, 'dobb11111nomin')
+          let age1nomin = this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nDob.value;
+          console.log(age1nomin, 'dududududdddd')
+          this.ageOfNomin1 = this.ageCalculate(age1nomin);
+          console.log(this.ageOfNomin1, 'this.ageOfNomin1')
         }
 
       }
@@ -589,33 +599,7 @@ export class HdfcTermLifeComponent implements OnInit {
       }
 
     }
-      // if (i != 0) {
-      //   if (this.getAge < 18) {
-      //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(1);
-      //     console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value, 'nomineeagevalue');
-      //   } else {
-      //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(0);
-      //     console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value, 'nomineeagevalueelsee');
-      //   }
-      //
-      // }
-      // if (this.getAge < 18) {
-      //   console.log(this.getAge < 18, 'true');
-      //
-      //   // console.log( this.nomineeDetail['controls'].showAppointee.patchValue(true),'  this.nomineeDetail[\'controls\'].itemsNominee[\'controls\'][i][\'controls\'].showAppointee.patchValue(true)')
-      //  this.showAppointee == true;
-      //   // this.nomineeDetail.controls['atitle'].setValidators([Validators.required]);
-      //
-      //   // alert('get2');
-      //   this.appointeetitle();
-      //   //   this.nomineeDetail['controls'].showAppointee.patchValue(true);
-      //   // this.nomineeDetail.controls.showAppointee.patchValue(true);
-      //   // console.log(this.nomineeDetail.controls.
-      //   this.appointeeAgeValid(event);
-      //
-      //
-      // }
-    if (this.getAge < 18) {
+    if (this.ageOfNomin1 < 18) {
         console.log(this.getAge < 18, 'true');
 
       this.showAppointee =true;
@@ -957,8 +941,20 @@ export class HdfcTermLifeComponent implements OnInit {
     this.personal.controls['eduqualName'].patchValue(this.educationListHdfcList[this.personal.controls['eduqual'].value]);
   }changeNationality() {
     this.personal.controls['nationalityName'].patchValue(this.nationalityListHdfcList[this.personal.controls['nationality'].value]);
-  }changeResident() {
+  }
+  nationOther () {
+    if(this.personal.controls['nationality'].value == 'NATION_NONIND_CD') {
+      alert('in')
+      this.nationalityOthers = true;
+    } else {
+      alert('2')
+      this.nationalityOthers = false;
+    }
+  }
+
+  changeResident() {
     this.personal.controls['residentstatusName'].patchValue(this.residentialStatusHdfcList[this.personal.controls['residentstatus'].value]);
+
   }changeexp() {
     this.otherDetails.controls['expdurofstayName'].patchValue(this.expectedStayHdfcList[this.otherDetails.controls['expdurofstay'].value]);
   }changeprfdcommaddr() {
@@ -1041,6 +1037,9 @@ changecountryofbirth() {
   public personalDetails(stepper: MatStepper, value) {
 
     this.personalData = value;
+    console.log(this.personalData, 'llllll')
+    console.log(this.personalData.maritalstatusName, 'llooppp')
+    this.personalStatus = this.personalData.maritalstatusName;
     // console.log(this.personal.controls['titleName'].value,'titlw nme')
     console.log(value, 'eeeeeeeeeee');
     sessionStorage.stepper1Details = '';
@@ -1085,7 +1084,10 @@ changecountryofbirth() {
     sessionStorage.stepper3Details = JSON.stringify(value);
     console.log(this.nomineeDetail.valid, 'this.nomineeDetail.valid');
     console.log(this.nomineeDetail.get('itemsNominee')['controls'].length,'length');
-
+    // let sharePercentage = 0 ;
+    // for (let i=0; i< this.nomineeDetail.get('itemsNominee')['controls'].length;i++){
+    //   sharePercentage += parseInt(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.value);
+    // }
     // nomineeAge validate
     let nomineeValid = true;
     if (sessionStorage.nomineAge != '' && sessionStorage.nomineAge != undefined) {
@@ -1109,10 +1111,9 @@ changecountryofbirth() {
     let nominee2ageval;
     for (let i=0; i < this.nomineeDetail.get('itemsNominee')['controls'].length; i++) {
       if ( this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value == 1) {
-        nominee2ageval = false;
-
-      } else {
         nominee2ageval = true;
+      } else {
+        nominee2ageval = false;
       }
     }
 
@@ -1121,10 +1122,18 @@ changecountryofbirth() {
 
 
         if (appointeeAge ) {
-          console.log(appointeeAge,'appointeeAgeentry')
-          stepper.next();
-          this.topScroll();
-          this.proposal(stepper);
+          if (this.nomineeDetail['controls'].aName.value != '' && this.nomineeDetail['controls'].appointeeDob.value != '' && this.nomineeDetail['controls'].appointeeRelationToNominee.value != '') {
+            console.log(appointeeAge,'appointeeAgeentry')
+            stepper.next();
+            this.topScroll();
+            this.proposal(stepper);
+          } else {
+            this.toastr.error('Please fill the appointee details');
+          }
+          // console.log(appointeeAge,'appointeeAgeentry')
+          // stepper.next();
+          // this.topScroll();
+          // this.proposal(stepper);
 
         } else {
           this.toastr.error('Appointee Age should be greater than 18.');
@@ -1138,7 +1147,7 @@ changecountryofbirth() {
       }
     }
   }
-
+  // this.proposal(stepper);
 
   // add NOmineee
   addNominee(event) {
@@ -2918,7 +2927,7 @@ getweightListHdfc() {
         firstnm: this.getStepper1.firstnm,
         lastnm: this.getStepper1.lastnm,
         gender: this.getStepper1.gender,
-        pptOption: this.getStepper1.pptOption,
+        // pptOption: this.getStepper1.pptOption,
         genderName: this.getStepper1.genderName,
         dob: this.datepipe.transform(this.getStepper1.dob, 'y-MM-dd'),
         fathernm: this.getStepper1.fathernm,
@@ -3190,7 +3199,7 @@ getweightListHdfc() {
       "term": this.lifePremiumList.termDetrails,
       "product_id": this.lifePremiumList.product_id,
       "policy_id": this.getEnquiryDetials.policy_id,
-      "pptOption": this.personal.controls['pptOption'].value,
+      // "pptOption": this.personal.controls['pptOption'].value,
       "appsubmission": {
 
           "applctndetails": {
@@ -3413,9 +3422,13 @@ public setProposalSuccess(successData, stepper) {
     this.otherFormData = this.otherDetails.value;
     console.log(this.otherFormData, 'this.otherFormData...')
     this.nomineeFormData = this.nomineeDetail.value;
-    this.appointee= this.appointee.value
-    console.log(this.appointee, 'this.appointee');
-    // console.log(this.appointee.value, 'this.appointee.value');
+    console.log(this.nomineeFormData, 'nomineeFormData...');
+    this.nomineeResObj = this.summaryData.summary.nominee;
+    for (let i = 0; i < this.nomineeResObj.length; i++) {
+      console.log(this.nomineeResObj, 'loop')
+      this.nomineeGender = this.nomineeResObj[i].gender;
+    }
+    this.appointeeResObj = this.summaryData.summary.appointee;
     console.log(this.proposerFormData, 'this.proposerFormData');
     console.log(this.nomineeFormData, 'nomineeFormData');
     console.log(this.nomineeDetail.value, 'this.nomineeDetail.value');
