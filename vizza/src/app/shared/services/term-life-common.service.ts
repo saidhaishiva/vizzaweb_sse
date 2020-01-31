@@ -577,6 +577,17 @@ export class TermLifeCommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getspecialduties(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'aegon/armedForces ';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     getcitylist(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -716,6 +727,16 @@ export class TermLifeCommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    geteFamilyHistory(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/familyHistoryCheck';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     geteInvesting(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -842,6 +863,16 @@ export class TermLifeCommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostTerm() + 'edelweiss/qualification';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteCompany(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/companyList';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

@@ -75,6 +75,7 @@ export class AegonTermLifeComponent implements OnInit {
   public proposerFormData: any;
   public nomineeFormData: any;
   public occupationList: any;
+  public specialDuties: any;
   public annualList: any;
   public stepper1: any;
   public personalData: any;
@@ -125,11 +126,6 @@ export class AegonTermLifeComponent implements OnInit {
   public annaulIncomeMsg:any;
 
   public keyUp = new Subject<string>();
-
-
-
-
-
 
 
 
@@ -197,18 +193,23 @@ export class AegonTermLifeComponent implements OnInit {
       fatherName: ['', Validators.required],
       maritalStatus:['', Validators.required],
       qualifiction: ['', Validators.required],
-      qualifictionOther:'',
+      // qualifictionOther:'',
+      detailsOfProf:'',
       employeeType: ['', Validators.required],
       natureOfWork: ['', Validators.required],
-      natureOfWorkOthers: '',
+      specialDuties:'',
+      othersspecial:'',
+      othersnwork:'',
+      // natureOfWorkOthers: '',
       annualIncome: ['', Validators.required],
       incomeError: '',
       smoker: ['', Validators.required],
-      isExistingPolicyHolder:'NO',
+      // isExistingPolicyHolder:'NO',
       isPoliticleExposed: 'NO',
+      PoliticleExposedDetail: '',
       diabeteDuration: '',
-      isHousewife: 'No',
-      isHusbandCover: 'No',
+      // isHousewife: 'No',
+      // isHusbandCover: 'No',
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       pAddress1: ['', Validators.required],
@@ -442,6 +443,41 @@ export class AegonTermLifeComponent implements OnInit {
     }
 
   }
+
+  detailsofProf() {
+
+    if (this.personal.controls['qualifiction'].value == 'Professional Degree') {
+      this.personal.controls['detailsOfProf'].patchValue(this.personal.controls['detailsOfProf'].value);
+
+      this.personal.controls['detailsOfProf'].setValidators([Validators.required]);
+    } else {
+      this.personal.controls['detailsOfProf'].patchValue('');
+
+      this.personal.controls['detailsOfProf'].setValidators(null);
+
+    }
+    this.personal.controls['detailsOfProf'].updateValueAndValidity();
+
+  }
+
+  othersnwork() {
+
+    if (this.personal.controls['employeeType'].value == 'Armed Forces' && this.personal.controls['natureOfWork'].value == 'Others') {
+      this.personal.controls['othersnwork'].patchValue(this.personal.controls['othersnwork'].value);
+
+      this.personal.controls['othersnwork'].setValidators([Validators.required]);
+    } else {
+      this.personal.controls['othersnwork'].patchValue('');
+
+      this.personal.controls['othersnwork'].setValidators(null);
+
+    }
+    this.personal.controls['othersnwork'].updateValueAndValidity();
+
+  }
+
+
+
   addEvent(event) {
     if (event.value != null) {
       let selectedDate = '';
@@ -1177,6 +1213,38 @@ export class AegonTermLifeComponent implements OnInit {
   }
   public getoccupationlistFailure(error) {
   }
+
+
+  getSpecialDuties() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'occupation': this.personal.controls['employeeType'].value,
+    }
+    this.TermLifeService.getspecialduties(data).subscribe(
+        (successData) => {
+          this.getspeciallistSuccess(successData);
+        },
+        (error) => {
+          this.getspeciallistFailure(error);
+        }
+    );
+      console.log(data,'datapin')
+  }
+
+
+  public getspeciallistSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.specialDuties = successData.ResponseObject;
+      console.log(this.specialDuties,'jhgjgjhgjhg')
+      // sessionStorage.occupationList = JSON.stringify(this.occupationList);
+
+    }
+  }
+  public getspeciallistFailure(error) {
+  }
   getcitylistC() {
     const data = {
       'platform': 'web',
@@ -1400,8 +1468,10 @@ export class AegonTermLifeComponent implements OnInit {
         "annualIncome": this.personal.controls['annualIncome'].value,
         "smoker": this.personal.controls['smoker'].value == 'y'? 'YES' : 'NO',
         "diabeteDuration": this.personal.controls['diabeteDuration'].value == null || this.personal.controls['diabeteDuration'].value == '' ? '0' : this.personal.controls['diabeteDuration'].value,
-        "isHousewife": this.personal.controls['isHousewife'].value ? '0' : '1',
-        "isHusbandCover": this.personal.controls['isHusbandCover'].value ? '0' : '1',
+        "isHousewife": "1",
+        // "isHousewife": this.personal.controls['isHousewife'].value ? '0' : '1',
+        "isHusbandCover": "1",
+        // "isHusbandCover": this.personal.controls['isHusbandCover'].value ? '0' : '1',
         'age':sessionStorage.proposerAge,
         'emp_type' :this.personal.controls['employeeType'].value ? this.personal.controls['employeeType'].value : '',
         'education' : this.personal.controls['qualifiction'].value ? this.personal.controls['qualifiction'].value : '',
@@ -1606,7 +1676,7 @@ export class AegonTermLifeComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'gender': this.personal.controls['title'].value == 'MR' ? 'M' : 'F',
+      'gender': this.personal.controls['title'].value == 'Mr' ? 'M' : 'F',
     }
     if (this.personal.controls['title'].value !='') {
       this.TermLifeService.getMaritalList(data).subscribe(
@@ -1638,7 +1708,7 @@ export class AegonTermLifeComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'gender': this.personal.controls['title'].value  == 'MR' ? 'M' : 'F',
+      'gender': this.personal.controls['title'].value  == 'Mr' ? 'M' : 'F',
     }
     if (this.personal.controls['title'].value !='') {
       this.TermLifeService.getEmpTypeList(data).subscribe(
@@ -1804,18 +1874,23 @@ export class AegonTermLifeComponent implements OnInit {
         fatherName: stepper1.fatherName,
         maritalStatus: stepper1.maritalStatus,
         qualifiction: stepper1.qualifiction,
-        qualifictionOther: stepper1.qualifictionOther,
+        // qualifictionOther: stepper1.qualifictionOther,
+        detailsOfProf: stepper1.detailsOfProf,
         employeeType: stepper1.employeeType,
         natureOfWork: stepper1.natureOfWork,
-        natureOfWorkOthers: stepper1.natureOfWorkOthers,
+        specialDuties: stepper1.specialDuties,
+        othersspecial: stepper1.othersspecial,
+        othersnwork: stepper1.othersnwork,
+        // natureOfWorkOthers: stepper1.natureOfWorkOthers,
         annualIncome: stepper1.annualIncome,
         incomeError: stepper1.incomeError,
         smoker: stepper1.smoker,
-        isExistingPolicyHolder: stepper1.isExistingPolicyHolder,
+        // isExistingPolicyHolder: stepper1.isExistingPolicyHolder,
         isPoliticleExposed: stepper1.isPoliticleExposed,
+        PoliticleExposedDetail: stepper1.PoliticleExposedDetail,
         diabeteDuration: stepper1.diabeteDuration,
-        isHousewife: stepper1.isHousewife,
-        isHusbandCover: stepper1.isHusbandCover,
+        // isHousewife: stepper1.isHousewife,
+        // isHusbandCover: stepper1.isHusbandCover,
         pAddress1: stepper1.pAddress1,
         pAddress2: stepper1.pAddress2,
         pPincode: stepper1.pPincode,
@@ -1915,16 +1990,19 @@ export class AegonTermLifeComponent implements OnInit {
             "fathername": this.personal.controls['fatherName'].value,
             "maritalStatus":this.personal.controls['maritalStatus'].value,
             "qualifiction": this.personal.controls['qualifiction'].value,
-            "qualifictionOther": this.personal.controls['qualifictionOther'].value,
+            "qualifictionOther": '',
             "employeeType": this.personal.controls['employeeType'].value,
             "natureOfWork": this.personal.controls['natureOfWork'].value,
             "annualIncome": this.personal.controls['annualIncome'].value,
             "smoker": this.personal.controls['smoker'].value == 'y'? 'YES' : 'NO',
-            "isExistingPolicyHolder": this.personal.controls['isExistingPolicyHolder'].value,
+            "isExistingPolicyHolder": "",
+            // "isExistingPolicyHolder": this.personal.controls['isExistingPolicyHolder'].value,
             "isPoliticleExposed": this.personal.controls['isPoliticleExposed'].value,
             "diabeteDuration": this.personal.controls['diabeteDuration'].value == null || this.personal.controls['diabeteDuration'].value == '' ? '0' : this.personal.controls['diabeteDuration'].value,
-            "isHousewife": this.personal.controls['isHousewife'].value ? '0' : '1',
-            "isHusbandCover": this.personal.controls['isHusbandCover'].value ? '0' : '1',
+            "isHousewife": "1",
+            // "isHousewife": this.personal.controls['isHousewife'].value ? '0' : '1',
+            "isHusbandCover": "1",
+            // "isHusbandCover": this.personal.controls['isHusbandCover'].value ? '0' : '1',
             'age':sessionStorage.proposerAge,
             'emp_type' :this.personal.controls['employeeType'].value ? this.personal.controls['employeeType'].value : '',
             'education' : this.personal.controls['qualifiction'].value ? this.personal.controls['qualifiction'].value : '',

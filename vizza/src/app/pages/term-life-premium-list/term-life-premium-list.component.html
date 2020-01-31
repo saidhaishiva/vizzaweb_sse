@@ -107,7 +107,7 @@
   <td class="col-md-1 text-center" >
 
 <!--  <div class="col-md-4"  >-->
-    <mat-form-field class="w-50">
+    <mat-form-field class="w-50" style="display: inline; !important;">
       <!--style="margin-left: 40px;margin-right: -28px;"-->
       <mat-select  placeholder="Term List"  [(ngModel)]="plists.termDetrails" (selectionChange)="lifeTermChange(plists, i)" [value]="plists.termDetrails">
         <mat-option *ngFor="let termList of plists.term;let i = index " [value]= "termList"> {{termList}} </mat-option>
@@ -133,14 +133,14 @@
               <td class="col-md-1 text-center">
 <!--                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>-->
 <!--                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>-->
-                <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
+                <p class="linkClor change-p" style="cursor: pointer; margin-top: 1.5rem !important;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
               </td>
               <td class="col-md-2">
                   <p class="text-center change-p mt-2" ><strong>&#8377; {{plists.totalpremium}} / {{plists.payment_mode | titlecase}}</strong></p>
                 <p class="text-center change-p">(Including GST)</p>
               </td>
               <td class="col-md-1">
-                <p class="mt-4"><button mat-raised-button color="accent" (click)="buyProduct(plists)">Buy</button></p>
+                <p class="mt-4"><button mat-raised-button color="accent" (click)="buyProduct(plists)" [disabled]="(plists.company_id == '14') && (plists.sub_product_id == this.sub_product_id) && tostebutton == true">Buy</button></p>
               </td>
             </tr>
             </tbody>

@@ -100,45 +100,76 @@
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (selectionChange)="changeQualificationList();getAnnual('qul'); getPremium('qul')" required>
+                          <mat-select placeholder="Education Qualification" formControlName="qualifiction"  (selectionChange)="changeQualificationList();detailsofProf();getAnnual('qul'); getPremium('qul')" required>
                             <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="personal.controls.qualifiction.errors?.required">Qualifiction is required</mat-error>
+                          <mat-error *ngIf="personal.controls.qualifiction.errors?.required"> Education Qualifiction is required</mat-error>
                         </mat-form-field>
                           <div class="error" *ngIf="qulMsg != ''">{{qulMsg}}</div>
 
                         </div>
-                        <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Others'">
+                        <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Professional Degree'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Qualifiction Other" formControlName="qualifictionOther" (keypress)="nameValidate($event)" maxlength="25"  autocomplete="off"  [required]="qualificationList" >
-                            <mat-error *ngIf="personal.controls.qualifictionOther.errors?.required">Qualifiction Other is required</mat-error>
+                            <mat-placeholder>Details of Professional Degree field<span class="error" >*</span></mat-placeholder>
+                            <input matInput formControlName="detailsOfProf" (keypress)="nameValidate($event)"  autocomplete="off"  (change)="detailsofProf()">
+<!--                            <mat-error *ngIf="personal.controls.detailsOfProf.errors?.required">Details of Professional Degree field is required</mat-error>-->
                           </mat-form-field>
                         </div>
+
+<!--                        <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Others'">-->
+<!--                          <mat-form-field class="w-100">-->
+<!--                            <mat-placeholder>Education Qualifiction Other<span class="error" >*</span></mat-placeholder>-->
+<!--                            <input matInput formControlName="qualifictionOther" (keypress)="nameValidate($event)" maxlength="25"  autocomplete="off" (change)="qualification()" [required]="qualificationList" >-->
+<!--&lt;!&ndash;                            <mat-error *ngIf="personal.controls.qualifictionOther.errors?.required">Qualifiction Other is required</mat-error>&ndash;&gt;-->
+<!--                          </mat-form-field>-->
+<!--                        </div>-->
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Employee Type" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType()">
+                            <mat-select placeholder="Occupation and Employee Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties()">
                               <mat-option *ngFor="let list of empTypeList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="personal.controls.employeeType.errors?.required">Employee Type is required</mat-error>
+                            <mat-error *ngIf="personal.controls.employeeType.errors?.required">Occupation and Employee Details is required</mat-error>
                           </mat-form-field>
                         </div>
+
+
+
+                        <div class="col-md-3 " *ngIf=" personal.controls.employeeType.value == 'Armed Forces'">
+                          <mat-form-field class="w-100" >
+                            <mat-placeholder>Special Duties<span class="error" >*</span></mat-placeholder>
+                            <mat-select  formControlName="specialDuties">
+                              <mat-option *ngFor="let list of specialDuties | keys" value="{{list.value}}" > {{list.value}} </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf=" personal.controls.employeeType.value == 'Armed Forces'&& personal.controls.specialDuties.value == 'Others' ">
+                          <mat-form-field class="w-100">
+                            <mat-placeholder>Others Special Duties<span class="error" >*</span></mat-placeholder>
+
+                            <input matInput  formControlName="othersspecial" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                            <!--<mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relationship with Other Other is required</mat-error>-->
+                          </mat-form-field>
+                        </div>
+
+
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Nature Of Work" formControlName="natureOfWork" autocomplete="off" required (selectionChange)="changeOccupationlist()" >
+                            <mat-select placeholder="Nature Of Duties" formControlName="natureOfWork" autocomplete="off" required (selectionChange)="changeOccupationlist()" >
                               <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="personal.controls.natureOfWork.errors?.required">Nature of work is required</mat-error>
+                            <mat-error *ngIf="personal.controls.natureOfWork.errors?.required">Nature of Duties is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3" *ngIf=" personal.controls.natureOfWork.value == 'Others'">
+                        <div class="col-md-3" *ngIf=" personal.controls.employeeType.value == 'Armed Forces'&& personal.controls.natureOfWork.value == 'Others' ">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Nature of work Others" formControlName="natureOfWorkOthers" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                            <mat-placeholder>Enter the Details<span class="error" >*</span></mat-placeholder>
+                            <input matInput formControlName="othersnwork" (keypress)="nameValidate($event)"  autocomplete="off">
                             <!--<mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relationship with Other Other is required</mat-error>-->
                           </mat-form-field>
                         </div>
@@ -156,41 +187,48 @@
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="smoker" required (selectionChange)="getPremium('smoker')">
+                          <mat-radio-group formControlName="smoker" required (change)="getPremium('smoker')">
                             <p>Smoker <span class="error" >*</span></p>
                             <mat-radio-button value="y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="n">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
-                        <div class="col-md-3">
-                          <mat-radio-group formControlName="isExistingPolicyHolder" required>
-                            <p>Is Existing Policy Holder <span class="error" >*</span></p>
+<!--                        <div class="col-md-3">-->
+<!--                          <mat-radio-group formControlName="isExistingPolicyHolder" required>-->
+<!--                            <p>Is Existing Policy Holder <span class="error" >*</span></p>-->
+<!--                            <mat-radio-button value="YES" class="mr-2">Yes</mat-radio-button>-->
+<!--                            <mat-radio-button value="NO">No</mat-radio-button>-->
+<!--                          </mat-radio-group>-->
+<!--                        </div>-->
+                        <div class="col-md-4">
+                          <mat-radio-group formControlName="isPoliticleExposed" required>
+                            <p>Are you a Politically Exposed Person <span class="error" >*</span></p>
                             <mat-radio-button value="YES" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="NO">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
-                        <div class="col-md-3">
-                          <mat-radio-group formControlName="isPoliticleExposed" required>
-                            <p>Politically Exposed Person <span class="error" >*</span></p>
-                            <mat-radio-button value="YES" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="NO">No</mat-radio-button>
-                          </mat-radio-group>
+                        <div class="col-md-3" *ngIf=" personal.controls.isPoliticleExposed.value == 'YES'">
+                          <mat-form-field class="w-100">
+                            <mat-placeholder>Politically Exposed Person details<span class="error" >*</span></mat-placeholder>
+                            <input matInput formControlName="PoliticleExposedDetail" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                            <!--<mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relationship with Other Other is required</mat-error>-->
+                          </mat-form-field>
                         </div>
 
-                        <div class="col-md-3">
-                          <mat-radio-group formControlName="isHousewife" required (selectionChange)="getPremium('wife')">
-                            <p>Is Housewife <span class="error" >*</span></p>
-                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="No">No</mat-radio-button>
-                          </mat-radio-group>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-radio-group formControlName="isHusbandCover" required (selectionChange)="getPremium('hus')">
-                            <p>Is Husband Cover <span class="error" >*</span></p>
-                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="No">No</mat-radio-button>
-                          </mat-radio-group>
-                        </div>
+<!--                        <div class="col-md-3">-->
+<!--                          <mat-radio-group formControlName="isHousewife" required (change)="getPremium('wife')">-->
+<!--                            <p>Is Housewife <span class="error" >*</span></p>-->
+<!--                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>-->
+<!--                            <mat-radio-button value="No">No</mat-radio-button>-->
+<!--                          </mat-radio-group>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-3">-->
+<!--                          <mat-radio-group formControlName="isHusbandCover" required (change)="getPremium('hus')">-->
+<!--                            <p>Is Husband Cover <span class="error" >*</span></p>-->
+<!--                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>-->
+<!--                            <mat-radio-button value="No">No</mat-radio-button>-->
+<!--                          </mat-radio-group>-->
+<!--                        </div>-->
                       </div>
                     </div>
                     <div class="row" fxLayoutAlign="center center">
@@ -471,12 +509,12 @@
                               </div>
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relationship with insured" formControlName="nRelation" autocomplete="off" required (selectionChange)="otherNominee()">
+                                  <mat-select placeholder="Nominee Relationship" formControlName="nRelation" autocomplete="off" required (selectionChange)="otherNominee()">
                                     <mat-option *ngFor="let list of nomineeRelationship | keys" [value]= 'list.value'>
                                       {{list.value}}
                                     </mat-option>
                                   </mat-select>
-                                 <mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relationship with insured is required</mat-error>
+                                 <mat-error *ngIf="nominee.controls.nRelation.errors?.required">Nominee Relationship is required</mat-error>
                                 </mat-form-field>
                               </div>
                               <!--<div class="col-md-3" *ngIf=" nominee.controls.nRelation.value == 'Others'">-->
@@ -651,10 +689,12 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Qualification:</strong> {{proposerFormData.qualifiction}}</li>
-                        <li class="list-group-item"><strong>Employee Type:</strong> {{proposerFormData.employeeType}}</li>
-                        <li class="list-group-item"><strong>Nature Of Work:</strong>{{proposerFormData.natureOfWork}} </li>
-                        <li class="list-group-item" *ngIf="proposerFormData.natureOfWorkOthers!= ''"><strong>Nature Of Work Others:</strong>{{proposerFormData.natureOfWorkOthers}} </li>
+                        <li class="list-group-item"><strong>Education Qualification:</strong> {{proposerFormData.qualifiction}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.detailsOfProf!= ''"><strong>Education Qualification:</strong> {{proposerFormData.detailsOfProf}}</li>
+                        <li class="list-group-item"><strong>Occupation and Employee Details:</strong> {{proposerFormData.employeeType}}</li>
+                        <li class="list-group-item"><strong>Nature Of Duties:</strong>{{proposerFormData.natureOfWork}} </li>
+<!--                        <li class="list-group-item" *ngIf="proposerFormData.natureOfWorkOthers!= ''"><strong>Nature Of Duties Others:</strong>{{proposerFormData.natureOfWorkOthers}} </li>-->
+                        <li class="list-group-item" *ngIf="personal.controls.employeeType.value == 'Armed Forces'&& personal.controls.natureOfWork.value == 'Others'"><strong></strong>{{proposerFormData.othersnwork}} </li>
                         <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}} </li>
                         <li class="list-group-item"><strong>Smoker:</strong> <span *ngIf="proposerFormData.smoker == 'y'">Yes</span> <span *ngIf="proposerFormData.smoker == 'n'">No</span></li>
                         </ul>
@@ -663,8 +703,9 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Is Existing Policy Holder:</strong> <span *ngIf="proposerFormData.isExistingPolicyHolder == 'YES'">Yes</span> <span *ngIf="proposerFormData.isExistingPolicyHolder == 'NO'">No</span></li>
+<!--                        <li class="list-group-item"><strong>Is Existing Policy Holder:</strong> <span *ngIf="proposerFormData.isExistingPolicyHolder == 'YES'">Yes</span> <span *ngIf="proposerFormData.isExistingPolicyHolder == 'NO'">No</span></li>-->
                         <li class="list-group-item"><strong>Politically Exposed Person:</strong> <span *ngIf="proposerFormData.isPoliticleExposed == 'YES'">Yes</span> <span *ngIf="proposerFormData.isPoliticleExposed == 'NO'">No</span></li>
+                        <li class="list-group-item" *ngIf="proposerFormData.isPoliticleExposed == 'YES'"><strong>Politically Exposed Person details:</strong>{{proposerFormData.PoliticleExposedDetail}} </li>
                         <li class="list-group-item" *ngIf="proposerFormData.diabeteDuration!=''"><strong>Diabete Duration:</strong> {{proposerFormData.diabeteDuration}}</li>
                       </ul>
                     </div>
@@ -726,8 +767,8 @@
                           <ul class="m-0 list-group">
                             <li class="list-group-item"><strong>Title:</strong> {{nomineeFormData.ntitle}}.{{nomineeFormData.nfirstName}} {{nomineeFormData.nlastName}}</li>
                             <li class="list-group-item"><strong>DOB:</strong> {{nomineeFormData.ndob  | date: 'dd/MM/yyyy'}}</li>
-                            <li class="list-group-item"><strong>Relationship with Insured :</strong> {{nomineeFormData.nRelation}}</li>
-                            <li class="list-group-item" *ngIf="nomineeFormData.relationOther!=''"><strong >Relationship with Insured Other:</strong>{{nomineeFormData.relationOther}}</li>
+                            <li class="list-group-item"><strong>Nominee Relationship :</strong> {{nomineeFormData.nRelation}}</li>
+                            <li class="list-group-item" *ngIf="nomineeFormData.relationOther!=''"><strong >Nominee Relationship Other:</strong>{{nomineeFormData.relationOther}}</li>
                             <li class="list-group-item"><strong>Address 1:</strong> {{nomineeFormData.nAddress1}}</li>
 
                           </ul>
