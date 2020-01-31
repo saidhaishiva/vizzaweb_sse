@@ -1868,76 +1868,16 @@ export class EdelweissTermLifeComponent implements OnInit {
     sessionStorage.medicalQuesDetails = '';
     sessionStorage.medicalQuesDetails = JSON.stringify(value);
     console.log(this.medicalDetail, 'medicalDetail');
-    console.log(this.medicalDetail.valid, 'this.valid');
     console.log(this.errortravelOutside,'errortravelOutside');
-    if ((this.medicalDetail.valid) && (this.eHistoryFamily==false)&& ((this.errortravelOutside == false||this.errortravelOutside=='') && (this.serrortravelOutside == false ||this.serrortravelOutside=='')&& (this.piloterror ==false||this.piloterror=='') && (this.spiloterror ==false||this.spiloterror=='') && (this.activityerror ==false ||this.activityerror=='')&& (this.sactivityerror ==false||this.sactivityerror=='') && (this.drugsInderror == false||this.drugsInderror=='') &&(this.sdrugsInderror == false||this.sdrugsInderror=='') && (this.alcoholInderror == false||this.alcoholInderror=='') && (this.salcoholInderror == false||this.salcoholInderror=='') && (this.tobaccoInderror == false||this.tobaccoInderror=='')  &&(this.stobaccoInderror == false||this.stobaccoInderror=='')  && (this.consultDoctorInderror == false||this.consultDoctorInderror=='') && (this.sconsultDoctorInderror == false||this.sconsultDoctorInderror=='') && (this.ECGInderror == false ||this.ECGInderror=='')&& (this.sECGInderror == false||this.sECGInderror=='')
+    if ((this.medicalDetail.valid) && ((this.errortravelOutside == false||this.errortravelOutside=='') && (this.serrortravelOutside == false ||this.serrortravelOutside=='')&& (this.piloterror ==false||this.piloterror=='') && (this.spiloterror ==false||this.spiloterror=='') && (this.activityerror ==false ||this.activityerror=='')&& (this.sactivityerror ==false||this.sactivityerror=='') && (this.drugsInderror == false||this.drugsInderror=='') &&(this.sdrugsInderror == false||this.sdrugsInderror=='') && (this.alcoholInderror == false||this.alcoholInderror=='') && (this.salcoholInderror == false||this.salcoholInderror=='') && (this.tobaccoInderror == false||this.tobaccoInderror=='')  &&(this.stobaccoInderror == false||this.stobaccoInderror=='')  && (this.consultDoctorInderror == false||this.consultDoctorInderror=='') && (this.sconsultDoctorInderror == false||this.sconsultDoctorInderror=='') && (this.ECGInderror == false ||this.ECGInderror=='')&& (this.sECGInderror == false||this.sECGInderror=='')
       && (this.admitInderror == false||this.admitInderror=='') && (this.admitInderror == false||this.admitInderror=='') && (this.medicalTreatmenterror == false||this.smedicalTreatmenterror=='') && (this.smedicalTreatmenterror == false||this.smedicalTreatmenterror=='') && (this.heartDieaseInderror == false ||this.heartDieaseInderror=='')&&(this.sheartDieaseInderror == false||this.sheartDieaseInderror=='') && (this.respiratoryDieaseInderror == false||this.respiratoryDieaseInderror=='')&&(this.srespiratoryDieaseInderror == false||this.srespiratoryDieaseInderror=='') && (this.diabetesInderror == false||this.diabetesInderror=='')&&(this.sdiabetesInderror == false||this.sdiabetesInderror=='')&& (this.kidneyDieaseInderror == false||this.kidneyDieaseInderror=='')&& (this.skidneyDieaseInderror == false||this.skidneyDieaseInderror=='')
       && (this.digestiveDieaseInderror == false||this.digestiveDieaseInderror=='') && (this.sdigestiveDieaseInderror == false||this.sdigestiveDieaseInderror=='') && (this.cancerDieaseInderror == false||this.cancerDieaseInderror=='')&&(this.scancerDieaseInderror == false||this.scancerDieaseInderror=='')&& (this.tropicalDieaseInderror == false||this.tropicalDieaseInderror=='')&&(this.stropicalDieaseInderror == false||this.stropicalDieaseInderror=='')&& (this.thyroidDieaseInderror == false||this.thyroidDieaseInderror=='')&&(this.sthyroidDieaseInderror == false||this.sthyroidDieaseInderror=='')&& (this.bloodDieaseInderror == false||this.bloodDieaseInderror=='')&&(this.sbloodDieaseInderror == false||this.sbloodDieaseInderror=='')&& (this.nervousDieaseInderror == false||this.nervousDieaseInderror=='') &&(this.snervousDieaseInderror == false||this.snervousDieaseInderror=='') && (this.femaleDieaseInderror == false||this.femaleDieaseInderror=='')&& (this.sfemaleDieaseInderror == false||this.sfemaleDieaseInderror=='')
       && (this.muscleDieaseInderror == false||this.muscleDieaseInderror=='')&&(this.smuscleDieaseInderror == false||this.smuscleDieaseInderror=='')&& (this.receivedTreatment2error == false||this.receivedTreatment2error=='')&&(this.sreceivedTreatment2error == false||this.sreceivedTreatment2error=='')&& (this.alcoholicInderror == false||this.alcoholicInderror=='')&& (this.salcoholicInderror == false||this.salcoholicInderror=='')&& (this.otherIllnessInderror == false||this.otherIllnessInderror=='')&&(this.sotherIllnessInderror == false||this.sotherIllnessInderror=='')&& (this.deformityInderror == false||this.deformityInderror=='')&&(this.sdeformityInderror == false||this.sdeformityInderror=='')&& (this.receivedTreatment1error == false||this.receivedTreatment1error=='')&&(this.sreceivedTreatment1error == false||this.sreceivedTreatment1error=='')&& (this.symptomsInderror == false||this.symptomsInderror=='')&&(this.ssymptomsInderror == false||this.ssymptomsInderror=='') && (this.pregnantInderror == false||this.pregnantInderror=='') && (this.spregnantInderror == false||this.spregnantInderror==''))) {
-      //   &&
-      //
-      // console.log(this.errortravelOutside,'errortravelOutside');
-
-      //  if(this.customerDetails.controls['maritalStatus'].value == 'M'){
-      //    if(this.medicalDetail['controls'].medicalFamilyQuestions['controls'][0]['controls'].relation.value==(('1')||('2')||('3'))){
-      //    if(this.medicalDetail['controls'].medicalFamilyQuestions['controls'][1]['controls'].relation.value==(('1')||('2')||('3'))) {
-      //      if (this.medicalDetail['controls'].medicalFamilyQuestions['controls'][2]['controls'].relation.value == (('1') || ('2') || ('3'))) {
-      //
-             stepper.next();
-             this.topScroll();
-      //      }else{
-      //        alert('1')
-      //        this.toastr.error('Kindly enter details about your Family below - Parents and Spouse (if Married) details are mandatory');
-      //      }
-      //    }else{
-      //      alert('2')
-      //      this.toastr.error('Kindly enter details about your Family below - Parents and Spouse (if Married) details are mandatory');
-      //    }
-      //
-      //    }else{
-      //      alert('3')
-      //      this.toastr.error('Kindly enter details about your Family below - Parents and Spouse (if Married) details are mandatory');
-      //    }
-      //  }else if(this.customerDetails.controls['maritalStatus'].value == 'S'){
-      //    if(this.medicalDetail['controls'].medicalFamilyQuestions['controls'][0]['controls'].relation.value==(('1')||('2'))){
-      //      stepper.next();
-      //      this.topScroll();
-      //    }else{
-      //      alert('4')
-      //      this.toastr.error('Kindly enter details about your Family below - Parents  (if Single) details are mandatory');
-      //    }
-      //  }
-      //
-      // if(this.customerDetails.controls['maritalStatus'].value == 'M' && this.addon.controls['betterHalfBenefit'].value == 'Yes'){
-      //   if(this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][0]['controls'].srelation.value==(('1')||('2')||('3'))){
-      //     if(this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][1]['controls'].srelation.value==(('1')||('2')||('3'))) {
-      //       if (this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][2]['controls'].srelation.value == (('1') || ('2') || ('3'))) {
-      //
-      //         stepper.next();
-      //         this.topScroll();
-      //       }else{
-      //         alert('11')
-      //         this.toastr.error('Kindly enter details about your Family below - Parents and Spouse (if Married) details are mandatory');
-      //       }
-      //     }else{
-      //       alert('12')
-      //       this.toastr.error('Kindly enter details about your Family below - Parents and Spouse (if Married) details are mandatory');
-      //     }
-      //
-      //   }else{
-      //     alert('13')
-      //     this.toastr.error('Kindly enter details about your Family below - Parents and Spouse (if Married) details are mandatory');
-      //   }
-      // }else if(this.customerDetails.controls['maritalStatus'].value == 'S'){
-      //   if(this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][0]['controls'].srelation.value==(('1')||('2'))){
-      //     stepper.next();
-      //     this.topScroll();
-      //   }else{
-      //     alert('14')
-      //     this.toastr.error('Kindly enter details about your Family below - Parents  (if Single) details are mandatory');
-      //   }
-      // }
-
+      console.log(this.medicalDetail.valid, 'this.valid');
+     // if(this.eHistoryFamily==false){
+       stepper.next();
+       this.topScroll();
+     // }
     }else{
       this.toastr.error('Please fill the Mandatory Field ');
     }
@@ -5224,6 +5164,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "weightChangeReason":this.insureArray.controls['weightChangedreason'].value,
         "isStaff":'N',
         "employeeCode":'',
+        "familyHistory":this.medicalDetail.value.medicalFamilyQuestions,
         "isHospitalized":this.medicalDetail.controls['isHospitalized'].value  == 'Yes' ? 'Y' : 'N',
         "hospitalizedDate":this.medicalDetail.controls['hospitalizedDate'].value,
         "isRecovered":this.medicalDetail.controls['isRecovered'].value  == 'Yes' ? 'Y' : 'N',
@@ -5393,7 +5334,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "annualIncome":this.insureArray.controls['annualIncome'].value,
         "isIncomeSource":"",
         "incomeSourceDetails":"",
-        "familyHistory":this.medicalDetail.value.medicalFamilyQuestions,
+        "familyHistory":this.medicalDetail.value.smedicalFamilyQuestions,
         "isHospitalized":this.medicalDetail.controls['isHospitalized1'].value  == 'Yes' ? 'Y' : 'N',
         "hospitalizedDate":this.medicalDetail.controls['hospitalizedDate1'].value,
         "isRecovered":this.medicalDetail.controls['isRecovered1'].value  == 'Yes' ? 'Y' : 'N',
@@ -5669,6 +5610,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       "policy_id": this.getEnquiryDetials.policy_id,
       "maritalStatus": this.customerDetails.controls['maritalStatus'].value,
       "familyHistory":this.medicalDetail.value.medicalFamilyQuestions,
+      "betterHalfBenefit":this.addon.controls['betterHalfBenefit'].value,
+      "familySpouseHistory":this.medicalDetail.value.smedicalFamilyQuestions,
 
     }
     this.termService.geteFamilyHistory(data).subscribe(
@@ -5682,15 +5625,14 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   public geteFamilyHistorySuccess(successData) {
-    if (successData.IsSuccess) {
+    if (successData.IsSuccess==true) {
+      this.eHistoryFamily=false;
       // this.eHistoryFamily = successData.ResponseObject;
     }else {
-      this.toastr.error(successData.ErrorObject);
       this.eHistoryFamily=true;
+      this.toastr.error(successData.ErrorObject);
     }
-
   }
-
   public geteFamilyHistoryFailure(error) {
   }
 
