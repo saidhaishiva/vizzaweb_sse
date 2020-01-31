@@ -471,12 +471,12 @@
                               </div>
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relationship with insured" formControlName="nRelation" autocomplete="off" required (selectionChange)="otherNominee()">
+                                  <mat-select placeholder="Nominee Relationship" formControlName="nRelation" autocomplete="off" required (selectionChange)="otherNominee()">
                                     <mat-option *ngFor="let list of nomineeRelationship | keys" [value]= 'list.value'>
                                       {{list.value}}
                                     </mat-option>
                                   </mat-select>
-                                 <mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relationship with insured is required</mat-error>
+                                 <mat-error *ngIf="nominee.controls.nRelation.errors?.required">Nominee Relationship is required</mat-error>
                                 </mat-form-field>
                               </div>
                               <!--<div class="col-md-3" *ngIf=" nominee.controls.nRelation.value == 'Others'">-->
@@ -726,8 +726,8 @@
                           <ul class="m-0 list-group">
                             <li class="list-group-item"><strong>Title:</strong> {{nomineeFormData.ntitle}}.{{nomineeFormData.nfirstName}} {{nomineeFormData.nlastName}}</li>
                             <li class="list-group-item"><strong>DOB:</strong> {{nomineeFormData.ndob  | date: 'dd/MM/yyyy'}}</li>
-                            <li class="list-group-item"><strong>Relationship with Insured :</strong> {{nomineeFormData.nRelation}}</li>
-                            <li class="list-group-item" *ngIf="nomineeFormData.relationOther!=''"><strong >Relationship with Insured Other:</strong>{{nomineeFormData.relationOther}}</li>
+                            <li class="list-group-item"><strong>Nominee Relationship :</strong> {{nomineeFormData.nRelation}}</li>
+                            <li class="list-group-item" *ngIf="nomineeFormData.relationOther!=''"><strong >Nominee Relationship Other:</strong>{{nomineeFormData.relationOther}}</li>
                             <li class="list-group-item"><strong>Address 1:</strong> {{nomineeFormData.nAddress1}}</li>
 
                           </ul>
