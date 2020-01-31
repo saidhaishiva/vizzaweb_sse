@@ -130,7 +130,7 @@
                                     </div>
 
                                     <div class="col-md-4" *ngIf="customerDetails.controls['maritalStatus'].value == 'M'">
-                                        <mat-radio-group formControlName="betterHalfBenefit" (change)="changeMaritalInsuReq();edelweissPrimium()" >
+                                        <mat-radio-group formControlName="betterHalfBenefit" (change)="isbetterHalfBenefit();edelweissPrimium()" >
                                             <p>Better Half Benefit</p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -421,7 +421,7 @@
                                 <!--</div>-->
                                 <div class="proposal-buttom mt-3 text-right w-100">
                                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                    <button mat-raised-button color="primaryBlue"  (click)="smokerChangeSpouse();edelweissPrimium();edelweissAddonDetail(stepper, addon.value)">Next</button>
+                                    <button mat-raised-button color="primaryBlue"  (click)="isbetterHalfBenefit();smokerChangeSpouse();edelweissPrimium();edelweissAddonDetail(stepper, addon.value)">Next</button>
                                 </div>
                             </mat-expansion-panel>
                         </form>
@@ -958,10 +958,18 @@
                                                         <input matInput   formControlName="policyNo" minlength="3" maxlength="10"   autocomplete="off">
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3" *ngIf="insureArray.controls['existingInsuranceInd'].value == 'Yes'">
+                                                <!--<div class="col-md-3" *ngIf="insureArray.controls['existingInsuranceInd'].value == 'Yes'">-->
+                                                    <!--<mat-form-field class="w-100">-->
+                                                        <!--<mat-placeholder>Company Name<span class="error" *ngIf="insureArray.controls['existingInsuranceInd'].value == 'Yes'">*</span></mat-placeholder>-->
+                                                        <!--<input matInput   formControlName="companyName"  maxlength="15"  autocomplete="off">-->
+                                                    <!--</mat-form-field>-->
+                                                <!--</div>-->
+                                                <div class="col-md-3" *ngIf="insureArray.controls['existingInsuranceInd'].value == 'Yes'" >
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>Company Name<span class="error" *ngIf="insureArray.controls['existingInsuranceInd'].value == 'Yes'">*</span></mat-placeholder>
-                                                        <input matInput   formControlName="companyName"  maxlength="15"  autocomplete="off">
+                                                        <mat-select formControlName="companyName" autocomplete="off"  (selectionChange)="geteCompany()">
+                                                            <mat-option *ngFor="let list of eCompanyList | keys" [value]= 'list.value'>{{list.value}}</mat-option>
+                                                        </mat-select>
                                                     </mat-form-field>
                                                 </div>
 
@@ -1389,10 +1397,12 @@
                                                         <input matInput   formControlName="spolicyNo" minlength="3" maxlength="10"   autocomplete="off">
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3" *ngIf="insureArray.controls['sexistingInsuranceInd'].value == 'Yes'">
+                                                <div class="col-md-3" *ngIf="insureArray.controls['sexistingInsuranceInd'].value == 'Yes'" >
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>Company Name<span class="error" *ngIf="insureArray.controls['sexistingInsuranceInd'].value == 'Yes'">*</span></mat-placeholder>
-                                                        <input matInput   formControlName="scompanyName"  maxlength="15"  autocomplete="off">
+                                                        <mat-select formControlName="scompanyName" autocomplete="off"  (selectionChange)="geteCompany()">
+                                                            <mat-option *ngFor="let list of eCompanyList | keys" [value]= 'list.value'>{{list.value}}</mat-option>
+                                                        </mat-select>
                                                     </mat-form-field>
                                                 </div>
 
@@ -1419,9 +1429,7 @@
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>Policy Status<span class="error" *ngIf="insureArray.controls['sexistingInsuranceInd'].value == 'Yes'">*</span></mat-placeholder>
                                                         <mat-select formControlName="spolicyStatus" autocomplete="off"  (selectionChange)="getepolicyStatus()">
-                                                            <mat-option *ngFor="let list of ePolicyStatus | keys" [value]= 'list.value'>
-                                                                {{list.value}}
-                                                            </mat-option>
+                                                            <mat-option *ngFor="let list of ePolicyStatus | keys" [value]= 'list.value'>{{list.value}}</mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
                                                 </div>
@@ -1477,16 +1485,16 @@
 
                                         </mat-radio-group>
                                         <div class="error" *ngIf="errortravelOutside != ''&& errortravelOutside != true ">{{errortravelOutside}}</div>
-
-                                        <mat-radio-group formControlName="travelOutsideIndia1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                       <div class="col-md-12 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
+                                           <mat-radio-group formControlName="travelOutsideIndia1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <p style="color: mediumblue;">Spouse</p>
                                             <!--<p >Do you plan to live or travel outside india for more than 30 days?<span class="error" >*</span></p>-->
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
+                                           </mat-radio-group>
+                                          <div class="error" *ngIf="serrortravelOutside != ''&& serrortravelOutside != true ">{{serrortravelOutside}}</div>
 
-                                        </mat-radio-group>
-                                        <div class="error" *ngIf="serrortravelOutside != ''&& serrortravelOutside != true ">{{serrortravelOutside}}</div>
-
+                                       </div>
                                     </div>
 
 
@@ -1498,15 +1506,16 @@
                                             <mat-radio-button value="No">No</mat-radio-button>
                                         </mat-radio-group>
                                         <div class="error" *ngIf="piloterror != ''&& piloterror != true ">{{piloterror}}</div>
-                                        <mat-radio-group formControlName="pilot1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                            <p style="color: mediumblue;">Spouse</p>
+
+                                        <div class="col-md-12 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
+                                            <mat-radio-group formControlName="pilot1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                              <p style="color: mediumblue;">Spouse</p>
                                             <!--<p>Have you in the past 5 years flown as a pilot, co-pilot, pilot instructor, student pilot or do you intend to fly?<span class="error" >*</span></p>-->
-                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                            <mat-radio-button value="No">No</mat-radio-button>
-
-                                        </mat-radio-group>
-                                        <div class="error" *ngIf="spiloterror != ''&& spiloterror != true ">{{spiloterror}}</div>
-
+                                              <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                              <mat-radio-button value="No">No</mat-radio-button>
+                                              </mat-radio-group>
+                                           <div class="error" *ngIf="spiloterror != ''&& spiloterror != true ">{{spiloterror}}</div>
+                                        </div>
                                     </div>
                                     <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                         <mat-radio-group formControlName="activity" (change)="isactivity()" (change)="travelOutside1()">
@@ -1731,8 +1740,8 @@
 
                                     </div>
 
-                                    <div class="col-md-12" [ngStyle]="{'pointer-events': this.customerDetails.controls['isSmoker'].value ? 'none' : ''}">
-                                        <mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" (change)="travelOutside1()" >
+                                    <div class="col-md-12" >
+                                        <mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" (change)="travelOutside1()" [ngStyle]="{'pointer-events': this.customerDetails.controls['isSmoker'].value ? 'none' : ''}">
                                             <p>Do you smoke or consume tobacco in any form e.g(paan,tobacco,gutka) or have done so in the past 12 months? <span class="error" >*</span></p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -1773,9 +1782,9 @@
 
 
                                     </div>
-                                    <div class="col-md-12 " [ngStyle]="{'pointer-events': this.addon.controls['isSmokerSpouse'].value ? 'none' : ''}">
+                                    <div class="col-md-12 " >
 
-                                    <mat-radio-group formControlName="tobaccoInd1" (change)="travelOutside1()" (change)="istobaccoInd1()" >
+                                    <mat-radio-group formControlName="tobaccoInd1" (change)="travelOutside1()" (change)="istobaccoInd1()" [ngStyle]="{'pointer-events': this.addon.controls['isSmokerSpouse'].value ? 'none' : ''}">
                                         <p style="color: mediumblue;">Spouse</p>
                                         <!--<p>Do you smoke or consume tobacco in any form e.g(paan,tobacco,gutka) or have done so in the past 12 months? <span class="error" >*</span></p>-->
                                         <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1985,9 +1994,9 @@
                                             <input matInput  formControlName="medicationDetails"  autocomplete="off"   maxlength="45">
                                         </mat-form-field>
                                     </div>
-                                    <div class="col-md-12" >
+                                    <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                    <mat-radio-group formControlName="medicalTreatment1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                    <mat-radio-group formControlName="medicalTreatment1" (change)="travelOutside1()" >
                                         <p style="color: mediumblue;">Spouse</p>
                                         <!--<p>Are you taking any medication at present or following a diet prescribed by a doctor? <span class="error" >*</span></p>-->
                                         <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2020,9 +2029,9 @@
                                                     <input matInput  formControlName="heartDieaseDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="heartDieaseInd1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="heartDieaseInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Any disorder of the heart <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2051,8 +2060,8 @@
                                                     <input matInput  formControlName="respiratoryDieaseDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                              <mat-radio-group formControlName="respiratoryDieaseInd1"  (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                              <mat-radio-group formControlName="respiratoryDieaseInd1"  (change)="travelOutside1()"  >
                                                   <p style="color: mediumblue;">Spouse</p>
                                                   <!--<p>Any other respiratory or lung trouble <span class="error" >*</span> </p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2082,9 +2091,9 @@
                                                     <input matInput  formControlName="diabetesDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="diabetesInd1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="diabetesInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Diabetes or sugar in the urine ? <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2113,9 +2122,9 @@
                                                     <input matInput  formControlName="kidneyDieaseDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="kidneyDieaseInd1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="kidneyDieaseInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Disease or disorder of kidneys, bladder, prostrate or reproductive organs <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2145,9 +2154,9 @@
                                                     <input matInput  formControlName="digestiveDieaseDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="digestiveDieaseInd1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="digestiveDieaseInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Any disorder of the digestive system, gall bladder or liver <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2167,7 +2176,7 @@
                                                     <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                     <mat-radio-button value="No">No</mat-radio-button>
                                                 </mat-radio-group>
-
+                                                <div class="error" *ngIf="cancerDieaseInderror != ''&& cancerDieaseInderror != true ">{{cancerDieaseInderror}}</div>
                                             </div>
                                             <div class="col-md-8" *ngIf="medicalDetail.controls['cancerDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                                 <mat-form-field class="w-100">
@@ -2175,9 +2184,8 @@
                                                     <input matInput  formControlName="cancerDieaseDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="error" *ngIf="cancerDieaseInderror != ''&& cancerDieaseInderror != true ">{{cancerDieaseInderror}}</div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                                <mat-radio-group formControlName="cancerDieaseInd1"  (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                                <mat-radio-group formControlName="cancerDieaseInd1"  (change)="travelOutside1()" >
                                                     <p style="color: mediumblue;">Spouse</p>
                                                     <!--<p>Cancer, enlarged gland, growth or tumor, chemotherapy or radiotherapy of any kind? <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2205,9 +2213,9 @@
                                                     <input matInput  formControlName="tropicalDieaseDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="tropicalDieaseInd1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="tropicalDieaseInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Tropical Diseases? <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2237,9 +2245,9 @@
                                                     <input matInput  formControlName="thyroidDieaseDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="thyroidDieaseInd1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="thyroidDieaseInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Thyroid Disorder? <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2270,9 +2278,9 @@
                                                     <input matInput  formControlName="bloodDieaseDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="bloodDieaseInd1" (change)="isbloodDieaseInd()" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="bloodDieaseInd1" (change)="isbloodDieaseInd()" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Anemia, bleeding or any other disorder of the blood <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2301,9 +2309,9 @@
                                                     <input matInput  formControlName="nervousDieaseDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="nervousDieaseInd1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="nervousDieaseInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Any nervous or neurological disorder <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2332,9 +2340,9 @@
                                                     <input matInput  formControlName="muscleDieaseDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="muscleDieaseInd1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="muscleDieaseInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Disorder or disease of muscle, bones, joints, limbs, spine <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2364,9 +2372,9 @@
                                                     <input matInput  formControlName="aidsDetails"  autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="receivedTreatment21" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="receivedTreatment21" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>A test indicating the presence of HIV/AIDS, Hepatitis B or Hepatitis C<span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2396,9 +2404,9 @@
                                                     <input matInput  formControlName="alcoholicDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="alcoholicInd1"  (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="alcoholicInd1"  (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Excessive alcohol consumption or to stop drinking or received alcohol abstinence treatment<span class="error" >*</span> </p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2427,9 +2435,9 @@
                                                     <input matInput  formControlName="otherIllnessDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="otherIllnessInd1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="otherIllnessInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Any other illness, disorder, operation, disability? <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2467,8 +2475,8 @@
                                                     <input matInput  formControlName="deformityDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                            <mat-radio-group formControlName="deformityInd1" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="deformityInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Any deformity or physical abnormality? </p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2499,9 +2507,9 @@
                                                     <input matInput  formControlName="diagnosedDetails"  autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
-                                            <mat-radio-group formControlName="receivedTreatment11" (change)="travelOutside1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-radio-group formControlName="receivedTreatment11" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Have you ever been diagnosed or / received treatment for any heart, kidney, liver disease including Hepatitis B, cerebrovascular disease including stroke, paralysis, lung disease, cancer, tumor or physical deformity? <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2565,8 +2573,8 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                             <mat-radio-group formControlName="symptomsInd1" (change)="travelOutside1()" (change)="issymptomsInd1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                             <mat-radio-group formControlName="symptomsInd1" (change)="travelOutside1()" (change)="issymptomsInd1()" >
                                                  <p style="color: mediumblue;">Spouse</p>
                                                  <!--<p>Any health related complaints or symptoms for which a physician has not been consulted or treatment received?<span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2640,8 +2648,8 @@
                                                     <input matInput  formControlName="pregnantweeks"  autocomplete="off" maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' ">
-                                            <mat-radio-group formControlName="pregnantInd1" (change)="travelOutside1()" *ngIf="customerDetails.controls['title'].value=='1' && addon.controls['betterHalfBenefit'].value == 'Yes' && addon.controls['stitle'].value=='2'">
+                                            <div class="col-md-12" *ngIf="customerDetails.controls['title'].value=='1' && addon.controls['betterHalfBenefit'].value == 'Yes' && addon.controls['stitle'].value=='2'">
+                                            <mat-radio-group formControlName="pregnantInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Are you Pregnant?  <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2670,9 +2678,9 @@
                                                     <input matInput  formControlName="femaleDieaseWeeks"  autocomplete="off" maxlength="45">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' ">
+                                            <div class="col-md-12" *ngIf="customerDetails.controls['title'].value=='1' && addon.controls['betterHalfBenefit'].value == 'Yes' && addon.controls['stitle'].value=='2'">
 
-                                            <mat-radio-group formControlName="femaleDieaseInd1" (change)="travelOutside1()" *ngIf="customerDetails.controls['title'].value=='1' && addon.controls['betterHalfBenefit'].value == 'Yes' && addon.controls['stitle'].value=='2'">
+                                            <mat-radio-group formControlName="femaleDieaseInd1" (change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement? <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2767,6 +2775,7 @@
                                      <div class="row ">
                                         <div class="col-md-12 mt-3 mb-2">
                                             <h5 class="color-blue" *ngIf="lifePremiumList.product_id=='112'">FAMILY HISTORY</h5>
+                                            <p style="font-size: small;">(Kindly enter details about your Family below - Parents and Spouse (if Married) details are mandatory)</p>
                                         </div>
                                      </div>
                                     </div>
@@ -2827,6 +2836,8 @@
                                         <div class="row ">
                                             <div class="col-md-12 mt-3 mb-2">
                                                 <h5 class="color-blue" *ngIf="lifePremiumList.product_id=='112' && addon.controls['betterHalfBenefit'].value == 'Yes'">FAMILY HISTORY FOR SPOUSE</h5>
+                                                <p style="font-size: small;">(Kindly enter details about your Family below - Parents and Spouse (if Married) details are mandatory)</p>
+
                                             </div>
                                         </div>
                                     </div>
