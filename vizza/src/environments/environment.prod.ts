@@ -23,6 +23,7 @@ export const environment = {
     motorInsurance: true,
     paAccident: true
 
+
     // apiHost: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
     // apiHostTravel: 'https://vizzainsurance.com/vizza/api/index.php/travel/',
     // apiHostPa: 'https://vizzainsurance.com/vizza/api/index.php/pa/',
@@ -44,6 +45,8 @@ export const environment = {
     // lifeInsurance: false,
     // motorInsurance: false,
     // paAccident: true
+
+
 
 };
 
