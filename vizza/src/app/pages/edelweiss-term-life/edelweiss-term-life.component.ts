@@ -1835,13 +1835,9 @@ export class EdelweissTermLifeComponent implements OnInit {
       console.log(this.errortravelOutside,'errortravelOutside');
 
        if(this.maritalValue==true){
-         alert('0')
          if(this.medicalDetail['controls'].medicalFamilyQuestions['controls'][0]['controls'].relation.value==(('1')||('2')||('3'))){
-           alert('1')
          if(this.medicalDetail['controls'].medicalFamilyQuestions['controls'][1]['controls'].relation.value==(('1')||('2')||('3'))) {
-           alert('2')
            if (this.medicalDetail['controls'].medicalFamilyQuestions['controls'][2]['controls'].relation.value == (('1') || ('2') || ('3'))) {
-             alert('3')
 
              stepper.next();
              this.topScroll();
@@ -1865,13 +1861,9 @@ export class EdelweissTermLifeComponent implements OnInit {
        }
 
       if(this.maritalSpouseValue==true){
-        alert('0')
         if(this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][0]['controls'].srelation.value==(('1')||('2')||('3'))){
-          alert('1')
           if(this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][1]['controls'].srelation.value==(('1')||('2')||('3'))) {
-            alert('2')
             if (this.medicalDetail['controls'].smedicalFamilyQuestions['controls'][2]['controls'].srelation.value == (('1') || ('2') || ('3'))) {
-              alert('3')
 
               stepper.next();
               this.topScroll();
@@ -4547,6 +4539,39 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['isRecovered1'].patchValue(null);
       this.medicalDetail.controls['pregnantInd1'].patchValue(null);
       this.medicalDetail.controls['femaleDieaseInd1'].patchValue(null);
+
+      this.medicalDetail.controls['travelOutsideIndia1'].setValidators(null);
+      this.medicalDetail.controls['pilot1'].setValidators(null);
+      this.medicalDetail.controls['activity1'].setValidators(null);
+      this.medicalDetail.controls['drugsInd1'].setValidators(null);
+      this.medicalDetail.controls['alcoholInd1'].setValidators(null);
+      this.medicalDetail.controls['tobaccoInd1'].setValidators(null);
+      this.medicalDetail.controls['tobaccoStopInd1'].setValidators(null);
+      this.medicalDetail.controls['consultDoctorInd1'].setValidators(null);
+      this.medicalDetail.controls['ECGInd1'].setValidators(null);
+      this.medicalDetail.controls['admitInd1'].setValidators(null);
+      this.medicalDetail.controls['medicalTreatment1'].setValidators(null);
+      this.medicalDetail.controls['heartDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['respiratoryDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['diabetesInd1'].setValidators(null);
+      this.medicalDetail.controls['kidneyDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['digestiveDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['cancerDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['tropicalDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['thyroidDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['bloodDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['nervousDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['muscleDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['receivedTreatment21'].setValidators(null);
+      this.medicalDetail.controls['alcoholicInd1'].setValidators(null);
+      this.medicalDetail.controls['otherIllnessInd1'].setValidators(null);
+      this.medicalDetail.controls['deformityInd1'].setValidators(null);
+      this.medicalDetail.controls['receivedTreatment11'].setValidators(null);
+      this.medicalDetail.controls['symptomsInd1'].setValidators(null);
+      this.medicalDetail.controls['isHospitalized1'].setValidators(null);
+      this.medicalDetail.controls['isRecovered1'].setValidators(null);
+      this.medicalDetail.controls['pregnantInd1'].setValidators(null);
+      this.medicalDetail.controls['femaleDieaseInd1'].setValidators(null);
 
       this.addon.controls['stitle'].setValidators(null);
       this.addon.controls['stitleName'].setValidators(null);
