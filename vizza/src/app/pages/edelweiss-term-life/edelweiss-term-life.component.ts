@@ -700,6 +700,11 @@ export class EdelweissTermLifeComponent implements OnInit {
       pregnantInd1: '',
       pregnantweeks1: '',
       femaleDieaseInd1: '',
+      femaleDetails1: '',
+      isFemaleHospitalized1: '',
+      FemalehospitalizedDate1: '',
+      isFemaleRecovered1: '',
+      nonFemaleRecoveryDetails1: '',
       pilot: '',
       activity: '',
       adventurousActivities: '',
@@ -776,7 +781,11 @@ export class EdelweissTermLifeComponent implements OnInit {
       pregnantInd: '',
       pregnantweeks: '',
       femaleDieaseInd: '',
-      femaleDieaseWeeks: '',
+      femaleDetails: '',
+      isFemaleHospitalized: '',
+      FemalehospitalizedDate: '',
+      isFemaleRecovered: '',
+      nonFemaleRecoveryDetails: '',
       // medicalQuestions : new FormArray([
       //   this.medicalQuesCreate()
       // ]),
@@ -1874,10 +1883,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       && (this.digestiveDieaseInderror == false||this.digestiveDieaseInderror=='') && (this.sdigestiveDieaseInderror == false||this.sdigestiveDieaseInderror=='') && (this.cancerDieaseInderror == false||this.cancerDieaseInderror=='')&&(this.scancerDieaseInderror == false||this.scancerDieaseInderror=='')&& (this.tropicalDieaseInderror == false||this.tropicalDieaseInderror=='')&&(this.stropicalDieaseInderror == false||this.stropicalDieaseInderror=='')&& (this.thyroidDieaseInderror == false||this.thyroidDieaseInderror=='')&&(this.sthyroidDieaseInderror == false||this.sthyroidDieaseInderror=='')&& (this.bloodDieaseInderror == false||this.bloodDieaseInderror=='')&&(this.sbloodDieaseInderror == false||this.sbloodDieaseInderror=='')&& (this.nervousDieaseInderror == false||this.nervousDieaseInderror=='') &&(this.snervousDieaseInderror == false||this.snervousDieaseInderror=='') && (this.femaleDieaseInderror == false||this.femaleDieaseInderror=='')&& (this.sfemaleDieaseInderror == false||this.sfemaleDieaseInderror=='')
       && (this.muscleDieaseInderror == false||this.muscleDieaseInderror=='')&&(this.smuscleDieaseInderror == false||this.smuscleDieaseInderror=='')&& (this.receivedTreatment2error == false||this.receivedTreatment2error=='')&&(this.sreceivedTreatment2error == false||this.sreceivedTreatment2error=='')&& (this.alcoholicInderror == false||this.alcoholicInderror=='')&& (this.salcoholicInderror == false||this.salcoholicInderror=='')&& (this.otherIllnessInderror == false||this.otherIllnessInderror=='')&&(this.sotherIllnessInderror == false||this.sotherIllnessInderror=='')&& (this.deformityInderror == false||this.deformityInderror=='')&&(this.sdeformityInderror == false||this.sdeformityInderror=='')&& (this.receivedTreatment1error == false||this.receivedTreatment1error=='')&&(this.sreceivedTreatment1error == false||this.sreceivedTreatment1error=='')&& (this.symptomsInderror == false||this.symptomsInderror=='')&&(this.ssymptomsInderror == false||this.ssymptomsInderror=='') && (this.pregnantInderror == false||this.pregnantInderror=='') && (this.spregnantInderror == false||this.spregnantInderror==''))) {
       console.log(this.medicalDetail.valid, 'this.valid');
-     // if(this.eHistoryFamily==false){
+     if(this.eHistoryFamily==false){
        stepper.next();
        this.topScroll();
-     // }
+     }
     }else{
       this.toastr.error('Please fill the Mandatory Field ');
     }
@@ -4203,6 +4212,76 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.medicalDetail.controls['isRecovered1'].updateValueAndValidity();
 
   }
+  isHospitalizedFemale() {
+
+    if (this.medicalDetail.controls['isFemaleHospitalized'].value == 'Yes') {
+      this.medicalDetail.controls['FemalehospitalizedDate'].patchValue(this.medicalDetail.controls['FemalehospitalizedDate'].value);
+      this.medicalDetail.controls['isFemaleRecovered'].patchValue(this.medicalDetail.controls['isFemaleRecovered'].value);
+
+      this.medicalDetail.controls['FemalehospitalizedDate'].setValidators([Validators.required]);
+      this.medicalDetail.controls['isFemaleRecovered'].setValidators([Validators.required]);
+    } else if (this.medicalDetail.controls['isFemaleHospitalized'].value == 'No') {
+      this.medicalDetail.controls['FemalehospitalizedDate'].patchValue('');
+      this.medicalDetail.controls['isFemaleRecovered'].patchValue('');
+
+      this.medicalDetail.controls['FemalehospitalizedDate'].setValidators(null);
+      this.medicalDetail.controls['isFemaleRecovered'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['FemalehospitalizedDate'].updateValueAndValidity();
+    this.medicalDetail.controls['isFemaleRecovered'].updateValueAndValidity();
+
+  }
+  femaleRecover() {
+
+    if (this.medicalDetail.controls['isFemaleRecovered'].value == 'Yes') {
+      this.medicalDetail.controls['nonFemaleRecoveryDetails'].patchValue(this.medicalDetail.controls['nonFemaleRecoveryDetails'].value);
+
+      this.medicalDetail.controls['nonFemaleRecoveryDetails'].setValidators([Validators.required]);
+    } else  {
+      this.medicalDetail.controls['nonFemaleRecoveryDetails'].patchValue('');
+
+      this.medicalDetail.controls['nonFemaleRecoveryDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['nonFemaleRecoveryDetails'].updateValueAndValidity();
+
+  }
+  isHospitalizedFemale1() {
+
+    if (this.medicalDetail.controls['isFemaleHospitalized1'].value == 'Yes') {
+      this.medicalDetail.controls['FemalehospitalizedDate1'].patchValue(this.medicalDetail.controls['FemalehospitalizedDate1'].value);
+      this.medicalDetail.controls['isFemaleRecovered1'].patchValue(this.medicalDetail.controls['isFemaleRecovered1'].value);
+
+      this.medicalDetail.controls['FemalehospitalizedDate1'].setValidators([Validators.required]);
+      this.medicalDetail.controls['isFemaleRecovered1'].setValidators([Validators.required]);
+    } else if (this.medicalDetail.controls['isFemaleHospitalized1'].value == 'No') {
+      this.medicalDetail.controls['FemalehospitalizedDate1'].patchValue('');
+      this.medicalDetail.controls['isFemaleRecovered1'].patchValue('');
+
+      this.medicalDetail.controls['FemalehospitalizedDate1'].setValidators(null);
+      this.medicalDetail.controls['isFemaleRecovered1'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['FemalehospitalizedDate1'].updateValueAndValidity();
+    this.medicalDetail.controls['isFemaleRecovered1'].updateValueAndValidity();
+
+  }
+  femaleRecover1() {
+
+    if (this.medicalDetail.controls['isFemaleRecovered1'].value == 'Yes') {
+      this.medicalDetail.controls['nonFemaleRecoveryDetails1'].patchValue(this.medicalDetail.controls['nonFemaleRecoveryDetails1'].value);
+
+      this.medicalDetail.controls['nonFemaleRecoveryDetails1'].setValidators([Validators.required]);
+    } else  {
+      this.medicalDetail.controls['nonFemaleRecoveryDetails1'].patchValue('');
+
+      this.medicalDetail.controls['nonFemaleRecoveryDetails1'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['nonFemaleRecoveryDetails1'].updateValueAndValidity();
+
+  }
   isrespiratoryDieaseInd() {
 
     if (this.medicalDetail.controls['respiratoryDieaseInd'].value == 'Yes') {
@@ -4566,6 +4645,11 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['isRecovered1'].setValidators(null);
       this.medicalDetail.controls['pregnantInd1'].setValidators(null);
       this.medicalDetail.controls['femaleDieaseInd1'].setValidators(null);
+      this.medicalDetail.controls['femaleDetails1'].setValidators(null);
+      this.medicalDetail.controls['isFemaleHospitalized1'].setValidators(null);
+      this.medicalDetail.controls['FemalehospitalizedDate1'].setValidators(null);
+      this.medicalDetail.controls['isFemaleRecovered1'].setValidators(null);
+      this.medicalDetail.controls['nonFemaleRecoveryDetails1'].setValidators(null);
 
       this.addon.controls['stitle'].setValidators(null);
       this.addon.controls['stitleName'].setValidators(null);
@@ -4656,16 +4740,16 @@ export class EdelweissTermLifeComponent implements OnInit {
   isfemaleDieaseInd() {
 
     if (this.medicalDetail.controls['femaleDieaseInd'].value == 'Yes') {
-      this.medicalDetail.controls['femaleDieaseWeeks'].patchValue(this.medicalDetail.controls['femaleDieaseWeeks'].value);
+      this.medicalDetail.controls['femaleDetails'].patchValue(this.medicalDetail.controls['femaleDetails'].value);
 
-      this.medicalDetail.controls['femaleDieaseWeeks'].setValidators([Validators.required]);
+      this.medicalDetail.controls['femaleDetails'].setValidators([Validators.required]);
     } else {
-      this.medicalDetail.controls['femaleDieaseWeeks'].patchValue('');
+      this.medicalDetail.controls['femaleDetails'].patchValue('');
 
-      this.medicalDetail.controls['femaleDieaseWeeks'].setValidators(null);
+      this.medicalDetail.controls['femaleDetails'].setValidators(null);
 
     }
-    this.medicalDetail.controls['femaleDieaseWeeks'].updateValueAndValidity();
+    this.medicalDetail.controls['femaleDetails'].updateValueAndValidity();
 
   }
   ismedicationInd() {
@@ -5235,7 +5319,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           "pregnantInd":this.medicalDetail.controls['pregnantInd'].value  == 'Yes' ? 'Y' : 'N',
           "pregnantweeks":this.medicalDetail.controls['pregnantweeks'].value ,
           "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
-          "femaleDieaseWeeks":this.medicalDetail.controls['femaleDieaseWeeks'].value,
+          "femaleDieaseWeeks":this.medicalDetail.controls['femaleDetails'].value,
           // "medicalQuestions":this.medicalDetail.value.medicalQuestions,
           "medicalQuestions":'',
         },
@@ -5456,7 +5540,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "pregnantInd":this.medicalDetail.controls['pregnantInd1'].value  == 'Yes' ? 'Y' : 'N',
         "pregnantweeks":this.medicalDetail.controls['pregnantweeks1'].value ,
         "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        // "femaleDieaseWeeks":this.medicalDetail.controls['femaleDieaseWeeks1'].value,
+        "femaleDieaseWeeks":this.medicalDetail.controls['femaleDetails1'].value,
 
         "questionnaires":{
           "medicationInd":"",
@@ -7856,7 +7940,11 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['pregnantInd'].patchValue(getMedicalDetail.pregnantInd);
       this.medicalDetail.controls['pregnantweeks'].patchValue(getMedicalDetail.pregnantweeks);
       this.medicalDetail.controls['femaleDieaseInd'].patchValue(getMedicalDetail.femaleDieaseInd);
-      this.medicalDetail.controls['femaleDieaseWeeks'].patchValue(getMedicalDetail.femaleDieaseWeeks);
+      this.medicalDetail.controls['femaleDetails'].patchValue(getMedicalDetail.femaleDetails);
+      this.medicalDetail.controls['isFemaleHospitalized'].patchValue(getMedicalDetail.isFemaleHospitalized);
+      this.medicalDetail.controls['FemalehospitalizedDate'].patchValue(getMedicalDetail.FemalehospitalizedDate);
+      this.medicalDetail.controls['isFemaleRecovered'].patchValue(getMedicalDetail.isFemaleRecovered);
+      this.medicalDetail.controls['nonFemaleRecoveryDetails'].patchValue(getMedicalDetail.nonFemaleRecoveryDetails);
       this.medicalDetail.controls['alcoholDetails1'].patchValue(getMedicalDetail.alcoholDetails1);
       this.medicalDetail.controls['alcoholDetailName1'].patchValue(getMedicalDetail.alcoholDetailName1);
 
@@ -7927,8 +8015,11 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['pregnantInd1'].patchValue(getMedicalDetail.pregnantInd1);
       this.medicalDetail.controls['pregnantweeks1'].patchValue(getMedicalDetail.pregnantweeks1);
       this.medicalDetail.controls['femaleDieaseInd1'].patchValue(getMedicalDetail.femaleDieaseInd1);
-      // this.medicalDetail.controls['femaleDieaseWeeks1'].patchValue(getMedicalDetail.femaleDieaseWeeks1);
-
+      this.medicalDetail.controls['femaleDetails1'].patchValue(getMedicalDetail.femaleDetails1);
+      this.medicalDetail.controls['isFemaleHospitalized1'].patchValue(getMedicalDetail.isFemaleHospitalized1);
+      this.medicalDetail.controls['FemalehospitalizedDate1'].patchValue(getMedicalDetail.FemalehospitalizedDate1);
+      this.medicalDetail.controls['isFemaleRecovered1'].patchValue(getMedicalDetail.isFemaleRecovered1);
+      this.medicalDetail.controls['nonFemaleRecoveryDetails1'].patchValue(getMedicalDetail.nonFemaleRecoveryDetails1);
 
       console.log(this.medicalDetail,'medicalDetail');
     }
