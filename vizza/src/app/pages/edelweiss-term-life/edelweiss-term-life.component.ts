@@ -572,14 +572,18 @@ export class EdelweissTermLifeComponent implements OnInit {
       // employementTypeOther: '',
       employementType: ['', Validators.compose([Validators.required])],
       employementTypeName: '',
-      employerName: ['', Validators.compose([Validators.required])],
+      employerName: [''],
       natureduty: ['', ],
       naturedutyName: '',
       employerAddr: [''],
+      isEmploymentIncome: [''],
+      employmentIncomeDetails: [''],
       annualIncome: ['', Validators.compose([Validators.required])],
       semployementType: [''],
       semployementTypeName: '',
       semployerName: [''],
+      sisEmploymentIncome: [''],
+      semploymentIncomeDetails: [''],
       snatureduty: [''],
       snaturedutyName: '',
       semployerAddr: [''],
@@ -3708,16 +3712,20 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (this.insureArray.controls['employementType'].value=='1'||this.insureArray.controls['employementType'].value=='5'||this.insureArray.controls['employementType'].value=='7'||this.insureArray.controls['employementType'].value=='8') {
 
       this.insureArray.controls['natureduty'].setValidators([Validators.required]);
+      this.insureArray.controls['employerName'].setValidators([Validators.required]);
       this.insureArray.controls['employerAddr'].setValidators([Validators.required]);
     } else {
       this.insureArray.controls['natureduty'].patchValue('');
+      this.insureArray.controls['employerName'].patchValue('');
       this.insureArray.controls['employerAddr'].patchValue('');
 
       this.insureArray.controls['natureduty'].setValidators(null);
+      this.insureArray.controls['employerName'].setValidators(null);
       this.insureArray.controls['employerAddr'].setValidators(null);
 
     }
     this.insureArray.controls['natureduty'].updateValueAndValidity();
+    this.insureArray.controls['employerName'].updateValueAndValidity();
     this.insureArray.controls['employerAddr'].updateValueAndValidity();
 
   }
@@ -3726,16 +3734,20 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (this.insureArray.controls['semployementType'].value=='1'||this.insureArray.controls['semployementType'].value=='5'||this.insureArray.controls['semployementType'].value=='7'||this.insureArray.controls['semployementType'].value=='8') {
 
       this.insureArray.controls['snatureduty'].setValidators([Validators.required]);
+      this.insureArray.controls['semployerName'].setValidators([Validators.required]);
       this.insureArray.controls['semployerAddr'].setValidators([Validators.required]);
     } else {
       this.insureArray.controls['snatureduty'].patchValue('');
+      this.insureArray.controls['semployerName'].patchValue('');
       this.insureArray.controls['semployerAddr'].patchValue('');
 
       this.insureArray.controls['snatureduty'].setValidators(null);
+      this.insureArray.controls['semployerName'].setValidators(null);
       this.insureArray.controls['semployerAddr'].setValidators(null);
 
     }
     this.insureArray.controls['snatureduty'].updateValueAndValidity();
+    this.insureArray.controls['semployerName'].updateValueAndValidity();
     this.insureArray.controls['semployerAddr'].updateValueAndValidity();
 
   }
@@ -4234,7 +4246,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   femaleRecover() {
 
-    if (this.medicalDetail.controls['isFemaleRecovered'].value == 'Yes') {
+    if (this.medicalDetail.controls['isFemaleRecovered'].value == 'No') {
       this.medicalDetail.controls['nonFemaleRecoveryDetails'].patchValue(this.medicalDetail.controls['nonFemaleRecoveryDetails'].value);
 
       this.medicalDetail.controls['nonFemaleRecoveryDetails'].setValidators([Validators.required]);
@@ -4269,7 +4281,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   femaleRecover1() {
 
-    if (this.medicalDetail.controls['isFemaleRecovered1'].value == 'Yes') {
+    if (this.medicalDetail.controls['isFemaleRecovered1'].value == 'No') {
       this.medicalDetail.controls['nonFemaleRecoveryDetails1'].patchValue(this.medicalDetail.controls['nonFemaleRecoveryDetails1'].value);
 
       this.medicalDetail.controls['nonFemaleRecoveryDetails1'].setValidators([Validators.required]);
@@ -4969,6 +4981,36 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     }
     this.insureArray.controls['criminalDetails'].updateValueAndValidity();
+
+  }
+  isEmploIncomeInd() {
+
+    if (this.insureArray.controls['isEmploymentIncome'].value == 'No') {
+      this.insureArray.controls['employmentIncomeDetails'].patchValue(this.insureArray.controls['employmentIncomeDetails'].value);
+
+      this.insureArray.controls['employmentIncomeDetails'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['employmentIncomeDetails'].patchValue('');
+
+      this.insureArray.controls['employmentIncomeDetails'].setValidators(null);
+
+    }
+    this.insureArray.controls['employmentIncomeDetails'].updateValueAndValidity();
+
+  }
+  isEmploIncomeInd1() {
+
+    if (this.insureArray.controls['sisEmploymentIncome'].value == 'No') {
+      this.insureArray.controls['semploymentIncomeDetails'].patchValue(this.insureArray.controls['semploymentIncomeDetails'].value);
+
+      this.insureArray.controls['semploymentIncomeDetails'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['semploymentIncomeDetails'].patchValue('');
+
+      this.insureArray.controls['semploymentIncomeDetails'].setValidators(null);
+
+    }
+    this.insureArray.controls['semploymentIncomeDetails'].updateValueAndValidity();
 
   }
   isTopUpBenefit() {
@@ -7747,12 +7789,16 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['employementType'].patchValue(this.getStepper2.employementType);
       this.insureArray.controls['employementTypeName'].patchValue(this.getStepper2.employementTypeName);
       this.insureArray.controls['employerName'].patchValue(this.getStepper2.employerName);
+      this.insureArray.controls['employmentIncomeDetails'].patchValue(this.getStepper2.employmentIncomeDetails);
+      this.insureArray.controls['isEmploymentIncome'].patchValue(this.getStepper2.isEmploymentIncome);
       this.insureArray.controls['natureduty'].patchValue(this.getStepper2.natureduty);
       this.insureArray.controls['naturedutyName'].patchValue(this.getStepper2.naturedutyName);
       this.insureArray.controls['employerAddr'].patchValue(this.getStepper2.employerAddr);
       this.insureArray.controls['annualIncome'].patchValue(this.getStepper2.annualIncome);
       this.insureArray.controls['semployementType'].patchValue(this.getStepper2.semployementType);
       this.insureArray.controls['semployementTypeName'].patchValue(this.getStepper2.semployementTypeName);
+      this.insureArray.controls['semploymentIncomeDetails'].patchValue(this.getStepper2.semploymentIncomeDetails);
+      this.insureArray.controls['sisEmploymentIncome'].patchValue(this.getStepper2.sisEmploymentIncome);
       this.insureArray.controls['semployerName'].patchValue(this.getStepper2.semployerName);
       this.insureArray.controls['snatureduty'].patchValue(this.getStepper2.snatureduty);
       this.insureArray.controls['snaturedutyName'].patchValue(this.getStepper2.snaturedutyName);
