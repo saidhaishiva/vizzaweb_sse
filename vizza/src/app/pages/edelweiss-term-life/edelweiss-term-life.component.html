@@ -1131,7 +1131,7 @@
                                         </div>
                                         <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <mat-form-field class="w-100">
-                                                <mat-placeholder>Aadhaar No<span class="error" >*</span></mat-placeholder>
+                                                <mat-placeholder>Aadhaar No</mat-placeholder>
                                                 <input matInput formControlName="saadhaarNo" minlength="12"  maxlength="12" autocomplete="off" (keypress)="numberValidate($event)" >
                                                 <!--<mat-error *ngIf="insureArray.controls.aadhaarNo.errors?.required">Aadhaar No is required</mat-error>-->
                                             </mat-form-field>
@@ -2655,10 +2655,10 @@
                                     </div>
 
 
-                                    <div class="row" *ngIf="lifePremiumList.product_id=='112' && customerDetails.controls['title'].value=='2'" >
+                                    <div class="row"  *ngIf=" customerDetails.controls['title'].value=='2'|| (customerDetails.controls['title'].value=='1' && addon.controls['stitle'].value=='2')" >
                                         <div class="col-md-12 ">
                                             <h6 class="color-blue p-3" style="font-size: 12px">For Female Lives</h6>
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' ">
+                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' && customerDetails.controls['title'].value=='2'">
                                                 <mat-radio-group formControlName="pregnantInd" (change)="ispregnantInd()"  (change)="travelOutside1()">
                                                     <p>Are you Pregnant?  <span class="error" >*</span></p>
                                                     <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2674,7 +2674,7 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' ">
+                                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' && customerDetails.controls['title'].value=='2'">
                                                 <mat-radio-group formControlName="femaleDieaseInd" (change)="isfemaleDieaseInd()" (change)="travelOutside1()">
                                                     <p>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement? <span class="error" >*</span></p>
                                                     <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2708,7 +2708,7 @@
                                             <div class="col-md-8 " *ngIf="medicalDetail.controls['isFemaleHospitalized'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                                 <mat-form-field class="w-100">
                                                     <mat-placeholder>Hospitalized Date (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
-                                                    <input matInput [matDatepicker]="picker20" [max]="minDate"   (keypress)="dobValidate($event)"  formControlName="FemalehospitalizedDate" (dateInput)="addEventMedical($event,i,'medical')" (dateChange)="addEventMedical($event,i,'medical')" autocomplete="off" maxlength="10" minlength="10" >
+                                                    <input matInput [matDatepicker]="picker20" [max]="minDate"   (keypress)="dobValidate($event)"  formControlName="FemalehospitalizedDate" (dateInput)="addEventcus($event)" (dateChange)="addEventcus($event)" autocomplete="off" maxlength="10" minlength="10" >
                                                     <mat-datepicker-toggle matSuffix [for]="picker20"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker20></mat-datepicker>
                                                     <!--<mat-error *ngIf="medicalDetail.invalid">Hospitalized Date is required</mat-error>-->
@@ -2732,7 +2732,7 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-12" *ngIf="(customerDetails.controls['title'].value=='1'&& addon.controls['betterHalfBenefit'].value == 'Yes' && addon.controls['stitle'].value=='2')|| customerDetails.controls['title'].value=='2'">
+                                            <div class="col-md-12" *ngIf=" (customerDetails.controls['title'].value=='1' && addon.controls['stitle'].value=='2')">
                                                 <mat-radio-group formControlName="pregnantInd1" (change)="travelOutside1()" >
                                                     <p style="color: mediumblue;">Spouse</p>
                                                     <!--<p>Are you Pregnant?  <span class="error" >*</span></p>-->
@@ -2749,7 +2749,7 @@
                                             </div>
 
 
-                                            <div class="col-md-12" *ngIf="(customerDetails.controls['title'].value=='1'&& addon.controls['betterHalfBenefit'].value == 'Yes' && addon.controls['stitle'].value=='2')|| customerDetails.controls['title'].value=='2'">
+                                            <div class="col-md-12" *ngIf=" (customerDetails.controls['title'].value=='1' && addon.controls['stitle'].value=='2')">
                                                 <mat-radio-group formControlName="femaleDieaseInd1" (change)="isfemaleDieaseInd()"(change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement? <span class="error" >*</span></p>-->
@@ -2758,12 +2758,7 @@
                                             </mat-radio-group>
                                             <div class="error" *ngIf="sfemaleDieaseInderror != ''&& sfemaleDieaseInderror != true ">{{sfemaleDieaseInderror}}</div>
                                             </div>
-                                            <!--<div class="col-md-12 " *ngIf="medicalDetail.controls['femaleDieaseInd1'].value == 'Yes'  && lifePremiumList.product_id=='112'" >-->
-                                                <!--<mat-form-field class="w-100">-->
-                                                    <!--<mat-placeholder>Female Disease weeks<span class="error" >*</span></mat-placeholder>-->
-                                                    <!--<input matInput  formControlName="femaleDieaseWeeks1"  autocomplete="off" maxlength="45">-->
-                                                <!--</mat-form-field>-->
-                                            <!--</div>-->
+
                                             <div class="col-md-8 " *ngIf="medicalDetail.controls['femaleDieaseInd1'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                                 <mat-form-field class="w-100">
                                                     <mat-placeholder>if Yes,Provide Details<span class="error" >*</span></mat-placeholder>
@@ -2772,17 +2767,17 @@
                                             </div>
                                             <div class="col-md-12" *ngIf="medicalDetail.controls['femaleDieaseInd1'].value == 'Yes' || medicalDetail.controls['pregnantInd1'].value == 'Yes' && lifePremiumList.product_id=='112'">
 
-                                                <mat-radio-group formControlName="isFemaleHospitalized1" (change)="isHospitalizedFemale()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                                <mat-radio-group formControlName="isFemaleHospitalized1" (change)="isHospitalizedFemale1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                                     <p>Have you ever been hospitalized for this condition?  <span class="error" >*</span></p>
                                                     <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                     <mat-radio-button value="No">No</mat-radio-button>
                                                 </mat-radio-group>
 
                                             </div>
-                                            <div class="col-md-8 " *ngIf="medicalDetail.controls['isFemaleHospitalized'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                            <div class="col-md-8 " *ngIf="medicalDetail.controls['isFemaleHospitalized1'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                                 <mat-form-field class="w-100">
                                                     <mat-placeholder>Hospitalized Date (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
-                                                    <input matInput [matDatepicker]="picker20" [max]="minDate"   (keypress)="dobValidate($event)"  formControlName="FemalehospitalizedDate1" (dateInput)="addEventMedical($event,i,'medical')" (dateChange)="addEventMedical($event,i,'medical')" autocomplete="off" maxlength="10" minlength="10" >
+                                                    <input matInput [matDatepicker]="picker20" [max]="minDate"   (keypress)="dobValidate($event)"  formControlName="FemalehospitalizedDate1" (dateInput)="addEventcus($event)" (dateChange)="addEventcus($event)" autocomplete="off" maxlength="10" minlength="10" >
                                                     <mat-datepicker-toggle matSuffix [for]="picker20"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker20></mat-datepicker>
                                                     <!--<mat-error *ngIf="medicalDetail.invalid">Hospitalized Date is required</mat-error>-->
@@ -3124,7 +3119,7 @@
                                 </div>
                                 <div class="proposal-buttom mt-3 text-right w-100">
                                     <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                                    <button mat-raised-button color="primaryBlue" (click)="getFamilyHistory();travelOutside();medicalDetails(stepper, medicalDetail.value,i)">Next</button>
+                                    <button mat-raised-button color="primaryBlue" (click)="getFamilyHistory();travelOutside();medicalDetails(stepper, medicalDetail.value)">Next</button>
                                 </div>
 
                             </mat-expansion-panel>
@@ -3551,7 +3546,7 @@
 
                                 <div class="col-md-6">
                                     <div class="p-3">
-                                        <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                                        <h6 class="color-blue">CURRENT ADDRESS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong> Address 1:</strong> {{insuredFormData.currAddr1}}</li>
                                             <li class="list-group-item"  ><strong> Address 2:</strong> {{insuredFormData.currAddr2}}</li>
@@ -3564,7 +3559,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class=" p-3">
-                                        <h6 class="color-blue">RESIDENCE DETAILS</h6>
+                                        <h6 class="color-blue">PERMANENT ADDRESS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="insuredFormData.perAddr1 != ''"><strong> Address 1:</strong> {{insuredFormData.perAddr1}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.perAddr2 != ''"><strong> Address 2:</strong> {{insuredFormData.perAddr2}}</li>
@@ -3649,7 +3644,7 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any proposal/application for revival on your life or health insurance with Edelweiss Tokio Life Insurance Co. or any other life insurer, ever been declined/postponed/offered/accepted at changed/special terms?:</strong> {{insuredFormData.insureHistory}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.insureHistory == 'Yes'"><strong>Reason:</strong> {{insuredFormData.reasonInsured}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.insureHistory == 'Yes'"><strong>Reason:</strong> {{insuredFormData.whenInsured}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.insureHistory == 'Yes'"><strong>When:</strong> {{insuredFormData.whenInsured}}</li>
 
                                         </ul>
                                     </div>
@@ -3693,14 +3688,12 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-md-6" *ngIf="insuredFormData.maritalStatus == 'M' && addonFormData.betterHalfBenefit=='Yes'">
                                     <div class="p-3">
                                         <h6 class="color-blue" *ngIf="insuredFormData.maritalStatus == 'M'">SPOUSE DETAILS</h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="insuredFormData.stitleName != '' && insuredFormData.sfirstName != '' && insuredFormData.smidName != '' && insuredFormData.slastName != '' "><strong>Name:</strong> {{insuredFormData.stitleName}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.stitleName != '' && insuredFormData.sfirstName != '' && insuredFormData.slastName != '' "><strong>Name:</strong> {{insuredFormData.stitleName}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.sdob != '' || insuredFormData.sdob != null"><strong>D.O.B:</strong> {{insuredFormData.sdob | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.semailId != ''"><strong>Email Id:</strong> {{insuredFormData.semailId}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.smobileNo != ''"><strong>Mobile No:</strong> {{insuredFormData.smobileNo}}</li>
@@ -3795,7 +3788,7 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory != ''"><strong>Has any proposal/application for revival on your life or health insurance with Edelweiss Tokio Life Insurance Co. or any other life insurer, ever been declined/postponed/offered/accepted at changed/special terms?:</strong> {{insuredFormData.sinsureHistory}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory == 'Yes'"><strong>Reason:</strong> {{insuredFormData.sreasonInsured}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory == 'Yes'"><strong>Reason:</strong> {{insuredFormData.swhenInsured}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory == 'Yes'"><strong>When:</strong> {{insuredFormData.swhenInsured}}</li>
 
                                         </ul>
                                     </div>
@@ -3839,6 +3832,9 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -3975,7 +3971,7 @@
                                 </div>
                             </div>
 
-                            <div class="row box-card">
+                            <div class="row box-card" *ngIf="addonFormData.betterHalfBenefit=='Yes'">
                                 <div class="col-md-12" >
                                     <div class="row">
                                         <div class="col-md-6" >
@@ -4027,7 +4023,7 @@
 
 
 
-                                        <div class="col-md-6" >
+                                        <div class="col-md-6" *ngIf="addonFormData.betterHalfBenefit=='Yes'">
                                             <div class="p-3">
                                                 <h6 class="color-blue" ></h6>
                                                 <ul class="m-0 list-group">
@@ -4075,7 +4071,7 @@
 
 
 
-                            <div class="row box-card">
+                            <div class="row box-card" *ngIf="addonFormData.betterHalfBenefit=='Yes'">
                                 <div class="col-md-12" *ngFor="let sitem of medicalFormData.smedicalFamilyQuestions; let i = index;">
                                     <div class="row">
                                         <div class="col-md-6" >
@@ -4092,7 +4088,7 @@
 
 
 
-                                        <div class="col-md-6" >
+                                        <div class="col-md-6" *ngIf="addonFormData.betterHalfBenefit=='Yes'">
                                             <div class="p-3">
                                                 <h6 class="color-blue" ></h6>
                                                 <ul class="m-0 list-group">

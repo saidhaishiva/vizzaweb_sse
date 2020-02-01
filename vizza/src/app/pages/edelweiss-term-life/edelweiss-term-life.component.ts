@@ -4578,7 +4578,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['sfirstName'].patchValue(this.addon.controls['sfirstName'].value);
       this.insureArray.controls['smidName'].patchValue(this.addon.controls['smidName'].value);
       this.insureArray.controls['slastName'].patchValue(this.addon.controls['slastName'].value);
-      this.insureArray.controls['sdob'].patchValue(this.datepipe.transform(this.insureArray.controls['sdob'].value, 'y-MM-dd'));
+      this.insureArray.controls['sdob'].patchValue(this.datepipe.transform(this.addon.controls['sdob'].value, 'y-MM-dd'));
       this.insureArray.controls['semailId'].patchValue(this.addon.controls['semailId'].value);
 
       this.insureArray.controls['stitle'].setValidators([Validators.required]);
@@ -5476,14 +5476,14 @@ export class EdelweissTermLifeComponent implements OnInit {
         // ]
       },
       "Spouse":{
-        "title":this.insureArray.controls['stitle'].value,
-        "firstName":this.insureArray.controls['sfirstName'].value,
-        "middleName":this.insureArray.controls['smidName'].value,
-        "lastName":this.insureArray.controls['slastName'].value,
-        "dob":this.datepipe.transform(this.insureArray.controls['sdob'].value, 'y-MM-dd'),
-        "emailId":this.insureArray.controls['semailId'].value,
+        "title":this.addon.controls['stitle'].value,
+        "firstName":this.addon.controls['sfirstName'].value,
+        "middleName":this.addon.controls['smidName'].value,
+        "lastName":this.addon.controls['slastName'].value,
+        "dob":this.datepipe.transform(this.addon.controls['sdob'].value, 'y-MM-dd'),
+        "emailId":this.addon.controls['semailId'].value,
         "phoneNo":this.insureArray.controls['smobileNo'].value,
-        "isSmoker":'',
+        "isSmoker":this.addon.controls['isSmokerSpouse'].value,
         "isStaff":'N',
         "employeeCode":'',
         "relationLAProposer":'Spouse',
