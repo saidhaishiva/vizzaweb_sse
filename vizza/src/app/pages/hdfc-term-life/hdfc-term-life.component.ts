@@ -3411,7 +3411,7 @@ console.log(data, 'totaldataaaa...')
 
 }
 public setProposalSuccess(successData, stepper) {
-    console.log(successData.ResponseObject, 'summary data...')
+    // console.log(successData.ResponseObject, 'summary data...')
   this.settings.loadingSpinner = false;
   if (successData.IsSuccess == true) {
     stepper.next();
