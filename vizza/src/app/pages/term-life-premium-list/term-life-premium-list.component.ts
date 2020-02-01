@@ -116,7 +116,7 @@ export class TermLifePremiumListComponent implements OnInit {
     ngOnInit() {
         this.getCompanyList();
         this.sessionData();
-        // this.getHDFcProduct();
+        this.getHDFcProduct();
         // for (let i = 0; i < this.allProductLists.length; i++) {
         //     alert('fr')
         //     this.premium_paying_termm = this.allProductLists[i].premium_paying_term;
@@ -230,50 +230,50 @@ export class TermLifePremiumListComponent implements OnInit {
     public productListFailure(error) {
         console.log(error);
     }
-    //   getHDFcProduct() {
-    //     // console.log(event,'event');
-    //   const data = {
-    //       'platform': 'web',
-    //       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-    //       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-    //       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-    //   };
-    //   this.life.getHDFcProduct(data).subscribe(
-    //       (successData) => {
-    //           this.productHdfcSuccess(successData);
-    //       },
-    //       (error) => {
-    //           this.productHdfcFailure(error);
-    //       });
-    // }
-    // public productHdfcSuccess(successData) {
-    //     console.log(successData.ResponseObject);
-    //     if (successData.IsSuccess) {
-    //         this.allHdfcList = successData.ResponseObject;
-    //           // alert('inn');
-    //         for(let i=0; i<=this.allHdfcList.length; i++)
-    //         {
-    //
-    //             // this.allHdfcList12 = this.allHdfcList[i].id;
-    //             // console.log( this.allHdfcList,'listtttt');
-    //             // console.log( this.allHdfcList[i].id,'listid');
-    //             // console.log(  this.allHdfcList12 ,'listid');
-    //         }
-    //         // alert(this.allHdfcList12);
-    //         // console.log( this.allHdfcList,'listtttt');
-    //         // console.log( this.allHdfcList.id,'listid');
-    //         // this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
-    //         // this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
-    //         // this.getProductList(companyList, sum_assured);
-    //         // this.getProductList(companyList, sum_assured);
-    //         console.log(this.allProductLists, 'allProductLists');
-    //     }
-    //
-    // }
-    //
-    // public productHdfcFailure(error) {
-    //     console.log(error);
-    // }
+      getHDFcProduct() {
+        // console.log(event,'event');
+      const data = {
+          'platform': 'web',
+          'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+          'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+          'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+      };
+      this.life.getHDFcProduct(data).subscribe(
+          (successData) => {
+              this.productHdfcSuccess(successData);
+          },
+          (error) => {
+              this.productHdfcFailure(error);
+          });
+    }
+    public productHdfcSuccess(successData) {
+        console.log(successData.ResponseObject);
+        if (successData.IsSuccess) {
+            this.allHdfcList = successData.ResponseObject;
+              // alert('inn');
+            for(let i=0; i<=this.allHdfcList.length; i++)
+            {
+
+                this.allHdfcList12 = this.allHdfcList[i].id;
+                console.log( this.allHdfcList,'listtttt');
+                console.log( this.allHdfcList[i].id,'listid');
+                console.log(  this.allHdfcList12 ,'listid');
+            }
+            alert(this.allHdfcList12);
+            console.log( this.allHdfcList,'listtttt');
+            console.log( this.allHdfcList.id,'listid');
+            // this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;
+            // this.allProductLists[index].CoverageAge =  this.termListDetails.CoverageAge;
+            // this.getProductList(companyList, sum_assured);
+            // this.getProductList(companyList, sum_assured);
+            console.log(this.allProductLists, 'allProductLists');
+        }
+
+    }
+
+    public productHdfcFailure(error) {
+        console.log(error);
+    }
 
     gethdfcPremium(plists,i) {
         const data = {
