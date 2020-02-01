@@ -2719,7 +2719,7 @@
 
 
                                             <div class="col-md-12" *ngIf="customerDetails.controls['title'].value=='1' && addon.controls['betterHalfBenefit'].value == 'Yes' && addon.controls['stitle'].value=='2'">
-                                                <mat-radio-group formControlName="femaleDieaseInd1" (change)="travelOutside1()" >
+                                                <mat-radio-group formControlName="femaleDieaseInd1" (change)="isfemaleDieaseInd()"(change)="travelOutside1()" >
                                                 <p style="color: mediumblue;">Spouse</p>
                                                 <!--<p>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement? <span class="error" >*</span></p>-->
                                                 <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>

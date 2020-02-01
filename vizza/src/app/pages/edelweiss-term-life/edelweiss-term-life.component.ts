@@ -4741,15 +4741,40 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (this.medicalDetail.controls['femaleDieaseInd'].value == 'Yes') {
       this.medicalDetail.controls['femaleDetails'].patchValue(this.medicalDetail.controls['femaleDetails'].value);
+      this.medicalDetail.controls['isFemaleHospitalized'].patchValue(this.medicalDetail.controls['isFemaleHospitalized'].value);
 
       this.medicalDetail.controls['femaleDetails'].setValidators([Validators.required]);
+      this.medicalDetail.controls['isFemaleHospitalized'].setValidators([Validators.required]);
     } else {
       this.medicalDetail.controls['femaleDetails'].patchValue('');
+      this.medicalDetail.controls['isFemaleHospitalized'].patchValue('');
 
       this.medicalDetail.controls['femaleDetails'].setValidators(null);
+      this.medicalDetail.controls['isFemaleHospitalized'].setValidators(null);
 
     }
     this.medicalDetail.controls['femaleDetails'].updateValueAndValidity();
+    this.medicalDetail.controls['isFemaleHospitalized'].updateValueAndValidity();
+
+  }
+  isfemaleDieaseInd1() {
+
+    if (this.medicalDetail.controls['femaleDieaseInd1'].value == 'Yes') {
+      this.medicalDetail.controls['femaleDetails1'].patchValue(this.medicalDetail.controls['femaleDetails1'].value);
+      this.medicalDetail.controls['isFemaleHospitalized1'].patchValue(this.medicalDetail.controls['isFemaleHospitalized1'].value);
+
+      this.medicalDetail.controls['femaleDetails1'].setValidators([Validators.required]);
+      this.medicalDetail.controls['isFemaleHospitalized1'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['femaleDetails1'].patchValue('');
+      this.medicalDetail.controls['isFemaleHospitalized1'].patchValue('');
+
+      this.medicalDetail.controls['femaleDetails1'].setValidators(null);
+      this.medicalDetail.controls['isFemaleHospitalized1'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['femaleDetails1'].updateValueAndValidity();
+    this.medicalDetail.controls['isFemaleHospitalized1'].updateValueAndValidity();
 
   }
   ismedicationInd() {
