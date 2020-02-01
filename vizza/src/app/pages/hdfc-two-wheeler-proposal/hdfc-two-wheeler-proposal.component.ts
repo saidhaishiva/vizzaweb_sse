@@ -125,6 +125,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public HandicapDisc_Premium:any;
     public BiFuel_Kit_TP_Premium:any;
     public BiFuel_Kit_OD_Premium:any;
+    public returntoinvoice:any;
+    public emerengy_assitance:any;
+    public zero_depression:any;
+    public compulsory_ownerdriver:any;
 
 
     public financiercodevalue: any;
@@ -239,6 +243,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         });
         this.addOns = this.fb.group({
             extentioncountry: [''],
+            compul: [''],
             policytenture: [''],
             drivinglicence: [''],
             biofuel: [''],
@@ -272,6 +277,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             totalZerodeptPremium: [''],
             totalLimitedtoOwnPremium: [''],
             totalLimitedtoOwnPremium1: [''],
+            emergencyassistance: [''],
+            emergencyassistancePremium: [''],
+            returntoinvoice: [''],
+            returntoinvoicePremium: [''],
             // totalLoadDiscPremium: 0,
         });
         // this.BankDetails = this.fb.group({
@@ -359,6 +368,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
        this.nilDepDateValidation();
 
+
     }
 
     nilDepDateValidation(){
@@ -375,6 +385,10 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.nilDepValue=false;
         }
         console.log(this.nilDepValue,'nilDepValue....')
+    }
+    compulsory(){
+        this.addOns.controls['compul'].patchValue(this.compulsory_ownerdriver);
+this.getCover();
     }
     // dropdownForBank(value,type){
     //
@@ -720,6 +734,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                 // if(this.vechicle.controls['vechicleidv'].value > 7000 || this.vechicle.controls['vechicleidv'].value=='' ) {
                 stepper.next();
                 this.topScroll();
+                this.getCover();
                 // }else{
                 //     this.toastr.error('IDV Should Not Less Than 7000');
                 // }
@@ -1406,18 +1421,48 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     }
     paidDriverAmount(){
         this.addOns.controls['totalPaidDriverPremium'].patchValue(this.PaidDriver_Premium)
+    } returntoinvoiceChange(){
+        if(this.addOns.controls.returntoinvoice.value == true){
+            this.addOns.controls['returntoinvoicePremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.addOns.controls['returntoinvoicePremium'].patchValue('');
+            this.addOns.controls['returntoinvoicePremium'].setValidators(null);
+
+        }
+        this.addOns.controls['returntoinvoicePremium'].updateValueAndValidity();
     }
-    // zerodeptChange(){
-    //     if(this.addOns.controls.zerodept.value == true){
-    //         this.addOns.controls['totalZerodeptPremium'].setValidators([Validators.required]);
-    //         this.getCover();
-    //     } else {
-    //         this.addOns.controls['totalZerodeptPremium'].patchValue('');
-    //         this.addOns.controls['totalZerodeptPremium'].setValidators(null);
-    //
-    //     }
-    //     this.addOns.controls['totalZerodeptPremium'].updateValueAndValidity();
-    // }
+    returntoinvoiceChangeAmount(){
+        this.addOns.controls['returntoinvoicePremium'].patchValue(this.returntoinvoice)
+    }emergencyassistanceChange(){
+        if(this.addOns.controls.emergencyassistance.value == true){
+            this.addOns.controls['emergencyassistancePremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.addOns.controls['emergencyassistancePremium'].patchValue('');
+            this.addOns.controls['emergencyassistancePremium'].setValidators(null);
+
+        }
+        this.addOns.controls['emergencyassistancePremium'].updateValueAndValidity();
+    }
+    emergencyassistanceChangeAmount(){
+        this.addOns.controls['emergencyassistancePremium'].patchValue(this.emerengy_assitance)
+    }
+    zerodeptChange(){
+        if(this.addOns.controls.zerodept.value == true){
+            this.addOns.controls['totalZerodeptPremium'].setValidators([Validators.required]);
+            this.getCover();
+        } else {
+            this.addOns.controls['totalZerodeptPremium'].patchValue('');
+            this.addOns.controls['totalZerodeptPremium'].setValidators(null);
+
+        }
+        this.addOns.controls['totalZerodeptPremium'].updateValueAndValidity();
+    }
+    zerodeptChangeAmount(){
+        this.addOns.controls['totalZerodeptPremium'].patchValue(this.zero_depression)
+
+    }
     limitedtoOwnChange(){
         if(this.addOns.controls.IsLimitedtoOwnPremises.value == true){
             this.addOns.controls['totalLimitedtoOwnPremium'].setValidators([Validators.required]);
@@ -1532,13 +1577,17 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'Vehicle_IDV': this.vehicleidv.Idv,
                 },
                 'Req_TW': {
-                    'ExtensionCountryCode': '',
-                    'POLICY_TENURE': this.addOns.controls['policytenture'].value,
-                    'ExtensionCountryName': this.addOns.controls['extentioncountryvalue'].value,
-                    'Effectivedrivinglicense': this.addOns.controls['drivinglicence'].value,
+
+
+
+
+                    // 'ExtensionCountryCode': '',
+                    // 'POLICY_TENURE': this.addOns.controls['policytenture'].value,
+                    // 'ExtensionCountryName': this.addOns.controls['extentioncountryvalue'].value,
+                    // 'Effectivedrivinglicense': this.addOns.controls['drivinglicence'].value,
                     'Paiddriver': this.addOns.controls['IsPaidDriver'].value == true ? '1' : '0',
-                    'BiFuelType': this.addOns.controls['biofuel'].value,
-                    'BiFuel_Kit_Value': this.addOns.controls['biofuelkit'].value,
+                    // 'BiFuelType': this.addOns.controls['biofuel'].value,
+                    // 'BiFuel_Kit_Value': this.addOns.controls['biofuelkit'].value,
                     'Paiddriver_Si': '',
                     'Owner_Driver_Nominee_Name': this.addOns.controls['NomineeName'].value,
                     'Owner_Driver_Nominee_Age': this.addOns.controls['NomineeAge'].value,
@@ -1546,14 +1595,17 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
                     'Owner_Driver_Appointee_Name': this.addOns.controls['appointeename'].value,
                     'Owner_Driver_Appointee_Relationship': this.addOns.controls['appointeerelation'].value,
                     'IsZeroDept_Cover': this.addOns.controls['zerodept'].value == true ? '1' : '0',
-                    'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
-                    'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
-                    'IsLimitedtoOwnPremises': this.addOns.controls['IsLimitedtoOwnPremises'].value == true ? '1' : '0',
-                    // 'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
-                    'AntiTheftDiscFlag': this.addOns.controls['Antitheftdiscflag'].value,
-                    'HandicapDiscFlag': this.addOns.controls['HandicapDiscFlag'].value,
-                    'UnnamedPersonSI': this.addOns.controls['pasuminsured'].value,
-                    'NoofUnnamedPerson': this.addOns.controls['pacovername'].value
+                    "IsRTI_Cover":this.addOns.controls['returntoinvoice'].value == true ? '1' : '0',
+
+                    "IsEA_Cover":this.addOns.controls['emergencyassistance'].value == true ? '1' : '0',
+                    // 'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
+                    // 'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
+                    // 'IsLimitedtoOwnPremises': this.addOns.controls['IsLimitedtoOwnPremises'].value == true ? '1' : '0',
+                    // // 'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
+                    // 'AntiTheftDiscFlag': this.addOns.controls['Antitheftdiscflag'].value,
+                    // 'HandicapDiscFlag': this.addOns.controls['HandicapDiscFlag'].value,
+                    // 'UnnamedPersonSI': this.addOns.controls['pasuminsured'].value,
+                    // 'NoofUnnamedPerson': this.addOns.controls['pacovername'].value
                 },
             }
         };
@@ -1586,6 +1638,13 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.HandicapDisc_Premium=this.coverPremium.HandicapDisc_Premium;
             this.BiFuel_Kit_OD_Premium=this.coverPremium.BiFuel_Kit_OD_Premium;
             this.BiFuel_Kit_TP_Premium=this.coverPremium.BiFuel_Kit_TP_Premium;
+            this.returntoinvoice=this.coverPremium.returntoinvoice;
+            this.emerengy_assitance=this.coverPremium.emerengy_assitance;
+            this.zero_depression=this.coverPremium.zero_depression;
+            this.compulsory_ownerdriver=this.coverPremium.compulsory_ownerdriver;
+            // console.log(compulsory_ownerdriver,'compulsory_ownerdriver')
+            this.compulsory();
+
             this.electrical();
             this.electricalzd();
             this.nonelectrical();
@@ -1596,6 +1655,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             this.limitedTP();
             this.antitheftdiscAmount();
             this.bifuelValue();
+            this.returntoinvoiceChangeAmount();
+            this.zerodeptChangeAmount();
+            this.emergencyassistanceChangeAmount();
 
         }
         else{
@@ -1767,13 +1829,13 @@ limitedTP(){
                     'Vehicle_IDV': this.vehicleidv.Idv,
                 },
                 'Req_TW': {
-                    'ExtensionCountryCode': '',
-                    'POLICY_TENURE': this.addOns.controls['policytenture'].value,
-                    'ExtensionCountryName': this.addOns.controls['extentioncountryvalue'].value,
-                    'Effectivedrivinglicense': this.addOns.controls['drivinglicence'].value,
+                    // 'ExtensionCountryCode': '',
+                    // 'POLICY_TENURE': this.addOns.controls['policytenture'].value,
+                    // 'ExtensionCountryName': this.addOns.controls['extentioncountryvalue'].value,
+                    // 'Effectivedrivinglicense': this.addOns.controls['drivinglicence'].value,
                     'Paiddriver': this.addOns.controls['IsPaidDriver'].value == true ? '1' : '0',
-                    'BiFuelType': this.addOns.controls['biofuel'].value,
-                    'BiFuel_Kit_Value': this.addOns.controls['biofuelkit'].value,
+                    // 'BiFuelType': this.addOns.controls['biofuel'].value,
+                    // 'BiFuel_Kit_Value': this.addOns.controls['biofuelkit'].value,
                     'Paiddriver_Si': '',
                     'Owner_Driver_Nominee_Name': this.addOns.controls['NomineeName'].value,
                     'Owner_Driver_Nominee_Age': this.addOns.controls['NomineeAge'].value,
@@ -1781,14 +1843,17 @@ limitedTP(){
                     'Owner_Driver_Appointee_Name': this.addOns.controls['appointeename'].value,
                     'Owner_Driver_Appointee_Relationship': this.addOns.controls['appointeerelation'].value,
                     'IsZeroDept_Cover': this.addOns.controls['zerodept'].value == true ? '1' : '0',
-                    'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
-                    'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
-                    'IsLimitedtoOwnPremises': this.addOns.controls['IsLimitedtoOwnPremises'].value == true ? '1' : '0',
-                    // 'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
-                    'AntiTheftDiscFlag': this.addOns.controls['Antitheftdiscflag'].value,
-                    'HandicapDiscFlag': this.addOns.controls['HandicapDiscFlag'].value,
-                    'UnnamedPersonSI': this.addOns.controls['pasuminsured'].value,
-                    'NoofUnnamedPerson': this.addOns.controls['pacovername'].value
+                    "IsRTI_Cover":this.addOns.controls['returntoinvoice'].value == true ? '1' : '0',
+
+                    "IsEA_Cover":this.addOns.controls['emergencyassistance'].value == true ? '1' : '0',
+                    // 'ElecticalAccessoryIDV': this.addOns.controls['ElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['ElecticalAccessoryIDV'].value,
+                    // 'NonElecticalAccessoryIDV': this.addOns.controls['NonElecticalAccessoryIDV'].value == '' ? '0' : this.addOns.controls['NonElecticalAccessoryIDV'].value,
+                    // 'IsLimitedtoOwnPremises': this.addOns.controls['IsLimitedtoOwnPremises'].value == true ? '1' : '0',
+                    // // 'OtherLoadDiscRate': this.addOns.controls['OtherLoadDiscRate'].value == true ? '1' : '0',
+                    // 'AntiTheftDiscFlag': this.addOns.controls['Antitheftdiscflag'].value,
+                    // 'HandicapDiscFlag': this.addOns.controls['HandicapDiscFlag'].value,
+                    // 'UnnamedPersonSI': this.addOns.controls['pasuminsured'].value,
+                    // 'NoofUnnamedPerson': this.addOns.controls['pacovername'].value
                 },
 
 
