@@ -113,7 +113,7 @@
                         <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Professional Degree'">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Details of Professional Degree field<span class="error" >*</span></mat-placeholder>
-                            <input matInput formControlName="detailsOfProf" (keypress)="nameValidate($event)"  autocomplete="off"  (change)="detailsofProf()">
+                            <input matInput formControlName="detailsOfProf"  autocomplete="off"  (change)="detailsofProf()">
 <!--                            <mat-error *ngIf="personal.controls.detailsOfProf.errors?.required">Details of Professional Degree field is required</mat-error>-->
                           </mat-form-field>
                         </div>
@@ -127,12 +127,12 @@
 <!--                        </div>-->
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Occupation and Employee Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties()">
+                            <mat-select placeholder="Occupation & Employement Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties()">
                               <mat-option *ngFor="let list of empTypeList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="personal.controls.employeeType.errors?.required">Occupation and Employee Details is required</mat-error>
+                            <mat-error *ngIf="personal.controls.employeeType.errors?.required">Occupation & Employement Details is required</mat-error>
                           </mat-form-field>
                         </div>
 
@@ -691,7 +691,7 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Education Qualification:</strong> {{proposerFormData.qualifiction}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.detailsOfProf!= ''"><strong>Education Qualification:</strong> {{proposerFormData.detailsOfProf}}</li>
-                        <li class="list-group-item"><strong>Occupation and Employee Details:</strong> {{proposerFormData.employeeType}}</li>
+                        <li class="list-group-item"><strong>Occupation & Employement Details:</strong> {{proposerFormData.employeeType}}</li>
                         <li class="list-group-item"><strong>Nature Of Duties:</strong>{{proposerFormData.natureOfWork}} </li>
 <!--                        <li class="list-group-item" *ngIf="proposerFormData.natureOfWorkOthers!= ''"><strong>Nature Of Duties Others:</strong>{{proposerFormData.natureOfWorkOthers}} </li>-->
                         <li class="list-group-item" *ngIf="personal.controls.employeeType.value == 'Armed Forces'&& personal.controls.natureOfWork.value == 'Others'"><strong></strong>{{proposerFormData.othersnwork}} </li>
