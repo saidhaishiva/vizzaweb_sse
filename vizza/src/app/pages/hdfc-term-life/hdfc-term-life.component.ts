@@ -163,6 +163,14 @@ export class HdfcTermLifeComponent implements OnInit {
   public personalStatus: any;
   public appointeeResObj: any;
   public ageOfNomin1: any;
+  public nomin1gender: any;
+  public nomin1status: any;
+  public nomin1relation: any;
+  public nomin1title: any;
+  public nomin2gender: any;
+  public nomin2status: any;
+  public nomin2relation: any;
+  public nomin2title: any;
   public nationalityOthers: boolean;
   public keyUp = new Subject<string>();
 
@@ -1079,7 +1087,6 @@ changecountryofbirth() {
 
   // nominee details
   nomineeDetailNext(stepper, value) {
-
     console.log(value,'value');
     sessionStorage.stepper3Details = JSON.stringify(value);
     console.log(this.nomineeDetail.valid, 'this.nomineeDetail.valid');
@@ -1117,12 +1124,12 @@ changecountryofbirth() {
       }
     }
 
-    if (this.nomineeDetail.controls.itemsNominee.valid) {
-      if (!nomineeValid || !nominee2ageval) {
-
+    if (this.nomineeDetail.valid) {
+      if (!nomineeValid) {
+        if(!nominee2ageval){
 
         if (appointeeAge ) {
-          if (this.nomineeDetail['controls'].aName.value != '' && this.nomineeDetail['controls'].appointeeDob.value != '' && this.nomineeDetail['controls'].appointeeRelationToNominee.value != '') {
+          if (this.nomineeDetail['controls'].afirstnm.value != '' && this.nomineeDetail['controls'].aDob.value != '' && this.nomineeDetail['controls'].arelationship.value != '') {
             console.log(appointeeAge,'appointeeAgeentry')
             stepper.next();
             this.topScroll();
@@ -1130,14 +1137,11 @@ changecountryofbirth() {
           } else {
             this.toastr.error('Please fill the appointee details');
           }
-          // console.log(appointeeAge,'appointeeAgeentry')
-          // stepper.next();
-          // this.topScroll();
-          // this.proposal(stepper);
-
         } else {
           this.toastr.error('Appointee Age should be greater than 18.');
-          // console.log('2222');
+        }
+        }else{
+          this.toastr.error('Nominee 2 Age should be greater than 18.');
 
         }
       } else {
@@ -3426,7 +3430,21 @@ public setProposalSuccess(successData, stepper) {
     this.nomineeResObj = this.summaryData.summary.nominee;
     for (let i = 0; i < this.nomineeResObj.length; i++) {
       console.log(this.nomineeResObj, 'loop')
-      this.nomineeGender = this.nomineeResObj[i].gender;
+      this.nomin1gender = this.nomineeResObj[0].gender;
+      this.nomin1status = this.nomineeResObj[0].maritalstatus;
+      this.nomin1relation = this.nomineeResObj[0].relationship;
+      this.nomin1title = this.nomineeResObj[0].title;
+      if(i != 0) {
+        this.nomin2gender = this.nomineeResObj[1].gender;
+        this.nomin2status = this.nomineeResObj[1].maritalstatus;
+        this.nomin2relation = this.nomineeResObj[1].relationship;
+        this.nomin2title = this.nomineeResObj[1].title;
+      }
+      // console.log(nomin1gender, 'nomin1gender')
+      // console.log(nomin1status, 'nomin1status')
+      // console.log(nomin1relation, 'nomin1relation')
+      // console.log(nomin1title, 'nomin1gender')
+      // this.nomineetitle = this.nomineeResObj[i].gender;
     }
     this.appointeeResObj = this.summaryData.summary.appointee;
     console.log(this.proposerFormData, 'this.proposerFormData');

@@ -240,7 +240,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-placeholder> Policy No <span class="error" *ngIf="enquiryFormData.business_type != '1'"> * </span></mat-placeholder>
-                          <input matInput formControlName="prepolno" (paste)="onpaste($event)" (keypress)="numberValidate($event)" autocomplete="off" minlength="6">
+                          <input matInput formControlName="prepolno" (paste)="onpaste($event)" autocomplete="off" minlength="6">
                           <mat-error *ngIf="previouspolicy.controls.prepolno.errors?.required">Policy NO is Required</mat-error>
                         </mat-form-field>
                       </div>
