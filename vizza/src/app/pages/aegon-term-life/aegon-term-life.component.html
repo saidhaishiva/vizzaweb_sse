@@ -112,8 +112,8 @@
                         </div>
                         <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Professional Degree'">
                           <mat-form-field class="w-100">
-                            <mat-placeholder>Details of Professional Degree field<span class="error" >*</span></mat-placeholder>
-                            <input matInput formControlName="detailsOfProf" (keypress)="nameValidate($event)"  autocomplete="off"  (change)="detailsofProf()">
+                            <mat-placeholder>Details of Professional Degree<span class="error" >*</span></mat-placeholder>
+                            <input matInput formControlName="detailsOfProf"  autocomplete="off"  (change)="detailsofProf()">
 <!--                            <mat-error *ngIf="personal.controls.detailsOfProf.errors?.required">Details of Professional Degree field is required</mat-error>-->
                           </mat-form-field>
                         </div>
@@ -127,12 +127,12 @@
 <!--                        </div>-->
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Occupation and Employee Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties()">
+                            <mat-select placeholder="Occupation & Employement Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties()">
                               <mat-option *ngFor="let list of empTypeList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="personal.controls.employeeType.errors?.required">Occupation and Employee Details is required</mat-error>
+                            <mat-error *ngIf="personal.controls.employeeType.errors?.required">Occupation & Employement Details is required</mat-error>
                           </mat-form-field>
                         </div>
 
@@ -202,7 +202,7 @@
 <!--                        </div>-->
                         <div class="col-md-4">
                           <mat-radio-group formControlName="isPoliticleExposed" required>
-                            <p>Are you a Politically Exposed Person <span class="error" >*</span></p>
+                            <p>Are you a Politically Exposed Person ? <span class="error" >*</span></p>
                             <mat-radio-button value="YES" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="NO">No</mat-radio-button>
                           </mat-radio-group>
@@ -629,7 +629,7 @@
                               <!--</mat-form-field>-->
                             <!--</div>-->
 
-                            <div class="col-md-3" *ngIf=" nominee.controls.aRelation.value == 'Other'">
+                            <div class="col-md-3" *ngIf=" nominee.controls.aRelation.value == 'Others'">
                               <mat-form-field class="w-100">
                                 <mat-placeholder>Relationship with Other <span class="error" *ngIf=" nominee.controls.aRelation.value == 'Other'">*</span></mat-placeholder>
                                 <input matInput formControlName="appointeeRelationOther"  (keypress)="nameValidate($event)" autocomplete="off" maxlength="32" minlength="0">
@@ -683,38 +683,41 @@
                         <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
                         <li class="list-group-item"><strong>Father Name:</strong> {{proposerFormData.fatherName}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatus}}</li>
+                        <li class="list-group-item"><strong>Education Qualification:</strong> {{proposerFormData.qualifiction}}</li>
+
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Education Qualification:</strong> {{proposerFormData.qualifiction}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.detailsOfProf!= ''"><strong>Education Qualification:</strong> {{proposerFormData.detailsOfProf}}</li>
-                        <li class="list-group-item"><strong>Occupation and Employee Details:</strong> {{proposerFormData.employeeType}}</li>
+                        <li class="list-group-item"><strong>Occupation & Employement Details:</strong> {{proposerFormData.employeeType}}</li>
                         <li class="list-group-item"><strong>Nature Of Duties:</strong>{{proposerFormData.natureOfWork}} </li>
-<!--                        <li class="list-group-item" *ngIf="proposerFormData.natureOfWorkOthers!= ''"><strong>Nature Of Duties Others:</strong>{{proposerFormData.natureOfWorkOthers}} </li>-->
-                        <li class="list-group-item" *ngIf="personal.controls.employeeType.value == 'Armed Forces'&& personal.controls.natureOfWork.value == 'Others'"><strong></strong>{{proposerFormData.othersnwork}} </li>
-                        <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}} </li>
-                        <li class="list-group-item"><strong>Smoker:</strong> <span *ngIf="proposerFormData.smoker == 'y'">Yes</span> <span *ngIf="proposerFormData.smoker == 'n'">No</span></li>
+                        <li class="list-group-item" *ngIf=" personal.controls.employeeType.value == 'Armed Forces'"><strong>Special Duties:</strong>{{proposerFormData.specialDuties}} </li>
+                        <!--                        <li class="list-group-item" *ngIf="proposerFormData.natureOfWorkOthers!= ''"><strong>Nature Of Duties Others:</strong>{{proposerFormData.natureOfWorkOthers}} </li>-->
+                        <li class="list-group-item" *ngIf=" personal.controls.employeeType.value == 'Armed Forces'&& personal.controls.specialDuties.value == 'Others' "><strong>Others Special Duties</strong>{{proposerFormData.othersspecial}} </li>
+                        <li class="list-group-item" *ngIf="personal.controls.employeeType.value == 'Armed Forces'&& personal.controls.natureOfWork.value == 'Others'"><strong>Enter the Details</strong>{{proposerFormData.othersnwork}} </li>
+                       <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}} </li>
                         </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-<!--                        <li class="list-group-item"><strong>Is Existing Policy Holder:</strong> <span *ngIf="proposerFormData.isExistingPolicyHolder == 'YES'">Yes</span> <span *ngIf="proposerFormData.isExistingPolicyHolder == 'NO'">No</span></li>-->
-                        <li class="list-group-item"><strong>Politically Exposed Person:</strong> <span *ngIf="proposerFormData.isPoliticleExposed == 'YES'">Yes</span> <span *ngIf="proposerFormData.isPoliticleExposed == 'NO'">No</span></li>
-                        <li class="list-group-item" *ngIf="proposerFormData.isPoliticleExposed == 'YES'"><strong>Politically Exposed Person details:</strong>{{proposerFormData.PoliticleExposedDetail}} </li>
-                        <li class="list-group-item" *ngIf="proposerFormData.diabeteDuration!=''"><strong>Diabete Duration:</strong> {{proposerFormData.diabeteDuration}}</li>
-                      </ul>
+                        <li class="list-group-item"><strong>Smoker:</strong> <span *ngIf="proposerFormData.smoker == 'y'">Yes</span> <span *ngIf="proposerFormData.smoker == 'n'">No</span></li>
+                        <!--                        <li class="list-group-item"><strong>Is Existing Policy Holder:</strong> <span *ngIf="proposerFormData.isExistingPolicyHolder == 'YES'">Yes</span> <span *ngIf="proposerFormData.isExistingPolicyHolder == 'NO'">No</span></li>-->
+                        <li class="list-group-item"><strong>Are You a Politically Exposed Person:</strong> <span *ngIf="proposerFormData.isPoliticleExposed == 'YES'">Yes</span> <span *ngIf="proposerFormData.isPoliticleExposed == 'NO'">No</span></li>
+                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Is Housewife:</strong>{{proposerFormData.isHousewife}} </li>
-                        <li class="list-group-item"><strong>Is Husband Cover:</strong> {{proposerFormData.isHusbandCover}} </li>
+                        <li class="list-group-item" *ngIf="proposerFormData.isPoliticleExposed == 'YES'"><strong>Politically Exposed Person details:</strong>{{proposerFormData.PoliticleExposedDetail}} </li>
+                        <li class="list-group-item" *ngIf="proposerFormData.diabeteDuration!=''"><strong>Diabete Duration:</strong> {{proposerFormData.diabeteDuration}}</li>
+                        <!--                        <li class="list-group-item"><strong>Is Housewife:</strong>{{proposerFormData.isHousewife}} </li>-->
+<!--                        <li class="list-group-item"><strong>Is Husband Cover:</strong> {{proposerFormData.isHusbandCover}} </li>-->
                         <!--<li class="list-group-item"><strong>Is Address Same:</strong> {{proposerFormData.isAddressSame}}</li>-->
                       </ul>
                     </div>
