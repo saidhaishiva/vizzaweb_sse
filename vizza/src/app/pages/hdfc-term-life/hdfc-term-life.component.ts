@@ -952,10 +952,10 @@ export class HdfcTermLifeComponent implements OnInit {
   }
   nationOther () {
     if(this.personal.controls['nationality'].value == 'NATION_NONIND_CD') {
-      alert('in')
+      // alert('in')
       this.nationalityOthers = true;
     } else {
-      alert('2')
+      // alert('2')
       this.nationalityOthers = false;
     }
   }
