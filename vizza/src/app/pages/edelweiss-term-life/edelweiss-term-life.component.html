@@ -3854,7 +3854,7 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.pilot =='Yes' && lifePremiumList.product_id=='112'"><strong>Pilot :</strong> {{medicalFormData.pilot}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.activity =='Yes' && lifePremiumList.product_id=='112'"><strong>Do you take part in any of the following activities  :</strong> {{medicalFormData.activity}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.activity =='Yes' && lifePremiumList.product_id=='112'"><strong>Adventurous Activities :</strong> {{medicalFormData.adventurousActivitiesName}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.activity != ''  && lifePremiumList.product_id=='112'"><strong>Adventurous Activities Details :</strong> {{medicalFormData.adventurousActivitiesDetails}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.activity != 'Yes'  && lifePremiumList.product_id=='112'"><strong>Adventurous Activities Details :</strong> {{medicalFormData.adventurousActivitiesDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment =='Yes'"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalFormData.medicalTreatment}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment =='Yes'"><strong>Medication Details:</strong> {{medicalFormData.medicationDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment1 =='Yes'" ><strong>Have you ever been diagnosed or / received treatment:</strong> {{medicalFormData.receivedTreatment1}}</li>
@@ -3947,9 +3947,9 @@
                                             <div class="p-3">
                                                 <h6 class="color-blue" >FAMILY HISTORY</h6>
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.relation != null"><strong>RelationShip:</strong>{{item.relationName}}</li>
-                                                    <li class="list-group-item" *ngIf="item.healthStatus != null"><strong>Health Status:</strong> {{item.healthStatus}}</li>
-                                                    <li class="list-group-item" *ngIf="item.age != ''"><strong>Age:</strong> {{item.age}}</li>
+                                                    <li class="list-group-item" *ngIf="item.relation != ''||item.relation != null"><strong>RelationShip:</strong>{{item.relationName}}</li>
+                                                    <li class="list-group-item" *ngIf="item.healthStatus != ''||item.healthStatus != null"><strong>Health Status:</strong> {{item.healthStatus}}</li>
+                                                    <li class="list-group-item" *ngIf="item.age != ''||item.age != ''"><strong>Age:</strong> {{item.age}}</li>
 
                                                 </ul>
                                             </div>
@@ -3961,8 +3961,8 @@
                                             <div class="p-3">
                                                 <h6 class="color-blue" ></h6>
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.ageOnDeath != ''"><strong>Age at Death:</strong> {{item.ageOnDeath}}</li>
-                                                    <li class="list-group-item" *ngIf="item.causeOfDeath != ''"><strong>Cause Of Death:</strong> {{item.causeOfDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="item.ageOnDeath != ''||item.ageOnDeath != null"><strong>Age at Death:</strong> {{item.ageOnDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="item.causeOfDeath != ''||item.causeOfDeath != null"><strong>Cause Of Death:</strong> {{item.causeOfDeath}}</li>
 
                                                 </ul>
                                             </div>
@@ -4058,7 +4058,7 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.pregnantInd1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Pregnant:</strong> {{medicalFormData.pregnantInd1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.pregnantInd1 =='Yes' && lifePremiumList.product_id=='112'" ><strong>Pregnant weeks:</strong> {{medicalFormData.pregnantweeks1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseInd1 =='Yes' && lifePremiumList.product_id=='112'" ><strong>Female Disease:</strong> {{medicalFormData.femaleDieaseInd1}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseInd1 != '' && lifePremiumList.product_id=='112'"><strong>Female Disease Details:</strong> {{medicalFormData.femaleDetails1}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseInd1 != 'Yes' && lifePremiumList.product_id=='112'"><strong>Female Disease Details:</strong> {{medicalFormData.femaleDetails1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.healthInformation1 ==true"><strong>Health Information:</strong> Yes</li>
                                                     <!--<li class="list-group-item" *ngIf="medicalFormData.healthInformation1 ==false"><strong>Health Information:</strong> No</li>-->
 
@@ -4089,7 +4089,7 @@
 
 
                                         <div class="col-md-6" *ngIf="addonFormData.betterHalfBenefit=='Yes'">
-                                            <div class="p-3">
+                                            <div class="p-3 mt-3">
                                                 <h6 class="color-blue" ></h6>
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item" *ngIf="sitem.sageOnDeath != null"><strong>Age at Death:</strong> {{sitem.sageOnDeath}}</li>

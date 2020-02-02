@@ -8119,8 +8119,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['diagnosedDetails1'].patchValue(getMedicalDetail.diagnosedDetails1);
       this.medicalDetail.controls['heartDieaseInd1'].patchValue(getMedicalDetail.heartDieaseInd1);
       this.medicalDetail.controls['heartDieaseDetails1'].patchValue(getMedicalDetail.heartDieaseDetails1);
-      this.medicalDetail.controls['isHospitalized1'].patchValue(this.datepipe.transform(getMedicalDetail.isHospitalized1, 'y-MM-dd'));
-      this.medicalDetail.controls['hospitalizedDate1'].patchValue(getMedicalDetail.hospitalizedDate1);
+      this.medicalDetail.controls['hospitalizedDate1'].patchValue(this.datepipe.transform(getMedicalDetail.hospitalizedDate1, 'y-MM-dd'));
+      this.medicalDetail.controls['isHospitalized1'].patchValue(getMedicalDetail.isHospitalized1);
       this.medicalDetail.controls['respiratoryDieaseInd1'].patchValue(getMedicalDetail.respiratoryDieaseInd1);
       this.medicalDetail.controls['respiratoryDieaseDetails1'].patchValue(getMedicalDetail.respiratoryDieaseDetails1);
       this.medicalDetail.controls['diabetesInd1'].patchValue(getMedicalDetail.diabetesInd1);
