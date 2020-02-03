@@ -26,6 +26,7 @@ export const MY_FORMATS = {
         monthYearA11yLabel: 'MM YYYY',
     },
 };
+
 @Component({
   selector: 'app-travel-premium-list',
   templateUrl: './travel-premium-list.component.html',
