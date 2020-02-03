@@ -901,7 +901,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteAlcoholDetails();
     this.geteCompany();
     this.getCauseDeath();
-    this.getFamilyHistory();
+    // this.getFamilyHistory();
     this.sessionData();
     this.edelweissPrimium();
     this.getCover();
@@ -1891,14 +1891,17 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.medicalDetail.valid, 'this.valid');
 
     if (this.medicalDetail.valid){
+      this.getFamilyHistory(stepper);
      //    &&
      //    ((this.errortravelOutside == false||this.errortravelOutside=='') && (this.serrortravelOutside == false ||this.serrortravelOutside=='')&& (this.piloterror ==false||this.piloterror=='') && (this.spiloterror ==false||this.spiloterror=='') && (this.activityerror ==false ||this.activityerror=='')&& (this.sactivityerror ==false||this.sactivityerror=='') && (this.drugsInderror == false||this.drugsInderror=='') &&(this.sdrugsInderror == false||this.sdrugsInderror=='') && (this.alcoholInderror == false||this.alcoholInderror=='') && (this.salcoholInderror == false||this.salcoholInderror=='') && (this.tobaccoInderror == false||this.tobaccoInderror=='')  &&(this.stobaccoInderror == false||this.stobaccoInderror=='')  && (this.consultDoctorInderror == false||this.consultDoctorInderror=='') && (this.sconsultDoctorInderror == false||this.sconsultDoctorInderror=='') && (this.ECGInderror == false ||this.ECGInderror=='')&& (this.sECGInderror == false||this.sECGInderror=='')
      //  && (this.admitInderror == false||this.admitInderror=='') && (this.admitInderror == false||this.admitInderror=='') && (this.medicalTreatmenterror == false||this.smedicalTreatmenterror=='') && (this.smedicalTreatmenterror == false||this.smedicalTreatmenterror=='') && (this.heartDieaseInderror == false ||this.heartDieaseInderror=='')&&(this.sheartDieaseInderror == false||this.sheartDieaseInderror=='') && (this.respiratoryDieaseInderror == false||this.respiratoryDieaseInderror=='')&&(this.srespiratoryDieaseInderror == false||this.srespiratoryDieaseInderror=='') && (this.diabetesInderror == false||this.diabetesInderror=='')&&(this.sdiabetesInderror == false||this.sdiabetesInderror=='')&& (this.kidneyDieaseInderror == false||this.kidneyDieaseInderror=='')&& (this.skidneyDieaseInderror == false||this.skidneyDieaseInderror=='')
      //  && (this.digestiveDieaseInderror == false||this.digestiveDieaseInderror=='') && (this.sdigestiveDieaseInderror == false||this.sdigestiveDieaseInderror=='') && (this.cancerDieaseInderror == false||this.cancerDieaseInderror=='')&&(this.scancerDieaseInderror == false||this.scancerDieaseInderror=='')&& (this.tropicalDieaseInderror == false||this.tropicalDieaseInderror=='')&&(this.stropicalDieaseInderror == false||this.stropicalDieaseInderror=='')&& (this.thyroidDieaseInderror == false||this.thyroidDieaseInderror=='')&&(this.sthyroidDieaseInderror == false||this.sthyroidDieaseInderror=='')&& (this.bloodDieaseInderror == false||this.bloodDieaseInderror=='')&&(this.sbloodDieaseInderror == false||this.sbloodDieaseInderror=='')&& (this.nervousDieaseInderror == false||this.nervousDieaseInderror=='') &&(this.snervousDieaseInderror == false||this.snervousDieaseInderror=='') && (this.femaleDieaseInderror == false||this.femaleDieaseInderror=='')&& (this.sfemaleDieaseInderror == false||this.sfemaleDieaseInderror=='')
      //  && (this.muscleDieaseInderror == false||this.muscleDieaseInderror=='')&&(this.smuscleDieaseInderror == false||this.smuscleDieaseInderror=='')&& (this.receivedTreatment2error == false||this.receivedTreatment2error=='')&&(this.sreceivedTreatment2error == false||this.sreceivedTreatment2error=='')&& (this.alcoholicInderror == false||this.alcoholicInderror=='')&& (this.salcoholicInderror == false||this.salcoholicInderror=='')&& (this.otherIllnessInderror == false||this.otherIllnessInderror=='')&&(this.sotherIllnessInderror == false||this.sotherIllnessInderror=='')&& (this.deformityInderror == false||this.deformityInderror=='')&&(this.sdeformityInderror == false||this.sdeformityInderror=='')&& (this.receivedTreatment1error == false||this.receivedTreatment1error=='')&&(this.sreceivedTreatment1error == false||this.sreceivedTreatment1error=='')&& (this.symptomsInderror == false||this.symptomsInderror=='')&&(this.ssymptomsInderror == false||this.ssymptomsInderror=='') )) {
-     // // if(this.eHistoryFamily==false){
-       stepper.next();
-       this.topScroll();
+     // if(this.eHistoryFamily==false){
+     //   stepper.next();
+     //   this.topScroll();
+     // }else if(this.eHistoryFamily==true){
+     //
      // }
     }else{
       this.toastr.error('Please fill the Mandatory Field ');
@@ -4139,15 +4142,61 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (this.medicalDetail.controls['alcoholInd'].value == 'Yes') {
       this.medicalDetail.controls['alcoholDetails'].patchValue(this.medicalDetail.controls['alcoholDetails'].value);
+      this.medicalDetail.controls['alcoholBeer'].patchValue(this.medicalDetail.controls['alcoholBeer'].value);
+      this.medicalDetail.controls['alcoholliquar'].patchValue(this.medicalDetail.controls['alcoholliquar'].value);
+      this.medicalDetail.controls['alcoholWine'].patchValue(this.medicalDetail.controls['alcoholWine'].value);
 
       this.medicalDetail.controls['alcoholDetails'].setValidators([Validators.required]);
+      this.medicalDetail.controls['alcoholBeer'].setValidators([Validators.required]);
+      this.medicalDetail.controls['alcoholliquar'].setValidators([Validators.required]);
+      this.medicalDetail.controls['alcoholWine'].setValidators([Validators.required]);
     } else {
       this.medicalDetail.controls['alcoholDetails'].patchValue('');
+      this.medicalDetail.controls['alcoholBeer'].patchValue('');
+      this.medicalDetail.controls['alcoholliquar'].patchValue('');
+      this.medicalDetail.controls['alcoholWine'].patchValue('');
 
       this.medicalDetail.controls['alcoholDetails'].setValidators(null);
+      this.medicalDetail.controls['alcoholBeer'].setValidators(null);
+      this.medicalDetail.controls['alcoholliquar'].setValidators(null);
+      this.medicalDetail.controls['alcoholWine'].setValidators(null);
 
     }
     this.medicalDetail.controls['alcoholDetails'].updateValueAndValidity();
+    this.medicalDetail.controls['alcoholBeer'].updateValueAndValidity();
+    this.medicalDetail.controls['alcoholliquar'].updateValueAndValidity();
+    this.medicalDetail.controls['alcoholWine'].updateValueAndValidity();
+
+  }
+
+  isalcoholInd1() {
+
+    if (this.medicalDetail.controls['alcoholInd1'].value == 'Yes') {
+      this.medicalDetail.controls['alcoholDetails1'].patchValue(this.medicalDetail.controls['alcoholDetails1'].value);
+      this.medicalDetail.controls['alcoholBeer1'].patchValue(this.medicalDetail.controls['alcoholBeer'].value);
+      this.medicalDetail.controls['alcoholliquar1'].patchValue(this.medicalDetail.controls['alcoholliquar'].value);
+      this.medicalDetail.controls['alcoholWine1'].patchValue(this.medicalDetail.controls['alcoholWine'].value);
+
+      this.medicalDetail.controls['alcoholDetails1'].setValidators([Validators.required]);
+      this.medicalDetail.controls['alcoholBeer1'].setValidators([Validators.required]);
+      this.medicalDetail.controls['alcoholliquar1'].setValidators([Validators.required]);
+      this.medicalDetail.controls['alcoholWine1'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['alcoholDetails1'].patchValue('');
+      this.medicalDetail.controls['alcoholBeer1'].patchValue('');
+      this.medicalDetail.controls['alcoholliquar1'].patchValue('');
+      this.medicalDetail.controls['alcoholWine1'].patchValue('');
+
+      this.medicalDetail.controls['alcoholDetails1'].setValidators(null);
+      this.medicalDetail.controls['alcoholBeer1'].setValidators(null);
+      this.medicalDetail.controls['alcoholliquar1'].setValidators(null);
+      this.medicalDetail.controls['alcoholWine1'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['alcoholDetails1'].updateValueAndValidity();
+    this.medicalDetail.controls['alcoholBeer1'].updateValueAndValidity();
+    this.medicalDetail.controls['alcoholliquar1'].updateValueAndValidity();
+    this.medicalDetail.controls['alcoholWine1'].updateValueAndValidity();
 
   }
 
@@ -4620,6 +4669,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['isRecovered1'].patchValue(null);
       this.medicalDetail.controls['pregnantInd1'].patchValue(null);
       this.medicalDetail.controls['femaleDieaseInd1'].patchValue(null);
+      this.travelOutside1();
       // this.insureArray.controls['isSmokerSpouse'].setValidators([Validators.required]);
 
     } else if(this.addon.controls['betterHalfBenefit'].value == 'No'||this.addon.controls['betterHalfBenefit'].value == ''){
@@ -4647,10 +4697,6 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['sexistingInsuranceInd'].patchValue('No');
       // this.insureArray.controls['isSmokerSpouse'].patchValue('');
 
-
-
-
-      this.travelOutside1();
 
       this.medicalDetail.controls['travelOutsideIndia1'].setValidators(null);
       this.medicalDetail.controls['pilot1'].setValidators(null);
@@ -5811,7 +5857,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public geteGenderFailure(error) {
   }
 
-  getFamilyHistory() {
+  getFamilyHistory(stepper) {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -5830,7 +5876,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
     this.termService.geteFamilyHistory(data).subscribe(
         (successData) => {
-          this.geteFamilyHistorySuccess(successData);
+          this.geteFamilyHistorySuccess(successData,stepper);
         },
         (error) => {
           this.geteFamilyHistoryFailure(error);
@@ -5838,13 +5884,16 @@ export class EdelweissTermLifeComponent implements OnInit {
     );
   }
 
-  public geteFamilyHistorySuccess(successData) {
+  public geteFamilyHistorySuccess(successData,stepper) {
     if (successData.IsSuccess==true) {
       this.eHistoryFamily=false;
       // this.eHistoryFamily = successData.ResponseObject;
-    }else {
+      stepper.next();
+      this.topScroll();
+    }else if (successData.IsSuccess==false) {
       this.eHistoryFamily=true;
       this.toastr.error(successData.ErrorObject);
+      this.eHistoryFamily=true;
     }
   }
   public geteFamilyHistoryFailure(error) {
