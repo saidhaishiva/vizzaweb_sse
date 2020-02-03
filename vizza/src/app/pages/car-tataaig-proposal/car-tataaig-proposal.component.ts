@@ -121,6 +121,7 @@ export class CarTataaigProposalComponent implements OnInit {
   public packagesslist: any;
   public packaageList: any;
   public packaageListID: any;
+  public NcbProtection: any;
   public finlist: any;
   photos = [];
   photosBuffer = [];
@@ -1002,6 +1003,8 @@ changeAddonValue(){
       "TPPD_Restricted": this.vehicle.controls['tppdRes'].value == true ? 'Y' : 'N',
     };
     console.log(data,'fullquote');
+    this.settings.loadingSpinner = true;
+
     this.carinsurance.QuoteList(data).subscribe(
         (successData) => {
           this.QuoteSuccess(successData);
@@ -1013,6 +1016,8 @@ changeAddonValue(){
   }
 
   QuoteSuccess(successData) {
+    this.settings.loadingSpinner = false;
+
     if (successData.IsSuccess) {
       this.Quotelist = successData.ResponseObject;
       console.log(this.Quotelist,'quotationdata');
@@ -1020,6 +1025,7 @@ changeAddonValue(){
       this.QDepreciationReImb=this.Quotelist.productlist.addons.Depreciation_reimbursement;
       this.QEmergencytransport=this.Quotelist.productlist.addons.Emergency_transport_and_Hotel_expenses_IDV;
       this.QKeyReplacement=this.Quotelist.productlist.addons.Key_Replacement;
+      this.NcbProtection=this.Quotelist.productlist.addons.NcbProtection;
       this.QLossPersonalIDV=this.Quotelist.productlist.addons.Loss_of_Personal_belongings_IDV;
       this.QRepairGlass=this.Quotelist.productlist.addons.Repair_Glass;
       this.QRoadsideAssistance=this.Quotelist.productlist.addons.Roadside_Assistance;
@@ -1051,6 +1057,7 @@ changeAddonValue(){
       this.autoAssoAmountChange();
       this.antitheftAmountChange();
       this.ttppdResAmountChange();
+      this.ncbprotector();
       // this.createproposal(stepper);
     }
   }
@@ -1082,7 +1089,13 @@ changeAddonValue(){
     // console.log( this.vehicle.controls['Associationamount'].value,'quoteListsss')
 
   }
+ncbprotector(){
+  this.vehicle.controls['protectioncoverAmount'].patchValue(this.NcbProtection);
+  console.log(this.NcbProtection,'NcbProtection')
 
+
+
+}
   enginesecureChange()
   {
     this.vehicle.controls['enginesecureAmount'].patchValue(this.QEngineSecure);
