@@ -129,6 +129,7 @@ export class HdfcCarProposalComponent implements OnInit {
     public engine_gear: any;
     public Loss_Use_protection: any;
     public Complusory_OwnerDriver_Premium: any;
+    public valid: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -137,6 +138,8 @@ export class HdfcCarProposalComponent implements OnInit {
 
   constructor(public fb: FormBuilder,public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe ,public Fourwheeler: FourWheelerService) {
       let stepperindex = 0;
+      this.valid=0;
+
       this.route.params.forEach((params) => {
           if (params.stepper == true || params.stepper == 'true') {
               stepperindex = 3;
@@ -377,6 +380,7 @@ export class HdfcCarProposalComponent implements OnInit {
 
   }
   electricalhalfvalue() {
+      this.valid=0;
       let cal = this.vechicle.controls['vechicleidv'].value;
       let val = cal / 2;
       this.equalvalid = val;
@@ -949,7 +953,10 @@ ChangeGender(){
         // this.addOns.controls['biofuelkit'].updateValueAndValidity();
     }
     ncbchange(){
+        // this.addOns.controls['IsNCBProtection'].patchValue(this.ncbprotection);
+
         if (this.addOns.controls['IsNCBProtection'].value ==true) {
+
             this.addOns.controls['ncbprotectionpremium'].setValidators([Validators.required]);
             this.getCover();
         } else {
@@ -957,12 +964,14 @@ ChangeGender(){
             this.addOns.controls['ncbprotectionpremium'].setValidators(null);
         }
         this.addOns.controls['ncbprotectionpremium'].updateValueAndValidity();
+        this.addOns.controls['IsNCBProtection'].patchValue(this.ncbprotection);
+
     }
 
 
     ncbchangeValue(){
         this.addOns.controls['ncbprotectionpremium'].patchValue(this.ncbprotection);
-        // this.addOns.controls['totalbiofuelkitPremium1'].patchValue(this.BiFuel_Kit_TP_Premium);
+
 
     } returnchange(){
         if (this.addOns.controls['IsRTIcover'].value ==true) {
@@ -1069,7 +1078,7 @@ ChangeGender(){
         this.addOns.controls['totalElecticAccessIDVPremium'].updateValueAndValidity();
     }
     electricValidation(){
-      if(this.addOns.controls.ElecticalAccessoryIDV.value>= this.equalvalid){
+      if(this.addOns.controls.ElecticalAccessoryIDV.value >= this.valid &&this.addOns.controls.ElecticalAccessoryIDV.value<= this.equalvalid){
           this.electricValid=false;
           this.electricValid='';
           this.getCover();
@@ -1094,7 +1103,7 @@ ChangeGender(){
         this.addOns.controls['totalNonElecticAccessIDVPremium'].updateValueAndValidity();
     }
     electricNonValidation(){
-        if(this.addOns.controls.ElecticalAccessoryIDV.value>= this.equalvalid){
+        if(this.addOns.controls.NonElecticalAccessoryIDV.value >= this.valid && this.addOns.controls.NonElecticalAccessoryIDV.value>= this.equalvalid){
             this.electricNonValid=false;
             this.electricNonValid='';
             this.getCover();
@@ -1146,23 +1155,23 @@ ChangeGender(){
         this.addOns.controls['totalNamedPersonPremium'].updateValueAndValidity();
     }
     namedPersonValidation(){
-        if(this.addOns.controls.namedPersonSI.value >= 100000 && this.addOns.controls.namedPersonSI.value <= 200000){
+        if(this.addOns.controls.namedPersonSI.value >= 10000 && this.addOns.controls.namedPersonSI.value <= 200000){
             this.namedPersonSiValid=false;
             this.namedPersonSiValid='';
             this.getCover();
         }else{
             this.namedPersonSiValid=true;
-            this.namedPersonSiValid='Named Person SI should be 100000 to 2000000';
+            this.namedPersonSiValid='Named Person SI should be 10000 to 2000000';
         }
     }
     unnamedPersonValidation(){
-        if(this.addOns.controls.UnnamedPersonSI.value >= 100000 && this.addOns.controls.UnnamedPersonSI.value <= 2000000){
+        if(this.addOns.controls.UnnamedPersonSI.value >= 10000 && this.addOns.controls.UnnamedPersonSI.value <= 2000000){
             this.unnamedPersonSiValid=false;
             this.unnamedPersonSiValid='';
             this.getCover();
         }else{
             this.unnamedPersonSiValid=true;
-            this.unnamedPersonSiValid='Unnamed Person SI should be 100000 to 2000000';
+            this.unnamedPersonSiValid='Unnamed Person SI should be 10000 to 2000000';
         }
     }
     paidPersonValidation(){
@@ -1783,7 +1792,7 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
             }
 
         }
-        // this.Setting.loadingSpinner = true;
+        this.Setting.loadingSpinner = true;
 
         this.Fourwheeler.hdfcCarCover(data).subscribe(
             (successData) => {
@@ -1796,7 +1805,7 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
     }
 
     public hdfcCarCoversuccess(successData) {
-        // this.Setting.loadingSpinner = false;
+        this.Setting.loadingSpinner = false;
 
 
         if (successData.IsSuccess == true) {
