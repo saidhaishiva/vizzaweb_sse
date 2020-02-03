@@ -3868,8 +3868,10 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Alcohol liquor:</strong> {{medicalFormData.alcoholliquar}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Alcohol Wine:</strong> {{medicalFormData.alcoholWine}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Are u Tobacco User:</strong> {{medicalFormData.tobaccoInd}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Tobacco Details:</strong> {{medicalFormData.tobaccoDetailName}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Are u Stopped using Tobacco:</strong> {{medicalFormData.tobaccoStopInd}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Cigarettes/Cigar sticks (per day):</strong> {{medicalFormData.tobaccoDetails}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Bidi sticks (per day):</strong> {{medicalFormData.tobaccoDetails1}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Gutka pouch (per day):</strong> {{medicalFormData.tobaccoDetails2}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Paan (per day):</strong> {{medicalFormData.tobaccoDetails3}}</li>                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Are u Stopped using Tobacco:</strong> {{medicalFormData.tobaccoStopInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd =='Yes' && lifePremiumList.product_id=='112'" ><strong>Tobacco Stop Details:</strong> {{medicalFormData.tobaccoStopDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.consultDoctorInd =='Yes' && lifePremiumList.product_id=='112'" ><strong>Are You Consulting Doctor:</strong> {{medicalFormData.consultDoctorInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.consultDoctorInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Consulting Doctor Details:</strong> {{medicalFormData.consultDoctorDetails}}</li>
@@ -3948,9 +3950,9 @@
                                             <div class="p-3">
                                                 <h6 class="color-blue" >FAMILY HISTORY</h6>
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.relation != ''||item.relation != null"><strong>RelationShip:</strong>{{item.relationName}}</li>
-                                                    <li class="list-group-item" *ngIf="item.healthStatus != ''||item.healthStatus != null"><strong>Health Status:</strong> {{item.healthStatus}}</li>
-                                                    <li class="list-group-item" *ngIf="item.age != ''||item.age != ''"><strong>Age:</strong> {{item.age}}</li>
+                                                    <li class="list-group-item" *ngIf="item.relation != ''"><strong>RelationShip:</strong>{{item.relationName}}</li>
+                                                    <li class="list-group-item" *ngIf="item.healthStatus != ''"><strong>Health Status:</strong> {{item.healthStatus}}</li>
+                                                    <li class="list-group-item" *ngIf="item.age != ''"><strong>Age:</strong> {{item.age}}</li>
 
                                                 </ul>
                                             </div>
@@ -3962,8 +3964,8 @@
                                             <div class="p-3">
                                                 <h6 class="color-blue" ></h6>
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="item.ageOnDeath != ''||item.ageOnDeath != null"><strong>Age at Death:</strong> {{item.ageOnDeath}}</li>
-                                                    <li class="list-group-item" *ngIf="item.causeOfDeath != ''||item.causeOfDeath != null"><strong>Cause Of Death:</strong> {{item.causeOfDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="item.ageOnDeath != ''"><strong>Age at Death:</strong> {{item.ageOnDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="item.causeOfDeath != ''"><strong>Cause Of Death:</strong> {{item.causeOfDeath}}</li>
 
                                                 </ul>
                                             </div>
@@ -3996,7 +3998,10 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholInd1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Alcohol liquor:</strong> {{medicalFormData.alcoholliquar1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.alcoholInd1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Alcohol Wine:</strong> {{medicalFormData.alcoholWine1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Are u Tobacco User:</strong> {{medicalFormData.tobaccoInd1}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Tobacco Details:</strong> {{medicalFormData.tobaccoDetailName1}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Cigarettes/Cigar sticks (per day):</strong> {{medicalFormData.stobaccoDetails}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Bidi sticks (per day):</strong> {{medicalFormData.stobaccoDetails1}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Gutka pouch (per day):</strong> {{medicalFormData.stobaccoDetails2}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Paan (per day):</strong> {{medicalFormData.stobaccoDetails3}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Are u Stopped using Tobacco:</strong> {{medicalFormData.tobaccoStopInd1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd1 =='Yes' && lifePremiumList.product_id=='112'" ><strong>Tobacco Stop Details:</strong> {{medicalFormData.tobaccoStopDetails1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.consultDoctorInd1 =='Yes' && lifePremiumList.product_id=='112'" ><strong>Are You Consulting Doctor:</strong> {{medicalFormData.consultDoctorInd1}}</li>
@@ -4079,9 +4084,9 @@
                                             <div class="p-3">
                                                 <h6 class="color-blue" >FAMILY HISTORY FOR SPOUSE</h6>
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="sitem.srelation != ''||sitem.srelation != null"><strong>RelationShip:</strong>{{sitem.srelationName}}</li>
-                                                    <li class="list-group-item" *ngIf="sitem.shealthStatus != ''||sitem.shealthStatus != null"><strong>Health Status:</strong> {{sitem.shealthStatus}}</li>
-                                                    <li class="list-group-item" *ngIf=" sitem.sage != ''||sitem.sage != null"><strong>Age:</strong> {{sitem.sage}}</li>
+                                                    <li class="list-group-item" *ngIf="sitem.srelation != ''"><strong>RelationShip:</strong>{{sitem.srelationName}}</li>
+                                                    <li class="list-group-item" *ngIf="sitem.shealthStatus != ''"><strong>Health Status:</strong> {{sitem.shealthStatus}}</li>
+                                                    <li class="list-group-item" *ngIf=" sitem.sage != ''"><strong>Age:</strong> {{sitem.sage}}</li>
 
                                                 </ul>
                                             </div>
@@ -4093,8 +4098,8 @@
                                             <div class="p-3 mt-3">
                                                 <h6 class="color-blue" ></h6>
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="sitem.sageOnDeath != ''||sitem.sageOnDeath != null"><strong>Age at Death:</strong> {{sitem.sageOnDeath}}</li>
-                                                    <li class="list-group-item" *ngIf="sitem.scauseOfDeath != ''||sitem.scauseOfDeath != null"><strong>Cause Of Death:</strong> {{sitem.scauseOfDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="sitem.sageOnDeath != ''"><strong>Age at Death:</strong> {{sitem.sageOnDeath}}</li>
+                                                    <li class="list-group-item" *ngIf="sitem.scauseOfDeath != ''"><strong>Cause Of Death:</strong> {{sitem.scauseOfDeath}}</li>
 
                                                 </ul>
                                             </div>

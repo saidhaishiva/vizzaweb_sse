@@ -4402,6 +4402,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['FemalehospitalizedDate'].setValidators([Validators.required]);
       this.medicalDetail.controls['isFemaleRecovered'].setValidators([Validators.required]);
     } else if (this.medicalDetail.controls['isFemaleHospitalized'].value == 'No') {
+
       this.medicalDetail.controls['FemalehospitalizedDate'].patchValue('');
       this.medicalDetail.controls['isFemaleRecovered'].patchValue('');
 
@@ -4437,6 +4438,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['FemalehospitalizedDate1'].setValidators([Validators.required]);
       this.medicalDetail.controls['isFemaleRecovered1'].setValidators([Validators.required]);
     } else if (this.medicalDetail.controls['isFemaleHospitalized1'].value == 'No') {
+
       this.medicalDetail.controls['FemalehospitalizedDate1'].patchValue('');
       this.medicalDetail.controls['isFemaleRecovered1'].patchValue('');
 
