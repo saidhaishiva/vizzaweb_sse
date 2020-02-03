@@ -71,6 +71,7 @@ export class TermLifePremiumListComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.tostebutton = false;
 
+
         this.webhost = this.config.getimgUrl();
         this.compareArray = [];
         this.selectedAmountTravel = '5000000';

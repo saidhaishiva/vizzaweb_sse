@@ -735,6 +735,10 @@ this.getCover();
                 stepper.next();
                 this.topScroll();
                 this.getCover();
+                this.returntoinvoiceChangeAmount();
+                this.zerodeptChangeAmount();
+                this.emergencyassistanceChangeAmount();
+
                 // }else{
                 //     this.toastr.error('IDV Should Not Less Than 7000');
                 // }
@@ -1411,6 +1415,8 @@ this.getCover();
     paidDriverChange(){
         if(this.addOns.controls.IsPaidDriver.value == true){
             this.addOns.controls['totalPaidDriverPremium'].setValidators([Validators.required]);
+            this.addOns.controls['IsPaidDriver'].patchValue(this.PaidDriver_Premium)
+
             this.getCover();
         } else {
             this.addOns.controls['totalPaidDriverPremium'].patchValue('');
