@@ -296,7 +296,7 @@
                           </div>
                           <div class="col-md-4" >
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Weight" formControlName="Weight"  required >
+                              <input matInput placeholder="Weight" formControlName="weight"  required >
                               <mat-error *ngIf="hdfcInsureArray.invalid">Weight is required</mat-error>
 
                             </mat-form-field>
@@ -592,7 +592,9 @@
               <div class="col-md-12 text-center">
 
                   <!--<form action=''  method='POST' #form>&ndash;&gt;-->
-                      <form action={{PaymentActionUrl}}  method='POST' #form>
+                      <form action={{PaymentActionUrl}}  method='POST' style="margin-top: -161px;" #form>
+
+
                           <input id="__EVENTVALIDATION" type="hidden" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="
                                  name="__EVENTVALIDATION">
                           <input id="CustomerId" type="hidden" value="{{ProposalNumber}}" name="CustomerId"><br/>
