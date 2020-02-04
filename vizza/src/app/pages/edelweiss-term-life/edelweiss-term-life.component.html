@@ -419,7 +419,7 @@
                                 <!--</div>-->
                                 <div class="proposal-buttom mt-3 text-right w-100">
                                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                    <button mat-raised-button color="primaryBlue"  (click)="isbetterHalfBenefit();smokerChangeSpouse();edelweissPrimium();edelweissAddonDetail(stepper, addon.value)">Next</button>
+                                    <button mat-raised-button color="primaryBlue"  (click)="questionReq();isbetterHalfBenefit();smokerChangeSpouse();edelweissPrimium();edelweissAddonDetail(stepper, addon.value)">Next</button>
                                 </div>
                             </mat-expansion-panel>
                         </form>
@@ -2561,8 +2561,8 @@
                                                     <mat-placeholder>Symptoms Details<span class="error" >*</span></mat-placeholder>
                                                     <input matInput  formControlName="symptomsDetails"    autocomplete="off"   maxlength="45">
                                                 </mat-form-field>
+                                                <div class="error" *ngIf="symptomsInderror != ''&& symptomsInderror != true ">{{symptomsInderror}}</div>
                                             </div>
-                                            <div class="error" *ngIf="symptomsInderror != ''&& symptomsInderror != true ">{{symptomsInderror}}</div>
                                             <div class="col-md-12" *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'">
                                                 <mat-radio-group formControlName="isHospitalized" (change)="isHospitalizedMed()"  >
                                                     <p>Have you ever been hospitalized for this condition?  <span class="error" >*</span></p>
