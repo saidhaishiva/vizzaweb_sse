@@ -709,7 +709,7 @@
 
                                     <div class="col-md-4">
                                         <mat-form-field class="w-100">
-                                            <mat-select  placeholder="Employment Type" formControlName="employementType"  (selectionChange)="employmentTypereq1(); employementTypeName1()" required  class="w-100" >
+                                            <mat-select  placeholder="Employment Type" formControlName="employementType"  (selectionChange)="employmentTypereq1();employmentTypereq12(); employementTypeName1()" required  class="w-100" >
                                                 <mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="insureArray.controls.employementType.errors?.required">Employment Type is required</mat-error>
@@ -1301,7 +1301,7 @@
 
                                         <div class="col-md-4">
                                             <mat-form-field class="w-100">
-                                                <mat-select  placeholder="Employment Type" formControlName="semployementType"  (selectionChange)="semploymentTypereq1(); semployementTypeName1()" [required]="addon.controls['betterHalfBenefit'].value == 'Yes'"  class="w-100" >
+                                                <mat-select  placeholder="Employment Type" formControlName="semployementType"  (selectionChange)="semploymentTypereq1();semploymentTypereq12();semployementTypeName1()" [required]="addon.controls['betterHalfBenefit'].value == 'Yes'"  class="w-100" >
                                                     <mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>
                                                 </mat-select>
                                                 <!--<mat-error *ngIf="insureArray.controls.semployementType.errors?.required">Employment Type is required</mat-error>-->
