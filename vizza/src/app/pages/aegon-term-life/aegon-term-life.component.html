@@ -100,7 +100,7 @@
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Education Qualification" formControlName="qualifiction"  (selectionChange)="changeQualificationList();detailsofProf();getAnnual('qul'); getPremium('qul')" required>
+                          <mat-select placeholder="Education Qualification" formControlName="qualifiction"  (selectionChange)="changeQualificationList();detailsofProf();getAnnual('qul'); getPremium('qul');"required>
                             <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>
@@ -127,13 +127,19 @@
 <!--                        </div>-->
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Occupation & Employement Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties()">
+                            <mat-select placeholder="Occupation & Employement Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties(); driver();housewife()">
                               <mat-option *ngFor="let list of empTypeList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
                             <mat-error *ngIf="personal.controls.employeeType.errors?.required">Occupation & Employement Details is required</mat-error>
+
                           </mat-form-field>
+                          <div class="error" *ngIf="quali != ''">{{quali}}</div>
+                          <div class="error" *ngIf="agrii != ''">{{agrii}}</div>
+                          <div class="error" *ngIf="studd != ''">{{studd}}</div>
+                          <div class="error" *ngIf="housewiferrorr != ''">{{housewiferrorr}}</div>
+
                         </div>
 
 
@@ -659,9 +665,9 @@
                 <div class="col-md-12">
 <!--                  <h4 class="mt-4"></h4>-->
                   <ul class="summary-head" style="justify-content: end !important">
-                    <li><span>Plan Name:</span><span style="font-size: 16px;"> {{lifePremiumList.product_display_name}}</span></li>
-                    <li><span>Insurer: </span><img src="{{ webhost + '/' + lifePremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium: </span><span style="font-size: 16px;"><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</span></li>
+                    <li style="width: 691px;"><span>Plan Name:</span><span style="font-size: 16px;"> {{lifePremiumList.product_display_name}}</span></li>
+                    <li style="width: 210px;"><span>Insurer: </span><img src="{{ webhost + '/' + lifePremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                    <li style="width: 125px;"><span>Premium: </span><span style="font-size: 16px;"><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</span></li>
                     <li><span>GST: </span><span style="font-size: 16px;"><i class="fas fa-rupee-sign"></i> {{summaryData.gst}}</span></li>
                     <li><span>Total Premium: </span><span style="font-size: 16px;"><i class="fas fa-rupee-sign"></i> {{summaryData.totalPremium}}</span></li>
                     <li></li>

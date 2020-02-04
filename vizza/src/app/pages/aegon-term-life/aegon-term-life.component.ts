@@ -124,6 +124,10 @@ export class AegonTermLifeComponent implements OnInit {
   public adbsaAnnualMsg:any;
   public errorAnnaulMsg:any;
   public annaulIncomeMsg:any;
+  public quali:any;
+  public agrii:any;
+  public studd:any;
+  public housewiferrorr:any;
 
   public keyUp = new Subject<string>();
 
@@ -497,6 +501,8 @@ export class AegonTermLifeComponent implements OnInit {
           this.proposerAge = this.ageCalculate(dob);
           console.log(this.proposerAge,'Proposar Age');
           sessionStorage.proposerAge = this.proposerAge;
+          console.log(sessionStorage.proposerAge,'Proposar Age');
+
           this.getAnnual('dob');
           this.getPremium('dob');
           // sessionStorage.proposerAge = this.proposerAge;
@@ -509,6 +515,8 @@ export class AegonTermLifeComponent implements OnInit {
           this.proposerAge = this.ageCalculate(dob);
           this.getPremium('dob');
           // sessionStorage.insuredAgePA = this.proposerAge;
+          sessionStorage.proposerAge = this.proposerAge;
+
 
         }
         this.dateError = '';
@@ -946,6 +954,40 @@ export class AegonTermLifeComponent implements OnInit {
 
     }
   }
+driver(){
+    if(this.personal.controls['employeeType'].value == 'Driver')
+    {
+      this.quali = 'This plan is not available for Driver';
+
+    }
+    else{
+      this.quali = '';
+    }
+  if(this.personal.controls['employeeType'].value == 'Agriculturist'){
+    this.agrii = 'This plan is not available for Agriculturist';
+  }
+  else
+  {
+    this.agrii = '';
+  }
+  if(this.personal.controls['employeeType'].value == 'Student'){
+    this.studd = 'This plan is not available for Student';
+  }
+  else{
+    this.studd = '';
+  }
+}
+
+housewife(){
+    if(this.personal.controls['qualifiction'].value == 'Graduate' ){
+      this.housewiferrorr = '';
+      this.personal.controls['employeeType'].value == 'Housewife'
+
+    }else{
+      this.housewiferrorr = 'Allowed only for graduate';
+    }
+}
+
 
   appointeeAgeValid(event: any) {
     if ( this.apponiteeList == true ) {
@@ -1081,6 +1123,7 @@ export class AegonTermLifeComponent implements OnInit {
     console.log(this.personal.valid, 'checked');
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
+        console.log(sessionStorage.proposerAge,'proposerage');
         if(sessionStorage.proposerAge <=65) {
 
           if(this.errorMsg == '') {
