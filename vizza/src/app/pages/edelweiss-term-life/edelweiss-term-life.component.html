@@ -368,7 +368,7 @@
 
                                     <div class="col-md-3 " *ngIf="addon.controls.payoutOption.value=='combination'">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Payout Percentage Income" formControlName="payoutPercentageIncome" maxlength="3" (keypress)="numberValidate($event)"  autocomplete="off" [required]="addon.controls.payoutOption.value=='combination'"  >
+                                            <input matInput placeholder="Payout Percentage Income" formControlName="payoutPercentageIncome" maxlength="2" (keypress)="numberValidate($event)"  autocomplete="off" [required]="addon.controls.payoutOption.value=='combination'"  >
                                             <mat-error *ngIf="addon.controls.payoutPercentageIncome.errors?.required">Reason is required</mat-error>
                                         </mat-form-field>
                                     </div>
