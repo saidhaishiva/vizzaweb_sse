@@ -1294,6 +1294,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             "Non_Electrical_Accessories":this.vehicle.controls['nonElectricAcess'].value == true ? 'Y' : 'N',
             "Non_Electrical_Accessories_SI":this.vehicle.controls['nonElectricAcessSI'].value,
         };
+        this.settings.loadingSpinner = true;
+
         this.bikeinsurance.QuoteList(data).subscribe(
             (successData) => {
                 this.QuoteSuccess(successData );
@@ -1305,6 +1307,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     QuoteSuccess(successData) {
+        this.settings.loadingSpinner = false;
 
             if (successData.IsSuccess == true) {
                 this.errortoaster = true;
