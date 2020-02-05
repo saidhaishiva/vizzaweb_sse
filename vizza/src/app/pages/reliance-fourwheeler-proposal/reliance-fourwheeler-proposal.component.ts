@@ -140,7 +140,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.electricalSumAount=false
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
-        stepperindex = 4;
+        stepperindex = 5;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
           // this.ProposalId =   this.summaryData.proposalNo;
@@ -397,6 +397,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.unnamedSi();
     this.getPaidDriverSi();
     this.getTppdSi();
+    this.voluntaryAmount();
     // this.getCover();
     // this.getBifuelChange();
     // this.coverDetails.controls['fuelType'].patchValue(this.bifuelChangeList)
@@ -1933,13 +1934,107 @@ changeNonElect(){
 
 
   ////VoluntaryDeductableAmount list
+  // voluntaryAmount() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+  //   };
+  //   this.fourWheelerInsurance.fourWheelervoluntaryAmountList(data).subscribe(
+  //       (successData) => {
+  //         this.voluntaryAmountListSucccess(successData);
+  //       },
+  //       (error) => {
+  //         this.fourWheelervoluntaryAmountListFailure(error);
+  //       }
+  //   );
+  // }
+  // public voluntaryAmountListSucccess(successData){
+  //   this.amountList = successData.ResponseObject;
+  // }
+  // public fourWheelervoluntaryAmountListFailure(error) {
+  // }
   voluntaryAmount() {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    };
-    this.fourWheelerInsurance.fourWheelervoluntaryAmountList(data).subscribe(
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status":"0",
+      "enquiry_id":"834",
+      "company_id":"3",
+      "TypeOfFuel":"1",
+      "motorproposalObj":{
+        "CoverDetails": "",
+        "TrailerDetails": "",
+        "ClientDetails": {
+          'ClientType': this.relianceProposal.controls['clientType'].value,
+          'CorporateName':this.relianceProposal.controls['corporateName'].value,
+          'LastName': this.relianceProposal.controls['lastName'].value,
+          'MidName': this.relianceProposal.controls['middleName'].value,
+          'ForeName': this.relianceProposal.controls['firstName'].value,
+          'OccupationID': this.relianceProposal.controls['occupation'].value,
+          'DOB': this.datepipe.transform(this.relianceProposal.controls['dob'].value, 'y-MM-dd'),
+          'Gender': this.relianceProposal.controls['gender'].value,
+          'PhoneNo': this.relianceProposal.controls['alternateContact'].value,
+          'MobileNo': this.relianceProposal.controls['mobile'].value,
+          "ClientAddress": {
+            'CommunicationAddress': {
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['address'].value,
+              'Address2': this.relianceProposal.controls['address2'].value,
+              'Address3': this.relianceProposal.controls['address3'].value,
+              'CityID': this.relianceProposal.controls['cityId'].value,
+              'DistrictID': this.relianceProposal.controls['districtId'].value,
+              'StateID': this.relianceProposal.controls['stateId'].value,
+              'Pincode': this.relianceProposal.controls['pincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['landmark'].value
+            },
+            'PermanentAddress': {
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['paddress'].value,
+              'Address2': this.relianceProposal.controls['paddress2'].value,
+              'Address3': this.relianceProposal.controls['paddress3'].value,
+              'CityID': this.relianceProposal.controls['pcityId'].value,
+              'DistrictID': this.relianceProposal.controls['pdistrictId'].value,
+              'StateID': this.relianceProposal.controls['pstateId'].value,
+              'Pincode': this.relianceProposal.controls['ppincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['plandmark'].value
+            },
+            'RegistrationAddress': {
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['raddress'].value,
+              'Address2': this.relianceProposal.controls['raddress2'].value,
+              'Address3': this.relianceProposal.controls['paddress3'].value,
+              'CityID': this.relianceProposal.controls['rcityId'].value,
+              'DistrictID': this.relianceProposal.controls['rdistrictId'].value,
+              'StateID': this.relianceProposal.controls['rstateId'].value,
+              'Pincode': this.relianceProposal.controls['rpincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['rlandmark'].value
+            },
+            "InspectionAddress": {
+              "AddressType": "0",
+              "Address1": "",
+              "Address2": "",
+              "Address3": "",
+              "CityID": "",
+              "DistrictID": "",
+              "StateID": "",
+              "Pincode": "",
+              "Country": "India",
+              "NearestLandmark": ""
+            }
+          },
+          'EmailID': this.relianceProposal.controls['email'].value,
+          'Salutation': this.relianceProposal.controls['title'].value==''?'M/S':this.relianceProposal.controls['title'].value,
+          'MaritalStatus': this.relianceProposal.controls['maritalStatus'].value,
+          'Nationality': this.relianceProposal.controls['nationality'].value
+        }
+      }
+    }
+    this.fourWheelerInsurance.fourWheelervoluntaryAmount(data).subscribe(
         (successData) => {
           this.voluntaryAmountListSucccess(successData);
         },
@@ -2023,13 +2118,108 @@ changeNonElect(){
 
 
   ///unnamed list
+  // unnamedSi() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+  //   };
+  //   this.fourWheelerInsurance.fourWheelerunnamedSiList(data).subscribe(
+  //       (successData) => {
+  //         this.unnamedSiSucccess(successData);
+  //       },
+  //       (error) => {
+  //         this.unnamedSiFailure(error);
+  //       }
+  //   );
+  // }
+  // public unnamedSiSucccess(successData){
+  //   this.unnamedList = successData.ResponseObject;
+  // }
+  // public unnamedSiFailure(error) {
+  // }
+
   unnamedSi() {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    };
-    this.fourWheelerInsurance.fourWheelerunnamedSiList(data).subscribe(
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status":"0",
+      "enquiry_id":"834",
+      "company_id":"3",
+      "TypeOfFuel":"1",
+      "motorproposalObj":{
+        "CoverDetails": "",
+        "TrailerDetails": "",
+        "ClientDetails": {
+          'ClientType': this.relianceProposal.controls['clientType'].value,
+          'CorporateName':this.relianceProposal.controls['corporateName'].value,
+          'LastName': this.relianceProposal.controls['lastName'].value,
+          'MidName': this.relianceProposal.controls['middleName'].value,
+          'ForeName': this.relianceProposal.controls['firstName'].value,
+          'OccupationID': this.relianceProposal.controls['occupation'].value,
+          'DOB': this.datepipe.transform(this.relianceProposal.controls['dob'].value, 'y-MM-dd'),
+          'Gender': this.relianceProposal.controls['gender'].value,
+          'PhoneNo': this.relianceProposal.controls['alternateContact'].value,
+          'MobileNo': this.relianceProposal.controls['mobile'].value,
+          "ClientAddress": {
+            'CommunicationAddress': {
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['address'].value,
+              'Address2': this.relianceProposal.controls['address2'].value,
+              'Address3': this.relianceProposal.controls['address3'].value,
+              'CityID': this.relianceProposal.controls['cityId'].value,
+              'DistrictID': this.relianceProposal.controls['districtId'].value,
+              'StateID': this.relianceProposal.controls['stateId'].value,
+              'Pincode': this.relianceProposal.controls['pincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['landmark'].value
+            },
+            'PermanentAddress': {
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['paddress'].value,
+              'Address2': this.relianceProposal.controls['paddress2'].value,
+              'Address3': this.relianceProposal.controls['paddress3'].value,
+              'CityID': this.relianceProposal.controls['pcityId'].value,
+              'DistrictID': this.relianceProposal.controls['pdistrictId'].value,
+              'StateID': this.relianceProposal.controls['pstateId'].value,
+              'Pincode': this.relianceProposal.controls['ppincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['plandmark'].value
+            },
+            'RegistrationAddress': {
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['raddress'].value,
+              'Address2': this.relianceProposal.controls['raddress2'].value,
+              'Address3': this.relianceProposal.controls['paddress3'].value,
+              'CityID': this.relianceProposal.controls['rcityId'].value,
+              'DistrictID': this.relianceProposal.controls['rdistrictId'].value,
+              'StateID': this.relianceProposal.controls['rstateId'].value,
+              'Pincode': this.relianceProposal.controls['rpincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['rlandmark'].value
+            },
+            "InspectionAddress": {
+              "AddressType": "0",
+              "Address1": "",
+              "Address2": "",
+              "Address3": "",
+              "CityID": "",
+              "DistrictID": "",
+              "StateID": "",
+              "Pincode": "",
+              "Country": "India",
+              "NearestLandmark": ""
+            }
+          },
+          'EmailID': this.relianceProposal.controls['email'].value,
+          'Salutation': this.relianceProposal.controls['title'].value==''?'M/S':this.relianceProposal.controls['title'].value,
+          'MaritalStatus': this.relianceProposal.controls['maritalStatus'].value,
+          'Nationality': this.relianceProposal.controls['nationality'].value
+        }
+      }
+    }
+    this.fourWheelerInsurance.fourWheelerunnamedSi(data).subscribe(
         (successData) => {
           this.unnamedSiSucccess(successData);
         },

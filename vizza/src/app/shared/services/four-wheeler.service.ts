@@ -293,13 +293,24 @@ export class FourWheelerService {
 
   ///fourWheelervoluntaryAmountList
 
-  fourWheelervoluntaryAmountList(data){
+  // fourWheelervoluntaryAmountList(data){
+  //   const json = JSON.stringify(data);
+  //   const token = this.authService.getAccessToken();
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+  //   };
+  //   const url = this.configurationService.getFourwheelerInsurance() + 'reliance/voluntaryDeductibleList';
+  //   return this.http.post(url,json, httpOptions)
+  //       .map(this.extractData)
+  //       .catch(this.handleError);
+  // }
+  fourWheelervoluntaryAmount(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getFourwheelerInsurance() + 'reliance/voluntaryDeductibleList';
+    const url = this.configurationService.getFourwheelerInsurance() + 'reliance/coverage';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -308,7 +319,18 @@ export class FourWheelerService {
 
   ///fourWheelerunnamedSiList
 
-  fourWheelerunnamedSiList(data){
+  // fourWheelerunnamedSiList(data){
+  //   const json = JSON.stringify(data);
+  //   const token = this.authService.getAccessToken();
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+  //   };
+  //   const url = this.configurationService.getFourwheelerInsurance() + 'reliance/unnamed_passanger_si_list';
+  //   return this.http.post(url,json, httpOptions)
+  //       .map(this.extractData)
+  //       .catch(this.handleError);
+  // }
+  fourWheelerunnamedSi(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
     const httpOptions = {
