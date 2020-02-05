@@ -2033,7 +2033,7 @@ changeNonElect(){
         }
       }
     }
-    this.fourWheelerInsurance.fourWheelervoluntaryAmount(data).subscribe(
+    this.fourWheelerInsurance.fourWheelerunnamedSi(data).subscribe(
         (successData) => {
           this.voluntaryAmountListSucccess(successData);
         },
@@ -2043,7 +2043,7 @@ changeNonElect(){
     );
   }
   public voluntaryAmountListSucccess(successData){
-    this.amountList = successData.ResponseObject;
+    this.amountList = successData.ResponseObject.coverage[2].Voluntary_Deductible;
   }
   public fourWheelervoluntaryAmountListFailure(error) {
   }
@@ -2228,7 +2228,7 @@ changeNonElect(){
     );
   }
   public unnamedSiSucccess(successData){
-    this.unnamedList = successData.ResponseObject;
+    this.unnamedList = successData.ResponseObject.coverage[9].PA_to_Unnamed_Passenger;
   }
   public unnamedSiFailure(error) {
   }
