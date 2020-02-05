@@ -100,7 +100,7 @@
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Education Qualification" formControlName="qualifiction"  (selectionChange)="changeQualificationList();detailsofProf();getAnnual('qul'); getPremium('qul');"required>
+                          <mat-select placeholder="Education Qualification" formControlName="qualifiction"  (selectionChange)="changeQualificationList();detailsofProf();getAnnual('qul'); getPremium('qul');belowt()"required>
                             <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>
@@ -108,8 +108,9 @@
                           <mat-error *ngIf="personal.controls.qualifiction.errors?.required"> Education Qualifiction is required</mat-error>
                         </mat-form-field>
                           <div class="error" *ngIf="qulMsg != ''">{{qulMsg}}</div>
-
+                          <div class="error" *ngIf="below != ''">{{below}}</div>
                         </div>
+
                         <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Professional Degree'">
                           <mat-form-field class="w-100">
                             <mat-placeholder>Details of Professional Degree<span class="error" >*</span></mat-placeholder>
@@ -138,7 +139,8 @@
                           <div class="error" *ngIf="quali != ''">{{quali}}</div>
                           <div class="error" *ngIf="agrii != ''">{{agrii}}</div>
                           <div class="error" *ngIf="studd != ''">{{studd}}</div>
-                          <div class="error" *ngIf="housewiferrorr != ''">{{housewiferrorr}}</div>
+                          <div class="error" *ngIf="worker != ''">{{worker}}</div>
+                          <div class="error" *ngIf="housewiferrorr != '' && housewiferrorr != true">{{housewiferrorr}}</div>
 
                         </div>
 
@@ -188,7 +190,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                              <input matInput placeholder="Diabete Duration(Year)" formControlName="diabeteDuration" (keypress)="numberValidate($event)"  autocomplete="off" maxlength="3">
+                              <input matInput placeholder="Diabetes Duration(Year)" formControlName="diabeteDuration" (keypress)="numberValidate($event)"  autocomplete="off" maxlength="3">
                               <!--<mat-error *ngIf="personal.controls.diabeteDuration.errors?.required">Diabete Duration is required</mat-error>-->
                             </mat-form-field>
                         </div>
@@ -710,12 +712,14 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngIf="proposerFormData.detailsOfProf!= ''"><strong>Education Qualification:</strong> {{proposerFormData.detailsOfProf}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.detailsOfProf!= ''"><strong>Details of Professional Degree:</strong> {{proposerFormData.detailsOfProf}}</li>
                         <li class="list-group-item"><strong>Occupation & Employement Details:</strong> {{proposerFormData.employeeType}}</li>
-                        <li class="list-group-item"><strong>Nature Of Duties:</strong>{{proposerFormData.natureOfWork}} </li>
                         <li class="list-group-item" *ngIf=" personal.controls.employeeType.value == 'Armed Forces'"><strong>Special Duties:</strong>{{proposerFormData.specialDuties}} </li>
-                        <!--                        <li class="list-group-item" *ngIf="proposerFormData.natureOfWorkOthers!= ''"><strong>Nature Of Duties Others:</strong>{{proposerFormData.natureOfWorkOthers}} </li>-->
                         <li class="list-group-item" *ngIf=" personal.controls.employeeType.value == 'Armed Forces'&& personal.controls.specialDuties.value == 'Others' "><strong>Others Special Duties</strong>{{proposerFormData.othersspecial}} </li>
+
+
+                        <li class="list-group-item"><strong>Nature Of Duties:</strong>{{proposerFormData.natureOfWork}} </li>
+                        <!--                        <li class="list-group-item" *ngIf="proposerFormData.natureOfWorkOthers!= ''"><strong>Nature Of Duties Others:</strong>{{proposerFormData.natureOfWorkOthers}} </li>-->
                         <li class="list-group-item" *ngIf="personal.controls.employeeType.value == 'Armed Forces'&& personal.controls.natureOfWork.value == 'Others'"><strong>Enter the Details</strong>{{proposerFormData.othersnwork}} </li>
                        <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}} </li>
                         </ul>
@@ -734,7 +738,7 @@
                     <div class="p-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item" *ngIf="proposerFormData.isPoliticleExposed == 'YES'"><strong>Politically Exposed Person details:</strong>{{proposerFormData.PoliticleExposedDetail}} </li>
-                        <li class="list-group-item" *ngIf="proposerFormData.diabeteDuration!=''"><strong>Diabete Duration:</strong> {{proposerFormData.diabeteDuration}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.diabeteDuration!=''"><strong>Diabetes Duration:</strong> {{proposerFormData.diabeteDuration}}</li>
                         <!--                        <li class="list-group-item"><strong>Is Housewife:</strong>{{proposerFormData.isHousewife}} </li>-->
 <!--                        <li class="list-group-item"><strong>Is Husband Cover:</strong> {{proposerFormData.isHusbandCover}} </li>-->
                         <!--<li class="list-group-item"><strong>Is Address Same:</strong> {{proposerFormData.isAddressSame}}</li>-->
