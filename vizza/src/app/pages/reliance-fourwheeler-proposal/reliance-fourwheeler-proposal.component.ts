@@ -397,7 +397,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.unnamedSi();
     this.getPaidDriverSi();
     this.getTppdSi();
-    this.voluntaryAmount();
     // this.getCover();
     // this.getBifuelChange();
     // this.coverDetails.controls['fuelType'].patchValue(this.bifuelChangeList)
