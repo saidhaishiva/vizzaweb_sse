@@ -2588,7 +2588,7 @@
                                                     <mat-radio-button value="No">No</mat-radio-button>
 
                                                 </mat-radio-group>
-                                                <div class="error" *ngIf="isRecoverederror != ''&& isRecoverederror != true ">{{isRecoverederror}}</div>
+                                                <!--<div class="error" *ngIf="isRecoverederror != ''&& isRecoverederror != true ">{{isRecoverederror}}</div>-->
                                             </div>
                                             <div class="col-md-8" *ngIf="medicalDetail.controls['isRecovered'].value == 'No' && lifePremiumList.product_id=='112'" >
                                                 <mat-form-field class="w-100">
@@ -2680,7 +2680,7 @@
                                                 </mat-radio-group>
                                                 <div class="error" *ngIf="femaleDieaseInderror != ''&& femaleDieaseInderror != true ">{{femaleDieaseInderror}}</div>
                                             </div>
-                                            
+
                                             <!--<div class="col-md-12 " *ngIf="medicalDetail.controls['femaleDieaseInd'].value == 'Yes'  && lifePremiumList.product_id=='112'" >-->
                                                 <!--<mat-form-field class="w-100">-->
                                                     <!--<mat-placeholder>Female Disease weeks<span class="error" >*</span></mat-placeholder>-->
@@ -3586,7 +3586,7 @@
                                         <h6 class="color-blue mt-4" ></h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Employer Address :</strong> {{insuredFormData.employerAddr}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.isEmploymentIncome != ''"><strong>Is your source of income from any one of the employment type selected above:</strong> {{insuredFormData.sisEmploymentIncome}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.isEmploymentIncome != ''"><strong>Is your source of income from any one of the employment type selected above:</strong> {{insuredFormData.isEmploymentIncome}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
                                         </ul>
                                     </div>
