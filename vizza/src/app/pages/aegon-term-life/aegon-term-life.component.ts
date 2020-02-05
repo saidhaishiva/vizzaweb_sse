@@ -127,6 +127,8 @@ export class AegonTermLifeComponent implements OnInit {
   public quali:any;
   public agrii:any;
   public studd:any;
+  public worker:any;
+  public below:any;
   public housewiferrorr:any;
 
   public keyUp = new Subject<string>();
@@ -159,6 +161,7 @@ export class AegonTermLifeComponent implements OnInit {
     this.disabledPerAddress = false;
 
     this.apponiteeList = false;
+    this.housewiferrorr = false;
     this.settings= this.appSettings.settings;
     // const observable = this.keyUp
     //     .map(value => event)
@@ -280,6 +283,7 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     console.log(this.lifePremiumList, 'this.lifePremiumList')
@@ -976,15 +980,38 @@ driver(){
   else{
     this.studd = '';
   }
+  if(this.personal.controls['employeeType'].value == 'Worker/labour'){
+    this.worker = 'This plan is not available for Worker/labour';
+  }
+  else{
+    this.worker = '';
+  }
+}
+
+belowt()
+{
+  if(this.personal.controls['qualifiction'].value == 'Below 12th'){
+    this.below = 'This plan is not available for Below 12th';
+  }
+  else{
+    this.below = '';
+  }
+
 }
 
 housewife(){
-    if(this.personal.controls['qualifiction'].value == 'Graduate' ){
+    if((this.personal.controls['qualifiction'].value == '12th /HSC Pass'|| this.personal.controls['qualifiction'].value == 'Below 12th'|| this.personal.controls['qualifiction'].value == 'Diploma degree') ) {
+      if (this.personal.controls['employeeType'].value != 'Housewife'){
+      this.housewiferrorr = false;
       this.housewiferrorr = '';
-      this.personal.controls['employeeType'].value == 'Housewife'
-
     }else{
-      this.housewiferrorr = 'Allowed only for graduate';
+        this.housewiferrorr = true;
+        this.housewiferrorr = 'Allowed only for Graduate,Post Graduate,Professional Degree';
+
+      }
+    }else{
+      this.housewiferrorr = false;
+      this.housewiferrorr = '';
     }
 }
 
