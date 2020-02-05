@@ -3429,20 +3429,20 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.sHospitalizederror=false;
       this.sHospitalizederror= '';
     }
-    if(this.medicalDetail.controls['isRecovered'].value == '') {
-      this.isRecoverederror=true;
-      this.isRecoverederror= 'Field is Mandatory';
-    }else if(this.medicalDetail.controls['isRecovered'].value != ''){
-      this.isRecoverederror=false;
-      this.isRecoverederror= '';
-    }
-    if(this.medicalDetail.controls['isRecovered1'].value == null) {
-      this.sRecoverederror=true;
-      this.sRecoverederror= 'Field is Mandatory';
-    }else if(this.medicalDetail.controls['isRecovered1'].value != null){
-      this.sRecoverederror=false;
-      this.sRecoverederror= '';
-    }
+    // if(this.medicalDetail.controls['isRecovered'].value == '') {
+    //   this.isRecoverederror=true;
+    //   this.isRecoverederror= 'Field is Mandatory';
+    // }else if(this.medicalDetail.controls['isRecovered'].value != ''){
+    //   this.isRecoverederror=false;
+    //   this.isRecoverederror= '';
+    // }
+    // if(this.medicalDetail.controls['isRecovered1'].value == null) {
+    //   this.sRecoverederror=true;
+    //   this.sRecoverederror= 'Field is Mandatory';
+    // }else if(this.medicalDetail.controls['isRecovered1'].value != null){
+    //   this.sRecoverederror=false;
+    //   this.sRecoverederror= '';
+    // }
     if(this.medicalDetail.controls['pregnantInd'].value == '') {
       this.pregnantInderror=true;
       this.pregnantInderror= 'Field is Mandatory';
@@ -4159,14 +4159,14 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.sHospitalizederror=false;
       this.sHospitalizederror= '';
     }
-    if(this.medicalDetail.controls['isRecovered'].value != ''){
-      this.isRecoverederror=false;
-      this.isRecoverederror= '';
-    }
-    if(this.medicalDetail.controls['isRecovered1'].value != null){
-      this.sRecoverederror=false;
-      this.sRecoverederror= '';
-    }
+    // if(this.medicalDetail.controls['isRecovered'].value != ''){
+    //   this.isRecoverederror=false;
+    //   this.isRecoverederror= '';
+    // }
+    // if(this.medicalDetail.controls['isRecovered1'].value != null){
+    //   this.sRecoverederror=false;
+    //   this.sRecoverederror= '';
+    // }
     if(this.medicalDetail.controls['pregnantInd'].value != ''){
       this.pregnantInderror=false;
       this.pregnantInderror= '';

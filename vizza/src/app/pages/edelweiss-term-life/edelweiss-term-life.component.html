@@ -2588,7 +2588,7 @@
                                                     <mat-radio-button value="No">No</mat-radio-button>
 
                                                 </mat-radio-group>
-                                                <div class="error" *ngIf="isRecoverederror != ''&& isRecoverederror != true ">{{isRecoverederror}}</div>
+                                                <!--<div class="error" *ngIf="isRecoverederror != ''&& isRecoverederror != true ">{{isRecoverederror}}</div>-->
                                             </div>
                                             <div class="col-md-8" *ngIf="medicalDetail.controls['isRecovered'].value == 'No' && lifePremiumList.product_id=='112'" >
                                                 <mat-form-field class="w-100">
@@ -2680,7 +2680,7 @@
                                                 </mat-radio-group>
                                                 <div class="error" *ngIf="femaleDieaseInderror != ''&& femaleDieaseInderror != true ">{{femaleDieaseInderror}}</div>
                                             </div>
-                                            
+
                                             <!--<div class="col-md-12 " *ngIf="medicalDetail.controls['femaleDieaseInd'].value == 'Yes'  && lifePremiumList.product_id=='112'" >-->
                                                 <!--<mat-form-field class="w-100">-->
                                                     <!--<mat-placeholder>Female Disease weeks<span class="error" >*</span></mat-placeholder>-->
