@@ -35,6 +35,8 @@ constructor(@Inject(WINDOW) private window: Window, public config: Configuration
     this.route.params.forEach((params) => {
         console.log(params.id);
         this.paymentStatus = params.status;
+        console.log(params.id);
+
         this.proposalId = params.proId;
         this.policyStatus = params.policyStatus;
     });
@@ -111,7 +113,7 @@ public downloadPdfFailure(error) {
     console.log(error);
 }
     retry() {
-        this.router.navigate(['/hdfc-insurance'  + '/' + true]);
+        this.router.navigate(['/hdfc-insurance'  + '/' + false]);
     }
     pay(){
         sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
