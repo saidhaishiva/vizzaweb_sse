@@ -4473,7 +4473,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['annualIncome'].setValidators([Validators.required]);
       this.insureArray.controls['isEmploymentIncome'].setValidators([Validators.required]);
     } else {
-      this.insureArray.controls['annualIncome'].patchValue('');
+      this.insureArray.controls['annualIncome'].patchValue(this.customerDetails.controls['annualIncome'].value);
       this.insureArray.controls['isEmploymentIncome'].patchValue('');
 
       this.insureArray.controls['annualIncome'].setValidators(null);
