@@ -336,7 +336,7 @@ export class FourWheelerService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getFourwheelerInsurance() + 'reliance/unnamed_passanger_si_list';
+    const url = this.configurationService.getFourwheelerInsurance() + 'reliance/coverage';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);

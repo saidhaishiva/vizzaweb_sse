@@ -911,14 +911,15 @@
                                     </div>
                                     <div class="col-md-4 " *ngIf="insureArray.controls['insureHistory'].value=='Yes'">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Reason" formControlName="reasonInsured"   autocomplete="off" [required]="insureArray.controls['insureHistory'].value=='Yes'"  >
-                                            <mat-error *ngIf="insureArray.controls.reasonInsured.errors?.required">Reason is required</mat-error>
+                                            <mat-placeholder>Reason<span class="error" >*</span></mat-placeholder>
+                                            <input matInput  formControlName="reasonInsured"   autocomplete="off"   >
+                                            <!--<mat-error *ngIf="insureArray.controls.reasonInsured.errors?.required">Reason is required</mat-error>-->
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4 " *ngIf="insureArray.controls['insureHistory'].value == 'Yes'">
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>When (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
-                                            <input matInput [matDatepicker]="picker15" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="whenInsured" (dateInput)="addEventHistory($event)" (dateChange)="addEventHistory($event)" autocomplete="off" maxlength="10" minlength="10" [required]="insureArray.controls['insureHistory'].value=='Yes'">
+                                            <input matInput [matDatepicker]="picker15" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="whenInsured" (dateInput)="addEventHistory($event)" (dateChange)="addEventHistory($event)" autocomplete="off" maxlength="10" minlength="10">
                                             <mat-datepicker-toggle matSuffix [for]="picker15"></mat-datepicker-toggle>
                                             <mat-datepicker #picker15></mat-datepicker>
                                         </mat-form-field>
@@ -926,11 +927,33 @@
 
 
                                     <div class="col-md-12">
-                                        <mat-radio-group formControlName="insureHistory1" >
+                                        <mat-radio-group formControlName="insureHistory1"  (change)="insureHistorys21">
                                             <p>Have you ever received or do you now receive any disability or critical illness benefits from any insurance company?<span class="error" >*</span></p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
                                         </mat-radio-group>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="insureArray.controls['insureHistory1'].value == 'Yes'" >
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Name of Insurer<span class="error" *ngIf="insureArray.controls['sinsureHistory1'].value == 'Yes'">*</span></mat-placeholder>
+                                            <mat-select formControlName="companyName1" autocomplete="off"  (selectionChange)="geteCompany()">
+                                                <mat-option *ngFor="let list of eCompanyList | keys" [value]= 'list.value'>{{list.value}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4 " *ngIf="insureArray.controls['insureHistory1'].value=='Yes'">
+                                        <mat-form-field class="w-100">
+                                            <input matInput placeholder="Reason" formControlName="reasonInsured1"  autocomplete="off" [required]="insureArray.controls['insureHistory'].value=='Yes'"  >
+                                            <mat-error *ngIf="insureArray.controls.sreasonInsured.errors?.required">Payout Percentage Income is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4 " *ngIf="insureArray.controls['insureHistory1'].value == 'Yes'">
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>When (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
+                                            <input matInput [matDatepicker]="picker22" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="whenInsured1" (dateInput)="addEventSHistory($event)" (dateChange)="addEventSHistory($event)" autocomplete="off" maxlength="10" minlength="10" [required]="insureArray.controls['sinsureHistory'].value=='Yes'" >
+                                            <mat-datepicker-toggle matSuffix [for]="picker22"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker22></mat-datepicker>
+                                        </mat-form-field>
                                     </div>
 
                                     <div class="col-md-12">
@@ -1205,7 +1228,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <mat-form-field class="w-100">
-                                                            <mat-placeholder>Address 3<span class="error" >*</span></mat-placeholder>
+                                                            <mat-placeholder>Address 3</mat-placeholder>
                                                             <input matInput  formControlName="sperAddr3" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" >
                                                         </mat-form-field>
                                                     </div>
@@ -1368,8 +1391,9 @@
                                     </div>
                                     <div class="col-md-4 " *ngIf="insureArray.controls['sinsureHistory'].value=='Yes'">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Reason" formControlName="sreasonInsured"  autocomplete="off" [required]="insureArray.controls['sinsureHistory'].value=='Yes'"  >
-                                            <mat-error *ngIf="insureArray.controls.sreasonInsured.errors?.required">Payout Percentage Income is required</mat-error>
+                                            <mat-placeholder>Reason<span class="error" >*</span></mat-placeholder>
+                                            <input matInput formControlName="sreasonInsured"  autocomplete="off"  >
+                                            <!--<mat-error *ngIf="insureArray.controls.sreasonInsured.errors?.required">Payout Percentage Income is required</mat-error>-->
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4 " *ngIf="insureArray.controls['sinsureHistory'].value == 'Yes'">
@@ -1381,11 +1405,33 @@
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
-                                        <mat-radio-group formControlName="sinsureHistory1" >
+                                        <mat-radio-group formControlName="sinsureHistory1" (change)="insureHistorys2()">
                                             <p>Have you ever received or do you now receive any disability or critical illness benefits from any insurance company?<span class="error" >*</span></p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
                                         </mat-radio-group>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="insureArray.controls['sinsureHistory1'].value == 'Yes'" >
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Name of Insurer<span class="error" *ngIf="insureArray.controls['sinsureHistory1'].value == 'Yes'">*</span></mat-placeholder>
+                                            <mat-select formControlName="scompanyName1" autocomplete="off"  (selectionChange)="geteCompany()">
+                                                <mat-option *ngFor="let list of eCompanyList | keys" [value]= 'list.value'>{{list.value}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4 " *ngIf="insureArray.controls['sinsureHistory1'].value=='Yes'">
+                                        <mat-form-field class="w-100">
+                                            <input matInput placeholder="Reason" formControlName="sreasonInsured1"  autocomplete="off" [required]="insureArray.controls['sinsureHistory'].value=='Yes'"  >
+                                            <mat-error *ngIf="insureArray.controls.sreasonInsured.errors?.required">Payout Percentage Income is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4 " *ngIf="insureArray.controls['sinsureHistory1'].value == 'Yes'">
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>When (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
+                                            <input matInput [matDatepicker]="picker21" [max]="minDate" (keypress)="dobValidate($event)"  formControlName="swhenInsured1" (dateInput)="addEventSHistory($event)" (dateChange)="addEventSHistory($event)" autocomplete="off" maxlength="10" minlength="10" [required]="insureArray.controls['sinsureHistory'].value=='Yes'" >
+                                            <mat-datepicker-toggle matSuffix [for]="picker21"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker21></mat-datepicker>
+                                        </mat-form-field>
                                     </div>
                                     <div class="col-md-12" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                         <mat-radio-group formControlName="sinsureHistory2" (change)="history2Change1()">
@@ -2588,7 +2634,7 @@
                                                     <mat-radio-button value="No">No</mat-radio-button>
 
                                                 </mat-radio-group>
-                                                <div class="error" *ngIf="isRecoverederror != ''&& isRecoverederror != true ">{{isRecoverederror}}</div>
+                                                <!--<div class="error" *ngIf="isRecoverederror != ''&& isRecoverederror != true ">{{isRecoverederror}}</div>-->
                                             </div>
                                             <div class="col-md-8" *ngIf="medicalDetail.controls['isRecovered'].value == 'No' && lifePremiumList.product_id=='112'" >
                                                 <mat-form-field class="w-100">
@@ -2634,7 +2680,7 @@
 
 
                                              <div class="col-md-12" *ngIf="medicalDetail.controls['isHospitalized1'].value == 'Yes' && lifePremiumList.product_id=='112'">
-                                                <mat-radio-group formControlName="isRecovered1" (change)="travelOutside1();" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                                <mat-radio-group formControlName="isRecovered1" (change)="travelOutside1();isRecoveredInd1()" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
 
                                                     <p>Are you now fully recovered and off all medications?<span class="error" >*</span> </p>
                                                     <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -2680,7 +2726,7 @@
                                                 </mat-radio-group>
                                                 <div class="error" *ngIf="femaleDieaseInderror != ''&& femaleDieaseInderror != true ">{{femaleDieaseInderror}}</div>
                                             </div>
-                                            
+
                                             <!--<div class="col-md-12 " *ngIf="medicalDetail.controls['femaleDieaseInd'].value == 'Yes'  && lifePremiumList.product_id=='112'" >-->
                                                 <!--<mat-form-field class="w-100">-->
                                                     <!--<mat-placeholder>Female Disease weeks<span class="error" >*</span></mat-placeholder>-->
@@ -3586,7 +3632,7 @@
                                         <h6 class="color-blue mt-4" ></h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Employer Address :</strong> {{insuredFormData.employerAddr}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.isEmploymentIncome != ''"><strong>Is your source of income from any one of the employment type selected above:</strong> {{insuredFormData.sisEmploymentIncome}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.isEmploymentIncome != ''"><strong>Is your source of income from any one of the employment type selected above:</strong> {{insuredFormData.isEmploymentIncome}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
                                         </ul>
                                     </div>

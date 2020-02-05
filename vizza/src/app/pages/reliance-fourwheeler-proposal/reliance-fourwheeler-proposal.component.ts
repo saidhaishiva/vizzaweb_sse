@@ -397,7 +397,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.unnamedSi();
     this.getPaidDriverSi();
     this.getTppdSi();
-    this.voluntaryAmount();
     // this.getCover();
     // this.getBifuelChange();
     // this.coverDetails.controls['fuelType'].patchValue(this.bifuelChangeList)
@@ -2034,7 +2033,7 @@ changeNonElect(){
         }
       }
     }
-    this.fourWheelerInsurance.fourWheelervoluntaryAmount(data).subscribe(
+    this.fourWheelerInsurance.fourWheelerunnamedSi(data).subscribe(
         (successData) => {
           this.voluntaryAmountListSucccess(successData);
         },
@@ -2044,7 +2043,8 @@ changeNonElect(){
     );
   }
   public voluntaryAmountListSucccess(successData){
-    this.amountList = successData.ResponseObject;
+    this.amountList = successData.coverage[2].Voluntary_Deductible;
+    console.log(successData,'45678987678')
   }
   public fourWheelervoluntaryAmountListFailure(error) {
   }
@@ -2229,7 +2229,12 @@ changeNonElect(){
     );
   }
   public unnamedSiSucccess(successData){
-    this.unnamedList = successData.ResponseObject;
+    this.unnamedList = successData.coverage[9].PA_to_Unnamed_Passenger;
+    console.log(successData,'success');
+    console.log(successData.coverage[9],'this.unnamedList');
+    console.log(successData.coverage[9].PA_to_Unnamed_Passenger,'this.unnamedList');
+    console.log(this.unnamedList,'this.unnamedList');
+
   }
   public unnamedSiFailure(error) {
   }
