@@ -6158,7 +6158,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.addon.controls['semailId'].patchValue('');
       // this.insureArray.controls['smobileNo'].patchValue('');
       this.addon.controls['isSmokerSpouse'].patchValue('');
-      this.addon.controls['betterHalfsumAssured'].patchValue('');
+      // this.addon.controls['betterHalfsumAssured'].patchValue('');
       sessionStorage.SpouseAge='';
 
       this.insureArray.controls['stitle'].patchValue('');
@@ -7747,7 +7747,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   public edelweissPrimiumSuccess(successData) {
     this.settings.loadingSpinner = false;
-    if (successData.ResponseObject) {
+    if (successData.IsSuccess) {
       this.eePremiumTerm = successData.ResponseObject;
       // this.eePremiumTerm = this.eePremiumTerm;
       this.premiumValue=true;

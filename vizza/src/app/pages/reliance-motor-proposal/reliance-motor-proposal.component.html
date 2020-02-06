@@ -574,7 +574,7 @@
                                     </div>
                                     <div class="col-md-3" *ngIf="coverDetails.controls.PAToNamedPassenger.value == true">
                                         <mat-form-field class="w-100">
-                                            <mat-select placeholder="Sum Insured" formControlName="namedPassengersSI" (selectionChange)="unnamedSi();namedPassengersChange()"  [required]="coverDetails.controls.PAToNamedPassenger.value == true">
+                                            <mat-select placeholder="Sum Insured" formControlName="namedPassengersSI" (selectionChange)="unnamedSi();coverperimum();namedPassengersChange()"  [required]="coverDetails.controls.PAToNamedPassenger.value == true">
                                                 <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                                             </mat-select>
                                             <!--<mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>-->
@@ -600,7 +600,7 @@
                             </div>
                             <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
                                         <mat-form-field class="w-100">
-                                            <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();UnnamedPassengersChange();coverperimum();"  [required]="coverDetails.controls.UnnamedPassengerCovered.value == true">
+                                            <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();coverperimum();UnnamedPassengersChange()"  [required]="coverDetails.controls.UnnamedPassengerCovered.value == true">
                                                 <mat-option *ngFor="let type of suminsuredpA | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                                             </mat-select>
                                             <!--<mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>-->

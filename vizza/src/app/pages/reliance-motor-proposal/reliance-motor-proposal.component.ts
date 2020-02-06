@@ -2136,7 +2136,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       'enquiry_id': this.bikeEnquiryId,
       "company_id":"3",
-      "TypeOfFuel":this.coverDetails.controls['fuelType'].value,
+      "TypeOfFuel":this.coverDetails.controls['fuelType'].value==''?'1':this.coverDetails.controls['fuelType'].value,
       'motorproposalObj':{
         'CoverDetails': '',
         'TrailerDetails': '',
@@ -2224,11 +2224,13 @@ export class RelianceMotorProposalComponent implements OnInit {
     );
   }
   public CoverPremiumSucccess(successData){
-    this.suminsuredvoluntarylist = successData.ResponseObject.coverage.Voluntary_Deductible;
-    console.log( this.suminsuredvoluntarylist,' this.suminsuredlist ')
-    this.suminsuredpA = successData.ResponseObject.coverage.PA_to_Unnamed_Passenger;
-    this.suminsuredTPPD = successData.ResponseObject.coverage.TPPD;
+    // this.amountList = successData.coverage[2].Voluntary_Deductible;
+    this.suminsuredvoluntarylist = successData.coverage[2].Voluntary_Deductible;
+    console.log( this.suminsuredvoluntarylist,' this.suminsuredvoluntarylist ')
+    this.suminsuredpA = successData.coverage[9].PA_to_Unnamed_Passenger;
+    this.suminsuredTPPD = successData.coverage[10].TPPD;
     console.log( this.suminsuredpA,' this.suminsuredpA ')
+    console.log( this.suminsuredTPPD,' this.suminsuredTPPD ')
 
 
   }
