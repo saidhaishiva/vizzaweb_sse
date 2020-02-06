@@ -289,14 +289,14 @@
                           </div>
                           <div class="col-md-4" >
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Height" formControlName="height"  required >
+                              <input matInput placeholder="Height" formControlName="height"  required (keypress)="numberValidate()" >
                               <mat-error *ngIf="hdfcInsureArray.invalid">Height is required</mat-error>
 
                             </mat-form-field>
                           </div>
                           <div class="col-md-4" >
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Weight" formControlName="weight"  required >
+                              <input matInput placeholder="Weight" formControlName="weight"  required (keypress)="numberValidate()"  >
                               <mat-error *ngIf="hdfcInsureArray.invalid">Weight is required</mat-error>
 
                             </mat-form-field>

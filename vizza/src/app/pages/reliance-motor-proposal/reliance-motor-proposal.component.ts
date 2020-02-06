@@ -110,6 +110,9 @@ export class RelianceMotorProposalComponent implements OnInit {
   public specially_designed: any;
   public fibre_glass_tank: any;
   public geographical_extension: any;
+  public suminsuredpA: any;
+  public suminsuredvoluntarylist: any;
+  public suminsuredTPPD: any;
   public driving_tution: any;
   public clientTypeField: boolean;
 
@@ -1172,6 +1175,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         stepper.next();
         this.topScroll();
         this.clientTypeReq();
+        this.coverperimum();
       }else{
         this.toastr.error('Please fill the Mandatory Fields')
 
@@ -2122,6 +2126,116 @@ export class RelianceMotorProposalComponent implements OnInit {
   getProposalFailure(error) {
 
   }
+
+
+  coverperimum() {
+    const data={
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'enquiry_id': this.bikeEnquiryId,
+      "company_id":"3",
+      "TypeOfFuel":this.coverDetails.controls['fuelType'].value,
+      'motorproposalObj':{
+        'CoverDetails': '',
+        'TrailerDetails': '',
+        "ClientDetails": {
+          "ClientType": this.relianceProposal.controls['clientType'].value,
+          "LastName": this.relianceProposal.controls['lastName'].value,
+          "MidName": this.relianceProposal.controls['middleName'].value,
+          "ForeName": this.relianceProposal.controls['firstName'].value,
+          "CorporateName": this.relianceProposal.controls['corporateName'].value,
+          "OccupationID": this.relianceProposal.controls['occupation'].value,
+          "DOB": this.datepipe.transform(this.relianceProposal.controls['dob'].value, 'y-MM-dd'),
+          "Gender": this.relianceProposal.controls['gender'].value,
+          "PhoneNo": this.relianceProposal.controls['alternateContact'].value,
+          "MobileNo": this.relianceProposal.controls['mobile'].value,
+
+          "ClientAddress": {
+            "CommunicationAddress": {
+
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['address'].value,
+              'Address2': this.relianceProposal.controls['address2'].value,
+              'Address3': this.relianceProposal.controls['address3'].value,
+              'CityID': this.relianceProposal.controls['cityId'].value,
+              'DistrictID': this.relianceProposal.controls['districtId'].value,
+              'StateID': this.relianceProposal.controls['stateId'].value,
+              'Pincode': this.relianceProposal.controls['pincode'].value,
+              "Country": "India",
+              'NearestLandmark': this.relianceProposal.controls['landmark'].value
+            },
+            "PermanentAddress": {
+
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['paddress'].value,
+              'Address2': this.relianceProposal.controls['paddress2'].value,
+              'Address3': this.relianceProposal.controls['paddress3'].value,
+              'CityID': this.relianceProposal.controls['pcityId'].value,
+              'DistrictID': this.relianceProposal.controls['pdistrictId'].value,
+              'StateID': this.relianceProposal.controls['pstateId'].value,
+              'Pincode': this.relianceProposal.controls['ppincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['plandmark'].value
+            },
+            "RegistrationAddress": {
+
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['raddress'].value,
+              'Address2': this.relianceProposal.controls['raddress2'].value,
+              'Address3': this.relianceProposal.controls['paddress3'].value,
+              'CityID': this.relianceProposal.controls['rcityId'].value,
+              'DistrictID': this.relianceProposal.controls['rdistrictId'].value,
+              'StateID': this.relianceProposal.controls['rstateId'].value,
+              'Pincode': this.relianceProposal.controls['rpincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['rlandmark'].value
+            },
+            "InspectionAddress": {
+              "AddressType": "0",
+              "Address1": "",
+              "Address2": "",
+              "Address3": "",
+              "CityID": "",
+              "DistrictID": "",
+              "StateID": "",
+              "Pincode": "",
+              "Country": "India",
+              "NearestLandmark": ""
+            }
+          },
+          'EmailID': this.relianceProposal.controls['email'].value,
+          'Salutation': this.relianceProposal.controls['title'].value=='' ? 'M/S' : this.relianceProposal.controls['title'].value,
+          'MaritalStatus': this.relianceProposal.controls['maritalStatus'].value,
+          'Nationality': this.relianceProposal.controls['nationality'].value
+        }
+      }
+    }
+
+
+  this.bikeInsurance.coveragePremium(data).subscribe(
+        (successData) => {
+          this.CoverPremiumSucccess(successData);
+        },
+        (error) => {
+          this.CoverPremiumFailure(error);
+        }
+    );
+  }
+  public CoverPremiumSucccess(successData){
+    this.suminsuredvoluntarylist = successData.ResponseObject.coverage.Voluntary_Deductible;
+    console.log( this.suminsuredvoluntarylist,' this.suminsuredlist ')
+    this.suminsuredpA = successData.ResponseObject.coverage.PA_to_Unnamed_Passenger;
+    this.suminsuredTPPD = successData.ResponseObject.coverage.TPPD;
+    console.log( this.suminsuredpA,' this.suminsuredpA ')
+
+
+  }
+
+  public CoverPremiumFailure(error) {
+  }
+
 
   //pincode  details
   pincode(pin,type){
