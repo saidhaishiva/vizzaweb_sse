@@ -113,7 +113,7 @@ public downloadPdfFailure(error) {
     console.log(error);
 }
     retry() {
-        this.router.navigate(['/hdfc-insurance'  + '/' + false]);
+        this.router.navigate(['/hdfc-proposal'  + '/' + true]);
     }
     pay(){
         sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
