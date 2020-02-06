@@ -1961,7 +1961,7 @@ changeNonElect(){
       "pos_status":"0",
       "enquiry_id":"834",
       "company_id":"3",
-      "TypeOfFuel":this.relianceProposal.controls['IsBiFuelKit'].value,
+      "TypeOfFuel":this.coverDetails.controls['IsBiFuelKit'].value,
       "motorproposalObj":{
         "CoverDetails": "",
         "TrailerDetails": "",
@@ -2147,7 +2147,7 @@ changeNonElect(){
       "pos_status":"0",
       "enquiry_id":"834",
       "company_id":"3",
-      "TypeOfFuel":this.relianceProposal.controls['IsBiFuelKit'].value,
+      "TypeOfFuel":this.coverDetails.controls['IsBiFuelKit'].value,
       "motorproposalObj":{
         "CoverDetails": "",
         "TrailerDetails": "",
