@@ -128,7 +128,7 @@
 <!--                        </div>-->
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Occupation & Employement Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties(); driver();housewife()">
+                            <mat-select placeholder="Occupation & Employement Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties(); driver();housewife();stud();agri();workering()">
                               <mat-option *ngFor="let list of empTypeList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
@@ -136,10 +136,10 @@
                             <mat-error *ngIf="personal.controls.employeeType.errors?.required">Occupation & Employement Details is required</mat-error>
 
                           </mat-form-field>
-                          <div class="error" *ngIf="quali != ''">{{quali}}</div>
-                          <div class="error" *ngIf="agrii != ''">{{agrii}}</div>
-                          <div class="error" *ngIf="studd != ''">{{studd}}</div>
-                          <div class="error" *ngIf="worker != ''">{{worker}}</div>
+                          <div class="error" *ngIf="quali != ''&& quali != true">{{quali}}</div>
+                          <div class="error" *ngIf="agrii != ''&& agrii != true">{{agrii}}</div>
+                          <div class="error" *ngIf="studd != ''&& studd != true">{{studd}}</div>
+                          <div class="error" *ngIf="worker != '' && worker != true">{{worker}}</div>
                           <div class="error" *ngIf="housewiferrorr != '' && housewiferrorr != true">{{housewiferrorr}}</div>
 
                         </div>
