@@ -140,7 +140,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.electricalSumAount=false
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
-        stepperindex = 5;
+        stepperindex = 4;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
           // this.ProposalId =   this.summaryData.proposalNo;
