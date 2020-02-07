@@ -162,6 +162,13 @@ export class AegonTermLifeComponent implements OnInit {
 
     this.apponiteeList = false;
     this.housewiferrorr = false;
+    this.quali = false;
+    this.agrii = false;
+    this.studd = false;
+    this.worker = false;
+    this.below = false;
+
+
     this.settings= this.appSettings.settings;
     // const observable = this.keyUp
     //     .map(value => event)
@@ -961,40 +968,70 @@ export class AegonTermLifeComponent implements OnInit {
 driver(){
     if(this.personal.controls['employeeType'].value == 'Driver')
     {
+      this.quali = true;
       this.quali = 'This plan is not available for Driver';
+      // this.errorMsg = 'This plan is not available for Driver';
 
+        // this.errorMsg = 'This plan is not available for Agriculturist';
     }
     else{
+      this.quali = false;
       this.quali = '';
+      // this.errorMsg = '';
     }
-  if(this.personal.controls['employeeType'].value == 'Agriculturist'){
-    this.agrii = 'This plan is not available for Agriculturist';
-  }
-  else
-  {
-    this.agrii = '';
-  }
-  if(this.personal.controls['employeeType'].value == 'Student'){
+
+
+
+}
+stud()
+{
+  if (this.personal.controls['employeeType'].value == 'Student') {
+    this.studd = true;
     this.studd = 'This plan is not available for Student';
-  }
-  else{
+    // this.errorMsg = 'This plan is not available for Student';
+  } else {
+    this.studd = false;
     this.studd = '';
-  }
-  if(this.personal.controls['employeeType'].value == 'Worker/labour'){
-    this.worker = 'This plan is not available for Worker/labour';
-  }
-  else{
-    this.worker = '';
+    // this.errorMsg = '';
   }
 }
+agri()
+{
+  if (this.personal.controls['employeeType'].value == 'Agriculturist') {
+    this.agrii = true;
+    this.agrii = 'This plan is not available for Agriculturist';
+    // this.errorMsg = 'This plan is not available for Agriculturist';
 
+  } else {
+    this.agrii = false;
+    this.agrii = '';
+    // this.errorMsg = '';
+  }
+}
+workering()
+{
+  if(this.personal.controls['employeeType'].value == 'Worker/labour'){
+    this.worker = true;
+    this.worker = 'This plan is not available for Worker/labour';
+    // this.errorMsg = 'This plan is not available for Worker/labour';
+  }
+  else{
+    this.worker = false;
+    this.worker = '';
+    // this.errorMsg = '';
+  }
+}
 belowt()
 {
   if(this.personal.controls['qualifiction'].value == 'Below 12th'){
+    this.below = true;
     this.below = 'This plan is not available for Below 12th';
+    // this.errorMsg = 'This plan is not available for Below 12th';
   }
   else{
+    this.below = false;
     this.below = '';
+    // this.errorMsg = '';
   }
 
 }
@@ -1004,9 +1041,11 @@ housewife(){
       if (this.personal.controls['employeeType'].value != 'Housewife'){
       this.housewiferrorr = false;
       this.housewiferrorr = '';
+      this.errorMsg = '';
     }else{
         this.housewiferrorr = true;
         this.housewiferrorr = 'Allowed only for Graduate,Post Graduate,Professional Degree';
+        this.errorMsg = 'Allowed only for Graduate,Post Graduate,Professional Degree';
 
       }
     }else{
@@ -1175,13 +1214,49 @@ housewife(){
             this.qulMsg = '';
             this.dobMsg = '';
             this.titleMsg = '';
-            stepper.next();
-            this.topScroll();
+            // this.quali ='';
+            // this.agrii ='';
+            // this.studd ='';
+            // this.worker ='';
+            // this.below ='';
+            this.housewiferrorr ='';
+
+            if(this.quali =='' ){
+              if(this.agrii ==''){
+              if(this.studd =='') {
+                if(this.worker==''){
+                  if(this.below == ''){
+
+
+                stepper.next();
+                this.topScroll();
+                  }
+                  else{
+                    this.toastr.error(this.below);
+
+                  }
+                }
+                else{
+                  this.toastr.error(this.worker);
+
+                }
+              }
+              else{
+                this.toastr.error(this.studd);
+              }
+              }
+              else{
+                this.toastr.error(this.agrii);
+              }
+            }
+            else{
+              this.toastr.error(this.quali);
+            }
           } else {
             this.toastr.error(this.errorMsg);
           }
         } else {
-          this.toastr.error(this.errorMsg);
+            this.toastr.error(this.errorMsg);
         }
         }else{
           this.toastr.error('Proposer Age should be Lesser than Or Equal to 65');
