@@ -257,6 +257,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public smedicalTreatmenterror:any;
   public ECGInderror:any;
   public sECGInderror:any;
+
   // public tobaccoStopInderror:any;
   public premiumPayment:any;
   public ageTill:any;
@@ -1809,10 +1810,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addon, 'addon');
     console.log(this.addon.valid, 'this.valid');
     // let dateErrorMsg = [];
-    if (this.addon.valid  ) {
+    if (this.addon.valid && this.premiumValue==false) {
       if((this.addon.controls['betterHalfBenefit'].value == 'Yes'&& sessionStorage.SpouseAge >= 18 && sessionStorage.SpouseAge <= 60)||(this.addon.controls['betterHalfBenefit'].value != 'Yes' && sessionStorage.SpouseAge=='')) {
 
-      if (this.atpdError == false && this.adbError == false && this.ciError == false && this.hcbdError == false) {
+      if (this.atpdError == false && this.adbError == false && this.ciError == false && this.hcbdError == false ) {
         // this.tittleread == true;
         this.insureArray.controls['title'].patchValue(this.customerDetails.controls['title'].value);
         this.insureArray.controls['firstName'].patchValue(this.customerDetails.controls['firstName'].value);
@@ -6169,8 +6170,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['sdob'].patchValue('');
       this.insureArray.controls['semailId'].patchValue('');
       this.insureArray.controls['sinsureHistory'].patchValue('No');
+      this.insureHistorys1();
       this.insureArray.controls['swhenInsured'].patchValue('');
       this.insureArray.controls['sexistingInsuranceInd'].patchValue('No');
+      this.sexistingInsureReq();
       // this.insureArray.controls['isSmokerSpouse'].patchValue('');
 
       this.medicalDetail.controls['travelOutsideIndia'].setValidators([Validators.required]);
@@ -7750,7 +7753,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (successData.IsSuccess) {
       this.eePremiumTerm = successData.ResponseObject;
       // this.eePremiumTerm = this.eePremiumTerm;
-      this.premiumValue=true;
+      this.premiumValue=false;
+
       // alert(this.premiumValue);
       this.bi_pdf_url = this.eePremiumTerm.bi_pdf_url;
       this.ADB = this.eePremiumTerm.accidental_death_premium;
@@ -7781,18 +7785,27 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.pdp_sumassured = this.eePremiumTerm.pdp_sumassured;
 
       this.betterhalf();
+      // this.addonNextFrom(this.stepper,this.addon.value)
       console.log(sessionStorage.SpouseAge,'spouse agess');
 
 
     }
     else {
       this.toastr.error(successData.ErrorObject);
+        this.premiumValue=true;
     }
 
   }
 
   public edelweissPrimiumFailure(error) {
   }
+
+  // addonNextFrom(stepper, value){
+  //     if(this.premiumValue==false){
+  //   this.edelweissAddonDetail(stepper,value);
+  //     }
+
+  // }
 
   getCover() {
     const data = {
@@ -7906,9 +7919,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (successData.ResponseObject) {
       this.eePremiumTerm = successData.ResponseObject;
       // this.eePremiumTerm = this.eePremiumTerm;
-      this.premiumValue=true;
-      // alert(this.premiumValue);
-      this.ADB = this.eePremiumTerm.accidental_death_premium;
+        this.ADB = this.eePremiumTerm.accidental_death_premium;
       this.sum = this.eePremiumTerm.sumAssured;
       this.basePremium = this.eePremiumTerm.Basepremium;
       this.premium = this.eePremiumTerm.Premium;

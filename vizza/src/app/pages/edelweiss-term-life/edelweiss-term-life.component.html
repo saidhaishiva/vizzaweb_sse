@@ -197,7 +197,7 @@
 
                                         <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <p>Smoker<span class="error" >*</span></p>
-                                            <mat-radio-group formControlName="isSmokerSpouse" (change)="smokerChangeSpouse()">
+                                            <mat-radio-group formControlName="isSmokerSpouse" (change)="smokerChangeSpouse();edelweissPrimium()">
                                                 <mat-radio-button value="Yes" >Yes</mat-radio-button>
                                                 <mat-radio-button class="ml-2" value="No">No</mat-radio-button>
                                             </mat-radio-group>
@@ -419,7 +419,7 @@
                                 <!--</div>-->
                                 <div class="proposal-buttom mt-3 text-right w-100">
                                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                    <button mat-raised-button color="primaryBlue"  (click)="isbetterHalfBenefit();smokerChangeSpouse();edelweissPrimium();edelweissAddonDetail(stepper, addon.value)">Next</button>
+                                    <button mat-raised-button color="primaryBlue"  (click)="isbetterHalfBenefit();smokerChangeSpouse();payoutName();edelweissPrimium();edelweissAddonDetail(stepper, addon.value)">Next</button>
                                 </div>
                             </mat-expansion-panel>
                         </form>
@@ -3165,7 +3165,7 @@
                                     <!--<ul>-->
                                     <div class="col-md-6 mb-3"></div>
                                     <div class="col-md-3 mb-3" style="font-size: larger;font-weight: bold;" >Life Insure</div>
-                                    <div class="col-md-3 mb-3" style="font-size: larger;font-weight: bold;">Spouse</div>
+                                    <div class="col-md-3 mb-3" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" style="font-size: larger;font-weight: bold;">Spouse</div>
 
                                     <div class="col-md-6">
                                         <p>Do you plan to live or travel outside india for more than 30 days? <span class="error" >*</span></p>
@@ -4265,8 +4265,8 @@
 
                                     <!--<div class="row"  *ngIf=" customerDetails.controls['title'].value=='2'|| (customerDetails.controls['title'].value=='1' && addon.controls['stitle'].value=='2')" >-->
                                         <!--<div class="col-md-12 ">-->
-                                            <h6 class="color-blue p-3 col-md-12" style="font-size: 12px">For Female Lives</h6>
-                                    <div class="col-md-6">
+                                            <h6 class="color-blue p-3 col-md-12"   style="font-size: 12px" *ngIf="customerDetails.controls['maritalStatus'].value == 'M'&& addon.controls['betterHalfBenefit'].value != ''">For Female Lives</h6>
+                                    <div class="col-md-6" *ngIf=" (customerDetails.controls['title'].value=='2'||(customerDetails.controls['title'].value=='1' && addon.controls['stitle'].value=='2'))">
                                         <p>Are you Pregnant?  <span class="error" >*</span></p>
                                     </div>
                                     <div class="col-md-3" *ngIf="lifePremiumList.product_id=='112' && customerDetails.controls['title'].value=='2'">
@@ -4297,7 +4297,7 @@
                                         </mat-form-field>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" *ngIf=" (customerDetails.controls['title'].value=='2'||(customerDetails.controls['title'].value=='1' && addon.controls['stitle'].value=='2'))">
                                         <p>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement? <span class="error" >*</span></p>
                                     </div>
                                             <div class="col-md-3" *ngIf="lifePremiumList.product_id=='112' && customerDetails.controls['title'].value=='2'">
@@ -4500,7 +4500,7 @@
                                             <mat-radio-button value="No">No</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
-                                    <div class="col-md-3" *ngIf="lifePremiumList.product_id=='112' ">
+                                    <div class="col-md-3" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                         <mat-radio-group formControlName="shealthHistory" (change)="isHealthHist1()" >
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -4529,7 +4529,7 @@
                                             <mat-radio-button value="No">No</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
-                                    <div class="col-md-3" *ngIf="lifePremiumList.product_id=='112' ">
+                                    <div class="col-md-3" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                         <mat-radio-group formControlName="shealthHistory1"  >
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -5256,18 +5256,32 @@
                                             <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any proposal/application for revival on your life or health insurance with Edelweiss Tokio Life Insurance Co. or any other life insurer, ever been declined/postponed/offered/accepted at changed/special terms?:</strong> {{insuredFormData.insureHistory}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.insureHistory == 'Yes'"><strong>Reason:</strong> {{insuredFormData.reasonInsured}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.insureHistory == 'Yes'"><strong>When:</strong> {{insuredFormData.whenInsured}}</li>
-
+                                            <li class="list-group-item" *ngIf="insuredFormData.insureHistory1 != ''"><strong>Have you ever received or do you now receive any disability or critical illness benefits from any insurance company?:</strong> {{insuredFormData.insureHistory1}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.insureHistory1 == 'Yes'"><strong>Name of Insurer:</strong> {{insuredFormData.companyName1}}</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-md-6" >
+                                <div class="col-md-6" *ngIf="addonFormData.betterHalfBenefit=='Yes'">
                                     <div class=" p-3">
                                         <h6 class="color-blue mt-4" ></h6>
                                         <ul class="m-0 list-group">
 
-                                            <li class="list-group-item" *ngIf="insuredFormData.insureHistory1 != ''"><strong>Have you ever received or do you now receive any disability or critical illness benefits from any insurance company?:</strong> {{insuredFormData.insureHistory1}}</li>
+
+                                            <li class="list-group-item" *ngIf="insuredFormData.insureHistory1 == 'Yes'"><strong>Reason:</strong> {{insuredFormData.reasonInsured1}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.insureHistory1 == 'Yes'"><strong>When:</strong> {{insuredFormData.whenInsured1}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.insureHistory2 != ''"><strong>Do you have any existing/proposed insurance with Edelweiss Tokio Life Insurance Company and/or with any other Life Insurance Co?:</strong> {{insuredFormData.insureHistory2}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd != ''"><strong>Do you have all the information handy to disclose it at this point of time?:</strong> {{insuredFormData.existingInsuranceInd}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.insureHistory2 != 'Yes'"><strong>Do you have all the information handy to disclose it at this point of time?:</strong> {{insuredFormData.existingInsuranceInd}}</li>
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-6" >-->
+                                    <!--<div class=" p-3">-->
+                                        <!--<h6 class="color-blue mt-4" ></h6>-->
+                                        <!--<ul class="m-0 list-group">-->
+
+                                            <!--<li class="list-group-item" *ngIf="insuredFormData.insureHistory1 != ''"><strong>Have you ever received or do you now receive any disability or critical illness benefits from any insurance company?:</strong> {{insuredFormData.insureHistory1}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="insuredFormData.insureHistory2 != ''"><strong>Do you have any existing/proposed insurance with Edelweiss Tokio Life Insurance Company and/or with any other Life Insurance Co?:</strong> {{insuredFormData.insureHistory2}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd != ''"><strong>Do you have all the information handy to disclose it at this point of time?:</strong> {{insuredFormData.existingInsuranceInd}}</li>-->
                                         </ul>
                                     </div>
                                 </div>
@@ -5401,7 +5415,8 @@
                                             <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory != ''"><strong>Has any proposal/application for revival on your life or health insurance with Edelweiss Tokio Life Insurance Co. or any other life insurer, ever been declined/postponed/offered/accepted at changed/special terms?:</strong> {{insuredFormData.sinsureHistory}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory == 'Yes'"><strong>Reason:</strong> {{insuredFormData.sreasonInsured}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory == 'Yes'"><strong>When:</strong> {{insuredFormData.swhenInsured}}</li>
-
+                                            <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory1 != ''"><strong>Have you ever received or do you now receive any disability or critical illness benefits from any insurance company?:</strong> {{insuredFormData.sinsureHistory1}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory1 == 'Yes'"><strong>Name of Insurer:</strong> {{insuredFormData.scompanyName1}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -5410,9 +5425,11 @@
                                         <h6 class="color-blue mt-4" ></h6>
                                         <ul class="m-0 list-group">
 
-                                            <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory1 != ''"><strong>Have you ever received or do you now receive any disability or critical illness benefits from any insurance company?:</strong> {{insuredFormData.sinsureHistory1}}</li>
+
+                                            <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory1 == 'Yes'"><strong>Reason:</strong> {{insuredFormData.sreasonInsured1}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory1 == 'Yes'"><strong>When:</strong> {{insuredFormData.swhenInsured1}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory2 != ''"><strong>Do you have any existing/proposed insurance with Edelweiss Tokio Life Insurance Company and/or with any other Life Insurance Co?:</strong> {{insuredFormData.sinsureHistory2}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.sexistingInsuranceInd != ''"><strong>Do you have all the information handy to disclose it at this point of time?:</strong> {{insuredFormData.sexistingInsuranceInd}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.sinsureHistory2 != 'Yes'"><strong>Do you have all the information handy to disclose it at this point of time?:</strong> {{insuredFormData.sexistingInsuranceInd}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -5466,7 +5483,7 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.pilot =='Yes' && lifePremiumList.product_id=='112'"><strong>Pilot :</strong> {{medicalFormData.pilot}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.activity =='Yes' && lifePremiumList.product_id=='112'"><strong>Do you take part in any of the following activities  :</strong> {{medicalFormData.activity}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.activity =='Yes' && lifePremiumList.product_id=='112'"><strong>Adventurous Activities :</strong> {{medicalFormData.adventurousActivitiesName}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.activity != 'Yes'  && lifePremiumList.product_id=='112'"><strong>Adventurous Activities Details :</strong> {{medicalFormData.adventurousActivitiesDetails}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.adventurousActivitiesDetails != ''"><strong>Adventurous Activities Details :</strong> {{medicalFormData.adventurousActivitiesDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment =='Yes'"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalFormData.medicalTreatment}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment =='Yes'"><strong>Medication Details:</strong> {{medicalFormData.medicationDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment1 =='Yes'" ><strong>Have you ever been diagnosed or / received treatment:</strong> {{medicalFormData.receivedTreatment1}}</li>
@@ -5482,7 +5499,8 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Cigarettes/Cigar sticks (per day):</strong> {{medicalFormData.tobaccoDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Bidi sticks (per day):</strong> {{medicalFormData.tobaccoDetails1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Gutka pouch (per day):</strong> {{medicalFormData.tobaccoDetails2}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Paan (per day):</strong> {{medicalFormData.tobaccoDetails3}}</li>                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Are u Stopped using Tobacco:</strong> {{medicalFormData.tobaccoStopInd}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Paan (per day):</strong> {{medicalFormData.tobaccoDetails3}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Are u Stopped using Tobacco:</strong> {{medicalFormData.tobaccoStopInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd =='Yes' && lifePremiumList.product_id=='112'" ><strong>Tobacco Stop Details:</strong> {{medicalFormData.tobaccoStopDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.consultDoctorInd =='Yes' && lifePremiumList.product_id=='112'" ><strong>Are You Consulting Doctor:</strong> {{medicalFormData.consultDoctorInd}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.consultDoctorInd =='Yes' && lifePremiumList.product_id=='112'"><strong>Consulting Doctor Details:</strong> {{medicalFormData.consultDoctorDetails}}</li>
@@ -5594,9 +5612,9 @@
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item" *ngIf="medicalFormData.travelOutsideIndia1 == 'Yes' && lifePremiumList.product_id=='112'"><strong>Travel Outside India :</strong> {{medicalFormData.travelOutsideIndia1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.pilot1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Pilot :</strong> {{medicalFormData.pilot1}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.activity1 =='Yes'&& lifePremiumList.product_id=='112'"><strong>Do you take part in any of the following activities  :</strong> {{medicalFormData.activity1}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.activity1 =='Yes'&& lifePremiumList.product_id=='112'"><strong>Do you take part in any of the following activities :</strong> {{medicalFormData.activity1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.activity1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Adventurous Activities :</strong> {{medicalFormData.adventurousActivitiesName1}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.activity1 =='Yes'  && lifePremiumList.product_id=='112'"><strong>Adventurous Activities Details :</strong> {{medicalFormData.adventurousActivitiesDetails1}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.adventurousActivitiesDetails1 != ''"><strong>Adventurous Activities Details :</strong> {{medicalFormData.adventurousActivitiesDetails1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment1 =='Yes'"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalFormData.medicalTreatment1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment1 =='Yes'"><strong>Medication Details:</strong> {{medicalFormData.medicationDetails1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment11 =='Yes'" ><strong>Have you ever been diagnosed or / received treatment:</strong> {{medicalFormData.receivedTreatment11}}</li>
@@ -5954,68 +5972,26 @@
 
                                             <div class="col-md-12 mb-4">
                                                 <h5>Life Assured</h5>
-                                                <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>
-                                        </span>
+                                                <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg, pdf</span></span>
                                                 </p>
                                             </div>
 
 
 
-                                            <div class="col-md-4">
-                                                <input matInput placeholder="Address Proof" readonly>
+                                            <div class="col-md-9">
+                                                <input matInput placeholder="Photograph" readonly>
                                             </div>
-                                            <div class="col-md-4" >
-                                                <mat-form-field class="w-100">
-                                                    <mat-placeholder>Address Proof</mat-placeholder>
-                                                    <mat-select formControlName="addressLA" autocomplete="off"  (change)="geteaddressDocProof()" >
-                                                        <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= 'list.value'>
-                                                            {{list.value}}
-                                                        </mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="text-left w-100">
-
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                                                        <label class="custom-file-label"> Address Proof</label>
-                                                    </div>
-                                                </div>
-                                                <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input matInput placeholder="Income Proof" readonly>
-                                            </div>
-                                            <div class="col-md-4" >
-                                                <mat-form-field class="w-100">
-                                                    <mat-placeholder>Income Proof</mat-placeholder>
-                                                    <mat-select formControlName="incomeLA" autocomplete="off"  (change)="geteIncomeProof()" >
-                                                        <mat-option *ngFor="let list of eIncomeProof | keys" [value]= 'list.value'>
-                                                            {{list.value}}
-                                                        </mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                            </div>
-                                            <!--<div class="col-md-4">-->
-                                            <!--<mat-form-field class="w-100">-->
-                                            <!--<mat-select  placeholder="Income Proof" formControlName="incomeLA" (change)="geteIncomeProof()"  class="w-100" required>-->
-                                            <!--<mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
-                                            <!--</mat-select>-->
-                                            <!--<mat-error *ngIf="documentDetail.controls.incomeLA.errors?.required">Income Proof is required</mat-error>-->
-
-                                            <!--</mat-form-field>-->
-                                            <!--</div>-->
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="text-left w-100">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                                                        <label class="custom-file-label"> Income Proof</label>
+                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'photograph_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                                        <label class="custom-file-label" style="width: 93px;"></label>
                                                     </div>
                                                 </div>
-                                                <p class="mt-2" style="color: green;">{{uploadIncomeProofName}}</p>
+                                                <p class="mt-2" style="color: green;">{{photoProofName}}</p>
                                             </div>
-                                            <div class="col-md-4">
+
+                                            <div class="col-md-5">
                                                 <input matInput placeholder="Identity Proof" readonly>
                                             </div>
                                             <div class="col-md-4" >
@@ -6038,16 +6014,17 @@
 
                                             <!--</mat-form-field>-->
                                             <!--</div>-->
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="text-left w-100">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                                                        <label class="custom-file-label"> Identity Proof</label>
+                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'id_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
+                                                        <label class="custom-file-label" style="width: 93px;"></label>
                                                     </div>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>
                                             </div>
-                                            <div class="col-md-4">
+
+                                            <div class="col-md-5">
                                                 <input matInput placeholder="Age Proof" readonly>
                                             </div>
                                             <div class="col-md-4" >
@@ -6069,24 +6046,92 @@
 
                                             <!--</mat-form-field>-->
                                             <!--</div>-->
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="text-left w-100">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                                                        <label class="custom-file-label"> Age Proof</label>
+                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'age_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
+                                                        <label class="custom-file-label" style="width: 93px;"></label>
                                                     </div>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
                                             </div>
 
-                                            <div class="col-md-4">
-                                                <input matInput placeholder="Other Document" readonly>
+                                            <div class="col-md-5">
+                                                <input matInput placeholder="Address Proof" readonly>
                                             </div>
                                             <div class="col-md-4" >
                                                 <mat-form-field class="w-100">
-                                                    <mat-placeholder>Other Document</mat-placeholder>
-                                                    <mat-select formControlName="documentLA" autocomplete="off"  (change)="geteOtherDocumentProof()" >
-                                                        <mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= 'list.value'>
+                                                    <mat-placeholder>Address Proof</mat-placeholder>
+                                                    <mat-select formControlName="addressLA" autocomplete="off"  (change)="geteaddressDocProof()" >
+                                                        <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= 'list.value'>
+                                                            {{list.value}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="text-left w-100">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'address_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
+                                                        <label class="custom-file-label" style="width: 93px;"></label>
+                                                    </div>
+                                                </div>
+                                                <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
+                                            </div>
+
+                                            <div class="col-md-5">
+                                            <input matInput placeholder="Corresponding Address Proof" readonly>
+                                            </div>
+                                            <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                            <mat-select  placeholder="Corresponding Address Proof" formControlName="salereqLA" (change)="geteaddressDocProof()"  class="w-100" >
+                                                <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= 'list.value'>{{list.value}} </mat-option>
+                                                    <!--<mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                            </mat-select>
+                                            <!--<mat-error *ngIf="documentDetail.controls.salereqLA.errors?.required">Sales Requirement is required</mat-error>-->
+
+                                            </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                            <div class="text-left w-100">
+                                            <div class="custom-file">
+                                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf, .pdf" (change)="uploadProof($event, 'salesReq_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                            <label class="custom-file-label" style="width: 93px;"></label>
+                                            </div>
+                                            </div>
+                                            <p class="mt-2" style="color: green;">{{salesReqProofName}}</p>
+                                            </div>
+
+                                            <div class="col-md-5">
+                                            <input matInput placeholder="Spouse Age Proof" readonly>
+                                            </div>
+                                            <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                            <mat-select  placeholder="Spouse Age Proof" formControlName="kycLA" (change)="getekycProof()"  class="w-100" >
+                                            <mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>
+                                            </mat-select>
+                                            <!--<mat-error *ngIf="documentDetail.controls.kycLA.errors?.required">KYC is required</mat-error>-->
+
+                                            </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                            <div class="text-left w-100">
+                                            <div class="custom-file">
+                                            <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'kyc_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                            <label class="custom-file-label" style="width: 93px;"></label>
+                                            </div>
+                                            </div>
+                                            <p class="mt-2" style="color: green;">{{kycProofName}}</p>
+                                            </div>
+
+                                            <div class="col-md-5">
+                                                <input matInput placeholder="Income Proof" readonly>
+                                            </div>
+                                            <div class="col-md-4" >
+                                                <mat-form-field class="w-100">
+                                                    <mat-placeholder>Income Proof</mat-placeholder>
+                                                    <mat-select formControlName="incomeLA" autocomplete="off"  (change)="geteIncomeProof()" >
+                                                        <mat-option *ngFor="let list of eIncomeProof | keys" [value]= 'list.value'>
                                                             {{list.value}}
                                                         </mat-option>
                                                     </mat-select>
@@ -6094,101 +6139,123 @@
                                             </div>
                                             <!--<div class="col-md-4">-->
                                             <!--<mat-form-field class="w-100">-->
-                                            <!--<mat-select  placeholder="Other Document" formControlName="documentLA" (change)="geteOtherDocumentProof()"  class="w-100" required>-->
-                                            <!--<mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                            <!--<mat-select  placeholder="Income Proof" formControlName="incomeLA" (change)="geteIncomeProof()"  class="w-100" required>-->
+                                            <!--<mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
                                             <!--</mat-select>-->
-                                            <!--<mat-error *ngIf="documentDetail.controls.documentLA.errors?.required">Other Document is required</mat-error>-->
+                                            <!--<mat-error *ngIf="documentDetail.controls.incomeLA.errors?.required">Income Proof is required</mat-error>-->
 
                                             <!--</mat-form-field>-->
                                             <!--</div>-->
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="text-left w-100">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'document_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
-                                                        <label class="custom-file-label">Other Document</label>
+                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'income_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
+                                                        <label class="custom-file-label" style="width: 93px;"></label>
                                                     </div>
                                                 </div>
-                                                <p class="mt-2" style="color: green;">{{uploadDocumentProofName}}</p>
+                                                <p class="mt-2" style="color: green;">{{uploadIncomeProofName}}</p>
                                             </div>
 
-                                            <div class="col-md-4">
-                                                <input matInput placeholder="Proposal Form" readonly>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="Proposal Form" formControlName="proposalLA" (change)="geteproposalProof()"  class="w-100" >
-                                                        <mat-option *ngFor="let list of eproposalProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                                                    </mat-select>
-                                                    <!--<mat-error *ngIf="documentDetail.controls.proposalLA.errors?.required">Proposal Form is required</mat-error>-->
-
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="text-left w-100">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'proposal_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
-                                                        <label class="custom-file-label">Proposal Form</label>
-                                                    </div>
-                                                </div>
-                                                <p class="mt-2" style="color: green;">{{proposalProofName}}</p>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <input matInput placeholder="Sales Requirement" readonly>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="Sales Requirement" formControlName="salereqLA" (change)="getesalereqProof()"  class="w-100" >
-                                                        <mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                                                    </mat-select>
-                                                    <!--<mat-error *ngIf="documentDetail.controls.salereqLA.errors?.required">Sales Requirement is required</mat-error>-->
-
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="text-left w-100">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'salesReq_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
-                                                        <label class="custom-file-label">Sales Requirement</label>
-                                                    </div>
-                                                </div>
-                                                <p class="mt-2" style="color: green;">{{salesReqProofName}}</p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input matInput placeholder="KYC" readonly>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="KYC" formControlName="kycLA" (change)="getekycProof()"  class="w-100" >
-                                                        <mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>
-                                                    </mat-select>
-                                                    <!--<mat-error *ngIf="documentDetail.controls.kycLA.errors?.required">KYC is required</mat-error>-->
-
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="text-left w-100">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'kyc_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
-                                                        <label class="custom-file-label">KYC</label>
-                                                    </div>
-                                                </div>
-                                                <p class="mt-2" style="color: green;">{{kycProofName}}</p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input matInput placeholder="Recent Photo" readonly>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="text-left w-100">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'photograph_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
-                                                        <label class="custom-file-label">Recent Photo</label>
-                                                    </div>
-                                                </div>
-                                                <p class="mt-2" style="color: green;">{{photoProofName}}</p>
-                                            </div>
                                         </div>
+
+                                            <!--<div class="col-md-4">-->
+                                                <!--<input matInput placeholder="Other Document" readonly>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4" >-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-placeholder>Other Document</mat-placeholder>-->
+                                                    <!--<mat-select formControlName="documentLA" autocomplete="off"  (change)="geteOtherDocumentProof()" >-->
+                                                        <!--<mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= 'list.value'>-->
+                                                            <!--{{list.value}}-->
+                                                        <!--</mat-option>-->
+                                                    <!--</mat-select>-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
+                                            <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<mat-select  placeholder="Other Document" formControlName="documentLA" (change)="geteOtherDocumentProof()"  class="w-100" required>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<mat-error *ngIf="documentDetail.controls.documentLA.errors?.required">Other Document is required</mat-error>&ndash;&gt;-->
+
+                                            <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<div class="text-left w-100">-->
+                                                    <!--<div class="custom-file">-->
+                                                        <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'document_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >-->
+                                                        <!--<label class="custom-file-label">Other Document</label>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<p class="mt-2" style="color: green;">{{uploadDocumentProofName}}</p>-->
+                                            <!--</div>-->
+
+                                            <!--<div class="col-md-4">-->
+                                                <!--<input matInput placeholder="Proposal Form" readonly>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-select  placeholder="Proposal Form" formControlName="proposalLA" (change)="geteproposalProof()"  class="w-100" >-->
+                                                        <!--<mat-option *ngFor="let list of eproposalProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                                    <!--</mat-select>-->
+                                                    <!--&lt;!&ndash;<mat-error *ngIf="documentDetail.controls.proposalLA.errors?.required">Proposal Form is required</mat-error>&ndash;&gt;-->
+
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<div class="text-left w-100">-->
+                                                    <!--<div class="custom-file">-->
+                                                        <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'proposal_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >-->
+                                                        <!--<label class="custom-file-label">Proposal Form</label>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<p class="mt-2" style="color: green;">{{proposalProofName}}</p>-->
+                                            <!--</div>-->
+
+                                            <!--<div class="col-md-4">-->
+                                                <!--<input matInput placeholder="Sales Requirement" readonly>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-select  placeholder="Sales Requirement" formControlName="salereqLA" (change)="getesalereqProof()"  class="w-100" >-->
+                                                        <!--<mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                                    <!--</mat-select>-->
+                                                    <!--&lt;!&ndash;<mat-error *ngIf="documentDetail.controls.salereqLA.errors?.required">Sales Requirement is required</mat-error>&ndash;&gt;-->
+
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<div class="text-left w-100">-->
+                                                    <!--<div class="custom-file">-->
+                                                        <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'salesReq_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >-->
+                                                        <!--<label class="custom-file-label">Sales Requirement</label>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<p class="mt-2" style="color: green;">{{salesReqProofName}}</p>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<input matInput placeholder="KYC" readonly>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-select  placeholder="KYC" formControlName="kycLA" (change)="getekycProof()"  class="w-100" >-->
+                                                        <!--<mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                                    <!--</mat-select>-->
+                                                    <!--&lt;!&ndash;<mat-error *ngIf="documentDetail.controls.kycLA.errors?.required">KYC is required</mat-error>&ndash;&gt;-->
+
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<div class="text-left w-100">-->
+                                                    <!--<div class="custom-file">-->
+                                                        <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'kyc_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >-->
+                                                        <!--<label class="custom-file-label">KYC</label>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<p class="mt-2" style="color: green;">{{kycProofName}}</p>-->
+                                            <!--</div>-->
+
+
 
 
                                         <!--<div class="row">-->
