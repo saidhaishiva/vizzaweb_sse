@@ -317,7 +317,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
-        stepperindex = 8;
+        stepperindex = 7;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           let summaryData = JSON.parse(sessionStorage.summaryData);
           this.summaryData = summaryData;
