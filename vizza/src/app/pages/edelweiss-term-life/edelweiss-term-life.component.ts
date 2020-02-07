@@ -7653,10 +7653,6 @@ export class EdelweissTermLifeComponent implements OnInit {
         "premiumPayingTerm":this.lifePremiumList.premium_paying_term,
         "frequency":this.enquiryFromDetials.payment_mode,
         "sumAssured": sessionStorage.selectedAmountTravel,
-        // "payoutOption": this.addon.controls['payoutOption'].value,
-        // "payoutMonths": this.addon.controls['noOfMonths'].value,
-        // "payoutPercentageLumpsum": this.addon.controls['payoutPercentageIncome'].value,
-
         "planOption": '',
         "riderDetails": {
           "workSiteFlag": 'N',
