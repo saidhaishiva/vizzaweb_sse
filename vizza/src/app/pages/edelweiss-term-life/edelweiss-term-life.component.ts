@@ -73,6 +73,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public getStepper4: any;
   public getDays: any;
   public getAge: any;
+  public adventurousActivitiesValue: any;
+  public adventurousActivitiesSpoValue: any;
   public emaritalStatus: any;
   public einvesting: any;
   public ePremiumTerm: any;
@@ -7277,6 +7279,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.summaryData = successData.ResponseObject;
       this.requestedUrl = this.summaryData.payment_link;
       this.alcoholDetailValues=this.summaryData.alcohol_details
+      this.adventurousActivitiesValue=this.summaryData.adventurous_activities
+      this.adventurousActivitiesSpoValue=this.summaryData.spouse_adventurous_activities
       console.log(this.alcoholDetailValues,'alcoholDetailValues...')
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposalId = this.summaryData.ProposalId;

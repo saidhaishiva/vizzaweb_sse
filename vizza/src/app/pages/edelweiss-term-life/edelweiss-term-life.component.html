@@ -4265,7 +4265,7 @@
 
                                     <!--<div class="row"  *ngIf=" customerDetails.controls['title'].value=='2'|| (customerDetails.controls['title'].value=='1' && addon.controls['stitle'].value=='2')" >-->
                                         <!--<div class="col-md-12 ">-->
-                                            <h6 class="color-blue p-3 col-md-12"   style="font-size: 12px" *ngIf="customerDetails.controls['maritalStatus'].value == 'M'&& addon.controls['betterHalfBenefit'].value != ''">For Female Lives</h6>
+                                            <h6 class="color-blue p-3 col-md-12"   style="font-size: 12px" *ngIf="(customerDetails.controls['title'].value=='2'||(customerDetails.controls['title'].value=='1' && addon.controls['stitle'].value=='2'))">For Female Lives</h6>
                                     <div class="col-md-6" *ngIf=" (customerDetails.controls['title'].value=='2'||(customerDetails.controls['title'].value=='1' && addon.controls['stitle'].value=='2'))">
                                         <p>Are you Pregnant?  <span class="error" >*</span></p>
                                     </div>
@@ -4997,14 +4997,14 @@
                                             <div class="col-md-12">
                                                 <!--<h6 class="color-blue" >SPOUSE DETAILS</h6>-->
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="addonFormData.waiverOfPremiumBenefit != ''"><strong>Waiver Of Premium Benefit:</strong> {{addonFormData.waiverOfPremiumBenefit}}</li>
-                                                    <li class="list-group-item" *ngIf="PW != ''" ><strong>Waiver Of Premium:</strong> {{PW}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.isHCB != ''"><strong>Hospital Cash Benefit:</strong> {{addonFormData.isHCB}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.sumAssuredHCB != ''" ><strong>Sum Assured:</strong> {{addonFormData.sumAssuredHCB}}</li>
-                                                    <li class="list-group-item" *ngIf="hcp != ''" ><strong>Hospital Cash Benefit Premium:</strong> {{hcp}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.isADB != ''" ><strong>Accidental Death Benefit:</strong> {{addonFormData.isADB}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.sumAssuredADB != ''" ><strong>Sum Assured:</strong> {{addonFormData.sumAssuredADB}}</li>
-                                                    <li class="list-group-item" *ngIf="ADB != ''" ><strong>Accidental Death Benefit Premium:</strong> {{ADB}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.waiverOfPremiumBenefit == 'Yes'"><strong>Waiver Of Premium Benefit:</strong> {{addonFormData.waiverOfPremiumBenefit}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.waiverOfPremiumBenefit == 'Yes'" ><strong>Waiver Of Premium:</strong> {{PW}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.isHCB == 'Yes'"><strong>Hospital Cash Benefit:</strong> {{addonFormData.isHCB}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.isHCB == 'Yes'" ><strong>Sum Assured:</strong> {{addonFormData.sumAssuredHCB}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.isHCB == 'Yes'"><strong>Hospital Cash Benefit Premium:</strong> {{hcp}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.isADB == 'Yes'" ><strong>Accidental Death Benefit:</strong> {{addonFormData.isADB}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.isADB == 'Yes'" ><strong>Sum Assured:</strong> {{addonFormData.sumAssuredADB}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.isADB == 'Yes'" ><strong>Accidental Death Benefit Premium:</strong> {{ADB}}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -5016,15 +5016,15 @@
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
 
-                                                    <li class="list-group-item" *ngIf="addonFormData.isATPD != ''" ><strong>Permanent Disability Rider:</strong> {{addonFormData.isATPD}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.sumAssuredADB != ''" ><strong>Sum Assured:</strong> {{addonFormData.sumAssuredADB}}</li>
-                                                    <li class="list-group-item" *ngIf="PDP != ''" ><strong>Permanent Disability Premium:</strong> {{PDP}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.criticalIllness != ''" ><strong>Enhanced Critical Illness Rider:</strong> {{addonFormData.criticalIllness}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.criticalsumAssured != ''" ><strong>Sum Assured:</strong> {{addonFormData.criticalsumAssured}}</li>
-                                                    <li class="list-group-item" *ngIf="CIP != ''" ><strong>Enhanced Critical Illness Premium:</strong> {{CIP}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.betterHalfBenefit != ''" ><strong>Better Half Benefit:</strong> {{addonFormData.betterHalfBenefit}}</li>
-                                                    <li class="list-group-item" *ngIf="addonFormData.betterHalfsumAssured != ''"><strong>Sum Assured:</strong> {{addonFormData.betterHalfsumAssured}}</li>
-                                                    <li class="list-group-item" *ngIf="BhP != ''"><strong>Better Half Benefit Premium:</strong> {{BhP}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.isATPD == 'Yes'" ><strong>Permanent Disability Rider:</strong> {{addonFormData.isATPD}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.isATPD == 'Yes'" ><strong>Sum Assured:</strong> {{addonFormData.sumAssuredADB}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.isATPD == 'Yes'" ><strong>Permanent Disability Premium:</strong> {{PDP}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.criticalIllness == 'Yes'" ><strong>Enhanced Critical Illness Rider:</strong> {{addonFormData.criticalIllness}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.criticalIllness == 'Yes'" ><strong>Sum Assured:</strong> {{addonFormData.criticalsumAssured}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.criticalIllness == 'Yes'" ><strong>Enhanced Critical Illness Premium:</strong> {{CIP}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.betterHalfBenefit == 'Yes'" ><strong>Better Half Benefit:</strong> {{addonFormData.betterHalfBenefit}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.betterHalfBenefit == 'Yes'"><strong>Sum Assured:</strong> {{addonFormData.betterHalfsumAssured}}</li>
+                                                    <li class="list-group-item" *ngIf="addonFormData.betterHalfBenefit == 'Yes'"><strong>Better Half Benefit Premium:</strong> {{BhP}}</li>
 
                                                 </ul>
                                             </div>
@@ -5482,7 +5482,7 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.travelOutsideIndia =='Yes' && lifePremiumList.product_id=='112'"><strong>Travel Outside India :</strong> {{medicalFormData.travelOutsideIndia}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.pilot =='Yes' && lifePremiumList.product_id=='112'"><strong>Pilot :</strong> {{medicalFormData.pilot}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.activity =='Yes' && lifePremiumList.product_id=='112'"><strong>Do you take part in any of the following activities  :</strong> {{medicalFormData.activity}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.activity =='Yes' && lifePremiumList.product_id=='112'"><strong>Adventurous Activities :</strong> {{medicalFormData.adventurousActivitiesName}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.activity =='Yes' && lifePremiumList.product_id=='112'"><strong>Adventurous Activities :</strong> {{medicalFormData.adventurousActivitiesValue}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.adventurousActivitiesDetails != ''"><strong>Adventurous Activities Details :</strong> {{medicalFormData.adventurousActivitiesDetails}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment =='Yes'"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalFormData.medicalTreatment}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment =='Yes'"><strong>Medication Details:</strong> {{medicalFormData.medicationDetails}}</li>
@@ -5613,7 +5613,7 @@
                                                     <li class="list-group-item" *ngIf="medicalFormData.travelOutsideIndia1 == 'Yes' && lifePremiumList.product_id=='112'"><strong>Travel Outside India :</strong> {{medicalFormData.travelOutsideIndia1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.pilot1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Pilot :</strong> {{medicalFormData.pilot1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.activity1 =='Yes'&& lifePremiumList.product_id=='112'"><strong>Do you take part in any of the following activities :</strong> {{medicalFormData.activity1}}</li>
-                                                    <li class="list-group-item" *ngIf="medicalFormData.activity1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Adventurous Activities :</strong> {{medicalFormData.adventurousActivitiesName1}}</li>
+                                                    <li class="list-group-item" *ngIf="medicalFormData.activity1 =='Yes' && lifePremiumList.product_id=='112'"><strong>Adventurous Activities :</strong> {{medicalFormData.adventurousActivitiesSpoValue}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.adventurousActivitiesDetails1 != ''"><strong>Adventurous Activities Details :</strong> {{medicalFormData.adventurousActivitiesDetails1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment1 =='Yes'"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalFormData.medicalTreatment1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment1 =='Yes'"><strong>Medication Details:</strong> {{medicalFormData.medicationDetails1}}</li>
