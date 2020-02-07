@@ -574,7 +574,7 @@
                                     </div>
                                     <div class="col-md-3" *ngIf="coverDetails.controls.PAToNamedPassenger.value == true">
                                         <mat-form-field class="w-100">
-                                            <mat-select placeholder="Sum Insured" formControlName="namedPassengersSI" (selectionChange)="unnamedSi();namedPassengersChange()"  [required]="coverDetails.controls.PAToNamedPassenger.value == true">
+                                            <mat-select placeholder="Sum Insured" formControlName="namedPassengersSI" (selectionChange)="unnamedSi();coverperimum();namedPassengersChange()"  [required]="coverDetails.controls.PAToNamedPassenger.value == true">
                                                 <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                                             </mat-select>
                                             <!--<mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>-->
@@ -600,8 +600,8 @@
                             </div>
                             <div class="col-md-3" *ngIf="coverDetails.controls.UnnamedPassengerCovered.value == true">
                                         <mat-form-field class="w-100">
-                                            <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();UnnamedPassengersChange()"  [required]="coverDetails.controls.UnnamedPassengerCovered.value == true">
-                                                <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                                            <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI" (selectionChange)="unnamedSi();coverperimum();UnnamedPassengersChange()"  [required]="coverDetails.controls.UnnamedPassengerCovered.value == true">
+                                                <mat-option *ngFor="let type of suminsuredpA | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                                             </mat-select>
                                             <!--<mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>-->
                                         </mat-form-field>
@@ -626,9 +626,12 @@
                                     </div>
                                     <div class="col-md-3 " *ngIf="coverDetails.controls.isTPPDCover.value == true">
                                         <mat-form-field class="w-100">
-                                            <mat-select placeholder="Sum Insured" formControlName="tPPDCoverSI" (selectionChange)="totaltPPDCoverSIChange()"  [required]="coverDetails.controls.isTPPDCover.value == true">
-                                                <mat-option  value="100000" > 100000 </mat-option>
-                                                <mat-option  value="6000" > 6000 </mat-option>
+                                            <mat-select placeholder="Sum Insured" formControlName="tPPDCoverSI" (selectionChange)="totaltPPDCoverSIChange();coverperimum();"  [required]="coverDetails.controls.isTPPDCover.value == true">
+                                                <mat-option *ngFor="let type of suminsuredTPPD | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+
+
+                                                <!--<mat-option  value="100000" > 100000 </mat-option>-->
+                                                <!--<mat-option  value="6000" > 6000 </mat-option>-->
 
                                             </mat-select>
                                             <!--<mat-error *ngIf="coverDetails.controls.VoluntaryDeductableAmount.errors?.required">Sum Insured  is required</mat-error>-->
@@ -651,8 +654,8 @@
                             </div>
                             <div class="col-md-4 " *ngIf="coverDetails.controls.IsVoluntaryDeductableOpted.value == true">
                                 <mat-form-field class="w-100">
-                                    <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (selectionChange)="voluntaryAmount();totalVoluntaryPremiumChange()"  required>
-                                        <mat-option *ngFor="let type of amountList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                                    <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (selectionChange)="voluntaryAmount();totalVoluntaryPremiumChange();coverperimum();"  required>
+                                        <mat-option *ngFor="let type of suminsuredvoluntarylist | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                                     </mat-select>
                                     <!--<mat-error *ngIf="coverDetails.controls.VoluntaryDeductableAmount.errors?.required">Sum Insured  is required</mat-error>-->
@@ -946,13 +949,13 @@
         </mat-step>
 
         <mat-step [stepControl]="" *ngIf="buyProduct.business_type !=1">
-          <ng-template matStepLabel>Previous Insurance Details</ng-template>
+          <ng-template matStepLabel>PREVIOUS INSURANCE DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <form [formGroup]="previousInsurance">
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Previous Insurance Details
+                    PREVIOUS INSURANCE DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
                 <div class="row">

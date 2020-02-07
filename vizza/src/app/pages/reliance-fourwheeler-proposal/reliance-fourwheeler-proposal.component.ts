@@ -140,7 +140,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.electricalSumAount=false
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
-        stepperindex = 5;
+        stepperindex = 4;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
           // this.ProposalId =   this.summaryData.proposalNo;
@@ -1961,7 +1961,7 @@ changeNonElect(){
       "pos_status":"0",
       "enquiry_id":"834",
       "company_id":"3",
-      "TypeOfFuel":"1",
+      "TypeOfFuel":this.coverDetails.controls['IsBiFuelKit'].value==''?'1':this.coverDetails.controls['IsBiFuelKit'].value,
       "motorproposalObj":{
         "CoverDetails": "",
         "TrailerDetails": "",
@@ -2043,7 +2043,8 @@ changeNonElect(){
     );
   }
   public voluntaryAmountListSucccess(successData){
-    this.amountList = successData.ResponseObject.coverage[2].Voluntary_Deductible;
+    this.amountList = successData.coverage[2].Voluntary_Deductible;
+    console.log(successData,'45678987678')
   }
   public fourWheelervoluntaryAmountListFailure(error) {
   }
@@ -2146,7 +2147,7 @@ changeNonElect(){
       "pos_status":"0",
       "enquiry_id":"834",
       "company_id":"3",
-      "TypeOfFuel":"1",
+      "TypeOfFuel":this.coverDetails.controls['IsBiFuelKit'].value==''?'1':this.coverDetails.controls['IsBiFuelKit'].value,
       "motorproposalObj":{
         "CoverDetails": "",
         "TrailerDetails": "",
@@ -2228,7 +2229,12 @@ changeNonElect(){
     );
   }
   public unnamedSiSucccess(successData){
-    this.unnamedList = successData.ResponseObject.coverage[9].PA_to_Unnamed_Passenger;
+    this.unnamedList = successData.coverage[9].PA_to_Unnamed_Passenger;
+    console.log(successData,'success');
+    console.log(successData.coverage[9],'this.unnamedList');
+    console.log(successData.coverage[9].PA_to_Unnamed_Passenger,'this.unnamedList');
+    console.log(this.unnamedList,'this.unnamedList');
+
   }
   public unnamedSiFailure(error) {
   }

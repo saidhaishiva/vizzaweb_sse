@@ -104,6 +104,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public paymentmode: any;
     public email: any;
     public pos_status: any;
+    public genderPerson: any;
     public hdfcMobileTrue0: boolean;
     public hdfcMobileTrue1: boolean;
     public hdfcMobileTrue2: boolean;
@@ -149,6 +150,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
         this.IsCustomerAcceptedPPCPED = false;
+        this.sameAsinsure = false;
         this.pincodeValid = true;
         this.IsCustomerAccepted = false;
         this.arr = [];
@@ -261,7 +263,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue(this.hdfcPersonal.controls['lastname'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('Self');
             let dobAge = this.ageCalculate(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             console.log(dobAge,'dobAge');
             if (dobAge > 45) {
@@ -270,6 +272,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 this.IsCustomerAcceptedPPCPED = false;
             }
 
+            // this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue('Self');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.value]);
 
         } else if(this.sameAsinsure == 'false' || this.sameAsinsure == false) {
@@ -714,6 +717,7 @@ TierID
     public relationShipSuccess(successData) {
         if (successData.IsSuccess) {
             this.insuredHdfcRelationList = successData.ResponseObject;
+            console.log(this.insuredHdfcRelationList, 'this.insuredHdfcRelationList...///')
 
         }
     }
@@ -791,6 +795,9 @@ TierID
         sessionStorage.hdfcStep1 = '';
         sessionStorage.hdfcStep1 = JSON.stringify(value);
         this.hdfcpersonalValues = value;
+        this.genderPerson = this.hdfcpersonalValues.gender;
+        console.log(this.hdfcpersonalValues, 'this.hdfcpersonalValues.../////')
+        console.log(this.genderPerson, 'gender...////')
         if (this.hdfcPersonal.valid) {
             if (sessionStorage.hdfcHealthProposerAge >= 18) {
                 if (this.pincodeValid) {
@@ -890,7 +897,12 @@ TierID
                 this.insurerData.items[i].gender = 'F';
 
             }
+            if(this.insurerData.items[i].relationship == 'Self') {
+                this.insurerData.items[i].relationship = 'I';
+                this.insurerData.items[i].relationshipName = 'Self';
+            }
         }
+
         let checkValid = false;
         if (this.hdfcInsureArray.valid) {
             if (!this.IsCustomerAcceptedPPCPED) {

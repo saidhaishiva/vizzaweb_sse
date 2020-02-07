@@ -317,7 +317,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
-        stepperindex = 8;
+        stepperindex = 7;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           let summaryData = JSON.parse(sessionStorage.summaryData);
           this.summaryData = summaryData;
@@ -610,7 +610,13 @@ export class EdelweissTermLifeComponent implements OnInit {
       sreasonInsured: '',
       swhenInsured: '',
       insureHistory1: 'No',
+      companyName1: '',
+      reasonInsured1: '',
+      whenInsured1: '',
       sinsureHistory1: 'No',
+      scompanyName1: '',
+      sreasonInsured1: '',
+      swhenInsured1: '',
       insureHistory2: 'No',
       sinsureHistory2: 'No',
       insureAccNo: '',
@@ -2839,6 +2845,46 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['swhenInsured'].updateValueAndValidity();
 
   }
+  insureHistorys2(){
+    if (this.insureArray.controls['sinsureHistory1'].value=='Yes') {
+      this.insureArray.controls['scompanyName1'].setValidators([Validators.required]);
+      this.insureArray.controls['sreasonInsured1'].setValidators([Validators.required]);
+      this.insureArray.controls['swhenInsured1'].setValidators([Validators.required]);
+    } else  {
+      this.insureArray.controls['scompanyName1'].patchValue('');
+      this.insureArray.controls['sreasonInsured1'].patchValue('');
+      this.insureArray.controls['swhenInsured1'].patchValue('');
+
+      this.insureArray.controls['scompanyName1'].setValidators(null);
+      this.insureArray.controls['sreasonInsured1'].setValidators(null);
+      this.insureArray.controls['swhenInsured1'].setValidators(null);
+
+    }
+    this.insureArray.controls['scompanyName1'].updateValueAndValidity();
+    this.insureArray.controls['sreasonInsured1'].updateValueAndValidity();
+    this.insureArray.controls['swhenInsured1'].updateValueAndValidity();
+
+  }
+  insureHistorys21(){
+    if (this.insureArray.controls['insureHistory1'].value=='Yes') {
+      this.insureArray.controls['companyName1'].setValidators([Validators.required]);
+      this.insureArray.controls['reasonInsured1'].setValidators([Validators.required]);
+      this.insureArray.controls['whenInsured1'].setValidators([Validators.required]);
+    } else  {
+      this.insureArray.controls['companyName1'].patchValue('');
+      this.insureArray.controls['reasonInsured1'].patchValue('');
+      this.insureArray.controls['whenInsured1'].patchValue('');
+
+      this.insureArray.controls['companyName1'].setValidators(null);
+      this.insureArray.controls['reasonInsured1'].setValidators(null);
+      this.insureArray.controls['whenInsured1'].setValidators(null);
+
+    }
+    this.insureArray.controls['companyName1'].updateValueAndValidity();
+    this.insureArray.controls['reasonInsured1'].updateValueAndValidity();
+    this.insureArray.controls['whenInsured1'].updateValueAndValidity();
+
+  }
 
 
   uploadReq() {
@@ -3415,20 +3461,20 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.ssymptomsInderror=false;
       this.ssymptomsInderror= '';
     }
-    if(this.medicalDetail.controls['isHospitalized'].value == '') {
-      this.isHospitalizederror=true;
-      this.isHospitalizederror= 'Field is Mandatory';
-    }else if(this.medicalDetail.controls['symptomsInd'].value != ''){
-      this.isHospitalizederror=false;
-      this.isHospitalizederror= '';
-    }
-    if(this.medicalDetail.controls['isHospitalized1'].value == null) {
-      this.sHospitalizederror=true;
-      this.sHospitalizederror= 'Field is Mandatory';
-    }else if(this.medicalDetail.controls['isHospitalized1'].value != null){
-      this.sHospitalizederror=false;
-      this.sHospitalizederror= '';
-    }
+    // if(this.medicalDetail.controls['isHospitalized'].value == '') {
+    //   this.isHospitalizederror=true;
+    //   this.isHospitalizederror= 'Field is Mandatory';
+    // }else if(this.medicalDetail.controls['symptomsInd'].value != ''){
+    //   this.isHospitalizederror=false;
+    //   this.isHospitalizederror= '';
+    // }
+    // if(this.medicalDetail.controls['isHospitalized1'].value == null) {
+    //   this.sHospitalizederror=true;
+    //   this.sHospitalizederror= 'Field is Mandatory';
+    // }else if(this.medicalDetail.controls['isHospitalized1'].value != null){
+    //   this.sHospitalizederror=false;
+    //   this.sHospitalizederror= '';
+    // }
     // if(this.medicalDetail.controls['isRecovered'].value == '') {
     //   this.isRecoverederror=true;
     //   this.isRecoverederror= 'Field is Mandatory';
@@ -4151,14 +4197,14 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.ssymptomsInderror=false;
       this.ssymptomsInderror= '';
     }
-    if(this.medicalDetail.controls['symptomsInd'].value != ''){
-      this.isHospitalizederror=false;
-      this.isHospitalizederror= '';
-    }
-   if(this.medicalDetail.controls['isHospitalized1'].value != null){
-      this.sHospitalizederror=false;
-      this.sHospitalizederror= '';
-    }
+   //  if(this.medicalDetail.controls['symptomsInd'].value != ''){
+   //    this.isHospitalizederror=false;
+   //    this.isHospitalizederror= '';
+   //  }
+   // if(this.medicalDetail.controls['isHospitalized1'].value != null){
+   //    this.sHospitalizederror=false;
+   //    this.sHospitalizederror= '';
+   //  }
     // if(this.medicalDetail.controls['isRecovered'].value != ''){
     //   this.isRecoverederror=false;
     //   this.isRecoverederror= '';
@@ -5104,13 +5150,17 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       this.medicalDetail.controls['hospitalizedDate'].setValidators([Validators.required]);
       this.medicalDetail.controls['isRecovered'].setValidators([Validators.required]);
+      this.isRecoveredInd()
+
     } else  if (this.medicalDetail.controls['isHospitalized'].value == 'No')  {
+
 
       this.medicalDetail.controls['hospitalizedDate'].patchValue('');
       this.medicalDetail.controls['isRecovered'].patchValue('');
 
       this.medicalDetail.controls['hospitalizedDate'].setValidators(null);
       this.medicalDetail.controls['isRecovered'].setValidators(null);
+      this.isRecoveredInd()
 
     }
     this.medicalDetail.controls['hospitalizedDate'].updateValueAndValidity();
@@ -5125,10 +5175,12 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       this.medicalDetail.controls['hospitalizedDate1'].setValidators([Validators.required]);
       this.medicalDetail.controls['isRecovered1'].setValidators([Validators.required]);
+      this.isRecoveredInd1()
     } else if (this.medicalDetail.controls['isHospitalized1'].value == 'No') {
 
       this.medicalDetail.controls['hospitalizedDate1'].patchValue('');
       this.medicalDetail.controls['isRecovered1'].patchValue('');
+      this.isRecoveredInd1()
 
       this.medicalDetail.controls['hospitalizedDate1'].setValidators(null);
       this.medicalDetail.controls['isRecovered1'].setValidators(null);
@@ -5146,6 +5198,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       this.medicalDetail.controls['FemalehospitalizedDate'].setValidators([Validators.required]);
       this.medicalDetail.controls['isFemaleRecovered'].setValidators([Validators.required]);
+      this.femaleRecover();
     } else if (this.medicalDetail.controls['isFemaleHospitalized'].value == 'No') {
 
       this.medicalDetail.controls['FemalehospitalizedDate'].patchValue('');
@@ -5153,6 +5206,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       this.medicalDetail.controls['FemalehospitalizedDate'].setValidators(null);
       this.medicalDetail.controls['isFemaleRecovered'].setValidators(null);
+      this.femaleRecover();
 
     }
     this.medicalDetail.controls['FemalehospitalizedDate'].updateValueAndValidity();
@@ -5165,7 +5219,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['nonFemaleRecoveryDetails'].patchValue(this.medicalDetail.controls['nonFemaleRecoveryDetails'].value);
 
       this.medicalDetail.controls['nonFemaleRecoveryDetails'].setValidators([Validators.required]);
-    } else  {
+    } else if (this.medicalDetail.controls['isFemaleRecovered'].value != 'No') {
       this.medicalDetail.controls['nonFemaleRecoveryDetails'].patchValue('');
 
       this.medicalDetail.controls['nonFemaleRecoveryDetails'].setValidators(null);
@@ -5182,6 +5236,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       this.medicalDetail.controls['FemalehospitalizedDate1'].setValidators([Validators.required]);
       this.medicalDetail.controls['isFemaleRecovered1'].setValidators([Validators.required]);
+      this.femaleRecover1()
     } else if (this.medicalDetail.controls['isFemaleHospitalized1'].value == 'No') {
 
       this.medicalDetail.controls['FemalehospitalizedDate1'].patchValue('');
@@ -5189,7 +5244,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       this.medicalDetail.controls['FemalehospitalizedDate1'].setValidators(null);
       this.medicalDetail.controls['isFemaleRecovered1'].setValidators(null);
-
+      this.femaleRecover1()
     }
     this.medicalDetail.controls['FemalehospitalizedDate1'].updateValueAndValidity();
     this.medicalDetail.controls['isFemaleRecovered1'].updateValueAndValidity();
@@ -5201,7 +5256,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['nonFemaleRecoveryDetails1'].patchValue(this.medicalDetail.controls['nonFemaleRecoveryDetails1'].value);
 
       this.medicalDetail.controls['nonFemaleRecoveryDetails1'].setValidators([Validators.required]);
-    } else  {
+    } else if (this.medicalDetail.controls['isFemaleRecovered1'].value != 'No') {
       this.medicalDetail.controls['nonFemaleRecoveryDetails1'].patchValue('');
 
       this.medicalDetail.controls['nonFemaleRecoveryDetails1'].setValidators(null);
@@ -5483,10 +5538,9 @@ export class EdelweissTermLifeComponent implements OnInit {
   isRecoveredInd() {
 
     if (this.medicalDetail.controls['isRecovered'].value == 'No') {
-      this.medicalDetail.controls['nonRecoveryDetails'].patchValue(this.medicalDetail.controls['nonRecoveryDetails'].value);
 
       this.medicalDetail.controls['nonRecoveryDetails'].setValidators([Validators.required]);
-    } else  if (this.medicalDetail.controls['isRecovered'].value == 'Yes') {
+    } if (this.medicalDetail.controls['isRecovered'].value != 'No')  {
 
       this.medicalDetail.controls['nonRecoveryDetails'].patchValue('');
 
@@ -5499,10 +5553,9 @@ export class EdelweissTermLifeComponent implements OnInit {
   isRecoveredInd1() {
 
     if (this.medicalDetail.controls['isRecovered1'].value == 'No') {
-      this.medicalDetail.controls['nonRecoveryDetails1'].patchValue(this.medicalDetail.controls['nonRecoveryDetails1'].value);
 
       this.medicalDetail.controls['nonRecoveryDetails1'].setValidators([Validators.required]);
-    } else if(this.medicalDetail.controls['isRecovered1'].value == 'Yes'){
+    } else if (this.medicalDetail.controls['isRecovered1'].value != 'No'){
       this.medicalDetail.controls['nonRecoveryDetails1'].patchValue('');
 
       this.medicalDetail.controls['nonRecoveryDetails1'].setValidators(null);
@@ -5511,6 +5564,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.medicalDetail.controls['nonRecoveryDetails1'].updateValueAndValidity();
 
   }
+
   ismuscleDieaseInd() {
 
     if (this.medicalDetail.controls['muscleDieaseInd'].value == 'Yes') {
@@ -6051,6 +6105,14 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['sdob'].setValidators([Validators.required]);
       this.insureArray.controls['semailId'].setValidators([Validators.required]);
 
+      this.medicalDetail.controls['travelOutsideIndia'].setValidators([Validators.required]);
+      this.medicalDetail.controls['pilot'].setValidators([Validators.required]);
+      this.medicalDetail.controls['activity'].setValidators([Validators.required]);
+
+      this.medicalDetail.controls['travelOutsideIndia1'].setValidators([Validators.required]);
+      this.medicalDetail.controls['pilot1'].setValidators([Validators.required]);
+      this.medicalDetail.controls['activity1'].setValidators([Validators.required]);
+
       this.medicalDetail.controls['travelOutsideIndia1'].patchValue(null);
       this.medicalDetail.controls['pilot1'].patchValue(null);
       this.medicalDetail.controls['activity1'].patchValue(null);
@@ -6086,7 +6148,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.travelOutside1();
 
 
-    } else if(this.customerDetails.controls['maritalStatus'].value=='M'&&(this.addon.controls['betterHalfBenefit'].value == 'No'||this.addon.controls['betterHalfBenefit'].value == '')){
+    } else if((this.addon.controls['betterHalfBenefit'].value == 'No'||this.addon.controls['betterHalfBenefit'].value == '')){
       this.addon.controls['stitle'].patchValue('');
       this.addon.controls['stitleName'].patchValue('');
       this.addon.controls['sfirstName'].patchValue('');
@@ -6096,7 +6158,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.addon.controls['semailId'].patchValue('');
       // this.insureArray.controls['smobileNo'].patchValue('');
       this.addon.controls['isSmokerSpouse'].patchValue('');
-      this.addon.controls['betterHalfsumAssured'].patchValue('');
+      // this.addon.controls['betterHalfsumAssured'].patchValue('');
       sessionStorage.SpouseAge='';
 
       this.insureArray.controls['stitle'].patchValue('');
@@ -6111,7 +6173,13 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['sexistingInsuranceInd'].patchValue('No');
       // this.insureArray.controls['isSmokerSpouse'].patchValue('');
 
+      this.medicalDetail.controls['travelOutsideIndia'].setValidators([Validators.required]);
+      this.medicalDetail.controls['pilot'].setValidators([Validators.required]);
+      this.medicalDetail.controls['activity'].setValidators([Validators.required]);
 
+      this.medicalDetail.controls['travelOutsideIndia1'].setValidators(null);
+      this.medicalDetail.controls['pilot1'].setValidators(null);
+      this.medicalDetail.controls['activity1'].setValidators(null);
 
 
       this.addon.controls['stitle'].setValidators(null);
@@ -7679,7 +7747,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   public edelweissPrimiumSuccess(successData) {
     this.settings.loadingSpinner = false;
-    if (successData.ResponseObject) {
+    if (successData.IsSuccess) {
       this.eePremiumTerm = successData.ResponseObject;
       // this.eePremiumTerm = this.eePremiumTerm;
       this.premiumValue=true;
@@ -9394,9 +9462,15 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.insureArray.controls['sreasonInsured'].patchValue(this.getStepper2.sreasonInsured);
       this.insureArray.controls['swhenInsured'].patchValue(this.datepipe.transform(this.getStepper2.swhenInsured, 'y-MM-dd'));
 
-      // this.insureArray.controls['swhenInsured'].patchValue(this.getStepper2.swhenInsured);
       this.insureArray.controls['insureHistory1'].patchValue(this.getStepper2.insureHistory1);
+      this.insureArray.controls['companyName1'].patchValue(this.getStepper2.companyName1);
+      this.insureArray.controls['reasonInsured1'].patchValue(this.getStepper2.reasonInsured1);
+      this.insureArray.controls['whenInsured1'].patchValue(this.datepipe.transform(this.getStepper2.whenInsured1, 'y-MM-dd'));
+
       this.insureArray.controls['sinsureHistory1'].patchValue(this.getStepper2.sinsureHistory1);
+      this.insureArray.controls['scompanyName1'].patchValue(this.getStepper2.scompanyName1);
+      this.insureArray.controls['sreasonInsured1'].patchValue(this.getStepper2.sreasonInsured1);
+      this.insureArray.controls['swhenInsured1'].patchValue(this.datepipe.transform(this.getStepper2.swhenInsured1, 'y-MM-dd'));
       this.insureArray.controls['insureHistory2'].patchValue(this.getStepper2.insureHistory2);
       this.insureArray.controls['sinsureHistory2'].patchValue(this.getStepper2.sinsureHistory2);
       this.insureArray.controls['insureAccNo'].patchValue(this.getStepper2.insureAccNo);
