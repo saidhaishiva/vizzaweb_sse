@@ -258,32 +258,26 @@
                             <p class="error mb-0" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
                           </div>
 
-                            <div class="col-md-4" *ngIf="(sameAsinsure=='true' || sameAsinsure==true)">
-                                <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
-                                    <input matInput placeholder="Relationship with Proposer" formControlName="relationship"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
-                                    <mat-error *ngIf="hdfcInsureArray.invalid">Relationship is required</mat-error>
-                                </mat-form-field>
-                            </div>
-                          <div class="col-md-4" *ngIf="genderPerson == 'F' && (sameAsinsure=='false' || sameAsinsure==false)">
+                          <div class="col-md-4">
                             <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
                               <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (selectionChange)="relationshipchange(i)"required >
-                                <mat-option *ngFor="let lists of insuredHdfcRelationList | keys" value="{{lists.key}}" [hidden]="lists.key == 'W'">
+                                <mat-option *ngFor="let lists of insuredHdfcRelationList | keys" value="{{lists.key}}">
                                   {{lists.value}}
                                 </mat-option>
                               </mat-select>
                               <mat-error *ngIf="hdfcInsureArray.invalid">Relationship is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-md-4" *ngIf="genderPerson == 'M' && (sameAsinsure=='false' || sameAsinsure==false)">
-                            <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">
-                              <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (selectionChange)="relationshipchange(i)"required >
-                                <mat-option *ngFor="let lists of insuredHdfcRelationList | keys" value="{{lists.key}}" [hidden]="lists.key =='H'">
-                                  {{lists.value}}
-                                </mat-option>
-                              </mat-select>
-                              <mat-error *ngIf="hdfcInsureArray.invalid">Relationship is required</mat-error>
-                            </mat-form-field>
-                          </div>
+                          <!--<div class="col-md-4" *ngIf="genderPerson == 'M' && (sameAsinsure=='false' || sameAsinsure==false)">-->
+                            <!--<mat-form-field class="w-100"  [ngStyle]="{'pointer-events': hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value ? 'none' : ''}">-->
+                              <!--<mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (selectionChange)="relationshipchange(i)"required >-->
+                                <!--<mat-option *ngFor="let lists of insuredHdfcRelationList | keys" value="{{lists.key}}" [hidden]="lists.key != 'H' && lists.key != 'I'">-->
+                                  <!--{{lists.value}}-->
+                                <!--</mat-option>-->
+                              <!--</mat-select>-->
+                              <!--<mat-error *ngIf="hdfcInsureArray.invalid">Relationship is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
 
                           <div class="col-md-4" *ngIf="IsCustomerAcceptedPPCPED && i == 0">
                             <div class="row">

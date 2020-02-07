@@ -263,7 +263,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue(this.hdfcPersonal.controls['lastname'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('Self');
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
             let dobAge = this.ageCalculate(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             console.log(dobAge,'dobAge');
             if (dobAge > 45) {
@@ -896,10 +896,6 @@ TierID
             } else if (this.insurerData.items[i].genderStatus == 'Female'){
                 this.insurerData.items[i].gender = 'F';
 
-            }
-            if(this.insurerData.items[i].relationship == 'Self') {
-                this.insurerData.items[i].relationship = 'I';
-                this.insurerData.items[i].relationshipName = 'Self';
             }
         }
 
