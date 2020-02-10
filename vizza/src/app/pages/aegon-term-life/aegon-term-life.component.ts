@@ -1149,7 +1149,7 @@ housewife(){
     this.personal.controls['othersnwork'].updateValueAndValidity();
 
   }housewifehide(){
-  if (this.personal.controls['gender'].value == 'f') {
+  if (this.personal.controls['gender'].value == 'm') {
     // alert('in')
     this.nationalityOthers = true;
   } else {

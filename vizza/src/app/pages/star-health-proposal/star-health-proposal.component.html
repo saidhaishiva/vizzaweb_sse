@@ -369,7 +369,7 @@
                             <mat-radio-button value="false">No</mat-radio-button>
                           </mat-radio-group>
                           <mat-form-field class="w-100" *ngIf="item.illness == 'true'">
-                            <input matInput placeholder="Illness" [(ngModel)]="item.ins_illness" (keypress)="nameValidate($event)" autocomplete="off" required >
+                            <input matInput placeholder="Illness" [(ngModel)]="item.ins_illness"  autocomplete="off" required >
                           </mat-form-field>
                         </div>
                       </div>
@@ -464,7 +464,7 @@
                           <input matInput placeholder="Age" (keypress)="numberValidate($event)"  (keyup)="typeAge(nomineeadd.nage, i, ci)" maxlength="3" [(ngModel)]="nomineeadd.nage"  >
                         </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Insured" [(ngModel)]="nomineeadd.nrelationship" >
+                          <mat-select placeholder="Relationship with Proposer" [(ngModel)]="nomineeadd.nrelationship" >
                             <mat-option *ngFor="let relationship of relationshipListNomine | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.value}}">
                               {{relationship.value}}
                             </mat-option>
@@ -743,7 +743,7 @@
                         <div class="p-3">
                           <ul class="m-0 list-group">
                             <li class="list-group-item">
-                              <strong>Relationship with insured:</strong>
+                              <strong>Relationship with Proposer:</strong>
                               <span *ngIf="list.nrelationship !=''">
                                                 {{list.nrelationship}}
                                               </span>
