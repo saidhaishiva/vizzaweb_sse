@@ -889,7 +889,7 @@ export class StarHealthProposalComponent implements OnInit {
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_relationship_name = '';
             this.familyMembers[i].ins_hospital_cash = '1';
-            this.familyMembers[i].ins_engage_manual_labour = 'None';
+            this.familyMembers[i].ins_engage_manual_labour = '';
             this.familyMembers[i].ins_engage_winter_sports = 'None';
             this.familyMembers[i].ins_personal_accident_applicable = '0';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
@@ -1504,7 +1504,7 @@ export class StarHealthProposalComponent implements OnInit {
         const data = [{
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'proposal_id' : this.proposalId,
+            'proposal_id' :'0' ? sessionStorage.proposalID = '0':sessionStorage.proposalID,
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'group_name':  this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
@@ -1594,8 +1594,11 @@ export class StarHealthProposalComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposalId = this.summaryData.policy_id;
+            // alert(this.summaryData.policy_id);
+            // alert(this.proposalId);
             this.proposalNumber= this.summaryData.proposalNum;
             sessionStorage.proposalID = this.proposalId;
+            // alert(sessionStorage.proposalID)
             this.personal.controls['personalOccupationName'].patchValue(this.occupationList[this.personal.controls['personalOccupation'].value]);
             if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined && !this.personal.controls['sameas'].value) {
                 this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);

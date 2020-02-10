@@ -177,7 +177,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         var todaydate = new Date();
         this.gggg = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate());
         this.tod = this.datepipe.transform(this.gggg, 'dd/MM/y');
-        const lateDate = todaydate.getFullYear()-2;
+        const lateDate = todaydate.getFullYear()-3;
         this.lesserDate = new Date(lateDate, todaydate.getMonth(), todaydate.getDate());
         String;
         this.tod = this.tod.substring(0, 10);
@@ -371,7 +371,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     }
 
-    nilDepDateValidation(){
+    nilDepDateValidation() {
         let valueDil=this.datepipe.transform(this.lesserDate, 'y-MM-dd')
         console.log(this.lesserDate,'lesserDate....')
         console.log(valueDil,'valueDil....')
@@ -381,14 +381,15 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
         if(valueDil < this.buyBikeDetails.registration_date ){
             this.nilDepValue=true;
+            alert('in')
         }else{
+            alert('out')
             this.nilDepValue=false;
         }
         console.log(this.nilDepValue,'nilDepValue....')
     }
     compulsory(){
         this.addOns.controls['compul'].patchValue(this.compulsory_ownerdriver);
-this.getCover();
     }
     // dropdownForBank(value,type){
     //
@@ -1415,9 +1416,9 @@ this.getCover();
     paidDriverChange(){
         if(this.addOns.controls.IsPaidDriver.value == true){
             this.addOns.controls['totalPaidDriverPremium'].setValidators([Validators.required]);
-            this.addOns.controls['IsPaidDriver'].patchValue(this.PaidDriver_Premium)
-
+            // this.addOns.controls['totalPaidDriverPremium'].patchValue(this.PaidDriver_Premium);
             this.getCover();
+
         } else {
             this.addOns.controls['totalPaidDriverPremium'].patchValue('');
             this.addOns.controls['totalPaidDriverPremium'].setValidators(null);
@@ -1441,7 +1442,7 @@ this.getCover();
     returntoinvoiceChangeAmount(){
         this.addOns.controls['returntoinvoicePremium'].patchValue(this.returntoinvoice)
     }emergencyassistanceChange(){
-        if(this.addOns.controls.emergencyassistance.value == true){
+        if(this.addOns.controls['emergencyassistance'].value == true){
             this.addOns.controls['emergencyassistancePremium'].setValidators([Validators.required]);
             this.getCover();
         } else {
@@ -1648,6 +1649,7 @@ this.getCover();
             this.emerengy_assitance=this.coverPremium.emerengy_assitance;
             this.zero_depression=this.coverPremium.zero_depression;
             this.compulsory_ownerdriver=this.coverPremium.compulsory_ownerdriver;
+            // sessionStorage.compulsory_ownerdriver =
             // console.log(compulsory_ownerdriver,'compulsory_ownerdriver')
             this.compulsory();
 
@@ -1664,6 +1666,7 @@ this.getCover();
             this.returntoinvoiceChangeAmount();
             this.zerodeptChangeAmount();
             this.emergencyassistanceChangeAmount();
+            this.isTotalPaidDriver();
 
         }
         else{
@@ -1697,6 +1700,9 @@ limitedTP(){
     this.addOns.controls['totalLimitedtoOwnPremium1'].patchValue(this.LimitedtoOwnPremises_TP_Premium );
 
 }
+    isTotalPaidDriver() {
+        this.addOns.controls['totalPaidDriverPremium'].patchValue(this.PaidDriver_Premium);
+    }
 
 
     typeAddressDeatils() {
