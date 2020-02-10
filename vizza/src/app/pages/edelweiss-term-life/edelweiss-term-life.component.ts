@@ -69,6 +69,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public getSteppercustomer: any;
   public getStepper2: any;
   public alcoholDetailValues: any;
+  public alcoholDetailSpoValues: any;
   public getStepper3: any;
   public getStepper4: any;
   public getDays: any;
@@ -7279,6 +7280,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.summaryData = successData.ResponseObject;
       this.requestedUrl = this.summaryData.payment_link;
       this.alcoholDetailValues=this.summaryData.alcohol_details
+      this.alcoholDetailSpoValues=this.summaryData.spouse_alcohol_details
       this.adventurousActivitiesValue=this.summaryData.adventurous_activities
       this.adventurousActivitiesSpoValue=this.summaryData.spouse_adventurous_activities
       console.log(this.alcoholDetailValues,'alcoholDetailValues...')
