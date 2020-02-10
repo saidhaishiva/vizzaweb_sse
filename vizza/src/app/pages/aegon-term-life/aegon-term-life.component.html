@@ -128,7 +128,7 @@
 <!--                        </div>-->
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Occupation & Employement Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties(); driver();housewife();stud();agri();workering()">
+                            <mat-select placeholder="Occupation & Employement Details" formControlName="employeeType" autocomplete="off" required (selectionChange)="changeEmpType();getSpecialDuties(); driver();housewife();stud();agri();workering();specialDuties1()">
                               <mat-option *ngFor="let list of empTypeList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
@@ -149,7 +149,7 @@
                         <div class="col-md-3 " *ngIf=" personal.controls.employeeType.value == 'Armed Forces'">
                           <mat-form-field class="w-100" >
                             <mat-placeholder>Special Duties<span class="error" >*</span></mat-placeholder>
-                            <mat-select  formControlName="specialDuties">
+                            <mat-select  formControlName="specialDuties" >
                               <mat-option *ngFor="let list of specialDuties | keys" value="{{list.value}}" > {{list.value}} </mat-option>
                             </mat-select>
                           </mat-form-field>
@@ -166,7 +166,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Nature Of Duties" formControlName="natureOfWork" autocomplete="off" required (selectionChange)="changeOccupationlist()" >
+                            <mat-select placeholder="Nature Of Duties" formControlName="natureOfWork" autocomplete="off" required (selectionChange)="changeOccupationlist()" class="dialogSize">
                               <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
@@ -184,6 +184,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" (change)="validateAnnual(personal.controls['annualIncome'].value,1);deathBenefitSA(personal.controls['deathBenefitSA'].value,1);" required autocomplete="off" min="100000"  maxlength="10">
+                            <input *ngIf="this.personal.controls['employeeType'].value == 'Housewife'" matInput placeholder="Husband Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" (change)="validateAnnual(personal.controls['annualIncome'].value,1);deathBenefitSA(personal.controls['deathBenefitSA'].value,1);" required autocomplete="off" min="100000"  maxlength="10">
                             <mat-error *ngIf="personal.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                           </mat-form-field>
                           <div class="error" *ngIf="annaulIncomeMsg != ''">{{annaulIncomeMsg}}</div>

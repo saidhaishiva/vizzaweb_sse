@@ -1069,7 +1069,7 @@ export class LifeBajajProposalComponent implements OnInit {
             }
           }
           if (spouseValid) {
-            if (this.proposer.controls['annualIncome'].value > '500000') {
+            if (this.proposer.controls['annualIncome'].value > 500000) {
               if (this.proposer.controls['occupationList'].value == "T" || this.proposer.controls['occupationList'].value == "N" || this.proposer.controls['occupationList'].value == "U" || this.proposer.controls['occupationList'].value == "A"|| this.proposer.controls['occupationList'].value == "H"|| this.proposer.controls['occupationList'].value == "NM"|| this.proposer.controls['occupationList'].value == "R") {
                 this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
               } else {
@@ -1078,7 +1078,7 @@ export class LifeBajajProposalComponent implements OnInit {
                 this.mainQuestion();
               }
             } else {
-              this.toastr.error('Annual Income shoud be above 5 lakhs');
+              this.toastr.error('Annual Income should be above 5 lakhs');
             }
 
           } else{

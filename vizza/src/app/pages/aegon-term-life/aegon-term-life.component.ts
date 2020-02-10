@@ -1101,6 +1101,23 @@ housewife(){
 
   }
 
+
+  specialDuties1() {
+
+    if (this.personal.controls['employeeType'].value == 'Armed Forces') {
+      this.personal.controls['specialDuties'].patchValue(this.personal.controls['specialDuties'].value );
+
+      this.personal.controls['specialDuties'].setValidators([Validators.required]);
+    } else {
+      this.personal.controls['specialDuties'].patchValue('');
+
+      this.personal.controls['specialDuties'].setValidators(null);
+
+    }
+    this.personal.controls['specialDuties'].updateValueAndValidity();
+
+  }
+
   otherAppointee() {
 
     if (this.nominee.controls['aRelation'].value == 'Other') {
