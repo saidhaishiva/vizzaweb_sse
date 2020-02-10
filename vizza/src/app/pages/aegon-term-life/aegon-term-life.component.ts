@@ -130,6 +130,7 @@ export class AegonTermLifeComponent implements OnInit {
   public worker:any;
   public below:any;
   public housewiferrorr:any;
+  public nationalityOthers:boolean;
 
   public keyUp = new Subject<string>();
 
@@ -315,6 +316,7 @@ export class AegonTermLifeComponent implements OnInit {
     this.getAppointeeRelation();
     // this.getoccupationlist();
     this.sessionData();
+    this.nationalityOthers=false;
     this.personal.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
 
     let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
@@ -1117,6 +1119,46 @@ housewife(){
     this.personal.controls['specialDuties'].updateValueAndValidity();
 
   }
+  otherDuties1() {
+
+    if (this.personal.controls['specialDuties'].value == 'Others') {
+      this.personal.controls['othersspecial'].patchValue(this.personal.controls['othersspecial'].value );
+
+      this.personal.controls['othersspecial'].setValidators([Validators.required]);
+    } else {
+      this.personal.controls['othersspecial'].patchValue('');
+
+      this.personal.controls['othersspecial'].setValidators(null);
+
+    }
+    this.personal.controls['othersspecial'].updateValueAndValidity();
+
+  }
+  natureofDuties1() {
+
+    if (this.personal.controls['natureOfWork'].value == 'Others') {
+      this.personal.controls['othersnwork'].patchValue(this.personal.controls['othersnwork'].value );
+
+      this.personal.controls['othersnwork'].setValidators([Validators.required]);
+    } else {
+      this.personal.controls['othersnwork'].patchValue('');
+
+      this.personal.controls['othersnwork'].setValidators(null);
+
+    }
+    this.personal.controls['othersnwork'].updateValueAndValidity();
+
+  }housewifehide(){
+  if (this.personal.controls['gender'].value == 'f') {
+    // alert('in')
+    this.nationalityOthers = true;
+  } else {
+    // alert('2')
+    this.nationalityOthers = false;
+  }
+
+  }
+
 
   otherAppointee() {
 
