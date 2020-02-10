@@ -313,6 +313,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public maritalSingleValue:any;
   public eHistoryFamily:any;
   public eCompanyList:any;
+  public deleteIndexId:any;
   public premiumValue:boolean;
 
 
@@ -915,6 +916,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.sessionData();
     this.edelweissPrimium();
     this.getCover();
+    this.deleteIndexId='';
+
     // this.premiumPaymentTerm();
     // this.ageTillcoverd();
 
@@ -1020,6 +1023,38 @@ export class EdelweissTermLifeComponent implements OnInit {
     document.getElementById('main-content').scrollTop = 0;
   }
 
+  removeImage(value) {
+
+      if(value=='1'){
+         this.photoProofName='';
+         this.PhotographPath='';
+      }
+      if(value=='2'){
+          this.uploadIdProofName='';
+          this.idProofPath='';
+      }
+      if(value=='3'){
+          this.uploadAgeProofName='';
+          this.ageProofPath='';
+      }
+      if(value=='4'){
+          this.uploadAddressProofName='';
+          this.addressProofPath='';
+      }
+      if(value=='5'){
+          this.salesReqProofName='';
+          this.salesReqProofPath='';
+      }
+      if(value=='6'){
+          this.kycProofName='';
+          this.kycProofPath='';
+      }
+      if(value=='7'){
+          this.uploadIncomeProofName='';
+          this.incomeProofPath='';
+      }
+    // this.deleteIndexId = value.id;
+  }
   // Existing Insurance
   create() {
     return new FormGroup({
@@ -2815,6 +2850,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (this.insureArray.controls['insureHistory'].value=='Yes') {
       // this.addon.controls['reasonInsured'].patchValue(this.addon.controls['reasonInsured'].value);
       // this.addon.controls['whenInsured'].patchValue(this.addon.controls['whenInsured'].value);
+      this.insureArray.controls['whenInsured'].patchValue(this.datepipe.transform(this.insureArray.controls['whenInsured'].value, 'y-MM-dd'));
 
       this.insureArray.controls['reasonInsured'].setValidators([Validators.required]);
       this.insureArray.controls['whenInsured'].setValidators([Validators.required]);
@@ -2832,6 +2868,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   insureHistorys1(){
     if (this.insureArray.controls['sinsureHistory'].value=='Yes') {
+      this.insureArray.controls['swhenInsured'].patchValue(this.datepipe.transform(this.insureArray.controls['swhenInsured'].value, 'y-MM-dd'));
+
       // this.addon.controls['sreasonInsured'].patchValue(this.addon.controls['sreasonInsured'].value);
       // this.addon.controls['swhenInsured'].patchValue(this.addon.controls['swhenInsured'].value);
 
@@ -2851,6 +2889,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   insureHistorys2(){
     if (this.insureArray.controls['sinsureHistory1'].value=='Yes') {
+      this.insureArray.controls['swhenInsured1'].patchValue(this.datepipe.transform(this.insureArray.controls['swhenInsured1'].value, 'y-MM-dd'));
+
       this.insureArray.controls['scompanyName1'].setValidators([Validators.required]);
       this.insureArray.controls['sreasonInsured1'].setValidators([Validators.required]);
       this.insureArray.controls['swhenInsured1'].setValidators([Validators.required]);
@@ -2871,6 +2911,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   insureHistorys21(){
     if (this.insureArray.controls['insureHistory1'].value=='Yes') {
+      this.insureArray.controls['whenInsured1'].patchValue(this.datepipe.transform(this.insureArray.controls['whenInsured1'].value, 'y-MM-dd'));
+
       this.insureArray.controls['companyName1'].setValidators([Validators.required]);
       this.insureArray.controls['reasonInsured1'].setValidators([Validators.required]);
       this.insureArray.controls['whenInsured1'].setValidators([Validators.required]);
@@ -6881,10 +6923,10 @@ export class EdelweissTermLifeComponent implements OnInit {
         "employementTypeOther":'',
         "employerName":this.insureArray.controls['employerName'].value,
         "employerAddr":this.insureArray.controls['employerAddr'].value,
-        "insureHistory1":this.insureArray.controls['insureHistory1'].value ,
-        "insureHistory2":this.insureArray.controls['insureHistory2'].value ,
+        // "insureHistory1":this.insureArray.controls['insureHistory1'].value ,
+        // "insureHistory2":this.insureArray.controls['insureHistory2'].value ,
         "designation":"",
-        "natureOfDuty":this.insureArray.controls['naturedutyName'].value,
+        "natureOfDuty":this.insureArray.controls['natureduty'].value,
         "experienceInYears":"",
         "occupationType":"",
         "noOfEmployees":"",
@@ -6892,9 +6934,18 @@ export class EdelweissTermLifeComponent implements OnInit {
         "annualIncome":this.insureArray.controls['annualIncome'].value,
         "isIncomeSource":"",
         "incomeSourceDetails":"",
-        "familyDiease_Ind":this.insureArray.controls['insureHistory'].value  == 'Yes' ? 'Y' : 'N',
-        "reasonInsured":this.insureArray.controls['reasonInsured'].value ,
-        "whenInsured":this.datepipe.transform(this.insureArray.controls['whenInsured'].value, 'y-MM-dd') ,
+          "insurance_history":this.insureArray.controls['insureHistory'].value ,
+          "insurance_history_reason":this.insureArray.controls['reasonInsured'].value ,
+          "insurance_history_when":this.datepipe.transform(this.insureArray.controls['whenInsured'].value, 'y-MM-dd') ,
+          "insurance_history1":this.insureArray.controls['insureHistory1'].value ,
+          "insurance_history1_name_of_insurer":this.insureArray.controls['companyName1'].value ,
+          "insurance_history1_reason":this.insureArray.controls['reasonInsured1'].value ,
+          "insurance_history1_when":this.datepipe.transform(this.insureArray.controls['whenInsured1'].value, 'y-MM-dd') ,
+          "insurance_history2":this.insureArray.controls['insureHistory2'].value ,
+          // "insurance_history3":this.insureArray.controls['existingInsuranceInd'].value ,
+        // "familyDiease_Ind":this.insureArray.controls['insureHistory'].value  == 'Yes' ? 'Y' : 'N',
+        // "reasonInsured":this.insureArray.controls['reasonInsured'].value ,
+        // "whenInsured":this.datepipe.transform(this.insureArray.controls['whenInsured'].value, 'y-MM-dd') ,
         "familyDiease_Details":"",
         "hasfamilyAppliedETLI":"",
         "otherPolicy_Ind":"",
@@ -7014,6 +7065,9 @@ export class EdelweissTermLifeComponent implements OnInit {
           "pregnantweeks":this.medicalDetail.controls['pregnantweeks'].value ,
           "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "femaleDieaseWeeks":this.medicalDetail.controls['femaleDetails'].value,
+          "family_history": this.medicalDetail.controls['healthHistory'].value,
+          "family_history_details":this.medicalDetail.controls['healthHistoryDetail'].value,
+          "family_history1": this.medicalDetail.controls['healthHistory1'].value,
           // "medicalQuestions":this.medicalDetail.value.medicalQuestions,
           "medicalQuestions":'',
         },
@@ -7053,23 +7107,23 @@ export class EdelweissTermLifeComponent implements OnInit {
         "relationLAProposer":'Spouse',
       },
       "Proposer":{
-        "title": this.insureArray.controls['title'].value,
-        "firstName": this.insureArray.controls['firstName'].value,
-        "middleName": this.insureArray.controls['midName'].value,
-        "lastName": this.insureArray.controls['lastName'].value,
-        "dob": this.datepipe.transform(this.insureArray.controls['dob'].value, 'y-MM-dd'),
-        "gender": this.insureArray.controls['gender'].value,
+        "title": this.insureArray.controls['stitle'].value,
+        "firstName": this.insureArray.controls['sfirstName'].value,
+        "middleName": this.insureArray.controls['smidName'].value,
+        "lastName": this.insureArray.controls['slastName'].value,
+        "dob": this.datepipe.transform(this.insureArray.controls['sdob'].value, 'y-MM-dd'),
+        "gender": '',
         "isSmoker":"Y",
-        "maritalStatus": this.insureArray.controls['maritalStatus'].value,
+        "maritalStatus": '',
         "pan": this.insureArray.controls['sppan'].value,
         "maidName":"",
         "motherMaidName":this.insureArray.controls['smotherMaidName'].value,
         "FHName":this.insureArray.controls['sfatherhusbandName'].value,
-        "nationality":this.insureArray.controls['nationality'].value,
+        "nationality":'',
         "otherNationality":"",
         "ageProofId":this.insureArray.controls['sageProofId'].value,
-        "emailId":this.insureArray.controls['emailId'].value,
-        "phoneNo":this.insureArray.controls['mobileNo'].value,
+        "emailId":this.insureArray.controls['semailId'].value,
+        "phoneNo":this.insureArray.controls['smobileNo'].value,
         "ResidencePhoneNo":"",
         "alternate_cnt_no":"",
         "currAddr1":this.insureArray.controls['scurrAddr1'].value,
@@ -7095,21 +7149,30 @@ export class EdelweissTermLifeComponent implements OnInit {
         "courseDuration":"",
         "courseYear":"",
         "studentInstruction":"",
-        "employementType":this.insureArray.controls['employementType'].value,
+        "employementType":this.insureArray.controls['semployementType'].value,
         "employementTypeOther":'',
-        "employerName":this.insureArray.controls['employerName'].value,
-        "employerAddr":this.insureArray.controls['employerAddr'].value,
-        "reasonInsured":this.insureArray.controls['sreasonInsured'].value ,
-        "whenInsured":this.datepipe.transform(this.insureArray.controls['swhenInsured'].value, 'y-MM-dd') ,
-        "sinsureHistory1":this.insureArray.controls['sinsureHistory1'].value ,
-        "sinsureHistory2":this.insureArray.controls['sinsureHistory2'].value ,
+        "employerName":this.insureArray.controls['semployerName'].value,
+        "employerAddr":this.insureArray.controls['semployerAddr'].value,
+        // "reasonInsured":this.insureArray.controls['sreasonInsured'].value ,
+        // "whenInsured":this.datepipe.transform(this.insureArray.controls['swhenInsured'].value, 'y-MM-dd') ,
+        // "sinsureHistory1":this.insureArray.controls['sinsureHistory1'].value ,
+        // "sinsureHistory2":this.insureArray.controls['sinsureHistory2'].value ,
+          "insurance_history":this.insureArray.controls['sinsureHistory'].value ,
+          "insurance_history_reason":this.insureArray.controls['sreasonInsured'].value ,
+          "insurance_history_when":this.datepipe.transform(this.insureArray.controls['swhenInsured'].value, 'y-MM-dd') ,
+          "insurance_history1":this.insureArray.controls['sinsureHistory1'].value ,
+          "insurance_history1_name_of_insurer":this.insureArray.controls['scompanyName1'].value ,
+          "insurance_history1_reason":this.insureArray.controls['sreasonInsured1'].value ,
+          "insurance_history1_when":this.datepipe.transform(this.insureArray.controls['swhenInsured1'].value, 'y-MM-dd') ,
+          "insurance_history2":this.insureArray.controls['sinsureHistory2'].value ,
+          // "insurance_history3":this.insureArray.controls['sexistingInsuranceInd'].value ,
         "designation":"Senior Executive officer",
-        "natureOfDuty":this.insureArray.controls['naturedutyName'].value,
+        "natureOfDuty":this.insureArray.controls['snatureduty'].value,
         "experienceInYears":"",
         "occupationType":"",
         "noOfEmployees":"",
         "natureOfBusiness":"",
-        "annualIncome":this.insureArray.controls['annualIncome'].value,
+        "annualIncome":this.insureArray.controls['sannualIncome'].value,
         "isIncomeSource":"",
         "incomeSourceDetails":"",
         "familyHistory":this.medicalDetail.value.smedicalFamilyQuestions,
@@ -7172,74 +7235,75 @@ export class EdelweissTermLifeComponent implements OnInit {
         "isTaxResOfIndia":'LA is a tax resident of India',
         "aadhaarNo":this.insureArray.controls['saadhaarNo'].value,
 
-        "travelOutsideIndiaInd":this.medicalDetail.controls['travelOutsideIndia1'].value  == 'Yes' ? 'Y' : 'N',
-        "pilotInd":this.medicalDetail.controls['pilot1'].value  == 'Yes' ? 'Y' : 'N',
-        "adventurousActivitiesInd":this.medicalDetail.controls['adventurousActivities1'].value ,
-        "adventurousActivitiesDetails":this.medicalDetail.controls['adventurousActivitiesDetails1'].value,
-        "healthInformation":"",
-        "drugsInd":this.medicalDetail.controls['drugsInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "drugsDetails":this.medicalDetail.controls['drugsDetails1'].value,
-        "alcoholInd":this.medicalDetail.controls['alcoholInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "alcoholDetails":this.medicalDetail.controls['alcoholDetails1'].value,
-        "tobaccoInd":this.medicalDetail.controls['tobaccoInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "tobaccoDetails":this.medicalDetail.controls['tobaccoDetails1'].value ,
-        "tobaccoStopInd":this.medicalDetail.controls['tobaccoStopInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "tobaccoStopDetails":this.medicalDetail.controls['tobaccoStopDetails1'].value ,
-        "consultDoctorInd":this.medicalDetail.controls['consultDoctorInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "consultDoctorDetails":this.medicalDetail.controls['consultDoctorDetails1'].value,
-        "ECGInd":this.medicalDetail.controls['ECGInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "ECGDetails":this.medicalDetail.controls['ECGDetails1'].value,
-        "admitInd":this.medicalDetail.controls['admitInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "admitDetails":this.medicalDetail.controls['admitDetails1'].value,
-        "medicationInd":this.medicalDetail.controls['medicalTreatment1'].value  == 'Yes' ? 'Y' : 'N',
-        "medicationDetails":this.medicalDetail.controls['medicationDetails1'].value,
-        "diagnosedInd":this.medicalDetail.controls['receivedTreatment11'].value  == 'Yes' ? 'Y' : 'N',
-        "diagnosedDetails":this.medicalDetail.controls['diagnosedDetails1'].value,
-        "heartDieaseInd":this.medicalDetail.controls['heartDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "heartDieaseDetails":this.medicalDetail.controls['heartDieaseDetails1'].value,
-        "BPInd":"",
-        "BPDetails":"",
-        "respiratoryDieaseInd":this.medicalDetail.controls['respiratoryDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "respiratoryDieaseDetails":this.medicalDetail.controls['respiratoryDieaseDetails1'].value,
-        "diabetesInd":this.medicalDetail.controls['diabetesInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "diabetesDetails":this.medicalDetail.controls['diabetesDetails1'].value,
-        "kidneyDieaseInd":this.medicalDetail.controls['kidneyDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "kidneyDieaseDetails":this.medicalDetail.controls['kidneyDieaseDetails1'].value,
-        "digestiveDieaseInd":this.medicalDetail.controls['digestiveDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "digestiveDieaseDetails":this.medicalDetail.controls['digestiveDieaseDetails1'].value,
-        "cancerDieaseInd":this.medicalDetail.controls['cancerDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "cancerDieaseDetails":this.medicalDetail.controls['cancerDieaseDetails1'].value,
-        "tropicalDieaseInd":this.medicalDetail.controls['tropicalDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "tropicalDieaseDetails":this.medicalDetail.controls['tropicalDieaseDetails1'].value,
-        "thyroidDieaseInd":this.medicalDetail.controls['thyroidDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "thyroidDieaseDetails":this.medicalDetail.controls['thyroidDieaseDetails1'].value,
-        "bloodDieaseInd":this.medicalDetail.controls['bloodDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "bloodDieaseDetails":this.medicalDetail.controls['bloodDieaseDetails1'].value,
-        "nervousDieaseInd":this.medicalDetail.controls['nervousDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "nervousDieaseDetails":this.medicalDetail.controls['nervousDieaseDetails1'].value,
-        "ENTDieaseInd":"",
-        "ENTDieaseDetails":"",
-        "muscleDieaseInd":this.medicalDetail.controls['muscleDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "muscleDieaseDetails":this.medicalDetail.controls['muscleDieaseDetails1'].value,
-        "aidsInd":this.medicalDetail.controls['receivedTreatment21'].value  == 'Yes' ? 'Y' : 'N',
-        "aidsDetails":this.medicalDetail.controls['aidsDetails1'].value,
-        "alcoholicInd":this.medicalDetail.controls['alcoholicInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "alcoholicDetails":this.medicalDetail.controls['alcoholicDetails1'].value,
-        "otherIllnessInd":this.medicalDetail.controls['otherIllnessInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "otherIllnessDetails":this.medicalDetail.controls['otherIllnessDetails1'].value,
-        "deformityInd":this.medicalDetail.controls['deformityInd1'].value == 'Yes' ? 'Y' : 'N',
-        "deformityDetails":this.medicalDetail.controls['deformityDetails1'].value,
-        "symptomsInd":this.medicalDetail.controls['symptomsInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "symptomsDetails":this.medicalDetail.controls['symptomsDetails1'].value,
-        "pregnantInd":this.medicalDetail.controls['pregnantInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "pregnantweeks":this.medicalDetail.controls['pregnantweeks1'].value ,
-        "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
-        "femaleDieaseWeeks":this.medicalDetail.controls['femaleDetails1'].value,
+
 
         "questionnaires":{
-          "medicationInd":"",
-          "diagnosedInd":"",
-          "aidsInd":""
+            "travelOutsideIndiaInd":this.medicalDetail.controls['travelOutsideIndia1'].value  == 'Yes' ? 'Y' : 'N',
+            "pilotInd":this.medicalDetail.controls['pilot1'].value  == 'Yes' ? 'Y' : 'N',
+            "adventurousActivitiesInd":this.medicalDetail.controls['adventurousActivities1'].value ,
+            "adventurousActivitiesDetails":this.medicalDetail.controls['adventurousActivitiesDetails1'].value,
+            "healthInformation":"",
+            "drugsInd":this.medicalDetail.controls['drugsInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "drugsDetails":this.medicalDetail.controls['drugsDetails1'].value,
+            "alcoholInd":this.medicalDetail.controls['alcoholInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "alcoholDetails":this.medicalDetail.controls['alcoholDetails1'].value,
+            "tobaccoInd":this.medicalDetail.controls['tobaccoInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "tobaccoDetails":this.medicalDetail.controls['tobaccoDetails1'].value ,
+            "tobaccoStopInd":this.medicalDetail.controls['tobaccoStopInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "tobaccoStopDetails":this.medicalDetail.controls['tobaccoStopDetails1'].value ,
+            "consultDoctorInd":this.medicalDetail.controls['consultDoctorInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "consultDoctorDetails":this.medicalDetail.controls['consultDoctorDetails1'].value,
+            "ECGInd":this.medicalDetail.controls['ECGInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "ECGDetails":this.medicalDetail.controls['ECGDetails1'].value,
+            "admitInd":this.medicalDetail.controls['admitInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "admitDetails":this.medicalDetail.controls['admitDetails1'].value,
+            "medicationInd":this.medicalDetail.controls['medicalTreatment1'].value  == 'Yes' ? 'Y' : 'N',
+            "medicationDetails":this.medicalDetail.controls['medicationDetails1'].value,
+            "diagnosedInd":this.medicalDetail.controls['receivedTreatment11'].value  == 'Yes' ? 'Y' : 'N',
+            "diagnosedDetails":this.medicalDetail.controls['diagnosedDetails1'].value,
+            "heartDieaseInd":this.medicalDetail.controls['heartDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "heartDieaseDetails":this.medicalDetail.controls['heartDieaseDetails1'].value,
+            "BPInd":"",
+            "BPDetails":"",
+            "respiratoryDieaseInd":this.medicalDetail.controls['respiratoryDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "respiratoryDieaseDetails":this.medicalDetail.controls['respiratoryDieaseDetails1'].value,
+            "diabetesInd":this.medicalDetail.controls['diabetesInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "diabetesDetails":this.medicalDetail.controls['diabetesDetails1'].value,
+            "kidneyDieaseInd":this.medicalDetail.controls['kidneyDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "kidneyDieaseDetails":this.medicalDetail.controls['kidneyDieaseDetails1'].value,
+            "digestiveDieaseInd":this.medicalDetail.controls['digestiveDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "digestiveDieaseDetails":this.medicalDetail.controls['digestiveDieaseDetails1'].value,
+            "cancerDieaseInd":this.medicalDetail.controls['cancerDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "cancerDieaseDetails":this.medicalDetail.controls['cancerDieaseDetails1'].value,
+            "tropicalDieaseInd":this.medicalDetail.controls['tropicalDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "tropicalDieaseDetails":this.medicalDetail.controls['tropicalDieaseDetails1'].value,
+            "thyroidDieaseInd":this.medicalDetail.controls['thyroidDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "thyroidDieaseDetails":this.medicalDetail.controls['thyroidDieaseDetails1'].value,
+            "bloodDieaseInd":this.medicalDetail.controls['bloodDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "bloodDieaseDetails":this.medicalDetail.controls['bloodDieaseDetails1'].value,
+            "nervousDieaseInd":this.medicalDetail.controls['nervousDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "nervousDieaseDetails":this.medicalDetail.controls['nervousDieaseDetails1'].value,
+            "ENTDieaseInd":"",
+            "ENTDieaseDetails":"",
+            "muscleDieaseInd":this.medicalDetail.controls['muscleDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "muscleDieaseDetails":this.medicalDetail.controls['muscleDieaseDetails1'].value,
+            "aidsInd":this.medicalDetail.controls['receivedTreatment21'].value  == 'Yes' ? 'Y' : 'N',
+            "aidsDetails":this.medicalDetail.controls['aidsDetails1'].value,
+            "alcoholicInd":this.medicalDetail.controls['alcoholicInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "alcoholicDetails":this.medicalDetail.controls['alcoholicDetails1'].value,
+            "otherIllnessInd":this.medicalDetail.controls['otherIllnessInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "otherIllnessDetails":this.medicalDetail.controls['otherIllnessDetails1'].value,
+            "deformityInd":this.medicalDetail.controls['deformityInd1'].value == 'Yes' ? 'Y' : 'N',
+            "deformityDetails":this.medicalDetail.controls['deformityDetails1'].value,
+            "symptomsInd":this.medicalDetail.controls['symptomsInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "symptomsDetails":this.medicalDetail.controls['symptomsDetails1'].value,
+            "pregnantInd":this.medicalDetail.controls['pregnantInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "pregnantweeks":this.medicalDetail.controls['pregnantweeks1'].value ,
+            "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd1'].value  == 'Yes' ? 'Y' : 'N',
+            "femaleDieaseWeeks":this.medicalDetail.controls['femaleDetails1'].value,
+            "family_history": this.medicalDetail.controls['shealthHistory'].value,
+            "family_history_details":this.medicalDetail.controls['shealthHistoryDetail'].value,
+            "family_history1": this.medicalDetail.controls['shealthHistory1'].value,
         },
         "bank":{
           "accountNo":"",
