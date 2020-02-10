@@ -273,6 +273,7 @@
               </form>
             </mat-accordion>
           </mat-step>
+
             <mat-step [stepControl]="">
                 <ng-template matStepLabel>{{regvalue !='New Vehicle'?'VECHILE DETAILS/PREVIOUS POLICY DETAILS':'VECHILE DETAILS'}}</ng-template>
                 <mat-accordion class="w-100 float-left">
@@ -446,6 +447,7 @@
                     </form>
                 </mat-accordion>
             </mat-step>
+
             <mat-step [stepControl]="">
                 <ng-template matStepLabel>ADDONS</ng-template>
                 <mat-accordion class="w-100 float-left">
@@ -474,10 +476,10 @@
                                             </mat-form-field>
                                         </div>
 
-                                        <div class="col-md-3 mt-1">
+                                        <div class="col-md-3 mt-1" *ngIf="nilDepValue==true">
                                             <mat-checkbox formControlName="IsNCBProtection" (change)="ncbchange()"><strong>NCB Protection </strong></mat-checkbox>
                                         </div>
-                                        <span>{{ncbprotection}}</span>
+                                        <!--<span>{{ncbprotection}}</span>-->
                                         <div class="col-md-3"  *ngIf="addOns.controls.IsNCBProtection.value==true">
                                             <mat-form-field class="w-100">
                                                 <input matInput placeholder="Cover Premium"  formControlName="ncbprotectionpremium"  autocomplete="off"  [required]="addOns.controls.IsNCBProtection.value==true" readonly>
@@ -485,7 +487,7 @@
 
                                         </div>
 
-                                        <div class="col-md-3 mt-1">
+                                        <div class="col-md-3 mt-1" *ngIf="rtiValue==true">
                                             <mat-checkbox formControlName="IsRTIcover" (change)="returnchange()" ><strong> Return To Invoice </strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3"  *ngIf="addOns.controls.IsRTIcover.value==true">
@@ -494,7 +496,7 @@
                                             </mat-form-field>
 
                                         </div>
-                                        <div class="col-md-3 mt-1">
+                                        <div class="col-md-3 mt-1" *ngIf="nilDepValue==true">
                                             <mat-checkbox formControlName="IsCOCcover" (change)="costchange()" ><strong> Cost Of Consumables </strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3"  *ngIf="addOns.controls.IsCOCcover.value==true">
@@ -512,7 +514,7 @@
                                             </mat-form-field>
 
                                         </div>
-                                        <div class="col-md-3 mt-1">
+                                        <div class="col-md-3 mt-1" *ngIf="typeOFPolicy != 'other'">
                                             <mat-checkbox formControlName="downtimeprotector" (change)="downtimeprotectorchange()"><strong>Loss Of Use DownTime Protection</strong></mat-checkbox>
                                         </div>
                                         <div class="col-md-3"  *ngIf="addOns.controls.downtimeprotector.value==true">
@@ -547,7 +549,7 @@
                                             <!--</mat-form-field>-->
                                         <!--</div>-->
 
-                                        <div class="col-md-3 ">
+                                        <div class="col-md-3 "  *ngIf="nilDepValue==true">
                                             <mat-checkbox formControlName="zerodept" (change)="zerodeptChange()" ><strong>zero Depreciation </strong></mat-checkbox>
 
 

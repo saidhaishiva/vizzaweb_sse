@@ -130,6 +130,11 @@ export class HdfcCarProposalComponent implements OnInit {
     public Loss_Use_protection: any;
     public Complusory_OwnerDriver_Premium: any;
     public valid: any;
+    public lesserDate: any;
+    public nilDepValue: any;
+    public rtiValue: any;
+    public rtidate: any;
+    public typeOFPolicy: any;
     photos = [];
     photosBuffer = [];
     bufferSize = 50;
@@ -164,12 +169,16 @@ export class HdfcCarProposalComponent implements OnInit {
       this.Setting.HomeSidenavUserBlock = false;
       this.Setting.sidenavIsOpened = false;
       this.Setting.sidenavIsPinned = false;
-      var today = new Date();
+      let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
       this.tommarrow=this.today.setDate(this.today.getDate()+1);
       this.tommarrow=this.datepipe.transform(this.tommarrow,'dd/MM/y');
-      var  todaydate =new Date();
-      this.todaydate=new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate());
+      // var todaydate =new Date();
+      this.todaydate=new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const lateDate = today.getFullYear() - 5;
+      this.lesserDate = new Date(lateDate, today.getMonth(), today.getDate());
+      const rtiDate = today.getFullYear() - 3;
+      this.rtidate = new Date(lateDate, today.getMonth(), today.getDate());
       this.tod=this.datepipe.transform(this.todaydate,'dd/MM/y');
       String ;this.tod = this.tod.substring(0, 10);
       this.sameasper = false;
@@ -179,6 +188,8 @@ export class HdfcCarProposalComponent implements OnInit {
       this.paidPersonSiValid = false;
       this.biFuelValid = false;
       this.electricNonValid = false;
+      this.nilDepValue = false;
+      this.rtiValue = false;
 
 
       this.proposer = this.fb.group({
@@ -324,7 +335,10 @@ export class HdfcCarProposalComponent implements OnInit {
       this.financiername();
       this.extensioncountry();
       this.electricalhalfvalue();
+      // this.nilDepDateValidation();
+
       this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
+      this.typeOFPolicy = this.vehicledata.type;
       this.vehicleTypedata = JSON.parse(sessionStorage.enquiryFormDatafw);
       this.carEquiryId = sessionStorage.fwEnquiryId;
       this.vehicleidv = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
@@ -350,7 +364,9 @@ export class HdfcCarProposalComponent implements OnInit {
       this.vechicle.controls['vechicleidv'].patchValue(this.buyFourwheelerProductDetails.Idv);
       console.log(this.vechicle.controls['vechicleidv'].value,'12233333');
       // this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
+      console.log(this.vehicledata.engine_no, 'engineno........////')
       this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
+      console.log( this.vechicle.controls['engine'].value, 'engine patch value//////')
       this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
       this.vechicle.controls['vehiclemodel'].patchValue(this.vehicledata.vehicle_model);
       this.vechicle.controls['previouspolicyclaim'].patchValue(this.vehicledata.previous_claim_YN == '1' ? 'YES' : 'NO');
@@ -377,8 +393,31 @@ export class HdfcCarProposalComponent implements OnInit {
       }
       this.altererror='';
 
+      this.nilDepDateValidation();
 
   }
+
+    nilDepDateValidation() {
+        let valueDil=this.datepipe.transform(this.lesserDate, 'y-MM-dd')
+        let valuerti=this.datepipe.transform(this.rtidate, 'y-MM-dd')
+        console.log(this.lesserDate,'lesserDate....')
+        console.log(valueDil,'valueDil....')
+        // let valuessss=(valueDil > this.carListDetails.registration_date );
+        console.log(this.vehicleTypedata.registration_date,'55555555555555....')
+        // console.log(valuessss,'valuessss....')
+
+        if(valueDil < this.vehicleTypedata.registration_date ){
+            this.nilDepValue=true;
+        }else{
+            this.nilDepValue=false;
+        }
+        if(valuerti < this.vehicleTypedata.registration_date ){
+            this.rtiValue=true;
+        }else{
+            this.rtiValue=false;
+        }
+        console.log(this.rtiValue,'rtiValue....')
+    }
   electricalhalfvalue() {
       this.valid=0;
       let cal = this.vechicle.controls['vechicleidv'].value;
@@ -386,12 +425,11 @@ export class HdfcCarProposalComponent implements OnInit {
       this.equalvalid = val;
       console.log(this.equalvalid, 'this.equalvalid')
   }
-   compulsorypersonalvalue(){
+   compulsorypersonalvalue() {
         this.addOns.controls['compul'].patchValue(this.Complusory_OwnerDriver_Premium);
-        this.getCover()
-
-
+        // this.getCover()
     }
+
     // validationForNew(value) {
     //
     //     if (value == 'New Vehicle') {
@@ -1456,13 +1494,13 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
             if (this.proposer.valid) {
                 console.log(this.proposer.valid,'proposervalid');
                 // alert('inn')
-                if (sessionStorage.proposerAge >= 18) {
-                    // alert('age')
-                    if( this.altererror==''){
-                        // alert('error')
+                if (sessionStorage.proposerAge >= '18') {
+                    alert('age')
+                    // if( this.altererror==''){
+                        alert('error')
                         stepper.next();
                         this.topScroll();
-                    }
+                    // }
 
 
                 }else {
