@@ -68,6 +68,7 @@ export class StarHealthProposalComponent implements OnInit {
     public paymentGatewayData: any;
     public webhost: any;
     public proposalId: any;
+    public proposalIdStar: any;
     public illness: any;
     public settings: Settings;
     public pin: any;
@@ -183,6 +184,7 @@ export class StarHealthProposalComponent implements OnInit {
         this.webhost = this.config.getimgUrl();
         this.selectDate = '';
         this.proposalId = 0;
+        this.proposalIdStar = 0;
         this.step = 0;
         this.mobileNumber = 'true';
         this.ageRestriction = 'true';
@@ -1501,10 +1503,12 @@ export class StarHealthProposalComponent implements OnInit {
 
     //Create Proposal
     proposal(stepper) {
+        // alert(sessionStorage.proposalID)
+        // alert(sessionStorage.proposalIdStar)
         const data = [{
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'proposal_id' :'0' ? sessionStorage.proposalID = '0':sessionStorage.proposalID,
+            'proposal_id' :sessionStorage.proposalID ? sessionStorage.proposalID = '':sessionStorage.proposalIdStar,
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'group_name':  this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
@@ -1594,6 +1598,7 @@ export class StarHealthProposalComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.proposalId = this.summaryData.policy_id;
+            this.proposalIdStar = this.summaryData.policy_id;
             // alert(this.summaryData.policy_id);
             // alert(this.proposalId);
             this.proposalNumber= this.summaryData.proposalNum;
@@ -1617,6 +1622,8 @@ export class StarHealthProposalComponent implements OnInit {
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+            sessionStorage.proposalIdStar = JSON.parse( this.proposalIdStar);
+            // alert(sessionStorage.proposalIdStar);
             this.createdDate = new Date();
 
             stepper.next();

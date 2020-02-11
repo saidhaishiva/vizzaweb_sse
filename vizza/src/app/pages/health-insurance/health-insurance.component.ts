@@ -495,6 +495,7 @@ export class HealthInsuranceComponent implements OnInit {
 
     // new policy lists
     getPolicyQuotationList(type) {
+        sessionStorage.proposalIdStar='';
         console.log(type,'health')
         this.healthProceed = false;
         this.selectedAmount = ''
