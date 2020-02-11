@@ -109,6 +109,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public hdfcMobileTrue1: boolean;
     public hdfcMobileTrue2: boolean;
     public hdfcMobileTrue3: boolean;
+    public panCardValue: boolean;
+    // public sumInsureValues: boolean;
 
 
     constructor(public proposalservice: HealthService, public validation: ValidationService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
@@ -161,6 +163,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.hdfcMobileTrue1 = true;
         this.hdfcMobileTrue2 = true;
         this.hdfcMobileTrue3 = true;
+        this.panCardValue = false;
+        // this.sumInsureValues = false;
 
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -178,6 +182,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             cityName: '',
             titleName: '',
             otp: ['', Validators.required],
+            personalPan: [''],
             city: ['', Validators.required],
             state: ['', Validators.required],
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -235,11 +240,33 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.getStateList();
             this.RelationShipListHdfc();
             this.nomineeRelationShipListHdfc();
+            this.panValues();
+            // this.suminsuredValue();
             // this.hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer.patchValue(true);
             this.sessionData();
 
         }
     }
+
+    panValues(){
+        // alert(this.getHdfcHealthPremiumList.premium_total)
+        if(this.getHdfcHealthPremiumList.premium_total > 100000){
+            // alert(this.getHdfcHealthPremiumList.premium_total > 100000)
+            this.panCardValue=true;
+            this.hdfcPersonal.controls['personalPan'].setValidators(Validators.required);
+        }else{
+            this.panCardValue=false;
+            this.hdfcPersonal.controls['personalPan'].setValidators(null);
+        }
+
+    }
+    // suminsuredValue(){
+    //     if((this.getHdfcHealthPremiumList.suminsured_amount > 1200000) && (this.getHdfcHealthPremiumList.suminsured_amount <= 20000000)){
+    //         this.sumInsureValues=true;
+    //     }else{
+    //         this.sumInsureValues=false;
+    //     }
+    // }
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }
@@ -250,6 +277,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     // Number validation
     numberValidate(event: any){
         this.validation.numberValidate(event);
+    }
+    heightValidate(event: any) {
+        this.validation.heightValidate(event);
     }
     idValidate(event: any){
         this.validation.idValidate(event);
@@ -266,7 +296,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
             let dobAge = this.ageCalculate(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             console.log(dobAge,'dobAge');
-            if (dobAge > 45) {
+            if ( (dobAge > 45)) {
                 this.IsCustomerAcceptedPPCPED = true;
             } else {
                 this.IsCustomerAcceptedPPCPED = false;
@@ -533,7 +563,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         if (age && type == 'personal') {
             sessionStorage.hdfcHealthProposerAge = age;
         } else {
-            if (age > 45) {
+            if ( age > 45) {
                 this.IsCustomerAcceptedPPCPED = true;
             } else {
                 this.IsCustomerAcceptedPPCPED = false;
@@ -987,7 +1017,8 @@ TierID
                         'MobileNo': this.hdfcpersonalValues.mobile,
                         'IsCustomerAcceptedPPCPED': this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value ? '1' : '',
                         'IsProposerSameAsInsured': this.sameAsinsure ? 'Y' : 'N' ,
-                        'UIDNo': this.hdfcpersonalValues.otp //OTP Value
+                        'UIDNo': this.hdfcpersonalValues.otp, //OTP Value
+                        'PANCardNumber': this.hdfcpersonalValues.personalPan,
                     },
                     'PlanDetails': {
                         'suminsured': this.getHdfcHealthPremiumList.suminsured_amount,
@@ -1080,6 +1111,7 @@ TierID
                 title: this.hdfcStep1.title,
                 firstname: this.hdfcStep1.firstname,
                 lastname: this.hdfcStep1.lastname,
+                personalPan: this.hdfcStep1.personalPan,
                 dob: new FormControl(new Date(this.hdfcStep1.dob)),
                 gender: this.hdfcStep1.gender,
                 address1: this.hdfcStep1.address1,
