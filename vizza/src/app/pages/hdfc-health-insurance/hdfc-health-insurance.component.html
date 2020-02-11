@@ -72,6 +72,14 @@
                           <input matInput placeholder="OTP"  (keypress)="numberValidate($event)"  minlength="6" maxlength="6" formControlName="otp" (input)="checkotpValidate($event.target.value)" autocomplete="off" required>
                           <mat-error *ngIf="hdfcPersonal.controls.mobile.errors?.required">OTP is required</mat-error>
                         </mat-form-field></div>
+                        <div class="col-md-4" >
+                          <mat-form-field class="w-100">
+                            <mat-placeholder>Pan Number<span class="error" *ngIf="panCardValue==true">*</span></mat-placeholder>
+                            <input matInput   class="text-uppercase" formControlName="personalPan" minlength="10"  maxlength="10" (keypress)="idValidate($event)" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"  autocomplete="off">
+                            <mat-error *ngIf="hdfcPersonal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                            <mat-error *ngIf="hdfcPersonal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number</mat-error>
+                          </mat-form-field>
+                        </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Payment Mode" formControlName="paymentmode" required>
@@ -310,14 +318,14 @@
                           </div>
                           <div class="col-md-4" >
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Height" formControlName="height"  required (keypress)="numberValidate()" >
+                              <input matInput placeholder="Height" formControlName="height" maxlength="3" required (keypress)="heightValidate($event)"  >
                               <mat-error *ngIf="hdfcInsureArray.invalid">Height is required</mat-error>
 
                             </mat-form-field>
                           </div>
                           <div class="col-md-4" >
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Weight" formControlName="weight"  required (keypress)="numberValidate()"  >
+                              <input matInput placeholder="Weight" formControlName="weight" maxlength="3"  required (keypress)="heightValidate($event)"   >
                               <mat-error *ngIf="hdfcInsureArray.invalid">Weight is required</mat-error>
 
                             </mat-form-field>
@@ -385,13 +393,14 @@
             <ng-template matStepLabel>SUMMARY</ng-template>
             <section class="summary-details" *ngIf="summaryData">
               <div class="row">
-                <div class="col-md-4"> <h4 class="mt-3"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getHdfcHealthPremiumList.suminsured_amount}}</span></h4></div>
+                <div class="col-md-4"> <h4 class="mt-3"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: <br><i class="fas fa-rupee-sign"></i> {{getHdfcHealthPremiumList.suminsured_amount}}</span></h4></div>
                 <div class="col-md-8">
                   <ul class="summary-head">
-                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getHdfcHealthPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</span> /</li>
-                    <li><span>GST:</span>&nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.serviceTax}}</span> /</li>
-                    <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.totalPremium}}</span> </li>
+                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getHdfcHealthPremiumList.company_logo}}" class="img-thumbnail" style="width: 77px;" /> </li>
+                    <li><span>Plan Name: </span><br><span style="font-size: 16px; color: #666;">{{getHdfcHealthPremiumList.product_name}}</span></li>
+                    <li><span>Premium:</span><br><span><i class="fas fa-rupee-sign"></i>{{summaryData.basePremium}}</span></li>
+                    <li><span>GST:</span><br><span><i class="fas fa-rupee-sign"></i>{{summaryData.serviceTax}}</span></li>
+                    <li><span>Total Premium:</span><br><span><i class="fas fa-rupee-sign"></i>{{summaryData.totalPremium}}</span></li>
                     <li></li>
                   </ul>
                 </div>
@@ -414,6 +423,7 @@
                           <li class="list-group-item"><strong>D.O.B:</strong> {{personlData.dob | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item"><strong>Email:</strong> {{personlData.email}}</li>
                           <li class="list-group-item"><strong>Mobile:</strong> {{personlData.mobile}}</li>
+                          <li class="list-group-item"><strong>PanNumber:</strong> {{personlData.personalPan}}</li>
                           <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="personlData.paymentmode == 'CC'">Credit Card</span> <span *ngIf="personlData.paymentmode == 'DD'">Debit Card</span></li>
                         </ul>
                       </div>
