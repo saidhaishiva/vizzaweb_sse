@@ -9301,7 +9301,46 @@ export class EdelweissTermLifeComponent implements OnInit {
     //     }
     // }
 
+  resendOPT() {
 
+    const data = {
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "platform": "web",
+      "product_id": this.lifePremiumList.product_id,
+      "sub_product_id": this.lifePremiumList.sub_product_id,
+      "policy_id": this.getEnquiryDetials.policy_id,
+      "policyTerm": this.lifePremiumList.policy_term,
+      "premiumPayingTerm": this.lifePremiumList.premium_paying_term  ,
+      // "betterHalfBenefit": lifePremiumList.sub_product_id
+    }
+    this.settings.loadingSpinner = true;
+    console.log(data, '999999999');
+    this.termService.edelweissResendOtp(data).subscribe(
+        (successData) => {
+          this.resendOTPListSuccess(successData);
+        },
+        (error) => {
+          this.resendOTPListFailure(error);
+        }
+    );
+  }
+
+  public resendOTPListSuccess(successData) {
+    this.settings.loadingSpinner = false;
+    if (successData.IsSuccess) {
+      // this.receiptNo = successData.ResponseObject.receipt_no;
+      this.toastr.success(successData.ResponseMessage);
+      // this.summaryData.receipt_no=''
+      // this.dialogRef.close(true);
+    } else {
+      this.toastr.error(successData.ErrorObject);
+    }
+  }
+
+  public resendOTPListFailure(error) {
+  }
 
   getifscEdelweissDetails(ifsc) {
     const data = {

@@ -5261,7 +5261,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-md-6" *ngIf="addonFormData.betterHalfBenefit=='Yes'">
+                                <div class="col-md-6" >
                                     <div class=" p-3">
                                         <h6 class="color-blue mt-4" ></h6>
                                         <ul class="m-0 list-group">
@@ -5294,6 +5294,7 @@
                                                     <ul class="m-0 list-group">
                                                         <!--<li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd == 'Yes'"><strong>Existing Insurance:</strong>yes</li>-->
                                                         <!--<li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd == 'No'"><strong>Existing Insurance:</strong>No</li>-->
+                                                        <li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd == 'Yes'"><strong> Policy No:</strong> {{item.policyNo}}</li>
                                                         <li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd == 'Yes'"><strong> Company Name:</strong> {{item.companyName}}</li>
                                                         <li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd == 'Yes'"><strong>Year Of Issue:</strong> {{item.yearOfIssue}}</li>
                                                         <li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd == 'Yes'"><strong>Sum Assured:</strong> {{item.sumAssured}}</li>
@@ -5442,6 +5443,7 @@
                                                     <ul class="m-0 list-group">
                                                         <!--<li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd == 'Yes'"><strong>Existing Insurance:</strong>yes</li>-->
                                                         <!--<li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd == 'No'"><strong>Existing Insurance:</strong>No</li>-->
+                                                        <li class="list-group-item" *ngIf="insuredFormData.sexistingInsuranceInd == 'Yes'"><strong> Policy No:</strong> {{item.spolicyNo}}</li>
                                                         <li class="list-group-item" *ngIf="insuredFormData.sexistingInsuranceInd == 'Yes'"><strong> Company Name:</strong> {{item.scompanyName}}</li>
                                                         <li class="list-group-item" *ngIf="insuredFormData.sexistingInsuranceInd == 'Yes'"><strong>Year Of Issue:</strong> {{item.syearOfIssue}}</li>
                                                         <li class="list-group-item" *ngIf="insuredFormData.sexistingInsuranceInd == 'Yes'"><strong>Sum Assured:</strong> {{item.ssumAssured}}</li>
@@ -5598,7 +5600,7 @@
 
                                 <div class="col-md-6"  >
                                     <div class="p-3">
-                                        <h6 class="color-blue" *ngIf="medicalFormData.pregnantInd!=''">For Female Lives</h6>
+                                        <h6 class="color-blue" *ngIf="medicalFormData.pregnantInd=='Yes'">For Female Lives</h6>
                                         <ul class="m-0 list-group">
 
                                             <li class="list-group-item" *ngIf=" medicalFormData.pregnantInd=='Yes'&&lifePremiumList.product_id=='112'"><strong>Are you Pregnant?:</strong> {{medicalFormData.pregnantInd}}</li>
@@ -5778,7 +5780,7 @@
 
                                         <div class="col-md-6"  *ngIf="addonFormData.betterHalfBenefit=='Yes'">
                                             <div class="p-3">
-                                                <h6 class="color-blue" *ngIf="medicalFormData.pregnantInd1!=''">For Female Lives</h6>
+                                                <h6 class="color-blue" *ngIf="medicalFormData.pregnantInd1=='Yes'">For Female Lives</h6>
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item" *ngIf="medicalFormData.pregnantInd1=='Yes' && lifePremiumList.product_id=='112'"><strong>Pregnant:</strong> {{medicalFormData.pregnantInd1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.pregnantInd1 =='Yes' && lifePremiumList.product_id=='112'" ><strong>Pregnant weeks:</strong> {{medicalFormData.pregnantweeks1}}</li>
@@ -5946,7 +5948,7 @@
 
 
                                 <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Next</button>
+                                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="resendOPT();getProposalNext(stepper)">Next</button>
                                 <!--<button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>-->
                                 <!--</form>-->
                             </div>

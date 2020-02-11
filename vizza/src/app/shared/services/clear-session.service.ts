@@ -20,7 +20,7 @@ export class ClearSessionService {
 
         sessionStorage.mobileNumber = '';
         sessionStorage.ageRestriction = '';
-        // sessionStorage.proposalId = '';
+        sessionStorage.proposalId = '';
         sessionStorage.personalAge = '';
         sessionStorage.summaryData = '';
         sessionStorage.proposerFormData = '';
