@@ -598,6 +598,10 @@ export class LifeBajajProposalComponent implements OnInit {
 
     public customerListFailure(error) {
     }
+    saveImageAs2() {
+        this.window.open(this.biURL, '_blank');
+    }
+
 
 
     proposalnext(stepper){
@@ -1317,6 +1321,7 @@ samerelationShip(){
 
       }
   }
+
 
   //services
   paIdList() {
