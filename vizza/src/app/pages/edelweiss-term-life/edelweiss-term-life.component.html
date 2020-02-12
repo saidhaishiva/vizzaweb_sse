@@ -354,7 +354,7 @@
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3" *ngIf="addon.controls.payoutOption.value=='combination'||addon.controls.payoutOption.value=='income_benefit'"  style="margin-top: -21px;">
-                                        <h6 class="color-blue">Select Income Type<span class="error" >*</span></h6>
+                                        <h6 class="color-blue">Income Type<span class="error" >*</span></h6>
                                         <mat-button-toggle-group class="mat-button-toggle-group1"  name="fontStyle" formControlName="payoutOptionToggle"   aria-label="Font Style" [required]="addon.controls.payoutOption.value=='combination'||addon.controls.payoutOption.value=='income_benefit'">
                                             <mat-button-toggle  value="levelIncome"><span style="display: block;margin-top: -7px;">Level </span><span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
                                             <mat-button-toggle  value="increasingIncome"><span style="display: block;margin-top: -7px;">Increasing</span> <span style="margin-top: -29px;display: flex;">Income</span></mat-button-toggle>
@@ -5067,8 +5067,8 @@
                                         <ul class="m-0 list-group">
 
                                             <li class="list-group-item" *ngIf="addonFormData.payoutOption != '' "><strong>Payout Option:</strong> {{addonFormData.payoutOptionName}}</li>
-                                            <li class="list-group-item" *ngIf="addonFormData.payoutOptionToggle == 'levelIncome' "><strong>Payout Option Toggle:</strong> <span>Level Income</span></li>
-                                            <li class="list-group-item" *ngIf="addonFormData.payoutOptionToggle == 'increasingIncome' "><strong>Payout Option Toggle:</strong> <span>Increasing Income</span></li>
+                                            <li class="list-group-item" *ngIf="addonFormData.payoutOptionToggle == 'levelIncome' "><strong>Income Type:</strong> <span>Level Income</span></li>
+                                            <li class="list-group-item" *ngIf="addonFormData.payoutOptionToggle == 'increasingIncome' "><strong>Income Type:</strong> <span>Increasing Income</span></li>
 
                                         </ul>
                                     </div>

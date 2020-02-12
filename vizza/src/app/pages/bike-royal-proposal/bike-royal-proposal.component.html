@@ -197,7 +197,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="vehicle Mostly Driven On"  formControlName="vehicleMostlyDrivenOn" (change)="getVehicalMostly()" required>
+                          <mat-select placeholder="vehicle Mostly Driven On"  formControlName="vehicleMostlyDrivenOn" (selectionChange)="getVehicalMostly()" required>
                             <mat-option *ngFor="let type of drivenList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                           </mat-select>
                             <mat-error *ngIf="vehical.controls.vehicleMostlyDrivenOn.errors?.required">vehicle Mostly DrivenOn is required</mat-error>
@@ -206,7 +206,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName" (change)="changeVehicleName()"  required>
+                          <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName" (selectionChange)="changeVehicleName()"  required>
                             <mat-option *ngFor="let vehiclebk of registrationNameList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                           </mat-select>
                             <mat-error *ngIf="vehical.controls.vehicleRegisteredName.errors?.required">Vehicle Registered Name is required</mat-error>
@@ -255,7 +255,7 @@
                         </div>
                         <div class="col-md-3" *ngIf="vehical.controls['isTwoWheelerFinanced'].value == true">
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="Is Two Wheeler Financed Value"  formControlName="isTwoWheelerFinancedValue" (change)="changehypothecation()" [required]="vehical.controls['isTwoWheelerFinanced'].value == true">
+                                <mat-select placeholder="Is Two Wheeler Financed Value"  formControlName="isTwoWheelerFinancedValue" (selectionChange)="changehypothecation()" [required]="vehical.controls['isTwoWheelerFinanced'].value == true">
                                     <mat-option *ngFor="let hypothecationTypebk of hypothecationTypeDetails | keys " value="{{hypothecationTypebk.key}}" > {{hypothecationTypebk.value}} </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -356,6 +356,12 @@
                                 </mat-select>
                                 <mat-error *ngIf="previousInsure.controls.previousPolicyType.errors?.required">Previous PolicyType is required</mat-error>
 
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field class="w-100">
+                                <input maxlength="80" matInput placeholder=" Previous insurers Address" formControlName="previousinsurersCorrectAddress"  autocomplete="off" required>
+                                <mat-error *ngIf="previousInsure.controls.previousinsurersCorrectAddress.errors?.required">Address is required</mat-error>
                             </mat-form-field>
                         </div>
                       <div class="col-md-3">

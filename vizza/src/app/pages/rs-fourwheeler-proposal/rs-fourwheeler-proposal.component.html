@@ -15,7 +15,7 @@
                                         <div class="row">
                                             <div class="col-md-3" >
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Title" formControlName="title"  (change)="title()" required>
+                                                    <mat-select placeholder="Title" formControlName="title"  (selectionChange)="title()" required>
                                                         <mat-option *ngFor="let title of titleList | keys" value="{{title.key}}" > {{title.value}} </mat-option >
                                                     </mat-select>
                                                     <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
@@ -201,7 +201,7 @@
                                         <div class="row">
                                            <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName" (change)="changeVehicleName()" required >
+                                                    <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName" (selectionChange)="changeVehicleName()" required >
                                                         <mat-option *ngFor="let vehiclebk of registrationNameList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="vehical.controls.vehicleRegisteredName.errors?.required">Vehicle Registered Name is required</mat-error>
@@ -218,7 +218,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="vehicle Mostly Driven On"  formControlName="vehicleMostlyDrivenOn" (change)="getVehicalMostly()" required >
+                                                    <mat-select placeholder="vehicle Mostly Driven On"  formControlName="vehicleMostlyDrivenOn" (selectionChange)="getVehicalMostly()" required >
                                                         <mat-option *ngFor="let type of drivenList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="vehical.controls.vehicleMostlyDrivenOn.errors?.required">vehicle Mostly DrivenOn is required</mat-error>
@@ -310,7 +310,7 @@
                                                 <div class="col-md-3" *ngIf="vehical.controls['isFourWheelerFinanced'].value == true">
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>Is Car Financed Value<span class="error" *ngIf="vehical.controls['isFourWheelerFinanced'].value == true">*</span></mat-placeholder>
-                                                        <mat-select  formControlName="isFourWheelerFinancedValue" (change)="changefinancedValue()" >
+                                                        <mat-select  formControlName="isFourWheelerFinancedValue" (selectionChange)="changefinancedValue()" >
                                                             <mat-option *ngFor="let Financed of financedValueDetails | keys " value="{{Financed.key}}" > {{Financed.value}} </mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
@@ -497,7 +497,7 @@
                                                         <div class="col-md-3 mt-3"  *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">
                                                             <mat-form-field class="w-100">
                                                                 <mat-placeholder>Value Of Loss Of Baggage<span class="error" *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">*</span></mat-placeholder>
-                                                                <mat-select  formControlName="valueOfLossOfBaggage"  (change)=" changepbaggageValue();valueBaggesChange()" >
+                                                                <mat-select  formControlName="valueOfLossOfBaggage"  (selectionChange)=" changepbaggageValue();valueBaggesChange()" >
                                                                     <mat-option *ngFor="let baggages of baggageList | keys" value="{{baggages.key}}" > {{baggages.value}} </mat-option>
                                                                 </mat-select>
                                                             </mat-form-field>
@@ -559,14 +559,14 @@
                                         <div class="row">
                                         <div class="col-md-3 mt-3">
                                             <mat-form-field class="w-100">
-                                                <mat-select placeholder="Personal Accident Cover For Unnamed Passengers"  formControlName="personalAccidentCoverForUnnamedPassengers" (change)="changePaType()" >
+                                                <mat-select placeholder="Personal Accident Cover For Unnamed Passengers"  formControlName="personalAccidentCoverForUnnamedPassengers" (selectionChange)="changePaType()" >
                                                     <mat-option *ngFor="let pAUnnamedPassengers of pAUnnamedPassengersList | keys " value="{{pAUnnamedPassengers.key}}" > {{pAUnnamedPassengers.value}} </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3 mt-3">
                                             <mat-form-field class="w-100">
-                                                <mat-select placeholder="Accident Cover For Paid Driver"  formControlName="accidentCoverForPaidDriver"   (change)=" changeAccidentPaidDriver()" >
+                                                <mat-select placeholder="Accident Cover For Paid Driver"  formControlName="accidentCoverForPaidDriver"   (selectionChange)=" changeAccidentPaidDriver()" >
                                                     <mat-option *ngFor="let accident of accidentList | keys" value="{{accident.key}}" > {{accident.value}} </mat-option>
                                                 </mat-select>
                                                 <!--<mat-error *ngIf="vehical.controls.accidentCoverForPaidDriver.errors?.required">Accident Cover For Paid Driver is required</mat-error>-->
