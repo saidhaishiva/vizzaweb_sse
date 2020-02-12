@@ -186,7 +186,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             city: ['', Validators.required],
             state: ['', Validators.required],
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            mobile: ['', Validators.required],
             paymentmode: ['', Validators.required]
 
         });

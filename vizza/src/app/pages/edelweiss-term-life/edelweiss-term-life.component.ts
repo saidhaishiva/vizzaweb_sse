@@ -155,6 +155,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public valid: any;
   public settings: any;
   public webhost: any;
+  public sdropDownValues: any;
   // public weburl:any;
   public nomineeData: any;
   public showAppointee: boolean;
@@ -315,6 +316,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public eCompanyList:any;
   public deleteIndexId:any;
   public premiumValue:boolean;
+  public dropDownValues:boolean;
 
 
   constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
@@ -442,6 +444,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.maritalSpouseValue = false;
     this.maritalSpouseSingleValue = false;
     this.maritalSingleValue = false;
+    this.dropDownValues = false;
+    this.sdropDownValues = false;
     this.otpGenList = '';
     this.otpCode = '';
     const minDate = new Date();
@@ -1140,6 +1144,29 @@ export class EdelweissTermLifeComponent implements OnInit {
   //
   //
   // }
+
+  drownAdv(){
+    console.log(event,'event');
+    console.log(this.medicalDetail.controls['adventurousActivities'].value,'34567890-9876543245678')
+    console.log(this.medicalDetail.controls['adventurousActivities'].value[0],'34567890-9876543245678')
+    if(this.medicalDetail.controls['adventurousActivities'].value[0] == '9'||this.medicalDetail.controls['adventurousActivities'].value[1] == '9'||this.medicalDetail.controls['adventurousActivities'].value[2] == '9'||this.medicalDetail.controls['adventurousActivities'].value[3] == '9'||this.medicalDetail.controls['adventurousActivities'].value[4] == '9'){
+      this.dropDownValues=true;
+    }
+    else if(this.medicalDetail.controls['adventurousActivities'].value[0] != '9'||this.medicalDetail.controls['adventurousActivities'].value[1] != '9'||this.medicalDetail.controls['adventurousActivities'].value[2] != '9'||this.medicalDetail.controls['adventurousActivities'].value[3] != '9'||this.medicalDetail.controls['adventurousActivities'].value[4] != '9'){
+      this.dropDownValues=false;
+    }
+  }
+  sdrownAdv(){
+    console.log(event,'event');
+    console.log(this.medicalDetail.controls['adventurousActivities1'].value,'34567890-9876543245678')
+    console.log(this.medicalDetail.controls['adventurousActivities1'].value[0],'34567890-9876543245678')
+    if(this.medicalDetail.controls['adventurousActivities1'].value[0] == '9'||this.medicalDetail.controls['adventurousActivities1'].value[1] == '9'||this.medicalDetail.controls['adventurousActivities1'].value[2] == '9'||this.medicalDetail.controls['adventurousActivities1'].value[3] == '9'||this.medicalDetail.controls['adventurousActivities1'].value[4] == '9'){
+      this.sdropDownValues=true;
+    }
+    else if(this.medicalDetail.controls['adventurousActivities1'].value[0] != '9'||this.medicalDetail.controls['adventurousActivities1'].value[1] != '9'||this.medicalDetail.controls['adventurousActivities1'].value[2] != '9'||this.medicalDetail.controls['adventurousActivities1'].value[3] != '9'||this.medicalDetail.controls['adventurousActivities1'].value[4] != '9'){
+      this.sdropDownValues=false;
+    }
+  }
 
   // Medical Family Create
   medicalFamilyCreate() {
@@ -6280,7 +6307,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (this.medicalDetail.controls['symptomsInd'].value == 'Yes') {
       this.medicalDetail.controls['symptomsDetails'].patchValue(this.medicalDetail.controls['symptomsDetails'].value);
-      this.medicalDetail.controls['isHospitalized'].patchValue(this.medicalDetail.controls['isHospitalized'].value);
+      // this.medicalDetail.controls['isHospitalized'].patchValue(this.medicalDetail.controls['isHospitalized'].value);
 
       this.medicalDetail.controls['symptomsDetails'].setValidators([Validators.required]);
       this.medicalDetail.controls['isHospitalized'].setValidators([Validators.required]);
@@ -6301,7 +6328,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (this.medicalDetail.controls['symptomsInd1'].value == 'Yes') {
       this.medicalDetail.controls['symptomsDetails1'].patchValue(this.medicalDetail.controls['symptomsDetails1'].value);
-      this.medicalDetail.controls['isHospitalized1'].patchValue(this.medicalDetail.controls['isHospitalized1'].value);
+      // this.medicalDetail.controls['isHospitalized1'].patchValue(this.medicalDetail.controls['isHospitalized1'].value);
 
       this.medicalDetail.controls['symptomsDetails1'].setValidators([Validators.required]);
       this.medicalDetail.controls['isHospitalized1'].setValidators([Validators.required]);
@@ -6322,7 +6349,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (this.medicalDetail.controls['femaleDieaseInd'].value == 'Yes') {
       this.medicalDetail.controls['femaleDetails'].patchValue(this.medicalDetail.controls['femaleDetails'].value);
-      this.medicalDetail.controls['isFemaleHospitalized'].patchValue(this.medicalDetail.controls['isFemaleHospitalized'].value);
+      // this.medicalDetail.controls['isFemaleHospitalized'].patchValue(this.medicalDetail.controls['isFemaleHospitalized'].value);
 
       this.medicalDetail.controls['femaleDetails'].setValidators([Validators.required]);
       this.medicalDetail.controls['isFemaleHospitalized'].setValidators([Validators.required]);
@@ -6342,7 +6369,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (this.medicalDetail.controls['femaleDieaseInd1'].value == 'Yes') {
       this.medicalDetail.controls['femaleDetails1'].patchValue(this.medicalDetail.controls['femaleDetails1'].value);
-      this.medicalDetail.controls['isFemaleHospitalized1'].patchValue(this.medicalDetail.controls['isFemaleHospitalized1'].value);
+      // this.medicalDetail.controls['isFemaleHospitalized1'].patchValue(this.medicalDetail.controls['isFemaleHospitalized1'].value);
 
       this.medicalDetail.controls['femaleDetails1'].setValidators([Validators.required]);
       this.medicalDetail.controls['isFemaleHospitalized1'].setValidators([Validators.required]);
@@ -6603,7 +6630,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['pregnantweeks'].patchValue(this.medicalDetail.controls['pregnantweeks'].value);
 
       this.medicalDetail.controls['pregnantweeks'].setValidators([Validators.required]);
-      this.medicalDetail.controls['isFemaleHospitalized'].setValidators([Validators.required]);
+      // this.medicalDetail.controls['isFemaleHospitalized'].setValidators([Validators.required]);
     } else {
       this.medicalDetail.controls['pregnantweeks'].patchValue('');
       this.medicalDetail.controls['isFemaleHospitalized'].patchValue('');
@@ -6623,7 +6650,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.medicalDetail.controls['isFemaleHospitalized1'].patchValue(this.medicalDetail.controls['isFemaleHospitalized1'].value);
 
       this.medicalDetail.controls['pregnantweeks1'].setValidators([Validators.required]);
-      this.medicalDetail.controls['isFemaleHospitalized1'].setValidators([Validators.required]);
+      // this.medicalDetail.controls['isFemaleHospitalized1'].setValidators([Validators.required]);
     } else {
       this.medicalDetail.controls['pregnantweeks1'].patchValue('');
       this.medicalDetail.controls['isFemaleHospitalized1'].patchValue('');
@@ -6771,7 +6798,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   isadventurous() {
 
-    if (this.medicalDetail.controls['adventurousActivities'].value == '9~') {
+    if (this.dropDownValues==true) {
       this.medicalDetail.controls['adventurousActivitiesDetails'].patchValue(this.medicalDetail.controls['adventurousActivitiesDetails'].value);
 
       this.medicalDetail.controls['adventurousActivitiesDetails'].setValidators([Validators.required]);
@@ -6782,6 +6809,21 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     }
     this.medicalDetail.controls['adventurousActivitiesDetails'].updateValueAndValidity();
+
+  }
+  sisadventurous() {
+
+    if (this.sdropDownValues==true) {
+      this.medicalDetail.controls['adventurousActivitiesDetails1'].patchValue(this.medicalDetail.controls['adventurousActivitiesDetails1'].value);
+
+      this.medicalDetail.controls['adventurousActivitiesDetails1'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['adventurousActivitiesDetails1'].patchValue('');
+
+      this.medicalDetail.controls['adventurousActivitiesDetails1'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['adventurousActivitiesDetails1'].updateValueAndValidity();
 
   }
   // proposal creation
@@ -9953,11 +9995,11 @@ export class EdelweissTermLifeComponent implements OnInit {
   changeAlcoholValue1(){
     this.medicalDetail.controls['alcoholDetailName1'].patchValue(this.eAlcoholDetails[this.medicalDetail.controls['alcoholDetails1'].value]);
   }
-  isadventurousName() {
-    this.medicalDetail.controls['adventurousActivitiesName'].patchValue(this.eAdActivity[this.medicalDetail.controls['adventurousActivities'].value]);
-    console.log(this.medicalDetail.controls['adventurousActivities'].value,'adventurousActivities1111111')
-    console.log(this.medicalDetail.controls['adventurousActivitiesName'].value,'adventurousActivitiesName1111111')
-  }
+  // isadventurousName() {
+  //   this.medicalDetail.controls['adventurousActivitiesName'].patchValue(this.eAdActivity[this.medicalDetail.controls['adventurousActivities'].value]);
+  //   console.log(this.medicalDetail.controls['adventurousActivities'].value,'adventurousActivities1111111')
+  //   console.log(this.medicalDetail.controls['adventurousActivitiesName'].value,'adventurousActivitiesName1111111')
+  // }
   changeMarital() {
     this.customerDetails.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.customerDetails.controls['maritalStatus'].value]);
     console.log(this.customerDetails.controls['maritalStatusName'].value,'sadfghjj')

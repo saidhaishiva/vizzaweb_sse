@@ -426,7 +426,7 @@
                                 <p *ngIf="si == 6 && diseaseFieldView">{{si+1}}. {{list.question_name}} </p>
                               </div>
                               <div class="col-md-6" >
-                                <mat-checkbox [(ngModel)]="list.checked" (selectionChange)="changereligareTravelQuestions($event, si, 'sub', i)"  *ngIf="list.field_type == 'checkbox'">
+                                <mat-checkbox [(ngModel)]="list.checked" (change)="changereligareTravelQuestions($event, si, 'sub', i)"  *ngIf="list.field_type == 'checkbox'">
                                 </mat-checkbox>
                               </div>
                               <div class="col-md-12" *ngIf="si != 6">
@@ -450,7 +450,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="row col-md-6" >
-                          <mat-checkbox [(ngModel)]="item.checked" (selectionChange)="changereligareTravelQuestions($event, i, 'main', '0')"  *ngIf="item.field_type == 'checkbox'">
+                          <mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i, 'main', '0')"  *ngIf="item.field_type == 'checkbox'">
                           </mat-checkbox>
                         </div>
                       </div>
