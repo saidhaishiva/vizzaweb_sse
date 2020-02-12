@@ -29,6 +29,7 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MM YYYY',
   },
 };
+
 @Component({
   selector: 'app-edelweiss-term-life',
   templateUrl: './edelweiss-term-life.component.html',
