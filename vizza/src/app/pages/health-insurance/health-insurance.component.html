@@ -295,7 +295,7 @@
             <tr class="" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
               <td align="center"  class="col-md-2 text-center">
                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
-                <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
+                <p class="pTitle"  matTooltip="{{plists.product_name}}">{{plists.product_name}}</p>
               </td>
               <td  class="col-md-1">
                 <p class="mt-4">&#8377; {{plists.suminsured_amount}}</p>
