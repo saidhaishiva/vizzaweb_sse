@@ -723,6 +723,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   addonlimit(event: any) {
     if (this.vehical.controls['addonValue'].value <= 100000) {
       this.vehical.controls['addonValue'].patchValue(this.vehical.controls['addonValue'].value);
+      this.coverPremium();
     } else {
       this.toastr.error('Addon Values should be less than 100000');
     }
