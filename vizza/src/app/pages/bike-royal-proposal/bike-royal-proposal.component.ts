@@ -193,6 +193,7 @@ public electricaAccessories: boolean;
       voluntary:'',
       claimAmount:'',
       previousPolicyType: '',
+      previousinsurersCorrectAddress: '',
       personalAccidentCover: '',
       accidentPaid: '',
     });
@@ -1013,6 +1014,7 @@ proposal(stepper){
           "previousInsurerName":  this.previousInsure.controls['previousInsured'].value? this.previousInsure.controls['previousInsured'].value :'',
           "companyNameForCar": this.vehical.controls['companyName'].value,
           "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value ? this.previousInsure.controls['previousPolicyType'].value: '',
+          "previousinsurersCorrectAddress": this.previousInsure.controls['previousinsurersCorrectAddress'].value ? this.previousInsure.controls['previousinsurersCorrectAddress'].value: '',
           "isTwoWheelerFinanced":  this.vehical.controls['isTwoWheelerFinanced'].value ? 'yes' : 'No',
           "isTwoWheelerFinancedValue":  this.vehical.controls['isTwoWheelerFinancedValue'].value,
           "financierName":  this.vehical.controls['financierName'].value,
@@ -1132,6 +1134,7 @@ proposal(stepper){
           "previousInsurerName":  this.previousInsure.controls['previousInsured'].value,
           "companyNameForCar":  this.vehical.controls['companyName'].value,
           "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
+          "previousinsurersCorrectAddress": this.previousInsure.controls['previousinsurersCorrectAddress'].value,
           "isTwoWheelerFinanced":  this.vehical.controls['isTwoWheelerFinanced'].value ? 'yes' : 'No',
           "isTwoWheelerFinancedValue":  this.vehical.controls['isTwoWheelerFinancedValue'].value,
           "financierName":  this.vehical.controls['financierName'].value,
@@ -1327,6 +1330,7 @@ proposal(stepper){
         voluntary: stepper3.voluntary,
         claimAmount: stepper3.claimAmount,
         previousPolicyType: stepper3.previousPolicyType,
+        previousinsurersCorrectAddress: stepper3.previousinsurersCorrectAddress,
         personalAccidentCover: stepper3.personalAccidentCover,
         accidentPaid: stepper3.accidentPaid,
       });
