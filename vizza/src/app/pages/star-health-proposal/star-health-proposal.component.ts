@@ -1508,7 +1508,7 @@ export class StarHealthProposalComponent implements OnInit {
         const data = [{
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'proposal_id' :sessionStorage.proposalID ? sessionStorage.proposalID = '':sessionStorage.proposalIdStar,
+            'proposal_id' :sessionStorage.proposalIdStar,
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'group_name':  this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
