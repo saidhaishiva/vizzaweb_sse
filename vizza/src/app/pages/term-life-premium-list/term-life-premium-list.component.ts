@@ -17,6 +17,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 
 export interface DialogData{
+
     companyid: any;
 }
 
