@@ -64,7 +64,7 @@
                           <mat-error *ngIf="hdfcPersonal.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"  minlength="10" maxlength="10" formControlName="mobile" (input)="otpValidate($event.target.value)" autocomplete="off" required>
+                          <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"  minlength="10" maxlength="10" formControlName="mobile" (input)="otpValidate($event.target.value)" pattern="[6-9][0-9]{9}" autocomplete="off" required>
                           <mat-error *ngIf="hdfcPersonal.controls.mobile.errors?.required">Mobile Number is required</mat-error>
                           <mat-error *ngIf="hdfcPersonal.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field></div>
@@ -458,6 +458,8 @@
                           <li class="list-group-item"><strong>Gender:</strong> {{item.genderStatus}}</li>
                           <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item"><strong>Relationship:</strong> {{item.relationshipName}}</li>
+                          <li class="list-group-item"><strong>Height:</strong> {{item.height}}</li>
+                          <li class="list-group-item"><strong>Weight:</strong> {{item.weight}}</li>
                           <li class="list-group-item" *ngIf="item.preexdisease !=''"><strong>Pre Existing Disease:</strong> {{item.preexdisease}}</li>
                           <li class="list-group-item"  *ngIf="IsCustomerAcceptedPPCPED && i == 0"><strong>Any Eligible Person Above The Age Of 45 Years Will Have To Accept PED And PPC:</strong> Yes</li>
                           <!--<li class="list-group-item" *ngIf="proposalDtails.isCustomerAccepted !='' && i == 0"><strong>Is Customer Accepted PED and PPC :</strong> Yes</li>-->
