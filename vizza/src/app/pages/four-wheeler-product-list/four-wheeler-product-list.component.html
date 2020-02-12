@@ -51,11 +51,11 @@
                   </mat-select>
                 </mat-form-field>
               </th>
-              <th class="col-md-1" style="padding: 15px 5px !important;">Key Feature1</th>
-              <th class="col-md-1" style="padding: 15px 5px !important;">Key Feature2</th>
-              <th class="col-md-1" style="padding: 15px 5px !important;">Details</th>
+<!--              <th class="col-md-1" style="padding: 15px 5px !important;">Key Feature1</th>-->
+<!--              <th class="col-md-1" style="padding: 15px 5px !important;">Key Feature2</th>-->
+              <th class="col-md-2" style="padding: 15px 5px !important;">Details</th>
 
-              <th class="col-md-1" style="padding: 15px 5px !important;">Premium ( &#8377; )</th>
+              <th class="col-md-2" style="padding: 15px 5px !important;">Premium ( &#8377; )</th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Buy </th>
 
             </tr>
@@ -86,16 +86,16 @@
                 <p class="mt-0">{{policyTerm}} Year</p>
                 <p class="mt-0">{{plists.cover}} </p>
               </td>
-              <td class="col-md-1 text-center">  -
-              </td>
-              <td class="col-md-1 text-center">  -
-              </td>
-              <td class="col-md-1 text-center">
+<!--              <td class="col-md-1 text-center">  - -->
+<!--              </td>-->
+<!--              <td class="col-md-1 text-center">  - -->
+<!--              </td>-->
+              <td class="col-md-2 text-center">
                 <!--<p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i>Compare</button></p>-->
                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
               </td>
-              <td class="col-md-1">
+              <td class="col-md-2">
                 <p class="text-center change-p mt-2" ><strong>&#8377; <span  *ngIf="compherhensive == 'Comprehensive_premium'">{{plists.Comprehensive_premium}}</span> <span  *ngIf="compherhensive == 'ThridParty_premium'">{{plists.ThridParty_premium}}</span>  / Yr</strong></p>
                 <p class="text-center change-p">(Incl.GST)</p>
               </td>
