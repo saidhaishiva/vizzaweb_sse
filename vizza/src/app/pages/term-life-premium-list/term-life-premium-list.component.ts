@@ -260,7 +260,7 @@ export class TermLifePremiumListComponent implements OnInit {
                 console.log( this.allHdfcList[i].id,'listid');
                 console.log(  this.allHdfcList12 ,'listid');
             }
-            alert(this.allHdfcList12);
+            // alert(this.allHdfcList12);
             console.log( this.allHdfcList,'listtttt');
             console.log( this.allHdfcList.id,'listid');
             // this.allProductLists[index].totalpremium =  this.termListDetails.totalpremium;

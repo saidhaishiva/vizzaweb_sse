@@ -51,6 +51,7 @@ export class AegonTermLifeComponent implements OnInit {
 
   public personal: FormGroup;
   public nominee: FormGroup;
+  public customer: FormGroup;
   public proposerAge: any;
   public nomineeAge: any;
   public dateError: any;
@@ -131,6 +132,7 @@ export class AegonTermLifeComponent implements OnInit {
   public below:any;
   public housewiferrorr:any;
   public nationalityOthers:boolean;
+  public customerurl:any;
 
   public keyUp = new Subject<string>();
 
@@ -197,6 +199,21 @@ export class AegonTermLifeComponent implements OnInit {
 
         });
     this.webhost = this.config.getimgUrl();
+
+    this.customer = this.fb.group({
+     name:['', Validators.required],
+      gender:['',Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+      city:['',Validators.required],
+      annualIncome: ['', Validators.required],
+      occupation: ['', Validators.required],
+      smoker:'',
+      dob: ['', Validators.required],
+
+    });
+
+
 
     this.personal = this.fb.group({
       title: ['', Validators.required],
@@ -318,10 +335,21 @@ export class AegonTermLifeComponent implements OnInit {
     this.sessionData();
     this.nationalityOthers=false;
     this.personal.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    this.customer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
 
     let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
     this.proposerAge = this.ageCalculate(dob);
     sessionStorage.proposerAge = this.proposerAge;
+
+    this.customer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    // alert(this.customer.controls['dob'].value);
+    // alert(this.enquiryFromDetials.dob);
+
+    let dob1 = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
+    this.proposerAge = this.ageCalculate(dob1);
+    sessionStorage.proposerAge = this.proposerAge;
+
+
     if(this.enquiryFromDetials.gender == 'm')
     {
       this.personal.controls['title'].patchValue('Mr');
@@ -345,6 +373,13 @@ export class AegonTermLifeComponent implements OnInit {
     this.personal.controls['cPincode'].patchValue(this.enquiryFromDetials.pincode);
     this.personal.controls['smoker'].patchValue(this.enquiryFromDetials.smoker);
     this.personal.controls['annualIncome'].patchValue(this.enquiryFromDetials.annualIncome);
+
+    this.customer.controls['gender'].patchValue(this.enquiryFromDetials.gender);
+    this.customer.controls['city'].patchValue(sessionStorage.city);
+    // alert( this.customer.controls['city'].value)
+    // this.customer.controls['cPincode'].patchValue(this.enquiryFromDetials.pincode);
+    this.customer.controls['smoker'].patchValue(this.enquiryFromDetials.smoker);
+    this.customer.controls['annualIncome'].patchValue(this.enquiryFromDetials.annualIncome);
 
 
   }
@@ -460,6 +495,55 @@ export class AegonTermLifeComponent implements OnInit {
     }
 
   }
+
+
+  getCustomer() {
+    const data = {
+
+
+      "index": {
+
+        'platform': 'web',
+        'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : 4,
+        'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+        'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+        'policy_id': this.getEnquiryDetials.policy_id,
+        'sum_assured': this.getEnquiryDetials.sum_assured_id,
+        'company_id': '14',
+        "product_id": '102',
+      },
+      "customer_form":{
+        "name": this.customer.controls['name'].value,
+        "mobile": this.customer.controls['mobile'].value,
+        "email": this.customer.controls['email'].value,
+        "city": sessionStorage.cityid,
+        "income": this.customer.controls['annualIncome'].value,
+        "dob": this.customer.controls['dob'].value,
+        "Gender": this.customer.controls['gender'].value,
+        "Issmoker": this.customer.controls['smoker'].value,
+        "Occupation": this.customer.controls['occupation'].value
+      }
+    }
+    this.TermLifeService.getCustomer(data).subscribe(
+        (successData) => {
+          this.getCustomeSuccess(successData);
+        },
+        (error) => {
+          this.getCustomeFailure(error);
+        }
+    );
+  }
+
+  public getCustomeSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.customerurl = successData.ResponseObject.productlist.customer_form_url[0];
+      console.log(this.customerurl,'hgrfhgfghfgjhdu6dhddtg')
+
+    }
+  }
+  public getCustomeFailure(error) {
+  }
+
 
   detailsofProf() {
 

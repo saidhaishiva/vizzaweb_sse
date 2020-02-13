@@ -553,7 +553,19 @@ export class TermLifeCommonService {
 
     //aegon term life
 
-    getQualificationList(data) {
+    getCustomer(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'productlist/customer_form';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+ getQualificationList(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
