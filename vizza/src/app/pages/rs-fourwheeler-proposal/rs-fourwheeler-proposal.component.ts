@@ -128,6 +128,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public LOSS_OF_BAGGAGE  : any;
   public ELECTRICAL_ACCESSORIES  : any;
   public NON_ELECTRICAL_ACCESSORIES  : any;
+  public INVOICE_PRICE_INSURANCE  : any;
   public sameasper: boolean;
 
 
@@ -208,7 +209,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       drivingExperience: ['', Validators.required],
       averageMonthlyMileageRun: '',
       accidentCoverForPaidDriver: '',
-      registrationchargesRoadtaxpremium: '',
+      // registrationchargesRoadtaxpremium: '',
       ncbprotectorpremium: '',
       companyName: '',
       invoicePricepremium: '',
@@ -220,7 +221,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       isFourWheelerFinancedValue: '',
       valueOfLossOfBaggage: '',
       isBiFuelKitYes: '',
-        coverdriverpremium:'',
+        // coverdriverpremium:'',
       isCarOwnershipChangedpremium:'',
       depreciationWaiverpremium:'',
       windShieldGlasspremium:'',
@@ -253,7 +254,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       depreciationWaiver: 'Off',
       engineprotector: 'Off',
       ncbprotector: 'Off',
-      registrationchargesRoadtax: 'Off',
+      // registrationchargesRoadtax: 'Off',
       spareCar: 'Off',
       spareCarLimit: ['', Validators.compose([ Validators.maxLength(8)])],
       // policyED: ['', Validators.compose([ Validators.minLength(10)])],
@@ -1102,6 +1103,16 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public coverTypeFailure(error) {
   }
+  vechicleReq(){
+    if (this.vehical.controls['vehicleRegisteredName'].value) {
+      this.vehical.controls['companyName'].setValidators([Validators.required]);
+    } else  {
+      this.vehical.controls['companyName'].patchValue('');
+
+      this.vehical.controls['companyName'].setValidators(null);
+    }
+    this.vehical.controls['companyName'].updateValueAndValidity();
+  }
   changeVehicleName() {
     const data = {
       'platform': 'web',
@@ -1491,7 +1502,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value,
           "engineprotector": this.vehical.controls['engineprotector'].value ,
           "ncbprotector": this.vehical.controls['ncbprotector'].value ,
-          "registrationchargesRoadtax": this.vehical.controls['registrationchargesRoadtax'].value ,
+          "registrationchargesRoadtax": 'Off' ,
           "spareCar": this.vehical.controls['spareCar'].value ,
           "spareCarLimit": this.vehical.controls['spareCarLimit'].value ,
           "invoicePrice": this.vehical.controls['invoicePrice'].value ,
@@ -1529,12 +1540,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.LOSS_OF_BAGGAGE=this.AddonList.LOSS_OF_BAGGAGE,
       this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES,
       this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES,
-      this.coverdriverpremiumchange();
+      this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE,
+      // this.coverdriverpremiumchange();
+      this.invoicePriceChangepremium();
       this.patchkeyreplacementpremium();
       this.patchdepreciationpremium();
       this.ncbprotecorchangepremium();
       this.windShieldGlasspremipatch();
-      this.changeregistrationchargesRoadtaxpremium();
+      // this.changeregistrationchargesRoadtaxpremium();
       this.automobilepremiumchangepremium();
       this.changeengineprotectorpremium();
       this.legalliabilityToPaidDriverchangepremium();
@@ -1791,7 +1804,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value,
           "engineprotector": this.vehical.controls['engineprotector'].value ,
           "ncbprotector": this.vehical.controls['ncbprotector'].value ,
-          "registrationchargesRoadtax": this.vehical.controls['registrationchargesRoadtax'].value ,
+          "registrationchargesRoadtax":'Off' ,
           "spareCar": this.vehical.controls['spareCar'].value ,
           "spareCarLimit": this.vehical.controls['spareCarLimit'].value ,
           "invoicePrice": this.vehical.controls['invoicePrice'].value ,
@@ -1944,7 +1957,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
             "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value ,
             "engineprotector": this.vehical.controls['engineprotector'].value ,
             "ncbprotector": this.vehical.controls['ncbprotector'].value ,
-            "registrationchargesRoadtax": this.vehical.controls['registrationchargesRoadtax'].value ,
+            // "registrationchargesRoadtax": this.vehical.controls['registrationchargesRoadtax'].value ,
             "spareCar": this.vehical.controls['spareCar'].value ,
             "spareCarLimit": this.vehical.controls['spareCarLimit'].value ,
             "invoicePrice": this.vehical.controls['invoicePrice'].value ,
@@ -2079,12 +2092,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['financierName'].patchValue(this.getStepper2.financierName);
       this.vehical.controls['addonValue'].patchValue(this.getStepper2.addonValue);
       this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.isFourWheelerFinanced);
-      this.vehical.controls['coverdriverpremium'].patchValue(this.getStepper2.coverdriverpremium);
+      // this.vehical.controls['coverdriverpremium'].patchValue(this.getStepper2.coverdriverpremium);
       this.vehical.controls['keyreplacementpremium'].patchValue(this.getStepper2.keyreplacementpremium);
       this.vehical.controls['depreciationWaiverpremium'].patchValue(this.getStepper2.depreciationWaiverpremium);
       this.vehical.controls['windShieldGlasspremium'].patchValue(this.getStepper2.windShieldGlasspremium);
       this.vehical.controls['engineprotectorpremium'].patchValue(this.getStepper2.engineprotectorpremium);
-      this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue(this.getStepper2.registrationchargesRoadtaxpremium);
+      // this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue(this.getStepper2.registrationchargesRoadtaxpremium);
       this.vehical.controls['ncbprotectorpremium'].patchValue(this.getStepper2.ncbprotectorpremium);
       this.vehical.controls['invoicePricepremium'].patchValue(this.getStepper2.invoicePricepremium);
       this.vehical.controls['automobileAssociationMembershippremium'].patchValue(this.getStepper2.automobileAssociationMembershippremium);
@@ -2105,7 +2118,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['depreciationWaiver'].patchValue(this.getStepper2.depreciationWaiver);
       this.vehical.controls['engineprotector'].patchValue(this.getStepper2.engineprotector);
       this.vehical.controls['ncbprotector'].patchValue(this.getStepper2.ncbprotector);
-      this.vehical.controls['registrationchargesRoadtax'].patchValue(this.getStepper2.registrationchargesRoadtax);
+      // this.vehical.controls['registrationchargesRoadtax'].patchValue(this.getStepper2.registrationchargesRoadtax);
       this.vehical.controls['spareCar'].patchValue(this.getStepper2.spareCar);
       this.vehical.controls['spareCarLimit'].patchValue(this.getStepper2.spareCarLimit);
       this.vehical.controls['invoicePrice'].patchValue(this.getStepper2.invoicePrice);
@@ -2169,22 +2182,22 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
   }
-  carAccessories(){
-    if (this.vehical.controls['cover_dri_othr_car_ass'].value=='Yes') {
-      // alert('in')
-      this.vehical.controls['coverdriverpremium'].setValidators([Validators.required]);
-      this.coverPremium();
-    }else{
-      this.vehical.controls['coverdriverpremium'].patchValue('');
-      this.vehical.controls['coverdriverpremium'].setValidators(null);
-    }
-    this.vehical.controls['coverdriverpremium'].updateValueAndValidity();
+  // carAccessories(){
+  //   if (this.vehical.controls['cover_dri_othr_car_ass'].value=='Yes') {
+  //     // alert('in')
+  //     this.vehical.controls['coverdriverpremium'].setValidators([Validators.required]);
+  //     this.coverPremium();
+  //   }else{
+  //     this.vehical.controls['coverdriverpremium'].patchValue('');
+  //     this.vehical.controls['coverdriverpremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['coverdriverpremium'].updateValueAndValidity();
+  //
+  // }
 
-  }
-
-  coverdriverpremiumchange(){
-    this.vehical.controls['coverdriverpremium'].patchValue(this.LIABILITY_PA_COVER_TO_PAID_DRIVER);
-  }
+  // coverdriverpremiumchange(){
+  //   this.vehical.controls['coverdriverpremium'].patchValue(this.LIABILITY_PA_COVER_TO_PAID_DRIVER);
+  // }
 
   keyreplacementpremium(){
 
@@ -2250,22 +2263,22 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['engineprotectorpremium'].patchValue(this.ENGINE_PROTECTOR);
   }
 
-  changeregistrationchargesRoadtax(){
-    if (this.vehical.controls['registrationchargesRoadtax'].value=='On') {
-      this.coverPremium();
-      this.vehical.controls['registrationchargesRoadtaxpremium'].setValidators([Validators.required]);
-    }else{
-      this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue('');
-      // this.vehical.controls['registrationchargesRoadtaxpremium'].setValidators(null);
-      this.vehical.controls['registrationchargesRoadtaxpremium'].setValidators([]);
-    }
-    this.vehical.controls['registrationchargesRoadtaxpremium'].updateValueAndValidity();
+  // changeregistrationchargesRoadtax(){
+  //   if (this.vehical.controls['registrationchargesRoadtax'].value=='On') {
+  //     this.coverPremium();
+  //     this.vehical.controls['registrationchargesRoadtaxpremium'].setValidators([Validators.required]);
+  //   }else{
+  //     this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue('');
+  //     // this.vehical.controls['registrationchargesRoadtaxpremium'].setValidators(null);
+  //     this.vehical.controls['registrationchargesRoadtaxpremium'].setValidators([]);
+  //   }
+  //   this.vehical.controls['registrationchargesRoadtaxpremium'].updateValueAndValidity();
+  //
+  // }
 
-  }
-
-  changeregistrationchargesRoadtaxpremium(){
-    this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue(this.LIFE_TIME_ROAD_TAX);
-  }
+  // changeregistrationchargesRoadtaxpremium(){
+  //   this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue(this.LIFE_TIME_ROAD_TAX);
+  // }
 
   ncbprotecorchange(){
     if (this.vehical.controls['ncbprotector'].value=='On') {
@@ -2275,11 +2288,25 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['ncbprotectorpremium'].patchValue('');
       this.vehical.controls['ncbprotectorpremium'].setValidators(null);
     }
-    this.vehical.controls['registrationchargesRoadtaxpremium'].updateValueAndValidity();
+    this.vehical.controls['ncbprotectorpremium'].updateValueAndValidity();
   }
 
   ncbprotecorchangepremium(){
     this.vehical.controls['ncbprotectorpremium'].patchValue(this.NCB_PROTECTOR);
+  }
+
+  invoicePriceChange(){
+    if (this.vehical.controls['invoicePrice'].value=='On') {
+      this.coverPremium();
+      this.vehical.controls['invoicePricepremium'].setValidators([Validators.required]);
+    }else{
+      this.vehical.controls['invoicePricepremium'].patchValue('');
+      this.vehical.controls['invoicePricepremium'].setValidators(null);
+    }
+    this.vehical.controls['invoicePricepremium'].updateValueAndValidity();
+  }
+  invoicePriceChangepremium(){
+    this.vehical.controls['invoicePricepremium'].patchValue(this.INVOICE_PRICE_INSURANCE);
   }
 
   automobilepremium(){

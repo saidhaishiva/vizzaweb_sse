@@ -201,7 +201,7 @@
                                         <div class="row">
                                            <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName" (selectionChange)="changeVehicleName()" required >
+                                                    <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName" (selectionChange)="changeVehicleName();vechicleReq()" required >
                                                         <mat-option *ngFor="let vehiclebk of registrationNameList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="vehical.controls.vehicleRegisteredName.errors?.required">Vehicle Registered Name is required</mat-error>
@@ -209,10 +209,11 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-3" *ngIf="vehical.controls['vehicleRegisteredName'].value == 'Company'" required>
+                                            <div class="col-md-3" >
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Company Name"  formControlName="companyName"  autocomplete="off">
-                                                    <mat-error *ngIf="vehical.controls.companyName.errors?.required">Company Name is required</mat-error>
+                                                    <mat-placeholder>Company Name<span class="error" >*</span></mat-placeholder>
+                                                    <input matInput   formControlName="companyName"  autocomplete="off">
+                                                    <!--<mat-error *ngIf="vehical.controls.companyName.errors?.required">Company Name is required</mat-error>-->
 
                                                 </mat-form-field>
                                             </div>
@@ -263,12 +264,12 @@
                                                             <mat-radio-button value="No">No</mat-radio-button>
                                                         </mat-radio-group>
                                                     </div>
-                                                    <div class="col-md-4 mt-3"  *ngIf="vehical.controls['cover_dri_othr_car_ass'].value == 'Yes'">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Cover Premium"  formControlName="coverdriverpremium"  autocomplete="off" readonly>
-                                                            <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                        </mat-form-field>
-                                                    </div>
+                                                    <!--<div class="col-md-4 mt-3"  *ngIf="vehical.controls['cover_dri_othr_car_ass'].value == 'Yes'">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput placeholder="Cover Premium"  formControlName="coverdriverpremium"  autocomplete="off" readonly>-->
+                                                            <!--&lt;!&ndash;<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>&ndash;&gt;-->
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
                                                 </div>
                                             </div>
                                             <div class="col-md-12 mt-2" style="margin-left:-14px;">
@@ -397,23 +398,23 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 mt-2" >
-                                                    <div class="row">
-                                                        <div class="col-md-4" >
-                                                            <p>Registration Charges Road Tax</p>
-                                                            <mat-radio-group formControlName="registrationchargesRoadtax"(change)="changeregistrationchargesRoadtax()">
-                                                                <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
-                                                                <mat-radio-button value="Off">No</mat-radio-button>
-                                                            </mat-radio-group>
-                                                        </div>
-                                                        <div class="col-md-3 mt-3"  *ngIf="vehical.controls['registrationchargesRoadtax'].value == 'On'">
-                                                            <mat-form-field class="w-100">
-                                                                <input matInput placeholder="Cover Premium"  formControlName="registrationchargesRoadtaxpremium"  autocomplete="off" readonly >
-                                                                <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                            </mat-form-field>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <!--<div class="col-md-12 mt-2" >-->
+                                                    <!--<div class="row">-->
+                                                        <!--<div class="col-md-4" >-->
+                                                            <!--<p>Registration Charges Road Tax</p>-->
+                                                            <!--<mat-radio-group formControlName="registrationchargesRoadtax"(change)="changeregistrationchargesRoadtax()">-->
+                                                                <!--<mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>-->
+                                                                <!--<mat-radio-button value="Off">No</mat-radio-button>-->
+                                                            <!--</mat-radio-group>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="col-md-3 mt-3"  *ngIf="vehical.controls['registrationchargesRoadtax'].value == 'On'">-->
+                                                            <!--<mat-form-field class="w-100">-->
+                                                                <!--<input matInput placeholder="Cover Premium"  formControlName="registrationchargesRoadtaxpremium"  autocomplete="off" readonly >-->
+                                                                <!--&lt;!&ndash;<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>&ndash;&gt;-->
+                                                            <!--</mat-form-field>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
                                                 <div class="col-md-12 mt-2" *ngIf="vehicledetailsfw.business_type != '1'">
                                                     <div class="row">
                                                         <div class="col-md-4" >
@@ -455,7 +456,7 @@
                                                         <div class="col-md-4 " >
                                                             <p>Full Invoice Price Insurance Covers</p>
                                                             <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
-                                                            <mat-radio-group formControlName="invoicePrice">
+                                                            <mat-radio-group formControlName="invoicePrice" (change)="invoicePriceChange()">
                                                                 <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
                                                                 <mat-radio-button value="Off">No</mat-radio-button>
                                                             </mat-radio-group>
@@ -974,7 +975,7 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.averageMonthlyMileageRun != ''"><strong>Average Monthly Mileage Run :</strong> {{vehicalFormData.averageMonthlyMileageRun}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.typeOfCover != ''" ><strong>Type Of Cover :</strong> {{vehicalFormData.typeOfCover }}</li>
                                             <li class="list-group-item"  ><strong>Do you Need Cover for Driver / Other Passengers / Car Accessories? :</strong> {{vehicalFormData.cover_dri_othr_car_ass }}</li>
-                                            <li class="list-group-item"  ><strong>Cover Premium for Driver / Other Passengers / Car Accessories :</strong> {{LIABILITY_PA_COVER_TO_PAID_DRIVER}}</li>
+                                            <!--<li class="list-group-item"  ><strong>Cover Premium for Driver / Other Passengers / Car Accessories :</strong> {{LIABILITY_PA_COVER_TO_PAID_DRIVER}}</li>-->
                                             <li class="list-group-item" ><strong>Is Car Ownership Changed  :</strong> {{vehicalFormData.isCarOwnershipChanged }}</li>
                                             <li class="list-group-item" ><strong>Automobile Association Membership :</strong> {{vehicalFormData.automobileAssociationMembership }}</li>
                                             <li class="list-group-item" ><strong>Automobile Association Cover Premium :</strong> {{AUTOMOBILE_ASSOCIATION_DISCOUNT}}</li>
@@ -986,8 +987,8 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.depreciationWaiver != ''" ><strong>Depreciation Waiver Cover Premium : </strong> {{DEPRECIATION_WAIVER}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.windShieldGlass != ''" ><strong>Wind Shield Glass : </strong> <span *ngIf="vehicalFormData.windShieldGlass == 'On'">Yes</span> <span *ngIf="vehicalFormData.windShieldGlass == 'Off'">No</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.engineprotector != ''" ><strong>Engine Protector : </strong> <span *ngIf="vehicalFormData.engineprotector == 'On'">Yes</span> <span *ngIf="vehicalFormData.engineprotector == 'Off'">No</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.registrationchargesRoadtax != ''" ><strong>Registration Charges Road Tax : </strong> <span *ngIf="vehicalFormData.registrationchargesRoadtax == 'On'">Yes</span> <span *ngIf="vehicalFormData.registrationchargesRoadtax == 'Off'">No</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.registrationchargesRoadtax != ''" ><strong>Road Tax Cover Premium : </strong> {{LIFE_TIME_ROAD_TAX}}</li>
+                                            <!--<li class="list-group-item" *ngIf="vehicalFormData.registrationchargesRoadtax != ''" ><strong>Registration Charges Road Tax : </strong> <span *ngIf="vehicalFormData.registrationchargesRoadtax == 'On'">Yes</span> <span *ngIf="vehicalFormData.registrationchargesRoadtax == 'Off'">No</span></li>-->
+                                            <!--<li class="list-group-item" *ngIf="vehicalFormData.registrationchargesRoadtax != ''" ><strong>Road Tax Cover Premium : </strong> {{LIFE_TIME_ROAD_TAX}}</li>-->
 
                                         </ul>
                                     </div>
@@ -1001,6 +1002,7 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.spareCar != ''" ><strong>Spare Car : </strong> <span *ngIf="vehicalFormData.spareCar == 'On'">Yes</span> <span *ngIf="vehicalFormData.spareCar == 'Off'">No</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.spareCarLimit != ''"><strong>SpareCar Limit :</strong> {{vehicalFormData.spareCarLimit}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.invoicePrice != ''" ><strong>Invoice Price : </strong> <span *ngIf="vehicalFormData.invoicePrice == 'On'">Yes</span> <span *ngIf="vehicalFormData.invoicePrice == 'Off'">No</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.invoicePrice != ''" ><strong>Invoice Price Premium : </strong> {{INVOICE_PRICE_INSURANCE}}</li>
                                             <li class="list-group-item"  ><strong>Is BiFuel Kit :</strong> {{vehicalFormData.isBiFuelKit }}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.isBiFuelKitYes != ''" ><strong>Value Of BiFuel Kit:</strong> {{vehicalFormData.isBiFuelKitYes}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.isBiFuelKitYes != ''" ><strong>BiFuel Kit Cover Premium: </strong> {{BI_FUEL_KIT}}</li>
@@ -1028,9 +1030,9 @@
                                 <div class="col-md-6" *ngFor="let item of vehicalFormData.electricalAccess; let i = index;">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="item.nameOfElectronicAccessories != '' || item.nameOfElectronicAccessories != null"><strong> Name Of Electronic Accessories:</strong> {{item.nameOfElectronicAccessories}}</li>
-                                            <li class="list-group-item" *ngIf="item.makeModel != '' || item.makeModel != null"><strong>Make Model:</strong> {{item.makeModel}}</li>
-                                            <li class="list-group-item" *ngIf="item.elecValue != '' || item.elecValue != null || item.elecValue != 'err'"><strong>Value:</strong> {{item.elecValue}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss == true"><strong> Name Of Electronic Accessories:</strong> {{item.nameOfElectronicAccessories}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss == true"><strong>Make Model:</strong> {{item.makeModel}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss == true"><strong>Value:</strong> {{item.elecValue}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1040,9 +1042,9 @@
                                 <div class="col-md-6" *ngFor="let item of vehicalFormData. nonelectricalAccess; let i = index;">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="item.nameOfElectronicAccessories != '' || item.nameOfElectronicAccessories != null"><strong> Name Of Non Electronic Accessories:</strong> {{item.nameOfElectronicAccessories}}</li>
-                                            <li class="list-group-item" *ngIf="item.makeModel != '' || item.makeModel != null"><strong>  Make Model:</strong> {{item.makeModel}}</li>
-                                            <li class="list-group-item" *ngIf="item.elecValue != '' || item.elecValue != null || item.elecValue != 'err'"><strong>Value:</strong> {{item.elecValue}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.cover_non_elec_acc == true"><strong> Name Of Non Electronic Accessories:</strong> {{item.nameOfElectronicAccessories}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.cover_non_elec_acc == true"><strong>  Make Model:</strong> {{item.makeModel}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.cover_non_elec_acc == true"><strong>Value:</strong> {{item.elecValue}}</li>
                                         </ul>
                                     </div>
                                 </div>
