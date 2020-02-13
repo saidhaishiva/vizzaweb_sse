@@ -299,6 +299,18 @@ public electricaAccessories: boolean;
   //   let ssss =  this.vehical.get('nonelectricalAccess') as FormArray;
   //   ssss.removeAt(index);
   // }
+
+  vechicleReq(){
+    if (this.vehical.controls['vehicleRegisteredName'].value) {
+      this.vehical.controls['companyName'].setValidators([Validators.required]);
+    } else  {
+      this.vehical.controls['companyName'].patchValue('');
+
+      this.vehical.controls['companyName'].setValidators(null);
+    }
+    this.vehical.controls['companyName'].updateValueAndValidity();
+  }
+
   // title
 
   title(){
