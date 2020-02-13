@@ -1002,7 +1002,7 @@ ChangeGender(){
             this.addOns.controls['ncbprotectionpremium'].setValidators(null);
         }
         this.addOns.controls['ncbprotectionpremium'].updateValueAndValidity();
-        this.addOns.controls['IsNCBProtection'].patchValue(this.ncbprotection);
+        // this.addOns.controls['IsNCBProtection'].patchValue(this.ncbprotection);
 
     }
 
@@ -1816,7 +1816,7 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
                     "IsLossofUseDownTimeProt_Cover": this.addOns.controls['downtimeprotector'].value == true ? '1' : '0',
                     "IsEA_Cover": this.addOns.controls['IsEAAdvance_Cover'].value == true ? '1' : '0',
                     "IsEAW_Cover": this.addOns.controls['EAW'].value == true ? '1' : '0',
-                    "IsEAAdvance_Cover": this.addOns.controls['IsEAAdvance_Cover'].value == true ? '1' : '0',
+                    "IsEAAdvance_Cover": '0',
 
                     "NoofUnnamedPerson": this.addOns.controls['NoofUnnamedPerson'].value == true ? '1' : '0',
                     "UnnamedPersonSI": this.addOns.controls['UnnamedPersonSI'].value,
@@ -1856,7 +1856,7 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
             this.PaidDriver_Premium=this.coverPremium.PaidDriver_Premium;
             this.zero_dep=this.coverPremium.zero_dep;
             this.EAW_premium=this.coverPremium.EAW_premium;
-            this.EAAdvance_premium=this.coverPremium.EAAdvance_premium;
+            this.EAAdvance_premium=this.coverPremium.EA_premium;
             this.EMI_PROTECTOR_PREMIUM=this.coverPremium.EMI_PROTECTOR_PREMIUM;
             this.TPPD_premium=this.coverPremium.TPPD_premium;
             this.returninvoce=this.coverPremium.returninvoce;
@@ -2024,7 +2024,7 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
                 "IsLossofUseDownTimeProt_Cover": this.addOns.controls['downtimeprotector'].value == true ? '1' : '0',
                 "IsEA_Cover": this.addOns.controls['IsEAAdvance_Cover'].value == true ? '1' : '0',
                 "IsEAW_Cover": this.addOns.controls['EAW'].value == true ? '1' : '0',
-                "IsEAAdvance_Cover": this.addOns.controls['IsEAAdvance_Cover'].value == true ? '1' : '0',
+                "IsEAAdvance_Cover": '0',
 
                 "NoofUnnamedPerson": this.addOns.controls['NoofUnnamedPerson'].value == true ? '1' : '0',
                 "UnnamedPersonSI": this.addOns.controls['UnnamedPersonSI'].value,
