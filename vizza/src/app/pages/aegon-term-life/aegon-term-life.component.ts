@@ -386,7 +386,7 @@ export class AegonTermLifeComponent implements OnInit {
   uploadvalid() {
 
       console.log('11111111doc');
-      this.window.open(this.redirectUrl,'_top')
+      this.window.open(this.customerurl,'_top')
       console.log('22222');
 
   }
@@ -497,46 +497,53 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
 
-  getCustomer() {
-    const data = {
+  getCustomer(values) {
+    if (this.customer.valid) {
+
+      const data = {
 
 
-      "index": {
+        "index": {
 
-        'platform': 'web',
-        'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : 4,
-        'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-        'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-        'policy_id': this.getEnquiryDetials.policy_id,
-        'sum_assured': this.getEnquiryDetials.sum_assured_id,
-        'company_id': '14',
-        "product_id": '102',
-      },
-      "customer_form":{
-        "name": this.customer.controls['name'].value,
-        "mobile": this.customer.controls['mobile'].value,
-        "email": this.customer.controls['email'].value,
-        "city": sessionStorage.cityid,
-        "income": this.customer.controls['annualIncome'].value,
-        "dob": this.customer.controls['dob'].value,
-        "Gender": this.customer.controls['gender'].value,
-        "Issmoker": this.customer.controls['smoker'].value,
-        "Occupation": this.customer.controls['occupation'].value
-      }
-    }
-    this.TermLifeService.getCustomer(data).subscribe(
-        (successData) => {
-          this.getCustomeSuccess(successData);
+          'platform': 'web',
+          'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : 4,
+          'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+          'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+          'policy_id': this.getEnquiryDetials.policy_id,
+          'sum_assured': this.getEnquiryDetials.sum_assured_id,
+          'company_id': '14',
+          "product_id": '102',
         },
-        (error) => {
-          this.getCustomeFailure(error);
+        "customer_form": {
+          "name": this.customer.controls['name'].value,
+          "mobile": this.customer.controls['mobile'].value,
+          "email": this.customer.controls['email'].value,
+          "city": sessionStorage.cityid,
+          "income": this.customer.controls['annualIncome'].value,
+          "dob": this.customer.controls['dob'].value,
+          "Gender": this.customer.controls['gender'].value,
+          "Issmoker": this.customer.controls['smoker'].value,
+          "Occupation": this.customer.controls['occupation'].value
         }
-    );
+      }
+      this.TermLifeService.getCustomer(data).subscribe(
+          (successData) => {
+            this.getCustomeSuccess(successData);
+          },
+          (error) => {
+            this.getCustomeFailure(error);
+          }
+      );
+    }
+
   }
 
   public getCustomeSuccess(successData) {
     if (successData.IsSuccess) {
+      alert('inn')
       this.customerurl = successData.ResponseObject.productlist.customer_form_url[0];
+      this.window.open(this.customerurl,'_top');
+
       console.log(this.customerurl,'hgrfhgfghfgjhdu6dhddtg')
 
     }

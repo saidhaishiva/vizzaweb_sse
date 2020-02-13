@@ -60,7 +60,7 @@
                         </mat-form-field></div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Occupation" formControlName="occupation" autocomplete="off"   required>
+                            <mat-select placeholder="Occupation" formControlName="occupation" autocomplete="off"   required >
                               <mat-option *ngFor="let list of empTypeList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
@@ -89,7 +89,7 @@
 
 
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="smoker" required (change)="getPremium('smoker')">
+                          <mat-radio-group formControlName="smoker" required (click)="getCustomer()">
                             <p>Smoker <span class="error" >*</span></p>
                             <mat-radio-button value="y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="n">No</mat-radio-button>
@@ -98,29 +98,39 @@
 
                       </div>
                     </div>
-<!--                    <div class="col-md-12">-->
-<!--                      <div class="proposal-buttom text-center w-100">-->
-<!--                        <form action="{{customerurl}}"  method='POST' #form>-->
-<!--&lt;!&ndash;                          <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>&ndash;&gt;-->
-<!--                          &lt;!&ndash;<form action={{proposalNextList.payment_link}}  method='post' #form>&ndash;&gt;-->
-<!--                          <button mat-raised-button color="primaryBlue" (click)="getCustomer()">Submit</button>-->
-<!--                        </form>-->
-<!--                      </div>-->
-<!--                    </div>-->
+                    <div class="col-md-12">
+                      <div class="proposal-buttom text-center w-100">
+                        <!--<form action="{{customerurl}}"  method='POST' #form>-->
+<!--                          <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
+                          <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
+                          <button mat-raised-button color="primaryBlue" (click)="getCustomer(customer.value)">Submit</button>
+                        <!--</form>-->
+                      </div>
+                    </div>
+                    <!--<div class="col-md-12">-->
+                                      <!--<div class="proposal-buttom text-center w-100">-->
+                                        <!--<form action={{customerurl}}  method='POST' #form>-->
+                                          <!--&lt;!&ndash;<button mat-button matStepperPrevious  (click)="topScroll()">Back</button>&ndash;&gt;-->
+                                          <!--&lt;!&ndash;<form action={{proposalNextList.payment_link}}  method='post' #form>&ndash;&gt;-->
+                                          <!--<button mat-raised-button color="primaryBlue"  (click)="uploadvalid()">Pay Now1</button>-->
+                                        <!--</form>-->
+                                      <!--</div>-->
+                                    <!--</div>-->
 
-                    <div class="row">
-                    <div class="col-md-12 text-center">
-                    <a href="{{summaryData.customerurl}}">Pay Now</a>
-<!--                    <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>-->
-                    <button mat-raised-button color="primaryBlue"  routerLink="['{{'customerurl'}}']">Pay Now</button>
-                    </div>
-                    </div>
+                    <!--<div class="row">-->
+                    <!--<div class="col-md-12 text-center">-->
+                      <!--<button mat-raised-button color="primaryBlue" ><a (click)="getCustomer();uploadvalid()" href="{{customerurl}}"  style="color: #ffffff;">Submit</a></button>-->
+<!--&lt;!&ndash;                    <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button mat-raised-button color="primaryBlue"  routerLink="['{{'customerurl'}}']">Pay Now</button>&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--</div>-->
 
 <!--                    <div class="proposal-buttom mt-3 text-right w-100" style="margin-left: -34px;">-->
 <!--                      &lt;!&ndash;<button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>&ndash;&gt;-->
 <!--                      <button mat-raised-button color="primaryBlue"  (click)="getCustomer()" >Submit</button>-->
 <!--                    </div>-->
                   </div>
+
                 </mat-expansion-panel>
               </mat-accordion>
             </form>
