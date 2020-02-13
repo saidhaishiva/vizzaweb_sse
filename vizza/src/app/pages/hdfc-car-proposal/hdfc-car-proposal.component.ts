@@ -1493,16 +1493,9 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
             console.log(this.proposer.valid,'valid');
             if (this.proposer.valid) {
                 console.log(this.proposer.valid,'proposervalid');
-                // alert('inn')
                 if (sessionStorage.proposerAge >= '18') {
-                    alert('age')
-                    // if( this.altererror==''){
-                        alert('error')
                         stepper.next();
                         this.topScroll();
-                    // }
-
-
                 }else {
                     this.toastr.error('Proposer Age should be greater than 18.')
                 }
