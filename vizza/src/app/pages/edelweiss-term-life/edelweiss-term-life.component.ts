@@ -10247,7 +10247,8 @@ export class EdelweissOpt {
     if (successData.IsSuccess) {
       this.receiptNo = successData.ResponseObject.receipt_no;
       this.toastr.success(successData.ResponseMessage);
-      this.summaryData.receipt_no=''
+      this.receiptNo1=''
+      console.log(this.receiptNo1,'43567890897657')
       // this.dialogRef.close(true);
     } else {
       this.toastr.error(successData.ErrorObject);
