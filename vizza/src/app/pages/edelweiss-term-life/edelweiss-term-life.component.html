@@ -99,6 +99,7 @@
                         </form>
                     </mat-accordion>
                 </mat-step>
+
                 <mat-step [stepControl]="">
                     <ng-template matStepLabel >ADDON /</ng-template>
                     <mat-accordion class="w-100 float-left">
@@ -141,6 +142,7 @@
                                             <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10" (change)="betterhalf()" readonly>
                                         </mat-form-field>
                                     </div>
+
 
                                     <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
                                         <p *ngIf="BhP != 0"><strong> Better Half Benefit Premium :</strong> {{BhP}}</p>
@@ -1530,8 +1532,6 @@
                         </form>
                     </mat-accordion>
                 </mat-step>
-
-
 
                 <mat-step [stepControl]="">
                     <ng-template matStepLabel > QUESTIONNAIRES </ng-template>
@@ -4736,9 +4736,6 @@
                     </mat-accordion>
                 </mat-step>
 
-
-
-
                 <mat-step [stepControl]="">
                     <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
                     <mat-accordion class="mt-4 w-100 float-left">
@@ -6118,8 +6115,6 @@
                                                 <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg, pdf</span></span>
                                                 </p>
                                             </div>
-
-
 
                                             <div class="col-md-9">
                                                 <input matInput placeholder="Photograph" readonly>

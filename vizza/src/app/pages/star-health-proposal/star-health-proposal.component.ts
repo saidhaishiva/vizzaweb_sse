@@ -891,7 +891,7 @@ export class StarHealthProposalComponent implements OnInit {
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_relationship_name = '';
             this.familyMembers[i].ins_hospital_cash = '1';
-            this.familyMembers[i].ins_engage_manual_labour = '';
+            this.familyMembers[i].ins_engage_manual_labour = 'None';
             this.familyMembers[i].ins_engage_winter_sports = 'None';
             this.familyMembers[i].ins_personal_accident_applicable = '0';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
@@ -1508,7 +1508,7 @@ export class StarHealthProposalComponent implements OnInit {
         const data = [{
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'proposal_id' :sessionStorage.proposalID ? sessionStorage.proposalID = '':sessionStorage.proposalIdStar,
+            'proposal_id' :sessionStorage.proposalIdStar,
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'group_name':  this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
