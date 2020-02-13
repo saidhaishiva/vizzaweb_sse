@@ -1104,7 +1104,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public coverTypeFailure(error) {
   }
   vechicleReq(){
-    if (this.vehical.controls['vehicleRegisteredName'].value) {
+    if (this.vehical.controls['vehicleRegisteredName'].value == 'Company') {
       this.vehical.controls['companyName'].setValidators([Validators.required]);
     } else  {
       this.vehical.controls['companyName'].patchValue('');

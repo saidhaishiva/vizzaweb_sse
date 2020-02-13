@@ -301,7 +301,7 @@ public electricaAccessories: boolean;
   // }
 
   vechicleReq(){
-    if (this.vehical.controls['vehicleRegisteredName'].value) {
+    if (this.vehical.controls['vehicleRegisteredName'].value == 'Company') {
       this.vehical.controls['companyName'].setValidators([Validators.required]);
     } else  {
       this.vehical.controls['companyName'].patchValue('');
