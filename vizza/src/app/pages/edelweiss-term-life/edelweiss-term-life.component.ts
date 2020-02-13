@@ -314,6 +314,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public maritalSpouseSingleValue:any;
   public maritalSingleValue:any;
   public eHistoryFamily:any;
+  public receiptNo:any;
   public eCompanyList:any;
   public deleteIndexId:any;
   public premiumValue:boolean;
@@ -9373,7 +9374,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public resendOTPListSuccess(successData) {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
-      // this.receiptNo = successData.ResponseObject.receipt_no;
+      this.receiptNo = successData.ResponseObject.receipt_no;
+      sessionStorage.receipt = JSON.stringify(this.receiptNo);
       this.toastr.success(successData.ResponseMessage);
       // this.summaryData.receipt_no=''
       // this.dialogRef.close(true);
@@ -10121,6 +10123,7 @@ export class EdelweissOpt {
   otpCode: any;
   receiptNo: any;
   summaryData: any;
+  receiptNo1: any;
   getEnquiryDetials: any;
   enquiryFormData: any;
   lifePremiumList: any;
@@ -10130,8 +10133,10 @@ export class EdelweissOpt {
       @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute,  public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
     this.otpCode = '';
     let summaryData = JSON.parse(sessionStorage.summaryData);
+    let receipt = JSON.parse(sessionStorage.receipt);
     this.summaryData = summaryData;
-    console.log(this.summaryData,'44444444')
+    this.receiptNo1 = receipt;
+    console.log(this.receiptNo1,'44444444')
     this. getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     console.log(this.getEnquiryDetials,'11111111')
     this. enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
@@ -10147,7 +10152,7 @@ export class EdelweissOpt {
   otpEdVal() {
 
     console.log(this.summaryData.receipt_no,'receipt....')
-    if(this.summaryData.receipt_no!=''){
+    if(this.receiptNo1!=''){
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -10155,7 +10160,7 @@ export class EdelweissOpt {
       "platform": "web",
       "product_id": this.lifePremiumList.product_id,
       "policy_id": this.getEnquiryDetials.policy_id,
-      "transaction_id":this.summaryData.receipt_no,
+      "transaction_id":this.receiptNo1,
       "otp":this.otpCode
     }
       this.settings.loadingSpinner = true;
@@ -10170,7 +10175,7 @@ export class EdelweissOpt {
         }
     );
     }
-    if(this.summaryData.receipt_no == ''){
+    if(this.receiptNo1 == ''){
       console.log('555555555555.....')
       const data = {
         "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
