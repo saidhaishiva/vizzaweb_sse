@@ -209,7 +209,7 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-3" >
+                                            <div class="col-md-3" *ngIf="vehical.controls['vehicleRegisteredName'].value == 'Company'">
                                                 <mat-form-field class="w-100">
                                                     <mat-placeholder>Company Name<span class="error" >*</span></mat-placeholder>
                                                     <input matInput   formControlName="companyName"  autocomplete="off">
