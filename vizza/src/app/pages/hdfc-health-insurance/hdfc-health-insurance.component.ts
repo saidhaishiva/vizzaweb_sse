@@ -502,14 +502,14 @@ export class HdfcHealthInsuranceComponent implements OnInit {
          }
 
 
-        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 36 && type == 'Mother') {
-            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be above 36');
-        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Mother') {
+        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 13149 && type == 'Mother') {
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be 36 and above');
+        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 13149 && type == 'Mother') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 36 && type == 'Father') {
-            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Father age should be above 36');
-        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == 'Father') {
+        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 13149 && type == 'Father') {
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Father age should be 36 and above');
+        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 13149 && type == 'Father') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
         if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 1 && type == 'Sister') {
@@ -522,14 +522,14 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 1 && type == 'Brother') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Father In Law') {
-            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Father In Law age should be above 36');
-        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Father In Law') {
+        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 36 && type == ' Father In Law') {
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Father In Law age should be 36 and above ');
+        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 36 && type == ' Father In Law') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 36 && type == ' Mother In Law') {
-            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Mother In Law age should be above 36');
-        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law') {
+        if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 36 && type == ' Mother In Law') {
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(' Mother In Law age should be 36 and above ');
+        } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 36 && type == ' Mother In Law') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
 
