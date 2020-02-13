@@ -206,7 +206,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName" (selectionChange)="changeVehicleName()"  required>
+                          <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName" (selectionChange)="changeVehicleName();vechicleReq()"  required>
                             <mat-option *ngFor="let vehiclebk of registrationNameList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                           </mat-select>
                             <mat-error *ngIf="vehical.controls.vehicleRegisteredName.errors?.required">Vehicle Registered Name is required</mat-error>
@@ -215,8 +215,9 @@
                       </div>
                         <div class="col-md-3" *ngIf="vehical.controls['vehicleRegisteredName'].value == 'Company'" >
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Company Name"  formControlName="companyName"  autocomplete="off" [required]="vehical.controls['vehicleRegisteredName'].value == 'Company'">
-                                <mat-error *ngIf="vehical.controls.companyName.errors?.required">Company Name is required</mat-error>
+                                <mat-placeholder>Company Name<span class="error" >*</span></mat-placeholder>
+                                <input matInput  formControlName="companyName"  autocomplete="off" >
+                                <!--<mat-error *ngIf="vehical.controls.companyName.errors?.required">Company Name is required</mat-error>-->
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="vehicledetails.business_type == '1'">

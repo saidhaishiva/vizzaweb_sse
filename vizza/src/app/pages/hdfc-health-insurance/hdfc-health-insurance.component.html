@@ -423,7 +423,7 @@
                           <li class="list-group-item"><strong>D.O.B:</strong> {{personlData.dob | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item"><strong>Email:</strong> {{personlData.email}}</li>
                           <li class="list-group-item"><strong>Mobile:</strong> {{personlData.mobile}}</li>
-                          <li class="list-group-item"><strong>PanNumber:</strong> {{personlData.personalPan}}</li>
+                          <li class="list-group-item" *ngIf="personlData.personalPan != ''"><strong>PanNumber:</strong> {{personlData.personalPan}}</li>
                           <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="personlData.paymentmode == 'CC'">Credit Card</span> <span *ngIf="personlData.paymentmode == 'DD'">Debit Card</span></li>
                         </ul>
                       </div>
@@ -538,6 +538,7 @@
                           <li class="list-group-item"><strong>D.O.B:</strong> {{requestCustomerDetails.ApplDOB | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item"><strong>Email:</strong> {{requestCustomerDetails.EmailId}}</li>
                           <li class="list-group-item"><strong>Mobile:</strong> {{requestCustomerDetails.MobileNo}}</li>
+                          <li class="list-group-item" *ngIf="requestCustomerDetails.personalPan != ''"><strong>PanNumber:</strong> {{requestCustomerDetails.personalPan}}</li>
                           <li class="list-group-item"><strong>Payment:</strong> <span *ngIf="requestDetails.InsuranceDetails.PaymentDetails.PaymentMode == 'CC'">Credit Card</span> <span *ngIf="requestDetails.InsuranceDetails.PaymentDetails.PaymentMode == 'DD'">Debit Card</span></li>
 
                         </ul>

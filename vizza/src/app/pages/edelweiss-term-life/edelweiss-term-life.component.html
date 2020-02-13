@@ -5599,13 +5599,13 @@
 
                                 <div class="col-md-6"  >
                                     <div class="p-3">
-                                        <h6 class="color-blue" *ngIf="medicalFormData.pregnantInd=='Yes'">For Female Lives</h6>
+                                        <h6 class="color-blue" *ngIf="(medicalFormData.pregnantInd=='Yes'||(medicalFormData.pregnantInd=='No'))">For Female Lives</h6>
                                         <ul class="m-0 list-group">
 
-                                            <li class="list-group-item" *ngIf=" medicalFormData.pregnantInd=='Yes'&&lifePremiumList.product_id=='112'"><strong>Are you Pregnant?:</strong> {{medicalFormData.pregnantInd}}</li>
+                                            <li class="list-group-item" *ngIf=" (medicalFormData.pregnantInd=='Yes'||(medicalFormData.pregnantInd=='No'))&&lifePremiumList.product_id=='112'"><strong>Are you Pregnant?:</strong> {{medicalFormData.pregnantInd}}</li>
                                             <li class="list-group-item" *ngIf="medicalFormData.pregnantInd =='Yes' && lifePremiumList.product_id=='112'" ><strong>Pregnant weeks:</strong> {{medicalFormData.pregnantweeks}}</li>
-                                            <li class="list-group-item" *ngIf=" medicalFormData.femaleDieaseInd=='Yes'&& lifePremiumList.product_id=='112'" ><strong>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement?</strong> {{medicalFormData.femaleDieaseInd}}</li>
-                                            <li class="list-group-item" *ngIf="medicalFormData.femaleDetails !='' && lifePremiumList.product_id=='112'"><strong>if Yes,Provide Details:</strong> {{medicalFormData.femaleDetails}}</li>
+                                            <li class="list-group-item" *ngIf=" (medicalFormData.femaleDieaseInd=='Yes'|| medicalFormData.femaleDieaseInd=='No')&& lifePremiumList.product_id=='112'" ><strong>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement?</strong> {{medicalFormData.femaleDieaseInd}}</li>
+                                            <li class="list-group-item" *ngIf="(medicalFormData.femaleDetails !='') && lifePremiumList.product_id=='112'"><strong>if Yes,Provide Details:</strong> {{medicalFormData.femaleDetails}}</li>
 
                                         </ul>
                                     </div>
@@ -5796,11 +5796,11 @@
 
                                         <div class="col-md-6"  *ngIf="addonFormData.betterHalfBenefit=='Yes'">
                                             <div class="p-3">
-                                                <h6 class="color-blue" *ngIf="medicalFormData.pregnantInd1=='Yes'">For Female Lives</h6>
+                                                <h6 class="color-blue" *ngIf="medicalFormData.pregnantInd1=='Yes'||medicalFormData.pregnantInd1=='No'">For Female Lives</h6>
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" *ngIf="medicalFormData.pregnantInd1=='Yes' && lifePremiumList.product_id=='112'"><strong>Pregnant:</strong> {{medicalFormData.pregnantInd1}}</li>
+                                                    <li class="list-group-item" *ngIf="(medicalFormData.pregnantInd1=='Yes'||medicalFormData.pregnantInd1=='No') && lifePremiumList.product_id=='112'"><strong>Pregnant:</strong> {{medicalFormData.pregnantInd1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.pregnantInd1 =='Yes' && lifePremiumList.product_id=='112'" ><strong>Pregnant weeks:</strong> {{medicalFormData.pregnantweeks1}}</li>
-                                                    <li class="list-group-item" *ngIf=" medicalFormData.femaleDieaseInd1=='Yes' &&lifePremiumList.product_id=='112'" ><strong>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement?</strong> {{medicalFormData.femaleDieaseInd1}}</li>
+                                                    <li class="list-group-item" *ngIf=" (medicalFormData.femaleDieaseInd1=='Yes'||medicalFormData.femaleDieaseInd1=='No') &&lifePremiumList.product_id=='112'" ><strong>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement?</strong> {{medicalFormData.femaleDieaseInd1}}</li>
                                                     <li class="list-group-item" *ngIf="medicalFormData.femaleDetails1 != '' && lifePremiumList.product_id=='112'"><strong>if Yes,Provide Details:</strong> {{medicalFormData.femaleDetails1}}</li>
 
                                                 </ul>
