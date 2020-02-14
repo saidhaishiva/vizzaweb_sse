@@ -381,9 +381,9 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
         if(valueDil < this.buyBikeDetails.registration_date ){
             this.nilDepValue=true;
-            alert('in')
+            // alert('in')
         }else{
-            alert('out')
+            // alert('out')
             this.nilDepValue=false;
         }
         console.log(this.nilDepValue,'nilDepValue....')
