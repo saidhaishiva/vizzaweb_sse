@@ -41,6 +41,9 @@ export class TermLifeComponent implements OnInit {
     public selectDate: any;
     public productName: any;
     public pin:any;
+    public pincod:any;
+    public city:any;
+    public cityid:any;
     public title: any;
     public response: any;
     public pincodeErrors: boolean;
@@ -159,6 +162,7 @@ export class TermLifeComponent implements OnInit {
                 lifePincode: enquiryFormData.lifePincode,
                 lifesmoker : enquiryFormData.lifesmoker,
                 lifeannualIncome : enquiryFormData.lifeannualIncome
+               
             });
         }
         if(sessionStorage.pincodeErrors != '' && sessionStorage.pincodeErrors !=undefined) {
@@ -267,6 +271,13 @@ export class TermLifeComponent implements OnInit {
     public getPincodeDetailsSuccess(successData) {
         if (successData) {
             this.pincodeErrors = false;
+            this.pincod = successData.ResponseObject;
+            this.cityid =this.pincod.cityid;
+            this.city =this.pincod.city;
+            // alert(this.city)
+            // alert(this.cityid)
+            sessionStorage.cityid =this.cityid;
+            sessionStorage.city =this.city;
         }else {
             this.toastr.error(successData.ErrorObject);
             this.pincodeErrors = true;
