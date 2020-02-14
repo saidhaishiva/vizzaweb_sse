@@ -18,6 +18,9 @@ import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 import { WINDOW } from '@ng-toolkit/universal';
+import {CommonService} from '../../shared/services/common.service';
+import {FourWheelerService} from '../../shared/services/four-wheeler.service';
+// import {DialogData} from '../bike-tataaig-proposal/bike-tataaig-proposal.component';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -30,6 +33,16 @@ export const MY_FORMATS = {
         monthYearA11yLabel: 'MM YYYY',
     },
 };
+export interface DialogData {
+    name: string;
+    question1:string
+    animal:string
+    payanimal:string
+    animal1:string
+    planname:string
+    productID:string
+
+}
 @Component({
     selector: 'app-star-health-proposal',
     templateUrl: './star-health-proposal.component.html',
@@ -61,12 +74,14 @@ export class StarHealthProposalComponent implements OnInit {
     public personalData: any;
     public occupationList: any;
     public relationshipList: any;
+    public relationshipList1: any;
     public today: any;
     public declaration: boolean;
     public summaryData: any;
     public lastStepper: any;
     public paymentGatewayData: any;
     public webhost: any;
+    public sameAsProposer: any;
     public proposalId: any;
     public proposalIdStar: any;
     public illness: any;
@@ -74,16 +89,21 @@ export class StarHealthProposalComponent implements OnInit {
     public pin: any;
     public response: any;
     public personalCitys: any;
+    public sameAs: any;
+    public cityList: any;
+    public arealist: any;
     public areaName: any;
     public areaNames: any;
     public title: any;
     public residenceCitys: any;
     public cityTitle: any;
     public rAreaNames: any;
+    public rAreaNames1: any;
+    public areaNames1: any;
     public rAreaName: any;
     public rResponse: any;
     public socialNo: any;
-    public summaryCity: any;
+    public ageSetting: any;
     public rSummaryCity: any;
     public sumTitle: any;
     public sumPin: any;
@@ -107,7 +127,9 @@ export class StarHealthProposalComponent implements OnInit {
     public socialAnswer3: any;
     public socialAnswer4: any;
     public inputReadonly: any;
-    // public requestDetailsss: any;
+    public nominee0: any;
+    public relationshipListAppointe1: any;
+    public age: any;
     public previousInsurence: any;
     public premium: any;
     public servicetax: any;
@@ -120,6 +142,7 @@ export class StarHealthProposalComponent implements OnInit {
     nomineeFormData: any;
     relationshipListAppointe: any;
     relationshipListNomine: any;
+    relationshipListNomine1: any;
     requestDetails: any;
     total: number;
     public step: any;
@@ -129,12 +152,66 @@ export class StarHealthProposalComponent implements OnInit {
     public status: any;
     public proposal_Id: any;
     public proposalNumber: any;
+    public summaryData1: any;
+    public areapatch: any;
     public stepperindex: any;
-
+    public animal: any;
+    public gstListType1: any;
+    public eventClaimValue: any;
+    public pinCode: any;
+    public rCitysList: any;
+    // public payanimal: any;
+    public suminsuredidddd: any;
+    public groupDetails: any;
+    public pincoce: any;
+    public summaryData2: any;
+    public summaryData3: any;
+    public summaryData4: any;
+    public occupationList1: any;
+    public product_id: any;
+    getservicetax:any;
+    getpremium:any;
+    getsum_insured_amount:any;
+    gettotal_premium:any;
+    getcompany_logo: any;
+    productid: any;
+    productname: any;
+    suminsuredidddd1: any;
+    enquiry: any;
+    group_name: any;
+    nclaim:any;
+    nrelationship:any;
+    annual:any;
+    adhar:any;
+    pan:any;
+    gstId:any;
+    social:any;
+    social_informal:any;
+    social_unorganized:any;
+    social_disabled:any;
+    nomineevalue:any;
+    aname:any;
+    aage:any;
+    arelationship:any;
+    nominee1:any;
+    age1:any;
+    nrelationship1:any;
+    nclaim1:any;
+    public nomineeName2:any;
+    public nomineeAge2:any;
+    public nomineeRelationship2:any;
+    public nomineeClaim2:any;
+    public appointeeName2:any;
+    public appointeeAge2:any;
+    public appointeeRelationship2:any;
+    public citypatch:any;
+    policy_type_name: any;
+    paylaterEdit: any;
     public healthStarTrue0: boolean;
     public healthStarTrue1: boolean;
     public healthStarTrue2: boolean;
     public healthStarTrue3: boolean;
+    public ageSetting1: boolean;
 
     constructor(@Inject(WINDOW) private window: Window, public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -160,6 +237,9 @@ export class StarHealthProposalComponent implements OnInit {
                 console.log(this.proposal_Id, 'this.proposalId');
                 console.log(this.status, 'this.proposalId');
                 this.getBackRequest();
+                // sessionStorage.proposalIdStar='';
+                // alert(sessionStorage.proposalIdStar);
+
             }
             if(this.proposal_Id == undefined || this.proposal_Id == '') {
                 this.payLaterr = false;
@@ -177,6 +257,9 @@ export class StarHealthProposalComponent implements OnInit {
         this.declaration = false;
         this.inputReadonly = false;
         this.nomineeNext = true;
+        this.paylaterEdit = false;
+        this.ageSetting = false;
+        this.eventClaimValue = false;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -193,6 +276,9 @@ export class StarHealthProposalComponent implements OnInit {
         this.healthStarTrue1 = true;
         this.healthStarTrue2 = true;
         this.healthStarTrue3 = true;
+        this.ageSetting1 = false;
+        this.animal = '';
+        // this.payanimal = '';
 
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
@@ -237,7 +323,10 @@ export class StarHealthProposalComponent implements OnInit {
         });
     }
     ngOnInit() {
-        if (this.payLaterr == true) {
+        this.setOccupationList1();
+        this.gstIdList1();
+        this.setRelationship1();
+            if (this.payLaterr == true) {
             this.stepperindex = 3;
             this.step = 3;
             this.healthStarTrue0 = true;
@@ -246,7 +335,9 @@ export class StarHealthProposalComponent implements OnInit {
             this.healthStarTrue3 = false;
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
+            this.groupDetails = JSON.parse(sessionStorage.groupDetails);
             this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+            this.pincoce = sessionStorage.setPincode;
             this.setDate = Date.now();
             this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
             this.setOccupationList();
@@ -496,6 +587,33 @@ export class StarHealthProposalComponent implements OnInit {
     public occupationListFailure(error) {
         console.log(error);
     }
+    //payoutedit occupation
+    setOccupationList1() {
+        const data = {
+            'platform': 'web',
+            'product_id': this.productid,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getOccupationList(data).subscribe(
+            (successData) => {
+                this.occupationList1Success(successData);
+            },
+            (error) => {
+                this.occupationList1Failure(error);
+            }
+        );
+
+    }
+    public occupationList1Success(successData) {
+        if (successData.IsSuccess) {
+            this.occupationList1 = successData.ResponseObject;
+        }
+    }
+    public occupationList1Failure(error) {
+        console.log(error);
+    }
+
 
     setRelationship() {
         const data = {
@@ -520,6 +638,32 @@ export class StarHealthProposalComponent implements OnInit {
         }
     }
     public setRelationshipFailure(error) {
+        console.log(error);
+
+    }
+setRelationship1() {
+        const data = {
+            'platform': 'web',
+            'product_id': this.productid,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getRelationshipList(data).subscribe(
+            (successData) => {
+                this.setRelationshipSuccess1(successData);
+            },
+            (error) => {
+                this.setRelationshipFailure1(error);
+            }
+        );
+    }
+    public setRelationshipSuccess1(successData) {
+        if (successData.IsSuccess) {
+            this.relationshipList1 = successData.ResponseObject;
+            console.log(this.relationshipList,'relationshipList.......')
+        }
+    }
+    public setRelationshipFailure1(error) {
         console.log(error);
 
     }
@@ -550,6 +694,31 @@ export class StarHealthProposalComponent implements OnInit {
     public setNomieRelationshipFailure(error) {
         console.log(error);
     }
+    nomineRelationship1() {
+        const data = {
+            'platform': 'web',
+            'product_id': this.productid,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getNomieRelationshipList(data).subscribe(
+            (successData) => {
+                this.setNomieRelationshipSuccess1(successData);
+            },
+            (error) => {
+                this.setNomieRelationshipFailure1(error);
+            }
+        );
+    }
+    public setNomieRelationshipSuccess1(successData) {
+        if (successData.IsSuccess) {
+            this.relationshipListNomine1 = successData.ResponseObject;
+            console.log(this.relationshipListNomine, 'nominee relation');
+        }
+    }
+    public setNomieRelationshipFailure1(error) {
+        console.log(error);
+    }
     appointeRelationship() {
         const data = {
             'platform': 'web',
@@ -572,6 +741,30 @@ export class StarHealthProposalComponent implements OnInit {
         }
     }
     public setAppointeRelationshipFailure(error) {
+        console.log(error);
+    }
+    appointeRelationship1() {
+        const data = {
+            'platform': 'web',
+            'product_id': this.productid,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+        }
+        this.proposalservice.getAppointeRelationshipList(data).subscribe(
+            (successData) => {
+                this.setAppointeRelationship1Success(successData);
+            },
+            (error) => {
+                this.setAppointeRelationship1Failure(error);
+            }
+        );
+    }
+    public setAppointeRelationship1Success(successData) {
+        if (successData.IsSuccess) {
+            this.relationshipListAppointe1 = successData.ResponseObject;
+        }
+    }
+    public setAppointeRelationship1Failure(error) {
         console.log(error);
     }
 
@@ -669,9 +862,11 @@ export class StarHealthProposalComponent implements OnInit {
                     this.personal.controls['personalCity'].setValue('');
                     this.personal.controls['personalArea'].setValue('');
                     this.personalCitys = {};
+                    this.cityList = {};
                 } else {
                     this.personal.controls['personalState'].setValue(this.response.state);
                     this.personalCitys = this.response.city;
+                    this.cityList = this.response.city;
                 }
                 sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
             } else if (title == 'residence') {
@@ -680,9 +875,11 @@ export class StarHealthProposalComponent implements OnInit {
                     this.personal.controls['residenceState'].setValue('');
                     this.personal.controls['residenceArea'].setValue('');
                     this.residenceCitys = {};
+                    this.rCitysList = {};
                 } else {
                     this.personal.controls['residenceState'].setValue(this.response.state);
                     this.residenceCitys = this.response.city;
+                    this.rCitysList = this.response.city;
                 }
                 sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
             }
@@ -690,12 +887,14 @@ export class StarHealthProposalComponent implements OnInit {
             this.toastr.error('In valid Pincode');
             if (title == 'personal') {
                 this.personalCitys = {};
+                this.cityList = {};
                 sessionStorage.personalCitys = '';
                 this.personal.controls['personalState'].setValue('');
                 this.personal.controls['personalArea'].setValue('');
                 this.personal.controls['personalCity'].setValue('');
             } else if (title == 'residence') {
                 this.residenceCitys = {};
+                this.rCitysList = {};
                 sessionStorage.residenceCitys = '';
                 this.personal.controls['residenceCity'].setValue('');
                 this.personal.controls['residenceState'].setValue('');
@@ -737,6 +936,38 @@ export class StarHealthProposalComponent implements OnInit {
         }
     }
     public getCityFailure(error) {
+        console.log(error);
+    }// get all areas
+    getAreas1(title, type) {
+        if(type == 'manual') {
+            this.typeAddressDeatils1();
+        }
+        const data = {
+            'platform': 'web',
+            'pincode': title == 'personal' ? this.personal.controls['personalPincode'].value : this.personal.controls['residencePincode'].value,
+            'city_id': title == 'personal' ? this.personal.controls['personalCity'].value : this.personal.controls['residenceCity'].value
+        }
+        this.common.getArea(data).subscribe(
+            (successData) => {
+                this.getCity1Success(successData, title);
+            },
+            (error) => {
+                this.getCity1Failure(error);
+            }
+        );
+    }
+    public getCity1Success(successData, title) {
+        if (successData.IsSuccess == true) {
+            if (title == 'personal') {
+                this.areaNames1 = successData.ResponseObject;
+                // sessionStorage.areaNames = JSON.stringify(this.areaNames);
+            } else if (title == 'residence') {
+                this.rAreaNames1 = successData.ResponseObject;
+                // sessionStorage.rAreaNames = JSON.stringify(this.rAreaNames);
+            }
+        }
+    }
+    public getCity1Failure(error) {
         console.log(error);
     }
     sameAddress(values: any) {
@@ -781,6 +1012,69 @@ export class StarHealthProposalComponent implements OnInit {
         if (this.personal.controls['sameas'].value) {
             this.residenceCitys = JSON.parse(sessionStorage.personalCitys);
             this.rAreaNames = JSON.parse(sessionStorage.areaNames);
+            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
+        }
+    }
+    sameValues(){
+        if(this.sameAs==true){
+            this.personal.controls['sameas'].patchValue(true);
+            this.sameAddress1();
+        }else if(this.sameAs==false){
+            this.personal.controls['sameas'].patchValue(false);
+            this.sameAddress1();
+        }
+    }
+    sameAddress1() {
+        // alert(this.sameAs)
+        if ( this.personal.controls['sameas'].value==true) {
+            this.inputReadonly = true;
+            this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
+            this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
+            this.getPostal(this.personal.controls['residencePincode'].value,'residence');
+            this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
+            this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
+            this.getAreas1('residence', 'rmanual');
+
+            this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
+            this.rCitysList =this.rCitysList;
+            this.rAreaNames1 = this.rAreaNames1;
+            //
+            // sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
+            // sessionStorage.rAreaNames = JSON.stringify(this.rAreaNames);
+
+        } else if(this.personal.controls['sameas'].value==false){
+            this.inputReadonly = false;
+            this.personal.controls['residenceAddress'].setValue('');
+            this.personal.controls['residenceAddress2'].setValue('');
+            this.personal.controls['residenceCity'].setValue('');
+            this.personal.controls['residencePincode'].setValue('');
+            this.personal.controls['residenceState'].setValue('');
+            this.personal.controls['residenceCity'].setValue('');
+            this.personal.controls['residenceArea'].setValue('');
+            // sessionStorage.residenceCitys = '';
+            // sessionStorage.rAreaNames = '';
+            // this.residenceCitys = {};
+            // this.rAreaNames = {};
+            // if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
+            //     this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+            //     this.rAreaNames = JSON.parse(sessionStorage.rAreaNames);
+            // } else {
+            //     this.residenceCitys = [];
+            //     this.rAreaNames = [];
+            // }
+        }
+    }
+    typeAddressDeatils1() {
+        if (this.personal.controls['sameas'].value) {
+            // this.residenceCitys = JSON.parse(sessionStorage.personalCitys);
+            // this.rAreaNames = JSON.parse(sessionStorage.areaNames);
             this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
             this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
             this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
@@ -891,7 +1185,7 @@ export class StarHealthProposalComponent implements OnInit {
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_relationship_name = '';
             this.familyMembers[i].ins_hospital_cash = '1';
-            this.familyMembers[i].ins_engage_manual_labour = 'None';
+            this.familyMembers[i].ins_engage_manual_labour = '';
             this.familyMembers[i].ins_engage_winter_sports = 'None';
             this.familyMembers[i].ins_personal_accident_applicable = '0';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
@@ -904,22 +1198,20 @@ export class StarHealthProposalComponent implements OnInit {
     }
     selectProposerRelation(index) {
         this.familyMembers[index].ins_relationship_name = this.relationshipList[this.familyMembers[index].ins_relationship];
-        console.log(this.familyMembers[index].ins_relationship_name,'ins_relationship_name');
-        console.log(this.relationshipList[this.familyMembers[index].ins_relationship],'ins_relationship_name232424');
-        if(sessionStorage.nomineeDate != '' && sessionStorage.nomineeDate !=undefined) {
+        console.log(this.familyMembers[index].ins_relationship_name, 'ins_relationship_name');
+        console.log(this.relationshipList[this.familyMembers[index].ins_relationship], 'ins_relationship_name232424');
+        if (sessionStorage.nomineeDate != '' && sessionStorage.nomineeDate != undefined) {
             let nominee = JSON.parse(sessionStorage.nomineeDate);
-            console.log(nominee[0].nominee[0].nrelationship,'nominee[0].nominee[0].nrelationship');
-            if(nominee[0].nominee[0].nrelationship !='') {
+            console.log(nominee[0].nominee[0].nrelationship, 'nominee[0].nominee[0].nrelationship');
+            if (nominee[0].nominee[0].nrelationship != '') {
                 this.nomineeDate[0].nominee[0].nrelationship = '';
             }
             console.log(nominee[0].nominee.length, 'nominee length');
-            console.log(nominee[1].nominee[1].arelationship, 'nominee length4535');
-
-            if(nominee[0].nominee.length > 1 && nominee[1].nominee[1].arelationship !='') {
+            // console.log(nominee[1].nominee[1].arelationship, 'nominee length4535');
+            if (nominee[0].nominee.length > 1 && nominee[1].nominee[1].arelationship != '') {
                 this.nomineeDate[1].nominee[1].arelationship = '';
             }
         }
-
     }
 
 
@@ -1044,6 +1336,22 @@ export class StarHealthProposalComponent implements OnInit {
             this.nomineeDate[index].nominee[ci].aname = '';
             this.nomineeDate[index].nominee[ci].aage = '';
             this.nomineeDate[index].nominee[ci].arelationship = '';
+
+        }
+    }
+    typeAge1() {
+        if (this.age < 18 && this.age != '') {
+            this.ageSetting = true;
+        } else {
+            this.ageSetting = false;
+
+        }
+    }
+    typeAge2() {
+        if (this.nomineeAge2 < 18 && this.nomineeAge2 != '') {
+            this.ageSetting1 = true;
+        } else {
+            this.ageSetting1 = false;
 
         }
     }
@@ -1338,7 +1646,7 @@ export class StarHealthProposalComponent implements OnInit {
                         nage: '',
                         nrelationship: '',
                         nrelationshipName: '',
-                        nclaim:'',
+                        nclaim: '',
                         aname: '',
                         aage: '',
                         arelationship: '',
@@ -1351,9 +1659,19 @@ export class StarHealthProposalComponent implements OnInit {
                 }
                 // this.nomineeDate[0].nominee[1].nclaim = (100 - parseInt(this.nomineeDate[0].nominee[0].nclaim));
             }
-
         }
+    }
+    claimPercent2() {
+      if(this.nclaim < 100 ){
+          this.eventClaimValue=true;
 
+      }else if(this.nclaim >= 100 ){
+          this.eventClaimValue=false;
+        this.nomineeName2='';
+        this.nomineeAge2='';
+        this.nomineeRelationship2='';
+        this.nomineeClaim2='';
+      }
     }
     // sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
 
@@ -1393,7 +1711,27 @@ export class StarHealthProposalComponent implements OnInit {
 
     // }
 
-
+    sameProposer(value: any) {
+        if (value.checked) {
+            this.familyMembers[0].sameAsProposer = true;
+            this.familyMembers[0].ins_dob = this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd'),
+                console.log(this.datepipe.transform( this.personal.controls['personalDob'].value));
+            console.log(this.personal.controls['personalDob'].value);
+            console.log(this.familyMembers[0].ins_dob);
+            this.familyMembers[0].ins_name = this.personal.controls['personalFirstname'].value,
+                this.familyMembers[0].ins_occupation_id = this.personal.controls['personalOccupation'].value
+            if (this.familyMembers[0].sameAsProposer = true) {
+                this.familyMembers[0].ins_relationship ='1'
+            }else{
+                this.familyMembers[0].ins_relationship=''
+            }
+        } else {
+            this.familyMembers[0].ins_dob='',
+                this.familyMembers[0].ins_name='',
+                this.familyMembers[0].ins_occupation_id ='',
+                this.familyMembers[0].ins_relationship=''
+        }
+    }
 
 
 
@@ -1408,96 +1746,274 @@ export class StarHealthProposalComponent implements OnInit {
     //
     //
     // }
+    // nomineeDetails(stepper: MatStepper, index, key) {
+    //     sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
+    //     this.lastStepper = stepper;
+    //
+    //     let valid = false;
+    //     if (key == 'Nominee Details' && this.nomineeDate[index].nominee[0].nage != '' ) {
+    //         for (let i = 0; i < this.nomineeDate[index].nominee.length; i++) {
+    //             if (this.nomineeDate[index].nominee[i].nname != '' &&
+    //                 this.nomineeDate[index].nominee[i].nage != '' &&
+    //                 this.nomineeDate[index].nominee[i].nrelationship != '' &&
+    //                 this.nomineeDate[index].nominee[i].nclaim != '') {
+    //                 if (this.nomineeDate[index].nominee[i].nage < 18) {
+    //                     if (this.nomineeDate[index].nominee[i].aname != '' &&
+    //                         this.nomineeDate[index].nominee[i].aage != '' &&
+    //                         this.nomineeDate[index].nominee[i].arelationship != '') {
+    //                         if (this.nomineeDate[index].nominee[i].aage >= 18) {
+    //                             valid = true;
+    //                         } else {
+    //                             valid = false;
+    //                             this.toastr.error('Appointee age should be 18 and above', key);
+    //                             break;
+    //                         }
+    //                     } else {
+    //                         if (i == this.nomineeDate[index].nominee.length - 1) {
+    //                             valid = false;
+    //                             this.toastr.error('Please fill the empty fields', key);
+    //                             break;
+    //                         }
+    //                     }
+    //                 } else {
+    //                     valid = true;
+    //                 }
+    //             } else {
+    //                 if (i == this.nomineeDate[index].nominee.length - 1) {
+    //                     valid = false;
+    //                     this.toastr.error('Please fill the empty fields', key);
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //     } else {
+    //         valid = true;
+    //     }
+    //     if(valid){
+    //         let percentValid = true;
+    //         if(this.nomineeDate[0].nominee.length < 2 && this.nomineeDate[0].nominee.length >=1) {
+    //             console.log(parseInt(this.nomineeDate[0].nominee[0].nclaim), 'ppp');
+    //             if(parseInt(this.nomineeDate[0].nominee[0].nclaim) == 100) {
+    //                 percentValid = true;
+    //             } else {
+    //                 percentValid = false;
+    //             }
+    //             if(parseInt(this.nomineeDate[0].nominee[0].nclaim) > 100) {
+    //                 percentValid = false;
+    //                 this.toastr.error('Claim percentage should not be greater than 100', key);
+    //             } else if(parseInt(this.nomineeDate[0].nominee[0].nclaim) < 100) {
+    //                 percentValid = false;
+    //                 this.toastr.error('Claim percentage should not be less than 100', key);
+    //             }
+    //
+    //         } else if(this.nomineeDate[0].nominee.length > 1 && this.nomineeDate[0].nominee.length < 3) {
+    //             let total = parseInt(this.nomineeDate[0].nominee[0].nclaim) + parseInt(this.nomineeDate[0].nominee[1].nclaim);
+    //             if(total == 100) {
+    //                 percentValid = true;
+    //             } else {
+    //                 percentValid = false;
+    //             }
+    //             if(total > 100) {
+    //                 percentValid = false
+    //                 this.toastr.error('Claim percentage should not be greater than 100', key);
+    //             } else if(total < 100) {
+    //                 percentValid = false;
+    //                 this.toastr.error('Claim percentage should not be less than 100', key);
+    //             }
+    //         }
+    //         console.log(percentValid, 'percentValid');
+    //         if(this.nomineeDate[0].nominee.length > 1 && this.nomineeDate[0].nominee.length < 3) {
+    //
+    //         }
+    //         if (this.nomineeDate[0].nominee[0].nname == '' &&
+    //             this.nomineeDate[0].nominee[0].nage == '' &&
+    //             this.nomineeDate[0].nominee[0].nrelationship == '' &&
+    //             this.nomineeDate[0].nominee[0].nclaim == '' && this.nomineeDate[0].nominee.length < 2) {
+    //             percentValid = true;
+    //         }
+    //         if(percentValid){
+    //             this.proposal(stepper);
+    //         }
+    //     }
+    // }
+
+
     nomineeDetails(stepper: MatStepper, index, key) {
+
         sessionStorage.nomineeDate = JSON.stringify(this.nomineeDate);
+
         this.lastStepper = stepper;
 
         let valid = false;
-        if (key == 'Nominee Details' && this.nomineeDate[index].nominee[0].nage != '' ) {
+
+        if (key == 'Nominee Details' && this.nomineeDate[index].nominee[0].nage != '') {
+
             for (let i = 0; i < this.nomineeDate[index].nominee.length; i++) {
+
                 if (this.nomineeDate[index].nominee[i].nname != '' &&
+
                     this.nomineeDate[index].nominee[i].nage != '' &&
+
                     this.nomineeDate[index].nominee[i].nrelationship != '' &&
+
                     this.nomineeDate[index].nominee[i].nclaim != '') {
+
                     if (this.nomineeDate[index].nominee[i].nage < 18) {
+
                         if (this.nomineeDate[index].nominee[i].aname != '' &&
+
                             this.nomineeDate[index].nominee[i].aage != '' &&
+
                             this.nomineeDate[index].nominee[i].arelationship != '') {
+
                             if (this.nomineeDate[index].nominee[i].aage >= 18) {
+
                                 valid = true;
+
                             } else {
+
                                 valid = false;
+
                                 this.toastr.error('Appointee age should be 18 and above', key);
+
                                 break;
+
                             }
+
                         } else {
+
                             if (i == this.nomineeDate[index].nominee.length - 1) {
+
                                 valid = false;
+
                                 this.toastr.error('Please fill the empty fields', key);
+
                                 break;
+
                             }
+
                         }
+
                     } else {
+
                         valid = true;
+
                     }
+
                 } else {
+
                     if (i == this.nomineeDate[index].nominee.length - 1) {
+
                         valid = false;
+
                         this.toastr.error('Please fill the empty fields', key);
+
                         break;
+
                     }
+
                 }
+
             }
+
         } else {
+
             valid = true;
+
         }
-        if(valid){
+
+        if (valid) {
+
             let percentValid = true;
-            if(this.nomineeDate[0].nominee.length < 2 && this.nomineeDate[0].nominee.length >=1) {
+
+            if (this.nomineeDate[0].nominee.length < 2 && this.nomineeDate[0].nominee.length >= 1) {
+
                 console.log(parseInt(this.nomineeDate[0].nominee[0].nclaim), 'ppp');
-                if(parseInt(this.nomineeDate[0].nominee[0].nclaim) == 100) {
+
+                if (parseInt(this.nomineeDate[0].nominee[0].nclaim) == 100) {
+
                     percentValid = true;
+
                 } else {
+
                     percentValid = false;
-                }
-                if(parseInt(this.nomineeDate[0].nominee[0].nclaim) > 100) {
-                    percentValid = false;
-                    this.toastr.error('Claim percentage should not be greater than 100', key);
-                } else if(parseInt(this.nomineeDate[0].nominee[0].nclaim) < 100) {
-                    percentValid = false;
-                    this.toastr.error('Claim percentage should not be less than 100', key);
+
                 }
 
-            } else if(this.nomineeDate[0].nominee.length > 1 && this.nomineeDate[0].nominee.length < 3) {
+                if (parseInt(this.nomineeDate[0].nominee[0].nclaim) > 100) {
+
+                    percentValid = false;
+
+                    this.toastr.error('Claim percentage should not be greater than 100', key);
+
+                } else if (parseInt(this.nomineeDate[0].nominee[0].nclaim) < 100) {
+
+                    percentValid = false;
+
+                    this.toastr.error('Claim percentage should not be less than 100', key);
+
+                }
+
+            } else if (this.nomineeDate[0].nominee.length > 1 && this.nomineeDate[0].nominee.length < 3) {
+
                 let total = parseInt(this.nomineeDate[0].nominee[0].nclaim) + parseInt(this.nomineeDate[0].nominee[1].nclaim);
-                if(total == 100) {
+
+                if (total == 100) {
+
                     percentValid = true;
+
                 } else {
+
                     percentValid = false;
+
                 }
-                if(total > 100) {
+
+                if (total > 100) {
+
                     percentValid = false
+
                     this.toastr.error('Claim percentage should not be greater than 100', key);
-                } else if(total < 100) {
+
+                } else if (total < 100) {
+
                     percentValid = false;
+
                     this.toastr.error('Claim percentage should not be less than 100', key);
+
                 }
-            }
-            console.log(percentValid, 'percentValid');
-            if(this.nomineeDate[0].nominee.length > 1 && this.nomineeDate[0].nominee.length < 3) {
 
             }
+
+            console.log(percentValid, 'percentValid');
+
+            if (this.nomineeDate[0].nominee.length > 1 && this.nomineeDate[0].nominee.length < 3) {
+
+            }
+
             if (this.nomineeDate[0].nominee[0].nname == '' &&
+
                 this.nomineeDate[0].nominee[0].nage == '' &&
+
                 this.nomineeDate[0].nominee[0].nrelationship == '' &&
+
                 this.nomineeDate[0].nominee[0].nclaim == '' && this.nomineeDate[0].nominee.length < 2) {
+
                 percentValid = true;
+
             }
-            if(percentValid){
+
+            if (percentValid) {
+
                 this.proposal(stepper);
+
             }
+
         }
+
     }
+
+
+
 
     // End
 
@@ -1508,7 +2024,7 @@ export class StarHealthProposalComponent implements OnInit {
         const data = [{
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'proposal_id' :sessionStorage.proposalIdStar,
+            'proposal_id' :sessionStorage.proposalId,
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'group_name':  this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
@@ -1637,6 +2153,111 @@ export class StarHealthProposalComponent implements OnInit {
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
     }
+
+    suminsuredproposal(){
+        const data = {
+
+            "platform": "web",
+            "postalcode": this.pincoce ? this.pincoce : '',
+            "sum_insured": this.suminsuredidddd,
+            "family_group_name": this.groupDetails.family_groups[0].name,
+            "enquiry_id": this.groupDetails.enquiry_id,
+            "created_by": "0",
+            "company_id": "2",
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'plan_name': this.buyProductdetails.product_name,
+            'product_id': this.buyProductdetails.product_id,
+
+
+        };
+        console.log(data, 'alldata');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.getProposalsss(data).subscribe(
+            (successData) => {
+                this.suminsuredSuccess(successData);
+            },
+            (error) => {
+                this.suminsuredFailure(error);
+            }
+        );
+
+    }
+    public suminsuredSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.summaryData1 = successData.ResponseObject[0].name;
+            this.summaryData2 = successData.ResponseObject[0].product_lists[0].base_premium;
+            console.log( this.summaryData2,' this.summaryData2')
+            this.summaryData3= successData.ResponseObject[0].product_lists[0].service_tax;
+            console.log( this.summaryData3,' this.summaryData2')
+
+            this.summaryData4 = successData.ResponseObject[0].product_lists[0].premium_total;
+            console.log( this.summaryData4,' this.summaryData2')
+
+
+        } else {
+        }
+    }
+    public suminsuredFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+
+    suminsuredproposal1(){
+        const data = {
+
+            "platform": "web",
+            "postalcode": this.pincoce ? this.pincoce : '',
+            "sum_insured": this.suminsuredidddd1,
+            "family_group_name": this.group_name,
+            "enquiry_id": this.enquiry,
+            "created_by": "0",
+            "company_id": "2",
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'plan_name': this.productname,
+            'product_id': this.productid,
+
+
+        };
+        console.log(data, 'alldata');
+        this.settings.loadingSpinner = true;
+        this.proposalservice.getProposalsss(data).subscribe(
+            (successData) => {
+                this.suminsured1Success(successData);
+            },
+            (error) => {
+                this.suminsured1Failure(error);
+            }
+        );
+
+    }
+    public suminsured1Success(successData) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.summaryData1 = successData.ResponseObject[0].name;
+            this.summaryData2 = successData.ResponseObject[0].product_lists[0].base_premium;
+            console.log( this.summaryData2,' this.summaryData2')
+            this.summaryData3= successData.ResponseObject[0].product_lists[0].service_tax;
+            console.log( this.summaryData3,' this.summaryData2')
+
+            this.summaryData4 = successData.ResponseObject[0].product_lists[0].premium_total;
+            console.log( this.summaryData4,' this.summaryData2')
+
+
+        } else {
+        }
+    }
+    public suminsured1Failure(error) {
+        this.settings.loadingSpinner = false;
+    }
+
+
+
+
+
+
+
     // payment
     public payNow() {
         const data = {
@@ -1702,6 +2323,33 @@ export class StarHealthProposalComponent implements OnInit {
         }
     }
     public gstFailure(error) {
+    }
+    gstIdList1() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+        }
+        this.proposalservice.getGstId(data).subscribe(
+            (successData) => {
+                this.gstSuccess1(successData);
+            },
+            (error) => {
+                this.gstFailure1(error);
+            }
+        );
+    }
+    public gstSuccess1(successData) {
+        if (successData.IsSuccess) {
+            this.gstListType1 = successData.ResponseObject;
+            console.log(this.gstListType1,'this.gstListType1' );
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    public gstFailure1(error) {
     }
 
 
@@ -1791,18 +2439,20 @@ export class StarHealthProposalComponent implements OnInit {
             'plan_name': this.buyProductdetails.product_name,
             'proposalNum': this.summaryData.proposalNum,
             'created-date': this.createdDate,
-            'premium': this.summaryData.premium,
-            'servicetax': this.summaryData.servicetax,
-            'total_premium': this.summaryData.total_premium,
+            'premium': this.summaryData2==''||this.summaryData2==undefined?this.buyProductdetails.premium_amount:this.summaryData2,
+            'servicetax': this.summaryData3==''||this.summaryData3==undefined?this.buyProductdetails.service_tax:this.summaryData3,
+            'total_premium': this.summaryData4==''||this.summaryData4==undefined?this.buyProductdetails.totalPremium:this.summaryData4,
             'company_logo': this.buyProductdetails.company_logo,
             'paymentlink-date': '',
             'policy_type_name': this.buyProductdetails.prod_shortform,
             'policy_category': 'fresh',
+            'pincode': this.pincoce,
             'policy_started_on': '',
             'policy_end_on': '',
             'policy_period': '1',
-            'sum_insured_id': this.buyProductdetails.suminsured_id,
-            'sum_insured_amount': this.buyProductdetails.suminsured_amount,
+            'paylater':this.payLaterr,
+            'sum_insured_id':  this.suminsuredidddd==''?this.buyProductdetails.suminsured_id:this.suminsuredidddd,
+            'sum_insured_amount': this.animal==''?this.buyProductdetails.suminsured_amount:this.animal,
             'scheme_id': this.buyProductdetails.scheme,
             'title': this.personalData.personalTitle,
             'proposer_fname': this.personalData.personalFirstname,
@@ -1813,16 +2463,20 @@ export class StarHealthProposalComponent implements OnInit {
             'proposer_res_address1': this.personalData.residenceAddress,
             'proposer_res_address2': this.personalData.residenceAddress2,
             'proposer_res_area': this.personalData.residenceArea.toString(),
+            'proposer_res_areas': this.personalData.residenceArea.value,
             'proposer_res_areaname':  this.personal.controls['residenceAreaName'].value,
             'proposer_res_city': this.personalData.residenceCity.toString(),
+            'proposer_res_citys': this.personalData.residenceCity.value,
             'proposer_res_cityname': this.personal.controls['residenceCityName'].value,
             'proposer_res_state': this.personalData.residenceState,
             'proposer_res_pincode': this.personalData.residencePincode,
             'proposer_comm_address1': this.personalData.personalAddress,
             'proposer_comm_address2': this.personalData.personalAddress2,
             'proposer_comm_area': this.personalData.personalArea.toString(),
+            'proposer_comm_areas': this.personalData.personalArea.value,
             'proposer_comm_areaname': this.personal.controls['personalAreaName'].value,
             'proposer_comm_city': this.personalData.personalCity.toString(),
+            'proposer_comm_citys': this.personalData.personalCity.value,
             'proposer_comm_cityname': this.personal.controls['personalCityName'].value,
             'proposer_comm_state': this.personalData.personalState,
             'proposer_comm_pincode': this.personalData.personalPincode,
@@ -1833,6 +2487,7 @@ export class StarHealthProposalComponent implements OnInit {
             'prop_pan_no': this.personalData.personalPan.toUpperCase(),
             'prop_aadhar_no': this.personalData.personalAadhar,
             'gst_id_no': this.personalData.personalGst.toUpperCase(),
+
             'gstType': this.personalData.personalgstIdType,
             'exist_health_ins_covered_persons_details': '',
             'have_eia_no': '1',
@@ -1861,6 +2516,12 @@ export class StarHealthProposalComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'created_by': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'insured_details': this.familyMembers,
+            'length':this.nomineeDate[0].nominee.length,
+            'nomineeDate':this.nomineeDate,
+            'city1':this.personalCitys,
+            'area1':this.areaNames,
+            'sameas':this.personal.controls['sameas'].value,
+
             // 'payment': this.paymentGatewayData.payment_gateway_url
         }];
 
@@ -1881,6 +2542,10 @@ export class StarHealthProposalComponent implements OnInit {
             this.settings.loadingSpinner = false;
             this.toastr.success(successData.ResponseObject);
             this.saveEdit();
+            this.setOccupationList1();
+            this.gstIdList1();
+            this.nomineRelationship1();
+
         } else {
             // this.toastr.error('sorry!');
         }
@@ -1917,18 +2582,86 @@ export class StarHealthProposalComponent implements OnInit {
 
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
+
             this.requestDetails = successData.ResponseObject;
             console.log(this.requestDetails, 'requestDetailsrequestDetails');
-            console.log(this.requestDetails.social_status_disabled, 'social_status_disabled');
-
             this.proposalNumber = this.requestDetails[0].proposalNum;
             this.pos_status = this.requestDetails[0].role_id;
             this.proposalId = this.requestDetails[0].proposal_id;
             console.log(this.proposalId, 'this.proposalId')
             console.log(this.pos_status , 'requestDetailsrequestDetails');
-            this.requestDetails = this.requestDetails[0];
-            this.requestInsuredDetails = this.requestDetails.insured_details;
-            sessionStorage.proposalID = this.proposalId
+            this.getsum_insured_amount = this.requestDetails[0].sum_insured_amount;
+            // alert(this.getsum_insured_amount)
+            this.getcompany_logo = this.requestDetails[0].company_logo;
+            this.getpremium = this.requestDetails[0].premium;
+            this.getservicetax = this.requestDetails[0].servicetax;
+            this.gettotal_premium = this.requestDetails[0].total_premium;
+            this.nominee0=this.requestDetails[0].nominee_name_one;
+            this.age=this.requestDetails[0].nominee_age_one;
+            this.nrelationship=this.requestDetails[0].nominee_relationship_one;
+            this.nclaim=this.requestDetails[0].nominee_percentclaim_one;
+            this.claimPercent2();
+            this.productid=this.requestDetails[0].product_id;
+            this.productname=this.requestDetails[0].plan_name;
+            this.enquiry=this.requestDetails[0].enquiry_id;
+            this.policy_type_name=this.requestDetails[0].policy_type_name;
+            this.annual=this.requestDetails[0].prop_annual_income;
+            this.adhar=this.requestDetails[0].prop_aadhar_no;
+            this.pan=this.requestDetails[0].prop_pan_no;
+            this.gstId=this.requestDetails[0].gst_id_no;
+            this.social=this.requestDetails[0].social_status_bpl;
+            this.social_disabled=this.requestDetails[0].social_status_disabled;
+            this.social_informal=this.requestDetails[0].social_status_informal;
+            this.social_unorganized=this.requestDetails[0].social_status_unorganized;
+            this.product_id =this.requestDetails[0].product_id;
+            this.nomineevalue =this.requestDetails[0].nomineeDate;
+            this.aname =this.requestDetails[0].appointee_name_one;
+            this.aage =this.requestDetails[0].appointee_age_one;
+            this.arelationship =this.requestDetails[0].appointee_relationship_one;
+            this.nominee1 =this.requestDetails[0].appointee_relationship_one;
+            this.age1 =this.requestDetails[0].appointee_relationship_one;
+            this.typeAge1();
+            this.nrelationship1 =this.requestDetails[0].appointee_relationship_one;
+            this.nomineeName2=this.requestDetails[0].nominee_name_two;
+           this.nomineeAge2=this.requestDetails[0].nominee_age_two;
+            this.typeAge2();
+            this.nomineeRelationship2=this.requestDetails[0].nominee_relationship_two;
+           this.nomineeClaim2=this.requestDetails[0].nominee_percentclaim_two;
+           this.appointeeName2=this.requestDetails[0].appointee_name_two;
+           this.appointeeAge2=this.requestDetails[0].appointee_age_two;
+           this.appointeeRelationship2=this.requestDetails[0].appointee_relationship_two;
+           this.pinCode=this.requestDetails[0].proposer_comm_pincode;
+           this.cityList=this.requestDetails[0].city1;
+           this.arealist=this.requestDetails[0].area1;
+           this.sameAs=this.requestDetails[0].sameas;
+           this.areapatch= this.requestDetails[0].proposer_comm_areas;
+           this.citypatch= this.requestDetails[0].proposer_comm_citys;
+
+
+            this.group_name=this.requestDetails[0].group_name;
+            this.requestInsuredDetails = this.requestDetails[0].insured_details;
+            this.requestInsuredDetails = this.requestDetails[0].insured_details;
+            console.log(this.requestInsuredDetails,'this.requestInsuredDetails....')
+            console.log(this.getservicetax,'this.requestInsuredDetails....')
+            console.log(this.getpremium,'this.gettotal_premium....')
+            console.log(this.getsum_insured_amount,'this.gettotal_premium....')
+            console.log(this.gettotal_premium,'this.gettotal_premium....')
+            sessionStorage.proposalID = this.proposalId;
+            this.openeditproposal();
+            this.setOccupationList1();
+            this.gstIdList1();
+            this.appointeRelationship1();
+            this.nomineRelationship1();
+            this.setRelationship1();
+            this.getPostal(this.pinCode, 'personal');
+            this.getAreas1('personal', 'manual');
+            this.getAreas1('residence', 'rmanual');
+            this.sameValues();
+
+
+
+
+
         } else {
         }
     }
@@ -1938,4 +2671,312 @@ export class StarHealthProposalComponent implements OnInit {
         this.window.location.href = this.requestDetails.payment;
 
     }
+    openeditproposal(){
+        this.personal.controls['personalTitle'].patchValue(this.requestDetails[0].title);
+        this.personal.controls['personalFirstname'].patchValue(this.requestDetails[0].proposer_fname);
+        this.personal.controls['personalLastname'].patchValue(this.requestDetails[0].proposer_lname);
+        this.personal.controls['personalDob'].patchValue(this.requestDetails[0].prop_dob);
+        this.personal.controls['personalEmail'].patchValue(this.requestDetails[0].proposer_email);
+        this.personal.controls['personalMobile'].patchValue(this.requestDetails[0].proposer_mobile);
+        this.personal.controls['personalAltnumber'].patchValue(this.requestDetails[0].proposer_alternate_mobile);
+        this.personal.controls['personalOccupation'].patchValue(this.requestDetails[0].prop_occupation);
+        this.personal.controls['personalIncome'].patchValue(this.requestDetails[0].prop_annual_income);
+        this.personal.controls['personalAadhar'].patchValue(this.requestDetails[0].prop_aadhar_no);
+        this.personal.controls['personalPan'].patchValue(this.requestDetails[0].prop_pan_no );
+        this.personal.controls['personalGst'].patchValue(this.requestDetails[0].gst_id_no);
+        this.personal.controls['personalgstIdType'].patchValue(this.requestDetails[0].gstType);
+        this.personal.controls['previousinsurance'].patchValue(this.requestDetails[0].previous_medical_insurance);
+        this.personal.controls['personalAddress'].patchValue(this.requestDetails[0].proposer_comm_address1);
+        this.personal.controls['personalAddress2'].patchValue(this.requestDetails[0].proposer_comm_address2);
+        this.personal.controls['personalPincode'].patchValue(this.requestDetails[0].proposer_comm_pincode);
+        this.personal.controls['personalCity'].patchValue(this.requestDetails[0].proposer_comm_city);
+        this.personal.controls['personalState'].patchValue(this.requestDetails[0].proposer_comm_state);
+        this.getAreas1('personal', 'manual');
+        this.personal.controls['personalArea'].patchValue(this.requestDetails[0].proposer_comm_area);
+        this.personal.controls['residenceAddress'].patchValue(this.requestDetails[0].proposer_res_address1);
+        this.personal.controls['residenceAddress2'].patchValue(this.requestDetails[0].proposer_res_address2);
+        this.personal.controls['residencePincode'].patchValue(this.requestDetails[0].proposer_res_pincode);
+        this.personal.controls['residenceCity'].patchValue(this.requestDetails[0].proposer_res_city);
+        this.personal.controls['residenceState'].patchValue(this.requestDetails[0].proposer_res_state);
+        this.personal.controls['residenceArea'].patchValue(this.requestDetails[0].proposer_res_area);
+        this.personal.controls['sameas'].patchValue(this.requestDetails[0].sameas);
+
+
+    }
+
+    openDialog(): void {
+
+        const dialogRef = this.dialog.open(starhealthedit, {
+            width: '500px',
+            data: {animal1: this.payLaterr,productID:this.productid, planname:this.productname}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(result,'result89999.........');
+            this.animal = result.name;
+            // this.payanimal = result.name;
+            if(this.payLaterr==false){
+                this.suminsuredId();
+            }
+            else{
+                this.suminsuredId1();
+            }
+
+        });
+    }
+
+    suminsuredId() {
+        const data = {
+            'platform': 'web',
+
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            "product_id":this.buyProductdetails.product_id,
+            "policy_type_name": this.buyProductdetails.prod_shortform,
+            "sum_insured_amount": this.animal,
+        }
+        console.log(data, 'dataaaa')
+
+        this.proposalservice.suminsuredId(data).subscribe(
+            (successData) => {
+                this.suminsuredIdSuccess(successData);
+            },
+            (error) => {
+                this.suminsuredIdFailure(error);
+            }
+        );
+    }
+    public suminsuredIdSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.suminsuredidddd=successData.ResponseObject.prod_suminsured_id;
+            this.suminsuredproposal();
+            // this.suminsuredproposal1();
+            console.log(this.suminsuredidddd,'this.suminsuredidddd')
+            // this.toastr.success('Proposal created successfully!!');
+
+
+        }
+    }
+    public suminsuredIdFailure(error) {
+    }
+
+    suminsuredId1() {
+        const data = {
+            'platform': 'web',
+
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            "product_id":this.productid,
+            "policy_type_name": this.policy_type_name,
+            "sum_insured_amount": this.animal,
+        }
+        console.log(data, 'dataaaa')
+
+        this.proposalservice.suminsuredId(data).subscribe(
+            (successData) => {
+                this.suminsuredId1Success(successData);
+            },
+            (error) => {
+                this.suminsuredId1Failure(error);
+            }
+        );
+    }
+    public suminsuredId1Success(successData) {
+        if (successData.IsSuccess) {
+            this.suminsuredidddd1=successData.ResponseObject.prod_suminsured_id;
+            // this.suminsuredproposal();
+            this.paylaterEdit=true;
+            this.suminsuredproposal1();
+            console.log(this.suminsuredidddd1,'this.suminsuredidddd')
+            // this.toastr.success('Proposal created successfully!!');
+
+
+        }
+    }
+    public suminsuredId1Failure(error) {
+    }
+
+
+
+
+
+
+
+
+}
+@Component({
+    selector: ' starhealthedit ',
+    template: `
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-4" >
+                    <mat-form-field class="w-100" *ngIf="valueData==false">
+                        <mat-select placeholder="Sum Insured" [(ngModel)]="changeSuninsuredAmount"  (selectionChange)="suminsured()" required>
+                            <mat-option *ngFor="let sum of suminsuredserviceDetails | keys" value="{{sum.value}}" > {{sum.value}} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!--<div class="col-md-12">-->
+                        <!--<button mat-raised-button color="primaryBlue"  type="submit" (click)="onNoClick()">Confirm</button>-->
+                        <!--<button mat-raised-button color="primaryBlue" (click)="onNoClose()" >Cancel</button>-->
+                    <!--</div>-->
+
+                </div><div class="col-md-4" *ngIf="valueData==true" >
+                    <mat-form-field class="w-100">
+                        <mat-select placeholder="Sum Insured" [(ngModel)]="changeSuninsuredAmount"  (selectionChange)="suminsured1()" required>
+                            <mat-option *ngFor="let sum of suminsuredserviceDetails1 | keys" value="{{sum.value}}" > {{sum.value}} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!--<div class="col-md-12">-->
+                        <!--<button mat-raised-button color="primaryBlue"  type="submit" (click)="onNoClick()">Confirm</button>-->
+                        <!--<button mat-raised-button color="primaryBlue" (click)="onNoClose()" >Cancel</button>-->
+                    <!--</div>-->
+
+                </div>
+                <div mat-dialog-actions style="justify-content: center">
+                    <button mat-raised-button style="background-color: darkblue; color: white;" (click)="onNoClose()">Cancel</button>
+                    <button mat-raised-button style="background-color: darkblue; color: white;" (click)="onNoClick()">Confirm</button>
+                </div>
+            </div>
+        </div>
+        
+       
+    `
+})
+export class starhealthedit {
+    changeSuninsuredAmount: any;
+    suminsuredserviceDetails: any;
+    suminsuredserviceDetails1: any;
+    buyProductdetails: any;
+    paylaterValue: any;
+    valueData: any;
+    productId: any;
+    productName: any;
+
+    constructor(
+        public dialogRef: MatDialogRef<starhealthedit>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData, public proposalservice: HealthService) {
+
+        console.log(data.animal1,'summmmm')
+        this.valueData=data.animal1;
+        this.productId=data.productID;
+        this.productName=data.planname;
+        console.log(data.name,'summmmm')
+        console.log(data.productID,'summmmm')
+        console.log(data.planname,'summmmm')
+        // console.log(this.changeSuninsuredAmount,'amouuuuuu')
+
+    }
+
+    ngOnInit() {
+        this.testing();
+        // this.suminsured();
+    }
+
+
+    onNoClick(): void {
+        console.log(this.changeSuninsuredAmount, 'ertyuiouytyui')
+        console.log(this.changeSuninsuredAmount.value, 'ertyuiouytyui')
+        this.dialogRef.close(
+            {name: this.changeSuninsuredAmount}
+        );
+        console.log(this.changeSuninsuredAmount, 'question2');
+        console.log(this.changeSuninsuredAmount.value, 'question2');
+    }
+    onNoClose(): void {
+
+        this.dialogRef.close();
+
+    }
+    testing(){
+        if(this.valueData == true){
+            this.paylaterValue=true;
+            this.suminsured1();
+        }else{
+            this.paylaterValue=false;
+            this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+            this.changeSuninsuredAmount=(this.buyProductdetails.suminsured_id);
+            this.suminsured();
+        }
+    }
+
+
+    // get request
+    suminsured() {
+
+
+        const data = {
+            "platform": "web",
+            "role_id": 4,
+            "pos_status": "0",
+            "user_id": "0",
+            "product_id": this.buyProductdetails.product_id,
+            'product_name': this.buyProductdetails.product_name,
+        };
+        // console.log(proposal_id, 'proposalid');
+        console.log(data, 'data');
+        this.proposalservice.suminsuredservice(data).subscribe(
+            (successData) => {
+
+                this.suminsuredserviceSuccess(successData);
+            },
+            (error) => {
+                this.suminsuredserviceFailure(error);
+            }
+        );
+
+    }
+
+    public suminsuredserviceSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.suminsuredserviceDetails = successData.ResponseObject;
+            console.log(this.suminsuredserviceDetails, 'requestDetailsrequestDetails');
+
+
+        } else {
+        }
+    }
+
+    public suminsuredserviceFailure(successData) {
+    }
+
+    suminsured1() {
+
+
+        const data = {
+            "platform": "web",
+            "role_id": 4,
+            "pos_status": "0",
+            "user_id": "0",
+            "product_id": this.productId,
+            'product_name': this.productName,
+        };
+        // console.log(proposal_id, 'proposalid');
+        console.log(data, 'data');
+        this.proposalservice.suminsuredservice(data).subscribe(
+            (successData) => {
+
+                this.suminsuredservice1Success(successData);
+            },
+            (error) => {
+                this.suminsuredservice1Failure(error);
+            }
+        );
+
+    }
+
+    public suminsuredservice1Success(successData) {
+        if (successData.IsSuccess) {
+            this.suminsuredserviceDetails1 = successData.ResponseObject;
+            console.log(this.suminsuredserviceDetails1, 'requestDetailsrequestDetails');
+
+
+        } else {
+        }
+    }
+
+    public suminsuredservice1Failure(successData) {
+    }
+
 }
