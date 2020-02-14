@@ -540,7 +540,6 @@ export class AegonTermLifeComponent implements OnInit {
 
   public getCustomeSuccess(successData) {
     if (successData.IsSuccess) {
-      alert('inn')
       this.customerurl = successData.ResponseObject.productlist.customer_form_url[0];
       this.window.open(this.customerurl,'_top');
 
