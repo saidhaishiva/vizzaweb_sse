@@ -1289,18 +1289,18 @@ changecountryofbirth() {
           this.personal.controls['country'].patchValue(key);
           this.personal.controls['countryName'].patchValue(this.response['country'][key]);
         }
-        for(let key in this.response.state) {
-          this.personal.controls['cstate'].patchValue(key);
-          this.personal.controls['cstateName'].patchValue(this.response['state'][key]);
-        }
-        for(let key in this.response.city) {
-          this.personal.controls['ccity'].patchValue(key);
-          this.personal.controls['ccityName'].patchValue(this.response['city'][key]);
-        }
-        for(let key in this.response.country) {
-          this.personal.controls['ccountry'].patchValue(key);
-          this.personal.controls['ccountryName'].patchValue(this.response['country'][key]);
-        }
+        // for(let key in this.response.state) {
+        //   this.personal.controls['cstate'].patchValue(key);
+        //   this.personal.controls['cstateName'].patchValue(this.response['state'][key]);
+        // }
+        // for(let key in this.response.city) {
+        //   this.personal.controls['ccity'].patchValue(key);
+        //   this.personal.controls['ccityName'].patchValue(this.response['city'][key]);
+        // }
+        // for(let key in this.response.country) {
+        //   this.personal.controls['ccountry'].patchValue(key);
+        //   this.personal.controls['ccountryName'].patchValue(this.response['country'][key]);
+        // }
 
       }
       else if(title == 'nominee')
