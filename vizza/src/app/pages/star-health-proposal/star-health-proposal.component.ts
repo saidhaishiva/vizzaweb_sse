@@ -99,6 +99,9 @@ export class StarHealthProposalComponent implements OnInit {
     public cityTitle: any;
     public rAreaNames: any;
     public rAreaNames1: any;
+    public fnameInsured: any;
+    public fdob: any;
+    public frelationship: any;
     public areaNames1: any;
     public rAreaName: any;
     public rResponse: any;
@@ -1217,6 +1220,7 @@ setRelationship1() {
 
     InsureDetails(stepper: MatStepper, index, key) {
         sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
+        console.log(this.familyMembers,'987654')
         this.illnesStatus = false;
         this.insureStatus = false;
         let errorMessage = true;
@@ -1711,17 +1715,27 @@ setRelationship1() {
 
     // }
 
-    sameProposer(value: any) {
+    sameProposer(value: any,index) {
         if (value.checked) {
             this.familyMembers[0].sameAsProposer = true;
             this.familyMembers[0].ins_dob = this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd'),
-                console.log(this.datepipe.transform( this.personal.controls['personalDob'].value));
-            console.log(this.personal.controls['personalDob'].value);
-            console.log(this.familyMembers[0].ins_dob);
+                this.familyMembers[0].insurerDobError = '';
+            this.ageCheck = this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd');
+            let monthCheck = this.datepipe.transform(this.personalData.personalDob, 'y,MM,dd');
+            let dob_days = this.datepipe.transform(this.personalData.personalDob, 'dd-MM-y');
+
+            let age = this.ageCalculate(this.ageCheck);
+            console.log(age)
+
+            this.familyMembers[0].ins_dob = this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd');
+            this.familyMembers[0].ins_age = age;
             this.familyMembers[0].ins_name = this.personal.controls['personalFirstname'].value,
-                this.familyMembers[0].ins_occupation_id = this.personal.controls['personalOccupation'].value
+
+            this.familyMembers[0].ins_occupation_id = this.personal.controls['personalOccupation'].value
             if (this.familyMembers[0].sameAsProposer = true) {
-                this.familyMembers[0].ins_relationship ='1'
+                this.familyMembers[0].ins_relationship ='1';
+                this.selectProposerRelation(index);
+
             }else{
                 this.familyMembers[0].ins_relationship=''
             }
@@ -1730,6 +1744,36 @@ setRelationship1() {
                 this.familyMembers[0].ins_name='',
                 this.familyMembers[0].ins_occupation_id ='',
                 this.familyMembers[0].ins_relationship=''
+        }
+    }
+    sameValues1(){
+        if(this.sameAsProposer==true){
+            this.familyMembers[0].sameAsProposer = true;
+
+            // this.sameAddress1();
+            this.sameProposer1();
+        }else if(this.sameAsProposer==false){
+            this.familyMembers[0].sameAsProposer = false;
+            this.sameProposer1();
+        }
+    }
+ sameProposer1() {
+        if (this.requestInsuredDetails.sameAsProposer == true) {
+            // this.familyMembers[0].sameAsProposer = true;
+            this.requestInsuredDetails.ins_dob = this.datepipe.transform(this.requestDetails[0].prop_dob, 'y-MM-dd'),
+
+            this.requestInsuredDetails.ins_name = this.requestDetails[0].proposer_fname,
+                this.requestInsuredDetails.ins_occupation_id = this.requestDetails[0].prop_occupation
+            if (this.requestInsuredDetails.sameAsProposer == true) {
+                this.requestInsuredDetails.ins_relationship ='1'
+            }else{
+                this.requestInsuredDetails.ins_relationship=''
+            }
+        } else {
+            this.requestInsuredDetails.ins_dob='',
+                this.requestInsuredDetails.ins_name='',
+                this.requestInsuredDetails.ins_occupation_id ='',
+                this.requestInsuredDetails.ins_relationship=''
         }
     }
 
