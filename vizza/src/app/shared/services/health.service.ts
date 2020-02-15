@@ -97,7 +97,7 @@ export class HealthService {
 
     // old api
     // update familygroup suminsured
-     changeAmountPolicyQuotation(data) {
+    changeAmountPolicyQuotation(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -408,6 +408,16 @@ export class HealthService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostHealth() + 'starhealth/proposal';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getProposalsss(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'healthproduct/productList';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -1234,6 +1244,24 @@ export class HealthService {
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
+    }suminsuredservice(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'starhealth/sum_insured';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }suminsuredId(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'starhealth/sum_insured_id';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
     }
     private extractData(res: Response) {
         const body = res;
@@ -1254,3 +1282,4 @@ export class HealthService {
 
 
 }
+

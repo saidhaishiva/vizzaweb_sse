@@ -4956,7 +4956,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item" ><strong>Name:</strong> {{customerFormData.titleName}}.{{customerFormData.firstName}} {{customerFormData.midName}} {{customerFormData.lastName}}</li>
+                                                    <li class="list-group-item" ><strong>Name:</strong> {{customerFormData.titleName}}{{customerFormData.firstName}} {{customerFormData.midName}} {{customerFormData.lastName}}</li>
                                                     <li class="list-group-item" *ngIf="customerFormData.dob != ''" ><strong>DOB:</strong> {{customerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                                     <li class="list-group-item" *ngIf="customerFormData.maritalStatus != ''" ><strong>Marital Status:</strong> {{customerFormData.maritalStatusName}}</li>
                                                     <li class="list-group-item" *ngIf="customerFormData.emailId != ''" ><strong>Email ID:</strong> {{customerFormData.emailId}}</li>
@@ -5983,7 +5983,7 @@
 
 
                                 <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="resendOPT();getProposalNext(stepper)">Next</button>
+                                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Next</button>
                                 <!--<button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>-->
                                 <!--</form>-->
                             </div>
@@ -6126,7 +6126,7 @@
                                                         <label class="custom-file-label" style="width: 93px;"></label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="photoProofName!=''">
+                                                <div *ngIf="photoProofName!=undefined">
                                                 <i class=" fa fa-times icon-absolute"  style="margin-left:100px"  (click)="removeImage('1')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{photoProofName}}</p>
@@ -6162,7 +6162,7 @@
                                                         <label class="custom-file-label" style="width: 93px;"></label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="uploadIdProofName!=''">
+                                                <div *ngIf="uploadIdProofName!=undefined">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('2')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>
@@ -6197,7 +6197,7 @@
                                                         <label class="custom-file-label" style="width: 93px;"></label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="uploadAgeProofName!=''">
+                                                <div *ngIf="uploadAgeProofName!=undefined">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('3')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
@@ -6223,7 +6223,7 @@
                                                         <label class="custom-file-label" style="width: 93px;"></label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="uploadAddressProofName!=''">
+                                                <div *ngIf="uploadAddressProofName!=undefined">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('4')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
@@ -6249,7 +6249,7 @@
                                             <label class="custom-file-label" style="width: 93px;"></label>
                                             </div>
                                             </div>
-                                                <div *ngIf="salesReqProofName!=''">
+                                                <div *ngIf="salesReqProofName!=undefined">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('5')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{salesReqProofName}}</p>
@@ -6274,7 +6274,7 @@
                                             <label class="custom-file-label" style="width: 93px;"></label>
                                             </div>
                                             </div>
-                                                <div *ngIf="kycProofName!=''">
+                                                <div *ngIf="kycProofName!=undefined">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('6')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{kycProofName}}</p>
@@ -6309,7 +6309,7 @@
                                                         <label class="custom-file-label" style="width: 93px;"></label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="uploadIncomeProofName!=''">
+                                                <div *ngIf="uploadIncomeProofName!=undefined">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('7')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{uploadIncomeProofName}}</p>

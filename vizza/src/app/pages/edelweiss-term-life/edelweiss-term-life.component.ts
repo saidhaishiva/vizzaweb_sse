@@ -968,7 +968,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.enquiryFromDetials.lifePayment,'lifepayment');
     // console.log(this.insureArray.controls['modeOfPremium'].value,'lifepayment');
     // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
-
+console.log(this.kycProofName,'kycProofName')
   }
 
   initItemRows() {
@@ -9154,8 +9154,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public ProposalNextSuccess(successData,stepper) {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
+      this.resendOPT();
       // this.toastr.success(successData.ResponseObject);
-
       stepper.next();
       this.topScroll();
       this.proposalGenStatus = false;
@@ -9376,6 +9376,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (successData.IsSuccess) {
       this.receiptNo = successData.ResponseObject.receipt_no;
       sessionStorage.receipt = JSON.stringify(this.receiptNo);
+      console.log(sessionStorage.receipt,'sessionStorage.receipt...')
       this.toastr.success(successData.ResponseMessage);
       // this.summaryData.receipt_no=''
       // this.dialogRef.close(true);
@@ -10152,7 +10153,7 @@ export class EdelweissOpt {
   otpEdVal() {
 
     console.log(this.summaryData.receipt_no,'receipt....')
-    if(this.receiptNo1!=''){
+    if(sessionStorage.receipt!=''){
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -10160,7 +10161,7 @@ export class EdelweissOpt {
       "platform": "web",
       "product_id": this.lifePremiumList.product_id,
       "policy_id": this.getEnquiryDetials.policy_id,
-      "transaction_id":this.receiptNo1,
+      "transaction_id":sessionStorage.receipt,
       "otp":this.otpCode
     }
       this.settings.loadingSpinner = true;
@@ -10175,7 +10176,7 @@ export class EdelweissOpt {
         }
     );
     }
-    if(this.receiptNo1 == ''){
+    if(sessionStorage.receipt == ''){
       console.log('555555555555.....')
       const data = {
         "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -10247,8 +10248,9 @@ export class EdelweissOpt {
     if (successData.IsSuccess) {
       this.receiptNo = successData.ResponseObject.receipt_no;
       this.toastr.success(successData.ResponseMessage);
+      sessionStorage.receipt='';
       this.receiptNo1=''
-      console.log(this.receiptNo1,'43567890897657')
+      console.log(sessionStorage.receipt,'43567890897657')
       // this.dialogRef.close(true);
     } else {
       this.toastr.error(successData.ErrorObject);
