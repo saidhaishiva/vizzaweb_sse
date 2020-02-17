@@ -9154,7 +9154,7 @@ console.log(this.kycProofName,'kycProofName')
   public ProposalNextSuccess(successData,stepper) {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
-      this.resendOPT();
+      // this.resendOPT();
       // this.toastr.success(successData.ResponseObject);
       stepper.next();
       this.topScroll();
@@ -9359,7 +9359,6 @@ console.log(this.kycProofName,'kycProofName')
       "premiumPayingTerm": this.lifePremiumList.premium_paying_term  ,
       // "betterHalfBenefit": lifePremiumList.sub_product_id
     }
-    this.settings.loadingSpinner = true;
     console.log(data, '999999999');
     this.termService.edelweissResendOtp(data).subscribe(
         (successData) => {
@@ -9372,7 +9371,6 @@ console.log(this.kycProofName,'kycProofName')
   }
 
   public resendOTPListSuccess(successData) {
-    this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
       this.receiptNo = successData.ResponseObject.receipt_no;
       sessionStorage.receipt = JSON.stringify(this.receiptNo);
@@ -10134,8 +10132,8 @@ export class EdelweissOpt {
       @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute,  public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
     this.otpCode = '';
     let summaryData = JSON.parse(sessionStorage.summaryData);
-    let receipt = JSON.parse(sessionStorage.receipt);
     this.summaryData = summaryData;
+    let receipt = JSON.parse(sessionStorage.receipt);
     this.receiptNo1 = receipt;
     console.log(this.receiptNo1,'44444444')
     this. getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
@@ -10152,8 +10150,8 @@ export class EdelweissOpt {
 
   otpEdVal() {
 
-    console.log(this.summaryData.receipt_no,'receipt....')
-    if(sessionStorage.receipt!=''){
+    console.log(this.receiptNo1,'receipt....')
+    if(this.receiptNo1!=''){
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -10176,7 +10174,8 @@ export class EdelweissOpt {
         }
     );
     }
-    if(sessionStorage.receipt == ''){
+    console.log(this.receiptNo1,'receipt....')
+    if(this.receiptNo1 == ''){
       console.log('555555555555.....')
       const data = {
         "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
