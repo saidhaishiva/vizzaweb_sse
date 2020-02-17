@@ -580,7 +580,7 @@
 
           <mat-step [stepControl]="">
             <ng-template matStepLabel>SUMMARY</ng-template>
-            <section class="summary-details" *ngIf="summaryData && payLaterr == false">
+            <section class="summary-details" *ngIf="summaryData && payLaterr == false && submit==false">
               <div class="row">
                 <div class="col-md-4" *ngIf="this.animal!=''" > <h4 class="mt-4">{{summaryData1}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{this.animal}}</span><span (click)="openDialog()" style="cursor: pointer;"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
                 </div>
@@ -704,79 +704,7 @@
                 </div>
               </div>
 
-              <!--<div class="col-md-12 box-card">-->
-              <!--<h6 class="color-blue">SOCIAL STATUS</h6>-->
-              <!--<div class="row">-->
-              <!--<div class="col-md-6 ">-->
-              <!--<p>Please choose "Yes" if you are working in Unorganized Sector</p>-->
-              <!--<mat-button-toggle-group #group="matButtonToggleGroup" >-->
-              <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer1 == 1" disabled>Yes</mat-button-toggle>-->
-              <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer1 == null" [disabled]="personal['controls'].socialStatus.value == false || personal['controls'].socialStatus.value == 'false'">No</mat-button-toggle>-->
-              <!--</mat-button-toggle-group>-->
-              <!--</div>-->
-              <!--<div class="col-md-6">-->
-              <!--<p>Please choose "Yes" if you are working in informal Sector</p>-->
-              <!--<mat-button-toggle-group #group="matButtonToggleGroup" >-->
-              <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer2 == 1" disabled>Yes</mat-button-toggle>-->
-              <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer2 == null" disabled>No</mat-button-toggle>-->
-              <!--</mat-button-toggle-group>-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<hr>-->
-              <!--<div class="row">-->
-              <!--<div class="col-md-6 ">-->
-              <!--<p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>-->
-              <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
-              <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer3 == 1" disabled>Yes</mat-button-toggle>-->
-              <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer3 == null" disabled>No</mat-button-toggle>-->
-              <!--</mat-button-toggle-group>-->
-              <!--</div>-->
-              <!--<div class="col-md-6">-->
-              <!--<p>Please Choose “Yes” if you are physical challenged person </p>-->
-              <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
-              <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer4 == 1" disabled>Yes</mat-button-toggle>-->
-              <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer4 == null" disabled>No</mat-button-toggle>-->
-              <!--</mat-button-toggle-group>-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--</div>-->
 
-              <!--<div class="col-md-12">-->
-              <!--<h6 class="color-blue mt-3">SOCIAL STATUS</h6>-->
-              <!--<div class="row">-->
-              <!--<div class="col-md-6">-->
-              <!--<p>Please choose "Yes" if you are working in UnOrganized Sector</p>-->
-              <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
-              <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer1 == 1" disabled>Yes</mat-button-toggle>-->
-              <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer1 == null" disabled>No</mat-button-toggle>-->
-              <!--</mat-button-toggle-group>-->
-              <!--</div>-->
-              <!--<div class="col-md-6">-->
-              <!--<p>Please choose "Yes" if you are working in informal Sector</p>-->
-              <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
-              <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer2 == 1" disabled>Yes</mat-button-toggle>-->
-              <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer2 == 0" disabled>No</mat-button-toggle>-->
-              <!--</mat-button-toggle-group>-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<hr>-->
-              <!--<div class="row">-->
-              <!--<div class="col-md-6">-->
-              <!--<p>Please choose "Yes" if you are Economically Vulnerable or Backward Classes</p>-->
-              <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
-              <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer3 == 1" disabled>Yes</mat-button-toggle>-->
-              <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer3 == 0" disabled>No</mat-button-toggle>-->
-              <!--</mat-button-toggle-group>-->
-              <!--</div>-->
-              <!--<div class="col-md-6">-->
-              <!--<p>Please Choose “Yes” if you are physical challenged person </p>-->
-              <!--<mat-button-toggle-group #group="matButtonToggleGroup"  >-->
-              <!--<mat-button-toggle value="1" [checked]="proposerFormData.socialAnswer4 == 1" disabled>Yes</mat-button-toggle>-->
-              <!--<mat-button-toggle value="0" [checked]="proposerFormData.socialAnswer4 == 0" disabled>No</mat-button-toggle>-->
-              <!--</mat-button-toggle-group>-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--</div>-->
               <h5 class="mt-3 sub-title">INSURED DETAILS </h5>
               <div class="row box-card" *ngFor="let list of insuredFormData">
                 <div class="col-md-6">
@@ -874,17 +802,17 @@
 
             </section>
 
-              <section class="summary-details " *ngIf="payLaterr == true" >
-                  <div class="row" >
-                      <div class="col-12 col-md-4" *ngIf="paylaterEdit==false">
-                          <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getsum_insured_amount}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
-                      </div>
-                      <div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==false">
-                          <ul class="summary-head">
-                              <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                              <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{getpremium}}</span> /</li>
-                              <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{getservicetax}}</span> </li>
-                              <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{gettotal_premium}}</span> /</li>
+            <section class="summary-details " *ngIf="payLaterr == true && submit== false">
+              <div class="row">
+                <div class="col-12 col-md-4" *ngIf="paylaterEdit==false">
+                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getsum_insured_amount}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
+                </div>
+                <div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==false">
+                  <ul class="summary-head">
+                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                    <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{getpremium}}</span> /</li>
+                    <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{getservicetax}}</span> </li>
+                    <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{gettotal_premium}}</span> /</li>
 
                               <li></li>
                           </ul>
@@ -1196,9 +1124,9 @@
                       <h5 class="mt-3 ml-0 sub-title">INSURED DETAILS </h5>
 
                       <div class="col-md-12 box-card"  *ngFor="let item of requestInsuredDetails; let i = index">
-                          <ng-template>
+                          <h6>
                               {{item.type | uppercase}} DETAILS
-                          </ng-template>
+                          </h6>
                           <ng-template matStepLabel>INSURED DETAILS </ng-template>
 
                           <div class="row" >
@@ -1429,17 +1357,250 @@
                       </div>
 
 
-                  </section>
               </section>
+            </section>
 
 
-            <p class="mt-5"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
+            <section class="summary-details" *ngIf="payLaterr == true && submit ==true">
+              <div class="row">
+                <div class="col-md-4" > <h4 class="mt-4">{{group_namesubmit}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{sum_insured_amount}}</span></h4>
+                </div>
+
+
+                <div class="col-md-8" >
+                  <ul class="summary-head">
+                    <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
+                    <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{premiumsubmit}}</span> /</li>
+                    <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{servicetaxsubmit}}</span> /</li>
+                    <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{total_premiumsubmit}}</span> </li>
+                    <li></li>
+                  </ul>
+                </div>
+              </div>
+
+              <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
+              <div class="row box-card">
+
+
+
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Name:</strong> {{titlesubmit}}.{{first_namesubmit}} {{last_namesubmit}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{policyid1.dob | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item"><strong>Email Id:</strong> {{policyid1.email}}</li>
+                      <li class="list-group-item"><strong>Mobile Number:</strong> {{policyid1.mobile}}</li>
+                      <li class="list-group-item" *ngIf="policyid1.alternate_contact !=''"><strong>Alternate Number:</strong> {{policyid1.alternate_contact}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <!--<li class="list-group-item" *ngIf="policyid1.occupation !=''"><strong>Occupation:</strong> {{policyid1.occupation}}</li>-->
+                      <li class="list-group-item" *ngIf="policyid1.annual_income !='' && policyid1.annual_income !=null"><strong>Annual Income:</strong> {{policyid1.annual_income | currency: 'INR'}}</li>
+                      <li class="list-group-item" *ngIf="policyid1.personalAadhar !='' && policyid1.aadhar !=null"><strong>Aadhar Number:</strong> {{policyid1.aadhar}}</li>
+                      <li class="list-group-item" *ngIf="policyid1.personalPan !='' && policyid1.pancard !=null"><strong>PAN Number:</strong> {{policyid1.pancard | uppercase}}</li>
+                      <li class="list-group-item" *ngIf="policyid1.gst !='' && policyid1.gst !=null"><strong>GST Number:</strong> {{policyid1.gst | uppercase}}</li>
+                      <!--<li class="list-group-item" *ngIf="policyid1.previousinsurance !='' && policyid1.previousinsurance !=null"><strong>Previous Medical Insurence:</strong> {{policyid1.previousinsurance}}</li>-->
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Address 1:</strong> {{policyidpay.communicatiom_details.address1}}</li>
+                      <li class="list-group-item"><strong>Address 2:</strong> {{policyidpay.communicatiom_details.address2}}</li>
+                      <li class="list-group-item"><strong>PIN code:</strong>  {{policyidpay.communicatiom_details.pincode}}</li>
+                      <li class="list-group-item"><strong>City:</strong> {{policyidpay.communicatiom_details.city}}</li>
+                      <li class="list-group-item"><strong>Area:</strong> {{policyidpay.communicatiom_details.area}}</li>
+                      <li class="list-group-item"><strong>State:</strong> {{policyidpay.communicatiom_details.state}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class=" p-3">
+                    <h6 class="color-blue">RESIDENCE DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item" ><strong>Address 1:</strong>
+                        <span *ngIf="policyidpay.premanent_details.address1 !=''">{{policyidpay.premanent_details.address1}}</span>
+                        <span *ngIf="policyidpay.premanent_details.address1  ==''">Nil</span>
+                      </li>
+                      <li class="list-group-item"><strong>Address 2:</strong>
+                        <span *ngIf="policyidpay.premanent_details.address2 !=''">{{policyidpay.premanent_details.address2}}</span>
+                        <span *ngIf="policyidpay.premanent_details.address2 ==''">Nil</span>
+                      </li>
+                      <li class="list-group-item"><strong>PIN code:</strong>
+                        <span *ngIf="policyidpay.premanent_details.pincode !=''">{{policyidpay.premanent_details.pincode}}</span>
+                        <span *ngIf="policyidpay.premanent_details.pincode ==''">Nil</span>
+                      </li>
+                      <li class="list-group-item"><strong>City:</strong>
+                        <span *ngIf="policyidpay.premanent_details.city !=''">{{policyidpay.premanent_details.city}}</span>
+                        <span *ngIf="policyidpay.premanent_details.city ==''">Nil</span>
+                      </li>
+                      <li class="list-group-item"><strong>Area:</strong>
+                        <span *ngIf="policyidpay.premanent_details.area !=''">{{policyidpay.premanent_details.area}}</span>
+                        <span *ngIf="policyidpay.premanent_details.area ==''">Nil</span>
+                      </li>
+                      <li class="list-group-item"><strong>State:</strong>
+                        <span *ngIf="policyidpay.premanent_details.state !=''">{{policyidpay.premanent_details.state}}</span>
+                        <span *ngIf="policyidpay.premanent_details.state ==''">Nil</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <h5 class="mt-3 sub-title">SOCIAL STATUS </h5>
+              <div class="row box-card">
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"*ngIf="policyid1.is_bpl == 1"><strong> Are you working in Unorganized Sector:</strong> <span >Yes</span> </li>
+                      <li class="list-group-item" *ngIf="policyid1.is_bpl != 1||policyid1.is_bpl ==''"><strong>Are you working in Unorganized Sector:</strong> <span >No</span></li>
+                      <li class="list-group-item" *ngIf="policyid1.is_disabled == 1"><strong>Are you working in informal Sector:</strong> <span >Yes</span></li>
+                      <li class="list-group-item" *ngIf="policyid1.is_disabled != 1||policyid1.is_disabled ==''"><strong>Are you working in informal Sector:</strong><span >No</span></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item" *ngIf="policyid1.is_informal == 1"><strong>Are you Economically Vulnerable or Backward Classes:</strong><span >Yes</span></li>
+                      <li class="list-group-item" *ngIf="policyid1.is_informal != 1||policyid1.is_informal ==''"><strong>Are you Economically Vulnerable or Backward Classes:</strong><span >No</span></li>
+                      <li class="list-group-item" *ngIf="policyid1.is_unorganized == 1"><strong>Are you physical challenged person:</strong><span >Yes</span></li>
+                      <li class="list-group-item" *ngIf="policyid1.is_unorganized != 1||policyid1.is_unorganized ==''"><strong>Are you physical challenged person:</strong><span >No</span></li>
+
+                    </ul>
+                  </div>
+                </div>
+
+                  <div class="col-md-6">
+                    <div class="p-3">
+                    <h6 class="color-blue mt-4"></h6>
+                    <ul class="m-0 list-group">
+
+                      <li class="list-group-item"><strong>Do you have any health problem: </strong> <span *ngIf="policyid1.existing_illness == 'true'">Yes</span> <span *ngIf="policyid1.existing_illness == 'false'">No</span></li>
+
+                      <li class="list-group-item" *ngIf="policyid1.existing_illness"><strong>Illness:</strong> {{policyid1.existing_illness}}</li>
+                      <li class="list-group-item" *ngIf="this.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> <span *ngIf="policyid1.hospital_cash == '1'">Yes</span> <span *ngIf="policyid1.hospital_cash == '0'">No</span></li>
+                      <!--                      <li *ngIf="this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8" class="list-group-item"><strong>Buy back PED:</strong> </li>-->
+                      <li class="list-group-item" *ngIf="this.product_id == 8 || this.product_id == 9" class="list-group-item"><strong>Buy back PED:</strong> <span *ngIf="policyid1.is_backwardclass == '1'">Yes</span> <span *ngIf="policyid1.is_backwardclass == '0'">No</span></li>
+
+                      <li class="list-group-item" *ngIf="this.product_id == 8 || this.product_id == 9" class="list-group-item"><strong>personal Accident Applicable:</strong> <span *ngIf="policyid1.is_personal_accident_applicable == '2'"> Yes</span> <span *ngIf="policyid1.is_personal_accident_applicable == '0'"> No</span></li>
+                      <li class="list-group-item" *ngIf="this.product_id == 8 || this.product_id == 9" class="list-group-item"><strong>Engage Manual Labour:</strong> {{policyid1.engage_manual_labour}}</li>
+                      <li class="list-group-item" *ngIf="this.product_id == 8 || this.product_id == 9" class="list-group-item"><strong>Engage Winter Sports:</strong> {{policyid1.engage_winter_sports}}</li>
+                    </ul>
+                  </div>
+
+              </div>
+              </div>
+
+
+              <h5 class="mt-3 sub-title">INSURED DETAILS </h5>
+              <div class="row box-card" *ngFor="let list of policyidinsured">
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue"> INSURED DETAILS FOR {{list.type | uppercase}}</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Name:</strong> {{list.first_name}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{list.dob | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item"><strong>Gender:</strong> {{list.gender}}</li>
+                      <li class="list-group-item"><strong>Height:</strong> {{list.height}}</li>
+                      <li class="list-group-item"><strong>Weight:</strong> {{list.weight}}</li>
+                      <li class="list-group-item"><strong>Occupation:</strong> {{list.occupation}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue mt-4"></h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{list.relationship}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+
+              <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+              <div class="row box-card" *ngFor="let allList of policyidnominee">
+                <div class="col-md-12" >
+                  <div class="p-3" >
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="p-3">
+                          <ul class="m-0 list-group">
+                            <li class="list-group-item">
+                              <strong>Name:</strong> <span *ngIf="allList.first_name ==''"> Nil</span> <span *ngIf="allList.first_name !=''">{{allList.first_name}}</span>
+                            </li>
+                            <li class="list-group-item"><strong>Age:</strong>
+                              <span *ngIf="allList.age ==''"> Nil</span> <span *ngIf="allList.age !=''">{{allList.age}}</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="p-3">
+                          <ul class="m-0 list-group">
+                            <li class="list-group-item">
+                              <strong>Relationship with Proposer:</strong>
+                              <span *ngIf="allList.relationship !=''">
+                                                {{allList.relationship}}
+                                              </span>
+                              <span *ngIf="allList.relationship ==''">
+                                                  Nil
+                                              </span>
+                            </li>
+                            <li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="allList.percentage == '' || allList.percentage == 0"> Nil</span> <span *ngIf="allList.percentage != ''">{{allList.percentage | limitTo : 3}}</span></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                  <!--<h5 class="mt-3 sub-title">APPOINTEE DETAILS </h5>-->
+              <div class="row box-card" *ngFor="let list of policyidappointee">
+                <div class="col-md-12" >
+                  <div class="p-3" *ngIf="list.aname !=''">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="p-3">
+                          <ul class="m-0 list-group">
+                            <li class="list-group-item" *ngIf="list.first_name !=''"><strong>Appointiee Name:</strong> {{list.first_name}}</li>
+                            <li class="list-group-item" *ngIf="list.age !=''"><strong>Age:</strong> {{list.age}}</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="p-3">
+                          <ul class="m-0 list-group">
+                            <li class="list-group-item" *ngIf="list.relationship !=''"><strong>Relationship with insured:</strong> {{list.relationship}}</li>
+                            <!--<li class="list-group-item" ><strong>% of Claim:</strong> <span *ngIf="list.nclaim == '' || list.nclaim == 0">Nil</span> <span *ngIf="list.nclaim != ''">{{list.nclaim | limitTo : 3}}</span></li>-->
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+
+            <p class="pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
+
+
 
             <hr>
             <div class="row">
               <div class="col-12 text-center">
                 <button mat-button matStepperPrevious (click)="topScroll()"  *ngIf="payLaterr == false">Back</button>
                 <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
+                <button mat-raised-button color="primaryBlue" class="mr-2" *ngIf="payLaterr == true && submit==false"  (click)="policyid()">Submit</button>
+
                 <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="payNow();">Pay Now</button>
               </div>
             </div>

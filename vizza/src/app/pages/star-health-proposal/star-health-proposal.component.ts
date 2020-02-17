@@ -215,6 +215,20 @@ export class StarHealthProposalComponent implements OnInit {
     policy_type_name: any;
     paylaterEdit: any;
     policyid1: any;
+    sum_insured_amount:any;
+    premiumsubmit:any;
+    servicetaxsubmit:any;
+    policyidpay:any;
+    total_premiumsubmit:any;
+    group_namesubmit:any;
+    titlesubmit:any;
+    policyidinsured:any;
+    submit:boolean;
+    policyidnominee:any;
+    policyidappointee:any;
+
+    first_namesubmit:any;
+    last_namesubmit:any;
     public healthStarTrue0: boolean;
     public healthStarTrue1: boolean;
     public healthStarTrue2: boolean;
@@ -224,6 +238,7 @@ export class StarHealthProposalComponent implements OnInit {
     constructor(@Inject(WINDOW) private window: Window, public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
         this.stepperindex = 0;
+        this.proposalId = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 this.stepperindex = 3;
@@ -271,6 +286,7 @@ export class StarHealthProposalComponent implements OnInit {
         this.nomineeNext = true;
         this.paylaterEdit = false;
         this.ageSetting = false;
+        this.submit = false;
         this.eventClaimValue = false;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -278,7 +294,6 @@ export class StarHealthProposalComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.selectDate = '';
-        this.proposalId = 0;
         this.proposalIdStar = 0;
         this.step = 0;
         this.mobileNumber = 'true';
@@ -338,6 +353,7 @@ export class StarHealthProposalComponent implements OnInit {
         this.setOccupationList1();
         this.gstIdList1();
         this.setRelationship1();
+        this.proposalId = 0;
             if (this.payLaterr == true) {
             this.stepperindex = 3;
             this.step = 3;
@@ -833,7 +849,7 @@ setRelationship1() {
     // }
 
     changeSocialStatus(event:any) {
-
+        alert('1');
         if (event.checked==true) {
             this.socialNo = false;
         }else{
@@ -2164,7 +2180,8 @@ setRelationship1() {
         const data = [{
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'proposal_id' :sessionStorage.proposalId,
+            // 'proposal_id' :sessionStorage.proposalId,
+            'proposal_id' :sessionStorage.proposalIdStar,
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'group_name':  this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
@@ -2662,6 +2679,7 @@ setRelationship1() {
             'city1':this.personalCitys,
             'area1':this.areaNames,
             'sameas':this.personal.controls['sameas'].value,
+            'sameAsProposer':this.sameAsProposer
 
             // 'payment': this.paymentGatewayData.payment_gateway_url
         }];
@@ -2714,12 +2732,33 @@ setRelationship1() {
     }
     public policyidSuccess1(successData) {
         if (successData.IsSuccess) {
-            this.policyid1 = successData.ResponseObject;
+            this.submit=true
+            this.policyidpay = successData.ResponseObject
+            this.policyid1 = successData.ResponseObject.proposer_details;
+            this.policyidinsured = successData.ResponseObject.insured_details;
+            this.policyidnominee = successData.ResponseObject.nominee_details;
+            this.policyidappointee = successData.ResponseObject.appointee_details;
             console.log(this.policyid1,'this.policyid1' );
+            this.sum_insured_amount=this.policyid1.sum_insured_amount;
+            console.log(this.sum_insured_amount,'this.sum_insured_amount')
+            this.premiumsubmit=this.policyid1.premium;
+            console.log(this.premiumsubmit,'this.premiumsubmit')
+
+            this.servicetaxsubmit=this.policyid1.servicetax;
+            console.log(this.servicetaxsubmit,'this.servicetaxsubmit')
+
+
+            this.total_premiumsubmit=this.policyid1.total_premium;
+            this.group_namesubmit=this.policyid1.group_name;
+            this.titlesubmit=this.policyid1.title;
+            this.first_namesubmit=this.policyid1.first_name;
+            this.last_namesubmit=this.policyid1.last_name;
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }
     }
+
     public policyidFailure1(error) {
     }
 
