@@ -849,7 +849,6 @@ setRelationship1() {
     // }
 
     changeSocialStatus(event:any) {
-        alert('1');
         if (event.checked==true) {
             this.socialNo = false;
         }else{
@@ -1787,7 +1786,7 @@ setRelationship1() {
             this.ageCheck = this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd');
             let monthCheck = this.datepipe.transform(this.personalData.personalDob, 'y,MM,dd');
             let dob_days = this.datepipe.transform(this.personalData.personalDob, 'dd-MM-y');
-            this.addEventInsurerSelect(this.personalData.personalDob, index, 'Self')
+            this.addEventInsurerSelect(this.ageCheck, index, 'Self')
             let age = this.ageCalculate(this.ageCheck);
             console.log(age)
 
