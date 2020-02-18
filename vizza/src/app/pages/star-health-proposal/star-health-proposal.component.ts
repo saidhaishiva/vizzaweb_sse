@@ -226,6 +226,7 @@ export class StarHealthProposalComponent implements OnInit {
     submit:boolean;
     policyidnominee:any;
     policyidappointee:any;
+    insurerName:any;
 
     first_namesubmit:any;
     last_namesubmit:any;
@@ -639,6 +640,37 @@ export class StarHealthProposalComponent implements OnInit {
         }
     }
     public occupationList1Failure(error) {
+        console.log(error);
+    }
+
+    insurerNameSameAs() {
+        console.log(this.sameAsProposer,'this.sameAsProposer...')
+        const data = {
+            "platform": "web",
+            "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            "insurer_type": this.sameAsProposer,
+            "first_name" : this.personal.controls['personalFirstname'].value,
+            "last_name" : this.personal.controls['personalLastname'].value,
+        }
+        this.proposalservice.getInsurerNameList(data).subscribe(
+            (successData) => {
+                this.insurerNameSameAsSuccess(successData);
+            },
+            (error) => {
+                this.insurerNameSameAsFailure(error);
+            }
+        );
+
+    }
+    public insurerNameSameAsSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.insurerName = successData.ResponseObject;
+            console.log(this.insurerName,'this.insurerName...');
+            this.sameProposer(0)
+        }
+    }
+    public insurerNameSameAsFailure(error) {
         console.log(error);
     }
 
@@ -1792,7 +1824,7 @@ setRelationship1() {
 
             this.familyMembers[0].ins_dob = this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd');
             this.familyMembers[0].ins_age = age;
-            this.familyMembers[0].ins_name = (this.personal.controls['personalFirstname'].value,this.personal.controls['personalLastname'].value),
+            this.familyMembers[0].ins_name = (this.insurerName),
 
             this.familyMembers[0].ins_occupation_id = this.personal.controls['personalOccupation'].value
             if (this.sameAsProposer == true) {
