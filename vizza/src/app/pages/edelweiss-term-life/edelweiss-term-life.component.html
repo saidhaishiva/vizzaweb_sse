@@ -5983,7 +5983,7 @@
 
 
                                 <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="resendOPT();getProposalNext(stepper)">Next</button>
+                                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="sendOPT();getProposalNext(stepper)">Next</button>
                                 <!--<button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>-->
                                 <!--</form>-->
                             </div>
@@ -6123,10 +6123,10 @@
                                                 <div class="text-left w-100">
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'photograph_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
-                                                        <label class="custom-file-label" style="width: 93px;"></label>
+                                                        <label class="custom-file-label" >Choose</label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="photoProofName!=undefined">
+                                                <div *ngIf="photoProofName!=undefined && photoProofName!=''">
                                                 <i class=" fa fa-times icon-absolute"  style="margin-left:100px"  (click)="removeImage('1')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{photoProofName}}</p>
@@ -6159,10 +6159,10 @@
                                                 <div class="text-left w-100">
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'id_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                                                        <label class="custom-file-label" style="width: 93px;"></label>
+                                                        <label class="custom-file-label" >Choose</label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="uploadIdProofName!=undefined">
+                                                <div *ngIf="uploadIdProofName!=undefined && uploadIdProofName!=''">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('2')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>
@@ -6194,10 +6194,10 @@
                                                 <div class="text-left w-100">
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'age_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                                                        <label class="custom-file-label" style="width: 93px;"></label>
+                                                        <label class="custom-file-label" >Choose</label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="uploadAgeProofName!=undefined">
+                                                <div *ngIf="uploadAgeProofName!=undefined && uploadAgeProofName!=''">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('3')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
@@ -6220,10 +6220,10 @@
                                                 <div class="text-left w-100">
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'address_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                                                        <label class="custom-file-label" style="width: 93px;"></label>
+                                                        <label class="custom-file-label">Choose</label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="uploadAddressProofName!=undefined">
+                                                <div *ngIf="uploadAddressProofName!=undefined && uploadAddressProofName!=''">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('4')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
@@ -6246,10 +6246,10 @@
                                             <div class="text-left w-100">
                                             <div class="custom-file">
                                             <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf, .pdf" (change)="uploadProof($event, 'salesReq_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
-                                            <label class="custom-file-label" style="width: 93px;"></label>
+                                            <label class="custom-file-label" >Choose</label>
                                             </div>
                                             </div>
-                                                <div *ngIf="salesReqProofName!=undefined">
+                                                <div *ngIf="salesReqProofName!=undefined && salesReqProofName!=''">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('5')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{salesReqProofName}}</p>
@@ -6271,10 +6271,10 @@
                                             <div class="text-left w-100">
                                             <div class="custom-file">
                                             <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'kyc_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
-                                            <label class="custom-file-label" style="width: 93px;"></label>
+                                            <label class="custom-file-label">Choose</label>
                                             </div>
                                             </div>
-                                                <div *ngIf="kycProofName!=undefined">
+                                                <div *ngIf="kycProofName!=undefined && kycProofName!=''">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('6')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{kycProofName}}</p>
@@ -6304,12 +6304,17 @@
                                             <!--</div>-->
                                             <div class="col-md-3">
                                                 <div class="text-left w-100">
+<!--                                                    <button mat-raised-button color="primaryBlue" accept=".png, .jpg, .jpeg, .pdf" (click)="uploadProof($event, 'income_LifeAssured')"  required>Choose File</button>-->
+                                                    <!--                                                    <div class="custom-file">-->
+<!--                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'income_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>-->
+<!--                                                        <label class="custom-file-label" style="width: 93px;"></label>-->
+<!--                                                    </div>-->
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf" (change)="uploadProof($event, 'income_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
-                                                        <label class="custom-file-label" style="width: 93px;"></label>
+                                                        <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg, .pdf"  (change)="uploadProof($event, 'income_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                                        <label class="custom-file-label"> Choose</label>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="uploadIncomeProofName!=undefined">
+                                                <div *ngIf="uploadIncomeProofName!=undefined && uploadIncomeProofName!=''">
                                                 <i class=" fa fa-times icon-absolute" style="margin-left:100px" (click)="removeImage('7')"></i>
                                                 </div>
                                                 <p class="mt-2" style="color: green;">{{uploadIncomeProofName}}</p>

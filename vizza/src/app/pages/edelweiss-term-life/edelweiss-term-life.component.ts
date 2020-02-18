@@ -9345,7 +9345,7 @@ console.log(this.kycProofName,'kycProofName')
     //     }
     // }
 
-  resendOPT() {
+  sendOPT() {
 
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -9362,18 +9362,18 @@ console.log(this.kycProofName,'kycProofName')
     console.log(data, '999999999');
     this.termService.edelweissResendOtp(data).subscribe(
         (successData) => {
-          this.resendOTPListSuccess(successData);
+          this.sendOTPListSuccess(successData);
         },
         (error) => {
-          this.resendOTPListFailure(error);
+          this.sendOTPListFailure(error);
         }
     );
   }
 
-  public resendOTPListSuccess(successData) {
+  public sendOTPListSuccess(successData) {
     if (successData.IsSuccess) {
       this.receiptNo = successData.ResponseObject.receipt_no;
-      sessionStorage.receipt = JSON.stringify(this.receiptNo);
+      sessionStorage.receipt = JSON.parse(this.receiptNo);
       console.log(sessionStorage.receipt,'sessionStorage.receipt...')
       this.toastr.success(successData.ResponseMessage);
       // this.summaryData.receipt_no=''
@@ -9383,7 +9383,7 @@ console.log(this.kycProofName,'kycProofName')
     }
   }
 
-  public resendOTPListFailure(error) {
+  public sendOTPListFailure(error) {
   }
 
   getifscEdelweissDetails(ifsc) {
