@@ -730,6 +730,40 @@
 
                       </div>
                       </div>
+
+                      <div class="col-md-12 mt-2" >
+                      <div class="row">
+                      <div class="col-md-3">
+                        <mat-checkbox  formControlName="namedPassengerCovered" (change)="updatenamedPassenger($event)">PA to Named Passenger</mat-checkbox>
+                      </div>
+                      <div class="col-md-3"  *ngIf="coverDetails.controls.namedPassengerCovered.value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="No Of Named Passengers Covered"  (keypress)="numberValidate($event);changesumInsurednamed()" maxlength="1" formControlName="NoOfnamedPassenegersCovered"  autocomplete="off" required>
+                          <mat-error *ngIf="coverDetails.controls.NoOfnamedPassenegersCovered.errors?.required">No Of Named Passengers Covered is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="coverDetails.controls.NoOfnamedPassenegersCovered.value">
+                      <mat-form-field class="w-100">
+                        <mat-select placeholder="Sum Insured" formControlName="NaamedPassengersSI" (selectionChange)="namedSi();getCover()"    required>
+                          <mat-option *ngFor="let type of namedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="coverDetails.controls.NaamedPassengersSI.errors?.required">Sum Insured is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+
+                      <div class="col-md-3" *ngIf="coverDetails.controls.NaamedPassengersSI.value">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Cover Premium"  formControlName="totalnamedPassengerPremium"   autocomplete="off" readonly>
+                        </mat-form-field>
+                      </div>
+
+                      </div>
+                      </div>
+
+
+
+
                       <div class="col-md-12 mt-2" *ngIf="clientTypeField==true" >
                       <div class="row" *ngIf="clientTypeField==true">
                       <div class="col-md-3" *ngIf="clientTypeField==true">
@@ -1559,6 +1593,21 @@
                     <li class="list-group-item" *ngIf="(coverFormData.totalUnnamedPassengerPremium != '' || coverFormData.totalUnnamedPassengerPremium !=undefined)&&coverFormData.UnnamedPassengerCovered == true "><strong>PA to Unnamed Passenger Premium:</strong> {{coverFormData.totalUnnamedPassengerPremium}}</li>
                     </ul>
                   </div>
+<!--                 <div class="col-md-6" *ngIf="coverFormData.namedPassengerCovered == false||coverFormData.namedPassengerCovered == true">-->
+<!--                                  <h2 class="color-blue m-2">PA to Named Passenger</h2>-->
+<!--                                  <ul class="m-0 list-group">-->
+<!--                                    <li class="list-group-item" *ngIf="coverFormData.namedPassengerCovered == false"><strong>PA to Named Passenger :</strong><span *ngIf="coverFormData.namedPassengerCovered == false">N/A</span> </li>-->
+<!--                                    <li class="list-group-item" *ngIf="coverFormData.NaamedPassengersSI != '' || coverFormData.namedPassengerCovered ==true "><strong>Sum Insured:</strong> {{coverFormData.NaamedPassengersSI}}</li>-->
+<!--                                  </ul>-->
+<!--                                </div>-->
+
+<!--                                <div class="col-md-6" *ngIf="coverFormData.namedPassengerCovered == true">-->
+<!--                                  <h2     style="margin-top: 29px !important;" ></h2>-->
+<!--                                    <ul class="m-0 list-group">-->
+<!--                                    <li class="list-group-item" *ngIf="coverFormData.NoOfnamedPassenegersCovered != '' && coverFormData.namedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfnamedPassenegersCovered}}</li>-->
+<!--&lt;!&ndash;                                    <li class="list-group-item" *ngIf="(coverFormData.totalUnnamedPassengerPremium != '' || coverFormData.totalnamedPassengerPremium !=undefined)&&coverFormData.UnnamedPassengerCovered == true "><strong>PA to Named Passenger Premium:</strong> {{coverFormData.totalnamedPassengerPremium}}</li>&ndash;&gt;-->
+<!--                                    </ul>-->
+<!--                                  </div>-->
 
                 <!--<div class="col-md-6" *ngIf="coverFormData.PAToNamedPassenger != ''">-->
                         <!--<h2 class="color-blue m-2">PA to Named Passenger</h2>-->

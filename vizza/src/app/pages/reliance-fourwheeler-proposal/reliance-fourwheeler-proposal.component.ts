@@ -69,6 +69,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public driverCoveredList: any;
   public tppdList: any;
   public unnamedList: any;
+  public namedList: any;
   public relationListData: any;
   public prevInsurerList: any;
   public maritalList: any;
@@ -119,6 +120,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   // public errorRateMsg: any;
   public gstAmount: any;
   public discountAmount: any;
+  public pa_named_passenger: any;
   public electricalSumAount: any;
   public nonElectricalSumAount: any;
   public bifuelChangeList: any;
@@ -265,6 +267,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
     this.coverDetails = this.fb.group({
       UnnamedPassengerCovered: [''],
+      namedPassengerCovered: [''],
       AutomobileAssociationMember: [''],
       AntiTheftDeviceFitted: [''],
       // InsurancePremium: [''],
@@ -283,6 +286,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       nOtherRelationValue: [''],
       PACoverToOwner: [''],
       totalUnnamedPassengerPremium: [''],
+      totalnamedPassengerPremium: [''],
       totalOwnerDriverPremium: [''],
       totalDepreciationPremium: [''],
       totalVoluntaryDeductablePremium: [''],
@@ -290,6 +294,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       totalNonElectricalItemPremium: [''],
       // PAToNamedPassenger: [''],
       NoOfUnnamedPassenegersCovered: [''],
+      NoOfnamedPassenegersCovered: [''],
       IsVoluntaryDeductableOpted: [''],
       VoluntaryDeductableAmount: [''],
       IsElectricalItemFitted: [''],
@@ -308,6 +313,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       // IsPAToDriverCoveredSi: [''],
       IsRoadTaxcover: [''],
       UnnamedPassengersSI: [''],
+      NaamedPassengersSI: [''],
       cappointeeName: [''],
       cnomineeName: [''],
       cnDob: [''],
@@ -322,7 +328,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       // npOtherRelation: [''],
       // npOtherRelationValue: [''],
       npAddress: [''],
-      namedPassengersSI: [''],
+      // namedPassengersSI: [''],
       nppassengerName: [''],
       registrationSI: [''],
       roadtaxSI: [''],
@@ -397,6 +403,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.unnamedSi();
     this.getPaidDriverSi();
     this.getTppdSi();
+    this.namedSi();
     // this.getCover();
     // this.getBifuelChange();
     // this.coverDetails.controls['fuelType'].patchValue(this.bifuelChangeList)
@@ -917,6 +924,22 @@ changeOwnerDriver(){
     this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].updateValueAndValidity();
 
   }
+ updatenamedPassenger(event){
+    if (this.coverDetails.controls['namedPassengerCovered'].value==true) {
+      this.coverDetails.controls['NaamedPassengersSI'].setValidators([Validators.required]);
+      this.coverDetails.controls['NoOfnamedPassenegersCovered'].setValidators([Validators.required]);
+    }else{
+      this.coverDetails.controls['NaamedPassengersSI'].patchValue('');
+      this.coverDetails.controls['NaamedPassengersSI'].setValidators(null);
+
+      this.coverDetails.controls['NoOfnamedPassenegersCovered'].patchValue('');
+      this.coverDetails.controls['NoOfnamedPassenegersCovered'].setValidators(null);
+
+    }
+    this.coverDetails.controls['NaamedPassengersSI'].updateValueAndValidity();
+    this.coverDetails.controls['NoOfnamedPassenegersCovered'].updateValueAndValidity();
+
+  }
 
   updateVoluntary(){
     if(this.coverDetails.controls['IsVoluntaryDeductableOpted'].value == true){
@@ -1140,6 +1163,22 @@ changeOwnerDriver(){
     this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
 
   }
+  changesumInsurednamed(){
+    if(this.coverDetails.controls.NoOfnamedPassenegersCovered.value) {
+      console.log(this.coverDetails.controls.NoOfnamedPassenegersCovered.value,'namedpassenger')
+      this.coverDetails.controls['NaamedPassengersSI'].setValidators([Validators.required]);
+      // this.coverDetails.controls['totalnamedPassengerPremium'].setValidators([Validators.required]);
+      this.getCover();
+    }else{
+        this.coverDetails.controls['NaamedPassengersSI'].patchValue('');
+        this.coverDetails.controls['NaamedPassengersSI'].setValidators(null);
+        // this.coverDetails.controls['totalnamedPassengerPremium'].patchValue('');
+        // this.coverDetails.controls['totalnamedPassengerPremium'].setValidators(null);
+      }
+    this.coverDetails.controls['NaamedPassengersSI'].updateValueAndValidity();
+    // this.coverDetails.controls['totalnamedPassengerPremium'].updateValueAndValidity();
+
+  }
   changeValueUnpass(){
       if(this.coverDetails.controls.UnnamedPassengersSI.value){
       this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue(this.pa_unnamed_passenger);
@@ -1150,6 +1189,19 @@ changeOwnerDriver(){
   this.coverDetails.controls['totalUnnamedPassengerPremium'].patchValue('');
   this.coverDetails.controls['totalUnnamedPassengerPremium'].setValidators(null);
   this.coverDetails.controls['totalUnnamedPassengerPremium'].updateValueAndValidity();
+    }
+  }
+
+  changeValueepass(){
+      if(this.coverDetails.controls.NaamedPassengersSI.value){
+      this.coverDetails.controls['totalnamedPassengerPremium'].patchValue(this.pa_unnamed_passenger);
+      this.coverDetails.controls['totalnamedPassengerPremium'].setValidators([Validators.required]);
+      this.coverDetails.controls['totalnamedPassengerPremium'].updateValueAndValidity();
+  }else {
+
+  this.coverDetails.controls['totalnamedPassengerPremium'].patchValue('');
+  this.coverDetails.controls['totalnamedPassengerPremium'].setValidators(null);
+  this.coverDetails.controls['totalnamedPassengerPremium'].updateValueAndValidity();
     }
   }
   updateElectricalItem(event){
@@ -1683,6 +1735,7 @@ changeNonElect(){
       this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
       this.coverDetails = this.fb.group({
         UnnamedPassengerCovered: this.getStepper3.UnnamedPassengerCovered,
+        namedPassengerCovered: this.getStepper3.namedPassengerCovered,
         PAToOwnerDriverCoverd: this.getStepper3.PAToOwnerDriverCoverd,
         PAToOwnerDriverCoverdSi: this.getStepper3.PAToOwnerDriverCoverdSi,
         AutomobileAssociationMember: this.getStepper3.AutomobileAssociationMember,
@@ -1707,6 +1760,7 @@ changeNonElect(){
         // IsPAToDriverCovered: this.getStepper3.IsPAToDriverCovered,
         // IsPAToDriverCoveredSi: this.getStepper3.IsPAToDriverCoveredSi,
         NoOfUnnamedPassenegersCovered: this.getStepper3.NoOfUnnamedPassenegersCovered,
+        NoOfnamedPassenegersCovered: this.getStepper3.NoOfnamedPassenegersCovered,
         ElectricalItemsTotalSI: this.getStepper3.ElectricalItemsTotalSI,
         NonElectricalItemsTotalSI: this.getStepper3.NonElectricalItemsTotalSI,
         BiFuelKitSi: this.getStepper3.BiFuelKitSi,
@@ -1715,6 +1769,7 @@ changeNonElect(){
         cpgLpgKit: this.getStepper3.cpgLpgKit,
         fittngType: this.getStepper3.fittngType,
         UnnamedPassengersSI: this.getStepper3.UnnamedPassengersSI,
+        NaamedPassengersSI: this.getStepper3.NaamedPassengersSI,
         IsVoluntaryDeductableOpted: this.getStepper3.IsVoluntaryDeductableOpted,
         VoluntaryDeductableAmount: this.getStepper3.VoluntaryDeductableAmount,
         totalLiabilityToPaidDriverPremium: this.getStepper3.totalLiabilityToPaidDriverPremium,
@@ -1743,7 +1798,7 @@ changeNonElect(){
         fuelType: this.getStepper3.fuelType,
         nOtherRelationValue: this.getStepper3.nOtherRelationValue,
         npOtherRelationValue: this.getStepper3.npOtherRelationValue,
-        namedPassengersSI: this.getStepper3.namedPassengersSI,
+        // namedPassengersSI: this.getStepper3.namedPassengersSI,
         roadtaxSI: this.getStepper3.roadtaxSI,
         insuranceSI: this.getStepper3.insuranceSI,
         registrationSI: this.getStepper3.insuranceSI,
@@ -2239,6 +2294,107 @@ changeNonElect(){
   public unnamedSiFailure(error) {
   }
 
+
+ namedSi() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status":"0",
+      "enquiry_id":"834",
+      "company_id":"3",
+      "TypeOfFuel":this.coverDetails.controls['IsBiFuelKit'].value==''?'1':this.coverDetails.controls['IsBiFuelKit'].value,
+      "motorproposalObj":{
+        "CoverDetails": "",
+        "TrailerDetails": "",
+        "ClientDetails": {
+          'ClientType': this.relianceProposal.controls['clientType'].value,
+          'CorporateName':this.relianceProposal.controls['corporateName'].value,
+          'LastName': this.relianceProposal.controls['lastName'].value,
+          'MidName': this.relianceProposal.controls['middleName'].value,
+          'ForeName': this.relianceProposal.controls['firstName'].value,
+          'OccupationID': this.relianceProposal.controls['occupation'].value,
+          'DOB': this.datepipe.transform(this.relianceProposal.controls['dob'].value, 'y-MM-dd'),
+          'Gender': this.relianceProposal.controls['gender'].value,
+          'PhoneNo': this.relianceProposal.controls['alternateContact'].value,
+          'MobileNo': this.relianceProposal.controls['mobile'].value,
+          "ClientAddress": {
+            'CommunicationAddress': {
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['address'].value,
+              'Address2': this.relianceProposal.controls['address2'].value,
+              'Address3': this.relianceProposal.controls['address3'].value,
+              'CityID': this.relianceProposal.controls['cityId'].value,
+              'DistrictID': this.relianceProposal.controls['districtId'].value,
+              'StateID': this.relianceProposal.controls['stateId'].value,
+              'Pincode': this.relianceProposal.controls['pincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['landmark'].value
+            },
+            'PermanentAddress': {
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['paddress'].value,
+              'Address2': this.relianceProposal.controls['paddress2'].value,
+              'Address3': this.relianceProposal.controls['paddress3'].value,
+              'CityID': this.relianceProposal.controls['pcityId'].value,
+              'DistrictID': this.relianceProposal.controls['pdistrictId'].value,
+              'StateID': this.relianceProposal.controls['pstateId'].value,
+              'Pincode': this.relianceProposal.controls['ppincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['plandmark'].value
+            },
+            'RegistrationAddress': {
+              'AddressType': '0',
+              'Address1': this.relianceProposal.controls['raddress'].value,
+              'Address2': this.relianceProposal.controls['raddress2'].value,
+              'Address3': this.relianceProposal.controls['paddress3'].value,
+              'CityID': this.relianceProposal.controls['rcityId'].value,
+              'DistrictID': this.relianceProposal.controls['rdistrictId'].value,
+              'StateID': this.relianceProposal.controls['rstateId'].value,
+              'Pincode': this.relianceProposal.controls['rpincode'].value,
+              'Country': '1',
+              'NearestLandmark': this.relianceProposal.controls['rlandmark'].value
+            },
+            "InspectionAddress": {
+              "AddressType": "0",
+              "Address1": "",
+              "Address2": "",
+              "Address3": "",
+              "CityID": "",
+              "DistrictID": "",
+              "StateID": "",
+              "Pincode": "",
+              "Country": "India",
+              "NearestLandmark": ""
+            }
+          },
+          'EmailID': this.relianceProposal.controls['email'].value,
+          'Salutation': this.relianceProposal.controls['title'].value==''?'M/S':this.relianceProposal.controls['title'].value,
+          'MaritalStatus': this.relianceProposal.controls['maritalStatus'].value,
+          'Nationality': this.relianceProposal.controls['nationality'].value
+        }
+      }
+    }
+    this.fourWheelerInsurance.fourWheelernamedSi(data).subscribe(
+        (successData) => {
+          this.namedSiSucccess(successData);
+        },
+        (error) => {
+          this.namedSiFailure(error);
+        }
+    );
+  }
+  public namedSiSucccess(successData){
+    this.namedList = successData.ResponseObject;
+    // console.log(successData,'success');
+    // console.log(successData.coverage[9],'this.namedList');
+    // console.log(successData.coverage[9].PA_to_named_Passenger,'this.namedList');
+    // console.log(this.namedList,'this.namedList');
+
+  }
+  public namedSiFailure(error) {
+  }
+
 ///nominee RelationList
   relationList() {
     const data = {
@@ -2333,6 +2489,7 @@ changeNonElect(){
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
           'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
           'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
+          'IsPAToNamedPassenger': this.coverDetails.controls['namedPassengerCovered'].value ? 'true' : 'false',
           'NoOfUnnamedPassenegersCovered':this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value,
           'IsLiabilityToPaidDriverCovered':this.coverDetails.controls['LiabilityToPaidDriverCovered'].value ? 'true' : 'false',
 
@@ -2431,22 +2588,15 @@ changeNonElect(){
               "PackageName": ""
             }
           },
-          // "PAToNamedPassenger": {
-          //   "PAToNamedPassenger": {
-          //     "IsMandatory": this.coverDetails.controls['PAToNamedPassenger'].value ? 'true' : 'false',
-          //     "IsChecked": this.coverDetails.controls['PAToNamedPassenger'].value ? 'true' : 'false',
-          //     "NoOfItems": this.coverDetails.controls['NonamedPassenegers'].value,
-          //     "PackageName": "",
-          //     "SumInsured": this.coverDetails.controls['namedPassengersSI'].value,
-          //     "PassengerName": this.coverDetails.controls['nppassengerName'].value,
-          //     "NomineeName": this.coverDetails.controls['npnomineeName'].value,
-          //     "NomineeDOB": this.coverDetails.controls['npDob'].value,
-          //     "NomineeRelationship": this.coverDetails.controls['nprelation'].value,
-          //     "NomineeAddress": this.coverDetails.controls['npAddress'].value,
-          //     "OtherRelation": this.coverDetails.controls['npOtherRelation'].value,
-          //     "AppointeeName": this.coverDetails.controls['npappointeeName'].value
-          //   }
-          // },
+          "PAToNamedPassenger": {
+            "PAToNamedPassenger": {
+              "IsMandatory":this.coverDetails.controls['namedPassengerCovered'].value ? 'true' : 'false',
+              "IsChecked":this.coverDetails.controls['namedPassengerCovered'].value ? 'true' : 'false',
+              "NoOfItems": this.coverDetails.controls['NoOfnamedPassenegersCovered'].value,
+              "PackageName": "",
+              "SumInsured": this.coverDetails.controls['NaamedPassengersSI'].value,
+            }
+          },
           // 'PAToPaidDriver': {
           //   'PAToPaidDriver': {
           //     'IsChecked': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
@@ -2520,6 +2670,9 @@ changeNonElect(){
 
       this.pa_unnamed_passenger=this.coverListValue.coverlist[0].pa_unnamed_passenger;
       console.log(this.pa_unnamed_passenger,'this.pa_unnamed_passenger....');
+
+      this.pa_named_passenger=this.coverListValue.coverlist[0].pa_named_passenger;
+      console.log(this.pa_named_passenger,'this.pa_unnamed_passenger....');
 
       this.voluntary_deductible=this.coverListValue.coverlist[0].voluntary_deductible;
       console.log(this.voluntary_deductible,'this.voluntary_deductible....');
@@ -2657,6 +2810,7 @@ changeNonElect(){
         'Cover': {
           // 'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ,
           'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
+          'IsPAToNamedPassenger': this.coverDetails.controls['namedPassengerCovered'].value ? 'true' : 'false',
           'NoOfUnnamedPassenegersCovered': this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value ,
           'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value ? 'true' : 'false',
           'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value ? 'true' : 'false',
@@ -2764,22 +2918,22 @@ changeNonElect(){
               'OtherRelation': this.coverDetails.controls['nOtherRelation'].value
             }
           },
-          // "PAToNamedPassenger": {
-          //   "PAToNamedPassenger": {
-          //     "IsMandatory": this.coverDetails.controls['PAToNamedPassenger'].value ? 'true' : 'false',
-          //     "IsChecked": this.coverDetails.controls['PAToNamedPassenger'].value ? 'true' : 'false',
-          //     "NoOfItems": "1",
-          //     "PackageName": "",
-          //     "SumInsured": this.coverDetails.controls['namedPassengersSI'].value,
-          //     "PassengerName": this.coverDetails.controls['nppassengerName'].value,
-          //     "NomineeName": this.coverDetails.controls['npnomineeName'].value,
-          //     "NomineeDOB": this.datepipe.transform(this.coverDetails.controls['npDob'].value, 'y-MM-dd'),
-          //     "NomineeRelationship": this.coverDetails.controls['nprelation'].value,
-          //     "NomineeAddress": this.coverDetails.controls['npAddress'].value,
-          //     "OtherRelation": this.coverDetails.controls['npOtherRelation'].value,
-          //     "AppointeeName": this.coverDetails.controls['npappointeeName'].value
-          //   }
-          // },
+          "PAToNamedPassenger": {
+            "PAToNamedPassenger": {
+              "IsMandatory":this.coverDetails.controls['namedPassengerCovered'].value ? 'true' : 'false',
+              "IsChecked":this.coverDetails.controls['namedPassengerCovered'].value ? 'true' : 'false',
+              "NoOfItems": this.coverDetails.controls['NoOfnamedPassenegersCovered'].value,
+              "PackageName": "",
+              "SumInsured": this.coverDetails.controls['NaamedPassengersSI'].value,
+              "PassengerName": '',
+              "NomineeName": '',
+              "NomineeDOB": '',
+              "NomineeRelationship": '',
+              "NomineeAddress": '',
+              "OtherRelation": '',
+              "AppointeeName": ''
+            }
+          },
           "PAToUnNamedPassenger": {
             "PAToUnNamedPassenger": {
               "IsChecked": this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',

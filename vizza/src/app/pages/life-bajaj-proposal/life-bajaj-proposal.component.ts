@@ -601,6 +601,9 @@ export class LifeBajajProposalComponent implements OnInit {
     saveImageAs2() {
         this.window.open(this.biURL, '_blank');
     }
+    saveImageA() {
+        this.window.open(this.proposalFormPdf, '_blank');
+    }
 
 
 
