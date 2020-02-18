@@ -91,6 +91,7 @@ export class FourWheelerHomeComponent implements OnInit {
   public previousCompanyValid: boolean;
   public registrationStartError: any;
   public lesserDate: any;
+  public previousPolicyList: any;
 
   constructor(@Inject(WINDOW) private window: Window, public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public configs: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
     this.settings = this.appSettings.settings;
@@ -142,6 +143,7 @@ export class FourWheelerHomeComponent implements OnInit {
       'previousPolicyExpiry': '',
       'previousPolicyStart': '',
       'previousCompany': '',
+      'previousPolicy': '',
       'city': ''
     });
 
@@ -164,6 +166,7 @@ export class FourWheelerHomeComponent implements OnInit {
     this.fourWheeler.controls['previousClaim'].patchValue(null);
     this.claimpercent();
     this.getpreviousCompany();
+    this.getpreviousPolicy();
     this.getCityLists();
     this.metaList();
     this.changeCompanyName();
@@ -485,6 +488,7 @@ export class FourWheelerHomeComponent implements OnInit {
       "type": this.typeList,
       "ncb_percent": this.fourWheeler.controls['ncb'].value ? this.fourWheeler.controls['ncb'].value : '0',
       "prev_insurance_name": this.fourWheeler.controls['previousCompany'].value==null||undefined ?'': this.fourWheeler.controls['previousCompany'].value,
+      "previous_policy_type": this.fourWheeler.controls['previousPolicy'].value,
 
     }
     console.log(data, 'data');
@@ -601,6 +605,32 @@ export class FourWheelerHomeComponent implements OnInit {
   public companyFailure(error) {
   }
 
+  getpreviousPolicy() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+    }
+    this.fwService.previousPolicyType(data).subscribe(
+        (successData) => {
+          this.previousPolicySuccess(successData);
+        },
+        (error) => {
+          this.previousPolicyFailure(error);
+        }
+    );
+  }
+  public previousPolicySuccess(successData) {
+    if (successData.IsSuccess) {
+      this.previousPolicyList = successData.ResponseObject;
+      console.log(this.previousPolicyList,'this.previousPolicyList;;;')
+    }
+  }
+  public previousPolicyFailure(error) {
+  }
+
   rtoCity() {
     sessionStorage.RtoFour = this.fourWheeler.controls['city'].value;
     console.log(sessionStorage.RtoFour, 'sessionStorage.Rto');
@@ -674,6 +704,7 @@ export class FourWheelerHomeComponent implements OnInit {
         'previousPolicyExpiry': this.datePipe.transform(stepper.previousPolicyExpiry, 'y-MM-dd'),
         'previousPolicyStart': this.datePipe.transform(stepper.previousPolicyStart, 'y-MM-dd'),
         'previousCompany': stepper.previousCompany,
+        'previousPolicy': stepper.previousPolicy,
         'city': stepper.city,
         'companyNameNew': stepper.companyNameNew,
         'companyNameRenewel': stepper.companyNameRenewel,
@@ -717,6 +748,9 @@ export class FourWheelerHomeComponent implements OnInit {
   this.fourWheeler.controls['previousCompany'].setValidators(null);
   this.fourWheeler.controls['previousCompany'].patchValue('');
 
+  this.fourWheeler.controls['previousPolicy'].setValidators(null);
+  this.fourWheeler.controls['previousPolicy'].patchValue('');
+
   this.fourWheeler.controls['vehicalNumber'].setValidators(null);
   this.fourWheeler.controls['vehicalNumber'].patchValue('');
 
@@ -735,6 +769,7 @@ export class FourWheelerHomeComponent implements OnInit {
       this.fourWheeler.controls['previousPolicyStart'].setValidators([Validators.required]);
       this.fourWheeler.controls['vehicalNumber'].setValidators(Validators.compose([Validators.minLength(9), Validators.pattern('([a-zA-Z]){2}([0-9]){2}([a-zA-Z0-9]){6}')]));
       this.fourWheeler.controls['previousCompany'].setValidators([Validators.required]);
+      this.fourWheeler.controls['previousPolicy'].setValidators([Validators.required]);
       this.fourWheeler.controls['previousClaim'].setValidators([Validators.required]);
 
       this.fourWheeler.controls['registrationDateNew'].setValidators(null);
@@ -755,6 +790,7 @@ export class FourWheelerHomeComponent implements OnInit {
     this.fourWheeler.controls['previousPolicyStart'].updateValueAndValidity();
     this.fourWheeler.controls['vehicalNumber'].updateValueAndValidity();
     this.fourWheeler.controls['previousCompany'].updateValueAndValidity();
+    this.fourWheeler.controls['previousPolicy'].updateValueAndValidity();
     this.fourWheeler.controls['previousClaim'].updateValueAndValidity();
 
   }

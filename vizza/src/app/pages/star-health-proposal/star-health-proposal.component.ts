@@ -894,7 +894,10 @@ setRelationship1() {
     }
 
    changeSocialStatus1(event:any) {
+        // alert(event);
+       // this.statusValue=event.value;
        this.statusValue=event.value;
+       console.log(event);
        this.personal['controls'].socialStatus.patchValue(this.statusValue)
        // this.personal.controls['socialStatus'].patchValue(this.statusValue)
        console.log(this.personal['controls'].socialStatus.value,'546789')
@@ -2683,8 +2686,8 @@ setRelationship1() {
             'eia_no': '',
             'previous_medical_insurance': this.personalData.previousinsurance == 'No' ? '' : this.personalData.previousinsurance,
             'critical_illness': 'NO',
-            'social_status': this.personalData.socialStatus == true || this.personalData.socialStatus == 'true' ? 1 : 0,
-            'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? '0' : this.personalData. socialAnswer1,
+            'social_status':  this.personal['controls'].socialStatus.value,
+            'social_status_bpl': this.personalData.socialAnswer1 == ''|| this.personalData.socialAnswer1 == null ? '0' : this.personalData. socialAnswer1,
             'social_status_disabled': this.personalData.socialAnswer2 == '' || this.personalData.socialAnswer2 == null ? '0' : this.personalData. socialAnswer2,
             'social_status_informal': this.personalData.socialAnswer3 == '' || this.personalData.socialAnswer3  == null ? '0' : this.personalData. socialAnswer3 ,
             'social_status_unorganized': this.personalData.socialAnswer4 == '' || this.personalData.socialAnswer4 == null ? '0' : this.personalData. socialAnswer4,
@@ -2887,15 +2890,17 @@ setRelationship1() {
             this.social_disabled=this.requestDetails[0].social_status_disabled;
             this.social_informal=this.requestDetails[0].social_status_informal;
             this.social_unorganized=this.requestDetails[0].social_status_unorganized;
+            this.openeditproposal();
+            this.changeSocialStatus1(this.socialStatuss);
+            // alert(this.socialStatuss);
             this.personal['controls'].socialStatus.patchValue(this.socialStatuss);
             this.personal['controls'].socialAnswer1.patchValue(this.social);
             this.personal['controls'].socialAnswer2.patchValue(this.social_disabled);
             this.personal['controls'].socialAnswer3.patchValue(this.social_informal);
             this.personal['controls'].socialAnswer4.patchValue(this.social_unorganized);
-            this.openeditproposal();
-            this.changeSocialStatus1(this.socialStatuss);
             this.setOccupationList1();
             this.gstIdList1();
+            // this.changeSocialStatus1($event)
             this.appointeRelationship1();
             this.nomineRelationship1();
             this.setRelationship1();
@@ -2948,6 +2953,7 @@ setRelationship1() {
         this.personal.controls['residenceArea'].patchValue(this.requestDetails[0].proposer_res_area);
         this.personal.controls['sameas'].patchValue(this.requestDetails[0].sameas);
         this.personal['controls'].socialStatus.patchValue(this.requestDetails[0].social_status);
+        this.changeSocialStatus1(this.requestDetails[0].social_status);
         this.personal['controls'].socialAnswer1.patchValue(this.requestDetails[0].social_status_bpl);
         this.personal['controls'].socialAnswer2.patchValue(this.requestDetails[0].social_status_disabled);
         this.personal['controls'].socialAnswer3.patchValue(this.requestDetails[0].social_status_informal);
