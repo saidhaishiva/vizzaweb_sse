@@ -507,6 +507,17 @@ export class HealthService {
             .catch(this.handleError);
     }
 
+    getInsurerNameList(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'starhealth/insurer_name';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
     getOccupationCode(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
