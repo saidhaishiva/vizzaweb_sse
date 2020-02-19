@@ -1791,7 +1791,7 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
 
                 "Req_PvtCar": {
 
-                    "LLPaiddriver": this.addOns.controls['numdrivers'].value,
+                    "LLPaiddriver": this.addOns.controls['paiddriversi'].value,
                     "PAPaiddriverSI": this.addOns.controls['paiddriversi'].value,
                     "Owner_Driver_Nominee_Name": this.addOns.controls['NomineeName'].value,
                     "Owner_Driver_Nominee_Age": this.addOns.controls['NomineeAge'].value,
@@ -1999,7 +1999,7 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
             },
 
             "Req_PvtCar": {
-                "LLPaiddriver": this.addOns.controls['numdrivers'].value,
+                "LLPaiddriver": this.addOns.controls['paiddriversi'].value,
                 "PAPaiddriverSI": this.addOns.controls['paiddriversi'].value,
                 "Owner_Driver_Nominee_Name": this.addOns.controls['NomineeName'].value,
                 "Owner_Driver_Nominee_Age": this.addOns.controls['NomineeAge'].value,
