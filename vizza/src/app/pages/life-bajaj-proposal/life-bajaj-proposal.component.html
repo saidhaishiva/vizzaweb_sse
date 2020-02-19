@@ -1518,6 +1518,7 @@
               <!--</p>-->
               <!--<iframe src="https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102">-->
               <!--</iframe>-->
+
               <pdf-viewer src="{{requestedUrl}}"
                           [render-text]="true"
                           style="display: block;"
@@ -1577,6 +1578,8 @@
               </mat-expansion-panel-header>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
+                  <p style="margin-left: 17px">To Download Proposal Form<button mat-raised-button color="primary" *ngIf="proposalFormPdf !=''" style="margin-left: 13px;background-color: #3378BD" (click)="saveImageA()">Click Here</button></p>
+
 
                   <pdf-viewer src="{{proposalFormPdf}}"
                               [render-text]="true"
