@@ -4646,11 +4646,28 @@ console.log(this.kycProofName,'kycProofName')
 
   }
 
-  shasweight() {
+  hasweight() {
+
+    if (this.insureArray.controls['hasWeightChanged'].value == 'Gained' || this.insureArray.controls['hasWeightChanged'].value == 'Lost') {
+
+      this.insureArray.controls['inbetweenweight'].setValidators([Validators.required]);
+      this.insureArray.controls['weightChangedreason'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['inbetweenweight'].patchValue('');
+      this.insureArray.controls['weightChangedreason'].patchValue('');
+
+      this.insureArray.controls['inbetweenweight'].setValidators(null);
+      this.insureArray.controls['weightChangedreason'].setValidators(null);
+
+    }
+    this.insureArray.controls['inbetweenweight'].updateValueAndValidity();
+    this.insureArray.controls['weightChangedreason'].updateValueAndValidity();
+
+  }
+ shasweight() {
 
     if (this.insureArray.controls['shasWeightChanged'].value == 'Gained' || this.insureArray.controls['shasWeightChanged'].value == 'Lost') {
-      this.insureArray.controls['sinbetweenweight'].patchValue(this.insureArray.controls['sinbetweenweight'].value);
-      this.insureArray.controls['sweightChangedreason'].patchValue(this.insureArray.controls['sweightChangedreason'].value);
+
 
       this.insureArray.controls['sinbetweenweight'].setValidators([Validators.required]);
       this.insureArray.controls['sweightChangedreason'].setValidators([Validators.required]);
