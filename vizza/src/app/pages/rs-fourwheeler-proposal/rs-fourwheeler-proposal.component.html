@@ -52,13 +52,18 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobile" autocomplete="off" required>
+                                                    <input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobile" (input)="otpValidate($event.target.value)" autocomplete="off" required>
                                                     <mat-error *ngIf="proposer.controls.mobile.errors?.required">Mobile Number is required</mat-error>
                                                     <mat-error *ngIf="proposer.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
-
+                                                <mat-form-field class="w-100">
+                                                <input matInput placeholder="OTP"  (keypress)="numberValidate($event)"  minlength="6" maxlength="6" formControlName="otp" (input)="checkotpValidate($event.target.value)" autocomplete="off" required>
+                                                <mat-error *ngIf="proposer.controls.otp.errors?.required">OTP is required</mat-error>
+                                            </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="STD CODE"   (keypress)="numberValidate($event)"  maxlength="5" formControlName="stdCode" autocomplete="off" >
                                                     <!--<mat-error *ngIf="proposer.controls.stdCode.errors?.required">Std Code is required</mat-error>-->
@@ -275,7 +280,7 @@
                                             <div class="col-md-12 mt-2" style="margin-left:-14px;">
                                                 <div class="row">
                                                     <div class="col-md-4"  >
-                                                        <p>Is Car Ownership Changed </p>
+                                                        <p>Is Car Ownership Changed(in past 12 months)</p>
                                                         <mat-radio-group formControlName="isCarOwnershipChanged" required>
                                                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -317,6 +322,37 @@
                                                     </mat-form-field>
                                                 </div>
                                             </div>
+
+                                        <!--<div class="col-md-12 mt-2" >-->
+                                            <!--<p>Please choose IDV Between (min {{idv.min}} - max {{idv.max}})</p>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="col-md-12 mt-0" layout>-->
+                                            <!--<mat-slider flex md-discrete [value]= "vehical.controls.IDV.value" formControlName="IDV"-->
+                                                        <!--step="{{idv}"-->
+                                                        <!--min="{{idv.min}}"-->
+                                                        <!--max="{{idv.max}}">-->
+                                            <!--</mat-slider>-->
+                                            <!--<i style="font-size:14px" class="fa fa-inr">&#xf156;</i>{{vehical.controls.IDV.value}}-->
+                                        <!--</div>-->
+                                        <div class="row" >
+                                        <div class="col-md-4" >
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>IDV Range<span class="error" >*</span></mat-placeholder>
+                                                <mat-select  formControlName="IDV" (selectionChange)="idvValue()" >
+                                                    <mat-option value="0">0</mat-option>
+                                                    <mat-option value="-10">-10</mat-option>
+                                                    <mat-option value="-5">-5</mat-option>
+                                                    <mat-option value="+5">+5</mat-option>
+                                                    <mat-option value="+10">+10</mat-option>
+                                                    <mat-option value="+15">+15</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6 mt-2 "  >
+                                            <p ><strong> IDV Value :</strong> {{idvValues}}</p>
+                                        </div>
+                                        </div>
 
 
                                         <div class="row mt-3" *ngIf="vehicledetailsfw.business_type != '1'">
@@ -415,7 +451,7 @@
                                                         <!--</div>-->
                                                     <!--</div>-->
                                                 <!--</div>-->
-                                                <div class="col-md-12 mt-2" *ngIf="vehicledetailsfw.business_type != '1'">
+                                                <div class="col-md-12 mt-2" *ngIf="(vehicledetailsfw.business_type != '1')&&((this.vehical.controls['isCarOwnershipChanged'].value=='No')||(this.previousClaimvalue=='No'))">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>NCB Protector</p>
@@ -446,7 +482,7 @@
                                                         <div class="col-md-3 mt-3" *ngIf="vehical.controls['spareCar'].value == 'On'" >
                                                             <mat-form-field class="w-100">
                                                                 <mat-placeholder>SpareCar Limit<span class="error" >*</span></mat-placeholder>
-                                                                <input matInput  formControlName="spareCarLimit" maxlength="8" (keypress)="numberValidate($event)"   autocomplete="off" >
+                                                                    <input matInput  formControlName="spareCarLimit" maxlength="8" (keypress)="numberValidate($event)"   autocomplete="off" >
                                                             </mat-form-field>
                                                         </div>
                                                     </div>
@@ -765,11 +801,11 @@
 
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input maxlength="80" matInput placeholder=" Previous insurers Address" formControlName="previousinsurersCorrectAddress"  autocomplete="off" required>
+                                                    <input maxlength="80" matInput placeholder="Previous insurers Address" formControlName="previousinsurersCorrectAddress"  autocomplete="off" required>
                                                     <mat-error *ngIf="previousInsure.controls.previousinsurersCorrectAddress.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" [ngStyle]="{'pointer-events': this.previousClaimvalue ? 'none' : ''}">
                                                 <p>Previous Policy Claim</p>
                                                 <mat-radio-group formControlName="isPreviousPolicyHolder" (change)="policyHolder()">
                                                     <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>

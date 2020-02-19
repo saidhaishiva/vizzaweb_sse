@@ -130,6 +130,17 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public NON_ELECTRICAL_ACCESSORIES  : any;
   public INVOICE_PRICE_INSURANCE  : any;
   public sameasper: boolean;
+  public mobileotpgenerate: any;
+  public checkotp: any;
+  public otpvalidation: any;
+  public checkotpvalidation: any;
+  public enquiryList: any;
+  public previousClaim: any;
+  public previousClaimvalue: any;
+  public initialProductListfw: any;
+  public idv: any;
+  public idvValues: any;
+  public policyTypesss: any;
 
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public route: ActivatedRoute, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
@@ -173,6 +184,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       dob: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+      otp:[''],
       occupation: ['', Validators.required],
       aadharNumber: ['', Validators.compose([Validators.minLength(12)])],
       panNumber: ['', Validators.compose([ Validators.minLength(10)])],
@@ -254,6 +266,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       depreciationWaiver: 'Off',
       engineprotector: 'Off',
       ncbprotector: 'Off',
+      IDV: [''],
       // registrationchargesRoadtax: 'Off',
       spareCar: 'Off',
       spareCarLimit: ['', Validators.compose([ Validators.maxLength(8)])],
@@ -299,8 +312,26 @@ export class RsFourwheelerProposalComponent implements OnInit {
   ngOnInit() {
     this.buyProduct = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
+    this.enquiryList = JSON.parse(sessionStorage.enquiryFormDatafw);
     this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
+    // this.initialProductListfw = JSON.parse(sessionStorage.initialProductListfw);
     console.log(this.vehicledetailsfw, ' details');
+    this.idv=this.buyProduct.Idv;
+    console.log(this.idv,'idv......');
+
+    this.vehical.controls['IDV'].patchValue(0);
+    this.previousClaim=this.enquiryList.previous_claim_YN;
+    console.log(this.previousClaim,'4567890');
+    // alert(this.previousClaim)
+    if(this.previousClaim==1){
+      this.previousClaimvalue='Yes';
+    }else{
+      this.previousClaimvalue='No';
+    }
+    this.previousInsure.controls['isPreviousPolicyHolder'].patchValue(this.previousClaimvalue);
+
+    console.log(this.previousInsure.controls['isPreviousPolicyHolder'].value,'546789gcfhjk')
+    console.log( this.vehical.controls['IDV'].value,'546789gcfhjk')
 
     this.title();
     this.getOccupation();
@@ -323,11 +354,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changepolicyType();
     this.changeAccidentPaidDriver();
     this.changeBiFuelValue();
+    this.changeAddon();
+
     this.coverPremium();
+    this.idvValue();
 
 
     this.sessionData();
-
   }
 
   // validation
@@ -409,6 +442,139 @@ export class RsFourwheelerProposalComponent implements OnInit {
     ssss.removeAt(index);
     console.log(index, 'index');
   }
+
+
+  changeAddon() {
+    const data = {
+      "platform": "web",
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "enquiry_id": this.bikeEnquiryId,
+      "created_by": '',
+      "proposal_id": sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
+      "company_id": this.buyProduct.company_id,
+      "business_type": this.vehicledetailsfw.business_type,
+      "CALCULATEPREMIUMREQUEST": {
+        "premium": '',
+        "proposerDetails": {
+          "addressOne": this.proposer.controls['raddress'].value,
+          "addressTwo": this.proposer.controls['raddress2'].value,
+          "regCity": this.proposer.controls['rcity'].value,
+          "regPinCode": this.proposer.controls['rpincode'].value,
+          "contactAddress1": this.proposer.controls['address'].value,
+          "contactAddress2": this.proposer.controls['address2'].value,
+          "contactCity": this.proposer.controls['city'].value,
+          "contactPincode": this.proposer.controls['pincode'].value,
+          "dateOfBirth": this.datepipe.transform(this.proposer.controls['dob'].value, 'y-MM-dd'),
+          "panNumber": this.proposer.controls['panNumber'].value,
+          "aadharNumber": this.proposer.controls['aadharNumber'].value,
+          "guardianAge": this.nomineeDetail.controls['guardianAge'].value,
+          "guardianName": this.nomineeDetail.controls['guardianName'].value,
+          "nomineeAge": this.nomineeDetail.controls['nomineeAge'].value,
+          "nomineeName": this.nomineeDetail.controls['nomineeName'].value,
+          "occupation": this.proposer.controls['occupation'].value,
+          "relationshipWithNominee": this.nomineeDetail.controls['nomineeRelationship'].value,
+          "relationshipwithGuardian": this.nomineeDetail.controls['guardianRelationship'].value,
+          "sameAdressReg": this.proposer.controls['sameas'].value ? 'Yes' : 'No',
+          "strPhoneNo": this.proposer.controls['phoneNumber'].value,
+          "strStdCode": this.proposer.controls['stdCode'].value,
+          "userName": "michael@xerago.com",
+          "strEmail": this.proposer.controls['email'].value,
+          "strFirstName": this.proposer.controls['firstname'].value,
+          "strLastName": this.proposer.controls['lastname'].value,
+          "strMobileNo": this.proposer.controls['mobile'].value,
+          "strTitle": this.proposer.controls['title'].value,
+        },
+        "quoteId": '',
+        "vehicleDetails": {
+          "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
+          "addonValue": this.vehical.controls['addonValue'].value,
+          "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value ,
+          "claimsReported": this.previousInsure.controls['claimsReported'].value,
+          "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
+          "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
+          "companyNameForCar": this.vehical.controls['companyName'].value,
+          "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ,
+          "drivingExperience": this.vehical.controls['drivingExperience'].value,
+          "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
+          "electricalAccessories": {
+            "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
+          },
+          "valueofelectricalaccessories": this.vehical.controls['total'].value == 'err' ? '' : this.vehical.controls['total'].value,
+          "cover_non_elec_acc": this.vehical.controls['cover_non_elec_acc'].value ? 'Yes' : 'No',
+          "nonElectricalAccesories": {
+            "nonelectronicAccessoriesDetails": this.vehical.value.nonelectricalAccess,
+          },
+          "valueofnonelectricalaccessories": this.vehical.controls['subTotal'].value == 'err' ? '' : this.vehical.controls['subTotal'].value,
+          "fibreGlass": this.vehical.controls['fibreGlass'].value ,
+          "financierName": this.vehical.controls['financierName'].value,
+          "isCarFinanced": this.vehical.controls['isFourWheelerFinanced'].value ? 'Yes' : 'No',
+          "isCarFinancedValue": this.vehical.controls['isFourWheelerFinancedValue'].value,
+          "isCarOwnershipChanged": this.vehical.controls['isCarOwnershipChanged'].value ,
+          "automobileAssociationMembership": this.vehical.controls['automobileAssociationMembership'].value ,
+          "isBiFuelKit": this.vehical.controls['isBiFuelKit'].value ,
+          "legalliabilityToPaidDriver": this.vehical.controls['legalliabilityToPaidDriver'].value ,
+          "lossOfBaggage": this.vehical.controls['lossOfBaggage'].value ,
+          "personalAccidentCoverForUnnamedPassengers": this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].value,
+          "policyED":  this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') ? this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') : '',
+          "policySD": this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd') ? this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd') : '',
+          "previousInsurerName": this.previousInsure.controls['previousInsured'].value ? this.previousInsure.controls['previousInsured'].value : '',
+          "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value ? this.previousInsure.controls['previousPolicyType'].value : '',
+          "previousinsurersCorrectAddress": this.previousInsure.controls['previousinsurersCorrectAddress'].value ? this.previousInsure.controls['previousinsurersCorrectAddress'].value : '',
+          "previuosPolicyNumber": this.previousInsure.controls['policyNumber'].value ? this.previousInsure.controls['policyNumber'].value : '',
+          "valueOfLossOfBaggage": this.vehical.controls['valueOfLossOfBaggage'].value,
+          "isBiFuelKitYes": this.vehical.controls['isBiFuelKitYes'].value,
+          "vehicleMostlyDrivenOn": this.vehical.controls['vehicleMostlyDrivenOn'].value,
+          "vehicleInspectionDate": "28/04/2017 04:00:00",
+          "vehicleRegisteredInTheNameOf": this.vehical.controls['vehicleRegisteredName'].value,
+          "voluntarydeductible": this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
+          "keyreplacement": this.vehical.controls['keyreplacement'].value ,
+          "windShieldGlass": this.vehical.controls['windShieldGlass'].value ,
+          "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value,
+          "engineprotector": this.vehical.controls['engineprotector'].value ,
+          "ncbprotector": this.vehical.controls['ncbprotector'].value ,
+          "registrationchargesRoadtax": 'Off' ,
+          "spareCar": this.vehical.controls['spareCar'].value ,
+          "spareCarLimit": this.vehical.controls['spareCarLimit'].value ,
+          "invoicePrice": this.vehical.controls['invoicePrice'].value ,
+          "typeOfCover": this.vehical.controls['typeOfCover'].value ,
+        }
+      }
+    };
+    this.fourWheeler.fourWheeleraddOnsValue(data).subscribe(
+        (successData) => {
+          this.addonSSuccess(successData);
+        },
+        (error) => {
+          this.addonSFailure(error);
+        }
+    );
+  }
+  public addonSSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.AddonList = successData.ResponseObject;
+      console.log(this.AddonList,'this.AddonList')
+      this.LIABILITY_PA_COVER_TO_PAID_DRIVER=this.AddonList.LIABILITY_PA_COVER_TO_PAID_DRIVER;
+      this.DEPRECIATION_WAIVER=this.AddonList.DEPRECIATION_WAIVER;
+      this.ENGINE_PROTECTOR=this.AddonList.ENGINE_PROTECTOR;
+      this.NCB_PROTECTOR=this.AddonList.NCB_PROTECTOR;
+      this.WIND_SHIELD_GLASS=this.AddonList.WIND_SHIELD_GLASS;
+      this.KEY_REPLACEMENT=this.AddonList.KEY_REPLACEMENT;
+      this.LIFE_TIME_ROAD_TAX=this.AddonList.LIFE_TIME_ROAD_TAX;
+      this.AUTOMOBILE_ASSOCIATION_DISCOUNT=this.AddonList.AUTOMOBILE_ASSOCIATION_DISCOUNT;
+      this.LIABILITY_TO_PAID_DRIVERS=this.AddonList.LIABILITY_TO_PAID_DRIVERS;
+      this.FIBER_GLASS_TANK=this.AddonList.FIBER_GLASS_TANK;
+      this.BI_FUEL_KIT=this.AddonList.BI_FUEL_KIT;
+      this.LOSS_OF_BAGGAGE=this.AddonList.LOSS_OF_BAGGAGE;
+      this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES;
+      this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES;
+      this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE;
+    }
+  }
+  public addonSFailure(error) {
+  }
+
   // title
 
   title() {
@@ -432,6 +598,74 @@ export class RsFourwheelerProposalComponent implements OnInit {
     }
   }
   public titleFailure(error) {
+  }
+
+//OTP
+  otpValidate(value) {
+    this.mobileotpgenerate = value;
+
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "enquiry_id": this.buyProduct.enquiry_id,
+      "mobile": this.proposer.controls['mobile'].value,
+
+    }
+    if (this.mobileotpgenerate.length == 10) {
+      this.fourWheeler.mobileotp(data).subscribe(
+          (successData) => {
+            this.mobileotpSuccess(successData);
+          },
+          (error) => {
+            this.mobileotpFailure(error);
+          }
+      );
+    }
+  }
+  public mobileotpSuccess(successData) {
+    if (successData.IsSuccess == true) {
+      this.toastr.success(successData.ResponseObject.msg);
+      this.otpvalidation = successData.ResponseObject.msg;
+
+    }
+
+  }
+  public mobileotpFailure(error) {
+  }
+// check otp
+  checkotpValidate(value) {
+    this.checkotp = value;
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "enquiry_id": this.buyProduct.enquiry_id,
+      "mobile": this.proposer.controls['mobile'].value,
+      "otpcode": this.proposer.controls['otp'].value
+
+    }
+    if (this.checkotp.length == 6) {
+      this.fourWheeler.checkotp(data).subscribe(
+          (successData) => {
+            this.checkotpSuccess(successData);
+          },
+          (error) => {
+            this.checkotpFailure(error);
+          }
+      );
+    }
+  }
+  public checkotpSuccess(successData) {
+    if (successData.IsSuccess == true) {
+      this.toastr.success(successData.ResponseObject.msg);
+      this.checkotpvalidation = successData.ResponseObject.msg;
+
+    } else {
+      this.toastr.error(successData.ErrorObject);
+    }
+  }
+  public checkotpFailure(error) {
   }
 
 // ocupation List
@@ -1283,6 +1517,34 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public accidentPaidFailure(error) {
   }
+  idvValue() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "enquiry_id": this.bikeEnquiryId,
+      "org_idv": this.idv,
+      "idv_range": ''?'0':this.vehical.controls['IDV'].value,
+
+    }
+    this.fourWheeler.fourWheeleridvValue(data).subscribe(
+        (successData) => {
+          this.idvValueSuccess(successData);
+        },
+        (error) => {
+          this.idvValueFailure(error);
+        }
+    );
+  }
+  public idvValueSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.idvValues = successData.ResponseObject.modified_idv_value;
+
+    }
+  }
+  public idvValueFailure(error) {
+  }
   // policy
   changepolicyType() {
     const data = {
@@ -1406,11 +1668,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public addonSuccess(successData) {
     if (successData.IsSuccess) {
-      this.AddonList = successData.ResponseObject;
+      this.policyTypesss = successData.ResponseObject;
     }
   }
   public addonFailure(error) {
   }
+
+
 
   coverPremium() {
     const data = {
@@ -1526,21 +1790,21 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     if (successData.IsSuccess) {
       this.AddonList = successData.ResponseObject;
-      this.LIABILITY_PA_COVER_TO_PAID_DRIVER=this.AddonList.LIABILITY_PA_COVER_TO_PAID_DRIVER,
-      this.DEPRECIATION_WAIVER=this.AddonList.DEPRECIATION_WAIVER,
-      this.ENGINE_PROTECTOR=this.AddonList.ENGINE_PROTECTOR,
-      this.NCB_PROTECTOR=this.AddonList.NCB_PROTECTOR,
-      this.WIND_SHIELD_GLASS=this.AddonList.WIND_SHIELD_GLASS,
-      this.KEY_REPLACEMENT=this.AddonList.KEY_REPLACEMENT,
-      this.LIFE_TIME_ROAD_TAX=this.AddonList.LIFE_TIME_ROAD_TAX,
-      this.AUTOMOBILE_ASSOCIATION_DISCOUNT=this.AddonList.AUTOMOBILE_ASSOCIATION_DISCOUNT,
-      this.LIABILITY_TO_PAID_DRIVERS=this.AddonList.LIABILITY_TO_PAID_DRIVERS,
-      this.FIBER_GLASS_TANK=this.AddonList.FIBER_GLASS_TANK,
-      this.BI_FUEL_KIT=this.AddonList.BI_FUEL_KIT,
-      this.LOSS_OF_BAGGAGE=this.AddonList.LOSS_OF_BAGGAGE,
-      this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES,
-      this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES,
-      this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE,
+      this.LIABILITY_PA_COVER_TO_PAID_DRIVER=this.AddonList.LIABILITY_PA_COVER_TO_PAID_DRIVER;
+      this.DEPRECIATION_WAIVER=this.AddonList.DEPRECIATION_WAIVER;
+      this.ENGINE_PROTECTOR=this.AddonList.ENGINE_PROTECTOR;
+      this.NCB_PROTECTOR=this.AddonList.NCB_PROTECTOR;
+      this.WIND_SHIELD_GLASS=this.AddonList.WIND_SHIELD_GLASS;
+      this.KEY_REPLACEMENT=this.AddonList.KEY_REPLACEMENT;
+      this.LIFE_TIME_ROAD_TAX=this.AddonList.LIFE_TIME_ROAD_TAX;
+      this.AUTOMOBILE_ASSOCIATION_DISCOUNT=this.AddonList.AUTOMOBILE_ASSOCIATION_DISCOUNT;
+      this.LIABILITY_TO_PAID_DRIVERS=this.AddonList.LIABILITY_TO_PAID_DRIVERS;
+      this.FIBER_GLASS_TANK=this.AddonList.FIBER_GLASS_TANK;
+      this.BI_FUEL_KIT=this.AddonList.BI_FUEL_KIT;
+      this.LOSS_OF_BAGGAGE=this.AddonList.LOSS_OF_BAGGAGE;
+      this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES;
+      this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES;
+      this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE;
       // this.coverdriverpremiumchange();
       this.invoicePriceChangepremium();
       this.patchkeyreplacementpremium();
@@ -1757,6 +2021,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ,
           "drivingExperience": this.vehical.controls['drivingExperience'].value,
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
+          "original_idv":this.idv,
+          "modify_your_idv":this.vehical.controls['coverelectricalaccesss'].value,
+          "modified_idv_value":this.idvValues,
           // "valueofelectricalaccessories": "4000",
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
@@ -1941,6 +2208,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "isBiFuelKitYes":this.vehical.controls['isBiFuelKitYes'].value,
           "legalliabilityToPaidDriver":this.vehical.controls['legalliabilityToPaidDriver'].value ,
           "lossOfBaggage":this.vehical.controls['lossOfBaggage'].value ,
+          "original_idv":this.idv,
+          "modify_your_idv":this.vehical.controls['coverelectricalaccesss'].value,
+          "modified_idv_value":this.idvValues,
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
@@ -2018,7 +2288,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
         lastname: stepper1.lastname,
         dob :  this.datepipe.transform(stepper1.dob, 'y-MM-dd'),
         email: stepper1.email,
-        mobile: stepper1.mobile,
+        mobile: '',
+        otp: '',
         pincode: stepper1.pincode,
         gender : stepper1.gender,
         phoneNumber: stepper1.phoneNumber,
@@ -2118,6 +2389,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['depreciationWaiver'].patchValue(this.getStepper2.depreciationWaiver);
       this.vehical.controls['engineprotector'].patchValue(this.getStepper2.engineprotector);
       this.vehical.controls['ncbprotector'].patchValue(this.getStepper2.ncbprotector);
+      this.vehical.controls['IDV'].patchValue(this.getStepper2.IDV);
       // this.vehical.controls['registrationchargesRoadtax'].patchValue(this.getStepper2.registrationchargesRoadtax);
       this.vehical.controls['spareCar'].patchValue(this.getStepper2.spareCar);
       this.vehical.controls['spareCarLimit'].patchValue(this.getStepper2.spareCarLimit);
