@@ -202,8 +202,8 @@ export class BikeShriramProposalComponent implements OnInit {
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       name: new FormControl(''),
-      dob: ['', Validators.compose([Validators.required])],
-      gender: ['', Validators.compose([Validators.required])],
+      dob: [''],
+      gender: [''],
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       pincode: ['', Validators.required],
@@ -422,6 +422,8 @@ export class BikeShriramProposalComponent implements OnInit {
             this.proposer.controls['gender'].setValidators(null);
         }else{
             this.proposerGender=false;
+            this.proposer.controls['dob'].setValidators([Validators.required]);
+            this.proposer.controls['gender'].setValidators([Validators.required]);
         }
     }
     changeGenderVales1() {

@@ -186,7 +186,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.PreviousValid = false;
     this.nilDepValue = false;
     this.mobileNumber = 'true';
-    this.proposerGender = false;
+    // this.proposerGender = false;
     // this.config = {
     //   displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
     //   search: true,
@@ -450,6 +450,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
     }else if (this.proposer.controls['title'].value != 'M/S'){
       this.proposerGender=false;
+      this.proposer.controls['dob'].setValidators([Validators.required]);
+      this.proposer.controls['gender'].setValidators([Validators.required]);
     }
   }
 
