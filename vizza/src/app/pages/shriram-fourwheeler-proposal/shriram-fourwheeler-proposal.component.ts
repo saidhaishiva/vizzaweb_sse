@@ -793,22 +793,22 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['totalDepreciationPremium'].patchValue(this.Nil_depreciation_cover);
   }
 
-  updatePaOwnerDriver(){
-    if(this.vehical.controls.paOwnerDriver.value == true){
-      this.vehical.controls['totalPaOwnerDriverPremium'].setValidators([Validators.required]);
-      this.getCover();
-    } else {
-      this.vehical.controls['totalPaOwnerDriverPremium'].patchValue('');
-
-      this.vehical.controls['totalPaOwnerDriverPremium'].setValidators(null);
-
-    }
-    this.vehical.controls['totalPaOwnerDriverPremium'].updateValueAndValidity();
-  }
-
-  paOwnerDriverAmount(){
-    this.vehical.controls['totalPaOwnerDriverPremium'].patchValue(this.pa_owner_driver);
-  }
+  // updatePaOwnerDriver(){
+  //   if(this.vehical.controls.paOwnerDriver.value == true){
+  //     this.vehical.controls['totalPaOwnerDriverPremium'].setValidators([Validators.required]);
+  //     this.getCover();
+  //   } else {
+  //     this.vehical.controls['totalPaOwnerDriverPremium'].patchValue('');
+  //
+  //     this.vehical.controls['totalPaOwnerDriverPremium'].setValidators(null);
+  //
+  //   }
+  //   this.vehical.controls['totalPaOwnerDriverPremium'].updateValueAndValidity();
+  // }
+  //
+  // paOwnerDriverAmount(){
+  //   this.vehical.controls['totalPaOwnerDriverPremium'].patchValue(this.pa_owner_driver);
+  // }
 
   updateCNGKit(){
     if(this.vehical.controls.CNGKit.value == true){
@@ -1577,7 +1577,7 @@ hypoName(){
       this.electricalNonAmount();
       this.unnamedPassengerAmount();
       this.antiTheftAmount();
-      this.paOwnerDriverAmount();
+      // this.paOwnerDriverAmount();
       this.depreciationAmount();
     }
     else{
