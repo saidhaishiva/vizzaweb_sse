@@ -154,6 +154,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public to_employees: any;
   public towing_charges: any;
   public wind_shield: any;
+  public idvValueDetail: any;
 
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public route: ActivatedRoute, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
@@ -1528,6 +1529,34 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public accidentPaidFailure(error) {
   }
+
+  idvValuess() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "enquiry_id": this.bikeEnquiryId,
+
+    }
+    this.fourWheeler.fourWheeleridvssValue(data).subscribe(
+        (successData) => {
+          this.idvValuessSuccess(successData);
+        },
+        (error) => {
+          this.idvValuessFailure(error);
+        }
+    );
+  }
+  public idvValuessSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.idvValueDetail = successData.ResponseObject;
+
+    }
+  }
+  public idvValuessFailure(error) {
+  }
+
   idvValue() {
     const data = {
       'platform': 'web',

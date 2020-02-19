@@ -4666,7 +4666,7 @@ console.log(this.kycProofName,'kycProofName')
   }
  shasweight() {
 
-    if (addon.controls['betterHalfBenefit'].value == 'Yes'&&(this.insureArray.controls['shasWeightChanged'].value == 'Gained' || this.insureArray.controls['shasWeightChanged'].value == 'Lost')) {
+    if (this.insureArray.controls['shasWeightChanged'].value == 'Gained' || this.insureArray.controls['shasWeightChanged'].value == 'Lost') {
 
 
       this.insureArray.controls['sinbetweenweight'].setValidators([Validators.required]);
