@@ -1348,8 +1348,8 @@
                                         <div class="col-md-4">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Change in weight past 6 months <span class="error" >*</span></mat-placeholder>
-                                                <mat-select  formControlName="shasWeightChanged" (selectionChange)="geteWeightChanged();shasweight()"  class="w-100">
-                                                    <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                <mat-select  formControlName="shasWeightChanged" (selectionChange)="geteWeightChanged1();shasweight()"  class="w-100">
+                                                    <mat-option *ngFor="let list of eWeightChanged1 | keys" [value]= list.key> {{list.value}} </mat-option>
                                                 </mat-select>
                                                 <!--<mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>-->
                                             </mat-form-field>
@@ -1363,8 +1363,8 @@
                                         <div class="col-md-4 " *ngIf="insureArray.controls['shasWeightChanged'].value == 'Gained' || insureArray.controls['shasWeightChanged'].value == 'Lost' " >
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Reason for weight changed<span class="error" >*</span></mat-placeholder>
-                                                <mat-select  formControlName="sweightChangedreason"  (selectionChange)=" changeWeightChanged()" >
-                                                    <mat-option *ngFor="let list of weightList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
+                                                <mat-select  formControlName="sweightChangedreason"  (selectionChange)=" changeWeightChanged1()" >
+                                                    <mat-option *ngFor="let list of weightList1 | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>

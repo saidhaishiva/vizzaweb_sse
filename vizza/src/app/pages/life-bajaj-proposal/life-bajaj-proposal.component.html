@@ -1093,9 +1093,9 @@
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <mat-select matInput placeholder="Renewal Payment Mode" formControlName="paymentMode" autocomplete="off" required>
-                              <mat-option value="EMAND" *ngIf="bankDetail.controls['bankName'].value =='ICICI BANK LIMITED' || bankDetail.controls['bankName'].value =='STATE BANK OF INDIA' || bankDetail.controls['bankName'].value =='AXIS BANK' || bankDetail.controls['bankName'].value =='HDFC BANK'">EMAND</mat-option>
-                              <mat-option value="CCSI">CCSI</mat-option>
-                              <mat-option value="NACH">NACH</mat-option>
+                              <!--<mat-option value="EMAND" *ngIf="bankDetail.controls['bankName'].value =='ICICI BANK LIMITED' || bankDetail.controls['bankName'].value =='STATE BANK OF INDIA' || bankDetail.controls['bankName'].value =='AXIS BANK' || bankDetail.controls['bankName'].value =='HDFC BANK'">EMAND</mat-option>-->
+                              <!--<mat-option value="CCSI">CCSI</mat-option>-->
+                              <!--<mat-option value="NACH">NACH</mat-option>-->
                               <mat-option value="CSH" *ngIf="enquiryFormData.lifePayment == 'yearly'">Cash-Cheque</mat-option>
                             </mat-select>
                             <mat-error *ngIf="bankDetail.controls.paymentMode.errors?.required">Renewal Payment Mode Type is required</mat-error>

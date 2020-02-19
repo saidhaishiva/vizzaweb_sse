@@ -107,6 +107,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public eHeightInches: any;
   public ehealthStatus: any;
   public eWeightChanged: any;
+  public eWeightChanged1: any;
+  public weightList1: any;
   public weightList: any;
   public ePolicyCategory: any;
   public eAdActivity: any;
@@ -898,7 +900,9 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getPolicyOption();
     this.getpayoutOption();
     this.geteWeightChanged();
+    this.geteWeightChanged1();
     this.changeWeightChanged();
+    this.changeWeightChanged1();
     this.getePolicyCategory();
     this.getedelweissActivities();
     this.getpayoutMonth();
@@ -8717,6 +8721,32 @@ console.log(this.kycProofName,'kycProofName')
 
   public geteWeightChangedsFailure(error) {
   }
+  geteWeightChanged1() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.WeightCdedelweiss(data).subscribe(
+        (successData) => {
+          this.geteWeightChanged1Success(successData);
+        },
+        (error) => {
+          this.geteWeightChanged1Failure(error);
+        }
+    );
+  }
+
+  public geteWeightChanged1Success(successData) {
+    if (successData.IsSuccess) {
+      this.eWeightChanged1 = successData.ResponseObject;
+    }
+  }
+
+  public geteWeightChanged1Failure(error) {
+  }
 
   changeWeightChanged() {
     const data = {
@@ -8743,6 +8773,32 @@ console.log(this.kycProofName,'kycProofName')
   }
 
   public geteChangedWeightChangeFailure(error) {
+  }
+  changeWeightChanged1() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.geteChangedWeightCds(data).subscribe(
+        (successData) => {
+          this.geteChangedWeightChange1Success(successData);
+        },
+        (error) => {
+          this.geteChangedWeightChange1Failure(error);
+        }
+    );
+  }
+
+  public geteChangedWeightChange1Success(successData) {
+    if (successData.IsSuccess) {
+      this.weightList1 = successData.ResponseObject;
+    }
+  }
+
+  public geteChangedWeightChange1Failure(error) {
   }
 
   getePolicyCategory() {

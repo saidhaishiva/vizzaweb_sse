@@ -133,6 +133,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public carListDetails:any;
   public lesserDate:any;
   public nilDepValue:any;
+  public proposerGender:any;
+  public titleId:any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -184,6 +186,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.PreviousValid = false;
     this.nilDepValue = false;
     this.mobileNumber = 'true';
+    this.proposerGender = false;
     // this.config = {
     //   displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
     //   search: true,
@@ -200,8 +203,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       name: new FormControl(''),
-      dob: ['', Validators.compose([Validators.required])],
-      gender: ['', Validators.compose([Validators.required])],
+      dob: '',
+      gender: '',
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       pincode: ['', Validators.required],
@@ -424,7 +427,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     if (this.proposer.controls['title'].value == 'Mr') {
       this.genderList = false;
       this.proposer.controls['gender'].patchValue('Male');
-    } else if(this.proposer.controls['title'].value == 'Ms' || this.proposer.controls['title'].value == 'Mrs' )  {
+    } else if(this.proposer.controls['title'].value == 'Ms' || this.proposer.controls['title'].value == 'Mrs'|| this.proposer.controls['title'].value == 'Miss' )  {
       this.genderList = false;
       this.proposer.controls['gender'].patchValue('Female');
     } else {
@@ -437,7 +440,37 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     }
 
   }
+  changeGenderVales(){
+    if (this.proposer.controls['title'].value == 'M/S') {
+     this.proposerGender=true;
+      this.proposer.controls['dob'].patchValue('');
+      this.proposer.controls['gender'].patchValue('');
+      this.proposer.controls['dob'].setValidators(null);
+      this.proposer.controls['gender'].setValidators(null);
 
+    }else if (this.proposer.controls['title'].value != 'M/S'){
+      this.proposerGender=false;
+    }
+  }
+
+
+  changeGenderVales1() {
+    if (this.proposer.controls['title'].value == 'Mr') {
+      this.titleId=1
+    }
+    if (this.proposer.controls['title'].value == 'Mrs') {
+      this.titleId=2
+    }
+    if (this.proposer.controls['title'].value == 'M/S') {
+      this.titleId=3
+    }
+    if (this.proposer.controls['title'].value == 'Miss') {
+      this.titleId=4
+    }
+    if (this.proposer.controls['title'].value == 'Dr') {
+      this.titleId=5
+    }
+  }
   // AGE VALIDATION
   ageCalculate(dob) {
     let today = new Date();
@@ -567,8 +600,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper1 = '';
     sessionStorage.stepper1 = JSON.stringify(value);
     console.log(this.proposer.valid, 'checked');
-    if(this.proposer.valid) {
-      if(sessionStorage.fwShriramProposerAge >= 18){
+    if(this.proposer.valid ) {
+      if(sessionStorage.fwShriramProposerAge >= 18 || this.proposer.controls['dob'].value==''){
         if (this.mobileNumber == '' || this.mobileNumber == 'true') {
 
           stepper.next();
@@ -1470,7 +1503,7 @@ hypoName(){
 
       "motorProposalObj": {
         // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
-        "InsuredPrefix": "1",
+        "InsuredPrefix": this.titleId,
         "InsuredName": this.proposer.controls['name'].value,
         "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
         "Address1": this.proposer.controls['address'].value,
@@ -1603,7 +1636,7 @@ hypoName(){
 
       "motorProposalObj": {
         // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
-        "InsuredPrefix": "1",
+        "InsuredPrefix": this.titleId,
         "InsuredName": this.proposer.controls['name'].value,
         "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
         "Address1": this.proposer.controls['address'].value,

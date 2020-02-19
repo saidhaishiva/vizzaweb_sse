@@ -155,6 +155,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public towing_charges: any;
   public wind_shield: any;
   public idvValueDetail: any;
+  public errorOTP: boolean;
 
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public route: ActivatedRoute, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
@@ -176,6 +177,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       }
     });
     this.sameasper = false;
+    this.errorOTP = false;
 
     this.currentStep  = stepperindex;
     const minDate = new Date();
@@ -334,10 +336,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(this.idv,'idv......');
 
     this.vehical.controls['IDV'].patchValue('0');
-    alert(this.vehical.controls['IDV'].value)
     this.previousClaim=this.enquiryList.previous_claim_YN;
     console.log(this.previousClaim,'4567890');
-    // alert(this.previousClaim)
     if(this.previousClaim==1){
       this.previousClaimvalue='Yes';
     }else{
@@ -673,9 +673,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
     if (successData.IsSuccess == true) {
       this.toastr.success(successData.ResponseObject.msg);
       this.checkotpvalidation = successData.ResponseObject.msg;
-
+      this.errorOTP=false;
     } else {
       this.toastr.error(successData.ErrorObject);
+      this.errorOTP=true;
     }
   }
   public checkotpFailure(error) {
@@ -893,7 +894,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   proposerDetails(stepper: MatStepper, value) {
     console.log(value);
     sessionStorage.stepper1 = JSON.stringify(value);
-    if (this.proposer.valid) {
+    if (this.proposer.valid && this.errorOTP==false) {
       if (sessionStorage.fwRoyalProposerAge >= 18) {
         stepper.next();
       } else {
@@ -901,6 +902,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
       }
 
+    }else{
+      this.toastr.error('Please Fill the Mandatory Fields');
     }
   }
   // vehical details
@@ -2497,7 +2500,6 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   // carAccessories(){
   //   if (this.vehical.controls['cover_dri_othr_car_ass'].value=='Yes') {
-  //     // alert('in')
   //     this.vehical.controls['coverdriverpremium'].setValidators([Validators.required]);
   //     this.coverPremium();
   //   }else{
