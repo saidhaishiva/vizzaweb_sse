@@ -333,7 +333,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.idv=this.buyProduct.Idv;
     console.log(this.idv,'idv......');
 
-    this.vehical.controls['IDV'].patchValue(0);
+    this.vehical.controls['IDV'].patchValue('0');
+    alert(this.vehical.controls['IDV'].value)
     this.previousClaim=this.enquiryList.previous_claim_YN;
     console.log(this.previousClaim,'4567890');
     // alert(this.previousClaim)
@@ -371,8 +372,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changeAddon();
 
     this.coverPremium();
+    this.idvValuess();
     this.idvValue();
-
 
     this.sessionData();
   }

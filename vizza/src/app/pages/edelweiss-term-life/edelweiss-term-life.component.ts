@@ -7036,7 +7036,7 @@ console.log(this.kycProofName,'kycProofName')
         "adventurousActivitiesInd":this.medicalDetail.controls['adventurousActivities'].value  ,
         "adventurousActivitiesDetails":this.medicalDetail.controls['adventurousActivitiesDetails'].value,
         "corrAddrProof":"",
-        "incomeProof":"",
+        "incomeProof":this.insureArray.controls['incomeProof'].value,
         "incomeProofText": "",
         "hasEIAccount":this.insureArray.controls['insureAccNo'].value,
         "EIAccountNo":'',

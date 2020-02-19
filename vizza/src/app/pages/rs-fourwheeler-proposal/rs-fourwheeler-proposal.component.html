@@ -348,7 +348,7 @@
                                                     <!--<mat-option value="+15">+15</mat-option>-->
                                                 <!--</mat-select>-->
                                                 <mat-placeholder>IDV Range<span class="error" >*</span></mat-placeholder>
-                                                <mat-select  formControlName="IDV" (selectionChange)="idvValue()" >
+                                                <mat-select  formControlName="IDV" (selectionChange)="idvValuess()" >
                                                     <mat-option *ngFor="let idv of idvValueDetail | keys " value="{{idv.key}}" > {{idv.value}} </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
