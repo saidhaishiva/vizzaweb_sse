@@ -191,7 +191,7 @@ export class BikeShriramProposalComponent implements OnInit {
     this.paUnNamed = false;
     this.policyTypeDetails = false;
     this.PreviousValid = false;
-    this.proposerGender = false;
+    // this.proposerGender = false;
     this.policyDatevalidate = [];
         // this.config = {
         //     displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
@@ -202,8 +202,8 @@ export class BikeShriramProposalComponent implements OnInit {
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       name: new FormControl(''),
-      dob: [''],
-      gender: [''],
+      dob: '',
+      gender: '',
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       pincode: ['', Validators.required],
@@ -428,19 +428,19 @@ export class BikeShriramProposalComponent implements OnInit {
     }
     changeGenderVales1() {
         if (this.proposer.controls['title'].value == 'Mr') {
-            this.titleId=1
+            this.titleId=1;
         }
         if (this.proposer.controls['title'].value == 'Mrs') {
-            this.titleId=2
+            this.titleId=2;
         }
         if (this.proposer.controls['title'].value == 'M/S') {
-            this.titleId=3
+            this.titleId=3;
         }
         if (this.proposer.controls['title'].value == 'Miss') {
-            this.titleId=4
+            this.titleId=4;
         }
         if (this.proposer.controls['title'].value == 'Dr') {
-            this.titleId=5
+            this.titleId=5;
         }
     }
 
@@ -585,7 +585,7 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper1 = JSON.stringify(value);
           console.log(this.proposer.valid, 'checked');
           if(this.proposer.valid ) {
-              if(sessionStorage.bkShriramProposerAge >= 18 || this.proposer.controls['dob'].value=='' ){
+              if(sessionStorage.bkShriramProposerAge >= 18 || this.proposer.controls['dob'].value=='' ||this.proposer.controls['dob'].value==null){
                   stepper.next();
                   this.topScroll();
 

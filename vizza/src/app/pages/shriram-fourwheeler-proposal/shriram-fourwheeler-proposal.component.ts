@@ -603,7 +603,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper1 = JSON.stringify(value);
     console.log(this.proposer.valid, 'checked');
     if(this.proposer.valid ) {
-      if(sessionStorage.fwShriramProposerAge >= 18 || this.proposer.controls['dob'].value==''){
+      if(sessionStorage.fwShriramProposerAge >= 18 || this.proposer.controls['dob'].value==''||this.proposer.controls['dob'].value==null){
         if (this.mobileNumber == '' || this.mobileNumber == 'true') {
 
           stepper.next();
