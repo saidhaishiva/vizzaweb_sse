@@ -636,9 +636,26 @@
                                                         <!--<input matInput  formControlName="paiddriversi" maxlength="7" autocomplete="off" (input)="numberValidate($event);paiddriverFlagChange();paidPersonValidation()"  >-->
                                                         <mat-error *ngIf="addOns.controls.paiddriversi.errors?.required">Paid DriverSi is required</mat-error>
                                                     </mat-form-field>
+
+
+
                                                     <div class="error" *ngIf="paidPersonSiValid != '' && paidPersonSiValid != true">{{paidPersonSiValid}}</div>
 
                                                 </div>
+
+
+<!--                                                <div class="col-md-3" *ngIf="addOns.controls.IsPaidDriver.value==true">-->
+<!--                                                    <mat-form-field class="w-100">-->
+<!--                                                        <mat-placeholder>Paid Driver SI<span class="error" *ngIf="addOns.controls['IsPaidDriver'].value ==true">*</span></mat-placeholder>-->
+<!--                                                        <input matInput  formControlName="paiddriversi" autocomplete="off" maxlength="7" (input)="paiddriverFlagChange();paidPersonValidation()" (keypress)="numberValidate($event)"  >-->
+<!--                                                        <mat-error *ngIf="addOns.controls.paiddriversi.errors?.required  ">Paid DriverSi is required</mat-error>-->
+<!--                                                    </mat-form-field>-->
+<!--                                                    <div class="error" *ngIf="paidPersonSiValid != '' && paidPersonSiValid != true">{{paidPersonSiValid}}</div>-->
+<!--                                                </div>-->
+
+
+
+
                                                 <div class="col-md-4 mt-0" *ngIf="addOns.controls.paiddriversi.value ">
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="Cover Premium"  formControlName="totalpaiddriversiPremium"  autocomplete="off"  [required]="addOns.controls.paiddriversi.value" readonly  (input)="numberValidate($event);paiddriverFlagChange()">
