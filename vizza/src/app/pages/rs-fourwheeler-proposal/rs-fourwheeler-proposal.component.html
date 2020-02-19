@@ -361,7 +361,7 @@
 
                                             <div class="row" *ngIf="vehicledetailsfw.business_type != '1'">
 
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 5 ">
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 5 && this.key_replacement!='0.0'">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>Key Replacement</p>
@@ -380,7 +380,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 6 ">
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 6 && depreciation_waiver!='0.0'">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>Depreciation Waiver</p>
@@ -399,7 +399,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 ">
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 && this.wind_shield!='0.0' ">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>Wind Shield Glass </p>
@@ -416,7 +416,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 ">
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 && engine_protector!='0.0' ">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>Engine Protector</p>
@@ -452,7 +452,7 @@
                                                     <!--</div>-->
                                                 <!--</div>-->
                                                 <div class="col-md-12 mt-2" *ngIf="(vehicledetailsfw.business_type != '1')&&((this.vehical.controls['isCarOwnershipChanged'].value=='No')||(this.previousClaimvalue=='No'))">
-                                                    <div class="row">
+                                                    <div class="row" *ngIf="ncb_protector!='0.0'">
                                                         <div class="col-md-4" >
                                                             <p>NCB Protector</p>
                                                             <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
@@ -469,7 +469,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 ">
+                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 && this.spare_car!='0.0' ">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>Spare Car Covers</p>
@@ -523,7 +523,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 mt-2" >
-                                                    <div class="row">
+                                                    <div class="row" *ngIf="loss_of_baggage!='0.0'">
                                                         <div class="col-md-4" >
                                                             <p>Loss of Baggages</p>
                                                             <mat-radio-group formControlName="lossOfBaggage" (change)="isBaggages()">
@@ -594,14 +594,14 @@
                                         </div>
 
                                         <div class="row">
-                                        <div class="col-md-3 mt-3">
+                                        <div class="col-md-3 mt-3" *ngIf="personal_accident_cover!='0.0'">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Personal Accident Cover For Unnamed Passengers"  formControlName="personalAccidentCoverForUnnamedPassengers" (selectionChange)="changePaType()" >
                                                     <mat-option *ngFor="let pAUnnamedPassengers of pAUnnamedPassengersList | keys " value="{{pAUnnamedPassengers.key}}" > {{pAUnnamedPassengers.value}} </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3 mt-3">
+                                        <div class="col-md-3 mt-3" *ngIf="accident_cover_for_paid_driver!='0.0'">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Accident Cover For Paid Driver"  formControlName="accidentCoverForPaidDriver"   (selectionChange)=" changeAccidentPaidDriver()" >
                                                     <mat-option *ngFor="let accident of accidentList | keys" value="{{accident.key}}" > {{accident.value}} </mat-option>

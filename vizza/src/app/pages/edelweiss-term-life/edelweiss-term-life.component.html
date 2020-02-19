@@ -1270,6 +1270,58 @@
                                         </div>
                                         <div class="col-md-4">
                                             <mat-form-field class="w-100">
+                                                <mat-select  placeholder="Height Feets" formControlName="sheightFeets" (selectionChange)="geteHeightFeet()"  class="w-100" required>
+                                                    <mat-option *ngFor="let list of eHeightFeet | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="insureArray.controls.heightFeets.errors?.required">Height Feets is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-select  placeholder="Height Inches" formControlName="sheightInches" (selectionChange)="geteHeightInches()"  class="w-100" required>
+                                                    <mat-option *ngFor="let list of eHeightInches | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="insureArray.controls.heightInches.errors?.required">Height Inches is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="Weight (kg)" formControlName="weight" maxlength="3" autocomplete="off" required (keypress)="numberValidate($event)" >
+                                                <mat-error *ngIf="insureArray.controls.weight.errors?.required">weight is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-select  placeholder="Change in weight past 6 months" formControlName="hasWeightChanged" (selectionChange)="geteWeightChanged();hasweight()" required class="w-100">
+                                                    <mat-option *ngFor="let list of eWeightChanged | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4 " *ngIf="insureArray.controls['hasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' " >
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Changed Weight<span class="error" >*</span></mat-placeholder>
+                                                <input matInput  formControlName="inbetweenweight"  maxlength="3"  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4 " *ngIf="insureArray.controls['hasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' " >
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Reason for weight changed<span class="error" >*</span></mat-placeholder>
+                                                <mat-select  formControlName="weightChangedreason"  (selectionChange)=" changeWeightChanged()" >
+                                                    <mat-option *ngFor="let list of weightList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row p-3" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                        <div class="col-md-12 ">
+                                            <h6 class="color-blue">LIFESTYLE DETAILS</h6>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
                                                 <mat-placeholder>Height Feets<span class="error" >*</span></mat-placeholder>
                                                 <mat-select  formControlName="sheightFeets" (selectionChange)="geteHeightFeet()"  class="w-100" >
                                                     <mat-option *ngFor="let list of eHeightFeet | keys" [value]= list.key> {{list.value}} </mat-option>
@@ -1308,7 +1360,7 @@
                                                 <input matInput  formControlName="sinbetweenweight"  maxlength="3"  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-4 " *ngIf="insureArray.controls['shasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' " >
+                                        <div class="col-md-4 " *ngIf="insureArray.controls['shasWeightChanged'].value == 'Gained' || insureArray.controls['shasWeightChanged'].value == 'Lost' " >
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Reason for weight changed<span class="error" >*</span></mat-placeholder>
                                                 <mat-select  formControlName="sweightChangedreason"  (selectionChange)=" changeWeightChanged()" >
@@ -1318,6 +1370,7 @@
                                         </div>
 
                                     </div>
+
 
                                     <div class="row p-3"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                         <div class="col-md-12 ">

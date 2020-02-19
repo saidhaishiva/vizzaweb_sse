@@ -141,6 +141,19 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public idv: any;
   public idvValues: any;
   public policyTypesss: any;
+  public AddonListss: any;
+  public accident_cover_for_paid_driver: any;
+  public depreciation_waiver: any;
+  public engine_protector: any;
+  public key_replacement: any;
+  public loss_of_baggage: any;
+  public ncb_protector: any;
+  public personal_accident_cover: any;
+  public spare_car: any;
+  public to_drivers: any;
+  public to_employees: any;
+  public towing_charges: any;
+  public wind_shield: any;
 
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public route: ActivatedRoute, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
@@ -553,23 +566,21 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public addonSSuccess(successData) {
     if (successData.IsSuccess) {
-      this.AddonList = successData.ResponseObject;
+      this.AddonListss = successData.ResponseObject;
       console.log(this.AddonList,'this.AddonList')
-      this.LIABILITY_PA_COVER_TO_PAID_DRIVER=this.AddonList.LIABILITY_PA_COVER_TO_PAID_DRIVER;
-      this.DEPRECIATION_WAIVER=this.AddonList.DEPRECIATION_WAIVER;
-      this.ENGINE_PROTECTOR=this.AddonList.ENGINE_PROTECTOR;
-      this.NCB_PROTECTOR=this.AddonList.NCB_PROTECTOR;
-      this.WIND_SHIELD_GLASS=this.AddonList.WIND_SHIELD_GLASS;
-      this.KEY_REPLACEMENT=this.AddonList.KEY_REPLACEMENT;
-      this.LIFE_TIME_ROAD_TAX=this.AddonList.LIFE_TIME_ROAD_TAX;
-      this.AUTOMOBILE_ASSOCIATION_DISCOUNT=this.AddonList.AUTOMOBILE_ASSOCIATION_DISCOUNT;
-      this.LIABILITY_TO_PAID_DRIVERS=this.AddonList.LIABILITY_TO_PAID_DRIVERS;
-      this.FIBER_GLASS_TANK=this.AddonList.FIBER_GLASS_TANK;
-      this.BI_FUEL_KIT=this.AddonList.BI_FUEL_KIT;
-      this.LOSS_OF_BAGGAGE=this.AddonList.LOSS_OF_BAGGAGE;
-      this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES;
-      this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES;
-      this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE;
+      this.accident_cover_for_paid_driver=this.AddonListss.accident_cover_for_paid_driver;
+      this.depreciation_waiver=this.AddonListss.depreciation_waiver;
+      this.engine_protector=this.AddonListss.engine_protector;
+      this.key_replacement=this.AddonListss.key_replacement;
+      this.loss_of_baggage=this.AddonListss.loss_of_baggage;
+      this.ncb_protector=this.AddonListss.ncb_protector;
+      this.personal_accident_cover=this.AddonListss.personal_accident_cover;
+      this.spare_car=this.AddonListss.spare_car;
+      this.to_drivers=this.AddonListss.to_drivers;
+      this.to_employees=this.AddonListss.to_employees;
+      this.towing_charges=this.AddonListss.towing_charges;
+      this.wind_shield=this.AddonListss.wind_shield;
+
     }
   }
   public addonSFailure(error) {
