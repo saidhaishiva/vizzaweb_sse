@@ -584,8 +584,8 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper1 = '';
           sessionStorage.stepper1 = JSON.stringify(value);
           console.log(this.proposer.valid, 'checked');
-          if(this.proposer.valid || this.proposer.controls['dob'].value=='') {
-              if(sessionStorage.bkShriramProposerAge >= 18  ){
+          if(this.proposer.valid ) {
+              if(sessionStorage.bkShriramProposerAge >= 18 || this.proposer.controls['dob'].value=='' ){
                   stepper.next();
                   this.topScroll();
 
