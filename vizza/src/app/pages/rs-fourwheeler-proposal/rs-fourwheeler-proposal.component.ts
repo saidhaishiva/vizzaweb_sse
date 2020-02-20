@@ -159,6 +159,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public wind_shield: any;
   public idvValueDetail: any;
   public towingList: any;
+  public lesserDate: any;
+  public inVoiceValue: any;
+  public invoiceDatess: any;
+  public taxDatess: any;
+  public nilDepValue: any;
+  public taxValue: any;
   public errorOTP: boolean;
 
 
@@ -186,12 +192,23 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.currentStep  = stepperindex;
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+
     let today  = new Date();
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+    const lateDate=minDate.getFullYear()-5;
+    this.lesserDate = new Date(lateDate, minDate.getMonth(), minDate.getDate());
+
+    const invoiceDate=minDate.getFullYear()-4;
+    this.invoiceDatess = new Date(invoiceDate, minDate.getMonth(), minDate.getDate());
+
+    const taxDate=minDate.getFullYear()-4;
+    this.taxDatess = new Date(taxDate, minDate.getMonth(), minDate.getDate());
+
     this.valid = false;
+    this.nilDepValue = false;
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
-
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
@@ -340,7 +357,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.enquiryList = JSON.parse(sessionStorage.enquiryFormDatafw);
     this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
     this.carListDetails = JSON.parse(sessionStorage.carListDetails);
-    console.log(this.carListDetails,'this.carListDetails56789')
+    console.log(this.carListDetails,'this.carListDetails56789');
+    this.calculation();
+    this.calculation1();
+    this.calculation2();
     // this.initialProductListfw = JSON.parse(sessionStorage.initialProductListfw);
     console.log(this.vehicledetailsfw, ' details');
     this.idv=this.buyProduct.Idv;
@@ -385,6 +405,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.coverPremium();
     this.idvValuess();
     this.idvValue();
+    this.towingChargeSIValue();
 
     this.sessionData();
   }
@@ -421,7 +442,42 @@ export class RsFourwheelerProposalComponent implements OnInit {
   // suming the electrical acessories value
 
 
-
+  calculation(){
+      let valueDil=this.datepipe.transform(this.lesserDate, 'y-MM-dd')
+        console.log(this.lesserDate,'lesserDate....');
+        console.log(valueDil,'valueDil....');
+        console.log(this.carListDetails.registration_date,'55555555555555....')
+      if(valueDil <= this.carListDetails.registration_date ){
+        this.nilDepValue=true;
+      }else{
+        this.nilDepValue=false;
+      }
+      console.log(this.nilDepValue,'nilDepValue....')
+  }
+  calculation1(){
+      let valueInvoice=this.datepipe.transform(this.invoiceDatess, 'y-MM-dd')
+        console.log(this.invoiceDatess,'invoiceDatess....');
+        console.log(valueInvoice,'valueDil....');
+        console.log(this.carListDetails.registration_date,'55555555555555....')
+      if(valueInvoice <= this.carListDetails.registration_date ){
+        this.inVoiceValue=true;
+      }else{
+        this.inVoiceValue=false;
+      }
+      console.log(this.inVoiceValue,'inVoiceValue....')
+  }
+  calculation2(){
+      let valueTax=this.datepipe.transform(this.taxDatess, 'y-MM-dd')
+        console.log(this.taxDatess,'taxDatess....');
+        console.log(valueTax,'valueDil....');
+        console.log(this.carListDetails.registration_date,'55555555555555....')
+      if(valueTax <= this.carListDetails.registration_date ){
+        this.taxValue=true;
+      }else{
+        this.taxValue=false;
+      }
+      console.log(this.taxValue,'taxValue....')
+  }
 
 
 
@@ -524,6 +580,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ,
           "drivingExperience": this.vehical.controls['drivingExperience'].value,
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
+          "towingChargesCover": this.vehical.controls['towingCharge'].value ? 'Yes' : 'No',
+          "towingChargesCover_SI": this.vehical.controls['towingChargeSI'].value,
+          "legalliabilitytoemployees": this.vehical.controls['toEmployee'].value ? 'Yes' : 'No',
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
@@ -599,6 +658,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public addonSFailure(error) {
   }
 
+  resendOTP(){
+    this.proposer.controls['otp'].patchValue('');
+    this.otpValidate(this.proposer.controls['mobile'].value);
+  }
 
 
 

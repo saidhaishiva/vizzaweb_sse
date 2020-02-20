@@ -430,14 +430,14 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     } else if(this.proposer.controls['title'].value == 'Ms' || this.proposer.controls['title'].value == 'Mrs'|| this.proposer.controls['title'].value == 'Miss' )  {
       this.genderList = false;
       this.proposer.controls['gender'].patchValue('Female');
-      this.proposer.controls['dob'].setValidators([Validators.required]);
+      // this.proposer.controls['dob'].setValidators([Validators.required]);
 
     } else {
       if(this.proposer.controls['title'].value == 'Dr'){
         this.genderList = true;
         this.proposer.controls['gender'].patchValue('');
         this.proposer.controls['gender'].setValidators([Validators.required]);
-        this.proposer.controls['dob'].setValidators([Validators.required]);
+        // this.proposer.controls['dob'].setValidators([Validators.required]);
 
         console.log(this.proposer.controls['gender'].value,'genders......')
       }
@@ -451,10 +451,15 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.proposer.controls['gender'].patchValue('');
       this.proposer.controls['dob'].setValidators(null);
       this.proposer.controls['gender'].setValidators(null);
+      this.proposer.controls['pan'].setValidators([Validators.required]);
     }else{
       this.proposerGender=false;
       this.proposer.controls['dob'].setValidators([Validators.required]);
       this.proposer.controls['gender'].setValidators([Validators.required]);
+      this.proposer.controls['pan'].patchValue('');
+      this.proposer.controls['pan'].setValidators(null);
+
+
     }
     this.proposer.controls['dob'].updateValueAndValidity();
     this.proposer.controls['gender'].updateValueAndValidity();
