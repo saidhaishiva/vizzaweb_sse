@@ -123,9 +123,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public LIFE_TIME_ROAD_TAX  : any;
   public AUTOMOBILE_ASSOCIATION_DISCOUNT  : any;
   public LIABILITY_TO_PAID_DRIVERS  : any;
+  public TO_EMPLOYEE  : any;
   public BI_FUEL_KIT  : any;
   public FIBER_GLASS_TANK  : any;
   public LOSS_OF_BAGGAGE  : any;
+  public TOWING_CHARGE  : any;
   public ELECTRICAL_ACCESSORIES  : any;
   public NON_ELECTRICAL_ACCESSORIES  : any;
   public INVOICE_PRICE_INSURANCE  : any;
@@ -138,6 +140,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public previousClaim: any;
   public previousClaimvalue: any;
   public initialProductListfw: any;
+  public carListDetails: any;
   public idv: any;
   public idvValues: any;
   public policyTypesss: any;
@@ -155,6 +158,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public towing_charges: any;
   public wind_shield: any;
   public idvValueDetail: any;
+  public towingList: any;
   public errorOTP: boolean;
 
 
@@ -264,6 +268,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       isFourWheelerFinanced: false,
       // isAddon: false,
       lossOfBaggage: 'No',
+      towingCharge: 'No',
+      towingChargeSI: '',
+      amountTowingCharge: '',
       typeOfCover: '',
       // addon: '',
       amountLossOfBaggage:'',
@@ -277,6 +284,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       isBiFuelKit: 'No',
       automobileAssociationMembership: 'No',
       legalliabilityToPaidDriver: 'No',
+      toEmployee: 'No',
+      employeepremium: '',
       windShieldGlass: 'Off',
       keyreplacement: 'Off',
       depreciationWaiver: 'Off',
@@ -330,6 +339,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
     this.enquiryList = JSON.parse(sessionStorage.enquiryFormDatafw);
     this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
+    this.carListDetails = JSON.parse(sessionStorage.carListDetails);
+    console.log(this.carListDetails,'this.carListDetails56789')
     // this.initialProductListfw = JSON.parse(sessionStorage.initialProductListfw);
     console.log(this.vehicledetailsfw, ' details');
     this.idv=this.buyProduct.Idv;
@@ -588,6 +599,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public addonSFailure(error) {
   }
 
+
+
+
   // title
 
   title() {
@@ -623,6 +637,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "enquiry_id": this.buyProduct.enquiry_id,
       "mobile": this.proposer.controls['mobile'].value,
+      "email": this.proposer.controls['email'].value
 
     }
     if (this.mobileotpgenerate.length == 10) {
@@ -655,6 +670,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "enquiry_id": this.buyProduct.enquiry_id,
       "mobile": this.proposer.controls['mobile'].value,
+      "email": this.proposer.controls['email'].value,
       "otpcode": this.proposer.controls['otp'].value
 
     }
@@ -1208,6 +1224,36 @@ export class RsFourwheelerProposalComponent implements OnInit {
         this.vehical.controls['amountLossOfBaggage'].patchValue(this.LOSS_OF_BAGGAGE)
     }
 
+  isTowing() {
+
+    if (this.vehical.controls['towingCharge'].value == 'Yes') {
+      this.vehical.controls['towingChargeSI'].patchValue(this.vehical.controls['towingChargeSI'].value);
+      this.vehical.controls['towingChargeSI'].setValidators([Validators.required]);
+    } else {
+      this.vehical.controls['towingChargeSI'].patchValue('');
+      this.vehical.controls['towingChargeSI'].setValidators(null);
+    }
+    this.vehical.controls['towingChargeSI'].updateValueAndValidity();
+
+  }
+  valueTowing(){
+    if (this.vehical.controls['towingChargeSI'].value) {
+
+      this.vehical.controls['amountTowingCharge'].setValidators([Validators.required]);
+      this.coverPremium();
+    } else {
+      this.vehical.controls['amountTowingCharge'].patchValue('');
+
+      this.vehical.controls['amountTowingCharge'].setValidators(null);
+
+    }
+    this.vehical.controls['amountTowingCharge'].updateValueAndValidity();
+
+  }
+  amountTowing(){
+    this.vehical.controls['amountTowingCharge'].patchValue(this.TOWING_CHARGE)
+  }
+
   isBiFuel() {
 
 
@@ -1641,6 +1687,32 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public baggageValueFailure(error) {
   }
 
+  towingChargeSIValue() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "enquiry_id": this.bikeEnquiryId,
+
+    }
+    this.fourWheeler.getTowingDetails(data).subscribe(
+        (successData) => {
+          this.towingChargeSuccess(successData);
+        },
+        (error) => {
+          this.towingChargeFailure(error);
+        }
+    );
+  }
+  public towingChargeSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.towingList = successData.ResponseObject;
+    }
+  }
+  public towingChargeFailure(error) {
+  }
+
   // BiFuelKit value
   changeBiFuelValue() {
     const data = {
@@ -1843,9 +1915,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.LIFE_TIME_ROAD_TAX=this.AddonList.LIFE_TIME_ROAD_TAX;
       this.AUTOMOBILE_ASSOCIATION_DISCOUNT=this.AddonList.AUTOMOBILE_ASSOCIATION_DISCOUNT;
       this.LIABILITY_TO_PAID_DRIVERS=this.AddonList.LIABILITY_TO_PAID_DRIVERS;
+      this.TO_EMPLOYEE=this.AddonList.TO_EMPLOYEE;
       this.FIBER_GLASS_TANK=this.AddonList.FIBER_GLASS_TANK;
       this.BI_FUEL_KIT=this.AddonList.BI_FUEL_KIT;
       this.LOSS_OF_BAGGAGE=this.AddonList.LOSS_OF_BAGGAGE;
+      this.TOWING_CHARGE=this.AddonList.TOWING_CHARGE;
       this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES;
       this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES;
       this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE;
@@ -1864,6 +1938,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.amountBagges();
       this.changeAmountElectri();
       this.changeAmountNonElectri();
+      this.amountTowing();
+      this.employeechangepremium();
 
     }
   }
@@ -2422,6 +2498,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       // this.vehical.controls['isAddon'].patchValue(this.getStepper2.isAddon);
       this.vehical.controls['lossOfBaggage'].patchValue(this.getStepper2.lossOfBaggage);
       this.vehical.controls['amountLossOfBaggage'].patchValue(this.getStepper2.amountLossOfBaggage);
+      this.vehical.controls['towingCharge'].patchValue(this.getStepper2.towingCharge);
+      this.vehical.controls['towingChargeSI'].patchValue(this.getStepper2.towingChargeSI);
+      this.vehical.controls['amountTowingCharge'].patchValue(this.getStepper2.amountTowingCharge);
       // this.vehical.controls['hypothecationType'].patchValue(this.getStepper2.hypothecationType);
       this.vehical.controls['typeOfCover'].patchValue(this.getStepper2.typeOfCover);
       this.vehical.controls['vechileOwnerShipChanged'].patchValue(this.getStepper2.vechileOwnerShipChanged);
@@ -2442,6 +2521,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['automobileAssociationMembership'].patchValue(this.getStepper2.automobileAssociationMembership);
       this.vehical.controls['isBiFuelKit'].patchValue(this.getStepper2.isBiFuelKit);
       this.vehical.controls['legalliabilityToPaidDriver'].patchValue(this.getStepper2.legalliabilityToPaidDriver);
+      this.vehical.controls['toEmployee'].patchValue(this.getStepper2.toEmployee);
+      this.vehical.controls['employeepremium'].patchValue(this.getStepper2.employeepremium);
       this.vehical.controls['total'].patchValue(this.getStepper2.total);
       this.vehical.controls['subTotal'].patchValue(this.getStepper2.subTotal);
 
@@ -2652,6 +2733,21 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   legalliabilityToPaidDriverchangepremium(){
     this.vehical.controls['legalliabilityToPaidDriverpremium'].patchValue(this.LIABILITY_TO_PAID_DRIVERS);
+  }
+
+  employeechanges(){
+    if (this.vehical.controls['toEmployee'].value=='Yes') {
+      this.coverPremium();
+      this.vehical.controls['employeepremium'].setValidators([Validators.required]);
+    }else{
+      this.vehical.controls['employeepremium'].patchValue('');
+      this.vehical.controls['employeepremium'].setValidators(null);
+    }
+    this.vehical.controls['employeepremium'].updateValueAndValidity();
+  }
+
+  employeechangepremium(){
+    this.vehical.controls['employeepremium'].patchValue(this.TO_EMPLOYEE);
   }
 
   fibreGlassfittedchange(){

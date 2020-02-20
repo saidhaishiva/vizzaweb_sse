@@ -633,6 +633,51 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-12 mt-2" >
+                                                <div class="row" *ngIf="to_drivers!='0.0'">
+                                                    <div class="col-md-4 " >
+                                                        <p>To Employee</p>
+                                                        <mat-radio-group formControlName="toEmployee" (change)="employeechanges()">
+                                                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                            <mat-radio-button value="No">No</mat-radio-button>
+                                                        </mat-radio-group>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3"  *ngIf="vehical.controls['toEmployee'].value == 'Yes'">
+                                                        <mat-form-field class="w-100">
+                                                            <input matInput placeholder="Cover Premium"  formControlName="employeepremium"  autocomplete="off" readonly >
+                                                            <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 mt-2" >
+                                                <div class="row" *ngIf="towing_charges!='0.0'">
+                                                    <div class="col-md-4" >
+                                                        <p>Towing charges</p>
+                                                        <mat-radio-group formControlName="towingCharge" (change)="isTowing()">
+                                                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                            <mat-radio-button value="No">No</mat-radio-button>
+                                                        </mat-radio-group>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3"  *ngIf="vehical.controls['towingCharge'].value == 'Yes'">
+                                                        <mat-form-field class="w-100">
+                                                            <mat-placeholder>Sum Insured<span class="error" *ngIf="vehical.controls['towingCharge'].value == 'Yes'">*</span></mat-placeholder>
+                                                            <mat-select  formControlName="towingChargeSI"  (selectionChange)=" towingChargeSIValue();valueTowing()" >
+                                                                <mat-option *ngFor="let items of towingList | keys" value="{{items.key}}" > {{items.value}} </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3"  *ngIf="vehical.controls['towingChargeSI'].value">
+                                                        <mat-form-field class="w-100">
+                                                            <input matInput placeholder="Cover Premium"  formControlName="amountTowingCharge"  autocomplete="off" readonly>
+                                                            <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-12 mt-2" >
                                                 <div class="row" >
                                                     <div class="col-md-4" >
                                                         <p>Vehicle Fitted with Fibre Glass Petrol Tank </p>
