@@ -1555,7 +1555,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public idvValuessSuccess(successData) {
     if (successData.IsSuccess) {
       this.idvValueDetail = successData.ResponseObject;
-
+      this.idvValue();
     }
   }
   public idvValuessFailure(error) {
