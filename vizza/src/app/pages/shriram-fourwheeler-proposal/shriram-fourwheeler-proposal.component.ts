@@ -134,6 +134,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public lesserDate:any;
   public nilDepValue:any;
   public proposerGender:any;
+  public paOwnerValue:any;
   public titleId:any;
 
   public genderList: boolean;
@@ -185,6 +186,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.apponiteeList = false;
     this.PreviousValid = false;
     this.nilDepValue = false;
+    // this.paOwnerValue = false;
     this.mobileNumber = 'true';
     // this.proposerGender = false;
     // this.config = {
@@ -263,6 +265,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       DeTariff: '',
       Bhutan: '',
       geographicalArea:'',
+      // paOwnerDriver:'',
       CNGKit:'',
       CNGKitSI:'',
       paPaidDriver:'',
@@ -390,6 +393,23 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   //   }
   // }
 
+    // paOwner(){
+    //     if(this.vehical.controls['paOwnerDriver'].value == true){
+    //         this.paOwnerValue=true;
+    //         this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
+    //         this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
+    //         this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
+    //
+    //     }else if(this.vehical.controls['paOwnerDriver'].value == false){
+    //         this.paOwnerValue=false;
+    //         this.nomineeDetail.controls['nomineeName'].patchValue('')
+    //         this.nomineeDetail.controls['nomineeAge'].patchValue('')
+    //         this.nomineeDetail.controls['nomineeRelationship'].patchValue('')
+    //         this.nomineeDetail.controls['appointeeName'].patchValue('')
+    //         this.nomineeDetail.controls['appointeeRelationship'].patchValue('')
+    //     }
+    // }
+
 
   changeDepreciation() {
     if (this.vehical.controls['nilDepreciationCover'].value == true) {
@@ -463,26 +483,32 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     }
     this.proposer.controls['dob'].updateValueAndValidity();
     this.proposer.controls['gender'].updateValueAndValidity();
+    this.proposer.controls['pan'].updateValueAndValidity();
   }
 
 
-  changeGenderVales1() {
-    if (this.proposer.controls['title'].value == 'Mr') {
-      this.titleId=1
+    changeGenderVales1() {
+        if (this.proposer.controls['title'].value == 'Mr') {
+            this.titleId=1;
+            console.log(this.titleId,'111')
+        }
+        if (this.proposer.controls['title'].value == 'Mrs') {
+            this.titleId=2;
+            console.log(this.titleId,'222')
+        }
+        if (this.proposer.controls['title'].value == 'M/S') {
+            this.titleId=3;
+            console.log(this.titleId,'333')
+        }
+        if (this.proposer.controls['title'].value == 'Miss') {
+            this.titleId=4;
+            console.log(this.titleId,'4444')
+        }
+        if (this.proposer.controls['title'].value == 'Dr') {
+            this.titleId=5;
+            console.log(this.titleId,'555')
+        }
     }
-    if (this.proposer.controls['title'].value == 'Mrs') {
-      this.titleId=2
-    }
-    if (this.proposer.controls['title'].value == 'M/S') {
-      this.titleId=3
-    }
-    if (this.proposer.controls['title'].value == 'Miss') {
-      this.titleId=4
-    }
-    if (this.proposer.controls['title'].value == 'Dr') {
-      this.titleId=5
-    }
-  }
   // AGE VALIDATION
   ageCalculate(dob) {
     let today = new Date();
@@ -1413,7 +1439,7 @@ hypoName(){
     console.log(value, 'vvvvvv');
     sessionStorage.stepper3 = '';
     sessionStorage.stepper3 = JSON.stringify(value);
-
+   // if(this.paOwnerValue==true){
     if (this.previousInsure.valid) {
       if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
         stepper.next();
@@ -1423,6 +1449,17 @@ hypoName(){
       }
 
     }
+   // }else  if(this.paOwnerValue==false){
+   //     if (this.previousInsure.valid) {
+   //         if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+   //             stepper.next();
+   //             this.topScroll();
+   //             this.proposal(stepper);
+   //         }else{
+   //             this.toastr.error('Previous Nil Description  should be Enable. If u select Nil Depreciation Cover ')
+   //         }
+   //     }
+   // }
 
   }
 
@@ -1596,7 +1633,8 @@ hypoName(){
         "HypothecationState": "",
         "HypothecationCity": "",
         "HypothecationPinCode": "",
-        "MultiCarBenefitYN": "N",
+          // "PAOwnerDriver":  this.vehical.controls['paOwnerDriver'].value== true ? '1' : '0' ,
+          "MultiCarBenefitYN": "N",
         "KeyReplacementYN": "Y",
         "LossOfPersonBelongYN": "Y"
       },
@@ -1730,6 +1768,7 @@ hypoName(){
         "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
         "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
         "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : '',
+        // "PAOwnerDriver":  this.vehical.controls['paOwnerDriver'].value== true ? '1' : '0' ,
         "MultiCarBenefitYN":"N",
         "KeyReplacementYN":"Y",
         "LossOfPersonBelongYN":"Y"
@@ -2061,6 +2100,7 @@ hypoName(){
         limitOwnPremise:stepper2.limitOwnPremise,
         limitedTPPD:stepper2.limitedTPPD,
         builtCNGKit:stepper2.builtCNGKit,
+          // paOwnerDriver:stepper2.paOwnerDriver,
         voluntaryExcess:stepper2.voluntaryExcess,
         vehicleColour: stepper2.vehicleColour,
 

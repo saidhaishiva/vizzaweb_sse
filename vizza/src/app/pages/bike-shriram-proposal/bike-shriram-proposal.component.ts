@@ -137,6 +137,7 @@ export class BikeShriramProposalComponent implements OnInit {
     public nilDepValue:any;
     public proposerGender:any;
     public titleId:any;
+    public paOwnerValue:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -191,6 +192,7 @@ export class BikeShriramProposalComponent implements OnInit {
     this.paUnNamed = false;
     this.policyTypeDetails = false;
     this.PreviousValid = false;
+    this.paOwnerValue = false;
     // this.proposerGender = false;
     this.policyDatevalidate = [];
         // this.config = {
@@ -234,7 +236,7 @@ export class BikeShriramProposalComponent implements OnInit {
       nonElectricalAccessSI: '',
       totalNonElectricalItemPremium: '',
         totalPaOwnerDriverPremium: '',
-        paOwnerDriver: '',
+        // paOwnerDriver: '',
       paforUnnamed: '',
       paforUnnamedSI: '',
       totalPaforUnnamedPremium: '',
@@ -373,6 +375,23 @@ export class BikeShriramProposalComponent implements OnInit {
 
   // FIRST STEPPER
 
+    // paOwner(){
+    //     if(this.vehical.controls['paOwnerDriver'].value == true){
+    //         this.paOwnerValue=true;
+    //         this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
+    //         this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
+    //         this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
+    //
+    //     }else if(this.vehical.controls['paOwnerDriver'].value == false){
+    //         this.paOwnerValue=false;
+    //         this.nomineeDetail.controls['nomineeName'].patchValue('')
+    //         this.nomineeDetail.controls['nomineeAge'].patchValue('')
+    //         this.nomineeDetail.controls['nomineeRelationship'].patchValue('')
+    //         this.nomineeDetail.controls['appointeeName'].patchValue('')
+    //         this.nomineeDetail.controls['appointeeRelationship'].patchValue('')
+    //     }
+    // }
+
   // title change function
       changeTitle() {
         const data = {
@@ -433,18 +452,23 @@ export class BikeShriramProposalComponent implements OnInit {
     changeGenderVales1() {
         if (this.proposer.controls['title'].value == 'Mr') {
             this.titleId=1;
+            console.log(this.titleId,'111')
         }
         if (this.proposer.controls['title'].value == 'Mrs') {
             this.titleId=2;
+            console.log(this.titleId,'222')
         }
         if (this.proposer.controls['title'].value == 'M/S') {
             this.titleId=3;
+            console.log(this.titleId,'333')
         }
         if (this.proposer.controls['title'].value == 'Miss') {
             this.titleId=4;
+            console.log(this.titleId,'4444')
         }
         if (this.proposer.controls['title'].value == 'Dr') {
             this.titleId=5;
+            console.log(this.titleId,'555')
         }
     }
 
@@ -1283,18 +1307,26 @@ export class BikeShriramProposalComponent implements OnInit {
         console.log(value, 'vvvvvv');
         sessionStorage.stepper3 = '';
         sessionStorage.stepper3 = JSON.stringify(value);
-
+      // if(this.paOwnerValue==false){
         if (this.previousInsure.valid) {
             if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
                 stepper.next();
                 this.topScroll();
+                // this.proposal(stepper);
             }else{
                 this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
             }
-
-
-
         }
+      //  }else if(this.paOwnerValue==true){
+      //     if (this.previousInsure.valid) {
+      //         if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+      //             stepper.next();
+      //             this.topScroll();
+      //         }else{
+      //             this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
+      //         }
+      //     }
+      // }
 
     }
 
@@ -1482,6 +1514,7 @@ export class BikeShriramProposalComponent implements OnInit {
                 "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value? this.vehical.controls['hypothecationAddress3'].value: '',
                 "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value ? this.vehical.controls['hypothecationAgreementNo'].value: '',
                 "HypothecationCountry": "",
+                // "PAOwnerDriver":  this.vehical.controls['paOwnerDriver'].value== true ? '1' : '0' ,
                 "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
                 "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
                 "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : ''
@@ -1613,6 +1646,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value? this.vehical.controls['hypothecationAddress3'].value: '',
               "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value ? this.vehical.controls['hypothecationAgreementNo'].value: '',
               "HypothecationCountry": "",
+              // "PAOwnerDriver":  this.vehical.controls['paOwnerDriver'].value== true ? '1' : '0' ,
               "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
               "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
               "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : ''
@@ -1908,7 +1942,7 @@ export class BikeShriramProposalComponent implements OnInit {
           totalNonElectricalItemPremium: stepper2.totalNonElectricalItemPremium,
           totalPaforUnnamedPremium: stepper2.totalPaforUnnamedPremium,
           totalAntiTheftPremium: stepper2.totalAntiTheftPremium,
-          paOwnerDriver: stepper2.paOwnerDriver,
+          // paOwnerDriver: stepper2.paOwnerDriver,
           totalPaOwnerDriverPremium: stepper2.totalPaOwnerDriverPremium,
         hypothecationType: stepper2.hypothecationType,
         hypothecationTypeName: stepper2.hypothecationTypeName,
