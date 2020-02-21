@@ -304,7 +304,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       BiFuelKitSi: [''],
       bifueltype: [''],
       cpgLpgKit: '',
-      fittngType: [''],
+      // fittngType: [''],
       IsBiFuelKit: [''],
       bifuelAmount: [''],
       // IsTotalCover: [''],
@@ -370,10 +370,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       '1': 'LPG',
     }
 
-    this.fittngTypeList ={
-      '0': 'Inbuilt',
-      '1':'External',
-    }
+    // this.fittngTypeList ={
+    //   '0': 'Inbuilt',
+    //   '1':'External',
+    // }
 
   }
 
@@ -1304,49 +1304,77 @@ changeNonElect(){
 
     updatenonBiFuelKit(){
         if(this.coverDetails.controls['IsBiFuelKit'].value==true){
-            this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
+            // this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
             this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
             this.coverDetails.controls['cpgLpgKit'].setValidators([Validators.required]);
             this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
+          // this.changeCpgLpgKit();
         }else if(this.coverDetails.controls['IsBiFuelKit'].value==false) {
-            this.coverDetails.controls['BiFuelKitSi'].patchValue('');
-            this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
+            // this.coverDetails.controls['BiFuelKitSi'].patchValue('');
+            // this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
 
+            this.coverDetails.controls['bifuelAmount'].patchValue('');
             this.coverDetails.controls['bifueltype'].patchValue('');
             this.coverDetails.controls['bifueltype'].setValidators(null);
+            this.coverDetails.controls['bifuelAmount'].setValidators(null);
 
             this.coverDetails.controls['cpgLpgKit'].patchValue('');
             this.coverDetails.controls['cpgLpgKit'].setValidators(null);
-            this.changeCpgLpgKit();
+            // this.changeCpgLpgKit();
 
-            this.coverDetails.controls['bifuelAmount'].patchValue('');
-            this.coverDetails.controls['bifuelAmount'].setValidators(null);
+            // this.coverDetails.controls['bifuelAmount'].patchValue('');
+            // this.coverDetails.controls['bifuelAmount'].setValidators(null);
         }
-        this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+        // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
         this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+        this.coverDetails.controls['cpgLpgKit'].updateValueAndValidity();
         this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
 
     }
+  changeCpgLpgKit(){
+    if (this.coverDetails.controls.cpgLpgKit.value == 'No') {
+      this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
+      // this.getCover();
+    }else{
+      this.coverDetails.controls['BiFuelKitSi'].patchValue('');
+      this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
+    }
+    this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+  }
+
+  bifuelTypes(){
+    if (this.coverDetails.controls['bifueltype'].value) {
+      this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
+      this.getCover();
+    }else{
+      this.coverDetails.controls['bifuelAmount'].patchValue('');
+      this.coverDetails.controls['bifuelAmount'].setValidators(null);
+    }
+    this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
+  }
     changeBifuel(){
+
         this.coverDetails.controls['bifuelAmount'].patchValue(this.Bifuel_Kit);
     }
 
 
-    changeCpgLpgKit(){
-        if (this.coverDetails.controls.cpgLpgKit.value == 'Yes') {
-            this.coverDetails.controls['fittngType'].setValidators([Validators.required]);
-            this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
-        } else  if (this.coverDetails.controls.cpgLpgKit.value == 'No'){
-            this.coverDetails.controls['fittngType'].patchValue('');
-            this.coverDetails.controls['bifuelAmount'].patchValue('');
+    // changeCpgLpgKit(){
+    //     if (this.coverDetails.controls.cpgLpgKit.value == 'Yes') {
+    //         // this.coverDetails.controls['fittngType'].setValidators([Validators.required]);
+    //         this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
+    //     } else  if (this.coverDetails.controls.cpgLpgKit.value == 'No'){
+    //         // this.coverDetails.controls['fittngType'].patchValue('');
+    //         this.coverDetails.controls['bifuelAmount'].patchValue('');
+    //
+    //         // this.coverDetails.controls['fittngType'].setValidators(null);
+    //         this.coverDetails.controls['bifuelAmount'].setValidators(null);
+    //
+    //     }
+    //     // this.coverDetails.controls['fittngType'].updateValueAndValidity();
+    //     this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
+    // }
 
-            this.coverDetails.controls['fittngType'].setValidators(null);
-            this.coverDetails.controls['bifuelAmount'].setValidators(null);
 
-        }
-        this.coverDetails.controls['fittngType'].updateValueAndValidity();
-        this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
-    }
 
 
 
@@ -1772,7 +1800,7 @@ changeNonElect(){
         bifuelAmount: this.getStepper3.bifuelAmount,
         bifueltype: this.getStepper3.bifueltype,
         cpgLpgKit: this.getStepper3.cpgLpgKit,
-        fittngType: this.getStepper3.fittngType,
+        // fittngType: this.getStepper3.fittngType,
         UnnamedPassengersSI: this.getStepper3.UnnamedPassengersSI,
         NaamedPassengersSI: this.getStepper3.NaamedPassengersSI,
         IsVoluntaryDeductableOpted: this.getStepper3.IsVoluntaryDeductableOpted,
