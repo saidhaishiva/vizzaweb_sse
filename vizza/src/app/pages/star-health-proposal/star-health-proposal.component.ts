@@ -1380,7 +1380,7 @@ setRelationship1() {
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_relationship_name = '';
             this.familyMembers[i].ins_hospital_cash = '1';
-            this.familyMembers[i].ins_engage_manual_labour = '';
+            this.familyMembers[i].ins_engage_manual_labour = 'None';
             this.familyMembers[i].ins_engage_winter_sports = 'None';
             this.familyMembers[i].ins_personal_accident_applicable = '0';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
@@ -1554,6 +1554,7 @@ setRelationship1() {
 
     illnessStatus(result: any, index) {
         if (result.value == 'true') {
+
             this.familyMembers[index].ins_illness = '';
             this.familyMembers[index].illness = result.value;
         } else {
@@ -1562,8 +1563,26 @@ setRelationship1() {
 
         }
 
+    } illnessStatus1(result: any, index) {
+        console.log(result);
+        console.log(index);
+        this.requestInsuredDetails[index].ins_buyBack_cash='0'
+
+        if (result.value == 'true') {
+            // alert(result);
+            this.requestInsuredDetails[index].ins_illness = '';
+            this.requestInsuredDetails[index].illness = result.value;
+        } else {
+            this.requestInsuredDetails[index].illness = result.value;
+            this.requestInsuredDetails[index].ins_illness = 'No';
+            // alert(this.requestInsuredDetails[index].ins_buyBack_cash);
+            this.requestInsuredDetails[index].ins_buyBack_cash='0'
+
+        }
+
     }
     personalAccident(values: any, index) {
+
         if (values.value == 2) {
             for (let i = 0; i < this.familyMembers.length; i++) {
                 if (i != index) {
@@ -1573,6 +1592,20 @@ setRelationship1() {
         } else {
             for (let i = 0; i < this.familyMembers.length; i++) {
                 this.familyMembers[i].ins_accident_status = false;
+            }
+        }
+
+    }personalAccident1(values: any, index) {
+
+        if (values.value == 2) {
+            for (let i = 0; i < this.requestInsuredDetails.length; i++) {
+                if (i != index) {
+                    this.requestInsuredDetails[i].ins_accident_status = true;
+                }
+            }
+        } else {
+            for (let i = 0; i < this.requestInsuredDetails.length; i++) {
+                this.requestInsuredDetails[i].ins_accident_status = false;
             }
         }
 
@@ -1590,6 +1623,21 @@ setRelationship1() {
                 this.familyMembers[index].ins_engage_winter_sports = '';
             } else {
                 this.familyMembers[index].ins_engage_winter_sports = 'None';
+            }
+        }
+    } engageWinter1(values: any, index, key) {
+        if(key == 'manual'){
+            if (values.value == '2') {
+                this.requestInsuredDetails[index].ins_engage_manual_labour = '';
+            } else {
+                this.requestInsuredDetails[index].ins_engage_manual_labour = 'None';
+            }
+        }
+        if(key == 'winter'){
+            if (values.value == '2') {
+                this.requestInsuredDetails[index].ins_engage_winter_sports = '';
+            } else {
+                this.requestInsuredDetails[index].ins_engage_winter_sports = 'None';
             }
         }
     }
@@ -2374,7 +2422,7 @@ setRelationship1() {
             'exist_health_ins_covered_persons_details': '',
             'have_eia_no': '1',
             'eia_no': '',
-            'previous_medical_insurance': this.personalData.previousinsurance == 'No' ? '' : this.personalData.previousinsurance,
+            'previous_medical_insurance':  this.personalData.previousinsurance,
             'critical_illness': 'NO',
             'social_status': this.personalData.socialStatus == true || this.personalData.socialStatus == 'true' ? 1 : 0,
             'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? '0' : this.personalData. socialAnswer1,
@@ -2799,7 +2847,7 @@ setRelationship1() {
             'exist_health_ins_covered_persons_details': '',
             'have_eia_no': '1',
             'eia_no': '',
-            'previous_medical_insurance': this.personalData.previousinsurance == 'No' ? '' : this.personalData.previousinsurance,
+            'previous_medical_insurance':this.personalData.previousinsurance,
             'critical_illness': 'NO',
             'social_status':  this.personal['controls'].socialStatus.value,
             'social_status_bpl': this.personalData.socialAnswer1 == ''|| this.personalData.socialAnswer1 == null ? '0' : this.personalData. socialAnswer1,
@@ -2968,7 +3016,7 @@ setRelationship1() {
             'exist_health_ins_covered_persons_details': '',
             'have_eia_no': '1',
             'eia_no': '',
-            'previous_medical_insurance': this.personal.controls.previousinsurance.value == 'No' ? '' : this.personal.controls.previousinsurance.value,
+            'previous_medical_insurance':  this.personal.controls.previousinsurance.value,
             'critical_illness': 'NO',
             'social_status': this.personal.controls.socialStatus.value == true || this.personal.controls.socialStatus.value == 'true' ? 1 : 0,
             'social_status_bpl': this.personal.controls.socialAnswer1.value == '' || this.personal.controls.socialAnswer1.value == null ? '0' : this.personal.controls. socialAnswer1.value,
@@ -3169,7 +3217,8 @@ setRelationship1() {
 
             this.social_unorganized=this.requestDetails[0].social_status_unorganized;
             this.openeditproposal();
-            // this.changeSocialStatus1(this.socialStatuss);
+
+            this.changeSocialStatus1(this.socialStatuss);
             // alert(this.socialStatuss);
             this.personal['controls'].socialStatus.patchValue(this.socialStatuss);
             this.personal['controls'].socialAnswer1.patchValue(this.social);
@@ -3178,7 +3227,6 @@ setRelationship1() {
             this.personal['controls'].socialAnswer4.patchValue(this.social_unorganized);
             this.setOccupationList1();
             this.gstIdList1();
-            // this.changeSocialStatus1($event)
             this.appointeRelationship1();
             this.nomineRelationship1();
             this.setRelationship1();
@@ -3186,6 +3234,7 @@ setRelationship1() {
             this.getAreas1('personal', 'manual');
             this.getAreas1('residence', 'rmanual');
             this.sameValues();
+
 
 
             this.previousinsurance1 = [
@@ -3232,6 +3281,34 @@ setRelationship1() {
     }
     public getBackResFailure(successData) {
     }
+
+    // groupList1() {
+    //     this.requestInsuredDetails = this.requestInsuredDetails;
+    //     for (let i = 0; i < this.requestInsuredDetails.length; i++ ) {
+    //         this.requestInsuredDetails[i].ins_name = '';
+    //         this.requestInsuredDetails[i].ins_dob = '';
+    //         this.requestInsuredDetails[i].ins_gender = '';
+    //         this.requestInsuredDetails[i].illness = 'false';
+    //         this.requestInsuredDetails[i].ins_illness = '';
+    //         this.requestInsuredDetails[i].ins_weight = '';
+    //         this.requestInsuredDetails[i].ins_height = '';
+    //         this.requestInsuredDetails[i].ins_buyBack_cash = '0';
+    //         this.requestInsuredDetails[i].ins_occupation_id = '';
+    //         this.requestInsuredDetails[i].ins_occupation_name = '';
+    //         this.requestInsuredDetails[i].ins_relationship = '';
+    //         this.requestInsuredDetails[i].ins_relationship_name = '';
+    //         this.requestInsuredDetails[i].ins_hospital_cash = '1';
+    //         this.requestInsuredDetails[i].ins_engage_manual_labour = 'None';
+    //         this.requestInsuredDetails[i].ins_engage_winter_sports = 'None';
+    //         this.requestInsuredDetails[i].ins_personal_accident_applicable = '0';
+    //         this.requestInsuredDetails[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
+    //         this.requestInsuredDetails[i].engage_manual_status = '0';
+    //         this.requestInsuredDetails[i].engage_winter_status = '0';
+    //         this.requestInsuredDetails[i].ageRestriction = '';
+    //         console.log(this.requestInsuredDetails[i].ins_buyBack_cash,'ins_buyBack_cash');
+    //     }
+    //
+    // }
     paySuccess(){
         this.window.location.href = this.requestDetails.payment;
 
