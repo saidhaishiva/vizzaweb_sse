@@ -69,6 +69,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public hypothecationTypedm: any;
   public addonPackagedm: any;
   public titleList: any;
+  public PAExclusionList: any;
   public policyTypeList: any;
   public proposalTypeList: any;
   public finance: boolean;
@@ -259,6 +260,8 @@ export class BikeShriramProposalComponent implements OnInit {
       stateName:'',
       cityName:'',
       isFinanced:'',
+      isPAExclusion:'',
+      PAExclusion:'',
     });
     this.previousInsure = this.fb.group({
       policyNumber:['', Validators.required],
@@ -410,6 +413,9 @@ export class BikeShriramProposalComponent implements OnInit {
       }
         public titlesucccess(successData){
           this.titleList = successData.ResponseObject;
+          console.log(this.titleList,"this.titleList");
+
+            // this.get_PA_exclusion_list();
         }
         public failureSuccess(error) {
         }
@@ -1065,6 +1071,36 @@ export class BikeShriramProposalComponent implements OnInit {
         }
     }
 
+    /******/
+    get_PA_exclusion_list(){
+        const padata = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+             'prefix': this.titleId
+        }
+        this.bikeInsurance.getPAExclusionList(padata).subscribe(
+            (successData) => {
+                this.Exclusionsucccess(successData);
+            },
+            (error) => {
+                this.ExclusionSuccess(error);
+            }
+        );
+    }
+    public Exclusionsucccess(successData){
+        this.PAExclusionList = successData.ResponseObject;
+    }
+    public ExclusionSuccess(error) {
+    }
+
+    PAExclusion(){
+        if (this.vehical.controls['isPAExclusion'].value==true) {
+            this.vehical.controls['PAExclusion'].setValidators([Validators.required]);
+        }
+    }
+    /******/
+
     financeType() {
 
         if (this.vehical.controls['isFinanced'].value==true) {
@@ -1621,8 +1657,8 @@ export class BikeShriramProposalComponent implements OnInit {
               "ElectricalaccessRemarks": "",
               "NonElectricalaccessRemarks": "",
               "SpecifiedPersonField": "",
-              "PAOwnerDriverExclusion": "",
-              "PAOwnerDriverExReason": "",
+              "PAOwnerDriverExclusion": this.vehical.controls['isPAExclusion'].value == true ? '1' : '0',
+              "PAOwnerDriverExReason": this.vehical.controls['PAExclusion'].value,
               "NomineeNameforPAOwnerDriver": this.nomineeDetail.controls['nomineeName'].value,
               "NomineeAgeforPAOwnerDriver": this.nomineeDetail.controls['nomineeAge'].value,
               "NomineeRelationforPAOwnerDriver": this.nomineeDetail.controls['nomineeRelationship'].value,
