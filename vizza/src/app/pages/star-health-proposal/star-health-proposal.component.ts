@@ -1380,7 +1380,7 @@ setRelationship1() {
             this.familyMembers[i].ins_relationship = '';
             this.familyMembers[i].ins_relationship_name = '';
             this.familyMembers[i].ins_hospital_cash = '1';
-            this.familyMembers[i].ins_engage_manual_labour = '';
+            this.familyMembers[i].ins_engage_manual_labour = 'None';
             this.familyMembers[i].ins_engage_winter_sports = 'None';
             this.familyMembers[i].ins_personal_accident_applicable = '0';
             this.familyMembers[i].ins_suminsured_indiv = this.buyProductdetails.suminsured_id;
@@ -1554,6 +1554,7 @@ setRelationship1() {
 
     illnessStatus(result: any, index) {
         if (result.value == 'true') {
+
             this.familyMembers[index].ins_illness = '';
             this.familyMembers[index].illness = result.value;
         } else {
@@ -1562,8 +1563,21 @@ setRelationship1() {
 
         }
 
+    } illnessStatus1(result: any, index) {
+        alert(result)
+        if (result.value == 'true') {
+            this.requestInsuredDetails[index].ins_illness = '';
+            this.requestInsuredDetails[index].illness = result.value;
+        } else {
+            this.requestInsuredDetails[index].illness = result.value;
+            this.requestInsuredDetails[index].ins_illness = 'No';
+
+        }
+
     }
     personalAccident(values: any, index) {
+        alert(values.value)
+
         if (values.value == 2) {
             for (let i = 0; i < this.familyMembers.length; i++) {
                 if (i != index) {
@@ -1573,6 +1587,21 @@ setRelationship1() {
         } else {
             for (let i = 0; i < this.familyMembers.length; i++) {
                 this.familyMembers[i].ins_accident_status = false;
+            }
+        }
+
+    }personalAccident1(values: any, index) {
+        alert(values.value)
+
+        if (values.value == 2) {
+            for (let i = 0; i < this.requestInsuredDetails.length; i++) {
+                if (i != index) {
+                    this.requestInsuredDetails[i].ins_accident_status = true;
+                }
+            }
+        } else {
+            for (let i = 0; i < this.requestInsuredDetails.length; i++) {
+                this.requestInsuredDetails[i].ins_accident_status = false;
             }
         }
 
@@ -1590,6 +1619,22 @@ setRelationship1() {
                 this.familyMembers[index].ins_engage_winter_sports = '';
             } else {
                 this.familyMembers[index].ins_engage_winter_sports = 'None';
+            }
+        }
+    } engageWinter1(values: any, index, key) {
+        alert(values.value)
+        if(key == 'manual'){
+            if (values.value == '2') {
+                this.requestInsuredDetails[index].ins_engage_manual_labour = '';
+            } else {
+                this.requestInsuredDetails[index].ins_engage_manual_labour = 'None';
+            }
+        }
+        if(key == 'winter'){
+            if (values.value == '2') {
+                this.requestInsuredDetails[index].ins_engage_winter_sports = '';
+            } else {
+                this.requestInsuredDetails[index].ins_engage_winter_sports = 'None';
             }
         }
     }
