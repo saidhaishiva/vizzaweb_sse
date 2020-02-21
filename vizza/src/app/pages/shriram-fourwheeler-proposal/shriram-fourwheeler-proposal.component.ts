@@ -133,6 +133,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public carListDetails:any;
   public lesserDate:any;
   public nilDepValue:any;
+  public proposerGender:any;
+  public paOwnerValue:any;
+  public titleId:any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -183,7 +186,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.apponiteeList = false;
     this.PreviousValid = false;
     this.nilDepValue = false;
+    // this.paOwnerValue = false;
     this.mobileNumber = 'true';
+    // this.proposerGender = false;
     // this.config = {
     //   displayKey: "hypothecationBankName", //if objects array passed which key to be displayed defaults to description
     //   search: true,
@@ -200,8 +205,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       name: new FormControl(''),
-      dob: ['', Validators.compose([Validators.required])],
-      gender: ['', Validators.compose([Validators.required])],
+      dob: '',
+      gender: '',
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       pincode: ['', Validators.required],
@@ -260,6 +265,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       DeTariff: '',
       Bhutan: '',
       geographicalArea:'',
+      // paOwnerDriver:'',
       CNGKit:'',
       CNGKitSI:'',
       paPaidDriver:'',
@@ -387,6 +393,23 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   //   }
   // }
 
+    // paOwner(){
+    //     if(this.vehical.controls['paOwnerDriver'].value == true){
+    //         this.paOwnerValue=true;
+    //         this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
+    //         this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
+    //         this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
+    //
+    //     }else if(this.vehical.controls['paOwnerDriver'].value == false){
+    //         this.paOwnerValue=false;
+    //         this.nomineeDetail.controls['nomineeName'].patchValue('')
+    //         this.nomineeDetail.controls['nomineeAge'].patchValue('')
+    //         this.nomineeDetail.controls['nomineeRelationship'].patchValue('')
+    //         this.nomineeDetail.controls['appointeeName'].patchValue('')
+    //         this.nomineeDetail.controls['appointeeRelationship'].patchValue('')
+    //     }
+    // }
+
 
   changeDepreciation() {
     if (this.vehical.controls['nilDepreciationCover'].value == true) {
@@ -424,20 +447,68 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     if (this.proposer.controls['title'].value == 'Mr') {
       this.genderList = false;
       this.proposer.controls['gender'].patchValue('Male');
-    } else if(this.proposer.controls['title'].value == 'Ms' || this.proposer.controls['title'].value == 'Mrs' )  {
+    } else if(this.proposer.controls['title'].value == 'Ms' || this.proposer.controls['title'].value == 'Mrs'|| this.proposer.controls['title'].value == 'Miss' )  {
       this.genderList = false;
       this.proposer.controls['gender'].patchValue('Female');
+      // this.proposer.controls['dob'].setValidators([Validators.required]);
+
     } else {
       if(this.proposer.controls['title'].value == 'Dr'){
         this.genderList = true;
         this.proposer.controls['gender'].patchValue('');
         this.proposer.controls['gender'].setValidators([Validators.required]);
+        // this.proposer.controls['dob'].setValidators([Validators.required]);
+
         console.log(this.proposer.controls['gender'].value,'genders......')
       }
     }
 
   }
+  changeGenderVales(){
+    if (this.proposer.controls['title'].value == 'M/S') {
+      this.proposerGender=true;
+      this.proposer.controls['dob'].patchValue('');
+      this.proposer.controls['gender'].patchValue('');
+      this.proposer.controls['dob'].setValidators(null);
+      this.proposer.controls['gender'].setValidators(null);
+      this.proposer.controls['pan'].setValidators([Validators.required]);
+    }else{
+      this.proposerGender=false;
+      this.proposer.controls['dob'].setValidators([Validators.required]);
+      this.proposer.controls['gender'].setValidators([Validators.required]);
+      this.proposer.controls['pan'].patchValue('');
+      this.proposer.controls['pan'].setValidators(null);
 
+
+    }
+    this.proposer.controls['dob'].updateValueAndValidity();
+    this.proposer.controls['gender'].updateValueAndValidity();
+    this.proposer.controls['pan'].updateValueAndValidity();
+  }
+
+
+    changeGenderVales1() {
+        if (this.proposer.controls['title'].value == 'Mr') {
+            this.titleId=1;
+            console.log(this.titleId,'111')
+        }
+        if (this.proposer.controls['title'].value == 'Mrs') {
+            this.titleId=2;
+            console.log(this.titleId,'222')
+        }
+        if (this.proposer.controls['title'].value == 'M/S') {
+            this.titleId=3;
+            console.log(this.titleId,'333')
+        }
+        if (this.proposer.controls['title'].value == 'Miss') {
+            this.titleId=4;
+            console.log(this.titleId,'4444')
+        }
+        if (this.proposer.controls['title'].value == 'Dr') {
+            this.titleId=5;
+            console.log(this.titleId,'555')
+        }
+    }
   // AGE VALIDATION
   ageCalculate(dob) {
     let today = new Date();
@@ -567,8 +638,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper1 = '';
     sessionStorage.stepper1 = JSON.stringify(value);
     console.log(this.proposer.valid, 'checked');
-    if(this.proposer.valid) {
-      if(sessionStorage.fwShriramProposerAge >= 18){
+    if(this.proposer.valid ) {
+      if(sessionStorage.fwShriramProposerAge >= 18 || this.proposer.controls['dob'].value==''||this.proposer.controls['dob'].value==null){
         if (this.mobileNumber == '' || this.mobileNumber == 'true') {
 
           stepper.next();
@@ -793,22 +864,22 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['totalDepreciationPremium'].patchValue(this.Nil_depreciation_cover);
   }
 
-  updatePaOwnerDriver(){
-    if(this.vehical.controls.paOwnerDriver.value == true){
-      this.vehical.controls['totalPaOwnerDriverPremium'].setValidators([Validators.required]);
-      this.getCover();
-    } else {
-      this.vehical.controls['totalPaOwnerDriverPremium'].patchValue('');
-
-      this.vehical.controls['totalPaOwnerDriverPremium'].setValidators(null);
-
-    }
-    this.vehical.controls['totalPaOwnerDriverPremium'].updateValueAndValidity();
-  }
-
-  paOwnerDriverAmount(){
-    this.vehical.controls['totalPaOwnerDriverPremium'].patchValue(this.pa_owner_driver);
-  }
+  // updatePaOwnerDriver(){
+  //   if(this.vehical.controls.paOwnerDriver.value == true){
+  //     this.vehical.controls['totalPaOwnerDriverPremium'].setValidators([Validators.required]);
+  //     this.getCover();
+  //   } else {
+  //     this.vehical.controls['totalPaOwnerDriverPremium'].patchValue('');
+  //
+  //     this.vehical.controls['totalPaOwnerDriverPremium'].setValidators(null);
+  //
+  //   }
+  //   this.vehical.controls['totalPaOwnerDriverPremium'].updateValueAndValidity();
+  // }
+  //
+  // paOwnerDriverAmount(){
+  //   this.vehical.controls['totalPaOwnerDriverPremium'].patchValue(this.pa_owner_driver);
+  // }
 
   updateCNGKit(){
     if(this.vehical.controls.CNGKit.value == true){
@@ -1368,7 +1439,7 @@ hypoName(){
     console.log(value, 'vvvvvv');
     sessionStorage.stepper3 = '';
     sessionStorage.stepper3 = JSON.stringify(value);
-
+   // if(this.paOwnerValue==true){
     if (this.previousInsure.valid) {
       if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
         stepper.next();
@@ -1378,6 +1449,17 @@ hypoName(){
       }
 
     }
+   // }else  if(this.paOwnerValue==false){
+   //     if (this.previousInsure.valid) {
+   //         if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+   //             stepper.next();
+   //             this.topScroll();
+   //             this.proposal(stepper);
+   //         }else{
+   //             this.toastr.error('Previous Nil Description  should be Enable. If u select Nil Depreciation Cover ')
+   //         }
+   //     }
+   // }
 
   }
 
@@ -1470,7 +1552,7 @@ hypoName(){
 
       "motorProposalObj": {
         // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
-        "InsuredPrefix": "1",
+        "InsuredPrefix": this.titleId,
         "InsuredName": this.proposer.controls['name'].value,
         "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
         "Address1": this.proposer.controls['address'].value,
@@ -1551,7 +1633,8 @@ hypoName(){
         "HypothecationState": "",
         "HypothecationCity": "",
         "HypothecationPinCode": "",
-        "MultiCarBenefitYN": "N",
+          // "PAOwnerDriver":  this.vehical.controls['paOwnerDriver'].value== true ? '1' : '0' ,
+          "MultiCarBenefitYN": "N",
         "KeyReplacementYN": "Y",
         "LossOfPersonBelongYN": "Y"
       },
@@ -1577,7 +1660,7 @@ hypoName(){
       this.electricalNonAmount();
       this.unnamedPassengerAmount();
       this.antiTheftAmount();
-      this.paOwnerDriverAmount();
+      // this.paOwnerDriverAmount();
       this.depreciationAmount();
     }
     else{
@@ -1603,7 +1686,7 @@ hypoName(){
 
       "motorProposalObj": {
         // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
-        "InsuredPrefix": "1",
+        "InsuredPrefix": this.titleId,
         "InsuredName": this.proposer.controls['name'].value,
         "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
         "Address1": this.proposer.controls['address'].value,
@@ -1685,6 +1768,7 @@ hypoName(){
         "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
         "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
         "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : '',
+        // "PAOwnerDriver":  this.vehical.controls['paOwnerDriver'].value== true ? '1' : '0' ,
         "MultiCarBenefitYN":"N",
         "KeyReplacementYN":"Y",
         "LossOfPersonBelongYN":"Y"
@@ -2016,6 +2100,7 @@ hypoName(){
         limitOwnPremise:stepper2.limitOwnPremise,
         limitedTPPD:stepper2.limitedTPPD,
         builtCNGKit:stepper2.builtCNGKit,
+          // paOwnerDriver:stepper2.paOwnerDriver,
         voluntaryExcess:stepper2.voluntaryExcess,
         vehicleColour: stepper2.vehicleColour,
 

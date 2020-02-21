@@ -97,6 +97,17 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  previousPolicyType(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'productlist/previousPolicyType';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   getRtoList(data) {
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -341,6 +352,17 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+fourWheelernamedSi(data){
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'reliance/unnamed_passanger_si_list';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
 
   ///fourWheelergetPaidDriverSi
 
@@ -483,6 +505,28 @@ export class FourWheelerService {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
     const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/titleList';
+    return this.http.post(url, json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+  mobileotp(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/generateOtp';
+    return this.http.post(url, json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+  checkotp(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/verifyOtp';
     return this.http.post(url, json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -701,6 +745,28 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+    fourWheeleridvValue(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/idvRange';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+  fourWheeleridvssValue(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/idvRangeChart';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
     // city for registration
   getRoyalRegPincodeList(data) {
     const json = JSON.stringify(data);
@@ -760,6 +826,17 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  getTowingDetails(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/towingValue';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
 
 
 // calculate premium
@@ -792,6 +869,17 @@ export class FourWheelerService {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
     const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/coverPremium';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+    fourWheeleraddOnsValue(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/addOnPremium';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);

@@ -107,6 +107,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public eHeightInches: any;
   public ehealthStatus: any;
   public eWeightChanged: any;
+  public eWeightChanged1: any;
+  public weightList1: any;
   public weightList: any;
   public ePolicyCategory: any;
   public eAdActivity: any;
@@ -898,7 +900,9 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getPolicyOption();
     this.getpayoutOption();
     this.geteWeightChanged();
+    this.geteWeightChanged1();
     this.changeWeightChanged();
+    this.changeWeightChanged1();
     this.getePolicyCategory();
     this.getedelweissActivities();
     this.getpayoutMonth();
@@ -4646,11 +4650,28 @@ console.log(this.kycProofName,'kycProofName')
 
   }
 
-  shasweight() {
+  hasweight() {
+
+    if (this.insureArray.controls['hasWeightChanged'].value == 'Gained' || this.insureArray.controls['hasWeightChanged'].value == 'Lost') {
+
+      this.insureArray.controls['inbetweenweight'].setValidators([Validators.required]);
+      this.insureArray.controls['weightChangedreason'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['inbetweenweight'].patchValue('');
+      this.insureArray.controls['weightChangedreason'].patchValue('');
+
+      this.insureArray.controls['inbetweenweight'].setValidators(null);
+      this.insureArray.controls['weightChangedreason'].setValidators(null);
+
+    }
+    this.insureArray.controls['inbetweenweight'].updateValueAndValidity();
+    this.insureArray.controls['weightChangedreason'].updateValueAndValidity();
+
+  }
+ shasweight() {
 
     if (this.insureArray.controls['shasWeightChanged'].value == 'Gained' || this.insureArray.controls['shasWeightChanged'].value == 'Lost') {
-      this.insureArray.controls['sinbetweenweight'].patchValue(this.insureArray.controls['sinbetweenweight'].value);
-      this.insureArray.controls['sweightChangedreason'].patchValue(this.insureArray.controls['sweightChangedreason'].value);
+
 
       this.insureArray.controls['sinbetweenweight'].setValidators([Validators.required]);
       this.insureArray.controls['sweightChangedreason'].setValidators([Validators.required]);
@@ -6976,8 +6997,8 @@ console.log(this.kycProofName,'kycProofName')
         "noOfEmployees":"",
         "natureOfBusiness":"",
         "annualIncome":this.insureArray.controls['annualIncome'].value,
-        "isIncomeSource":"",
-        "incomeSourceDetails":"",
+        "isIncomeSource":this.insureArray.controls['isEmploymentIncome'].value,
+        "incomeSourceDetails":this.insureArray.controls['employmentIncomeDetails'].value,
           "insurance_history":this.insureArray.controls['insureHistory'].value ,
           "insurance_history_reason":this.insureArray.controls['reasonInsured'].value ,
           "insurance_history_when":this.datepipe.transform(this.insureArray.controls['whenInsured'].value, 'y-MM-dd') ,
@@ -7019,7 +7040,7 @@ console.log(this.kycProofName,'kycProofName')
         "adventurousActivitiesInd":this.medicalDetail.controls['adventurousActivities'].value  ,
         "adventurousActivitiesDetails":this.medicalDetail.controls['adventurousActivitiesDetails'].value,
         "corrAddrProof":"",
-        "incomeProof":"",
+        "incomeProof":this.insureArray.controls['incomeProof'].value,
         "incomeProofText": "",
         "hasEIAccount":this.insureArray.controls['insureAccNo'].value,
         "EIAccountNo":'',
@@ -7217,8 +7238,8 @@ console.log(this.kycProofName,'kycProofName')
         "noOfEmployees":"",
         "natureOfBusiness":"",
         "annualIncome":this.insureArray.controls['sannualIncome'].value,
-        "isIncomeSource":"",
-        "incomeSourceDetails":"",
+        "isIncomeSource":this.insureArray.controls['sisEmploymentIncome'].value,
+        "incomeSourceDetails":this.insureArray.controls['semploymentIncomeDetails'].value,
         "familyHistory":this.medicalDetail.value.smedicalFamilyQuestions,
         "isHospitalized":this.medicalDetail.controls['isHospitalized1'].value  == 'Yes' ? 'Y' : 'N',
         "hospitalizedDate":this.medicalDetail.controls['hospitalizedDate1'].value,
@@ -8700,6 +8721,32 @@ console.log(this.kycProofName,'kycProofName')
 
   public geteWeightChangedsFailure(error) {
   }
+  geteWeightChanged1() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.WeightCdedelweiss(data).subscribe(
+        (successData) => {
+          this.geteWeightChanged1Success(successData);
+        },
+        (error) => {
+          this.geteWeightChanged1Failure(error);
+        }
+    );
+  }
+
+  public geteWeightChanged1Success(successData) {
+    if (successData.IsSuccess) {
+      this.eWeightChanged1 = successData.ResponseObject;
+    }
+  }
+
+  public geteWeightChanged1Failure(error) {
+  }
 
   changeWeightChanged() {
     const data = {
@@ -8726,6 +8773,32 @@ console.log(this.kycProofName,'kycProofName')
   }
 
   public geteChangedWeightChangeFailure(error) {
+  }
+  changeWeightChanged1() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.geteChangedWeightCds(data).subscribe(
+        (successData) => {
+          this.geteChangedWeightChange1Success(successData);
+        },
+        (error) => {
+          this.geteChangedWeightChange1Failure(error);
+        }
+    );
+  }
+
+  public geteChangedWeightChange1Success(successData) {
+    if (successData.IsSuccess) {
+      this.weightList1 = successData.ResponseObject;
+    }
+  }
+
+  public geteChangedWeightChange1Failure(error) {
   }
 
   getePolicyCategory() {
