@@ -1406,6 +1406,8 @@
                       <li class="list-group-item" *ngIf="policyid1.aadhar !='' "><strong>Aadhar Number:</strong> {{policyid1.aadhar}}</li>
                       <li class="list-group-item" *ngIf="policyid1.pancard !='' "><strong>PAN Number:</strong> {{policyid1.pancard | uppercase}}</li>
                       <li class="list-group-item" *ngIf="policyid1.gst !='' "><strong>GST Number:</strong> {{policyid1.gst | uppercase}}</li>
+                      <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance !=''"><strong>Previous Medical Insurence:</strong> <span >Yes</span></li>
+                      <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance ==''"><strong>Previous Medical Insurence:</strong><span >No</span></li>
                       <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance !='' "><strong>Previous Medical Insurence:</strong> {{policyid1.previous_medical_insurance}}</li>
                     </ul>
                   </div>
@@ -1617,9 +1619,9 @@
             <div class="row">
               <div class="col-12 text-center">
                 <button mat-button matStepperPrevious (click)="topScroll()"  *ngIf="payLaterr == false">Back</button>
-                <button mat-button (click)="backsubmit()" *ngIf="submit==true ">Back</button>
+                <button mat-button (click)="topScroll();getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();backsubmit()" *ngIf="submit==true ">Back</button>
                 <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
-                <button mat-raised-button color="primaryBlue" class="mr-2" *ngIf="(payLaterr == true && submit==false)|| backStep==true"  (click)="getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();paylaterrproposal()">Submit</button>
+                <button mat-raised-button color="primaryBlue" class="mr-2" *ngIf="(payLaterr == true && submit==false)|| backStep==true"  (click)="getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();topScroll();paylaterrproposal()">Submit</button>
 
 
                   <button mat-raised-button color="primaryBlue" [disabled]="!declaration" *ngIf="(summaryData && payLaterr==false)||payLaterr == false && pos_status==3 && backStep==false||submit==true" (click)="payNow();">Pay Now</button>
