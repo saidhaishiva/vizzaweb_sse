@@ -585,20 +585,58 @@
                                             <mat-error *ngIf="insureArray.controls.ageProofId.errors?.required">Age Proof Id is required</mat-error>
                                         </mat-form-field>
                                     </div>
+                                </div>
+                                <div class="row p-3">
                                     <div class="col-md-4" >
                                         <mat-form-field class="w-100">
-                                            <mat-select  placeholder="Highest Qualification" formControlName="highestQualification" (selectionChange)="qualificationName();othrhighQualify1()" required  class="w-100" >
+                                            <mat-select  placeholder="Highest Qualification" formControlName="highestQualification" (selectionChange)="qualificationName();othrhighQualify1();othrhighQualify7();otherqu()" required  class="w-100" >
                                                 <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="insureArray.controls.highestQualification.errors?.required">Highest Qualification is required</mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <div class="col-md-4" >
-                                        <mat-form-field class="w-100" *ngIf="insureArray.controls['highestQualification'].value == '8'" >
-                                            <mat-placeholder>Other Qualification Details<span class="error"  *ngIf="insureArray.controls['highestQualification'].value == '8'" >*</span></mat-placeholder>
+                                    <div class="col-md-4"  *ngIf="insureArray.controls['highestQualification'].value == '8'|| insureArray.controls['highestQualification'].value == '7'||insureArray.controls['highestQualification'].value == '6'||insureArray.controls['highestQualification'].value == '5'||insureArray.controls['highestQualification'].value == '4'||insureArray.controls['highestQualification'].value == '3'||insureArray.controls['highestQualification'].value == '2'||insureArray.controls['highestQualification'].value == '1'">
+                                        <mat-form-field class="w-100" >
+                                            <mat-placeholder>Name of Last College/School & Location<span class="error"  *ngIf="insureArray.controls['highestQualification'].value == '8'||insureArray.controls['highestQualification'].value == '7'||insureArray.controls['highestQualification'].value == '6'||insureArray.controls['highestQualification'].value == '5'||insureArray.controls['highestQualification'].value == '4'||insureArray.controls['highestQualification'].value == '3'||insureArray.controls['highestQualification'].value == '2'||insureArray.controls['highestQualification'].value == '1'" >*</span></mat-placeholder>
+
+                                            <input matInput   formControlName="lastcollegeorschool"   maxlength="45" autocomplete="off">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4"  *ngIf="insureArray.controls['highestQualification'].value == '8'|| insureArray.controls['highestQualification'].value == '7'||insureArray.controls['highestQualification'].value == '6'||insureArray.controls['highestQualification'].value == '5'||insureArray.controls['highestQualification'].value == '4'||insureArray.controls['highestQualification'].value == '3'||insureArray.controls['highestQualification'].value == '2'||insureArray.controls['highestQualification'].value == '1'" >
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Highest Educational/Professional Qualification<span class="error"  *ngIf="insureArray.controls['highestQualification'].value == '8'||insureArray.controls['highestQualification'].value == '7'||insureArray.controls['highestQualification'].value == '6'||insureArray.controls['highestQualification'].value == '5'||insureArray.controls['highestQualification'].value == '4'||insureArray.controls['highestQualification'].value == '3'||insureArray.controls['highestQualification'].value == '2'||insureArray.controls['highestQualification'].value == '1'" >*</span></mat-placeholder>
+                                            <input matInput   formControlName="highesteducationorprof"   maxlength="45" autocomplete="off">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row p-3" *ngIf="insureArray.controls['highestQualification'].value == '8'">
+                                <div class="col-md-4"  *ngIf="insureArray.controls['highestQualification'].value == '8'" >
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Please specify Others Education Details<span class="error"  *ngIf="insureArray.controls['highestQualification'].value == '8'" >*</span></mat-placeholder>
                                             <input matInput   formControlName="otherQualification"   maxlength="45" autocomplete="off">
                                         </mat-form-field>
                                     </div>
+                                </div>
+                                <div class="row p-3" *ngIf="insureArray.controls['highestQualification'].value == '7'">
+                                <div class="col-md-4" *ngIf="insureArray.controls['highestQualification'].value == '7'"  >
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Course being pursued<span class="error"  *ngIf="insureArray.controls['highestQualification'].value == '7'" >*</span></mat-placeholder>
+                                            <input matInput   formControlName="coursebeingpur"   maxlength="45" autocomplete="off">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4"  *ngIf="insureArray.controls['highestQualification'].value == '7'" >
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Duration of the Course<span class="error"  *ngIf="insureArray.controls['highestQualification'].value == '7'" >*</span></mat-placeholder>
+                                            <input matInput   formControlName="durationofcourse"   maxlength="45" autocomplete="off">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="insureArray.controls['highestQualification'].value == '7'"  >
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Year/Semester/Standard<span class="error"  *ngIf="insureArray.controls['highestQualification'].value == '7'" >*</span></mat-placeholder>
+                                            <input matInput   formControlName="yearsemstandard"   maxlength="45" autocomplete="off">
+                                        </mat-form-field>
+                                    </div>
+
 
                                 </div>
 
@@ -711,7 +749,7 @@
 
                                     <div class="col-md-4">
                                         <mat-form-field class="w-100">
-                                            <mat-select  placeholder="Employment Type" formControlName="employementType"  (selectionChange)="employmentTypereq1();employmentTypereq12(); employementTypeName1()" required  class="w-100" >
+                                            <mat-select  placeholder="Employment Type" formControlName="employementType"  (selectionChange)="employmentTypereq1();employmentTypereq66();employmentTypereq12(); employementTypeName1()" required  class="w-100" >
                                                 <mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="insureArray.controls.employementType.errors?.required">Employment Type is required</mat-error>
@@ -719,7 +757,7 @@
                                     </div>
                                     <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value=='1'||insureArray.controls['employementType'].value=='5'||insureArray.controls['employementType'].value=='7'||insureArray.controls['employementType'].value=='8'">
                                         <mat-form-field class="w-100">
-                                            <mat-placeholder>Employer Name<span class="error" >*</span></mat-placeholder>
+                                            <mat-placeholder>Name of Employer/Business<span class="error" >*</span></mat-placeholder>
                                             <input matInput  formControlName="employerName"    maxlength="50" autocomplete="off"   (keypress)="nameValidate($event)" >
                                             <!--<input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" required>-->
                                             <!--<mat-error *ngIf="insureArray.controls.employerName.errors?.required">Employer Name  is required</mat-error>-->
@@ -727,17 +765,70 @@
                                     </div>
                                     <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value=='1'||insureArray.controls['employementType'].value=='5'||insureArray.controls['employementType'].value=='7'||insureArray.controls['employementType'].value=='8'">
                                         <mat-form-field class="w-100">
-                                            <mat-placeholder>Nature of Duty/Business<span class="error" >*</span></mat-placeholder>
+                                            <mat-placeholder>Designation/Position Held<span class="error" >*</span></mat-placeholder>
+                                            <input matInput  formControlName="designationorposition"    maxlength="50" autocomplete="off"   (keypress)="nameValidate($event)" >
+                                            <!--<input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" required>-->
+                                            <!--<mat-error *ngIf="insureArray.controls.employerName.errors?.required">Employer Name  is required</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value=='1'||insureArray.controls['employementType'].value=='5'||insureArray.controls['employementType'].value=='7'||insureArray.controls['employementType'].value=='8'">
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Job Description/Nature of Duty<span class="error" >*</span></mat-placeholder>
                                             <mat-select  formControlName="natureduty" (selectionChange)="setbdutyList();setbdutyListName1()"  class="w-100" >
                                                 <mat-option *ngFor="let list of bduty | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
                                         </mat-form-field>
                                     </div>
+                                    <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value=='5'">
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Nature of Business<span class="error" >*</span></mat-placeholder>
+                                            <input matInput  formControlName="buissNature"    maxlength="50" autocomplete="off"   (keypress)="nameValidate($event)" >
+                                            <!--<input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" required>-->
+                                            <!--<mat-error *ngIf="insureArray.controls.employerName.errors?.required">Employer Name  is required</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value=='1'||insureArray.controls['employementType'].value=='5'||insureArray.controls['employementType'].value=='7'||insureArray.controls['employementType'].value=='8'">
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Work Experience(Year(s))<span class="error" >*</span></mat-placeholder>
+                                            <mat-select  formControlName="workYears"   class="w-100" >
+                                                <mat-option *ngFor="let list of eWorkYear | keys" [value]= list.key> {{list.value}} </mat-option>
+                                            </mat-select>
+                                            <!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value=='1'||insureArray.controls['employementType'].value=='5'||insureArray.controls['employementType'].value=='7'||insureArray.controls['employementType'].value=='8'">
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Work Experience(Month(s))<span class="error" >*</span></mat-placeholder>
+                                            <mat-select  formControlName="workMonths"  class="w-100" >
+                                                <mat-option *ngFor="let list of eWorkMonth | keys" [value]= list.key> {{list.value}} </mat-option>
+                                            </mat-select>
+                                            <!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
                                     <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value=='1'||insureArray.controls['employementType'].value=='5'||insureArray.controls['employementType'].value=='7'||insureArray.controls['employementType'].value=='8'" >
                                         <mat-form-field class="w-100">
-                                            <mat-placeholder>Address of employer<span class="error" >*</span></mat-placeholder>
+                                            <mat-placeholder>Address of employer/Business<span class="error" >*</span></mat-placeholder>
                                             <input matInput  formControlName="employerAddr"    maxlength="50" autocomplete="off"  >
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value=='1'||insureArray.controls['employementType'].value=='5'||insureArray.controls['employementType'].value=='7'||insureArray.controls['employementType'].value=='8'">
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Occupation Industry Type<span class="error" >*</span></mat-placeholder>
+                                            <mat-select  formControlName="occupationIndustry"  class="w-100" >
+                                                <mat-option *ngFor="let list of employeeOccupation | keys" [value]= list.key> {{list.value}} </mat-option>
+                                            </mat-select>
+                                            <!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value=='1'||insureArray.controls['employementType'].value=='5'||insureArray.controls['employementType'].value=='7'||insureArray.controls['employementType'].value=='8'">
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Number of Employees in the company<span class="error" >*</span></mat-placeholder>
+                                            <mat-select  formControlName="employeecount"  class="w-100" >
+                                                <mat-option *ngFor="let list of employeeCompany | keys" [value]= list.key> {{list.value}} </mat-option>
+                                            </mat-select>
+                                            <!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
                                         </mat-form-field>
                                     </div>
 
@@ -1185,21 +1276,62 @@
                                                 <!--<mat-error *ngIf="insureArray.controls.sageProofId.errors?.required">Age Proof Id is required</mat-error>-->
                                             </mat-form-field>
                                         </div>
+
+<!--                                    <div class="row ml-1">-->
                                         <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Highest Qualification<span class="error" >*</span></mat-placeholder>
-                                                <mat-select formControlName="shighestQualification" (selectionChange)="squalificationName();othrhighQualify2()"   class="w-100" >
+                                                <mat-select formControlName="shighestQualification" (selectionChange)="squalificationName();othrhighQualify2();otherqus();othrhighQualifys7()"   class="w-100" >
                                                     <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
                                                 </mat-select>
                                                 <!--<mat-error *ngIf="insureArray.controls.shighestQualification.errors?.required">Highest Qualification is required</mat-error>-->
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-form-field class="w-100" *ngIf="insureArray.controls['shighestQualification'].value == '8'||insureArray.controls['shighestQualification'].value == '7'||insureArray.controls['shighestQualification'].value == '6'||insureArray.controls['shighestQualification'].value == '5'||insureArray.controls['shighestQualification'].value == '4'||insureArray.controls['shighestQualification'].value == '3'||insureArray.controls['shighestQualification'].value == '2'||insureArray.controls['shighestQualification'].value == '1'" >
+                                                <mat-placeholder>Name of Last College/School & Location<span class="error"  *ngIf="insureArray.controls['shighestQualification'].value == '8'||insureArray.controls['shighestQualification'].value == '7'||insureArray.controls['shighestQualification'].value == '6'||insureArray.controls['shighestQualification'].value == '5'||insureArray.controls['shighestQualification'].value == '4'||insureArray.controls['shighestQualification'].value == '3'||insureArray.controls['shighestQualification'].value == '2'||insureArray.controls['shighestQualification'].value == '1'" >*</span></mat-placeholder>
+                                                <input matInput   formControlName="slastcollegeorschool"   maxlength="45" autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-form-field class="w-100" *ngIf="insureArray.controls['shighestQualification'].value == '8'||insureArray.controls['shighestQualification'].value == '7'||insureArray.controls['shighestQualification'].value == '6'||insureArray.controls['shighestQualification'].value == '5'||insureArray.controls['shighestQualification'].value == '4'||insureArray.controls['shighestQualification'].value == '3'||insureArray.controls['shighestQualification'].value == '2'||insureArray.controls['shighestQualification'].value == '1'" >
+                                                <mat-placeholder>Highest Educational/Professional Qualification<span class="error"  *ngIf="insureArray.controls['shighestQualification'].value == '8'||insureArray.controls['shighestQualification'].value == '7'||insureArray.controls['shighestQualification'].value == '6'||insureArray.controls['shighestQualification'].value == '5'||insureArray.controls['shighestQualification'].value == '4'||insureArray.controls['shighestQualification'].value == '3'||insureArray.controls['shighestQualification'].value == '2'||insureArray.controls['shighestQualification'].value == '1'" >*</span></mat-placeholder>
+                                                <input matInput   formControlName="shighesteducationorprof"   maxlength="45" autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+<!--                                    </div>-->
+
+<!--                                    <div class="row p-3">-->
+
+                                    <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <mat-form-field class="w-100" *ngIf="insureArray.controls['shighestQualification'].value == '8'" >
-                                                <mat-placeholder>Other Qualification Details<span class="error"  *ngIf="insureArray.controls['shighestQualification'].value == '8'" >*</span></mat-placeholder>
+                                                <mat-placeholder>Please specify Others Education Details<span class="error"  *ngIf="insureArray.controls['shighestQualification'].value == '8'" >*</span></mat-placeholder>
                                                 <input matInput   formControlName="sotherQualification"   maxlength="45" autocomplete="off">
                                             </mat-form-field>
                                         </div>
+<!--                                    </div>-->
+                                    </div>
+                                    <div class="row p-3">
+
+                                    <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-form-field class="w-100" *ngIf="insureArray.controls['shighestQualification'].value == '7'" >
+                                                <mat-placeholder>Course being pursued<span class="error"  *ngIf="insureArray.controls['shighestQualification'].value == '7'" >*</span></mat-placeholder>
+                                                <input matInput   formControlName="scoursebeingpur"   maxlength="45" autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-form-field class="w-100" *ngIf="insureArray.controls['shighestQualification'].value == '7'" >
+                                                <mat-placeholder>Duration of the Course<span class="error"  *ngIf="insureArray.controls['shighestQualification'].value == '7'" >*</span></mat-placeholder>
+                                                <input matInput   formControlName="sdurationofcourse"   maxlength="45" autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            <mat-form-field class="w-100" *ngIf="insureArray.controls['shighestQualification'].value == '7'" >
+                                                <mat-placeholder>Year/Semester/Standard<span class="error"  *ngIf="insureArray.controls['shighestQualification'].value == '7'" >*</span></mat-placeholder>
+                                                <input matInput   formControlName="syearsemstandard"   maxlength="45" autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+
 
                                     </div>
                                     <div class="row p-3" fxLayoutAlign="center center" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
@@ -1377,9 +1509,10 @@
                                             <h6 class="color-blue">EMPLOYMENT FOR SPOUSE</h6>
                                         </div>
 
+
                                         <div class="col-md-4">
                                             <mat-form-field class="w-100">
-                                                <mat-select  placeholder="Employment Type" formControlName="semployementType"  (selectionChange)="semploymentTypereq1();semploymentTypereq12();semployementTypeName1()" [required]="addon.controls['betterHalfBenefit'].value == 'Yes'"  class="w-100" >
+                                                <mat-select  placeholder="Employment Type" formControlName="semployementType"  (selectionChange)="semploymentTypereq1();semploymentTypereq12();semployementTypeName1();employmentTypereqs66()" [required]="addon.controls['betterHalfBenefit'].value == 'Yes'"  class="w-100" >
                                                     <mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>
                                                 </mat-select>
                                                 <!--<mat-error *ngIf="insureArray.controls.semployementType.errors?.required">Employment Type is required</mat-error>-->
@@ -1387,24 +1520,74 @@
                                         </div>
                                         <div class="col-md-4"  *ngIf="insureArray.controls['semployementType'].value=='1'||insureArray.controls['semployementType'].value=='5'||insureArray.controls['semployementType'].value=='7'||insureArray.controls['semployementType'].value=='8'">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Employer Name" formControlName="semployerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" [required]="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                                <input matInput placeholder="Employer Name" formControlName="semployerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)">
                                                 <!--<mat-error *ngIf="insureArray.controls.semployerName.errors?.required">Employer Name  is required</mat-error>-->
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="insureArray.controls['semployementType'].value=='1'||insureArray.controls['semployementType'].value=='5'||insureArray.controls['semployementType'].value=='7'||insureArray.controls['semployementType'].value=='8'" >
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Designation/Position Held<span class="error" >*</span></mat-placeholder>
+                                                <input matInput  formControlName="sdesignationorposition"   maxlength="50" autocomplete="off" >
                                             </mat-form-field>
                                         </div>
 
                                         <div class="col-md-4" *ngIf="insureArray.controls['semployementType'].value=='1'||insureArray.controls['semployementType'].value=='5'||insureArray.controls['semployementType'].value=='7'||insureArray.controls['semployementType'].value=='8'">
                                             <mat-form-field class="w-100">
-                                                <mat-placeholder>Nature of Duty/Business<span class="error" >*</span></mat-placeholder>
+                                                <mat-placeholder>Job Description/Nature of Duty<span class="error" >*</span></mat-placeholder>
                                                 <mat-select  formControlName="snatureduty" (selectionChange)="setbdutyList();setbdutyListName()"  class="w-100" >
                                                     <mat-option *ngFor="let list of bduty | keys" [value]= list.key> {{list.value}} </mat-option>
                                                 </mat-select>
                                                 <!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
                                             </mat-form-field>
                                         </div>
+                                        <div class="col-md-4" *ngIf="insureArray.controls['semployementType'].value=='5'">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Nature of Business<span class="error" >*</span></mat-placeholder>
+                                                <input matInput  formControlName="sbuissNature"  maxlength="50" autocomplete="off"   (keypress)="nameValidate($event)">
+                                                <!--<input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" required>-->
+                                                <!--<mat-error *ngIf="insureArray.controls.employerName.errors?.required">Employer Name  is required</mat-error>-->
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="insureArray.controls['semployementType'].value=='1'||insureArray.controls['semployementType'].value=='5'||insureArray.controls['semployementType'].value=='7'||insureArray.controls['semployementType'].value=='8'">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Work Experience(Year(s))<span class="error" >*</span></mat-placeholder>
+                                                <mat-select  formControlName="sworkYears"   class="w-100" >
+                                                    <mat-option *ngFor="let list of eWorkYear | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                </mat-select>
+                                                <!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="insureArray.controls['semployementType'].value=='1'||insureArray.controls['semployementType'].value=='5'||insureArray.controls['semployementType'].value=='7'||insureArray.controls['semployementType'].value=='8'">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Work Experience(Month(s))<span class="error" >*</span></mat-placeholder>
+                                                <mat-select  formControlName="sworkMonths" class="w-100" >
+                                                    <mat-option *ngFor="let list of eWorkMonth | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                </mat-select>
+                                                <!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
+                                            </mat-form-field>
+                                        </div>
                                         <div class="col-md-4" *ngIf="insureArray.controls['semployementType'].value=='1'||insureArray.controls['semployementType'].value=='5'||insureArray.controls['semployementType'].value=='7'||insureArray.controls['semployementType'].value=='8'" >
                                             <mat-form-field class="w-100">
-                                                <mat-placeholder>Address of employer<span class="error" >*</span></mat-placeholder>
-                                                <input matInput  formControlName="semployerAddr"    maxlength="50" autocomplete="off"  >
+                                                <mat-placeholder>Address of employer/Business<span class="error" >*</span></mat-placeholder>
+                                                <input matInput  formControlName="semployerAddr"  maxlength="50" autocomplete="off"  [required]="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="insureArray.controls['semployementType'].value=='1'||insureArray.controls['semployementType'].value=='5'||insureArray.controls['semployementType'].value=='7'||insureArray.controls['semployementType'].value=='8'">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Occupation Industry Type<span class="error" >*</span></mat-placeholder>
+                                                <mat-select  formControlName="soccupationIndustry"  class="w-100" [required]="addon.controls['betterHalfBenefit'].value == 'Yes'">
+                                                    <mat-option *ngFor="let list of employeeOccupation | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                </mat-select>
+                                                <!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="insureArray.controls['semployementType'].value=='1'||insureArray.controls['semployementType'].value=='5'||insureArray.controls['semployementType'].value=='7'||insureArray.controls['semployementType'].value=='8'">
+                                            <mat-form-field class="w-100">
+                                                <mat-placeholder>Number of Employees in the company<span class="error" >*</span></mat-placeholder>
+                                                <mat-select  formControlName="semployeecount"  class="w-100" >
+                                                    <mat-option *ngFor="let list of employeeCompany | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                </mat-select>
+                                                <!--                                           <mat-error *ngIf="insureArray.controls.sheightInches.errors?.required">Height Inches is required</mat-error>-->
                                             </mat-form-field>
                                         </div>
 
@@ -5235,9 +5418,19 @@
                                         <h6 class="color-blue">EMPLOYMENT</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="insuredFormData.employementType != ''"><strong>Employment Type :</strong> {{insuredFormData.employementTypeName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.employerName != ''"><strong>Employer Name :</strong> {{insuredFormData.employerName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.natureduty != ''"><strong>Nature Of Duty :</strong> {{insuredFormData.naturedutyName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.employerName != ''"><strong>Name of Employer/Business :</strong> {{insuredFormData.employerName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.natureduty != ''"><strong>Job Description/Nature of Duty :</strong> {{insuredFormData.naturedutyName}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.annualIncome != ''"><strong>Annual Income :</strong> {{insuredFormData.annualIncome}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.buissNature != ''"><strong>Employment Type :</strong> {{insuredFormData.buissNature}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="p-3">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.designationorposition != ''"><strong>Designation/Position Held :</strong> {{insuredFormData.designationorposition}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.workYears != ''"><strong>Work Experience(Year(s)) :</strong> {{insuredFormData.workYears}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.workMonths != ''"><strong>Work Experience(Month(s)) :</strong> {{insuredFormData.workMonths}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.occupationIndustry != ''"><strong>Occupation Industry Type :</strong> {{insuredFormData.occupationIndustry}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.employeecount != ''"><strong>Number of Employees in the company :</strong> {{insuredFormData.employeecount}}</li>
 
                                         </ul>
                                     </div>
@@ -5246,7 +5439,7 @@
                                     <div class=" p-3">
                                         <h6 class="color-blue mt-4" ></h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Employer Address :</strong> {{insuredFormData.employerAddr}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Address of employer/Business :</strong> {{insuredFormData.employerAddr}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.isEmploymentIncome != ''"><strong>Is your source of income from any one of the employment type selected above:</strong> {{insuredFormData.isEmploymentIncome}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.isEmploymentIncome == 'No'"><strong>If No, Please specify:</strong> {{insuredFormData.employmentIncomeDetails}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
@@ -5435,7 +5628,22 @@
                                             <li class="list-group-item" *ngIf="insuredFormData.snatureduty != ''"><strong>Nature Of Duty :</strong> {{insuredFormData.snaturedutyName}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.sisEmploymentIncome != ''"><strong>Is your source of income from any one of the employment type selected above:</strong> {{insuredFormData.sisEmploymentIncome}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.sisEmploymentIncome == 'No'"><strong>If No, Please specify:</strong> {{insuredFormData.semploymentIncomeDetails}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.semployerAddr != ''"><strong>Employer Address :</strong> {{insuredFormData.semployerAddr}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.semployerAddr != ''"><strong>Address of employer/Business :</strong> {{insuredFormData.semployerAddr}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.sdesignationorposition != ''"><strong>Designation/Position Held :</strong> {{insuredFormData.sdesignationorposition}}</li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                            <div class="col-md-6" *ngIf="addonFormData.betterHalfBenefit=='Yes'">
+                                    <div class=" p-3">
+                                        <h6 class="color-blue mt-4" ></h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.sbuissNature != ''"><strong>Nature of Business :</strong> {{insuredFormData.sbuissNature}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.sworkYears != ''"><strong>Work Experience(Year(s)):</strong> {{insuredFormData.sworkYears}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.sworkMonths !=''"><strong>Work Experience(Month(s)):</strong> {{insuredFormData.sworkMonths}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.soccupationIndustry != ''"><strong>Occupation Industry Type :</strong> {{insuredFormData.soccupationIndustry}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.semployeecount != ''"><strong>Number of Employees in the company :</strong> {{insuredFormData.semployeecount}}</li>
                                         </ul>
                                     </div>
                                 </div>
