@@ -69,6 +69,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public hypothecationTypedm: any;
   public addonPackagedm: any;
   public titleList: any;
+  public PAExclusionList: any;
   public policyTypeList: any;
   public proposalTypeList: any;
   public finance: boolean;
@@ -137,6 +138,7 @@ export class BikeShriramProposalComponent implements OnInit {
     public nilDepValue:any;
     public proposerGender:any;
     public titleId:any;
+    public paOwnerValue:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -191,6 +193,7 @@ export class BikeShriramProposalComponent implements OnInit {
     this.paUnNamed = false;
     this.policyTypeDetails = false;
     this.PreviousValid = false;
+    this.paOwnerValue = false;
     // this.proposerGender = false;
     this.policyDatevalidate = [];
         // this.config = {
@@ -234,7 +237,7 @@ export class BikeShriramProposalComponent implements OnInit {
       nonElectricalAccessSI: '',
       totalNonElectricalItemPremium: '',
         totalPaOwnerDriverPremium: '',
-        paOwnerDriver: '',
+        // paOwnerDriver: '',
       paforUnnamed: '',
       paforUnnamedSI: '',
       totalPaforUnnamedPremium: '',
@@ -257,6 +260,9 @@ export class BikeShriramProposalComponent implements OnInit {
       stateName:'',
       cityName:'',
       isFinanced:'',
+      isPAExclusion:'',
+        PAExclusionName:'',
+      PAExclusion:'',
     });
     this.previousInsure = this.fb.group({
       policyNumber:['', Validators.required],
@@ -301,7 +307,9 @@ export class BikeShriramProposalComponent implements OnInit {
          this.changeCalcMax();
          this.voluntaryExcess();
          this.nilDepDateValidation();
-
+         this.get_PA_exclusion_list();
+      this.vehical.controls['isPAExclusion'].patchValue(false);
+      this.PAExclusion()
       this.sessionData();
 
   }
@@ -373,6 +381,23 @@ export class BikeShriramProposalComponent implements OnInit {
 
   // FIRST STEPPER
 
+    // paOwner(){
+    //     if(this.vehical.controls['paOwnerDriver'].value == true){
+    //         this.paOwnerValue=true;
+    //         this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
+    //         this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
+    //         this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
+    //
+    //     }else if(this.vehical.controls['paOwnerDriver'].value == false){
+    //         this.paOwnerValue=false;
+    //         this.nomineeDetail.controls['nomineeName'].patchValue('')
+    //         this.nomineeDetail.controls['nomineeAge'].patchValue('')
+    //         this.nomineeDetail.controls['nomineeRelationship'].patchValue('')
+    //         this.nomineeDetail.controls['appointeeName'].patchValue('')
+    //         this.nomineeDetail.controls['appointeeRelationship'].patchValue('')
+    //     }
+    // }
+
   // title change function
       changeTitle() {
         const data = {
@@ -391,6 +416,9 @@ export class BikeShriramProposalComponent implements OnInit {
       }
         public titlesucccess(successData){
           this.titleList = successData.ResponseObject;
+          console.log(this.titleList,"this.titleList");
+
+            // this.get_PA_exclusion_list();
         }
         public failureSuccess(error) {
         }
@@ -433,18 +461,28 @@ export class BikeShriramProposalComponent implements OnInit {
     changeGenderVales1() {
         if (this.proposer.controls['title'].value == 'Mr') {
             this.titleId=1;
+            console.log(this.titleId,'111')
+            this.get_PA_exclusion_list();
         }
         if (this.proposer.controls['title'].value == 'Mrs') {
             this.titleId=2;
+            console.log(this.titleId,'222')
+            this.get_PA_exclusion_list();
         }
         if (this.proposer.controls['title'].value == 'M/S') {
             this.titleId=3;
+            this.get_PA_exclusion_list();
+            console.log(this.titleId,'333')
         }
         if (this.proposer.controls['title'].value == 'Miss') {
             this.titleId=4;
+            this.get_PA_exclusion_list();
+            console.log(this.titleId,'4444')
         }
         if (this.proposer.controls['title'].value == 'Dr') {
             this.titleId=5;
+            this.get_PA_exclusion_list();
+            console.log(this.titleId,'555')
         }
     }
 
@@ -1041,6 +1079,65 @@ export class BikeShriramProposalComponent implements OnInit {
         }
     }
 
+    /******/
+    get_PA_exclusion_list(){
+        const padata = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+             'prefix': this.titleId
+        }
+        this.bikeInsurance.getPAExclusionList(padata).subscribe(
+            (successData) => {
+                this.Exclusionsucccess(successData);
+            },
+            (error) => {
+                this.ExclusionSuccess(error);
+            }
+        );
+    }
+    public Exclusionsucccess(successData){
+        this.PAExclusionList = successData.ResponseObject;
+    }
+    public ExclusionSuccess(error) {
+    }
+
+    PAExclusion(){
+        if(this.vehical.controls['isPAExclusion'].value==true) {
+            this.paOwnerValue=false;
+            this.vehical.controls['PAExclusion'].setValidators([Validators.required]);
+
+            this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
+            this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
+            this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
+
+        }else if(this.vehical.controls['isPAExclusion'].value==false){
+
+            this.paOwnerValue=true;
+            this.vehical.controls['PAExclusion'].setValidators(null);
+            this.vehical.controls['PAExclusion'].patchValue('');
+
+            this.nomineeDetail.controls['nomineeName'].patchValue('');
+            this.nomineeDetail.controls['nomineeAge'].patchValue('');
+            this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
+            this.nomineeDetail.controls['appointeeName'].patchValue('');
+            this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
+
+            this.nomineeDetail.controls['nomineeName'].setValidators(null);
+            this.nomineeDetail.controls['nomineeAge'].setValidators(null);
+            this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
+            this.nomineeDetail.controls['appointeeName'].setValidators(null);
+            this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
+
+        }
+        this.vehical.controls['PAExclusion'].updateValueAndValidity();
+        this.nomineeDetail.controls['nomineeName'].updateValueAndValidity();
+        this.nomineeDetail.controls['nomineeAge'].updateValueAndValidity();
+        this.nomineeDetail.controls['nomineeRelationship'].updateValueAndValidity();
+
+    }
+    /******/
+
     financeType() {
 
         if (this.vehical.controls['isFinanced'].value==true) {
@@ -1283,18 +1380,26 @@ export class BikeShriramProposalComponent implements OnInit {
         console.log(value, 'vvvvvv');
         sessionStorage.stepper3 = '';
         sessionStorage.stepper3 = JSON.stringify(value);
-
+      if(this.paOwnerValue==false){
         if (this.previousInsure.valid) {
             if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
-                stepper.next();
+                // stepper.next();
                 this.topScroll();
+                this.proposal(stepper);
             }else{
                 this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
             }
-
-
-
         }
+       }else if(this.paOwnerValue==true){
+          if (this.previousInsure.valid) {
+              if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+                  stepper.next();
+                  this.topScroll();
+              }else{
+                  this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
+              }
+          }
+      }
 
     }
 
@@ -1381,6 +1486,11 @@ export class BikeShriramProposalComponent implements OnInit {
 
     }
 
+    paExcluseName(){
+        this.vehical.controls['PAExclusionName'].patchValue(this.PAExclusionList[this.vehical.controls['PAExclusion'].value]);
+    }
+
+
     getCover() {
 
         const data = {
@@ -1451,8 +1561,8 @@ export class BikeShriramProposalComponent implements OnInit {
                 "ElectricalaccessRemarks": "",
                 "NonElectricalaccessRemarks": "",
                 "SpecifiedPersonField": "",
-                "PAOwnerDriverExclusion": "",
-                "PAOwnerDriverExReason": "",
+                "PAOwnerDriverExclusion": this.vehical.controls['isPAExclusion'].value == true ? '1' : '0',
+                "PAOwnerDriverExReason": this.vehical.controls['PAExclusion'].value,
                 "NomineeNameforPAOwnerDriver": "sdffsffsdfds",
                 "NomineeAgeforPAOwnerDriver": "23",
                 "NomineeRelationforPAOwnerDriver": "Brother",
@@ -1482,6 +1592,7 @@ export class BikeShriramProposalComponent implements OnInit {
                 "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value? this.vehical.controls['hypothecationAddress3'].value: '',
                 "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value ? this.vehical.controls['hypothecationAgreementNo'].value: '',
                 "HypothecationCountry": "",
+                // "PAOwnerDriver":  this.vehical.controls['paOwnerDriver'].value== true ? '1' : '0' ,
                 "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
                 "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
                 "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : ''
@@ -1588,8 +1699,8 @@ export class BikeShriramProposalComponent implements OnInit {
               "ElectricalaccessRemarks": "",
               "NonElectricalaccessRemarks": "",
               "SpecifiedPersonField": "",
-              "PAOwnerDriverExclusion": "",
-              "PAOwnerDriverExReason": "",
+              "PAOwnerDriverExclusion": this.vehical.controls['isPAExclusion'].value == true ? '1' : '0',
+              "PAOwnerDriverExReason": this.vehical.controls['PAExclusion'].value,
               "NomineeNameforPAOwnerDriver": this.nomineeDetail.controls['nomineeName'].value,
               "NomineeAgeforPAOwnerDriver": this.nomineeDetail.controls['nomineeAge'].value,
               "NomineeRelationforPAOwnerDriver": this.nomineeDetail.controls['nomineeRelationship'].value,
@@ -1613,6 +1724,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value? this.vehical.controls['hypothecationAddress3'].value: '',
               "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value ? this.vehical.controls['hypothecationAgreementNo'].value: '',
               "HypothecationCountry": "",
+              // "PAOwnerDriver":  this.vehical.controls['paOwnerDriver'].value== true ? '1' : '0' ,
               "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
               "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
               "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : ''
@@ -1908,7 +2020,7 @@ export class BikeShriramProposalComponent implements OnInit {
           totalNonElectricalItemPremium: stepper2.totalNonElectricalItemPremium,
           totalPaforUnnamedPremium: stepper2.totalPaforUnnamedPremium,
           totalAntiTheftPremium: stepper2.totalAntiTheftPremium,
-          paOwnerDriver: stepper2.paOwnerDriver,
+          // paOwnerDriver: stepper2.paOwnerDriver,
           totalPaOwnerDriverPremium: stepper2.totalPaOwnerDriverPremium,
         hypothecationType: stepper2.hypothecationType,
         hypothecationTypeName: stepper2.hypothecationTypeName,
@@ -1925,6 +2037,9 @@ export class BikeShriramProposalComponent implements OnInit {
         hypothecationBankName:stepper2.hypothecationBankName,
           hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
           isFinanced:stepper2.isFinanced,
+          isPAExclusion:stepper2.isPAExclusion,
+          PAExclusionName:stepper2.PAExclusionName,
+          PAExclusion:stepper2.PAExclusion,
         pincode:stepper2.pincode,
         state:stepper2.state,
         city:stepper2.city,

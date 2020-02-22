@@ -134,7 +134,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public lesserDate:any;
   public nilDepValue:any;
   public proposerGender:any;
+  public paOwnerValue:any;
   public titleId:any;
+  public PAExclusionList: any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -168,6 +170,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.electricalSumAount=false
     this.nonElectricalSumAount=false
     this.pASumAount=false
+    this.paOwnerValue=false;
     this.settings = this.appSettings.settings;
     this.webhost = this.configs.getimgUrl();
 
@@ -263,6 +266,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       DeTariff: '',
       Bhutan: '',
       geographicalArea:'',
+      // paOwnerDriver:'',
       CNGKit:'',
       CNGKitSI:'',
       paPaidDriver:'',
@@ -270,6 +274,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       PAPaidDriverCount:'',
       PAPaidConductorCount:'',
       PAPaidCleanerCount:'',
+      isPAExclusion:'',
+      PAExclusion:'',
+      PAExclusionName:'',
       limitOwnPremise:'',
       limitedTPPD:'',
       builtCNGKit:'',
@@ -321,6 +328,10 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.changeCalcMax();
     this.voluntaryExcess();
     this.nilDepDateValidation();
+    this.get_PA_exclusion_list();
+    this.vehical.controls['isPAExclusion'].patchValue(false);
+    this.PAExclusion()
+
     this.sessionData();
 
   }
@@ -389,6 +400,23 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   //     this.pASumAount = 'PA to Unnamed Passenger Sum Insured Should be lesser than';
   //   }
   // }
+
+    // paOwner(){
+    //     if(this.vehical.controls['paOwnerDriver'].value == true){
+    //         this.paOwnerValue=true;
+    //         this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
+    //         this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
+    //         this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
+    //
+    //     }else if(this.vehical.controls['paOwnerDriver'].value == false){
+    //         this.paOwnerValue=false;
+    //         this.nomineeDetail.controls['nomineeName'].patchValue('')
+    //         this.nomineeDetail.controls['nomineeAge'].patchValue('')
+    //         this.nomineeDetail.controls['nomineeRelationship'].patchValue('')
+    //         this.nomineeDetail.controls['appointeeName'].patchValue('')
+    //         this.nomineeDetail.controls['appointeeRelationship'].patchValue('')
+    //     }
+    // }
 
 
   changeDepreciation() {
@@ -463,26 +491,37 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     }
     this.proposer.controls['dob'].updateValueAndValidity();
     this.proposer.controls['gender'].updateValueAndValidity();
+    this.proposer.controls['pan'].updateValueAndValidity();
   }
 
 
-  changeGenderVales1() {
-    if (this.proposer.controls['title'].value == 'Mr') {
-      this.titleId=1
+    changeGenderVales1() {
+        if (this.proposer.controls['title'].value == 'Mr') {
+            this.titleId=1;
+          this.get_PA_exclusion_list();
+            console.log(this.titleId,'111')
+        }
+        if (this.proposer.controls['title'].value == 'Mrs') {
+            this.titleId=2;
+          this.get_PA_exclusion_list();
+            console.log(this.titleId,'222')
+        }
+        if (this.proposer.controls['title'].value == 'M/S') {
+            this.titleId=3;
+          this.get_PA_exclusion_list();
+            console.log(this.titleId,'333')
+        }
+        if (this.proposer.controls['title'].value == 'Miss') {
+            this.titleId=4;
+          this.get_PA_exclusion_list();
+            console.log(this.titleId,'4444')
+        }
+        if (this.proposer.controls['title'].value == 'Dr') {
+            this.titleId=5;
+          this.get_PA_exclusion_list();
+            console.log(this.titleId,'555')
+        }
     }
-    if (this.proposer.controls['title'].value == 'Mrs') {
-      this.titleId=2
-    }
-    if (this.proposer.controls['title'].value == 'M/S') {
-      this.titleId=3
-    }
-    if (this.proposer.controls['title'].value == 'Miss') {
-      this.titleId=4
-    }
-    if (this.proposer.controls['title'].value == 'Dr') {
-      this.titleId=5
-    }
-  }
   // AGE VALIDATION
   ageCalculate(dob) {
     let today = new Date();
@@ -705,6 +744,64 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   //   }
   //   this.vehical.controls['paforUnnamedSI'].updateValueAndValidity();
   // }
+
+  get_PA_exclusion_list(){
+    const padata = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'prefix': this.titleId
+    }
+    this.fwService.getPAExclusionList(padata).subscribe(
+        (successData) => {
+          this.Exclusionsucccess(successData);
+        },
+        (error) => {
+          this.ExclusionSuccess(error);
+        }
+    );
+  }
+  public Exclusionsucccess(successData){
+    this.PAExclusionList = successData.ResponseObject;
+  }
+  public ExclusionSuccess(error) {
+  }
+
+
+  PAExclusion(){
+    if(this.vehical.controls['isPAExclusion'].value==true) {
+      this.paOwnerValue=false;
+      this.vehical.controls['PAExclusion'].setValidators([Validators.required]);
+
+      this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
+
+    }else if(this.vehical.controls['isPAExclusion'].value==false){
+
+      this.paOwnerValue=true;
+      this.vehical.controls['PAExclusion'].setValidators(null);
+      this.vehical.controls['PAExclusion'].patchValue('');
+
+      this.nomineeDetail.controls['nomineeName'].patchValue('');
+      this.nomineeDetail.controls['nomineeAge'].patchValue('');
+      this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
+      this.nomineeDetail.controls['appointeeName'].patchValue('');
+      this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
+
+      this.nomineeDetail.controls['nomineeName'].setValidators(null);
+      this.nomineeDetail.controls['nomineeAge'].setValidators(null);
+      this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
+      this.nomineeDetail.controls['appointeeName'].setValidators(null);
+      this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
+
+    }
+    this.vehical.controls['PAExclusion'].updateValueAndValidity();
+    this.nomineeDetail.controls['nomineeName'].updateValueAndValidity();
+    this.nomineeDetail.controls['nomineeAge'].updateValueAndValidity();
+    this.nomineeDetail.controls['nomineeRelationship'].updateValueAndValidity();
+
+  }
 
   updateElectricalItem(){
     if(this.vehical.controls.electricalAccess.value == true){
@@ -1413,7 +1510,7 @@ hypoName(){
     console.log(value, 'vvvvvv');
     sessionStorage.stepper3 = '';
     sessionStorage.stepper3 = JSON.stringify(value);
-
+   if(this.paOwnerValue==true){
     if (this.previousInsure.valid) {
       if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
         stepper.next();
@@ -1423,6 +1520,17 @@ hypoName(){
       }
 
     }
+   }else  if(this.paOwnerValue==false){
+       if (this.previousInsure.valid) {
+           if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+               // stepper.next();
+               this.topScroll();
+               this.proposal(stepper);
+           }else{
+               this.toastr.error('Previous Nil Description  should be Enable. If u select Nil Depreciation Cover ')
+           }
+       }
+   }
 
   }
 
@@ -1500,6 +1608,10 @@ hypoName(){
     document.getElementById('main-content').scrollTop = 0;
   }
 
+  paExcluseName(){
+    this.vehical.controls['PAExclusionName'].patchValue(this.PAExclusionList[this.vehical.controls['PAExclusion'].value]);
+  }
+
   getCover() {
 
     const data = {
@@ -1572,8 +1684,8 @@ hypoName(){
         "ElectricalaccessRemarks": "",
         "NonElectricalaccessRemarks": "",
         "SpecifiedPersonField": "",
-        "PAOwnerDriverExclusion": "",
-        "PAOwnerDriverExReason": "",
+        "PAOwnerDriverExclusion": this.vehical.controls['isPAExclusion'].value == true ? '1' : '0',
+        "PAOwnerDriverExReason": this.vehical.controls['PAExclusion'].value,
         "NomineeNameforPAOwnerDriver": "Dhinedh",
         "NomineeAgeforPAOwnerDriver": "22",
         "NomineeRelationforPAOwnerDriver": "Son",
@@ -1596,7 +1708,8 @@ hypoName(){
         "HypothecationState": "",
         "HypothecationCity": "",
         "HypothecationPinCode": "",
-        "MultiCarBenefitYN": "N",
+          // "PAOwnerDriver":  this.vehical.controls['paOwnerDriver'].value== true ? '1' : '0' ,
+          "MultiCarBenefitYN": "N",
         "KeyReplacementYN": "Y",
         "LossOfPersonBelongYN": "Y"
       },
@@ -1705,8 +1818,8 @@ hypoName(){
         "ElectricalaccessRemarks": "",
         "NonElectricalaccessRemarks": "",
         "SpecifiedPersonField": "",
-        "PAOwnerDriverExclusion": "",
-        "PAOwnerDriverExReason": "",
+        "PAOwnerDriverExclusion": this.vehical.controls['isPAExclusion'].value == true ? '1' : '0',
+        "PAOwnerDriverExReason": this.vehical.controls['PAExclusion'].value,
         "NomineeNameforPAOwnerDriver": this.nomineeDetail.controls['nomineeName'].value,
         "NomineeAgeforPAOwnerDriver": this.nomineeDetail.controls['nomineeAge'].value,
         "NomineeRelationforPAOwnerDriver": this.nomineeDetail.controls['nomineeRelationship'].value,
@@ -1730,6 +1843,7 @@ hypoName(){
         "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
         "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
         "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : '',
+        // "PAOwnerDriver":  this.vehical.controls['paOwnerDriver'].value== true ? '1' : '0' ,
         "MultiCarBenefitYN":"N",
         "KeyReplacementYN":"Y",
         "LossOfPersonBelongYN":"Y"
@@ -2055,12 +2169,16 @@ hypoName(){
         CNGKitSI:stepper2.CNGKitSI,
         paPaidDriver:stepper2.paPaidDriver,
         paPaidDriverSI:stepper2.paPaidDriverSI,
+        isPAExclusion:stepper2.isPAExclusion,
+        PAExclusion:stepper2.PAExclusion,
+        PAExclusionName:stepper2.PAExclusionName,
         PAPaidDriverCount:stepper2.PAPaidDriverCount,
         PAPaidConductorCount:stepper2.PAPaidConductorCount,
         PAPaidCleanerCount:stepper2.PAPaidCleanerCount,
         limitOwnPremise:stepper2.limitOwnPremise,
         limitedTPPD:stepper2.limitedTPPD,
         builtCNGKit:stepper2.builtCNGKit,
+          // paOwnerDriver:stepper2.paOwnerDriver,
         voluntaryExcess:stepper2.voluntaryExcess,
         vehicleColour: stepper2.vehicleColour,
 
