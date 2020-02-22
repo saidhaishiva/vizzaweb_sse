@@ -998,7 +998,7 @@
                                                       </mat-form-field></div>
                                                       <div class="col-md-6"><mat-form-field class="w-100" >
                                                           <mat-select placeholder="City" formControlName="personalCity"  (selectionChange)="getAreas1('personal', 'manual'); changeCity1()" autocomplete="off" required>
-                                                              <mat-option *ngFor="let city of personalCitys | keys " [value]= 'city.key'>
+                                                              <mat-option *ngFor="let city of cityList | keys " [value]= 'city.key'>
                                                                   {{city.value}}
                                                               </mat-option>
                                                           </mat-select>
@@ -1053,7 +1053,7 @@
                                                       <div class="col-md-6" [ngStyle]="{'pointer-events': personal['controls'].sameas.value ? 'none' : ''}">
                                                           <mat-form-field class="w-100" >
                                                               <mat-select placeholder="City" formControlName="residenceCity"  (selectionChange)="getAreas1('residence', 'rmanual'); changeresCity1()"  autocomplete="off">
-                                                                  <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
+                                                                  <mat-option *ngFor="let citys of rCitysList | keys" [value]= 'citys.key'>
                                                                       {{citys.value}}
                                                                   </mat-option>
                                                               </mat-select>
@@ -1620,7 +1620,7 @@
             <div class="row">
               <div class="col-12 text-center">
                 <button mat-button matStepperPrevious (click)="topScroll()"  *ngIf="payLaterr == false">Back</button>
-                <button mat-button (click)="topScroll();getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();backsubmit()" *ngIf="submit==true ">Back</button>
+                <button mat-button (click)="topScroll();getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();backsubmit();openeditproposal()" *ngIf="submit==true ">Back</button>
                 <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
                 <button mat-raised-button color="primaryBlue" class="mr-2" *ngIf="(payLaterr == true && submit==false)|| backStep==true"  (click)="getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();topScroll();paylaterrproposal()">Submit</button>
 

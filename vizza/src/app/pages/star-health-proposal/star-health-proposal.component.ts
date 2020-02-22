@@ -1061,11 +1061,11 @@ setRelationship1() {
                     this.personal.controls['residenceState'].setValue('');
                     this.personal.controls['residenceArea'].setValue('');
                     this.residenceCitys = {};
-                    // this.rCitysList = {};
+                    this.rCitysList = {};
                 } else {
                     this.personal.controls['residenceState'].setValue(this.response.state);
                     this.residenceCitys = this.response.city;
-                    // this.rCitysList = this.response.city;
+                    this.rCitysList = this.response.city;
                 }
                 sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
             }
@@ -1305,7 +1305,7 @@ setRelationship1() {
         this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
 
     } changeCity1() {
-        this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+        this.personal.controls['personalCityName'].patchValue(this.cityList[this.personal.controls['personalCity'].value]);
 
     }
 
@@ -1318,7 +1318,7 @@ setRelationship1() {
     changeresCity(){
         this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
     } changeresCity1(){
-        this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
+        this.personal.controls['residenceCityName'].patchValue(this.rCitysList[this.personal.controls['residenceCity'].value]);
 
     }
     changeresArea(){
@@ -2639,7 +2639,7 @@ setRelationship1() {
             }
         );
      }else if(this.PayLatrReference!=''){
-         alert('2')
+         // alert('2')
          const data = {
              'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
              'platform': 'web',
@@ -3092,7 +3092,7 @@ setRelationship1() {
             console.log(this.paysummaryData,'this.paysummaryData')
             this.proposalId=this.paysummaryData.policy_id,
             this.PayLatrReference=this.paysummaryData.proposalNum,
-                alert(this.PayLatrReference);
+                // alert(this.PayLatrReference);
                 this.toastr.success('Proposal created successfully!!');
 
            this.submit = true ;
