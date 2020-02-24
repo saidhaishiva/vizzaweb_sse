@@ -782,8 +782,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item"><strong>Nominee Name:</strong> {{nomineeFormData.nomineeName}}</li>
-                                                    <li class="list-group-item"><strong>Nominee Age:</strong> {{nomineeFormData.nomineeAge}}</li>
+                                                    <li class="list-group-item" *ngIf="nomineeFormData.nomineeName!=''"><strong>Nominee Name:</strong> {{nomineeFormData.nomineeName}}</li>
+                                                    <li class="list-group-item" *ngIf="nomineeFormData.nomineeAge!=''"><strong>Nominee Age:</strong> {{nomineeFormData.nomineeAge}}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -794,7 +794,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item"><strong>Nominee Relationship:</strong> {{nomineeFormData.nomineeRelationship}}</li>
+                                                    <li class="list-group-item" *ngIf="nomineeFormData.nomineeRelationship!=''"><strong>Nominee Relationship:</strong> {{nomineeFormData.nomineeRelationship}}</li>
                                                 </ul>
                                             </div>
                                         </div>
