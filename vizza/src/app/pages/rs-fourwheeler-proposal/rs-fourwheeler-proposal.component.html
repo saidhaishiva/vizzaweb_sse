@@ -826,7 +826,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" (keypress)="numberValidate($event)"  minlength="3"  autocomplete="off" required>
+                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" (keypress)="nameValidate($event)"  minlength="3"  autocomplete="off" required>
                                                     <mat-error *ngIf="previousInsure.controls.policyNumber.errors?.required">Previous Policy No is required</mat-error>
 
                                                 </mat-form-field>

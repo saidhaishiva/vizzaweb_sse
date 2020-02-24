@@ -145,6 +145,7 @@ export class StarHealthProposalComponent implements OnInit {
     public nomineeNext: any;
     public sameRelationship: any;
     public socialStatusValue: any;
+    public PayLatrReference: any;
     currentStep: any;
     proposerFormData: any;
     insuredFormData: any;
@@ -186,6 +187,8 @@ export class StarHealthProposalComponent implements OnInit {
     productid: any;
     productname: any;
     suminsuredidddd1: any;
+    suminsuredidddd2: any;
+    suminsuredidddd3: any;
     enquiry: any;
     group_name: any;
     nclaim:any;
@@ -998,9 +1001,9 @@ setRelationship1() {
        // this.statusValue=event.value;
        this.statusValue=event.value;
        console.log(event);
-       this.personal['controls'].socialStatus.patchValue(this.statusValue)
+       // this.personal['controls'].socialStatus.patchValue('false')
        // this.personal.controls['socialStatus'].patchValue(this.statusValue)
-       console.log(this.personal['controls'].socialStatus.value,'546789')
+       // console.log(this.personal['controls'].socialStatus.value,'546789')
        // console.log(this.personal.controls['socialStatus'].value,'56789')
        if (this.personal['controls'].socialStatus.value==true||this.personal['controls'].socialStatus.value=='true') {
            this.socialNo = false;
@@ -1226,7 +1229,7 @@ setRelationship1() {
             this.getAreas1('residence', 'rmanual');
 
             this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
-            this.rCitysList =this.rCitysList;
+            this.residenceCitys =this.residenceCitys;
             this.rAreaNames1 = this.rAreaNames1;
             //
             // sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
@@ -1302,7 +1305,7 @@ setRelationship1() {
         this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
 
     } changeCity1() {
-        this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+        this.personal.controls['personalCityName'].patchValue(this.cityList[this.personal.controls['personalCity'].value]);
 
     }
 
@@ -1315,7 +1318,7 @@ setRelationship1() {
     changeresCity(){
         this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
     } changeresCity1(){
-        this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
+        this.personal.controls['residenceCityName'].patchValue(this.rCitysList[this.personal.controls['residenceCity'].value]);
 
     }
     changeresArea(){
@@ -2370,8 +2373,8 @@ setRelationship1() {
 
     //Create Proposal
     proposal(stepper) {
-        // alert(sessionStorage.proposalID)
-        // alert(sessionStorage.proposalIdStar)
+        // alert(this.suminsuredidddd);
+        // alert(this.buyProductdetails.suminsured_id)
         const data = [{
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
@@ -2387,7 +2390,7 @@ setRelationship1() {
             'policy_started_on': '',
             'policy_end_on': '',
             'policy_period': '1',
-            'sum_insured_id': this.buyProductdetails.suminsured_id,
+            'sum_insured_id': this.suminsuredidddd==''||this.suminsuredidddd==undefined?this.buyProductdetails.suminsured_id:this.suminsuredidddd,
             'sum_insured_amount': this.buyProductdetails.suminsured_amount,
             'scheme_id': this.buyProductdetails.scheme,
             'title': this.personalData.personalTitle,
@@ -2512,7 +2515,7 @@ setRelationship1() {
 
             "platform": "web",
             "postalcode": this.pincoce ? this.pincoce : '',
-            "sum_insured": this.suminsuredidddd,
+            "sum_insured": this.suminsuredidddd3,
             "family_group_name": this.groupDetails.family_groups[0].name,
             "enquiry_id": this.groupDetails.enquiry_id,
             "created_by": "0",
@@ -2561,7 +2564,7 @@ setRelationship1() {
 
             "platform": "web",
             "postalcode": this.pincoce ? this.pincoce : '',
-            "sum_insured": this.suminsuredidddd1,
+            "sum_insured": this.suminsuredidddd2,
             "family_group_name": this.group_name,
             "enquiry_id": this.enquiry,
             "created_by": "0",
@@ -2613,6 +2616,10 @@ setRelationship1() {
 
     // payment
     public payNow() {
+        // alert(this.proposalNumber);
+        // alert(this.PayLatrReference);
+     if(this.PayLatrReference==''||this.PayLatrReference==undefined)   {
+         // alert('1')
         const data = {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
@@ -2631,6 +2638,27 @@ setRelationship1() {
                 this.getPolicyTokenFailure(error);
             }
         );
+     }else if(this.PayLatrReference!=''){
+         // alert('2')
+         const data = {
+             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+             'platform': 'web',
+             'reference_id' : this.PayLatrReference,
+             'proposal_id': this.proposalId,
+             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+         }
+         console.log(data, 'dataaaa')
+         this.settings.loadingSpinner = true;
+         this.proposalservice.getPolicyToken(data).subscribe(
+             (successData) => {
+                 this.getPolicyTokenSuccess(successData);
+             },
+             (error) => {
+                 this.getPolicyTokenFailure(error);
+             }
+         );
+     }
     }
     public getPolicyTokenSuccess(successData) {
         this.settings.loadingSpinner = false;
@@ -2965,6 +2993,8 @@ setRelationship1() {
 
 
         paylaterrproposal() {
+        // alert(this.suminsuredidddd2)
+        // alert(this.animal)
                 const data = [{
             'platform': 'web',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
@@ -2981,8 +3011,10 @@ setRelationship1() {
             'policy_started_on': '',
             'policy_end_on': '',
             'policy_period': '1',
-            'sum_insured_id': this.getsum_insured_id,
-            'sum_insured_amount': this.getsum_insured_amount,
+            // 'sum_insured_id': this.getsum_insured_id,
+            'sum_insured_id': this.suminsuredidddd1,
+            // 'sum_insured_amount': this.getsum_insured_amount,
+            'sum_insured_amount': this.animal==''?this.getsum_insured_amount:this.animal,
             'scheme_id': this.payscheme_id,
             'title': this.personal.controls.personalTitle.value,
             'proposer_fname':  this.personal.controls.personalFirstname.value,
@@ -3056,10 +3088,12 @@ setRelationship1() {
     public payproposalSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.toastr.success('Proposal created successfully!!');
             this.paysummaryData = successData.ResponseObject;
             console.log(this.paysummaryData,'this.paysummaryData')
             this.proposalId=this.paysummaryData.policy_id,
+            this.PayLatrReference=this.paysummaryData.proposalNum,
+                // alert(this.PayLatrReference);
+                this.toastr.success('Proposal created successfully!!');
 
            this.submit = true ;
            this.backLocation=null;
@@ -3212,15 +3246,22 @@ setRelationship1() {
             this.sameAsProposer=this.sameAsProposervalue
 
             this.previousinsuranceCheckedvalue=this.requestDetails[0].previousinsuranceChecked;
+            // alert(this.previousinsuranceCheckedvalue);
+
+            this.personal.controls['previousinsuranceChecked'].patchValue(this.previousinsuranceCheckedvalue);
+            // alert( this.personal.controls['previousinsuranceChecked'].value);
+            this.PreviousInsure1(this.personal.controls['previousinsuranceChecked'].value);
             // this.previousinsurancevalue=this.requestDetails[0].previous_medical_insurance;
 
 
             this.social_unorganized=this.requestDetails[0].social_status_unorganized;
             this.openeditproposal();
 
-            this.changeSocialStatus1(this.socialStatuss);
             // alert(this.socialStatuss);
             this.personal['controls'].socialStatus.patchValue(this.socialStatuss);
+            // alert(this.personal['controls'].socialStatus.value)
+            this.changeSocialStatus1(this.personal['controls'].socialStatus.value);
+
             this.personal['controls'].socialAnswer1.patchValue(this.social);
             this.personal['controls'].socialAnswer2.patchValue(this.social_disabled);
             this.personal['controls'].socialAnswer3.patchValue(this.social_informal);
@@ -3234,6 +3275,7 @@ setRelationship1() {
             this.getAreas1('personal', 'manual');
             this.getAreas1('residence', 'rmanual');
             this.sameValues();
+            this.suminsuredId1();
 
 
 
@@ -3327,6 +3369,8 @@ setRelationship1() {
         this.personal.controls['personalPan'].patchValue(this.requestDetails[0].prop_pan_no );
         this.personal.controls['personalGst'].patchValue(this.requestDetails[0].gst_id_no);
         this.personal.controls['personalgstIdType'].patchValue(this.requestDetails[0].gstType);
+        this.personal.controls['previousinsuranceChecked'].patchValue(this.previousinsuranceCheckedvalue);
+
         this.personal.controls['previousinsurance'].patchValue(this.requestDetails[0].previous_medical_insurance);
         this.personal.controls['personalAddress'].patchValue(this.requestDetails[0].proposer_comm_address1);
         this.personal.controls['personalAddress2'].patchValue(this.requestDetails[0].proposer_comm_address2);
@@ -3343,7 +3387,7 @@ setRelationship1() {
         this.personal.controls['residenceArea'].patchValue(this.requestDetails[0].proposer_res_area);
         this.personal.controls['sameas'].patchValue(this.requestDetails[0].sameas);
         this.personal['controls'].socialStatus.patchValue(this.requestDetails[0].social_status);
-        this.changeSocialStatus1(this.requestDetails[0].social_status);
+        this.changeSocialStatus1(this.personal['controls'].socialStatus.value);
         this.personal['controls'].socialAnswer1.patchValue(this.requestDetails[0].social_status_bpl);
         this.personal['controls'].socialAnswer2.patchValue(this.requestDetails[0].social_status_disabled);
         this.personal['controls'].socialAnswer3.patchValue(this.requestDetails[0].social_status_informal);
@@ -3405,6 +3449,7 @@ setRelationship1() {
     public suminsuredIdSuccess(successData) {
         if (successData.IsSuccess) {
             this.suminsuredidddd=successData.ResponseObject.prod_suminsured_id;
+            this.suminsuredidddd3=successData.ResponseObject.si_id;
             this.suminsuredproposal();
             // this.suminsuredproposal1();
             console.log(this.suminsuredidddd,'this.suminsuredidddd')
@@ -3417,13 +3462,17 @@ setRelationship1() {
     }
 
     suminsuredId1() {
+        // alert('suminsuredId');
+        // alert(this.productid)
+        // alert(this.animal)
+        // alert(this.getsum_insured_amount)
         const data = {
             'platform': 'web',
-
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            "sum_insured_amount": this.animal,
+            "product_id":this.productid,
+            "sum_insured_amount": this.animal==''?this.getsum_insured_amount:this.animal,
         }
         console.log(data, 'dataaaa')
 
@@ -3439,9 +3488,12 @@ setRelationship1() {
     public suminsuredId1Success(successData) {
         if (successData.IsSuccess) {
             this.suminsuredidddd1=successData.ResponseObject.prod_suminsured_id;
+            this.suminsuredidddd2=successData.ResponseObject.si_id;
             // this.suminsuredproposal();
             this.paylaterEdit=true;
             this.suminsuredproposal1();
+            // alert(this.suminsuredidddd1)
+            // alert(this.suminsuredidddd2)
             console.log(this.suminsuredidddd1,'this.suminsuredidddd')
             // this.toastr.success('Proposal created successfully!!');
 

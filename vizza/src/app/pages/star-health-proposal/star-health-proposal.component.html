@@ -306,19 +306,19 @@
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>
 
                   <div class="row" >
-                    <div class="col-md-12 box-card" *ngIf="i == 0">
-                      <mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs();sameProposer(i)"><strong>Same as proposer</strong></mat-checkbox>
-                    </div>
+                    <!--<div class="col-md-12 box-card" *ngIf="i == 0">-->
+                      <!--<mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs();sameProposer(i)"><strong>Same as proposer</strong></mat-checkbox>-->
+                    <!--</div>-->
                     <!--<h6 class="color-blue">INSURED DETAILS ({{item.type | uppercase}})</h6>-->
                     <div class="row">
                       <div class="col-md-3">
-                        <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': (i==0&&this.sameAsProposer==true) ? 'none' : ''}" >
+                        <mat-form-field class="w-100"  >
                           <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required>
                         </mat-form-field>
                       </div>
 
                       <div class="col-md-3">
-                        <mat-form-field class="w-100" [ngStyle]="{'pointer-events':(i==0 && this.sameAsProposer==true)? 'none' : ''}">
+                        <mat-form-field class="w-100" >
                           <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required>
                           <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                           <mat-datepicker #insureddob></mat-datepicker>
@@ -349,7 +349,8 @@
                         <input matInput placeholder="Weight(kgs)" (keypress)="numberValidate($event)"  maxlength="3" [(ngModel)]="item.ins_weight"  autocomplete="off" required >
                       </mat-form-field></div>
                       <div class="col-md-3">
-                        <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                        <!--<mat-form-field class="w-100"  [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">-->
+                        <mat-form-field class="w-100">
                           <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required (selectionChange)="selectOccupation(i)">
                             <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}">
                               {{occupation.value}}
@@ -358,7 +359,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field class="w-100" [ngStyle]="{'pointer-events':(i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                        <mat-form-field class="w-100" >
                         <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required (selectionChange)="selectProposerRelation(i)">
                           <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" >
                             {{relationship.value}}
@@ -805,8 +806,8 @@
             <section class="summary-details " *ngIf="payLaterr == true && submit== false&&(backLocation==null||backLocation==true)">
               <div class="box-card">
               <div class="row">
-                <div class="col-12 col-md-4" *ngIf="paylaterEdit==false">
-                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getsum_insured_amount}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
+                <div class="col-12 col-md-4" *ngIf=" animal=='' && getsum_insured_amount!=''">
+                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getsum_insured_amount}}</span><span><i class="fa fa-pencil"></i></span><span style="cursor: pointer !important;" (click)="openDialog()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
                 </div>
                 <div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==false">
                   <ul class="summary-head">
@@ -818,8 +819,8 @@
                               <li></li>
                           </ul>
                       </div>
-                      <div class="col-12 col-md-4" *ngIf="paylaterEdit==true">
-                          <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{animal}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
+                      <div class="col-12 col-md-4" *ngIf="paylaterEdit==true && animal!=''">
+                          <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{animal}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()" style="cursor: pointer !important;"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
                       </div>
                       <div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==true">
                           <ul class="summary-head">
@@ -997,7 +998,7 @@
                                                       </mat-form-field></div>
                                                       <div class="col-md-6"><mat-form-field class="w-100" >
                                                           <mat-select placeholder="City" formControlName="personalCity"  (selectionChange)="getAreas1('personal', 'manual'); changeCity1()" autocomplete="off" required>
-                                                              <mat-option *ngFor="let city of personalCitys | keys " [value]= 'city.key'>
+                                                              <mat-option *ngFor="let city of cityList | keys " [value]= 'city.key'>
                                                                   {{city.value}}
                                                               </mat-option>
                                                           </mat-select>
@@ -1052,7 +1053,7 @@
                                                       <div class="col-md-6" [ngStyle]="{'pointer-events': personal['controls'].sameas.value ? 'none' : ''}">
                                                           <mat-form-field class="w-100" >
                                                               <mat-select placeholder="City" formControlName="residenceCity"  (selectionChange)="getAreas1('residence', 'rmanual'); changeresCity1()"  autocomplete="off">
-                                                                  <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
+                                                                  <mat-option *ngFor="let citys of rCitysList | keys" [value]= 'citys.key'>
                                                                       {{citys.value}}
                                                                   </mat-option>
                                                               </mat-select>
@@ -1134,18 +1135,18 @@
                           <ng-template matStepLabel>INSURED DETAILS </ng-template>
 
                           <div class="row" >
-                              <div class="col-md-12 ml-3 mt-3 box-card" *ngIf="i == 0">
-                                  <mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs1();sameProposer1()"><strong>Same as proposer</strong></mat-checkbox>
-                              </div>
+                              <!--<div class="col-md-12 ml-3 mt-3 box-card" *ngIf="i == 0">-->
+                                  <!--<mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs1();sameProposer1()"><strong>Same as proposer</strong></mat-checkbox>-->
+                              <!--</div>-->
                               <div class="row" >
                                   <div class="col-md-3">
                                       <mat-form-field class="w-100">
-                                          <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required [ngStyle]="{'pointer-events': (i==0&&this.sameAsProposer==true) ? 'none' : ''}" >
+                                          <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required>
                                       </mat-form-field>
                                   </div>
                                   <div class="col-md-3">
                                       <mat-form-field class="w-100">
-                                          <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required [ngStyle]="{'pointer-events': (i==0&&this.sameAsProposer==true) ? 'none' : ''}" >
+                                          <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required  >
                                           <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                                           <mat-datepicker #insureddob></mat-datepicker>
                                       </mat-form-field>
@@ -1176,7 +1177,7 @@
                                   <div class="col-md-3">
                                       <mat-form-field class="w-100">
                                           <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required >
-                                              <mat-option *ngFor="let occupation of occupationList1 | keys" value="{{occupation.key}}" [ngStyle]="{'pointer-events': (i==0&&this.sameAsProposer==true) ? 'none' : ''}" >
+                                              <mat-option *ngFor="let occupation of occupationList1 | keys" value="{{occupation.key}}"  >
                                                   {{occupation.value}}
                                               </mat-option>
                                           </mat-select>
@@ -1184,7 +1185,7 @@
                                   </div>
                                   <div class="col-md-3"><mat-form-field class="w-100">
                                       <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required >
-                                          <mat-option *ngFor="let relationship of relationshipList1 | keys" value="{{relationship.key}}" [ngStyle]="{'pointer-events': (i==0&&this.sameAsProposer==true) ? 'none' : ''}"  >
+                                          <mat-option *ngFor="let relationship of relationshipList1 | keys" value="{{relationship.key}}"  >
                                               {{relationship.value}}
                                           </mat-option>
                                       </mat-select>
@@ -1619,7 +1620,7 @@
             <div class="row">
               <div class="col-12 text-center">
                 <button mat-button matStepperPrevious (click)="topScroll()"  *ngIf="payLaterr == false">Back</button>
-                <button mat-button (click)="topScroll();getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();backsubmit()" *ngIf="submit==true ">Back</button>
+                <button mat-button (click)="topScroll();getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();backsubmit();openeditproposal()" *ngIf="submit==true ">Back</button>
                 <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
                 <button mat-raised-button color="primaryBlue" class="mr-2" *ngIf="(payLaterr == true && submit==false)|| backStep==true"  (click)="getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();topScroll();paylaterrproposal()">Submit</button>
 
@@ -1947,9 +1948,9 @@
                                         <!--<div class="col">-->
                                         <!--<h6 class="color-blue">INSURED DETAILS ({{item.type | uppercase}})</h6>-->
                                         <div class="row">
-                                          <div class="col-md-12 box-card" *ngIf="i == 0">
-                                            <mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs();sameProposer(i)"><strong>Same as proposer</strong></mat-checkbox>
-                                          </div>
+                                          <!--<div class="col-md-12 box-card" *ngIf="i == 0">-->
+                                            <!--<mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs();sameProposer(i)"><strong>Same as proposer</strong></mat-checkbox>-->
+                                          <!--</div>-->
                                             <div class="col-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required>
@@ -2760,18 +2761,18 @@ Nil
                             <ng-template matStepLabel>INSURED DETAILS </ng-template>
 
                             <div class="row" >
-                              <div class="col-md-12 ml-3 mt-3 box-card" *ngIf="i == 0">
-                                <mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs1();sameProposer1()"><strong>Same as proposer</strong></mat-checkbox>
-                              </div>
+                              <!--<div class="col-md-12 ml-3 mt-3 box-card" *ngIf="i == 0">-->
+                                <!--<mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs1();sameProposer1()"><strong>Same as proposer</strong></mat-checkbox>-->
+                              <!--</div>-->
                               <div class="row" >
                                 <div class="col-md-3">
                                   <mat-form-field class="w-100">
-                                    <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required [ngStyle]="{'pointer-events': (i==0&&this.sameAsProposer==true) ? 'none' : ''}" >
+                                    <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required >
                                   </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                   <mat-form-field class="w-100">
-                                    <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required [ngStyle]="{'pointer-events': (i==0&&this.sameAsProposer==true) ? 'none' : ''}" >
+                                    <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required  >
                                     <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                                     <mat-datepicker #insureddob></mat-datepicker>
                                   </mat-form-field>
@@ -2802,7 +2803,7 @@ Nil
                                 <div class="col-md-3">
                                   <mat-form-field class="w-100">
                                     <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required >
-                                      <mat-option *ngFor="let occupation of occupationList1 | keys" value="{{occupation.key}}" [ngStyle]="{'pointer-events': (i==0&&this.sameAsProposer==true) ? 'none' : ''}" >
+                                      <mat-option *ngFor="let occupation of occupationList1 | keys" value="{{occupation.key}}"  >
                                         {{occupation.value}}
                                       </mat-option>
                                     </mat-select>
@@ -2810,7 +2811,7 @@ Nil
                                 </div>
                                 <div class="col-md-3"><mat-form-field class="w-100">
                                   <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required >
-                                    <mat-option *ngFor="let relationship of relationshipList1 | keys" value="{{relationship.key}}" [ngStyle]="{'pointer-events': (i==0&&this.sameAsProposer==true) ? 'none' : ''}"  >
+                                    <mat-option *ngFor="let relationship of relationshipList1 | keys" value="{{relationship.key}}" >
                                       {{relationship.value}}
                                     </mat-option>
                                   </mat-select>
