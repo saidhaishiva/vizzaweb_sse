@@ -2207,6 +2207,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "original_idv":this.idv,
           "modify_your_idv":this.vehical.controls['coverelectricalaccesss'].value,
           "modified_idv_value":this.idvValues,
+          "idv_range": ''?'0':this.vehical.controls['IDV'].value,
           // "valueofelectricalaccessories": "4000",
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
@@ -2394,6 +2395,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "original_idv":this.idv,
           "modify_your_idv":this.vehical.controls['coverelectricalaccesss'].value,
           "modified_idv_value":this.idvValues,
+          "idv_range": ''?'0':this.vehical.controls['IDV'].value,
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },

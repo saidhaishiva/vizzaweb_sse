@@ -140,6 +140,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public currentStep: any;
   public personalData: any;
   public summaryData: any;
+  public optPopUp: any;
   public requestedUrl: any;
   public insurerData: any;
   public proposerFormData: any;
@@ -375,6 +376,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.serrortravelOutside =false;
     this.muscleDieaseInderror =false;
     this.smuscleDieaseInderror =false;
+    this.optPopUp =false;
     // this.isRecoverederror =false;
     this.pregnantInderror =false;
     this.spregnantInderror =false;
@@ -9877,6 +9879,7 @@ console.log(this.kycProofName,'kycProofName')
   public ProposalNextSuccess(successData,stepper) {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
+      if(this.optPopUp==true){
         stepper.next();
         this.topScroll();
         this.proposalGenStatus = false;
@@ -9902,6 +9905,7 @@ console.log(this.kycProofName,'kycProofName')
 
       });
       ///
+      }
     } else {
       this.proposalGenStatus = true;
       this.toastr.error(successData.ErrorObject);
@@ -10068,7 +10072,7 @@ console.log(this.kycProofName,'kycProofName')
     //     }
     // }
 
-  sendOPT() {
+  sendOPT(stepper) {
 
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -10083,9 +10087,11 @@ console.log(this.kycProofName,'kycProofName')
       // "betterHalfBenefit": lifePremiumList.sub_product_id
     }
     console.log(data, '999999999');
+    this.settings.loadingSpinner = true;
+
     this.termService.edelweissResendOtp(data).subscribe(
         (successData) => {
-          this.sendOTPListSuccess(successData);
+          this.sendOTPListSuccess(successData,stepper);
         },
         (error) => {
           this.sendOTPListFailure(error);
@@ -10093,12 +10099,15 @@ console.log(this.kycProofName,'kycProofName')
     );
   }
 
-  public sendOTPListSuccess(successData) {
+  public sendOTPListSuccess(successData,stepper) {
     if (successData.IsSuccess) {
+      this.settings.loadingSpinner = false;
       this.receiptNo = successData.ResponseObject.receipt_no;
       sessionStorage.receipt = JSON.parse(this.receiptNo);
       console.log(sessionStorage.receipt,'sessionStorage.receipt...')
       this.toastr.success(successData.ResponseMessage);
+      this.optPopUp=true;
+      this.getProposalNext(stepper);
       // this.summaryData.receipt_no=''
       // this.dialogRef.close(true);
     } else {
