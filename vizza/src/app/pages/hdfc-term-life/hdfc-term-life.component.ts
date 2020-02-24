@@ -1289,18 +1289,18 @@ changecountryofbirth() {
           this.personal.controls['country'].patchValue(key);
           this.personal.controls['countryName'].patchValue(this.response['country'][key]);
         }
-        // for(let key in this.response.state) {
-        //   this.personal.controls['cstate'].patchValue(key);
-        //   this.personal.controls['cstateName'].patchValue(this.response['state'][key]);
-        // }
-        // for(let key in this.response.city) {
-        //   this.personal.controls['ccity'].patchValue(key);
-        //   this.personal.controls['ccityName'].patchValue(this.response['city'][key]);
-        // }
-        // for(let key in this.response.country) {
-        //   this.personal.controls['ccountry'].patchValue(key);
-        //   this.personal.controls['ccountryName'].patchValue(this.response['country'][key]);
-        // }
+        for(let key in this.response.state) {
+          this.personal.controls['cstate'].patchValue(key);
+          this.personal.controls['cstateName'].patchValue(this.response['state'][key]);
+        }
+        for(let key in this.response.city) {
+          this.personal.controls['ccity'].patchValue(key);
+          this.personal.controls['ccityName'].patchValue(this.response['city'][key]);
+        }
+        for(let key in this.response.country) {
+          this.personal.controls['ccountry'].patchValue(key);
+          this.personal.controls['ccountryName'].patchValue(this.response['country'][key]);
+        }
 
       }
       else if(title == 'nominee')
@@ -3196,12 +3196,14 @@ getweightListHdfc() {
 
       });
     }
+    console.log(this.lifePremiumList.product_id,'hgjhgjhgjg');
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "term": this.lifePremiumList.termDetrails,
-      "product_id": (this.lifePremiumList.planList!=''||this.lifePremiumList.planList!=undefined)?this.lifePremiumList.planList:this.lifePremiumList.product_id,
+      "product_id": this.lifePremiumList.product_id,
+      // "product_id": (this.lifePremiumList.planList!=''||this.lifePremiumList.planList!=undefined)?this.lifePremiumList.planList:this.lifePremiumList.product_id,
       "policy_id": this.getEnquiryDetials.policy_id,
       // "pptOption": this.personal.controls['pptOption'].value,
       "appsubmission": {
