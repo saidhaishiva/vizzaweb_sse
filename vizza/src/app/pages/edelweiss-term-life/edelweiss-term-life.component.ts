@@ -3142,147 +3142,147 @@ console.log(this.kycProofName,'kycProofName')
   }
 
 
- othrhighQualify1() {
-
-    if (this.insureArray.controls['highestQualification'].value == '8') {
-      this.insureArray.controls['otherQualification'].patchValue(this.insureArray.controls['otherQualification'].value);
-      this.insureArray.controls['lastcollegeorschool'].patchValue(this.insureArray.controls['lastcollegeorschool'].value);
-      this.insureArray.controls['highesteducationorprof'].patchValue(this.insureArray.controls['highesteducationorprof'].value);
-
-      this.insureArray.controls['otherQualification'].setValidators([Validators.required]);
-      this.insureArray.controls['lastcollegeorschool'].setValidators([Validators.required]);
-      this.insureArray.controls['highesteducationorprof'].setValidators([Validators.required]);
-    } else {
-      this.insureArray.controls['otherQualification'].patchValue('');
-      this.insureArray.controls['lastcollegeorschool'].patchValue('');
-      this.insureArray.controls['highesteducationorprof'].patchValue('');
-
-      this.insureArray.controls['otherQualification'].setValidators(null);
-      this.insureArray.controls['lastcollegeorschool'].setValidators(null);
-      this.insureArray.controls['highesteducationorprof'].setValidators(null);
-
-    }
-    this.insureArray.controls['otherQualification'].updateValueAndValidity();
-    this.insureArray.controls['lastcollegeorschool'].updateValueAndValidity();
-    this.insureArray.controls['highesteducationorprof'].updateValueAndValidity();
-
-  }
-  otherqu() {
-
-    if (this.insureArray.controls['highestQualification'].value == '8'||this.insureArray.controls['highestQualification'].value == '7'||this.insureArray.controls['highestQualification'].value == '6'||this.insureArray.controls['highestQualification'].value == '5'||this.insureArray.controls['highestQualification'].value == '4'||this.insureArray.controls['highestQualification'].value == '3'|| this.insureArray.controls['highestQualification'].value == '2'||this.insureArray.controls['highestQualification'].value == '1') {
-      this.insureArray.controls['lastcollegeorschool'].patchValue(this.insureArray.controls['lastcollegeorschool'].value);
-      this.insureArray.controls['highesteducationorprof'].patchValue(this.insureArray.controls['highesteducationorprof'].value);
-
-      this.insureArray.controls['lastcollegeorschool'].setValidators([Validators.required]);
-      this.insureArray.controls['highesteducationorprof'].setValidators([Validators.required]);
-    } else {
-      this.insureArray.controls['lastcollegeorschool'].patchValue('');
-      this.insureArray.controls['highesteducationorprof'].patchValue('');
-
-      this.insureArray.controls['lastcollegeorschool'].setValidators(null);
-      this.insureArray.controls['highesteducationorprof'].setValidators(null);
-
-    }
-    this.insureArray.controls['lastcollegeorschool'].updateValueAndValidity();
-    this.insureArray.controls['highesteducationorprof'].updateValueAndValidity();
-
-  }
-  otherqus() {
-
-    if (this.insureArray.controls['shighestQualification'].value == '8'||this.insureArray.controls['shighestQualification'].value == '7'||this.insureArray.controls['shighestQualification'].value == '6'||this.insureArray.controls['shighestQualification'].value == '5'||this.insureArray.controls['shighestQualification'].value == '4'||this.insureArray.controls['shighestQualification'].value == '3'|| this.insureArray.controls['shighestQualification'].value == '2'||this.insureArray.controls['shighestQualification'].value == '1') {
-      this.insureArray.controls['slastcollegeorschool'].patchValue(this.insureArray.controls['slastcollegeorschool'].value);
-      this.insureArray.controls['shighesteducationorprof'].patchValue(this.insureArray.controls['shighesteducationorprof'].value);
-
-      this.insureArray.controls['slastcollegeorschool'].setValidators([Validators.required]);
-      this.insureArray.controls['shighesteducationorprof'].setValidators([Validators.required]);
-    } else {
-      this.insureArray.controls['slastcollegeorschool'].patchValue('');
-      this.insureArray.controls['shighesteducationorprof'].patchValue('');
-
-      this.insureArray.controls['slastcollegeorschool'].setValidators(null);
-      this.insureArray.controls['shighesteducationorprof'].setValidators(null);
-
-    }
-    this.insureArray.controls['slastcollegeorschool'].updateValueAndValidity();
-    this.insureArray.controls['shighesteducationorprof'].updateValueAndValidity();
-
-  }
-  othrhighQualify7() {
-
-    if (this.insureArray.controls['highestQualification'].value == '7') {
-      this.insureArray.controls['coursebeingpur'].patchValue(this.insureArray.controls['coursebeingpur'].value);
-      this.insureArray.controls['durationofcourse'].patchValue(this.insureArray.controls['durationofcourse'].value);
-      this.insureArray.controls['yearsemstandard'].patchValue(this.insureArray.controls['yearsemstandard'].value);
-
-      this.insureArray.controls['coursebeingpur'].setValidators([Validators.required]);
-      this.insureArray.controls['durationofcourse'].setValidators([Validators.required]);
-      this.insureArray.controls['yearsemstandard'].setValidators([Validators.required]);
-    } else {
-      this.insureArray.controls['coursebeingpur'].patchValue('');
-      this.insureArray.controls['durationofcourse'].patchValue('');
-      this.insureArray.controls['yearsemstandard'].patchValue('');
-
-      this.insureArray.controls['coursebeingpur'].setValidators(null);
-      this.insureArray.controls['durationofcourse'].setValidators(null);
-      this.insureArray.controls['yearsemstandard'].setValidators(null);
-
-    }
-    this.insureArray.controls['coursebeingpur'].updateValueAndValidity();
-    this.insureArray.controls['durationofcourse'].updateValueAndValidity();
-    this.insureArray.controls['yearsemstandard'].updateValueAndValidity();
-
-  }
-
-othrhighQualifys7() {
-
-    if (this.insureArray.controls['shighestQualification'].value == '7') {
-      this.insureArray.controls['scoursebeingpur'].patchValue(this.insureArray.controls['scoursebeingpur'].value);
-      this.insureArray.controls['sdurationofcourse'].patchValue(this.insureArray.controls['sdurationofcourse'].value);
-      this.insureArray.controls['syearsemstandard'].patchValue(this.insureArray.controls['syearsemstandard'].value);
-
-      this.insureArray.controls['scoursebeingpur'].setValidators([Validators.required]);
-      this.insureArray.controls['sdurationofcourse'].setValidators([Validators.required]);
-      this.insureArray.controls['syearsemstandard'].setValidators([Validators.required]);
-    } else {
-      this.insureArray.controls['scoursebeingpur'].patchValue('');
-      this.insureArray.controls['sdurationofcourse'].patchValue('');
-      this.insureArray.controls['syearsemstandard'].patchValue('');
-
-      this.insureArray.controls['scoursebeingpur'].setValidators(null);
-      this.insureArray.controls['sdurationofcourse'].setValidators(null);
-      this.insureArray.controls['syearsemstandard'].setValidators(null);
-
-    }
-    this.insureArray.controls['scoursebeingpur'].updateValueAndValidity();
-    this.insureArray.controls['sdurationofcourse'].updateValueAndValidity();
-    this.insureArray.controls['syearsemstandard'].updateValueAndValidity();
-
-  }
-
-  othrhighQualify2() {
-
-    if (this.insureArray.controls['shighestQualification'].value == '8') {
-      this.insureArray.controls['sotherQualification'].patchValue(this.insureArray.controls['sotherQualification'].value);
-      this.insureArray.controls['slastcollegeorschool'].patchValue(this.insureArray.controls['slastcollegeorschool'].value);
-      this.insureArray.controls['shighesteducationorprof'].patchValue(this.insureArray.controls['shighesteducationorprof'].value);
-
-      this.insureArray.controls['sotherQualification'].setValidators([Validators.required]);
-      this.insureArray.controls['slastcollegeorschool'].setValidators([Validators.required]);
-      this.insureArray.controls['shighesteducationorprof'].setValidators([Validators.required]);
-    } else {
-      this.insureArray.controls['sotherQualification'].patchValue('');
-      this.insureArray.controls['slastcollegeorschool'].patchValue('');
-      this.insureArray.controls['shighesteducationorprof'].patchValue('');
-
-      this.insureArray.controls['sotherQualification'].setValidators(null);
-      this.insureArray.controls['slastcollegeorschool'].setValidators(null);
-      this.insureArray.controls['shighesteducationorprof'].setValidators(null);
-
-    }
-    this.insureArray.controls['sotherQualification'].updateValueAndValidity();
-    this.insureArray.controls['slastcollegeorschool'].updateValueAndValidity();
-    this.insureArray.controls['shighesteducationorprof'].updateValueAndValidity();
-  }
+//  othrhighQualify1() {
+//
+//     if (this.insureArray.controls['highestQualification'].value == '8') {
+//       this.insureArray.controls['otherQualification'].patchValue(this.insureArray.controls['otherQualification'].value);
+//       this.insureArray.controls['lastcollegeorschool'].patchValue(this.insureArray.controls['lastcollegeorschool'].value);
+//       this.insureArray.controls['highesteducationorprof'].patchValue(this.insureArray.controls['highesteducationorprof'].value);
+//
+//       this.insureArray.controls['otherQualification'].setValidators([Validators.required]);
+//       this.insureArray.controls['lastcollegeorschool'].setValidators([Validators.required]);
+//       this.insureArray.controls['highesteducationorprof'].setValidators([Validators.required]);
+//     } else {
+//       this.insureArray.controls['otherQualification'].patchValue('');
+//       this.insureArray.controls['lastcollegeorschool'].patchValue('');
+//       this.insureArray.controls['highesteducationorprof'].patchValue('');
+//
+//       this.insureArray.controls['otherQualification'].setValidators(null);
+//       this.insureArray.controls['lastcollegeorschool'].setValidators(null);
+//       this.insureArray.controls['highesteducationorprof'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['otherQualification'].updateValueAndValidity();
+//     this.insureArray.controls['lastcollegeorschool'].updateValueAndValidity();
+//     this.insureArray.controls['highesteducationorprof'].updateValueAndValidity();
+//
+//   }
+//   otherqu() {
+//
+//     if (this.insureArray.controls['highestQualification'].value == '8'||this.insureArray.controls['highestQualification'].value == '7'||this.insureArray.controls['highestQualification'].value == '6'||this.insureArray.controls['highestQualification'].value == '5'||this.insureArray.controls['highestQualification'].value == '4'||this.insureArray.controls['highestQualification'].value == '3'|| this.insureArray.controls['highestQualification'].value == '2'||this.insureArray.controls['highestQualification'].value == '1') {
+//       this.insureArray.controls['lastcollegeorschool'].patchValue(this.insureArray.controls['lastcollegeorschool'].value);
+//       this.insureArray.controls['highesteducationorprof'].patchValue(this.insureArray.controls['highesteducationorprof'].value);
+//
+//       this.insureArray.controls['lastcollegeorschool'].setValidators([Validators.required]);
+//       this.insureArray.controls['highesteducationorprof'].setValidators([Validators.required]);
+//     } else {
+//       this.insureArray.controls['lastcollegeorschool'].patchValue('');
+//       this.insureArray.controls['highesteducationorprof'].patchValue('');
+//
+//       this.insureArray.controls['lastcollegeorschool'].setValidators(null);
+//       this.insureArray.controls['highesteducationorprof'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['lastcollegeorschool'].updateValueAndValidity();
+//     this.insureArray.controls['highesteducationorprof'].updateValueAndValidity();
+//
+//   }
+//   otherqus() {
+//
+//     if (this.insureArray.controls['shighestQualification'].value == '8'||this.insureArray.controls['shighestQualification'].value == '7'||this.insureArray.controls['shighestQualification'].value == '6'||this.insureArray.controls['shighestQualification'].value == '5'||this.insureArray.controls['shighestQualification'].value == '4'||this.insureArray.controls['shighestQualification'].value == '3'|| this.insureArray.controls['shighestQualification'].value == '2'||this.insureArray.controls['shighestQualification'].value == '1') {
+//       this.insureArray.controls['slastcollegeorschool'].patchValue(this.insureArray.controls['slastcollegeorschool'].value);
+//       this.insureArray.controls['shighesteducationorprof'].patchValue(this.insureArray.controls['shighesteducationorprof'].value);
+//
+//       this.insureArray.controls['slastcollegeorschool'].setValidators([Validators.required]);
+//       this.insureArray.controls['shighesteducationorprof'].setValidators([Validators.required]);
+//     } else {
+//       this.insureArray.controls['slastcollegeorschool'].patchValue('');
+//       this.insureArray.controls['shighesteducationorprof'].patchValue('');
+//
+//       this.insureArray.controls['slastcollegeorschool'].setValidators(null);
+//       this.insureArray.controls['shighesteducationorprof'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['slastcollegeorschool'].updateValueAndValidity();
+//     this.insureArray.controls['shighesteducationorprof'].updateValueAndValidity();
+//
+//   }
+//   othrhighQualify7() {
+//
+//     if (this.insureArray.controls['highestQualification'].value == '7') {
+//       this.insureArray.controls['coursebeingpur'].patchValue(this.insureArray.controls['coursebeingpur'].value);
+//       this.insureArray.controls['durationofcourse'].patchValue(this.insureArray.controls['durationofcourse'].value);
+//       this.insureArray.controls['yearsemstandard'].patchValue(this.insureArray.controls['yearsemstandard'].value);
+//
+//       this.insureArray.controls['coursebeingpur'].setValidators([Validators.required]);
+//       this.insureArray.controls['durationofcourse'].setValidators([Validators.required]);
+//       this.insureArray.controls['yearsemstandard'].setValidators([Validators.required]);
+//     } else {
+//       this.insureArray.controls['coursebeingpur'].patchValue('');
+//       this.insureArray.controls['durationofcourse'].patchValue('');
+//       this.insureArray.controls['yearsemstandard'].patchValue('');
+//
+//       this.insureArray.controls['coursebeingpur'].setValidators(null);
+//       this.insureArray.controls['durationofcourse'].setValidators(null);
+//       this.insureArray.controls['yearsemstandard'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['coursebeingpur'].updateValueAndValidity();
+//     this.insureArray.controls['durationofcourse'].updateValueAndValidity();
+//     this.insureArray.controls['yearsemstandard'].updateValueAndValidity();
+//
+//   }
+//
+// othrhighQualifys7() {
+//
+//     if (this.insureArray.controls['shighestQualification'].value == '7') {
+//       this.insureArray.controls['scoursebeingpur'].patchValue(this.insureArray.controls['scoursebeingpur'].value);
+//       this.insureArray.controls['sdurationofcourse'].patchValue(this.insureArray.controls['sdurationofcourse'].value);
+//       this.insureArray.controls['syearsemstandard'].patchValue(this.insureArray.controls['syearsemstandard'].value);
+//
+//       this.insureArray.controls['scoursebeingpur'].setValidators([Validators.required]);
+//       this.insureArray.controls['sdurationofcourse'].setValidators([Validators.required]);
+//       this.insureArray.controls['syearsemstandard'].setValidators([Validators.required]);
+//     } else {
+//       this.insureArray.controls['scoursebeingpur'].patchValue('');
+//       this.insureArray.controls['sdurationofcourse'].patchValue('');
+//       this.insureArray.controls['syearsemstandard'].patchValue('');
+//
+//       this.insureArray.controls['scoursebeingpur'].setValidators(null);
+//       this.insureArray.controls['sdurationofcourse'].setValidators(null);
+//       this.insureArray.controls['syearsemstandard'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['scoursebeingpur'].updateValueAndValidity();
+//     this.insureArray.controls['sdurationofcourse'].updateValueAndValidity();
+//     this.insureArray.controls['syearsemstandard'].updateValueAndValidity();
+//
+//   }
+//
+//   othrhighQualify2() {
+//
+//     if (this.insureArray.controls['shighestQualification'].value == '8') {
+//       this.insureArray.controls['sotherQualification'].patchValue(this.insureArray.controls['sotherQualification'].value);
+//       this.insureArray.controls['slastcollegeorschool'].patchValue(this.insureArray.controls['slastcollegeorschool'].value);
+//       this.insureArray.controls['shighesteducationorprof'].patchValue(this.insureArray.controls['shighesteducationorprof'].value);
+//
+//       this.insureArray.controls['sotherQualification'].setValidators([Validators.required]);
+//       this.insureArray.controls['slastcollegeorschool'].setValidators([Validators.required]);
+//       this.insureArray.controls['shighesteducationorprof'].setValidators([Validators.required]);
+//     } else {
+//       this.insureArray.controls['sotherQualification'].patchValue('');
+//       this.insureArray.controls['slastcollegeorschool'].patchValue('');
+//       this.insureArray.controls['shighesteducationorprof'].patchValue('');
+//
+//       this.insureArray.controls['sotherQualification'].setValidators(null);
+//       this.insureArray.controls['slastcollegeorschool'].setValidators(null);
+//       this.insureArray.controls['shighesteducationorprof'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['sotherQualification'].updateValueAndValidity();
+//     this.insureArray.controls['slastcollegeorschool'].updateValueAndValidity();
+//     this.insureArray.controls['shighesteducationorprof'].updateValueAndValidity();
+//   }
 
 
   travelOutside(){
@@ -4709,162 +4709,486 @@ othrhighQualifys7() {
   }
 
 
-  employmentTypereq1() {
-
-    if (this.insureArray.controls['employementType'].value=='1'||this.insureArray.controls['employementType'].value=='5'||this.insureArray.controls['employementType'].value=='7'||this.insureArray.controls['employementType'].value=='8') {
-
-      this.insureArray.controls['natureduty'].setValidators([Validators.required]);
+  employmentTypereq1(){
+    if (this.insureArray.controls['employementType'].value=='1'||this.insureArray.controls['employementType'].value=='7'||this.insureArray.controls['employementType'].value=='8'){
       this.insureArray.controls['employerName'].setValidators([Validators.required]);
-      this.insureArray.controls['employerAddr'].setValidators([Validators.required]);
-      // this.insureArray.controls['buissNature'].setValidators([Validators.required]);
       this.insureArray.controls['designationorposition'].setValidators([Validators.required]);
+      this.insureArray.controls['natureduty'].setValidators([Validators.required]);
       this.insureArray.controls['workYears'].setValidators([Validators.required]);
       this.insureArray.controls['workMonths'].setValidators([Validators.required]);
+      this.insureArray.controls['employerAddr'].setValidators([Validators.required]);
       this.insureArray.controls['occupationIndustry'].setValidators([Validators.required]);
       this.insureArray.controls['employeecount'].setValidators([Validators.required]);
-
-    } else {
-      this.insureArray.controls['natureduty'].patchValue('');
-      this.insureArray.controls['employerName'].patchValue('');
-      this.insureArray.controls['employerAddr'].patchValue('');
-      // this.insureArray.controls['buissNature'].patchValue('');
-      this.insureArray.controls['designationorposition'].patchValue('');
-      this.insureArray.controls['workYears'].patchValue('');
-      this.insureArray.controls['workMonths'].patchValue('');
-      this.insureArray.controls['occupationIndustry'].patchValue('');
-      this.insureArray.controls['employeecount'].patchValue('');
-
-      this.insureArray.controls['natureduty'].setValidators(null);
-      this.insureArray.controls['employerName'].setValidators(null);
-      this.insureArray.controls['employerAddr'].setValidators(null);
-      // this.insureArray.controls['buissNature'].setValidators(null);
-      this.insureArray.controls['designationorposition'].setValidators(null);
-      this.insureArray.controls['workYears'].setValidators(null);
-      this.insureArray.controls['workMonths'].setValidators(null);
-      this.insureArray.controls['occupationIndustry'].setValidators(null);
-      this.insureArray.controls['employeecount'].setValidators(null);
-
-    }
-    this.insureArray.controls['natureduty'].updateValueAndValidity();
-    this.insureArray.controls['employerName'].updateValueAndValidity();
-    this.insureArray.controls['employerAddr'].updateValueAndValidity();
-    // this.insureArray.controls['buissNature'].updateValueAndValidity();
-    this.insureArray.controls['designationorposition'].updateValueAndValidity();
-    this.insureArray.controls['workYears'].updateValueAndValidity();
-    this.insureArray.controls['workMonths'].updateValueAndValidity();
-    this.insureArray.controls['occupationIndustry'].updateValueAndValidity();
-    this.insureArray.controls['employeecount'].updateValueAndValidity();
-
-  }
-  employmentTypereq12() {
-
-    if (this.insureArray.controls['employementType'].value=='2'||this.insureArray.controls['employementType'].value=='3'||this.insureArray.controls['employementType'].value=='6') {
-
       this.insureArray.controls['annualIncome'].setValidators([Validators.required]);
       this.insureArray.controls['isEmploymentIncome'].setValidators([Validators.required]);
-    } else {
+
+      this.insureArray.controls['employerName'].patchValue('');
+      this.insureArray.controls['designationorposition'].patchValue('');
+      this.insureArray.controls['natureduty'].patchValue('');
+      this.insureArray.controls['workYears'].patchValue('');
+      this.insureArray.controls['workMonths'].patchValue('');
+      this.insureArray.controls['employerAddr'].patchValue('');
+      this.insureArray.controls['occupationIndustry'].patchValue('');
+      this.insureArray.controls['employeecount'].patchValue('');
       this.insureArray.controls['annualIncome'].patchValue(this.customerDetails.controls['annualIncome'].value);
       this.insureArray.controls['isEmploymentIncome'].patchValue('');
 
-      this.insureArray.controls['annualIncome'].setValidators(null);
-      this.insureArray.controls['isEmploymentIncome'].setValidators(null);
-
-    }
-    this.insureArray.controls['annualIncome'].updateValueAndValidity();
-    this.insureArray.controls['isEmploymentIncome'].updateValueAndValidity();
-
-  } employmentTypereq66() {
-
-    if (this.insureArray.controls['employementType'].value=='5') {
-
-      this.insureArray.controls['buissNature'].setValidators([Validators.required]);
-    } else {
       this.insureArray.controls['buissNature'].patchValue('');
-
       this.insureArray.controls['buissNature'].setValidators(null);
 
     }
-    this.insureArray.controls['buissNature'].updateValueAndValidity();
+    if (this.insureArray.controls['employementType'].value=='5'){
+      this.insureArray.controls['employerName'].setValidators([Validators.required]);
+      this.insureArray.controls['designationorposition'].setValidators([Validators.required]);
+      this.insureArray.controls['natureduty'].setValidators([Validators.required]);
+      this.insureArray.controls['buissNature'].setValidators([Validators.required]);
+      this.insureArray.controls['workYears'].setValidators([Validators.required]);
+      this.insureArray.controls['workMonths'].setValidators([Validators.required]);
+      this.insureArray.controls['employerAddr'].setValidators([Validators.required]);
+      this.insureArray.controls['occupationIndustry'].setValidators([Validators.required]);
+      this.insureArray.controls['employeecount'].setValidators([Validators.required]);
+      this.insureArray.controls['annualIncome'].setValidators([Validators.required]);
+      this.insureArray.controls['isEmploymentIncome'].setValidators([Validators.required]);
 
-  }
-employmentTypereqs66() {
+      this.insureArray.controls['employerName'].patchValue('');
+      this.insureArray.controls['designationorposition'].patchValue('');
+      this.insureArray.controls['natureduty'].patchValue('');
+      this.insureArray.controls['buissNature'].patchValue('');
+      this.insureArray.controls['workYears'].patchValue('');
+      this.insureArray.controls['workMonths'].patchValue('');
+      this.insureArray.controls['employerAddr'].patchValue('');
+      this.insureArray.controls['occupationIndustry'].patchValue('');
+      this.insureArray.controls['employeecount'].patchValue('');
+      this.insureArray.controls['annualIncome'].patchValue(this.customerDetails.controls['annualIncome'].value);
+      this.insureArray.controls['isEmploymentIncome'].patchValue('');
+    }
+    if (this.insureArray.controls['employementType'].value=='2'||this.insureArray.controls['employementType'].value=='3'||this.insureArray.controls['employementType'].value=='6'){
+      this.insureArray.controls['annualIncome'].setValidators([Validators.required]);
+      this.insureArray.controls['annualIncome'].patchValue(this.customerDetails.controls['annualIncome'].value);
+      this.insureArray.controls['isEmploymentIncome'].setValidators([Validators.required]);
 
-    if (this.insureArray.controls['semployementType'].value=='5' && this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+      this.insureArray.controls['employerName'].setValidators(null);
+      this.insureArray.controls['designationorposition'].setValidators(null);
+      this.insureArray.controls['natureduty'].setValidators(null);
+      this.insureArray.controls['buissNature'].setValidators(null);
+      this.insureArray.controls['workYears'].setValidators(null);
+      this.insureArray.controls['workMonths'].setValidators(null);
+      this.insureArray.controls['employerAddr'].setValidators(null);
+      this.insureArray.controls['occupationIndustry'].setValidators(null);
+      this.insureArray.controls['employeecount'].setValidators(null);
 
-      this.insureArray.controls['sbuissNature'].setValidators([Validators.required]);
-    } else {
-      this.insureArray.controls['sbuissNature'].patchValue('');
+      this.insureArray.controls['employerName'].patchValue('');
+      this.insureArray.controls['designationorposition'].patchValue('');
+      this.insureArray.controls['natureduty'].patchValue('');
+      this.insureArray.controls['buissNature'].patchValue('');
+      this.insureArray.controls['workYears'].patchValue('');
+      this.insureArray.controls['workMonths'].patchValue('');
+      this.insureArray.controls['employerAddr'].patchValue('');
+      this.insureArray.controls['occupationIndustry'].patchValue('');
+      this.insureArray.controls['employeecount'].patchValue('');
 
-      this.insureArray.controls['sbuissNature'].setValidators(null);
 
     }
-    this.insureArray.controls['sbuissNature'].updateValueAndValidity();
+
+        this.insureArray.controls['employerName'].updateValueAndValidity();
+        this.insureArray.controls['designationorposition'].updateValueAndValidity();
+        this.insureArray.controls['natureduty'].updateValueAndValidity();
+        this.insureArray.controls['buissNature'].updateValueAndValidity();
+        this.insureArray.controls['workYears'].updateValueAndValidity();
+        this.insureArray.controls['workMonths'].updateValueAndValidity();
+        this.insureArray.controls['employerAddr'].updateValueAndValidity();
+        this.insureArray.controls['occupationIndustry'].updateValueAndValidity();
+        this.insureArray.controls['employeecount'].updateValueAndValidity();
+        this.insureArray.controls['annualIncome'].updateValueAndValidity();
+        this.insureArray.controls['isEmploymentIncome'].updateValueAndValidity();
+
+
 
   }
-  semploymentTypereq1() {
 
-    if ((this.addon.controls['betterHalfBenefit'].value == 'Yes') && (this.insureArray.controls['semployementType'].value=='1'||this.insureArray.controls['semployementType'].value=='5'||this.insureArray.controls['semployementType'].value=='7'||this.insureArray.controls['semployementType'].value=='8')) {
-
-      this.insureArray.controls['snatureduty'].setValidators([Validators.required]);
+  semploymentTypereq1(){
+    if (this.insureArray.controls['semployementType'].value=='1'||this.insureArray.controls['semployementType'].value=='7'||this.insureArray.controls['semployementType'].value=='8'){
       this.insureArray.controls['semployerName'].setValidators([Validators.required]);
-      this.insureArray.controls['semployerAddr'].setValidators([Validators.required]);
       this.insureArray.controls['sdesignationorposition'].setValidators([Validators.required]);
+      this.insureArray.controls['snatureduty'].setValidators([Validators.required]);
       this.insureArray.controls['sworkYears'].setValidators([Validators.required]);
       this.insureArray.controls['sworkMonths'].setValidators([Validators.required]);
+      this.insureArray.controls['semployerAddr'].setValidators([Validators.required]);
       this.insureArray.controls['soccupationIndustry'].setValidators([Validators.required]);
-      // this.insureArray.controls['sbuissNature'].setValidators([Validators.required]);
       this.insureArray.controls['semployeecount'].setValidators([Validators.required]);
-
-    } else {
-      this.insureArray.controls['snatureduty'].patchValue('');
-      this.insureArray.controls['semployerName'].patchValue('');
-      this.insureArray.controls['semployerAddr'].patchValue('');
-      this.insureArray.controls['sdesignationorposition'].patchValue('');
-      this.insureArray.controls['sworkYears'].patchValue('');
-      this.insureArray.controls['sworkMonths'].patchValue('');
-      this.insureArray.controls['soccupationIndustry'].patchValue('');
-      // this.insureArray.controls['sbuissNature'].patchValue('');
-      this.insureArray.controls['semployeecount'].patchValue('');
-
-      this.insureArray.controls['snatureduty'].setValidators(null);
-      this.insureArray.controls['semployerName'].setValidators(null);
-      this.insureArray.controls['semployerAddr'].setValidators(null);
-      this.insureArray.controls['sdesignationorposition'].setValidators(null);
-      this.insureArray.controls['sworkYears'].setValidators(null);
-      this.insureArray.controls['sworkMonths'].setValidators(null);
-      this.insureArray.controls['soccupationIndustry'].setValidators(null);
-      // this.insureArray.controls['sbuissNature'].setValidators(null);
-      this.insureArray.controls['semployeecount'].setValidators(null);
-
-    }
-    this.insureArray.controls['snatureduty'].updateValueAndValidity();
-    this.insureArray.controls['semployerName'].updateValueAndValidity();
-    this.insureArray.controls['semployerAddr'].updateValueAndValidity();
-    this.insureArray.controls['sdesignationorposition'].updateValueAndValidity();
-    this.insureArray.controls['sworkYears'].updateValueAndValidity();
-    this.insureArray.controls['sworkMonths'].updateValueAndValidity();
-    this.insureArray.controls['soccupationIndustry'].updateValueAndValidity();
-    // this.insureArray.controls['sbuissNature'].updateValueAndValidity();
-    this.insureArray.controls['semployeecount'].updateValueAndValidity();
-
-  }
-  semploymentTypereq12() {
-
-    if (this.addon.controls['betterHalfBenefit'].value == 'Yes' && (this.insureArray.controls['semployementType'].value=='2'||this.insureArray.controls['semployementType'].value=='3'||this.insureArray.controls['semployementType'].value=='6')) {
-
       this.insureArray.controls['sannualIncome'].setValidators([Validators.required]);
       this.insureArray.controls['sisEmploymentIncome'].setValidators([Validators.required]);
-    } else {
+
+      this.insureArray.controls['semployerName'].patchValue('');
+      this.insureArray.controls['sdesignationorposition'].patchValue('');
+      this.insureArray.controls['snatureduty'].patchValue('');
+      this.insureArray.controls['sworkYears'].patchValue('');
+      this.insureArray.controls['sworkMonths'].patchValue('');
+      this.insureArray.controls['semployerAddr'].patchValue('');
+      this.insureArray.controls['soccupationIndustry'].patchValue('');
+      this.insureArray.controls['semployeecount'].patchValue('');
       this.insureArray.controls['sannualIncome'].patchValue('');
       this.insureArray.controls['sisEmploymentIncome'].patchValue('');
 
-      this.insureArray.controls['sannualIncome'].setValidators(null);
-      this.insureArray.controls['sisEmploymentIncome'].setValidators(null);
+      this.insureArray.controls['sbuissNature'].patchValue('');
+      this.insureArray.controls['sbuissNature'].setValidators(null);
 
     }
-    this.insureArray.controls['sannualIncome'].updateValueAndValidity();
-    this.insureArray.controls['sisEmploymentIncome'].updateValueAndValidity();
+    if (this.insureArray.controls['semployementType'].value=='5'){
+      this.insureArray.controls['semployerName'].setValidators([Validators.required]);
+      this.insureArray.controls['sdesignationorposition'].setValidators([Validators.required]);
+      this.insureArray.controls['snatureduty'].setValidators([Validators.required]);
+      this.insureArray.controls['sbuissNature'].setValidators([Validators.required]);
+      this.insureArray.controls['sworkYears'].setValidators([Validators.required]);
+      this.insureArray.controls['sworkMonths'].setValidators([Validators.required]);
+      this.insureArray.controls['semployerAddr'].setValidators([Validators.required]);
+      this.insureArray.controls['soccupationIndustry'].setValidators([Validators.required]);
+      this.insureArray.controls['semployeecount'].setValidators([Validators.required]);
+      this.insureArray.controls['sannualIncome'].setValidators([Validators.required]);
+      this.insureArray.controls['sisEmploymentIncome'].setValidators([Validators.required]);
 
+      this.insureArray.controls['semployerName'].patchValue('');
+      this.insureArray.controls['sdesignationorposition'].patchValue('');
+      this.insureArray.controls['snatureduty'].patchValue('');
+      this.insureArray.controls['sbuissNature'].patchValue('');
+      this.insureArray.controls['sworkYears'].patchValue('');
+      this.insureArray.controls['sworkMonths'].patchValue('');
+      this.insureArray.controls['semployerAddr'].patchValue('');
+      this.insureArray.controls['soccupationIndustry'].patchValue('');
+      this.insureArray.controls['semployeecount'].patchValue('');
+      this.insureArray.controls['sannualIncome'].patchValue('');
+      this.insureArray.controls['sisEmploymentIncome'].patchValue('');
+    }
+    if (this.insureArray.controls['semployementType'].value=='2'||this.insureArray.controls['semployementType'].value=='3'||this.insureArray.controls['semployementType'].value=='6'){
+      this.insureArray.controls['sannualIncome'].setValidators([Validators.required]);
+      this.insureArray.controls['sisEmploymentIncome'].setValidators([Validators.required]);
+
+      this.insureArray.controls['semployerName'].setValidators(null);
+      this.insureArray.controls['sdesignationorposition'].setValidators(null);
+      this.insureArray.controls['snatureduty'].setValidators(null);
+      this.insureArray.controls['sbuissNature'].setValidators(null);
+      this.insureArray.controls['sworkYears'].setValidators(null);
+      this.insureArray.controls['sworkMonths'].setValidators(null);
+      this.insureArray.controls['semployerAddr'].setValidators(null);
+      this.insureArray.controls['soccupationIndustry'].setValidators(null);
+      this.insureArray.controls['semployeecount'].setValidators(null);
+
+      this.insureArray.controls['semployerName'].patchValue('');
+      this.insureArray.controls['sdesignationorposition'].patchValue('');
+      this.insureArray.controls['snatureduty'].patchValue('');
+      this.insureArray.controls['sbuissNature'].patchValue('');
+      this.insureArray.controls['sworkYears'].patchValue('');
+      this.insureArray.controls['sworkMonths'].patchValue('');
+      this.insureArray.controls['semployerAddr'].patchValue('');
+      this.insureArray.controls['soccupationIndustry'].patchValue('');
+      this.insureArray.controls['semployeecount'].patchValue('');
+      this.insureArray.controls['sannualIncome'].patchValue('');
+
+
+
+    }
+
+    this.insureArray.controls['employerName'].updateValueAndValidity();
+    this.insureArray.controls['designationorposition'].updateValueAndValidity();
+    this.insureArray.controls['natureduty'].updateValueAndValidity();
+    this.insureArray.controls['buissNature'].updateValueAndValidity();
+    this.insureArray.controls['workYears'].updateValueAndValidity();
+    this.insureArray.controls['workMonths'].updateValueAndValidity();
+    this.insureArray.controls['employerAddr'].updateValueAndValidity();
+    this.insureArray.controls['occupationIndustry'].updateValueAndValidity();
+    this.insureArray.controls['employeecount'].updateValueAndValidity();
+    this.insureArray.controls['annualIncome'].updateValueAndValidity();
+    this.insureArray.controls['isEmploymentIncome'].updateValueAndValidity();
+
+
+
+  }
+
+
+
+
+//   employmentTypereq1() {
+//
+//     if (this.insureArray.controls['employementType'].value=='1'||this.insureArray.controls['employementType'].value=='5'||this.insureArray.controls['employementType'].value=='7'||this.insureArray.controls['employementType'].value=='8') {
+//
+//       this.insureArray.controls['natureduty'].setValidators([Validators.required]);
+//       this.insureArray.controls['employerName'].setValidators([Validators.required]);
+//       this.insureArray.controls['employerAddr'].setValidators([Validators.required]);
+//       // this.insureArray.controls['buissNature'].setValidators([Validators.required]);
+//       this.insureArray.controls['designationorposition'].setValidators([Validators.required]);
+//       this.insureArray.controls['workYears'].setValidators([Validators.required]);
+//       this.insureArray.controls['workMonths'].setValidators([Validators.required]);
+//       this.insureArray.controls['occupationIndustry'].setValidators([Validators.required]);
+//       this.insureArray.controls['employeecount'].setValidators([Validators.required]);
+//
+//     } else {
+//       this.insureArray.controls['natureduty'].patchValue('');
+//       this.insureArray.controls['employerName'].patchValue('');
+//       this.insureArray.controls['employerAddr'].patchValue('');
+//       // this.insureArray.controls['buissNature'].patchValue('');
+//       this.insureArray.controls['designationorposition'].patchValue('');
+//       this.insureArray.controls['workYears'].patchValue('');
+//       this.insureArray.controls['workMonths'].patchValue('');
+//       this.insureArray.controls['occupationIndustry'].patchValue('');
+//       this.insureArray.controls['employeecount'].patchValue('');
+//
+//       this.insureArray.controls['natureduty'].setValidators(null);
+//       this.insureArray.controls['employerName'].setValidators(null);
+//       this.insureArray.controls['employerAddr'].setValidators(null);
+//       // this.insureArray.controls['buissNature'].setValidators(null);
+//       this.insureArray.controls['designationorposition'].setValidators(null);
+//       this.insureArray.controls['workYears'].setValidators(null);
+//       this.insureArray.controls['workMonths'].setValidators(null);
+//       this.insureArray.controls['occupationIndustry'].setValidators(null);
+//       this.insureArray.controls['employeecount'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['natureduty'].updateValueAndValidity();
+//     this.insureArray.controls['employerName'].updateValueAndValidity();
+//     this.insureArray.controls['employerAddr'].updateValueAndValidity();
+//     // this.insureArray.controls['buissNature'].updateValueAndValidity();
+//     this.insureArray.controls['designationorposition'].updateValueAndValidity();
+//     this.insureArray.controls['workYears'].updateValueAndValidity();
+//     this.insureArray.controls['workMonths'].updateValueAndValidity();
+//     this.insureArray.controls['occupationIndustry'].updateValueAndValidity();
+//     this.insureArray.controls['employeecount'].updateValueAndValidity();
+//
+//   }
+//   employmentTypereq12() {
+//
+//     if (this.insureArray.controls['employementType'].value=='2'||this.insureArray.controls['employementType'].value=='3'||this.insureArray.controls['employementType'].value=='6') {
+//
+//       this.insureArray.controls['annualIncome'].setValidators([Validators.required]);
+//       this.insureArray.controls['isEmploymentIncome'].setValidators([Validators.required]);
+//     } else {
+//       this.insureArray.controls['annualIncome'].patchValue(this.customerDetails.controls['annualIncome'].value);
+//       this.insureArray.controls['isEmploymentIncome'].patchValue('');
+//
+//       this.insureArray.controls['annualIncome'].setValidators(null);
+//       this.insureArray.controls['isEmploymentIncome'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['annualIncome'].updateValueAndValidity();
+//     this.insureArray.controls['isEmploymentIncome'].updateValueAndValidity();
+//
+//   } employmentTypereq66() {
+//
+//     if (this.insureArray.controls['employementType'].value=='5') {
+//
+//       this.insureArray.controls['buissNature'].setValidators([Validators.required]);
+//     } else {
+//       this.insureArray.controls['buissNature'].patchValue('');
+//
+//       this.insureArray.controls['buissNature'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['buissNature'].updateValueAndValidity();
+//
+//   }
+// employmentTypereqs66() {
+//
+//     if (this.insureArray.controls['semployementType'].value=='5' && this.addon.controls['betterHalfBenefit'].value == 'Yes') {
+//
+//       this.insureArray.controls['sbuissNature'].setValidators([Validators.required]);
+//     } else {
+//       this.insureArray.controls['sbuissNature'].patchValue('');
+//
+//       this.insureArray.controls['sbuissNature'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['sbuissNature'].updateValueAndValidity();
+//
+//   }
+//   semploymentTypereq1() {
+//
+//     if ((this.addon.controls['betterHalfBenefit'].value == 'Yes') && (this.insureArray.controls['semployementType'].value=='1'||this.insureArray.controls['semployementType'].value=='5'||this.insureArray.controls['semployementType'].value=='7'||this.insureArray.controls['semployementType'].value=='8')) {
+//
+//       this.insureArray.controls['snatureduty'].setValidators([Validators.required]);
+//       this.insureArray.controls['semployerName'].setValidators([Validators.required]);
+//       this.insureArray.controls['semployerAddr'].setValidators([Validators.required]);
+//       this.insureArray.controls['sdesignationorposition'].setValidators([Validators.required]);
+//       this.insureArray.controls['sworkYears'].setValidators([Validators.required]);
+//       this.insureArray.controls['sworkMonths'].setValidators([Validators.required]);
+//       this.insureArray.controls['soccupationIndustry'].setValidators([Validators.required]);
+//       // this.insureArray.controls['sbuissNature'].setValidators([Validators.required]);
+//       this.insureArray.controls['semployeecount'].setValidators([Validators.required]);
+//
+//     } else {
+//       this.insureArray.controls['snatureduty'].patchValue('');
+//       this.insureArray.controls['semployerName'].patchValue('');
+//       this.insureArray.controls['semployerAddr'].patchValue('');
+//       this.insureArray.controls['sdesignationorposition'].patchValue('');
+//       this.insureArray.controls['sworkYears'].patchValue('');
+//       this.insureArray.controls['sworkMonths'].patchValue('');
+//       this.insureArray.controls['soccupationIndustry'].patchValue('');
+//       // this.insureArray.controls['sbuissNature'].patchValue('');
+//       this.insureArray.controls['semployeecount'].patchValue('');
+//
+//       this.insureArray.controls['snatureduty'].setValidators(null);
+//       this.insureArray.controls['semployerName'].setValidators(null);
+//       this.insureArray.controls['semployerAddr'].setValidators(null);
+//       this.insureArray.controls['sdesignationorposition'].setValidators(null);
+//       this.insureArray.controls['sworkYears'].setValidators(null);
+//       this.insureArray.controls['sworkMonths'].setValidators(null);
+//       this.insureArray.controls['soccupationIndustry'].setValidators(null);
+//       // this.insureArray.controls['sbuissNature'].setValidators(null);
+//       this.insureArray.controls['semployeecount'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['snatureduty'].updateValueAndValidity();
+//     this.insureArray.controls['semployerName'].updateValueAndValidity();
+//     this.insureArray.controls['semployerAddr'].updateValueAndValidity();
+//     this.insureArray.controls['sdesignationorposition'].updateValueAndValidity();
+//     this.insureArray.controls['sworkYears'].updateValueAndValidity();
+//     this.insureArray.controls['sworkMonths'].updateValueAndValidity();
+//     this.insureArray.controls['soccupationIndustry'].updateValueAndValidity();
+//     // this.insureArray.controls['sbuissNature'].updateValueAndValidity();
+//     this.insureArray.controls['semployeecount'].updateValueAndValidity();
+//
+//   }
+//   semploymentTypereq12() {
+//
+//     if (this.addon.controls['betterHalfBenefit'].value == 'Yes' && (this.insureArray.controls['semployementType'].value=='2'||this.insureArray.controls['semployementType'].value=='3'||this.insureArray.controls['semployementType'].value=='6')) {
+//
+//       this.insureArray.controls['sannualIncome'].setValidators([Validators.required]);
+//       this.insureArray.controls['sisEmploymentIncome'].setValidators([Validators.required]);
+//     } else {
+//       this.insureArray.controls['sannualIncome'].patchValue('');
+//       this.insureArray.controls['sisEmploymentIncome'].patchValue('');
+//
+//       this.insureArray.controls['sannualIncome'].setValidators(null);
+//       this.insureArray.controls['sisEmploymentIncome'].setValidators(null);
+//
+//     }
+//     this.insureArray.controls['sannualIncome'].updateValueAndValidity();
+//     this.insureArray.controls['sisEmploymentIncome'].updateValueAndValidity();
+//
+//   }
+
+  othrhighQualify1(){
+    if (this.insureArray.controls['highestQualification'].value=='1'||this.insureArray.controls['highestQualification'].value=='2'||this.insureArray.controls['highestQualification'].value=='3'||this.insureArray.controls['highestQualification'].value=='4'||this.insureArray.controls['highestQualification'].value=='5'||this.insureArray.controls['highestQualification'].value=='6'){
+      this.insureArray.controls['lastcollegeorschool'].setValidators([Validators.required]);
+      this.insureArray.controls['highesteducationorprof'].setValidators([Validators.required]);
+
+      this.insureArray.controls['coursebeingpur'].patchValue('');
+      this.insureArray.controls['durationofcourse'].patchValue('');
+      this.insureArray.controls['yearsemstandard'].patchValue('');
+      this.insureArray.controls['lastcollegeorschool'].patchValue('');
+      this.insureArray.controls['highesteducationorprof'].patchValue('');
+      this.insureArray.controls['otherQualification'].patchValue('');
+
+      this.insureArray.controls['coursebeingpur'].setValidators(null);
+      this.insureArray.controls['durationofcourse'].setValidators(null);
+      this.insureArray.controls['yearsemstandard'].setValidators(null);
+      this.insureArray.controls['otherQualification'].setValidators(null);
+
+
+
+    }
+    if (this.insureArray.controls['highestQualification'].value=='7'){
+      this.insureArray.controls['coursebeingpur'].setValidators([Validators.required]);
+      this.insureArray.controls['durationofcourse'].setValidators([Validators.required]);
+      this.insureArray.controls['yearsemstandard'].setValidators([Validators.required]);
+      this.insureArray.controls['lastcollegeorschool'].setValidators([Validators.required]);
+      this.insureArray.controls['highesteducationorprof'].setValidators([Validators.required]);
+
+      this.insureArray.controls['coursebeingpur'].patchValue('');
+      this.insureArray.controls['durationofcourse'].patchValue('');
+      this.insureArray.controls['yearsemstandard'].patchValue('');
+      this.insureArray.controls['lastcollegeorschool'].patchValue('');
+      this.insureArray.controls['highesteducationorprof'].patchValue('');
+      this.insureArray.controls['otherQualification'].patchValue('');
+
+      this.insureArray.controls['otherQualification'].setValidators(null);
+
+    }
+    if (this.insureArray.controls['highestQualification'].value=='8'){
+      this.insureArray.controls['otherQualification'].setValidators([Validators.required]);
+      this.insureArray.controls['lastcollegeorschool'].setValidators([Validators.required]);
+      this.insureArray.controls['highesteducationorprof'].setValidators([Validators.required]);
+
+      this.insureArray.controls['coursebeingpur'].patchValue('');
+      this.insureArray.controls['durationofcourse'].patchValue('');
+      this.insureArray.controls['yearsemstandard'].patchValue('');
+      this.insureArray.controls['lastcollegeorschool'].patchValue('');
+      this.insureArray.controls['highesteducationorprof'].patchValue('');
+      this.insureArray.controls['otherQualification'].patchValue('');
+
+      this.insureArray.controls['coursebeingpur'].setValidators(null);
+      this.insureArray.controls['durationofcourse'].setValidators(null);
+      this.insureArray.controls['yearsemstandard'].setValidators(null);
+
+    }
+
+    this.insureArray.controls['coursebeingpur'].updateValueAndValidity();
+    this.insureArray.controls['durationofcourse'].updateValueAndValidity();
+    this.insureArray.controls['yearsemstandard'].updateValueAndValidity();
+    this.insureArray.controls['lastcollegeorschool'].updateValueAndValidity();
+    this.insureArray.controls['highesteducationorprof'].updateValueAndValidity();
+    this.insureArray.controls['otherQualification'].updateValueAndValidity();
+    }
+
+  othrhighQualify2(){
+    if (this.insureArray.controls['shighestQualification'].value=='1'||this.insureArray.controls['shighestQualification'].value=='2'||this.insureArray.controls['shighestQualification'].value=='3'||this.insureArray.controls['shighestQualification'].value=='4'||this.insureArray.controls['shighestQualification'].value=='5'||this.insureArray.controls['shighestQualification'].value=='6'){
+      this.insureArray.controls['slastcollegeorschool'].setValidators([Validators.required]);
+      this.insureArray.controls['shighesteducationorprof'].setValidators([Validators.required]);
+
+      this.insureArray.controls['scoursebeingpur'].patchValue('');
+      this.insureArray.controls['sdurationofcourse'].patchValue('');
+      this.insureArray.controls['syearsemstandard'].patchValue('');
+      this.insureArray.controls['slastcollegeorschool'].patchValue('');
+      this.insureArray.controls['shighesteducationorprof'].patchValue('');
+      this.insureArray.controls['sotherQualification'].patchValue('');
+
+      this.insureArray.controls['scoursebeingpur'].setValidators(null);
+      this.insureArray.controls['sdurationofcourse'].setValidators(null);
+      this.insureArray.controls['syearsemstandard'].setValidators(null);
+      this.insureArray.controls['sotherQualification'].setValidators(null);
+
+
+
+    }
+    if (this.insureArray.controls['shighestQualification'].value=='7'){
+      this.insureArray.controls['scoursebeingpur'].setValidators([Validators.required]);
+      this.insureArray.controls['sdurationofcourse'].setValidators([Validators.required]);
+      this.insureArray.controls['syearsemstandard'].setValidators([Validators.required]);
+      this.insureArray.controls['slastcollegeorschool'].setValidators([Validators.required]);
+      this.insureArray.controls['shighesteducationorprof'].setValidators([Validators.required]);
+
+      this.insureArray.controls['scoursebeingpur'].patchValue('');
+      this.insureArray.controls['sdurationofcourse'].patchValue('');
+      this.insureArray.controls['syearsemstandard'].patchValue('');
+      this.insureArray.controls['slastcollegeorschool'].patchValue('');
+      this.insureArray.controls['shighesteducationorprof'].patchValue('');
+      this.insureArray.controls['sotherQualification'].patchValue('');
+
+      this.insureArray.controls['sotherQualification'].setValidators(null);
+
+    }
+    if (this.insureArray.controls['shighestQualification'].value=='8'){
+      this.insureArray.controls['sotherQualification'].setValidators([Validators.required]);
+      this.insureArray.controls['slastcollegeorschool'].setValidators([Validators.required]);
+      this.insureArray.controls['shighesteducationorprof'].setValidators([Validators.required]);
+
+      this.insureArray.controls['scoursebeingpur'].patchValue('');
+      this.insureArray.controls['sdurationofcourse'].patchValue('');
+      this.insureArray.controls['syearsemstandard'].patchValue('');
+      this.insureArray.controls['slastcollegeorschool'].patchValue('');
+      this.insureArray.controls['shighesteducationorprof'].patchValue('');
+      this.insureArray.controls['sotherQualification'].patchValue('');
+
+      this.insureArray.controls['scoursebeingpur'].setValidators(null);
+      this.insureArray.controls['sdurationofcourse'].setValidators(null);
+      this.insureArray.controls['syearsemstandard'].setValidators(null);
+
+    }
+
+    this.insureArray.controls['scoursebeingpur'].updateValueAndValidity();
+    this.insureArray.controls['sdurationofcourse'].updateValueAndValidity();
+    this.insureArray.controls['syearsemstandard'].updateValueAndValidity();
+    this.insureArray.controls['slastcollegeorschool'].updateValueAndValidity();
+    this.insureArray.controls['shighesteducationorprof'].updateValueAndValidity();
+    this.insureArray.controls['sotherQualification'].updateValueAndValidity();
   }
 
   hasweight() {
@@ -7236,15 +7560,15 @@ employmentTypereqs66() {
         // "whenInsured":this.datepipe.transform(this.insureArray.controls['whenInsured'].value, 'y-MM-dd') ,
         "familyDiease_Details":"",
         "hasfamilyAppliedETLI":"",
-        "otherPolicy_Ind":"",
+        "otherPolicy_Ind":this.insureArray.controls['insureHistory'].value=='Yes'?'Y':'N',
         "otherPolicy_InsurerName":"",
         "otherPolicy_OtherInsurerName":"",
-        "otherPolicy_Reason":"",
-        "otherPolicy_Date":"",
-        "CIB_Ind":"",
-        "CIB_InsurerName":"",
-        "CIB_Reason":"",
-        "CIB_Date":"",
+        "otherPolicy_Reason":this.insureArray.controls['reasonInsured'].value ,
+        "otherPolicy_Date":this.datepipe.transform(this.insureArray.controls['whenInsured'].value, 'y-MM-dd') ,
+        "CIB_Ind":this.insureArray.controls['insureHistory1'].value=='Yes'?'Y':'N',
+        "CIB_InsurerName":this.insureArray.controls['companyName1'].value,
+        "CIB_Reason":this.insureArray.controls['reasonInsured1'].value,
+        "CIB_Date":this.datepipe.transform(this.insureArray.controls['whenInsured1'].value, 'y-MM-dd'),
         "isPEP":this.insureArray.controls['isPoliticallyExposed'].value ? 'Yes' : 'No',
         "pepReason":this.insureArray.controls['specification'].value,
         "hasFamPhysician":"",
@@ -7480,15 +7804,15 @@ employmentTypereqs66() {
         "familyDiease_Ind":"",
         "familyDiease_Details":"",
         "hasfamilyAppliedETLI":"",
-        "otherPolicy_Ind":"",
+        "otherPolicy_Ind":this.insureArray.controls['sinsureHistory'].value=='Yes'?'Y':'N',
         "otherPolicy_InsurerName":"",
         "otherPolicy_OtherInsurerName":"",
-        "otherPolicy_Reason":"",
-        "otherPolicy_Date":"",
-        "CIB_Ind":"",
-        "CIB_InsurerName":"",
-        "CIB_Reason":"",
-        "CIB_Date":"",
+        "otherPolicy_Reason":this.insureArray.controls['sreasonInsured'].value ,
+        "otherPolicy_Date":this.datepipe.transform(this.insureArray.controls['swhenInsured'].value, 'y-MM-dd') ,
+        "CIB_Ind":this.insureArray.controls['sinsureHistory1'].value=='Yes'?'Y':'N',
+        "CIB_InsurerName":this.insureArray.controls['scompanyName1'].value,
+        "CIB_Reason":this.insureArray.controls['sreasonInsured1'].value,
+        "CIB_Date":this.datepipe.transform(this.insureArray.controls['swhenInsured1'].value, 'y-MM-dd'),
         "isPEP":"",
         "pepReason":"",
         "hasFamPhysician":"",

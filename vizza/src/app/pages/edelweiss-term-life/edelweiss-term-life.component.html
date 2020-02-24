@@ -589,7 +589,8 @@
                                 <div class="row p-3">
                                     <div class="col-md-4" >
                                         <mat-form-field class="w-100">
-                                            <mat-select  placeholder="Highest Qualification" formControlName="highestQualification" (selectionChange)="qualificationName();othrhighQualify1();othrhighQualify7();otherqu()" required  class="w-100" >
+                                            <!--<mat-select  placeholder="Highest Qualification" formControlName="highestQualification" (selectionChange)="qualificationName();othrhighQualify1();othrhighQualify7();otherqu()" required  class="w-100" >-->
+                                            <mat-select  placeholder="Highest Qualification" formControlName="highestQualification" (selectionChange)="qualificationName();othrhighQualify1()" required  class="w-100" >
                                                 <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="insureArray.controls.highestQualification.errors?.required">Highest Qualification is required</mat-error>
@@ -617,7 +618,7 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
-                                <div class="row p-3" *ngIf="insureArray.controls['highestQualification'].value == '7'">
+                                <div class="row p-3" >
                                 <div class="col-md-4" *ngIf="insureArray.controls['highestQualification'].value == '7'"  >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Course being pursued<span class="error"  *ngIf="insureArray.controls['highestQualification'].value == '7'" >*</span></mat-placeholder>
@@ -749,7 +750,8 @@
 
                                     <div class="col-md-4">
                                         <mat-form-field class="w-100">
-                                            <mat-select  placeholder="Employment Type" formControlName="employementType"  (selectionChange)="employmentTypereq1();employmentTypereq66();employmentTypereq12(); employementTypeName1()" required  class="w-100" >
+                                            <!--<mat-select  placeholder="Employment Type" formControlName="employementType"  (selectionChange)="employmentTypereq1();employmentTypereq66();employmentTypereq12(); employementTypeName1()" required  class="w-100" >-->
+                                            <mat-select  placeholder="Employment Type" formControlName="employementType"  (selectionChange)="employmentTypereq1()" required  class="w-100" >
                                                 <mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="insureArray.controls.employementType.errors?.required">Employment Type is required</mat-error>
@@ -1281,7 +1283,7 @@
                                         <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>Highest Qualification<span class="error" >*</span></mat-placeholder>
-                                                <mat-select formControlName="shighestQualification" (selectionChange)="squalificationName();othrhighQualify2();otherqus();othrhighQualifys7()"   class="w-100" >
+                                                <mat-select formControlName="shighestQualification" (selectionChange)="squalificationName();othrhighQualify2()"   class="w-100" >
                                                     <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
                                                 </mat-select>
                                                 <!--<mat-error *ngIf="insureArray.controls.shighestQualification.errors?.required">Highest Qualification is required</mat-error>-->
@@ -1512,7 +1514,8 @@
 
                                         <div class="col-md-4">
                                             <mat-form-field class="w-100">
-                                                <mat-select  placeholder="Employment Type" formControlName="semployementType"  (selectionChange)="semploymentTypereq1();semploymentTypereq12();semployementTypeName1();employmentTypereqs66()" [required]="addon.controls['betterHalfBenefit'].value == 'Yes'"  class="w-100" >
+                                                <!--<mat-select  placeholder="Employment Type" formControlName="semployementType"  (selectionChange)="semploymentTypereq1();semploymentTypereq12();semployementTypeName1();employmentTypereqs66()" [required]="addon.controls['betterHalfBenefit'].value == 'Yes'"  class="w-100" >-->
+                                                <mat-select  placeholder="Employment Type" formControlName="semployementType"   (selectionChange)="semploymentTypereq1()"  [required]="addon.controls['betterHalfBenefit'].value == 'Yes'"  class="w-100" >
                                                     <mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>
                                                 </mat-select>
                                                 <!--<mat-error *ngIf="insureArray.controls.semployementType.errors?.required">Employment Type is required</mat-error>-->
@@ -1520,7 +1523,8 @@
                                         </div>
                                         <div class="col-md-4"  *ngIf="insureArray.controls['semployementType'].value=='1'||insureArray.controls['semployementType'].value=='5'||insureArray.controls['semployementType'].value=='7'||insureArray.controls['semployementType'].value=='8'">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Employer Name" formControlName="semployerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)">
+                                                <mat-placeholder>Employer Name<span class="error" >*</span></mat-placeholder>
+                                                <input matInput  formControlName="semployerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)">
                                                 <!--<mat-error *ngIf="insureArray.controls.semployerName.errors?.required">Employer Name  is required</mat-error>-->
                                             </mat-form-field>
                                         </div>
