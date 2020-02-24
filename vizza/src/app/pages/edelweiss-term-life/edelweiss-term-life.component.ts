@@ -9877,14 +9877,14 @@ console.log(this.kycProofName,'kycProofName')
   public ProposalNextSuccess(successData,stepper) {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
-      // this.resendOPT();
-      // this.toastr.success(successData.ResponseObject);
-      stepper.next();
-      this.topScroll();
-      this.proposalGenStatus = false;
-      this.proposalNextList = successData.ResponseObject;
+        stepper.next();
+        this.topScroll();
+        this.proposalGenStatus = false;
+        this.proposalNextList = successData.ResponseObject;
       // this.proposalFormPdf = this.proposalNextList.path;
       // console.log(this.proposalFormPdf,'this.proposalFormPdf....');
+
+      ///OTP POP UP
       let dialogRef = this.dialog.open(EdelweissOpt, {
         width: '400px'
       });
@@ -9901,7 +9901,7 @@ console.log(this.kycProofName,'kycProofName')
         }
 
       });
-
+      ///
     } else {
       this.proposalGenStatus = true;
       this.toastr.error(successData.ErrorObject);
