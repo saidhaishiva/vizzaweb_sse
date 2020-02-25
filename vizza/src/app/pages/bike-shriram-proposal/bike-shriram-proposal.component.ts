@@ -243,6 +243,7 @@ export class BikeShriramProposalComponent implements OnInit {
       totalPaforUnnamedPremium: '',
         totalAntiTheftPremium: '',
       voluntaryExcess: [''],
+        voluntaryExcessName: [''],
       hypothecationType: '',
         hypothecationTypeName: '',
       hypothecationAddress1: '',
@@ -261,7 +262,7 @@ export class BikeShriramProposalComponent implements OnInit {
       cityName:'',
       isFinanced:'',
       isPAExclusion:'',
-        PAExclusionName:'',
+      sPAExclusionName:'',
       PAExclusion:'',
     });
     this.previousInsure = this.fb.group({
@@ -328,7 +329,7 @@ export class BikeShriramProposalComponent implements OnInit {
         console.log(electricSum,'electricSum...');
         console.log(this.electricalMaxValue,'electricalMaxValue...');
         if(electricSum < this.electricalMaxValue){
-            this.getCover();
+
             this.electricalSumAount=false;
             this.electricalSumAount='';
         }else{
@@ -342,7 +343,7 @@ export class BikeShriramProposalComponent implements OnInit {
         console.log(nonElectricSum,'electricSum...');
         console.log(this.electricalMaxValue,'electricalMaxValue...');
         if(nonElectricSum < this.electricalMaxValue){
-            this.getCover();
+
             this.nonElectricalSumAount=false;
             this.nonElectricalSumAount='';
         }else{
@@ -1107,9 +1108,21 @@ export class BikeShriramProposalComponent implements OnInit {
             this.paOwnerValue=false;
             this.vehical.controls['PAExclusion'].setValidators([Validators.required]);
 
-            this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
-            this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
-            this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
+            this.nomineeDetail.controls['nomineeName'].patchValue('');
+            this.nomineeDetail.controls['nomineeAge'].patchValue('');
+            this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
+            this.nomineeDetail.controls['appointeeName'].patchValue('');
+            this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
+            sessionStorage.nomineeFormData='';
+            console.log(sessionStorage.nomineeFormData);
+
+            this.nomineeDetail.controls['nomineeName'].setValidators(null);
+            this.nomineeDetail.controls['nomineeAge'].setValidators(null);
+            this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
+            this.nomineeDetail.controls['appointeeName'].setValidators(null);
+            this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
+
+
 
         }else if(this.vehical.controls['isPAExclusion'].value==false){
 
@@ -1117,17 +1130,9 @@ export class BikeShriramProposalComponent implements OnInit {
             this.vehical.controls['PAExclusion'].setValidators(null);
             this.vehical.controls['PAExclusion'].patchValue('');
 
-            this.nomineeDetail.controls['nomineeName'].patchValue('');
-            this.nomineeDetail.controls['nomineeAge'].patchValue('');
-            this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
-            this.nomineeDetail.controls['appointeeName'].patchValue('');
-            this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
-
-            this.nomineeDetail.controls['nomineeName'].setValidators(null);
-            this.nomineeDetail.controls['nomineeAge'].setValidators(null);
-            this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
-            this.nomineeDetail.controls['appointeeName'].setValidators(null);
-            this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
+            this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
+            this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
+            this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
 
         }
         this.vehical.controls['PAExclusion'].updateValueAndValidity();
@@ -1242,6 +1247,8 @@ export class BikeShriramProposalComponent implements OnInit {
                   this.topScroll();
 
 
+              }else{
+                  this.toastr.error('Please Fill the Mandatory Fields')
               }
           }
 
@@ -1455,6 +1462,11 @@ export class BikeShriramProposalComponent implements OnInit {
           }
 
   }
+
+    vlountaryName(){
+        this.vehical.controls['voluntaryExcessName'].patchValue(this.voluntaryList[this.vehical.controls['voluntaryExcess'].value]);
+
+    }
   // VALIDATION
           numberValidate(event: any) {
             this.validation.numberValidate(event);
@@ -1598,6 +1610,7 @@ export class BikeShriramProposalComponent implements OnInit {
                 "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : ''
             },
         }
+        this.settings.loadingSpinner = true;
         this.bikeInsurance.getCoverPremium(data).subscribe(
             (successData) => {
                 this.coverSuccess(successData);
@@ -1608,6 +1621,7 @@ export class BikeShriramProposalComponent implements OnInit {
         );
     }
     public coverSuccess(successData){
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.coverPremium = successData.ResponseObject.cover;
             this.electrical_cover=this.coverPremium.electrical_cover;
@@ -2027,6 +2041,7 @@ export class BikeShriramProposalComponent implements OnInit {
         paforUnnamed: stepper2.paforUnnamed,
         paforUnnamedSI: stepper2.paforUnnamedSI,
           voluntaryExcess:stepper2.voluntaryExcess,
+          voluntaryExcessName:stepper2.voluntaryExcessName,
         hypothecationAddress1:stepper2.hypothecationAddress1,
         hypothecationAddress2: stepper2.hypothecationAddress2,
         hypothecationAddress3:stepper2.hypothecationAddress3,

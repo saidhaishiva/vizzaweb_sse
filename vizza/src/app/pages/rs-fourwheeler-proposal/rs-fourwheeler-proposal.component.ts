@@ -164,6 +164,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public invoiceDatess: any;
   public taxDatess: any;
   public nilDepValue: any;
+  public vehicleType: any;
   public taxValue: any;
   public errorOTP: boolean;
 
@@ -365,6 +366,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(this.vehicledetailsfw, ' details');
     this.idv=this.buyProduct.Idv;
     console.log(this.idv,'idv......');
+    this.vehicleType=this.carListDetails.type;
+    console.log(this.vehicleType,'45678');
 
     this.vehical.controls['IDV'].patchValue('0');
     this.previousClaim=this.enquiryList.previous_claim_YN;

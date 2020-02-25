@@ -280,7 +280,7 @@
                                                     <!--</div>-->
                                                 </div>
                                             </div>
-                                            <div class="col-md-12 mt-2" style="margin-left:-14px;">
+                                            <div class="col-md-12 mt-2" style="margin-left:-14px;" *ngIf="vehicleType=='other'" >
                                                 <div class="row">
                                                     <div class="col-md-4"  >
                                                         <p>Is Car Ownership Changed(in past 12 months)</p>
@@ -338,7 +338,7 @@
                                             <!--</mat-slider>-->
                                             <!--<i style="font-size:14px" class="fa fa-inr">&#xf156;</i>{{vehical.controls.IDV.value}}-->
                                         <!--</div>-->
-                                        <div class="row" >
+                                        <div class="row"  *ngIf="vehicleType=='other'" >
                                         <div class="col-md-4" >
                                             <mat-form-field class="w-100">
                                                 <!--<mat-placeholder>IDV Range<span class="error" >*</span></mat-placeholder>-->
@@ -826,7 +826,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" (keypress)="nameValidate($event)"  minlength="3"  autocomplete="off" required>
+                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" (keypress)="idValidate($event)"  minlength="3"  autocomplete="off" required>
                                                     <mat-error *ngIf="previousInsure.controls.policyNumber.errors?.required">Previous Policy No is required</mat-error>
 
                                                 </mat-form-field>
