@@ -10,6 +10,7 @@ import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import { ClearSessionFourwheelerService } from '../../shared/services/clear-session-fourwheeler.service';
 import { MatDialog } from '@angular/material';
 import { ViewdetailscomponentComponent} from './viewdetailscomponent/viewdetailscomponent.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-four-wheeler-product-list',
@@ -36,8 +37,12 @@ export class FourWheelerProductListComponent implements OnInit {
   vehicledetailsfw: any;
   carListDetails: any;
   initialProductListfw: any;
+  relincelist: any;
+  Comprehensive_premium: any;
+  ThridParty_premium: any;
+  forwh: any;
 
-  constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public fwService: FourWheelerService, public config: ConfigurationService, public clearsession: ClearSessionFourwheelerService, public dialog: MatDialog) {
+  constructor(public auth: AuthService, public datepipe: DatePipe,private toastr: ToastrService, public appSettings: AppSettings, public router: Router, public fwService: FourWheelerService, public config: ConfigurationService, public clearsession: ClearSessionFourwheelerService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
@@ -65,6 +70,7 @@ export class FourWheelerProductListComponent implements OnInit {
 
   ngOnInit() {
     this.getCompanyList();
+    this.getProductList1();
     this.fwEnquiryId = sessionStorage.fwEnquiryId;
     this.sessionData();
 
@@ -189,9 +195,59 @@ export class FourWheelerProductListComponent implements OnInit {
       sessionStorage.initialProductListfw = JSON.stringify(this.initialProductListfw);
 
     }
+    else{
+      this.toastr.error(successData.ErrorObject);
+    }
   }
 
   public getProductListFailure(error) {
+    this.settings.loadingSpinner = false;
+    console.log(error, 'error');
+  }
+
+
+
+ public getProductList1() {
+
+    const data = {
+      'platform': 'web',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'enquiry_id': this.fwEnquiryId,
+      'company_id': '3',
+      "policy_type":this.compherhensive
+
+    };
+    this.settings.loadingSpinner = true;
+    this.fwService.getPremieumList1(data).subscribe(
+        (successData) => {
+          this.getProductList1Success(successData);
+        },
+        (error) => {
+          this.getProductList1Failure(error);
+        }
+    );
+  }
+
+  public getProductList1Success(successData) {
+    this.settings.loadingSpinner = false;
+    if (successData) {
+
+
+      this.relincelist = successData.ResponseObject;
+      this.Comprehensive_premium = this.relincelist.productlist[0].Comprehensive_premium;
+      this.ThridParty_premium = this.relincelist.productlist[0].ThridParty_premium;
+      console.log(this.Comprehensive_premium, 'Comprehensive_premium');
+      console.log(this.ThridParty_premium, 'ThridParty_premium');
+      console.log(successData, 'successData');
+    }else{
+      this.toastr.error(successData.ErrorObject);
+    }
+
+  }
+
+  public getProductList1Failure(error) {
     this.settings.loadingSpinner = false;
     console.log(error, 'error');
   }

@@ -788,7 +788,7 @@
                               </div>
                               <div *ngIf="subLiss.feild == 'TEXT'">
                                 <mat-form-field class="w-50">
-                                  <input matInput placeholder="{{subLiss.qus_des}}" (keypress)="nameValidate($event)" [(ngModel)]="subLiss.subQuestionText" autocomplete="off" required >
+                                  <input matInput placeholder="{{subLiss.qus_des}}"  [(ngModel)]="subLiss.subQuestionText" autocomplete="off" required >
                                 </mat-form-field>
                               </div>
                               <div *ngIf="subLiss.feild == 'NUMBER'">
