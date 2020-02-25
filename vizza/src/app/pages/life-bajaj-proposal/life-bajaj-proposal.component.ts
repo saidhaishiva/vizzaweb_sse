@@ -29,6 +29,8 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MM YYYY',
   },
 };
+declare var require: any
+const FileSaver = require('file-saver');
 
 @Component({
   selector: 'app-life-bajaj-proposal',
@@ -598,6 +600,24 @@ export class LifeBajajProposalComponent implements OnInit {
 
     public customerListFailure(error) {
     }
+    // downloadPdf() {
+    //     const pdfUrl = this.biURL;
+    //     const pdfName = 'your_pdf_file';
+    //     FileSaver.saveAs(pdfUrl, pdfName);
+    // }
+    downloadPdf() {
+       // alert(this.biURL,'gfhf');
+        const pdfUrl = this.webhost +'/'+ this.biURL;
+        const pdfName = 'BI Form';
+        FileSaver.saveAs(pdfUrl, pdfName);
+    }
+
+    downloadPdf1() {
+       // alert(this.biURL,'gfhf');
+        const pdfUrl = this.webhost +'/'+ this.proposalFormPdf;
+        const pdfName = 'Proposal Form';
+        FileSaver.saveAs(pdfUrl, pdfName);
+    }
     saveImageAs2() {
         this.window.open(this.biURL, '_blank');
     }
@@ -669,6 +689,12 @@ export class LifeBajajProposalComponent implements OnInit {
         this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.updateValueAndValidity();
     }
   }
+
+    // downloadPdf(pdfUrl: string, pdfName: string ) {
+    //     //const pdfUrl = './assets/sample.pdf';
+    //     //const pdfName = 'your_pdf_file';
+    //     FileSaver.saveAs(pdfUrl, pdfName);
+    // }
 
 
   sameAddress(evnt) {

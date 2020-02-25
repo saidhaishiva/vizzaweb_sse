@@ -34,7 +34,7 @@
               <th class="sun-insured col-md-2">
                 <mat-form-field >
                   <mat-placeholder class="myclass font-weight-bold">Premium type ($)</mat-placeholder>
-                  <mat-select [(ngModel)]="compherhensive" (selectionChange)="premiumlist();getProductList1()" >
+                  <mat-select [(ngModel)]="compherhensive" (selectionChange)="premiumlist()" >
                     <mat-option value="Comprehensive_premium">Comprehensive Premium</mat-option>
                     <mat-option value="ThridParty_premium" *ngIf="carListDetails.business_type != '1'">ThridParty Premium</mat-option>
                   </mat-select>
@@ -44,7 +44,7 @@
               <th class="sun-insured col-md-2">
                 <mat-form-field >
                   <mat-placeholder class="myclass font-weight-bold">Policy Term</mat-placeholder>
-                  <mat-select [(ngModel)]="policyTerm" (selectionChange)="premiumlist();getProductList1()">
+                  <mat-select [(ngModel)]="policyTerm" (selectionChange)="premiumlist()">
                     <mat-option value="1">One Year</mat-option>
                     <mat-option value="2">Two Year</mat-option>
                     <mat-option value="3">Three Year</mat-option>
@@ -95,11 +95,11 @@
                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
               </td>
-              <td class="col-md-2" *ngIf="plists.company_id == '3'">
-                <p class="text-center change-p mt-2" ><strong>&#8377; <span  *ngIf="compherhensive == 'Comprehensive_premium'">{{Comprehensive_premium}}</span> <span  *ngIf="compherhensive == 'ThridParty_premium'">{{ThridParty_premium}}</span>  / Yr</strong></p>
-                <p class="text-center change-p">(Incl.GST)</p>
-              </td>
-              <td class="col-md-2" *ngIf="plists.company_id != '3'">
+<!--              <td class="col-md-2" *ngIf="plists.company_id == '3'">-->
+<!--                <p class="text-center change-p mt-2" ><strong>&#8377; <span  *ngIf="compherhensive == 'Comprehensive_premium'">{{Comprehensive_premium}}</span> <span  *ngIf="compherhensive == 'ThridParty_premium'">{{ThridParty_premium}}</span>  / Yr</strong></p>-->
+<!--                <p class="text-center change-p">(Incl.GST)</p>-->
+<!--              </td>-->
+              <td class="col-md-2" >
                 <p class="text-center change-p mt-2" ><strong>&#8377; <span  *ngIf="compherhensive == 'Comprehensive_premium'">{{plists.Comprehensive_premium}}</span> <span  *ngIf="compherhensive == 'ThridParty_premium'">{{plists.ThridParty_premium}}</span>  / Yr</strong></p>
                 <p class="text-center change-p">(Incl.GST)</p>
               </td>

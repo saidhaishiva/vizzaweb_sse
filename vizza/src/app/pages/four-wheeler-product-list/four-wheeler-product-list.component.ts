@@ -70,7 +70,7 @@ export class FourWheelerProductListComponent implements OnInit {
 
   ngOnInit() {
     this.getCompanyList();
-    this.getProductList1();
+    // this.getProductList1();
     this.fwEnquiryId = sessionStorage.fwEnquiryId;
     this.sessionData();
 
@@ -207,50 +207,50 @@ export class FourWheelerProductListComponent implements OnInit {
 
 
 
- public getProductList1() {
-
-    const data = {
-      'platform': 'web',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'enquiry_id': this.fwEnquiryId,
-      'company_id': '3',
-      "policy_type":this.compherhensive
-
-    };
-    this.settings.loadingSpinner = true;
-    this.fwService.getPremieumList1(data).subscribe(
-        (successData) => {
-          this.getProductList1Success(successData);
-        },
-        (error) => {
-          this.getProductList1Failure(error);
-        }
-    );
-  }
-
-  public getProductList1Success(successData) {
-    this.settings.loadingSpinner = false;
-    if (successData) {
-
-
-      this.relincelist = successData.ResponseObject;
-      this.Comprehensive_premium = this.relincelist.productlist[0].Comprehensive_premium;
-      this.ThridParty_premium = this.relincelist.productlist[0].ThridParty_premium;
-      console.log(this.Comprehensive_premium, 'Comprehensive_premium');
-      console.log(this.ThridParty_premium, 'ThridParty_premium');
-      console.log(successData, 'successData');
-    }else{
-      this.toastr.error(successData.ErrorObject);
-    }
-
-  }
-
-  public getProductList1Failure(error) {
-    this.settings.loadingSpinner = false;
-    console.log(error, 'error');
-  }
+ // public getProductList1() {
+ //
+ //    const data = {
+ //      'platform': 'web',
+ //      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+ //      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+ //      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+ //      'enquiry_id': this.fwEnquiryId,
+ //      'company_id': '3',
+ //      "policy_type":this.compherhensive
+ //
+ //    };
+ //    this.settings.loadingSpinner = true;
+ //    this.fwService.getPremieumList1(data).subscribe(
+ //        (successData) => {
+ //          this.getProductList1Success(successData);
+ //        },
+ //        (error) => {
+ //          this.getProductList1Failure(error);
+ //        }
+ //    );
+ //  }
+ //
+ //  public getProductList1Success(successData) {
+ //    this.settings.loadingSpinner = false;
+ //    if (successData) {
+ //
+ //
+ //      this.relincelist = successData.ResponseObject;
+ //      this.Comprehensive_premium = this.relincelist.productlist[0].Comprehensive_premium;
+ //      this.ThridParty_premium = this.relincelist.productlist[0].ThridParty_premium;
+ //      console.log(this.Comprehensive_premium, 'Comprehensive_premium');
+ //      console.log(this.ThridParty_premium, 'ThridParty_premium');
+ //      console.log(successData, 'successData');
+ //    }else{
+ //      this.toastr.error(successData.ErrorObject);
+ //    }
+ //
+ //  }
+ //
+ //  public getProductList1Failure(error) {
+ //    this.settings.loadingSpinner = false;
+ //    console.log(error, 'error');
+ //  }
 
   ageCalculate(dob) {
     let today = new Date();
