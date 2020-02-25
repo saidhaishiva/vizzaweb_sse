@@ -133,8 +133,9 @@
               </mat-expansion-panel-header>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
-                  <p style="margin-left: 17px">To Download BI Form<button mat-raised-button color="primary" *ngIf="biURL !=''" style="margin-left: 13px;background-color: #3378BD" (click)="saveImageAs2()">Click Here</button></p>
-                  <pdf-viewer src="{{biURL}}"
+                  <p style="margin-left: 17px">To Download BI Form<button mat-raised-button color="primary" *ngIf="biURL !=''" style="margin-left: 13px;background-color: #3378BD" (click)="downloadPdf()">
+                    Click Here</button></p>
+                  <pdf-viewer src="{{webhost+'/'+biURL}}"
                               [render-text]="true"
                               style="display: block;"
 
@@ -788,7 +789,7 @@
                               </div>
                               <div *ngIf="subLiss.feild == 'TEXT'">
                                 <mat-form-field class="w-50">
-                                  <input matInput placeholder="{{subLiss.qus_des}}" (keypress)="nameValidate($event)" [(ngModel)]="subLiss.subQuestionText" autocomplete="off" required >
+                                  <input matInput placeholder="{{subLiss.qus_des}}"  [(ngModel)]="subLiss.subQuestionText" autocomplete="off" required >
                                 </mat-form-field>
                               </div>
                               <div *ngIf="subLiss.feild == 'NUMBER'">
@@ -1578,10 +1579,9 @@
               </mat-expansion-panel-header>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
-                  <p style="margin-left: 17px">To Download Proposal Form<button mat-raised-button color="primary" *ngIf="proposalFormPdf !=''" style="margin-left: 13px;background-color: #3378BD" (click)="saveImageA()">Click Here</button></p>
+                  <p style="margin-left: 17px">To Download Proposal Form<button mat-raised-button color="primary" *ngIf="proposalFormPdf !=''" style="margin-left: 13px;background-color: #3378BD" (click)="downloadPdf1()">Click Here</button></p>
 
-
-                  <pdf-viewer src="{{proposalFormPdf}}"
+                  <pdf-viewer src="{{webhost+'/'+proposalFormPdf}}"
                               [render-text]="true"
                               style="display: block;"
 
