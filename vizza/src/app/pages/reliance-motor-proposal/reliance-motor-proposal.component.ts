@@ -1213,7 +1213,6 @@ export class RelianceMotorProposalComponent implements OnInit {
         }else{
             console.log(this.addonValue,'erthjklvcbnn');
             if(this.addonValue==true){
-              alert('stepper');
           stepper.next();
           this.topScroll();
             }
@@ -1244,7 +1243,6 @@ export class RelianceMotorProposalComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     console.log(result,'result....')
       if(result==true) {
-        alert('inn');
        this.addonValue=true;
        this.nextTab(stepper,this.coverDetails.value,'stepper3')
        // this.proposalFormPdf = (this.webhost + '/' + this.proposalNextList.path);
