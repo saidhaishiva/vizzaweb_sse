@@ -134,6 +134,7 @@ export class HdfcCarProposalComponent implements OnInit {
     public lesserDate: any;
     public nilDepValue: any;
     public rtiValue: any;
+    public IsRTIcoverr: any;
     public rtidate: any;
     public typeOFPolicy: any;
     photos = [];
@@ -179,7 +180,7 @@ export class HdfcCarProposalComponent implements OnInit {
       const lateDate = today.getFullYear() - 5;
       this.lesserDate = new Date(lateDate, today.getMonth(), today.getDate());
       const rtiDate = today.getFullYear() - 3;
-      this.rtidate = new Date(lateDate, today.getMonth(), today.getDate());
+      this.rtidate = new Date(rtiDate, today.getMonth(), today.getDate());
       this.tod=this.datepipe.transform(this.todaydate,'dd/MM/y');
       String ;this.tod = this.tod.substring(0, 10);
       this.sameasper = false;
@@ -191,6 +192,7 @@ export class HdfcCarProposalComponent implements OnInit {
       this.electricNonValid = false;
       this.nilDepValue = false;
       this.rtiValue = false;
+      this.IsRTIcoverr = false;
 
 
       this.proposer = this.fb.group({
@@ -280,6 +282,8 @@ export class HdfcCarProposalComponent implements OnInit {
           IsPaidDriver: [''],
           zerodept: [''],
           zerodeptPremium: [''],
+          handicapp: [''],
+          antitheft: [''],
           zeropremium: [''],
           ElecticalAccessoryIDV: [''],
           NonElecticalAccessoryIDV: [''],
@@ -397,6 +401,7 @@ export class HdfcCarProposalComponent implements OnInit {
       this.altererror='';
 
       this.nilDepDateValidation();
+      this.returntoinvoice();
 
   }
 
@@ -419,6 +424,7 @@ export class HdfcCarProposalComponent implements OnInit {
         }else{
             this.rtiValue=false;
         }
+
         console.log(this.rtiValue,'rtiValue....')
     }
   electricalhalfvalue() {
@@ -429,7 +435,20 @@ export class HdfcCarProposalComponent implements OnInit {
       console.log(this.equalvalid, 'this.equalvalid')
       // alert(this.equalvalid)
   }
-   compulsorypersonalvalue() {
+    returntoinvoice()
+    {
+        let valuerti=this.datepipe.transform(this.rtidate, 'y-MM-dd')
+
+        if(valuerti<this.vehicleTypedata.registration_date ){
+            this.IsRTIcoverr=true;
+        }
+        else{
+            this.IsRTIcoverr=false;
+
+        }
+            }
+
+    compulsorypersonalvalue() {
         this.addOns.controls['compul'].patchValue(this.Complusory_OwnerDriver_Premium);
         // this.getCover()
     }
@@ -625,6 +644,7 @@ export class HdfcCarProposalComponent implements OnInit {
 
         }
     }
+
 
     // addEvent(event, type) {
     //     if (event.value != null) {
@@ -1736,6 +1756,8 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
                 IsPaidDriver: this.getstepper3.IsPaidDriver,
                 zerodept: this.getstepper3.zerodept,
                 zerodeptPremium: this.getstepper3.zerodeptPremium,
+                antitheft: this.getstepper3.antitheft,
+                handicapp: this.getstepper3.handicapp,
                 ElecticalAccessoryIDV: this.getstepper3.ElecticalAccessoryIDV,
                 NonElecticalAccessoryIDV: this.getstepper3.NonElecticalAccessoryIDV,
                 IsLimitedtoOwnPremises: this.getstepper3.IsLimitedtoOwnPremises,
@@ -2086,6 +2108,8 @@ console.log(this.vechicle.controls['financiercodevalue'].value,'122345567777765'
                 "IsEA_Cover": this.addOns.controls['IsEAAdvance_Cover'].value == true ? '1' : '0',
                 "IsEAW_Cover": this.addOns.controls['EAW'].value == true ? '1' : '0',
                 "IsEAAdvance_Cover": '0',
+                "AntiTheftDiscFlag":this.addOns.controls['antitheft'].value ,
+                "HandicapDiscFlag":this.addOns.controls['handicapp'].value,
 
                 "NoofUnnamedPerson": this.addOns.controls['NoofUnnamedPerson'].value == true ? '1' : '0',
                 "UnnamedPersonSI": this.addOns.controls['UnnamedPersonSI'].value,
