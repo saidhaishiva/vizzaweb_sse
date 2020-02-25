@@ -5386,6 +5386,19 @@
                                             <li class="list-group-item" *ngIf="insuredFormData.motherMaidName != ''"><strong>Mother Name :</strong> {{insuredFormData.motherMaidName}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.ageProofId != ''"><strong>Age Proof Id :</strong> {{insuredFormData.ageProofIdName }}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.highestQualification != ''"><strong>Highest Qualification :</strong> {{insuredFormData.highestQualificationName}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.lastcollegeorschool != ''"><strong>Name of Last College/School & Location:</strong> {{insuredFormData.lastcollegeorschool}}</li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.highesteducationorprof != ''"><strong>Highest Educational/Professional Qualification:</strong> {{insuredFormData.highesteducationorprof}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.coursebeingpur != ''"><strong>Course being pursued:</strong> {{insuredFormData.coursebeingpur}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.durationofcourse != ''"><strong>Duration of the Course:</strong> {{insuredFormData.durationofcourse}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.yearsemstandard != ''"><strong>Year/Semester/Standard:</strong> {{insuredFormData.yearsemstandard}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.otherQualification != ''"><strong>Other Qualification :</strong> {{insuredFormData.otherQualification}}</li>
                                         </ul>
                                     </div>
@@ -5588,13 +5601,27 @@
                                             <li class="list-group-item" *ngIf="insuredFormData.smotherMaidName != ''"><strong>Mother Name :</strong> {{insuredFormData.smotherMaidName}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.sageProofId != ''"><strong>Age Proof Id :</strong> {{insuredFormData.sageProofIdName }}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.shighestQualification != ''"><strong>Highest Qualification :</strong> {{insuredFormData.shighestQualificationName}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.sotherQualification != ''"><strong>Other Qualification :</strong> {{insuredFormData.sotherQualification}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.slastcollegeorschool != ''"><strong>Name of Last College/School & Location:</strong> {{insuredFormData.slastcollegeorschool}}</li>
 
 
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-md-6" *ngIf="addonFormData.betterHalfBenefit=='Yes'">
+                                <div class="col-md-6"*ngIf="insuredFormData.maritalStatus == 'M' && addonFormData.betterHalfBenefit=='Yes'">
+                                    <div class="p-3">
+                                        <h6 class="color-blue" *ngIf="insuredFormData.maritalStatus == 'M'"></h6>
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="insuredFormData.shighesteducationorprof != ''"><strong>Highest Educational/Professional Qualification:</strong> {{insuredFormData.shighesteducationorprof}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.scoursebeingpur != ''"><strong>Course being pursued:</strong> {{insuredFormData.scoursebeingpur}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.sdurationofcourse != ''"><strong>Duration of the Course:</strong> {{insuredFormData.sdurationofcourse}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.syearsemstandard != ''"><strong>Year/Semester/Standard:</strong> {{insuredFormData.syearsemstandard}}</li>
+
+                                            <li class="list-group-item" *ngIf="insuredFormData.sotherQualification != ''"><strong>Other Qualification :</strong> {{insuredFormData.sotherQualification}}</li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                            <div class="col-md-6" *ngIf="addonFormData.betterHalfBenefit=='Yes'">
                                     <div class="p-3">
                                         <h6 class="color-blue">PERMANENT ADDRESS</h6>
                                         <ul class="m-0 list-group">

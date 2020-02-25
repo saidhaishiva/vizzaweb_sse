@@ -7757,6 +7757,7 @@ console.log(this.kycProofName,'kycProofName')
         "isPerAddrIsCorrAddr":"",
         "education":"",
         "otherEducation":"",
+        "highestEducation":this.insureArray.controls['shighesteducationorprof'].value,
         "highestQualification":this.insureArray.controls['shighestQualification'].value,
         "otherQualification":this.insureArray.controls['sotherQualification'].value,
         "collegeNameLoc":this.insureArray.controls['slastcollegeorschool'].value,
