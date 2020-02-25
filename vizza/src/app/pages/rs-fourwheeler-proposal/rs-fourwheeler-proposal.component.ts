@@ -166,6 +166,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public nilDepValue: any;
   public vehicleType: any;
   public taxValue: any;
+  public packagePolicyYear: any;
+  public packageListFw: any;
   public errorOTP: boolean;
 
 
@@ -358,6 +360,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.enquiryList = JSON.parse(sessionStorage.enquiryFormDatafw);
     this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
     this.carListDetails = JSON.parse(sessionStorage.carListDetails);
+    this.packageListFw = (sessionStorage.packageListFw);
+    this.packagePolicyYear = (sessionStorage.packagePolicyYear);
+
     console.log(this.carListDetails,'this.carListDetails56789');
     this.calculation();
     this.calculation1();
@@ -586,6 +591,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "towingChargesCover": this.vehical.controls['towingCharge'].value ,
           "towingChargesCover_SI": this.vehical.controls['towingChargeSI'].value,
           "legalliabilitytoemployees": this.vehical.controls['toEmployee'].value ? 'Yes' : 'No',
+          "type_of_cover":this.packageListFw,
+          "policyTerm":this.packagePolicyYear,
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
@@ -1912,6 +1919,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ,
           "drivingExperience": this.vehical.controls['drivingExperience'].value,
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
+          "type_of_cover":this.packageListFw,
+          "policyTerm":this.packagePolicyYear,
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
@@ -2207,6 +2216,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ,
           "drivingExperience": this.vehical.controls['drivingExperience'].value,
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
+          "type_of_cover":this.packageListFw,
+          "policyTerm":this.packagePolicyYear,
           "towingChargesCover": this.vehical.controls['towingCharge'].value ,
           "towingChargesCover_SI": this.vehical.controls['towingChargeSI'].value,
           "original_idv":this.idv,
@@ -2398,6 +2409,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "valueOfLossOfBaggage":this.vehical.controls['valueOfLossOfBaggage'].value,
           "isBiFuelKitYes":this.vehical.controls['isBiFuelKitYes'].value,
           "legalliabilityToPaidDriver":this.vehical.controls['legalliabilityToPaidDriver'].value ,
+          "type_of_cover":this.packageListFw,
+          "policyTerm":this.packagePolicyYear,
           "lossOfBaggage":this.vehical.controls['lossOfBaggage'].value ,
           "original_idv":this.idv,
           "modify_your_idv":this.vehical.controls['coverelectricalaccesss'].value,
