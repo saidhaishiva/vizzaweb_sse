@@ -137,6 +137,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public paOwnerValue:any;
   public titleId:any;
   public PAExclusionList: any;
+  public bifuelType: any;
+  public bifuelCover: any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -171,6 +173,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.nonElectricalSumAount=false
     this.pASumAount=false
     this.paOwnerValue=false;
+    this.bifuelCover=false;
     this.settings = this.appSettings.settings;
     this.webhost = this.configs.getimgUrl();
 
@@ -331,6 +334,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.get_PA_exclusion_list();
     this.vehical.controls['isPAExclusion'].patchValue(false);
     this.PAExclusion()
+    this.changeBifuelDrop()
 
     this.sessionData();
 
@@ -350,12 +354,12 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     let electricSum=event.target.value;
     console.log(electricSum,'electricSum...');
     console.log(this.electricalMaxValue,'electricalMaxValue...');
-    if(electricSum < this.electricalMaxValue){
+    if((electricSum > 300) && (electricSum < this.electricalMaxValue)){
       this.electricalSumAount=false;
       this.electricalSumAount='';
     }else{
       this.electricalSumAount=true;
-      this.electricalSumAount = 'Electrical Accessories Sum Insured Should be lesser than';
+      this.electricalSumAount = 'Electrical Accessories Sum Insured Should be greater than 300 and lesser than';
     }
 
   }
@@ -363,12 +367,12 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     let nonElectricSum=event.target.value;
     console.log(nonElectricSum,'electricSum...');
     console.log(this.electricalMaxValue,'electricalMaxValue...');
-    if(nonElectricSum < this.electricalMaxValue){
+    if((nonElectricSum> 300) && (nonElectricSum < this.electricalMaxValue)){
       this.nonElectricalSumAount=false;
       this.nonElectricalSumAount='';
     }else{
       this.nonElectricalSumAount=true;
-      this.nonElectricalSumAount = 'Non Electrical Accessories Sum Insured Should be lesser than';
+      this.nonElectricalSumAount = 'Non Electrical Accessories Sum Insured Should be greater than 300 and lesser than';
     }
 
   }
@@ -387,6 +391,40 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.nilDepValue=false;
     }
     console.log(this.nilDepValue,'nilDepValue....')
+  }
+
+  changeBifuelDrop() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "enquiry_id": this.bikeEnquiryId,
+    };
+    this.fwService.fourWheelerRelianceGetBifuelList(data).subscribe(
+        (successData) => {
+          this.Bifuelsucccess(successData);
+        },
+        (error) => {
+          this.BifuelfailureSuccess(error);
+        }
+    );
+  }
+  public Bifuelsucccess(successData){
+    this.bifuelType = successData.ResponseObject.fuel_type;
+    console.log(this.bifuelType,'this.bifuelType...');
+    this.dropdownFuelType();
+  }
+  public BifuelfailureSuccess(error) {
+  }
+  dropdownFuelType(){
+    if(this.bifuelType == '3'){
+      // this.coverDetails['controls'].fuelType.patchValue('5');
+      this.bifuelCover=true;
+    }else{
+      this.bifuelCover=false;
+      this.vehical.controls['CNGKit'].patchValue(false);
+      this.updateCNGKit();
+    }
   }
   // changeCalcPA(event:any){
   //   let nonPASum=event.target.value;

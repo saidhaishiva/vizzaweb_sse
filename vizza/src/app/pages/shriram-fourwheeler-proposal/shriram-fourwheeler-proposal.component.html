@@ -219,9 +219,16 @@
                                                 </mat-form-field>
                                             </div>
                                         </div>
+                                        <div class="row" *ngIf="policyTypeDetails">
+                                            <div class="col-md-6">
+                                                <mat-checkbox  formControlName="lltoPaidDriver">Legal Liability</mat-checkbox>
+                                            </div>
+                                        </div>
                                         <div class="row"  *ngIf="!policyTypeDetails">
-                                            <div class="col-md-6 ml-3">
+                                            <div class="col-md-4 ml-3">
                                                 <mat-checkbox  formControlName="antiTheft" (change)="updateAntiTheft()">Anti Theft</mat-checkbox>
+                                            </div>
+                                            <div class="col-md-4 mt-0">
                                             </div>
                                             <div class="col-md-4 mt-0" *ngIf="vehical.controls.antiTheft.value == true">
                                                 <mat-form-field class="w-100">
@@ -229,11 +236,7 @@
                                                 </mat-form-field>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="policyTypeDetails">
-                                            <div class="col-md-6">
-                                                <mat-checkbox  formControlName="lltoPaidDriver">Legal Liability</mat-checkbox>
-                                            </div>
-                                        </div>
+
 
                                         <div class="col-md-12 mt-2" *ngIf="!policyTypeDetails">
                                             <div class="row">
@@ -296,7 +299,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 mt-2" >
+                                        <div class="col-md-12 mt-2" *ngIf="bifuelCover==true" >
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <mat-checkbox  formControlName="CNGKit" (change)="updateCNGKit()">CNG Kit</mat-checkbox>
@@ -321,18 +324,7 @@
                                             <!--&lt;!&ndash;</div>&ndash;&gt;-->
                                         <!--</div>-->
 
-                                        <div class="col-md-12 mt-2" >
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <mat-checkbox  formControlName="paPaidDriver" (change)="updatePAPaidDriver()">PA Paid Driver Conductor Cleaner</mat-checkbox>
-                                                </div>
-                                                <div class="col-md-3" *ngIf="vehical.controls.paPaidDriver.value ==true">
-                                                    <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Sum Insured"  formControlName="paPaidDriverSI"  autocomplete="off"  [required]="vehical.controls.paPaidDriver.value==true" >
-                                                    </mat-form-field>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-12 mt-2" >
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -349,45 +341,59 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" >
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Voluntary Excess"  formControlName="voluntaryExcess"   (selectionChange)="voluntaryExcess()"  >
-                                                        <mat-option *ngFor="let vehiclebk of voluntaryList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
-                                                    </mat-select>
-                                                    <!--<mat-error *ngIf="vehical.controls.voluntaryExcess.errors?.required">Voluntary Excess is required</mat-error>-->
-                                                </mat-form-field>
+
+                                        <div class="col-md-12 mt-2" >
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <mat-checkbox  formControlName="paPaidDriver" (change)="updatePAPaidDriver()">PA Paid Driver Conductor Cleaner</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-4" *ngIf="vehical.controls.paPaidDriver.value ==true">
+                                                    <mat-form-field class="w-100">
+                                                        <input matInput placeholder="Sum Insured"  formControlName="paPaidDriverSI"  autocomplete="off"  [required]="vehical.controls.paPaidDriver.value==true" >
+                                                    </mat-form-field>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="row" >
-
-                                        <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="PA Paid Driver Count"  formControlName="PAPaidDriverCount"  autocomplete="off"  >
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="PA Paid Conductor Count"  formControlName="PAPaidConductorCount"  autocomplete="off"   >
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="PA Paid Cleaner Count"  formControlName="PAPaidCleanerCount"  autocomplete="off"  >
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                        </div>
+                                            <div class="row" >
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="w-100">
+                                                        <mat-select placeholder="Voluntary Excess"  formControlName="voluntaryExcess"   (selectionChange)="voluntaryExcess()"  >
+                                                            <mat-option *ngFor="let vehiclebk of voluntaryList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
+                                                        </mat-select>
+                                                        <!--<mat-error *ngIf="vehical.controls.voluntaryExcess.errors?.required">Voluntary Excess is required</mat-error>-->
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
                                                 <mat-checkbox  formControlName="limitOwnPremise">Limit Own Premise</mat-checkbox>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-checkbox  formControlName="limitedTPPD">Limited TPPD</mat-checkbox>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-checkbox  formControlName="builtCNGKit">In Built CNGKit</mat-checkbox>
                                             </div>
 
-                                        </div>
+
 
 
 

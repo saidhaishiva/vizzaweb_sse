@@ -308,6 +308,7 @@ export class FourWheelerProductListComponent implements OnInit {
 
   premiumlist() {
     sessionStorage.packageListFw = this.compherhensive;
+    sessionStorage.packagePolicyYear=this.policyTerm;
     console.log(this.allProductLists, 'hgfdhj');
     if (this.carListDetails.business_type == '1') {
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '3');
