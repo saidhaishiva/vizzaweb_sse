@@ -806,7 +806,8 @@
             <section class="summary-details " *ngIf="payLaterr == true && submit== false&&(backLocation==null||backLocation==true)">
               <div class="box-card">
               <div class="row">
-                <div class="col-12 col-md-4" *ngIf=" animal=='' && getsum_insured_amount!=''">
+                <!--<div class="col-12 col-md-4" *ngIf=" animal=='' && getsum_insured_amount!=''">-->
+                <div class="col-12 col-md-4" *ngIf="paylaterEdit==false">
                   <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getsum_insured_amount}}</span><span><i class="fa fa-pencil"></i></span><span style="cursor: pointer !important;" (click)="openDialog()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
                 </div>
                 <div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==false">
@@ -819,7 +820,8 @@
                               <li></li>
                           </ul>
                       </div>
-                      <div class="col-12 col-md-4" *ngIf="paylaterEdit==true && animal!=''">
+                      <!--<div class="col-12 col-md-4" *ngIf="paylaterEdit==true && animal!=''">-->
+                      <div class="col-12 col-md-4" *ngIf="paylaterEdit==true">
                           <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{animal}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()" style="cursor: pointer !important;"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
                       </div>
                       <div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==true">
@@ -1407,8 +1409,8 @@
                       <li class="list-group-item" *ngIf="policyid1.aadhar !='' "><strong>Aadhar Number:</strong> {{policyid1.aadhar}}</li>
                       <li class="list-group-item" *ngIf="policyid1.pancard !='' "><strong>PAN Number:</strong> {{policyid1.pancard | uppercase}}</li>
                       <li class="list-group-item" *ngIf="policyid1.gst !='' "><strong>GST Number:</strong> {{policyid1.gst | uppercase}}</li>
-                      <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance !=''"><strong>Previous Medical Insurence:</strong> <span >Yes</span></li>
-                      <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance ==''"><strong>Previous Medical Insurence:</strong><span >No</span></li>
+                      <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance !='' || policyid1.previous_medical_insurance=='Yes'"><strong>Previous Medical Insurence:</strong> <span >Yes</span></li>
+                      <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance =='' || policyid1.previous_medical_insurance=='No'"><strong>Previous Medical Insurence:</strong><span >No</span></li>
                       <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance !='' "><strong>Previous Medical Insurence:</strong> {{policyid1.previous_medical_insurance}}</li>
                     </ul>
                   </div>
@@ -1620,7 +1622,7 @@
             <div class="row">
               <div class="col-12 text-center">
                 <button mat-button matStepperPrevious (click)="topScroll()"  *ngIf="payLaterr == false">Back</button>
-                <button mat-button (click)="topScroll();getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();backsubmit();openeditproposal()" *ngIf="submit==true ">Back</button>
+                <button mat-button (click)="topScroll();getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();backsubmit();" *ngIf="submit==true ">Back</button>
                 <button mat-button class="mat-primaryBlue mr-2" style="color: white" (click)="payLater()" *ngIf="payLaterr == false && pos_status == 3">Pay Later</button>
                 <button mat-raised-button color="primaryBlue" class="mr-2" *ngIf="(payLaterr == true && submit==false)|| backStep==true"  (click)="getPostal(this.pinCode, 'personal');getAreas1('personal', 'manual');getAreas1('residence', 'rmanual');changeCity1();changeArea1();changeresCity1();changeresArea1();topScroll();paylaterrproposal()">Submit</button>
 
@@ -2387,12 +2389,8 @@
                                                     <ul class="m-0 list-group">
                                                         <li class="list-group-item">
                                                             <strong>Relationship with insured:</strong>
-                                                            <span *ngIf="list.nrelationship !=''">
-{{list.nrelationship}}
-</span>
-                                                            <span *ngIf="list.nrelationship ==''">
-Nil
-</span>
+                                                            <span *ngIf="list.nrelationship !=''">{{list.nrelationship}}</span>
+                                                            <span *ngIf="list.nrelationship ==''">Nil</span>
                                                         </li>
                                                         <li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="list.nclaim == '' || list.nclaim == 0"> Nil</span> <span *ngIf="list.nclaim != ''">{{list.nclaim | limitTo : 3}}</span></li>
                                                     </ul>
