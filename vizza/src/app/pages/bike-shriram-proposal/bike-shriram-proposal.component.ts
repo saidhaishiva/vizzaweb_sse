@@ -2140,33 +2140,33 @@ export class BikeShriramProposalComponent implements OnInit {
     template: `
    
         <div class="container">
-
+            <h5>Addon Cover Premium</h5>
             <div class="row" *ngIf="this.electrical_cover!=''&&this.electrical_cover!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 38px;color: blue;"> Electrical Accessories :</span><span style="margin-left: 100px;">{{this.electrical_cover}} </span> </p>
+                    <p ><span style="margin-left: 35px;color: blue;"> Electrical Accessories :</span><span style="margin-left: 146px;">{{this.electrical_cover}} </span> </p>
                 </div>
             </div>
             <div class="row" *ngIf="this.electrical_cover!=''&&this.electrical_cover!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 38px;color: blue"> Non Electrical Accessories :</span><span style="margin-left: 100px;">{{this.electrical_cover}} </span></p>
+                    <p ><span style="margin-left: 35px;color: blue"> Non Electrical Accessories :</span><span style="margin-left: 117px;">{{this.electrical_cover}} </span></p>
                 </div>
             </div>
            
             <div class="row" *ngIf="this.pa_unnamed_passenger_cover!=''&&this.pa_unnamed_passenger_cover!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 38px;color: blue"> PA to Unnamed Passenger :</span><span style="margin-left: 100px;"> {{this.pa_unnamed_passenger_cover}}</span> </p>
+                    <p ><span style="margin-left: 35px;color: blue"> PA to Unnamed Passenger :</span><span style="margin-left: 114px;"> {{this.pa_unnamed_passenger_cover}}</span> </p>
                 </div>
             </div>
            
             <div class="row" *ngIf="this.Nil_depreciation_cover!=''&&this.Nil_depreciation_cover!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 38px;color: blue"> Nil Depreciation Cover(Bumper To Bumper) :</span><span >{{this.Nil_depreciation_cover}}</span>  </p>
+                    <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation Cover(Bumper To Bumper) :</span><span style="margin-left: 13px;">{{this.Nil_depreciation_cover}}</span>  </p>
                 </div>
             </div>
             
             <div class="row" *ngIf="this.anti_theft_cover!=''||this.anti_theft_cover!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 38px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 100px;">{{this.anti_theft_cover}}</span>  </p>
+                    <p ><span style="margin-left: 35px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 174px;">{{this.anti_theft_cover}}</span>  </p>
                 </div>
             </div>
                 
@@ -2203,7 +2203,7 @@ export class shriram2WCover {
         this.pa_owner_driver=sessionStorage.pa_owner_driver;
         console.log(this.pa_owner_driver,'sessionStorage.pa_owner_driver....');
 
-        this.Nil_depreciation_cover=sessionStorage.pa_owner_driver;
+        this.Nil_depreciation_cover=sessionStorage.Nil_depreciation_cover;
         console.log(this.Nil_depreciation_cover,'sessionStorage.Nil_depreciation_cover....');
 
         this.pa_unnamed_passenger_cover=sessionStorage.pa_unnamed_passenger_cover;
