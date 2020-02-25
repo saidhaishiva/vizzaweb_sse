@@ -242,7 +242,7 @@
                                                 </div>
                                                 <div class="col-md-4 " *ngIf="vehical.controls.electricalAccess.value == true">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Sum Insured"  formControlName="electricalAccessSI" (keypress)="numberValidate($event)" (input)="changeCalcElect($event);electricalSumInsure()"   autocomplete="off"  [required]="vehical.controls.electricalAccess.value == true" >
+                                                        <input matInput placeholder="Sum Insured"  formControlName="electricalAccessSI" (keypress)="numberValidate($event)" (input)="changeCalcElect($event);" (change)="electricalSumInsure()"  autocomplete="off"  [required]="vehical.controls.electricalAccess.value == true" >
                                                         <!--<mat-error *ngIf="coverDetails.controls.ElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
                                                     </mat-form-field>
                                                     <div class="error" *ngIf="electricalSumAount !='' && electricalSumAount != true">{{electricalSumAount}} {{electricalMaxValue}}</div>
@@ -263,7 +263,7 @@
                                                 </div>
                                                 <div class="col-md-4" *ngIf="vehical.controls.nonElectricalAccess.value == true">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Sum Insured"  formControlName="nonElectricalAccessSI"   autocomplete="off" (input)="changeCalcNonElect($event);electricalNonSumInsure()" (keypress)="numberValidate($event)"  [required]="vehical.controls.nonElectricalAccess.value == true"  >
+                                                        <input matInput placeholder="Sum Insured"  formControlName="nonElectricalAccessSI"   autocomplete="off" (input)="changeCalcNonElect($event);" (change)="electricalNonSumInsure()" (keypress)="numberValidate($event)"  [required]="vehical.controls.nonElectricalAccess.value == true"  >
                                                         <!--<mat-error *ngIf="coverDetails.controls.NonElectricalItemsTotalSI.errors?.required">Sum Insured is required</mat-error>-->
                                                     </mat-form-field>
                                                     <div class="error" *ngIf="nonElectricalSumAount !='' && nonElectricalSumAount != true">{{nonElectricalSumAount}} {{electricalMaxValue}}</div>
@@ -284,7 +284,7 @@
                                                 </div>
                                                 <div class="col-md-4" *ngIf="vehical.controls.paforUnnamed.value ==true">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Sum Insured"  formControlName="paforUnnamedSI"  autocomplete="off" (input)="unnamedPassengerSumInsure()" [required]="vehical.controls.paforUnnamed.value==true" >
+                                                        <input matInput placeholder="Sum Insured"  formControlName="paforUnnamedSI"  autocomplete="off" (change)="unnamedPassengerSumInsure()" [required]="vehical.controls.paforUnnamed.value==true" >
                                                     </mat-form-field>
                                                     <!--<div class="error" *ngIf="pASumAount !='' && pASumAount != true">{{pASumAount}} {{electricalMaxValue}}</div>-->
                                                 </div>
@@ -336,11 +336,12 @@
                                         <div class="col-md-12 mt-2" >
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <mat-checkbox (change)="PAExclusion()" formControlName="isPAExclusion">PA Owner Driver Exclusion</mat-checkbox>
+                                                    <mat-checkbox (change)="PAExclusion()" formControlName="isPAExclusion" >PA Owner Driver Exclusion</mat-checkbox>
                                                 </div>
                                                 <div class="col-md-4" *ngIf="this.vehical.controls['isPAExclusion'].value==true">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="PAExclusion"  formControlName="PAExclusion" (selectionChange)="get_PA_exclusion_list();paExcluseName()" >
+                                                        <mat-placeholder>PAExclusion<span class="error" >*</span></mat-placeholder>
+                                                        <mat-select  formControlName="PAExclusion" (selectionChange)="get_PA_exclusion_list();paExcluseName()" >
                                                             <mat-option *ngFor="let ExclusionList of PAExclusionList | keys" value="{{ExclusionList.key}}" > {{ExclusionList.value}} </mat-option>
                                                         </mat-select>
                                                         <!--<mat-error *ngIf="vehical.controls.voluntaryExcess.errors?.required">Voluntary Excess is required</mat-error>-->
@@ -705,7 +706,7 @@
                                                 <li class="list-group-item" *ngIf="vehicalFormData.nilDepreciationCover != ''&&nilDepValue==true"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
                                                 <li class="list-group-item" *ngIf="vehicalFormData.lltoPaidDriver != ''"><strong>LL Paid Driver:</strong> {{LL_paid_driver}}</li>
                                                 <li class="list-group-item" *ngIf=" vehicalFormData.isPAExclusion == false"><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
-                                                <li class="list-group-item" *ngIf="Ncb!='' || Ncb!=undefined"><strong>NCB:</strong> {{Ncb}}</li>
+                                                <li class="list-group-item" *ngIf=" Ncb!=undefined"><strong>NCB:</strong> {{Ncb}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -866,7 +867,7 @@
                         </section>
 
                         <section>
-                            <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+                            <h5 class="mt-3 sub-title"  *ngIf="nomineeFormData.nomineeName!=''||nomineeFormData.nomineeRelationship!=''">NOMINEE DETAILS </h5>
                             <div class="row box-card">
                                 <div class="col-md-6">
                                     <div class="p-3">

@@ -773,9 +773,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.paOwnerValue=false;
       this.vehical.controls['PAExclusion'].setValidators([Validators.required]);
 
-      this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
-      this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
-      this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['nomineeName'].patchValue('');
+      this.nomineeDetail.controls['nomineeAge'].patchValue('');
+      this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
+      this.nomineeDetail.controls['appointeeName'].patchValue('');
+      this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
+      sessionStorage.nomineeFormData='';
+
+      this.nomineeDetail.controls['nomineeName'].setValidators(null);
+      this.nomineeDetail.controls['nomineeAge'].setValidators(null);
+      this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
+      this.nomineeDetail.controls['appointeeName'].setValidators(null);
+      this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
 
     }else if(this.vehical.controls['isPAExclusion'].value==false){
 
@@ -783,17 +792,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['PAExclusion'].setValidators(null);
       this.vehical.controls['PAExclusion'].patchValue('');
 
-      this.nomineeDetail.controls['nomineeName'].patchValue('');
-      this.nomineeDetail.controls['nomineeAge'].patchValue('');
-      this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
-      this.nomineeDetail.controls['appointeeName'].patchValue('');
-      this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
-
-      this.nomineeDetail.controls['nomineeName'].setValidators(null);
-      this.nomineeDetail.controls['nomineeAge'].setValidators(null);
-      this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
-      this.nomineeDetail.controls['appointeeName'].setValidators(null);
-      this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
+      this.nomineeDetail.controls['nomineeName'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['nomineeAge'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['nomineeRelationship'].setValidators([Validators.required]);
 
     }
     this.vehical.controls['PAExclusion'].updateValueAndValidity();
@@ -1268,8 +1269,8 @@ hypoName(){
     if (this.vehical.valid && this.electricalSumAount==false && this.nonElectricalSumAount==false && this.pASumAount==false) {
       stepper.next();
       this.topScroll();
-
-
+    }else{
+      this.toastr.error('Please Fill the Mandatory Fields')
     }
   }
 
@@ -1714,6 +1715,7 @@ hypoName(){
         "LossOfPersonBelongYN": "Y"
       },
     }
+    this.settings.loadingSpinner = true;
     this.fwService.getCoverPremium(data).subscribe(
         (successData) => {
           this.coverSuccess(successData);
@@ -1724,6 +1726,7 @@ hypoName(){
     );
   }
   public coverSuccess(successData){
+    this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
       this.coverPremium = successData.ResponseObject.cover;
       this.electrical_cover = this.coverPremium.electrical_cover;
