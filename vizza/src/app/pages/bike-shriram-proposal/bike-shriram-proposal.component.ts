@@ -262,7 +262,7 @@ export class BikeShriramProposalComponent implements OnInit {
       cityName:'',
       isFinanced:'',
       isPAExclusion:'',
-      sPAExclusionName:'',
+      PAExclusionName:'',
       PAExclusion:'',
     });
     this.previousInsure = this.fb.group({
@@ -2053,8 +2053,8 @@ export class BikeShriramProposalComponent implements OnInit {
           hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
           isFinanced:stepper2.isFinanced,
           isPAExclusion:stepper2.isPAExclusion,
-          PAExclusionName:stepper2.PAExclusionName,
           PAExclusion:stepper2.PAExclusion,
+          PAExclusionName:stepper2.PAExclusionName,
         pincode:stepper2.pincode,
         state:stepper2.state,
         city:stepper2.city,
