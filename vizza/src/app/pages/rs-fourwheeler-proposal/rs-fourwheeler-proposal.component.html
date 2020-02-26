@@ -458,7 +458,7 @@
                                                         <!--</div>-->
                                                     <!--</div>-->
                                                 <!--</div>-->
-                                                <div class="col-md-12 mt-2" *ngIf="(vehicledetailsfw.business_type != '1')&&((this.vehical.controls['isCarOwnershipChanged'].value =='No')&&(this.previousClaimvalue=='No'))">
+                                                <div class="col-md-12 mt-2" *ngIf="(vehicleType=='other')&&(vehicledetailsfw.business_type != '1')&&((this.vehical.controls['isCarOwnershipChanged'].value =='No')&&(this.previousClaimvalue=='No'))">
                                                     <div class="row" *ngIf="ncb_protector!='0.0'">
                                                         <div class="col-md-4" >
                                                             <p>NCB Protector</p>

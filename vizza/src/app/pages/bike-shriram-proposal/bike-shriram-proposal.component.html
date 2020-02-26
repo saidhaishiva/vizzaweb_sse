@@ -152,7 +152,7 @@
 
                                          <div class="proposal-buttom mt-3 text-right w-100">
 
-                                       <button mat-raised-button color="primaryBlue"  (click)="changeGenderVales1();getCover();proposerDetails(stepper, proposer.value)" >Next</button>
+                                       <button mat-raised-button color="primaryBlue"  (click)="changeGenderVales1();proposerDetails(stepper, proposer.value)" >Next</button>
                                         </div>
                                     </div>
                                 </div>
@@ -391,7 +391,7 @@
                                             <div class="col-md-3" *ngIf="vehical.controls['isFinanced'].value==true">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Hypothecation Address 1" formControlName="hypothecationAddress1" autocomplete="off" maxlength="30" [required]="vehical.controls['isFinanced'].value==true" >
-                                                    <mat-error *ngIf="vehical.controls.hypothecationAddress1.errors?.required">Address is required</mat-error>
+                                                    <!--<mat-error *ngIf="vehical.controls.hypothecationAddress1.errors?.required">Address is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3" *ngIf="vehical.controls['isFinanced'].value==true">

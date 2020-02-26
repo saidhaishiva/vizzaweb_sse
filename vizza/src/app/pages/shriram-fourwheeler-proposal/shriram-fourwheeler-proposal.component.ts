@@ -11,6 +11,7 @@ import {AppSettings} from '../../app.settings';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
+import {CommonService} from '../../shared/services/common.service';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -139,6 +140,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public PAExclusionList: any;
   public bifuelType: any;
   public bifuelCover: any;
+  public addonValue: any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -852,30 +854,30 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       // this.vehical.controls['totalElectricalItemPremium'].patchValue('');
 
       this.vehical.controls['electricalAccessSI'].setValidators(null);
-      this.vehical.controls['totalElectricalItemPremium'].patchValue('');
-      this.vehical.controls['totalElectricalItemPremium'].setValidators(null);
+      // this.vehical.controls['totalElectricalItemPremium'].patchValue('');
+      // this.vehical.controls['totalElectricalItemPremium'].setValidators(null);
       this.electricalSumAount=false;
       this.electricalSumAount='';
 
     }
     this.vehical.controls['electricalAccessSI'].updateValueAndValidity();
-    this.vehical.controls['totalElectricalItemPremium'].updateValueAndValidity();
+    // this.vehical.controls['totalElectricalItemPremium'].updateValueAndValidity();
 
   }
-  electricalSumInsure(){
-    if(this.vehical.controls['electricalAccessSI'].value){
-      this.vehical.controls['totalElectricalItemPremium'].setValidators([Validators.required]);
-      this.getCover();
-    }else{
-      this.vehical.controls['totalElectricalItemPremium'].patchValue('');
-      this.vehical.controls['totalElectricalItemPremium'].setValidators(null);
-    }
-    this.vehical.controls['totalElectricalItemPremium'].updateValueAndValidity();
-  }
-  electricalAmount(){
-    this.vehical.controls['totalElectricalItemPremium'].patchValue(this.electrical_cover);
-    console.log(this.vehical.controls['totalElectricalItemPremium'].value,'456789087865456')
-  }
+  // electricalSumInsure(){
+  //   if(this.vehical.controls['electricalAccessSI'].value){
+  //     // this.vehical.controls['totalElectricalItemPremium'].setValidators([Validators.required]);
+  //     // this.getCover();
+  //   }else{
+  //     this.vehical.controls['totalElectricalItemPremium'].patchValue('');
+  //     this.vehical.controls['totalElectricalItemPremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['totalElectricalItemPremium'].updateValueAndValidity();
+  // }
+  // electricalAmount(){
+  //   this.vehical.controls['totalElectricalItemPremium'].patchValue(this.electrical_cover);
+  //   console.log(this.vehical.controls['totalElectricalItemPremium'].value,'456789087865456')
+  // }
 
   updatenonElectricalItem(){
     if(this.vehical.controls.nonElectricalAccess.value == true){
@@ -883,32 +885,32 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       // this.vehical.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
     } else {
       this.vehical.controls['nonElectricalAccessSI'].patchValue('');
-      this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
+      // this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
 
       this.vehical.controls['nonElectricalAccessSI'].setValidators(null);
-      this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
+      // this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
       this.nonElectricalSumAount=false;
       this.nonElectricalSumAount='';
 
     }
     this.vehical.controls['nonElectricalAccessSI'].updateValueAndValidity();
-    this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
+    // this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
   }
 
-  electricalNonSumInsure(){
-    if(this.vehical.controls['nonElectricalAccessSI'].value){
-      this.vehical.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
-      this.getCover();
-    }else{
-      this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
-      this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
-    }
-    this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
-  }
-
-  electricalNonAmount(){
-    this.vehical.controls['totalNonElectricalItemPremium'].patchValue(this.electrical_cover);
-  }
+  // electricalNonSumInsure(){
+  //   if(this.vehical.controls['nonElectricalAccessSI'].value){
+  //     this.vehical.controls['totalNonElectricalItemPremium'].setValidators([Validators.required]);
+  //     this.getCover();
+  //   }else{
+  //     this.vehical.controls['totalNonElectricalItemPremium'].patchValue('');
+  //     this.vehical.controls['totalNonElectricalItemPremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['totalNonElectricalItemPremium'].updateValueAndValidity();
+  // }
+  //
+  // electricalNonAmount(){
+  //   this.vehical.controls['totalNonElectricalItemPremium'].patchValue(this.electrical_cover);
+  // }
 
   updateUnnamedPassenger(){
     if(this.vehical.controls.paforUnnamed.value == true){
@@ -916,63 +918,63 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       // this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
     } else {
       this.vehical.controls['paforUnnamedSI'].patchValue('');
-      this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
+      // this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
 
       this.vehical.controls['paforUnnamedSI'].setValidators(null);
-      this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
+      // this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
       this.pASumAount=false;
       this.pASumAount='';
 
     }
     this.vehical.controls['paforUnnamedSI'].updateValueAndValidity();
-    this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
+    // this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
   }
 
-  unnamedPassengerSumInsure(){
-    if(this.vehical.controls['paforUnnamedSI'].value){
-      this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
-      this.getCover();
-    }else{
-      this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
-      this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
-    }
-    this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
-  }
-  unnamedPassengerAmount(){
-    this.vehical.controls['totalPaforUnnamedPremium'].patchValue(this.pa_unnamed_passenger_cover);
-  }
+  // unnamedPassengerSumInsure(){
+  //   if(this.vehical.controls['paforUnnamedSI'].value){
+  //     this.vehical.controls['totalPaforUnnamedPremium'].setValidators([Validators.required]);
+  //     this.getCover();
+  //   }else{
+  //     this.vehical.controls['totalPaforUnnamedPremium'].patchValue('');
+  //     this.vehical.controls['totalPaforUnnamedPremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['totalPaforUnnamedPremium'].updateValueAndValidity();
+  // }
+  // unnamedPassengerAmount(){
+  //   this.vehical.controls['totalPaforUnnamedPremium'].patchValue(this.pa_unnamed_passenger_cover);
+  // }
 
-  updateAntiTheft(){
-    if(this.vehical.controls.antiTheft.value == true){
-      this.vehical.controls['totalAntiTheftPremium'].setValidators([Validators.required]);
-      this.getCover();
-    } else {
-      this.vehical.controls['totalAntiTheftPremium'].patchValue('');
+  // updateAntiTheft(){
+  //   if(this.vehical.controls.antiTheft.value == true){
+  //     this.vehical.controls['totalAntiTheftPremium'].setValidators([Validators.required]);
+  //     this.getCover();
+  //   } else {
+  //     this.vehical.controls['totalAntiTheftPremium'].patchValue('');
+  //
+  //     this.vehical.controls['totalAntiTheftPremium'].setValidators(null);
+  //
+  //   }
+  //   this.vehical.controls['totalAntiTheftPremium'].updateValueAndValidity();
+  // }
+  // antiTheftAmount(){
+  //   this.vehical.controls['totalAntiTheftPremium'].patchValue(this.anti_theft_cover);
+  // }
 
-      this.vehical.controls['totalAntiTheftPremium'].setValidators(null);
-
-    }
-    this.vehical.controls['totalAntiTheftPremium'].updateValueAndValidity();
-  }
-  antiTheftAmount(){
-    this.vehical.controls['totalAntiTheftPremium'].patchValue(this.anti_theft_cover);
-  }
-
-  updateDepreciation(){
-    if(this.vehical.controls.nilDepreciationCover.value == true){
-      this.vehical.controls['totalDepreciationPremium'].setValidators([Validators.required]);
-      this.getCover();
-    } else {
-      this.vehical.controls['totalDepreciationPremium'].patchValue('');
-
-      this.vehical.controls['totalDepreciationPremium'].setValidators(null);
-
-    }
-    this.vehical.controls['totalDepreciationPremium'].updateValueAndValidity();
-  }
-  depreciationAmount(){
-    this.vehical.controls['totalDepreciationPremium'].patchValue(this.Nil_depreciation_cover);
-  }
+  // updateDepreciation(){
+  //   if(this.vehical.controls.nilDepreciationCover.value == true){
+  //     this.vehical.controls['totalDepreciationPremium'].setValidators([Validators.required]);
+  //     this.getCover();
+  //   } else {
+  //     this.vehical.controls['totalDepreciationPremium'].patchValue('');
+  //
+  //     this.vehical.controls['totalDepreciationPremium'].setValidators(null);
+  //
+  //   }
+  //   this.vehical.controls['totalDepreciationPremium'].updateValueAndValidity();
+  // }
+  // depreciationAmount(){
+  //   this.vehical.controls['totalDepreciationPremium'].patchValue(this.Nil_depreciation_cover);
+  // }
 
   // updatePaOwnerDriver(){
   //   if(this.vehical.controls.paOwnerDriver.value == true){
@@ -1304,9 +1306,31 @@ hypoName(){
     let valid = 20 / 100;
     this.siValue = valid * this.buyBikeDetails.Idv;
     console.log(this.siValue, 'sdfdfdadf');
-    if (this.vehical.valid && this.electricalSumAount==false && this.nonElectricalSumAount==false && this.pASumAount==false) {
-      stepper.next();
-      this.topScroll();
+    // if (this.vehical.valid && this.electricalSumAount==false && this.nonElectricalSumAount==false && this.pASumAount==false) {
+    //   stepper.next();
+    //   this.topScroll();
+    // }
+    this.getCover();
+    if(this.vehical.valid && this.electricalSumAount==false && this.nonElectricalSumAount==false && this.pASumAount==false) {
+      let dialogRef = this.dialog.open(shriram4WCover, {
+        width: '500px',
+        height: '300px'
+      });
+      dialogRef.disableClose = true;
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result, 'result....')
+        if (result == true) {
+          this.addonValue = true;
+
+          stepper.next();
+          this.topScroll();
+        } else if (result == false) {
+          this.addonValue = false;
+          // this.otpFalseError=false
+        }
+
+      });
+
     }else{
       this.toastr.error('Please Fill the Mandatory Fields')
     }
@@ -1768,16 +1792,25 @@ hypoName(){
     if (successData.IsSuccess) {
       this.coverPremium = successData.ResponseObject.cover;
       this.electrical_cover = this.coverPremium.electrical_cover;
+      sessionStorage.electrical_cover=this.electrical_cover;
+
       this.anti_theft_cover = this.coverPremium.anti_theft_cover;
+      sessionStorage.anti_theft_cover=this.anti_theft_cover;
+
       this.Nil_depreciation_cover = this.coverPremium.Nil_depreciation_cover;
+      sessionStorage.Nil_depreciation_cover=this.Nil_depreciation_cover;
+
       this.pa_owner_driver = this.coverPremium.pa_owner_driver;
+      sessionStorage.pa_owner_driver=this.pa_owner_driver;
+
       this.pa_unnamed_passenger_cover = this.coverPremium.pa_unnamed_passenger_cover;
-      this.electricalAmount();
-      this.electricalNonAmount();
-      this.unnamedPassengerAmount();
-      this.antiTheftAmount();
-      // this.paOwnerDriverAmount();
-      this.depreciationAmount();
+      sessionStorage.pa_unnamed_passenger_cover=this.pa_unnamed_passenger_cover;
+      // this.electricalAmount();
+      // this.electricalNonAmount();
+      // this.unnamedPassengerAmount();
+      // this.antiTheftAmount();
+      // // this.paOwnerDriverAmount();
+      // this.depreciationAmount();
     }
     else{
         this.toastr.error(successData.ErrorObject);
@@ -2256,6 +2289,102 @@ hypoName(){
 
     }
   }
+
+}
+
+@Component({
+  selector: ' shriram4WCover ',
+  template: `
+   
+        <div class="container">
+            <h5>Addon Cover Premium</h5>
+            <div class="row" *ngIf="this.electrical_cover!=''&&this.electrical_cover!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue;"> Electrical Accessories :</span><span style="margin-left: 146px;">{{this.electrical_cover}} </span> </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.electrical_cover!=''&&this.electrical_cover!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> Non Electrical Accessories :</span><span style="margin-left: 117px;">{{this.electrical_cover}} </span></p>
+                </div>
+            </div>
+           
+            <div class="row" *ngIf="this.pa_unnamed_passenger_cover!=''&&this.pa_unnamed_passenger_cover!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> PA to Unnamed Passenger :</span><span style="margin-left: 114px;"> {{this.pa_unnamed_passenger_cover}}</span> </p>
+                </div>
+            </div>
+           
+            <div class="row" *ngIf="this.Nil_depreciation_cover!=''&&this.Nil_depreciation_cover!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation Cover(Bumper To Bumper) :</span><span style="margin-left: 13px;">{{this.Nil_depreciation_cover}}</span>  </p>
+                </div>
+            </div>
+            
+            <div class="row" *ngIf="this.anti_theft_cover!=''||this.anti_theft_cover!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 174px;">{{this.anti_theft_cover}}</span>  </p>
+                </div>
+            </div>
+
+            <!--<ul class="m-0 list-group">-->
+                <!--<li class="list-group-item"  *ngIf="this.electrical_cover!=''&&this.electrical_cover!=undefined"><strong> Electrical Accessories :</strong> {{this.electrical_cover}}</li>-->
+                <!--<li class="list-group-item" *ngIf="this.electrical_cover!=''&&this.electrical_cover!=undefined"><strong> Non Electrical Accessories :</strong> {{this.electrical_cover}}</li>-->
+                <!--<li class="list-group-item" *ngIf="this.pa_unnamed_passenger_cover!=''&&this.pa_unnamed_passenger_cover!=undefined"><strong> PA to Unnamed Passenger :</strong> {{this.pa_unnamed_passenger_cover}}</li>-->
+                <!--<li class="list-group-item" *ngIf="this.Nil_depreciation_cover!=''&&this.Nil_depreciation_cover!=undefined"><strong> Nil Depreciation Cover(Bumper To Bumper) :</strong> {{this.Nil_depreciation_cover}}</li>-->
+                <!--<li class="list-group-item" *ngIf="this.anti_theft_cover!=''||this.anti_theft_cover!=undefined"><strong> Anti-Theft Device :</strong> {{this.anti_theft_cover}}</li>-->
+                                                      <!---->
+            <!--</ul>-->
+                
+        </div>
+       
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-raised-button style="background-color: darkblue; color: white;" (click)="cancel()">Cancel</button>
+            <button mat-raised-button style="background-color: darkblue; color: white;" (click)="submit()">Ok</button>
+
+        </div>
+        
+    `
+})
+
+export class shriram4WCover {
+
+  public settings: any;
+  public electrical_cover: any;
+  public anti_theft_cover: any;
+  public pa_owner_driver: any;
+  public Nil_depreciation_cover: any;
+  public pa_unnamed_passenger_cover: any;
+
+  constructor(
+      public dialogRef: MatDialogRef<shriram4WCover>,
+      @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute,  public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public fwService: FourWheelerService) {
+
+    this.electrical_cover=sessionStorage.electrical_cover;
+    console.log(this.electrical_cover,'sessionStorage.electrical_cover....');
+
+    this.anti_theft_cover=sessionStorage.anti_theft_cover;
+    console.log(this.anti_theft_cover,'sessionStorage.anti_theft_cover....');
+
+    this.pa_owner_driver=sessionStorage.pa_owner_driver;
+    console.log(this.pa_owner_driver,'sessionStorage.pa_owner_driver....');
+
+    this.Nil_depreciation_cover=sessionStorage.Nil_depreciation_cover;
+    console.log(this.Nil_depreciation_cover,'sessionStorage.Nil_depreciation_cover....');
+
+    this.pa_unnamed_passenger_cover=sessionStorage.pa_unnamed_passenger_cover;
+    console.log(this.pa_unnamed_passenger_cover,'sessionStorage.pa_unnamed_passenger_cover....');
+
+  }
+
+  submit(): void {
+    this.dialogRef.close(true);
+  }
+  cancel(): void {
+    this.dialogRef.close(false);
+  }
+
+
 
 }
 

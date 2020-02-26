@@ -50,7 +50,7 @@ export class BikePremiumListComponent implements OnInit {
     OwnDamage_premium: any;
     PA_premium: any;
     ThridParty_premium: any;
-    constructor(public auth: AuthService, public datepipe: DatePipe,public dialog: MatDialog,public clearSession: ClearSessionMotorService, public appSettings: AppSettings,public router: Router,public bikeService: BikeInsuranceService, public config: ConfigurationService) {
+    constructor(public auth: AuthService, public datepipe: DatePipe,public dialog: MatDialog,public clearSession: ClearSessionMotorService,private toastr: ToastrService, public appSettings: AppSettings,public router: Router,public bikeService: BikeInsuranceService, public config: ConfigurationService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -216,6 +216,8 @@ console.log(sessionStorage.packae_list,'sessionStorage packae_list');
             sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
             sessionStorage.initialProductList = JSON.stringify(this.initialProductList);
 
+        }else{
+            this.toastr.error(successData.ErrorObject);
         }
     }
     public getProductListFailure(error) {

@@ -306,7 +306,7 @@ import {CarInsurer} from './pages/four-wheeler-home/four-wheeler-home.component'
 import {FourWheelerProductListComponent} from './pages/four-wheeler-product-list/four-wheeler-product-list.component';
 import { FourWheelerEnquirypopupComponent } from './pages/four-wheeler-home/four-wheeler-enquirypopup/four-wheeler-enquirypopup.component';
 import { RelianceFourwheelerPaymentSuccessComponent } from './pages/reliance-fourwheeler-payment-success/reliance-fourwheeler-payment-success.component';
-import { ShriramFourwheelerProposalComponent} from './pages/shriram-fourwheeler-proposal/shriram-fourwheeler-proposal.component';
+import { ShriramFourwheelerProposalComponent,shriram4WCover} from './pages/shriram-fourwheeler-proposal/shriram-fourwheeler-proposal.component';
 // import { fourShriramIDVComponent} from './pages/shriram-fourwheeler-proposal/shriram-fourwheeler-proposal.component';
 import { ShriramMfwPaymentSuccessComponent } from './pages/shriram-mfw-payment-success/shriram-mfw-payment-success.component';
 import { RoyalsundaramMfwPaymentSuccessComponent } from './pages/royalsundaram-mfw-payment-success/royalsundaram-mfw-payment-success.component';
@@ -623,6 +623,7 @@ import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insur
         EdelweissOpt,
         reliance2WCover,
         shriram2WCover,
+        shriram4WCover,
         tataigCarOpt,
         tataigBikeOpt,
         starhealthedit,
@@ -753,7 +754,7 @@ import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insur
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,HealthInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,EdelweissOpt,reliance2WCover,shriram2WCover,tataigCarOpt,tataigBikeOpt,starhealthedit,BalajImageviewComponent,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,EdelweissOpt,reliance2WCover,shriram2WCover,shriram4WCover,tataigCarOpt,tataigBikeOpt,starhealthedit,BalajImageviewComponent,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,
         // BikeShriramIDVComponent,
         // fourShriramIDVComponent,
         FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent, ViewKeyfeaturesComponent,BajajGoal,TermViewKeyfeaturesComponent,EdelweissposOpt,ViewdetailscomponentComponent

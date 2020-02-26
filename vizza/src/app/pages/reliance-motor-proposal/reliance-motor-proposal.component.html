@@ -449,7 +449,7 @@
                                   <div class="proposal-buttom mt-3 text-right w-100">
                                       <button mat-button matStepperPrevious color="primaryBlue" class="text-light" style="margin-right:17px" (click)="topScroll()">Back</button>
 
-                                      <button mat-raised-button color="primaryBlue"  (click)="getCover();nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
+                                      <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
                                   </div>
 
                       </form>
@@ -538,7 +538,7 @@
                             <div class="col-md-12 mt-2" >
                                 <div class="row">
                                     <div class="col-md-4"  [ngStyle]="{'pointer-events': this.coverDetails.controls['BasicODCoverage'].value==true ? 'none' : ''}">
-                                        <mat-checkbox  formControlName="BasicODCoverage" (change)="getCover()"  required  readonly checked >Basic OD<span class="error">*</span></mat-checkbox>
+                                        <mat-checkbox  formControlName="BasicODCoverage"  required  readonly checked >Basic OD<span class="error">*</span></mat-checkbox>
                                     </div>
                                     <!--<div class="col-md-4 " *ngIf="coverDetails.controls.BasicODCoverage.value == true">-->
                                         <!--<mat-form-field class="w-100">-->
@@ -551,7 +551,7 @@
                             <div class="col-md-12 mt-2" >
                                 <div class="row">
                                     <div class="col-md-4"  [ngStyle]="{'pointer-events': this.coverDetails.controls['BasicLiability'].value==true ? 'none' : ''}">
-                                        <mat-checkbox  formControlName="BasicLiability" (change)="getCover()"  required  readonly checked >Basic Liability<span class="error">*</span></mat-checkbox>
+                                        <mat-checkbox  formControlName="BasicLiability"   required  readonly checked >Basic Liability<span class="error">*</span></mat-checkbox>
                                     </div>
                                     <!--<div class="col-md-4 " *ngIf="coverDetails.controls.BasicLiability.value == true">-->
                                         <!--<mat-form-field class="w-100">-->
@@ -564,7 +564,7 @@
                             <div class="col-md-12 mt-2" >
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <mat-checkbox  formControlName="PAToNamedPassenger" (change)="updateNamedPassenger();getCover()">PA to Named Passenger</mat-checkbox>
+                                        <mat-checkbox  formControlName="PAToNamedPassenger" (change)="updateNamedPassenger()">PA to Named Passenger</mat-checkbox>
                                     </div>
                                     <div class="col-md-3" *ngIf="coverDetails.controls.PAToNamedPassenger.value == true">
                                         <mat-form-field class="w-100">

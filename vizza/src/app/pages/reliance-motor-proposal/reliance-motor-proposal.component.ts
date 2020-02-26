@@ -1235,9 +1235,10 @@ export class RelianceMotorProposalComponent implements OnInit {
 
 //Popup
   popUp(stepper){
+    this.getCover();
     let dialogRef = this.dialog.open(reliance2WCover, {
-      width: '400px',
-      height: '800px'
+      width: '600px',
+      height: '500px'
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
@@ -3142,59 +3143,60 @@ export class idvvalidatetwoWheeler {
     template: `
    
         <div class="container">
+          <h5>Addon Cover Premium</h5>
             <div class="row" *ngIf="this.basic_od!=''&&this.basic_od!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> Basic OD :</strong>{{this.basic_od}} </p>
+                  <p ><span style="margin-left: 35px;color: blue"> Basic OD :</span><span style="margin-left: 252px;">{{this.basic_od}} </span></p>
                 </div>
             </div>
             <div class="row" *ngIf="this.basic_liability!=''&&this.basic_liability!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> Basic Liability :</strong>{{this.basic_liability}}  </p>
+                  <p ><span style="margin-left: 35px;color: blue"> Basic Liability :</span><span style="margin-left: 221px;">{{this.basic_liability}}</span>  </p>
                 </div>
             </div>
             <div class="row" *ngIf="this.pa_named_passenger!=''&&this.pa_named_passenger!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> PA to Named Passenger :</strong> {{this.pa_named_passenger}} </p>
+                    <p ><span style="margin-left: 35px;color: blue"> PA to Named Passenger :</span><span style="margin-left: 155px;"> {{this.pa_named_passenger}} </span></p>
                 </div>
             </div>
             <div class="row" *ngIf="this.pa_unnamed_passenger!=''&&this.pa_unnamed_passenger!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> PA to Unnamed Passenger :</strong> {{this.pa_unnamed_passenger}} </p>
+                    <p ><span style="margin-left: 35px;color: blue"> PA to Unnamed Passenger :</span><span style="margin-left: 141px;"> {{this.pa_unnamed_passenger}} </span></p>
                 </div>
             </div>
             <div class="row" *ngIf="this.voluntary_deductible!=''&&this.voluntary_deductible!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> Voluntary Deductible :</strong>{{this.voluntary_deductible}} </p>
+                  <p ><span style="margin-left: 35px;color: blue"> Voluntary Deductible :</span><span style="margin-left: 180px;">{{this.voluntary_deductible}}</span> </p>
                 </div>
             </div>
             <div class="row" *ngIf="this.pa_owner_driver!=''&&this.pa_owner_driver!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> PA to Owner Driver :</strong>{{this.pa_owner_driver}}  </p>
+                  <p ><span style="margin-left: 35px;color: blue"> PA to Owner Driver :</span><span style="margin-left: 193px;">{{this.pa_owner_driver}}</span>  </p>
                 </div>
             </div>
             <div class="row" *ngIf="this.electrical_accessories!=''&&this.electrical_accessories!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> Electrical Accessories :</strong>{{this.electrical_accessories}}  </p>
+                  <p ><span style="margin-left: 35px;color: blue"> Electrical Accessories :</span><span style="margin-left: 172px;">{{this.electrical_accessories}}</span>  </p>
                 </div>
             </div>
             <div class="row" *ngIf="this.non_electrical_accessories!=''&&this.non_electrical_accessories!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> Non Electrical Accessories :</strong>{{this.non_electrical_accessories}} </p>
+                  <p ><span style="margin-left: 35px;color: blue"> Non Electrical Accessories :</span><span style="margin-left: 146px;">{{this.non_electrical_accessories}}</span> </p>
                 </div>
             </div>
             <div class="row" *ngIf="this.nil_depreciation!=''&&this.nil_depreciation!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> Nil Depreciation :</strong>{{this.nil_depreciation}} </p>
+                  <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation :</span><span style="margin-left: 212px;">{{this.nil_depreciation}}</span> </p>
                 </div>
             </div>
             <div class="row" *ngIf="this.automobile_association!=''&&this.automobile_association!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> Automobile Association Membership :</strong>{{this.automobile_association}} </p>
+                  <p ><span style="margin-left: 35px;color: blue"> Automobile Association Membership :</span><span style="margin-left: 81px;">{{this.automobile_association}}</span> </p>
                 </div>
             </div>
             <div class="row" *ngIf="this.Anti_theft!=''||this.Anti_theft!=undefined">
                 <div class="col-md-12"  >
-                    <p ><strong> Anti-Theft Device :</strong>{{this.Anti_theft}}  </p>
+                  <p ><span style="margin-left: 35px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 205px;">{{this.Anti_theft}}</span>  </p>
                 </div>
             </div>
                 
