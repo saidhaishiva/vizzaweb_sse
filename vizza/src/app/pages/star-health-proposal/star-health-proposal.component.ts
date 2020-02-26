@@ -2388,7 +2388,7 @@ setRelationship1() {
             // 'proposal_id' :sessionStorage.proposalId,
             'proposal_id' :sessionStorage.proposalIdStar,
             'enquiry_id': this.getFamilyDetails.enquiry_id,
-            'group_name':  this.getFamilyDetails.name,
+            'group_name':this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
             'product_id': this.buyProductdetails.product_id,
             'plan_name': this.buyProductdetails.product_name,
@@ -2481,6 +2481,14 @@ setRelationship1() {
             this.buyProductdetails.totalPremium = this.summaryData.total_premium;
             this.buyProductdetails.base_premium = this.summaryData.premium;
             this.buyProductdetails.service_tax   = this.summaryData.servicetax;
+            this.summaryData1 = successData.ResponseObject.group_name;
+            this.summaryData2 = successData.ResponseObject.premium;
+            console.log( this.summaryData2,' this.summaryData2')
+            this.summaryData3= successData.ResponseObject.servicetax;
+            console.log( this.summaryData3,' this.summaryData2')
+
+            this.summaryData4 = successData.ResponseObject.total_premium;
+            console.log( this.summaryData4,' this.summaryData2')
             // this.buyProductdetails.totalPremium = JSON.parse(this.summaryData.total_premium);
             console.log(this.buyProductdetails.base_premium ,' this.this.buyProductdetails.totalPremium ')
             console.log(this.summaryData.premium ,' this.this.this.summaryData.total_premium.totalPremium ')
@@ -3438,6 +3446,15 @@ setRelationship1() {
             this.submit = true ;
             this.backLocation=null;
             sessionStorage.proposalID = JSON.parse(this.proposalId);
+            this.summaryData1 = successData.ResponseObject.group_name;
+            this.summaryData2 = successData.ResponseObject.premium;
+            console.log( this.summaryData2,' this.summaryData2')
+            this.summaryData3= successData.ResponseObject.servicetax;
+            console.log( this.summaryData3,' this.summaryData2')
+
+            this.summaryData4 = successData.ResponseObject.total_premium;
+            console.log( this.summaryData4,' this.summaryData2')
+
 
 
             // this.proposalId = this.summaryData.policy_id;policy_id
@@ -3479,7 +3496,7 @@ setRelationship1() {
         this.settings.loadingSpinner = false;
     }
 
-    openDialog(): void {
+    openDialog(stepper): void {
 
         const dialogRef = this.dialog.open(starhealthedit, {
             width: '500px',
@@ -3491,7 +3508,7 @@ setRelationship1() {
             this.animal = result.name;
             // this.payanimal = result.name;
             if(this.payLaterr==false){
-                this.suminsuredId();
+                this.suminsuredId(stepper);
             }
             else{
                 this.suminsuredId1();
@@ -3500,7 +3517,7 @@ setRelationship1() {
         });
     }
 
-    suminsuredId() {
+    suminsuredId(stepper) {
         const data = {
             'platform': 'web',
 
@@ -3515,18 +3532,19 @@ setRelationship1() {
 
         this.proposalservice.suminsuredId(data).subscribe(
             (successData) => {
-                this.suminsuredIdSuccess(successData);
+                this.suminsuredIdSuccess(successData,stepper);
             },
             (error) => {
                 this.suminsuredIdFailure(error);
             }
         );
     }
-    public suminsuredIdSuccess(successData) {
+    public suminsuredIdSuccess(successData,stepper) {
         if (successData.IsSuccess) {
             this.suminsuredidddd=successData.ResponseObject.prod_suminsured_id;
             this.suminsuredidddd3=successData.ResponseObject.si_id;
-            this.suminsuredproposal();
+            this.proposal(stepper)
+            // this.suminsuredproposal();
             // this.suminsuredproposal1();
             console.log(this.suminsuredidddd,'this.suminsuredidddd')
             // this.toastr.success('Proposal created successfully!!');
@@ -3565,7 +3583,8 @@ setRelationship1() {
             this.suminsuredidddd2=successData.ResponseObject.si_id;
             // this.suminsuredproposal();
             this.paylaterEdit=true;
-            this.suminsuredproposal1();
+            this.paylaterrproposal()
+            // this.suminsuredproposal1();
             // alert(this.suminsuredidddd1)
             // alert(this.suminsuredidddd2)
             console.log(this.suminsuredidddd1,'this.suminsuredidddd')

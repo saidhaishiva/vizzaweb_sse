@@ -804,38 +804,38 @@
             </section>
 
             <section class="summary-details " *ngIf="payLaterr == true && submit== false&&(backLocation==null||backLocation==true)">
-              <div class="box-card">
-              <div class="row">
-                <!--<div class="col-12 col-md-4" *ngIf=" animal=='' && getsum_insured_amount!=''">-->
-                <div class="col-12 col-md-4" >
-                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getsum_insured_amount}}</span><span><i class="fa fa-pencil"></i></span></h4>
-                </div>
-                <div class="col-12 col-md-8 mt-2" >
-                  <ul class="summary-head">
-                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{getpremium}}</span> /</li>
-                    <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{getservicetax}}</span> </li>
-                    <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{gettotal_premium}}</span> /</li>
-
-                              <li></li>
-                          </ul>
-                      </div>
-                      <!--<div class="col-12 col-md-4" *ngIf="paylaterEdit==true && animal!=''">-->
-                      <!--<div class="col-12 col-md-4" *ngIf="paylaterEdit==true">-->
-                          <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{animal}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()" style="cursor: pointer !important;"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>-->
-                      <!--</div>-->
-                      <!--<div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==true">-->
-                          <!--<ul class="summary-head">-->
-                              <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
-                              <!--<li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData2}}</span> /</li>-->
-                              <!--<li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData3}}</span> </li>-->
-                              <!--<li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData4}}</span> /</li>-->
+              <!--<div class="box-card">-->
+              <!--<div class="row">-->
+                <!--&lt;!&ndash;<div class="col-12 col-md-4" *ngIf=" animal=='' && getsum_insured_amount!=''">&ndash;&gt;-->
+                <!--<div class="col-12 col-md-4" >-->
+                  <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getsum_insured_amount}}</span><span><i class="fa fa-pencil"></i></span></h4>-->
+                <!--</div>-->
+                <!--<div class="col-12 col-md-8 mt-2" >-->
+                  <!--<ul class="summary-head">-->
+                    <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
+                    <!--<li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{getpremium}}</span> /</li>-->
+                    <!--<li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{getservicetax}}</span> </li>-->
+                    <!--<li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{gettotal_premium}}</span> /</li>-->
 
                               <!--<li></li>-->
                           <!--</ul>-->
                       <!--</div>-->
-                  </div>
-              </div>
+                      <!--&lt;!&ndash;<div class="col-12 col-md-4" *ngIf="paylaterEdit==true && animal!=''">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="col-12 col-md-4" *ngIf="paylaterEdit==true">&ndash;&gt;-->
+                          <!--&lt;!&ndash;<h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{animal}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()" style="cursor: pointer !important;"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==true">&ndash;&gt;-->
+                          <!--&lt;!&ndash;<ul class="summary-head">&ndash;&gt;-->
+                              <!--&lt;!&ndash;<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>&ndash;&gt;-->
+                              <!--&lt;!&ndash;<li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData2}}</span> /</li>&ndash;&gt;-->
+                              <!--&lt;!&ndash;<li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData3}}</span> </li>&ndash;&gt;-->
+                              <!--&lt;!&ndash;<li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData4}}</span> /</li>&ndash;&gt;-->
+
+                              <!--&lt;!&ndash;<li></li>&ndash;&gt;-->
+                          <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                  <!--</div>-->
+              <!--</div>-->
 
                   <section>
                       <h5 class="mt-3 ml-0 sub-title">PROPOSER DETAILS </h5>
@@ -1422,7 +1422,7 @@
                       <li class="list-group-item" *ngIf="policyid1.aadhar !='' "><strong>Aadhar Number:</strong> {{policyid1.aadhar}}</li>
                       <li class="list-group-item" *ngIf="policyid1.pancard !='' "><strong>PAN Number:</strong> {{policyid1.pancard | uppercase}}</li>
                       <li class="list-group-item" *ngIf="policyid1.gst !='' "><strong>GST Number:</strong> {{policyid1.gst | uppercase}}</li>
-                      <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance !='' || policyid1.previous_medical_insurance=='Yes'"><strong>Previous Medical Insurence:</strong> <span >Yes</span></li>
+                      <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance !='' && policyid1.previous_medical_insurance=='Yes'"><strong>Previous Medical Insurence:</strong> <span >Yes</span></li>
                       <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance =='' || policyid1.previous_medical_insurance=='No'"><strong>Previous Medical Insurence:</strong><span >No</span></li>
                       <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance !='' "><strong>Previous Medical Insurence:</strong> {{policyid1.previous_medical_insurance}}</li>
                     </ul>
@@ -2441,36 +2441,38 @@
 
 
                       <section class="summary-details " *ngIf="payLaterr == true && submit== false&&(backLocation==null||backLocation==true)">
-                        <div class="box-card">
-                          <div class="row">
-                            <div class="col-12 col-md-4" *ngIf="paylaterEdit==false">
-                              <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getsum_insured_amount}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
-                            </div>
-                            <div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==false">
-                              <ul>
-                                <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{getpremium}}</span> /</li>
-                                <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{getservicetax}}</span> </li>
-                                <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{gettotal_premium}}</span> /</li>
+                        <!--<div class="box-card">-->
+                        <!--<div class="row">-->
+                        <!--&lt;!&ndash;<div class="col-12 col-md-4" *ngIf=" animal=='' && getsum_insured_amount!=''">&ndash;&gt;-->
+                        <!--<div class="col-12 col-md-4" >-->
+                        <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getsum_insured_amount}}</span><span><i class="fa fa-pencil"></i></span></h4>-->
+                        <!--</div>-->
+                        <!--<div class="col-12 col-md-8 mt-2" >-->
+                        <!--<ul class="summary-head">-->
+                        <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
+                        <!--<li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{getpremium}}</span> /</li>-->
+                        <!--<li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{getservicetax}}</span> </li>-->
+                        <!--<li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{gettotal_premium}}</span> /</li>-->
 
-                                <li></li>
-                              </ul>
-                            </div>
-                            <div class="col-12 col-md-4" *ngIf="paylaterEdit==true">
-                              <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{animal}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
-                            </div>
-                            <div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==true">
-                              <ul>
-                                <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData2}}</span> /</li>
-                                <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData3}}</span> </li>
-                                <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData4}}</span> /</li>
+                        <!--<li></li>-->
+                        <!--</ul>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="col-12 col-md-4" *ngIf="paylaterEdit==true && animal!=''">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="col-12 col-md-4" *ngIf="paylaterEdit==true">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{animal}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()" style="cursor: pointer !important;"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==true">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<ul class="summary-head">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData2}}</span> /</li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData3}}</span> </li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData4}}</span> /</li>&ndash;&gt;-->
 
-                                <li></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
+                        <!--&lt;!&ndash;<li></li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--</div>-->
 
                         <section>
                           <h5 class="mt-3 ml-0 sub-title">PROPOSER DETAILS </h5>
@@ -2635,7 +2637,7 @@
                                           </mat-form-field></div>
                                           <div class="col-md-6"><mat-form-field class="w-100" >
                                             <mat-select placeholder="City" formControlName="personalCity"  (selectionChange)="getAreas1('personal', 'manual'); changeCity1()" autocomplete="off" required>
-                                              <mat-option *ngFor="let city of personalCitys | keys " [value]= 'city.key'>
+                                              <mat-option *ngFor="let city of cityList | keys " [value]= 'city.key'>
                                                 {{city.value}}
                                               </mat-option>
                                             </mat-select>
@@ -2690,7 +2692,7 @@
                                           <div class="col-md-6" [ngStyle]="{'pointer-events': personal['controls'].sameas.value ? 'none' : ''}">
                                             <mat-form-field class="w-100" >
                                               <mat-select placeholder="City" formControlName="residenceCity"  (selectionChange)="getAreas1('residence', 'rmanual'); changeresCity1()"  autocomplete="off">
-                                                <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
+                                                <mat-option *ngFor="let citys of rCitysList | keys" [value]= 'citys.key'>
                                                   {{citys.value}}
                                                 </mat-option>
                                               </mat-select>
@@ -2773,12 +2775,12 @@
 
                             <div class="row" >
                               <!--<div class="col-md-12 ml-3 mt-3 box-card" *ngIf="i == 0">-->
-                                <!--<mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs1();sameProposer1()"><strong>Same as proposer</strong></mat-checkbox>-->
+                              <!--<mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs1();sameProposer1()"><strong>Same as proposer</strong></mat-checkbox>-->
                               <!--</div>-->
                               <div class="row" >
                                 <div class="col-md-3">
                                   <mat-form-field class="w-100">
-                                    <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required >
+                                    <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required>
                                   </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
@@ -2822,7 +2824,7 @@
                                 </div>
                                 <div class="col-md-3"><mat-form-field class="w-100">
                                   <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required >
-                                    <mat-option *ngFor="let relationship of relationshipList1 | keys" value="{{relationship.key}}" >
+                                    <mat-option *ngFor="let relationship of relationshipList1 | keys" value="{{relationship.key}}"  >
                                       {{relationship.value}}
                                     </mat-option>
                                   </mat-select>
@@ -3005,16 +3007,29 @@
 
                       <section class="summary-details" *ngIf="submit == true && backLocation==null">
                         <div class="row">
-                          <div class="col-md-4" > <h4 class="mt-4">{{group_namesubmit}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{sum_insured_amount}}</span></h4>
+                          <div class="col-md-4" *ngIf="paylaterEdit==false"> <h4 class="mt-4">{{group_namesubmit}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i>{{sum_insured_amount}}</span><span (click)="openDialog()" style="cursor: pointer !important;"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span> </h4>
                           </div>
 
 
-                          <div class="col-md-8" >
-                            <ul>
+                          <div class="col-md-8" *ngIf="paylaterEdit==false">
+                            <ul >
                               <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
                               <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{premiumsubmit}}</span> /</li>
                               <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{servicetaxsubmit}}</span> /</li>
                               <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{total_premiumsubmit}}</span> </li>
+                              <li></li>
+                            </ul>
+                          </div>
+                          <div class="col-12 col-md-4" *ngIf="paylaterEdit==true">
+                            <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{animal}}</span><span  ><i class="fa fa-pencil"></i></span><span (click)="openDialog()" style="cursor: pointer !important;"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
+                          </div>
+                          <div class="col-12 col-md-8 mt-2" *ngIf="paylaterEdit==true">
+                            <ul >
+                              <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getcompany_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                              <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData2}}</span> /</li>
+                              <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData3}}</span> </li>
+                              <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData4}}</span> /</li>
+
                               <li></li>
                             </ul>
                           </div>
@@ -3044,6 +3059,8 @@
                                 <li class="list-group-item" *ngIf="policyid1.aadhar !='' "><strong>Aadhar Number:</strong> {{policyid1.aadhar}}</li>
                                 <li class="list-group-item" *ngIf="policyid1.pancard !='' "><strong>PAN Number:</strong> {{policyid1.pancard | uppercase}}</li>
                                 <li class="list-group-item" *ngIf="policyid1.gst !='' "><strong>GST Number:</strong> {{policyid1.gst | uppercase}}</li>
+                                <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance !='' || policyid1.previous_medical_insurance=='Yes'"><strong>Previous Medical Insurence:</strong> <span >Yes</span></li>
+                                <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance =='' || policyid1.previous_medical_insurance=='No'"><strong>Previous Medical Insurence:</strong><span >No</span></li>
                                 <li class="list-group-item" *ngIf="policyid1.previous_medical_insurance !='' "><strong>Previous Medical Insurence:</strong> {{policyid1.previous_medical_insurance}}</li>
                               </ul>
                             </div>
@@ -3243,7 +3260,6 @@
                           </div>
                         </div>
                       </section>
-
 
                       <p class="pl-3"><mat-checkbox [(ngModel)]="declaration" *ngIf="(summaryData && payLaterr == false)||payLaterr == false && pos_status==3 && backStep==false||submit==true">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
                         <hr>
