@@ -1310,7 +1310,7 @@ hypoName(){
     //   stepper.next();
     //   this.topScroll();
     // }
-    this.getCover();
+
     if(this.vehical.valid && this.electricalSumAount==false && this.nonElectricalSumAount==false && this.pASumAount==false) {
       let dialogRef = this.dialog.open(shriram4WCover, {
         width: '500px',
@@ -1675,7 +1675,7 @@ hypoName(){
     this.vehical.controls['PAExclusionName'].patchValue(this.PAExclusionList[this.vehical.controls['PAExclusion'].value]);
   }
 
-  getCover() {
+  getCover(stepper) {
 
     const data = {
       'platform': 'web',
@@ -1780,15 +1780,15 @@ hypoName(){
     this.settings.loadingSpinner = true;
     this.fwService.getCoverPremium(data).subscribe(
         (successData) => {
-          this.coverSuccess(successData);
+          this.coverSuccess(successData,stepper);
         },
         (error) => {
           this.coverFailure(error);
         }
     );
   }
-  public coverSuccess(successData){
-    this.settings.loadingSpinner = false;
+  public coverSuccess(successData,stepper){
+
     if (successData.IsSuccess) {
       this.coverPremium = successData.ResponseObject.cover;
       this.electrical_cover = this.coverPremium.electrical_cover;
@@ -1805,6 +1805,8 @@ hypoName(){
 
       this.pa_unnamed_passenger_cover = this.coverPremium.pa_unnamed_passenger_cover;
       sessionStorage.pa_unnamed_passenger_cover=this.pa_unnamed_passenger_cover;
+      this.settings.loadingSpinner = false;
+      this.vehicalDetails(stepper,this.vehical.value)
       // this.electricalAmount();
       // this.electricalNonAmount();
       // this.unnamedPassengerAmount();

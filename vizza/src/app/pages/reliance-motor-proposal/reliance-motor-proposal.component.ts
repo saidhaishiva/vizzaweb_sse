@@ -11,6 +11,7 @@ import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {ActivatedRoute} from '@angular/router';
 import {CommonService} from '../../shared/services/common.service';
+import {Settings} from '../../app.settings.model';
 
 
 
@@ -93,6 +94,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   public pa_owner_driver: any;
   public nil_depreciation: any;
   public pa_unnamed_passenger: any;
+  public settings: Settings;
   public Bifuel_Kit: any;
   public basic_od: any;
   public electrical_accessories: any;
@@ -160,7 +162,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
     let today = new Date();
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    this.setting = appsetting.settings;
+    this.settings = appsetting.settings;
     this.webhost = this.config.getimgUrl();
     this.clientTypeField=false;
     this.addonValue=false;
@@ -832,7 +834,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   public failureSuccess(error) {
   }
 //coverPremium
-  getCover() {
+  getCover(stepper) {
     console.log( this.bikeEnquiryId,' this.bikeEnquiryId,')
     const data = {
       // 'platform': 'web',
@@ -1063,16 +1065,17 @@ export class RelianceMotorProposalComponent implements OnInit {
         }
       }
     }
+    this.settings.loadingSpinner = true;
     this.bikeInsurance.coverPremium(data).subscribe(
         (successData) => {
-          this.coverPreSuccess(successData);
+          this.coverPreSuccess(successData,stepper);
         },
         (error) => {
           this.coverPreFailure(error);
         }
     );
   }
-  public coverPreSuccess(successData) {
+  public coverPreSuccess(successData,stepper) {
     if (successData.IsSuccess) {
       this.coverListValue = successData.ResponseObject;
       console.log(this.coverListValue,'coverListValue......');
@@ -1134,6 +1137,8 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.Bifuel_Kit=this.coverListValue.coverlist[0].Bifuel_Kit;
         sessionStorage.Bifuel_Kit = (this.Bifuel_Kit);
       console.log(sessionStorage.Bifuel_Kit,'pa_unnamed_passenger....');
+      this.settings.loadingSpinner = false;
+      this. popUp(stepper);
 
       // this.valueUnnamedPass();
       // this.valueNamedPass();
@@ -1235,7 +1240,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
 //Popup
   popUp(stepper){
-    this.getCover();
+
     let dialogRef = this.dialog.open(reliance2WCover, {
       width: '600px',
       height: '500px'
@@ -2099,7 +2104,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     };
     if(this.buyProduct.business_type == 1){
       if (this.coverDetails.valid) {
-        this.setting.loadingSpinner = true;
+        this.settings.loadingSpinner = true;
         this.bikeInsurance.getProposal(data).subscribe(
             (successData) => {
               this.getProposalSucccess(successData, stepper);
@@ -2112,7 +2117,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       }
     }else{
       if (this.previousInsurance.valid) {
-        this.setting.loadingSpinner = true;
+        this.settings.loadingSpinner = true;
         this.bikeInsurance.getProposal(data).subscribe(
             (successData) => {
               this.getProposalSucccess(successData, stepper);
@@ -2127,7 +2132,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
 
   getProposalSucccess(successData,stepper) {
-    this.setting.loadingSpinner = false;
+    this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
@@ -2155,7 +2160,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
 
     } else {
-      this.setting.loadingSpinner = false;
+      this.settings.loadingSpinner = false;
       if(successData.type == 'idv') {
         sessionStorage.changeIdvDetail = JSON.stringify(successData.ResponseObject);
         let dialogRef = this.dialog.open(idvvalidatetwoWheeler, {

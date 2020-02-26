@@ -477,7 +477,7 @@
                             </div>
                                 <div class="col-md-4 mt-3">
                                     <mat-form-field class="w-100">
-                                        <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel();getCover()"required>
+                                        <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()"required>
                                             <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                                         </mat-select>
@@ -939,7 +939,7 @@
                         <div class="proposal-buttom mt-3 text-right w-100">
                         <button mat-button matStepperPrevious color="primaryBlue" class="text-light" style="margin-right:17px" (click)="topScroll()">Back</button>
 
-                        <button mat-raised-button color="primaryBlue"  (click)=" popUp(stepper)" >Next</button>
+                        <button mat-raised-button color="primaryBlue"  (click)="getCover(stepper)" >Next</button>
                     </div>
                 </div>
                 </div>

@@ -1245,8 +1245,9 @@ export class BikeShriramProposalComponent implements OnInit {
               let valid = 20/100;
               this.siValue = valid * this.buyBikeDetails.Idv;
               console.log(this.siValue, 'sdfdfdadf');
-              this.getCover();
+
               if(this.vehical.valid && this.electricalSumAount==false && this.nonElectricalSumAount==false && this.pASumAount==false){
+                  // this.settings.loadingSpinner = true;
                   let dialogRef = this.dialog.open(shriram2WCover, {
                       width: '500px',
                       height: '300px'
@@ -1525,7 +1526,7 @@ export class BikeShriramProposalComponent implements OnInit {
     }
 
 
-    getCover() {
+    getCover(stepper) {
 
         const data = {
             'platform': 'web',
@@ -1635,17 +1636,33 @@ export class BikeShriramProposalComponent implements OnInit {
         this.settings.loadingSpinner = true;
         this.bikeInsurance.getCoverPremium(data).subscribe(
             (successData) => {
-                this.coverSuccess(successData);
+                this.coverSuccess(successData,stepper);
             },
             (error) => {
                 this.coverFailure(error);
             }
         );
     }
-    public coverSuccess(successData){
-        this.settings.loadingSpinner = false;
+    public coverSuccess(successData,stepper){
+
         if (successData.IsSuccess) {
+
             this.coverPremium = successData.ResponseObject.cover;
+            // this.electrical_cover = '';
+            // sessionStorage.electrical_cover = '';
+            //
+            // this.anti_theft_cover = '';
+            // sessionStorage.anti_theft_cover='';
+            //
+            // this.pa_owner_driver='';
+            // sessionStorage.pa_owner_driver='';
+            //
+            // this.Nil_depreciation_cover='';
+            // sessionStorage.Nil_depreciation_cover='';
+            //
+            // this.pa_unnamed_passenger_cover='';
+            // sessionStorage.pa_unnamed_passenger_cover='';
+
 
             this.electrical_cover=this.coverPremium.electrical_cover;
             sessionStorage.electrical_cover = (this.electrical_cover);
@@ -1671,6 +1688,8 @@ export class BikeShriramProposalComponent implements OnInit {
             // this.unnamedPassengerAmount();
             // this.antiTheftAmount();
             // this.paOwnerDriverAmount();
+            this.settings.loadingSpinner = false;
+            this.vehicalDetails(stepper,this.vehical.value)
         }
         else{
             this.toastr.error(successData.ErrorObject);
@@ -2193,16 +2212,18 @@ export class BikeShriramProposalComponent implements OnInit {
 
 export class shriram2WCover {
 
-    public settings: any;
     public electrical_cover: any;
     public anti_theft_cover: any;
     public pa_owner_driver: any;
     public Nil_depreciation_cover: any;
     public pa_unnamed_passenger_cover: any;
+    public settings: Settings;
 
     constructor(
         public dialogRef: MatDialogRef<shriram2WCover>,
         @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute,  public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public bikeInsurance: BikeInsuranceService) {
+        this.settings = this.appSettings.settings;
+        // this.settings.loadingSpinner = false;
 
         this.electrical_cover=sessionStorage.electrical_cover;
         console.log(this.electrical_cover,'sessionStorage.electrical_cover....');
