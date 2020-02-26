@@ -218,7 +218,7 @@
                                         <div class="row mt-2">
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <mat-select placeholder="Voluntary Excess"  formControlName="voluntaryExcess"   (selectionChange)="voluntaryExcess();vlountaryName()"  >
+                                                <mat-select placeholder="Voluntary Excess"  formControlName="voluntaryExcess"   (selectionChange)="voluntaryExcess();getCover();vlountaryName()"  >
                                                     <mat-option *ngFor="let voluntary of voluntaryList | keys" value="{{voluntary.key}}" > {{voluntary.value}} </mat-option>
                                                 </mat-select>
                                                 <!--<mat-error *ngIf="vehical.controls.voluntaryExcess.errors?.required">Voluntary Excess is required</mat-error>-->
