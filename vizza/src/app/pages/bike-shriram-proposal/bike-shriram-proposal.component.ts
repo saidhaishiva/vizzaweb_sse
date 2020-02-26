@@ -2087,6 +2087,7 @@ export class BikeShriramProposalComponent implements OnInit {
         antiTheft: stepper2.antiTheft,
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
+
         hypothecationBankName:stepper2.hypothecationBankName,
           hypothecationBankNamevalue:stepper2.hypothecationBankNamevalue,
           isFinanced:stepper2.isFinanced,
@@ -2169,6 +2170,15 @@ export class BikeShriramProposalComponent implements OnInit {
                     <p ><span style="margin-left: 35px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 174px;">{{this.anti_theft_cover}}</span>  </p>
                 </div>
             </div>
+
+            <!--<ul class="m-0 list-group">-->
+                <!--<li class="list-group-item"  *ngIf="this.electrical_cover!=''&&this.electrical_cover!=undefined"><strong> Electrical Accessories :</strong> {{this.electrical_cover}}</li>-->
+                <!--<li class="list-group-item" *ngIf="this.electrical_cover!=''&&this.electrical_cover!=undefined"><strong> Non Electrical Accessories :</strong> {{this.electrical_cover}}</li>-->
+                <!--<li class="list-group-item" *ngIf="this.pa_unnamed_passenger_cover!=''&&this.pa_unnamed_passenger_cover!=undefined"><strong> PA to Unnamed Passenger :</strong> {{this.pa_unnamed_passenger_cover}}</li>-->
+                <!--<li class="list-group-item" *ngIf="this.Nil_depreciation_cover!=''&&this.Nil_depreciation_cover!=undefined"><strong> Nil Depreciation Cover(Bumper To Bumper) :</strong> {{this.Nil_depreciation_cover}}</li>-->
+                <!--<li class="list-group-item" *ngIf="this.anti_theft_cover!=''||this.anti_theft_cover!=undefined"><strong> Anti-Theft Device :</strong> {{this.anti_theft_cover}}</li>-->
+                                                      <!---->
+            <!--</ul>-->
                 
         </div>
        
