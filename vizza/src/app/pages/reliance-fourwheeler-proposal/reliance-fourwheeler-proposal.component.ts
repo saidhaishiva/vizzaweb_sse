@@ -126,6 +126,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public bifuelChangeList: any;
   public clientTypeField: boolean;
   public bifuelCover: boolean;
+  public preClaim: any;
+  public claimDetail: any;
 
   //dob
   proposerAge : any;
@@ -400,10 +402,11 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.relationList();
     this.getFinancialType();
     this.voluntaryAmount();
-    this.unnamedSi();
+    this.nilDepPolicy();
+    // this.unnamedSi();
     this.getPaidDriverSi();
     this.getTppdSi();
-    this.namedSi();
+    // this.namedSi();
     // this.getCover();
     // this.getBifuelChange();
     // this.coverDetails.controls['fuelType'].patchValue(this.bifuelChangeList)
@@ -416,6 +419,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.clientTypeField = false;
     }
 
+  }
+  nilDepPolicy(){
+    this.preClaim=this.buyProduct.previous_claim_YN
+    if(this.preClaim == '0'){
+      this.claimDetail=true;
+
+    }else  if(this.preClaim == '1'){
+      this.claimDetail=false;
+    }
   }
   clientReqField(){
     if(this.relianceProposal.controls['clientType'].value == 0) {
@@ -2131,7 +2143,7 @@ changeNonElect(){
     );
   }
   public voluntaryAmountListSucccess(successData){
-    this.amountList = successData.coverage[2].Voluntary_Deductible;
+    this.amountList = successData.coverage[0].Voluntary_Deductible;
     console.log(successData,'45678987678')
   }
   public fourWheelervoluntaryAmountListFailure(error) {
@@ -2317,11 +2329,19 @@ changeNonElect(){
     );
   }
   public unnamedSiSucccess(successData){
-    this.unnamedList = successData.coverage[9].PA_to_Unnamed_Passenger;
+    this.unnamedList = successData.coverage[1].PA_to_Unnamed_Passenger;
     console.log(successData,'success');
-    console.log(successData.coverage[9],'this.unnamedList');
-    console.log(successData.coverage[9].PA_to_Unnamed_Passenger,'this.unnamedList');
-    console.log(this.unnamedList,'this.unnamedList');
+    console.log(successData.coverage[1],'this.unnamedList');
+    // console.log(successData.coverage[9].PA_to_Unnamed_Passenger,'this.unnamedList');
+    // console.log(this.unnamedList,'this.unnamedList');
+    // let coverage = successData.coverage;
+    // this.unnamedList = successData.coverage;
+    // console.log(this.unnamedList,'this.unnamedList....');
+    // for(let i=0;i<this.unnamedList.length;i++){
+    //   console.log(this.unnamedList.length);
+    //
+    // }
+
 
   }
   public unnamedSiFailure(error) {
@@ -2419,10 +2439,7 @@ changeNonElect(){
   }
   public namedSiSucccess(successData){
     this.namedList = successData.ResponseObject;
-    // console.log(successData,'success');
-    // console.log(successData.coverage[9],'this.namedList');
-    // console.log(successData.coverage[9].PA_to_named_Passenger,'this.namedList');
-    // console.log(this.namedList,'this.namedList');
+
 
   }
   public namedSiFailure(error) {

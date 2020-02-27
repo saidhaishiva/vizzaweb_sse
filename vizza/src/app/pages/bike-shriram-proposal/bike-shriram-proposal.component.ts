@@ -141,6 +141,8 @@ export class BikeShriramProposalComponent implements OnInit {
     public titleId:any;
     public paOwnerValue:any;
     public addonValue:any;
+    public preClaim:any;
+    public claimDetail:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -311,6 +313,8 @@ export class BikeShriramProposalComponent implements OnInit {
          this.changeCalcMax();
          this.voluntaryExcess();
          this.nilDepDateValidation();
+         this.nilDepPolicy();
+
          this.get_PA_exclusion_list();
       this.vehical.controls['isPAExclusion'].patchValue(false);
       this.PAExclusion()
@@ -369,6 +373,15 @@ export class BikeShriramProposalComponent implements OnInit {
             this.nilDepValue=false;
         }
         console.log(this.nilDepValue,'nilDepValue....')
+    }
+    nilDepPolicy(){
+        this.preClaim=this.enquiryFormData.previous_claim_YN
+        if(this.preClaim == '0'){
+            this.claimDetail=true;
+
+        }else  if(this.preClaim == '1'){
+            this.claimDetail=false;
+        }
     }
     // changeCalcPA(event:any){
     //     let nonPASum=event.target.value;
@@ -1508,6 +1521,9 @@ export class BikeShriramProposalComponent implements OnInit {
           idValidate(event: any) {
             this.validation.idValidate(event);
           }
+          numDotValidate(event: any) {
+            this.validation.numDotValidate(event);
+          }
         topScroll() {
           document.getElementById('main-content').scrollTop = 0;
         }
@@ -2181,6 +2197,11 @@ export class BikeShriramProposalComponent implements OnInit {
             <div class="row" *ngIf="this.Nil_depreciation_cover!=''&&this.Nil_depreciation_cover!=undefined">
                 <div class="col-md-12"  >
                     <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation Cover(Bumper To Bumper) :</span><span style="margin-left: 13px;">{{this.Nil_depreciation_cover}}</span>  </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.pa_owner_driver!=''&&this.pa_owner_driver!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> PA Owner Driver :</span><span style="margin-left: 174px;">{{this.pa_owner_driver}}</span>  </p>
                 </div>
             </div>
             

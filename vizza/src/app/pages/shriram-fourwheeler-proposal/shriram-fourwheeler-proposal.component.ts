@@ -139,8 +139,10 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public titleId:any;
   public PAExclusionList: any;
   public bifuelType: any;
-  public bifuelCover: any;
+  public bifuelCover: boolean;
   public addonValue: any;
+  public preClaim: any;
+  public claimDetail: any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -175,7 +177,6 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.nonElectricalSumAount=false
     this.pASumAount=false
     this.paOwnerValue=false;
-    this.bifuelCover=false;
     this.settings = this.appSettings.settings;
     this.webhost = this.configs.getimgUrl();
 
@@ -422,12 +423,24 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     if(this.bifuelType == '3'){
       // this.coverDetails['controls'].fuelType.patchValue('5');
       this.bifuelCover=true;
-    }else{
-      this.bifuelCover=false;
+    }else  if(this.bifuelType != '3'){
       this.vehical.controls['CNGKit'].patchValue(false);
+      this.vehical.controls['builtCNGKit'].patchValue(false);
+      this.bifuelCover=false;
       this.updateCNGKit();
     }
   }
+
+  nilDepPolicy() {
+    this.preClaim = this.carListDetails.previous_claim_YN
+    if (this.preClaim == '0') {
+      this.claimDetail = true;
+
+    } else if (this.preClaim == '1') {
+      this.claimDetail = false;
+    }
+  }
+
   // changeCalcPA(event:any){
   //   let nonPASum=event.target.value;
   //   console.log(nonPASum,'nonPASum...');
@@ -467,6 +480,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.previousInsure.controls['policyNilDescription'].patchValue('');
     }
   }
+
+
 
   // FIRST STEPPER
 
@@ -1666,6 +1681,9 @@ hypoName(){
   }
   idValidate(event: any) {
     this.validation.idValidate(event);
+  }
+  numDotValidate(event: any) {
+    this.validation.numDotValidate(event);
   }
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
