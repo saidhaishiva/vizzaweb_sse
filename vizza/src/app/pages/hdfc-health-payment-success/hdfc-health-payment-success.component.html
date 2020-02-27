@@ -5,7 +5,7 @@
       <div *ngIf="paymentStatus == 'success'">
         <img src="assets/img/success.gif" alt="">
         <h5>Thank you! Your payment is processed successfully.</h5>
-        <p>Policy Number  {{policyidd}}</p>
+<!--        <p>Policy Number  {{policyidd}}</p>-->
         <h6 *ngIf="remainingStatus">If you want to purchase for other groups.<span (click)="pay()" class="retryClass"> Please click here... </span></h6>
         <p *ngIf="policyStatus == 0">You policy is under process.HDFC will contact you shortly.</p>
         <p *ngIf="policyStatus == 1">Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>
