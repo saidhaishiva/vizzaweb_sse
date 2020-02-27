@@ -143,13 +143,19 @@ export class BikeShriramProposalComponent implements OnInit {
     public addonValue:any;
     public preClaim:any;
     public claimDetail:any;
+    public stepper2:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
+                this.stepper2 = JSON.parse(sessionStorage.stepper2);
+                if(this.stepper2.isPAExclusion==false){
                 stepperindex = 4;
+                }else if(this.stepper2.isPAExclusion==true){
+                    stepperindex = 3;
+                }
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.PaymentRedirect = this.summaryData.PaymentURL;
@@ -300,6 +306,7 @@ export class BikeShriramProposalComponent implements OnInit {
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
       this.packagelist = sessionStorage.packae_list;
+
          this.changeTitle();
          this.changehypothecation();
          this.policyType();
