@@ -143,6 +143,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public addonValue: any;
   public preClaim: any;
   public claimDetail: any;
+  public detariff: any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -338,6 +339,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.get_PA_exclusion_list();
     this.vehical.controls['isPAExclusion'].patchValue(false);
     this.PAExclusion()
+    this.nilDepPolicy()
     this.changeBifuelDrop()
 
     this.sessionData();
@@ -434,11 +436,11 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
   nilDepPolicy() {
     this.preClaim = this.carListDetails.previous_claim_YN
-    if (this.preClaim == '0') {
-      this.claimDetail = true;
+    if(this.preClaim == 0){
+      this.claimDetail=true;
 
-    } else if (this.preClaim == '1') {
-      this.claimDetail = false;
+    }else  if(this.preClaim == 1){
+      this.claimDetail=false;
     }
   }
 
@@ -2013,6 +2015,9 @@ hypoName(){
       this.Ncb = this.summaryData.cover.Ncb;
       sessionStorage.Ncb = ( this.Ncb);
 
+      this.detariff = this.summaryData.cover.detariff;
+      sessionStorage.detariff = ( this.detariff);
+
 
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
@@ -2031,6 +2036,7 @@ hypoName(){
       this.LL_paid_driver= sessionStorage.LL_paid_driver;
       this.pa_owner_driver=sessionStorage.pa_owner_driver;
       this.Ncb=sessionStorage.Ncb;
+      this.detariff=sessionStorage.detariff;
     }
     // else if(successData.IsSuccess==false){
       // this.settings.loadingSpinner = false;

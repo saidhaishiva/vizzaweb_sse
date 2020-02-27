@@ -144,6 +144,7 @@ export class BikeShriramProposalComponent implements OnInit {
     public preClaim:any;
     public claimDetail:any;
     public stepper2:any;
+    public detariff:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -383,10 +384,10 @@ export class BikeShriramProposalComponent implements OnInit {
     }
     nilDepPolicy(){
         this.preClaim=this.enquiryFormData.previous_claim_YN
-        if(this.preClaim == '0'){
+        if(this.preClaim == 0){
             this.claimDetail=true;
 
-        }else  if(this.preClaim == '1'){
+        }else  if(this.preClaim == 1){
             this.claimDetail=false;
         }
     }
@@ -1903,6 +1904,9 @@ export class BikeShriramProposalComponent implements OnInit {
             this.ncb= this.summaryData.cover.ncb;
             sessionStorage.ncb = ( this.ncb);
 
+            this.detariff= this.summaryData.cover.detariff;
+            sessionStorage.detariff = ( this.detariff);
+
             console.log(this.vehicalFormData,'this.proposerFormData');
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
@@ -1918,6 +1922,7 @@ export class BikeShriramProposalComponent implements OnInit {
             this.Nil_depreciation_cover= sessionStorage.Nil_depreciation_cover;
             this.pa_owner_driver=sessionStorage.pa_owner_driver;
             this.ncb=sessionStorage.ncb;
+            this.detariff=sessionStorage.detariff;
 
 
         }

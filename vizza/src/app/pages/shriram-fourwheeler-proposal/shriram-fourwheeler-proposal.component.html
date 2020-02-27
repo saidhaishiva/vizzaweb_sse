@@ -209,7 +209,7 @@
                                         <div class="row">
                                             <h6 class="color-blue mt-4 ml-2">OTHER ADDONS LIST</h6>
                                         </div>
-                                        <div class="row mt-2" *ngIf="!policyTypeDetails && nilDepValue==true">
+                                        <div class="row mt-2" *ngIf="!policyTypeDetails && nilDepValue==true && claimDetail==true">
                                             <div class="col-md-6 ml-3">
                                                 <mat-checkbox  formControlName="nilDepreciationCover" (change)="changeDepreciation()">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
                                             </div>
@@ -713,6 +713,7 @@
                                                 <li class="list-group-item" *ngIf="vehicalFormData.lltoPaidDriver != ''"><strong>LL Paid Driver:</strong> {{LL_paid_driver}}</li>
                                                 <li class="list-group-item" ><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
                                                 <li class="list-group-item" *ngIf=" Ncb!=undefined"><strong>NCB:</strong> {{Ncb}}</li>
+                                                <li class="list-group-item" *ngIf=" detariff!=undefined"><strong>DETARIFF DISCOUNT ON BASIC OD:</strong> {{detariff}}</li>
                                             </ul>
                                         </div>
                                     </div>
