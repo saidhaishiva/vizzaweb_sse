@@ -629,7 +629,7 @@
 
                       <div class="col-md-12 mt-2" >
                         <div class="row">
-                          <div class="col-md-4" >
+                          <div class="col-md-4" [ngStyle]="{'pointer-events': this.coverDetails.controls['BasicODCoverage'].value==true ? 'none' : ''}">
                             <mat-checkbox  formControlName="BasicODCoverage" required  (change)="updateBasicODCoverage()"  >Basic OD<span class="error">*</span></mat-checkbox>
                           </div>
                           <div class="col-md-4 " *ngIf="coverDetails.controls.BasicODCoverage.value == true">
@@ -641,7 +641,7 @@
                       </div>
                       <div class="col-md-12 mt-2" >
                         <div class="row">
-                          <div class="col-md-4">
+                          <div class="col-md-4" [ngStyle]="{'pointer-events': this.coverDetails.controls['BasicLiability'].value==true ? 'none' : ''}">
                             <mat-checkbox  formControlName="BasicLiability" required  (change)="updateBasicLiabilityCoverage()"  >Basic Liability<span class="error">*</span></mat-checkbox>
                           </div>
                           <div class="col-md-4 " *ngIf="coverDetails.controls.BasicLiability.value == true">

@@ -116,7 +116,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   public suminsuredpA: any;
   public suminsuredvoluntarylist: any;
   public suminsuredTPPD: any;
-  public driving_tution: any;
+  public coverageValue: any;
   public clientTypeField: boolean;
   public addonValue: boolean;
 
@@ -2153,6 +2153,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.previousFormData = this.previousInsurance.value;
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       console.log(this.previousFormData,'prevdata');
+      this.coverageValue=this.summaryData.productlist.discount.cover;
       // sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
       stepper.next();
       this.topScroll();
@@ -2280,10 +2281,10 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
   public CoverPremiumSucccess(successData){
     // this.amountList = successData.coverage[2].Voluntary_Deductible;
-    this.suminsuredvoluntarylist = successData.coverage[2].Voluntary_Deductible;
+    this.suminsuredvoluntarylist = successData.coverage[0].Voluntary_Deductible;
     console.log( this.suminsuredvoluntarylist,' this.suminsuredvoluntarylist ')
-    this.suminsuredpA = successData.coverage[9].PA_to_Unnamed_Passenger;
-    this.suminsuredTPPD = successData.coverage[10].TPPD;
+    this.suminsuredpA = successData.coverage[1].PA_to_Unnamed_Passenger;
+    this.suminsuredTPPD = successData.coverage[2].TPPD;
     console.log( this.suminsuredpA,' this.suminsuredpA ')
     console.log( this.suminsuredTPPD,' this.suminsuredTPPD ')
 
