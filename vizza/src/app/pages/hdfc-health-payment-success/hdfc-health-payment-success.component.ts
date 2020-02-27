@@ -27,6 +27,8 @@ public path: any
 public proposalId: any
 public policyStatus: any
 public remainingStatus: any
+public eAcceptanceTerm: any
+public policyidd: any
 public settings: Settings;
 
 constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
@@ -54,6 +56,7 @@ constructor(@Inject(WINDOW) private window: Window, public config: Configuration
 
 }
 ngOnInit() {
+    this.gethdfcPolicynum();
     // sessionStorage.hdfc_health_proposal_id = '';
     // sessionStorage.hdfcStep1 = '';
     // sessionStorage.hdfcStep2 = '';
@@ -112,6 +115,39 @@ public downloadPdfFailure(error) {
     this.settings.loadingSpinner = false;
     console.log(error);
 }
+
+
+
+    gethdfcPolicynum() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'policy_id':this.proposalId
+
+        }
+        this.proposalservice.hdfcPolicynum(data).subscribe(
+            (successData) => {
+                this.geteacceptanceTermSuccess(successData);
+            },
+            (error) => {
+                this.geteacceptanceTermFailure(error);
+            }
+        );
+    }
+
+    public geteacceptanceTermSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.eAcceptanceTerm = successData.ResponseObject;
+            this.policyidd = this.eAcceptanceTerm.policy_no;
+            console.log(this.policyidd,'ghfh');
+
+        }
+    }
+
+    public geteacceptanceTermFailure(error) {
+    }
     retry() {
         this.router.navigate(['/hdfc-proposal'  + '/' + true]);
     }
