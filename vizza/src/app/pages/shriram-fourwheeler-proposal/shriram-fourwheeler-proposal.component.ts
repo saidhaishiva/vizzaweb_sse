@@ -139,8 +139,11 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public titleId:any;
   public PAExclusionList: any;
   public bifuelType: any;
-  public bifuelCover: any;
+  public bifuelCover: boolean;
   public addonValue: any;
+  public preClaim: any;
+  public claimDetail: any;
+  public detariff: any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -175,7 +178,6 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.nonElectricalSumAount=false
     this.pASumAount=false
     this.paOwnerValue=false;
-    this.bifuelCover=false;
     this.settings = this.appSettings.settings;
     this.webhost = this.configs.getimgUrl();
 
@@ -286,6 +288,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       limitedTPPD:'',
       builtCNGKit:'',
       voluntaryExcess: [''],
+      voluntaryExcessName: [''],
       vehicleColour: ['', Validators.required],
 
 
@@ -336,6 +339,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.get_PA_exclusion_list();
     this.vehical.controls['isPAExclusion'].patchValue(false);
     this.PAExclusion()
+    this.nilDepPolicy()
     this.changeBifuelDrop()
 
     this.sessionData();
@@ -422,12 +426,24 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     if(this.bifuelType == '3'){
       // this.coverDetails['controls'].fuelType.patchValue('5');
       this.bifuelCover=true;
-    }else{
-      this.bifuelCover=false;
+    }else  if(this.bifuelType != '3'){
       this.vehical.controls['CNGKit'].patchValue(false);
+      this.vehical.controls['builtCNGKit'].patchValue(false);
+      this.bifuelCover=false;
       this.updateCNGKit();
     }
   }
+
+  nilDepPolicy() {
+    this.preClaim = this.carListDetails.previous_claim_YN
+    if(this.preClaim == 0){
+      this.claimDetail=true;
+
+    }else  if(this.preClaim == 1){
+      this.claimDetail=false;
+    }
+  }
+
   // changeCalcPA(event:any){
   //   let nonPASum=event.target.value;
   //   console.log(nonPASum,'nonPASum...');
@@ -467,6 +483,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.previousInsure.controls['policyNilDescription'].patchValue('');
     }
   }
+
+
 
   // FIRST STEPPER
 
@@ -1535,6 +1553,10 @@ hypoName(){
   }
   public voluntaryExcessFailure(error) {
   }
+  vlountaryName(){
+    this.vehical.controls['voluntaryExcessName'].patchValue(this.voluntaryList[this.vehical.controls['voluntaryExcess'].value]);
+
+  }
 
   uvYear(){
     if(this.previousInsure.controls['policyUwYear'].value > 2000){
@@ -1666,6 +1688,9 @@ hypoName(){
   }
   idValidate(event: any) {
     this.validation.idValidate(event);
+  }
+  numDotValidate(event: any) {
+    this.validation.numDotValidate(event);
   }
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
@@ -1815,6 +1840,7 @@ hypoName(){
       // this.depreciationAmount();
     }
     else{
+      this.settings.loadingSpinner = false;
         this.toastr.error(successData.ErrorObject);
       }
   }
@@ -1955,17 +1981,43 @@ hypoName(){
       this.vehicalFormData = this.vehical.value;
       this.previousFormData = this.previousInsure.value;
       this.nomineeFormData = this.nomineeDetail.value;
+
       this.electrical_cover = this.summaryData.cover.electrical_cover;
+      sessionStorage.Nil_depreciation_cover = ( this.Nil_depreciation_cover);
+
       this.basic_od_cover = this.summaryData.cover.basic_od_cover;
+      sessionStorage.basic_od_cover = ( this.basic_od_cover);
+
       this.basic_tp_cover = this.summaryData.cover.basic_tp_cover;
+      sessionStorage.basic_tp_cover = ( this.basic_tp_cover);
+
       this.od_total = this.summaryData.cover.od_total;
+      sessionStorage.od_total = ( this.od_total);
+
       this.cng_lpg_cover = this.summaryData.cover.cng_lpg_cover;
+      sessionStorage.cng_lpg_cover = ( this.cng_lpg_cover);
+
       this.gst = this.summaryData.cover.gst;
+      sessionStorage.gst = ( this.gst);
+
       this.anti_theft_cover = this.summaryData.cover.anti_theft_cover;
+      sessionStorage.anti_theft_cover = ( this.anti_theft_cover);
+
       this.Nil_depreciation_cover = this.summaryData.cover.Nil_depreciation_cover;
+      sessionStorage.Nil_depreciation_cover = ( this.Nil_depreciation_cover);
+
       this.LL_paid_driver = this.summaryData.cover.LL_paid_driver;
+      sessionStorage.LL_paid_driver = ( this.LL_paid_driver);
+
       this.pa_owner_driver = this.summaryData.cover.pa_owner_driver;
+      sessionStorage.pa_owner_driver = ( this.pa_owner_driver);
+
       this.Ncb = this.summaryData.cover.Ncb;
+      sessionStorage.Ncb = ( this.Ncb);
+
+      this.detariff = this.summaryData.cover.detariff;
+      sessionStorage.detariff = ( this.detariff);
+
 
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
@@ -1973,6 +2025,18 @@ hypoName(){
       sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
       console.log(this.vehicalFormData,'this.proposerFormData');
 
+      this.electrical_cover= sessionStorage.electrical_cover;
+      this.basic_od_cover= sessionStorage.basic_od_cover;
+      this.basic_tp_cover=  sessionStorage.basic_tp_cover;
+      this.od_total=  sessionStorage.od_total;
+      this.cng_lpg_cover= sessionStorage.cng_lpg_cover;
+      this.gst=sessionStorage.gst;
+      this.anti_theft_cover= sessionStorage.anti_theft_cover;
+      this.Nil_depreciation_cover=sessionStorage.Nil_depreciation_cover;
+      this.LL_paid_driver= sessionStorage.LL_paid_driver;
+      this.pa_owner_driver=sessionStorage.pa_owner_driver;
+      this.Ncb=sessionStorage.Ncb;
+      this.detariff=sessionStorage.detariff;
     }
     // else if(successData.IsSuccess==false){
       // this.settings.loadingSpinner = false;
@@ -2256,6 +2320,7 @@ hypoName(){
         builtCNGKit:stepper2.builtCNGKit,
           // paOwnerDriver:stepper2.paOwnerDriver,
         voluntaryExcess:stepper2.voluntaryExcess,
+        voluntaryExcessName:stepper2.voluntaryExcessName,
         vehicleColour: stepper2.vehicleColour,
 
       });
@@ -2322,6 +2387,11 @@ hypoName(){
                     <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation Cover(Bumper To Bumper) :</span><span style="margin-left: 13px;">{{this.Nil_depreciation_cover}}</span>  </p>
                 </div>
             </div>
+          <div class="row" *ngIf="this.pa_owner_driver!=''&&this.pa_owner_driver!=undefined">
+            <div class="col-md-12"  >
+              <p ><span style="margin-left: 35px;color: blue"> PA Owner Driver :</span><span style="margin-left: 174px;">{{this.pa_owner_driver}}</span>  </p>
+            </div>
+          </div>
             
             <div class="row" *ngIf="this.anti_theft_cover!=''||this.anti_theft_cover!=undefined">
                 <div class="col-md-12"  >
