@@ -506,7 +506,7 @@
                                         </div>
 
                                         <div class="proposal-buttom mt-3 text-right w-100">
-                                            <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
+                                            <button mat-button matStepperPrevious  (click)="topScroll();" >Back</button>
                                             <button mat-raised-button color="primaryBlue" (click)="previousDetails(stepper,previousInsure.value);previousNilError()">Next</button>
                                         </div>
                                     </form>
@@ -833,7 +833,7 @@
                                     <form action='{{PaymentRedirect}}' method='post' #form>
                                         <input name="PolicySysID" type="hidden" value="{{PolicySisID}}" />
                                         <input name="ReturnURL" type="hidden" value="{{PaymentReturn}}" />
-                                        <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                                        <button mat-button matStepperPrevious  (click)="topScroll();PAExclusion()">Back</button>
                                         <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                                     </form>
                                 </div>

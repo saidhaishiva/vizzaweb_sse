@@ -1161,6 +1161,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
     }
     else{
+      this.settings.loadingSpinner = false;
       this.toastr.error(successData.ErrorObject);
     }
   }

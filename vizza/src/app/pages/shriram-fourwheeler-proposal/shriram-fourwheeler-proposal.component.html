@@ -226,7 +226,7 @@
                                         </div>
                                         <div class="row"  *ngIf="!policyTypeDetails">
                                             <div class="col-md-4 ml-3">
-                                                <mat-checkbox  formControlName="antiTheft" (change)="updateAntiTheft()">Anti Theft</mat-checkbox>
+                                                <mat-checkbox  formControlName="antiTheft" >Anti Theft</mat-checkbox>
                                             </div>
                                             <div class="col-md-4 mt-0">
                                             </div>
@@ -375,7 +375,7 @@
                                             <div class="row" >
                                                 <div class="col-md-3">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Voluntary Excess"  formControlName="voluntaryExcess"   (selectionChange)="voluntaryExcess()"  >
+                                                        <mat-select placeholder="Voluntary Excess"  formControlName="voluntaryExcess"   (selectionChange)="voluntaryExcess();vlountaryName()"  >
                                                             <mat-option *ngFor="let vehiclebk of voluntaryList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                         </mat-select>
                                                         <!--<mat-error *ngIf="vehical.controls.voluntaryExcess.errors?.required">Voluntary Excess is required</mat-error>-->
@@ -389,7 +389,7 @@
                                             <div class="col-md-4">
                                                 <mat-checkbox  formControlName="limitedTPPD">Limited TPPD</mat-checkbox>
                                             </div>
-                                            <div class="col-md-4" >
+                                            <div class="col-md-4" *ngIf="bifuelCover==true">
                                                 <mat-checkbox  formControlName="builtCNGKit"  disabled="bifuelCover==false" readonly="bifuelCover==false">In Built CNGKit</mat-checkbox>
                                             </div>
 
@@ -513,7 +513,7 @@
                                         </div>
                                         <div class="proposal-buttom mt-3 text-right w-100">
                                             <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                                            <button mat-raised-button color="primaryBlue" (click)="PAExclusion();paExcluseName();getCover(stepper)">Next</button>
+                                            <button mat-raised-button color="primaryBlue" (click)="PAExclusion();paExcluseName();vlountaryName();getCover(stepper)">Next</button>
                                         </div>
                                     </form>
                                 </div>
@@ -711,7 +711,7 @@
                                                 <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>Anti Theft Cover:</strong> {{anti_theft_cover}}</li>
                                                 <li class="list-group-item" *ngIf="vehicalFormData.nilDepreciationCover != ''&&nilDepValue==true"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
                                                 <li class="list-group-item" *ngIf="vehicalFormData.lltoPaidDriver != ''"><strong>LL Paid Driver:</strong> {{LL_paid_driver}}</li>
-                                                <li class="list-group-item" *ngIf=" vehicalFormData.isPAExclusion == false"><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
+                                                <li class="list-group-item" ><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
                                                 <li class="list-group-item" *ngIf=" Ncb!=undefined"><strong>NCB:</strong> {{Ncb}}</li>
                                             </ul>
                                         </div>
@@ -727,7 +727,7 @@
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}}. {{proposerFormData.name}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
-                                            <li class="list-group-item" *ngIf="proposerFormData.dob != ''"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
+                                            <li class="list-group-item" *ngIf="proposerFormData.dob != ''&&proposerFormData.dob!=null"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" ><strong>Email Id:</strong> {{proposerFormData.email}}</li>
                                             <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                                         </ul>
@@ -792,7 +792,7 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.CNGKitSI != ''" ><strong>CNG Kit Sum Insured:</strong> {{vehicalFormData.CNGKitSI}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.paPaidDriver != ''" ><strong>PA Paid Driver Conductor Cleaner :</strong> <span *ngIf="vehicalFormData.paPaidDriver == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.paPaidDriverSI != ''" ><strong>PA Paid Driver Conductor Cleaner Sum Insured:</strong> {{vehicalFormData.paPaidDriverSI}}</li>
-                                            <li class="list-group-item"  *ngIf="vehicalFormData.voluntaryExcess != ''"><strong>Voluntary Excess :</strong>{{vehicalFormData.voluntaryExcess}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.voluntaryExcess != ''"><strong>Voluntary Excess :</strong>{{vehicalFormData.voluntaryExcessName}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.PAPaidDriverCount != ''"><strong>PA Paid Driver Count :</strong>{{vehicalFormData.PAPaidDriverCount}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.PAPaidConductorCount != ''"><strong>PA Paid Conductor Count :</strong>{{vehicalFormData.PAPaidConductorCount}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.PAPaidCleanerCount != ''"><strong>PA Paid Cleaner Count :</strong>{{vehicalFormData.PAPaidCleanerCount}}</li>
@@ -931,7 +931,7 @@
                                 <form action='{{PaymentRedirect}}' method='post' #form>
                                     <input name="PolicySysID" type="hidden" value="{{PolicySisID}}" />
                                     <input name="ReturnURL" type="hidden" value="{{PaymentReturn}}" />
-                                    <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                                    <button mat-button matStepperPrevious  (click)="topScroll();PAExclusion()">Back</button>
                                     <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                                 </form>
                             </div>

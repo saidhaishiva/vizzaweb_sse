@@ -1715,6 +1715,7 @@ export class BikeShriramProposalComponent implements OnInit {
             this.vehicalDetails(stepper,this.vehical.value)
         }
         else{
+            this.settings.loadingSpinner = false;
             this.toastr.error(successData.ErrorObject);
         }
     }
@@ -1873,21 +1874,53 @@ export class BikeShriramProposalComponent implements OnInit {
          this.previousFormData = this.previousInsure.value;
          this.nomineeFormData = this.nomineeDetail.value;
          this.basic_od_cover= this.summaryData.cover.basic_od_cover;
-         this.basic_tp_cover= this.summaryData.cover.basic_tp_cover;
-         this.od_total= this.summaryData.cover.od_total;
-         this.tp_total= this.summaryData.cover.tp_total;
-         this.gst= this.summaryData.cover.gst;
-         this.electrical_cover= this.summaryData.cover.electrical_cover;
-         this.anti_theft_cover= this.summaryData.cover.anti_theft_cover;
-         this.Nil_depreciation_cover= this.summaryData.cover.Nil_depreciation_cover;
-         this.pa_owner_driver= this.summaryData.cover.pa_owner_driver;
-         this.ncb= this.summaryData.cover.ncb;
-         console.log(this.vehicalFormData,'this.proposerFormData');
+            sessionStorage.basic_od_cover = ( this.basic_od_cover);
+
+            this.basic_tp_cover= this.summaryData.cover.basic_tp_cover;
+            sessionStorage.basic_tp_cover = ( this.basic_tp_cover);
+
+            this.od_total= this.summaryData.cover.od_total;
+            sessionStorage.od_total = ( this.od_total);
+
+            this.tp_total= this.summaryData.cover.tp_total;
+            sessionStorage.tp_total = ( this.tp_total);
+
+            this.gst= this.summaryData.cover.gst;
+            sessionStorage.gst = ( this.gst);
+
+            this.electrical_cover= this.summaryData.cover.electrical_cover;
+            sessionStorage.electrical_cover = ( this.electrical_cover);
+
+            this.anti_theft_cover= this.summaryData.cover.anti_theft_cover;
+            sessionStorage.anti_theft_cover = ( this.anti_theft_cover);
+
+            this.Nil_depreciation_cover= this.summaryData.cover.Nil_depreciation_cover;
+            sessionStorage.Nil_depreciation_cover = ( this.Nil_depreciation_cover);
+
+            this.pa_owner_driver= this.summaryData.cover.pa_owner_driver;
+            sessionStorage.pa_owner_driver = ( this.pa_owner_driver);
+
+            this.ncb= this.summaryData.cover.ncb;
+            sessionStorage.ncb = ( this.ncb);
+
+            console.log(this.vehicalFormData,'this.proposerFormData');
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
             sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
-      }
+            this.basic_od_cover= sessionStorage.basic_od_cover;
+            this.basic_tp_cover=  sessionStorage.basic_tp_cover;
+            this.od_total=  sessionStorage.od_total;
+            this.tp_total= sessionStorage.tp_total;
+            this.gst=sessionStorage.gst;
+            this.electrical_cover= sessionStorage.electrical_cover;
+            this.anti_theft_cover=sessionStorage.anti_theft_cover;
+            this.Nil_depreciation_cover= sessionStorage.Nil_depreciation_cover;
+            this.pa_owner_driver=sessionStorage.pa_owner_driver;
+            this.ncb=sessionStorage.ncb;
+
+
+        }
         // else {
             // this.settings.loadingSpinner = false;
             // if(successData.ErrorObject.type == 'idv') {
