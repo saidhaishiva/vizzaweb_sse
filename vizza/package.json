@@ -22,6 +22,7 @@
     "serve:ssr": "node dist/server",
     "server": "npm run build:ssr && npm run serve:ssr"
   },
+
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.2",
