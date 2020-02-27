@@ -56,7 +56,7 @@ constructor(@Inject(WINDOW) private window: Window, public config: Configuration
 
 }
 ngOnInit() {
-    this.gethdfcPolicynum();
+    //this.gethdfcPolicynum();
     // sessionStorage.hdfc_health_proposal_id = '';
     // sessionStorage.hdfcStep1 = '';
     // sessionStorage.hdfcStep2 = '';
@@ -118,24 +118,24 @@ public downloadPdfFailure(error) {
 
 
 
-    gethdfcPolicynum() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-            'policy_id':this.proposalId
-
-        }
-        this.proposalservice.hdfcPolicynum(data).subscribe(
-            (successData) => {
-                this.geteacceptanceTermSuccess(successData);
-            },
-            (error) => {
-                this.geteacceptanceTermFailure(error);
-            }
-        );
-    }
+    // gethdfcPolicynum() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+    //         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+    //         'policy_id':this.proposalId
+    //
+    //     }
+    //     this.proposalservice.hdfcPolicynum(data).subscribe(
+    //         (successData) => {
+    //             this.geteacceptanceTermSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.geteacceptanceTermFailure(error);
+    //         }
+    //     );
+    // }
 
     public geteacceptanceTermSuccess(successData) {
         if (successData.IsSuccess) {
