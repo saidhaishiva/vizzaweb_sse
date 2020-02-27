@@ -602,7 +602,7 @@
                       <div class="col-md-4"  style="margin-top: -17px" *ngIf="coverDetails.controls.IsBiFuelKit.value == true">
                       <mat-form-field class="w-100">
                         <p>Bifuel Type<span class="error">*</span></p>
-                      <mat-select  formControlName="bifueltype"  (selectionChange)="bifuelTypes()" >
+                      <mat-select  formControlName="bifueltype"   >
                       <mat-option *ngFor="let type of bifueltypeList | keys" value="{{type.value}}" > {{type.value}} </mat-option>
                       </mat-select>
                       <!--<mat-error *ngIf="coverDetails.controls.bifueltype.errors?.required">Bifuel type is required</mat-error>-->
@@ -630,7 +630,7 @@
                       <div class="col-md-12 mt-2" >
                         <div class="row">
                           <div class="col-md-4" [ngStyle]="{'pointer-events': this.coverDetails.controls['BasicODCoverage'].value==true ? 'none' : ''}">
-                            <mat-checkbox  formControlName="BasicODCoverage" required  (change)="updateBasicODCoverage()"  >Basic OD<span class="error">*</span></mat-checkbox>
+                            <mat-checkbox  formControlName="BasicODCoverage"     >Basic OD<span class="error">*</span></mat-checkbox>
                           </div>
                           <!--<div class="col-md-4 " *ngIf="coverDetails.controls.BasicODCoverage.value == true">-->
                             <!--<mat-form-field class="w-100">-->
@@ -642,7 +642,7 @@
                       <div class="col-md-12 mt-2" >
                         <div class="row">
                           <div class="col-md-4" [ngStyle]="{'pointer-events': this.coverDetails.controls['BasicLiability'].value==true ? 'none' : ''}">
-                            <mat-checkbox  formControlName="BasicLiability" required  (change)="updateBasicLiabilityCoverage()"  >Basic Liability<span class="error">*</span></mat-checkbox>
+                            <mat-checkbox  formControlName="BasicLiability"     >Basic Liability<span class="error">*</span></mat-checkbox>
                           </div>
                           <!--<div class="col-md-4 " *ngIf="coverDetails.controls.BasicLiability.value == true">-->
                             <!--<mat-form-field class="w-100">-->
