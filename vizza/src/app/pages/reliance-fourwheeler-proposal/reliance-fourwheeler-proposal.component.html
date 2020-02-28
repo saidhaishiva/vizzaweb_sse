@@ -515,7 +515,7 @@
                     <div class="proposal-buttom mt-3 text-right w-100">
                       <button mat-button matStepperPrevious color="primaryBlue" class="text-light"  style="margin-right:17px" (click)="topScroll()">Back</button>
 
-                      <button mat-raised-button color="primaryBlue"  (click)="clientTypeReq();unnamedSi(); namedSi();voluntaryAmount();nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
+                      <button mat-raised-button color="primaryBlue"  (click)="clientTypeReq();unnamedSi();namedSi();voluntaryAmount();nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
                     </div>
               </form>
             </mat-expansion-panel>
@@ -718,7 +718,7 @@
                       </div>
                       <div class="col-md-3" *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.value">
                       <mat-form-field class="w-100">
-                        <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI"   (selectionChange)="unnamedSi()" required>
+                        <mat-select placeholder="Sum Insured" formControlName="UnnamedPassengersSI"    required>
                           <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="coverDetails.controls.UnnamedPassengersSI.errors?.required">Sum Insured is required</mat-error>
@@ -876,7 +876,7 @@
                       </div>
                       <div class="col-md-4 mt-0" *ngIf="coverDetails.controls.IsVoluntaryDeductableOpted.value == true">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount"   required>
+                          <mat-select placeholder="Sum Insured" formControlName="VoluntaryDeductableAmount" (selectionChange)="voluntaryAmount()"  required>
                             <mat-option *ngFor="let type of amountList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="coverDetails.controls.VoluntaryDeductableAmount.errors?.required">Sum Insured  is required</mat-error>
@@ -1556,7 +1556,7 @@
                     <li class="list-group-item" *ngIf="coverFormData.BasicLiability == true "><strong>Basic Liability Premium:</strong> {{basic_liability}}</li>
                     <!--<li class="list-group-item" *ngIf="coverFormData.IsTotalCover != ''"><strong>Total Cover:</strong><span *ngIf="coverFormData.IsTotalCover == true">Yes</span><span *ngIf="coverFormData.IsTotalCover == false">No</span> </li>-->
                     <li class="list-group-item" *ngIf="coverFormData.LiabilityToPaidDriverCovered == false"><strong>Liability to Paid Driver:</strong><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == false">N/A</span> </li>
-                    <li class="list-group-item" *ngIf="(coverFormData.totalLiabilityToPaidDriverPremium != '' || coverFormData.totalLiabilityToPaidDriverPremium !=undefined)&&coverFormData.LiabilityToPaidDriverCovered == true "><strong>Liability to Paid Driver Premium:</strong> {{coverFormData.totalLiabilityToPaidDriverPremium}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.LiabilityToPaidDriverCovered == true "><strong>Liability to Paid Driver Premium:</strong> {{Liability_to_paid_driver}}</li>
                   </ul>
                 </div>
 
@@ -1652,7 +1652,7 @@
                   <ul class="m-0 list-group">
                     <li class="list-group-item" *ngIf="coverFormData.bifueltype != '' && coverFormData.IsBiFuelKit ==true "><strong>Bifuel type:</strong> {{coverFormData.bifueltype}}</li>
                     <!--<li class="list-group-item" *ngIf="coverFormData.fittngType != '' && coverFormData.cpgLpgKit ==true "><strong>Fitting Type:</strong> {{coverFormData.fittngType}}</li>-->
-                    <li class="list-group-item" *ngIf="(coverFormData.bifuelAmount != '' || coverFormData.bifuelAmount !=undefined)&&coverFormData.IsBiFuelKit == true "><strong>BiFuel Kit Premium:</strong> {{coverFormData.bifuelAmount}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit == true "><strong>BiFuel Kit Premium:</strong> {{Bifuel_kit}}</li>
                   </ul>
                 </div>
 

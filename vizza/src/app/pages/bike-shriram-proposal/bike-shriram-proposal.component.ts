@@ -152,6 +152,7 @@ export class BikeShriramProposalComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 this.stepper2 = JSON.parse(sessionStorage.stepper2);
+                this.get_PA_exclusion_list();
                 if(this.stepper2.isPAExclusion==false){
                     this.vehical.controls['isPAExclusion'].patchValue(false);
                     this.vehical.controls['PAExclusion'].patchValue('');

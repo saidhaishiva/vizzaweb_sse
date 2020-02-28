@@ -158,6 +158,21 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
           this.PolicySisID =   this.summaryData.PolicySisID;
           this.PaymentReturn =   this.summaryData.PaymentReturn;
           sessionStorage.shiramFwProposalID = this.ProposalId;
+
+          this.electrical_cover= sessionStorage.electrical_cover;
+          this.basic_od_cover= sessionStorage.basic_od_cover;
+          this.basic_tp_cover=  sessionStorage.basic_tp_cover;
+          this.od_total=  sessionStorage.od_total;
+          this.cng_lpg_cover= sessionStorage.cng_lpg_cover;
+          this.gst=sessionStorage.gst;
+          this.anti_theft_cover= sessionStorage.anti_theft_cover;
+          this.Nil_depreciation_cover=sessionStorage.Nil_depreciation_cover;
+          this.LL_paid_driver= sessionStorage.LL_paid_driver;
+          this.pa_owner_driver=sessionStorage.pa_owner_driver;
+          this.Ncb=sessionStorage.Ncb;
+          this.pa_unnamed_passenger_cover=sessionStorage.pa_unnamed_passenger_cover;
+          this.detariff=sessionStorage.detariff;
+          this.get_PA_exclusion_list()
           this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
           this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
           this.previousFormData = JSON.parse(sessionStorage.previousFormData);

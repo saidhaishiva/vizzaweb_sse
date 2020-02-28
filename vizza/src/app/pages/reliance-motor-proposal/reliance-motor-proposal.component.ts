@@ -125,6 +125,8 @@ export class RelianceMotorProposalComponent implements OnInit {
   public PA_to_named_passenger: any;
   public PA_to_owner_driver: any;
   public PA_to_unnamed_passenger: any;
+  public preClaim: any;
+  public claimDetail: any;
   //dob
   proposerAge : any;
   nomineeAge : any;
@@ -359,6 +361,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.getTppdSi();
     this.getFinancialType();
     this.getPaSi();
+    this.nilDepPolicy();
     // this.getCover();
 
   }
@@ -2892,7 +2895,16 @@ export class RelianceMotorProposalComponent implements OnInit {
   //   }
   //   this.coverDetails.controls['totalspeciallyDesigned'].updateValueAndValidity();
   // }
+  nilDepPolicy(){
+    this.preClaim=this.enquiryFormData.previous_claim_YN
+    if(this.preClaim == 0){
+      this.claimDetail=true;
 
+    }else  if(this.preClaim == 1){
+      this.claimDetail=false;
+      this.coverDetails.controls['NilDepreciationCoverage'].patchValue(false);
+    }
+  }
 
   nilDepApplyingChange(){
     if (this.coverDetails.controls.NilDepreciationCoverage.value == true) {
