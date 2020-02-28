@@ -33,7 +33,7 @@
                       </div>
                       <div class="col-md-3 mt-3" *ngIf="this.relianceProposal.controls['clientType'].value == 0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" [required]="relianceProposal.controls['clientType'].value==0">
+                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle();maritalvalue()" [required]="relianceProposal.controls['clientType'].value==0">
                             <mat-option *ngFor="let title of titleList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="relianceProposal.controls.title.errors?.required">Title is required</mat-error>
@@ -415,7 +415,7 @@
 
                         <!-- <button mat-raised-button color="primaryBlue"  (click)="createProposal(relianceProposal.value)" >Next</button>-->
 
-                        <button mat-raised-button color="primaryBlue"  (click)="changeBifuelDrop();nextTab(stepper,relianceProposal.value,'stepper1')" >Next</button>
+                        <button mat-raised-button color="primaryBlue"  (click)="changeBifuelDrop();maritalvalue();nextTab(stepper,relianceProposal.value,'stepper1')" >Next</button>
                       </div>
 
                     </div>
@@ -1359,7 +1359,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd != false"><strong >PA to Owner Driver:</strong> {{summaryData.productlist.pa_to_owner_driver}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd != false"><strong >PA to Owner Driver:</strong> {{PA_to_owner_driver}}</li>
                           <li class="list-group-item" *ngIf="gstAmount.igst != ''"><strong>GST:</strong>{{gstAmount.igst}} </li>
                           <li class="list-group-item" ><strong *ngIf="summaryData.productlist.comphensivePreminium != ''">Comprehensive Premium:</strong> {{summaryData.productlist.comphensivePreminium}}</li>
                         </ul>
@@ -1542,7 +1542,7 @@
                     <li class="list-group-item" *ngIf="buyProduct.business_type ==6"><strong>Inspection No:</strong> {{coverFormData.inspectionNo}}</li>
                     <!--<li class="list-group-item" *ngIf="coverFormData.totalAssociationPremium != '' && coverFormData.AutomobileAssociationMember ==true "><strong>Automobile Association Membership Premium:</strong> {{coverFormData.totalAssociationPremium}}</li>-->
                     <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage == false"><strong>Basic OD :</strong><span *ngIf="coverFormData.BasicODCoverage == false">N/A</span> </li>
-                    <li class="list-group-item" *ngIf="coverFormData.totalBasicODCoveragePremium != '' && coverFormData.BasicODCoverage ==true "><strong>Basic OD Premium:</strong> {{coverFormData.totalBasicODCoveragePremium}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage ==true "><strong>Basic OD Premium:</strong> {{basic_od}}</li>
 
 
                   </ul>
@@ -1553,7 +1553,7 @@
                   <ul class="m-0 list-group">
                     <!--<li class="list-group-item" *ngIf="coverFormData.totalAntiTheftDeviceFittedPremium != '' && coverFormData.AntiTheftDeviceFitted ==true "><strong>Anti-Theft Device Premium:</strong> {{coverFormData.totalAntiTheftDeviceFittedPremium}}</li>-->
                     <li class="list-group-item" *ngIf="coverFormData.BasicLiability == false"><strong>Basic Liability:</strong><span *ngIf="coverFormData.BasicLiability == false">N/A</span> </li>
-                    <li class="list-group-item" *ngIf="(coverFormData.totalBasicLiabilityPremium != '' || coverFormData.totalBasicLiabilityPremium !=undefined)&&coverFormData.BasicLiability == true "><strong>Basic Liability Premium:</strong> {{coverFormData.totalBasicLiabilityPremium}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.BasicLiability == true "><strong>Basic Liability Premium:</strong> {{basic_liability}}</li>
                     <!--<li class="list-group-item" *ngIf="coverFormData.IsTotalCover != ''"><strong>Total Cover:</strong><span *ngIf="coverFormData.IsTotalCover == true">Yes</span><span *ngIf="coverFormData.IsTotalCover == false">No</span> </li>-->
                     <li class="list-group-item" *ngIf="coverFormData.LiabilityToPaidDriverCovered == false"><strong>Liability to Paid Driver:</strong><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == false">N/A</span> </li>
                     <li class="list-group-item" *ngIf="(coverFormData.totalLiabilityToPaidDriverPremium != '' || coverFormData.totalLiabilityToPaidDriverPremium !=undefined)&&coverFormData.LiabilityToPaidDriverCovered == true "><strong>Liability to Paid Driver Premium:</strong> {{coverFormData.totalLiabilityToPaidDriverPremium}}</li>
@@ -1594,7 +1594,7 @@
                   <h2     style="margin-top: 29px !important;" ></h2>
                     <ul class="m-0 list-group">
                     <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
-                    <li class="list-group-item" *ngIf="(coverFormData.totalUnnamedPassengerPremium != '' || coverFormData.totalUnnamedPassengerPremium !=undefined)&&coverFormData.UnnamedPassengerCovered == true "><strong>PA to Unnamed Passenger Premium:</strong> {{coverFormData.totalUnnamedPassengerPremium}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered == true "><strong>PA to Unnamed Passenger Premium:</strong> {{PA_to_unnamed_passenger}}</li>
                     </ul>
                   </div>
 
@@ -1610,7 +1610,7 @@
                                   <h2     style="margin-top: 29px !important;" ></h2>
                                     <ul class="m-0 list-group">
                                     <li class="list-group-item" *ngIf="coverFormData.NoOfnamedPassenegersCovered != '' && coverFormData.namedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfnamedPassenegersCovered}}</li>
-                                      <li class="list-group-item" *ngIf="(coverFormData.totalnamedPassengerPremium != '' || coverFormData.totalnamedPassengerPremium !=undefined)&&coverFormData.namedPassengerCovered == true "><strong>PA to Named Passenger Premium:</strong> {{coverFormData.totalnamedPassengerPremium}}</li>
+                                      <li class="list-group-item" *ngIf="coverFormData.namedPassengerCovered == true "><strong>PA to Named Passenger Premium:</strong> {{PA_to_named_passenger}}</li>
 
                                       <!--                                    <li class="list-group-item" *ngIf="(coverFormData.totalnamedPassengerPremium != '' || coverFormData.totalnamedPassengerPremium !=undefined)&&coverFormData.UnnamedPassengerCovered == true "><strong>PA to Named Passenger Premium:</strong> {{coverFormData.totalnamedPassengerPremium}}</li>-->
                                     </ul>
@@ -1677,7 +1677,7 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage == false"><strong>Nil Depreciation:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == false">N/A</span> </li>
                           <!--<li class="list-group-item" *ngIf="coverFormData.applicableRate != '' && coverFormData.NilDepreciationCoverage == true "><strong>Applicable Rate:</strong> {{coverFormData.applicableRate}}</li>-->
-                          <li class="list-group-item" *ngIf="(coverFormData.totalDepreciationPremium != '' || coverFormData.totalDepreciationPremium !=undefined)&&coverFormData.NilDepreciationCoverage == true "><strong>Nil Depreciation Premium:</strong> {{coverFormData.totalDepreciationPremium}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage == true "><strong>Nil Depreciation Premium:</strong> {{Nil_depreciation}}</li>
 
                         </ul>
                       </div>
@@ -1704,7 +1704,7 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.IsElectricalItemFitted == false"><strong>Electrical Accessories:</strong><span >N/A</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.ElectricalItemsTotalSI != '' && coverFormData.IsElectricalItemFitted ==true "><strong>Sum Insured:</strong> {{coverFormData.ElectricalItemsTotalSI}}</li>
-                          <li class="list-group-item" *ngIf="(coverFormData.totalElectricalItemPremium != '' || coverFormData.totalElectricalItemPremium !=undefined)&&coverFormData.IsElectricalItemFitted == true "><strong>Electrical Accessories Premium:</strong> {{coverFormData.totalElectricalItemPremium}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.IsElectricalItemFitted == true "><strong>Electrical Accessories Premium:</strong> {{Electrical_accessories}}</li>
 
                         </ul>
                       </div>
@@ -1713,7 +1713,7 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted == false"><strong>Non Electrical Accessories:</strong><span>N/A</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.NonElectricalItemsTotalSI != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Sum Insured:</strong> {{coverFormData.NonElectricalItemsTotalSI}}</li>
-                          <li class="list-group-item" *ngIf="(coverFormData.totalNonElectricalItemPremium != '' ||coverFormData.totalNonElectricalItemPremium!= undefined)&&coverFormData.IsNonElectricalItemFitted == true"><strong>Non Electrical Accessories Premium:</strong> {{coverFormData.totalNonElectricalItemPremium}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted == true"><strong>Non Electrical Accessories Premium:</strong> {{Non_electrical_accessories}}</li>
                         </ul>
                       </div>
 

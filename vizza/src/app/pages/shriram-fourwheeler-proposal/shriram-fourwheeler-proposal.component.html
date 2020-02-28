@@ -349,7 +349,7 @@
                                                 </div>
                                                 <div class="col-md-4" *ngIf="vehical.controls.paPaidDriver.value ==true">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Sum Insured"  formControlName="paPaidDriverSI" (keypress)="numberValidate($event)" autocomplete="off"  [required]="vehical.controls.paPaidDriver.value==true" >
+                                                        <input matInput placeholder="Sum Insured"  formControlName="paPaidDriverSI" (keypress)="numDotValidate($event)" autocomplete="off"  [required]="vehical.controls.paPaidDriver.value==true" >
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -390,7 +390,7 @@
                                                 <mat-checkbox  formControlName="limitedTPPD">Limited TPPD</mat-checkbox>
                                             </div>
                                             <div class="col-md-4" *ngIf="bifuelCover==true">
-                                                <mat-checkbox  formControlName="builtCNGKit"  disabled="bifuelCover==false" readonly="bifuelCover==false">In Built CNGKit</mat-checkbox>
+                                                <mat-checkbox  formControlName="builtCNGKit"  >In Built CNGKit</mat-checkbox>
                                             </div>
 
 
@@ -698,6 +698,8 @@
                                                 <li class="list-group-item" *ngIf="od_total!=''|| od_total!=undefined"><strong>OD Total:</strong> {{od_total}}</li>
                                                 <li class="list-group-item" *ngIf="vehicalFormData.CNGKit != ''"><strong>CNG LPG Cover:</strong> {{cng_lpg_cover}}</li>
                                                 <li class="list-group-item" *ngIf="gst!=''|| gst!=undefined"><strong>GST:</strong> {{gst}}</li>
+                                                <li class="list-group-item" *ngIf=" detariff!=undefined"><strong>DETARIFF DISCOUNT ON BASIC OD:</strong> {{detariff}}</li>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -712,8 +714,8 @@
                                                 <li class="list-group-item" *ngIf="vehicalFormData.nilDepreciationCover != ''&&nilDepValue==true"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
                                                 <li class="list-group-item" *ngIf="vehicalFormData.lltoPaidDriver != ''"><strong>LL Paid Driver:</strong> {{LL_paid_driver}}</li>
                                                 <li class="list-group-item" ><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
-                                                <li class="list-group-item" *ngIf=" Ncb!=undefined"><strong>NCB:</strong> {{Ncb}}</li>
-                                                <li class="list-group-item" *ngIf=" detariff!=undefined"><strong>DETARIFF DISCOUNT ON BASIC OD:</strong> {{detariff}}</li>
+                                                <li class="list-group-item" ><strong>PA Unnamed Passenger Cover:</strong> {{pa_unnamed_passenger_cover}}</li>
+                                                <li class="list-group-item" ><strong>NCB:</strong> {{Ncb}}</li>
                                             </ul>
                                         </div>
                                     </div>

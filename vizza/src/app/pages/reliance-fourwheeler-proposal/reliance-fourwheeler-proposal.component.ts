@@ -129,6 +129,13 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public bifuelCover: boolean;
   public preClaim: any;
   public claimDetail: any;
+  public coverageValue: any;
+  public Electrical_accessories: any;
+  public Nil_depreciation: any;
+  public Non_electrical_accessories: any;
+  public PA_to_named_passenger: any;
+  public PA_to_owner_driver: any;
+  public PA_to_unnamed_passenger: any;
 
   //dob
   proposerAge : any;
@@ -488,6 +495,14 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.relianceProposal.controls['occupation'].updateValueAndValidity();
       this.relianceProposal.controls['maritalStatus'].updateValueAndValidity();
 
+  }
+
+  maritalvalue(){
+    if(this.relianceProposal.controls['title'].value=='Mr.'){
+      this.relianceProposal.controls['gender'].patchValue('Male');
+    }else if((this.relianceProposal.controls['title'].value=='Mrs.')|| (this.relianceProposal.controls['title'].value=='Ms.')){
+      this.relianceProposal.controls['gender'].patchValue('Female');
+    }
   }
 
 
@@ -1584,6 +1599,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "enquiry_id": this.bikeEnquiryId,
+      "company_id": "3",
     };
     this.fourWheelerInsurance.fourWheelerRelianceGetBifuelList(data).subscribe(
         (successData) => {
@@ -3177,6 +3193,40 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       console.log(this.previousFormData,'prevdata');
       // sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+
+      this.coverageValue=this.summaryData.productlist.cover;
+      this.Electrical_accessories=this.coverageValue.Electrical_accessories;
+      sessionStorage.Electrical_accessories=this.Electrical_accessories;
+
+      this.Nil_depreciation=this.coverageValue.Nil_depreciation;
+      sessionStorage.Nil_depreciation=this.Nil_depreciation;
+
+      this.Non_electrical_accessories=this.coverageValue.Non_electrical_accessories;
+      sessionStorage.Non_electrical_accessories=this.Non_electrical_accessories;
+
+      this.PA_to_named_passenger=this.coverageValue.PA_to_named_passenger;
+      sessionStorage.PA_to_named_passenger=this.PA_to_named_passenger;
+
+      this.PA_to_owner_driver=this.coverageValue.PA_to_owner_driver;
+      sessionStorage.PA_to_owner_driver=this.PA_to_owner_driver;
+
+      this.PA_to_unnamed_passenger=this.coverageValue.PA_to_unnamed_passenger;
+      sessionStorage.PA_to_unnamed_passenger=this.PA_to_unnamed_passenger;
+
+      this.basic_od=this.coverageValue.basic_od;
+      sessionStorage.basic_od=this.basic_od;
+
+      this.basic_liability=this.coverageValue.basic_liability;
+      sessionStorage.basic_liability=this.basic_liability;
+
+      this.Electrical_accessories=sessionStorage.Electrical_accessories;
+      this.Nil_depreciation=sessionStorage.Nil_depreciation;
+      this.Non_electrical_accessories=sessionStorage.Non_electrical_accessories;
+      this.PA_to_named_passenger=sessionStorage.PA_to_named_passenger;
+      this.PA_to_owner_driver=sessionStorage.PA_to_owner_driver;
+      this.PA_to_unnamed_passenger=sessionStorage.PA_to_unnamed_passenger;
+      this.basic_od=sessionStorage.basic_od;
+      this.basic_liability=sessionStorage.basic_liability;
       stepper.next();
       this.topScroll();
       // this.nextStep();

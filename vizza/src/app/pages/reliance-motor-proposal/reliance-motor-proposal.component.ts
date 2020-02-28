@@ -119,7 +119,12 @@ export class RelianceMotorProposalComponent implements OnInit {
   public coverageValue: any;
   public clientTypeField: boolean;
   public addonValue: boolean;
-
+  public Electrical_accessories: any;
+  public Nil_depreciation: any;
+  public Non_electrical_accessories: any;
+  public PA_to_named_passenger: any;
+  public PA_to_owner_driver: any;
+  public PA_to_unnamed_passenger: any;
   //dob
   proposerAge : any;
   nomineeAge : any;
@@ -129,6 +134,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   personalDobError : any;
   previousDateError : any;
   ProposalId : any;
+
   constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService,public dialog: MatDialog, public route: ActivatedRoute , public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
 
     let stepperindex = 0;
@@ -532,6 +538,13 @@ export class RelianceMotorProposalComponent implements OnInit {
   //   }
   //
   // }
+  maritalvalue(){
+    if(this.relianceProposal.controls['title'].value=='Mr.'){
+      this.relianceProposal.controls['gender'].patchValue('Male');
+    }else if((this.relianceProposal.controls['title'].value=='Mrs.')|| (this.relianceProposal.controls['title'].value=='Ms.')){
+      this.relianceProposal.controls['gender'].patchValue('Female');
+    }
+  }
 
   updateMandatory() {
     if (this.coverDetails.controls['PAToOwnerDriverCoverd'].value==true) {
@@ -1412,8 +1425,8 @@ export class RelianceMotorProposalComponent implements OnInit {
         // ElectricalItemsTotalPremium: this.getStepper3.ElectricalItemsTotalPremium,
         // totalPAToOwnerDriverPremium: this.getStepper3.totalPAToOwnerDriverPremium,
         VoluntaryDeductableAmount: this.getStepper3.VoluntaryDeductableAmount,
-        NoOfTPPDCover: this.getStepper3.NoOfTPPDCover,
-        tPPDCoverSI: this.getStepper3.tPPDCoverSI,
+        // NoOfTPPDCover: this.getStepper3.NoOfTPPDCover,
+        // tPPDCoverSI: this.getStepper3.tPPDCoverSI,
         IsVoluntaryDeductableOpted: this.getStepper3.IsVoluntaryDeductableOpted,
         UnnamedPassengerCovered: this.getStepper3.UnnamedPassengerCovered,
         UnnamedPassengersSI: this.getStepper3.UnnamedPassengersSI,
@@ -2153,8 +2166,41 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.previousFormData = this.previousInsurance.value;
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       console.log(this.previousFormData,'prevdata');
-      this.coverageValue=this.summaryData.productlist.discount.cover;
-      // sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+      this.coverageValue=this.summaryData.productlist.cover;
+      this.Electrical_accessories=this.coverageValue.Electrical_accessories;
+      sessionStorage.Electrical_accessories=this.Electrical_accessories;
+
+      this.Nil_depreciation=this.coverageValue.Nil_depreciation;
+      sessionStorage.Nil_depreciation=this.Nil_depreciation;
+
+      this.Non_electrical_accessories=this.coverageValue.Non_electrical_accessories;
+      sessionStorage.Non_electrical_accessories=this.Non_electrical_accessories;
+
+      this.PA_to_named_passenger=this.coverageValue.PA_to_named_passenger;
+      sessionStorage.PA_to_named_passenger=this.PA_to_named_passenger;
+
+      this.PA_to_owner_driver=this.coverageValue.PA_to_owner_driver;
+      sessionStorage.PA_to_owner_driver=this.PA_to_owner_driver;
+
+      this.PA_to_unnamed_passenger=this.coverageValue.PA_to_unnamed_passenger;
+      sessionStorage.PA_to_unnamed_passenger=this.PA_to_unnamed_passenger;
+
+      this.basic_od=this.coverageValue.basic_od;
+      sessionStorage.basic_od=this.basic_od;
+
+      this.basic_liability=this.coverageValue.basic_liability;
+      sessionStorage.basic_liability=this.basic_liability;
+
+      this.Electrical_accessories=sessionStorage.Electrical_accessories;
+      this.Nil_depreciation=sessionStorage.Nil_depreciation;
+      this.Non_electrical_accessories=sessionStorage.Non_electrical_accessories;
+      this.PA_to_named_passenger=sessionStorage.PA_to_named_passenger;
+      this.PA_to_owner_driver=sessionStorage.PA_to_owner_driver;
+      this.PA_to_unnamed_passenger=sessionStorage.PA_to_unnamed_passenger;
+      this.basic_od=sessionStorage.basic_od;
+      this.basic_liability=sessionStorage.basic_liability;
+
+
       stepper.next();
       this.topScroll();
       // this.nextStep();

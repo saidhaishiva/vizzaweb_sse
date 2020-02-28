@@ -622,6 +622,8 @@
                                                 <li class="list-group-item" *ngIf="od_total!=''||od_total!=undefined"><strong>OD Total:</strong> {{od_total}}</li>
                                                 <li class="list-group-item" *ngIf="tp_total!=''||tp_total!=undefined"><strong>TP Total:</strong> {{tp_total}}</li>
                                                 <li class="list-group-item" *ngIf="gst!=''||gst!=undefined"><strong>GST:</strong> {{gst}}</li>
+                                                <li class="list-group-item" *ngIf="detariff!=undefined"><strong>DETARIFF DISCOUNT ON BASIC OD:</strong> {{detariff}}</li>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -635,8 +637,8 @@
                                                 <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>Anti Theft Cover:</strong> {{anti_theft_cover}}</li>
                                                 <li class="list-group-item" *ngIf="(vehicalFormData.nilDepreciationCover != ''&& nilDepValue==true)"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
                                                 <li class="list-group-item" ><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
-                                                <li class="list-group-item" *ngIf="ncb!=undefined"><strong>NCB:</strong> {{ncb}}</li>
-                                                <li class="list-group-item" *ngIf="detariff!=undefined"><strong>DETARIFF DISCOUNT ON BASIC OD:</strong> {{detariff}}</li>
+                                                <li class="list-group-item" ><strong>PA Unnamed Passenger Cover:</strong> {{pa_unnamed_passenger_cover}}</li>
+                                                <li class="list-group-item" ><strong>NCB:</strong> {{ncb}}</li>
                                             </ul>
                                         </div>
                                     </div>
