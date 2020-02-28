@@ -405,6 +405,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "enquiry_id": this.bikeEnquiryId,
+      "company_id": "7",
     };
     this.fwService.fourWheelerRelianceGetBifuelList(data).subscribe(
         (successData) => {
