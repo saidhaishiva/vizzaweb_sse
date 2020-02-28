@@ -153,8 +153,15 @@ export class BikeShriramProposalComponent implements OnInit {
             if(params.stepper == true || params.stepper == 'true') {
                 this.stepper2 = JSON.parse(sessionStorage.stepper2);
                 if(this.stepper2.isPAExclusion==false){
-                stepperindex = 4;
+                    this.vehical.controls['isPAExclusion'].patchValue(false);
+                    this.vehical.controls['PAExclusion'].patchValue('');
+
+                    stepperindex = 4;
                 }else if(this.stepper2.isPAExclusion==true){
+                    this.vehical.controls['isPAExclusion'].patchValue(true);
+                    this.vehical.controls['PAExclusion'].patchValue(this.stepper2.PAExclusion);
+                    this.get_PA_exclusion_list();
+                    this.PAExclusion();
                     stepperindex = 3;
                 }
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
@@ -1130,6 +1137,7 @@ export class BikeShriramProposalComponent implements OnInit {
     PAExclusion(){
         if(this.vehical.controls['isPAExclusion'].value==true) {
             this.paOwnerValue=false;
+            this.vehical.controls['PAExclusion'].patchValue(this.vehical.controls['PAExclusion'].value);
             this.vehical.controls['PAExclusion'].setValidators([Validators.required]);
 
             this.nomineeDetail.controls['nomineeName'].patchValue('');
@@ -1904,6 +1912,9 @@ export class BikeShriramProposalComponent implements OnInit {
             this.ncb= this.summaryData.cover.ncb;
             sessionStorage.ncb = ( this.ncb);
 
+            this.pa_unnamed_passenger_cover= this.summaryData.cover.pa_unnamed_passenger_cover;
+            sessionStorage.pa_unnamed_passenger_cover = ( this.pa_unnamed_passenger_cover);
+
             this.detariff= this.summaryData.cover.detariff;
             sessionStorage.detariff = ( this.detariff);
 
@@ -1922,6 +1933,7 @@ export class BikeShriramProposalComponent implements OnInit {
             this.Nil_depreciation_cover= sessionStorage.Nil_depreciation_cover;
             this.pa_owner_driver=sessionStorage.pa_owner_driver;
             this.ncb=sessionStorage.ncb;
+            this.pa_unnamed_passenger_cover=sessionStorage.pa_unnamed_passenger_cover;
             this.detariff=sessionStorage.detariff;
 
 
@@ -2241,18 +2253,18 @@ export class BikeShriramProposalComponent implements OnInit {
            
             <div class="row" *ngIf="this.Nil_depreciation_cover!=''&&this.Nil_depreciation_cover!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation Cover(Bumper To Bumper) :</span><span style="margin-left: 13px;">{{this.Nil_depreciation_cover}}</span>  </p>
+                    <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation Cover(Bumper To Bumper) :</span><span style="margin-left: 19px;">{{this.Nil_depreciation_cover}}</span>  </p>
                 </div>
             </div>
             <div class="row" *ngIf="this.pa_owner_driver!=''&&this.pa_owner_driver!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 35px;color: blue"> PA Owner Driver :</span><span style="margin-left: 174px;">{{this.pa_owner_driver}}</span>  </p>
+                    <p ><span style="margin-left: 35px;color: blue"> PA Owner Driver :</span><span style="margin-left: 185px;">{{this.pa_owner_driver}}</span>  </p>
                 </div>
             </div>
             
             <div class="row" *ngIf="this.anti_theft_cover!=''||this.anti_theft_cover!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 35px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 174px;">{{this.anti_theft_cover}}</span>  </p>
+                    <p ><span style="margin-left: 35px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 177px;">{{this.anti_theft_cover}}</span>  </p>
                 </div>
             </div>
 

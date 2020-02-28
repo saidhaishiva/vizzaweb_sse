@@ -2015,6 +2015,9 @@ hypoName(){
       this.Ncb = this.summaryData.cover.Ncb;
       sessionStorage.Ncb = ( this.Ncb);
 
+      this.pa_unnamed_passenger_cover = this.summaryData.cover.pa_unnamed_passenger_cover;
+      sessionStorage.Ncb = ( this.pa_unnamed_passenger_cover);
+
       this.detariff = this.summaryData.cover.detariff;
       sessionStorage.detariff = ( this.detariff);
 
@@ -2036,6 +2039,7 @@ hypoName(){
       this.LL_paid_driver= sessionStorage.LL_paid_driver;
       this.pa_owner_driver=sessionStorage.pa_owner_driver;
       this.Ncb=sessionStorage.Ncb;
+      this.pa_unnamed_passenger_cover=sessionStorage.pa_unnamed_passenger_cover;
       this.detariff=sessionStorage.detariff;
     }
     // else if(successData.IsSuccess==false){
