@@ -1153,7 +1153,7 @@ ChangeGender(){
     //   }
     // }
     electricValidation(){
-      if(this.addOns.controls.ElecticalAccessoryIDV.value == this.equalvalid){
+      if(this.addOns.controls.ElecticalAccessoryIDV.value >= 1000 && this.addOns.controls.ElecticalAccessoryIDV.value <= this.equalvalid){
           this.electricValid=false;
           this.electricValid='';
           this.getCover();
@@ -1178,7 +1178,7 @@ ChangeGender(){
         this.addOns.controls['totalNonElecticAccessIDVPremium'].updateValueAndValidity();
     }
     electricNonValidation(){
-        if(this.addOns.controls.NonElecticalAccessoryIDV.value == this.equalvalid){
+        if(this.addOns.controls.NonElecticalAccessoryIDV.value >= 1000 && this.addOns.controls.NonElecticalAccessoryIDV.value <= this.equalvalid){
             this.electricNonValid=false;
             this.electricNonValid='';
             this.getCover();
@@ -1250,17 +1250,17 @@ ChangeGender(){
             this.getCover();
         }else{
             this.namedPersonSiValid=true;
-            this.namedPersonSiValid='Named Person SI should be 40000 to 2000000';
+            this.namedPersonSiValid='Named Passenger SI should be 40,000 to 2,00,000';
         }
     }
     unnamedPersonValidation(){
-        if(this.addOns.controls.UnnamedPersonSI.value >= 40000 && this.addOns.controls.UnnamedPersonSI.value <= 2000000){
+        if(this.addOns.controls.UnnamedPersonSI.value >= 40000 && this.addOns.controls.UnnamedPersonSI.value <= 200000){
             this.unnamedPersonSiValid=false;
             this.unnamedPersonSiValid='';
             this.getCover();
         }else{
             this.unnamedPersonSiValid=true;
-            this.unnamedPersonSiValid='Unnamed Person SI should be 40000 to 2000000';
+            this.unnamedPersonSiValid='Unnamed Person SI should be 40,000 to 2,00,000';
         }
     }
     paidPersonValidation(){

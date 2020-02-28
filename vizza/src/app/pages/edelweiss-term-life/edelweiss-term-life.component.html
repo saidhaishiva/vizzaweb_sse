@@ -749,8 +749,8 @@
                                     <div class="col-md-6"><p>Which of the above address is your correspondence address?</p></div>
                                     <div class="col-md-6">
                                         <mat-radio-group formControlName="correspondenceAddress">
-                                            <mat-radio-button value="Current Address" class="mr-2">Current Address</mat-radio-button>
-                                            <mat-radio-button value="Permanent Address">Permanent Address</mat-radio-button>
+                                            <mat-radio-button value="Y" class="mr-2">Current Address</mat-radio-button>
+                                            <mat-radio-button value="N">Permanent Address</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
                                 </div>
@@ -5430,7 +5430,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class=" p-3">
-                                        <li class="list-group-item"><strong style="width: 500px !important"> Which of the above address is your correspondence address?:</strong> {{insuredFormData.correspondenceAddress}}</li>
+                                        <li class="list-group-item"><strong style="width: 500px !important"> Which of the above address is your correspondence address?:</strong><span *ngIf="insuredFormData.correspondenceAddress == 'Y'">Current Address</span><span *ngIf="insuredFormData.correspondenceAddress != 'Y'">Permanent Address</span></li>
+<!--                                        <li class="list-group-item"><strong style="width: 500px !important"> Which of the above address is your correspondence address?:</strong></li>-->
                                     </div>
                                 </div>
 
