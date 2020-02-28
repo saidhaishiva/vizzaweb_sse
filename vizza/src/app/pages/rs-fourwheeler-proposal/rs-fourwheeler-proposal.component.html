@@ -132,10 +132,18 @@
                                                     <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode required</mat-error>
                                                     <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                                 </mat-form-field></div>
-                                                <div class="col-md-6"><mat-form-field class="w-100" >
-                                                    <input  matInput placeholder="City" formControlName="city"  autocomplete="off" required>
-                                                    <mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>
-                                                </mat-form-field></div>
+<!--                                                <div class="col-md-6"><mat-form-field class="w-100" >-->
+<!--                                                    <input  matInput placeholder="City" formControlName="city"  autocomplete="off" required>-->
+<!--                                                    <mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+<!--                                                </mat-form-field></div>-->
+                                                <div class="col-md-6" >
+                                                    <mat-form-field class="w-100">
+                                                        <mat-select placeholder="City" formControlName="city"  required>
+                                                            <mat-option *ngFor="let city of cityinList | keys" value="{{city.key}}" > {{city.value}} </mat-option >
+                                                        </mat-select>
+                                                        <mat-error *ngIf="proposer.controls.city.errors?.required">city is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
 
                                             </div>
 
@@ -172,11 +180,20 @@
                                                 </mat-form-field>
                                                 </div>
 
-                                                <div class="col-md-6">
+<!--                                                <div class="col-md-6">-->
+<!--                                                    <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">-->
+<!--                                                        <input  matInput placeholder="City" formControlName="rcity"  autocomplete="off"  [readonly]="sameasper" required>-->
+<!--                                                        <mat-error *ngIf="proposer.controls.rcity.errors?.required">City is required</mat-error>-->
+<!--                                                    </mat-form-field></div>-->
+
+                                                <div class="col-md-6" >
                                                     <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.sameasper ? 'none' : ''}">
-                                                        <input  matInput placeholder="City" formControlName="rcity"  autocomplete="off"  [readonly]="sameasper" required>
-                                                        <mat-error *ngIf="proposer.controls.rcity.errors?.required">City is required</mat-error>
-                                                    </mat-form-field></div>
+                                                        <mat-select placeholder="City" formControlName="rcity" autocomplete="off"  required [readonly]="sameasper">
+                                                            <mat-option *ngFor="let city of cityinList | keys" value="{{city.key}}" > {{city.value}} </mat-option >
+                                                        </mat-select>
+                                                        <mat-error *ngIf="proposer.controls.rcity.errors?.required">city is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
 
 
 
@@ -621,7 +638,7 @@
                                             <div class="col-md-12 mt-2" >
                                                 <div class="row" *ngIf="to_drivers!='0.0'">
                                                     <div class="col-md-4 " >
-                                                        <p>Legalliability To Paid Driver</p>
+                                                        <p>Legal Liability To Paid Driver</p>
                                                         <mat-radio-group formControlName="legalliabilityToPaidDriver" (change)="legalliabilityToPaidDriverchange()">
                                                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -1032,7 +1049,7 @@
                                             <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address}}</li>
                                             <li class="list-group-item"  ><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
                                             <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode}}</li>
-                                            <li class="list-group-item"><strong>City:</strong> {{proposerFormData.cityName}}</li>
+                                            <li class="list-group-item"><strong>City:</strong> {{proposerFormData.city}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1043,7 +1060,7 @@
                                             <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.raddress}}</li>
                                             <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.raddress2}}</li>
                                             <li class="list-group-item" ><strong>PIN code:</strong>  {{proposerFormData.rpincode}}</li>
-                                            <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.cityName}}</li>
+                                            <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.rcity}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1105,8 +1122,8 @@
                                             <li class="list-group-item" *ngIf="LOSS_OF_BAGGAGE != '0.0'" ><strong>Loss Of Baggage Cover Premium: </strong> {{LOSS_OF_BAGGAGE}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.personalAccidentCoverForUnnamedPassengers == 'Yes'" ><strong>Personal Accident Cover For Unnamed Passengers:</strong> {{vehicalFormData.personalAccidentCoverForUnnamedPassengers}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.accidentCoverForPaidDriver == 'Yes'" ><strong>Accident Cover For Paid Driver:</strong> {{vehicalFormData.accidentCoverForPaidDriver}}</li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.legalliabilityToPaidDriver == 'Yes'"  ><strong>Legalliability To Paid Driver :</strong> {{vehicalFormData.legalliabilityToPaidDriver }}</li>
-                                            <li class="list-group-item" *ngIf="LIABILITY_TO_PAID_DRIVERS != '0.0'" ><strong>Legalliability To Paid Driver Cover Premium: </strong> {{LIABILITY_TO_PAID_DRIVERS}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.legalliabilityToPaidDriver == 'Yes'"  ><strong>Legal Liability To Paid Driver :</strong> {{vehicalFormData.legalliabilityToPaidDriver }}</li>
+                                            <li class="list-group-item" *ngIf="LIABILITY_TO_PAID_DRIVERS != '0.0'" ><strong>Legal Liability To Paid Driver Cover Premium: </strong> {{LIABILITY_TO_PAID_DRIVERS}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.fibreGlass == 'Yes'" ><strong>Vehicle Fitted With Fibre Glass Petrol Tank :</strong> {{vehicalFormData.fibreGlass }}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.fibreGlass == 'Yes' && FIBER_GLASS_TANK != '0.0'"><strong>Fibre Glass Cover Premium : </strong> {{FIBER_GLASS_TANK}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss == 'Yes'"><strong>Electrical Access:</strong> <span *ngIf="vehicalFormData.coverelectricalaccesss == true">Yes</span></li>
