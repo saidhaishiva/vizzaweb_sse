@@ -2696,9 +2696,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     if (successData.IsSuccess) {
       this.coverListValue = successData.ResponseObject;
       console.log(this.coverListValue,'coverListValue......');
-      this.nil_depreciation=this.coverListValue.coverlist[0].nil_depreciation;
-      sessionStorage.nil_depreciation=this.nil_depreciation;
-      console.log(this.nil_depreciation,'this.nil_depreciation....');
+      // this.nil_depreciation=this.coverListValue.coverlist[0].nil_depreciation;
+      // sessionStorage.nil_depreciation=this.nil_depreciation;
+      // console.log(this.nil_depreciation,'this.nil_depreciation....');
 
       this.basic_od=this.coverListValue.coverlist[0].basic_od;
       sessionStorage.basic_od=this.basic_od;
@@ -2747,8 +2747,11 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.Bifuel_Kit=this.coverListValue.coverlist[0].Bifuel_Kit;
       sessionStorage.Bifuel_Kit=this.Bifuel_Kit;
 
-      this.nil_depreciation=this.coverageValue.coverlist[0].nil_depreciation;;
+      this.nil_depreciation=this.coverListValue.coverlist[0].nil_depreciation;
       sessionStorage.nil_depreciation=this.nil_depreciation;
+      console.log(this.nil_depreciation,'this.nil_depreciation...')
+
+
       // alert(this.Bifuel_Kit)
       console.log(this.Bifuel_Kit,'this.Bifuel_Kit....');
       console.log(this.unnamedList,'valueOfPermium....');
@@ -3810,8 +3813,7 @@ export class reliance4WCover {
       public dialogRef: MatDialogRef<reliance4WCover>,
       @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute,  public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public fourWheelerInsurance: FourWheelerService) {
 
-    this.nil_depreciation=sessionStorage.nil_depreciation;
-    console.log(this.nil_depreciation,'this.nil_depreciation....');
+
 
     this.basic_od= sessionStorage.basic_od;
     console.log(this.basic_od,'this.basic_od....');
