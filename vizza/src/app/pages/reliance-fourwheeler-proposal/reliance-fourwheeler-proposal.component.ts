@@ -490,6 +490,14 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   }
 
+  maritalvalue(){
+    if(this.relianceProposal.controls['title'].value=='Mr.'){
+      this.relianceProposal.controls['gender'].patchValue('Male');
+    }else if((this.relianceProposal.controls['title'].value=='Mrs.')|| (this.relianceProposal.controls['title'].value=='Ms.')){
+      this.relianceProposal.controls['gender'].patchValue('Female');
+    }
+  }
+
 
   // clientTypeReq(){
   //   if(this.relianceProposal.controls['clientType'].value == 0){

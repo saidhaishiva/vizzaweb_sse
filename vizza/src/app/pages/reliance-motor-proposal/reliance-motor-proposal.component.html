@@ -33,7 +33,7 @@
                         </div>
                       <div class="col-md-3 mt-3" *ngIf="this.relianceProposal.controls['clientType'].value == 0">
                         <mat-form-field class="w-100" *ngIf="this.relianceProposal.controls['clientType'].value == 0">
-                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" [required]="relianceProposal.controls['clientType'].value==0">
+                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="maritalvalue();changeTitle()" [required]="relianceProposal.controls['clientType'].value==0">
                             <mat-option *ngFor="let title of titleList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="relianceProposal.controls.title.errors?.required">Title is required</mat-error>
@@ -332,7 +332,7 @@
 
 <!--                        <button mat-raised-button color="primaryBlue"  (click)="createProposal(relianceProposal.value)" >Next</button>-->
 
-                        <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,relianceProposal.value,'stepper1')" >Next</button>
+                        <button mat-raised-button color="primaryBlue"  (click)="maritalvalue();nextTab(stepper,relianceProposal.value,'stepper1')" >Next</button>
                       </div>
 
                     </div>
