@@ -2185,12 +2185,20 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.PA_to_unnamed_passenger=this.coverageValue.PA_to_unnamed_passenger;
       sessionStorage.PA_to_unnamed_passenger=this.PA_to_unnamed_passenger;
 
+      this.basic_od=this.coverageValue.basic_od;
+      sessionStorage.basic_od=this.basic_od;
+
+      this.basic_liability=this.coverageValue.basic_liability;
+      sessionStorage.basic_liability=this.basic_liability;
+
       this.Electrical_accessories=sessionStorage.Electrical_accessories;
       this.Nil_depreciation=sessionStorage.Nil_depreciation;
       this.Non_electrical_accessories=sessionStorage.Non_electrical_accessories;
       this.PA_to_named_passenger=sessionStorage.PA_to_named_passenger;
       this.PA_to_owner_driver=sessionStorage.PA_to_owner_driver;
       this.PA_to_unnamed_passenger=sessionStorage.PA_to_unnamed_passenger;
+      this.basic_od=sessionStorage.basic_od;
+      this.basic_liability=sessionStorage.basic_liability;
 
 
       stepper.next();

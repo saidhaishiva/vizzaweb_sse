@@ -1206,7 +1206,7 @@
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuelType:</strong> {{coverFormData.fuelTypeValue}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage == false"><strong>Basic OD :</strong><span *ngIf="coverFormData.BasicODCoverage == false">N/A</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalBasicODPremium != ''||coverFormData.totalBasicODPremium != undefined"><strong>Basic OD Premium:</strong> {{coverFormData.totalBasicODPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != false"><strong>Basic OD Premium:</strong> {{basic_od}}</li>
 
 
 
@@ -1219,7 +1219,7 @@
                                   <!--<li class="list-group-item" *ngIf="coverFormData.totalAntiTheftPremium != '' "><strong>Anti-Theft Device Premium:</strong> {{coverFormData.totalAntiTheftPremium}}</li>-->
                                   <!--<li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember == true && coverFormData.totalAutomobilePremium != ''  "><strong>Automobile Association Membership Premium:</strong> {{coverFormData.totalAutomobilePremium}}</li>-->
                                   <li class="list-group-item" *ngIf="coverFormData.BasicLiability == false"><strong>Basic Liability:</strong><span *ngIf="coverFormData.BasicLiability == false">N/A</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.totalBasicLiabilityPremium != ''||coverFormData.totalBasicLiabilityPremium != undefined"><strong>Basic Liability Premium:</strong>{{coverFormData.totalBasicLiabilityPremium}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.BasicLiability != false"><strong>Basic Liability Premium:</strong>{{basic_liability}}</li>
                               </ul>
                           </div>
 
