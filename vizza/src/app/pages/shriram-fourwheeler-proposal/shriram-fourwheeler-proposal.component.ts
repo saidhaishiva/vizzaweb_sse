@@ -1637,7 +1637,7 @@ hypoName(){
     console.log(value, 'vvvvvv');
     sessionStorage.stepper3 = '';
     sessionStorage.stepper3 = JSON.stringify(value);
-   if(this.paOwnerValue==true){
+   if(this.proposerGender==false && this.paOwnerValue==true){
     if (this.previousInsure.valid) {
       if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
         stepper.next();
@@ -1647,7 +1647,7 @@ hypoName(){
       }
 
     }
-   }else  if(this.paOwnerValue==false){
+   }else  if(this.paOwnerValue==false&&this.proposerGender==true){
        if (this.previousInsure.valid) {
            if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
                // stepper.next();

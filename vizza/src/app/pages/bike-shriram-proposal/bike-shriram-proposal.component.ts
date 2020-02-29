@@ -1454,7 +1454,7 @@ export class BikeShriramProposalComponent implements OnInit {
         console.log(value, 'vvvvvv');
         sessionStorage.stepper3 = '';
         sessionStorage.stepper3 = JSON.stringify(value);
-      if(this.paOwnerValue==false){
+      if(this.paOwnerValue==false&&this.proposerGender==true){
         if (this.previousInsure.valid) {
             if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
                 // stepper.next();
@@ -1464,7 +1464,7 @@ export class BikeShriramProposalComponent implements OnInit {
                 this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
             }
         }
-       }else if(this.paOwnerValue==true){
+       }else if(this.proposerGender==false && this.paOwnerValue==true){
           if (this.previousInsure.valid) {
               if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
                   stepper.next();
