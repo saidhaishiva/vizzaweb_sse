@@ -95,8 +95,8 @@
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3"><mat-form-field class="w-100">
-                                                <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="gst" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
-                                                <mat-error *ngIf="proposer.controls.gst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
+                                                <input matInput placeholder="GSTIN"  minlength="15"  maxlength="15" formControlName="gst" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
+                                                <mat-error *ngIf="proposer.controls.gst.hasError('minlength')">GSTIN isn't long enough, minimum of 15 characters</mat-error>
                                                 <mat-error *ngIf="proposer.controls.gst.hasError('pattern')">Enter valid GST</mat-error>
                                             </mat-form-field>
                                             </div>
@@ -152,7 +152,7 @@
 
                                          <div class="proposal-buttom mt-3 text-right w-100">
 
-                                       <button mat-raised-button color="primaryBlue"  (click)="changeGenderVales1();proposerDetails(stepper, proposer.value)" >Next</button>
+                                       <button mat-raised-button color="primaryBlue"  (click)="changeGenderVales1();changeGenderVales();proposerDetails(stepper, proposer.value)" >Next</button>
                                         </div>
                                     </div>
                                 </div>
@@ -507,7 +507,8 @@
 
                                         <div class="proposal-buttom mt-3 text-right w-100">
                                             <button mat-button matStepperPrevious  (click)="topScroll();" >Back</button>
-                                            <button mat-raised-button color="primaryBlue" (click)="previousDetails(stepper,previousInsure.value);previousNilError()">Next</button>
+                                            <button mat-raised-button color="primaryBlue" (click)="previousNilError();previousDetails(stepper,previousInsure.value)">Next</button>
+                                            <!--<button mat-raised-button color="primaryBlue" (click)="previousNilError();previousDetails(stepper,previousInsure.value)">Next</button>-->
                                         </div>
                                     </form>
                                 </div>
@@ -515,7 +516,7 @@
                         </mat-expansion-panel>
                     </mat-accordion>
                 </mat-step>
-                <mat-step [stepControl]="" *ngIf="paOwnerValue==true">
+                <mat-step [stepControl]="" *ngIf="proposerGender==false && paOwnerValue==true">
                     <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
                     <mat-accordion class="w-100 float-left ">
                         <mat-expansion-panel expanded>
@@ -619,10 +620,10 @@
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item" *ngIf="basic_od_cover!=''||basic_od_cover!=undefined "><strong>Basic OD Cover:</strong> {{basic_od_cover}}</li>
                                                 <li class="list-group-item" *ngIf="basic_tp_cover!=''||basic_tp_cover!=undefined"><strong>Basic TP Cover:</strong> {{basic_tp_cover}}</li>
-                                                <li class="list-group-item" *ngIf="od_total!=''||od_total!=undefined"><strong>OD Total:</strong> {{od_total}}</li>
-                                                <li class="list-group-item" *ngIf="tp_total!=''||tp_total!=undefined"><strong>TP Total:</strong> {{tp_total}}</li>
-                                                <li class="list-group-item" *ngIf="gst!=''||gst!=undefined"><strong>GST:</strong> {{gst}}</li>
-                                                <li class="list-group-item" *ngIf="detariff!=undefined"><strong>DETARIFF DISCOUNT ON BASIC OD:</strong> {{detariff}}</li>
+                                                <li class="list-group-item" ><strong>OD Total:</strong> {{od_total}}</li>
+                                                <li class="list-group-item" ><strong>TP Total:</strong> {{tp_total}}</li>
+                                                <li class="list-group-item" ><strong>GST:</strong> {{gst}}</li>
+                                                <li class="list-group-item" ><strong>DETARIFF DISCOUNT ON BASIC OD:</strong> {{detariff}}</li>
 
                                             </ul>
                                         </div>
@@ -633,9 +634,9 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess == true"><strong>Electrical Cover:</strong> {{electrical_cover}}</li>
-                                                <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>Anti Theft Cover:</strong> {{anti_theft_cover}}</li>
-                                                <li class="list-group-item" *ngIf="(vehicalFormData.nilDepreciationCover != ''&& nilDepValue==true)"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
+                                                <li class="list-group-item" ><strong>Electrical Cover:</strong> {{electrical_cover}}</li>
+                                                <li class="list-group-item" ><strong>Anti Theft Cover:</strong> {{anti_theft_cover}}</li>
+                                                <li class="list-group-item" ><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
                                                 <li class="list-group-item" ><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
                                                 <li class="list-group-item" ><strong>PA Unnamed Passenger Cover:</strong> {{pa_unnamed_passenger_cover}}</li>
                                                 <li class="list-group-item" ><strong>NCB:</strong> {{ncb}}</li>
@@ -665,7 +666,7 @@
                                             <li class="list-group-item" *ngIf="proposerFormData.gender!=''"><strong>Gender:</strong><span *ngIf="proposerFormData.gender == 'M' || proposerFormData.gender == 'Male'">Male</span><span *ngIf="proposerFormData.gender == 'F' || proposerFormData.gender == 'Female'">Female</span></li>
                                             <li class="list-group-item" *ngIf="proposerFormData.alterMobile != ''"><strong>Alternate Number:</strong> {{proposerFormData.alterMobile}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.pan!=''"><strong> PAN Number :</strong> {{proposerFormData.pan  | uppercase }}</li>
-                                            <li class="list-group-item" *ngIf="proposerFormData.gst != ''"><strong>GST Number:</strong> {{proposerFormData.gst  | uppercase}}</li>
+                                            <li class="list-group-item" *ngIf="proposerFormData.gst != ''"><strong>GSTIN:</strong> {{proposerFormData.gst  | uppercase}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.fax != ''"><strong>FAX:</strong> {{proposerFormData.fax }}</li>
                                         </ul>
                                     </div>

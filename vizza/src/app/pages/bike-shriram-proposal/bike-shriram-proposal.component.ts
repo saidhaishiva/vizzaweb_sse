@@ -387,6 +387,8 @@ export class BikeShriramProposalComponent implements OnInit {
             this.nilDepValue=true;
         }else{
             this.nilDepValue=false;
+            this.vehical.controls['nilDepreciationCover'].patchValue(false)
+
         }
         console.log(this.nilDepValue,'nilDepValue....')
     }
@@ -397,6 +399,7 @@ export class BikeShriramProposalComponent implements OnInit {
 
         }else  if(this.preClaim == 1){
             this.claimDetail=false;
+            this.vehical.controls['nilDepreciationCover'].patchValue(false)
         }
     }
     // changeCalcPA(event:any){
@@ -483,6 +486,20 @@ export class BikeShriramProposalComponent implements OnInit {
             this.proposer.controls['gender'].patchValue('');
             this.proposer.controls['dob'].setValidators(null);
             this.proposer.controls['gender'].setValidators(null);
+
+            this.nomineeDetail.controls['nomineeName'].patchValue('');
+            this.nomineeDetail.controls['nomineeAge'].patchValue('');
+            this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
+            this.nomineeDetail.controls['appointeeName'].patchValue('');
+            this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
+            sessionStorage.nomineeFormData='';
+            console.log(sessionStorage.nomineeFormData);
+
+            this.nomineeDetail.controls['nomineeName'].setValidators(null);
+            this.nomineeDetail.controls['nomineeAge'].setValidators(null);
+            this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
+            this.nomineeDetail.controls['appointeeName'].setValidators(null);
+            this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
         }else{
             this.proposerGender=false;
             this.proposer.controls['dob'].setValidators([Validators.required]);
@@ -1436,30 +1453,73 @@ export class BikeShriramProposalComponent implements OnInit {
     }
 
 
+    // previousDetails(stepper: MatStepper, value) {
+    //     alert('0')
+    //     console.log(value, 'vvvvvv');
+    //     sessionStorage.stepper3 = '';
+    //     sessionStorage.stepper3 = JSON.stringify(value);
+    //
+    //   if(this.paOwnerValue==false&&this.proposerGender==true){
+    //
+    //       alert('1')
+    //     if (this.previousInsure.valid) {
+    //         alert(this.previousInsure.valid)
+    //         if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+    //             // stepper.next();
+    //             this.topScroll();
+    //             this.proposal(stepper);
+    //         }else{
+    //             this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
+    //         }
+    //     }
+    //    }else if(this.proposerGender==false && this.paOwnerValue==true){
+    //       alert('2')
+    //       if (this.previousInsure.valid) {
+    //           alert(this.previousInsure.valid)
+    //           if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+    //               stepper.next();
+    //               this.topScroll();
+    //           }else{
+    //               this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
+    //           }
+    //       }
+    //   }
+    //
+    // }
     previousDetails(stepper: MatStepper, value) {
         console.log(value, 'vvvvvv');
         sessionStorage.stepper3 = '';
         sessionStorage.stepper3 = JSON.stringify(value);
-      if(this.paOwnerValue==false){
-        if (this.previousInsure.valid) {
-            if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
-                // stepper.next();
-                this.topScroll();
-                this.proposal(stepper);
-            }else{
-                this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
+        console.log(this.vehical.controls['nilDepreciationCover'].value,'nil')
+        console.log(this.previousInsure.controls['policyNilDescription'].value,'pre')
+        console.log(this.paOwnerValue,'this.54678')
+        console.log(this.proposerGender,'this.546789')
+        if(this.proposerGender==false && this.paOwnerValue==true){
+            console.log(this.proposerGender,'this.proposerGender')
+            console.log(this.paOwnerValue,'this.paOwnerValue')
+            if (this.previousInsure.valid) {
+                console.log(this.previousInsure.valid,'456789')
+                if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||((this.vehical.controls['nilDepreciationCover'].value==false||this.vehical.controls['nilDepreciationCover'].value=='')&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+                    stepper.next();
+                    this.topScroll();
+                }else{
+                    this.toastr.error('Previous Nil Description  should be Enable. If u select Nil Depreciation Cover ')
+                }
+
+            }
+        }else  if((this.paOwnerValue==false&&this.proposerGender==true)||(this.paOwnerValue==true&&this.proposerGender==true)||(this.paOwnerValue==false&&this.proposerGender==false)){
+            console.log(this.paOwnerValue,'this.paOwnerValue677667')
+            console.log(this.proposerGender,'this.proposerGender')
+            if (this.previousInsure.valid) {
+                console.log(this.previousInsure.valid,'this.previousInsure.valid54678')
+                if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||((this.vehical.controls['nilDepreciationCover'].value==false||this.vehical.controls['nilDepreciationCover'].value=='')&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+                    this.topScroll();
+                    this.proposal(stepper);
+                }else{
+                    this.toastr.error('Previous Nil Description  should be Enable. If u select Nil Depreciation Cover ')
+                }
             }
         }
-       }else if(this.paOwnerValue==true){
-          if (this.previousInsure.valid) {
-              if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
-                  stepper.next();
-                  this.topScroll();
-              }else{
-                  this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
-              }
-          }
-      }
 
     }
 

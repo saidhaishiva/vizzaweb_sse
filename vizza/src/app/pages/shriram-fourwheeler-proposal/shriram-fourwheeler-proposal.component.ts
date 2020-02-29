@@ -412,6 +412,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.nilDepValue=true;
     }else{
       this.nilDepValue=false;
+      this.vehical.controls['nilDepreciationCover'].patchValue(false)
     }
     console.log(this.nilDepValue,'nilDepValue....')
   }
@@ -471,6 +472,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
     }else  if(this.preClaim == 1){
       this.claimDetail=false;
+      this.vehical.controls['nilDepreciationCover'].patchValue(false)
+
     }
   }
 
@@ -568,13 +571,25 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.proposer.controls['dob'].setValidators(null);
       this.proposer.controls['gender'].setValidators(null);
       this.proposer.controls['pan'].setValidators([Validators.required]);
+
+      this.nomineeDetail.controls['nomineeName'].patchValue('');
+      this.nomineeDetail.controls['nomineeAge'].patchValue('');
+      this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
+      this.nomineeDetail.controls['appointeeName'].patchValue('');
+      this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
+      sessionStorage.nomineeFormData='';
+
+      this.nomineeDetail.controls['nomineeName'].setValidators(null);
+      this.nomineeDetail.controls['nomineeAge'].setValidators(null);
+      this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
+      this.nomineeDetail.controls['appointeeName'].setValidators(null);
+      this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
     }else{
       this.proposerGender=false;
       this.proposer.controls['dob'].setValidators([Validators.required]);
       this.proposer.controls['gender'].setValidators([Validators.required]);
       this.proposer.controls['pan'].patchValue('');
       this.proposer.controls['pan'].setValidators(null);
-
 
     }
     this.proposer.controls['dob'].updateValueAndValidity();
@@ -1625,9 +1640,9 @@ hypoName(){
     console.log(value, 'vvvvvv');
     sessionStorage.stepper3 = '';
     sessionStorage.stepper3 = JSON.stringify(value);
-   if(this.paOwnerValue==true){
+   if(this.proposerGender==false && this.paOwnerValue==true){
     if (this.previousInsure.valid) {
-      if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+      if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||((this.vehical.controls['nilDepreciationCover'].value==false||this.vehical.controls['nilDepreciationCover'].value=='')&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
         stepper.next();
         this.topScroll();
       }else{
@@ -1635,9 +1650,9 @@ hypoName(){
       }
 
     }
-   }else  if(this.paOwnerValue==false){
+   }else  if(this.paOwnerValue==false&&this.proposerGender==true||(this.paOwnerValue==true&&this.proposerGender==true)||(this.paOwnerValue==false&&this.proposerGender==false)){
        if (this.previousInsure.valid) {
-           if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+           if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||((this.vehical.controls['nilDepreciationCover'].value==false||this.vehical.controls['nilDepreciationCover'].value=='')&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
                // stepper.next();
                this.topScroll();
                this.proposal(stepper);
@@ -1774,7 +1789,7 @@ hypoName(){
         "CNGKitYN": this.vehical.controls['CNGKit'].value == true ? '1' : '0',
         "CNGKitSI": this.vehical.controls['CNGKitSI'].value,
         "LimitedTPPDYN": "1",
-        "InBuiltCNGKitYN": "0",
+        "InBuiltCNGKitYN": this.vehical.controls['builtCNGKit'].value==true? '1' : '0'||this.vehical.controls['CNGKit'].value == true ?'':'',
         "VoluntaryExcess": this.vehical.controls['voluntaryExcess'].value,
         "Bangladesh": "0",
         "Bhutan": "0",
@@ -1922,7 +1937,7 @@ hypoName(){
         "CNGKitYN": this.vehical.controls['CNGKit'].value == true ? '1' : '0',
         "CNGKitSI": this.vehical.controls['CNGKitSI'].value,
         "LimitedTPPDYN": this.vehical.controls['limitedTPPD'].value == true ? '1' : '0',
-        "InBuiltCNGKitYN": this.vehical.controls['builtCNGKit'].value == true ? '1' : '0',
+        "InBuiltCNGKitYN":  this.vehical.controls['builtCNGKit'].value==true? '1' : '0'||this.vehical.controls['CNGKit'].value == true ?'':'',
         "VoluntaryExcess": this.vehical.controls['voluntaryExcess'].value,
         "Bangladesh": this.vehical.controls['Bangladesh'].value == true ? '1' : '0',
         "Bhutan": this.vehical.controls['Bhutan'].value == true ? '1' : '0',
