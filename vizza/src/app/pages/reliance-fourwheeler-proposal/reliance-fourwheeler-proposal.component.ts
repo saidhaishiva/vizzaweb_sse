@@ -1376,7 +1376,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
             this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
             this.coverDetails.controls['cpgLpgKit'].setValidators([Validators.required]);
             // this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
-          // this.changeCpgLpgKit();
+          this.changeCpgLpgKit();
         }else if(this.coverDetails.controls['IsBiFuelKit'].value==false) {
             // this.coverDetails.controls['BiFuelKitSi'].patchValue('');
             // this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
@@ -1388,7 +1388,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
             this.coverDetails.controls['cpgLpgKit'].patchValue('');
             this.coverDetails.controls['cpgLpgKit'].setValidators(null);
-            // this.changeCpgLpgKit();
+            this.changeCpgLpgKit();
 
             // this.coverDetails.controls['bifuelAmount'].patchValue('');
             // this.coverDetails.controls['bifuelAmount'].setValidators(null);
