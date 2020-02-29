@@ -29,8 +29,8 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MM YYYY',
   },
 };
-declare var require: any
-const FileSaver = require('file-saver');
+// declare var require: any
+// const FileSaver = require('file-saver');
 
 @Component({
   selector: 'app-life-bajaj-proposal',
@@ -125,6 +125,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public skipUploadStatus: boolean;
   public fileUploadStatus: boolean;
   public otpValList: any;
+  public arrayOfYearList: any;
   public otpGenList: any;
   public otpCode: any;
   public getUrl: any;
@@ -165,6 +166,10 @@ export class LifeBajajProposalComponent implements OnInit {
   public fileTypeImage:any;
   public imageViews:any;
   public PreviousValid:any;
+  public detailsquestion:any;
+  public questionvalue:any;
+  public arraylist:any;
+  public checkvalue:any;
 
    constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
@@ -195,6 +200,7 @@ export class LifeBajajProposalComponent implements OnInit {
         this.idProofPath = [];
         this.photoPath = [];
         this.otherdocsPath = [];
+        this.detailsquestion = [];
        this.bigeneration=false;
        this.fileTypeImage=false;
        this.PreviousValid = false;
@@ -373,7 +379,8 @@ export class LifeBajajProposalComponent implements OnInit {
     this.skipUploadStatus = true;
     this.fileUploadStatus = true;
 
-  }
+
+   }
 
 
   ngOnInit() {
@@ -605,24 +612,24 @@ export class LifeBajajProposalComponent implements OnInit {
     //     const pdfName = 'your_pdf_file';
     //     FileSaver.saveAs(pdfUrl, pdfName);
     // }
-    downloadPdf() {
-       // alert(this.biURL,'gfhf');
-        const pdfUrl = this.webhost +'/'+ this.biURL;
-        const pdfName = 'BI Form';
-        FileSaver.saveAs(pdfUrl, pdfName);
-    }
+    // downloadPdf() {
+    //    // alert(this.biURL,'gfhf');
+    //     const pdfUrl = this.webhost +'/'+ this.biURL;
+    //     const pdfName = 'BI Form';
+    //     FileSaver.saveAs(pdfUrl, pdfName);
+    // }
 
-    downloadPdf1() {
-       // alert(this.biURL,'gfhf');
-        const pdfUrl = this.webhost +'/'+ this.proposalFormPdf;
-        const pdfName = 'Proposal Form';
-        FileSaver.saveAs(pdfUrl, pdfName);
-    }
+    // downloadPdf1() {
+    //    // alert(this.biURL,'gfhf');
+    //     const pdfUrl = this.webhost +'/'+ this.proposalFormPdf;
+    //     const pdfName = 'Proposal Form';
+    //     FileSaver.saveAs(pdfUrl, pdfName);
+    // }
     saveImageAs2() {
-        this.window.open(this.biURL, '_blank');
+        this.window.open(this.webhost +'/'+ this.biURL, '_blank');
     }
     saveImageA() {
-        this.window.open(this.proposalFormPdf, '_blank');
+        this.window.open(this.webhost +'/'+ this.proposalFormPdf, '_blank');
     }
 
 
@@ -840,8 +847,8 @@ export class LifeBajajProposalComponent implements OnInit {
         }
       }else{
         if (event.value != null) {
-          let selectedDate = '';
-          this.bajajAge = '';
+          let selectedDate;
+          // this.bajajAge = '';
           let dob = '';
           if (typeof event.value._i == 'string') {
             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -852,8 +859,10 @@ export class LifeBajajProposalComponent implements OnInit {
             }
             selectedDate = event.value._i;
             dob = this.datepipe.transform(event.value, 'y-MM-dd');
+            console.log(dob,'dob');
             if (selectedDate.length == 10) {
-              this.bajajAge = this.ageCalculate(dob);
+              this.bajajAge = this.ageCalculate(dob)
+                console.log(this.bajajAge,'bajajAge');
               sessionStorage.bajajproposerAge = this.bajajAge;
 
             }
@@ -1091,7 +1100,11 @@ export class LifeBajajProposalComponent implements OnInit {
   proposerDetails(stepper, value) {
     console.log(value);
     sessionStorage.stepperDetails1 = JSON.stringify(value);
-    console.log(this.proposer.valid, 'this.proposer.valid');
+      sessionStorage.bajajproposerAge = this.bajajAge;
+      console.log(this.bajajAge,'bajajproposerAge')
+      sessionStorage.spouseAge = this.spouseAge;
+
+      console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
       if(this.proposer.controls['alterMobileError'].value == '') {
         if (sessionStorage.bajajproposerAge >= 18) {
@@ -1101,14 +1114,16 @@ export class LifeBajajProposalComponent implements OnInit {
               spouseValid = false;
             }
           }
-          if (spouseValid) {
+            // this.mainQuestion();
+
+            if (spouseValid) {
             if (this.proposer.controls['annualIncome'].value > 500000) {
               if (this.proposer.controls['occupationList'].value == "T" || this.proposer.controls['occupationList'].value == "N" || this.proposer.controls['occupationList'].value == "U" || this.proposer.controls['occupationList'].value == "A"|| this.proposer.controls['occupationList'].value == "H"|| this.proposer.controls['occupationList'].value == "NM"|| this.proposer.controls['occupationList'].value == "R") {
                 this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
               } else {
                 stepper.next();
                 this.topScroll();
-                this.mainQuestion();
+                // this.mainQuestion();
               }
             } else {
               this.toastr.error('Annual Income should be above 5 lakhs');
@@ -1122,7 +1137,7 @@ export class LifeBajajProposalComponent implements OnInit {
           this.toastr.error('Proposer age should be greater than equal to 18');
         }
       }
-
+        // this.allQuestionList = JSON.parse(sessionStorage.lifeQuestions);
     }
     // else {
     //   this.toastr.error('error')
@@ -1186,9 +1201,13 @@ samerelationShip(){
     }
   }
 
-  medicalHistoryDetails(stepper: MatStepper) {
+  medicalHistoryDetails(stepper: MatStepper,value) {
     sessionStorage.lifeQuestions = '';
-    sessionStorage.lifeQuestions = JSON.stringify(this.allQuestionList);
+      console.log(stepper,'0987654')
+      console.log(value,'val');
+      sessionStorage.stepperDetails3 = JSON.stringify(value);
+
+      sessionStorage.lifeQuestions = JSON.stringify(this.allQuestionList);
     let familyMembers = this.familyDiseaseForm.value.family;
     sessionStorage.familyMemberDetails = JSON.stringify(familyMembers);
 
@@ -1198,12 +1217,15 @@ samerelationShip(){
 
       for (let i = 0; i < this.allQuestionList.length; i++) {
         for (let j = 0; j < this.allQuestionList[i].length; j++) {
-          if (this.allQuestionList[i][j].mainQuestion.feild == 'NUMBER' || this.allQuestionList[i][j].mainQuestion.feild == 'TEXT' || this.allQuestionList[i][j].mainQuestion.feild == 'Dropdown') {
+          if (this.allQuestionList[i][j].mainQuestion.feild == 'NUMBER' || this.allQuestionList[i][j].mainQuestion.feild == 'TEXT' || this.allQuestionList[i][j].mainQuestion.feild == 'Dropdown' ||this.allQuestionList[i][j].mainQuestion.feild == 'DATE') {
             setMainRes = this.allQuestionList[i][j].mainQuestion.fieldValue;
           } else if (this.allQuestionList[i][j].mainQuestion.feild == 'Y/N') {
             setMainRes = this.allQuestionList[i][j].mainQuestion.checked ? 'Y' : 'N';
           }
-          this.setQuestionDetails.push({
+            sessionStorage.setMainRes = JSON.stringify(setMainRes);
+
+
+            this.setQuestionDetails.push({
             "questionId": this.allQuestionList[i][j].mainQuestion.qus_id,
             "subQuestionId": this.allQuestionList[i][j].mainQuestion.sub_qus_id,
             "questionFlag": this.allQuestionList[i][j].mainQuestion.qus_flag,
@@ -1214,10 +1236,17 @@ samerelationShip(){
       }
       for (let i = 0; i < this.allQuestionList.length; i++) {
         for (let j = 0; j < this.allQuestionList[i].length; j++) {
-          let details = [];
+          // let details = [];
+          let details;
           for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
-            details.push(this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText);
-            this.setQuestionDetails[j].detailAnswer = details.toString();
+            details=this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText;
+              console.log(this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText,'2134567');
+
+              this.setQuestionDetails[j].detailAnswer = details.toString();
+              console.log(this.setQuestionDetails[j].detailAnswer,'details23456');
+              console.log(details,'details');
+
+
           }
         }
 
@@ -1235,6 +1264,7 @@ samerelationShip(){
         }
       }
 
+
       console.log(subQuedtionValid, 'subQuedtionValid');
 
       if(subQuedtionValid) {
@@ -1248,7 +1278,8 @@ samerelationShip(){
           stepper.next();
           this.topScroll();
         } else {
-          this.toastr.error('Please fill all mandatory family disease form details');
+
+            this.toastr.error('Please fill all mandatory family disease form details');
         }
 
       } else {
@@ -2147,54 +2178,132 @@ samerelationShip(){
     }
   }
 
-  mainQuestion() {
+  // mainQuestion() {
+  //
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //     "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+  //     "gender": this.proposer.controls['gender'].value == 'Male'? 'M' : 'F' ,
+  //     "country": this.proposer.controls['countryOfResid'].value
+  //
+  //   }
+  //   this.settings.loadingSpinner = false;
+  //   this.termService.getMainQues(data).subscribe(
+  //       (successData) => {
+  //         this.MainQuesSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.MainQuesFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // public MainQuesSuccess(successData) {
+  //   this.settings.loadingSpinner = false;
+  //   if (successData.IsSuccess) {
+  //     this.allQuestionList = successData.ResponseObject;
+  //     for (let i = 0; i < this.allQuestionList.length; i++) {
+  //         for (let j = 0; j < this.allQuestionList[i].length; j++) {
+  //
+  //             console.log(this.allQuestionList[i][j], 'allQuestionListlatha2');
+  //             console.log(this.allQuestionList[i][j].DGHQuestionnaire, 'allQuestionListlatha29087654565');
+  //
+  //
+  //             this.questionvalue=this.allQuestionList[i][j].DGHQuestionnaire;
+  //             console.log(this.questionvalue,'questionvalue');
+  //             let objectYear=JSON.stringify(Object.assign({}, this.questionvalue));   //array to object string convertion
+  //             console.log(objectYear,'objectYear....');
+  //             this.arrayOfYearList=Object.entries(objectYear).map(([id, value]) => ({id,value}));  //array to object with key and value
+  //             console.log(this.arrayOfYearList,'this.arrayOfYearList....')
+  //
+  //             const array = Object.assign({}, this.questionvalue);
+  //             console.log(array,'array');
+  //             this.detailsquestion = [];
+  //             // this.detailsquestion.push(this.allQuestionList[i][j].DGHQuestionnaire);
+  //             this.detailsquestion.push(array);
+  //             console.log(this.detailsquestion,'detailsquestion');
+  //             for (let m = 0; m < this.detailsquestion.length; m++) {
+  //                 console.log(this.detailsquestion[m],'mmmmmmmmmmmm....')
+  //               const arr= this.detailsquestion[m];
+  //                 console.log(arr,'arr')
+  //             }
+  //
+  //             // const convertArrayToObject = (questionvalue, key) => {
+  //             //     const initialValue = {};
+  //             //     return questionvalue.reduce((obj, item) => {
+  //             //         return {
+  //             //             ...obj,
+  //             //             [item[key]]: item,
+  //             //         };
+  //             //     }, initialValue);
+  //             // };
+  //
+  //             // this.allQuestionList[i][j].mainQuestion.fieldValue = '';
+  //             // this.allQuestionList[i][j].mainQuestion.checked = false;
+  //             // for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
+  //             //     this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText = '';
+  //                 // this.allQuestionList[i][j].mainQuestion.subQuestion[k].checked = false;
+  //
+  //             // }
+  //         }
+  //     }
+  //
+  //     // console.log(this.allQuestionList, 'allQuestionList');
+  //     //   sessionStorage.allQuestionList = JSON.stringify(this.allQuestionList);
+  //
+  //   }
+  // }
+  //
+  // public MainQuesFailure(error) {
+  //   this.settings.loadingSpinner = false;
+  //
+  // }
 
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      "gender": this.proposer.controls['gender'].value == 'Male'? 'M' : 'F' ,
-      "country": this.proposer.controls['countryOfResid'].value
 
-    }
-    this.settings.loadingSpinner = false;
-    this.termService.getMainQues(data).subscribe(
-        (successData) => {
-          this.MainQuesSuccess(successData);
-        },
-        (error) => {
-          this.MainQuesFailure(error);
-        }
-    );
-  }
 
-  public MainQuesSuccess(successData) {
-    this.settings.loadingSpinner = false;
-    if (successData.IsSuccess) {
-      this.allQuestionList = successData.ResponseObject;
-      for (let i = 0; i < this.allQuestionList.length; i++) {
-        for (let j = 0; j < this.allQuestionList[i].length; j++) {
-          this.allQuestionList[i][j].mainQuestion.fieldValue = '';
-          this.allQuestionList[i][j].mainQuestion.checked = false;
-          for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
-            this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText = '';
-            this.allQuestionList[i][j].mainQuestion.subQuestion[k].checked = false;
-          }
-        }
-      }
 
-      console.log(this.allQuestionList, 'allQuestionList');
+    mainQuestion() {
+       const data = {
+           'platform': 'web',
+           'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+           'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+           "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+           "gender": this.proposer.controls['gender'].value == 'Male'? 'M' : 'F' ,
+           "country": this.proposer.controls['countryOfResid'].value
+       }
+       this.settings.loadingSpinner = false;
+       this.termService.getMainQues(data).subscribe((successData) => {
+           this.MainQuesSuccess(successData);
+           },
+           (error) => {
+           this.MainQuesFailure(error);
+       });
+   }public MainQuesSuccess(successData) {
+       this.settings.loadingSpinner = false;
+       if (successData.IsSuccess) {
+           this.allQuestionList = successData.ResponseObject;
+           // this.allQuestionList[index][0].mainQuestion.value=sessionStorage.checked
+           for (let i = 0; i < this.allQuestionList.length; i++) {
+               for (let j = 0; j < this.allQuestionList[i].length; j++) {
+                   this.allQuestionList[i][j].mainQuestion.fieldValue = '';
+                   this.allQuestionList[i][j].mainQuestion.checked = this.allQuestionList[i][0].mainQuestion.value;
+                   for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
+                       this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText = '';
+                       this.allQuestionList[i][j].mainQuestion.subQuestion[k].checked = false;
+                   }
+               }
+           }
+           console.log(this.allQuestionList, 'allQuestionList');
+       }
+   }
+   public MainQuesFailure(error) {
+       this.settings.loadingSpinner = false;
+   }
 
-    }
-  }
 
-  public MainQuesFailure(error) {
-    this.settings.loadingSpinner = false;
-
-  }
-
-  // questionYes(items, value, index) {
+    // questionYes(items, value, index) {
   //   console.log(index, 'index');
   //   this.slectedIndex = index;
   //   if (value.checked) {
@@ -2816,9 +2925,20 @@ samerelationShip(){
       }
 
   }
-  changeQuestion(index) {
-      console.log(index,'index');
-      console.log(this.allQuestionList[0][0].mainQuestion.checked, 'lop');
+  changeQuestion(index,event:any) {
+      console.log(event,'event...')
+      console.log(event.checked,'event...')
+      console.log(this.allQuestionList[0][0].mainQuestion.value,'question.....')
+
+      this.allQuestionList[index][0].mainQuestion.value=event.checked;
+      // alert(index)
+      // alert(this.allQuestionList[index][0].mainQuestion.value);
+      // console.log(index,'index');
+      // console.log(this.allQuestionList[0][0].mainQuestion.checked, 'lop');
+      // this.checkvalue=this.allQuestionList[0][0].mainQuestion.checked
+      // alert(this.allQuestionList[index][index].mainQuestion.checked);
+          sessionStorage.checked = this.allQuestionList[index][0].mainQuestion.value;
+
       if(index == 0) {
 
         if (this.allQuestionList[0][0].mainQuestion.checked == false) {
