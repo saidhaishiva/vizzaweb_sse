@@ -535,12 +535,11 @@ export class TermLifePremiumListComponent implements OnInit {
         sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
     }
-
     buyProduct(value) {
+
         console.log(value, 'vlitss');
         sessionStorage.lifePremiumList = JSON.stringify(value);
         if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() ==3)) {
-
             let dialogRef = this.dialog.open(PosstatusAlertTravel, {
                 width: '700px',
                 data:{ companyid: value.company_id}
@@ -551,20 +550,21 @@ export class TermLifePremiumListComponent implements OnInit {
                 if (result) {
 
                     let paymentModeValid;
-                    if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000 || value.payment_mode == 'Yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000) {
+                      if((value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 &&  value.totalpremium ==  null) || (value.payment_mode == 'Yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000)) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300 || value.payment_mode == 'Quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
+                    if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && (parseInt(value.totalpremium) < 1300|| value.totalpremium ==  null) || value.payment_mode == 'Quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 || value.payment_mode == 'Halfyearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 2000) {
+                    if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && (parseInt(value.totalpremium) < 2550|| value.totalpremium ==  null) || value.payment_mode == 'Halfyearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 2000) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450 || value.payment_mode == 'Monthly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 500) {
+                    if(value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 6 && (parseInt(value.totalpremium) < 450|| value.totalpremium ==  null) || value.payment_mode == 'Monthly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 500) {
                         paymentModeValid = false;
                     }
 
                     if(paymentModeValid) {
+
 
 
                         if (value.product_id <= 81 && value.product_id >=78) {
@@ -591,24 +591,26 @@ export class TermLifePremiumListComponent implements OnInit {
                 }
             });
         }  else {
+
             let paymentModeValid = true;
-            if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000 ||value.payment_mode == 'Yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000) {
+
+            if((value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && value.totalpremium ==  null) || (value.payment_mode == 'Yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000)) {
+                paymentModeValid = false;
+
+            }
+            if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && (parseInt(value.totalpremium) < 1300 || value.totalpremium == null )|| value.payment_mode == 'Quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300 || value.payment_mode == 'Quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
+            if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && (parseInt(value.totalpremium) < 2550 || value.totalpremium == null) || value.payment_mode == 'Halfyearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 2000 ) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 || value.payment_mode == 'Halfyearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 2000 ) {
-                paymentModeValid = false;
-            }
-            if(value.payment_mode == 'monthly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450 || value.payment_mode == 'Monthly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 500) {
+            if(value.payment_mode == 'monthly' && parseInt(value.company_id) == 6 && (parseInt(value.totalpremium) < 450 || value.totalpremium == null )|| value.payment_mode == 'Monthly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 500) {
                 paymentModeValid = false;
             }
 
 
 
             if(paymentModeValid) {
-
 
                 if (value.product_id <= 81 && value.product_id >=78) {
                     this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);

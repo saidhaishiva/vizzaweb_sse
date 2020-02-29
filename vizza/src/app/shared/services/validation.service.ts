@@ -164,6 +164,21 @@ export class ValidationService {
             }
         }
     }
+    numDotValidate(event) {
+        if (event.code == 'Space') {
+            if (event.target.value.length == 0) {
+                event.preventDefault();
+            }
+        } else {
+            if (event.charCode !== 0) {
+                const pattern = /[0-9-/.]/;
+                const inputChar = String.fromCharCode(event.charCode);
+                if (!pattern.test(inputChar)) {
+                    event.preventDefault();
+                }
+            }
+        }
+    }
 
     employeeCode(event) {
         if (event.code == 'Space') {

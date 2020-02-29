@@ -27,6 +27,9 @@ public path: any
 public proposalId: any
 public policyStatus: any
 public remainingStatus: any
+public eAcceptanceTerm: any
+public policyidd: any
+public policyNo: any
 public settings: Settings;
 
 constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
@@ -39,6 +42,7 @@ constructor(@Inject(WINDOW) private window: Window, public config: Configuration
 
         this.proposalId = params.proId;
         this.policyStatus = params.policyStatus;
+        this.policyNo = params.policyNo;
     });
     let groupDetails = JSON.parse(sessionStorage.groupDetails);
     for(let i = 0; i < groupDetails.family_groups.length; i++) {
@@ -50,10 +54,13 @@ constructor(@Inject(WINDOW) private window: Window, public config: Configuration
     if(status.length > 0) {
         this.remainingStatus = true;
     }
+    // this.gethdfcPolicynum();
+
     sessionStorage.groupDetails = JSON.stringify(groupDetails);
 
 }
 ngOnInit() {
+    // this.gethdfcPolicynum();
     // sessionStorage.hdfc_health_proposal_id = '';
     // sessionStorage.hdfcStep1 = '';
     // sessionStorage.hdfcStep2 = '';
@@ -112,6 +119,10 @@ public downloadPdfFailure(error) {
     this.settings.loadingSpinner = false;
     console.log(error);
 }
+
+
+
+
     retry() {
         this.router.navigate(['/hdfc-proposal'  + '/' + true]);
     }

@@ -168,6 +168,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public taxValue: any;
   public packagePolicyYear: any;
   public packageListFw: any;
+  public city2List: any;
+  public premiumadd: any;
+  public cityinList: any;
   public errorOTP: boolean;
 
 
@@ -409,7 +412,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changeAccidentPaidDriver();
     this.changeBiFuelValue();
     this.changeAddon();
-
+    // this.getcity();
+    this.getcityin();
     this.coverPremium();
     this.idvValuess();
     this.idvValue();
@@ -662,6 +666,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.to_employees=this.AddonListss.to_employees;
       this.towing_charges=this.AddonListss.towing_charges;
       this.wind_shield=this.AddonListss.wind_shield;
+      // this.premiumadd=this.AddonListss.premium;
 
     }
   }
@@ -794,6 +799,52 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public occupationFailure(error) {
   }
+
+  // getcity() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+  //   }
+  //   this.fourWheeler.getCityList(data).subscribe(
+  //       (successData) => {
+  //         this.citySuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.cityFailure(error);
+  //       }
+  //   );
+  // }
+  // public citySuccess(successData) {
+  //   if (successData.IsSuccess) {
+  //     this.city2List = successData.ResponseObject;
+  //   }
+  // }
+  // public cityFailure(error) {
+  // }
+
+  getcityin() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.fourWheeler.getCityListin(data).subscribe(
+        (successData) => {
+          this.cityinSuccess(successData);
+        },
+        (error) => {
+          this.cityinFailure(error);
+        }
+    );
+  }
+  public cityinSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.cityinList = successData.ResponseObject;
+    }
+  }
+  public cityinFailure(error) {
+  }
   //
   getVehicalMostly() {
     const data = {
@@ -840,15 +891,15 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     if (successData.IsSuccess) {
       this.pincodeList = successData.ResponseObject;
-      if (pin.length == '' || pin.length == 0 || pin.length != 6) {
-        this.proposer.controls['city'].patchValue('');
-      }
-      for (let key in this.pincodeList.city) {
-        this.proposer.controls['city'].patchValue(key);
-        this.proposer.controls['cityName'].patchValue(this.pincodeList['city'][key]);
-        console.log(this.proposer.controls['city'].patchValue(key),' jhgfdghj');
-
-      }
+      // if (pin.length == '' || pin.length == 0 || pin.length != 6) {
+      //   this.proposer.controls['city'].patchValue('');
+      // }
+      // for (let key in this.pincodeList.city) {
+      //   this.proposer.controls['city'].patchValue(key);
+      //   this.proposer.controls['cityName'].patchValue(this.pincodeList['city'][key]);
+      //   console.log(this.proposer.controls['city'].patchValue(key),' jhgfdghj');
+      //
+      // }
 
     } else {
       this.toastr.error(successData.ErrorObject);
@@ -883,17 +934,17 @@ export class RsFourwheelerProposalComponent implements OnInit {
     if (successData.IsSuccess) {
       this.respincodeList = successData.ResponseObject;
       console.log(pin,' jhgfdghj');
-      if (pin.length == '' || pin.length == 0 || pin.length != 6) {
-        this.proposer.controls['rcity'].patchValue('');
-      } for ( let key in this.respincodeList.city) {
-        this.proposer.controls['rcity'].patchValue(key);
-        this.proposer.controls['rcityName'].patchValue(this.respincodeList['city'][key]);
-        console.log(this.proposer.controls['rcity'].patchValue(key),' rrrrr');
-      }
+      // if (pin.length == '' || pin.length == 0 || pin.length != 6) {
+        // this.proposer.controls['rcity'].patchValue('');
+      // } for ( let key in this.respincodeList.city) {
+        // this.proposer.controls['rcity'].patchValue(key);
+        // this.proposer.controls['rcityName'].patchValue(this.respincodeList['city'][key]);
+        // console.log(this.proposer.controls['rcity'].patchValue(key),' rrrrr');
+      // }
 
     } else {
       this.toastr.error(successData.ErrorObject);
-      this.proposer.controls['rcity'].patchValue('');
+      // this.proposer.controls['rcity'].patchValue('');
 
 
     }
@@ -1998,6 +2049,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES;
       this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES;
       this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE;
+      // this.premiumadd=this.AddonList.premium;
+      // console.log(this.premiumadd,'gfhfhgfh')
       // this.coverdriverpremiumchange();
       this.invoicePriceChangepremium();
       this.patchkeyreplacementpremium();
@@ -2300,6 +2353,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       // this.topScroll();
       // this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
+      this.premiumadd =  this.summaryData.premium;
+      console.log(this.premiumadd,'pppppremium')
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.PaymentRedirect = this.summaryData.PaymentRedirect;
 
@@ -2308,6 +2363,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.ComprehensivePremium =   this.summaryData.Comprehensive_premium;
       sessionStorage.royalFourWheelerproposalID = this.ProposalId;
       this.proposerFormData = this.proposer.value;
+
       this.vehicalFormData = this.vehical.value;
       this.previousFormData = this.previousInsure.value;
       this.nomineeFormData = this.nomineeDetail.value;
@@ -2318,11 +2374,16 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.updateproposal(stepper);
 
       console.log(this.proposerFormData, 'ppp');
+      console.log(this.proposerFormData.city, 'ppp');
+      console.log(this.proposerFormData.rcity, 'ppp');
       console.log(this.vehicalFormData,'uuuuu');
       console.log(this.previousFormData,'ooo');
       console.log(this.nomineeFormData,'ooo333');
     } else{
+      this.settings.loadingSpinner = false;
       this.toastr.error(successData.ErrorObject);
+      this.settings.loadingSpinner = false;
+
 
     }
   }
@@ -2348,6 +2409,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       "company_id": this.buyProduct.company_id,
       "business_type": this.vehicledetailsfw.business_type,
       "CALCULATEPREMIUMREQUEST": {
+        "premium": this.premiumadd,
         "quoteId": this.referenceId,
         "proposerDetails": {
           "strTitle": this.proposer.controls['title'].value,
@@ -2473,7 +2535,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
     } else {
+      console.log(successData.ErrorObject);
       this.toastr.error(successData.ErrorObject);
+      this.settings.loadingSpinner = false;
+
 
     }
   }

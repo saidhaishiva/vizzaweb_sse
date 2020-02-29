@@ -141,13 +141,30 @@ export class BikeShriramProposalComponent implements OnInit {
     public titleId:any;
     public paOwnerValue:any;
     public addonValue:any;
+    public preClaim:any;
+    public claimDetail:any;
+    public stepper2:any;
+    public detariff:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
-                stepperindex = 4;
+                this.stepper2 = JSON.parse(sessionStorage.stepper2);
+                this.get_PA_exclusion_list();
+                if(this.stepper2.isPAExclusion==false){
+                    this.vehical.controls['isPAExclusion'].patchValue(false);
+                    this.vehical.controls['PAExclusion'].patchValue('');
+
+                    stepperindex = 4;
+                }else if(this.stepper2.isPAExclusion==true){
+                    this.vehical.controls['isPAExclusion'].patchValue(true);
+                    this.vehical.controls['PAExclusion'].patchValue(this.stepper2.PAExclusion);
+                    this.get_PA_exclusion_list();
+                    this.PAExclusion();
+                    stepperindex = 3;
+                }
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.PaymentRedirect = this.summaryData.PaymentURL;
@@ -298,6 +315,7 @@ export class BikeShriramProposalComponent implements OnInit {
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
       this.packagelist = sessionStorage.packae_list;
+
          this.changeTitle();
          this.changehypothecation();
          this.policyType();
@@ -311,6 +329,8 @@ export class BikeShriramProposalComponent implements OnInit {
          this.changeCalcMax();
          this.voluntaryExcess();
          this.nilDepDateValidation();
+         this.nilDepPolicy();
+
          this.get_PA_exclusion_list();
       this.vehical.controls['isPAExclusion'].patchValue(false);
       this.PAExclusion()
@@ -367,8 +387,20 @@ export class BikeShriramProposalComponent implements OnInit {
             this.nilDepValue=true;
         }else{
             this.nilDepValue=false;
+            this.vehical.controls['nilDepreciationCover'].patchValue(false)
+
         }
         console.log(this.nilDepValue,'nilDepValue....')
+    }
+    nilDepPolicy(){
+        this.preClaim=this.enquiryFormData.previous_claim_YN
+        if(this.preClaim == 0){
+            this.claimDetail=true;
+
+        }else  if(this.preClaim == 1){
+            this.claimDetail=false;
+            this.vehical.controls['nilDepreciationCover'].patchValue(false)
+        }
     }
     // changeCalcPA(event:any){
     //     let nonPASum=event.target.value;
@@ -454,6 +486,20 @@ export class BikeShriramProposalComponent implements OnInit {
             this.proposer.controls['gender'].patchValue('');
             this.proposer.controls['dob'].setValidators(null);
             this.proposer.controls['gender'].setValidators(null);
+
+            this.nomineeDetail.controls['nomineeName'].patchValue('');
+            this.nomineeDetail.controls['nomineeAge'].patchValue('');
+            this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
+            this.nomineeDetail.controls['appointeeName'].patchValue('');
+            this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
+            sessionStorage.nomineeFormData='';
+            console.log(sessionStorage.nomineeFormData);
+
+            this.nomineeDetail.controls['nomineeName'].setValidators(null);
+            this.nomineeDetail.controls['nomineeAge'].setValidators(null);
+            this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
+            this.nomineeDetail.controls['appointeeName'].setValidators(null);
+            this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
         }else{
             this.proposerGender=false;
             this.proposer.controls['dob'].setValidators([Validators.required]);
@@ -1109,6 +1155,7 @@ export class BikeShriramProposalComponent implements OnInit {
     PAExclusion(){
         if(this.vehical.controls['isPAExclusion'].value==true) {
             this.paOwnerValue=false;
+            this.vehical.controls['PAExclusion'].patchValue(this.vehical.controls['PAExclusion'].value);
             this.vehical.controls['PAExclusion'].setValidators([Validators.required]);
 
             this.nomineeDetail.controls['nomineeName'].patchValue('');
@@ -1406,30 +1453,73 @@ export class BikeShriramProposalComponent implements OnInit {
     }
 
 
+    // previousDetails(stepper: MatStepper, value) {
+    //     alert('0')
+    //     console.log(value, 'vvvvvv');
+    //     sessionStorage.stepper3 = '';
+    //     sessionStorage.stepper3 = JSON.stringify(value);
+    //
+    //   if(this.paOwnerValue==false&&this.proposerGender==true){
+    //
+    //       alert('1')
+    //     if (this.previousInsure.valid) {
+    //         alert(this.previousInsure.valid)
+    //         if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+    //             // stepper.next();
+    //             this.topScroll();
+    //             this.proposal(stepper);
+    //         }else{
+    //             this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
+    //         }
+    //     }
+    //    }else if(this.proposerGender==false && this.paOwnerValue==true){
+    //       alert('2')
+    //       if (this.previousInsure.valid) {
+    //           alert(this.previousInsure.valid)
+    //           if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+    //               stepper.next();
+    //               this.topScroll();
+    //           }else{
+    //               this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
+    //           }
+    //       }
+    //   }
+    //
+    // }
     previousDetails(stepper: MatStepper, value) {
         console.log(value, 'vvvvvv');
         sessionStorage.stepper3 = '';
         sessionStorage.stepper3 = JSON.stringify(value);
-      if(this.paOwnerValue==false){
-        if (this.previousInsure.valid) {
-            if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
-                // stepper.next();
-                this.topScroll();
-                this.proposal(stepper);
-            }else{
-                this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
+        console.log(this.vehical.controls['nilDepreciationCover'].value,'nil')
+        console.log(this.previousInsure.controls['policyNilDescription'].value,'pre')
+        console.log(this.paOwnerValue,'this.54678')
+        console.log(this.proposerGender,'this.546789')
+        if(this.proposerGender==false && this.paOwnerValue==true){
+            console.log(this.proposerGender,'this.proposerGender')
+            console.log(this.paOwnerValue,'this.paOwnerValue')
+            if (this.previousInsure.valid) {
+                console.log(this.previousInsure.valid,'456789')
+                if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||((this.vehical.controls['nilDepreciationCover'].value==false||this.vehical.controls['nilDepreciationCover'].value=='')&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+                    stepper.next();
+                    this.topScroll();
+                }else{
+                    this.toastr.error('Previous Nil Description  should be Enable. If u select Nil Depreciation Cover ')
+                }
+
+            }
+        }else  if((this.paOwnerValue==false&&this.proposerGender==true)||(this.paOwnerValue==true&&this.proposerGender==true)||(this.paOwnerValue==false&&this.proposerGender==false)){
+            console.log(this.paOwnerValue,'this.paOwnerValue677667')
+            console.log(this.proposerGender,'this.proposerGender')
+            if (this.previousInsure.valid) {
+                console.log(this.previousInsure.valid,'this.previousInsure.valid54678')
+                if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||((this.vehical.controls['nilDepreciationCover'].value==false||this.vehical.controls['nilDepreciationCover'].value=='')&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+                    this.topScroll();
+                    this.proposal(stepper);
+                }else{
+                    this.toastr.error('Previous Nil Description  should be Enable. If u select Nil Depreciation Cover ')
+                }
             }
         }
-       }else if(this.paOwnerValue==true){
-          if (this.previousInsure.valid) {
-              if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
-                  stepper.next();
-                  this.topScroll();
-              }else{
-                  this.toastr.error('Previous Nil Description should be Enable. If u select Nil Depreciation Cover ')
-              }
-          }
-      }
 
     }
 
@@ -1507,6 +1597,9 @@ export class BikeShriramProposalComponent implements OnInit {
           }
           idValidate(event: any) {
             this.validation.idValidate(event);
+          }
+          numDotValidate(event: any) {
+            this.validation.numDotValidate(event);
           }
         topScroll() {
           document.getElementById('main-content').scrollTop = 0;
@@ -1692,6 +1785,7 @@ export class BikeShriramProposalComponent implements OnInit {
             this.vehicalDetails(stepper,this.vehical.value)
         }
         else{
+            this.settings.loadingSpinner = false;
             this.toastr.error(successData.ErrorObject);
         }
     }
@@ -1850,21 +1944,61 @@ export class BikeShriramProposalComponent implements OnInit {
          this.previousFormData = this.previousInsure.value;
          this.nomineeFormData = this.nomineeDetail.value;
          this.basic_od_cover= this.summaryData.cover.basic_od_cover;
-         this.basic_tp_cover= this.summaryData.cover.basic_tp_cover;
-         this.od_total= this.summaryData.cover.od_total;
-         this.tp_total= this.summaryData.cover.tp_total;
-         this.gst= this.summaryData.cover.gst;
-         this.electrical_cover= this.summaryData.cover.electrical_cover;
-         this.anti_theft_cover= this.summaryData.cover.anti_theft_cover;
-         this.Nil_depreciation_cover= this.summaryData.cover.Nil_depreciation_cover;
-         this.pa_owner_driver= this.summaryData.cover.pa_owner_driver;
-         this.ncb= this.summaryData.cover.ncb;
-         console.log(this.vehicalFormData,'this.proposerFormData');
+            sessionStorage.basic_od_cover = ( this.basic_od_cover);
+
+            this.basic_tp_cover= this.summaryData.cover.basic_tp_cover;
+            sessionStorage.basic_tp_cover = ( this.basic_tp_cover);
+
+            this.od_total= this.summaryData.cover.od_total;
+            sessionStorage.od_total = ( this.od_total);
+
+            this.tp_total= this.summaryData.cover.tp_total;
+            sessionStorage.tp_total = ( this.tp_total);
+
+            this.gst= this.summaryData.cover.gst;
+            sessionStorage.gst = ( this.gst);
+
+            this.electrical_cover= this.summaryData.cover.electrical_cover;
+            sessionStorage.electrical_cover = ( this.electrical_cover);
+
+            this.anti_theft_cover= this.summaryData.cover.anti_theft_cover;
+            sessionStorage.anti_theft_cover = ( this.anti_theft_cover);
+
+            this.Nil_depreciation_cover= this.summaryData.cover.Nil_depreciation_cover;
+            sessionStorage.Nil_depreciation_cover = ( this.Nil_depreciation_cover);
+
+            this.pa_owner_driver= this.summaryData.cover.pa_owner_driver;
+            sessionStorage.pa_owner_driver = ( this.pa_owner_driver);
+
+            this.ncb= this.summaryData.cover.ncb;
+            sessionStorage.ncb = ( this.ncb);
+
+            this.pa_unnamed_passenger_cover= this.summaryData.cover.pa_unnamed_passenger_cover;
+            sessionStorage.pa_unnamed_passenger_cover = ( this.pa_unnamed_passenger_cover);
+
+            this.detariff= this.summaryData.cover.detariff;
+            sessionStorage.detariff = ( this.detariff);
+
+            console.log(this.vehicalFormData,'this.proposerFormData');
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
             sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
-      }
+            this.basic_od_cover= sessionStorage.basic_od_cover;
+            this.basic_tp_cover=  sessionStorage.basic_tp_cover;
+            this.od_total=  sessionStorage.od_total;
+            this.tp_total= sessionStorage.tp_total;
+            this.gst=sessionStorage.gst;
+            this.electrical_cover= sessionStorage.electrical_cover;
+            this.anti_theft_cover=sessionStorage.anti_theft_cover;
+            this.Nil_depreciation_cover= sessionStorage.Nil_depreciation_cover;
+            this.pa_owner_driver=sessionStorage.pa_owner_driver;
+            this.ncb=sessionStorage.ncb;
+            this.pa_unnamed_passenger_cover=sessionStorage.pa_unnamed_passenger_cover;
+            this.detariff=sessionStorage.detariff;
+
+
+        }
         // else {
             // this.settings.loadingSpinner = false;
             // if(successData.ErrorObject.type == 'idv') {
@@ -2180,13 +2314,18 @@ export class BikeShriramProposalComponent implements OnInit {
            
             <div class="row" *ngIf="this.Nil_depreciation_cover!=''&&this.Nil_depreciation_cover!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation Cover(Bumper To Bumper) :</span><span style="margin-left: 13px;">{{this.Nil_depreciation_cover}}</span>  </p>
+                    <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation Cover(Bumper To Bumper) :</span><span style="margin-left: 19px;">{{this.Nil_depreciation_cover}}</span>  </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.pa_owner_driver!=''&&this.pa_owner_driver!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> PA Owner Driver :</span><span style="margin-left: 185px;">{{this.pa_owner_driver}}</span>  </p>
                 </div>
             </div>
             
             <div class="row" *ngIf="this.anti_theft_cover!=''||this.anti_theft_cover!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 35px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 174px;">{{this.anti_theft_cover}}</span>  </p>
+                    <p ><span style="margin-left: 35px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 177px;">{{this.anti_theft_cover}}</span>  </p>
                 </div>
             </div>
 
