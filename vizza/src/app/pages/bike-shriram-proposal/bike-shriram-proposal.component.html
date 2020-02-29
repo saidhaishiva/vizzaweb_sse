@@ -836,7 +836,7 @@
                                     <form action='{{PaymentRedirect}}' method='post' #form>
                                         <input name="PolicySysID" type="hidden" value="{{PolicySisID}}" />
                                         <input name="ReturnURL" type="hidden" value="{{PaymentReturn}}" />
-                                        <button mat-button matStepperPrevious  (click)="topScroll();PAExclusion()">Back</button>
+                                        <button mat-button matStepperPrevious  (click)="topScroll();PAExclusion();get_PA_exclusion_list()">Back</button>
                                         <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                                     </form>
                                 </div>

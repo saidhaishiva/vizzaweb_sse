@@ -136,6 +136,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public PA_to_named_passenger: any;
   public PA_to_owner_driver: any;
   public PA_to_unnamed_passenger: any;
+  public Liability_to_paid_driver: any;
+  public Bifuel_kit: any;
+  public lesserDate: any;
+  public nilDepValue: any;
 
   //dob
   proposerAge : any;
@@ -177,6 +181,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     });
     let today = new Date();
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const minDate = new Date();
+    this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+    const lateDate=minDate.getFullYear()-5;
+    this.lesserDate = new Date(lateDate, minDate.getMonth(), minDate.getDate());
     this.currentStep = stepperindex;
     this.setting = appsetting.settings;
     this.webhost = this.config.getimgUrl();
@@ -295,13 +303,13 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       fuelTypeValue: [''],
       nOtherRelationValue: [''],
       PACoverToOwner: [''],
-      totalUnnamedPassengerPremium: [''],
-      totalnamedPassengerPremium: [''],
-      totalOwnerDriverPremium: [''],
-      totalDepreciationPremium: [''],
-      totalVoluntaryDeductablePremium: [''],
-      totalElectricalItemPremium: [''],
-      totalNonElectricalItemPremium: [''],
+      // totalUnnamedPassengerPremium: [''],
+      // totalnamedPassengerPremium: [''],
+      // totalOwnerDriverPremium: [''],
+      // totalDepreciationPremium: [''],
+      // totalVoluntaryDeductablePremium: [''],
+      // totalElectricalItemPremium: [''],
+      // totalNonElectricalItemPremium: [''],
       // PAToNamedPassenger: [''],
       NoOfUnnamedPassenegersCovered: [''],
       NoOfnamedPassenegersCovered: [''],
@@ -411,6 +419,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.getFinancialType();
     this.voluntaryAmount();
     this.nilDepPolicy();
+    this.changeBifuelDrop();
     // this.unnamedSi();
     this.getPaidDriverSi();
     this.getTppdSi();
@@ -427,6 +436,19 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.clientTypeField = false;
     }
 
+  }
+  nilDepDateValidation(){
+    let valueDil=this.datepipe.transform(this.lesserDate, 'y-MM-dd')
+    console.log(this.lesserDate,'lesserDate....')
+    console.log(valueDil,'valueDil....')
+    console.log(this.buyProduct.registration_date,'55555555555555....')
+
+    if(valueDil <= this.buyProduct.registration_date ){
+      this.nilDepValue=true;
+    }else{
+      this.nilDepValue=false;
+    }
+    console.log(this.nilDepValue,'nilDepValue....')
   }
   nilDepPolicy(){
     this.preClaim=this.buyProduct.previous_claim_YN
@@ -1335,16 +1357,16 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
             // this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
             this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
             this.coverDetails.controls['cpgLpgKit'].setValidators([Validators.required]);
-            this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
+            // this.coverDetails.controls['bifuelAmount'].setValidators([Validators.required]);
           // this.changeCpgLpgKit();
         }else if(this.coverDetails.controls['IsBiFuelKit'].value==false) {
             // this.coverDetails.controls['BiFuelKitSi'].patchValue('');
             // this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
 
-            this.coverDetails.controls['bifuelAmount'].patchValue('');
+            // this.coverDetails.controls['bifuelAmount'].patchValue('');
             this.coverDetails.controls['bifueltype'].patchValue('');
             this.coverDetails.controls['bifueltype'].setValidators(null);
-            this.coverDetails.controls['bifuelAmount'].setValidators(null);
+            // this.coverDetails.controls['bifuelAmount'].setValidators(null);
 
             this.coverDetails.controls['cpgLpgKit'].patchValue('');
             this.coverDetails.controls['cpgLpgKit'].setValidators(null);
@@ -1356,7 +1378,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         // this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
         this.coverDetails.controls['bifueltype'].updateValueAndValidity();
         this.coverDetails.controls['cpgLpgKit'].updateValueAndValidity();
-        this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
+        // this.coverDetails.controls['bifuelAmount'].updateValueAndValidity();
 
     }
   changeCpgLpgKit(){
@@ -1620,6 +1642,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   dropdownFuelType(){
     if(this.bifuelType == '5'){
     this.coverDetails['controls'].fuelType.patchValue('5');
+      this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
       this.bifuelCover=true;
     }else{
       this.bifuelCover=false;
@@ -1791,13 +1814,13 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         BasicLiability: this.getStepper3.BasicLiability,
         PACoverToOwner: this.getStepper3.PACoverToOwner,
 
-        totalUnnamedPassengerPremium: this.getStepper3.totalUnnamedPassengerPremium,
-        totalnamedPassengerPremium: this.getStepper3.totalnamedPassengerPremium,
-        totalOwnerDriverPremium: this.getStepper3.totalOwnerDriverPremium,
-        totalDepreciationPremium: this.getStepper3.totalDepreciationPremium,
-        totalVoluntaryDeductablePremium: this.getStepper3.totalVoluntaryDeductablePremium,
-        totalElectricalItemPremium: this.getStepper3.totalElectricalItemPremium,
-        totalNonElectricalItemPremium: this.getStepper3.totalNonElectricalItemPremium,
+        // totalUnnamedPassengerPremium: this.getStepper3.totalUnnamedPassengerPremium,
+        // totalnamedPassengerPremium: this.getStepper3.totalnamedPassengerPremium,
+        // totalOwnerDriverPremium: this.getStepper3.totalOwnerDriverPremium,
+        // totalDepreciationPremium: this.getStepper3.totalDepreciationPremium,
+        // totalVoluntaryDeductablePremium: this.getStepper3.totalVoluntaryDeductablePremium,
+        // totalElectricalItemPremium: this.getStepper3.totalElectricalItemPremium,
+        // totalNonElectricalItemPremium: this.getStepper3.totalNonElectricalItemPremium,
         // PAToNamedPassenger: this.getStepper3.PAToNamedPassenger,
         // IsPAToDriverCovered: this.getStepper3.IsPAToDriverCovered,
         // IsPAToDriverCoveredSi: this.getStepper3.IsPAToDriverCoveredSi,
@@ -1814,11 +1837,11 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         NaamedPassengersSI: this.getStepper3.NaamedPassengersSI,
         IsVoluntaryDeductableOpted: this.getStepper3.IsVoluntaryDeductableOpted,
         VoluntaryDeductableAmount: this.getStepper3.VoluntaryDeductableAmount,
-        totalLiabilityToPaidDriverPremium: this.getStepper3.totalLiabilityToPaidDriverPremium,
-        totalAssociationPremium: this.getStepper3.totalAssociationPremium,
-        totalAntiTheftDeviceFittedPremium: this.getStepper3.totalAntiTheftDeviceFittedPremium,
-        totalBasicODCoveragePremium: this.getStepper3.totalBasicODCoveragePremium,
-        totalBasicLiabilityPremium: this.getStepper3.totalBasicLiabilityPremium,
+        // totalLiabilityToPaidDriverPremium: this.getStepper3.totalLiabilityToPaidDriverPremium,
+        // totalAssociationPremium: this.getStepper3.totalAssociationPremium,
+        // totalAntiTheftDeviceFittedPremium: this.getStepper3.totalAntiTheftDeviceFittedPremium,
+        // totalBasicODCoveragePremium: this.getStepper3.totalBasicODCoveragePremium,
+        // totalBasicLiabilityPremium: this.getStepper3.totalBasicLiabilityPremium,
         IsElectricalItemFitted: this.getStepper3.IsElectricalItemFitted,
         IsNonElectricalItemFitted: this.getStepper3.IsNonElectricalItemFitted,
         IsBiFuelKit: this.getStepper3.IsBiFuelKit,
@@ -2692,9 +2715,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     if (successData.IsSuccess) {
       this.coverListValue = successData.ResponseObject;
       console.log(this.coverListValue,'coverListValue......');
-      this.nil_depreciation=this.coverListValue.coverlist[0].nil_depreciation;
-      sessionStorage.nil_depreciation=this.nil_depreciation;
-      console.log(this.nil_depreciation,'this.nil_depreciation....');
+      // this.nil_depreciation=this.coverListValue.coverlist[0].nil_depreciation;
+      // sessionStorage.nil_depreciation=this.nil_depreciation;
+      // console.log(this.nil_depreciation,'this.nil_depreciation....');
 
       this.basic_od=this.coverListValue.coverlist[0].basic_od;
       sessionStorage.basic_od=this.basic_od;
@@ -2742,6 +2765,12 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
       this.Bifuel_Kit=this.coverListValue.coverlist[0].Bifuel_Kit;
       sessionStorage.Bifuel_Kit=this.Bifuel_Kit;
+
+      this.nil_depreciation=this.coverListValue.coverlist[0].nil_depreciation;
+      sessionStorage.nil_depreciation=this.nil_depreciation;
+      console.log(this.nil_depreciation,'this.nil_depreciation...')
+
+
       // alert(this.Bifuel_Kit)
       console.log(this.Bifuel_Kit,'this.Bifuel_Kit....');
       console.log(this.unnamedList,'valueOfPermium....');
@@ -3216,6 +3245,14 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.basic_od=this.coverageValue.basic_od;
       sessionStorage.basic_od=this.basic_od;
 
+      this.Bifuel_kit=this.coverageValue.Bifuel_kit;
+      sessionStorage.Bifuel_kit=this.Bifuel_kit;
+
+
+
+      this.Liability_to_paid_driver=this.coverageValue.Liability_to_paid_driver;
+      sessionStorage.Liability_to_paid_driver=this.Liability_to_paid_driver;
+
       this.basic_liability=this.coverageValue.basic_liability;
       sessionStorage.basic_liability=this.basic_liability;
 
@@ -3227,6 +3264,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.PA_to_unnamed_passenger=sessionStorage.PA_to_unnamed_passenger;
       this.basic_od=sessionStorage.basic_od;
       this.basic_liability=sessionStorage.basic_liability;
+      this.Liability_to_paid_driver=sessionStorage.Liability_to_paid_driver;
+      this.Bifuel_kit=sessionStorage.Bifuel_kit;
+
       stepper.next();
       this.topScroll();
       // this.nextStep();
@@ -3754,6 +3794,11 @@ export class idvvalidate {
                   <p ><span style="margin-left: 35px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 205px;">{{this.Anti_theft}}</span>  </p>
                 </div>
             </div>
+          <div class="row" *ngIf="this.nil_depreciation!=''||this.nil_depreciation!=undefined">
+                <div class="col-md-12"  >
+                  <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation :</span><span style="margin-left: 205px;">{{this.nil_depreciation}}</span>  </p>
+                </div>
+            </div>
                 
         </div>
        
@@ -3787,8 +3832,7 @@ export class reliance4WCover {
       public dialogRef: MatDialogRef<reliance4WCover>,
       @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute,  public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public fourWheelerInsurance: FourWheelerService) {
 
-    this.nil_depreciation=sessionStorage.nil_depreciation;
-    console.log(this.nil_depreciation,'this.nil_depreciation....');
+
 
     this.basic_od= sessionStorage.basic_od;
     console.log(this.basic_od,'this.basic_od....');
@@ -3824,7 +3868,10 @@ export class reliance4WCover {
     console.log(this.pa_owner_driver,'this.pa_owner_driver....');
 
     this.Bifuel_Kit=sessionStorage.Bifuel_Kit;
-    console.log(this.pa_owner_driver,'this.pa_owner_driver....');
+    console.log(this.Bifuel_Kit,'this.Bifuel_Kit....');
+
+    this.nil_depreciation=sessionStorage.nil_depreciation;
+    console.log(this.nil_depreciation,'this.nil_depreciation....');
 
 
 

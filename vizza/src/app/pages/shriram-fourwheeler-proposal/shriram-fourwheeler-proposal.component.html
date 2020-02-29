@@ -299,7 +299,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 mt-2" *ngIf="bifuelCover==true" >
+                                        <div class="col-md-4" *ngIf="bifuelCover==true">
+                                            <mat-checkbox  formControlName="builtCNGKit" (change)="hideCNG()" >In Built CNGKit</mat-checkbox>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2" *ngIf="bifuelCover==true&&hideCNGBox==false" >
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <mat-checkbox  formControlName="CNGKit" (change)="updateCNGKit()">CNG Kit</mat-checkbox>
@@ -389,9 +393,7 @@
                                             <div class="col-md-4">
                                                 <mat-checkbox  formControlName="limitedTPPD">Limited TPPD</mat-checkbox>
                                             </div>
-                                            <div class="col-md-4" *ngIf="bifuelCover==true">
-                                                <mat-checkbox  formControlName="builtCNGKit"  >In Built CNGKit</mat-checkbox>
-                                            </div>
+
 
 
 
@@ -906,7 +908,7 @@
                             </div>
                         </section>
                         <section>
-                            <h6 class="color-blue" *ngIf="nomineeFormData.appointeeName != ''" >APPOINTEE DETAILS</h6>
+                            <h5 class="mt-3 sub-title" *ngIf="nomineeFormData.appointeeName != ''">APPOINTEE DETAILS </h5>
                             <div class="row box-card">
 
                                 <div class="col-md-6">
@@ -934,7 +936,7 @@
                                 <form action='{{PaymentRedirect}}' method='post' #form>
                                     <input name="PolicySysID" type="hidden" value="{{PolicySisID}}" />
                                     <input name="ReturnURL" type="hidden" value="{{PaymentReturn}}" />
-                                    <button mat-button matStepperPrevious  (click)="topScroll();PAExclusion()">Back</button>
+                                    <button mat-button matStepperPrevious  (click)="topScroll();get_PA_exclusion_list();PAExclusion()">Back</button>
                                     <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                                 </form>
                             </div>
