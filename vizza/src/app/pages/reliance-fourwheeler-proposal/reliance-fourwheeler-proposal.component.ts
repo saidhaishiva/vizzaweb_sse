@@ -519,14 +519,31 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   }
 
-  maritalvalue(){
-    if(this.relianceProposal.controls['title'].value=='Mr.'){
+  maritalvalue1(){
+    if (this.relianceProposal.controls['title'].value == 'Mr.') {
       this.relianceProposal.controls['gender'].patchValue('Male');
-    }else if((this.relianceProposal.controls['title'].value=='Mrs.')|| (this.relianceProposal.controls['title'].value=='Ms.')){
+    } else if(this.relianceProposal.controls['title'].value == 'Mrs.' || this.relianceProposal.controls['title'].value == 'Ms.' )  {
       this.relianceProposal.controls['gender'].patchValue('Female');
+      // this.proposer.controls['dob'].setValidators([Validators.required]);
     }
   }
+  maritalvalue() {
+    if (this.relianceProposal.controls['title'].value == 'Mr.') {
+      this.relianceProposal.controls['gender'].patchValue('Male');
+    } else if(this.relianceProposal.controls['title'].value == 'Mrs.' || this.relianceProposal.controls['title'].value == 'Ms.' )  {
+      this.relianceProposal.controls['gender'].patchValue('Female');
+      // this.proposer.controls['dob'].setValidators([Validators.required]);
+    } else {
+      if(this.relianceProposal.controls['title'].value == 'Dr.'){
+        this.relianceProposal.controls['gender'].patchValue('');
+        this.relianceProposal.controls['gender'].setValidators([Validators.required]);
+        // this.proposer.controls['dob'].setValidators([Validators.required]);
+        console.log(this.relianceProposal.controls['gender'].value,'genders......')
 
+      }
+    }
+
+  }
 
   // clientTypeReq(){
   //   if(this.relianceProposal.controls['clientType'].value == 0){
@@ -1642,7 +1659,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   dropdownFuelType(){
     if(this.bifuelType == '5'){
     this.coverDetails['controls'].fuelType.patchValue('5');
-      this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+      // this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
       this.bifuelCover=true;
     }else{
       this.bifuelCover=false;
@@ -3744,7 +3761,12 @@ export class idvvalidate {
                   <p ><span style="margin-left: 35px;color: blue"> Basic Liability :</span><span style="margin-left: 221px;">{{this.basic_liability}}</span>  </p>
                 </div>
             </div>
-            <div class="row" *ngIf="this.pa_named_passenger!=''&&this.pa_named_passenger!=undefined">
+            <div class="row" *ngIf="this.Bifuel_Kit!=''&&this.Bifuel_Kit!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> Bifuel Kit :</span><span style="margin-left: 155px;"> {{this.Bifuel_Kit}} </span></p>
+                </div>
+            </div> 
+          <div class="row" *ngIf="this.pa_named_passenger!=''&&this.pa_named_passenger!=undefined">
                 <div class="col-md-12"  >
                     <p ><span style="margin-left: 35px;color: blue"> PA to Named Passenger :</span><span style="margin-left: 155px;"> {{this.pa_named_passenger}} </span></p>
                 </div>
@@ -3796,7 +3818,7 @@ export class idvvalidate {
             </div>
           <div class="row" *ngIf="this.nil_depreciation!=''||this.nil_depreciation!=undefined">
                 <div class="col-md-12"  >
-                  <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation :</span><span style="margin-left: 205px;">{{this.nil_depreciation}}</span>  </p>
+                  <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation :</span><span style="margin-left: 217px;">{{this.nil_depreciation}}</span>  </p>
                 </div>
             </div>
                 
