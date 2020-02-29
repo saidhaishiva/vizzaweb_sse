@@ -440,16 +440,16 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
   nilDepDateValidation(){
     let valueDil=this.datepipe.transform(this.lesserDate, 'y-MM-dd')
-    console.log(this.lesserDate,'lesserDate....')
-    console.log(valueDil,'valueDil....')
-    console.log(this.buyProduct.registration_date,'55555555555555....')
+    console.log(this.lesserDate,'lesserDate....')//Sun Mar 01 2015 00:00:00 GMT+0530 (India Standard Time)
+    console.log(valueDil,'valueDil....')//2015-03-01
+    console.log(this.buyProduct.registration_date,'55555555555555....')//2015-02-28
 
     if(valueDil <= this.buyProduct.registration_date ){
       this.nilDepValue=true;
     }else{
       this.nilDepValue=false;
     }
-    console.log(this.nilDepValue,'nilDepValue....')
+    console.log(this.nilDepValue,'nilDepValue....')//false
   }
   nilDepPolicy(){
     this.preClaim=this.buyProduct.previous_claim_YN
@@ -3764,7 +3764,7 @@ export class idvvalidate {
             </div>
             <div class="row" *ngIf="this.Bifuel_Kit!=''&&this.Bifuel_Kit!=undefined">
                 <div class="col-md-12"  >
-                    <p ><span style="margin-left: 35px;color: blue"> Bifuel Kit :</span><span style="margin-left: 155px;"> {{this.Bifuel_Kit}} </span></p>
+                    <p ><span style="margin-left: 35px;color: blue"> Bifuel Kit :</span><span style="margin-left: 247px;"> {{this.Bifuel_Kit}} </span></p>
                 </div>
             </div> 
           <div class="row" *ngIf="this.pa_named_passenger!=''&&this.pa_named_passenger!=undefined">
@@ -3807,11 +3807,7 @@ export class idvvalidate {
                   <p ><span style="margin-left: 35px;color: blue"> Automobile Association Membership :</span><span style="margin-left: 81px;">{{this.automobile_association}}</span> </p>
                 </div>
             </div>
-          <div class="row" *ngIf="this.automobile_association!=''&&this.automobile_association!=undefined">
-                <div class="col-md-12"  >
-                  <p ><span style="margin-left: 35px;color: blue"> Automobile Association Membership :</span><span style="margin-left: 81px;">{{this.automobile_association}}</span> </p>
-                </div>
-            </div>
+         
             <div class="row" *ngIf="this.Anti_theft!=''||this.Anti_theft!=undefined">
                 <div class="col-md-12"  >
                   <p ><span style="margin-left: 35px;color: blue"> Anti-Theft Device :</span><span style="margin-left: 205px;">{{this.Anti_theft}}</span>  </p>
