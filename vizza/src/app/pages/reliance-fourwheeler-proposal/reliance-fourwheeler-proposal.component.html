@@ -848,7 +848,7 @@
                       </div>
                       <div class="col-md-12 mt-2" >
                       <div class="row">
-                      <div class="col-md-4" *ngIf="claimDetail==true">
+                      <div class="col-md-4" *ngIf="nilDepValue==true && claimDetail==true">
                         <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="updateNildeprecition($event)">Nil Depreciation</mat-checkbox>
                       </div>
                       <!--<div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">-->

@@ -138,6 +138,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public PA_to_unnamed_passenger: any;
   public Liability_to_paid_driver: any;
   public Bifuel_kit: any;
+  public lesserDate: any;
+  public nilDepValue: any;
 
   //dob
   proposerAge : any;
@@ -179,6 +181,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     });
     let today = new Date();
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const minDate = new Date();
+    this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+    const lateDate=minDate.getFullYear()-5;
+    this.lesserDate = new Date(lateDate, minDate.getMonth(), minDate.getDate());
     this.currentStep = stepperindex;
     this.setting = appsetting.settings;
     this.webhost = this.config.getimgUrl();
@@ -430,6 +436,19 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.clientTypeField = false;
     }
 
+  }
+  nilDepDateValidation(){
+    let valueDil=this.datepipe.transform(this.lesserDate, 'y-MM-dd')
+    console.log(this.lesserDate,'lesserDate....')
+    console.log(valueDil,'valueDil....')
+    console.log(this.buyProduct.registration_date,'55555555555555....')
+
+    if(valueDil <= this.buyProduct.registration_date ){
+      this.nilDepValue=true;
+    }else{
+      this.nilDepValue=false;
+    }
+    console.log(this.nilDepValue,'nilDepValue....')
   }
   nilDepPolicy(){
     this.preClaim=this.buyProduct.previous_claim_YN

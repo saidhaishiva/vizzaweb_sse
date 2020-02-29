@@ -144,6 +144,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public preClaim: any;
   public claimDetail: any;
   public detariff: any;
+  public hideCNGBox: boolean;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute,public dialog: MatDialog, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -224,6 +225,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.nonelectricalValid = false;
     this.paUnNamed = false;
     this.policyTypeDetails = false;
+    this.hideCNGBox = false;
     // this.policyDatevalidate = [];
     this.proposer = this.fb.group({
       title: ['', Validators.required],
@@ -412,6 +414,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.nilDepValue=false;
     }
     console.log(this.nilDepValue,'nilDepValue....')
+  }
+
+  hideCNG(){
+    if(this.vehical.controls['builtCNGKit'].value==true){
+      this.hideCNGBox=true;
+      this.vehical.controls['CNGKit'].patchValue('')
+      this.vehical.controls['CNGKitSI'].patchValue('')
+      this.vehical.controls['CNGKit'].setValidators(null)
+      this.vehical.controls['CNGKitSI'].setValidators(null)
+    }else{
+      this.hideCNGBox=false;
+    }
   }
 
   changeBifuelDrop() {

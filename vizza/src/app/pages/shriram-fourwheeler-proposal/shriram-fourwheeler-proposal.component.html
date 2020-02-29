@@ -299,7 +299,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 mt-2" *ngIf="bifuelCover==true" >
+                                        <div class="col-md-4" *ngIf="bifuelCover==true">
+                                            <mat-checkbox  formControlName="builtCNGKit" (change)="hideCNG()" >In Built CNGKit</mat-checkbox>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2" *ngIf="bifuelCover==true&&hideCNGBox==false" >
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <mat-checkbox  formControlName="CNGKit" (change)="updateCNGKit()">CNG Kit</mat-checkbox>
@@ -389,9 +393,7 @@
                                             <div class="col-md-4">
                                                 <mat-checkbox  formControlName="limitedTPPD">Limited TPPD</mat-checkbox>
                                             </div>
-                                            <div class="col-md-4" *ngIf="bifuelCover==true">
-                                                <mat-checkbox  formControlName="builtCNGKit"  >In Built CNGKit</mat-checkbox>
-                                            </div>
+
 
 
 
