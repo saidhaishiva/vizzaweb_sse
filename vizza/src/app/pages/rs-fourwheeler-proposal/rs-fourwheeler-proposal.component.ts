@@ -169,6 +169,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public packagePolicyYear: any;
   public packageListFw: any;
   public city2List: any;
+  public premiumadd: any;
   public cityinList: any;
   public errorOTP: boolean;
 
@@ -665,6 +666,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.to_employees=this.AddonListss.to_employees;
       this.towing_charges=this.AddonListss.towing_charges;
       this.wind_shield=this.AddonListss.wind_shield;
+      // this.premiumadd=this.AddonListss.premium;
 
     }
   }
@@ -2047,6 +2049,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES;
       this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES;
       this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE;
+      // this.premiumadd=this.AddonList.premium;
+      // console.log(this.premiumadd,'gfhfhgfh')
       // this.coverdriverpremiumchange();
       this.invoicePriceChangepremium();
       this.patchkeyreplacementpremium();
@@ -2349,6 +2353,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       // this.topScroll();
       // this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
+      this.premiumadd =  this.summaryData.premium;
+      console.log(this.premiumadd,'pppppremium')
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.PaymentRedirect = this.summaryData.PaymentRedirect;
 
@@ -2403,6 +2409,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       "company_id": this.buyProduct.company_id,
       "business_type": this.vehicledetailsfw.business_type,
       "CALCULATEPREMIUMREQUEST": {
+        "premium": this.premiumadd,
         "quoteId": this.referenceId,
         "proposerDetails": {
           "strTitle": this.proposer.controls['title'].value,
