@@ -550,8 +550,7 @@ export class TermLifePremiumListComponent implements OnInit {
                 if (result) {
 
                     let paymentModeValid;
-                      if((value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 &&  value.totalpremium ==  null) || (value.payment_mode == 'Quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000)) {
-
+                      if((value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 &&  value.totalpremium ==  null) || (value.payment_mode == 'Yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000)) {
                         paymentModeValid = false;
                     }
                     if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && (parseInt(value.totalpremium) < 1300|| value.totalpremium ==  null) || value.payment_mode == 'Quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 1250) {
@@ -595,7 +594,7 @@ export class TermLifePremiumListComponent implements OnInit {
 
             let paymentModeValid = true;
 
-            if((value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && value.totalpremium ==  null) || (value.payment_mode == 'Quarterly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000)) {
+            if((value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && value.totalpremium ==  null) || (value.payment_mode == 'Yearly' && parseInt(value.company_id) == 14 && parseInt(value.totalpremium) < 3000)) {
                 paymentModeValid = false;
 
             }
