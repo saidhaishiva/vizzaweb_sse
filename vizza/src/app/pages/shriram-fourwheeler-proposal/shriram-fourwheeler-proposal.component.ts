@@ -412,6 +412,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.nilDepValue=true;
     }else{
       this.nilDepValue=false;
+      this.vehical.controls['nilDepreciationCover'].patchValue(false)
     }
     console.log(this.nilDepValue,'nilDepValue....')
   }
@@ -471,6 +472,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
     }else  if(this.preClaim == 1){
       this.claimDetail=false;
+      this.vehical.controls['nilDepreciationCover'].patchValue(false)
+
     }
   }
 
@@ -1639,7 +1642,7 @@ hypoName(){
     sessionStorage.stepper3 = JSON.stringify(value);
    if(this.proposerGender==false && this.paOwnerValue==true){
     if (this.previousInsure.valid) {
-      if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+      if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||((this.vehical.controls['nilDepreciationCover'].value==false||this.vehical.controls['nilDepreciationCover'].value=='')&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
         stepper.next();
         this.topScroll();
       }else{
@@ -1647,9 +1650,9 @@ hypoName(){
       }
 
     }
-   }else  if(this.paOwnerValue==false&&this.proposerGender==true){
+   }else  if(this.paOwnerValue==false&&this.proposerGender==true||(this.paOwnerValue==true&&this.proposerGender==true)||(this.paOwnerValue==false&&this.proposerGender==false)){
        if (this.previousInsure.valid) {
-           if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||(this.vehical.controls['nilDepreciationCover'].value==false&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
+           if( (this.vehical.controls['nilDepreciationCover'].value==true && this.previousInsure.controls['policyNilDescription'].value==1)||((this.vehical.controls['nilDepreciationCover'].value==false||this.vehical.controls['nilDepreciationCover'].value=='')&&(this.previousInsure.controls['policyNilDescription'].value==0||this.previousInsure.controls['policyNilDescription'].value==1))){
                // stepper.next();
                this.topScroll();
                this.proposal(stepper);
