@@ -568,13 +568,25 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.proposer.controls['dob'].setValidators(null);
       this.proposer.controls['gender'].setValidators(null);
       this.proposer.controls['pan'].setValidators([Validators.required]);
+
+      this.nomineeDetail.controls['nomineeName'].patchValue('');
+      this.nomineeDetail.controls['nomineeAge'].patchValue('');
+      this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
+      this.nomineeDetail.controls['appointeeName'].patchValue('');
+      this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
+      sessionStorage.nomineeFormData='';
+
+      this.nomineeDetail.controls['nomineeName'].setValidators(null);
+      this.nomineeDetail.controls['nomineeAge'].setValidators(null);
+      this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
+      this.nomineeDetail.controls['appointeeName'].setValidators(null);
+      this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
     }else{
       this.proposerGender=false;
       this.proposer.controls['dob'].setValidators([Validators.required]);
       this.proposer.controls['gender'].setValidators([Validators.required]);
       this.proposer.controls['pan'].patchValue('');
       this.proposer.controls['pan'].setValidators(null);
-
 
     }
     this.proposer.controls['dob'].updateValueAndValidity();
@@ -1774,7 +1786,7 @@ hypoName(){
         "CNGKitYN": this.vehical.controls['CNGKit'].value == true ? '1' : '0',
         "CNGKitSI": this.vehical.controls['CNGKitSI'].value,
         "LimitedTPPDYN": "1",
-        "InBuiltCNGKitYN": "0",
+        "InBuiltCNGKitYN": this.vehical.controls['builtCNGKit'].value==true? '1' : '0'||this.vehical.controls['CNGKit'].value == true ?'':'',
         "VoluntaryExcess": this.vehical.controls['voluntaryExcess'].value,
         "Bangladesh": "0",
         "Bhutan": "0",
@@ -1922,7 +1934,7 @@ hypoName(){
         "CNGKitYN": this.vehical.controls['CNGKit'].value == true ? '1' : '0',
         "CNGKitSI": this.vehical.controls['CNGKitSI'].value,
         "LimitedTPPDYN": this.vehical.controls['limitedTPPD'].value == true ? '1' : '0',
-        "InBuiltCNGKitYN": this.vehical.controls['builtCNGKit'].value == true ? '1' : '0',
+        "InBuiltCNGKitYN":  this.vehical.controls['builtCNGKit'].value==true? '1' : '0'||this.vehical.controls['CNGKit'].value == true ?'':'',
         "VoluntaryExcess": this.vehical.controls['voluntaryExcess'].value,
         "Bangladesh": this.vehical.controls['Bangladesh'].value == true ? '1' : '0',
         "Bhutan": this.vehical.controls['Bhutan'].value == true ? '1' : '0',

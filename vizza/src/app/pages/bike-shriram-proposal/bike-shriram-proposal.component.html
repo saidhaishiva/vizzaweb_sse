@@ -515,7 +515,7 @@
                         </mat-expansion-panel>
                     </mat-accordion>
                 </mat-step>
-                <mat-step [stepControl]="" *ngIf="paOwnerValue==true">
+                <mat-step [stepControl]="" *ngIf="proposerGender==false && paOwnerValue==true">
                     <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
                     <mat-accordion class="w-100 float-left ">
                         <mat-expansion-panel expanded>
@@ -619,10 +619,10 @@
                                             <ul class="m-0 list-group">
                                                 <li class="list-group-item" *ngIf="basic_od_cover!=''||basic_od_cover!=undefined "><strong>Basic OD Cover:</strong> {{basic_od_cover}}</li>
                                                 <li class="list-group-item" *ngIf="basic_tp_cover!=''||basic_tp_cover!=undefined"><strong>Basic TP Cover:</strong> {{basic_tp_cover}}</li>
-                                                <li class="list-group-item" *ngIf="od_total!=''||od_total!=undefined"><strong>OD Total:</strong> {{od_total}}</li>
-                                                <li class="list-group-item" *ngIf="tp_total!=''||tp_total!=undefined"><strong>TP Total:</strong> {{tp_total}}</li>
-                                                <li class="list-group-item" *ngIf="gst!=''||gst!=undefined"><strong>GST:</strong> {{gst}}</li>
-                                                <li class="list-group-item" *ngIf="detariff!=undefined"><strong>DETARIFF DISCOUNT ON BASIC OD:</strong> {{detariff}}</li>
+                                                <li class="list-group-item" ><strong>OD Total:</strong> {{od_total}}</li>
+                                                <li class="list-group-item" ><strong>TP Total:</strong> {{tp_total}}</li>
+                                                <li class="list-group-item" ><strong>GST:</strong> {{gst}}</li>
+                                                <li class="list-group-item" ><strong>DETARIFF DISCOUNT ON BASIC OD:</strong> {{detariff}}</li>
 
                                             </ul>
                                         </div>
@@ -633,9 +633,9 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <ul class="m-0 list-group">
-                                                <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess == true"><strong>Electrical Cover:</strong> {{electrical_cover}}</li>
-                                                <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>Anti Theft Cover:</strong> {{anti_theft_cover}}</li>
-                                                <li class="list-group-item" *ngIf="(vehicalFormData.nilDepreciationCover != ''&& nilDepValue==true)"><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
+                                                <li class="list-group-item" ><strong>Electrical Cover:</strong> {{electrical_cover}}</li>
+                                                <li class="list-group-item" ><strong>Anti Theft Cover:</strong> {{anti_theft_cover}}</li>
+                                                <li class="list-group-item" ><strong>Nil Depreciation:</strong> {{Nil_depreciation_cover}}</li>
                                                 <li class="list-group-item" ><strong>PA Owner Driver:</strong> {{pa_owner_driver}}</li>
                                                 <li class="list-group-item" ><strong>PA Unnamed Passenger Cover:</strong> {{pa_unnamed_passenger_cover}}</li>
                                                 <li class="list-group-item" ><strong>NCB:</strong> {{ncb}}</li>

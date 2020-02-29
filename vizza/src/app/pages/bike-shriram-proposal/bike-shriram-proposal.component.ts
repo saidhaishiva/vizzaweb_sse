@@ -483,6 +483,20 @@ export class BikeShriramProposalComponent implements OnInit {
             this.proposer.controls['gender'].patchValue('');
             this.proposer.controls['dob'].setValidators(null);
             this.proposer.controls['gender'].setValidators(null);
+
+            this.nomineeDetail.controls['nomineeName'].patchValue('');
+            this.nomineeDetail.controls['nomineeAge'].patchValue('');
+            this.nomineeDetail.controls['nomineeRelationship'].patchValue('');
+            this.nomineeDetail.controls['appointeeName'].patchValue('');
+            this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
+            sessionStorage.nomineeFormData='';
+            console.log(sessionStorage.nomineeFormData);
+
+            this.nomineeDetail.controls['nomineeName'].setValidators(null);
+            this.nomineeDetail.controls['nomineeAge'].setValidators(null);
+            this.nomineeDetail.controls['nomineeRelationship'].setValidators(null);
+            this.nomineeDetail.controls['appointeeName'].setValidators(null);
+            this.nomineeDetail.controls['appointeeRelationship'].setValidators(null);
         }else{
             this.proposerGender=false;
             this.proposer.controls['dob'].setValidators([Validators.required]);
