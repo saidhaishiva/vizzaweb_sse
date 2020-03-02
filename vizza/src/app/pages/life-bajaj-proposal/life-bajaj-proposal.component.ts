@@ -173,7 +173,9 @@ export class LifeBajajProposalComponent implements OnInit {
     questionIdvalue:any;
     subQuestionId:any;
     questionFlag:any;
+    qvalue:any;
     details:any;
+    subQuestionquestion:any;
    constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
         let stepperindex = 0;
@@ -1232,7 +1234,11 @@ samerelationShip(){
             this.details = [];
 
             for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
-                this.details.push(this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText);
+                this.qvalue= this.allQuestionList[i][j].mainQuestion.subQuestion[k].qus_des + ":" + this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText;
+                // this.qans= this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText;
+                this.details.push(this.qvalue);
+                // this.details.push(this.allQuestionList[i][j].mainQuestion.subQuestion[k].qus_des);
+
 
                 // this.setQuestionDetails[j].detailAnswer = details.toString();
                 // console.log(this.setQuestionDetails[j].detailAnswer,'details23456');
@@ -1246,6 +1252,7 @@ samerelationShip(){
     this.subQuestionId= this.allQuestionList[i][j].mainQuestion.sub_qus_id;
     this.questionFlag= this.allQuestionList[i][j].mainQuestion.qus_flag;
             console.log(this.questionIdvalue,'questionIdvalue');
+
 
             console.log(this.subQuestionId,'subQuestionId');
 
@@ -1268,10 +1275,13 @@ samerelationShip(){
 
           for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
             this.details.push(this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText);
+              this.details.push( this.allQuestionList[i][j].mainQuestion.subQuestion[k].qus_des);
 
-              // this.setQuestionDetails[j].detailAnswer = details.toString();
-              // console.log(this.setQuestionDetails[j].detailAnswer,'details23456');
-              console.log(this.details,'details');
+
+                  // this.setQuestionDetails[j].detailAnswer = details.toString();
+                  // console.log(this.setQuestionDetails[j].detailAnswer,'details23456');
+                  console.log(this.details, 'details');
+                  console.log(this.subQuestionquestion, 'subQuestionquestion');
 
 
 
