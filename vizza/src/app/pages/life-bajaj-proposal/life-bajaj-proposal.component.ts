@@ -170,7 +170,10 @@ export class LifeBajajProposalComponent implements OnInit {
   public questionvalue:any;
   public arraylist:any;
   public checkvalue:any;
-
+    questionIdvalue:any;
+    subQuestionId:any;
+    questionFlag:any;
+    details:any;
    constructor(@Inject(WINDOW) private window: Window, public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
         let stepperindex = 0;
@@ -201,6 +204,7 @@ export class LifeBajajProposalComponent implements OnInit {
         this.photoPath = [];
         this.otherdocsPath = [];
         this.detailsquestion = [];
+        this.details = [];
        this.bigeneration=false;
        this.fileTypeImage=false;
        this.PreviousValid = false;
@@ -849,7 +853,8 @@ export class LifeBajajProposalComponent implements OnInit {
         if (event.value != null) {
           let selectedDate;
           // this.bajajAge = '';
-          let dob = '';
+          // let dob = '';
+          let dob ;
           if (typeof event.value._i == 'string') {
             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
             if (pattern.test(event.value._i) && event.value._i.length == 10) {
@@ -1221,36 +1226,71 @@ samerelationShip(){
             setMainRes = this.allQuestionList[i][j].mainQuestion.fieldValue;
           } else if (this.allQuestionList[i][j].mainQuestion.feild == 'Y/N') {
             setMainRes = this.allQuestionList[i][j].mainQuestion.checked ? 'Y' : 'N';
+
           }
+            console.log(setMainRes,'setMainRes');
+            this.details = [];
+
+            for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
+                this.details.push(this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText);
+
+                // this.setQuestionDetails[j].detailAnswer = details.toString();
+                // console.log(this.setQuestionDetails[j].detailAnswer,'details23456');
+                console.log(this.details,'details');
+
+
+
+            }
             sessionStorage.setMainRes = JSON.stringify(setMainRes);
+    this.questionIdvalue= this.allQuestionList[i][j].mainQuestion.qus_id;
+    this.subQuestionId= this.allQuestionList[i][j].mainQuestion.sub_qus_id;
+    this.questionFlag= this.allQuestionList[i][j].mainQuestion.qus_flag;
+            console.log(this.questionIdvalue,'questionIdvalue');
 
+            console.log(this.subQuestionId,'subQuestionId');
 
+            console.log(this.questionFlag,'questionFlag');
             this.setQuestionDetails.push({
-            "questionId": this.allQuestionList[i][j].mainQuestion.qus_id,
-            "subQuestionId": this.allQuestionList[i][j].mainQuestion.sub_qus_id,
-            "questionFlag": this.allQuestionList[i][j].mainQuestion.qus_flag,
-            "detailAnswer": '',
-            "answer": setMainRes
-          });
+                "questionId": this.questionIdvalue,
+                "subQuestionId": this.subQuestionId,
+                "questionFlag": this.questionFlag,
+                "detailAnswer": this.details,
+                "answer": setMainRes
+            });
+
+
+
         }
       }
       for (let i = 0; i < this.allQuestionList.length; i++) {
         for (let j = 0; j < this.allQuestionList[i].length; j++) {
-          // let details = [];
-          let details;
-          for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
-            details=this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText;
-              console.log(this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText,'2134567');
+           this.details = [];
 
-              this.setQuestionDetails[j].detailAnswer = details.toString();
-              console.log(this.setQuestionDetails[j].detailAnswer,'details23456');
-              console.log(details,'details');
+          for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
+            this.details.push(this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText);
+
+              // this.setQuestionDetails[j].detailAnswer = details.toString();
+              // console.log(this.setQuestionDetails[j].detailAnswer,'details23456');
+              console.log(this.details,'details');
+
 
 
           }
+            // this.setQuestionDetails.push({
+            //     // "questionId": this.questionIdvalue,
+            //     // "subQuestionId": this.subQuestionId,
+            //     // "questionFlag": this.questionFlag,
+            //     "detailAnswer": this.details,
+            //     "answer": setMainRes
+            // });
+
+
         }
 
       }
+
+
+
       let subQuedtionValid = true;
       for (let i = 0; i < this.allQuestionList.length; i++) {
         for (let j = 0; j < this.allQuestionList[i].length; j++) {
