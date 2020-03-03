@@ -297,19 +297,7 @@
                             <!--</mat-form-field>-->
                           <!--</div>-->
 
-                          <div class="col-md-4" *ngIf="IsCustomerAcceptedPPCPED && i == 0">
-                            <div class="row">
-                              <div class="col-md-1 text-left mt-4">
-                                <mat-checkbox formControlName="accepted" (change)="checkAccepted()" ></mat-checkbox>
-                              </div>
-                              <div class="col-md-11 text-left">
-                                <strong>
-                                  Any Eligible Person above the age of 45 Years will have to accept PED and PPC .<br>
-                                </strong>
-                              </div>
-                              <div class="error" *ngIf="IsCustomerAccepted">Please Check the PED and PPC Condition ?</div>
-                            </div>
-                          </div>
+
                           <div class="col-md-4">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Pre Existing Disease" formControlName="preexdisease"  (keypress)="nameValidate($event)" autocomplete="off"  >
@@ -330,6 +318,19 @@
 
                             </mat-form-field>
                           </div>
+<!--                          <div class="col-md-4" *ngIf="IsCustomerAcceptedPPCPED">-->
+<!--                            <div class="row">-->
+<!--                              <div class="col-md-1 text-left mt-4">-->
+<!--                                <mat-checkbox formControlName="accepted" (change)="checkAccepted()" ></mat-checkbox>-->
+<!--                              </div>-->
+<!--                              <div class="col-md-11 text-left"                                                                                                   >-->
+<!--                                <strong>-->
+<!--                                  Any Eligible Person above the age of 45 Years will have to accept PED and PPC .<br>-->
+<!--                                </strong>-->
+<!--                              </div>-->
+<!--                              <div class="error" *ngIf="IsCustomerAccepted">Please Check the PED and PPC Condition ?</div>-->
+<!--                            </div>-->
+<!--                          </div>-->
 
                         </div>
                       </div>

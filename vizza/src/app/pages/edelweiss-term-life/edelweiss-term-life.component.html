@@ -749,8 +749,8 @@
                                     <div class="col-md-6"><p>Which of the above address is your correspondence address? <span class="error" > *</span></p></div>
                                     <div class="col-md-6">
                                         <mat-radio-group formControlName="correspondenceAddress" required>
-                                            <mat-radio-button value="Current Address" class="mr-2">Current Address</mat-radio-button>
-                                            <mat-radio-button value="Permanent Address">Permanent Address</mat-radio-button>
+                                            <mat-radio-button value="Y" class="mr-2">Current Address</mat-radio-button>
+                                            <mat-radio-button value="N">Permanent Address</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
                                 </div>
@@ -872,8 +872,8 @@
                                         <h6 class="color-blue p-3">TAX RESIDENCE DECLARATION <span class="error" > *</span></h6>
                                         <div class="col-md-6 mr-2">
                                             <mat-radio-group formControlName="taxResidence" required>
-                                                <mat-radio-button value="LA is a tax resident of India" > LA is a tax resident of India and not of any other country</mat-radio-button>
-                                                <mat-radio-button value="LA is a tax resident of Other Country" class="mr-2">If LA is tax resident of another country then please fill in the FATCA/CRS form which will be mailed to you after payment</mat-radio-button>
+                                                <mat-radio-button value="Y" > LA is a tax resident of India and not of any other country</mat-radio-button>
+                                                <mat-radio-button value="N" class="mr-2">If LA is tax resident of another country then please fill in the FATCA/CRS form which will be mailed to you after payment</mat-radio-button>
                                             </mat-radio-group>
                                         </div>
                                     </div>
@@ -6341,6 +6341,7 @@
 
                                     <div class="row mt-3">
                                         <div class="col-md-12 box-card pt-3 pb-3" >
+                                            <p style="margin-left: 17px">To Download Proposal Form<button mat-raised-button color="primary" *ngIf="proposalFormPdf !=''" style="margin-left: 13px;background-color: #3378BD" (click)="saveImageAs2()">Click Here</button></p>
 
                                             <pdf-viewer src="{{this.proposalFormPdf}}"
                                                         [render-text]="true"

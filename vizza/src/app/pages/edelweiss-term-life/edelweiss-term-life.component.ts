@@ -2022,6 +2022,9 @@ export class EdelweissTermLifeComponent implements OnInit {
     saveImageAs1() {
         this.window.open(this.bi_pdf_url, '_blank');
     }
+    saveImageAs2() {
+        this.window.open(this.proposalFormPdf, '_blank');
+    }
 
     //upload document valid
     uploadvalid() {
@@ -7522,7 +7525,7 @@ export class EdelweissTermLifeComponent implements OnInit {
                 "perState":this.insureArray.controls['perState'].value,
                 "perCity":this.insureArray.controls['perCity'].value,
                 "isCurrPerAddrSame":this.insureArray.controls['isCurrPerAddrSame'].value,
-                "isPerAddrIsCorrAddr":"",
+                "isPerAddrIsCorrAddr":this.insureArray.controls['correspondenceAddress'].value,
                 "education":"",
                 "otherEducation":"",
                 "highestQualification":this.insureArray.controls['highestQualification'].value,
@@ -7614,7 +7617,8 @@ export class EdelweissTermLifeComponent implements OnInit {
                 "hospitalizedDate":this.medicalDetail.controls['hospitalizedDate'].value,
                 "isRecovered":this.medicalDetail.controls['isRecovered'].value  == 'Yes' ? 'Y' : 'N',
                 "nonRecoveryDetails":this.medicalDetail.controls['nonRecoveryDetails'].value,
-                "isTaxResOfIndia":'LA is a tax resident of India',
+                "isTaxResOfIndia":this.medicalDetail.controls['taxResidence'].value,
+                // "isTaxResOfIndia":'LA is a tax resident of India',
                 "aadhaarNo":this.insureArray.controls['aadhaarNo'].value,
 
                 "questionnaires":{
@@ -7849,7 +7853,8 @@ export class EdelweissTermLifeComponent implements OnInit {
                 "hasWeightChanged":this.insureArray.controls['shasWeightChanged'].value,
                 "weightChange":this.insureArray.controls['sinbetweenweight'].value,
                 "weightChangeReason":this.insureArray.controls['sweightChangedreason'].value,
-                "isTaxResOfIndia":'LA is a tax resident of India',
+                // "weightChangeReason":this.insureArray.controls['sweightChangedreason'].value,
+                "isTaxResOfIndia":'',
                 "aadhaarNo":this.insureArray.controls['saadhaarNo'].value,
 
 
