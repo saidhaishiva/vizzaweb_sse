@@ -41,7 +41,7 @@
      </div>
     <div class="col-md-3 mt-3">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event)" (input)="manufactureYear()" (change)="manufactureYear()" (click)="manufactureYear()" formControlName="manufactureYear"  required>
+        <input matInput placeholder="Manufacture Year(YYYY)" minlength="4" maxlength="4"   (keypress)="numberValidate($event)" (input)="manufactureYear()" (change)="manufactureYear()" (click)="manufactureYear()" formControlName="manufactureYear"  required>
         <mat-error *ngIf="vehicalDetails.controls.manufactureYear.errors?.required">Manufacture Year is required</mat-error>
       </mat-form-field>
       <div class="error" *ngIf="manfactureErrorDate !='' && manfactureErrorDate != true">{{manfactureErrorDate}}</div>

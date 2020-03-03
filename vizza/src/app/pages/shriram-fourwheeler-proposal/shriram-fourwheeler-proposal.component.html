@@ -64,14 +64,14 @@
                                                     <mat-error *ngIf="proposer.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3 mt-1">
+                                            <div class="col-md-3 ">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobile" autocomplete="off" required>
                                                     <mat-error *ngIf="proposer.controls.mobile.errors?.required">Mobile Number is required</mat-error>
                                                     <mat-error *ngIf="proposer.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3 mt-1">
+                                            <div class="col-md-3 ">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Alternate No"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="alterMobile" autocomplete="off" >
                                                     <mat-error *ngIf="proposer.controls.alterMobile.hasError('pattern')">Enter Valid  Alternate Number</mat-error>
@@ -82,12 +82,21 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100"  >
                                                     <mat-placeholder>PAN Number<span class="error" *ngIf=" proposerGender==true" >*</span></mat-placeholder>
-                                                    <input matInput   minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan" (keypress)="idValidate($event)" autocomplete="off" >
-
+                                                    <input matInput  placeholder="PAN Number" minlength="10" class="text-uppercase"  formControlName="pan" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"  (keypress)="idValidate($event)"   autocomplete="off" >
                                                     <!--<mat-error *ngIf="proposer.controls.pan.errors?.required">PAN Number is required</mat-error>-->
                                                     <mat-error *ngIf="proposer.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                                                 </mat-form-field>
                                             </div>
+
+                                            <!--<div class="col-md-3">-->
+                                                <!--<mat-form-field class="w-100"  >-->
+                                                    <!--<mat-placeholder>PAN Number<span class="error" *ngIf=" proposerGender==true" >*</span></mat-placeholder>-->
+                                                    <!--<input matInput   minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan" (keypress)="idValidate($event)" autocomplete="off" >-->
+
+                                                    <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.pan.errors?.required">PAN Number is required</mat-error>&ndash;&gt;-->
+                                                    <!--<mat-error *ngIf="proposer.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
                                             <div class="col-md-3"><mat-form-field class="w-100">
                                                 <input matInput placeholder="GSTIN"  minlength="15"  maxlength="15" formControlName="gst" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
                                                 <mat-error *ngIf="proposer.controls.gst.hasError('minlength')">GSTIN isn't long enough, minimum of 15 characters</mat-error>
@@ -300,7 +309,7 @@
                                         </div>
 
                                         <div class="col-md-4" *ngIf="bifuelCover==true">
-                                            <mat-checkbox  formControlName="builtCNGKit" (change)="hideCNG()" >In Built CNGKit</mat-checkbox>
+                                            <mat-checkbox  formControlName="builtCNGKit" (change)="hideCNG()" >In Built CNGKit<span class="error" *ngIf="bifuelCover==true">*</span></mat-checkbox>
                                         </div>
 
                                         <div class="col-md-12 mt-2" *ngIf="bifuelCover==true&&hideCNGBox==false" >

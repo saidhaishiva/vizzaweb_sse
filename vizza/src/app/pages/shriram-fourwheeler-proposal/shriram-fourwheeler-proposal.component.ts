@@ -455,14 +455,19 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   }
   dropdownFuelType(){
     if(this.bifuelType == '3'){
+        this.vehical.controls['builtCNGKit'].setValidators([Validators.required])
       // this.coverDetails['controls'].fuelType.patchValue('5');
       this.bifuelCover=true;
     }else  if(this.bifuelType != '3'){
       this.vehical.controls['CNGKit'].patchValue(false);
       this.vehical.controls['builtCNGKit'].patchValue(false);
-      this.bifuelCover=false;
+        this.vehical.controls['builtCNGKit'].setValidators(null)
+
+        this.bifuelCover=false;
       this.updateCNGKit();
     }
+      this.vehical.controls['builtCNGKit'].updateValueAndValidity();
+
   }
 
   nilDepPolicy() {
@@ -566,11 +571,12 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   changeGenderVales(){
     if (this.proposer.controls['title'].value == 'M/S') {
       this.proposerGender=true;
+      this.proposer.controls['pan'].setValidators([Validators.required]);
+
       this.proposer.controls['dob'].patchValue('');
       this.proposer.controls['gender'].patchValue('');
       this.proposer.controls['dob'].setValidators(null);
       this.proposer.controls['gender'].setValidators(null);
-      this.proposer.controls['pan'].setValidators([Validators.required]);
 
       this.nomineeDetail.controls['nomineeName'].patchValue('');
       this.nomineeDetail.controls['nomineeAge'].patchValue('');

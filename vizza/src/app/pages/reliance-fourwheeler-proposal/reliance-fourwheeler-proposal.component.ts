@@ -96,6 +96,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public setting: any;
   public declaration : any;
   public PaymentRedirect : any;
+  public idv : any;
 
   public buyBikeDetails: any;
   public enquiryFormData: any;
@@ -140,6 +141,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public Bifuel_kit: any;
   public lesserDate: any;
   public nilDepValue: any;
+  public comphensivePreminium: any;
+  public tp_premium: any;
+  public od_premium: any;
 
   //dob
   proposerAge : any;
@@ -284,6 +288,13 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     });
 
     this.coverDetails = this.fb.group({
+      IDV: ['', Validators.required],
+      FinancierName: [''],
+      FinanceType: [''],
+      FinanceTypeValue: [''],
+      FinancierAddress: [''],
+      IsVehicleHypothicated: [''],
+
       UnnamedPassengerCovered: [''],
       namedPassengerCovered: [''],
       AutomobileAssociationMember: [''],
@@ -361,19 +372,19 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
     });
 
-    this.riskDetails = this.fb.group({
-          // AgentName: [''],
-          OtherSystemName: ['', Validators.required],
-          IDV: ['', Validators.required],
-          FinancierName: [''],
-          FinanceType: [''],
-          FinanceTypeValue: [''],
-          FinancierAddress: [''],
-          IsVehicleHypothicated: [''],
-          OtherSystemNameValue: [''],
-
-        }
-    );
+    // this.riskDetails = this.fb.group({
+    //       // AgentName: [''],
+    //       OtherSystemName: ['', Validators.required],
+    //       IDV: ['', Validators.required],
+    //       FinancierName: [''],
+    //       FinanceType: [''],
+    //       FinanceTypeValue: [''],
+    //       FinancierAddress: [''],
+    //       IsVehicleHypothicated: [''],
+    //       OtherSystemNameValue: [''],
+    //
+    //     }
+    // );
     this.nationalityList = {
       '1949': 'Indian',
       '1950': 'others',
@@ -677,15 +688,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.relianceProposal.controls['nationalityValue'].patchValue(this.nationalityList[this.relianceProposal.controls['nationality'].value]);
 
   }
-  changeOtherSystem(){
-    console.log(this.otherSystemNameList,'list');
-    console.log(this.riskDetails.controls['OtherSystemName'].value)
-    this.riskDetails.controls['OtherSystemNameValue'].patchValue(this.otherSystemNameList[this.riskDetails.controls['OtherSystemName'].value]);
-    console.log(this.riskDetails.controls['OtherSystemNameValue'],'valllllll')
-  }
+  // changeOtherSystem(){
+  //   console.log(this.otherSystemNameList,'list');
+  //   console.log(this.riskDetails.controls['OtherSystemName'].value)
+  //   this.riskDetails.controls['OtherSystemNameValue'].patchValue(this.otherSystemNameList[this.riskDetails.controls['OtherSystemName'].value]);
+  //   console.log(this.riskDetails.controls['OtherSystemNameValue'],'valllllll')
+  // }
 
   changeFinancialType(){
-    this.riskDetails.controls['FinanceTypeValue'].patchValue(this.financialTypeList[this.riskDetails.controls['FinanceType'].value]);
+    this.coverDetails.controls['FinanceTypeValue'].patchValue(this.financialTypeList[this.coverDetails.controls['FinanceType'].value]);
 
   }
   changenRelation(){
@@ -819,30 +830,30 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   updateMandatoryHypothicated(event){
     if( event.checked){
-      this.riskDetails.controls['IsVehicleHypothicated'].patchValue(true);
-      this.riskDetails.controls['FinanceType'].setValidators([Validators.required]);
-      this.riskDetails.controls['FinanceType'].updateValueAndValidity();
+      this.coverDetails.controls['IsVehicleHypothicated'].patchValue(true);
+      this.coverDetails.controls['FinanceType'].setValidators([Validators.required]);
+      this.coverDetails.controls['FinanceType'].updateValueAndValidity();
 
-      this.riskDetails.controls['FinancierName'].setValidators([Validators.required]);
-      this.riskDetails.controls['FinancierName'].updateValueAndValidity();
+      this.coverDetails.controls['FinancierName'].setValidators([Validators.required]);
+      this.coverDetails.controls['FinancierName'].updateValueAndValidity();
 
-      this.riskDetails.controls['FinancierAddress'].setValidators([Validators.required]);
-      this.riskDetails.controls['FinancierAddress'].updateValueAndValidity();
+      this.coverDetails.controls['FinancierAddress'].setValidators([Validators.required]);
+      this.coverDetails.controls['FinancierAddress'].updateValueAndValidity();
     }else {
 
-      this.riskDetails.controls['IsVehicleHypothicated'].patchValue(false);
+      this.coverDetails.controls['IsVehicleHypothicated'].patchValue(false);
 
-      this.riskDetails.controls['FinanceType'].patchValue('');
-      this.riskDetails.controls['FinanceType'].setValidators(null);
-      this.riskDetails.controls['FinanceType'].updateValueAndValidity();
+      this.coverDetails.controls['FinanceType'].patchValue('');
+      this.coverDetails.controls['FinanceType'].setValidators(null);
+      this.coverDetails.controls['FinanceType'].updateValueAndValidity();
 
-      this.riskDetails.controls['FinancierName'].patchValue('');
-      this.riskDetails.controls['FinancierName'].setValidators(null);
-      this.riskDetails.controls['FinancierName'].updateValueAndValidity();
+      this.coverDetails.controls['FinancierName'].patchValue('');
+      this.coverDetails.controls['FinancierName'].setValidators(null);
+      this.coverDetails.controls['FinancierName'].updateValueAndValidity();
 
-      this.riskDetails.controls['FinancierAddress'].patchValue('');
-      this.riskDetails.controls['FinancierAddress'].setValidators(null);
-      this.riskDetails.controls['FinancierAddress'].updateValueAndValidity();
+      this.coverDetails.controls['FinancierAddress'].patchValue('');
+      this.coverDetails.controls['FinancierAddress'].setValidators(null);
+      this.coverDetails.controls['FinancierAddress'].updateValueAndValidity();
     }
 
   }
@@ -1674,7 +1685,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.proposerData = value;
       sessionStorage.stepper1Details = '';
       sessionStorage.stepper1Details = JSON.stringify(value);
-      this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
+      this.coverDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
       console.log(this.relianceProposal.value,'this.relianceProposal...')
       console.log(this.proposerData,'this.proposerData...')
       console.log(sessionStorage.proposerAge,'sessionStorage.proposerAge...')
@@ -1684,16 +1695,34 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         if(sessionStorage.proposerAge >= 18 ||(this.relianceProposal.controls['clientType'].value == 1&&this.proposerAge=='')){
           stepper.next();
           this.topScroll();
+          // this.clientTypeReq();
+          // this.coverDetails.controls['BasicODCoverage'].patchValue(true);
+          // this.coverDetails.controls['BasicLiability'].patchValue(true);
         }else {
           this.toastr.error('Proposer Age should be greater than 18.')
         }
       }else{
         this.toastr.error('Please Select the Mandatory Fields')
       }
-    } else if (type == 'stepper2') {
+    }
+    // else if (type == 'stepper2') {
+    //   sessionStorage.stepper2Details = '';
+    //   sessionStorage.stepper2Details = JSON.stringify(value);
+    //   if (this.riskDetails.valid) {
+    //     stepper.next();
+    //     this.topScroll();
+    //     this.clientTypeReq();
+    //     this.coverDetails.controls['BasicODCoverage'].patchValue(true);
+    //     this.coverDetails.controls['BasicLiability'].patchValue(true);
+    //   }else{
+    //     this.toastr.error('Please Select the Mandatory Fields')
+    //
+    //   }
+    // }
+    else if (type == 'stepper2') {
       sessionStorage.stepper2Details = '';
       sessionStorage.stepper2Details = JSON.stringify(value);
-      if (this.riskDetails.valid) {
+      if (this.previousInsurance.valid) {
         stepper.next();
         this.topScroll();
         this.clientTypeReq();
@@ -1799,23 +1828,47 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     }
     console.log(this.relianceProposal, 'reliancproposal');
 
-    if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
+    // if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
+    //   this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
+    //   this.riskDetails = this.fb.group({
+    //     OtherSystemName: this.getStepper2.OtherSystemName,
+    //     IDV: this.getStepper2.IDV,
+    //     FinanceTypeValue: this.getStepper2.FinanceTypeValue,
+    //     FinanceType: this.getStepper2.FinanceType,
+    //     FinancierName: this.getStepper2.FinancierName,
+    //     FinancierAddress: this.getStepper2.FinancierAddress,
+    //     IsVehicleHypothicated: this.getStepper2.IsVehicleHypothicated,
+    //     OtherSystemNameValue: this.getStepper2.OtherSystemNameValue,
+    //   });
+    // }
+
+    if(sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined ){
       this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
-      this.riskDetails = this.fb.group({
-        OtherSystemName: this.getStepper2.OtherSystemName,
-        IDV: this.getStepper2.IDV,
-        FinanceTypeValue: this.getStepper2.FinanceTypeValue,
-        FinanceType: this.getStepper2.FinanceType,
-        FinancierName: this.getStepper2.FinancierName,
-        FinancierAddress: this.getStepper2.FinancierAddress,
-        IsVehicleHypothicated: this.getStepper2.IsVehicleHypothicated,
-        OtherSystemNameValue: this.getStepper2.OtherSystemNameValue,
+      this.previousInsurance = this.fb.group({
+        prevInsurance: this.getStepper2.prevInsurance,
+        prevYearPolicyType: this.getStepper2.prevYearPolicyType,
+        policyNumber: this.getStepper2.policyNumber,
+        // prevPolStartDate: this.datepipe.transform(this.getStepper4.prevPolStartDate, 'y-MM-dd'),
+        // prevPolSold: this.getStepper4.prevPolSold,
+        prevInsurerAddress: this.getStepper2.prevInsurerAddress,
+        prevInsuranceValue: this.getStepper2.prevInsuranceValue,
+        prevYearPolicyTypeValue: this.getStepper2.prevYearPolicyTypeValue,
+        inspectionId: this.getStepper2.inspectionId,
+        inspectionDone: this.getStepper2.inspectionDone,
+        inspectionDate: this.datepipe.transform(this.getStepper2.inspectionDate, 'y-MM-dd'),
       });
     }
 
     if (sessionStorage.stepper3Details != '' && sessionStorage.stepper3Details != undefined) {
       this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
       this.coverDetails = this.fb.group({
+        IDV: this.getStepper3.IDV,
+        FinanceTypeValue: this.getStepper3.FinanceTypeValue,
+        FinanceType: this.getStepper3.FinanceType,
+        FinancierName: this.getStepper3.FinancierName,
+        FinancierAddress: this.getStepper3.FinancierAddress,
+        IsVehicleHypothicated: this.getStepper3.IsVehicleHypothicated,
+
         UnnamedPassengerCovered: this.getStepper3.UnnamedPassengerCovered,
         namedPassengerCovered: this.getStepper3.namedPassengerCovered,
         PAToOwnerDriverCoverd: this.getStepper3.PAToOwnerDriverCoverd,
@@ -1958,22 +2011,22 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       }
     }
 
-    if(sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined ){
-      this.getStepper4 = JSON.parse(sessionStorage.stepper4Details);
-      this.previousInsurance = this.fb.group({
-        prevInsurance: this.getStepper4.prevInsurance,
-        prevYearPolicyType: this.getStepper4.prevYearPolicyType,
-        policyNumber: this.getStepper4.policyNumber,
-        // prevPolStartDate: this.datepipe.transform(this.getStepper4.prevPolStartDate, 'y-MM-dd'),
-        // prevPolSold: this.getStepper4.prevPolSold,
-        prevInsurerAddress: this.getStepper4.prevInsurerAddress,
-        prevInsuranceValue: this.getStepper4.prevInsuranceValue,
-        prevYearPolicyTypeValue: this.getStepper4.prevYearPolicyTypeValue,
-        inspectionId: this.getStepper4.inspectionId,
-        inspectionDone: this.getStepper4.inspectionDone,
-        inspectionDate: this.datepipe.transform(this.getStepper4.inspectionDate, 'y-MM-dd'),
-      });
-    }
+    // if(sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined ){
+    //   this.getStepper4 = JSON.parse(sessionStorage.stepper4Details);
+    //   this.previousInsurance = this.fb.group({
+    //     prevInsurance: this.getStepper4.prevInsurance,
+    //     prevYearPolicyType: this.getStepper4.prevYearPolicyType,
+    //     policyNumber: this.getStepper4.policyNumber,
+    //     // prevPolStartDate: this.datepipe.transform(this.getStepper4.prevPolStartDate, 'y-MM-dd'),
+    //     // prevPolSold: this.getStepper4.prevPolSold,
+    //     prevInsurerAddress: this.getStepper4.prevInsurerAddress,
+    //     prevInsuranceValue: this.getStepper4.prevInsuranceValue,
+    //     prevYearPolicyTypeValue: this.getStepper4.prevYearPolicyTypeValue,
+    //     inspectionId: this.getStepper4.inspectionId,
+    //     inspectionDone: this.getStepper4.inspectionDone,
+    //     inspectionDate: this.datepipe.transform(this.getStepper4.inspectionDate, 'y-MM-dd'),
+    //   });
+    // }
 
   }
 
@@ -2906,15 +2959,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         'Policy': {
 
           'AgentName': 'Direct',
-          'OtherSystemName': this.riskDetails.controls['OtherSystemName'].value
+          'OtherSystemName': "Agent"
 
         },
         'Risk': {
-          'IDV': this.riskDetails.controls['IDV'].value.toString(),
-          'IsVehicleHypothicated': this.riskDetails.controls['IsVehicleHypothicated'].value ? 'true' : 'false',
-          'FinanceType': this.riskDetails.controls['FinanceType'].value,
-          'FinancierName': this.riskDetails.controls['FinancierName'].value,
-          'FinancierAddress': this.riskDetails.controls['FinancierAddress'].value,
+          'IDV': this.coverDetails.controls['IDV'].value.toString(),
+          'IsVehicleHypothicated': this.coverDetails.controls['IsVehicleHypothicated'].value ? 'true' : 'false',
+          'FinanceType': this.coverDetails.controls['FinanceType'].value,
+          'FinancierName': this.coverDetails.controls['FinancierName'].value,
+          'FinancierAddress': this.coverDetails.controls['FinancierAddress'].value,
           'IsRegAddressSameasCommAddress': this.relianceProposal.controls['regSameAscommAddress'].value ? 'true' : 'false',
           'IsRegAddressSameasPermanentAddress': this.relianceProposal.controls['regSameAspermAddress'].value ? 'true' : 'false',
           'IsPermanentAddressSameasCommAddress': this.relianceProposal.controls['sameAsAddress'].value ? 'true' : 'false',
@@ -3187,7 +3240,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
 
 
-    if(this.buyProduct.business_type == 1){
+    // if(this.buyProduct.business_type == 1){
       if (this.coverDetails.valid) {
         this.setting.loadingSpinner = true;
         this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
@@ -3200,20 +3253,21 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         );
         console.log(data, 'data');
       }
-    }else{
-      if (this.previousInsurance.valid) {
-        this.setting.loadingSpinner = true;
-        this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
-            (successData) => {
-              this.getProposalSucccess(successData, stepper);
-            },
-            (error) => {
-              this.getProposalFailure(error);
-            }
-        );
-        console.log(data, 'data');
-      }
-    }
+    // }
+    // else{
+    //   if (this.previousInsurance.valid) {
+    //     this.setting.loadingSpinner = true;
+    //     this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
+    //         (successData) => {
+    //           this.getProposalSucccess(successData, stepper);
+    //         },
+    //         (error) => {
+    //           this.getProposalFailure(error);
+    //         }
+    //     );
+    //     console.log(data, 'data');
+    //   }
+    // }
   }
 
   getProposalSucccess(successData,stepper) {
@@ -3232,14 +3286,20 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
 
       this.proposerFormData = this.relianceProposal.value;
-      this.riskFormData = this.riskDetails.value;
-      console.log(this.riskFormData,'RISKDATA')
-      this.coverFormData = this.coverDetails.value;
-      console.log(this.coverFormData,'coverformdata');
       this.previousFormData = this.previousInsurance.value;
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      // this.riskFormData = this.riskDetails.value;
+      // console.log(this.riskFormData,'RISKDATA')
+      this.coverFormData = this.coverDetails.value;
+      console.log(this.coverFormData,'coverformdata');
+
       console.log(this.previousFormData,'prevdata');
       // sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+      this.tp_premium=this.summaryData.productlist.tp_premium;
+      this.od_premium=this.summaryData.productlist.od_premium;
+      this.comphensivePreminium=this.summaryData.productlist.comphensivePreminium;
+
+      this.idv=this.summaryData.productlist.idv;
 
       this.coverageValue=this.summaryData.productlist.cover;
       this.Electrical_accessories=this.coverageValue.Electrical_accessories;
@@ -3265,6 +3325,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
       this.Bifuel_kit=this.coverageValue.Bifuel_kit;
       sessionStorage.Bifuel_kit=this.Bifuel_kit;
+
+
 
 
 
@@ -3299,7 +3361,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         dialogRef.disableClose = true;
         dialogRef.afterClosed().subscribe(result=> {
           console.log(result,'inresult');
-          this.riskDetails.controls.IDV.patchValue(result.submitedIdv.toString());
+          this.coverDetails.controls.IDV.patchValue(result.submitedIdv.toString());
           this.coverDetails.controls['registrationSI'].patchValue(result.calValue.toString());
           this.coverDetails.controls['roadtaxSI'].patchValue(result.calValue.toString());
           this.coverDetails.controls['insuranceSI'].patchValue(result.calValue.toString());
@@ -3585,7 +3647,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
       if (this.coverDetails.valid && (this.electricalSumAount==false)&&(this.nonElectricalSumAount==false)) {
         console.log(typeof (this.buyProduct.business_type),'type');
-        if (this.buyProduct.business_type == 1){
+        // if (this.buyProduct.business_type == 1){
           let dialogRef = this.dialog.open(reliance4WCover, {
             width: '600px',
             height: '500px'
@@ -3601,26 +3663,26 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
             }
           });
 
-        }else{
-
-          let dialogRef = this.dialog.open(reliance4WCover, {
-            width: '600px',
-            height: '500px'
-          });
-          dialogRef.disableClose = true;
-          dialogRef.afterClosed().subscribe(result => {
-            console.log(result,'result....')
-            if(result==true) {
-              this.addonValue=true;
-              stepper.next();
-              this.topScroll();
-              this.inspectionShow();
-            }else if(result==false){
-              this.addonValue=false;
-            }
-          });
-
-        }
+        // }else{
+        //
+        //   let dialogRef = this.dialog.open(reliance4WCover, {
+        //     width: '600px',
+        //     height: '500px'
+        //   });
+        //   dialogRef.disableClose = true;
+        //   dialogRef.afterClosed().subscribe(result => {
+        //     console.log(result,'result....')
+        //     if(result==true) {
+        //       this.addonValue=true;
+        //       stepper.next();
+        //       this.topScroll();
+        //       this.inspectionShow();
+        //     }else if(result==false){
+        //       this.addonValue=false;
+        //     }
+        //   });
+        //
+        // }
       }else{
         this.toastr.error('Please Select the Mandatory Fields')
 
