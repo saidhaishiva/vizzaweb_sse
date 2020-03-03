@@ -144,6 +144,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public comphensivePreminium: any;
   public tp_premium: any;
   public od_premium: any;
+  public idvMinValue: any;
+  public idvMaxValue: any;
 
   //dob
   proposerAge : any;
@@ -435,6 +437,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     // this.unnamedSi();
     this.getPaidDriverSi();
     this.getTppdSi();
+    this.idvMinValue=this.buyBikeDetails.MinIDV;
+    console.log( this.idvMinValue,' this.idvMinValue')
+    this.idvMaxValue=this.buyBikeDetails.MaxIDV;
+    console.log( this.idvMaxValue,' this.idvMaxValue')
     // this.namedSi();
     // this.getCover();
     // this.getBifuelChange();

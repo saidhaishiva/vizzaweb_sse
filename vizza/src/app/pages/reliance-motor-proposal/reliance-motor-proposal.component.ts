@@ -131,6 +131,8 @@ export class RelianceMotorProposalComponent implements OnInit {
   public od_premium: any;
   public comphensivePreminium: any;
   public idv: any;
+  public idvMinValue: any;
+  public idvMaxValue: any;
   //dob
   proposerAge : any;
   nomineeAge : any;
@@ -373,6 +375,11 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.getFinancialType();
     this.getPaSi();
     this.nilDepPolicy();
+    this.idvMinValue=this.buyBikeDetails.MinIDV;
+    console.log( this.idvMinValue,' this.idvMinValue')
+    this.idvMaxValue=this.buyBikeDetails.MaxIDV;
+    console.log( this.idvMaxValue,' this.idvMaxValue')
+
     // this.getCover();
 
   }
