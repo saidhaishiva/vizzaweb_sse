@@ -360,7 +360,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 sameasInsurer: false,
                 type: '',
                 ins_age: '',
-                accepted: '',
+                // accepted: '',
                 titleName:'',
                 relationshipName:'',
                 height:'',
@@ -572,20 +572,20 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         }
     }
 
-    checkAccepted() {
-        console.log(this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value, 'ss');
-         if (this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value) {
-             // this.IsCustomerAcceptedPPCPED = true;
-            this.IsCustomerAccepted = false;
-            //   this.hdfcPersonal.controls['accepted'].patchValue(true);
-        } else {
-            this.IsCustomerAccepted = true;
-            // this.IsCustomerAcceptedPPCPED = false;
-            //  this.hdfcPersonal.controls['accepted'].patchValue(false);
-
-        }
-
-    }
+    // checkAccepted() {
+    //     console.log(this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value, 'ss');
+    //      if (this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value) {
+    //          // this.IsCustomerAcceptedPPCPED = true;
+    //         this.IsCustomerAccepted = false;
+    //         //   this.hdfcPersonal.controls['accepted'].patchValue(true);
+    //     } else {
+    //         this.IsCustomerAccepted = true;
+    //         // this.IsCustomerAcceptedPPCPED = false;
+    //         //  this.hdfcPersonal.controls['accepted'].patchValue(false);
+    //
+    //     }
+    //
+    // }
 
     // age calculation
     ageCalculate(dob) {
@@ -931,14 +931,16 @@ TierID
 
         let checkValid = false;
         if (this.hdfcInsureArray.valid) {
-            if (!this.IsCustomerAcceptedPPCPED) {
                 checkValid = true;
-            } else {
-                checkValid = false;
-                if(this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value) {
-                    checkValid = true;
-                }
-            }
+
+            // if (!this.IsCustomerAcceptedPPCPED) {
+            //     checkValid = true;
+            // } else {
+            //     checkValid = false;
+            //     if(this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value) {
+            //         checkValid = true;
+            //     }
+            // }
         } else {
             this.toastr.error('Please fill in all required fields');
         }
@@ -1015,7 +1017,8 @@ TierID
                         'Pincode': this.hdfcpersonalValues.pincode,
                         'EmailId': this.hdfcpersonalValues.email,
                         'MobileNo': this.hdfcpersonalValues.mobile,
-                        'IsCustomerAcceptedPPCPED': this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value ? '1' : '',
+                        // 'IsCustomerAcceptedPPCPED': this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value ? '1' : '',
+                        'IsCustomerAcceptedPPCPED' : '',
                         'IsProposerSameAsInsured': this.sameAsinsure ? 'Y' : 'N' ,
                         'UIDNo': this.hdfcpersonalValues.otp, //OTP Value
                         'PANCardNumber': this.hdfcpersonalValues.personalPan,
@@ -1171,7 +1174,7 @@ TierID
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].preexdisease.patchValue(this.hdfcStep2.items[i].preexdisease);
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.hdfcStep2.items[i].insurerDobError);
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.hdfcStep2.items[i].insurerDobValidError);
-                    this.hdfcInsureArray['controls'].items['controls'][i]['controls'].accepted.patchValue(this.hdfcStep2.items[i].accepted);
+                    // this.hdfcInsureArray['controls'].items['controls'][i]['controls'].accepted.patchValue(this.hdfcStep2.items[i].accepted);
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.patchValue(this.hdfcStep2.items[i].sameasInsurer);
                     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].relationshipName.patchValue(this.hdfcStep2.items[i].relationshipName);
                 }
@@ -1251,7 +1254,8 @@ TierID
                     'Pincode': this.hdfcpersonalValues.pincode,
                     'EmailId': this.hdfcpersonalValues.email,
                     'MobileNo': this.hdfcpersonalValues.mobile,
-                    'IsCustomerAcceptedPPCPED': this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value ? '1' : '',
+                    // 'IsCustomerAcceptedPPCPED': this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value ? '1' : '',
+                    'IsCustomerAcceptedPPCPED' : '',
                     'IsProposerSameAsInsured': this.sameAsinsure ? 'Y' : 'N' ,
                     'UIDNo': this.hdfcpersonalValues.otp //OTP Value
                 },
