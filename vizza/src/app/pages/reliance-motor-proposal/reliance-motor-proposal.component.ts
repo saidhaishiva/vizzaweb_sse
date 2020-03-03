@@ -541,12 +541,30 @@ export class RelianceMotorProposalComponent implements OnInit {
   //   }
   //
   // }
-  maritalvalue(){
-    if(this.relianceProposal.controls['title'].value=='Mr.'){
+  maritalvalue1(){
+    if (this.relianceProposal.controls['title'].value == 'Mr.') {
       this.relianceProposal.controls['gender'].patchValue('Male');
-    }else if((this.relianceProposal.controls['title'].value=='Mrs.')|| (this.relianceProposal.controls['title'].value=='Ms.')){
+    } else if(this.relianceProposal.controls['title'].value == 'Mrs.' || this.relianceProposal.controls['title'].value == 'Ms.' )  {
       this.relianceProposal.controls['gender'].patchValue('Female');
+      // this.proposer.controls['dob'].setValidators([Validators.required]);
     }
+  }
+  maritalvalue() {
+    if (this.relianceProposal.controls['title'].value == 'Mr.') {
+      this.relianceProposal.controls['gender'].patchValue('Male');
+    } else if(this.relianceProposal.controls['title'].value == 'Mrs.' || this.relianceProposal.controls['title'].value == 'Ms.' )  {
+      this.relianceProposal.controls['gender'].patchValue('Female');
+      // this.proposer.controls['dob'].setValidators([Validators.required]);
+    } else {
+      if(this.relianceProposal.controls['title'].value == 'Dr.'){
+        this.relianceProposal.controls['gender'].patchValue('');
+        this.relianceProposal.controls['gender'].setValidators([Validators.required]);
+        // this.proposer.controls['dob'].setValidators([Validators.required]);
+        console.log(this.relianceProposal.controls['gender'].value,'genders......')
+
+      }
+    }
+
   }
 
   updateMandatory() {

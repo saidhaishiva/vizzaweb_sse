@@ -35,7 +35,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)" formControlName="dob" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')"  (keypress)="dobValidate($event)" autocomplete="off" maxlength="10" minlength="10" required>
+                                                    <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)" formControlName="dob" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')"  (keypress)="dobValidate($event)" autocomplete="off" maxlength="10" minlength="10" required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker></mat-datepicker>
                                                     <mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>
@@ -280,23 +280,7 @@
                                             </div>
                                         </div>
 
-                                            <div class="col-md-12 mt-2" style="margin-left:-14px;">
-                                                <div class="row">
-                                                    <div class="col-md-4" >
-                                                        <p>Do you Need Cover for Driver / Other Passengers / Car Accessories? </p>
-                                                        <mat-radio-group formControlName="cover_dri_othr_car_ass" >
-                                                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                            <mat-radio-button value="No">No</mat-radio-button>
-                                                        </mat-radio-group>
-                                                    </div>
-                                                    <!--<div class="col-md-4 mt-3"  *ngIf="vehical.controls['cover_dri_othr_car_ass'].value == 'Yes'">-->
-                                                        <!--<mat-form-field class="w-100">-->
-                                                            <!--<input matInput placeholder="Cover Premium"  formControlName="coverdriverpremium"  autocomplete="off" readonly>-->
-                                                            <!--&lt;!&ndash;<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>&ndash;&gt;-->
-                                                        <!--</mat-form-field>-->
-                                                    <!--</div>-->
-                                                </div>
-                                            </div>
+
                                             <div class="col-md-12 mt-2" style="margin-left:-14px;" *ngIf="vehicleType=='other'" >
                                                 <div class="row">
                                                     <div class="col-md-4"  >
@@ -613,19 +597,36 @@
 
 
 
-                                        <div class="row mt-3">
-                                            <h6 class="color-blue mt-6 ml-3">Cover for Driver / Other Passengers / Car Accessories</h6>
+                                        <!--<div class="row mt-3">-->
+                                            <!--<h6 class="color-blue mt-6 ml-3">Cover for Driver / Other Passengers / Car Accessories</h6>-->
+                                        <!--</div>-->
+                                        <div class="col-md-12 mt-2" style="margin-left:-14px;">
+                                            <div class="row">
+                                                <div class="col-md-4" >
+                                                    <p>Do you Need Cover for Driver / Other Passengers / Car Accessories? </p>
+                                                    <mat-radio-group formControlName="cover_dri_othr_car_ass" >
+                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                                <!--<div class="col-md-4 mt-3"  *ngIf="vehical.controls['cover_dri_othr_car_ass'].value == 'Yes'">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                <!--<input matInput placeholder="Cover Premium"  formControlName="coverdriverpremium"  autocomplete="off" readonly>-->
+                                                <!--&lt;!&ndash;<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>&ndash;&gt;-->
+                                                <!--</mat-form-field>-->
+                                                <!--</div>-->
+                                            </div>
                                         </div>
 
                                         <div class="row">
-                                        <div class="col-md-3 mt-3" *ngIf="personal_accident_cover!='0.0'">
+                                        <div class="col-md-3 mt-3" *ngIf="personal_accident_cover!='0.0'&& this.vehical.controls['cover_dri_othr_car_ass'].value == 'Yes'">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Personal Accident Cover For Unnamed Passengers"  formControlName="personalAccidentCoverForUnnamedPassengers" (selectionChange)="changePaType()" >
                                                     <mat-option *ngFor="let pAUnnamedPassengers of pAUnnamedPassengersList | keys " value="{{pAUnnamedPassengers.key}}" > {{pAUnnamedPassengers.value}} </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3 mt-3" *ngIf="accident_cover_for_paid_driver!='0.0'">
+                                        <div class="col-md-3 mt-3" *ngIf="accident_cover_for_paid_driver!='0.0' && this.vehical.controls['cover_dri_othr_car_ass'].value == 'Yes'">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Accident Cover For Paid Driver"  formControlName="accidentCoverForPaidDriver"   (selectionChange)=" changeAccidentPaidDriver()" >
                                                     <mat-option *ngFor="let accident of accidentList | keys" value="{{accident.key}}" > {{accident.value}} </mat-option>
@@ -1007,7 +1008,7 @@
                             <div class="col-md-6 mt-4">
                                 <ul class="summary-head">
                                     <li><span>Insurer:</span><img src="{{webhost + '/' + buyProduct.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData1.Comprehensive_premium}}</span></li>
+                                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{Comprehensivepremium}}</span></li>
                                     <!--<li><span>Premium:</span><span *ngIf = "productDetails.ThridParty_premium"><i class="fas fa-rupee-sign"></i> {{buyProduct.Comprehensive_premium}}</span></li>-->
                                     <!--<li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>-->
                                     <li></li>
@@ -1162,15 +1163,15 @@
                         </section>
 
                         <section>
-                            <h5 class="mt-3 sub-title">PREVIOUS INSURE DETAILS </h5>
+                            <h5 class="mt-3 sub-title" *ngIf="vehicledetailsfw.business_type != '1'">PREVIOUS INSURE DETAILS </h5>
                             <div class="row box-card">
-                                <div class="col-md-6">
+                                <div class="col-md-6" *ngIf="vehicledetailsfw.business_type != '1'">
                                     <div class="p-3">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item"><strong>Previous Policy Number:</strong> {{previousFormData.policyNumber}}</li>
-                                                    <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
+                                                    <li class="list-group-item" *ngIf="vehicledetailsfw.business_type != '1'"><strong>Previous Policy Number:</strong> {{previousFormData.policyNumber}}</li>
+                                                    <li class="list-group-item" *ngIf="vehicledetailsfw.business_type != '1'"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.personalAccidentCover != ''"><strong>Personal Accident Cover:</strong> {{previousFormData.personalAccidentCover}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.previousinsurersCorrectAddress != ''"><strong>Previous insurers Correct Address:</strong> {{previousFormData.previousinsurersCorrectAddress}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.voluntary != ''"><strong>Voluntary Deductible:</strong> {{previousFormData.voluntary}}</li>
@@ -1179,7 +1180,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" *ngIf="vehicledetailsfw.business_type != '1'">
                                     <div class="p-3">
                                         <div class="row">
                                             <div class="col-md-12">

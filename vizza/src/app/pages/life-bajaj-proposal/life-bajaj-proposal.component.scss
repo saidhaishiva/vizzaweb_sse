@@ -20,4 +20,13 @@ img.hover-shadow {
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.05), 0 8px 20px 0 rgba(0, 0, 0, 0.29);
   cursor: pointer;
 }
-
+.dialogSize1
+{
+  //min-width: calc(100% + 900px);
+  width: 600px;
+}
+.dialogSize
+{
+  //min-width: calc(100% + 250px);
+  width:650px;
+}

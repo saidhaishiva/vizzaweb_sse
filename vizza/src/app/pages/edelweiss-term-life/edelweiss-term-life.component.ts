@@ -598,7 +598,7 @@ export class EdelweissTermLifeComponent implements OnInit {
             perState: ['', Validators.compose([Validators.required])],
             perCity: ['', Validators.compose([Validators.required])],
             isCurrPerAddrSame: '',
-            correspondenceAddress: [''],
+            correspondenceAddress: ['', Validators.compose([Validators.required])],
             // employementTypeOther: '',
             employementType: ['', Validators.compose([Validators.required])],
             employementTypeName: '',
@@ -7522,7 +7522,7 @@ export class EdelweissTermLifeComponent implements OnInit {
                 "perState":this.insureArray.controls['perState'].value,
                 "perCity":this.insureArray.controls['perCity'].value,
                 "isCurrPerAddrSame":this.insureArray.controls['isCurrPerAddrSame'].value,
-                "isPerAddrIsCorrAddr":this.insureArray.controls['correspondenceAddress'].value,
+                "isPerAddrIsCorrAddr":"",
                 "education":"",
                 "otherEducation":"",
                 "highestQualification":this.insureArray.controls['highestQualification'].value,
@@ -11027,4 +11027,3 @@ export class EdelweissOpt {
         this.validation.numberValidate(event);
     }
 }
-

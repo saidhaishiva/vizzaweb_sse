@@ -134,7 +134,7 @@
               </mat-expansion-panel-header>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
-                  <p style="margin-left: 17px">To Download BI Form<button mat-raised-button color="primary" *ngIf="biURL !=''" style="margin-left: 13px;background-color: #3378BD" (click)="downloadPdf()">
+                  <p style="margin-left: 17px">To Download BI Form<button mat-raised-button color="primary" *ngIf="biURL !=''" style="margin-left: 13px;background-color: #3378BD" (click)="saveImageAs2()">
                     Click Here</button></p>
                   <pdf-viewer src="{{webhost+'/'+biURL}}"
                               [render-text]="true"
@@ -169,7 +169,7 @@
 
                       <div class="col-md-3" >
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" required readonly>
+                          <mat-select placeholder="Title" formControlName="title" (selectionChange)="changeTitle()" required readonly  [ngStyle]="{'pointer-events': this.proposer.controls['title'].value ? 'none' : ''}" >
                             <mat-option *ngFor="let list of titleList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
@@ -211,7 +211,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Gender" formControlName="gender" (selectionChange)=changeGender() required readonly>
+                          <mat-select placeholder="Gender" formControlName="gender" [ngStyle]="{'pointer-events': this.proposer.controls['gender'].value ? 'none' : ''}" (change)=changeGender() required readonly >
                             <mat-option value="Male">Male</mat-option>
                             <mat-option value="Female">Female</mat-option>
                           </mat-select>
@@ -340,7 +340,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Country Of Residence" formControlName="countryOfResid" (selectionChange)="changeCountry()" required (change)="changeCountryy()" class="w-100">
+                          <mat-select  placeholder="Country Of Residence" formControlName="countryOfResid" (selectionChange)="changeCountry();mainQuestion()" required (selectionChange)="changeCountryy()" class="w-100">
                             <mat-option *ngFor="let list of countryList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.countryOfResid.errors?.required">Country of Residence is required</mat-error>
@@ -348,7 +348,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Place Of Birth" formControlName="pob" class="nospace" (selectionChange)="changeCitizenship()" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required >
+                          <input matInput placeholder="Place Of Birth" formControlName="pob" class="nospace" (change)="changeCitizenship()" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.pob.errors?.required">Place Of Birth is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -714,33 +714,33 @@
                       </div>
 
                       <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Address Proof" formControlName="addressProof" (selectionChange)="changeAddressProof()" required  class="w-100">
-                            <mat-option *ngFor="let list of paIdProofList | keys" [value]= list.key> {{list.value}} </mat-option>
+                        <mat-form-field class="w-100 ">
+                          <mat-select placeholder="Address Proof" formControlName="addressProof" (selectionChange)="changeAddressProof()" required  class="w-100">
+                            <mat-option *ngFor="let list of paIdProofList | keys" [value]= list.key title="{{list.value}}"> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.addressProof.errors?.required">Address Proof is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field class="w-100">
+                        <mat-form-field class="w-100 " >
                           <mat-select  placeholder="Age Proof" formControlName="ageProof" (selectionChange)="changeAgeProof()" required  class="w-100">
-                            <mat-option *ngFor="let list of ageProofsList | keys" [value]= list.key> {{list.value}} </mat-option>
+                            <mat-option  *ngFor="let list of ageProofsList | keys" [value]= list.key title="{{list.value}}"> {{list.value}} </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="proposer.controls.ageProof.errors?.required">Age Proof is required</mat-error>
+                          <mat-error *ngIf="proposer.controls.ageProof.errors?.required" >Age Proof is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['occupationList'].value !='T' && proposer.controls['occupationList'].value !='N' && proposer.controls['occupationList'].value !='U' ">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Income Proof" formControlName="incomeProof" (selectionChange)="changeIncomeProof()"  class="w-100">
-                            <mat-option *ngFor="let list of incomeProofList | keys" [value]= list.key> {{list.value}} </mat-option>
+                        <mat-form-field class="w-100" >
+                          <mat-select placeholder="Income Proof" formControlName="incomeProof" (selectionChange)="changeIncomeProof()"  class="w-100">
+                            <mat-option  *ngFor="let list of incomeProofList | keys" [value]= list.key title="{{list.value}}"> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.incomeProof.errors?.required">Income Proof is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" >
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Id Proof" formControlName="idProof" (selectionChange)="changeIdProof()" required  class="w-100">
-                            <mat-option *ngFor="let list of idProofList | keys" [value]= list.key> {{list.value}} </mat-option>
+                          <mat-select placeholder="Id Proof" formControlName="idProof" (selectionChange)="changeIdProof()" required  class="w-100">
+                            <mat-option  *ngFor="let list of idProofList | keys" [value]= list.key title="{{list.value}}"> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.idProof.errors?.required">Id Proof is required</mat-error>
                         </mat-form-field>
@@ -772,6 +772,7 @@
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" *ngFor="let lists of allQuestionList;let i = index">
                   <div class="" *ngFor="let item of lists; let j = index">
+                  <!--<div class="" *ngFor="let arr of item; let m = index">-->
                     <div class="row">
                       <div class="col-md-12">
                         <h6 class="color-blue" *ngIf="j == 0">{{item.displayTittle | uppercase}}</h6>
@@ -784,10 +785,18 @@
                               <div *ngIf="subLiss.feild == 'Dropdown'">
                                 <mat-form-field class="w-50">
                                   <mat-select  placeholder="{{subLiss.qus_des}}"  [(ngModel)]="subLiss.subQuestionText" required class="w-100">
-                                    <mat-option *ngFor="let list of diseaseLists | keys" [value]= list.key> {{list.value}} </mat-option>
+                                    <mat-option *ngFor="let list of item.Questionnaire | keys" [value]= list.key> {{list.value}} </mat-option>
                                   </mat-select>
                                 </mat-form-field>
                               </div>
+
+                              <!--<mat-form-field class="w-50" >-->
+                                <!--<mat-select  placeholder="{{subLiss.qus_des}}"  [(ngModel)]="subLiss.subQuestionText" required class="w-100">-->
+                                  <!--&lt;!&ndash;<mat-option *ngFor="let list of detailsquestion | keys" [value]= list.key> {{list.value}} </mat-option>&ndash;&gt;-->
+                                  <!--<mat-option *ngFor="let list of item.DGHQuestionnaire | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                <!--</mat-select>-->
+                              <!--</mat-form-field>-->
+
                               <div *ngIf="subLiss.feild == 'TEXT'">
                                 <mat-form-field class="w-50">
                                   <input matInput placeholder="{{subLiss.qus_des}}"  [(ngModel)]="subLiss.subQuestionText" autocomplete="off" required >
@@ -798,12 +807,27 @@
                                   <input matInput type="number" placeholder="{{subLiss.qus_des}}" [(ngModel)]="subLiss.subQuestionText" autocomplete="off" required >
                                 </mat-form-field>
                               </div>
+                              <div *ngIf="subLiss.feild == 'DATE'">
+                                <!--<div class="col-md-3" >-->
+                                  <mat-form-field class="w-50">
+                                    <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="{{subLiss.qus_des}}" (keypress)="dobValidate($event)"  [(ngModel)]="subLiss.subQuestionText" (dateInput)="addEvent($event,'dob')" (dateChange)="addEvent($event,'dob')" minlength="10" maxlength="10"
+                                           autocomplete="off"   required>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                  </mat-form-field>
+                                </div>
+
+                                <!--<mat-form-field class="w-50">-->
+                                  <!--<input matInput type="number" placeholder="{{subLiss.qus_des}}" [(ngModel)]="subLiss.subQuestionText" autocomplete="off" required >-->
+                                <!--</mat-form-field>-->
+                              <!--</div>-->
+
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-2" *ngIf="item.mainQuestion.feild == 'Y/N'">
-                        <mat-slide-toggle [(ngModel)]="item.mainQuestion.checked" (selectionChange)="changeQuestion(j)"></mat-slide-toggle>
+                        <mat-slide-toggle [(ngModel)]="item.mainQuestion.checked" (change)="changeQuestion(i,$event)"></mat-slide-toggle>
                       </div>
 
                       <div class="col-md-12 familyBox mt-2" *ngIf="i == 0 && item.mainQuestion.checked">
@@ -875,6 +899,10 @@
                         <mat-form-field class="w-50">
                           <input matInput placeholder="{{item.mainQuestion.des}}" [(ngModel)]="item.mainQuestion.fieldValue" autocomplete="off" (keypress)="nameValidate($event)" >
                         </mat-form-field>
+                      </div><div class="col-md-12" *ngIf="item.mainQuestion.feild == 'DATE'">
+                        <mat-form-field class="w-50">
+                          <input matInput placeholder="{{item.mainQuestion.des}}" [(ngModel)]="item.mainQuestion.fieldValue" autocomplete="off" (keypress)="nameValidate($event)" >
+                        </mat-form-field>
                       </div>
                       <div class="col-md-12" *ngIf="item.mainQuestion.feild == 'Dropdown'">
                         <mat-form-field class="w-50">
@@ -887,10 +915,11 @@
                   </div>
 
                 </div>
+                <!--</div>-->
 
                 <div class="proposal-buttom mt-3 text-right w-100">
                   <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                  <button mat-raised-button color="primaryBlue" (click)="medicalHistoryDetails(stepper)">Next</button>
+                  <button mat-raised-button color="primaryBlue" (click)="medicalHistoryDetails(stepper,familyDiseaseForm.value)">Next</button>
                 </div>
               </div>
             </mat-expansion-panel>
@@ -1580,7 +1609,7 @@
               </mat-expansion-panel-header>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
-                  <p style="margin-left: 17px">To Download Proposal Form<button mat-raised-button color="primary" *ngIf="proposalFormPdf !=''" style="margin-left: 13px;background-color: #3378BD" (click)="downloadPdf1()">Click Here</button></p>
+                  <p style="margin-left: 17px">To Download Proposal Form<button mat-raised-button color="primary" *ngIf="proposalFormPdf !=''" style="margin-left: 13px;background-color: #3378BD" (click)="saveImageA()">Click Here</button></p>
 
                   <pdf-viewer src="{{webhost+'/'+proposalFormPdf}}"
                               [render-text]="true"
