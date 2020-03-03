@@ -598,7 +598,7 @@ export class EdelweissTermLifeComponent implements OnInit {
             perState: ['', Validators.compose([Validators.required])],
             perCity: ['', Validators.compose([Validators.required])],
             isCurrPerAddrSame: '',
-            correspondenceAddress: [''],
+            correspondenceAddress: ['', Validators.compose([Validators.required])],
             // employementTypeOther: '',
             employementType: ['', Validators.compose([Validators.required])],
             employementTypeName: '',
@@ -11027,4 +11027,3 @@ export class EdelweissOpt {
         this.validation.numberValidate(event);
     }
 }
-
