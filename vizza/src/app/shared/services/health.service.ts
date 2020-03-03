@@ -74,17 +74,6 @@ export class HealthService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-
-    hdfcPolicynum(data) {
-        const json = JSON.stringify(data);
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHostHealth() + 'hdfc/policyno';
-        return this.http.post(url , json, httpOptions)
-            .map(this.extractData )
-            .catch(this.handleError);
-    }
     // fork join
     getPolicyListsNew(list, data) {
         const httpOptions = {
@@ -1295,6 +1284,38 @@ export class HealthService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    suminsureddropdown(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'religare/sum_insured';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    suminsuredIdval(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'religare/sum_insured_id';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    productVal(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'healthproduct/productList';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
+
     private extractData(res: Response) {
         const body = res;
         return body || {};
