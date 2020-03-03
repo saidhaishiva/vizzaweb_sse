@@ -7522,7 +7522,7 @@ export class EdelweissTermLifeComponent implements OnInit {
                 "perState":this.insureArray.controls['perState'].value,
                 "perCity":this.insureArray.controls['perCity'].value,
                 "isCurrPerAddrSame":this.insureArray.controls['isCurrPerAddrSame'].value,
-                "isPerAddrIsCorrAddr":"",
+                "isPerAddrIsCorrAddr":this.insureArray.controls['correspondenceAddress'].value,
                 "education":"",
                 "otherEducation":"",
                 "highestQualification":this.insureArray.controls['highestQualification'].value,
