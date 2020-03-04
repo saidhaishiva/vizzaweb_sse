@@ -7617,7 +7617,7 @@ export class EdelweissTermLifeComponent implements OnInit {
                 "hospitalizedDate":this.medicalDetail.controls['hospitalizedDate'].value,
                 "isRecovered":this.medicalDetail.controls['isRecovered'].value  == 'Yes' ? 'Y' : 'N',
                 "nonRecoveryDetails":this.medicalDetail.controls['nonRecoveryDetails'].value,
-                "isTaxResOfIndia":this.medicalDetail.controls['taxResidence'].value,
+                "isTaxResOfIndia":this.insureArray.controls['taxResidence'].value,
                 // "isTaxResOfIndia":'LA is a tax resident of India',
                 "aadhaarNo":this.insureArray.controls['aadhaarNo'].value,
 
