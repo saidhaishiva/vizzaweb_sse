@@ -270,6 +270,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       // registrationchargesRoadtaxpremium: '',
       ncbprotectorpremium: '',
       companyName: '',
+      gstIn: '',
       invoicePricepremium: '',
       automobileAssociationMembershippremium: '',
       legalliabilityToPaidDriverpremium: '',
@@ -592,6 +593,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
           "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
           "companyNameForCar": this.vehical.controls['companyName'].value,
+          "GSTIN": this.vehical.controls['gstIn'].value,
           "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ,
           "drivingExperience": this.vehical.controls['drivingExperience'].value,
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
@@ -1552,12 +1554,16 @@ export class RsFourwheelerProposalComponent implements OnInit {
   vechicleReq(){
     if (this.vehical.controls['vehicleRegisteredName'].value == 'Company') {
       this.vehical.controls['companyName'].setValidators([Validators.required]);
+      this.vehical.controls['gstIn'].setValidators([Validators.required]);
     } else  {
       this.vehical.controls['companyName'].patchValue('');
+      this.vehical.controls['gstIn'].patchValue('');
 
       this.vehical.controls['companyName'].setValidators(null);
+      this.vehical.controls['gstIn'].setValidators(null);
     }
     this.vehical.controls['companyName'].updateValueAndValidity();
+    this.vehical.controls['gstIn'].updateValueAndValidity();
   }
   changeVehicleName() {
     const data = {
@@ -1993,6 +1999,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
           "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
           "companyNameForCar": this.vehical.controls['companyName'].value,
+          "GSTIN": this.vehical.controls['gstIn'].value,
           "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ,
           "drivingExperience": this.vehical.controls['drivingExperience'].value,
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
@@ -2325,6 +2332,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
           "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
           "companyNameForCar": this.vehical.controls['companyName'].value,
+          "GSTIN": this.vehical.controls['gstIn'].value,
           "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ,
           "drivingExperience": this.vehical.controls['drivingExperience'].value,
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
@@ -2511,6 +2519,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "isCarFinancedValue": this.vehical.controls['isFourWheelerFinancedValue'].value,
           "vehicleRegisteredInTheNameOf": this.vehical.controls['vehicleRegisteredName'].value,
           "companyNameForCar":this.vehical.controls['companyName'].value,
+          "GSTIN": this.vehical.controls['gstIn'].value,
           "vehicleMostlyDrivenOn": this.vehical.controls['vehicleMostlyDrivenOn'].value,
           "drivingExperience": this.vehical.controls['drivingExperience'].value,
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
@@ -2684,6 +2693,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['averageMonthlyMileageRun'].patchValue(this.getStepper2.averageMonthlyMileageRun);
       this.vehical.controls['accidentCoverForPaidDriver'].patchValue(this.getStepper2.accidentCoverForPaidDriver);
       this.vehical.controls['companyName'].patchValue(this.getStepper2.companyName);
+      this.vehical.controls['gstIn'].patchValue(this.getStepper2.gstIn);
       // this.vehical.controls['idv'].patchValue(this.getStepper2.idv);
       this.vehical.controls['isFourWheelerFinancedValue'].patchValue(this.getStepper2.isFourWheelerFinancedValue);
       this.vehical.controls['valueOfLossOfBaggage'].patchValue(this.getStepper2.valueOfLossOfBaggage);

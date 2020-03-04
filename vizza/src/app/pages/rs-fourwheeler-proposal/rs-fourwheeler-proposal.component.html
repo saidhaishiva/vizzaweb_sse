@@ -242,6 +242,14 @@
 
                                                 </mat-form-field>
                                             </div>
+                                            <div class="col-md-3" *ngIf="vehical.controls['vehicleRegisteredName'].value == 'Company'">
+                                                <mat-form-field class="w-100">
+                                                    <mat-placeholder>GST Number<span class="error" >*</span></mat-placeholder>
+                                                    <input matInput   formControlName="gstIn"  autocomplete="off">
+                                                    <!--<mat-error *ngIf="vehical.controls.companyName.errors?.required">Company Name is required</mat-error>-->
+
+                                                </mat-form-field>
+                                            </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <mat-select placeholder="vehicle Mostly Driven On"  formControlName="vehicleMostlyDrivenOn" (selectionChange)="getVehicalMostly()" required >
@@ -271,7 +279,7 @@
 
                                             <div class="col-md-3" *ngIf="vehicledetailsfw.business_type == '1'">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Type Of Cover"  formControlName="typeOfCover" required  (selectionChange)="changeAddon();coverPremium();">
+                                                    <mat-select placeholder="Type Of Cover"  formControlName="typeOfCover" required  (selectionChange)="changeAddon();">
                                                         <mat-option *ngFor="let vehiclebk of coverList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="vehical.controls.typeOfCover.errors?.required">Type Of Cover is required</mat-error>
@@ -640,7 +648,7 @@
                                                 <div class="row" *ngIf="to_drivers!='0.0'">
                                                     <div class="col-md-4 " >
                                                         <p>Legal Liability To Paid Driver</p>
-                                                        <mat-radio-group formControlName="legalliabilityToPaidDriver" (change)="legalliabilityToPaidDriverchange()">
+                                                        <mat-radio-group formControlName="legalliabilityToPaidDriver" >
                                                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                             <mat-radio-button value="No">No</mat-radio-button>
                                                         </mat-radio-group>
@@ -657,7 +665,7 @@
                                                 <div class="row" *ngIf="to_drivers!='0.0'">
                                                     <div class="col-md-4 " >
                                                         <p>To Employee</p>
-                                                        <mat-radio-group formControlName="toEmployee" (change)="employeechanges()">
+                                                        <mat-radio-group formControlName="toEmployee" >
                                                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                             <mat-radio-button value="No">No</mat-radio-button>
                                                         </mat-radio-group>
@@ -683,7 +691,7 @@
                                                     <div class="col-md-3 mt-3"  *ngIf="vehical.controls['towingCharge'].value == 'Yes'">
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Sum Insured<span class="error" *ngIf="vehical.controls['towingCharge'].value == 'Yes'">*</span></mat-placeholder>
-                                                            <mat-select  formControlName="towingChargeSI"  (selectionChange)=" towingChargeSIValue();valueTowing()" >
+                                                            <mat-select  formControlName="towingChargeSI"  (selectionChange)=" towingChargeSIValue()" >
                                                                 <mat-option *ngFor="let items of towingList | keys" value="{{items.key}}" > {{items.value}} </mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
@@ -702,7 +710,7 @@
                                                 <div class="row" >
                                                     <div class="col-md-4" >
                                                         <p>Vehicle Fitted with Fibre Glass Petrol Tank </p>
-                                                        <mat-radio-group formControlName="fibreGlass" (change)="fibreGlassfittedchange()">
+                                                        <mat-radio-group formControlName="fibreGlass" >
                                                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                             <mat-radio-button value="No">No</mat-radio-button>
                                                         </mat-radio-group>
@@ -720,7 +728,7 @@
 
                                         <div class="row">
                                             <div class="col-md-6 mt-3" >
-                                                <mat-checkbox  formControlName="coverelectricalaccesss"  (change)="eleAccessReq();electricValueAmount()">Cover Electrical Accessories</mat-checkbox>
+                                                <mat-checkbox  formControlName="coverelectricalaccesss"  (change)="eleAccessReq()">Cover Electrical Accessories</mat-checkbox>
                                             </div>
                                             <!--<div class="col-md-12 mt-2" >-->
                                             <!--<div class="row">-->
@@ -748,7 +756,7 @@
                                                     <div class="col-md-3" >
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Value<span class="error" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">*</span></mat-placeholder>
-                                                            <input matInput  formControlName="elecValue" (keypress)="numberValidate($event)"  (input)="electricValueAmount()" maxlength="5"   autocomplete="off">
+                                                            <input matInput  formControlName="elecValue" (keypress)="numberValidate($event)"   maxlength="5"   autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addItems()">+</button>
@@ -771,7 +779,7 @@
                                         <div class="row">
 
                                             <div class="col-md-6 mt-2">
-                                                <mat-checkbox  formControlName="cover_non_elec_acc"   (change)="noneleAccessReq();electricNonValueAmount()" >Cover Non Electrical Accessories</mat-checkbox>
+                                                <mat-checkbox  formControlName="cover_non_elec_acc"   (change)="noneleAccessReq()" >Cover Non Electrical Accessories</mat-checkbox>
                                             </div>
 
                                         </div>
@@ -794,23 +802,23 @@
                                                     <div class="col-md-3" >
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Value<span class="error" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">*</span></mat-placeholder>
-                                                            <input matInput  formControlName="elecValue" (keypress)="numberValidate($event)"  (input)="electricNonValueAmount()"  maxlength="5"   autocomplete="off">
+                                                            <input matInput  formControlName="elecValue" (keypress)="numberValidate($event)"    maxlength="5"   autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addnonEelctricalItems()">+</button>
                                                     <button mat-mini-fab	*ngIf="i != 0" color="accent" (click)="removenonEelctricalItems(i)">-</button>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12 mt-2" >
-                                                <div class="row">
-                                                    <div class="col-md-3"  style="margin-left:-14px;" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Cover Premium"  formControlName="amountNonElectricalaccesss"  autocomplete="off" readonly>
-                                                            <!--<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>-->
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <!--<div class="col-md-12 mt-2" >-->
+                                                <!--<div class="row">-->
+                                                    <!--<div class="col-md-3"  style="margin-left:-14px;" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput placeholder="Cover Premium"  formControlName="amountNonElectricalaccesss"  autocomplete="off" readonly>-->
+                                                            <!--&lt;!&ndash;<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>&ndash;&gt;-->
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
                                         </div>
                                         </div>
 
@@ -1076,6 +1084,7 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="vehicalFormData.vehicleRegisteredName != ''"><strong>Vehicle Registered Name :</strong> {{vehicalFormData.vehicleRegisteredName}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.companyName != ''"><strong>Company :</strong> {{vehicalFormData.companyName}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.companyName != ''"><strong>GST Number :</strong> {{vehicalFormData.gstIn}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.vehicleMostlyDrivenOn != ''"><strong>Vehicle Mostly Driven On :</strong> {{vehicalFormData.vehicleMostlyDrivenOn}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.drivingExperience != ''"><strong>Driving Experience :</strong> {{vehicalFormData.drivingExperience}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.averageMonthlyMileageRun != ''"><strong>Average Monthly Mileage Run :</strong> {{vehicalFormData.averageMonthlyMileageRun}}</li>
