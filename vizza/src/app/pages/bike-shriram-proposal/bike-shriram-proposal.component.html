@@ -212,6 +212,19 @@
                                                 </mat-form-field>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-12 mt-2">
+                                                <h3 class="color-blue">IDV</h3>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="IDV"  formControlName="IDV"  autocomplete="off" required >
+                                                    <mat-error *ngIf="vehical.controls.IDV.errors?.required">IDV is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
                                             <div class="row">
                                                <h6 class="color-blue mt-4 ml-2">OTHER ADDONS LIST</h6>
                                             </div>
