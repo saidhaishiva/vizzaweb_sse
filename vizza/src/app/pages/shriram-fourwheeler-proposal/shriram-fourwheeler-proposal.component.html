@@ -82,7 +82,7 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100"  >
                                                     <mat-placeholder>PAN Number<span class="error" *ngIf=" proposerGender==true" >*</span></mat-placeholder>
-                                                    <input matInput  placeholder="PAN Number" minlength="10" class="text-uppercase"  formControlName="pan" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"  (keypress)="idValidate($event)"   autocomplete="off" >
+                                                    <input matInput   minlength="10" class="text-uppercase"  formControlName="pan" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"  (keypress)="idValidate($event)"   autocomplete="off" >
                                                     <!--<mat-error *ngIf="proposer.controls.pan.errors?.required">PAN Number is required</mat-error>-->
                                                     <mat-error *ngIf="proposer.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                                                 </mat-form-field>
@@ -212,6 +212,19 @@
                                                     <!--<mat-option *ngFor="let addonPackagebk of addonPackagedm | keys " value="{{addonPackagebk.key}}" > {{addonPackagebk.value}} </mat-option>-->
                                                     <!--</mat-select>-->
                                                     <mat-error *ngIf="vehical.controls.addonPackage.errors?.required">Addon Package is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 mt-2">
+                                                <h3 class="color-blue">IDV</h3>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="IDV"  formControlName="IDV"  autocomplete="off" required >
+                                                    <mat-error *ngIf="vehical.controls.IDV.errors?.required">IDV is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                         </div>
@@ -795,6 +808,7 @@
                                             <li class="list-group-item"><strong>Proposal Type:</strong> {{vehicalFormData.proposalType}}</li>
                                             <li class="list-group-item"><strong>Vehicle Colour:</strong> {{vehicalFormData.vehicleColour}}</li>
                                             <li class="list-group-item"><strong>AddOn Package:</strong> {{vehicalFormData.addonPackage}}</li>
+                                            <li class="list-group-item"><strong>IDV:</strong> {{vehicalFormData.IDV}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''&&nilDepValue==true"><strong>Nil Depreciation Cover:</strong> <span *ngIf="vehicalFormData.nilDepreciationCover == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Access:</strong><span *ngIf="vehicalFormData.electricalAccess == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccessSI != ''"><strong>Electrical Accessories Sum Insured :</strong>{{vehicalFormData.electricalAccessSI}}</li>

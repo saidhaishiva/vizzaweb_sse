@@ -253,6 +253,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       proposalType: 'Renewal',
       policyTypeName: '',
       policyType: ['', Validators.required],
+      IDV: ['', Validators.required],
       nilDepreciationCover: '',
       totalAntiTheftPremium: '',
       totalDepreciationPremium: '',
@@ -763,7 +764,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     if(this.proposer.valid ) {
       if(sessionStorage.fwShriramProposerAge >= 18 || this.proposer.controls['dob'].value==''||this.proposer.controls['dob'].value==null){
         if (this.mobileNumber == '' || this.mobileNumber == 'true') {
-
+          this.vehical.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
           stepper.next();
           this.topScroll();
         }
@@ -1934,7 +1935,7 @@ hypoName(){
         "DateOfBirth": this.proposer.controls['dob'].value,
         "CoverNoteNo": "",
         "CoverNoteDt": "",
-        "IDV_of_Vehicle": this.buyBikeDetails.Idv,
+        "IDV_of_Vehicle": this.vehical.controls['IDV'].value,
         "Colour": this.vehical.controls['vehicleColour'].value,
         "NoEmpCoverLL": "",
         "VehiclePurposeYN": "",
@@ -2322,6 +2323,7 @@ hypoName(){
       this.vehical = this.fb.group({
         policyType: stepper2.policyType,
         policyTypeName: stepper2.policyTypeName,
+        IDV: stepper2.IDV,
         proposalType:stepper2.proposalType ,
         nilDepreciationCover: stepper2.nilDepreciationCover,
         totalAntiTheftPremium: stepper2.totalAntiTheftPremium,

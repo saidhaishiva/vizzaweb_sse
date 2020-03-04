@@ -564,36 +564,36 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                        <!--</div>-->
-                        <!--<div class="row">-->
-                        <!--<div class="col-md-12 mt-2">-->
-                            <!--<h3 class="color-blue">IDV</h3>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="row">-->
-                        <!--<div class="col-md-4">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="IDV"  formControlName="IDV"  autocomplete="off" required >-->
-                                <!--<mat-error *ngIf="coverDetails.controls.IDV.errors?.required">IDV is required</mat-error>-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--</div>-->
 
-                        <div class="row mt-3" >
-
-                                <div class="col-md-12" class="color-blue ml-3" >
-                                    <p>Please choose IDV Between (min {{idvMinValue}} - max {{idvMaxValue}})</p>
-                                </div>
-
-                                <div class="col-md-12 mt-0" layout>
-                                    <mat-slider flex md-discrete [value]= "coverDetails.controls.IDV.value" formControlName="IDV"
-                                                step = "{{idvMinValue}"
-                                                min="{{idvMinValue}}"
-                                                max="{{idvMaxValue}}">
-                                    </mat-slider>
-                                    <i style="font-size:14px; margin-left: 25px" class="fa fa-inr">&#xf156;</i>{{coverDetails.controls.IDV.value}}
-                                </div>
+                        <div class="row">
+                        <div class="col-md-12 mt-2">
+                            <h3 class="color-blue">IDV</h3>
                         </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="IDV"  formControlName="IDV"  autocomplete="off" required >
+                                <mat-error *ngIf="coverDetails.controls.IDV.errors?.required">IDV is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                        </div>
+
+                        <!--<div class="row mt-3" >-->
+
+                                <!--<div class="col-md-12" class="color-blue ml-3" >-->
+                                    <!--<p>Please choose IDV Between (min {{idvMinValue}} - max {{idvMaxValue}})</p>-->
+                                <!--</div>-->
+
+                                <!--<div class="col-md-12 mt-0" layout>-->
+                                    <!--<mat-slider flex md-discrete [value]= "coverDetails.controls.IDV.value" formControlName="IDV"-->
+                                                <!--step = "{{idvMinValue}"-->
+                                                <!--min="{{idvMinValue}}"-->
+                                                <!--max="{{idvMaxValue}}">-->
+                                    <!--</mat-slider>-->
+                                    <!--<i style="font-size:14px; margin-left: 25px" class="fa fa-inr">&#xf156;</i>{{coverDetails.controls.IDV.value}}-->
+                                <!--</div>-->
+                        <!--</div>-->
 
 
                         <div class="row">
@@ -1061,12 +1061,11 @@
                                 <!--</div>-->
                             <!--</div>-->
                         </div>
-                        <div class="proposal-buttom mt-3 text-right w-100">
+                      </div>
+                    <div class="proposal-buttom mt-3 text-right w-100">
                         <button mat-button matStepperPrevious color="primaryBlue" class="text-light" style="margin-right:17px" (click)="topScroll()">Back</button>
-
                         <button mat-raised-button color="primaryBlue"  (click)="getCover(stepper)">Next</button>
                     </div>
-                </div>
                 </div>
               </form>
             </mat-expansion-panel>

@@ -249,6 +249,7 @@ export class BikeShriramProposalComponent implements OnInit {
         policyTypeName: '',
       policyType: ['', Validators.required],
       vehicleColour: ['', Validators.required],
+        IDV: ['', Validators.required],
       nilDepreciationCover: '',
       electricalAccess: '',
       electricalAccessSI: '',
@@ -335,6 +336,7 @@ export class BikeShriramProposalComponent implements OnInit {
       this.vehical.controls['isPAExclusion'].patchValue(false);
       this.PAExclusion()
       this.sessionData();
+
 
   }
     changeCalcMax(){
@@ -678,6 +680,7 @@ export class BikeShriramProposalComponent implements OnInit {
           console.log(this.proposer.valid, 'checked');
           if(this.proposer.valid ) {
               if(sessionStorage.bkShriramProposerAge >= 18 || this.proposer.controls['dob'].value=='' ||this.proposer.controls['dob'].value==null){
+                  this.vehical.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
                   stepper.next();
                   this.topScroll();
 
@@ -1827,7 +1830,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "DateOfBirth": this.proposer.controls['dob'].value,
               "CoverNoteNo": "",
               "CoverNoteDt": "",
-              "IDV_of_Vehicle": this.buyBikeDetails.Idv,
+              "IDV_of_Vehicle": this.vehical.controls['IDV'].value,
               "Colour": this.vehical.controls['vehicleColour'].value,
               "NoEmpCoverLL": "",
               "VehiclePurposeYN": "",
@@ -2216,6 +2219,7 @@ export class BikeShriramProposalComponent implements OnInit {
         policyTypeName: stepper2.policyTypeName,
         proposalType:stepper2.proposalType ,
         vehicleColour: stepper2.vehicleColour,
+          IDV: stepper2.IDV,
         nilDepreciationCover: stepper2.nilDepreciationCover,
         electricalAccess:stepper2.electricalAccess,
         electricalAccessSI: stepper2.electricalAccessSI,
