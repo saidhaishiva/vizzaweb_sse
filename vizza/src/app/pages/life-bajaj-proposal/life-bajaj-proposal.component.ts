@@ -1234,7 +1234,7 @@ samerelationShip(){
             this.details = [];
 
             for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
-                this.qvalue= this.allQuestionList[i][j].mainQuestion.subQuestion[k].qus_des + ":" + this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText;
+                this.qvalue= this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText;
                 // this.qans= this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText;
                 this.details.push(this.qvalue);
                 // this.details.push(this.allQuestionList[i][j].mainQuestion.subQuestion[k].qus_des);
