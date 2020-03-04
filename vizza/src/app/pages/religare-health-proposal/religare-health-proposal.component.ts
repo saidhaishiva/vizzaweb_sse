@@ -310,6 +310,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             'nomineRelationshipName': ''
         });
         this.insuredForm1 = this.fb.group({
+            'sameAsProposer': [''],
             'title': ['', Validators.required],
             'firstname': ['', Validators.required],
             'lastname': ['', Validators.required],
@@ -1071,6 +1072,21 @@ export class ReligareHealthProposalComponent implements OnInit {
         } else {
             this.insuredForm1.controls['gender'].patchValue('Female');
         }
+        if(this.insuredForm2.controls['title'].value == 'MR') {
+            this.insuredForm2.controls['gender'].patchValue('Male');
+        } else {
+            this.insuredForm2.controls['gender'].patchValue('Female');
+        }
+        if(this.insuredForm3.controls['title'].value == 'MR') {
+            this.insuredForm3.controls['gender'].patchValue('Male');
+        } else {
+            this.insuredForm3.controls['gender'].patchValue('Female');
+        }
+        if(this.insuredForm4.controls['title'].value == 'MR') {
+            this.insuredForm4.controls['gender'].patchValue('Male');
+        } else {
+            this.insuredForm4.controls['gender'].patchValue('Female');
+        }
     }
 
 
@@ -1313,13 +1329,11 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue(this.personal.controls['personalAltnumber'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-
             if (sessionStorage.proposerAge >= 18) {
                 this.insureArray['controls'].items['controls'][0]['controls'].insurerDobValidError.patchValue('');
             } else {
                 this.insureArray['controls'].items['controls'][0]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
             }
-
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.patchValue(false);
             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
@@ -1337,9 +1351,39 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-
         }
-
+    }
+    sameProposerPL(value: any) {
+        if (value.checked) {
+            this.insuredForm1.controls['sameAsProposer'].patchValue(true);
+            this.insuredForm1.controls['title'].patchValue(this.personal.controls['personalTitle'].value);
+            this.insuredForm1.controls['firstname'].patchValue(this.personal.controls['personalFirstname'].value);
+            this.insuredForm1.controls['lastname'].patchValue(this.personal.controls['personalLastname'].value);
+            this.insuredForm1.controls['gender'].patchValue(this.personal.controls['personalGender'].value);
+            this.insuredForm1.controls['dob'].patchValue(this.personal.controls['personalDob'].value);
+            this.insuredForm1.controls['relationship'].patchValue('SELF');
+            this.insuredForm1.controls['aadhar'].patchValue(this.personal.controls['personalAadhar'].value);
+            this.insuredForm1.controls['pan'].patchValue(this.personal.controls['personalPan'].value);
+            this.insuredForm1.controls['gst'].patchValue(this.personal.controls['personalGst'].value);
+            this.insuredForm1.controls['email'].patchValue(this.personal.controls['personalEmail'].value);
+            this.insuredForm1.controls['mobile'].patchValue(this.personal.controls['personalMobile'].value);
+            this.insuredForm1.controls['altnumber'].patchValue(this.personal.controls['personalAltnumber'].value);
+            // this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
+        } else {
+            this.insuredForm1.controls['sameAsProposer'].patchValue(false);
+            this.insuredForm1.controls['title'].patchValue('');
+            this.insuredForm1.controls['firstname'].patchValue('');
+            this.insuredForm1.controls['lastname'].patchValue('');
+            this.insuredForm1.controls['gender'].patchValue('');
+            this.insuredForm1.controls['dob'].patchValue('');
+            this.insuredForm1.controls['relationship'].patchValue('');
+            this.insuredForm1.controls['aadhar'].patchValue('');
+            this.insuredForm1.controls['pan'].patchValue('');
+            this.insuredForm1.controls['gst'].patchValue('');
+            this.insuredForm1.controls['email'].patchValue('');
+            this.insuredForm1.controls['mobile'].patchValue('');
+            this.insuredForm1.controls['altnumber'].patchValue('');
+        }
     }
     processDiseaseData(diseaseData) {
         console.log(diseaseData, 'diseaseData nrml.......')
@@ -2646,6 +2690,11 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.personal.controls['personalGst'].patchValue(this.requestProserDetails.proposer_gst);
         this.setRelationship();
         for(let i=0; i < this.requestInsuredDetails.length; i++) {
+            if(this.requestInsuredDetails[0].sameas == 1) {
+                this.insuredForm1.controls['sameAsProposer'].patchValue(true);
+            } else {
+                this.insuredForm1.controls['sameAsProposer'].patchValue(false);
+            }
             this.insuredForm1.controls['title'].patchValue(this.requestInsuredDetails[0].title);
             this.insuredForm1.controls['firstname'].patchValue(this.requestInsuredDetails[0].proposer_fname);
             this.insuredForm1.controls['lastname'].patchValue(this.requestInsuredDetails[0].proposer_lname);
@@ -3210,5 +3259,4 @@ export class ReligareHealthProposalComponent implements OnInit {
 
 
 }
-
 
