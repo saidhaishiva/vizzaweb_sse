@@ -216,6 +216,19 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-md-12 mt-2">
+                                                <h3 class="color-blue">IDV</h3>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="IDV"  formControlName="IDV"  autocomplete="off" required >
+                                                    <mat-error *ngIf="vehical.controls.IDV.errors?.required">IDV is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <h6 class="color-blue mt-4 ml-2">OTHER ADDONS LIST</h6>
                                         </div>
                                         <div class="row mt-2" *ngIf="!policyTypeDetails && nilDepValue==true && claimDetail==true">
@@ -795,6 +808,7 @@
                                             <li class="list-group-item"><strong>Proposal Type:</strong> {{vehicalFormData.proposalType}}</li>
                                             <li class="list-group-item"><strong>Vehicle Colour:</strong> {{vehicalFormData.vehicleColour}}</li>
                                             <li class="list-group-item"><strong>AddOn Package:</strong> {{vehicalFormData.addonPackage}}</li>
+                                            <li class="list-group-item"><strong>IDV:</strong> {{vehicalFormData.IDV}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''&&nilDepValue==true"><strong>Nil Depreciation Cover:</strong> <span *ngIf="vehicalFormData.nilDepreciationCover == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Access:</strong><span *ngIf="vehicalFormData.electricalAccess == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccessSI != ''"><strong>Electrical Accessories Sum Insured :</strong>{{vehicalFormData.electricalAccessSI}}</li>

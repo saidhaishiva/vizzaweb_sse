@@ -1830,7 +1830,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "DateOfBirth": this.proposer.controls['dob'].value,
               "CoverNoteNo": "",
               "CoverNoteDt": "",
-              "IDV_of_Vehicle": this.buyBikeDetails.Idv,
+              "IDV_of_Vehicle": this.vehical.controls['IDV'].value,
               "Colour": this.vehical.controls['vehicleColour'].value,
               "NoEmpCoverLL": "",
               "VehiclePurposeYN": "",
