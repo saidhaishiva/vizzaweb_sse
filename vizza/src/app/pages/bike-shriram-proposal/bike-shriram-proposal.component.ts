@@ -145,6 +145,8 @@ export class BikeShriramProposalComponent implements OnInit {
     public claimDetail:any;
     public stepper2:any;
     public detariff:any;
+    public idvMinValue:any;
+    public idvMaxValue:any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public dialog: MatDialog, public validation: ValidationService,public route: ActivatedRoute, public configs: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -336,6 +338,10 @@ export class BikeShriramProposalComponent implements OnInit {
       this.vehical.controls['isPAExclusion'].patchValue(false);
       this.PAExclusion()
       this.sessionData();
+      // this.idvMinValue=this.buyBikeDetails.MinIDV;
+      // console.log( this.idvMinValue,' this.idvMinValue')
+      // this.idvMaxValue=this.buyBikeDetails.MaxIDV;
+      // console.log( this.idvMaxValue,' this.idvMaxValue')
 
 
   }
