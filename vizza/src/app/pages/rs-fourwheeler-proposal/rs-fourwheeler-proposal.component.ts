@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
@@ -6,11 +6,12 @@ import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 // import {forEach} from '@angular/router/src/utils/collection';
 import {ActivatedRoute} from '@angular/router';
+import {CommonService} from '../../shared/services/common.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -172,9 +173,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public premiumadd: any;
   public cityinList: any;
   public errorOTP: boolean;
+  public addonValue: any;
 
 
-  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public route: ActivatedRoute, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
+
+  constructor(public fb: FormBuilder, public validation: ValidationService,public dialog: MatDialog, public config: ConfigurationService, public route: ActivatedRoute, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService, ) {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
       if (params.stepper == true || params.stepper == 'true') {
@@ -1065,6 +1068,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       console.log(this.valueList,'gfgffjhjh')
       console.log(sessionStorage.valueList,'sessionStoragevalueList')
 
+
+
+
       let total = this.valueCalc[0] != '' ? this.valueCalc.reduce((a, b) => parseInt(a) + parseInt(b)) : 'err';
       console.log(total,"total")
 
@@ -1080,8 +1086,28 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     if (total <= 50000 || total == 'err') {
       if (subTotal <= 20000 || subTotal == 'err') {
-        stepper.next();
-        this.topScroll();
+        const dialogRef = this.dialog.open(rsfourwheelercover, {
+          width: '650px',
+          height: '400px'
+        });
+
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+          console.log(result, 'result....')
+          if (result == true) {
+            this.addonValue = true;
+
+            stepper.next();
+            this.topScroll();
+          } else if (result == false) {
+            this.addonValue = false;
+            // this.otpFalseError=false
+          }
+
+        });
+
+        // stepper.next();
+        // this.topScroll();
     } else {
       this.toastr.error('Non Electrical Accessories Values should be less than 20,000');
     }
@@ -1196,19 +1222,19 @@ export class RsFourwheelerProposalComponent implements OnInit {
     }
   }
 
-  electricValueAmount(){
-    if (this.vehical.controls['coverelectricalaccesss'].value == true) {
-      // this.vehical.controls['amountElectricalaccesss'].setValidators([Validators.required]);
-      this.coverPremium();
-    }else{
-      this.vehical.controls['amountElectricalaccesss'].patchValue('');
-
-    }
-  }
-    changeAmountElectri(){
-        this.vehical.controls['amountElectricalaccesss'].patchValue(this.ELECTRICAL_ACCESSORIES);
-
-    }
+  // electricValueAmount(){
+  //   if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+  //     // this.vehical.controls['amountElectricalaccesss'].setValidators([Validators.required]);
+  //     this.coverPremium();
+  //   }else{
+  //     this.vehical.controls['amountElectricalaccesss'].patchValue('');
+  //
+  //   }
+  // }
+  //   changeAmountElectri(){
+  //       this.vehical.controls['amountElectricalaccesss'].patchValue(this.ELECTRICAL_ACCESSORIES);
+  //
+  //   }
 
   noneleAccessReq() {
 
@@ -1262,23 +1288,23 @@ export class RsFourwheelerProposalComponent implements OnInit {
       }
   }
 
-  electricNonValueAmount(){
-    if (this.vehical.controls['cover_non_elec_acc'].value == true) {
-      // this.vehical.controls['amountElectricalaccesss'].setValidators([Validators.required]);
-      this.coverPremium();
-    }else{
-      this.vehical.controls['amountNonElectricalaccesss'].patchValue('');
-
-    }
-
-  }
-
-    changeAmountNonElectri(){
-        this.vehical.controls['amountNonElectricalaccesss'].patchValue(this.NON_ELECTRICAL_ACCESSORIES);
-
-    }
-
-  guardianAgeValid(event:any) {
+  // electricNonValueAmount(){
+  //   if (this.vehical.controls['cover_non_elec_acc'].value == true) {
+  //     // this.vehical.controls['amountElectricalaccesss'].setValidators([Validators.required]);
+  //     this.coverPremium();
+  //   }else{
+  //     this.vehical.controls['amountNonElectricalaccesss'].patchValue('');
+  //
+  //   }
+  //
+  // }
+  //
+  //   changeAmountNonElectri(){
+  //       this.vehical.controls['amountNonElectricalaccesss'].patchValue(this.NON_ELECTRICAL_ACCESSORIES);
+  //
+  //   }
+  //
+   guardianAgeValid(event:any) {
     if (this.guardianList == true) {
       this.nomineeDetail.controls['guardianName'].patchValue(this.nomineeDetail.controls['guardianName'].value);
       this.nomineeDetail.controls['guardianAge'].patchValue(this.nomineeDetail.controls['guardianAge'].value);
@@ -1330,23 +1356,23 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['valueOfLossOfBaggage'].updateValueAndValidity();
 
   }
-    valueBaggesChange(){
-        if (this.vehical.controls['valueOfLossOfBaggage'].value) {
-
-            this.vehical.controls['amountLossOfBaggage'].setValidators([Validators.required]);
-            this.coverPremium();
-        } else {
-            this.vehical.controls['amountLossOfBaggage'].patchValue('');
-
-            this.vehical.controls['amountLossOfBaggage'].setValidators(null);
-
-        }
-        this.vehical.controls['amountLossOfBaggage'].updateValueAndValidity();
-
-    }
-    amountBagges(){
-        this.vehical.controls['amountLossOfBaggage'].patchValue(this.LOSS_OF_BAGGAGE)
-    }
+    // valueBaggesChange(){
+    //     if (this.vehical.controls['valueOfLossOfBaggage'].value) {
+    //
+    //         this.vehical.controls['amountLossOfBaggage'].setValidators([Validators.required]);
+    //         this.coverPremium();
+    //     } else {
+    //         this.vehical.controls['amountLossOfBaggage'].patchValue('');
+    //
+    //         this.vehical.controls['amountLossOfBaggage'].setValidators(null);
+    //
+    //     }
+    //     this.vehical.controls['amountLossOfBaggage'].updateValueAndValidity();
+    //
+    // }
+    // amountBagges(){
+    //     this.vehical.controls['amountLossOfBaggage'].patchValue(this.LOSS_OF_BAGGAGE)
+    // }
 
   isTowing() {
 
@@ -1360,23 +1386,23 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['towingChargeSI'].updateValueAndValidity();
 
   }
-  valueTowing(){
-    if (this.vehical.controls['towingChargeSI'].value) {
-
-      this.vehical.controls['amountTowingCharge'].setValidators([Validators.required]);
-      this.coverPremium();
-    } else {
-      this.vehical.controls['amountTowingCharge'].patchValue('');
-
-      this.vehical.controls['amountTowingCharge'].setValidators(null);
-
-    }
-    this.vehical.controls['amountTowingCharge'].updateValueAndValidity();
-
-  }
-  amountTowing(){
-    this.vehical.controls['amountTowingCharge'].patchValue(this.TOWING_CHARGE)
-  }
+  // valueTowing(){
+  //   if (this.vehical.controls['towingChargeSI'].value) {
+  //
+  //     this.vehical.controls['amountTowingCharge'].setValidators([Validators.required]);
+  //     this.coverPremium();
+  //   } else {
+  //     this.vehical.controls['amountTowingCharge'].patchValue('');
+  //
+  //     this.vehical.controls['amountTowingCharge'].setValidators(null);
+  //
+  //   }
+  //   this.vehical.controls['amountTowingCharge'].updateValueAndValidity();
+  //
+  // }
+  // amountTowing(){
+  //   this.vehical.controls['amountTowingCharge'].patchValue(this.TOWING_CHARGE)
+  // }
 
   isBiFuel() {
 
@@ -1400,23 +1426,23 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
   }
-  bifuelcoverPremium(){
-
-    if (this.vehical.controls['isBiFuelKitYes'].value) {
-      this.vehical.controls['bifuelpremium'].setValidators([Validators.required]);
-      this.coverPremium();
-    }else{
-      this.vehical.controls['bifuelpremium'].patchValue('');
-      this.vehical.controls['bifuelpremium'].setValidators(null);
-    }
-    this.vehical.controls['bifuelpremium'].updateValueAndValidity();
-
-  }
-  changebifuelcoverpremium(){
-    this.vehical.controls['bifuelpremium'].patchValue(this.BI_FUEL_KIT);
-
-
-  }
+  // bifuelcoverPremium(){
+  //
+  //   if (this.vehical.controls['isBiFuelKitYes'].value) {
+  //     this.vehical.controls['bifuelpremium'].setValidators([Validators.required]);
+  //     this.coverPremium();
+  //   }else{
+  //     this.vehical.controls['bifuelpremium'].patchValue('');
+  //     this.vehical.controls['bifuelpremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['bifuelpremium'].updateValueAndValidity();
+  //
+  // }
+  // changebifuelcoverpremium(){
+  //   this.vehical.controls['bifuelpremium'].patchValue(this.BI_FUEL_KIT);
+  //
+  //
+  // }
   changebifuel(){
     console.log(this.vehical.controls['isBiFuelKitYes'].value,'111111')
     if (this.vehical.controls['isBiFuelKitYes'].value == 'Add On') {
@@ -2033,41 +2059,74 @@ export class RsFourwheelerProposalComponent implements OnInit {
     if (successData.IsSuccess) {
       this.AddonList = successData.ResponseObject;
       this.LIABILITY_PA_COVER_TO_PAID_DRIVER=this.AddonList.LIABILITY_PA_COVER_TO_PAID_DRIVER;
+      sessionStorage.LIABILITY_PA_COVER_TO_PAID_DRIVER=this.LIABILITY_PA_COVER_TO_PAID_DRIVER
       this.DEPRECIATION_WAIVER=this.AddonList.DEPRECIATION_WAIVER;
-      this.ENGINE_PROTECTOR=this.AddonList.ENGINE_PROTECTOR;
-      this.NCB_PROTECTOR=this.AddonList.NCB_PROTECTOR;
-      this.WIND_SHIELD_GLASS=this.AddonList.WIND_SHIELD_GLASS;
-      this.KEY_REPLACEMENT=this.AddonList.KEY_REPLACEMENT;
-      this.LIFE_TIME_ROAD_TAX=this.AddonList.LIFE_TIME_ROAD_TAX;
-      this.AUTOMOBILE_ASSOCIATION_DISCOUNT=this.AddonList.AUTOMOBILE_ASSOCIATION_DISCOUNT;
-      this.LIABILITY_TO_PAID_DRIVERS=this.AddonList.LIABILITY_TO_PAID_DRIVERS;
-      this.TO_EMPLOYEE=this.AddonList.TO_EMPLOYEE;
-      this.FIBER_GLASS_TANK=this.AddonList.FIBER_GLASS_TANK;
-      this.BI_FUEL_KIT=this.AddonList.BI_FUEL_KIT;
-      this.LOSS_OF_BAGGAGE=this.AddonList.LOSS_OF_BAGGAGE;
-      this.TOWING_CHARGE=this.AddonList.TOWING_CHARGE;
-      this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES;
-      this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES;
-      this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE;
-      // this.premiumadd=this.AddonList.premium;
+        sessionStorage.DEPRECIATION_WAIVER=this.DEPRECIATION_WAIVER
+
+        this.ENGINE_PROTECTOR=this.AddonList.ENGINE_PROTECTOR;
+        sessionStorage.ENGINE_PROTECTOR=this.ENGINE_PROTECTOR
+
+        this.NCB_PROTECTOR=this.AddonList.NCB_PROTECTOR;
+        sessionStorage.NCB_PROTECTOR=this.NCB_PROTECTOR
+
+        this.WIND_SHIELD_GLASS=this.AddonList.WIND_SHIELD_GLASS;
+        sessionStorage.WIND_SHIELD_GLASS=this.WIND_SHIELD_GLASS
+
+        this.KEY_REPLACEMENT=this.AddonList.KEY_REPLACEMENT;
+        sessionStorage.KEY_REPLACEMENT=this.KEY_REPLACEMENT
+
+        this.LIFE_TIME_ROAD_TAX=this.AddonList.LIFE_TIME_ROAD_TAX;
+        sessionStorage.LIFE_TIME_ROAD_TAX=this.LIFE_TIME_ROAD_TAX
+
+        this.AUTOMOBILE_ASSOCIATION_DISCOUNT=this.AddonList.AUTOMOBILE_ASSOCIATION_DISCOUNT;
+        sessionStorage.AUTOMOBILE_ASSOCIATION_DISCOUNT=this.AUTOMOBILE_ASSOCIATION_DISCOUNT
+
+        this.LIABILITY_TO_PAID_DRIVERS=this.AddonList.LIABILITY_TO_PAID_DRIVERS;
+        sessionStorage.LIABILITY_TO_PAID_DRIVERS=this.LIABILITY_TO_PAID_DRIVERS
+
+        this.TO_EMPLOYEE=this.AddonList.TO_EMPLOYEE;
+        sessionStorage.TO_EMPLOYEE=this.TO_EMPLOYEE
+
+        this.FIBER_GLASS_TANK=this.AddonList.FIBER_GLASS_TANK;
+        sessionStorage.FIBER_GLASS_TANK=this.FIBER_GLASS_TANK
+
+        this.BI_FUEL_KIT=this.AddonList.BI_FUEL_KIT;
+        sessionStorage.BI_FUEL_KIT=this.BI_FUEL_KIT
+
+        this.LOSS_OF_BAGGAGE=this.AddonList.LOSS_OF_BAGGAGE;
+        sessionStorage.LOSS_OF_BAGGAGE=this.LOSS_OF_BAGGAGE
+
+        this.TOWING_CHARGE=this.AddonList.TOWING_CHARGE;
+        sessionStorage.TOWING_CHARGE=this.TOWING_CHARGE
+
+        this.ELECTRICAL_ACCESSORIES=this.AddonList.ELECTRICAL_ACCESSORIES;
+        sessionStorage.ELECTRICAL_ACCESSORIES=this.ELECTRICAL_ACCESSORIES
+
+        this.NON_ELECTRICAL_ACCESSORIES=this.AddonList.BASIC_PREMIUM_AND_NON_ELECTRICAL_ACCESSORIES;
+        sessionStorage.NON_ELECTRICAL_ACCESSORIES=this.NON_ELECTRICAL_ACCESSORIES
+
+        this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE;
+        sessionStorage.INVOICE_PRICE_INSURANCE=this.INVOICE_PRICE_INSURANCE
+
+        // this.premiumadd=this.AddonList.premium;
       // console.log(this.premiumadd,'gfhfhgfh')
       // this.coverdriverpremiumchange();
-      this.invoicePriceChangepremium();
-      this.patchkeyreplacementpremium();
-      this.patchdepreciationpremium();
-      this.ncbprotecorchangepremium();
-      this.windShieldGlasspremipatch();
-      // this.changeregistrationchargesRoadtaxpremium();
-      this.automobilepremiumchangepremium();
-      this.changeengineprotectorpremium();
-      this.legalliabilityToPaidDriverchangepremium();
-      this.fibreGlasspremiumchangepremium();
-      this.changebifuelcoverpremium();
-      this.amountBagges();
-      this.changeAmountElectri();
-      this.changeAmountNonElectri();
-      this.amountTowing();
-      this.employeechangepremium();
+      // this.invoicePriceChangepremium();
+      // this.patchkeyreplacementpremium();
+      // this.patchdepreciationpremium();
+      // this.ncbprotecorchangepremium();
+      // this.windShieldGlasspremipatch();
+      // // this.changeregistrationchargesRoadtaxpremium();
+      // this.automobilepremiumchangepremium();
+      // this.changeengineprotectorpremium();
+      // this.legalliabilityToPaidDriverchangepremium();
+      // this.fibreGlasspremiumchangepremium();
+      // this.changebifuelcoverpremium();
+      // this.amountBagges();
+      // this.changeAmountElectri();
+      // this.changeAmountNonElectri();
+      // this.amountTowing();
+      // this.employeechangepremium();
 
     }
   }
@@ -2745,69 +2804,69 @@ export class RsFourwheelerProposalComponent implements OnInit {
   //   this.vehical.controls['coverdriverpremium'].patchValue(this.LIABILITY_PA_COVER_TO_PAID_DRIVER);
   // }
 
-  keyreplacementpremium(){
+  // keyreplacementpremium(){
+  //
+  //   if (this.vehical.controls['keyreplacement'].value=='On') {
+  //     this.vehical.controls['keyreplacementpremium'].setValidators([Validators.required]);
+  //     this.coverPremium();
+  //   }else{
+  //     this.vehical.controls['keyreplacementpremium'].patchValue('');
+  //     this.vehical.controls['keyreplacementpremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['keyreplacementpremium'].updateValueAndValidity();
+  // }
+  //
+  // patchkeyreplacementpremium(){
+  //   this.vehical.controls['keyreplacementpremium'].patchValue(this.KEY_REPLACEMENT);
+  //
+  // }
 
-    if (this.vehical.controls['keyreplacement'].value=='On') {
-      this.vehical.controls['keyreplacementpremium'].setValidators([Validators.required]);
-      this.coverPremium();
-    }else{
-      this.vehical.controls['keyreplacementpremium'].patchValue('');
-      this.vehical.controls['keyreplacementpremium'].setValidators(null);
-    }
-    this.vehical.controls['keyreplacementpremium'].updateValueAndValidity();
-  }
+  // depreciationpremium(){
+  //   if (this.vehical.controls['depreciationWaiver'].value=='On') {
+  //     this.coverPremium();
+  //     this.vehical.controls['depreciationWaiverpremium'].setValidators([Validators.required]);
+  //   }else{
+  //     this.vehical.controls['depreciationWaiverpremium'].patchValue('');
+  //     this.vehical.controls['depreciationWaiverpremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['depreciationWaiverpremium'].updateValueAndValidity();
+  //
+  // }
+  //
+  // patchdepreciationpremium(){
+  //   this.vehical.controls['depreciationWaiverpremium'].patchValue(this.DEPRECIATION_WAIVER);
+  // }
+  // windShieldGlasspremi(){
+  //   if (this.vehical.controls['windShieldGlass'].value=='On') {
+  //     this.coverPremium();
+  //     this.vehical.controls['windShieldGlasspremium'].setValidators([Validators.required]);
+  //   }else{
+  //     this.vehical.controls['windShieldGlasspremium'].patchValue('');
+  //     // this.vehical.controls['windShieldGlasspremium'].setValidators(null);
+  //     this.vehical.controls['windShieldGlasspremium'].setValidators([]);
+  //   }
+  //   this.vehical.controls['windShieldGlasspremium'].updateValueAndValidity();
+  // }
+  //
+  // windShieldGlasspremipatch(){
+  //   this.vehical.controls['windShieldGlasspremium'].patchValue(this.WIND_SHIELD_GLASS);
+  // }
 
-  patchkeyreplacementpremium(){
-    this.vehical.controls['keyreplacementpremium'].patchValue(this.KEY_REPLACEMENT);
-
-  }
-
-  depreciationpremium(){
-    if (this.vehical.controls['depreciationWaiver'].value=='On') {
-      this.coverPremium();
-      this.vehical.controls['depreciationWaiverpremium'].setValidators([Validators.required]);
-    }else{
-      this.vehical.controls['depreciationWaiverpremium'].patchValue('');
-      this.vehical.controls['depreciationWaiverpremium'].setValidators(null);
-    }
-    this.vehical.controls['depreciationWaiverpremium'].updateValueAndValidity();
-
-  }
-
-  patchdepreciationpremium(){
-    this.vehical.controls['depreciationWaiverpremium'].patchValue(this.DEPRECIATION_WAIVER);
-  }
-  windShieldGlasspremi(){
-    if (this.vehical.controls['windShieldGlass'].value=='On') {
-      this.coverPremium();
-      this.vehical.controls['windShieldGlasspremium'].setValidators([Validators.required]);
-    }else{
-      this.vehical.controls['windShieldGlasspremium'].patchValue('');
-      // this.vehical.controls['windShieldGlasspremium'].setValidators(null);
-      this.vehical.controls['windShieldGlasspremium'].setValidators([]);
-    }
-    this.vehical.controls['windShieldGlasspremium'].updateValueAndValidity();
-  }
-
-  windShieldGlasspremipatch(){
-    this.vehical.controls['windShieldGlasspremium'].patchValue(this.WIND_SHIELD_GLASS);
-  }
-
-  changeengineprotector(){
-    if (this.vehical.controls['engineprotector'].value=='On') {
-      this.coverPremium();
-      this.vehical.controls['engineprotectorpremium'].setValidators([Validators.required]);
-    }else{
-      this.vehical.controls['engineprotectorpremium'].patchValue('');
-      this.vehical.controls['engineprotectorpremium'].setValidators([]);
-      // this.vehical.controls['engineprotectorpremium'].setValidators(null);
-    }
-    this.vehical.controls['engineprotectorpremium'].updateValueAndValidity();
-  }
-
-  changeengineprotectorpremium(){
-    this.vehical.controls['engineprotectorpremium'].patchValue(this.ENGINE_PROTECTOR);
-  }
+  // changeengineprotector(){
+  //   if (this.vehical.controls['engineprotector'].value=='On') {
+  //     this.coverPremium();
+  //     this.vehical.controls['engineprotectorpremium'].setValidators([Validators.required]);
+  //   }else{
+  //     this.vehical.controls['engineprotectorpremium'].patchValue('');
+  //     this.vehical.controls['engineprotectorpremium'].setValidators([]);
+  //     // this.vehical.controls['engineprotectorpremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['engineprotectorpremium'].updateValueAndValidity();
+  // }
+  //
+  // changeengineprotectorpremium(){
+  //   this.vehical.controls['engineprotectorpremium'].patchValue(this.ENGINE_PROTECTOR);
+  // }
 
   // changeregistrationchargesRoadtax(){
   //   if (this.vehical.controls['registrationchargesRoadtax'].value=='On') {
@@ -2826,94 +2885,219 @@ export class RsFourwheelerProposalComponent implements OnInit {
   //   this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue(this.LIFE_TIME_ROAD_TAX);
   // }
 
-  ncbprotecorchange(){
-    if (this.vehical.controls['ncbprotector'].value=='On') {
-      this.coverPremium();
-      this.vehical.controls['ncbprotectorpremium'].setValidators([Validators.required]);
-    }else{
-      this.vehical.controls['ncbprotectorpremium'].patchValue('');
-      this.vehical.controls['ncbprotectorpremium'].setValidators(null);
-    }
-    this.vehical.controls['ncbprotectorpremium'].updateValueAndValidity();
+  // ncbprotecorchange(){
+  //   if (this.vehical.controls['ncbprotector'].value=='On') {
+  //     this.coverPremium();
+  //     this.vehical.controls['ncbprotectorpremium'].setValidators([Validators.required]);
+  //   }else{
+  //     this.vehical.controls['ncbprotectorpremium'].patchValue('');
+  //     this.vehical.controls['ncbprotectorpremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['ncbprotectorpremium'].updateValueAndValidity();
+  // }
+  //
+  // ncbprotecorchangepremium(){
+  //   this.vehical.controls['ncbprotectorpremium'].patchValue(this.NCB_PROTECTOR);
+  // }
+
+  // invoicePriceChange(){
+  //   if (this.vehical.controls['invoicePrice'].value=='On') {
+  //     this.coverPremium();
+  //     this.vehical.controls['invoicePricepremium'].setValidators([Validators.required]);
+  //   }else{
+  //     this.vehical.controls['invoicePricepremium'].patchValue('');
+  //     this.vehical.controls['invoicePricepremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['invoicePricepremium'].updateValueAndValidity();
+  // }
+  // invoicePriceChangepremium(){
+  //   this.vehical.controls['invoicePricepremium'].patchValue(this.INVOICE_PRICE_INSURANCE);
+  // }
+
+  // automobilepremium(){
+  //   if (this.vehical.controls['automobileAssociationMembership'].value=='Yes') {
+  //     this.coverPremium();
+  //     this.vehical.controls['automobileAssociationMembershippremium'].setValidators([Validators.required]);
+  //   }else{
+  //     this.vehical.controls['automobileAssociationMembershippremium'].patchValue('');
+  //     this.vehical.controls['automobileAssociationMembershippremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['automobileAssociationMembershippremium'].updateValueAndValidity();
+  // }
+  //
+  // automobilepremiumchangepremium(){
+  //   this.vehical.controls['automobileAssociationMembershippremium'].patchValue(this.AUTOMOBILE_ASSOCIATION_DISCOUNT);
+  // }
+
+  // legalliabilityToPaidDriverchange(){
+  //   if (this.vehical.controls['legalliabilityToPaidDriver'].value=='Yes') {
+  //     this.coverPremium();
+  //     this.vehical.controls['legalliabilityToPaidDriverpremium'].setValidators([Validators.required]);
+  //   }else{
+  //     this.vehical.controls['legalliabilityToPaidDriverpremium'].patchValue('');
+  //     this.vehical.controls['legalliabilityToPaidDriverpremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['legalliabilityToPaidDriverpremium'].updateValueAndValidity();
+  // }
+  //
+  // legalliabilityToPaidDriverchangepremium(){
+  //   this.vehical.controls['legalliabilityToPaidDriverpremium'].patchValue(this.LIABILITY_TO_PAID_DRIVERS);
+  // }
+
+  // employeechanges(){
+  //   if (this.vehical.controls['toEmployee'].value=='Yes') {
+  //     this.coverPremium();
+  //     this.vehical.controls['employeepremium'].setValidators([Validators.required]);
+  //   }else{
+  //     this.vehical.controls['employeepremium'].patchValue('');
+  //     this.vehical.controls['employeepremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['employeepremium'].updateValueAndValidity();
+  // }
+  //
+  // employeechangepremium(){
+  //   this.vehical.controls['employeepremium'].patchValue(this.TO_EMPLOYEE);
+  // }
+
+  // fibreGlassfittedchange(){
+  //   if (this.vehical.controls['fibreGlass'].value=='Yes') {
+  //     this.coverPremium();
+  //     this.vehical.controls['fibreGlasspremium'].setValidators([Validators.required]);
+  //   }else{
+  //     this.vehical.controls['fibreGlasspremium'].patchValue('');
+  //     this.vehical.controls['fibreGlasspremium'].setValidators(null);
+  //   }
+  //   this.vehical.controls['fibreGlasspremium'].updateValueAndValidity();
+  // }
+  //
+  // fibreGlasspremiumchangepremium(){
+  //   this.vehical.controls['fibreGlasspremium'].patchValue(this.FIBER_GLASS_TANK);
+  // }
+
+
+
+}
+
+@Component({
+  selector: 'rsfourwheelercover',
+  template:`
+      <div class="container">
+        <h5>Addon Cover Premium</h5>
+        <div class="row" >
+        <div class="col-md-12"  *ngIf="this.KEY_REPLACEMENT!=''&& this.KEY_REPLACEMENT!=undefined">
+          <p ><span style="margin-left: 35px"> Key Replacement :</span><span style="margin-left: 261px">{{this.KEY_REPLACEMENT}} </span> </p>
+        </div> 
+          <div class="col-md-12"  *ngIf="this.DEPRECIATION_WAIVER!=''&& this.DEPRECIATION_WAIVER!=undefined">
+          <p ><span style="margin-left: 35px"> Depreciation Waiver :</span><span style="margin-left: 244px">{{this.DEPRECIATION_WAIVER}} </span> </p>
+        </div> 
+          <div class="col-md-12"  *ngIf="this.WIND_SHIELD_GLASS!=''&& this.WIND_SHIELD_GLASS!=undefined">
+          <p ><span style="margin-left: 35px"> Wind Shield Glass :</span><span style="margin-left: 256px">{{this.WIND_SHIELD_GLASS}} </span> </p>
+        </div>
+            <div class="col-md-12"  *ngIf="this.ENGINE_PROTECTOR!=''&& this.ENGINE_PROTECTOR!=undefined">
+          <p ><span style="margin-left: 35px">Engine Protector :</span><span style="margin-left: 263px">{{this.ENGINE_PROTECTOR}} </span> </p>
+        </div> 
+            <div class="col-md-12"  *ngIf="this.NCB_PROTECTOR!=''&& this.NCB_PROTECTOR!=undefined">
+          <p ><span style="margin-left: 35px">NCB protector :</span><span style="margin-left: 277px">{{this.NCB_PROTECTOR}} </span> </p>
+        </div>
+            <div class="col-md-12"  *ngIf="this.INVOICE_PRICE_INSURANCE!=''&& this.INVOICE_PRICE_INSURANCE!=undefined">
+          <p ><span style="margin-left: 35px">Full Invoice Price Insurance Covers :</span><span style="margin-left: 150px">{{this.INVOICE_PRICE_INSURANCE}} </span> </p>
+        </div> 
+            <div class="col-md-12"  *ngIf="this.AUTOMOBILE_ASSOCIATION_DISCOUNT!=''&& this.AUTOMOBILE_ASSOCIATION_DISCOUNT!=undefined">
+          <p ><span style="margin-left: 35px">Automobile Association Membership :</span><span style="margin-left: 137px">{{this.AUTOMOBILE_ASSOCIATION_DISCOUNT}} </span> </p>
+        </div>
+            <div class="col-md-12"  *ngIf="this.LOSS_OF_BAGGAGE!=''&& this.LOSS_OF_BAGGAGE!=undefined">
+          <p ><span style="margin-left: 35px">Loss Of Baggages :</span><span style="margin-left: 254px">{{this.LOSS_OF_BAGGAGE}} </span> </p>
+        </div> 
+            <div class="col-md-12"  *ngIf="this.BI_FUEL_KIT!=''&& this.BI_FUEL_KIT!=undefined">
+          <p ><span style="margin-left: 35px">Is BiFuel Kit :</span><span style="margin-left: 294px">{{this.BI_FUEL_KIT}} </span> </p>
+        </div> 
+            <div class="col-md-12"  *ngIf="this.LIABILITY_TO_PAID_DRIVERS!=''&& this.LIABILITY_TO_PAID_DRIVERS!=undefined">
+          <p ><span style="margin-left: 35px">Legal Liability To Paid Driver :</span><span style="margin-left: 191px">{{this.LIABILITY_TO_PAID_DRIVERS}} </span> </p>
+        </div>
+         <div class="col-md-12"  *ngIf="this.TO_EMPLOYEE!=''&& this.TO_EMPLOYEE!=undefined">
+          <p ><span style="margin-left: 35px">To Employee :</span><span style="margin-left: 285px">{{this.TO_EMPLOYEE}} </span> </p>
+        </div>
+            <div class="col-md-12"  *ngIf="this.TOWING_CHARGE!=''&& this.TOWING_CHARGE!=undefined">
+          <p ><span style="margin-left: 35px">Towing Charges:</span><span style="margin-left: 267px">{{this.TOWING_CHARGE}} </span> </p>
+        </div>
+        <div class="col-md-12"  *ngIf="this.FIBER_GLASS_TANK!=''&& this.FIBER_GLASS_TANK!=undefined">
+          <p ><span style="margin-left: 35px">Vehicle Fitted With Fibre Glass Petrol Tank:</span><span style="margin-left: 107px">{{this.FIBER_GLASS_TANK}} </span> </p>
+        </div> 
+            <div class="col-md-12"  *ngIf="this.ELECTRICAL_ACCESSORIES!=''&& this.ELECTRICAL_ACCESSORIES!=undefined">
+          <p ><span style="margin-left: 35px">Cover Electrical Accessories:</span><span style="margin-left: 194px">{{this.ELECTRICAL_ACCESSORIES}} </span> </p>
+        </div>
+         <div class="col-md-12"  *ngIf="this.NON_ELECTRICAL_ACCESSORIES!=''&& this.NON_ELECTRICAL_ACCESSORIES!=undefined">
+          <p ><span style="margin-left: 35px">Cover Non Electrical Accessories:</span><span style="margin-left: 165px">{{this.NON_ELECTRICAL_ACCESSORIES}} </span> </p>
+        </div>
+          <div mat-dialog-actions style="justify-content: center">
+            <button mat-raised-button style="background-color: darkblue; color: white;" (click)="cancel()">Cancel</button>
+            <button mat-raised-button style="background-color: darkblue; color: white;" (click)="submit()">Ok</button>
+
+          </div>
+          <!--<div mat-dialog-actions style="justify-content: center">-->
+            <!--<button mat-raised-button style="background-color: darkblue; color: white;" (click)="cancel()">Cancel</button>-->
+            <!--<button mat-raised-button style="background-color: darkblue; color: white;" (click)="submit()">Ok</button>-->
+
+          <!--</div>-->
+        
+        
+        
+        
+      </div>
+        
+      </div>
+      
+  `
+})
+
+export class rsfourwheelercover {
+    NON_ELECTRICAL_ACCESSORIES:any;
+    KEY_REPLACEMENT:any;
+    DEPRECIATION_WAIVER:any;
+    WIND_SHIELD_GLASS:any;
+    ENGINE_PROTECTOR:any;
+    NCB_PROTECTOR:any;
+    INVOICE_PRICE_INSURANCE:any;
+    AUTOMOBILE_ASSOCIATION_DISCOUNT:any;
+    LOSS_OF_BAGGAGE:any;
+    BI_FUEL_KIT:any;
+    LIABILITY_TO_PAID_DRIVERS:any;
+    TO_EMPLOYEE:any;
+    TOWING_CHARGE:any;
+    FIBER_GLASS_TANK:any;
+    ELECTRICAL_ACCESSORIES:any;
+
+  constructor(
+      public dialogRef: MatDialogRef<rsfourwheelercover>,
+      @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute,  public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public fwService: FourWheelerService) {
+      this.KEY_REPLACEMENT=sessionStorage.KEY_REPLACEMENT;
+      console.log(this.KEY_REPLACEMENT,'this.KEY_REPLACEMENT')
+      this.DEPRECIATION_WAIVER=sessionStorage.DEPRECIATION_WAIVER;
+      this.WIND_SHIELD_GLASS=sessionStorage.WIND_SHIELD_GLASS;
+      this.ENGINE_PROTECTOR=sessionStorage.ENGINE_PROTECTOR;
+      this.NCB_PROTECTOR=sessionStorage.NCB_PROTECTOR;
+      this.INVOICE_PRICE_INSURANCE=sessionStorage.INVOICE_PRICE_INSURANCE;
+      this.AUTOMOBILE_ASSOCIATION_DISCOUNT=sessionStorage.AUTOMOBILE_ASSOCIATION_DISCOUNT;
+      this.LOSS_OF_BAGGAGE=sessionStorage.LOSS_OF_BAGGAGE;
+      this.BI_FUEL_KIT=sessionStorage.BI_FUEL_KIT;
+      this.LIABILITY_TO_PAID_DRIVERS=sessionStorage.LIABILITY_TO_PAID_DRIVERS;
+      this.TO_EMPLOYEE=sessionStorage.TO_EMPLOYEE;
+      this.TOWING_CHARGE=sessionStorage.TOWING_CHARGE;
+      this.FIBER_GLASS_TANK=sessionStorage.FIBER_GLASS_TANK;
+      this.NON_ELECTRICAL_ACCESSORIES=sessionStorage.NON_ELECTRICAL_ACCESSORIES;
+      this.ELECTRICAL_ACCESSORIES=sessionStorage.ELECTRICAL_ACCESSORIES;
+
+
+
   }
 
-  ncbprotecorchangepremium(){
-    this.vehical.controls['ncbprotectorpremium'].patchValue(this.NCB_PROTECTOR);
+  submit(): void {
+    this.dialogRef.close(true);
+  }
+  cancel(): void {
+    this.dialogRef.close(false);
   }
 
-  invoicePriceChange(){
-    if (this.vehical.controls['invoicePrice'].value=='On') {
-      this.coverPremium();
-      this.vehical.controls['invoicePricepremium'].setValidators([Validators.required]);
-    }else{
-      this.vehical.controls['invoicePricepremium'].patchValue('');
-      this.vehical.controls['invoicePricepremium'].setValidators(null);
-    }
-    this.vehical.controls['invoicePricepremium'].updateValueAndValidity();
-  }
-  invoicePriceChangepremium(){
-    this.vehical.controls['invoicePricepremium'].patchValue(this.INVOICE_PRICE_INSURANCE);
-  }
-
-  automobilepremium(){
-    if (this.vehical.controls['automobileAssociationMembership'].value=='Yes') {
-      this.coverPremium();
-      this.vehical.controls['automobileAssociationMembershippremium'].setValidators([Validators.required]);
-    }else{
-      this.vehical.controls['automobileAssociationMembershippremium'].patchValue('');
-      this.vehical.controls['automobileAssociationMembershippremium'].setValidators(null);
-    }
-    this.vehical.controls['automobileAssociationMembershippremium'].updateValueAndValidity();
-  }
-
-  automobilepremiumchangepremium(){
-    this.vehical.controls['automobileAssociationMembershippremium'].patchValue(this.AUTOMOBILE_ASSOCIATION_DISCOUNT);
-  }
-
-  legalliabilityToPaidDriverchange(){
-    if (this.vehical.controls['legalliabilityToPaidDriver'].value=='Yes') {
-      this.coverPremium();
-      this.vehical.controls['legalliabilityToPaidDriverpremium'].setValidators([Validators.required]);
-    }else{
-      this.vehical.controls['legalliabilityToPaidDriverpremium'].patchValue('');
-      this.vehical.controls['legalliabilityToPaidDriverpremium'].setValidators(null);
-    }
-    this.vehical.controls['legalliabilityToPaidDriverpremium'].updateValueAndValidity();
-  }
-
-  legalliabilityToPaidDriverchangepremium(){
-    this.vehical.controls['legalliabilityToPaidDriverpremium'].patchValue(this.LIABILITY_TO_PAID_DRIVERS);
-  }
-
-  employeechanges(){
-    if (this.vehical.controls['toEmployee'].value=='Yes') {
-      this.coverPremium();
-      this.vehical.controls['employeepremium'].setValidators([Validators.required]);
-    }else{
-      this.vehical.controls['employeepremium'].patchValue('');
-      this.vehical.controls['employeepremium'].setValidators(null);
-    }
-    this.vehical.controls['employeepremium'].updateValueAndValidity();
-  }
-
-  employeechangepremium(){
-    this.vehical.controls['employeepremium'].patchValue(this.TO_EMPLOYEE);
-  }
-
-  fibreGlassfittedchange(){
-    if (this.vehical.controls['fibreGlass'].value=='Yes') {
-      this.coverPremium();
-      this.vehical.controls['fibreGlasspremium'].setValidators([Validators.required]);
-    }else{
-      this.vehical.controls['fibreGlasspremium'].patchValue('');
-      this.vehical.controls['fibreGlasspremium'].setValidators(null);
-    }
-    this.vehical.controls['fibreGlasspremium'].updateValueAndValidity();
-  }
-
-  fibreGlasspremiumchangepremium(){
-    this.vehical.controls['fibreGlasspremium'].patchValue(this.FIBER_GLASS_TANK);
-  }
 
 
 }
