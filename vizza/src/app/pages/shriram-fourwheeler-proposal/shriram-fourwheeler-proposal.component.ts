@@ -144,6 +144,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public preClaim: any;
   public claimDetail: any;
   public detariff: any;
+  public idvMinValue: any;
+  public idvMaxValue: any;
   public hideCNGBox: boolean;
 
   public genderList: boolean;
@@ -361,6 +363,10 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.changeBifuelDrop()
 
     this.sessionData();
+    this.idvMinValue=this.buyBikeDetails.MinIDV;
+    console.log( this.idvMinValue,' this.idvMinValue')
+    this.idvMaxValue=this.buyBikeDetails.MaxIDV;
+    console.log( this.idvMaxValue,' this.idvMaxValue')
 
   }
 
