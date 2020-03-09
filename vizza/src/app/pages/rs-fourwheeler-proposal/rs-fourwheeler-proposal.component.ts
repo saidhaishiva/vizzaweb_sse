@@ -2046,6 +2046,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "spareCarLimit": this.vehical.controls['spareCarLimit'].value ,
           "invoicePrice": this.vehical.controls['invoicePrice'].value ,
           "typeOfCover": this.vehical.controls['typeOfCover'].value ,
+          "towingChargesCover": this.vehical.controls['towingCharge'].value ,
+          "towingChargesCover_SI": this.vehical.controls['towingChargeSI'].value,
         }
       }
     };

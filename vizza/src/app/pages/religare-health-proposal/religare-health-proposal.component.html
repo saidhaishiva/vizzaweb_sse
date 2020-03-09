@@ -62,8 +62,8 @@
 
                         </mat-form-field></div>
                         <div class="col-md-3"><mat-form-field class="w-100">
-                          <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off" required>
-                          <mat-error *ngIf="personal.controls.personalPan.errors?.required">PAN is required</mat-error>
+                          <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off" >
+                          <!--<mat-error *ngIf="personal.controls.personalPan.errors?.required">PAN is required</mat-error>-->
                           <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
 
@@ -202,7 +202,7 @@
                     </div>
 
                     <div class="proposal-buttom mt-3 text-right w-100">
-                      <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, personal.value)" >Next</button>
+                      <button mat-raised-button color="primaryBlue"  (click)="changeCommCity();changePerCity();personalDetails(stepper, personal.value)" >Next</button>
                     </div>
                   </div>
                 </mat-expansion-panel>
@@ -302,8 +302,8 @@
 
                           </mat-form-field></div>
                           <div class="col-md-3"><mat-form-field class="w-100">
-                            <input matInput placeholder="PAN Number" class="text-uppercase"  (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
-                            <mat-error *ngIf="insureArray.invalid">PAN Number is required. Enter Valid PAN Number</mat-error>
+                            <input matInput placeholder="PAN Number" class="text-uppercase"  (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
+                            <!--<mat-error *ngIf="insureArray.invalid">PAN Number is required. Enter Valid PAN Number</mat-error>-->
                           </mat-form-field></div>
                           <div class="col-md-3"><mat-form-field class="w-100">
                             <input matInput placeholder="GST Number" class="text-uppercase" (keypress)="idValidate($event)"  minlength="15"  maxlength="15" formControlName="personalGst" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$" autocomplete="off" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
@@ -528,7 +528,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Insured"  formControlName="religareRelationship" [required]="buyProductdetails.product_id == 1">
+                            <mat-select placeholder="Relationship with Insured"  formControlName="religareRelationship" (selectionChange)="selectNomineeRelationship()" [required]="buyProductdetails.product_id == 1">
                               <mat-option *ngFor="let relationship of insureRelationList | keys" [ngStyle]="{'display': sameRelationship == relationship.key ? 'none' : 'block' }" value="{{relationship.key}}" >
                                 {{relationship.value}}
                               </mat-option>
@@ -568,7 +568,7 @@
               <div class="row" *ngIf="inputfieldshow ==true">
                 <div class="col-md-4">
                   <mat-form-field >
-                    <mat-select [(ngModel)]="changeSuninsuredAmount" placeholder="Sum Insured" (selectionChange)="suminsureddropdownProposal(stepper)">
+                    <mat-select [(ngModel)]="changeSuninsuredAmount" placeholder="Sum Insured" (selectionChange)="suminsureddropdownProposal(stepper);">
                       <mat-option *ngFor="let amounts of suminsuredamount| keys" [value]="amounts.value" >{{amounts.value}}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -596,7 +596,7 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngIf="item.personalPan"><strong>PAN Number:</strong> {{item.personalPan | uppercase}}</li>
+                        <li class="list-group-item" *ngIf="item.personalPan !=''"><strong>PAN Number:</strong> {{item.personalPan | uppercase}}</li>
                         <li class="list-group-item" *ngIf="item.personalAadhar"><strong>Aadhar Number:</strong> {{item.personalAadhar}}</li>
                         <li class="list-group-item" *ngIf="item.personalGst"><strong>GST Number:</strong> {{item.personalGst | uppercase}}</li>
                         <li class="list-group-item" *ngIf="item.personalHeight && item.personalHeight !=0 && i !=0"><strong>Height:</strong> {{item.personalHeight}}</li>
@@ -611,7 +611,7 @@
                         <li class="list-group-item" *ngIf="item.personalAddress"><strong>Address 1:</strong> {{item.personalAddress}}</li>
                         <li class="list-group-item" *ngIf="item.personalAddress2"><strong>Address 2:</strong> {{item.personalAddress2}}</li>
                         <li class="list-group-item" *ngIf="item.personalPincode"><strong>PIN code:</strong>  {{item.personalPincode}}</li>
-                        <li class="list-group-item" *ngIf="item.personalCity"><strong>City:</strong> {{item.personalCity}}</li>
+                        <li class="list-group-item" *ngIf="item.personalCity"><strong>City:</strong> {{item.personalCityName}}</li>
                         <li class="list-group-item" *ngIf="item.personalState"><strong>State:</strong> {{item.personalState}}</li>
                       </ul>
                     </div>
@@ -623,7 +623,7 @@
                         <li class="list-group-item" *ngIf="item.residenceAddress"><strong>Address 1:</strong> {{item.residenceAddress}}</li>
                         <li class="list-group-item" *ngIf="item.residenceAddress2"><strong>Address 2:</strong> {{item.residenceAddress2}}</li>
                         <li class="list-group-item" *ngIf="item.residencePincode"><strong>PIN code:</strong>  {{item.residencePincode}}</li>
-                        <li class="list-group-item" *ngIf="item.residenceCity"><strong>City:</strong> {{item.residenceCity}}</li>
+                        <li class="list-group-item" *ngIf="item.residenceCity"><strong>City:</strong> {{item.residenceCityName}}</li>
                         <li class="list-group-item" *ngIf="item.residenceState"><strong>State:</strong> {{item.residenceState}}</li>
                       </ul>
                     </div>
@@ -841,8 +841,8 @@
 
                           </mat-form-field></div>
                           <div class="col-md-3"><mat-form-field class="w-100">
-                            <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off" required>
-                            <mat-error *ngIf="personal.controls.personalPan.errors?.required">PAN is required</mat-error>
+                            <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="personalPan"  autocomplete="off" >
+                            <!--<mat-error *ngIf="personal.controls.personalPan.errors?.required">PAN is required</mat-error>-->
                             <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                             <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
 
@@ -1048,8 +1048,8 @@
                         <mat-error *ngIf="insuredForm1.controls.aadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  autocomplete="off" required>
-                        <mat-error *ngIf="insuredForm1.controls.pan.errors?.required">PAN is required</mat-error>
+                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  autocomplete="off" >
+                        <!--<mat-error *ngIf="insuredForm1.controls.pan.errors?.required">PAN is required</mat-error>-->
                         <mat-error *ngIf="insuredForm1.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="insuredForm1.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                       </mat-form-field></div>
@@ -1146,8 +1146,8 @@
                         <mat-error *ngIf="insuredForm2.controls.aadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  autocomplete="off" required>
-                        <mat-error *ngIf="insuredForm2.controls.pan.errors?.required">PAN is required</mat-error>
+                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  autocomplete="off" >
+                        <!--<mat-error *ngIf="insuredForm2.controls.pan.errors?.required">PAN is required</mat-error>-->
                         <mat-error *ngIf="insuredForm2.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="insuredForm2.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                       </mat-form-field></div>
@@ -1244,8 +1244,8 @@
                         <mat-error *ngIf="insuredForm3.controls.aadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  autocomplete="off" required>
-                        <mat-error *ngIf="insuredForm3.controls.pan.errors?.required">PAN is required</mat-error>
+                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  autocomplete="off" >
+                        <!--<mat-error *ngIf="insuredForm3.controls.pan.errors?.required">PAN is required</mat-error>-->
                         <mat-error *ngIf="insuredForm3.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="insuredForm3.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                       </mat-form-field></div>
@@ -1342,8 +1342,8 @@
                         <mat-error *ngIf="insuredForm4.controls.aadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  autocomplete="off" required>
-                        <mat-error *ngIf="insuredForm4.controls.pan.errors?.required">PAN is required</mat-error>
+                        <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan"  autocomplete="off" >
+                        <!--<mat-error *ngIf="insuredForm4.controls.pan.errors?.required">PAN is required</mat-error>-->
                         <mat-error *ngIf="insuredForm4.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                         <mat-error *ngIf="insuredForm4.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                       </mat-form-field></div>
@@ -1525,7 +1525,7 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>D.O.B:</strong> {{payLaterPrposerDet.dob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Email ID:</strong> {{payLaterPrposerDet.email}}</li>
-                        <li class="list-group-item"><strong>PAN Number:</strong> {{payLaterPrposerDet.pancard}}</li>
+                        <li class="list-group-item" *ngIf="payLaterPrposerDet.pancard != ''"><strong>PAN Number:</strong> {{payLaterPrposerDet.pancard}}</li>
                         <li class="list-group-item" *ngIf="payLaterPrposerDet.gst != ''"><strong>GST Number:</strong> {{payLaterPrposerDet.gst}}</li>
                       </ul>
                     </div>
@@ -1577,7 +1577,7 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item" *ngIf="item.email != ''"><strong>Email ID:</strong> {{item.email}}</li>
-                          <li class="list-group-item"><strong>PAN Number:</strong> {{item.pancard}}</li>
+                          <li class="list-group-item" *ngIf="item.pancard != ''"><strong>PAN Number:</strong> {{item.pancard}}</li>
                           <li class="list-group-item" *ngIf="item.gst != ''"><strong>GST Number:</strong> {{item.gst}}</li>
                           <li class="list-group-item" *ngIf="item.aadhar != ''"><strong>Aadhar Number:</strong> {{item.aadhar}}</li>
                         </ul>
