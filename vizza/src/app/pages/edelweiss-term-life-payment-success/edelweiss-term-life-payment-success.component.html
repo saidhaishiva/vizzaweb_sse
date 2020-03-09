@@ -10,9 +10,8 @@
         <!--<p>Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>-->
         <!--<button mat-raised-button color="primary" (click)="DownloadPdf('receipt')">Recipt</button>-->
         <button mat-raised-button color="primary" (click)="DownloadPdf('pdf')">BI Form</button>
-        <button mat-raised-button color="primary" (click)="DownloadPdf('proposl')">Proposal</button>
-
-        <button mat-raised-button color="primary" routerLink="/home"> Done</button>
+        <button mat-raised-button class="ml-3" color="primary" (click)="DownloadPdf('proposl')">Proposal</button>
+        <button mat-raised-button class="ml-3" color="primary" routerLink="/home"> Done</button>
       </div>
       <div *ngIf="paymentStatus == 'failure'">
         <img src="assets/img/error-icon.png" alt="">

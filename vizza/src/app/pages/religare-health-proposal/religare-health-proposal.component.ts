@@ -279,7 +279,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             personalrelationship: 'SELF',
             personalrelationshipName: 'SELF',
             personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-            personalPan: ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
+            personalPan: [''],
             personalGst: ['', Validators.compose([Validators.minLength(15)])],
             personalAddress: ['', Validators.required],
             personalAddress2: ['', Validators.required],
@@ -319,7 +319,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             'relationship': ['', Validators.required],
             'insuredRelation': [''],
             'aadhar': [''],
-            'pan': ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
+            'pan': [''],
             'gst': [''],
             'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\']+(\\.[^<>()[\\]\\\\.,;:\\s@\\\']+)*)|(\\\'.+\\\'))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
@@ -336,7 +336,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             'relationship': ['', Validators.required],
             'insuredRelation': [''],
             'aadhar': [''],
-            'pan': ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
+            'pan': [''],
             'gst': [''],
             'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\']+(\\.[^<>()[\\]\\\\.,;:\\s@\\\']+)*)|(\\\'.+\\\'))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
@@ -353,7 +353,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             'relationship': ['', Validators.required],
             'insuredRelation': [''],
             'aadhar': [''],
-            'pan': ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
+            'pan': [''],
             'gst': [''],
             'email': [''],
             'mobile': [''],
@@ -370,7 +370,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             'relationship': ['', Validators.required],
             'insuredRelation': [''],
             'aadhar': [''],
-            'pan': ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
+            'pan': [''],
             'gst': [''],
             'email': [''],
             'mobile': [''],
@@ -392,7 +392,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 personalrelationship: ['', Validators.required],
                 personalrelationshipName: '',
                 personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
-                personalPan: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+                personalPan: ['', Validators.compose([ Validators.minLength(10)])],
                 personalGst: ['', Validators.compose([Validators.minLength(15)])],
                 personalAddress: '',
                 sameAsProposer: false,
@@ -1823,7 +1823,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                         if(this.religareQuestionsList[i].mStatus == 'Yes'){
 
                             if (this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
-                                this.checkBoxError=true;
+                                // this.checkBoxError=true;
 
                                 if (this.religareQuestionsList[i].sub_questions_list[j].question_details.question_description != '') {
                                     statusChecked.push(1);
@@ -1849,7 +1849,7 @@ export class ReligareHealthProposalComponent implements OnInit {
 
                             }
                             else if(this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status != true){
-                                this.checkBoxError=false;
+                                // this.checkBoxError=false;
 
                             }
                         }
@@ -1876,16 +1876,16 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
         } else {
 
-            if(this.checkBoxError==true){
+            // if(this.checkBoxError==true){
                 stepper.next();
                 this.topScroll();
                 this.nextStep();
                 this.religareMobileTrue2 = false;
                 this.religareMobileTrue3 = false;
-            }
-            else  if(this.checkBoxError==false){
-                this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
-            }
+            // }
+            // else  if(this.checkBoxError==false){
+            //     this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+            // }
         }
     }
 
@@ -2534,10 +2534,14 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
 
     changeCommCity() {
+        console.log(this.personal.controls['personalCity'].value,'this.personal.controls[\'personalCity\'].value...')
+        console.log(this.personal.controls['personalCityName'].value,'this.personal.controls[\'personalCityName\']...')
         this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
     }
     changePerCity() {
-        this.personal.controls['residenceCityName'].patchValue(this.personalCitys[this.personal.controls['residenceCity'].value]);
+        console.log(this.personal.controls['residenceCity'].value,'this.personal.controls[\'personalCity\'].value...')
+        console.log(this.personal.controls['residenceCityName'].value,'this.personal.controls[\'personalCityName\']...')
+        this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
     }
 
 

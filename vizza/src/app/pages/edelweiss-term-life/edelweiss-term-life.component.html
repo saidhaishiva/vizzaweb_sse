@@ -5433,7 +5433,10 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class=" p-3">
-                                        <li class="list-group-item"><strong style="width: 500px !important"> Which of the above address is your correspondence address?:</strong> {{insuredFormData.correspondenceAddress}}</li>
+                                        <!--<li class="list-group-item" *ngIf="insuredFormData.existingInsuranceInd == 'Yes'"><strong>Existing Insurance:</strong>yes</li>-->
+
+                                        <li class="list-group-item" *ngIf="insuredFormData.correspondenceAddress == 'Y'"><strong style="width: 500px !important"> Which of the above address is your correspondence address?:</strong>Current Address</li>
+                                        <li class="list-group-item" *ngIf="insuredFormData.correspondenceAddress == 'N'"><strong style="width: 500px !important"> Which of the above address is your correspondence address?:</strong>Permanent Address</li>
                                     </div>
                                 </div>
 
