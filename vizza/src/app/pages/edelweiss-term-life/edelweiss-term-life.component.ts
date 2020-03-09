@@ -120,7 +120,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     public eIncomeProof: any;
     public eproposalProof: any;
     public eageDocProof: any;
-    public eaddressProof: any;
+    public sub_product_id: any;
     public eaddressDocProof: any;
     public ekycProof: any;
     public eOtherDocumentProof: any;
@@ -960,6 +960,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.edelweissnumberEmployeesComp();
         this.edelweissoccupationtype12();
         this.deleteIndexId='';
+        this.sub_product_id=this.lifePremiumList.sub_product_id;
 
         // this.premiumPaymentTerm();
         // this.ageTillcoverd();
@@ -6721,7 +6722,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     // }
 
     isbetterHalfBenefit() {
-
+console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
         if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
             this.addon.controls['betterHalfsumAssured'].patchValue(this.addon.controls['betterHalfsumAssured'].value);
             this.addon.controls['betterHalfsumAssured'].setValidators([Validators.required]);
@@ -6866,6 +6867,14 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.insureArray.controls['sdob'].updateValueAndValidity();
         this.insureArray.controls['semailId'].updateValueAndValidity();
         // this.insureArray.controls['isSmokerSpouse'].updateValueAndValidity();
+
+        this.medicalDetail.controls['travelOutsideIndia'].updateValueAndValidity();
+        this.medicalDetail.controls['pilot'].updateValueAndValidity();
+        this.medicalDetail.controls['activity'].updateValueAndValidity();
+
+        this.medicalDetail.controls['travelOutsideIndia1'].updateValueAndValidity();
+        this.medicalDetail.controls['pilot1'].updateValueAndValidity();
+        this.medicalDetail.controls['activity1'].updateValueAndValidity();
 
 
 

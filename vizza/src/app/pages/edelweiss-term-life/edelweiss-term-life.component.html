@@ -116,7 +116,7 @@
                                         <h6 class="color-blue">Add On/ Riders Info</h6>
                                     </div>
 
-                                    <div class="col-md-4" *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
+                                    <div class="col-md-4" *ngIf="sub_product_id == '1' ">
 
                                         <mat-radio-group formControlName="waiverOfPremiumBenefit"  (change)="edelweissPrimium()">
                                             <p>Waiver Of Premium Benefit</p>
@@ -124,7 +124,7 @@
                                             <mat-radio-button value="No">No</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
-                                    <div class="col-md-4" *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
+                                    <div class="col-md-4" *ngIf="sub_product_id == '1' ">
                                         <p *ngIf="PW != 0"><strong>Waiver Of Premium :</strong> {{PW}}</p>
                                     </div>
 
@@ -244,14 +244,14 @@
                                     <!--                                   <h6 class="color-blue">ALL RIDER</h6>-->
                                     <!--                               </div>-->
 
-                                    <div class="col-md-4" *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
+                                    <div class="col-md-4" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
                                         <mat-radio-group formControlName="isHCB" (change)="edelweissPrimium()" >
                                             <p>Hospital Cash Benefit</p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
-                                    <div class="col-md-4 mt-2" *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
+                                    <div class="col-md-4 mt-2" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                             <input matInput  formControlName="sumAssuredHCB"  (change)="edelweissPrimium()" (input)="sumAssuredHCBError()" autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -263,19 +263,20 @@
                                         <p *ngIf="hcp != 0"><strong>   Hospital Cash Benefit Premium :</strong> {{hcp}}</p>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-4" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
                                         <mat-radio-group formControlName="criticalIllness" (change)="edelweissPrimium()" >
                                             <p> Enhanced Critical Illness Rider</p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
-                                    <div class="col-md-4 mt-2">
+                                    <div class="col-md-4 mt-2" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                             <input matInput  formControlName="criticalsumAssured"  (change)="edelweissPrimium()" (input)="sumAssuredCiError()" autocomplete="off"   (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
-                                        <div><p style="font-size: 10px; color: #3378bd;">Min: {{ci_sumassured_min}}  Max: {{ci_sumassured_max}}</p></div>
+                                        <div>
+                                            <p style="font-size: 10px; color: #3378bd;">Min: {{ci_sumassured_min}}  Max: {{ci_sumassured_max}}</p></div>
                                         <div class="error" style="margin-top: -20px"  *ngIf="ciError != '' && ciError != true">{{ciError}} <br>{{this.ci_sumassured_min}}- {{this.ci_sumassured_max}}</div>
                                     </div>
                                     <!--                               <div class="col-md-4" *ngIf="addon.controls['criticalIllness'].value == 'Yes'">-->
@@ -285,7 +286,7 @@
                                     <!--                                   </mat-radio-group>-->
                                     <!--                               </div>-->
 
-                                    <div class="col-md-4" >
+                                    <div class="col-md-4" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
                                         <p *ngIf="CIP != 0"><strong>Enhanced Critical Illness Premium :</strong> {{CIP}}</p>
                                     </div>
 
@@ -1526,8 +1527,9 @@
 
                                         <div class="col-md-4">
                                             <mat-form-field class="w-100">
+                                                <mat-placeholder>Employment Type<span class="error" >*</span></mat-placeholder>
                                                 <!--<mat-select  placeholder="Employment Type" formControlName="semployementType"  (selectionChange)="semploymentTypereq1();semploymentTypereq12();semployementTypeName1();employmentTypereqs66()" [required]="addon.controls['betterHalfBenefit'].value == 'Yes'"  class="w-100" >-->
-                                                <mat-select  placeholder="Employment Type" formControlName="semployementType"   (selectionChange)="semploymentTypereq1();semployementTypeName1()"  [required]="addon.controls['betterHalfBenefit'].value == 'Yes'"  class="w-100" >
+                                                <mat-select   formControlName="semployementType"   (selectionChange)="semploymentTypereq1();semployementTypeName1()"   class="w-100" >
                                                     <mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>
                                                 </mat-select>
                                                 <!--<mat-error *ngIf="insureArray.controls.semployementType.errors?.required">Employment Type is required</mat-error>-->
@@ -1609,7 +1611,8 @@
 
                                         <div class="col-md-4" >
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Annual Income" formControlName="sannualIncome" maxlength="15" autocomplete="off" [required]="addon.controls['betterHalfBenefit'].value == 'Yes'" (keypress)="numberValidate($event)"  >
+                                                <mat-placeholder>Annual Income<span class="error" >*</span></mat-placeholder>
+                                                <input matInput formControlName="sannualIncome" maxlength="15" autocomplete="off"  (keypress)="numberValidate($event)"  >
                                                 <!--<mat-error *ngIf="insureArray.controls.sannualIncome.errors?.required">Annual Income is required</mat-error>-->
                                             </mat-form-field>
                                         </div>
