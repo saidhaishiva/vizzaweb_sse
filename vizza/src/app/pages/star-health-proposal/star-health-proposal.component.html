@@ -2166,18 +2166,43 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <section class="summary-details" *ngIf="summaryData && payLaterr == false && submit==false">
-                            <div class="row">
-                                <div class="col-12"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
-                                <div class="col-12">
-                                    <ul>
-                                        <li style="padding: 8px; font-size: 17px; color: #666;"><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                        <li style="padding: 8px; font-size: 17px; color: #666;"><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
-                                        <li style="padding: 8px; font-size: 17px; color: #666;"><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>
-                                        <li style="padding: 8px; font-size: 17px; color: #666;"><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> </li>
-                                    </ul>
-                                </div>
+                            <!--<div class="row">-->
+                                <!--<div class="col-12"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>-->
+                                <!--<div class="col-12">-->
+                                    <!--<ul>-->
+                                        <!--<li style="padding: 8px; font-size: 17px; color: #666;"><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
+                                        <!--<li style="padding: 8px; font-size: 17px; color: #666;"><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>-->
+                                        <!--<li style="padding: 8px; font-size: 17px; color: #666;"><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>-->
+                                        <!--<li style="padding: 8px; font-size: 17px; color: #666;"><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> </li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                          <div class="row">
+                            <div class="col-12 col-md-4" *ngIf="this.animal!=''" > <h4 class="mt-4">{{summaryData1}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{this.animal}}</span><span (click)="openDialog()" style="cursor: pointer;"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
                             </div>
-                            <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
+                            <div class="col-12 col-md-4" *ngIf="this.animal==''"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span><span (click)="openDialog()"  style="cursor: pointer;"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4>
+                            </div>
+
+                            <div class="col-12 col-md-8" *ngIf="this.animal==''">
+                              <ul >
+                                <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                                <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
+                                <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>
+                                <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> </li>
+                                <li></li>
+                              </ul>
+                            </div><div class="col-12 col-md-8" *ngIf="this.animal!=''">
+                            <ul >
+                              <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                              <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData2}}</span> /</li>
+                              <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData3}}</span> /</li>
+                              <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData4}}</span> </li>
+                              <li></li>
+                            </ul>
+                          </div>
+                          </div>
+
+                          <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
                             <div class="row box-card">
                                 <div class="col-12">
                                     <div class="p-3">
