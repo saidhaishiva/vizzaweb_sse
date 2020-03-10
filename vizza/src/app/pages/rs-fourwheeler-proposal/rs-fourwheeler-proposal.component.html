@@ -523,7 +523,7 @@
                                                 </div>
                                                 <div class="col-md-12 mt-2" >
                                                     <div class="row">
-                                                        <div class="col-md-4" >
+                                                        <div class="col-md-4 ml-3" >
                                                             <p>Automobile Association Membership</p>
                                                             <mat-radio-group formControlName="automobileAssociationMembership">
                                                                 <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
@@ -540,7 +540,7 @@
                                                 </div>
                                                 <div class="col-md-12 mt-2" >
                                                     <div class="row" *ngIf="loss_of_baggage!='0.0' && nilDepValue==true">
-                                                        <div class="col-md-4" >
+                                                        <div class="col-md-4 ml-3" >
                                                             <p>Loss of Baggages</p>
                                                             <mat-radio-group formControlName="lossOfBaggage" (change)="isBaggages()">
                                                                 <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
@@ -568,7 +568,7 @@
 
 
                                                 <div class="row" >
-                                                    <div class="col-md-3 mt-3" >
+                                                    <div class="col-md-3 mt-3 ml-3" >
                                                         <p>Is BiFuel Kit</p>
                                                         <mat-radio-group formControlName="isBiFuelKit" (change)="isBiFuel()">
                                                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
@@ -610,7 +610,7 @@
                                         <!--</div>-->
                                         <div class="col-md-12 mt-2" style="margin-left:-14px;">
                                             <div class="row">
-                                                <div class="col-md-4" >
+                                                <div class="col-md-4 ml-3" >
                                                     <p>Do you Need Cover for Driver / Other Passengers / Car Accessories? </p>
                                                     <mat-radio-group formControlName="cover_dri_othr_car_ass" >
                                                         <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
@@ -623,10 +623,9 @@
                                                 <!--&lt;!&ndash;<mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Passenegers is required</mat-error>&ndash;&gt;-->
                                                 <!--</mat-form-field>-->
                                                 <!--</div>-->
-                                            </div>
-                                        </div>
 
-                                        <div class="row">
+
+                                        <!--<div class="row">-->
                                         <div class="col-md-3 mt-3" *ngIf="personal_accident_cover!='0.0'&& this.vehical.controls['cover_dri_othr_car_ass'].value == 'Yes'">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Personal Accident Cover For Unnamed Passengers"  formControlName="personalAccidentCoverForUnnamedPassengers" (selectionChange)="changePaType()" >
@@ -642,6 +641,9 @@
                                                 <!--<mat-error *ngIf="vehical.controls.accidentCoverForPaidDriver.errors?.required">Accident Cover For Paid Driver is required</mat-error>-->
 
                                             </mat-form-field>
+                                        </div>
+                                        <!--</div>-->
+                                            </div>
                                         </div>
 
                                             <div class="col-md-12 mt-2" >
@@ -723,7 +725,7 @@
                                                     <!--</div>-->
                                                 </div>
                                             </div>
-                                          </div>
+
                                         <div>
 
                                         <div class="row">
