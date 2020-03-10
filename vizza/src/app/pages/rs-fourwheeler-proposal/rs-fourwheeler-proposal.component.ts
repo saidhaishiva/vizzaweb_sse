@@ -1174,7 +1174,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   eleAccessReq() {
     console.log(this.vehical['controls'].electricalAccess['controls'].length,'value');
     if (this.vehical.controls['coverelectricalaccesss'].value == true) {
-        this.vehical.controls['amountElectricalaccesss'].setValidators([Validators.required]);
+        // this.vehical.controls['amountElectricalaccesss'].setValidators([Validators.required]);
         // this.coverPremium();
 
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
@@ -1194,8 +1194,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     } else
     if (this.vehical.controls['coverelectricalaccesss'].value == false)
       {
-          this.vehical.controls['amountElectricalaccesss'].setValidators(null);
-          this.vehical.controls['amountElectricalaccesss'].patchValue('');
+          // this.vehical.controls['amountElectricalaccesss'].setValidators(null);
+          // this.vehical.controls['amountElectricalaccesss'].patchValue('');
 
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
 
@@ -1212,7 +1212,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
     }
-      this.vehical.controls['amountElectricalaccesss'].updateValueAndValidity();
+      // this.vehical.controls['amountElectricalaccesss'].updateValueAndValidity();
 
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
 
@@ -1241,7 +1241,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   noneleAccessReq() {
 
     if (this.vehical.controls['cover_non_elec_acc'].value == true) {
-        this.vehical.controls['amountNonElectricalaccesss'].setValidators([Validators.required]);
+        // this.vehical.controls['amountNonElectricalaccesss'].setValidators([Validators.required]);
         // this.coverPremium();
 
         for (let i=0; i < this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
@@ -1261,8 +1261,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     } else
     if (this.vehical.controls['cover_non_elec_acc'].value == false)
     {
-        this.vehical.controls['amountNonElectricalaccesss'].setValidators(null);
-        this.vehical.controls['amountNonElectricalaccesss'].patchValue('');
+        // this.vehical.controls['amountNonElectricalaccesss'].setValidators(null);
+        // this.vehical.controls['amountNonElectricalaccesss'].patchValue('');
         for (let i=0; i < this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
 
             if ( i !=  0) {
@@ -1278,7 +1278,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
     }
-      this.vehical.controls['amountNonElectricalaccesss'].updateValueAndValidity();
+      // this.vehical.controls['amountNonElectricalaccesss'].updateValueAndValidity();
 
       for (let i=0; i < this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
 
