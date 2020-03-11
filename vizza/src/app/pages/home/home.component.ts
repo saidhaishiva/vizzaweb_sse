@@ -16,6 +16,8 @@ import {MetaService} from '../../shared/services/meta.service';
 import {Meta} from '@angular/platform-browser'
 import {Title} from '@angular/platform-browser';
 import { WINDOW } from '@ng-toolkit/universal';
+import {GoogleAnalyticsService} from '../../shared/services/google-analytics.service';
+
 
 export const MY_FORMATS = {
     parse: {
@@ -63,8 +65,11 @@ export class HomeComponent implements OnInit {
     metaKeyword: any;
     metaDescription: any;
 
-    constructor(@Inject(WINDOW) private window: Window, public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe ,public session: ClearSessionService, public appSettings: AppSettings, public toastr: ToastrService,
-                public config: ConfigurationService, public common: CommonService, public dialog: MatDialog, public meta: MetaService, public metaTag: Meta, private titleService: Title) {
+    constructor(@Inject(WINDOW) private window: Window, public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public session: ClearSessionService, public appSettings: AppSettings, public toastr: ToastrService,
+                public config: ConfigurationService, public common: CommonService, public dialog: MatDialog, public meta: MetaService, public metaTag: Meta, private titleService: Title, public googleAnalyticsService: GoogleAnalyticsService,) {
+
+
+
         // this.form =  this.fb.group({
         //     'insurename': ['', Validators.compose([Validators.required])],
         //     'startdate': ['', Validators.compose([Validators.required])],
@@ -80,14 +85,14 @@ export class HomeComponent implements OnInit {
         // this.metaTag.addTag({ name: 'keywords', content: this.metaHome.keyword[0] });
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
-        if(window.innerWidth < 787){
+        if (window.innerWidth < 787) {
             this.settings.HomeSidenavUserBlock = false;
             this.settings.sidenavIsOpened = false;
             this.settings.sidenavIsPinned = false;
-        }else{
-        this.settings.HomeSidenavUserBlock = true;
-        this.settings.sidenavIsOpened = true;
-        this.settings.sidenavIsPinned = true;
+        } else {
+            this.settings.HomeSidenavUserBlock = true;
+            this.settings.sidenavIsOpened = true;
+            this.settings.sidenavIsPinned = true;
         }
         this.settings.menu = 'vertical';
         this.commentBox = false;
@@ -163,6 +168,10 @@ export class HomeComponent implements OnInit {
         this.metaList();
 
     }
+
+    // SendAddToCartEvent(){
+    //     this.googleAnalyticsService.eventEmitter("add_to_cart", "home", "cart", "click", 10);
+    // }
 
     public metaList() {
         const data = {
