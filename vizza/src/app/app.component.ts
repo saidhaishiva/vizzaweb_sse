@@ -3,7 +3,7 @@ import { AppSettings } from './app.settings';
 import { Settings } from './app.settings.model';
 import { WINDOW } from '@ng-toolkit/universal';
 import{Router, NavigationEnd} from '@angular/router';
-import {Gtag} from 'angular-gtag';
+// import {Gtag} from 'angular-gtag';
 
 declare let gtag: Function;
 @Component({
@@ -15,7 +15,7 @@ declare let gtag: Function;
 export class AppComponent {
   public settings: Settings;
   public mobileView: any;
-  constructor(@Inject(WINDOW) private window: Window, public appSettings:AppSettings, public router: Router,gtag: Gtag ){
+  constructor(@Inject(WINDOW) private window: Window, public appSettings:AppSettings, public router: Router ){
       this.settings = this.appSettings.settings;
       this.mobileView = true;
       console.log(this.settings);
