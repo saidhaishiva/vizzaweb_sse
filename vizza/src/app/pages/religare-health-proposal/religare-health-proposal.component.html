@@ -554,8 +554,8 @@
             <ng-template matStepLabel>SUMMARY</ng-template>
             <section class="summary-details" *ngIf="summaryData">
               <div class="row">
-                <div class="col-md-4" *ngIf="this.valueSII == '' || this.valueSII == undefined"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span><span style="cursor: pointer !important;" (click)="showicon()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4></div>
-                <div class="col-md-4" *ngIf="this.valueSII != '' && this.valueSII != undefined"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{valueSII}}</span><span style="cursor: pointer !important;" (click)="showicon()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4></div>
+                <div class="col-md-4" *ngIf="this.newSIProposal == '' || this.valueSII == newSIProposal"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span><span style="cursor: pointer !important;" (click)="showicon()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4></div>
+                <div class="col-md-4" *ngIf="this.newSIProposal != '' && this.valueSII != newSIProposal"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{newSIProposal}}</span><span style="cursor: pointer !important;" (click)="showicon()"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img" aria-hidden="true">create</mat-icon></span></h4></div>
                 <div class="col-md-8">
                   <ul class="summary-head">
                     <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
@@ -783,6 +783,7 @@
               </div>
 
             </section>
+
 
             <section class="summary-details" *ngIf="payLaterr == true">
               <section *ngIf="submitPayLater == false">

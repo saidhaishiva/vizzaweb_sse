@@ -195,6 +195,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     public addonsPayLater: any;
     public newPremium: any;
     public totalDataPL: any;
+    public newSIProposal: any;
 
     public insuredPayLater: any;
     public insuredPayLater1: any;
@@ -2237,7 +2238,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             'group_name': this.getFamilyDetails.name,
             'company_name': 'Religare',
             'add_ons': this.setAddonDefault ? this.addonDetails.toString() : 'CAREWITHNCB',
-            'suminsured_amount':  this.valueSII != undefined ? this.valueSII : this.buyProductdetails.suminsured_amount,
+            'suminsured_amount':  this.changeSuninsuredAmount != undefined ? this.changeSuninsuredAmount : this.buyProductdetails.suminsured_amount,
             'proposer_insurer_details': this.totalReligareData,
             'product_id': this.buyProductdetails.product_id,
             'plan_name': this.buyProductdetails.product_name,
@@ -3178,92 +3179,97 @@ export class ReligareHealthProposalComponent implements OnInit {
     public suminsureddropdownProposalSuccess(successData, stepper) {
         console.log(successData.ResponseObject, 'successData.ResponseObject....///')
         this.suminsuredamount = successData.ResponseObject;
-        this.suminsuredidProposal(stepper);
+        // this.suminsuredidProposal(stepper);
+        this.inputfieldshow = false;
+        // this.
+        console.log(this.changeSuninsuredAmount, 'valuesi')
+        console.log(this.changeSuninsuredAmount.value, 'valuesi')
+        // this.createProposerPayLater();
+        this.proposal(stepper);
+        this.newSIProposal = this.changeSuninsuredAmount;
+
     }
     public suminsureddropdownProposalFailure(error) {
         console.log(error, 'error');
         this.toastr.error(error.ErrorObject);
     }
 
-    suminsuredidProposal(stepper){
-        const data = {
-            'platform':'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            // 'product_id': this.buyProductdetails.product_id,
-            // 'scheme_id': this.buyProductdetails.scheme,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            "sum_insured_amount": this.changeSuninsuredAmount
-        };
-        this.proposalservice.suminsuredIdval(data).subscribe(
-            (successData) => {
-                this.suminsuredidProposalSuccess(successData, stepper);
-            },
-            (error) => {
-                this.suminsuredidProposalFailure(error);
-            }
-        );
-    }
-    public suminsuredidProposalSuccess(successData, stepper) {
-        console.log(successData.ResponseObject.prod_suminsured_id, 'successData.ResponseObject....///')
-        this.suminsuredidvalue = successData.ResponseObject.prod_suminsured_id;
-        // this.createProposerPayLater();
+    // suminsuredidProposal(stepper){
+    //     const data = {
+    //         'platform':'web',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+    //         // 'product_id': this.buyProductdetails.product_id,
+    //         // 'scheme_id': this.buyProductdetails.scheme,
+    //         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+    //         "sum_insured_amount": this.changeSuninsuredAmount
+    //     };
+    //     this.proposalservice.suminsuredIdval(data).subscribe(
+    //         (successData) => {
+    //             this.suminsuredidProposalSuccess(successData, stepper);
+    //         },
+    //         (error) => {
+    //             this.suminsuredidProposalFailure(error);
+    //         }
+    //     );
+    // }
+    // public suminsuredidProposalSuccess(successData, stepper) {
+    //     console.log(successData.ResponseObject.prod_suminsured_id, 'successData.ResponseObject....///')
+    //     this.suminsuredidvalue = successData.ResponseObject.prod_suminsured_id;
+    //     this.productlistsummProposal(stepper);
+    // }
+    // public suminsuredidProposalFailure(error) {
+    //     console.log(error, 'error');
+    //     this.toastr.error(error.ErrorObject);
+    // }
 
-        this.productlistsummProposal(stepper);
-
-    }
-    public suminsuredidProposalFailure(error) {
-        console.log(error, 'error');
-        this.toastr.error(error.ErrorObject);
-    }
-
-    productlistsummProposal(stepper){
-        const data = {
-            'platform':'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'product_id': this.product_id != undefined ? this.product_id : this.buyProductdetails.product_id,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            "postalcode": this.pincoce ? this.pincoce : '',
-            "sum_insured":this.suminsuredidvalue,
-            "created_by": "0",
-            "company_id": "1",
-            'enquiry_id': this.enquiryIdPayLater != undefined ? this.enquiryIdPayLater : this.getFamilyDetails.enquiry_id,
-            'plan_name': this.planNamePayLater != undefined ? this.planNamePayLater : this.buyProductdetails.product_name,
-            'family_group_name': this.famNamePayLater != undefined ? this.famNamePayLater : this.getFamilyDetails.name
-        }
-        this.settings.loadingSpinner = true;
-        this.proposalservice.productVal(data).subscribe(
-            (successData) => {
-                this.suminsuredProductProposalSuccess(successData, stepper);
-            },
-            (error) => {
-                this.suminsuredProductProposalFailure(error);
-            }
-        );
-    }
-    public suminsuredProductProposalSuccess(successData, stepper) {
-        this.settings.loadingSpinner = false;
-        console.log(successData.ResponseObject, 'successData.ResponseObject....///')
-        this.productvalue = successData.ResponseObject;
-        for(let i=0; i < this.productvalue.length; i++) {
-            this.valueSI = this.productvalue[i].product_lists;
-            for(let j=0; j < this.valueSI.length; j++) {
-                this.valueSII = this.valueSI[j].suminsured_amount;
-                this.valuePremium = this.valueSI[j].premium_total;
-            }
-        }
-        this.inputfieldshow = false;
-        // this.createProposerPayLater();
-        this.proposal(stepper);
-
-        console.log(this.valueSI, 'llllllll')
-        console.log(this.valueSII, 'llllllll')
-    }
-    public suminsuredProductProposalFailure(error) {
-        console.log(error, 'error');
-        this.toastr.error(error.ErrorObject);
-    }
+    // productlistsummProposal(stepper){
+    //     const data = {
+    //         'platform':'web',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+    //         'product_id': this.product_id != undefined ? this.product_id : this.buyProductdetails.product_id,
+    //         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+    //         "postalcode": this.pincoce ? this.pincoce : '',
+    //         "sum_insured":this.suminsuredidvalue,
+    //         "created_by": "0",
+    //         "company_id": "1",
+    //         'enquiry_id': this.enquiryIdPayLater != undefined ? this.enquiryIdPayLater : this.getFamilyDetails.enquiry_id,
+    //         'plan_name': this.planNamePayLater != undefined ? this.planNamePayLater : this.buyProductdetails.product_name,
+    //         'family_group_name': this.famNamePayLater != undefined ? this.famNamePayLater : this.getFamilyDetails.name
+    //     }
+    //     this.settings.loadingSpinner = true;
+    //     this.proposalservice.productVal(data).subscribe(
+    //         (successData) => {
+    //             this.suminsuredProductProposalSuccess(successData, stepper);
+    //         },
+    //         (error) => {
+    //             this.suminsuredProductProposalFailure(error);
+    //         }
+    //     );
+    // }
+    // public suminsuredProductProposalSuccess(successData, stepper) {
+    //     this.settings.loadingSpinner = false;
+    //     console.log(successData.ResponseObject, 'successData.ResponseObject....///')
+    //     this.productvalue = successData.ResponseObject;
+    //     for(let i=0; i < this.productvalue.length; i++) {
+    //         this.valueSI = this.productvalue[i].product_lists;
+    //         for(let j=0; j < this.valueSI.length; j++) {
+    //             this.valueSII = this.valueSI[j].suminsured_amount;
+    //             this.valuePremium = this.valueSI[j].premium_total;
+    //         }
+    //     }
+    //     this.inputfieldshow = false;
+    //     // this.createProposerPayLater();
+    //     this.proposal(stepper);
+    //
+    //     console.log(this.valueSI, 'llllllll')
+    //     console.log(this.valueSII, 'llllllll')
+    // }
+    // public suminsuredProductProposalFailure(error) {
+    //     console.log(error, 'error');
+    //     this.toastr.error(error.ErrorObject);
+    // }
 
 
 }
