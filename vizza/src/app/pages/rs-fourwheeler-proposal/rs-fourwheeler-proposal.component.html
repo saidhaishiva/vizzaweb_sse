@@ -245,7 +245,7 @@
                                             <div class="col-md-3" *ngIf="vehical.controls['vehicleRegisteredName'].value == 'Company'">
                                                 <mat-form-field class="w-100">
                                                     <mat-placeholder>GST Number<span class="error" >*</span></mat-placeholder>
-                                                    <input matInput   formControlName="gstIn"  autocomplete="off">
+                                                    <input matInput   formControlName="gstIn"  maxlength="15" autocomplete="off">
                                                     <!--<mat-error *ngIf="vehical.controls.companyName.errors?.required">Company Name is required</mat-error>-->
 
                                                 </mat-form-field>
@@ -377,7 +377,7 @@
 
                                             <div class="row" *ngIf="vehicledetailsfw.business_type != '1'">
 
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 5 && this.key_replacement!='0.0' && nilDepValue==true">
+                                                <div class="col-md-12 mt-2 ml-3" *ngIf="buyProduct.vehicle_age < 5 && this.key_replacement!='0.0' && nilDepValue==true">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>Key Replacement</p>
@@ -396,7 +396,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 6 && depreciation_waiver!='0.0' && nilDepValue==true">
+                                                <div class="col-md-12 mt-2 ml-3" *ngIf="buyProduct.vehicle_age < 6 && depreciation_waiver!='0.0' && nilDepValue==true">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>Depreciation Waiver</p>
@@ -415,7 +415,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 && this.wind_shield!='0.0' && nilDepValue==true ">
+                                                <div class="col-md-12 mt-2 ml-3" *ngIf="buyProduct.vehicle_age < 3 && this.wind_shield!='0.0' && nilDepValue==true ">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>Wind Shield Glass </p>
@@ -432,7 +432,7 @@
                                                         <!--</div>-->
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 && engine_protector!='0.0' ">
+                                                <div class="col-md-12 mt-2 ml-3" *ngIf="buyProduct.vehicle_age < 3 && engine_protector!='0.0' ">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>Engine Protector</p>
@@ -467,7 +467,7 @@
                                                         <!--</div>-->
                                                     <!--</div>-->
                                                 <!--</div>-->
-                                                <div class="col-md-12 mt-2" *ngIf="(vehicleType=='other')&&(vehicledetailsfw.business_type != '1')&&((this.vehical.controls['isCarOwnershipChanged'].value =='No')&&(this.previousClaimvalue=='No'))">
+                                                <div class="col-md-12 mt-2 ml-3" *ngIf="(vehicleType=='other')&&(vehicledetailsfw.business_type != '1')&&((this.vehical.controls['isCarOwnershipChanged'].value =='No')&&(this.previousClaimvalue=='No'))">
                                                     <div class="row" *ngIf="ncb_protector!='0.0'">
                                                         <div class="col-md-4" >
                                                             <p>NCB Protector</p>
@@ -485,7 +485,7 @@
                                                         <!--</div>-->
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 && this.spare_car!='0.0' && taxValue==true">
+                                                <div class="col-md-12 mt-2 ml-3" *ngIf="buyProduct.vehicle_age < 3 && this.spare_car!='0.0' && taxValue==true">
                                                     <div class="row">
                                                         <div class="col-md-4" >
                                                             <p>Spare Car Covers</p>
@@ -498,12 +498,13 @@
                                                         <div class="col-md-3 mt-3" *ngIf="vehical.controls['spareCar'].value == 'On'" >
                                                             <mat-form-field class="w-100">
                                                                 <mat-placeholder>SpareCar Limit<span class="error" >*</span></mat-placeholder>
-                                                                    <input matInput  formControlName="spareCarLimit" maxlength="8" (keypress)="numberValidate($event)"   autocomplete="off" >
+                                                                    <input matInput  formControlName="spareCarLimit" minlength="3" (input)="spareCarLimit($event)" (keypress)="numberValidate($event)"   autocomplete="off" >
                                                             </mat-form-field>
+                                                            <div class="error" *ngIf="errorSpareLimit != '' && errorSpareLimit != true">{{errorSpareLimit}}</div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 mt-2" *ngIf="buyProduct.vehicle_age < 3 && inVoiceValue==true">
+                                                <div class="col-md-12 mt-2 ml-3" *ngIf="buyProduct.vehicle_age < 3 && inVoiceValue==true">
                                                     <div class="row">
                                                         <div class="col-md-4 " >
                                                             <p>Full Invoice Price Insurance Covers</p>
@@ -725,6 +726,19 @@
                                                     <!--</div>-->
                                                 </div>
                                             </div>
+                                        <div class="col-md-12 mt-2" >
+                                            <div class="row" >
+                                        <div class="col-md-3"  >
+                                            <mat-form-field class="w-100">
+                                                <mat-select placeholder="Voluntary Deductible"  formControlName="voluntary" required >
+                                                    <mat-option *ngFor="let vountarys of vountaryList | keys" value="{{vountarys.key}}" > {{vountarys.value}} </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="vehical.controls.voluntary.errors?.required">Voluntary Deductible is required</mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+                                            </div>
+                                        </div>
 
                                         <div>
 
@@ -879,12 +893,13 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input maxlength="80" matInput placeholder="Previous insurers Address" formControlName="previousinsurersCorrectAddress"  autocomplete="off" required>
                                                     <mat-error *ngIf="previousInsure.controls.previousinsurersCorrectAddress.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
+
                                             <div class="col-md-3" [ngStyle]="{'pointer-events': this.previousClaimvalue ? 'none' : ''}">
                                                 <p>Previous Policy Claim</p>
                                                 <mat-radio-group formControlName="isPreviousPolicyHolder" (change)="policyHolder()">
@@ -902,15 +917,7 @@
                                                     <input matInput placeholder="No Of Claim Reported" (keypress)="numberValidate($event)" maxlength="2" formControlName="claimsReported" [required]="previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3" *ngIf="previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'" >
-                                                <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Voluntary Deductible"  formControlName="voluntary" [required]="previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'" >
-                                                        <mat-option *ngFor="let vountarys of vountaryList | keys" value="{{vountarys.key}}" > {{vountarys.value}} </mat-option>
-                                                    </mat-select>
-                                                    <!--<mat-error *ngIf="previousInsure.controls.voluntary.errors?.required">Voluntary Deductible is required</mat-error>-->
 
-                                                </mat-form-field>
-                                            </div>
                                      </div>
 
                                         <div class="proposal-buttom mt-3 text-right w-100">
@@ -1138,6 +1145,7 @@
                                             <li class="list-group-item" *ngIf="LIABILITY_TO_PAID_DRIVERS != '0.0'" ><strong>Legal Liability To Paid Driver Cover Premium: </strong> {{LIABILITY_TO_PAID_DRIVERS}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.fibreGlass == 'Yes'" ><strong>Vehicle Fitted With Fibre Glass Petrol Tank :</strong> {{vehicalFormData.fibreGlass }}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.fibreGlass == 'Yes' && FIBER_GLASS_TANK != '0.0'"><strong>Fibre Glass Cover Premium : </strong> {{FIBER_GLASS_TANK}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.voluntary != ''"><strong>Voluntary Deductible:</strong> {{vehicalFormData.voluntary}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss == 'Yes'"><strong>Electrical Access:</strong> <span *ngIf="vehicalFormData.coverelectricalaccesss == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss == 'Yes' && ELECTRICAL_ACCESSORIES != '0.0'"><strong>Electrical Access Cover Premium: </strong> {{ELECTRICAL_ACCESSORIES}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.cover_non_elec_acc == 'Yes'"><strong>Non Electrical Access:</strong> <span *ngIf="vehicalFormData.cover_non_elec_acc == true">Yes</span></li>
@@ -1185,7 +1193,6 @@
                                                     <li class="list-group-item" *ngIf="vehicledetailsfw.business_type != '1'"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.personalAccidentCover != ''"><strong>Personal Accident Cover:</strong> {{previousFormData.personalAccidentCover}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.previousinsurersCorrectAddress != ''"><strong>Previous insurers Correct Address:</strong> {{previousFormData.previousinsurersCorrectAddress}}</li>
-                                                    <li class="list-group-item" *ngIf="previousFormData.voluntary != ''"><strong>Voluntary Deductible:</strong> {{previousFormData.voluntary}}</li>
                                                 </ul>
                                             </div>
                                         </div>

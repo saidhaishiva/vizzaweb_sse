@@ -5469,7 +5469,8 @@
                                             <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Address of employer/Business :</strong> {{insuredFormData.employerAddr}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.isEmploymentIncome != ''"><strong>Is your source of income from any one of the employment type selected above:</strong> {{insuredFormData.isEmploymentIncome}}</li>
                                             <li class="list-group-item" *ngIf="insuredFormData.isEmploymentIncome == 'No'"><strong>If No, Please specify:</strong> {{insuredFormData.employmentIncomeDetails}}</li>
-                                            <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.taxResidence == 'Y'"><strong>Tax Residence? :</strong>Yes</li>
+                                            <li class="list-group-item" *ngIf="insuredFormData.taxResidence == 'N'"><strong>Tax Residence? :</strong>No</li>
                                         </ul>
                                     </div>
                                 </div>

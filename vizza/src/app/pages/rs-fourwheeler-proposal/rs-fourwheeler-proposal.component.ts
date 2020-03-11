@@ -174,6 +174,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public cityinList: any;
   public errorOTP: boolean;
   public addonValue: any;
+  public sValue: any;
+  public spareValue: any;
+  public errorSpareLimit: any;
 
 
 
@@ -197,6 +200,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     });
     this.sameasper = false;
     this.errorOTP = false;
+    this.errorSpareLimit = false;
 
     this.currentStep  = stepperindex;
     const minDate = new Date();
@@ -319,6 +323,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       engineprotector: 'Off',
       ncbprotector: 'Off',
       IDV: [''],
+      voluntary: '',
       // registrationchargesRoadtax: 'Off',
       spareCar: 'Off',
       spareCarLimit: ['', Validators.compose([ Validators.maxLength(8)])],
@@ -342,7 +347,6 @@ export class RsFourwheelerProposalComponent implements OnInit {
       previousdob: '',
       isPreviousPolicyHolder: 'No',
       previousinsurersCorrectAddress: ['', Validators.required],
-      voluntary: '',
       claimAmountReceived: '',
       claimsReported: ['', Validators.compose([ Validators.maxLength(2)])],
       previousPolicyType: ['', Validators.required],
@@ -632,7 +636,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "vehicleMostlyDrivenOn": this.vehical.controls['vehicleMostlyDrivenOn'].value,
           "vehicleInspectionDate": "28/04/2017 04:00:00",
           "vehicleRegisteredInTheNameOf": this.vehical.controls['vehicleRegisteredName'].value,
-          "voluntarydeductible": this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
+          "voluntarydeductible": this.vehical.controls['voluntary'].value ? this.vehical.controls['voluntary'].value : '',
           "keyreplacement": this.vehical.controls['keyreplacement'].value ,
           "windShieldGlass": this.vehical.controls['windShieldGlass'].value ,
           "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value,
@@ -1058,10 +1062,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper2 = JSON.stringify(this.vehical.value);
     console.log(sessionStorage.stepper2, 'stepper2')
     console.log(this.vehical.value, ' value')
-      console.log(this.vehical.valid, ' Vecvalid1111');
     // if (check.checked == true) {
 
-      if (this.vehical.valid ) {
+      if ((this.vehical.valid) && (this.errorSpareLimit==false||this.errorSpareLimit=='')) {
           console.log(this.vehical.valid, ' Vecvalid');
       this.valueCalc = [];
       this.valueList =  this.vehical.value.electricalAccess;
@@ -1069,11 +1072,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       sessionStorage.valueList = this.valueList;
       console.log(this.valueList,'gfgffjhjh')
       console.log(sessionStorage.valueList,'sessionStoragevalueList')
-
-
-
-
-      let total = this.valueCalc[0] != '' ? this.valueCalc.reduce((a, b) => parseInt(a) + parseInt(b)) : 'err';
+        let total = this.valueCalc[0] != '' ? this.valueCalc.reduce((a, b) => parseInt(a) + parseInt(b)) : 'err';
       console.log(total,"total")
 
     this.valuesubCalc = [];
@@ -1501,6 +1500,37 @@ export class RsFourwheelerProposalComponent implements OnInit {
   //   }
   // }
 
+  spareCarLimit(event){
+    console.log(event,'event...');
+    this.spareValue=event.target.value;
+    let maxLimitpare=this.idvValues;
+    console.log(maxLimitpare,'IdvSpare...')
+    console.log(this.spareValue,'spareValue...')
+    console.log(this.spareValue%50==0,'spareValue1...')
+
+    if((this.spareValue%50==0)&&(this.spareValue>=150)&&(this.spareValue<=maxLimitpare)){
+      this.errorSpareLimit=false;
+      this.errorSpareLimit='';
+    }else{
+      this.errorSpareLimit=true;
+      this.errorSpareLimit='Spare value should be greater than 150,lesser than idv Value and multiple of 50';
+    }
+    console.log(this.errorSpareLimit,'errorSpareLimit...')
+
+    // for(let i=0;i<=maxLimitpare;i++){
+    //   this.sValue=i*50;
+    //   console.log(this.sValue,'this.sValue...')
+    //   console.log(this.spareValue,'this.spareValue...')
+    //   console.log(this.errorSpareLimit,'this.errorSpareLimit...')
+    //   if(this.spareValue==this.sValue){
+    //     this.errorSpareLimit=true;
+    //   }else{
+    //     this.errorSpareLimit=false;
+    //   }
+    //   console.log(this.sValue,'this.sValue1...')
+    // }
+
+  }
 
   changefinancedValue() {
     const data = {
@@ -2035,7 +2065,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "vehicleMostlyDrivenOn": this.vehical.controls['vehicleMostlyDrivenOn'].value,
           "vehicleInspectionDate": "28/04/2017 04:00:00",
           "vehicleRegisteredInTheNameOf": this.vehical.controls['vehicleRegisteredName'].value,
-          "voluntarydeductible": this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
+          "voluntarydeductible": this.vehical.controls['voluntary'].value ? this.vehical.controls['voluntary'].value : '',
           "keyreplacement": this.vehical.controls['keyreplacement'].value ,
           "windShieldGlass": this.vehical.controls['windShieldGlass'].value ,
           "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value,
@@ -2173,7 +2203,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     } else {
       this.previousInsure.controls['claimAmountReceived'].patchValue('');
       console.log(this.previousInsure.controls['claimAmountReceived'].value)
-      this.previousInsure.controls['voluntary'].patchValue('');
+      // this.previousInsure.controls['voluntary'].patchValue('');
       this.previousInsure.controls['claimsReported'].patchValue('');
      console.log(this.previousInsure.controls['claimsReported'].value)
     }
@@ -2387,7 +2417,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           // "VIRNumber": "asdasd123asdasd",
           "vehicleRegisteredInTheNameOf": this.vehical.controls['vehicleRegisteredName'].value,
           // "vehicleregDate": "03/08/2015",
-          "voluntarydeductible": this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
+          "voluntarydeductible": this.vehical.controls['voluntary'].value ? this.vehical.controls['voluntary'].value : '',
           "keyreplacement": this.vehical.controls['keyreplacement'].value ,
           "windShieldGlass": this.vehical.controls['windShieldGlass'].value ,
           "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value,
@@ -2527,7 +2557,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
           "towingChargesCover": this.vehical.controls['towingCharge'].value ,
           "towingChargesCover_SI": this.vehical.controls['towingChargeSI'].value,
-          "voluntarydeductible": this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
+          "voluntarydeductible": this.vehical.controls['voluntary'].value ? this.vehical.controls['voluntary'].value : '',
           "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value ? this.previousInsure.controls['previousPolicyType'].value: '',
           "previuosPolicyNumber": this.previousInsure.controls['policyNumber'].value? this.previousInsure.controls['policyNumber'].value: '',
           "previousInsurerName": this.previousInsure.controls['previousInsured'].value ? this.previousInsure.controls['previousInsured'].value : '',
@@ -2734,6 +2764,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['engineprotector'].patchValue(this.getStepper2.engineprotector);
       this.vehical.controls['ncbprotector'].patchValue(this.getStepper2.ncbprotector);
       this.vehical.controls['IDV'].patchValue(this.getStepper2.IDV);
+      this.vehical.controls['voluntary'].patchValue(this.getStepper2.voluntary);
       // this.vehical.controls['registrationchargesRoadtax'].patchValue(this.getStepper2.registrationchargesRoadtax);
       this.vehical.controls['spareCar'].patchValue(this.getStepper2.spareCar);
       this.vehical.controls['spareCarLimit'].patchValue(this.getStepper2.spareCarLimit);
@@ -2760,7 +2791,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         previousInsured: stepper3.previousInsured,
         previousdob: stepper3.previousdob,
         isPreviousPolicyHolder: stepper3.isPreviousPolicyHolder,
-        voluntary: stepper3.voluntary,
+        // voluntary: stepper3.voluntary,
         claimAmountReceived: stepper3.claimAmountReceived,
         claimsReported: stepper3.claimsReported,
         previousPolicyType: stepper3.previousPolicyType,

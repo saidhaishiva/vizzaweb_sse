@@ -369,12 +369,15 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import {FaqComponentComponent} from './pages/faq-component/faq-component.component';
 import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.service';
 import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insurance-dictionary.component';
+// import {GoogleAnalyticsService} from './shared/services/google-analytics.service';
+// import {GtagModule} from 'angular-gtag';
 
 
 
 @NgModule({
     imports: [
         BrowserModule.withServerTransition({ appId: 'vizza-app' }),
+        // GtagModule.forRoot({ trackingId: 'UA-148497492-1', trackPageviews: true }),
         Ng2OrderModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot(),
@@ -745,6 +748,7 @@ import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insur
         ClearSessionTermlifeService,
         MetaService,
         IffcoDeactivatedGuardService,
+        // GoogleAnalyticsService,
 
         { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
