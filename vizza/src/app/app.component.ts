@@ -5,7 +5,7 @@ import { WINDOW } from '@ng-toolkit/universal';
 import{Router, NavigationEnd} from '@angular/router';
 // import {Gtag} from 'angular-gtag';
 
-declare let gtag: Function;
+// declare let gtag: Function;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

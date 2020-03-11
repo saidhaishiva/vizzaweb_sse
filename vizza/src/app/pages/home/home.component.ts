@@ -16,7 +16,7 @@ import {MetaService} from '../../shared/services/meta.service';
 import {Meta} from '@angular/platform-browser'
 import {Title} from '@angular/platform-browser';
 import { WINDOW } from '@ng-toolkit/universal';
-import {GoogleAnalyticsService} from '../../shared/services/google-analytics.service';
+// import {GoogleAnalyticsService} from '../../shared/services/google-analytics.service';
 
 
 export const MY_FORMATS = {
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
     metaDescription: any;
 
     constructor(@Inject(WINDOW) private window: Window, public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe, public session: ClearSessionService, public appSettings: AppSettings, public toastr: ToastrService,
-                public config: ConfigurationService, public common: CommonService, public dialog: MatDialog, public meta: MetaService, public metaTag: Meta, private titleService: Title, public googleAnalyticsService: GoogleAnalyticsService,) {
+                public config: ConfigurationService, public common: CommonService, public dialog: MatDialog, public meta: MetaService, public metaTag: Meta, private titleService: Title, ) {
 
 
 
