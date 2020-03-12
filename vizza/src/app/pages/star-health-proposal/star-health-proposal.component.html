@@ -1142,13 +1142,13 @@
                               </div>
                               <div class="row" >
                                   <div class="col-md-3">
-                                      <mat-form-field class="w-100">
-                                          <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                      <mat-form-field class="w-100" [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                          <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required >
                                       </mat-form-field>
                                   </div>
                                   <div class="col-md-3">
-                                      <mat-form-field class="w-100">
-                                          <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required  [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                      <mat-form-field class="w-100" [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                          <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required  >
                                           <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                                           <mat-datepicker #insureddob></mat-datepicker>
                                       </mat-form-field>
@@ -1967,13 +1967,13 @@
                                             <mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs();sameProposer(i)"><strong>Same as proposer</strong></mat-checkbox>
                                           </div>
                                             <div class="col-12">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                                <mat-form-field class="w-100" [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                                    <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required >
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-12">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                                <mat-form-field class="w-100" [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                                    <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required >
                                                     <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                                                     <mat-datepicker #insureddob></mat-datepicker>
                                                 </mat-form-field>
@@ -2002,16 +2002,16 @@
                                                 <input matInput placeholder="Weight(kgs)" (keypress)="numberValidate($event)"  maxlength="3" [(ngModel)]="item.ins_weight"  autocomplete="off" required >
                                             </mat-form-field></div>
                                             <div class="col-12">
-                                                <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required (selectionChange)="selectOccupation(i)" [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                                <mat-form-field class="w-100" [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                                    <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required (selectionChange)="selectOccupation(i)">
                                                         <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}">
                                                             {{occupation.value}}
                                                         </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-12"><mat-form-field class="w-100">
-                                                <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required (selectionChange)="selectProposerRelation(i)" [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                            <div class="col-12"><mat-form-field class="w-100"  [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
+                                                <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required (selectionChange)="selectProposerRelation(i)">
                                                     <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" >
                                                         {{relationship.value}}
                                                     </mat-option>
@@ -2804,12 +2804,12 @@
                               </div>
                               <div class="row" >
                                 <div class="col-md-3">
-                                  <mat-form-field class="w-100" >
+                                  <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
                                     <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required>
                                   </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
-                                  <mat-form-field class="w-100">
+                                  <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
                                     <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required  >
                                     <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
                                     <mat-datepicker #insureddob></mat-datepicker>
@@ -2839,7 +2839,7 @@
                                   <input matInput placeholder="Weight(kgs)" (keypress)="numberValidate($event)"  maxlength="3" [(ngModel)]="item.ins_weight"  autocomplete="off" required >
                                 </mat-form-field></div>
                                 <div class="col-md-3">
-                                  <mat-form-field class="w-100">
+                                  <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
                                     <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required >
                                       <mat-option *ngFor="let occupation of occupationList1 | keys" value="{{occupation.key}}"  >
                                         {{occupation.value}}
@@ -2847,7 +2847,7 @@
                                     </mat-select>
                                   </mat-form-field>
                                 </div>
-                                <div class="col-md-3"><mat-form-field class="w-100">
+                                <div class="col-md-3"><mat-form-field class="w-100"  [ngStyle]="{'pointer-events': (i==0 && this.sameAsProposer==true) ? 'none' : ''}">
                                   <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required >
                                     <mat-option *ngFor="let relationship of relationshipList1 | keys" value="{{relationship.key}}"  >
                                       {{relationship.value}}
