@@ -759,10 +759,10 @@
                                             <div class="row" >
                                         <div class="col-md-3"  >
                                             <mat-form-field class="w-100">
-                                                <mat-select placeholder="Voluntary Deductible"  formControlName="voluntary" required >
+                                                <mat-select placeholder="Voluntary Deductible"  formControlName="voluntary"  >
                                                     <mat-option *ngFor="let vountarys of vountaryList | keys" value="{{vountarys.key}}" > {{vountarys.value}} </mat-option>
                                                 </mat-select>
-                                                <mat-error *ngIf="vehical.controls.voluntary.errors?.required">Voluntary Deductible is required</mat-error>
+                                                <!--<mat-error *ngIf="vehical.controls.voluntary.errors?.required">Voluntary Deductible is required</mat-error>-->
 
                                             </mat-form-field>
                                         </div>
