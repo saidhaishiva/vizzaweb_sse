@@ -1419,6 +1419,7 @@ setRelationship1() {
     InsureDetails(stepper: MatStepper, index, key) {
         sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
         console.log(this.familyMembers,'987654')
+        this.insurerNameSameAs();
         this.illnesStatus = false;
         this.insureStatus = false;
         let errorMessage = true;
@@ -2000,8 +2001,12 @@ setRelationship1() {
             this.familyMembers[0].ins_name = (this.insurerName),
                 console.log( this.familyMembers[0].ins_name)
 
-            this.familyMembers[0].ins_occupation_id = this.personal.controls['personalOccupation'].value
+            this.familyMembers[0].ins_occupation_id = this.personal.controls['personalOccupation'].value;
+            this.setOccupationList();
+            this.selectOccupation(index);
+
             if (this.sameAsProposer == true) {
+
                 this.familyMembers[0].ins_relationship ='1';
                 this.selectProposerRelation(index);
 
