@@ -272,24 +272,24 @@ export class RsFourwheelerProposalComponent implements OnInit {
       averageMonthlyMileageRun: '',
       accidentCoverForPaidDriver: '',
       // registrationchargesRoadtaxpremium: '',
-      ncbprotectorpremium: '',
+      // ncbprotectorpremium: '',
       companyName: '',
       gstIn: '',
-      invoicePricepremium: '',
-      automobileAssociationMembershippremium: '',
-      legalliabilityToPaidDriverpremium: '',
-      fibreGlasspremium: '',
-      bifuelpremium: '',
+      // invoicePricepremium: '',
+      // automobileAssociationMembershippremium: '',
+      // legalliabilityToPaidDriverpremium: '',
+      // fibreGlasspremium: '',
+      // bifuelpremium: '',
       // idv: '',
       isFourWheelerFinancedValue: '',
       valueOfLossOfBaggage: '',
       isBiFuelKitYes: '',
         // coverdriverpremium:'',
-      isCarOwnershipChangedpremium:'',
-      depreciationWaiverpremium:'',
-      windShieldGlasspremium:'',
-      engineprotectorpremium:'',
-      keyreplacementpremium:'',
+      // isCarOwnershipChangedpremium:'',
+      // depreciationWaiverpremium:'',
+      // windShieldGlasspremium:'',
+      // engineprotectorpremium:'',
+      // keyreplacementpremium:'',
         amountNonElectricalaccesss:'',
         amountElectricalaccesss:'',
       // quoteId: '',
@@ -316,7 +316,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       automobileAssociationMembership: 'No',
       legalliabilityToPaidDriver: 'No',
       toEmployee: 'No',
-      employeepremium: '',
+      // employeepremium: '',
       windShieldGlass: 'Off',
       keyreplacement: 'Off',
       depreciationWaiver: 'Off',
@@ -2735,14 +2735,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['addonValue'].patchValue(this.getStepper2.addonValue);
       this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.isFourWheelerFinanced);
       // this.vehical.controls['coverdriverpremium'].patchValue(this.getStepper2.coverdriverpremium);
-      this.vehical.controls['keyreplacementpremium'].patchValue(this.getStepper2.keyreplacementpremium);
-      this.vehical.controls['depreciationWaiverpremium'].patchValue(this.getStepper2.depreciationWaiverpremium);
-      this.vehical.controls['windShieldGlasspremium'].patchValue(this.getStepper2.windShieldGlasspremium);
-      this.vehical.controls['engineprotectorpremium'].patchValue(this.getStepper2.engineprotectorpremium);
-      // this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue(this.getStepper2.registrationchargesRoadtaxpremium);
-      this.vehical.controls['ncbprotectorpremium'].patchValue(this.getStepper2.ncbprotectorpremium);
-      this.vehical.controls['invoicePricepremium'].patchValue(this.getStepper2.invoicePricepremium);
-      this.vehical.controls['automobileAssociationMembershippremium'].patchValue(this.getStepper2.automobileAssociationMembershippremium);
+      // this.vehical.controls['keyreplacementpremium'].patchValue(this.getStepper2.keyreplacementpremium);
+      // this.vehical.controls['depreciationWaiverpremium'].patchValue(this.getStepper2.depreciationWaiverpremium);
+      // this.vehical.controls['windShieldGlasspremium'].patchValue(this.getStepper2.windShieldGlasspremium);
+      // this.vehical.controls['engineprotectorpremium'].patchValue(this.getStepper2.engineprotectorpremium);
+      // // this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue(this.getStepper2.registrationchargesRoadtaxpremium);
+      // this.vehical.controls['ncbprotectorpremium'].patchValue(this.getStepper2.ncbprotectorpremium);
+      // this.vehical.controls['invoicePricepremium'].patchValue(this.getStepper2.invoicePricepremium);
+      // this.vehical.controls['automobileAssociationMembershippremium'].patchValue(this.getStepper2.automobileAssociationMembershippremium);
       this.vehical.controls['amountLossOfBaggage'].patchValue(this.getStepper2.amountLossOfBaggage);
       this.vehical.controls['amountElectricalaccesss'].patchValue(this.getStepper2.amountElectricalaccesss);
       this.vehical.controls['amountNonElectricalaccesss'].patchValue(this.getStepper2.amountNonElectricalaccesss);
@@ -2774,7 +2774,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['isBiFuelKit'].patchValue(this.getStepper2.isBiFuelKit);
       this.vehical.controls['legalliabilityToPaidDriver'].patchValue(this.getStepper2.legalliabilityToPaidDriver);
       this.vehical.controls['toEmployee'].patchValue(this.getStepper2.toEmployee);
-      this.vehical.controls['employeepremium'].patchValue(this.getStepper2.employeepremium);
+      // this.vehical.controls['employeepremium'].patchValue(this.getStepper2.employeepremium);
       this.vehical.controls['total'].patchValue(this.getStepper2.total);
       this.vehical.controls['subTotal'].patchValue(this.getStepper2.subTotal);
 

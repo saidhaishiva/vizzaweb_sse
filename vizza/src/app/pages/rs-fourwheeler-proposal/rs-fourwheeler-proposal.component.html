@@ -371,11 +371,15 @@
                                         </div>
 
 
-                                        <div class="row mt-3" *ngIf="vehicledetailsfw.business_type != '1'">
+                                        <!--<div class="row mt-3" *ngIf="vehicledetailsfw.business_type != '1'">-->
+                                            <!--<h6 class="color-blue mt-6 ml-3">Covers/Add-on Description/Eligibility</h6>-->
+                                        <!--</div>-->
+                                        <div class="row mt-3" >
                                             <h6 class="color-blue mt-6 ml-3">Covers/Add-on Description/Eligibility</h6>
                                         </div>
 
-                                            <div class="row" *ngIf="vehicledetailsfw.business_type != '1'">
+                                            <!--<div class="row" *ngIf="vehicledetailsfw.business_type != '1'">-->
+                                            <div class="row" >
 
                                                 <div class="col-md-12 mt-2 ml-3" *ngIf="buyProduct.vehicle_age < 5 && this.key_replacement!='0.0' && nilDepValue==true">
                                                     <div class="row">
@@ -522,9 +526,9 @@
                                                         <!--</div>-->
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 mt-2" >
+                                                <div class="col-md-12 mt-2" *ngIf="vehicledetailsfw.business_type != '1'">
                                                     <div class="row">
-                                                        <div class="col-md-4 ml-3" >
+                                                        <div class="col-md-4 ml-3" *ngIf="vehicledetailsfw.business_type != '1'">
                                                             <p>Automobile Association Membership</p>
                                                             <mat-radio-group formControlName="automobileAssociationMembership">
                                                                 <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
@@ -609,7 +613,7 @@
                                         <!--<div class="row mt-3">-->
                                             <!--<h6 class="color-blue mt-6 ml-3">Cover for Driver / Other Passengers / Car Accessories</h6>-->
                                         <!--</div>-->
-                                        <div class="col-md-12 mt-2" style="margin-left:-14px;">
+                                        <div class="col-md-12 mt-2" style="margin-left:-14px;" >
                                             <div class="row">
                                                 <div class="col-md-4 ml-3" >
                                                     <p>Do you Need Cover for Driver / Other Passengers / Car Accessories? </p>
@@ -664,7 +668,32 @@
                                                     <!--</div>-->
                                                 </div>
                                             </div>
-                                            <div class="col-md-12 mt-2" >
+                                        <!--<div class="col-md-12 mt-2" >-->
+                                            <!--<div class="row" *ngIf="to_drivers!='0.0'">-->
+                                                <!--<div class="col-md-4 " >-->
+                                                    <!--<p>Require Personal Accident Owner Cover?</p>-->
+                                                    <!--<mat-radio-group formControlName="legalliabilityToPaidDriver" >-->
+                                                        <!--<mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>-->
+                                                        <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                                                    <!--</mat-radio-group>-->
+                                                <!--</div>-->
+                                                <!---->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-md-12 mt-2" >-->
+                                            <!--<div class="row" *ngIf="to_drivers!='0.0'">-->
+                                                <!--<div class="col-md-4 " >-->
+                                                    <!--<p>Tyre Cover</p>-->
+                                                    <!--<mat-radio-group formControlName="tyreCover" >-->
+                                                        <!--<mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>-->
+                                                        <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                                                    <!--</mat-radio-group>-->
+                                                <!--</div>-->
+                                               <!---->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                            <div class="col-md-12 mt-2" *ngIf="vehicledetailsfw.business_type != '1'">
                                                 <div class="row" *ngIf="to_drivers!='0.0'">
                                                     <div class="col-md-4 " >
                                                         <p>To Employee</p>
@@ -730,10 +759,10 @@
                                             <div class="row" >
                                         <div class="col-md-3"  >
                                             <mat-form-field class="w-100">
-                                                <mat-select placeholder="Voluntary Deductible"  formControlName="voluntary" required >
+                                                <mat-select placeholder="Voluntary Deductible"  formControlName="voluntary"  >
                                                     <mat-option *ngFor="let vountarys of vountaryList | keys" value="{{vountarys.key}}" > {{vountarys.value}} </mat-option>
                                                 </mat-select>
-                                                <mat-error *ngIf="vehical.controls.voluntary.errors?.required">Voluntary Deductible is required</mat-error>
+                                                <!--<mat-error *ngIf="vehical.controls.voluntary.errors?.required">Voluntary Deductible is required</mat-error>-->
 
                                             </mat-form-field>
                                         </div>
