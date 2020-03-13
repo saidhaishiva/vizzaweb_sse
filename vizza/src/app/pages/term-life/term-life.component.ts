@@ -116,6 +116,7 @@ export class TermLifeComponent implements OnInit {
     }
 
     public metaList() {
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -133,6 +134,7 @@ export class TermLifeComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
+        this.settings.loadingSpinner = false;
         this.metaTermLife = successData.ResponseObject[0];
         this.metaTitle = this.metaTermLife.title;
         this.metaKeyword = this.metaTermLife.keyword;

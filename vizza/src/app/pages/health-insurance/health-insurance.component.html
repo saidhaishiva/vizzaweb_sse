@@ -35,9 +35,9 @@
             </div>
           </div>
           <div class="mt-3 text-center">
-            <button mat-raised-button color="primary" type="button" [disabled]="sonBTn" (click)="addUser('Son', 2)"><i class="material-icons">add_circle_outline</i> Son</button>
-            <button mat-raised-button color="accent" class="accentDaughter" type="button" [disabled]="daughterBTn" (click)="addUser('Daughter', 3)"><i class="material-icons">add_circle_outline</i> Daughter</button>
-            <button mat-raised-button color="accent" type="button" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> Relatives</button>
+            <button mat-raised-button color="primary" type="button" class="ml-2" [disabled]="sonBTn" (click)="addUser('Son', 2)"><i class="material-icons">add_circle_outline</i> Son</button>
+            <button mat-raised-button color="accent" class="accentDaughter ml-2" type="button" [disabled]="daughterBTn" (click)="addUser('Daughter', 3)"><i class="material-icons">add_circle_outline</i> Daughter</button>
+            <button mat-raised-button color="accent" type="button" class="ml-2" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> Relatives</button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="addOthers('Father')" [disabled]="fatherBTn">Father</button>
               <button mat-menu-item (click)="addOthers('Mother')" [disabled]="motherBtn">Mother</button>

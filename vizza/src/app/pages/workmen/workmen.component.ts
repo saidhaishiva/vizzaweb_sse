@@ -94,6 +94,7 @@ export class WorkmenComponent implements OnInit {
   }
 
     public metaList() {
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -111,6 +112,7 @@ export class WorkmenComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
+        this.settings.loadingSpinner = false;
         this.metaWorkman = successData.ResponseObject[0];
         this.metaTitle = this.metaWorkman.title;
         this.metaKeyword = this.metaWorkman.keyword;
