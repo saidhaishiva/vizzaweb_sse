@@ -95,6 +95,7 @@ export class HouseholdComponent implements OnInit {
   }
 
     public metaList() {
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -112,6 +113,7 @@ export class HouseholdComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
+        this.settings.loadingSpinner = false;
         this.metaHouseHold = successData.ResponseObject[0];
         this.metaTitle = this.metaHouseHold.title;
         this.metaKeyword = this.metaHouseHold.keyword;

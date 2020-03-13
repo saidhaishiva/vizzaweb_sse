@@ -731,6 +731,7 @@ export class HealthInsuranceComponent implements OnInit {
     // second page
     // this function will get the sum insured amounts
     public sumInsuredAmonut(): void {
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -746,6 +747,7 @@ export class HealthInsuranceComponent implements OnInit {
         );
     }
     public getSumInsuredAmountSuccess(successData) {
+        this.settings.loadingSpinner = false;
         console.log(successData.ResponseObject, 'kilo1234kg')
         if (successData.IsSuccess) {
             this.sumInsuredAmountLists = successData.ResponseObject;
