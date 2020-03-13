@@ -1065,6 +1065,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     // if (check.checked == true) {
 
       if ((this.vehical.valid) && (this.errorSpareLimit==false||this.errorSpareLimit=='')) {
+
           console.log(this.vehical.valid, ' Vecvalid');
       this.valueCalc = [];
       this.valueList =  this.vehical.value.electricalAccess;
@@ -1087,6 +1088,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     if (total <= 50000 || total == 'err') {
       if (subTotal <= 20000 || subTotal == 'err') {
+        this.settings.loadingSpinner = false;
         const dialogRef = this.dialog.open(rsfourwheelercover, {
           width: '650px',
           height: '400px'
@@ -1110,13 +1112,18 @@ export class RsFourwheelerProposalComponent implements OnInit {
         // stepper.next();
         // this.topScroll();
     } else {
+        this.settings.loadingSpinner = false;
       this.toastr.error('Non Electrical Accessories Values should be less than 20,000');
     }
       } else {
+      this.settings.loadingSpinner = false;
         this.toastr.error('Electrical Accessories Values should be less than 50,000');
       }
 
-    }
+    }else{
+        this.settings.loadingSpinner = false;
+        this.toastr.error('Please Fill the Mandatory Fields');
+      }
   }
   isFinaced(event: any) {
     if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
@@ -2081,7 +2088,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
       }
     };
-    // this.settings.loadingSpinner = true;
+    this.settings.loadingSpinner = true;
 
     this.fourWheeler.calculatrepremiumrs(data).subscribe(
         (successData) => {
@@ -2093,7 +2100,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     );
   }
   public calculatrepremiumrsSuccess(successData) {
-    // this.settings.loadingSpinner = false;
+    this.settings.loadingSpinner = false;
 
     if (successData.IsSuccess) {
       this.AddonList = successData.ResponseObject;
