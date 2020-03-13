@@ -222,12 +222,14 @@ export class FourWheelerHomeComponent implements OnInit {
   }
 
   changeCompanyName() {
+    this.settings.loadingSpinner = true;
     const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
 
     }
+
     console.log(this.vehicleRegNumber,'this.vehicleRegNumber....')
     this.fwService.getCompanyName(data).subscribe(
         (successData) => {
@@ -239,6 +241,7 @@ export class FourWheelerHomeComponent implements OnInit {
     );
   }
   public CompanyNameNewSuccess(successData){
+    this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
       this.companyNameList = successData.ResponseObject;
       console.log(this.companyNameList,'companyNameList......');

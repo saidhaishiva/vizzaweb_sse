@@ -232,6 +232,7 @@ export class BikeInsuranceComponent implements OnInit {
 
 
     changeCompanyName() {
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -249,6 +250,7 @@ export class BikeInsuranceComponent implements OnInit {
         );
     }
     public CompanyNameNewSuccess(successData){
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.companyNameList = successData.ResponseObject;
             console.log(this.companyNameList,'companyNameList......');
