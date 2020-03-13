@@ -645,6 +645,8 @@ export class StarHealthProposalComponent implements OnInit {
     }
     changeOccupation() {
         this.personal.controls['personalOccupationName'].patchValue(this.occupationList[this.personal.controls['personalOccupation'].value]);
+    } changeOccupation1() {
+        this.personal.controls['personalOccupationName'].patchValue(this.occupationList1[this.personal.controls['personalOccupation'].value]);
     }
     //Proposer Details
 
@@ -761,7 +763,7 @@ export class StarHealthProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.insurerName = successData.ResponseObject;
             console.log(this.insurerName,'this.insurerName...');
-            this.sameProposer(0)
+            this.sameProposer1(0)
         }
     }
     public insurerNameSameAs1Failure(error) {
@@ -2067,12 +2069,12 @@ setRelationship1() {
 
         }
     }
-    sameValues1(){
+    sameValues1(index){
         if(this.requestDetails[0].insured_details[0].sameAsProposer==true){
-            this.sameProposer1();
+            this.sameProposer1(index);
         }else if(this.requestDetails[0].insured_details[0].sameAsProposer==false){
             this.requestDetails[0].insured_details[0].sameAsProposer = false;
-            this.sameProposer1();
+            this.sameProposer1(index);
         }
     }
  // sameProposer1() {
@@ -2098,53 +2100,98 @@ setRelationship1() {
  //        }
  //    }
 
-    sameProposer1() {
+//     sameProposer1() {
+//
+// // alert(this.sameAsProposer)
+//
+//         if (this.sameAsProposer == true) {
+//
+// // alert('2');
+//
+//             // this.familyMembers[0].sameAsProposer = true;
+//
+//             this.requestInsuredDetails[0].ins_dob = this.datepipe.transform(this.requestDetails[0].prop_dob, 'y-MM-dd'),
+//
+//                 console.log(this.requestInsuredDetails[0].ins_dob);
+//
+//             console.log(this.requestDetails[0].prop_dob);
+//
+//             this.requestInsuredDetails[0].ins_name = this.insurerName,
+//
+//                 this.requestInsuredDetails[0].ins_occupation_id = this.requestDetails[0].prop_occupation
+//
+//             if (this.sameAsProposer == true) {
+//
+//                 this.requestInsuredDetails[0].ins_relationship ='1'
+//
+//             }else{
+//
+//                 this.requestInsuredDetails[0].ins_relationship=''
+//
+//             }
+//
+//         } else {
+//
+//             // alert(3)
+//
+//             this.requestInsuredDetails[0].ins_dob='',
+//
+//                 this.requestInsuredDetails[0].ins_name='',
+//
+//                 this.requestInsuredDetails[0].ins_occupation_id ='',
+//
+//                 this.requestInsuredDetails[0].ins_relationship=''
+//
+//         }
+//
+//     }
+    sameAsSelf1(){
+        this.requestInsuredDetails[0].ins_relationship_name = this.relationshipList1[this.requestInsuredDetails[0].ins_relationship];
 
-// alert(this.sameAsProposer)
+    }
 
+    sameProposer1(index){
+        // alert('1')
         if (this.sameAsProposer == true) {
+            this.sameAsValue=true;
+// this.insurerNameSameAs1()
+            this.requestInsuredDetails[0].ins_dob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd'),
+                this.requestInsuredDetails[0].insurerDobError = '';
+            this.ageCheck = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
+            let monthCheck = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y,MM,dd');
+            let dob_days = this.datepipe.transform(this.personal.controls['personalDob'].value, 'dd-MM-y');
+            this.addEventInsurerSelect(this.ageCheck, index, 'Self')
+            let age = this.ageCalculate(this.ageCheck);
+            console.log(age)
 
-// alert('2');
+            this.requestInsuredDetails[0].ins_dob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
+            this.requestInsuredDetails[0].ins_age = age;
+            this.requestInsuredDetails[0].ins_name = (this.insurerName),
+                console.log( this.requestInsuredDetails[0].ins_name)
 
-            // this.familyMembers[0].sameAsProposer = true;
-
-            this.requestInsuredDetails[0].ins_dob = this.datepipe.transform(this.requestDetails[0].prop_dob, 'y-MM-dd'),
-
-                console.log(this.requestInsuredDetails[0].ins_dob);
-
-            console.log(this.requestDetails[0].prop_dob);
-
-            this.requestInsuredDetails[0].ins_name = this.insurerName,
-
-                this.requestInsuredDetails[0].ins_occupation_id = this.requestDetails[0].prop_occupation
+            this.requestInsuredDetails[0].ins_occupation_id = this.personal.controls['personalOccupation'].value;
+            this.setOccupationList1();
+            this.changeOccupation1();
 
             if (this.sameAsProposer == true) {
 
-                this.requestInsuredDetails[0].ins_relationship ='1'
+                this.requestInsuredDetails[0].ins_relationship ='1';
+                // this.selectProposerRelation(index);
+                this.sameAsSelf1();
 
             }else{
-
                 this.requestInsuredDetails[0].ins_relationship=''
-
             }
-
         } else {
-
-            // alert(3)
-
             this.requestInsuredDetails[0].ins_dob='',
-
                 this.requestInsuredDetails[0].ins_name='',
-
                 this.requestInsuredDetails[0].ins_occupation_id ='',
-
                 this.requestInsuredDetails[0].ins_relationship=''
+            // this.familyMembers[index].sameAsProposer = false;
 
         }
 
     }
-
-
 
 
 
