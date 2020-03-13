@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Occupation" formControlName="personalOccupation" (selectionChange)="changeOccupation()" autocomplete="off" required>
+                            <mat-select placeholder="Occupation" formControlName="personalOccupation" (selectionChange)="setOccupationList();changeOccupation()" autocomplete="off" required>
                               <mat-option *ngFor="let occupation of  occupationList | keys" [value]="occupation.key">
                                 {{occupation.value}}
                               </mat-option>
@@ -307,7 +307,7 @@
 
                   <div class="row" >
                     <div class="col-md-12 box-card" *ngIf="i == 0">
-                      <mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs();sameProposer(i)"><strong>Same as proposer</strong></mat-checkbox>
+                      <mat-checkbox [(ngModel)]="sameAsProposer" (change)="insurerNameSameAs();sameProposer(0)"><strong>Same as proposer</strong></mat-checkbox>
                     </div>
                     <h6 class="color-blue">INSURED DETAILS ({{item.type | uppercase}})</h6>
                     <div class="row">

@@ -376,9 +376,7 @@ export class StarHealthProposalComponent implements OnInit {
         });
     }
     ngOnInit() {
-        this.setOccupationList1();
-        this.gstIdList1();
-        this.setRelationship1();
+
         this.proposalId = 0;
             if (this.payLaterr == true) {
             this.stepperindex = 3;
@@ -387,6 +385,9 @@ export class StarHealthProposalComponent implements OnInit {
             this.healthStarTrue1 = true;
             this.healthStarTrue2 = true;
             this.healthStarTrue3 = false;
+                this.setOccupationList1();
+                this.gstIdList1();
+                this.setRelationship1();
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
             this.groupDetails = JSON.parse(sessionStorage.groupDetails);
@@ -394,11 +395,11 @@ export class StarHealthProposalComponent implements OnInit {
             this.pincoce = sessionStorage.setPincode;
             this.setDate = Date.now();
             this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
-            this.setOccupationList();
-            this.setRelationship();
-            this.appointeRelationship();
-            this.nomineRelationship();
-            this.gstIdList();
+                this.setOccupationList();
+                this.setRelationship();
+                this.appointeRelationship();
+                this.nomineRelationship();
+                this.gstIdList();
             if (sessionStorage.changedTabDetails != '' || sessionStorage.changedTabDetails != undefined) {
                 this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
             }
@@ -643,6 +644,7 @@ export class StarHealthProposalComponent implements OnInit {
 
     }
     changeOccupation() {
+        this.personal.controls['personalOccupationName'].patchValue(this.occupationList[this.personal.controls['personalOccupation'].value]);
     }
     //Proposer Details
 
@@ -1373,6 +1375,7 @@ setRelationship1() {
     groupList() {
         this.familyMembers = this.getFamilyDetails.family_members;
         for (let i = 0; i < this.familyMembers.length; i++ ) {
+
             this.familyMembers[i].ins_name = '';
             this.familyMembers[i].ins_dob = '';
             this.familyMembers[i].ins_gender = '';
@@ -1397,6 +1400,11 @@ setRelationship1() {
         }
 
     }
+    sameAsSelf(){
+        this.familyMembers[0].ins_relationship_name = this.relationshipList[this.familyMembers[0].ins_relationship];
+
+    }
+
     selectProposerRelation(index) {
         this.familyMembers[index].ins_relationship_name = this.relationshipList[this.familyMembers[index].ins_relationship];
         console.log(this.familyMembers[index].ins_relationship_name, 'ins_relationship_name');
@@ -1417,16 +1425,25 @@ setRelationship1() {
 
 
     InsureDetails(stepper: MatStepper, index, key) {
-        sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
         console.log(this.familyMembers,'987654')
         this.insurerNameSameAs();
+        sessionStorage.familyMembers = JSON.stringify(this.familyMembers);
+
         this.illnesStatus = false;
         this.insureStatus = false;
         let errorMessage = true;
+        if(this.sameAsProposer==true){
+            stepper.next();
+            this.topScroll();
+            // this.nextStep();
+            // this.healthStarTrue1 = false;
+            // this.healthStarTrue2 = false;
+        }
         if (key == 'Insured Details') {
             for (let i = 0; i < this.familyMembers.length; i++) {
                 if (this.familyMembers[i].ins_name != '' && this.familyMembers[i].ins_dob != '' && this.familyMembers[i].insurerDobError == ''  && this.familyMembers[i].ins_gender != '' && this.familyMembers[i].ins_weight != '' && this.familyMembers[i].ins_height != ''&&  this.familyMembers[i].ins_occupation_id != '' && this.familyMembers[i].ins_relationship != '' && this.familyMembers[i].illness != undefined ) {
                     errorMessage = false;
+                    console.log(errorMessage,'errorMessage..')
                     if (this.familyMembers[i].illness != 'false') {
                         if (this.familyMembers[i].ins_illness == '') {
                             this.illnesStatus = true;
@@ -1453,6 +1470,17 @@ setRelationship1() {
                         if (this.familyMembers[i].ins_hospital_cash != '') {
                             if (i == this.familyMembers.length - 1) {
                                 this.insureStatus = true;
+                                console.log(this.insureStatus,"true");
+                                // stepper.next();
+                                // this.topScroll();
+                                // if(this.sameAsProposer==true){
+                                //     stepper.next();
+                                //     this.topScroll();
+                                //     // this.nextStep();
+                                //     // this.healthStarTrue1 = false;
+                                //     // this.healthStarTrue2 = false;
+                                // }
+
                             }
                         } else {
                             this.errorMessage = true;
@@ -1461,7 +1489,10 @@ setRelationship1() {
 
                     } else if (this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8) {
                         this.errorMessage = false;
+
                         this.insureStatus = false;
+                        console.log(this.insureStatus,"false");
+
                         this.previousInsurence = [];
                         for (let i = 0; i < this.familyMembers.length; i++) {
                             this.previousInsurence.push(this.familyMembers[i].ins_personal_accident_applicable);
@@ -1471,22 +1502,30 @@ setRelationship1() {
                         if (this.familyMembers[i].ins_age >= 18 || this.familyMembers[i].ins_age == '') {
                             if (!this.previousInsurence.includes('2')) {
                                 this.insureStatus = false;
+                                console.log(this.insureStatus,"includes");
+
                                 this.toastr.error('You need to select one adult for personal accident cover');
                                 break;
                             }
                         } else {
                             if (i == this.familyMembers.length - 1) {
                                 this.insureStatus = true;
+                                console.log(this.insureStatus,"1");
+
+
                             }
                         }
                         if (this.familyMembers[i].engage_manual_status == '2') {
                             if (this.familyMembers[i].ins_engage_manual_labour != '') {
                                 if (i == this.familyMembers.length - 1) {
                                     this.insureStatus = true;
+                                    console.log(this.insureStatus,"ins_engage_manual_labour");
+
                                 }
                             } else {
                                 this.errorMessage = true;
                                 this.insureStatus = false;
+                                console.log(this.insureStatus,"elsse");
                                 break;
                             }
 
@@ -1494,6 +1533,8 @@ setRelationship1() {
                             if (this.familyMembers[i].ins_engage_winter_sports != '') {
                                 if (i == this.familyMembers.length - 1) {
                                     this.insureStatus = true;
+                                    console.log(this.insureStatus,"ins_engage_winter_sports");
+
                                 }
                             } else {
                                 this.errorMessage = true;
@@ -1503,6 +1544,7 @@ setRelationship1() {
                         } if (this.familyMembers[i].engage_manual_status == '0' && this.familyMembers[i].engage_winter_status == '0' ) {
                             if (i == this.familyMembers.length - 1) {
                                 this.insureStatus = true;
+                                console.log(this.insureStatus,"engage_manual_status");
                             }
                         }
                     } else {
@@ -1516,8 +1558,10 @@ setRelationship1() {
         if (this.errorMessage) {
             this.toastr.error('Please fill the empty fields', key);
         }
-        if (this.insureStatus) {
+        // alert(this.insureStatus)
+        if (this.insureStatus&&this.sameAsProposer==false) {
             if (sessionStorage.insurerDobError == '' && sessionStorage.ageRestriction =='') {
+               // alert('5')
                 stepper.next();
                 this.topScroll();
                 this.nextStep();
@@ -2008,7 +2052,8 @@ setRelationship1() {
             if (this.sameAsProposer == true) {
 
                 this.familyMembers[0].ins_relationship ='1';
-                this.selectProposerRelation(index);
+                // this.selectProposerRelation(index);
+                this.sameAsSelf();
 
             }else{
                 this.familyMembers[0].ins_relationship=''
