@@ -800,6 +800,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     public AddonSuccess(successData) {
         if (successData.IsSuccess) {
             this.addon = successData.ResponseObject.addons_list[0];
+            // alert(this.addon);
             this.objectKeys = Object.keys(this.addon).map(k => ({key: k, value:  this.addon[k]}));
             console.log(this.objectKeys, 'this.objectKeys8');
             for (let i=0; i < this.objectKeys.length; i++) {
@@ -933,15 +934,15 @@ export class ReligareHealthProposalComponent implements OnInit {
             'proposer_alter_mob': value.personalAltnumber,
             'proposer_res_address1': value.residenceAddress,
             'proposer_res_address2': value.residenceAddress2,
-            'proposer_res_city': value.residenceCity,
-            'proposer_res_cityName': value.residenceCityName,
+            'proposer_res_city': this.personal.controls['residenceCity'].value,
+            'proposer_res_cityName': this.personal.controls['residenceCityName'].value,
             'proposer_res_state': value.residenceState,
             'proposer_res_pincode': value.residencePincode,
             'proposer_comm_address1': value.personalAddress,
             'proposer_comm_address2': value.personalAddress2,
             'proposer_comm_pincode': value.personalPincode,
-            'proposer_comm_city': value.personalCity,
-            'proposer_comm_cityName': value.personalCityName,
+            'proposer_comm_city': this.personal.controls['personalCity'].value,
+            'proposer_comm_cityName': this.personal.controls['personalCityName'].value,
             'proposer_comm_state': value.personalState,
             'sameas': false ? 0 :1
         };
@@ -1061,6 +1062,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
     sameAddressInsurer(values: any, index) {
         if (values.checked) {
+            this.changePerCity();
             this.insureArray['controls'].items['controls'][index]['controls'].cityHide.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].sameas.value);
             this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress.value);
             this.insureArray['controls'].items['controls'][index]['controls'].residenceAddress2.patchValue(this.insureArray['controls'].items['controls'][index]['controls'].personalAddress2.value);
@@ -1664,47 +1666,68 @@ export class ReligareHealthProposalComponent implements OnInit {
                             if (this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status == true) {
                                 if (this.religareQuestionsList[i].sub_questions_list[j].question_details.question_description != '') {
                                     statusChecked.push(1);
+
                                     if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
                                         statusChecked.push(0);
+
                                     }
                                 } else {
                                     if (this.religareQuestionsList[i].sub_questions_list[j].question_details.description_textarea == '1') {
                                         if (this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
                                             statusChecked.push(0);
+
                                         } else {
                                             statusChecked.push(1);
+
                                         }
                                     } else {
                                         statusChecked.push(1);
+
                                     }
                                 }
+
                             }
                             else if(this.religareQuestionsList[i].mStatus == 'Yes'&&this.religareQuestionsList[i].sub_questions_list[j].question_details.family_group[k].status != true){
+                                // this.checkBoxError=false;
+
                             }
                         }
                     }
                 }
                 if (statusChecked.length == 0){
                     statusChecked.push(2);
+
+
                 }
             } else {
                 if (i == this.religareQuestionsList.length - 1) {
                     statusChecked.push(1);
+
                 }
+
             }
         }
         if (statusChecked.includes(0)) {
+
             this.toastr.error('Please fill the empty field');
         } else if (statusChecked.includes(2)) {
+
             this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
         } else {
+
+            // if(this.checkBoxError==true){
                 stepper.next();
                 this.topScroll();
                 this.nextStep();
                 this.religareMobileTrue2 = false;
                 this.religareMobileTrue3 = false;
+            // }
+            // else  if(this.checkBoxError==false){
+            //     this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+            // }
         }
     }
+
 
     medicalHistoryDetailsPayLater() {
         this.questions_list = [];
@@ -1742,47 +1765,75 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.medicalStatus = [];
         for (let i = 0; i < this.requestmedicalQuestion.length; i++) {
             if(this.requestmedicalQuestion[i].mStatus == 'No'){
+                // alert('religareQuestionsList No')
+                // alert(this.religareQuestionsList[i].mStatus)  //no  toggle
                 this.medicalStatus.push('No');
+                // alert(this.medicalStatus)  ///no,ye,no   taoggle
+
             } else if(this.requestmedicalQuestion[i].mStatus == 'Yes') {   ///first one yes means satisfied this condition
+                // alert('religareQuestionsList yes')
+                // alert(this.religareQuestionsList[i].mStatus)
                 this.medicalStatus.push('Yes');
+                // alert(this.medicalStatus)
+
             }
             for (let i = 0; i < this.totalPayLaterDetails.length; i++) {
                 this.totalPayLaterDetails[i].medical_status = this.medicalStatus.includes('Yes') ? 'Yes' : 'No'//toggle length
+                // alert('medi')
+                // alert(this.totalReligareData[i].medical_status)
             }
             if (this.requestmedicalQuestion[i].answer_status == true) {
+                // alert('answer_status');
+                // alert(this.religareQuestionsList[i].answer_status)
                 for (let j = 0; j < this.requestmedicalQuestion[i].sub_questions_list.length; j++) {
+
                     for (let k = 0; k < this.requestmedicalQuestion[i].sub_questions_list[j].question_details.family_group.length; k++) {
                         if(this.requestmedicalQuestion[i].mStatus == 'Yes'){
+
                             if (this.requestmedicalQuestion[i].mStatus == 'Yes' && this.requestmedicalQuestion[i].sub_questions_list[j].question_details.family_group[k].status == true) {
+                                // this.checkBoxError=true;
+
                                 if (this.requestmedicalQuestion[i].sub_questions_list[j].question_details.question_description != '') {
                                     statusChecked.push(1);
+
                                     if (this.requestmedicalQuestion[i].sub_questions_list[j].question_details.family_group[k].existingSince == '') {
                                         statusChecked.push(0);
+
                                     }
                                 } else {
                                     if (this.requestmedicalQuestion[i].sub_questions_list[j].question_details.description_textarea == '1') {
                                         if (this.requestmedicalQuestion[i].sub_questions_list[j].question_details.family_group[k].diseasesDescription == '') {
                                             statusChecked.push(0);
+
                                         } else {
                                             statusChecked.push(1);
+
                                         }
                                     } else {
                                         statusChecked.push(1);
+
                                     }
                                 }
+
                             }
                             else if(this.requestmedicalQuestion[i].mStatus == 'Yes' && this.requestmedicalQuestion[i].sub_questions_list[j].question_details.family_group[k].status != true){
+                                // this.checkBoxError=false;
+
                             }
                         }
                     }
                 }
                 if (statusChecked.length == 0){
                     statusChecked.push(2);
+
+
                 }
             } else {
                 if (i == this.requestmedicalQuestion.length - 1) {
                     statusChecked.push(1);
+
                 }
+
             }
         }
         if (statusChecked.includes(0)) {
@@ -1792,6 +1843,17 @@ export class ReligareHealthProposalComponent implements OnInit {
 
             this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
         } else {
+
+            // if(this.checkBoxError==true){
+            //     // stepper.next();
+            //     // this.topScroll();
+            //     // this.nextStep();
+            //     // this.religareMobileTrue2 = false;
+            //     // this.religareMobileTrue3 = false;
+            // }
+            // else  if(this.checkBoxError==false){
+            //     this.toastr.error('Please Select Atleast One Checkbox! for Selected Question');
+            // }
         }
     }
 
@@ -1824,6 +1886,14 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.suminsureddropdownProposal(stepper);
         }
     }
+    // selectNomineeRelation(){
+    //     console.log(this.insureRelationList, 'lyyy');
+    //     console.log(this.insureRelationList[this.nomineeDetails['controls'].religareRelationship.value], 'hhhh');
+    //     console.log(this.nomineeDetails['controls'].religareRelationship.value, 'wwww');
+    //     this.nomineeDetails['controls'].nomineRelationshipName.patchValue(this.insureRelationList[this.nomineeDetails['controls'].religareRelationship.value]);
+    //
+    //     console.log(this.nomineeDetails.value, 'nomiee');
+    // }
 
     // session Details
     sessionData() {
@@ -1937,6 +2007,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
             this.proposalId = sessionStorage.proposalID;
         }
+
     }
 
     //Create Proposal
@@ -1980,6 +2051,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 this.proposalFailure(error);
             }
         );
+
     }
     public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
@@ -2008,6 +2080,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.religareMobileTrue4 = false;
             this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4;
             console.log(this.valueSII, 'this.valueSIIthis.valueSII')
+            // this.suminsureddropdownProposal();
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -2015,6 +2089,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
     }
+
 
     stepback() {
         this.back = true;
@@ -2058,6 +2133,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
     }
 
+
     payLater() {
         const data = {
             'platform': 'web',
@@ -2073,7 +2149,9 @@ export class ReligareHealthProposalComponent implements OnInit {
             'returnURL': this.summaryData.returnURL,
             'paymentlink-date': '',
             'add_ons': this.setAddonDefault ? this.addonDetails.toString() : 'CAREWITHNCB',
+            // 'add_ons': this.addonKey,
             'suminsured_amount': this.changeSuninsuredAmount != undefined ? this.changeSuninsuredAmount : this.buyProductdetails.suminsured_amount,
+            // 'proposer_insurer_details': this.totalReligareData,
             'proposer_details': this.personalDetailss,
             'insured_details': this.insuredDetails,
             'product_id': this.buyProductdetails.product_id,
@@ -2091,6 +2169,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         };
         console.log(data, 'payyyyy');
         console.log(this.getFamilyDetails.name,'get family details');
+
         this.settings.loadingSpinner = true;
         this.proposalservice.proposalPayLater(data).subscribe(
             (successData) => {
@@ -2100,6 +2179,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 this.payLaterFailure(error);
             }
         );
+
     }
     public payLaterSuccess(successData) {
         if (successData.IsSuccess) {
@@ -2110,9 +2190,12 @@ export class ReligareHealthProposalComponent implements OnInit {
             // this.toastr.error('sorry!');
         }
     }
-    public payLaterFailure(successData) {}
+
+    public payLaterFailure(successData) {
+    }
     saveEdit(){
         this.router.navigate(['/home']);
+
     }
     // get request
     getBackRequest() {
@@ -2131,6 +2214,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             }
         );
     }
+
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
             this.submitPayLater = false;
@@ -2181,11 +2265,26 @@ export class ReligareHealthProposalComponent implements OnInit {
                     this.pa = true;
                 }
             }
-        } else {}
+            // this.addOnValuefrmReq = JSON.stringify(this.requestDetails.add_ons);
+            // console.log(this.addOnValuefrmReq, 'this.addOnValuefrmReq valueeeeeeeeee.../')
+            // this.addOnValue = this.addOnValuefrmReq.split(",");
+            // console.log(this.addOnValue, 'this.addOnValue Valueeeeeee');
+            // let objectYear=JSON.stringify(Object.assign({}, this.requestDetails.add_ons.split(',')));   //array to object string convertion
+            // // this.arrayOfYearList=Object.entries(this.yearArray).map(([id, value]) => ({id,value}));  //array to object with key and value
+            // // console.log(this.arrayOfYearList,'objectYear...');
+            // console.log(objectYear, 'objectYear.....');
+            // this.addOnValue= [];
+            // this.addOnValue.push(objectYear.split(','));
+            // console.log(this.addOnValue, 'this.addOnValue Valueeeeeee');
+
+
+        } else {
+        }
         console.log(this.requestDetails,'requestDetails');
     }
     public getBackResFailure(successData) {}
     payLaterEdit() {
+        // this.suminsureddropdown();
         this.personal.controls['personalTitle'].patchValue(this.requestProserDetails.title);
         this.personal.controls['personalFirstname'].patchValue(this.requestProserDetails.proposer_fname);
         this.personal.controls['personalLastname'].patchValue(this.requestProserDetails.proposer_lname);
@@ -2197,7 +2296,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.personal.controls['personalAddress2'].patchValue(this.requestProserDetails.proposer_comm_address2);
         this.personal.controls['personalPincode'].patchValue(this.requestProserDetails.proposer_comm_pincode);
         this.getPostal(this.requestProserDetails.proposer_comm_pincode, 'personal');
-        this.personal.controls['personalCity'].patchValue(this.requestProserDetails.proposer_comm_city);
+        this.personal.controls['personalCity'].patchValue('1');
         this.personal.controls['personalState'].patchValue(this.requestProserDetails.proposer_comm_state);
         if(this.requestProserDetails.sameas == 1) {
             this.personal.controls['sameas'].patchValue('1');
@@ -2214,6 +2313,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.personal.controls['personalAltnumber'].patchValue(this.requestProserDetails.proposer_alter_mob);
         this.personal.controls['personalAadhar'].patchValue(this.requestProserDetails.proposer_aadhar);
         this.personal.controls['personalGst'].patchValue(this.requestProserDetails.proposer_gst);
+        // this.
         this.setRelationship();
         for(let i=0; i < this.requestInsuredDetails.length; i++) {
             if(this.requestInsuredDetails[0].sameas == 1) {
@@ -2290,6 +2390,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         }
         this.nomineeDetails.controls['religareNomineeName'].patchValue(this.requestDetails.nominee_name);
         this.nomineeDetails.controls['religareRelationship'].patchValue(this.requestDetails.nominee_relationship);
+
     }
     createProposerPayLater() {
         this.payoutDetaillsss = [];
@@ -2443,6 +2544,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         console.log(this.totalPayLaterDetails, 'totalPayLaterDetails...../////');
         this.medicalHistoryDetailsPayLater();
         console.log(this.totalPayLaterDetails, 'totalPayLaterDetails....11111./////');
+        // this.arrayAddonsValue=[]
         this.arrayAddonsValue={
             'EVERYDAYCARE':this.everyDyCare,
             'NCBSUPER':this.ncbSuper,
@@ -2461,6 +2563,8 @@ export class ReligareHealthProposalComponent implements OnInit {
         }
          console.log(this.arrr, 'new array of addons')
          console.log(this.arrayAddonsValue,'arrayAddonsValue....')
+
+        // if(this.personal.valid && this.insuredForm1.valid && this.insuredForm2.valid && this.insuredForm3.valid) {
         this.totalDataPL = {
             'platform': 'web',
             'proposal_id': this.newProposalId != undefined ? this.newProposalId : this.proposalIdPayLater,
@@ -2501,12 +2605,16 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         console.log(successData.ResponseObject, 'successData.ResponseObject....///')
         if (successData.IsSuccess == true) {
+            // alert('true')
             this.payLaterSubmitDetails = successData.ResponseObject;
             this.newProposalId = this.payLaterSubmitDetails.policy_id;
             this.newProposalNum = this.payLaterSubmitDetails.proposalNum;
             this.newReturnURL = this.payLaterSubmitDetails.returnURL;
             this.newAction = this.payLaterSubmitDetails.action;
             this.newPremium = this.payLaterSubmitDetails.total_premium;
+
+            // this.proposalId = this.payLaterSubmitDetails.policy_id;
+            // sessionStorage.proposalID = this.proposalId;
             this.commonPolicyData();
             this.trycondi();
         } else {
@@ -2542,11 +2650,13 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.payLaterPerAdd = this.payLaterSummary.premanent_details;
             this.payLaterInsurdDet = this.payLaterSummary.insurer_details;
             this.payLaterNominDet = this.payLaterSummary.nominee_details;
-        } else {}
+        } else {
+        }
     }
     public policyDataFailure(error) {
         console.log(error, 'error');
         this.toastr.error(error.ErrorObject);
+        // this.commonPolicyData();
     }
     addonPLValuess() {
         if(this.everyDyCare == true) {
@@ -2573,9 +2683,11 @@ export class ReligareHealthProposalComponent implements OnInit {
 
     showicon(){
         this.inputfieldshow =true;
+        // this.suminsureddropdown();
     }
 
     suminsureddropdownProposal(stepper) {
+        // alert('in')
         const data = {
             'platform':'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -2599,6 +2711,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         console.log(successData.ResponseObject, 'successData.ResponseObject....///')
         this.suminsuredamount = successData.ResponseObject;
         this.inputfieldshow = false;
+        // console.log(this.changeSuninsuredAmount, 'valuesi')
         this.proposal(stepper);
         this.newSIProposal = this.changeSuninsuredAmount;
     }
@@ -2607,6 +2720,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.toastr.error(error.ErrorObject);
     }
     suminsureddropdown() {
+        // alert('in')
         const data = {
             'platform':'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -2629,89 +2743,101 @@ export class ReligareHealthProposalComponent implements OnInit {
     public suminsureddropdownSuccess(successData) {
         console.log(successData.ResponseObject, 'successData.ResponseObject....///')
         this.suminsuredamount = successData.ResponseObject;
+        // this.suminsuredamount =this.suminsuredamount1.sort() ;
         this.inputfieldshow = false;
-        console.log(this.changeSuminsuredAmount, 'newSIPL.....')
+
+        // this.suminsuredid();
+console.log(this.changeSuminsuredAmount, 'newSIPL.....')
+        // this.proposal(stepper);
         this.newSIProposalPL = this.changeSuminsuredAmount;
-        console.log(this.newSIProposalPL, 'this.newSIProposalPL')
+console.log(this.newSIProposalPL, 'this.newSIProposalPL')
         this.createProposerPayLater();
+
     }
     public suminsureddropdownFailure(error) {
         console.log(error, 'error');
         this.toastr.error(error.ErrorObject);
     }
 
-    // suminsuredid(){
-    //     const data = {
-    //         'platform':'web',
-    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-    //         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-    //         "sum_insured_amount": this.changeSuninsuredAmount
-    //     };
-    //     this.proposalservice.suminsuredIdval(data).subscribe(
-    //         (successData) => {
-    //             this.suminsuredidSuccess(successData);
-    //         },
-    //         (error) => {
-    //             this.suminsuredidFailure(error);
-    //         }
-    //     );
-    // }
-    // public suminsuredidSuccess(successData) {
-    //     console.log(successData.ResponseObject.prod_suminsured_id, 'successData.ResponseObject....///')
-    //     this.suminsuredidvalue = successData.ResponseObject.prod_suminsured_id;
-    //     this.productlistsumm();
-    // }
-    // public suminsuredidFailure(error) {
-    //     console.log(error, 'error');
-    //     this.toastr.error(error.ErrorObject);
-    // }
-    //
-    // productlistsumm(){
-    //     const data = {
-    //         'platform':'web',
-    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-    //         'product_id': this.product_id != undefined ? this.product_id : this.buyProductdetails.product_id,
-    //         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-    //         "postalcode": this.pincoce ? this.pincoce : '',
-    //         "sum_insured":this.suminsuredidvalue,
-    //         "created_by": "0",
-    //         "company_id": "1",
-    //         'enquiry_id': this.enquiryIdPayLater != undefined ? this.enquiryIdPayLater : this.getFamilyDetails.enquiry_id,
-    //         'plan_name': this.planNamePayLater != undefined ? this.planNamePayLater : this.buyProductdetails.product_name,
-    //         'family_group_name': this.famNamePayLater != undefined ? this.famNamePayLater : this.getFamilyDetails.name
-    //     }
-    //     this.settings.loadingSpinner = true;
-    //     this.proposalservice.productVal(data).subscribe(
-    //         (successData) => {
-    //             this.suminsuredProductSuccess(successData);
-    //         },
-    //         (error) => {
-    //             this.suminsuredProductFailure(error);
-    //         }
-    //     );
-    // }
-    // public suminsuredProductSuccess(successData) {
-    //     this.settings.loadingSpinner = false;
-    //     console.log(successData.ResponseObject, 'successData.ResponseObject....///')
-    //     this.productvalue = successData.ResponseObject;
-    //     for(let i=0; i < this.productvalue.length; i++) {
-    //         this.valueSI = this.productvalue[i].product_lists;
-    //         for(let j=0; j < this.valueSI.length; j++) {
-    //             this.valueSII = this.valueSI[j].suminsured_amount;
-    //             this.valuePremium = this.valueSI[j].premium_total;
-    //         }
-    //     }
-    //     this.inputfieldshow = false;
-    //     this.createProposerPayLater();
-    //     console.log(this.valueSI, 'llllllll')
-    //     console.log(this.valueSII, 'llllllll')
-    // }
-    // public suminsuredProductFailure(error) {
-    //     console.log(error, 'error');
-    //     this.toastr.error(error.ErrorObject);
-    // }
+    suminsuredid(){
+        const data = {
+            'platform':'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            // 'product_id': this.buyProductdetails.product_id,
+            // 'scheme_id': this.buyProductdetails.scheme,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            "sum_insured_amount": this.changeSuninsuredAmount
+        };
+        this.proposalservice.suminsuredIdval(data).subscribe(
+            (successData) => {
+                this.suminsuredidSuccess(successData);
+            },
+            (error) => {
+                this.suminsuredidFailure(error);
+            }
+        );
+    }
+    public suminsuredidSuccess(successData) {
+        console.log(successData.ResponseObject.prod_suminsured_id, 'successData.ResponseObject....///')
+        this.suminsuredidvalue = successData.ResponseObject.prod_suminsured_id;
+        // this.createProposerPayLater();
+
+        this.productlistsumm();
+
+    }
+    public suminsuredidFailure(error) {
+        console.log(error, 'error');
+        this.toastr.error(error.ErrorObject);
+    }
+
+    productlistsumm(){
+        const data = {
+            'platform':'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'product_id': this.product_id != undefined ? this.product_id : this.buyProductdetails.product_id,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            "postalcode": this.pincoce ? this.pincoce : '',
+            "sum_insured":this.suminsuredidvalue,
+            "created_by": "0",
+            "company_id": "1",
+            'enquiry_id': this.enquiryIdPayLater != undefined ? this.enquiryIdPayLater : this.getFamilyDetails.enquiry_id,
+            'plan_name': this.planNamePayLater != undefined ? this.planNamePayLater : this.buyProductdetails.product_name,
+            'family_group_name': this.famNamePayLater != undefined ? this.famNamePayLater : this.getFamilyDetails.name
+        }
+        this.settings.loadingSpinner = true;
+        this.proposalservice.productVal(data).subscribe(
+            (successData) => {
+                this.suminsuredProductSuccess(successData);
+            },
+            (error) => {
+                this.suminsuredProductFailure(error);
+            }
+        );
+    }
+    public suminsuredProductSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        console.log(successData.ResponseObject, 'successData.ResponseObject....///')
+        this.productvalue = successData.ResponseObject;
+        for(let i=0; i < this.productvalue.length; i++) {
+            this.valueSI = this.productvalue[i].product_lists;
+            for(let j=0; j < this.valueSI.length; j++) {
+                this.valueSII = this.valueSI[j].suminsured_amount;
+                this.valuePremium = this.valueSI[j].premium_total;
+            }
+        }
+        this.inputfieldshow = false;
+        this.createProposerPayLater();
+        // this.proposal(llop);
+
+        console.log(this.valueSI, 'llllllll')
+        console.log(this.valueSII, 'llllllll')
+    }
+    public suminsuredProductFailure(error) {
+        console.log(error, 'error');
+        this.toastr.error(error.ErrorObject);
+    }
 
 
 }
