@@ -3107,7 +3107,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           <p ><span style="margin-left: 35px">Cover Electrical Accessories:</span><span style="margin-left: 194px">{{this.ELECTRICAL_ACCESSORIES}} </span> </p>
         </div>
          <div class="col-md-12"  *ngIf="this.NON_ELECTRICAL_ACCESSORIES!=''&& this.NON_ELECTRICAL_ACCESSORIES!=undefined">
-          <p ><span style="margin-left: 35px"> Basic Premium And Non Electrical Accessories:</span><span style="margin-left: 79px">{{this.NON_ELECTRICAL_ACCESSORIES}} </span> </p>
+          <p ><span style="margin-left: 35px"> Basic Premium And Non Electrical Accessories:</span><span style="margin-left: 77px">{{this.NON_ELECTRICAL_ACCESSORIES}} </span> </p>
         </div>
           <div mat-dialog-actions style="justify-content: center">
             <button mat-raised-button style="background-color: darkblue; color: white;" (click)="cancel()">Cancel</button>
