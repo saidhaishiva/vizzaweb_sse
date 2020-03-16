@@ -422,7 +422,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changeAddon();
     // this.getcity();
     this.getcityin();
-    this.coverPremium();
+    // this.coverPremium();
     this.idvValuess();
     this.idvValue();
     this.towingChargeSIValue();
@@ -497,6 +497,34 @@ export class RsFourwheelerProposalComponent implements OnInit {
         this.taxValue=false;
       }
       console.log(this.taxValue,'taxValue....')
+  }
+
+  coverTypee(){
+    if(this.vehical.controls['typeOfCover'].value != 'LiabilityOnly'){
+      this.vehical.controls['IDV'].setValidators([Validators.required]);
+
+    } else {
+      this.vehical.controls['IDV'].patchValue('');
+      this.vehical.controls['voluntary'].patchValue('');
+      this.vehical.controls['invoicePrice'].patchValue('');
+      this.vehical.controls['fibreGlass'].patchValue('');
+      this.vehical.controls['coverelectricalaccesss'].patchValue('');
+      this.vehical.controls['cover_non_elec_acc'].patchValue('');
+
+      this.vehical.controls['IDV'].setValidators(null);
+      this.vehical.controls['voluntary'].setValidators(null);
+      this.vehical.controls['invoicePrice'].setValidators(null);
+      this.vehical.controls['fibreGlass'].setValidators(null);
+      this.vehical.controls['coverelectricalaccesss'].setValidators(null);
+      this.vehical.controls['cover_non_elec_acc'].setValidators(null);
+
+      }
+      this.vehical.controls['IDV'].updateValueAndValidity();
+      this.vehical.controls['voluntary'].updateValueAndValidity();
+      this.vehical.controls['invoicePrice'].updateValueAndValidity();
+      this.vehical.controls['fibreGlass'].updateValueAndValidity();
+      this.vehical.controls['coverelectricalaccesss'].updateValueAndValidity();
+      this.vehical.controls['cover_non_elec_acc'].updateValueAndValidity();
   }
 
 
@@ -1148,7 +1176,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   addonlimit(event: any) {
     if (this.vehical.controls['addonValue'].value <= 100000) {
       this.vehical.controls['addonValue'].patchValue(this.vehical.controls['addonValue'].value);
-      this.coverPremium();
+      // this.coverPremium();
     } else {
       this.toastr.error('Addon Values should be less than 100000');
     }
@@ -1985,7 +2013,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
 
-  coverPremium() {
+  coverPremium(stepper) {
     const data = {
       "platform": "web",
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -2092,15 +2120,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     this.fourWheeler.calculatrepremiumrs(data).subscribe(
         (successData) => {
-          this.calculatrepremiumrsSuccess(successData);
+          this.calculatrepremiumrsSuccess(successData,stepper);
         },
         (error) => {
           this.calculatrepremiumrsFailure(error);
         }
     );
   }
-  public calculatrepremiumrsSuccess(successData) {
-    this.settings.loadingSpinner = false;
+  public calculatrepremiumrsSuccess(successData,stepper) {
 
     if (successData.IsSuccess) {
       this.AddonList = successData.ResponseObject;
@@ -2153,6 +2180,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
         this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE;
         sessionStorage.INVOICE_PRICE_INSURANCE=this.INVOICE_PRICE_INSURANCE
+
+        this.settings.loadingSpinner = false;
+        this.vehicalDetails(stepper,this.vehical.value)
 
         // this.premiumadd=this.AddonList.premium;
       // console.log(this.premiumadd,'gfhfhgfh')
@@ -3077,7 +3107,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           <p ><span style="margin-left: 35px">Cover Electrical Accessories:</span><span style="margin-left: 194px">{{this.ELECTRICAL_ACCESSORIES}} </span> </p>
         </div>
          <div class="col-md-12"  *ngIf="this.NON_ELECTRICAL_ACCESSORIES!=''&& this.NON_ELECTRICAL_ACCESSORIES!=undefined">
-          <p ><span style="margin-left: 35px">Cover Non Electrical Accessories:</span><span style="margin-left: 165px">{{this.NON_ELECTRICAL_ACCESSORIES}} </span> </p>
+          <p ><span style="margin-left: 35px"> Basic Premium And Non Electrical Accessories:</span><span style="margin-left: 79px">{{this.NON_ELECTRICAL_ACCESSORIES}} </span> </p>
         </div>
           <div mat-dialog-actions style="justify-content: center">
             <button mat-raised-button style="background-color: darkblue; color: white;" (click)="cancel()">Cancel</button>
