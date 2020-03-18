@@ -703,24 +703,32 @@
                       <div class="col-md-12 mt-2">
                         <h3 class="color-blue" style="font-size: medium">Vehicle Details</h3>
                       </div>
-                      <div class="col-md-4 mt-0" *ngIf="bifuelCover == true">
-                        <mat-form-field class="w-100" [ngStyle]="{'pointer-events': bifuelCover == true||this.bifuelType == '5' ? 'none' : ''}">
-                        <!--<mat-form-field class="w-100" >-->
-                          <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == true"  [disabled]="bifuelCover == true" >
-                            <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]="type.key == '1'&&type.key =='2'&&type.key =='3'&&type.key =='4'&&type.key =='6'" > {{type.value}} </mat-option>
+                      <!--<div class="col-md-4 mt-0" *ngIf="bifuelCover == true">-->
+                        <!--<mat-form-field class="w-100" [ngStyle]="{'pointer-events': bifuelCover == true||this.bifuelType == '5' ? 'none' : ''}">-->
+                        <!--&lt;!&ndash;<mat-form-field class="w-100" >&ndash;&gt;-->
+                          <!--<mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == true"  [disabled]="bifuelCover == true" >-->
+                            <!--<mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]="type.key == '1'&&type.key =='2'&&type.key =='3'&&type.key =='4'&&type.key =='6'" > {{type.value}} </mat-option>-->
 
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4 mt-0" *ngIf="bifuelCover == false">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == false" >
-                            <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]="type.key == '5'"> {{type.value}} </mat-option>
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4 mt-0" *ngIf="bifuelCover == false">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == false" >-->
+                            <!--<mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]="type.key == '5'"> {{type.value}} </mat-option>-->
 
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>
-                        </mat-form-field>
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <div class="col-md-4 mt-0" >
+                      <mat-form-field class="w-100">
+                      <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" required >
+                      <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>
+                      </mat-form-field>
                       </div>
                         <div class="col-md-4 mt-0" *ngIf="buyProduct.business_type ==6">
                           <mat-form-field class="w-100">
