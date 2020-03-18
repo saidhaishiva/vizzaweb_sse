@@ -596,7 +596,8 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{item.personalTitle}}. {{item.personalFirstname}} {{item.personalLastname   }}</li>
+                        <li class="list-group-item" *ngIf="item.personalTitle == 'MS'"><strong>Name:</strong> Ms. {{item.personalFirstname}} {{item.personalLastname   }}</li>
+                        <li class="list-group-item" *ngIf="item.personalTitle == 'MR'"><strong>Name:</strong> Mr. {{item.personalFirstname}} {{item.personalLastname   }}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{item.personalDob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Gender:</strong> {{item.personalGender}}</li>
                         <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.personalrelationshipName}}</li>
@@ -1020,7 +1021,7 @@
                   <mat-expansion-panel expanded>
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        INSURED for {{insuredtype1}}
+                        INSURED DETAILS FOR {{insuredtype1}}
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="mt-3" *ngIf="planNamePayLater != 'Care Freedom'">
@@ -1121,7 +1122,7 @@
                   <mat-expansion-panel expanded>
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        INSURED for {{insuredtype2}}
+                          INSURED DETAILS FOR {{insuredtype2}}
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="row mt-4">
@@ -1219,7 +1220,7 @@
                   <mat-expansion-panel expanded>
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        INSURED for {{insuredtype3}}
+                          INSURED DETAILS FOR {{insuredtype3}}
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="row mt-4">
@@ -1317,7 +1318,7 @@
                   <mat-expansion-panel expanded>
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        INSURED for {{insuredtype4}}
+                          INSURED DETAILS FOR {{insuredtype4}}
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="row mt-4">
@@ -1539,7 +1540,8 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{payLaterPrposerDet.title}}. {{payLaterPrposerDet.first_name}} {{payLaterPrposerDet.last_name}}</li>
+                        <li class="list-group-item" *ngIf="payLaterPrposerDet.title == 'MS'"><strong>Name:</strong> Ms. {{payLaterPrposerDet.first_name}} {{payLaterPrposerDet.last_name}}</li>
+                        <li class="list-group-item" *ngIf="payLaterPrposerDet.title == 'MR'"><strong>Name:</strong> Mr. {{payLaterPrposerDet.first_name}} {{payLaterPrposerDet.last_name}}</li>
                         <li class="list-group-item"><strong>Gender:</strong> {{payLaterPrposerDet.gender}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{payLaterPrposerDet.mobile}}</li>
                         <li class="list-group-item" *ngIf="payLaterPrposerDet.alternate_contact != ''"><strong>Alternate Number:</strong> {{payLaterPrposerDet.alternate_contact}}</li>
@@ -1585,12 +1587,13 @@
                 </div>
 
                 <section *ngFor="let item of payLaterInsurdDet; let i = index;">
-                  <h5 class="mt-3 sub-title">INSURED DETAILS for {{item.religare_relationship_name}}</h5>
+                  <h5 class="mt-3 sub-title">INSURED DETAILS FOR {{item.religare_relationship_name}}</h5>
                   <div class="row box-card">
                     <div class="col-md-6">
                       <div class="p-3">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Name:</strong> {{item.title}}. {{item.first_name}} {{item.last_name}}</li>
+                          <li class="list-group-item" *ngIf="item.title == 'MS'"><strong>Name:</strong> Ms. {{item.first_name}} {{item.last_name}}</li>
+                          <li class="list-group-item" *ngIf="item.title == 'MR'"><strong>Name:</strong> Mr. {{item.first_name}} {{item.last_name}}</li>
                           <li class="list-group-item"><strong>Gender:</strong> {{item.gender}}</li>
                           <li class="list-group-item"><strong>height:</strong> {{item.height}}</li>
                           <li class="list-group-item"><strong>Weight:</strong> {{item.weight}}</li>
@@ -1729,7 +1732,8 @@
                   </div>
                 </div>
 
-                <div class="row box-card" *ngIf="(product_id == '1' && (requestDetails.suminsured_amount != 300000.00 || requestDetails.suminsured_amount != 300000)) || (product_id == '1' && (changeSuminsuredAmount != 300000.00 || changeSuminsuredAmount != 300000))">-->
+                  <h5 class="mt-3 sub-title" *ngIf="(product_id == '1' && (requestDetails.suminsured_amount != 300000.00 || requestDetails.suminsured_amount != 300000)) && (product_id == '1' && (changeSuminsuredAmount != 300000.00 || changeSuminsuredAmount != 300000))">ADDONS</h5>
+                  <div class="row box-card" *ngIf="(product_id == '1' && (requestDetails.suminsured_amount != 300000.00 || requestDetails.suminsured_amount != 300000)) && (product_id == '1' && (changeSuminsuredAmount != 300000.00 || changeSuminsuredAmount != 300000))">-->
 
                                     <div class="col-md-6" *ngIf="this.everyDyCare != undefined && this.everyDyCare != false">
 
@@ -3297,7 +3301,7 @@
                 </div>
 
                 <section *ngFor="let item of payLaterInsurdDet; let i = index;">
-                  <h5 class="mt-3 sub-title">INSURED DETAILS for {{item.religare_relationship_name}}</h5>
+                  <h5 class="mt-3 sub-title">INSURED DETAILS FOR {{item.religare_relationship_name}}</h5>
                   <div class="row box-card">
                     <div class="col-12">
                       <div class="p-3">
@@ -3425,7 +3429,8 @@
                   </div>
                 </div>
 
-                <div class="row box-card" *ngIf="(product_id == '1' && (requestDetails.suminsured_amount != 300000.00 || requestDetails.suminsured_amount != 300000)) || (product_id == '1' && (changeSuminsuredAmount != 300000.00 || changeSuminsuredAmount != 300000))">-->
+                  <h5 class="mt-3 sub-title" *ngIf="(product_id == '1' && (requestDetails.suminsured_amount != 300000.00 || requestDetails.suminsured_amount != 300000)) && (product_id == '1' && (changeSuminsuredAmount != 300000.00 || changeSuminsuredAmount != 300000))">ADDONS</h5>
+                  <div class="row box-card" *ngIf="(product_id == '1' && (requestDetails.suminsured_amount != 300000.00 || requestDetails.suminsured_amount != 300000)) && (product_id == '1' && (changeSuminsuredAmount != 300000.00 || changeSuminsuredAmount != 300000))">-->
                   <div class="col-12" *ngIf="this.everyDyCare != undefined && this.everyDyCare != false">
                     <div class="p-3">
                       <div class="row">

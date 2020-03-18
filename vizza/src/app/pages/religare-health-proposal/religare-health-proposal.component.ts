@@ -2708,8 +2708,8 @@ export class ReligareHealthProposalComponent implements OnInit {
         );
     }
     public suminsureddropdownProposalSuccess(successData, stepper) {
-        console.log(successData.ResponseObject, 'successData.ResponseObject....///')
         this.suminsuredamount = successData.ResponseObject;
+        console.log(this.suminsuredamount, 'this.suminsuredamount.../')
         this.inputfieldshow = false;
         // console.log(this.changeSuninsuredAmount, 'valuesi')
         this.proposal(stepper);
@@ -2743,12 +2743,8 @@ export class ReligareHealthProposalComponent implements OnInit {
     public suminsureddropdownSuccess(successData) {
         console.log(successData.ResponseObject, 'successData.ResponseObject....///')
         this.suminsuredamount = successData.ResponseObject;
-        // this.suminsuredamount =this.suminsuredamount1.sort() ;
         this.inputfieldshow = false;
-
-        // this.suminsuredid();
-console.log(this.changeSuminsuredAmount, 'newSIPL.....')
-        // this.proposal(stepper);
+        console.log(this.changeSuminsuredAmount, 'newSIPL.....')
         this.newSIProposalPL = this.changeSuminsuredAmount;
 console.log(this.newSIProposalPL, 'this.newSIProposalPL')
         this.createProposerPayLater();
