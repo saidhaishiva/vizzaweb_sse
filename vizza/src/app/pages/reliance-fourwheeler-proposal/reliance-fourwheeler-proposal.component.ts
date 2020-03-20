@@ -2621,6 +2621,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       "user_id":  this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "enquiry_id": this.bikeEnquiryId,
       "company_id": "3",
+      "fuel_type": this.coverDetails.controls['fuelType'].value,
       "coverdetails": {
         "Cover": {
           'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value ? 'true' : 'false',
