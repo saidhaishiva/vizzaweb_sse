@@ -369,6 +369,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import {FaqComponentComponent} from './pages/faq-component/faq-component.component';
 import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.service';
 import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insurance-dictionary.component';
+import { StarRenewalComponent } from './pages/star-renewal/star-renewal.component';
 // import {GoogleAnalyticsService} from './shared/services/google-analytics.service';
 // import {GtagModule} from 'angular-gtag';
 
@@ -702,6 +703,7 @@ import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insur
         EdelweissposPaymnetSuccessComponent,
         FaqComponentComponent,
         InsuranceDictionaryComponent,
+        StarRenewalComponent,
     ],
 
     providers: [
