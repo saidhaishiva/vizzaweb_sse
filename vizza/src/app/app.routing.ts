@@ -190,6 +190,10 @@ import {EdelweissposPremiumListComponent} from './pages/edelweisspos-premium-lis
 import {EdelweissPosComponent} from './pages/edelweiss-pos/edelweiss-pos.component';
 import {EdelweissposPaymnetSuccessComponent} from './pages/edelweisspos-paymnet-success/edelweisspos-paymnet-success.component';
 import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.service';
+import { StarRenewalComponent } from './pages/star-renewal/star-renewal.component';
+import { StarhealthRenewelProposalComponent } from './pages/star-renewal/starhealth-renewel-proposal/starhealth-renewel-proposal.component';
+
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -201,6 +205,7 @@ export const routes: Routes = [
             // { path: 'contact', component: ContactComponent, loadChildren: 'app/pages/contact/contact.module#ContactComponent', data: { breadcrumb: 'Contact us' } },
             { path: 'contacts', component: NewContactComponent, data: { breadcrumb: 'Contact us' } },
             { path: 'renewal-reminder', component: RenewalReminderComponent, data: { breadcrumb: 'Renewal Reminder' } },
+            { path: 'star-renewal', component: StarRenewalComponent, data: { breadcrumb: 'Renewal Star' } },
             { path: 'renew-existing-policy', component: RenewExistingPolicyComponent, data: { breadcrumb: 'Renew Existing Policy' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },
@@ -393,6 +398,7 @@ export const routes: Routes = [
             { path: 'edelweiss-premium-list', component: EdelweissposPremiumListComponent, data: { breadcrumb: 'Edelweiss Premium'} },
             { path: 'edelweiss-pos/:stepper', component: EdelweissPosComponent, data:{breadcrumb: 'Edelweiss pos Insurance'} },
             { path: 'edelweisspos-payment-success/:status/:proId', component: EdelweissposPaymnetSuccessComponent, data: { breadcrumb: 'Edelweisspos payment'}},
+            { path: 'starhealthrenewalproposal', component: StarhealthRenewelProposalComponent, data: { breadcrumb: 'Starhealth proposal'}},
 
         ]
     },
