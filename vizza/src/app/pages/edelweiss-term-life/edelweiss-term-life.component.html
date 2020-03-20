@@ -183,7 +183,7 @@
                                         <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>DOB (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
-                                                <input matInput [matDatepicker]="picker13" [max]="minDate" (keypress)="dobValidate($event)"   formControlName="sdob" (dateInput)="addEventSpouse1($event)" (dateChange)="addEventSpouse1($event)" autocomplete="off" maxlength="10" minlength="10">
+                                                <input matInput [matDatepicker]="picker13" [max]="minDate" (keypress)="dobValidate($event)"   formControlName="sdob" (dateInput)="addEventSpouse1($event)" (dateChange)="addEventSpouse1($event)" (change)="edelweissPrimium()" autocomplete="off" maxlength="10" minlength="10">
                                                 <mat-datepicker-toggle matSuffix [for]="picker13"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker13></mat-datepicker>
                                             </mat-form-field>
@@ -400,14 +400,15 @@
                                                 <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="policyTerm != 0"><strong> Policy Term :</strong> {{policyTerm}}</li>
                                                 <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="payingTerm != 0"><strong> Pay Term :</strong> {{payingTerm}}</li>
                                                 <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="sum != 0"><strong> Sum Assured :</strong> {{sum}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="basePremium != 0"><strong> Premium :</strong> {{basePremium}}</li>
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="basePremium != 0"><strong> Premium :</strong> {{basePremium}}</li>-->
                                                 <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['waiverOfPremiumBenefit'].value == 'Yes'"><strong>   Waiver Of Premium Benefit :</strong> {{PW}}</li>
                                                 <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['betterHalfBenefit'].value == 'Yes'"><strong>   Better Half Benefit :</strong> {{BhP}}</li>
                                                 <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['isHCB'].value == 'Yes'"><strong>   Hospital Cash Benefit :</strong> {{hcp}}</li>
                                                 <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['criticalIllness'].value == 'Yes'"><strong>   Enhanced Critical Illness Rider :</strong> {{CIP}}</li>
                                                 <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['isADB'].value == 'Yes'"><strong>   Accidental Death Benefit :</strong> {{ADB}}</li>
                                                 <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['isATPD'].value == 'Yes'"><strong>   Permanent Disability Rider :</strong> {{PDP}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="premium != 0"><strong>   Total Premium :</strong> {{premium}}</li>
+                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="Amount != ''"><strong>   Amount :</strong> {{Amount}}</li>
+                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="TotalAmount != 0"><strong>   Total Amount :</strong> {{TotalAmount}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1781,7 +1782,7 @@
                                 <!--</div>-->
                                 <div class="proposal-buttom mt-3 text-right w-100">
                                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                    <button mat-raised-button color="primaryBlue"  (click)="edelweissInsureDetails(stepper, insureArray.value)">Next</button>
+                                    <button mat-raised-button color="primaryBlue"  (click)="edelweissInsureDetails(stepper, insureArray.value);">Next</button>
                                 </div>
                             </mat-expansion-panel>
                         </form>
@@ -5360,8 +5361,14 @@
                                                 <ul class="m-0 list-group">
 
                                                     <li class="list-group-item" ><strong>Sum Assured:</strong> {{sum}}</li>
-                                                    <li class="list-group-item" ><strong>Premium:</strong> {{basePremium}}</li>
-                                                    <li class="list-group-item" ><strong>Total Premium:</strong> {{premium}}</li>
+                                                    <li class="list-group-item" *ngIf="Amount!=''"><strong>Amount:</strong> {{Amount}}</li>
+                                                    <li class="list-group-item" ><strong>Total Amount:</strong>{{TotalAmount}}
+                                                        <br>
+                                                        <p style="font-size: 10px">Under monthly mode payment option,
+                                                            <br>the first payment covers the initial two months premiums.
+                                                            <br>Your next payment will be due from the third month.
+                                                        </p>
+                                                    </li>
 
                                                 </ul>
                                             </div>
@@ -6358,7 +6365,7 @@
                                             <div class="col-md-12">
                                                 <div class="proposal-buttom text-center w-100">
                                                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                                    <button mat-raised-button color="primaryBlue" [disabled]="otpFalseError==false" (click)="nextDocUpload(stepper)">Next</button>
+                                                    <button mat-raised-button color="primaryBlue" [disabled]="otpFalseError==false" (click)="nextDocUpload(stepper);documentDetailsss()">Next</button>
                                                 </div>
                                             </div>
 
@@ -6425,16 +6432,25 @@
                                             <div class="col-md-5">
                                                 <input matInput placeholder="Identity Proof" readonly>
                                             </div>
-                                            <div class="col-md-4" >
+                                            <!--<div class="col-md-4" >-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-placeholder>Identity Proof</mat-placeholder>-->
+                                                    <!--<mat-select formControlName="identityLA" autocomplete="off"   >-->
+                                                        <!--<mat-option *ngFor="let list of identityLifeProof | keys" [value]= 'list.value'>-->
+                                                            <!--{{list.value}}-->
+                                                        <!--</mat-option>-->
+                                                    <!--</mat-select>-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
+
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <mat-placeholder>Identity Proof</mat-placeholder>
-                                                    <mat-select formControlName="identityLA" autocomplete="off"  (change)="geteidLifeProof()" >
-                                                        <mat-option *ngFor="let list of identityLifeProof | keys" [value]= 'list.value'>
-                                                            {{list.value}}
-                                                        </mat-option>
+                                                    <mat-select  placeholder="Identity Proof" formControlName="identityLA"    class="w-100">
+                                                        <mat-option *ngFor="let list of eIdProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
                                             </div>
+
 
                                             <!--<div class="col-md-4">-->
                                             <!--<mat-form-field class="w-100">-->
@@ -6461,14 +6477,22 @@
                                             <div class="col-md-5">
                                                 <input matInput placeholder="Age Proof" readonly>
                                             </div>
-                                            <div class="col-md-4" >
+                                            <!--<div class="col-md-4" >-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-placeholder>Age Proof</mat-placeholder>-->
+                                                    <!--<mat-select formControlName="ageLA" autocomplete="off"  >-->
+                                                        <!--<mat-option *ngFor="let list of eageDocProof | keys" [value]= 'list.value'>-->
+                                                            <!--{{list.value}}-->
+                                                        <!--</mat-option>-->
+                                                    <!--</mat-select>-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <mat-placeholder>Age Proof</mat-placeholder>
-                                                    <mat-select formControlName="ageLA" autocomplete="off"  (change)="geteageDocProof()" >
-                                                        <mat-option *ngFor="let list of eageDocProof | keys" [value]= 'list.value'>
-                                                            {{list.value}}
-                                                        </mat-option>
+                                                    <mat-select  placeholder="Age Proof Id" formControlName="ageLA"   class="w-100" >
+                                                        <mat-option *ngFor="let list of eAgeProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                                     </mat-select>
+                                                    <!--<mat-error *ngIf="insureArray.controls.ageProofId.errors?.required">Age Proof Id is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <!--<div class="col-md-4">-->
@@ -6496,16 +6520,24 @@
                                             <div class="col-md-5">
                                                 <input matInput placeholder="Address Proof" readonly>
                                             </div>
-                                            <div class="col-md-4" >
+                                            <!--<div class="col-md-4" >-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-placeholder>Address Proof</mat-placeholder>-->
+                                                    <!--<mat-select formControlName="addressLA" autocomplete="off" >-->
+                                                        <!--<mat-option *ngFor="let list of eaddressDocProof | keys" [value]= 'list.value'>-->
+                                                            <!--{{list.value}}-->
+                                                        <!--</mat-option>-->
+                                                    <!--</mat-select>-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <mat-placeholder>Address Proof</mat-placeholder>
-                                                    <mat-select formControlName="addressLA" autocomplete="off"  (change)="geteaddressDocProof()" >
-                                                        <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= 'list.value'>
-                                                            {{list.value}}
-                                                        </mat-option>
+                                                    <mat-select  placeholder="Address Proof" formControlName="addressLA"  class="w-100">
+                                                        <mat-option *ngFor="let list of eAddressProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
                                             </div>
+
                                             <div class="col-md-3">
                                                 <div class="text-left w-100">
                                                     <div class="custom-file">
@@ -6522,14 +6554,21 @@
                                             <div class="col-md-5">
                                                 <input matInput placeholder="Corresponding Address Proof" readonly>
                                             </div>
+                                            <!--<div class="col-md-4">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-select  placeholder="Corresponding Address Proof" formControlName="salereqLA"  class="w-100" >-->
+                                                        <!--<mat-option *ngFor="let list of eaddressDocProof | keys" [value]= 'list.value'>{{list.value}} </mat-option>-->
+                                                        <!--&lt;!&ndash;<mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>&ndash;&gt;-->
+                                                    <!--</mat-select>-->
+                                                    <!--&lt;!&ndash;<mat-error *ngIf="documentDetail.controls.salereqLA.errors?.required">Sales Requirement is required</mat-error>&ndash;&gt;-->
+
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="Corresponding Address Proof" formControlName="salereqLA" (change)="geteaddressDocProof()"  class="w-100" >
-                                                        <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= 'list.value'>{{list.value}} </mat-option>
-                                                        <!--<mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                                    <mat-select  placeholder="Corresponding Address Proof" formControlName="salereqLA"  class="w-100">
+                                                        <mat-option *ngFor="let list of eAddressProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="documentDetail.controls.salereqLA.errors?.required">Sales Requirement is required</mat-error>-->
-
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -6548,13 +6587,21 @@
                                             <div class="col-md-5" *ngIf="this.addon.controls['betterHalfBenefit'].value=='Yes'">
                                                 <input matInput placeholder="Spouse Age Proof" readonly>
                                             </div>
+                                            <!--<div class="col-md-4" *ngIf="this.addon.controls['betterHalfBenefit'].value=='Yes'">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-select  placeholder="Spouse Age Proof" formControlName="kycLA"  class="w-100" >-->
+                                                        <!--<mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                                    <!--</mat-select>-->
+                                                    <!--&lt;!&ndash;<mat-error *ngIf="documentDetail.controls.kycLA.errors?.required">KYC is required</mat-error>&ndash;&gt;-->
+
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
                                             <div class="col-md-4" *ngIf="this.addon.controls['betterHalfBenefit'].value=='Yes'">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="Spouse Age Proof" formControlName="kycLA" (change)="getekycProof()"  class="w-100" >
-                                                        <mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                    <mat-select  placeholder="Spouse Age Proof" formControlName="kycLA"   class="w-100" >
+                                                        <mat-option *ngFor="let list of eAgeProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="documentDetail.controls.kycLA.errors?.required">KYC is required</mat-error>-->
-
+                                                    <!--<mat-error *ngIf="insureArray.controls.ageProofId.errors?.required">Age Proof Id is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3" *ngIf="this.addon.controls['betterHalfBenefit'].value=='Yes'">
@@ -6573,13 +6620,20 @@
                                             <div class="col-md-5">
                                                 <input matInput placeholder="Income Proof" readonly>
                                             </div>
-                                            <div class="col-md-4" >
+                                            <!--<div class="col-md-4" >-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<mat-placeholder>Income Proof</mat-placeholder>-->
+                                                    <!--<mat-select formControlName="incomeLA" autocomplete="off" >-->
+                                                        <!--<mat-option *ngFor="let list of eIncomeProof | keys" [value]= 'list.value'>-->
+                                                            <!--{{list.value}}-->
+                                                        <!--</mat-option>-->
+                                                    <!--</mat-select>-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <mat-placeholder>Income Proof</mat-placeholder>
-                                                    <mat-select formControlName="incomeLA" autocomplete="off"  (change)="geteIncomeProof()" >
-                                                        <mat-option *ngFor="let list of eIncomeProof | keys" [value]= 'list.value'>
-                                                            {{list.value}}
-                                                        </mat-option>
+                                                    <mat-select  placeholder="Income Proof" formControlName="incomeLA"   class="w-100">
+                                                        <mat-option *ngFor="let list of incomeProofs | keys" [value]= list.key> {{list.value}} </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
                                             </div>

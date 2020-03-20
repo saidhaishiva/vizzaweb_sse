@@ -326,6 +326,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     public employeeOccupation:any;
     public premiumValue:boolean;
     public dropDownValues:boolean;
+    public Amount:any;
+    public TotalAmount:any;
 
 
     constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
@@ -1152,6 +1154,34 @@ export class EdelweissTermLifeComponent implements OnInit {
         console.log(ssss,'ssssss')
         ssss.removeAt(index);
         console.log(index, 'this.index');
+    }
+
+    documentDetailsss(){
+        this.documentDetail.controls['identityLA'].patchValue(this.insureArray.controls['identityProof'].value);
+        console.log(this.documentDetail.controls['identityLA'].value,'identityLA...')
+        this.geteidLifeProof();
+
+        this.documentDetail.controls['ageLA'].patchValue(this.insureArray.controls['ageProofId'].value);
+        console.log(this.documentDetail.controls['ageLA'].value,'ageLA...')
+        this.geteageDocProof();
+
+        this.documentDetail.controls['addressLA'].patchValue(this.insureArray.controls['addrProof'].value);
+        console.log(this.documentDetail.controls['addressLA'].value,'addressLA...')
+        this.geteaddressDocProof();
+
+        this.documentDetail.controls['salereqLA'].patchValue(this.insureArray.controls['addrProof'].value);
+        console.log(this.documentDetail.controls['salereqLA'].value,'salereqLA...')
+        this.geteaddressDocProof();
+
+        this.documentDetail.controls['incomeLA'].patchValue(this.insureArray.controls['incomeProof'].value);
+        console.log(this.documentDetail.controls['incomeLA'].value,'incomeLA...')
+        this.geteIncomeProof();
+
+
+        this.documentDetail.controls['kycLA'].patchValue(this.insureArray.controls['sageProofId'].value);
+        console.log(this.documentDetail.controls['kycLA'].value,'kycLA...')
+        this.getekycProof();
+
     }
 
     // Medical Question Create
@@ -6329,6 +6359,9 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.medicalDetail.controls['deformityDetails1'].updateValueAndValidity();
 
     }
+
+
+
     betterHalfReq(){
         if(this.customerDetails.controls['maritalStatus'].value == 'M' ) {
             // this.addon.controls['betterHalfBenefit'].setValidators([Validators.required]);
@@ -8446,7 +8479,7 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
     }
 
     public edelweissPrimiumSuccess(successData) {
-        this.settings.loadingSpinner = false;
+
         if (successData.IsSuccess) {
             this.eePremiumTerm = successData.ResponseObject;
             // this.eePremiumTerm = this.eePremiumTerm;
@@ -8480,7 +8513,9 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
             this.ci_sumassured = this.eePremiumTerm.ci_sumassured;
             this.hcb_sumassured = this.eePremiumTerm.hcb_sumassured;
             this.pdp_sumassured = this.eePremiumTerm.pdp_sumassured;
-
+            this.Amount = this.eePremiumTerm.Amount;
+            this.TotalAmount = this.eePremiumTerm.TotalAmount;
+            this.settings.loadingSpinner = false;
             this.betterhalf();
             // this.addonNextFrom(this.stepper,this.addon.value)
             console.log(sessionStorage.SpouseAge,'spouse agess');
@@ -8612,7 +8647,7 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
     }
 
     public CoverPrimiumSuccess(successData) {
-        this.settings.loadingSpinner = false;
+
         if (successData.ResponseObject) {
             this.eePremiumTerm = successData.ResponseObject;
             // this.eePremiumTerm = this.eePremiumTerm;
@@ -8642,6 +8677,9 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
             this.ci_sumassured = this.eePremiumTerm.ci_sumassured;
             this.hcb_sumassured = this.eePremiumTerm.hcb_sumassured;
             this.pdp_sumassured = this.eePremiumTerm.pdp_sumassured;
+            this.Amount = this.eePremiumTerm.Amount;
+            this.TotalAmount = this.eePremiumTerm.TotalAmount;
+            this.settings.loadingSpinner = false;
 
             this.betterhalf();
             this.sumAssuredAll();
@@ -10726,6 +10764,9 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
         console.log(this.bankDetail, " stepper4 ");
 
     }
+
+
+
     changeTitle() {
 
         this.customerDetails.controls['titleName'].patchValue(this.etitle[this.customerDetails.controls['title'].value]);
