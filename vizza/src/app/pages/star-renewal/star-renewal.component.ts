@@ -103,7 +103,7 @@ export class StarRenewalComponent implements OnInit {
       this.healthService.starpolicyRenewalRemainder(data).subscribe(
           (successData) => {
             this.starpolicyRenewalSuccess(successData);
-            this.router.navigate(['/starhealthrenewalproposal']);
+            this.router.navigate(['/starhealth-renewal-proposal']);
           },
           (error) => {
             this.starpolicyRenewalFailure(error);
