@@ -423,10 +423,9 @@ export class StarhealthRenewelProposalComponent implements OnInit {
   }
 
   claimPercent() {
-    if(this.personal.controls['nomineeRelation'].value < 100 && this.personal.controls['nomineeRelation'].value != '' ){
+    if(this.personal.controls['nomineeClaim'].value < 100 && this.personal.controls['nomineeClaim'].value != '' ){
       this.eventClaimValue=true;
-
-    }else if(this.personal.controls['nomineeRelation'].value >= 100 || this.personal.controls['nomineeRelation'].value == ''){
+    }else if(this.personal.controls['nomineeClaim'].value >= 100 || this.personal.controls['nomineeClaim'].value == ''){
       this.eventClaimValue=false;
       this.personal.controls['nomineeName1'].patchValue('');
       this.personal.controls['nomineeAge1'].patchValue('');
