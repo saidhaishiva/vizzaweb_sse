@@ -47,12 +47,12 @@ export class StarRenewalComponent implements OnInit {
   public selectDate: any;
   public settings: Settings;
   commentBox: boolean;
-  testimonialLists: any;
+  sdate: any;
   companyList: any;
   comments: any;
   webhost: any;
   policyTypes: any;
-  paymentFrequency: any;
+  renewalPolicy: any;
   allImage: any;
   fileDetails: any;
   url: any;
@@ -71,10 +71,10 @@ export class StarRenewalComponent implements OnInit {
     });
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
-    this.settings.HomeSidenavUserBlock = false;
-    this.settings.sidenavIsOpened = false;
-    this.settings.sidenavIsPinned = false;
-    this.commentBox = false;
+    this.settings.HomeSidenavUserBlock = true;
+    this.settings.sidenavIsOpened = true;
+    this.settings.sidenavIsPinned = true;
+    this.commentBox = true;
     this.selectDate = '';
     this.allImage = [];
     let today = new Date();
@@ -88,14 +88,14 @@ export class StarRenewalComponent implements OnInit {
 
   starrenewal(values){
     if (this.form.valid) {
-      let sdate = this.datepipe.transform(this.form.controls['startdate'].value, 'y-MM-dd');
+      this.sdate = this.datepipe.transform(this.form.controls['startdate'].value, 'y-MM-dd');
       const data = {
         'platform': 'web',
         'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
         'role_id': this.auth.getPosRoleId() != 0  ? this.auth.getPosRoleId() : '4',
         "pos_status":"0",
         'company_name': this.form.controls['insurename'].value,
-        'proposer_dob': sdate,
+        'proposer_dob': this.sdate,
         'policy_no': this.form.controls['insurepolicyno'].value,
       };
       console.log(data,'data');
@@ -103,6 +103,7 @@ export class StarRenewalComponent implements OnInit {
       this.healthService.starpolicyRenewalRemainder(data).subscribe(
           (successData) => {
             this.starpolicyRenewalSuccess(successData);
+            this.setSession();
             this.router.navigate(['/starhealth-renewal-proposal']);
           },
           (error) => {
@@ -113,8 +114,11 @@ export class StarRenewalComponent implements OnInit {
   }
   starpolicyRenewalSuccess(successData) {
     if (successData.IsSuccess == true) {
-      this.toastr.success(successData.ResponseObject);
-      console.log(successData.ResponseObject,'result')
+      this.renewalPolicy=successData.ResponseObject;
+      console.log(this.renewalPolicy,'result')
+      // this.setSession();
+      // this.router.navigate(['/starhealth-renewal-proposal']);
+
     } else {
       this.toastr.error(successData.ErrorObject);
     }
@@ -122,6 +126,13 @@ export class StarRenewalComponent implements OnInit {
   starpolicyRenewalFailure(error) {
   }
 
+  setSession() {
+    // alert('inn');
+    sessionStorage.company_name = this.form.controls['insurename'].value;
+    // alert(sessionStorage.company_name);
+    sessionStorage.proposer_dob = this.sdate;
+    sessionStorage.policy_no = this.form.controls['insurepolicyno'].value;
+  }
 
   chooseDate(event, type) {
     this.maxDate = '';
