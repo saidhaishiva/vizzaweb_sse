@@ -192,6 +192,7 @@ import {EdelweissposPaymnetSuccessComponent} from './pages/edelweisspos-paymnet-
 import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.service';
 import { StarRenewalComponent } from './pages/star-renewal/star-renewal.component';
 import { StarhealthRenewelProposalComponent } from './pages/star-renewal/starhealth-renewel-proposal/starhealth-renewel-proposal.component';
+import { HealthLandingComponent } from './pages/health-landing/health-landing.component';
 
 
 
@@ -399,6 +400,7 @@ export const routes: Routes = [
             { path: 'edelweiss-pos/:stepper', component: EdelweissPosComponent, data:{breadcrumb: 'Edelweiss pos Insurance'} },
             { path: 'edelweisspos-payment-success/:status/:proId', component: EdelweissposPaymnetSuccessComponent, data: { breadcrumb: 'Edelweisspos payment'}},
             { path: 'starhealth-renewal-proposal', component: StarhealthRenewelProposalComponent, data: { breadcrumb: 'Starhealth proposal'}},
+            { path: 'health-landing', component: HealthLandingComponent, data: { breadcrumb: 'Health landing'}},
 
         ]
     },
