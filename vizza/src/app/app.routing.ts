@@ -398,7 +398,7 @@ export const routes: Routes = [
             { path: 'edelweiss-premium-list', component: EdelweissposPremiumListComponent, data: { breadcrumb: 'Edelweiss Premium'} },
             { path: 'edelweiss-pos/:stepper', component: EdelweissPosComponent, data:{breadcrumb: 'Edelweiss pos Insurance'} },
             { path: 'edelweisspos-payment-success/:status/:proId', component: EdelweissposPaymnetSuccessComponent, data: { breadcrumb: 'Edelweisspos payment'}},
-            { path: 'starhealthrenewalproposal', component: StarhealthRenewelProposalComponent, data: { breadcrumb: 'Starhealth proposal'}},
+            { path: 'starhealth-renewal-proposal', component: StarhealthRenewelProposalComponent, data: { breadcrumb: 'Starhealth proposal'}},
 
         ]
     },

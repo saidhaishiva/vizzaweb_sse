@@ -1073,32 +1073,45 @@ export class EdelweissTermLifeComponent implements OnInit {
 
         if(value=='1'){
             this.photoProofName='';
-            this.PhotographPath='';
+            this.PhotographPath=[];
         }
         if(value=='2'){
             this.uploadIdProofName='';
-            this.idProofPath='';
+            this.idProofPath=[];
         }
         if(value=='3'){
             this.uploadAgeProofName='';
-            this.ageProofPath='';
+            this.ageProofPath=[];
         }
         if(value=='4'){
             this.uploadAddressProofName='';
-            this.addressProofPath='';
+            this.addressProofPath=[];
         }
         if(value=='5'){
             this.salesReqProofName='';
-            this.salesReqProofPath='';
+            this.salesReqProofPath=[];
         }
         if(value=='6'){
             this.kycProofName='';
-            this.kycProofPath='';
+            this.kycProofPath=[];
         }
         if(value=='7'){
             this.uploadIncomeProofName='';
-            this.incomeProofPath='';
+            this.incomeProofPath=[];
         }
+
+        console.log(this.photoProofName,'this.photoProofName..');
+        console.log(this.PhotographPath,'this.PhotographPath..');
+        console.log(this.uploadIdProofName,'this.uploadIdProofName..');
+        console.log(this.idProofPath,'this.idProofPath..');
+        console.log(this.uploadAgeProofName,'this.uploadAgeProofName..');
+        console.log(this.addressProofPath,'this.addressProofPath..');
+        console.log(this.salesReqProofName,'this.salesReqProofName..');
+        console.log(this.salesReqProofPath,'this.salesReqProofPath..');
+        console.log(this.kycProofName,'this.kycProofName..');
+        console.log(this.kycProofPath,'this.kycProofPath..');
+        console.log(this.uploadIncomeProofName,'this.uploadIncomeProofName..');
+        console.log(this.incomeProofPath,'this.incomeProofPath..');
         // this.deleteIndexId = value.id;
     }
     // Existing Insurance

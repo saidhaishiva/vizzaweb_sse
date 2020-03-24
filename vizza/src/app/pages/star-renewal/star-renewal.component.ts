@@ -103,7 +103,7 @@ export class StarRenewalComponent implements OnInit {
       this.healthService.starpolicyRenewalRemainder(data).subscribe(
           (successData) => {
             this.starpolicyRenewalSuccess(successData);
-            this.router.navigate(['/starhealthrenewalproposal']);
+            this.router.navigate(['/starhealth-renewal-proposal']);
           },
           (error) => {
             this.starpolicyRenewalFailure(error);
@@ -121,6 +121,8 @@ export class StarRenewalComponent implements OnInit {
   }
   starpolicyRenewalFailure(error) {
   }
+
+
   chooseDate(event, type) {
     this.maxDate = '';
     if (event.value != null) {
@@ -157,5 +159,8 @@ export class StarRenewalComponent implements OnInit {
     }
   }
 
+  dobValidate(event: any) {
+    this.validation.dobValidate(event);
+  }
 
 }
