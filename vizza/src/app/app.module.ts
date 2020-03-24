@@ -371,6 +371,7 @@ import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.ser
 import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insurance-dictionary.component';
 import { StarRenewalComponent } from './pages/star-renewal/star-renewal.component';
 import { StarhealthRenewelProposalComponent } from './pages/star-renewal/starhealth-renewel-proposal/starhealth-renewel-proposal.component';
+import { HealthLandingComponent } from './pages/health-landing/health-landing.component';
 // import {GoogleAnalyticsService} from './shared/services/google-analytics.service';
 // import {GtagModule} from 'angular-gtag';
 
@@ -706,6 +707,7 @@ import { StarhealthRenewelProposalComponent } from './pages/star-renewal/starhea
         InsuranceDictionaryComponent,
         StarRenewalComponent,
         StarhealthRenewelProposalComponent,
+        HealthLandingComponent,
     ],
 
     providers: [
