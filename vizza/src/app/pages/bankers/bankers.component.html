@@ -2,7 +2,7 @@
 <!--<meta name="keywords" [content]=metaBankers.keyword />-->
 <!--<meta name="description" [content]=metaBankers.descrition />-->
 
-<div class="container dashboard h-100" fxLayoutAlign="start start">
+<div class="container dashboard h-100 d-none d-sm-none d-lg-block d-md-none d-xl-block" fxLayoutAlign="start start">
   <div class="row my-flex-card">
     <h2 class="w-100 text-center"  style="color: #FFE082"> Banker's Indemnity Policy</h2>
     <div class="col-md-6 col-sm-12 col-xs-12">
@@ -104,6 +104,178 @@
                     <mat-error *ngIf="banapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Appointment Time (HH:MM)" type="time" atp-time-picker  formControlName="apptime" required />
+                    <mat-error *ngIf="banapp.controls.apptime.errors?.required">Appointment Time is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12 text-right mt-3">
+                  <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
+                  <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!banapp.valid ) || (!pincodeErrors)" (click)="banKeeper(banapp.value)">Submit</button>
+                </div>
+              </div>
+            </form>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <section id="knowMoreShow">
+      <div class="col-12 mt-4 border border-dark p-4">
+        <div class="row">
+          <div class="col-sm-12">
+            <h4 class="text-center" style="color: #6A6477 "> About Banker's Indemnity Policy</h4>
+            <!--<img src="assets/img/bike-insurance.png" class="logo-size">-->
+          </div>
+          <p>With the business of banking growing phenomenally in recent years, expanding both in diversity
+            and extent. Along with this development, incidence of crimes has also grown to alarming
+            proportions and it has become essential for bankers to protect themselves adequately against
+            such losses. Banker’s indemnity policy is available to protect bankers against loss to cover the
+            following </p>
+
+          <ol class="pl-5" type="i">
+            <li>Loss by dishonesty of employees resulting in pecuniary loss</li>
+            <li>
+              Loss due to forging or alteration, that is, by way of bogus financial instruments (cheques,
+              drafts, Fixed Deposits, Receipts, Traveller&#39;s Cheques etc.) being used for collecting
+              payments
+            </li>
+            <li>Loss due to robbery/theft or any other causes of registered postal sending in direct transit
+              or intended to be dispatched provided that each postal sending is insured with the Post
+              Office</li>
+            <li>Loss of money/securities while in transit carried by bank&#39;s employees due to
+              misappropriation, loss, stealing, mislaying due to negligence or fraud by employees</li>
+            <li>Loss due to fraud or dishonesty in respect of goods or commodities pledged or
+              hypothecated to the insured and under his control</li>
+            <li>Loss due to fire/riot/strike/burglary/housebreaking/theft/robbery/hold up of money or
+              securities belonging or held in trust by the bank on their premises or in any recognised
+              place of safe deposit within a certain area.</li>
+            <li>Loss by reason of infidelity/criminal acts of approved appraisers, provided the insured
+              has taken reasonable precaution and safeguards in the selection and appointment of such
+              Appraisers/Valuers.</li>
+            <li>By reason of their infidelity or criminal act, subject to total liability during the policy
+              period in respect of Janata Agents, Pygmie Collectors, and Chhoti Bachat Yojana Agents</li>
+          </ol>
+          <p></p>
+          <p></p>
+          <p></p>
+          <br>
+          <br>
+
+          <p class="know-note-content"> NOTE: THE BRIEF WRITE UP YOU FIND IN THIS WEBSITE FOR VARIOUS POLICIES
+            IS ONLY A SYNOPSIS. THE DETAIL EXTENT OF COVERAGE WITH THE TERMS &
+            CONDITIONS WILL BE SENT BY US TO YOUR MAIL ID ON REQUEST TO US. PLEASE
+            MAIL TO CUSTOMERCARE@VIZZAFIN.COM</p>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</div>
+<div class="container dashboard h-100 d-block d-sm-block d-lg-none d-md-block d-xl-none" fxLayoutAlign="start start">
+  <div class="row my-flex-card">
+    <h2 class="w-100 text-center"  style="color: #FFE082"> Banker's Indemnity Policy</h2>
+    <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+      <!--<div class="card">-->
+        <!--<div class="card-block">-->
+          <!--<div class="aboutImg">-->
+            <!--<img src="assets/img/Genaral Insurance.jpg" style="height:605px;" class="w-100">-->
+            <!--<div class="aboutContent">-->
+              <!--<h4 class="w-100 text-center">About Banker's Indemnity Policy</h4>-->
+              <!--<p style="text-align: left;">With the business of banking growing phenomenally in recent years..… <button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow" style="color: #000000;">Know more</a></span></button></p>-->
+
+              <!--&lt;!&ndash;<p class="text-justify">This policy is essential for covering the cash in transit.… <button mat-button color="accent" (click)="MoneyInsurer()" style="border: 1px solid #000;"> Know More</button></p>&ndash;&gt;-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-block">
+          <mat-card style="background: #FFE082 !important; color: #fff">
+            <h2 class="w-100 text-center" >Let us assist you</h2>
+            <form [formGroup]="banapp">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-select  placeholder="Insurance Type" formControlName ="insurance" required>
+                      <mat-option value="shopkeepers">Shopkeepers</mat-option>
+                      <mat-option value="marine">Marine Cargo Policy</mat-option>
+                      <mat-option value="money">Money Insurance</mat-option>
+                      <mat-option value="fire">Fire Policy</mat-option>
+                      <mat-option value="burglary">Burglary Policy</mat-option>
+                      <mat-option value="machinery">Machinery Breakdown Policy</mat-option>
+                      <mat-option value="electronics">Electronics Equiptment Policy</mat-option>
+                      <mat-option value="contractors">Contractors All Risk Policy</mat-option>
+                      <mat-option value="house-holders">House Holders Policy</mat-option>
+                      <mat-option value="public-liability">Public Liability</mat-option>
+                      <mat-option value="professional">Professional Indemnity Policy</mat-option>
+                      <mat-option value="workmen-compensation">Workmen Compensation</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="banapp.controls.insurance.errors?.required">Insurance Type is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Company Name" formControlName="name" required>
+                    <mat-error *ngIf="banapp.controls.name.errors?.required">Company Name is required</mat-error>
+                    <mat-error *ngIf="banapp.controls.name.hasError('minlength')">Company Name isn't long enough, minimum of 3 characters</mat-error>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="data($event)" required>
+                    <mat-error *ngIf="banapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>
+                    <mat-error *ngIf="banapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Mobile" formControlName="mobile" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                    <mat-error *ngIf="banapp.controls.mobile.errors?.required">Mobile number is required</mat-error>
+                    <mat-error *ngIf="banapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
+                    <mat-error *ngIf="banapp.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                    <mat-icon matSuffix>call</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Email" formControlName="email" required>
+                    <mat-error *ngIf="banapp.controls.email.errors?.required">Email is required</mat-error>
+                    <mat-error *ngIf="banapp.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="PinCode"  pattern="[1-9][0-9]{5}" formControlName="pincode" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')"  autocomplete="off"  required>
+                    <mat-error *ngIf="banapp.controls.pincode.errors?.required">Pincode is required</mat-error>
+                    <mat-error *ngIf="banapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                    <mat-error *ngIf="banapp.controls.pincode.hasError('required')">Pincode required</mat-error>
+                    <mat-error *ngIf="banapp.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                    <mat-icon matSuffix>place</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
+                      <mat-option value="call">Call</mat-option>
+                      <mat-option value="meetinperson">Meet in Person</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="banapp.controls.appointmentwith.errors?.required">Fix Appointment is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker3" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" maxlength="10" minlength="10" required>
+                    <mat-error *ngIf="banapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
