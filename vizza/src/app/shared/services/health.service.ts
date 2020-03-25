@@ -334,17 +334,7 @@ export class HealthService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    starpolicyRenewalRemainder(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHostHealth() + 'starhealth_renewal/checkPolicy';
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+
     //referral code
     // getReferralCode(data){
     //     const json = JSON.stringify(data);
@@ -1324,6 +1314,39 @@ export class HealthService {
         const url = this.configurationService.getHostHealth() + 'healthproduct/productList';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
+            .catch(this.handleError);
+    }
+    starpolicyRenewalRemainder(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'starhealth_renewal/checkPolicy';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    starRenewalProposalList(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'starhealth_renewal/policyRenewal';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    starRenewalproposalToken(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'starhealth_renewal/proposalToken';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
             .catch(this.handleError);
     }
 

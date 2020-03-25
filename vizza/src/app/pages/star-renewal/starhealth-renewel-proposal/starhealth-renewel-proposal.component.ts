@@ -49,6 +49,18 @@ export class StarhealthRenewelProposalComponent implements OnInit {
   public ageSetting: any;
   public relationshipList: any;
   public eventClaimValue: any;
+  public starRwlProposalList: any;
+  public referenceId: any;
+  public premium: any;
+  public serviceTax : any;
+  public totalPremium: any;
+  public renewalTokenList: any;
+  public renewal_id: any;
+  public prop_reference_id: any;
+  public prop_redirect_id: any;
+  public renewal_payment_gateway_url: any;
+  public settings: any;
+  public sumInsuredValue: any;
 
   constructor(@Inject(WINDOW) private window: Window, public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,public location :Location,
               public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -62,11 +74,12 @@ export class StarhealthRenewelProposalComponent implements OnInit {
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     this.ageSetting=false;
     this.eventClaimValue=false;
+    this.settings = this.appSettings.settings;
 
     this.personal = this.fb.group({
       personalTitle: ['', Validators.required],
       personalFirstname: ['', Validators.required],
-      personalLastname: ['', Validators.required],
+      // personalLastname: ['', Validators.required],
       personalEmail: ['', Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
       personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       personalAadhar: ['', Validators.compose([ Validators.minLength(4)])],
@@ -99,7 +112,7 @@ export class StarhealthRenewelProposalComponent implements OnInit {
       socialAnswer2: '',
       socialAnswer3: '',
       socialAnswer4: '',
-      illnessCheck: '',
+      // illnessCheck: '',
 
     });
 
@@ -140,9 +153,50 @@ export class StarhealthRenewelProposalComponent implements OnInit {
       this.renewalPolicy=successData.ResponseObject;
       this.policy_id=successData.ResponseObject.Renewal_id;
       this.renewalPolicyValues=successData.ResponseObject.result;
+      this.sumInsuredValue=this.renewalPolicyValues.oldSumInsured;
+      this.patchPolicyValue();
     }
   }
   starpolicyRenewalFailure(error) {
+  }
+
+
+  patchPolicyValue(){
+    this.personal.controls['personalTitle'].patchValue(this.renewalPolicyValues.policyType);
+    this.personal.controls['personalFirstname'].patchValue(this.renewalPolicyValues.proposerName);
+    this.personal.controls['personalEmail'].patchValue(this.renewalPolicyValues.proposerEmail);
+    this.personal.controls['personalMobile'].patchValue(this.renewalPolicyValues.proposerPhone);
+    // this.personal.controls['personalAadhar'].patchValue(this.renewalPolicyValues.proposerName);
+    this.personal.controls['personalPan'].patchValue(this.renewalPolicyValues.panNumber);
+    // this.personal.controls['personalgstIdType'].patchValue(this.renewalPolicyValues.proposerName);
+    this.personal.controls['personalGst'].patchValue(this.renewalPolicyValues.gstIdNumber);
+    // this.personal.controls['isEIA'].patchValue(this.renewalPolicyValues.proposerName);
+    this.personal.controls['personalAddress'].patchValue(this.renewalPolicyValues.proposerAddressOne);
+    this.personal.controls['personalAddress2'].patchValue(this.renewalPolicyValues.proposerAddressTwo);
+    this.personal.controls['personalPincode'].patchValue(this.renewalPolicyValues.postalCode);
+    this.personal.controls['personalCity'].patchValue(this.renewalPolicyValues.cityCode);
+    this.personal.controls['personalState'].patchValue(this.renewalPolicyValues.stateCode);
+    this.personal.controls['personalArea'].patchValue(this.renewalPolicyValues.proposerAreaId);
+    this.personal.controls['personalCityName'].patchValue(this.renewalPolicyValues.cityName);
+    this.personal.controls['personalAreaName'].patchValue(this.renewalPolicyValues.areaName);
+    this.personal.controls['nomineeName'].patchValue(this.renewalPolicyValues.nomineeName);
+    this.personal.controls['nomineeAge'].patchValue(this.renewalPolicyValues.nomineeAge);
+    this.personal.controls['nomineeRelation'].patchValue(this.renewalPolicyValues.nomineeRelationship);
+    this.personal.controls['nomineeClaim'].patchValue(this.renewalPolicyValues.nomineePercentClaim);
+    // this.personal.controls['nomineeName1'].patchValue(this.renewalPolicyValues.nomineeName);
+    // this.personal.controls['nomineeAge1'].patchValue(this.renewalPolicyValues.nomineeAge);
+    // this.personal.controls['nomineeRelation1'].patchValue(this.renewalPolicyValues.nomineeRelationship);
+    // this.personal.controls['nomineeClaim1'].patchValue(this.renewalPolicyValues.nomineePercentClaim);
+    // // this.personal.controls['appointee'].patchValue(this.renewalPolicyValues.proposerName);
+    // this.personal.controls['appointeAge'].patchValue(this.renewalPolicyValues.proposerName);
+    // this.personal.controls['appointeRelation'].patchValue(this.renewalPolicyValues.proposerName);
+    this.personal.controls['socialStatus'].patchValue(this.renewalPolicyValues.socialStatus);
+    this.personal.controls['socialAnswer1'].patchValue(this.renewalPolicyValues.socialStatusBpl);
+    this.personal.controls['socialAnswer2'].patchValue(this.renewalPolicyValues.socialStatusDisabled);
+    this.personal.controls['socialAnswer3'].patchValue(this.renewalPolicyValues.socialStatusInformal);
+    this.personal.controls['socialAnswer4'].patchValue(this.renewalPolicyValues.socialStatusUnorganized);
+    // this.personal.controls['illnessCheck'].patchValue(this.renewalPolicyValues.proposerName);
+
   }
 
   gstIdList() {
@@ -236,31 +290,6 @@ export class StarhealthRenewelProposalComponent implements OnInit {
     return age;
   }
 
-  // setOccupationList() {
-  //   const data = {
-  //     'platform': 'web',
-  //     'product_id': this.buyProductdetails.product_id,
-  //     'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-  //     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-  //   }
-  //   this.proposalservice.getOccupationList(data).subscribe(
-  //       (successData) => {
-  //         this.occupationListSuccess(successData);
-  //       },
-  //       (error) => {
-  //         this.occupationListFailure(error);
-  //       }
-  //   );
-  //
-  // }
-  // public occupationListSuccess(successData) {
-  //   if (successData.IsSuccess) {
-  //     this.occupationList = successData.ResponseObject;
-  //   }
-  // }
-  // public occupationListFailure(error) {
-  //   console.log(error);
-  // }
 
   alternateChange(event) {
     if (event.target.value.length == 10) {
@@ -398,7 +427,7 @@ export class StarhealthRenewelProposalComponent implements OnInit {
   setRelationship() {
     const data = {
       'platform': 'web',
-      // 'product_id': this.buyProductdetails.product_id,
+      'product_id': this.policy_id,
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
     }
@@ -434,50 +463,6 @@ export class StarhealthRenewelProposalComponent implements OnInit {
     }
   }
 
-  // sameAddress(values: any) {
-  //   if (values.checked) {
-  //     this.inputReadonly = true;
-  //     this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
-  //     this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
-  //     this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-  //     this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
-  //     this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-  //     this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-  //     this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
-  //     this.residenceCitys = JSON.parse(sessionStorage.personalCitys);
-  //     this.rAreaNames = JSON.parse(sessionStorage.areaNames);
-  //
-  //     sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
-  //     sessionStorage.rAreaNames = JSON.stringify(this.rAreaNames);
-  //
-  //   } else {
-  //     this.inputReadonly = false;
-  //     this.personal.controls['residenceAddress'].setValue('');
-  //     this.personal.controls['residenceAddress2'].setValue('');
-  //     this.personal.controls['residenceCity'].setValue('');
-  //     this.personal.controls['residencePincode'].setValue('');
-  //     this.personal.controls['residenceState'].setValue('');
-  //     this.personal.controls['residenceCity'].setValue('');
-  //     this.personal.controls['residenceArea'].setValue('');
-  //     sessionStorage.residenceCitys = '';
-  //     sessionStorage.rAreaNames = '';
-  //     this.residenceCitys = {};
-  //     this.rAreaNames = {};
-  //
-  //   }
-  // }
-  // typeAddressDeatils() {
-  //   if (this.personal.controls['sameas'].value) {
-  //     this.residenceCitys = JSON.parse(sessionStorage.personalCitys);
-  //     this.rAreaNames = JSON.parse(sessionStorage.areaNames);
-  //     this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
-  //     this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
-  //     this.personal.controls['residenceCity'].setValue(this.personal.controls['personalCity'].value);
-  //     this.personal.controls['residencePincode'].setValue(this.personal.controls['personalPincode'].value);
-  //     this.personal.controls['residenceState'].setValue(this.personal.controls['personalState'].value);
-  //     this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
-  //   }
-  // }
 
   changeSocialStatus(event:any) {
     if (event.checked==true) {
@@ -490,19 +475,169 @@ export class StarhealthRenewelProposalComponent implements OnInit {
       this.socialNo = '';
     }
   }
-  criticalIllness(values: any) {
-    if (values.checked) {
-      const dialogRef = this.dialog.open(ProposalmessageComponent, {
-        width: '500px'
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        this.stopNext = true;
-      });
-    } else {
-      this.stopNext = false;
+  // criticalIllness(values: any) {
+  //   if (values.checked) {
+  //     const dialogRef = this.dialog.open(ProposalmessageComponent, {
+  //       width: '500px'
+  //     });
+  //     dialogRef.afterClosed().subscribe(result => {
+  //       this.stopNext = true;
+  //     });
+  //   } else {
+  //     this.stopNext = false;
+  //   }
+  // }
+
+  starRenewalProposal(){
+    const data = {
+      "platform": "web",
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      "renewal_id": this.policy_id,
+      "reference_id": this.renewalPolicyValues.referenceId,
+      "policy_type_name": this.renewalPolicyValues.policyTypeName,
+      "proposer_name": this.personal.controls['personalFirstname'].value,
+      "proposer_email": this.personal.controls['personalEmail'].value,
+      "proposer_mobile": this.personal.controls['personalMobile'].value,
+      "proposer_address1": this.personal.controls['personalAddress'].value,
+      "proposer_address2": this.personal.controls['personalAddress2'].value,
+      "proposer_address3": "",
+      "state_code": this.personal.controls['personalState'].value,
+      "city_code": this.personal.controls['personalCity'].value,
+      "district_name": '',
+      "area_name": this.personal.controls['personalAreaName'].value,
+      "pincode": this.personal.controls['personalPincode'].value,
+      "proposer_area_id": this.personal.controls['personalArea'].value,
+      "state_name": '',
+      "city_name": this.personal.controls['personalCityName'].value,
+      "policy_type": this.personal.controls['personalTitle'].value,
+      "old_sum_insured": this.renewalPolicyValues.oldSumInsured,
+      "proposer_comm_area": "56607",
+      "prop_pan_no": this.personal.controls['personalPan'].value,
+      "gst_id_no":this.personal.controls['personalGst'].value,
+      "gst_type": this.personal.controls['personalgstIdType'].value,
+      "social_status": this.personal.controls['socialStatus'].value,
+      "social_status_bpl": this.personal.controls['socialAnswer1'].value,
+      "social_status_disabled": this.personal.controls['socialAnswer2'].value,
+      "social_status_informal": this.personal.controls['socialAnswer3'].value,
+      "social_status_unorganized": this.personal.controls['socialAnswer4'].value,
+      "nominee_name_one": this.personal.controls['nomineeName'].value,
+      "nominee_age_one": this.personal.controls['nomineeAge'].value,
+      "nominee_relationship_one": this.personal.controls['nomineeRelation'].value,
+      "nominee_percentclaim_one": this.personal.controls['nomineeClaim'].value,
+      "appointee_name_one": this.personal.controls['appointee'].value,
+      "appointee_age_one": this.personal.controls['appointeAge'].value,
+      "appointee_relationship_one": this.personal.controls['appointeRelation'].value,
+      "nominee_name_two":this.personal.controls['nomineeName1'].value,
+      "nominee_age_two": this.personal.controls['nomineeAge1'].value,
+      "nominee_relationship_two": this.personal.controls['nomineeRelation1'].value,
+      "nominee_percentclaim_two": this.personal.controls['nomineeClaim1'].value,
+      "appointee_name_two": "",
+      "appointee_age_two": "",
+      "appointee_relationship_two": ""
+    }
+    this.settings.loadingSpinner = true;
+    this.proposalservice.starRenewalProposalList(data).subscribe(
+        (successData) => {
+          this.starRenewalProposalSuccess(successData);
+        },
+        (error) => {
+          this.starRenewalProposalFailure(error);
+        }
+    );
+  }
+  public starRenewalProposalSuccess(successData) {
+    this.settings.loadingSpinner = false;
+    if (successData.IsSuccess) {
+      this.starRwlProposalList = successData.ResponseObject;
+      console.log(this.starRwlProposalList,'starRwlProposalList.......');
+      this.referenceId=this.starRwlProposalList.referenceId;
+      this.premium=this.starRwlProposalList.premium;
+      this.serviceTax=this.starRwlProposalList.serviceTax;
+      this.totalPremium=this.starRwlProposalList.totalPremium;
     }
   }
+  public starRenewalProposalFailure(error) {
+    console.log(error);
+  }
 
+  starRenewalToken() {
+    const data = {
+      "platform": "web",
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      "renewal_id": this.policy_id,
+      "reference_id": this.referenceId,
+    }
+    this.proposalservice.starRenewalproposalToken(data).subscribe(
+        (successData) => {
+          this.starRenewalTokenSuccess(successData);
+        },
+        (error) => {
+          this.starRenewalTokenFailure(error);
+        }
+    );
+  }
+  public starRenewalTokenSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.renewalTokenList = successData.ResponseObject;
+      console.log(this.renewalTokenList,'relationshipList.......');
+      this.renewal_id=this.renewalTokenList.renewal_id;
+      this.prop_reference_id=this.renewalTokenList.prop_reference_id;
+      this.prop_redirect_id=this.renewalTokenList.prop_redirect_id;
+      this.renewal_payment_gateway_url=this.renewalTokenList.renewal_payment_gateway_url;
+    }
+  }
+  public starRenewalTokenFailure(error) {
+    console.log(error);
+
+  }
+
+
+// session Data
+  sessionData() {
+    if (sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
+      let stepper1 = JSON.parse(sessionStorage.stepper1);
+      this.personal = this.fb.group({
+        personalFirstname: stepper1.personalFirstname,
+        personalEmail: stepper1.personalEmail,
+        personalMobile: stepper1.personalMobile,
+        personalAadhar: stepper1.personalAadhar,
+        personalPan: stepper1.personalPan,
+        personalgstIdType:stepper1.personalgstIdType,
+        personalGst:stepper1.personalGst,
+        isEIA:stepper1.isEIA,
+        personalAddress: stepper1.personalAddress,
+        personalAddress2: stepper1.personalAddress2,
+        personalPincode: stepper1.personalPincode,
+        personalCity: stepper1.personalCity,
+        personalState: stepper1.personalState,
+        personalArea: stepper1.personalArea,
+        personalCityName: stepper1.personalCityName,
+        personalAreaName: stepper1.personalAreaName,
+        nomineeName: stepper1.nomineeName,
+        nomineeAge: stepper1.nomineeAge,
+        nomineeRelation: stepper1.nomineeRelation,
+        nomineeClaim: stepper1.nomineeClaim,
+        nomineeName1:stepper1.nomineeName1,
+        nomineeAge1: stepper1.nomineeAge1,
+        nomineeRelation1: stepper1.nomineeRelation1,
+        nomineeClaim1: stepper1.nomineeClaim1,
+        appointee: stepper1.appointee,
+        appointeAge: stepper1.appointeAge,
+        appointeRelation: stepper1.appointeRelation,
+
+        socialStatus: stepper1.socialStatus,
+        socialAnswer1: stepper1.socialAnswer1,
+        socialAnswer2: stepper1.socialAnswer2,
+        socialAnswer3: stepper1.socialAnswer3,
+        socialAnswer4: stepper1.socialAnswer4,
+      });
+    }
+    console.log(this.personal, 'stepper1');
+  }
 
   resetofgstType() {
     this.personal.controls['personalgstIdType'].patchValue('');

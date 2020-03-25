@@ -6,13 +6,13 @@
           <mat-step [stepControl]="personal">
 
             <form [formGroup]="personal" >
-              <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
+              <ng-template matStepLabel>RENEWAL DETAILS</ng-template>
               <mat-accordion class="w-100 float-left">
                 <mat-expansion-panel expanded>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <!--{{groupName}}-->
-                      PROPOSER DETAILS
+                      CONTACT AND ADDRESS DETAILS
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <div class="row mt-3">
@@ -21,7 +21,7 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="personalTitle" required>
+                            <mat-select placeholder="Title" formControlName="personalTitle" required readonly>
                               <mat-option value="Mr">Mr</mat-option>
                               <mat-option value="Ms">Ms</mat-option>
                               <mat-option value="Mrs">Mrs</mat-option>
@@ -32,16 +32,16 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required >
+                            <input matInput placeholder="Proposer Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required readonly>
                             <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required >
-                            <mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>
-                          </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required >-->
+                            <!--<mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Email ID" formControlName="personalEmail" autocomplete="off" required>
@@ -119,7 +119,7 @@
                         </div>
                           <div class="col-md-3">
                               <p>Do you have an eIA number?<span class="error" >*</span></p>
-                              <mat-radio-group formControlName="isEIA" (change)="smokerChange()">
+                              <mat-radio-group formControlName="isEIA" >
                                   <mat-radio-button value="Yes" >Yes</mat-radio-button>
                                   <mat-radio-button class="ml-2" value="No">No</mat-radio-button>
                               </mat-radio-group>
@@ -381,9 +381,9 @@
                     </div>
                     </div>
 
-                    <p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzheimer's disease/Parkinson's disease</mat-checkbox></p>
+                    <!--<p class="w-100 mb-0"><mat-checkbox  formControlName="illnessCheck" (change)="criticalIllness($event)">Does any member proposed to be insured, suffered or are suffering form any disease/ailment/adverse medical condition of any kind especially Heart attack/Stroke/Cancer/Renal disorder/Alzheimer's disease/Parkinson's disease</mat-checkbox></p>-->
                     <div class="proposal-buttom mt-3 text-right w-100">
-                      <button mat-raised-button color="primaryBlue" [disabled]="stopNext"  type="submit">Next</button>
+                      <button mat-raised-button color="primaryBlue"  type="submit" (click)="starRenewalProposal()" >Next</button>
                     </div>
                   </div>
                   </div>
@@ -665,6 +665,235 @@
 
             <!--</mat-accordion>-->
           </mat-step>
+
+          <!--<mat-step [stepControl]="">-->
+            <!--<ng-template matStepLabel>SUMMARY</ng-template>-->
+            <!--<section class="summary-details" >-->
+              <!--<div class="row">-->
+                <!--<div class="col-md-4" > <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{sumInsuredValue}}</span><span   style="cursor: pointer;"></span></h4>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-8" >-->
+                  <!--<ul class="summary-head">-->
+                    <!--&lt;!&ndash;<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>&ndash;&gt;-->
+                    <!--<li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{this.premium}}</span> /</li>-->
+                    <!--<li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{this.serviceTax}}</span> /</li>-->
+                    <!--<li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{this.totalPremium}}</span> </li>-->
+                    <!--<li></li>-->
+                  <!--</ul>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>-->
+              <!--<div class="row box-card">-->
+
+
+
+                <!--<div class="col-md-6">-->
+                  <!--<div class="p-3">-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item"><strong>Name:</strong> {{proposerFormData.personalTitle}}.{{proposerFormData.personalFirstname}} {{proposerFormData.personalLastname}}</li>-->
+                      <!--<li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.personalDob | date: 'dd/MM/yyyy'}}</li>-->
+                      <!--<li class="list-group-item"><strong>Email Id:</strong> {{proposerFormData.personalEmail}}</li>-->
+                      <!--<li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.personalMobile}}</li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.personalAltnumber !=''"><strong>Alternate Number:</strong> {{proposerFormData.personalAltnumber}}</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<div class="p-3">-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.personalOccupationName !=''"><strong>Occupation:</strong> {{proposerFormData.personalOccupationName}}</li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.personalIncome !='' && proposerFormData.personalIncome !=null"><strong>Annual Income:</strong> {{proposerFormData.personalIncome | currency: 'INR'}}</li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.personalAadhar !='' && proposerFormData.personalAadhar !=null"><strong>Aadhar Number:</strong> {{proposerFormData.personalAadhar}}</li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.personalPan !='' && proposerFormData.personalPan !=null"><strong>PAN Number:</strong> {{proposerFormData.personalPan | uppercase}}</li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.personalGst !='' && proposerFormData.personalGst !=null"><strong>GST Number:</strong> {{proposerFormData.personalGst | uppercase}}</li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.previousinsurance !='' && proposerFormData.previousinsurance !=null"><strong>Previous Medical Insurence:</strong> {{proposerFormData.previousinsurance}}</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<div class="p-3">-->
+                    <!--<h6 class="color-blue">COMMUNICATION DETAILS</h6>-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.personalAddress}}</li>-->
+                      <!--<li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>-->
+                      <!--<li class="list-group-item"><strong>PIN code:</strong>  {{proposerFormData.personalPincode}}</li>-->
+                      <!--<li class="list-group-item"><strong>City:</strong> {{proposerFormData.personalCityName}}</li>-->
+                      <!--<li class="list-group-item"><strong>Area:</strong> {{proposerFormData.personalAreaName}}</li>-->
+                      <!--<li class="list-group-item"><strong>State:</strong> {{proposerFormData.personalState}}</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<div class=" p-3">-->
+                    <!--<h6 class="color-blue">RESIDENCE DETAILS</h6>-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item" ><strong>Address 1:</strong>-->
+                        <!--<span *ngIf="proposerFormData.residenceAddress !=''">{{proposerFormData.residenceAddress}}</span>-->
+                        <!--<span *ngIf="proposerFormData.residenceAddress ==''">Nil</span>-->
+                      <!--</li>-->
+                      <!--<li class="list-group-item"><strong>Address 2:</strong>-->
+                        <!--<span *ngIf="proposerFormData.residenceAddress2 !=''">{{proposerFormData.residenceAddress2}}</span>-->
+                        <!--<span *ngIf="proposerFormData.residenceAddress2 ==''">Nil</span>-->
+                      <!--</li>-->
+                      <!--<li class="list-group-item"><strong>PIN code:</strong>-->
+                        <!--<span *ngIf="proposerFormData.residencePincode !=''">{{proposerFormData.residencePincode}}</span>-->
+                        <!--<span *ngIf="proposerFormData.residencePincode ==''">Nil</span>-->
+                      <!--</li>-->
+                      <!--<li class="list-group-item"><strong>City:</strong>-->
+                        <!--<span *ngIf="proposerFormData.residenceCityName !=''">{{proposerFormData.residenceCityName}}</span>-->
+                        <!--<span *ngIf="proposerFormData.residenceCityName ==''">Nil</span>-->
+                      <!--</li>-->
+                      <!--<li class="list-group-item"><strong>Area:</strong>-->
+                        <!--<span *ngIf="proposerFormData.residenceAreaName !=''">{{proposerFormData.residenceAreaName}}</span>-->
+                        <!--<span *ngIf="proposerFormData.residenceAreaName ==''">Nil</span>-->
+                      <!--</li>-->
+                      <!--<li class="list-group-item"><strong>State:</strong>-->
+                        <!--<span *ngIf="proposerFormData.residenceState !=''">{{proposerFormData.residenceState}}</span>-->
+                        <!--<span *ngIf="proposerFormData.residenceState ==''">Nil</span>-->
+                      <!--</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+
+              <!--<h5 class="mt-3 sub-title">SOCIAL STATUS </h5>-->
+              <!--<div class="row box-card">-->
+                <!--<div class="col-md-6">-->
+                  <!--<div class="p-3">-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item"*ngIf="proposerFormData.socialAnswer1 == 1"><strong> Are you working in Unorganized Sector:</strong> <span >Yes</span> </li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.socialAnswer1 != 1||proposerFormData.socialAnswer1 ==''"><strong>Are you working in Unorganized Sector:</strong> <span >No</span></li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.socialAnswer2 == 1"><strong>Are you working in informal Sector:</strong> <span >Yes</span></li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.socialAnswer2 != 1||proposerFormData.socialAnswer2 ==''"><strong>Are you working in informal Sector:</strong><span >No</span></li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<div class="p-3">-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.socialAnswer3 == 1"><strong>Are you Economically Vulnerable or Backward Classes:</strong><span >Yes</span></li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.socialAnswer3 != 1||proposerFormData.socialAnswer3 ==''"><strong>Are you Economically Vulnerable or Backward Classes:</strong><span >No</span></li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.socialAnswer4 == 1"><strong>Are you physical challenged person:</strong><span >Yes</span></li>-->
+                      <!--<li class="list-group-item" *ngIf="proposerFormData.socialAnswer4 != 1||proposerFormData.socialAnswer4 ==''"><strong>Are you physical challenged person:</strong><span >No</span></li>-->
+
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+
+
+              <!--<h5 class="mt-3 sub-title">INSURED DETAILS </h5>-->
+              <!--<div class="row box-card" *ngFor="let list of insuredFormData">-->
+                <!--<div class="col-md-6">-->
+                  <!--<div class="p-3">-->
+                    <!--<h6 class="color-blue"> INSURED DETAILS FOR {{list.type | uppercase}}</h6>-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item"><strong>Name:</strong> {{list.ins_name}}</li>-->
+                      <!--<li class="list-group-item"><strong>D.O.B:</strong> {{list.ins_dob | date: 'dd/MM/yyyy'}}</li>-->
+                      <!--<li class="list-group-item"><strong>Gender:</strong> {{list.ins_gender}}</li>-->
+                      <!--<li class="list-group-item"><strong>Height:</strong> {{list.ins_height}}</li>-->
+                      <!--<li class="list-group-item"><strong>Weight:</strong> {{list.ins_weight}}</li>-->
+                      <!--<li class="list-group-item"><strong>Occupation:</strong> {{list.ins_occupation_name}}</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<div class="p-3">-->
+                    <!--<h6 class="color-blue mt-4"></h6>-->
+                    <!--<ul class="m-0 list-group">-->
+                      <!--<li class="list-group-item"><strong>Relationship with Proposer:</strong> {{list.ins_relationship_name}}</li>-->
+                      <!--<li class="list-group-item"><strong>Do you have any health problem: </strong> <span *ngIf="list.illness == 'true'">Yes</span> <span *ngIf="list.illness == 'false'">No</span></li>-->
+                      <!--<li class="list-group-item" *ngIf="list.ins_illness"><strong>Illness:</strong> {{list.ins_illness}}</li>-->
+                      <!--<li *ngIf="this.buyProductdetails.product_id == 6" class="list-group-item"><strong>Hospital Cash:</strong> <span *ngIf="list.ins_hospital_cash == '1'">Yes</span> <span *ngIf="list.ins_hospital_cash == '0'">No</span></li>-->
+                      <!--&lt;!&ndash;                      <li *ngIf="this.buyProductdetails.product_id == 9 || this.buyProductdetails.product_id == 8" class="list-group-item"><strong>Buy back PED:</strong> </li>&ndash;&gt;-->
+                      <!--<li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Buy back PED:</strong> <span *ngIf="list.ins_buyBack_cash == '1'">Yes</span> <span *ngIf="list.ins_buyBack_cash == '0'">No</span></li>-->
+
+                      <!--<li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>personal Accident Applicable:</strong> <span *ngIf="list.ins_personal_accident_applicable == '2'"> Yes</span> <span *ngIf="list.ins_personal_accident_applicable == '0'"> No</span></li>-->
+                      <!--<li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Manual Labour:</strong> {{list.ins_engage_manual_labour}}</li>-->
+                      <!--<li *ngIf="this.buyProductdetails.product_id == 8 || this.buyProductdetails.product_id == 9" class="list-group-item"><strong>Engage Winter Sports:</strong> {{list.ins_engage_winter_sports}}</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+
+              <!--<h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>-->
+              <!--<div class="row box-card" *ngFor="let allList of nomineeDate">-->
+                <!--<div class="col-md-12" *ngFor="let list of allList.nominee; let i = index">-->
+                  <!--<div class="p-3" >-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-6">-->
+                        <!--<div class="p-3">-->
+                          <!--<ul class="m-0 list-group">-->
+                            <!--<li class="list-group-item">-->
+                              <!--<strong>Name:</strong> <span *ngIf="list.nname ==''"> Nil</span> <span *ngIf="list.nname !=''">{{list.nname}}</span>-->
+                            <!--</li>-->
+                            <!--<li class="list-group-item"><strong>Age:</strong>-->
+                              <!--<span *ngIf="list.nage ==''"> Nil</span> <span *ngIf="list.nage !=''">{{list.nage}}</span>-->
+                            <!--</li>-->
+                          <!--</ul>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-6">-->
+                        <!--<div class="p-3">-->
+                          <!--<ul class="m-0 list-group">-->
+                            <!--<li class="list-group-item">-->
+                              <!--<strong>Relationship with Proposer:</strong>-->
+                              <!--<span *ngIf="list.nrelationship !=''">-->
+                                                <!--{{list.nrelationship}}-->
+                                              <!--</span>-->
+                              <!--<span *ngIf="list.nrelationship ==''">-->
+                                                  <!--Nil-->
+                                              <!--</span>-->
+                            <!--</li>-->
+                            <!--<li class="list-group-item"><strong>% of Claim:</strong> <span *ngIf="list.nclaim == '' || list.nclaim == 0"> Nil</span> <span *ngIf="list.nclaim != ''">{{list.nclaim | limitTo : 3}}</span></li>-->
+                          <!--</ul>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                  <!--&lt;!&ndash;<h5 class="mt-3 sub-title">APPOINTEE DETAILS </h5>&ndash;&gt;-->
+
+                  <!--<div class="p-3" *ngIf="list.aname !=''">-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-6">-->
+                        <!--<div class="p-3">-->
+                          <!--<ul class="m-0 list-group">-->
+                            <!--<li class="list-group-item" *ngIf="list.aname !=''"><strong>Appointiee Name:</strong> {{list.aname}}</li>-->
+                            <!--<li class="list-group-item" *ngIf="list.aage !=''"><strong>Age:</strong> {{list.aage}}</li>-->
+                          <!--</ul>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-6">-->
+                        <!--<div class="p-3">-->
+                          <!--<ul class="m-0 list-group">-->
+                            <!--<li class="list-group-item" *ngIf="list.arelationship !=''"><strong>Relationship with insured:</strong> {{list.arelationship}}</li>-->
+                            <!--&lt;!&ndash;<li class="list-group-item" ><strong>% of Claim:</strong> <span *ngIf="list.nclaim == '' || list.nclaim == 0">Nil</span> <span *ngIf="list.nclaim != ''">{{list.nclaim | limitTo : 3}}</span></li>&ndash;&gt;-->
+                          <!--</ul>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+
+            <!--</section>-->
+
+            <!--<p class="mt-2 pl-3">-->
+              <!--<mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>-->
+            <!--</p>-->
+            <!--<hr>-->
+            <!--<div class="row">-->
+              <!--<div class="col-md-12 text-center">-->
+                <!--<form action ={{renewal_payment_gateway_url}} method ='POST' #form>-->
+                  <!--<button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
+                  <!--<button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="starRenewalToken();form.submit()">Pay Now</button>-->
+                <!--</form>-->
+              <!--</div>-->
+            <!--</div>-->
+
+          <!--</mat-step>-->
 
         </mat-horizontal-stepper>
       </div>
