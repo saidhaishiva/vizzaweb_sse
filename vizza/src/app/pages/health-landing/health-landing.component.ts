@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {HealthService} from '../../shared/services/health.service';
+import {ValidationService} from '../../shared/services/validation.service';
 
 @Component({
   selector: 'app-health-landing',
@@ -14,10 +15,10 @@ public form: FormGroup;
 public healthLandingSubmit: any;
 
 
-  constructor(public fb: FormBuilder,public common: HealthService, public toastr: ToastrService , public router: Router) {
+  constructor(public fb: FormBuilder,public common: HealthService, public toastr: ToastrService , public router: Router, public validation: ValidationService,) {
     this.form = this.fb.group({
       'firstName': ['', Validators.required],
-      'mobile': ['', Validators.required],
+      'mobile': ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
       'emailId': ['', Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
 
 
@@ -60,5 +61,13 @@ public healthLandingSubmit: any;
   public healthLandingFailure(error) {
   }
 
+  //validation
+  nameValidate(event: any) {
+    this.validation.nameValidate(event);
+  }
+
+  numberValidate(event: any) {
+    this.validation.numberValidate(event);
+  }
 
 }
