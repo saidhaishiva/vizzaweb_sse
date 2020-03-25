@@ -126,6 +126,7 @@ export const horizontalMenuItems = [
     new Menu (67, 'Renew Existing Policy', '/renew-existing-policy', null, null, null, false, 67),
     new Menu (67, 'Health Insurance Renewal', '/star-renewal', null, null, null, false, 67),
     new Menu (67, 'Health Landing', '/health-landing', null, null, null, false, 67),
+    new Menu (67, 'Term Landing', '/term-landing', null, null, null, false, 67),
     new Menu (68, 'Claim Assistance', '/claim-assistance', null, null, null, true, 0),
     new Menu (33, 'Blogs', '/', null, null, null, true, 0),
     new Menu (49, 'Learning Center', '/learning-center', null, null, null, false, 33),

@@ -193,6 +193,8 @@ import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.ser
 import { StarRenewalComponent } from './pages/star-renewal/star-renewal.component';
 import { StarhealthRenewelProposalComponent } from './pages/star-renewal/starhealth-renewel-proposal/starhealth-renewel-proposal.component';
 import { HealthLandingComponent } from './pages/health-landing/health-landing.component';
+import { TermLandingComponent } from './pages/term-landing/term-landing.component';
+
 
 
 
@@ -401,6 +403,7 @@ export const routes: Routes = [
             { path: 'edelweisspos-payment-success/:status/:proId', component: EdelweissposPaymnetSuccessComponent, data: { breadcrumb: 'Edelweisspos payment'}},
             { path: 'starhealth-renewal-proposal', component: StarhealthRenewelProposalComponent, data: { breadcrumb: 'Starhealth proposal'}},
             { path: 'health-landing', component: HealthLandingComponent, data: { breadcrumb: 'Health landing'}},
+            { path: 'term-landing', component: TermLandingComponent, data: { breadcrumb: 'Term landing'}},
 
         ]
     },

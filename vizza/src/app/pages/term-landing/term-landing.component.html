@@ -1,0 +1,144 @@
+<div class="container-fluid bc-color">
+  <section>
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12 h-100">
+          <div class="aboutContent">
+            <h6 class="heading text-center text-uppercase">Protect Your Loved One Financially </h6>
+
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <div class="leading">
+                <img src="assets/img/term-leading.png" class="w-100" style="margin-top: 33px;">
+
+              </div>
+            </div>
+            <div class="col-md-5">
+              <h6 class="heading1 text-center">Buy  <br><span><b class="heading1 text-uppercase"><span>&#8377; </span>1 Crore </b> </span>Term plan at the <span><b class="text-uppercase heading1"><br>Lowest Premium</b></span></h6>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-xs-12 mt-3">
+          <div class="card h-100" >
+            <form [formGroup]="form">
+              <div class="col-md-12 mt-5">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Name" formControlName="firstName" maxlength="50" (keypress)="nameValidate($event)"  autocomplete="off" required>
+                  <mat-error *ngIf="form.controls.firstName.errors?.required">Name is required</mat-error>
+                </mat-form-field>
+              </div>
+              <!--<div class="col-md-12">-->
+                <!--<div class="form-group" >-->
+                  <!--<label >Name</label>-->
+                  <!--<input type="text" class="form-control"  placeholder="Name" formControlName="firstName">-->
+                <!--</div>-->
+              <!--</div>-->
+              <div class="col-md-12 mt-3">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Mobile No" formControlName="mobile" maxlength="10"  (keypress)="numberValidate($event)" autocomplete="off" required>
+                  <mat-error *ngIf="form.controls.mobile.errors?.required">Mobile No is required</mat-error>
+                  <mat-error *ngIf="form.controls.mobile.hasError('pattern')">Enter valid Mobile No</mat-error>
+                </mat-form-field>
+              </div>
+              <!--<div class="col-md-12">-->
+                <!--<div class="form-group" >-->
+                  <!--<label >Mobile No</label>-->
+                  <!--<input type="text" class="form-control"  placeholder="Mobile No" formControlName="mobile">-->
+                <!--</div>-->
+              <!--</div>-->
+              <div class="col-md-12 mt-3">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Email ID" formControlName="emailId" autocomplete="off" required>
+                  <mat-error *ngIf="form.controls.emailId.errors?.required">Email ID is required</mat-error>
+                  <mat-error *ngIf="form.controls.emailId.hasError('pattern')">Enter valid Email ID</mat-error>
+                </mat-form-field>
+              </div>
+
+              <!--<div class="col-md-12">-->
+                <!--<div class="form-group" >-->
+                  <!--<label >Email</label>-->
+                  <!--<input type="text" class="form-control"  placeholder="Email" formControlName="email">-->
+                <!--</div>-->
+              <!--</div>-->
+
+
+
+
+
+              <div class="col-md-12 text-center mt-3">
+                <button mat-button type="submit" style="background: #f06024; color: #fff" (click)="landingSubmit()" >Submit</button>
+
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<section class="container-fluid second-color ">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2 ">
+        <img src="assets/img/Relicare.png" class="logo-pics" >
+
+      </div>
+      <div class="col-md-2">
+        <img src="assets/img/star.png" class="logo-pics3" >
+
+      </div>
+      <div class="col-md-2 ">
+        <img src="assets/img/reliance.png" class="logo-pics">
+
+      </div>
+      <div class="col-md-2 ">
+        <img src="assets/img/hdfc.png" class="logo-pics1"  >
+
+      </div>
+      <div class="col-md-2">
+        <img src="assets/img/bajjaj.png" class="logo-pics2" >
+
+      </div>
+      <div class="col-md-2">
+        <img src="assets/img/iffco.png" class="logo-pics"  >
+
+
+      </div>
+
+    </div>
+
+
+
+    <div class="row ">
+      <div class="col-md-6 follow" >
+        <ul class="mb-0">
+          <li><span class="heading">Follow Us:</span></li>
+          <li><a href="" target=""><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+          <li><a href="" target=""><i class="fab fa-twitter"></i></a></li>
+
+          <li><a href="" target=""><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+          <li><a href="" target=""><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+        </ul>
+      </div>
+      <div class="col-md-6 float-right policy">
+        <p class="privacy">Policy T&C Apply | Privacy Policy</p>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container">
+
+    <p class="copy text-center text-white">@copyright 2018 @VIZZA INSURANCE BROKING SRVICE PVT.LTD<br> Disclaimer;Insurance is the subject matter of solicitation...<a href="#" class="heading">Read More</a></p>
+  </div>
+</footer>
+

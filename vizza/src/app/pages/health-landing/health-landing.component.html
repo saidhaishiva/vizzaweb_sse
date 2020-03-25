@@ -6,12 +6,12 @@
         <div class="leading">
           <img src="assets/img/Left-side-image.png" class="w-100">
           <div class="aboutContent">
-            <h6 class="heading text-center">Buy <b class="heading text-uppercase">Health Insurance</b> Through <b class="text-uppercase heading">Vizza </b>From Various Insurers</h6>
+            <h6 class="heading text-center">Buy <b class="heading text-uppercase">Health Insurance</b> <br>Through <span><b class="text-uppercase heading">Vizza </b></span>From Various Insurers</h6>
           </div>
         </div>
       </div>
 
-      <div class="col-md-6 col-sm-12 col-xs-12">
+      <div class="col-md-6 col-sm-12 col-xs-12 mt-3">
         <div class="card h-100" >
           <form [formGroup]="form">
             <!--<div class="col-md-12">-->
@@ -20,7 +20,7 @@
                 <!--<input type="text" class="form-control"  placeholder="Name" formControlName="firstName" maxlength="50"required>-->
               <!--</div>-->
             <!--</div>-->
-              <div class="col-md-12 mt-5">
+              <div class="col-md-12 mt-3">
                   <mat-form-field class="w-100">
                       <input matInput placeholder="Name" formControlName="firstName" maxlength="50" (keypress)="nameValidate($event)"  autocomplete="off" required>
                       <mat-error *ngIf="form.controls.firstName.errors?.required">Name is required</mat-error>
@@ -59,7 +59,7 @@
 
 
 
-            <div class="col-md-12 text-center mt-3">
+            <div class="col-md-12 text-center mt-3 ">
               <button mat-button type="submit" style="background: #f06024; color: #fff" (click)="landingSubmit()" >Submit</button>
 
             </div>
@@ -77,27 +77,27 @@
   <div class="container">
   <div class="row">
     <div class="col-md-2 ">
-      <img src="assets/img/Relicare.png" class="logo-pics w-100" >
+      <img src="assets/img/Relicare.png" class="logo-pics" >
 
     </div>
     <div class="col-md-2">
-      <img src="assets/img/star.png" class="logo-pics w-100" >
+      <img src="assets/img/star.png" class="logo-pics3" >
 
     </div>
     <div class="col-md-2 ">
-      <img src="assets/img/reliance.png" class="logo-pics w-100">
+      <img src="assets/img/reliance.png" class="logo-pics">
 
     </div>
     <div class="col-md-2 ">
-      <img src="assets/img/hdfc.png" class="logo-pics1 w-100"  >
+      <img src="assets/img/hdfc.png" class="logo-pics1"  >
 
     </div>
     <div class="col-md-2">
-      <img src="assets/img/bajjaj.png" class="logo-pics w-100 " >
+      <img src="assets/img/bajjaj.png" class="logo-pics2" >
 
     </div>
     <div class="col-md-2">
-      <img src="assets/img/iffco.png" class="logo-pics w-100 "  >
+      <img src="assets/img/iffco.png" class="logo-pics"  >
 
 
     </div>
