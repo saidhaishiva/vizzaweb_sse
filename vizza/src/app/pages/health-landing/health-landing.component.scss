@@ -7,10 +7,12 @@
 }
 .second-color{
   background-color:#fff5ec;
+  margin-top: -39px;
+
 
 }
 footer{
-  background-color: #000 !important;
+  background-color: #707070!important;
   color: #fff;
 }
 ul {
@@ -44,16 +46,22 @@ li a {
 }
 .privacy{
   margin-top: 82px;
-  margin-left: 244px;
+  margin-left: 338px;
 }
-.logo-pics{
-  margin-top: 82px;
-  height: 40px;
-
-}.logo-pics1{
-  margin-top: 82px;
-  //height: 40px;
-
+.logo-pics {
+  margin-top: 128px;
+  width: 80%;
+}
+.logo-pics1{
+  margin-top: 109px;
+  width: 50%;
+}.logo-pics2{
+   margin-top: 128px;
+   width: 117%;
+   margin-left: -22px;
+}.logo-pics3{
+   margin-top: 109px;
+    width: 80%;
 }
 .copy{
   font-size: 10px;
@@ -70,7 +78,10 @@ li a {
   background-clip: border-box;
   border: none !important;
   border-radius: 0.25rem;
-  box-shadow: 1px 1px 1px 1px #888888;
+  -moz-box-shadow:    1px 1px 1px 1px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5);
+  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5);
+
 }
 .follow{
   margin-top: 82px;
