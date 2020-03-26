@@ -999,6 +999,16 @@ export class HealthService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    hdfcSumInsured(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'hdfc/sum_insured';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
 
     //Bajaj Services
     getbajajProposal(data) {
