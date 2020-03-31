@@ -315,8 +315,8 @@ import { CarTataaigPaymentSuccessComponent } from './pages/car-tataaig-payment-s
 import { RelianceTwowheelerPaymentSuccessComponent } from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
 import { CarTataaigDownloadPolicyComponent } from './pages/car-tataaig-download-policy/car-tataaig-download-policy.component';
 import { NewContactComponent } from './pages/new-contact/new-contact.component';
-import { EdelweissTermLifeComponent } from './pages/edelweiss-term-life/edelweiss-term-life.component';
-import { EdelweissOpt } from './pages/edelweiss-term-life/edelweiss-term-life.component';
+import { EdelweissTermLifeComponent, EdelweissOpt, edelweissCover } from './pages/edelweiss-term-life/edelweiss-term-life.component';
+// import { EdelweissOpt } from './pages/edelweiss-term-life/edelweiss-term-life.component';
 import { BajajGoldSurakshaComponent } from './pages/bajaj-gold-suraksha/bajaj-gold-suraksha.component';
 import { BajajGoal} from './pages/bajaj-gold-suraksha/bajaj-gold-suraksha.component';
 import { SpecialContigencyPolicyComponent } from './pages/special-contigency-policy/special-contigency-policy.component';
@@ -629,6 +629,7 @@ import { TermLandingComponent } from './pages/term-landing/term-landing.componen
         DownloadMessageTravelBajaj,
         BajajLifeOpt,
         EdelweissOpt,
+        edelweissCover,
         reliance2WCover,
         reliance4WCover,
         rsfourwheelercover,
@@ -769,7 +770,7 @@ import { TermLandingComponent } from './pages/term-landing/term-landing.componen
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,HealthInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,EdelweissOpt,reliance2WCover,reliance4WCover,shriram2WCover,shriram4WCover,rsfourwheelercover,tataigCarOpt,tataigBikeOpt,starhealthedit,BalajImageviewComponent,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,EdelweissOpt,edelweissCover,reliance2WCover,reliance4WCover,shriram2WCover,shriram4WCover,rsfourwheelercover,tataigCarOpt,tataigBikeOpt,starhealthedit,BalajImageviewComponent,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,
         // BikeShriramIDVComponent,
         // fourShriramIDVComponent,
         FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent, ViewKeyfeaturesComponent,BajajGoal,TermViewKeyfeaturesComponent,EdelweissposOpt,ViewdetailscomponentComponent

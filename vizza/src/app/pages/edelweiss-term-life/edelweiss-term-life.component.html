@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <mat-form-field class="w-100">
-                                            <input matInput placeholder="Annual Income" formControlName="annualIncome" maxlength="15" autocomplete="off" required (keypress)="numberValidate($event)" (selectionChange)="edelweissPrimium()"  >
+                                            <input matInput placeholder="Annual Income" formControlName="annualIncome" maxlength="15" autocomplete="off" required (keypress)="numberValidate($event)"   >
                                             <mat-error *ngIf="customerDetails.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                                         </mat-form-field>
                                     </div>
@@ -118,7 +118,7 @@
 
                                     <div class="col-md-4" *ngIf="sub_product_id == '1' ">
 
-                                        <mat-radio-group formControlName="waiverOfPremiumBenefit"  (change)="edelweissPrimium()">
+                                        <mat-radio-group formControlName="waiverOfPremiumBenefit"  >
                                             <p>Waiver Of Premium Benefit</p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -129,7 +129,7 @@
                                     </div>
 
                                     <div class="col-md-4" *ngIf="customerDetails.controls['maritalStatus'].value == 'M'">
-                                        <mat-radio-group formControlName="betterHalfBenefit" (change)="isbetterHalfBenefit();edelweissPrimium()" >
+                                        <mat-radio-group formControlName="betterHalfBenefit" (change)="isbetterHalfBenefit()" >
                                             <p>Better Half Benefit</p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -183,7 +183,7 @@
                                         <div class="col-md-4 " *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <mat-form-field class="w-100">
                                                 <mat-placeholder>DOB (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
-                                                <input matInput [matDatepicker]="picker13" [max]="minDate" (keypress)="dobValidate($event)"   formControlName="sdob" (dateInput)="addEventSpouse1($event)" (dateChange)="addEventSpouse1($event)" (change)="edelweissPrimium()" autocomplete="off" maxlength="10" minlength="10">
+                                                <input matInput [matDatepicker]="picker13" [max]="minDate" (keypress)="dobValidate($event)"   formControlName="sdob" (dateInput)="addEventSpouse1($event)" (dateChange)="addEventSpouse1($event);edelweissPrimiumAge($event.target.value)" (input)="edelweissPrimiumAge($event.target.value)" autocomplete="off" maxlength="10" minlength="10">
                                                 <mat-datepicker-toggle matSuffix [for]="picker13"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker13></mat-datepicker>
                                             </mat-form-field>
@@ -199,7 +199,7 @@
 
                                         <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'">
                                             <p>Smoker<span class="error" >*</span></p>
-                                            <mat-radio-group formControlName="isSmokerSpouse" (change)="smokerChangeSpouse();edelweissPrimium()">
+                                            <mat-radio-group formControlName="isSmokerSpouse" (change)="smokerChangeSpouse()">
                                                 <mat-radio-button value="Yes" >Yes</mat-radio-button>
                                                 <mat-radio-button class="ml-2" value="No">No</mat-radio-button>
                                             </mat-radio-group>
@@ -245,7 +245,7 @@
                                     <!--                               </div>-->
 
                                     <div class="col-md-4" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
-                                        <mat-radio-group formControlName="isHCB" (change)="edelweissPrimium()" >
+                                        <mat-radio-group formControlName="isHCB"  >
                                             <p>Hospital Cash Benefit</p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -254,7 +254,7 @@
                                     <div class="col-md-4 mt-2" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="sumAssuredHCB"  (change)="edelweissPrimium()" (input)="sumAssuredHCBError()" autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="sumAssuredHCB"  (input)="sumAssuredHCBError()" autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min:{{hcb_sumassured_min}} Max: {{hcb_sumassured_max}}</p></div>
                                         <div class="error" style="margin-top: -20px" *ngIf="hcbdError != '' && hcbdError != true">{{hcbdError}}<br> {{this.hcb_sumassured_min}} - {{this.hcb_sumassured_max}}</div>
@@ -264,7 +264,7 @@
                                     </div>
 
                                     <div class="col-md-4" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
-                                        <mat-radio-group formControlName="criticalIllness" (change)="edelweissPrimium()" >
+                                        <mat-radio-group formControlName="criticalIllness"  >
                                             <p> Enhanced Critical Illness Rider</p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -273,7 +273,7 @@
                                     <div class="col-md-4 mt-2" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="criticalsumAssured"  (change)="edelweissPrimium()" (input)="sumAssuredCiError()" autocomplete="off"   (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="criticalsumAssured"   (input)="sumAssuredCiError()" autocomplete="off"   (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div>
                                             <p style="font-size: 10px; color: #3378bd;">Min: {{ci_sumassured_min}}  Max: {{ci_sumassured_max}}</p></div>
@@ -291,7 +291,7 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <mat-radio-group formControlName="isADB" (change)="edelweissPrimium()" >
+                                        <mat-radio-group formControlName="isADB"  >
                                             <p>Accidental Death Benefit</p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -300,7 +300,7 @@
                                     <div class="col-md-4 mt-2"  >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="sumAssuredADB"  (change)="edelweissPrimium()" (input)="sumAssuredADBError()" autocomplete="off"    (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="sumAssuredADB"   (input)="sumAssuredADBError()" autocomplete="off"    (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{adb_sumassured_min}} Max: {{adb_sumassured_max}}</p></div>
 
@@ -319,7 +319,7 @@
                                         <p *ngIf="ADB != 0"><strong> Accidental Death Benefit Premium :</strong> {{ADB}}</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <mat-radio-group formControlName="isATPD" (change)="edelweissPrimium()" >
+                                        <mat-radio-group formControlName="isATPD"  >
                                             <p>Permanent Disability Rider</p>
                                             <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                             <mat-radio-button value="No">No</mat-radio-button>
@@ -328,7 +328,7 @@
                                     <div class="col-md-4 mt-2 " >
                                         <mat-form-field class="w-100">
                                             <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                            <input matInput  formControlName="sumAssuredATPD" (change)="edelweissPrimium()" (input)="sumAssuredATPDError()"  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                                            <input matInput  formControlName="sumAssuredATPD" (input)="sumAssuredATPDError()"  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
                                         </mat-form-field>
                                         <div><p style="font-size: 10px; color: #3378bd;">Min: {{atpd_sumassured_min}} Max: {{atpd_sumassured_max}}</p></div>
                                         <div class="error" style="margin-top: -20px"  *ngIf="atpdError != '' && atpdError != true">{{atpdError}}<br> {{this.atpd_sumassured_min }} - {{this.atpd_sumassured_max}}</div>
@@ -350,7 +350,7 @@
 
                                     <div class="col-md-3">
                                         <mat-form-field class="w-100">
-                                            <mat-select  placeholder="Payout Option" formControlName="payoutOption" (selectionChange)="getpayoutOption();payOutReq();payoutLumpSum();payoutName();edelweissPrimium()"  class="w-100" required>
+                                            <mat-select  placeholder="Payout Option" formControlName="payoutOption" (selectionChange)="getpayoutOption();payOutReq();payoutLumpSum();payoutName()"  class="w-100" required>
                                                 <mat-option *ngFor="let list of epayoutOption | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="addon.controls.payoutOption.errors?.required">Payout Option is required</mat-error>
@@ -379,7 +379,7 @@
 
                                     <div class="col-md-2 " *ngIf="addon.controls.payoutOption.value=='combination'||addon.controls.payoutOption.value=='income_benefit'">
                                         <mat-form-field class="w-100">
-                                            <mat-select  placeholder="No Of Months" formControlName="noOfMonths" (selectionChange)="getpayoutMonth();edelweissPrimium()"  class="w-100" [required]="addon.controls.payoutOption.value=='combination'||addon.controls.payoutOption.value=='income_benefit'">
+                                            <mat-select  placeholder="No Of Months" formControlName="noOfMonths" (selectionChange)="getpayoutMonth()"  class="w-100" [required]="addon.controls.payoutOption.value=='combination'||addon.controls.payoutOption.value=='income_benefit'">
                                                 <mat-option *ngFor="let list of epayoutMonth | keys" [value]= list.key> {{list.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="addon.controls.noOfMonths.errors?.required">No Of Months is required</mat-error>
@@ -388,32 +388,34 @@
 
                                 </div>
 
-                                <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
-                                    <div class="col-md-12">
-                                        <h6 class="color-blue">PREMIUM</h6>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="p-3">
+                                <!--<div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">-->
+                                    <!--<div class="col-md-12">-->
+                                        <!--<h6 class="color-blue">PREMIUM</h6>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--<div class="p-3">-->
 
-                                            <ul class="m-0 list-group">
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="planname != 0"><strong> Plan Name :</strong> {{planname}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="policyTerm != 0"><strong> Policy Term :</strong> {{policyTerm}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="payingTerm != 0"><strong> Pay Term :</strong> {{payingTerm}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="sum != 0"><strong> Sum Assured :</strong> {{sum}}</li>
-                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="basePremium != 0"><strong> Premium :</strong> {{basePremium}}</li>-->
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['waiverOfPremiumBenefit'].value == 'Yes'"><strong>   Waiver Of Premium Benefit :</strong> {{PW}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['betterHalfBenefit'].value == 'Yes'"><strong>   Better Half Benefit :</strong> {{BhP}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['isHCB'].value == 'Yes'"><strong>   Hospital Cash Benefit :</strong> {{hcp}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['criticalIllness'].value == 'Yes'"><strong>   Enhanced Critical Illness Rider :</strong> {{CIP}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['isADB'].value == 'Yes'"><strong>   Accidental Death Benefit :</strong> {{ADB}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['isATPD'].value == 'Yes'"><strong>   Permanent Disability Rider :</strong> {{PDP}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="Amount != ''"><strong>   Amount :</strong> {{Amount}}</li>
-                                                <li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="TotalAmount != 0"><strong>   Total Amount :</strong> {{TotalAmount}}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                            <!--<ul class="m-0 list-group">-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="planname != 0"><strong> Plan Name :</strong> {{planname}}</li>-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="policyTerm != 0"><strong> Policy Term :</strong> {{policyTerm}}</li>-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="payingTerm != 0"><strong> Pay Term :</strong> {{payingTerm}}</li>-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="sum != 0"><strong> Sum Assured :</strong> {{sum}}</li>-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="basePremium != 0"><strong> Premium :</strong> {{basePremium}}</li>&ndash;&gt;-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['waiverOfPremiumBenefit'].value == 'Yes'"><strong>   Waiver Of Premium Benefit :</strong> {{PW}}</li>-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['betterHalfBenefit'].value == 'Yes'"><strong>   Better Half Benefit :</strong> {{BhP}}</li>-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['isHCB'].value == 'Yes'"><strong>   Hospital Cash Benefit :</strong> {{hcp}}</li>-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['criticalIllness'].value == 'Yes'"><strong>   Enhanced Critical Illness Rider :</strong> {{CIP}}</li>-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['isADB'].value == 'Yes'"><strong>   Accidental Death Benefit :</strong> {{ADB}}</li>-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);" *ngIf="this.addon.controls['isATPD'].value == 'Yes'"><strong>   Permanent Disability Rider :</strong> {{PDP}}</li>-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="Amount != ''"><strong>   Amount :</strong> {{Amount}}</li>-->
+                                                <!--<li class="list-group-item" style="border: 1px solid rgba(0, 0, 0, 0.02);"*ngIf="TotalAmount != 0"><strong>   Total Amount :</strong> {{TotalAmount}}</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
 
-                                </div>
+                                <!--</div>-->
+
+
                                 <!--<div class="row">-->
                                 <!--<div class="col-md-12">-->
                                 <!--<pdf-viewer src="{{bi_pdf_url}}"-->
@@ -424,7 +426,7 @@
                                 <!--</div>-->
                                 <div class="proposal-buttom mt-3 text-right w-100">
                                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                    <button mat-raised-button color="primaryBlue"  (click)="isbetterHalfBenefit();smokerChangeSpouse();payoutName();edelweissPrimium();edelweissAddonDetail(stepper, addon.value)">Next</button>
+                                    <button mat-raised-button color="primaryBlue"  (click)="isbetterHalfBenefit();smokerChangeSpouse();payoutName();edelweissAddonDetail(stepper, addon.value)">Next</button>
                                 </div>
                             </mat-expansion-panel>
                         </form>

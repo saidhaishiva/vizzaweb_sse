@@ -13,7 +13,8 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 import { WINDOW } from '@ng-toolkit/universal';
 import {ValidationService} from '../../shared/services/validation.service';
-import {icuFromI18nMessage} from '@angular/compiler/src/render3/view/i18n/util';
+import {Settings} from '../../app.settings.model';
+import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 
 
 
@@ -160,7 +161,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     public settings: any;
     public webhost: any;
     public sdropDownValues: any;
-    // public weburl:any;
+    public eePremiumTermss:any;
     public nomineeData: any;
     public showAppointee: boolean;
     public dopDateError: any;
@@ -266,7 +267,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     public ECGInderror:any;
     public sECGInderror:any;
 
-    // public tobaccoStopInderror:any;
+    public checkDate:any;
     public premiumPayment:any;
     public ageTill:any;
     public ADB:any;
@@ -955,7 +956,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.getCauseDeath();
         // this.getFamilyHistory();
         this.sessionData();
-        this.edelweissPrimium();
+        // this.edelweissPrimiumAge();
         this.getCover();
         this.edelweissWorkExperienceYear();
         this.edelweissWorkExperienceMon();
@@ -1958,7 +1959,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         console.log(this.addon, 'addon');
         console.log(this.addon.valid, 'this.valid');
         // let dateErrorMsg = [];
-        if (this.addon.valid && this.premiumValue==false) {
+        if (this.addon.valid ) {
             if((this.addon.controls['betterHalfBenefit'].value == 'Yes'&& sessionStorage.SpouseAge >= 18 && sessionStorage.SpouseAge <= 60)||(this.addon.controls['betterHalfBenefit'].value != 'Yes' && sessionStorage.SpouseAge=='')) {
 
                 if (this.atpdError == false && this.adbError == false && this.ciError == false && this.hcbdError == false ) {
@@ -1987,8 +1988,10 @@ export class EdelweissTermLifeComponent implements OnInit {
                     //   // stepper.next();
                     //   // this.topScroll();
                     // }
-                    stepper.next();
-                    this.topScroll();
+                    this.edelweissPrimium(stepper);
+
+                    // stepper.next();
+                    // this.topScroll();
                 }
                 else{
                     this.toastr.error('please enter correct Sum Assured Amount');
@@ -8383,7 +8386,134 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
     public getePremiumTermFailure(error) {
     }
 
-    edelweissPrimium() {
+    edelweissPrimiumAge(value) {
+        this.checkDate = value;
+        const data = {
+            "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            "pos_status":  this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            "platform": "web",
+            "product_id": this.lifePremiumList.product_id,
+            "sub_product_id": this.lifePremiumList.sub_product_id,
+            "term": this.lifePremiumList.termDetrails,
+            "suminsured_amount": sessionStorage.selectedAmountTravel,
+            "policy_id": this.getEnquiryDetials.policy_id,
+            "productDetails":{
+
+                "policyTerm": this.lifePremiumList.termDetrails,
+                "premiumPayingTerm":this.lifePremiumList.premium_paying_term,
+                "frequency":this.enquiryFromDetials.payment_mode,
+                "sumAssured": sessionStorage.selectedAmountTravel,
+                "planOption": '',
+                "riderDetails": {
+                    "workSiteFlag": 'N',
+                    "investmentStrategy":'',
+                    "risingStar":'N',
+                    "policyOption":'',
+                    "additionalBenefit":'',
+                    "topUpBenefit": {
+                        "isTopUpBenefit": '',
+                        "topUpBenefitPercentage":'',
+                        "topUpRate": '',
+                    },
+                    "betterHalf": {
+                        "betterHalfBenefit":this.addon.controls['betterHalfBenefit'].value,
+                        "sumAssured": this.addon.controls['betterHalfsumAssured'].value,
+                    },
+                    "WOP": {
+                        "waiverOfPremiumBenefit": this.addon.controls['waiverOfPremiumBenefit'].value ,
+                    },
+                    "CI": {
+                        "criticalIllness": this.addon.controls['criticalIllness'].value,
+                        "sumAssured":this.addon.controls['criticalsumAssured'].value,
+                    },
+                    "ADB": {
+                        "isADB": this.addon.controls['isADB'].value,
+                        "sumAssured": this.addon.controls['sumAssuredADB'].value,
+                    },
+                    "ATPD": {
+                        "isATPD": this.addon.controls['isATPD'].value,
+                        "sumAssured": this.addon.controls['sumAssuredATPD'].value,
+                    },
+                    "HCB": {
+                        "isHCB": this.addon.controls['isHCB'].value,
+                        "sumAssured": this.addon.controls['sumAssuredHCB'].value,
+                    }
+                },
+                "DeathBenefitOptions": {
+                    "payoutOption": this.addon.controls['payoutOption'].value,
+                    "incomeOption":this.addon.controls['payoutOptionToggle'].value,
+                    "payoutPercentageIncome":this.addon.controls['payoutPercentageIncome'].value,
+                    "noOfMonths": this.addon.controls['noOfMonths'].value,
+                }
+            },
+            "isLAProposerSame":"",
+
+
+            "LifeAssured": {
+                "title": this.customerDetails.controls['title'].value,
+                "firstName": this.customerDetails.controls['firstName'].value,
+                "middleName": this.customerDetails.controls['midName'].value,
+                "lastName": this.customerDetails.controls['lastName'].value,
+                "dob": this.datepipe.transform(this.customerDetails.controls['dob'].value, 'y-MM-dd'),
+                "gender": '',
+                "isSmoker":this.customerDetails.controls['isSmoker'].value,
+                "maritalStatus": this.customerDetails.controls['maritalStatus'].value,
+                "pan": '',
+                "maidName":"",
+                "motherMaidName":"",
+                "FHName":'',
+                "nationality":'',
+                "otherNationality":"",
+                "ageProofId":'',
+                "emailId":this.customerDetails.controls['emailId'].value,
+                "phoneNo":this.customerDetails.controls['mobileNo'].value,
+            },
+            "Spouse": {
+                "title":'',
+                "firstName":this.addon.controls['sfirstName'].value,
+                "middleName":this.addon.controls['smidName'].value,
+                "lastName":this.addon.controls['slastName'].value,
+                "dob":this.datepipe.transform(this.addon.controls['sdob'].value, 'y-MM-dd'),
+                "emailId":this.addon.controls['semailId'].value,
+                "phoneNo":'',
+                "isSmoker":this.addon.controls['isSmokerSpouse'].value,
+            }
+        }
+        if (this.checkDate.length == 10) {
+            this.settings.loadingSpinner = true;
+
+            this.termService.edelweissPrimium(data).subscribe(
+                (successData) => {
+                    this.edelweissPrimiumAgeSuccess(successData);
+                    },
+                (error) => {
+                    this.edelweissPrimiumAgeFailure(error);
+                }
+            );
+        }
+    }
+
+    public edelweissPrimiumAgeSuccess(successData) {
+
+        if (successData.IsSuccess) {
+            this.settings.loadingSpinner = false;
+
+            this.eePremiumTermss = successData.ResponseObject;
+            this.premiumValue=false;
+        }
+        else {
+            this.settings.loadingSpinner = false;
+
+            this.toastr.error(successData.ErrorObject);
+            this.premiumValue=true;
+        }
+    }
+    public edelweissPrimiumAgeFailure(error) {
+    }
+
+
+    edelweissPrimium(stepper) {
         const data = {
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -8482,7 +8612,7 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
 
         this.termService.edelweissPrimium(data).subscribe(
             (successData) => {
-                this.edelweissPrimiumSuccess(successData);
+                this.edelweissPrimiumSuccess(successData,stepper);
 
             },
             (error) => {
@@ -8491,51 +8621,128 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
         );
     }
 
-    public edelweissPrimiumSuccess(successData) {
+    public edelweissPrimiumSuccess(successData,stepper) {
 
         if (successData.IsSuccess) {
             this.eePremiumTerm = successData.ResponseObject;
-            // this.eePremiumTerm = this.eePremiumTerm;
-            this.premiumValue=false;
+            this.premiumValue=false
 
-            // alert(this.premiumValue);
             this.bi_pdf_url = this.eePremiumTerm.bi_pdf_url;
+            sessionStorage.bi_pdf_url = ( this.bi_pdf_url);
+
             this.ADB = this.eePremiumTerm.accidental_death_premium;
+            sessionStorage.ADB = ( this.ADB);
+
             this.sum = this.eePremiumTerm.sumAssured;
+            sessionStorage.sum = ( this.sum);
+
             this.basePremium = this.eePremiumTerm.Basepremium;
+            sessionStorage.basePremium = ( this.basePremium);
+
             this.premium = this.eePremiumTerm.Premium;
+            sessionStorage.premium = ( this.premium);
+
             this.PDP = this.eePremiumTerm.permanent_disability_premium;
+            sessionStorage.PDP = ( this.PDP);
+
             this.PW = this.eePremiumTerm.premium_waiver;
+            sessionStorage.PW = ( this.PW);
+
             this.CIP = this.eePremiumTerm.critical_illness_premium;
+            sessionStorage.CIP = ( this.CIP);
+
             this.BhP = this.eePremiumTerm.better_half_premium;
+            sessionStorage.BhP = ( this.BhP);
+
             this.hcp = this.eePremiumTerm.hcb_premium;
+            sessionStorage.hcp = ( this.hcp);
+
             this.planname = this.eePremiumTerm.planName;
+            sessionStorage.planname = ( this.planname);
+
             this.payingTerm = this.eePremiumTerm.payingTerm;
+            sessionStorage.payingTerm = ( this.payingTerm);
+
             this.policyTerm = this.eePremiumTerm.policyTerm;
+            sessionStorage.policyTerm = ( this.policyTerm);
+
             this.better_half_sum_assured = this.eePremiumTerm.better_half_sum_assured;
+            sessionStorage.better_half_sum_assured = ( this.better_half_sum_assured);
+
             this.hcb_sumassured_min = this.eePremiumTerm.hcb_sumassured_min;
+            sessionStorage.hcb_sumassured_min = ( this.hcb_sumassured_min);
+
             this.hcb_sumassured_max = this.eePremiumTerm.hcb_sumassured_max;
+            sessionStorage.hcb_sumassured_max = ( this.hcb_sumassured_max);
+
             this.atpd_sumassured_min = this.eePremiumTerm.atpd_sumassured_min;
+            sessionStorage.atpd_sumassured_min = ( this.atpd_sumassured_min);
+
             this.atpd_sumassured_max = this.eePremiumTerm.atpd_sumassured_max;
+            sessionStorage.atpd_sumassured_max = ( this.atpd_sumassured_max);
+
             this.ci_sumassured_min = this.eePremiumTerm.ci_sumassured_min;
+            sessionStorage.ci_sumassured_min = ( this.ci_sumassured_min);
+
             this.ci_sumassured_max = this.eePremiumTerm.ci_sumassured_max;
+            sessionStorage.ci_sumassured_max = ( this.ci_sumassured_max);
+
             this.adb_sumassured_min = this.eePremiumTerm.adb_sumassured_min;
+            sessionStorage.adb_sumassured_min = ( this.adb_sumassured_min);
+
             this.adb_sumassured_max = this.eePremiumTerm.adb_sumassured_max;
+            sessionStorage.adb_sumassured_max = ( this.adb_sumassured_max);
+
             this.adb_sumassured = this.eePremiumTerm.adb_sumassured;
+            sessionStorage.adb_sumassured = ( this.adb_sumassured);
+
             this.atpd_sumassured = this.eePremiumTerm.atpd_sumassured;
+            sessionStorage.atpd_sumassured = ( this.atpd_sumassured);
+
             this.ci_sumassured = this.eePremiumTerm.ci_sumassured;
+            sessionStorage.ci_sumassured = ( this.ci_sumassured);
+
             this.hcb_sumassured = this.eePremiumTerm.hcb_sumassured;
+            sessionStorage.hcb_sumassured = ( this.hcb_sumassured);
+
             this.pdp_sumassured = this.eePremiumTerm.pdp_sumassured;
+            sessionStorage.pdp_sumassured = ( this.pdp_sumassured);
+
             this.Amount = this.eePremiumTerm.Amount;
+            sessionStorage.Amount = ( this.Amount);
+            console.log(this.Amount ,'this.Amount ...')
+
             this.TotalAmount = this.eePremiumTerm.TotalAmount;
+            sessionStorage.TotalAmount = ( this.TotalAmount);
+            console.log(this.TotalAmount ,'this.TotalAmount ...')
+
             this.settings.loadingSpinner = false;
-            this.betterhalf();
+            // this.betterhalf();
             // this.addonNextFrom(this.stepper,this.addon.value)
             console.log(sessionStorage.SpouseAge,'spouse agess');
 
+            let dialogRef = this.dialog.open(edelweissCover, {
+                width: '700px',
+                height: '700px'
+            });
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+                console.log(result,'result....')
+                if(result==true) {
+                   if(this.premiumValue==false){
+
+                    stepper.next();
+                    this.topScroll();
+                   }
+                }else if(result==false){
+                    // this.addonValue=false;
+                }
+
+            });
 
         }
         else {
+            this.settings.loadingSpinner = false;
             this.toastr.error(successData.ErrorObject);
             this.premiumValue=true;
         }
@@ -8692,6 +8899,7 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
             this.pdp_sumassured = this.eePremiumTerm.pdp_sumassured;
             this.Amount = this.eePremiumTerm.Amount;
             this.TotalAmount = this.eePremiumTerm.TotalAmount;
+
             this.settings.loadingSpinner = false;
 
             this.betterhalf();
@@ -10906,6 +11114,235 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
 
 
 }
+
+@Component({
+    selector: ' edelweissCover',
+    template: `
+   
+        <div class="container">
+            <h5>Addon Cover Premium</h5>
+            <div class="row" *ngIf="this.planname!=''&&this.planname!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue;">Plan Name :</span><span style="margin-left: 230px;">{{this.planname}} </span> </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.policyTerm!=''&&this.policyTerm!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> Policy Term :</span><span style="margin-left: 225px;">{{this.policyTerm}} </span></p>
+                </div>
+            </div>
+           
+            <div class="row" *ngIf="this.payingTerm!=''&&this.payingTerm!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> Pay Term :</span><span style="margin-left: 237px;"> {{this.payingTerm}}</span> </p>
+                </div>
+            </div>
+           
+            <div class="row" *ngIf="this.sum!=''&&this.sum!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> Sum Assured :</span><span style="margin-left: 216px;">{{this.sum}}</span>  </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.basePremium!=''&&this.basePremium!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue"> Premium :</span><span style="margin-left: 244px;">{{this.basePremium}}</span>  </p>
+                </div>
+            </div>
+            
+            <div class="row" *ngIf="this.PW!=''&&this.PW!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue">  Waiver Of Premium Benefit  :</span><span style="margin-left: 135px;">{{this.PW}}</span>  </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.BhP!=''&&this.BhP!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue">  Better Half Benefit  :</span><span style="margin-left: 188px;">{{this.BhP}}</span>  </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.hcp!=''&&this.hcp!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue">  Hospital Cash Benefit  :</span><span style="margin-left: 168px;">{{this.hcp}}</span>  </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.CIP!=''&&this.CIP!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue">  Enhanced Critical Illness Rider  :</span><span style="margin-left: 118px;">{{this.CIP}}</span>  </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.ADB!=''&&this.ADB!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue">  Accidental Death Benefit :</span><span style="margin-left: 154px;">{{this.ADB}}</span>  </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.PDP!=''&&this.PDP!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue">  Permanent Disability Rider  :</span><span style="margin-left: 143px;">{{this.PDP}}</span>  </p>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.Amount!=''&&this.Amount!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue">  Amount  :</span><span style="margin-left: 255px;">{{this.Amount}}</span>  </p>
+                </div>
+            </div> 
+            <div class="row" *ngIf="this.TotalAmount!=''&&this.TotalAmount!=undefined">
+                <div class="col-md-12"  >
+                    <p ><span style="margin-left: 35px;color: blue">  Total Amount  :</span><span style="margin-left: 220px;">{{this.TotalAmount}}</span>  </p>
+                </div>
+            </div>
+            
+
+        </div>
+       
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-raised-button style="background-color: darkblue; color: white;" (click)="cancel()">Cancel</button>
+            <button mat-raised-button style="background-color: darkblue; color: white;" (click)="submit()">Ok</button>
+
+        </div>
+        
+    `
+})
+
+export class edelweissCover {
+
+    public bi_pdf_url: any;
+    public ADB: any;
+    public sum: any;
+    public basePremium: any;
+    public premium: any;
+    public PDP: any;
+    public PW: any;
+    public CIP: any;
+    public BhP: any;
+    public hcp: any;
+    public planname: any;
+    public payingTerm: any;
+    public policyTerm: any;
+    public better_half_sum_assured: any;
+    public hcb_sumassured_min: any;
+    public hcb_sumassured_max: any;
+    public atpd_sumassured_min: any;
+    public atpd_sumassured_max: any;
+    public ci_sumassured_min: any;
+    public ci_sumassured_max: any;
+    public adb_sumassured_min: any;
+    public adb_sumassured_max: any;
+    public adb_sumassured: any;
+    public atpd_sumassured: any;
+    public ci_sumassured: any;
+    public hcb_sumassured: any;
+    public pdp_sumassured: any;
+    public Amount: any;
+    public TotalAmount: any;
+
+    public settings: Settings;
+
+    constructor(
+        public dialogRef: MatDialogRef<edelweissCover>,
+        @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute,  public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public bikeInsurance: BikeInsuranceService) {
+        this.settings = this.appSettings.settings;
+
+        this.bi_pdf_url = sessionStorage.bi_pdf_url;
+        console.log(this.ADB,'sessionStorage.ADB....');
+
+        this.ADB = sessionStorage.ADB;
+        console.log(this.ADB,'sessionStorage.ADB....');
+
+        this.sum = sessionStorage.sum;
+        console.log(this.sum,'sessionStorage.sum....');
+
+        this.basePremium = sessionStorage.basePremium;
+        console.log(this.basePremium,'sessionStorage.basePremium....');
+
+        this.premium = sessionStorage.premium;
+        console.log(this.premium,'sessionStorage.premium....');
+
+        this.PDP = sessionStorage.PDP;
+        console.log(this.PDP,'sessionStorage.PDP....');
+
+        this.PW = sessionStorage.PW;
+        console.log(this.PW,'sessionStorage.PW....');
+
+        this.CIP = sessionStorage.CIP;
+        console.log(this.CIP,'sessionStorage.CIP....');
+
+        this.BhP = sessionStorage.BhP;
+        console.log(this.BhP,'sessionStorage.BhP....');
+
+        this.hcp = sessionStorage.hcp;
+        console.log(this.hcp,'sessionStorage.hcp....');
+
+        this.planname = sessionStorage.planname;
+        console.log(this.planname,'sessionStorage.planname....');
+
+        this.payingTerm = sessionStorage.payingTerm;
+        console.log(this.payingTerm,'sessionStorage.payingTerm....');
+
+        this.policyTerm = sessionStorage.policyTerm;
+        console.log(this.policyTerm,'sessionStorage.policyTerm....');
+
+        this.better_half_sum_assured = sessionStorage.better_half_sum_assured;
+        console.log(this.better_half_sum_assured,'sessionStorage.better_half_sum_assured....');
+
+        this.hcb_sumassured_min = sessionStorage.hcb_sumassured_min;
+        console.log(this.hcb_sumassured_min,'sessionStorage.hcb_sumassured_min....');
+
+        this.hcb_sumassured_max = sessionStorage.hcb_sumassured_max;
+        console.log(this.hcb_sumassured_max,'sessionStorage.hcb_sumassured_max....');
+
+        this.atpd_sumassured_min = sessionStorage.atpd_sumassured_min;
+        console.log(this.atpd_sumassured_min,'sessionStorage.atpd_sumassured_min....');
+
+        this.atpd_sumassured_max = sessionStorage.atpd_sumassured_max;
+        console.log(this.atpd_sumassured_max,'sessionStorage.atpd_sumassured_max....');
+
+        this.ci_sumassured_min = sessionStorage.ci_sumassured_min;
+        console.log(this.ci_sumassured_min,'sessionStorage.ci_sumassured_min....');
+
+        this.ci_sumassured_max = sessionStorage.ci_sumassured_max;
+        console.log(this.ci_sumassured_max,'sessionStorage.ci_sumassured_max....');
+
+        this.adb_sumassured_min = sessionStorage.adb_sumassured_min;
+        console.log(this.adb_sumassured_min,'sessionStorage.adb_sumassured_min....');
+
+        this.adb_sumassured_max = sessionStorage.adb_sumassured_max;
+        console.log(this.adb_sumassured_max,'sessionStorage.adb_sumassured_max....');
+
+        this.adb_sumassured = sessionStorage.adb_sumassured;
+        console.log(this.adb_sumassured,'sessionStorage.adb_sumassured....');
+
+        this.atpd_sumassured = sessionStorage.atpd_sumassured;
+        console.log(this.atpd_sumassured,'sessionStorage.atpd_sumassured....');
+
+        this.ci_sumassured = sessionStorage.ci_sumassured;
+        console.log(this.ci_sumassured,'sessionStorage.ci_sumassured....');
+
+        this.hcb_sumassured = sessionStorage.hcb_sumassured;
+        console.log(this.hcb_sumassured,'sessionStorage.hcb_sumassured....');
+
+        this.pdp_sumassured = sessionStorage.pdp_sumassured;
+        console.log(this.pdp_sumassured,'sessionStorage.pdp_sumassured....');
+
+        this.Amount = sessionStorage.Amount;
+        console.log(this.Amount,'sessionStorage.Amount....');
+
+        this.TotalAmount = sessionStorage.TotalAmount;
+        console.log(this.TotalAmount,'sessionStorage.TotalAmount....');
+
+
+
+    }
+
+    submit(): void {
+        this.dialogRef.close(true);
+    }
+    cancel(): void {
+        this.dialogRef.close(false);
+    }
+
+}
+
+
+
 @Component({
     selector: ' edelweissopt ',
     template: `
