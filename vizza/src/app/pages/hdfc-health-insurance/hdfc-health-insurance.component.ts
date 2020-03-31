@@ -144,6 +144,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public suminsuredamount: any;
     public prodName: any;
     public suminsuredamountPl: any;
+    public sameAsInsValue: any;
     public inputfieldshow: boolean;
 
 
@@ -281,6 +282,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray = this.fb.group({
                 items: this.fb.array([])
             });
+
             this.inputfieldshow = false;
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.items = this.hdfcInsureArray.get('items') as FormArray;
@@ -376,11 +378,12 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
     sameasInsurerDetailsPL(event) {
         if (this.sameAsinsure == 'true' || this.sameAsinsure == true) {
-            this.sameAsinsure =true;
+            this.sameAsinsure = true;
+            console.log(this.hdfcPersonal.controls['gender'].value, 'another know value......')
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].title.patchValue(this.hdfcPersonal.controls['title'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].firstname.patchValue(this.hdfcPersonal.controls['firstname'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue(this.hdfcPersonal.controls['lastname'].value);
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value);
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
         } else {
@@ -984,6 +987,8 @@ TierID
         sessionStorage.hdfcHealthNomineeDetails = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
             // this.createProposal(stepper);
+            // this.changeCity();
+            // this.changeState();
             this.suminsureddropdown(stepper);
         }
     }
@@ -1057,6 +1062,7 @@ TierID
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.personlData = this.hdfcPersonal.value;
+            console.log(this.personlData, 'staesdulll.......')
             this.insuredFormData = this.insurerData.items;
             this.nomineeFromData = this.nomineeDetails.value;
             this.PaymentActionUrl = this.summaryData.PaymentActionUrl;
@@ -1337,6 +1343,7 @@ TierID
             this.stepperindex = 3;
             this.requestCustomerDetails = this.requestDetails.InsuranceDetails.CustDetails;
             this.requestInsuredDetails = this.requestDetails.InsuranceDetails.Member.InsuredDetails;
+            this.sameAsInsValue = this.requestCustomerDetails.IsProposerSameAsInsured;
             this.hdfcInsureArray = this.fb.group({
                 items: this.fb.array([])
             });
@@ -1389,28 +1396,35 @@ TierID
         this.hdfcPersonal.controls['gender'].patchValue(this.requestCustomerDetails.ApplGender);
         this.hdfcPersonal.controls['dob'].patchValue(this.requestCustomerDetails.ApplDOB);
         this.hdfcPersonal.controls['email'].patchValue(this.requestCustomerDetails.EmailId);
-        // this.hdfcPersonal.controls['mobile'].patchValue(this.requestCustomerDetails.MobileNo);
         this.hdfcPersonal.controls['personalPan'].patchValue(this.requestCustomerDetails.PANCardNumber);
         this.hdfcPersonal.controls['paymentmode'].patchValue(this.paymentmode);
         this.hdfcPersonal.controls['address1'].patchValue(this.requestCustomerDetails.Address1);
         this.hdfcPersonal.controls['address2'].patchValue(this.requestCustomerDetails.Address2);
         this.hdfcPersonal.controls['address3'].patchValue(this.requestCustomerDetails.Address3);
-        // this.hdfcPersonal.controls['otp'].patchValue(this.requestCustomerDetails.UIDNo);
         this.hdfcPersonal.controls['pincode'].patchValue(this.requestCustomerDetails.Pincode);
         this.pincodevalidationHdfc(this.requestCustomerDetails.Pincode);
         this.hdfcPersonal.controls['state'].patchValue(this.requestCustomerDetails.State);
         this.selectedSatePl();
         this.hdfcPersonal.controls['city'].patchValue(this.requestCustomerDetails.City);
         for (let i = 0; i < this.requestInsuredDetails.length; i++) {
-            if(this.requestInsuredDetails[0].sameasInsurer == true) {
+            console.log(this.sameAsInsValue, 'kmown valueeeeeee...........')
+            console.log(this.requestInsuredDetails[i].gender, 'kmown valueeeeeee.. ogof grender.........')
+            if(this.sameAsInsValue == 'Y') {
                 this.sameAsinsure = true;
+                // console.log()
             } else {
                 this.sameAsinsure = false;
             }
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue(this.requestInsuredDetails[i].title);
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].firstname.patchValue(this.requestInsuredDetails[i].firstname);
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].lastname.patchValue(this.requestInsuredDetails[i].lastname);
-            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue(this.requestInsuredDetails[i].gender);
+            if(this.requestInsuredDetails[i].type == 'Son') {
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue(this.requestInsuredDetails[i].genderStatus);
+            } else if (this.requestInsuredDetails[i].type == 'Daughter') {
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue(this.requestInsuredDetails[i].genderStatus);
+            } else {
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue(this.requestInsuredDetails[i].gender);
+            }
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].dob.patchValue(this.requestInsuredDetails[i].dob);
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].relationship.patchValue(this.requestInsuredDetails[i].relationship);
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].preexdisease.patchValue(this.requestInsuredDetails[i].preexdisease);
@@ -1503,8 +1517,8 @@ console.log(data, 'dataPayLater')
             this.insuredDataPl = this.hdfcInsureArray.value.items;
             this.nomineeDataPl = this.nomineeDetails.value;
             console.log(this.nomineeDataPl, 'this.nomineeDataPl');
-            console.log(this.proposerDataPl, ' this.proposerDataPl........////////////');
-            console.log( this.insuredDataPl, ' this.insuredDataPl');
+            console.log(this.proposerDataPl, 'this.proposerDataPl........////////////');
+            console.log( this.insuredDataPl, 'this.insuredDataPl');
             this.paymentmodePl = this.proposerDataPl.paymentmode;
             this.fullNamePl = this.proposerDataPl.firstname + ' ' + this.proposerDataPl.lastname;
             this.emailPl = this.proposerDataPl.email;
@@ -1565,10 +1579,12 @@ console.log(data, 'dataPayLater')
     public hdfcSumInsuredSuccess(successData, stepper) {
         // this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
-            this.toastr.success('successfully!!');
+            // this.toastr.success('successfully!!');
             this.suminsuredamount = successData.ResponseObject;
             this.inputfieldshow = false;
             console.log(successData.ResponseObject)
+            this.changeCity();
+            this.changeState();
             this.createProposal(stepper);
             console.log(this.changeSuninsuredAmount, 'sumIns...')
         } else {
@@ -1605,7 +1621,7 @@ console.log(data, 'dataPayLater')
     public hdfcSumInsuredSuccessPl(successData) {
         // this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
-            this.toastr.success('successfully!!');
+            // this.toastr.success('successfully!!');
             this.suminsuredamountPl = successData.ResponseObject;
             this.inputfieldshow = false;
             console.log(successData.ResponseObject)
@@ -1616,7 +1632,7 @@ console.log(data, 'dataPayLater')
         }
     }
     public hdfcSumInsuredFailurePl(error) {}
-    // hdfcSumInsured
+
 }
 
 
