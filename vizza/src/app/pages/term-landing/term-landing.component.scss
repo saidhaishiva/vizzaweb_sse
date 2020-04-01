@@ -1,10 +1,13 @@
 .heading{
   color:#f06024;
-}
+  margin-top: 77px;
+}.heading2{
+   color:#f06024;
+   margin-top: 50px;
+ }
 .heading1 {
   color:#f06024;
-  padding-top: 53px;
-  margin-left: -22px;
+  padding-top: 120px;
 
 
 }
@@ -31,6 +34,8 @@ ul {
 
 li {
   float: left;
+  //padding-right: 20px;
+
 }
 
 li a {
@@ -84,12 +89,61 @@ li a {
   background-color: #fff;
   background-clip: border-box;
   border: none !important;
-  border-radius: 0.25rem;
-  -moz-box-shadow:    1px 1px 1px 1px rgba(0,0,0,0.5);
-  -webkit-box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5);
-  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5);
+  border-radius: 0 0 8px 8px;
+  -moz-box-shadow:    0 0 9px 0 rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 0 9px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 0 9px 0 rgba(0,0,0,0.4) !important;
 }
 .follow{
   margin-top: 82px;
 
+}
+.image{
+  margin-top: 140px;
+  width: 205px;
+  margin-left: 115px;
+
+}
+.logo-pics4 {
+  margin-top: 140px;
+  width: 110%;
+}
+.logo-pics5 {
+  margin-top: 148px;
+  width: 110%;
+}
+.logo-pics6 {
+  margin-top: 39px;
+  width: 70%
+}
+.logo-pics7 {
+  margin-top: 52px;
+  width: 125%;
+
+}
+.logo-pics8 {
+  margin-top: 50px;
+  width: 114%;
+}
+.follow1{
+  //position: relative;
+
+  margin-top: 25px;
+  //text-align: center;
+  margin-left: 37px;
+
+}
+//.aboutContent1{
+//  position: absolute;
+//  top:0px;
+//  left:0px;
+//  //padding: 10px 0px 0px 22px;
+//  width:100%;
+//}
+@media (min-width: 320px) and (max-width: 767px){
+
+  li {
+    float: left;
+    padding-right: 20px;
+  }
 }

@@ -4,6 +4,8 @@ import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {HealthService} from '../../shared/services/health.service';
 import {ValidationService} from '../../shared/services/validation.service';
+import { AppSettings } from '../../app.settings';
+
 
 @Component({
   selector: 'app-term-landing',
@@ -13,8 +15,10 @@ import {ValidationService} from '../../shared/services/validation.service';
 export class TermLandingComponent implements OnInit {
   public form: FormGroup;
   public termLandingSubmit:any;
+  public settings: any;
 
-  constructor(public fb: FormBuilder,public common: HealthService, public toastr: ToastrService , public router: Router, public validation: ValidationService) {
+
+  constructor(public fb: FormBuilder,public common: HealthService, public toastr: ToastrService , public router: Router, public validation: ValidationService,public appSettings: AppSettings) {
     this.form = this.fb.group({
       'firstName': ['', Validators.required],
       'mobile': [null, Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
@@ -22,6 +26,10 @@ export class TermLandingComponent implements OnInit {
 
 
     });
+    this.settings = this.appSettings.settings;
+    this.settings.HomeSidenavUserBlock = false;
+    this.settings.sidenavIsOpened = false;
+    this.settings.sidenavIsPinned = false;
   }
 
   ngOnInit() {
@@ -36,6 +44,8 @@ export class TermLandingComponent implements OnInit {
       "city": "fftfty",
       "insurance_type":"term"
     }
+    this.settings.loadingSpinner = true;
+
     this.common.healthLandingProposal(data).subscribe(
         (successData) => {
           this.termLandingSuccess(successData);
@@ -46,6 +56,8 @@ export class TermLandingComponent implements OnInit {
     );
   }
   public termLandingSuccess(successData) {
+    this.settings.loadingSpinner = false;
+
     if (successData.IsSuccess == true) {
       this.termLandingSubmit =  successData.ResponseObject;
       this.toastr.success(this.termLandingSubmit);
