@@ -402,8 +402,8 @@ export const routes: Routes = [
             { path: 'edelweiss-pos/:stepper', component: EdelweissPosComponent, data:{breadcrumb: 'Edelweiss pos Insurance'} },
             { path: 'edelweisspos-payment-success/:status/:proId', component: EdelweissposPaymnetSuccessComponent, data: { breadcrumb: 'Edelweisspos payment'}},
             { path: 'starhealth-renewal-proposal', component: StarhealthRenewelProposalComponent, data: { breadcrumb: 'Starhealth proposal'}},
-            { path: 'health-landing', component: HealthLandingComponent, data: { breadcrumb: 'Health landing'}},
-            { path: 'term-landing', component: TermLandingComponent, data: { breadcrumb: 'Term landing'}},
+            { path: 'health-enquiry', component: HealthLandingComponent, data: { breadcrumb: 'Health landing'}},
+            { path: 'term-enquiry', component: TermLandingComponent, data: { breadcrumb: 'Term landing'}},
 
         ]
     },

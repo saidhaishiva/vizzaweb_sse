@@ -3,7 +3,7 @@
     <section>
       <div class="container">
         <div class="row">
-          <div class="col-md-6 col-sm-12 col-xs-12 h-90 ">
+          <div class="col-md-6 col-sm-12 col-xs-12 h-90">
             <div class="leading mt-1">
               <img src="assets/img/Left-side-image.png" class="w-100">
               <div class="aboutContent">
@@ -13,30 +13,21 @@
           </div>
 
 
-          <div class="col-md-6 col-sm-12 col-xs-12 mt-5 pt-5">
-            <div class="card h-90 pl-5 pr-5"  >
+          <div class="col-md-6 col-sm-12 col-xs-12" style="margin-top: 45px;">
+            <div class="card h-90 pl-5 pr-5" >
               <form [formGroup]="form">
-                <div class="col-md-12 mt-5">
-                  <div class="form-group" >
-                    <label >Name</label>
-                    <input type="text" class="form-control"  placeholder="Name" formControlName="firstName" maxlength="50" (keypress)="nameValidate($event)"  autocomplete="off" required>
-                    <em class="error help-block" *ngIf="!form.get('firstName').valid && (form.get('firstName').dirty || form.get('firstName').touched)"> Name is Required</em>
-
-                  </div>
-                </div>
-                <!--<div class="col-md-12 mt-3">-->
+                <!--<div class="col-md-12 mt-5">-->
                 <!--<mat-form-field class="w-100">-->
                 <!--<input matInput placeholder="Name" formControlName="firstName" maxlength="50" (keypress)="nameValidate($event)"  autocomplete="off" required>-->
                 <!--<mat-error *ngIf="form.controls.firstName.errors?.required">Name is required</mat-error>-->
                 <!--</mat-form-field>-->
                 <!--</div>-->
+                <div class="col-md-12 mt-5">
+                  <div class="form-group" required>
+                    <label >Name</label>
+                    <input type="text" class="form-control" placeholder="Name" formControlName="firstName" maxlength="50" (keypress)="nameValidate($event)"  autocomplete="off" required>
+                    <em class="error help-block" *ngIf="!form.get('firstName').valid && (form.get('firstName').dirty || form.get('firstName').touched)"> Name is Required</em>
 
-                <div class="col-md-12 mt-3">
-                  <div class="form-group" >
-                    <label >Mobile No</label>
-                    <input type="text" class="form-control"  placeholder="Mobile No"formControlName="mobile" maxlength="10"  (keypress)="numberValidate($event)" autocomplete="off" required>
-                    <div class="error help-block" *ngIf=" this.form['controls'].mobile.value == ''||(this.form['controls'].mobile.value == null && form.get('mobile').touched)" >Mobile is required</div>
-                    <em class="error help-block" *ngIf="form.get('mobile').hasError('pattern')">Please Enter Valid Mobile</em>
                   </div>
                 </div>
                 <!--<div class="col-md-12 mt-3">-->
@@ -46,16 +37,14 @@
                 <!--<mat-error *ngIf="form.controls.mobile.hasError('pattern')">Enter valid Mobile No</mat-error>-->
                 <!--</mat-form-field>-->
                 <!--</div>-->
-
                 <div class="col-md-12 mt-3">
-                  <div class="form-group" >
-                    <label >Email</label>
-                    <input type="text" class="form-control"  placeholder="Email" formControlName="emailId" autocomplete="off" required>
-                    <div class="error help-block" *ngIf=" this.form['controls'].emailId.value == ''||(this.form['controls'].emailId.value == null && form.get('emailId').touched)" >Email is required</div>
-                    <em class="error help-block" *ngIf="form.get('emailId').hasError('pattern')">Please Enter Valid Email</em>
+                  <div class="form-group" required>
+                    <label >Mobile No</label>
+                    <input type="text" class="form-control" placeholder="Mobile No" formControlName="mobile" maxlength="10"  (keypress)="numberValidate($event)" autocomplete="off" required>
+                    <div class="error help-block" *ngIf=" this.form['controls'].mobile.value == ''||(this.form['controls'].mobile.value == null && form.get('mobile').touched)" >Mobile is required</div>
+                    <em class="error help-block" *ngIf="form.get('mobile').hasError('pattern')">Please Enter Valid Mobile</em>
                   </div>
                 </div>
-
                 <!--<div class="col-md-12 mt-3">-->
                 <!--<mat-form-field class="w-100">-->
                 <!--<input matInput placeholder="Email ID" formControlName="emailId" autocomplete="off" required>-->
@@ -64,12 +53,21 @@
                 <!--</mat-form-field>-->
                 <!--</div>-->
 
+                <div class="col-md-12 mt-3">
+                  <div class="form-group" required>
+                    <label >Email</label>
+                    <input type="text" class="form-control" placeholder="Email ID" formControlName="emailId" autocomplete="off" required>
+                    <div class="error help-block" *ngIf=" this.form['controls'].emailId.value == ''||(this.form['controls'].emailId.value == null && form.get('emailId').touched)" >Email is required</div>
+                    <em class="error help-block" *ngIf="form.get('emailId').hasError('pattern')">Please Enter Valid Email</em>
+                  </div>
+                </div>
 
 
 
 
-                <div class="col-md-12 text-center mt-3 pb-5 ">
-                  <button mat-button type="submit" style="background: #f06024; color: #fff" (click)="landingSubmit()" >Submit</button>
+
+                <div class="col-md-12 text-center mt-3 pb-5">
+                  <button mat-button type="submit" style="background: #f06024; color: #fff" (click)="landingSubmit(form.value)" >Submit</button>
 
                 </div>
               </form>
@@ -143,6 +141,8 @@
 </div>
 
 
+<!--mobile view-->
+
 <div class="d-lg-none d-xl-none d-block d-sm-block d-md-block">
   <div class="container-fluid bc-color">
     <section>
@@ -156,30 +156,21 @@
             <!--</div>-->
           </div>
 
-          <div class="col-md-12 col-sm-12 col-xs-12 mt-5 pt-5">
-            <div class="card h-90 pl-3 pr-3"  >
+          <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 45px;">
+            <div class="card h-90 pl-5 pr-5" >
               <form [formGroup]="form">
-                <div class="col-md-12 mt-5">
-                  <div class="form-group" >
-                    <label >Name</label>
-                    <input type="text" class="form-control"  placeholder="Name" formControlName="firstName" maxlength="50" (keypress)="nameValidate($event)"  autocomplete="off" required>
-                    <em class="error help-block" *ngIf="!form.get('firstName').valid && (form.get('firstName').dirty || form.get('firstName').touched)"> Name is Required</em>
-
-                  </div>
-                </div>
-                <!--<div class="col-md-12 mt-3">-->
+                <!--<div class="col-md-12 mt-5">-->
                 <!--<mat-form-field class="w-100">-->
                 <!--<input matInput placeholder="Name" formControlName="firstName" maxlength="50" (keypress)="nameValidate($event)"  autocomplete="off" required>-->
                 <!--<mat-error *ngIf="form.controls.firstName.errors?.required">Name is required</mat-error>-->
                 <!--</mat-form-field>-->
                 <!--</div>-->
+                <div class="col-md-12 mt-5">
+                  <div class="form-group" required>
+                    <label >Name</label>
+                    <input type="text" class="form-control" placeholder="Name" formControlName="firstName" maxlength="50" (keypress)="nameValidate($event)"  autocomplete="off" required>
+                    <em class="error help-block" *ngIf="!form.get('firstName').valid && (form.get('firstName').dirty || form.get('firstName').touched)"> Name is Required</em>
 
-                <div class="col-md-12 mt-3">
-                  <div class="form-group" >
-                    <label >Mobile No</label>
-                    <input type="text" class="form-control"  placeholder="Mobile No"formControlName="mobile" maxlength="10"  (keypress)="numberValidate($event)" autocomplete="off" required>
-                    <div class="error help-block" *ngIf=" this.form['controls'].mobile.value == ''||(this.form['controls'].mobile.value == null && form.get('mobile').touched)" >Mobile is required</div>
-                    <em class="error help-block" *ngIf="form.get('mobile').hasError('pattern')">Please Enter Valid Mobile</em>
                   </div>
                 </div>
                 <!--<div class="col-md-12 mt-3">-->
@@ -189,16 +180,14 @@
                 <!--<mat-error *ngIf="form.controls.mobile.hasError('pattern')">Enter valid Mobile No</mat-error>-->
                 <!--</mat-form-field>-->
                 <!--</div>-->
-
                 <div class="col-md-12 mt-3">
-                  <div class="form-group" >
-                    <label >Email</label>
-                    <input type="text" class="form-control"  placeholder="Email" formControlName="emailId" autocomplete="off" required>
-                    <div class="error help-block" *ngIf=" this.form['controls'].emailId.value == ''||(this.form['controls'].emailId.value == null && form.get('emailId').touched)" >Email is required</div>
-                    <em class="error help-block" *ngIf="form.get('emailId').hasError('pattern')">Please Enter Valid Email</em>
+                  <div class="form-group" required>
+                    <label >Mobile No</label>
+                    <input type="text" class="form-control" placeholder="Mobile No" formControlName="mobile" maxlength="10"  (keypress)="numberValidate($event)" autocomplete="off" required>
+                    <div class="error help-block" *ngIf=" this.form['controls'].mobile.value == ''||(this.form['controls'].mobile.value == null && form.get('mobile').touched)" >Mobile is required</div>
+                    <em class="error help-block" *ngIf="form.get('mobile').hasError('pattern')">Please Enter Valid Mobile</em>
                   </div>
                 </div>
-
                 <!--<div class="col-md-12 mt-3">-->
                 <!--<mat-form-field class="w-100">-->
                 <!--<input matInput placeholder="Email ID" formControlName="emailId" autocomplete="off" required>-->
@@ -207,12 +196,21 @@
                 <!--</mat-form-field>-->
                 <!--</div>-->
 
+                <div class="col-md-12 mt-3">
+                  <div class="form-group" required>
+                    <label >Email</label>
+                    <input type="text" class="form-control" placeholder="Email ID" formControlName="emailId" autocomplete="off" required>
+                    <div class="error help-block" *ngIf=" this.form['controls'].emailId.value == ''||(this.form['controls'].emailId.value == null && form.get('emailId').touched)" >Email is required</div>
+                    <em class="error help-block" *ngIf="form.get('emailId').hasError('pattern')">Please Enter Valid Email</em>
+                  </div>
+                </div>
 
 
 
 
-                <div class="col-md-12 text-center mt-3 pb-5 ">
-                  <button mat-button type="submit" style="background: #f06024; color: #fff" (click)="landingSubmit()" >Submit</button>
+
+                <div class="col-md-12 text-center mt-3 pb-5">
+                  <button mat-button type="submit" style="background: #f06024; color: #fff" (click)="landingSubmit(form.value)" >Submit</button>
 
                 </div>
               </form>
