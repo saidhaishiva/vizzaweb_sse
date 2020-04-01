@@ -199,6 +199,10 @@ export class ReligareHealthProposalComponent implements OnInit {
     public totalDataPL: any;
     public newSIProposal: any;
     public newSIProposalPL: any;
+    public insType1: any;
+    public insType2: any;
+    public insType3: any;
+    public insType4: any;
 
     public everyDyCare: any;
     public ncbSuper: any;
@@ -1343,7 +1347,6 @@ export class ReligareHealthProposalComponent implements OnInit {
         }
     }
     processDiseaseDataPL(diseaseData) {
-
         let updatedFinalData = [];
         for (let i = 0; i < diseaseData.proposer_insurer_details.length; i++ ) {
             console.log(diseaseData.proposer_insurer_details, 'diseaseData.proposer_insurer_details')
@@ -2245,6 +2248,17 @@ export class ReligareHealthProposalComponent implements OnInit {
             console.log(this.requestDetails, 'requestDetails')
             console.log(this.requestmedicalQuestion, 'requestmedicalQuestion');
             console.log(this.requestInsuredDetails, 'hgghjghjgjh');
+            for(let i = 0; i < this.requestInsuredDetails.length; i++) {
+                if(this.requestInsuredDetails[0]){
+                    this.insType1 = this.requestInsuredDetails[0].type;
+                } if(this.requestInsuredDetails[1]){
+                    this.insType2 = this.requestInsuredDetails[1].type;
+                } if(this.requestInsuredDetails[2]){
+                    this.insType3 = this.requestInsuredDetails[2].type;
+                } if(this.requestInsuredDetails[3]){
+                    this.insType4 = this.requestInsuredDetails[3].type;
+                }
+            }
             this.insuredLength = this.requestInsuredDetails.length;
             console.log(this.insuredLength, 'lengthhhh..........////')
             this.payLaterEdit();
@@ -2411,7 +2425,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             'rolecd': 'PRIMARY',
             'height': this.insuredForm1.controls['height'].value,
             'weight': this.insuredForm1.controls['weight'].value,
-            'type':'Self',
+            'type': this.insType1,
             'sameas': false ? 0 : 1
         });
         if(this.insuredForm2.controls['firstname'].value != '') {
@@ -2431,7 +2445,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 'rolecd': 'PRIMARY',
                 'height': this.insuredForm2.controls['height'].value,
                 'weight': this.insuredForm2.controls['weight'].value,
-                'type':'Spouse',
+                'type': this.insType2,
                 'sameas': false ? 0 : 1
             });
         }
@@ -2452,7 +2466,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 'rolecd': 'PRIMARY',
                 'height': this.insuredForm3.controls['height'].value,
                 'weight': this.insuredForm3.controls['weight'].value,
-                'type':'Son',
+                'type': this.insType3,
                 'sameas': false ? 0 : 1
             });
         }
@@ -2473,7 +2487,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 'rolecd': 'PRIMARY',
                 'height': this.insuredForm4.controls['height'].value,
                 'weight': this.insuredForm4.controls['weight'].value,
-                'type':'Daughter',
+                'type': this.insType4,
                 'sameas': false ? 0 : 1
             });
         }
