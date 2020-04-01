@@ -1120,7 +1120,7 @@
                                       <ul class="m-0 list-group">
                                           <li class="list-group-item"  *ngIf="PA_to_owner_driver != ''"><strong>PA to Owner Driver:</strong> {{PA_to_owner_driver}}</li>
                                           <li class="list-group-item" ><strong>GST:</strong>{{gstAmount.igst}} </li>
-                                          <li class="list-group-item"  *ngIf="comphensivePreminium!=''"><strong>Comprehensive Premium:</strong> {{comphensivePreminium}}</li>
+                                          <li class="list-group-item"  *ngIf="this.comphensivePreminium!=''"><strong>Comprehensive Premium:</strong> {{this.comphensivePreminium}}</li>
                                       </ul>
                                   </div>
                                   <!--</div>-->
@@ -1225,7 +1225,7 @@
                                       <li class="list-group-item"><strong>City:</strong> {{proposerFormData.rcity}}</li>
                                       <li class="list-group-item"><strong>State:</strong> {{proposerFormData.rstate}}</li>
                                       <li class="list-group-item"><strong>District:</strong> {{proposerFormData.rdistrict}}</li>
-                                      <li class="list-group-item" *ngIf="proposerFormData.landmark != ''"><strong>Landmark:</strong>{{proposerFormData.rlandmark}} </li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.rlandmark != ''"><strong>Landmark:</strong>{{proposerFormData.rlandmark}} </li>
                                   </ul>
 
                               <!--</div>-->
@@ -1528,11 +1528,11 @@
                           <div class="col-md-6"  >
                               <h2 class="color-blue m-2">Discount</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted == false"><strong>Anti-Theft Device :</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">N/A</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted == false||coverFormData.AntiTheftDeviceFitted == ''"><strong>Anti-Theft Device :</strong><span>N/A</span> </li>
                                   <li class="list-group-item" *ngIf="discountAmount.anti_theft_device != ''&&coverFormData.AntiTheftDeviceFitted != false"><strong>Anti Theft Device Discount:</strong> {{discountAmount.anti_theft_device}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember == false"><strong>Automobile Association Membership:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == false">N/A</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember == false||coverFormData.AutomobileAssociationMember == ''"><strong>Automobile Association Membership:</strong><span >N/A</span> </li>
                                   <li class="list-group-item" *ngIf="discountAmount.automobile_association_membership != ''&&coverFormData.AutomobileAssociationMember != false"><strong>Automobile Association Membership Discount:</strong> {{discountAmount.automobile_association_membership}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted == false"><strong>Voluntary Deductible:</strong><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == false">N/A</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted == false||coverFormData.IsVoluntaryDeductableOpted == ''"><strong>Voluntary Deductible:</strong><span >N/A</span> </li>
                                   <li class="list-group-item" *ngIf="(coverFormData.VoluntaryDeductableAmount != '' &&coverFormData.IsVoluntaryDeductableOpted != false) "><strong>Voluntary Deductible Sum Insured:</strong> {{coverFormData.VoluntaryDeductableAmount}}</li>
                                   <li class="list-group-item" *ngIf="discountAmount.voluntary_deductible != ''&&coverFormData.IsVoluntaryDeductableOpted != false"><strong>Voluntary Deductible Discount:</strong> {{discountAmount.voluntary_deductible}}</li>
 
