@@ -125,7 +125,8 @@
                                         </mat-radio-group>
                                     </div>
                                     <div class="col-md-4" *ngIf="sub_product_id == '1' ">
-                                        <p *ngIf="PW != 0"><strong>Waiver Of Premium :</strong> {{PW}}</p>
+                                        <p ><strong>Waiver Of Premium :</strong> {{PW1}}</p>
+                                        <!--<p *ngIf="PW != 0"><strong>Waiver Of Premium :</strong> {{PW}}</p>-->
                                     </div>
 
                                     <div class="col-md-4" *ngIf="customerDetails.controls['maritalStatus'].value == 'M'">
@@ -145,7 +146,8 @@
 
 
                                     <div class="col-md-4" *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
-                                        <p *ngIf="BhP != 0"><strong> Better Half Benefit Premium :</strong> {{BhP}}</p>
+                                        <p ><strong> Better Half Benefit Premium :</strong> {{BhP1}}</p>
+                                        <!--<p *ngIf="BhP != 0"><strong> Better Half Benefit Premium :</strong> {{BhP}}</p>-->
                                     </div>
 
                                     <div class="row p-3"  *ngIf="addon.controls['betterHalfBenefit'].value == 'Yes'" >
@@ -260,7 +262,8 @@
                                         <div class="error" style="margin-top: -20px" *ngIf="hcbdError != '' && hcbdError != true">{{hcbdError}}<br> {{this.hcb_sumassured_min}} - {{this.hcb_sumassured_max}}</div>
                                     </div>
                                     <div class="col-md-4 mt-2"  *ngIf="lifePremiumList.sub_product_id == '1' || lifePremiumList.sub_product_id == '3'">
-                                        <p *ngIf="hcp != 0"><strong>   Hospital Cash Benefit Premium :</strong> {{hcp}}</p>
+                                        <p ><strong>   Hospital Cash Benefit Premium :</strong> {{hcp1}}</p>
+                                        <!--<p *ngIf="hcp != 0"><strong>   Hospital Cash Benefit Premium :</strong> {{hcp}}</p>-->
                                     </div>
 
                                     <div class="col-md-4" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
@@ -287,7 +290,8 @@
                                     <!--                               </div>-->
 
                                     <div class="col-md-4" *ngIf="sub_product_id == '1' || sub_product_id == '3'">
-                                        <p *ngIf="CIP != 0"><strong>Enhanced Critical Illness Premium :</strong> {{CIP}}</p>
+                                        <p ><strong>Enhanced Critical Illness Premium :</strong> {{CIP1}}</p>
+                                        <!--<p *ngIf="CIP != 0"><strong>Enhanced Critical Illness Premium :</strong> {{CIP}}</p>-->
                                     </div>
 
                                     <div class="col-md-4">
@@ -316,7 +320,8 @@
                                     <!--                                   <div class="error" *ngIf="adbError != ''">{{adbError}}</div>-->
                                     <!--                               </div>-->
                                     <div class="col-md-4 mt-2" >
-                                        <p *ngIf="ADB != 0"><strong> Accidental Death Benefit Premium :</strong> {{ADB}}</p>
+                                        <p ><strong> Accidental Death Benefit Premium :</strong> {{ADB1}}</p>
+                                        <!--<p *ngIf="ADB != 0"><strong> Accidental Death Benefit Premium :</strong> {{ADB}}</p>-->
                                     </div>
                                     <div class="col-md-4">
                                         <mat-radio-group formControlName="isATPD"  >
@@ -334,7 +339,8 @@
                                         <div class="error" style="margin-top: -20px"  *ngIf="atpdError != '' && atpdError != true">{{atpdError}}<br> {{this.atpd_sumassured_min }} - {{this.atpd_sumassured_max}}</div>
                                     </div>
                                     <div class="col-md-4 mt-2 "  >
-                                        <p *ngIf="PDP != 0"><strong> Permanent Disability Premium :</strong> {{PDP}}</p>
+                                        <!--<p *ngIf="PDP != 0"><strong> Permanent Disability Premium :</strong> {{PDP}}</p>-->
+                                        <p ><strong> Permanent Disability Premium :</strong> {{PDP1}}</p>
                                     </div>
 
 

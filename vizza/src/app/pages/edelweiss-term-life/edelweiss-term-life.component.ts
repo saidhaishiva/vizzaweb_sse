@@ -329,6 +329,12 @@ export class EdelweissTermLifeComponent implements OnInit {
     public dropDownValues:boolean;
     public Amount:any;
     public TotalAmount:any;
+    public ADB1 :any;
+    public PDP1 :any;
+    public PW1 :any;
+    public CIP1 :any;
+    public BhP1 :any;
+    public hcp1 :any;
 
 
     constructor(@Inject(WINDOW) private window: Window,  public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
@@ -910,6 +916,16 @@ export class EdelweissTermLifeComponent implements OnInit {
         // this.geteGender();
         this.geteTitle();
         this.geteMaritalStatus();
+        this.customerDetails.controls['title'].patchValue(this.enquiryFromDetials.gender == 'f' ? '2' : '1');
+
+        this.customerDetails.controls['isSmoker'].patchValue(this.enquiryFromDetials.smoker == 'y' ? 'Yes' : 'No');
+        console.log( this.customerDetails.controls['isSmoker'].value,'dob');
+        console.log( this.enquiryFromDetials.smoker,'dob');
+
+        this.customerDetails.controls['annualIncome'].patchValue(this.enquiryFromDetials.annualIncome);
+        console.log( this.customerDetails.controls['annualIncome'].value,'dob');
+        this.customerDetails.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+        console.log(this.customerDetails.controls['dob'].value,'dob');
         this.geteInvesting();
         this.getePremiumTerm();
         this.getePolicyTerm();
@@ -970,8 +986,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
         // this.insureArray.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
         // let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
-        this.customerDetails.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
-        console.log(this.customerDetails.controls['dob'].value,'dob')
+
         console.log(this.enquiryFromDetials.dob,'dob')
         let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
         this.customerAge = this.ageCalculate(dob);
@@ -980,14 +995,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         sessionStorage.proposerAge = this.proposerAge;
         // this.proposer.controls['age'].patchValue(this.proposerAge);
         this.insureArray.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
-        this.customerDetails.controls['title'].patchValue(this.enquiryFromDetials.gender == 'f' ? '2' : '1');
 
-        this.customerDetails.controls['isSmoker'].patchValue(this.enquiryFromDetials.smoker == 'y' ? 'Yes' : 'No');
-        console.log( this.customerDetails.controls['isSmoker'].value,'dob')
-        console.log( this.enquiryFromDetials.smoker,'dob')
-
-        this.customerDetails.controls['annualIncome'].patchValue(this.enquiryFromDetials.annualIncome);
-        console.log( this.customerDetails.controls['annualIncome'].value,'dob')
         console.log( this.enquiryFromDetials.annualIncome,'dob')
 
         // this.insureArray.controls['Cover'].patchValue(sessionStorage.selectedAmountTravel);
@@ -8871,15 +8879,15 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
         if (successData.ResponseObject) {
             this.eePremiumTerm = successData.ResponseObject;
             // this.eePremiumTerm = this.eePremiumTerm;
-            this.ADB = this.eePremiumTerm.accidental_death_premium;
             this.sum = this.eePremiumTerm.sumAssured;
             this.basePremium = this.eePremiumTerm.Basepremium;
             this.premium = this.eePremiumTerm.Premium;
-            this.PDP = this.eePremiumTerm.permanent_disability_premium;
-            this.PW = this.eePremiumTerm.premium_waiver;
-            this.CIP = this.eePremiumTerm.critical_illness_premium;
-            this.BhP = this.eePremiumTerm.better_half_premium;
-            this.hcp = this.eePremiumTerm.hcb_premium;
+            this.ADB1 = this.eePremiumTerm.accidental_death_premium;
+            this.PDP1 = this.eePremiumTerm.permanent_disability_premium;
+            this.PW1 = this.eePremiumTerm.premium_waiver;
+            this.CIP1 = this.eePremiumTerm.critical_illness_premium;
+            this.BhP1 = this.eePremiumTerm.better_half_premium;
+            this.hcp1 = this.eePremiumTerm.hcb_premium;
             this.planname = this.eePremiumTerm.planName;
             this.payingTerm = this.eePremiumTerm.payingTerm;
             this.policyTerm = this.eePremiumTerm.policyTerm;
