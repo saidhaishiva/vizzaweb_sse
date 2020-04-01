@@ -4,6 +4,8 @@ import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {HealthService} from '../../shared/services/health.service';
 import {ValidationService} from '../../shared/services/validation.service';
+import { AppSettings } from '../../app.settings';
+import { Settings } from '../../app.settings.model';
 
 @Component({
   selector: 'app-health-landing',
@@ -11,11 +13,12 @@ import {ValidationService} from '../../shared/services/validation.service';
   styleUrls: ['./health-landing.component.scss']
 })
 export class HealthLandingComponent implements OnInit {
-public form: FormGroup;
-public healthLandingSubmit: any;
+  public form: FormGroup;
+  public healthLandingSubmit: any;
+  public settings: any;
 
 
-  constructor(public fb: FormBuilder,public common: HealthService, public toastr: ToastrService , public router: Router, public validation: ValidationService,) {
+  constructor(public fb: FormBuilder,public common: HealthService, public toastr: ToastrService , public router: Router, public validation: ValidationService,public appSettings: AppSettings) {
     this.form = this.fb.group({
       'firstName': ['', Validators.required],
       'mobile': [null, Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
@@ -23,6 +26,10 @@ public healthLandingSubmit: any;
 
 
     });
+    this.settings = this.appSettings.settings;
+    this.settings.HomeSidenavUserBlock = false;
+    this.settings.sidenavIsOpened = false;
+    this.settings.sidenavIsPinned = false;
   }
 
   ngOnInit() {
@@ -38,6 +45,8 @@ public healthLandingSubmit: any;
       "city": "fftfty",
       "insurance_type":"health"
     }
+    this.settings.loadingSpinner = true;
+
     this.common.healthLandingProposal(data).subscribe(
         (successData) => {
           this.healthLandingSuccess(successData);
@@ -48,6 +57,8 @@ public healthLandingSubmit: any;
     );
   }
   public healthLandingSuccess(successData) {
+    this.settings.loadingSpinner = false;
+
     if (successData.IsSuccess == true) {
       this.healthLandingSubmit =  successData.ResponseObject;
       this.toastr.success(this.healthLandingSubmit);
