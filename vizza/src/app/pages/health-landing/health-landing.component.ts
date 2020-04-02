@@ -1,56 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
 import {ToastrService} from 'ngx-toastr';
-
-import {Router} from '@angular/router';
-
+import {ActivatedRoute, Router} from '@angular/router';
 import {HealthService} from '../../shared/services/health.service';
-
 import {ValidationService} from '../../shared/services/validation.service';
-
-import { AppSettings } from '../../app.settings';
-
-import { Settings } from '../../app.settings.model';
-
-​
-
+import {AppSettings } from '../../app.settings';
+import {Settings} from '../../app.settings.model';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {AuthService} from '../../shared/services/auth.service';
 @Component({
-
   selector: 'app-health-landing',
-
   templateUrl: './health-landing.component.html',
-
   styleUrls: ['./health-landing.component.scss']
 
 })
 
 export class HealthLandingComponent implements OnInit {
 
-  public form: FormGroup;
-
-  public healthLandingSubmit: any;
-
+  // public form: FormGroup;
+  //
+  // public healthLandingSubmit: any;
+  //
   public settings: any;
 
 ​
 
 ​
 
-  constructor(public fb: FormBuilder,public common: HealthService, public toastr: ToastrService , public router: Router, public validation: ValidationService,public appSettings: AppSettings) {
-     this.form = this.fb.group({
-       'firstName': ['', Validators.required],
-       'mobile': [null, Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
-       'emailId': [null, Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
-     });
+  constructor(public fb: FormBuilder,public common: HealthService, public toastr: ToastrService , public dialog: MatDialog, public router: Router, public validation: ValidationService,public appSettings: AppSettings) {
+     // this.form = this.fb.group({
+     //   'firstName': ['', Validators.required],
+     //   'mobile': [null, Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
+     //   'emailId': [null, Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
+     // });
 
     this.settings = this.appSettings.settings;
-
     this.settings.HomeSidenavUserBlock = false;
-
     this.settings.sidenavIsOpened = false;
-
     this.settings.sidenavIsPinned = false;
 
   }
@@ -60,104 +47,152 @@ export class HealthLandingComponent implements OnInit {
   ngOnInit() {
 
     // this.landingSubmit()
+    let dialogRef = this.dialog.open(healthlandingPopup, {
+      width: '900px',
+      height: '600px'
+    });
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result,'result....')
+      if(result==true) {
+        this.router.navigate(['/home']);
+      }else if(result==false){
+      }
+
+    });
 
   }
 
 ​
 
-  landingSubmit(value) {
-
-    if(this.form.valid){
-
-      const data = {
-
-        "platform":"web",
-
-        "name" : this.form.controls['firstName'].value,
-
-        "email_id" : this.form.controls['emailId'].value,
-
-        "mobile_no": this.form.controls['mobile'].value,
-
-        "city": "fftfty",
-
-        "insurance_type":"health"
-
-      }
-
-      // alert("2")
-
-      this.settings.loadingSpinner = true;
+//   landingSubmit(value) {
+//
+//     if(this.form.valid){
+//
+//       const data = {
+//
+//         "platform":"web",
+//
+//         "name" : this.form.controls['firstName'].value,
+//
+//         "email_id" : this.form.controls['emailId'].value,
+//
+//         "mobile_no": this.form.controls['mobile'].value,
+//
+//         "city": "fftfty",
+//
+//         "insurance_type":"health"
+//
+//       }
+//
+//       // alert("2")
+//
+//       this.settings.loadingSpinner = true;
+//
+// ​
+//
+//     this.common.healthLandingProposal(data).subscribe(
+//
+//         (successData) => {
+//
+//           this.healthLandingSuccess(successData);
+//
+//         },
+//
+//         (error) => {
+//
+//           this.healthLandingFailure(error);
+//
+//         }
+//
+//     );
+//
+//     }
+//
+//     else{
+//
+//         this.toastr.error('All Fields Are Mandatory');
+//
+//       }
+//
+//   }
+//
+//   public healthLandingSuccess(successData) {
+//     this.settings.loadingSpinner = false;
+//
+//     ​if (successData.IsSuccess == true) {
+//
+//       this.healthLandingSubmit =  successData.ResponseObject;
+//
+//       this.toastr.success(this.healthLandingSubmit);
+//
+//       this.router.navigate(['/home']);
+//
+//     } else {
+//
+//       // this.toastr.error(successData.ErrorObject);
+//
+//       this.toastr.error('Please Enter Correct Format ');
+//     }
+//
+// }
+//
+//   public healthLandingFailure(error) {
+//
+//   }
 
 ​
 
-    this.common.healthLandingProposal(data).subscribe(
+//   //validation
+//
+//   nameValidate(event: any) {
+//      this.validation.nameValidate(event);
+//   }
+//
+// ​  numberValidate(event: any) {
+//      this.validation.numberValidate(event);
+//   }
 
-        (successData) => {
-
-          this.healthLandingSuccess(successData);
-
-        },
-
-        (error) => {
-
-          this.healthLandingFailure(error);
-
-        }
-
-    );
-
-    }
-
-    else{
-
-        this.toastr.error('All Fields Are Mandatory');
-
-      }
-
-  }
-
-  public healthLandingSuccess(successData) {
-    this.settings.loadingSpinner = false;
-    ​if (successData.IsSuccess == true) {
-
-      this.healthLandingSubmit =  successData.ResponseObject;
-
-      this.toastr.success(this.healthLandingSubmit);
-
-      this.router.navigate(['/home']);
-
-    } else {
-
-      // this.toastr.error(successData.ErrorObject);
-
-      this.toastr.error('Please Enter Correct Format ');
-    }
+​
 
 }
 
-  public healthLandingFailure(error) {
+@Component({
+  selector: ' healthlandingPopup',
+  template: `
+   
+        <div class="container">
+           
+            <h4>hi</h4>
+
+        </div>
+
+        <div mat-dialog-actions style="justify-content: center">
+          <button mat-raised-button style="background-color: darkblue; color: white;" (click)="cancel()">Cancel</button>
+          <button mat-raised-button style="background-color: darkblue; color: white;" (click)="submit()">Ok</button>
+
+        </div>
+        
+    `
+})
+
+export class healthlandingPopup {
+
+
+  public settings: Settings;
+
+  constructor(
+      public dialogRef: MatDialogRef<healthlandingPopup>,
+      @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute,   public validation: ValidationService, public appSettings: AppSettings,  public config: ConfigurationService, public authservice: AuthService ) {
+    this.settings = this.appSettings.settings;
 
   }
 
-​
-
-  //validation
-
-  nameValidate(event: any) {
-
-    this.validation.nameValidate(event);
-
+  submit(): void {
+    this.dialogRef.close(true);
   }
-
-​
-
-  numberValidate(event: any) {
-
-    this.validation.numberValidate(event);
-
+  cancel(): void {
+    this.dialogRef.close(false);
   }
-
-​
 
 }
