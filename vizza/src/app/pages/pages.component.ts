@@ -38,7 +38,6 @@ export class PagesComponent implements OnInit {
   public userId: any;
   public mHorizontal: any;
   public webhost: any;
-  public healthLandingPage: any;
   apiHostAdmin: string = environment.apiHostAdmin;
 
 
@@ -47,9 +46,6 @@ export class PagesComponent implements OnInit {
 
 
   constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService,public appSettings:AppSettings, public router:Router, private menuService: MenuService, public auth: AuthService, public dialog: MatDialog){
-
-    this.healthLandingPage=sessionStorage.healthLandingPage;
-    alert(this.healthLandingPage);
     this.settings = this.appSettings.settings;
     this.breadcrumbHome = true;
     this.userId = 0;

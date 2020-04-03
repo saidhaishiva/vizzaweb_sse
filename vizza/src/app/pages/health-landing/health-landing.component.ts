@@ -1,22 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
 import {ToastrService} from 'ngx-toastr';
-
 import {Router} from '@angular/router';
-
 import {HealthService} from '../../shared/services/health.service';
-
 import {ValidationService} from '../../shared/services/validation.service';
-
 import { AppSettings } from '../../app.settings';
 @Component({
 
     selector: 'app-health-landing',
-
     templateUrl: './health-landing.component.html',
-
     styleUrls: ['./health-landing.component.scss']
 
 })
@@ -31,8 +23,6 @@ export class HealthLandingComponent implements OnInit {
 ​constructor(public fb: FormBuilder,public common: HealthService, public toastr: ToastrService , public router: Router, public validation: ValidationService,public appSettings: AppSettings) {
 
         this.healthLandingPage=true;
-        alert(this.healthLandingPage)
-        sessionStorage.healthLandingPage=this.healthLandingPage;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -45,11 +35,12 @@ export class HealthLandingComponent implements OnInit {
             'emailId': [null, Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
         });
 
+
 }
 
 ​ngOnInit() {
-        this.healthLandingPage=true;
 
+    // this.landingSubmit()
 
 }
 
@@ -85,8 +76,6 @@ public healthLandingSuccess(successData) {
 ​       if (successData.IsSuccess == true) {
             this.healthLandingSubmit =  successData.ResponseObject;
             this.toastr.success(this.healthLandingSubmit);
-            this.healthLandingPage=false;
-            sessionStorage.healthLandingPage=this.healthLandingPage;
             this.router.navigate(['/home']);
        } else {
         // this.toastr.error(successData.ErrorObject);
