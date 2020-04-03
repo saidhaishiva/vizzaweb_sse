@@ -1,42 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
 import {ToastrService} from 'ngx-toastr';
-
 import {Router} from '@angular/router';
-
 import {HealthService} from '../../shared/services/health.service';
-
 import {ValidationService} from '../../shared/services/validation.service';
-
 import { AppSettings } from '../../app.settings';
-
 import { Settings } from '../../app.settings.model';
 
-​
-
 @Component({
-
   selector: 'app-health-landing',
-
   templateUrl: './health-landing.component.html',
-
   styleUrls: ['./health-landing.component.scss']
-
 })
 
 export class HealthLandingComponent implements OnInit {
-
   public form: FormGroup;
-
   public healthLandingSubmit: any;
-
   public settings: any;
-
-​
-
-​
 
   constructor(public fb: FormBuilder,public common: HealthService, public toastr: ToastrService , public router: Router, public validation: ValidationService,public appSettings: AppSettings) {
      this.form = this.fb.group({
@@ -46,8 +26,9 @@ export class HealthLandingComponent implements OnInit {
      });
 
     this.settings = this.appSettings.settings;
-
     this.settings.HomeSidenavUserBlock = false;
+    this.settings.sidenavUserBlock = false;
+    this.settings.fixedHeader = false;
 
     this.settings.sidenavIsOpened = false;
 

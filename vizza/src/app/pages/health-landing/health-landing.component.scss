@@ -1,73 +1,60 @@
 .heading{
-
   color:#f06024;
-
   margin-top: 77px;
-
   }
+.readMor {
+  color:#f06024;
+  cursor: pointer;
+  margin-top: 77px;
+}
 
 .heading1{
-
   color:#f06024;
-
   margin-top: 30px;
-
   }
 
 .bc-color{
-
   background-color:#fffdfb;
-
   margin-top: -4px;
-
   }
 
 .second-color{
-
   background-color:#fff5ec;
-
   margin-top: -88px;
-
   }
 
 footer{
-
   background-color: #707070!important;
-
   color: #fff;
-
 }
 
 ul {
-
   list-style-type: none;
-
   margin: 0;
-
+  display: flex;
   padding: 0;
-
   overflow: hidden;
-
 }
-
-​
 
 li {
-
   float: left;
-
+  margin: 4px;
   //padding-right: 20px;
-
 }
 
-​
+.socialIcons {
+  display: block;
+  color: #f58721;
+  cursor: pointer;
+  text-align: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  text-decoration: none;
+}
 
 li a {
-
   display: block;
-
   color: #f58721;
-
   text-align: center;
 
   padding: 14px 16px;
