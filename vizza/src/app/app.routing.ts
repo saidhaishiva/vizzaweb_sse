@@ -199,10 +199,12 @@ import { TermLandingComponent } from './pages/term-landing/term-landing.componen
 
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: 'health-enquiry', pathMatch: 'full' },
     {
         path: '',
         component: PagesComponent, children: [
+            { path: 'health-enquiry', component: HealthLandingComponent, data: { breadcrumb: 'Health landing'}},
+
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
             { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
             // { path: 'contact', component: ContactComponent, loadChildren: 'app/pages/contact/contact.module#ContactComponent', data: { breadcrumb: 'Contact us' } },
@@ -402,7 +404,6 @@ export const routes: Routes = [
             { path: 'edelweiss-pos/:stepper', component: EdelweissPosComponent, data:{breadcrumb: 'Edelweiss pos Insurance'} },
             { path: 'edelweisspos-payment-success/:status/:proId', component: EdelweissposPaymnetSuccessComponent, data: { breadcrumb: 'Edelweisspos payment'}},
             { path: 'starhealth-renewal-proposal', component: StarhealthRenewelProposalComponent, data: { breadcrumb: 'Starhealth proposal'}},
-            { path: 'health-enquiry', component: HealthLandingComponent, data: { breadcrumb: 'Health landing'}},
             { path: 'term-enquiry', component: TermLandingComponent, data: { breadcrumb: 'Term landing'}},
 
         ]
