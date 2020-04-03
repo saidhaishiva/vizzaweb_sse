@@ -6779,7 +6779,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     // }
 
     isbetterHalfBenefit() {
-console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
+console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....')
         if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
             this.addon.controls['betterHalfsumAssured'].patchValue(this.addon.controls['betterHalfsumAssured'].value);
             this.addon.controls['betterHalfsumAssured'].setValidators([Validators.required]);
