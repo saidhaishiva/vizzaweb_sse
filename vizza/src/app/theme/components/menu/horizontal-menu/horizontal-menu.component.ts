@@ -23,9 +23,12 @@ export class HorizontalMenuComponent implements OnInit {
 
   ngOnInit() {
     this.menuItems = this.menuService.getHorizontalMenuItems();
-    this.menuItems = this.menuItems.filter(item => item.parentId == this.menuParentId);
-  }
+    console.log(this.menuItems,'menuItems');
 
+    this.menuItems = this.menuItems.filter(item => item.parentId == this.menuParentId);
+    console.log(this.menuParentId,'menuParentId');
+
+  }
   ngAfterViewInit(){
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
