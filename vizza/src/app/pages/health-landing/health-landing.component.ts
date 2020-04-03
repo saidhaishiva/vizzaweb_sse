@@ -31,7 +31,7 @@ export class HealthLandingComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
 
         this.form = this.fb.group({
-            'firstName': ['', Validators.required],
+            'firstName': [null, Validators.required],
             'mobile': [null, Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
             'emailId': [null, Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
         });
