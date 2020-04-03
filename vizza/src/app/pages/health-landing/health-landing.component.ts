@@ -25,6 +25,7 @@ export class HealthLandingComponent implements OnInit {
         this.healthLandingPage=true;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
+        this.settings.loadingSpinner = false;
         this.settings.sidenavIsOpened = false;
         this.settings.fixedHeader=false,
         this.settings.sidenavIsPinned = false;
