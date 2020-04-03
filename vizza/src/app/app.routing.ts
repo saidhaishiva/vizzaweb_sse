@@ -199,7 +199,7 @@ import { TermLandingComponent } from './pages/term-landing/term-landing.componen
 
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: 'health-enquiry', pathMatch: 'full' },
     {
         path: '',
         component: PagesComponent, children: [
