@@ -31,6 +31,7 @@ constructor(public fb: FormBuilder,public common: HealthService, public toastr: 
     this.settings = this.appSettings.settings;
 
     this.settings.HomeSidenavUserBlock = false;
+    this.settings.loadingSpinner = false;
 
     this.settings.sidenavIsOpened = false;
 
