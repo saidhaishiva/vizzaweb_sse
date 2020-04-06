@@ -6779,7 +6779,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     // }
 
     isbetterHalfBenefit() {
-console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....')
+        console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....---')
         if (this.addon.controls['betterHalfBenefit'].value == 'Yes') {
             this.addon.controls['betterHalfsumAssured'].patchValue(this.addon.controls['betterHalfsumAssured'].value);
             this.addon.controls['betterHalfsumAssured'].setValidators([Validators.required]);
@@ -8494,7 +8494,7 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....')
             this.termService.edelweissPrimium(data).subscribe(
                 (successData) => {
                     this.edelweissPrimiumAgeSuccess(successData);
-                    },
+                },
                 (error) => {
                     this.edelweissPrimiumAgeFailure(error);
                 }
@@ -8737,11 +8737,11 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....')
             dialogRef.afterClosed().subscribe(result => {
                 console.log(result,'result....')
                 if(result==true) {
-                   if(this.premiumValue==false){
+                    if(this.premiumValue==false){
 
-                    stepper.next();
-                    this.topScroll();
-                   }
+                        stepper.next();
+                        this.topScroll();
+                    }
                 }else if(result==false){
                     // this.addonValue=false;
                 }
@@ -11126,7 +11126,7 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....')
 @Component({
     selector: ' edelweissCover',
     template: `
-   
+
         <div class="container">
             <h5>Addon Cover Premium</h5>
             <div class="row" *ngIf="this.planname!=''&&this.planname!=undefined">
@@ -11139,13 +11139,13 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....')
                     <p ><span style="margin-left: 35px;color: blue"> Policy Term :</span><span style="margin-left: 225px;">{{this.policyTerm}} </span></p>
                 </div>
             </div>
-           
+
             <div class="row" *ngIf="this.payingTerm!=''&&this.payingTerm!=undefined">
                 <div class="col-md-12"  >
                     <p ><span style="margin-left: 35px;color: blue"> Pay Term :</span><span style="margin-left: 237px;"> {{this.payingTerm}}</span> </p>
                 </div>
             </div>
-           
+
             <div class="row" *ngIf="this.sum!=''&&this.sum!=undefined">
                 <div class="col-md-12"  >
                     <p ><span style="margin-left: 35px;color: blue"> Sum Assured :</span><span style="margin-left: 216px;">{{this.sum}}</span>  </p>
@@ -11156,7 +11156,7 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....')
                     <p ><span style="margin-left: 35px;color: blue"> Premium :</span><span style="margin-left: 244px;">{{this.basePremium}}</span>  </p>
                 </div>
             </div>
-            
+
             <div class="row" *ngIf="this.PW!=''&&this.PW!=undefined">
                 <div class="col-md-12"  >
                     <p ><span style="margin-left: 35px;color: blue">  Waiver Of Premium Benefit  :</span><span style="margin-left: 135px;">{{this.PW}}</span>  </p>
@@ -11191,22 +11191,22 @@ console.log(this.addon.controls['betterHalfBenefit'].value,'betterHalf....')
                 <div class="col-md-12"  >
                     <p ><span style="margin-left: 35px;color: blue">  Amount  :</span><span style="margin-left: 255px;">{{this.Amount}}</span>  </p>
                 </div>
-            </div> 
+            </div>
             <div class="row" *ngIf="this.TotalAmount!=''&&this.TotalAmount!=undefined">
                 <div class="col-md-12"  >
                     <p ><span style="margin-left: 35px;color: blue">  Total Amount  :</span><span style="margin-left: 220px;">{{this.TotalAmount}}</span>  </p>
                 </div>
             </div>
-            
+
 
         </div>
-       
+
         <div mat-dialog-actions style="justify-content: center">
             <button mat-raised-button style="background-color: darkblue; color: white;" (click)="cancel()">Cancel</button>
             <button mat-raised-button style="background-color: darkblue; color: white;" (click)="submit()">Ok</button>
 
         </div>
-        
+
     `
 })
 
@@ -11354,14 +11354,14 @@ export class edelweissCover {
 @Component({
     selector: ' edelweissopt ',
     template: `
-    <div class="col-md-12 text-right" style="margin-left: 20px;
+        <div class="col-md-12 text-right" style="margin-left: 20px;
     margin-bottom: 10px;
     margin-top: -8px;
 " >
-      <i class="material-icons" (click)="close()" style="cursor: pointer">
-        cancel
-      </i>
-    </div>
+            <i class="material-icons" (click)="close()" style="cursor: pointer">
+                cancel
+            </i>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center w-100">
@@ -11370,19 +11370,19 @@ export class edelweissCover {
                     </mat-form-field>
                 </div>
                 <!--<div class="col-md-12">-->
-                    <!--<div class="proposal-buttom mb-3 text-center w-100">-->
-                        <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
-                    <!--</div>-->
+                <!--<div class="proposal-buttom mb-3 text-center w-100">-->
+                <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
+                <!--</div>-->
                 <!--</div>-->
             </div>
         </div>
         <div mat-dialog-actions style="justify-content: center">
-          <!--<button mat-button class="secondary-bg-color"  style="background-color: darkblue; color: white;" (click)="onNoClick()">Back</button>-->
-          <!--<button mat-button class="secondary-bg-color" (click)="resendOPT();clearOtp()">Resend</button>-->
-          <!--<button mat-button class="secondary-bg-color" (click)="otpEdVal()">Ok</button>-->
+            <!--<button mat-button class="secondary-bg-color"  style="background-color: darkblue; color: white;" (click)="onNoClick()">Back</button>-->
+            <!--<button mat-button class="secondary-bg-color" (click)="resendOPT();clearOtp()">Resend</button>-->
+            <!--<button mat-button class="secondary-bg-color" (click)="otpEdVal()">Ok</button>-->
 
-          <button mat-raised-button style="background-color: darkblue; color: white;" (click)="resendOPT();clearOtp()">Resend</button>
-          <button mat-raised-button style="background-color: darkblue; color: white;" (click)="otpEdVal()">Ok</button>
+            <button mat-raised-button style="background-color: darkblue; color: white;" (click)="resendOPT();clearOtp()">Resend</button>
+            <button mat-raised-button style="background-color: darkblue; color: white;" (click)="otpEdVal()">Ok</button>
 
         </div>
     `
