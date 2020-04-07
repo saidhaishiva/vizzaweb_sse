@@ -2205,7 +2205,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index" [ngStyle]="{'display':'block','margin-left':'-23px','margin-top': '-20px'}">
+                        <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index" [ngStyle]="{'display':'block','margin-left':'-23px','margin-top': '22px'}">
                           <mat-checkbox  [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)"  >
                             <div class="checkBoxLabelMargin" [ngStyle]="{'margin-left':'-3px','text-align':'center'}">
                               {{fGroup.type}}
