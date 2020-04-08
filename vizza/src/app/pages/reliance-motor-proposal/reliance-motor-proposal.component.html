@@ -2,7 +2,7 @@
 <!--    apolloMunichProposal-->
   <div class="row apolloMunichProposal mb-4">
     <div class="col-md-12">
-      <mat-horizontal-stepper #stepper>
+      <mat-horizontal-stepper #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
@@ -1375,7 +1375,7 @@
                               <!--</ul>-->
                           <!--</div>-->
 
-                          <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''&&coverFormData.PAToOwnerDriverCoverd == false">
+                          <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''&&(coverFormData.PAToOwnerDriverCoverd == false||coverFormData.PAToOwnerDriverCoverd == true)">
                               <h2 class="color-blue m-2">PA To Owner Driver</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd == false"><strong>PA To Owner Driver:</strong><span *ngIf="coverFormData.PAToOwnerDriverCoverd == false">N/A</span> </li>
@@ -1388,7 +1388,7 @@
                           </div>
 
                           <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''&&coverFormData.PAToOwnerDriverCoverd == true">
-                              <h2 class="color-blue m-2">PA To Owner Driver</h2>
+                              <h2 class="color-blue m-2"></h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PAToOwnerDriverCoverd != false "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Other Relation:</strong> {{coverFormData.nOtherRelation}}</li>

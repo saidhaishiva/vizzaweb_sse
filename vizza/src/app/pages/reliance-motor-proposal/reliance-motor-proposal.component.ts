@@ -67,6 +67,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   public amountList: any;
   public unnamedList: any;
   public webhost : any;
+  public stepperindex : any;
 
   public nationalityList: any;
   public bifueltypeList: any;
@@ -142,15 +143,18 @@ export class RelianceMotorProposalComponent implements OnInit {
   personalDobError : any;
   previousDateError : any;
   ProposalId : any;
+  currentStep : any;
 
   constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService,public dialog: MatDialog, public route: ActivatedRoute , public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
 
-    let stepperindex = 0;
-    this.nonElectricalSumAount=false
-    this.electricalSumAount=false
+    this.stepperindex = 0;
+    // alert(this.stepperindex);
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
-        stepperindex = 3;
+        // alert('inn');
+        this.stepperindex = 3;
+        // alert(this.stepperindex);
+
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           sessionStorage.relianceTwowheelerproposalID = this.ProposalId;
 
@@ -159,13 +163,7 @@ export class RelianceMotorProposalComponent implements OnInit {
           this.coverFormData = JSON.parse(sessionStorage.coverFormData);
           this.summaryData = JSON.parse(sessionStorage.summaryData);
           this.proposalId = this.summaryData.productlist.proposal_id;
-          // sessionStorage.relianceTwowheelerproposalID = this.proposalId;
           this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
-          // this.PolicySisID =   this.summaryData.PolicySisID;
-          // this.PaymentRedirect =   this.summaryData.PaymentReturn;
-          // this.riskFormData = JSON.parse(sessionStorage.riskFormData);
-          // this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
-         // this.proposerFormData =sessionStorage.proposerFormData;
           this.gstAmount=sessionStorage.gstAmount;
           this.discountAmount=sessionStorage.discountAmount;
           this.tp_premium=sessionStorage.tp_premium;
@@ -180,16 +178,12 @@ export class RelianceMotorProposalComponent implements OnInit {
           this.PA_to_unnamed_passenger=sessionStorage.PA_to_unnamed_passenger;
           this.basic_od=sessionStorage.basic_od;
           this.basic_liability=sessionStorage.basic_liability;
-          // this.proposerFormData = this.relianceProposal.value;
-          // this.riskFormData = this.riskDetails.value;
-          // this.coverFormData = this.coverDetails.value;
-          // this.previousFormData = this.previousInsurance.value;
-          // sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
-
         }
       }
     });
-
+    this.currentStep = this.stepperindex;
+    this.nonElectricalSumAount=false
+    this.electricalSumAount=false
     let today = new Date();
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     this.settings = appsetting.settings;
