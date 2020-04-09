@@ -372,7 +372,6 @@ export class PosprofileComponent implements OnInit {
 
         }
     }
-
     getPosProfileFailure(error) {
         console.log(error);
     }
@@ -1345,6 +1344,15 @@ export class PosprofileComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
         });
     }
+
+    public toggleSidenav(){
+        // console.log(this.sidenav);
+        this.sidenav.toggle();
+    }
+    public toggleSidenavMv() {
+        this.sidenav.toggle();
+    }
+
 
 
 
