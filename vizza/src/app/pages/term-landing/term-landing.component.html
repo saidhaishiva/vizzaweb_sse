@@ -1,12 +1,12 @@
 <div class="d-lg-block d-xl-block d-none d-sm-none d-md-none font">
-  <mat-toolbar class="horizontal-menu flex-p-x">
+  <mat-toolbar class="col-12 col-md-12 col-sm-12 horizontal-menu flex-p-x boxshadow">
     <div fxLayout="row" fxLayoutAlign="start start">
 
-      <a  class="logo" routerLink="/home" ><img alt=""  src="assets/img/vizza-logoNew.svg" style="width: 100%;height: 78px;" alt="vizza-logo" title="vizza-logo" ></a>
+      <a  class="logo" routerLink="/home" ><img alt=""  src="assets/img/vizza-logoNew.svg" style="width: 100%;height: 50px;" alt="vizza-logo" title="vizza-logo" ></a>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
       <!--<app-horizontal-menu [menuParentId]="0"></app-horizontal-menu>-->
-      <div style="color:green;margin-left: 601px;" class="d-flex align-items-center"><img src="assets/img/Toll-free-icon.svg" style="height: 15px;width:15px; margin-right: 6px" alt="vizza-Toll-free-icon" title="vizza-Toll-free"> 1800 425 3000</div>
+      <div style="color:green;margin-left: 601px;" class= "d-flex align-items-center"><img src="assets/img/Toll-free-icon.svg" style="height: 15px;width:15px; margin-right: 6px" alt="vizza-Toll-free-icon" title="vizza-Toll-free"> 1800 425 3000</div>
     </div>
   </mat-toolbar>
   <div class="container-fluid bc-color">
@@ -35,7 +35,7 @@
 
           </div>
 
-          <div class="col-md-6 col-sm-12 col-xs-12 " style="margin-top:50px; ">
+          <div class="col-md-6 col-sm-12 col-xs-12 " style="margin-top:57px; ">
             <div class="card h-90 pl-5 pr-5" >
               <form [formGroup]="form">
                 <!--<div class="col-md-12 mt-5">-->
@@ -88,7 +88,7 @@
 
 
 
-                <div class="col-md-12 text-center mt-3 pb-5">
+                <div class="col-md-12 text-center mt-3" style="padding-bottom: 29px;">
                   <button mat-button type="submit" style="background: #f06024; color: #fff" (click)="landingSubmit(form.value)" >Submit</button>
 
                 </div>
@@ -126,7 +126,7 @@
 
         </div>
         <div class="col-md-2">
-          <img src="assets/img/aegon.png" class="logo-pics"  >
+          <img src="assets/img/aegon.png" class="logo-picsaegon"  >
 
 
         </div>
@@ -162,22 +162,31 @@
 
 <!--mobile view-->
 <div class="d-lg-none d-xl-none d-block d-sm-block d-md-block fonts">
-  <mat-toolbar class="horizontal-menu">
-    <div fxLayout="row" fxLayoutAlign="start start">
+  <div class="container-fluid">
+    <mat-toolbar class="horizontal-menu">
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <div class="col-12 col-md-12 col-sm-12">
+        <a  class="logo" routerLink="/home" ><img alt=""  src="assets/img/vizza-logoNew.svg" style="width: 61%;height: 50px;" alt="vizza-logo" title="vizza-logo" ></a>
 
-      <a  class="logo" routerLink="/home" ><img alt=""  src="assets/img/vizza-logoNew.svg" style="width: 61%;height: 78px;" alt="vizza-logo" title="vizza-logo" ></a>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
-      <!--<app-horizontal-menu [menuParentId]="0"></app-horizontal-menu>-->
-      <div style="color:green; margin-left: 0px" class="d-flex align-items-center"><img src="assets/img/Toll-free-icon.svg" style="height: 15px;width:15px;" alt="vizza-Toll-free-icon" title="vizza-Toll-free"> 1800 425 3000</div>
-    </div>
-  </mat-toolbar>
+      </div>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
+        <div class="col-12 col-md-12 col-sm-12">
+
+        <!--<app-horizontal-menu [menuParentId]="0"></app-horizontal-menu>-->
+        <div style="color:green; margin-left: 0px" class="d-flex align-items-center"><img src="assets/img/Toll-free-icon.svg" style="height: 15px;width:15px;" alt="vizza-Toll-free-icon" title="vizza-Toll-free"> 1800 425 3000</div>
+      </div>
+      </div>
+    </mat-toolbar>
+
+  </div>
   <div class="container-fluid bc-color">
     <section>
       <div class="container">
 
         <div class="row">
-          <div class="col-md-6 col-sm-12 col-xs-12 h-100">
+          <div class="col-md-12 col-sm-12 col-xs-12 h-100">
             <div class="aboutContent1">
               <h6 class="heading text-center text-uppercase"><b>Protect Your Loved One Financially</b> </h6>
 
