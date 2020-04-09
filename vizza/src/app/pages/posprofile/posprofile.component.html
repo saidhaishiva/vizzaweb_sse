@@ -1010,7 +1010,7 @@
                     </mat-toolbar>
 
                     <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar>
-                        <div *ngFor="let mail of sideNav; let i= index" (click)="viewDetail(i, mail.name)">
+                        <div *ngFor="let mail of sideNav; let i= index" (click)="viewDetail(i, mail.name); sidenav1.toggle()">
                             <mat-list-item [ngClass]="{'selected':  selectedTab == i}" >
                                 <!--<img *ngIf="!mail.senderPhoto" matListAvatar src="assets/img/users/default-user.jpg">-->
                                 <div matLine fxLayout="row" fxLayoutAlign="space-between space-between" [ngClass]="{'listDisabled': disabledList}">
