@@ -81,13 +81,13 @@ ul {
 
 }
 
-li {
-
-  float: left;
-
-  //padding-right: 20px;
-
-}
+//li {
+//
+//  float: left;
+//
+//  //padding-right: 20px;
+//
+//}
 
 li a {
 
@@ -270,11 +270,9 @@ padding-top: 72px;
 @media (min-width: 320px) and (max-width: 767px){
 
   li {
-
-    float: left;
-
+    //float: left;
     padding-right: 20px;
-
+    display: inline;
   }
   .heading{
 
@@ -292,6 +290,15 @@ padding-top: 72px;
   }
   .socialIcons {
     display: block;
+    color: #f58721;
+    cursor: pointer;
+    text-align: center;
+    padding-left: 25px;
+    padding-right: 28px;
+    text-decoration: none;
+  }
+  .socialIcons1 {
+    display: inline;
     color: #f58721;
     cursor: pointer;
     text-align: center;
