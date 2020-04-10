@@ -219,16 +219,18 @@ li a {
   }
   .follow1{
     padding-top: 30px !important;
-    margin-left: 40px;
+    //margin-left: 40px;
   }
 
   .socialIcons {
-    display: block;
+    display: flex;
     color: #f58721;
     cursor: pointer;
     text-align: center;
-    padding-left: 23px;
-    padding-right: 17px;
+    //padding-left: 23px;
+    //padding-right: 17px
+    padding-right: 24px;
+
     text-decoration: none;
   }
   .font{
