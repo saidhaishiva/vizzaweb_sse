@@ -375,6 +375,7 @@ import {HealthLandingComponent} from './pages/health-landing/health-landing.comp
 import { TermLandingComponent } from './pages/term-landing/term-landing.component';
 import { StarCovidProposalComponent } from './pages/star-covid-proposal/star-covid-proposal.component';
 import{ StarCovid19Component} from './pages/star-covid19/star-covid19.component';
+import { StarCovid19ProductlistComponent } from './pages/star-covid19-productlist/star-covid19-productlist.component';
 // import {GoogleAnalyticsService} from './shared/services/google-analytics.service';
 // import {GtagModule} from 'angular-gtag';
 
@@ -716,7 +717,8 @@ import{ StarCovid19Component} from './pages/star-covid19/star-covid19.component'
         // termlandingPopup,
         TermLandingComponent,
         StarCovidProposalComponent,
-        StarCovid19Component
+        StarCovid19Component,
+        StarCovid19ProductlistComponent
     ],
 
     providers: [
