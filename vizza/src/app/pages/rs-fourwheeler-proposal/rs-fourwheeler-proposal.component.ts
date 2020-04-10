@@ -191,6 +191,23 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
           this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
           this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
+          this.KEY_REPLACEMENT=sessionStorage.KEY_REPLACEMENT;
+          console.log(this.KEY_REPLACEMENT,'this.KEY_REPLACEMENT')
+          this.DEPRECIATION_WAIVER=sessionStorage.DEPRECIATION_WAIVER;
+          this.WIND_SHIELD_GLASS=sessionStorage.WIND_SHIELD_GLASS;
+          this.ENGINE_PROTECTOR=sessionStorage.ENGINE_PROTECTOR;
+          this.NCB_PROTECTOR=sessionStorage.NCB_PROTECTOR;
+          this.INVOICE_PRICE_INSURANCE=sessionStorage.INVOICE_PRICE_INSURANCE;
+          this.AUTOMOBILE_ASSOCIATION_DISCOUNT=sessionStorage.AUTOMOBILE_ASSOCIATION_DISCOUNT;
+          this.LOSS_OF_BAGGAGE=sessionStorage.LOSS_OF_BAGGAGE;
+          this.BI_FUEL_KIT=sessionStorage.BI_FUEL_KIT;
+          this.LIABILITY_TO_PAID_DRIVERS=sessionStorage.LIABILITY_TO_PAID_DRIVERS;
+          this.TO_EMPLOYEE=sessionStorage.TO_EMPLOYEE;
+          this.TOWING_CHARGE=sessionStorage.TOWING_CHARGE;
+          this.FIBER_GLASS_TANK=sessionStorage.FIBER_GLASS_TANK;
+          this.NON_ELECTRICAL_ACCESSORIES=sessionStorage.NON_ELECTRICAL_ACCESSORIES;
+          this.ELECTRICAL_ACCESSORIES=sessionStorage.ELECTRICAL_ACCESSORIES;
+          this.Comprehensivepremium=sessionStorage.Comprehensivepremium;
           this.previousFormData = JSON.parse(sessionStorage.previousFormData);
           this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
           this.ProposalId = this.summaryData.ProposalId;
@@ -2668,6 +2685,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
       this.VersionNo =  this.summaryData1.VersionNo;
       this.Comprehensivepremium =  this.summaryData1.Comprehensive_premium;
+      sessionStorage.Comprehensivepremium = this.Comprehensivepremium;
       this.proposerFormData = this.proposer.value;
 
 

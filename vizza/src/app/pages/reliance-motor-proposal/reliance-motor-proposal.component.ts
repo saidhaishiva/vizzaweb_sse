@@ -134,6 +134,9 @@ export class RelianceMotorProposalComponent implements OnInit {
   public idv: any;
   public idvMinValue: any;
   public idvMaxValue: any;
+  public anti_theft_device:any;
+  public voluntary_deductibles:any;
+  public automobile_association_membership:any
   //dob
   proposerAge : any;
   nomineeAge : any;
@@ -178,6 +181,9 @@ export class RelianceMotorProposalComponent implements OnInit {
           this.PA_to_unnamed_passenger=sessionStorage.PA_to_unnamed_passenger;
           this.basic_od=sessionStorage.basic_od;
           this.basic_liability=sessionStorage.basic_liability;
+          this.anti_theft_device=sessionStorage.anti_theft_device;
+          this.voluntary_deductibles=sessionStorage.voluntary_deductibles;
+          this.automobile_association_membership=sessionStorage.automobile_association_membership;
         }
       }
     });
@@ -272,8 +278,8 @@ export class RelianceMotorProposalComponent implements OnInit {
       AutomobileAssociationMember: [''],
       // InsurancePremium: [''],
       PAToOwnerDriverCoverd: [''],
-      NilDepreciationCoverage: [''],
-      nilDepApplyingFirstTime: 'No',
+      // NilDepreciationCoverage: [''],
+      // nilDepApplyingFirstTime: 'No',
       // TPPDCover: [''],
       // TPPDCoverSi: [''],
       BasicODCoverage: ['',Validators.required],
@@ -384,7 +390,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.getTppdSi();
     this.getFinancialType();
     this.getPaSi();
-    this.nilDepPolicy();
+    // this.nilDepPolicy();
     this.idvMinValue=this.buyBikeDetails.MinIDV;
     console.log( this.idvMinValue,' this.idvMinValue')
     this.idvMaxValue=this.buyBikeDetails.MaxIDV;
@@ -928,8 +934,8 @@ export class RelianceMotorProposalComponent implements OnInit {
           'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value ,
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
-          'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
-          'IsNilDepApplyingFirstTime':this.coverDetails.controls['nilDepApplyingFirstTime'].value,
+          'IsNilDepreciation':'false',
+          'IsNilDepApplyingFirstTime':'No',
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
           // 'IsTPPDCover': this.coverDetails.controls['isTPPDCover'].value ? 'true' : 'false',
@@ -994,8 +1000,8 @@ export class RelianceMotorProposalComponent implements OnInit {
 
           "NilDepreciationCoverage": {
             "NilDepreciationCoverage": {
-              "IsMandatory": this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
-              "IsChecked": this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+              "IsMandatory": 'false',
+              "IsChecked":  'false',
               "NoOfItems": "1",
               "PackageName": "",
               "PolicyCoverID": "",
@@ -1493,8 +1499,8 @@ export class RelianceMotorProposalComponent implements OnInit {
         // noOfIndemnityToHirerLiability: this.getStepper3.noOfIndemnityToHirerLiability,
         // speciallyDesigned: this.getStepper3.speciallyDesigned,
         // InsurancePremium: this.getStepper3.InsurancePremium,
-        NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
-        nilDepApplyingFirstTime: this.getStepper3.nilDepApplyingFirstTime,
+        // NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
+        // nilDepApplyingFirstTime: this.getStepper3.nilDepApplyingFirstTime,
         // TPPDCover: this.getStepper3.TPPDCover,
         // TPPDCoverSi: this.getStepper3.TPPDCoverSi,
         BasicODCoverage: this.getStepper3.BasicODCoverage,
@@ -1997,8 +2003,8 @@ export class RelianceMotorProposalComponent implements OnInit {
           'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value ,
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
-          'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
-          'IsNilDepApplyingFirstTime':this.coverDetails.controls['nilDepApplyingFirstTime'].value,
+          'IsNilDepreciation': 'false',
+          'IsNilDepApplyingFirstTime':'No',
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
 
@@ -2016,8 +2022,8 @@ export class RelianceMotorProposalComponent implements OnInit {
           // },
           "NilDepreciationCoverage": {
             "NilDepreciationCoverage": {
-              "IsMandatory":this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
-              "IsChecked": this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+              "IsMandatory": 'false',
+              "IsChecked":  'false',
               "NoOfItems": "1",
               "PackageName": "",
               "PolicyCoverID": "",
@@ -2240,12 +2246,16 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.proposalId = this.summaryData.productlist.proposal_id;
       sessionStorage.relianceTwowheelerproposalID = this.proposalId;
       this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
-      this.gstAmount=this.summaryData.productlist.gst;
+      this.gstAmount=this.summaryData.productlist.gst.igst;
       sessionStorage.gstAmount = this.gstAmount;
 
-      console.log(this.gstAmount,'this.gstAmount..');
       this.discountAmount=this.summaryData.productlist.discount;
-      sessionStorage.discountAmount = this.discountAmount;
+      this.anti_theft_device=this.discountAmount.anti_theft_device;
+      this.voluntary_deductibles=this.discountAmount.voluntary_deductible;
+      this.automobile_association_membership=this.discountAmount.automobile_association_membership;
+      sessionStorage.anti_theft_device = this.anti_theft_device;
+      sessionStorage.voluntary_deductibles = this.voluntary_deductibles;
+      sessionStorage.automobile_association_membership = this.automobile_association_membership;
 
       console.log(this.discountAmount,'this.gstAmount..');
       this.proposerFormData = this.relianceProposal.value;
@@ -3005,34 +3015,34 @@ export class RelianceMotorProposalComponent implements OnInit {
   //   }
   //   this.coverDetails.controls['totalspeciallyDesigned'].updateValueAndValidity();
   // }
-  nilDepPolicy(){
-    this.preClaim=this.enquiryFormData.previous_claim_YN
-    if(this.preClaim == 0){
-      this.claimDetail=true;
-
-    }else  if(this.preClaim == 1){
-      this.claimDetail=false;
-      this.coverDetails.controls['NilDepreciationCoverage'].patchValue(false);
-    }
-  }
-
-  nilDepApplyingChange(){
-    if (this.coverDetails.controls.NilDepreciationCoverage.value == true) {
-
-      this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators([Validators.required]);
-      // this.coverDetails.controls['totalDepreciationPremium'].setValidators([Validators.required]);
-      // this.getCover();
-    } else {
-      this.coverDetails.controls['nilDepApplyingFirstTime'].patchValue('No');
-      // this.coverDetails.controls['totalDepreciationPremium'].patchValue('');
-
-      this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators(null);
-      // this.coverDetails.controls['totalDepreciationPremium'].setValidators(null);
-
-    }
-    this.coverDetails.controls['nilDepApplyingFirstTime'].updateValueAndValidity();
-    // this.coverDetails.controls['totalDepreciationPremium'].updateValueAndValidity();
-  }
+  // nilDepPolicy(){
+  //   this.preClaim=this.enquiryFormData.previous_claim_YN
+  //   if(this.preClaim == 0){
+  //     this.claimDetail=true;
+  //
+  //   }else  if(this.preClaim == 1){
+  //     this.claimDetail=false;
+  //     this.coverDetails.controls['NilDepreciationCoverage'].patchValue(false);
+  //   }
+  // }
+  //
+  // nilDepApplyingChange(){
+  //   if (this.coverDetails.controls.NilDepreciationCoverage.value == true) {
+  //
+  //     this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators([Validators.required]);
+  //     // this.coverDetails.controls['totalDepreciationPremium'].setValidators([Validators.required]);
+  //     // this.getCover();
+  //   } else {
+  //     this.coverDetails.controls['nilDepApplyingFirstTime'].patchValue('No');
+  //     // this.coverDetails.controls['totalDepreciationPremium'].patchValue('');
+  //
+  //     this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators(null);
+  //     // this.coverDetails.controls['totalDepreciationPremium'].setValidators(null);
+  //
+  //   }
+  //   this.coverDetails.controls['nilDepApplyingFirstTime'].updateValueAndValidity();
+  //   // this.coverDetails.controls['totalDepreciationPremium'].updateValueAndValidity();
+  // }
 
   //
   // valueUnnamedPass(){
