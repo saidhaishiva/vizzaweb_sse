@@ -195,8 +195,8 @@ import { StarhealthRenewelProposalComponent } from './pages/star-renewal/starhea
 import { HealthLandingComponent } from './pages/health-landing/health-landing.component';
 import { TermLandingComponent } from './pages/term-landing/term-landing.component';
 import {StarCovidProposalComponent} from './pages/star-covid-proposal/star-covid-proposal.component';
-
-
+import { StarCovid19Component} from './pages/star-covid19/star-covid19.component';
+import { StarCovid19ProductlistComponent} from './pages/star-covid19-productlist/star-covid19-productlist.component';
 
 
 export const routes: Routes = [
@@ -409,6 +409,8 @@ export const routes: Routes = [
             { path: 'edelweisspos-payment-success/:status/:proId', component: EdelweissposPaymnetSuccessComponent, data: { breadcrumb: 'Edelweisspos payment'}},
             { path: 'starhealth-renewal-proposal', component: StarhealthRenewelProposalComponent, data: { breadcrumb: 'Starhealth proposal'}},
             { path: 'star-covid-proposal', component: StarCovidProposalComponent, data: { breadcrumb: 'star-COVID-19'}},
+            { path: 'star-covid19', component: StarCovid19Component, data: { breadcrumb: 'star-COVID-19home'}},
+            { path: 'star-covid19-product', component: StarCovid19ProductlistComponent, data: { breadcrumb: 'star-COVID-product'}},
 
         ]
     },
