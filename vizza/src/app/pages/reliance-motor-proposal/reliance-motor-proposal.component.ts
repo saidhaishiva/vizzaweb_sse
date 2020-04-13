@@ -3369,11 +3369,11 @@ export class idvvalidatetwoWheeler {
                   <p ><span style="margin-left: 35px;color: blue"> Non Electrical Accessories :</span><span style="margin-left: 146px;">{{this.non_electrical_accessories}}</span> </p>
                 </div>
             </div>
-            <div class="row" *ngIf="this.nil_depreciation!=''&&this.nil_depreciation!=undefined">
-                <div class="col-md-12"  >
-                  <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation :</span><span style="margin-left: 212px;">{{this.nil_depreciation}}</span> </p>
-                </div>
-            </div>
+            <!--<div class="row" *ngIf="this.nil_depreciation!=''&&this.nil_depreciation!=undefined">-->
+                <!--<div class="col-md-12"  >-->
+                  <!--<p ><span style="margin-left: 35px;color: blue"> Nil Depreciation :</span><span style="margin-left: 212px;">{{this.nil_depreciation}}</span> </p>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="row" *ngIf="this.automobile_association!=''&&this.automobile_association!=undefined">
                 <div class="col-md-12"  >
                   <p ><span style="margin-left: 35px;color: blue"> Automobile Association Membership :</span><span style="margin-left: 81px;">{{this.automobile_association}}</span> </p>
