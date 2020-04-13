@@ -363,9 +363,17 @@
                 <p class="icon p-2" style="background: #00A0DC"><img src="assets/img/blogs.png"></p>
                 <h6 class="nav-link"  href="#">Blogs <i class="fa fa-caret-down"></i></h6>
             </li>
-            <li class="nav-item" routerLink="/" *ngIf="showMenu6">
+            <li class="nav-item" (click)="subMenu(8)" *ngIf="showMenu6">
                 <p class="pl-4 p-3" style="background: #00A0DC; border-bottom: 1px solid #fff;"></p>
-                <h6 class="nav-link pl-2">Learning Center</h6>
+                <h6 class="nav-link pl-2" href="#">Learning Center<i class="fa fa-caret-down"></i></h6>
+            </li>
+            <li class="nav-item" routerLink="/POS-Training" routerLinkActive="active" *ngIf="showMenu7">
+                <p class="pl-4 p-3" style="background: #00A0DC; border-bottom: 1px solid #fff;"></p>
+                <h6 class="nav-link pl-2">Traning</h6>
+            </li>
+            <li class="nav-item" routerLink="/POS-Mock_Test" routerLinkActive="active" *ngIf="showMenu7">
+                <p class="pl-4 p-3" style="background: #00A0DC; border-bottom: 1px solid #fff;"></p>
+                <h6 class="nav-link pl-2">Mock Test</h6>
             </li>
             <li class="nav-item" routerLink="/mediacenter" routerLinkActive="active" *ngIf="showMenu6">
                 <p class="pl-4 p-3" style="background: #00A0DC; border-bottom: 1px solid #fff;"></p>

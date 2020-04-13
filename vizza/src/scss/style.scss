@@ -3272,6 +3272,16 @@ margin-top: -7px;
     width: 100%;
     padding-right: 30px;
   }
+@media (min-width: 320px) and (max-width: 767px){
+  #staticTime1 {
+    height: calc(100vh - 200px);
+    overflow-y: scroll;
+    width: 100%;
+    padding-right: 30px;
+  }
+}
+
+
   .listDisabled {
     pointer-events: none!important;
   }
