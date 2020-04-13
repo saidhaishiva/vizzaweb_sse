@@ -3051,6 +3051,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               "PackageName": ""
             }
           },
+
           "BifuelKit": {
             "BifuelKit": {
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
