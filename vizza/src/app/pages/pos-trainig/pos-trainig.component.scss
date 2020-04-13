@@ -29,3 +29,64 @@
   }
 
 }
+
+@media (min-width: 320px) and (max-width: 767px){
+
+
+
+  .training_page{
+
+    h1{
+      color:green;
+      text-align: center;
+      width: 80% !important;
+
+    }
+    h2{
+      text-align: center;
+      width: 80% !important;
+    }
+    h3{
+      color:#ff413f;
+      width: 80% !important;
+
+    }
+    table, td, th {
+      border: 1px solid black;
+      padding: 10px;
+    }
+    th{
+      text-align: center;
+    }
+    table {
+      border-collapse: collapse;
+      width: 80% !important;
+    }
+    a {
+      text-decoration: none !important;
+      color: #189a44;
+    }
+    .no{
+      text-align: center;
+    }
+
+
+  }
+  .question-view {
+    p {
+    text-align: justify;
+    width: 80% !important;
+  }
+    ul li{
+      width: 80% !important;
+      text-align: justify;
+
+    }ol li{
+      width: 80% !important;
+           text-align: justify;
+
+         }
+
+  }
+
+}

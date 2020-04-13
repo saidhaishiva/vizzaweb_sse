@@ -29,6 +29,7 @@ export class SidenavComponent implements OnInit {
   public showMenu4: any;
   public showMenu5: any;
   public showMenu6: any;
+  public showMenu7: any;
 
   constructor(@Inject(WINDOW) private window: Window, public appSettings:AppSettings, public menuService:MenuService){
       this.settings = this.appSettings.settings;
@@ -39,6 +40,7 @@ export class SidenavComponent implements OnInit {
       this.showMenu4 = false;
       this.showMenu5 = false;
       this.showMenu6 = false;
+      this.showMenu7 = false;
 
   }
 
@@ -66,6 +68,8 @@ export class SidenavComponent implements OnInit {
       this.showMenu5 = !this.showMenu5;
     }else if(id == 7){
       this.showMenu6 = !this.showMenu6;
+    }else if(id == 8){
+      this.showMenu7 = !this.showMenu7;
     }
   }
 
