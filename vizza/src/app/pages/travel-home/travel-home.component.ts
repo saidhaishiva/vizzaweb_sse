@@ -1206,7 +1206,9 @@ export class TravelHomeComponent implements OnInit {
         }
         else {
             this.travelProceed = true;
-            this.toast.error(successData.ErrorObject);
+            this.toast.error('Please Fill the Mandatory Fields');
+
+            // this.toast.error(successData.ErrorObject);
         }
     }
     public getTravelPremiumCalFailure(error) {
