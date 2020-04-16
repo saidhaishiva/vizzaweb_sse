@@ -2904,6 +2904,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       'enquiry_id': this.bikeEnquiryId,
       'created_by': '',
+      "fuel_type": this.coverDetails.controls['fuelType'].value,
       'proposal_id': sessionStorage.relianceFourwheelerproposalID == '' || sessionStorage.relianceFourwheelerproposalID == undefined ? '' : sessionStorage.relianceFourwheelerproposalID,
       'motorproposalObj': {
         'CoverDetails': '',
