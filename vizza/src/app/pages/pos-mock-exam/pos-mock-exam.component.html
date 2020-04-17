@@ -1,3 +1,30 @@
-<p>
-  pos-mock-exam works!
-</p>
+<div class="question-view">
+  <mat-card class="p-0">
+    <mat-card-header class="p-1" fxLayoutAlign="space-between center">
+      <mat-card-subtitle class="m-0">Questions</mat-card-subtitle>
+    </mat-card-header>
+    <div id="staticTime">
+      <mat-card-content fxLayoutAlign="space-between center">
+        <div class="row" perfectScrollbar>
+          <div class="col-md-12 " *ngFor="let questions of questionLists; let pi = index">
+            <p class="px-3">{{pi +1}}. {{questions.question}}</p>
+            <mat-radio-group [(ngModel)]="questions.checkedStatus" fxLayout="column" fxLayoutAlign="center" (change)="selectOption(questions, pi)">
+              <div class="row px-5">
+                <mat-radio-button *ngFor="let lists of questions.optionlist" [value]="lists" class="season-item">
+                  <div class="col-md-6  px-3">
+                    {{lists}}
+                  </div>
+                </mat-radio-button>
+              </div>
+            </mat-radio-group>
+            <div class="py-1 px-3">Your selected answer is: <b> {{questions.checkedStatus}} </b></div>
+            <br>
+          </div>
+        </div>
+      </mat-card-content>
+    </div>
+    <div fxLayoutAlign="center center" class="text-center mb-3">
+      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    </div>
+  </mat-card>
+</div>
