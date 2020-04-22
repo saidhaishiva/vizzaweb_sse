@@ -1026,9 +1026,15 @@ export class LifeBajajProposalComponent implements OnInit {
         if (this.getAge < 18) {
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(true);
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators([Validators.required]);
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.setValidators([Validators.required]);
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.setValidators([Validators.required]);
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators([Validators.required]);
         } else {
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(false);
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators(null);
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.setValidators(null);
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.setValidators(null);
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators(null);
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue('');
