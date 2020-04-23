@@ -595,10 +595,12 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
     relianceInsureDetails(stepper: MatStepper, id, value, key) {
         console.log(value,'value');
+        // alert('333')
 
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.relianceInsuredTravel.valid) {
+            // alert('2222222')
             this.insurerData = value.items;
 
             let medicationData = [];
@@ -613,6 +615,7 @@ export class TravelRelianceProposalComponent implements OnInit {
             if (medicationData.includes('1')) {
                 this.toastr.error('Please fill the medication details');
             } else {
+                // alert('111111')
 
                 for (let a = 0; a < this.insurerData.length; a++) {
                 if (this.insurerData[a].type == 'Self') {
@@ -685,18 +688,23 @@ export class TravelRelianceProposalComponent implements OnInit {
             //age validation
             let ageValidate = [];
             for (let i = 0; i < this.insurerData.length; i++) {
+                // alert('enter')
                 if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
+                    // alert('hello')
                     ageValidate.push(1);
                 } else {
+                    // alert('hi')
                     ageValidate.push(0);
                 }
             }
             if (!ageValidate.includes(1)) {
-                this.riskDetails.controls['riskVisitingCountries'].patchValue(value.items[0].VisitingCountries);
+                // alert('in')
+                // this.riskDetails.controls['riskVisitingCountries'].patchValue(value.items[0].VisitingCountries);
                 stepper.next();
                 this.topScroll();
                 this.nextStep();
             } else {
+                // alert('out')
                 this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
             }
