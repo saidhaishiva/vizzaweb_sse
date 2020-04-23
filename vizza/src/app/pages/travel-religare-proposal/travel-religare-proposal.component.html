@@ -850,7 +850,7 @@
 </div>
 
 <!--Mobile View-->
-<div class="d-block d-sm-block d-md-block d-lg-none">
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none">
   <div class="container-fluid">
     <div class="row religareTavelProposal">
       <!--<div class="col-md-12">-->
@@ -899,9 +899,9 @@
 
                   <div class="col-md-4">
                     <mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, 'personal')" (dateChange)="addEvent($event, 'personal')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
+                      <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, 'personal')" (dateChange)="addEvent($event, 'personal')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
                       <mat-error *ngIf="religarePersonal.controls.dob.errors?.required">DOB is required</mat-error>
                     </mat-form-field>
                     <div class="error" *ngIf="personalDobError !=''">{{personalDobError}}</div>
@@ -1247,7 +1247,7 @@
                 </div>
 
                 <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
-                  <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                  <button mat-button  (click)="topScroll()">Back</button>
                   <button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper, insureReligareArray.value)">Next</button>
                 </div>
               </div>
@@ -1339,7 +1339,7 @@
             </div>
 
             <div class="proposal-buttom mt-3 text-right w-100">
-              <button mat-button matStepperPrevious (click)="topScroll()" >Back</button>
+              <button mat-button  (click)="topScroll()" >Back</button>
               <button mat-raised-button color="primary" (click)="medicalHistoryDetails(stepper)">Next</button>
             </div>
 
