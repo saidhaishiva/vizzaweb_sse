@@ -3122,29 +3122,15 @@
             </ul>
           </div>
         </div>
-        <table class="table table-bordered">
-          <thead class="thead-light">
-          <tr>
-            <th>Insurer</th>
-            <th>Plan Name</th>
-            <th>Premium</th>
-            <th>Service Tax</th>
-            <th>Total Premium</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>
-              <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 70px;" />
-            </td>
-            <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
-            <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</td>
-            <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</td>
-            <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</td>
-          </tr>
-          </tbody>
-        </table>
-
+        <div class="col-12">
+          <ul style="list-style: none; font-size: 17px;">
+            <li><strong>Insurer: </strong> <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 70px;" /></li>
+            <li><strong>Plan Name: </strong>{{getTravelPremiumList.plan_name}}</li>
+            <li><strong>Premium: </strong><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</li>
+            <li><strong>Service Tax: </strong><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</li>
+            <li><strong>Total Premium: </strong><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</li>
+          </ul>
+        </div>
         <mat-accordion>
         <mat-expansion-panel [expanded]="true">
           <mat-expansion-panel-header>
