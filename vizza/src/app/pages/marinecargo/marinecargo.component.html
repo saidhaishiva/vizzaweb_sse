@@ -2,7 +2,7 @@
 <!--<meta name="keywords" [content]=metaMarineCargo.keyword />-->
 <!--<meta name="description" [content]=metaMarineCargo.descrition />-->
 
-<div class="container dashboard h-100" fxLayoutAlign="start start">
+<div class="container dashboard h-100 d-none d-sm-none d-lg-block d-md-none d-xl-block" fxLayoutAlign="start start">
   <div class="row my-flex-card">
     <h2 class="w-100 text-center" style="color: #81C784;">&nbsp;Marine Cargo Policy</h2>
     <div class="col-md-6 col-sm-12 col-xs-12">
@@ -126,6 +126,156 @@
       </div>
 
     <section id="knowMoreShow">
+      <div class="col-12 mt-4 border border-dark p-4">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3 class="text-center" style="color: #81C784"> About Marine Cargo Policy</h3>
+          </div>
+          <p>The marine insurance policy covers losses and damages during transportation by Air, Road, Rail  and by Sea. Items such as Plant and Machinery, finished goods, raw materials can be covered under this policy. Domestic and overseas import / exports can be covered under the policy.</p>
+          <p>The marine policy can be issued from the time of loading to the time of unloading including the risks of loading and unloading. Temporary storage cover and multi modes of transport for the same consignment can be covered under a single policy. Continuous trade transits by business houses can be covered by open policy. A declaration to the insurer is sufficient.</p>
+          <p>Mode of Packing depending on the nature of goods is vital for the type of coverage granted. The premium depends on the coverage opted, mode of transit, carrier, nature of goods and the packing of goods. In some cases a pre acceptance survey by an insurance surveyor will be essential. If the original marine insurance terminates at the transporters godown or port of discharge or the railway yard an inland transit cover can be obtained after a pre acceptance survey of the consignment. It is advisable to obtain an ALL RISK cover from the time of loading to the final destination.</p>
+
+        <p></p>
+        <p></p>
+        <p></p>
+        <br>
+        <br>
+        <p class="know-note-content"> NOTE: THE BRIEF WRITE UP YOU FIND IN THIS WEBSITE FOR VARIOUS POLICIES
+          IS ONLY A SYNOPSIS. THE DETAIL EXTENT OF COVERAGE WITH THE TERMS &
+          CONDITIONS WILL BE SENT BY US TO YOUR MAIL ID ON REQUEST TO US. PLEASE
+          MAIL TO CUSTOMERCARE@VIZZAFIN.COM</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+<div class="container dashboard h-100 d-block d-sm-block d-lg-none d-md-block d-xl-none" fxLayoutAlign="start start">
+  <div class="row my-flex-card">
+    <h2 class="w-100 text-center" style="color: #81C784;">&nbsp;Marine Cargo Policy</h2>
+    <p class="w-100 text-center"><button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow1" style="color: #000000;">Know more</a></span></button></p>
+
+    <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+      <!--<div class="card">-->
+        <!--<div class="card-block">-->
+          <!--<div class="aboutImg">-->
+            <!--<img src="assets/img/home/Marine Cargo Policy 2.jpg" class="w-100" alt="vizza-Marine Cargo Policy" title="vizza-Marine Cargo Policy">-->
+            <!--<div class="aboutContent">-->
+              <!--<h4>About Marine Cargo Policy</h4>-->
+              <!--<p style="text-align: left;">The marine insurance policy covers losses and damages...… <button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow" style="color: #000000;">Know more</a></span></button></p>-->
+
+              <!--&lt;!&ndash;<p>The marine insurance policy covers losses and damages...… <button mat-button color="accent" style="border: 1px solid #000;"><span><a scrollTo href="#knowMoreShow" style="color: #000000;">Know more</a></span></button></p>&ndash;&gt;-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="card-block">
+            <mat-card style="background: #81C784 !important; color: #fff">
+              <h2 class="w-100 text-center" >Let us assist you</h2>
+              <form [formGroup]="marineapp">
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-select  placeholder="Insurance Type" formControlName ="insurance" required>
+                        <mat-option value="shopkeepers">Shopkeepers</mat-option>
+                        <mat-option value="marine">Marine Cargo Policy</mat-option>
+                        <mat-option value="money">Money Insurance</mat-option>
+                        <mat-option value="fire">Fire Policy</mat-option>
+                        <mat-option value="burglary">Burglary Policy</mat-option>
+                        <mat-option value="machinery">Machinery Breakdown Policy</mat-option>
+                        <mat-option value="electronics">Electronics Equiptment Policy</mat-option>
+                        <mat-option value="contractors">Contractors All Risk Policy</mat-option>
+                        <mat-option value="house-holders">House Holders Policy</mat-option>
+                        <mat-option value="public-liability">Public Liability</mat-option>
+                        <mat-option value="professional">Professional Indemnity Policy</mat-option>
+                        <mat-option value="workmen-compensation">Workmen Compensation</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="marineapp.controls.insurance.errors?.required">Insurance Type is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Company Name" formControlName="name" required>
+                      <mat-error *ngIf="marineapp.controls.name.errors?.required">Company Name is required</mat-error>
+                      <mat-error *ngIf="marineapp.controls.name.hasError('minlength')">Company Name isn't long enough, minimum of 3 characters</mat-error>
+
+                      <mat-icon matSuffix>person</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="data($event)" required>
+                      <mat-error *ngIf="marineapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>
+                      <mat-error *ngIf="marineapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>
+
+                      <mat-icon matSuffix>person</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Mobile" formControlName="mobile" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                      <mat-error *ngIf="marineapp.controls.mobile.errors?.required">Mobile number is required</mat-error>
+                      <mat-error *ngIf="marineapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
+                      <mat-error *ngIf="marineapp.controls.mobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>
+                      <mat-icon matSuffix>call</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Email" formControlName="email" required>
+                      <mat-error *ngIf="marineapp.controls.email.errors?.required">Email is required</mat-error>
+                      <mat-error *ngIf="marineapp.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                      <mat-icon matSuffix>email</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
+                      <mat-error *ngIf="marineapp.controls.pincode.errors?.required">Pincode is required</mat-error>
+                      <mat-error *ngIf="marineapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                      <mat-error *ngIf="marineapp.controls.pincode.hasError('required')">Pincode required</mat-error>
+                      <mat-error *ngIf="marineapp.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                      <mat-icon matSuffix>place</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
+                        <mat-option value="call">Call</mat-option>
+                        <mat-option value="meetinperson">Meet in Person</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="marineapp.controls.appointmentwith.errors?.required">Appointment is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <input matInput [matDatepicker]="picker3" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" maxlength="10" minlength="10" required>
+                      <mat-error *ngIf="marineapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
+                      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                      <mat-datepicker #picker3></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Appointment Time (HH:MM)" type="time" atp-time-picker  formControlName="apptime" required />
+                      <mat-error *ngIf="marineapp.controls.apptime.errors?.required">Appointment Time is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12 text-right mt-3">
+                    <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
+                    <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!marineapp.valid ) || (!pincodeErrors)" (click)="marineKeeper(marineapp.value)">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+
+    <section id="knowMoreShow1">
       <div class="col-12 mt-4 border border-dark p-4">
         <div class="row">
           <div class="col-sm-12">

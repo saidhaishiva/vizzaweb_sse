@@ -416,6 +416,7 @@ export class TravelHomeComponent implements OnInit {
         sessionStorage.travelUserType = '';
     }
     getAllcountryLists() {
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -433,6 +434,7 @@ export class TravelHomeComponent implements OnInit {
 
     }
     public countrySuccess(successData) {
+        this.settings.loadingSpinner = false;
         console.log(successData.ResponseObject);
         if (successData.IsSuccess) {
             this.getAllcountryList = successData.ResponseObject;
@@ -1204,7 +1206,9 @@ export class TravelHomeComponent implements OnInit {
         }
         else {
             this.travelProceed = true;
-            this.toast.error(successData.ErrorObject);
+            this.toast.error('Please Fill the Mandatory Fields');
+
+            // this.toast.error(successData.ErrorObject);
         }
     }
     public getTravelPremiumCalFailure(error) {

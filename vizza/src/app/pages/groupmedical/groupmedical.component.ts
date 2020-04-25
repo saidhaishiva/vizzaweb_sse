@@ -94,6 +94,7 @@ export class GroupmedicalComponent implements OnInit {
   }
 
     public metaList() {
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -111,6 +112,7 @@ export class GroupmedicalComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
+        this.settings.loadingSpinner = false;
         this.metaGroupHealth = successData.ResponseObject[0];
         this.metaTitle = this.metaGroupHealth.title;
         this.metaKeyword = this.metaGroupHealth.keyword;

@@ -67,6 +67,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   public amountList: any;
   public unnamedList: any;
   public webhost : any;
+  public stepperindex : any;
 
   public nationalityList: any;
   public bifueltypeList: any;
@@ -133,6 +134,9 @@ export class RelianceMotorProposalComponent implements OnInit {
   public idv: any;
   public idvMinValue: any;
   public idvMaxValue: any;
+  public anti_theft_device:any;
+  public voluntary_deductibles:any;
+  public automobile_association_membership:any
   //dob
   proposerAge : any;
   nomineeAge : any;
@@ -142,38 +146,50 @@ export class RelianceMotorProposalComponent implements OnInit {
   personalDobError : any;
   previousDateError : any;
   ProposalId : any;
+  currentStep : any;
 
   constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService,public dialog: MatDialog, public route: ActivatedRoute , public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
 
-    let stepperindex = 0;
-    this.nonElectricalSumAount=false
-    this.electricalSumAount=false
+    this.stepperindex = 0;
+    // alert(this.stepperindex);
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
-        stepperindex = 4;
+        // alert('inn');
+        this.stepperindex = 3;
+        // alert(this.stepperindex);
+
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
-          this.summaryData = JSON.parse(sessionStorage.summaryData);
-          // this.ProposalId =   this.summaryData.proposalNo;
-          // this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
-          // this.PolicySisID =   this.summaryData.PolicySisID;
-          // this.PaymentReturn =   this.summaryData.PaymentReturn;
-          // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
-          // this.riskFormData = JSON.parse(sessionStorage.riskFormData);
-          // this.coverFormData = JSON.parse(sessionStorage.riskFormData);
-          // this.previousFormData = JSON.parse(sessionStorage.previousFormData);
-          // this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
           sessionStorage.relianceTwowheelerproposalID = this.ProposalId;
 
-          this.proposerFormData = this.relianceProposal.value;
-          // this.riskFormData = this.riskDetails.value;
-          // this.coverFormData = this.coverDetails.value;
-          // this.previousFormData = this.previousInsurance.value;
-          // sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
-
+          this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+          this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+          this.coverFormData = JSON.parse(sessionStorage.coverFormData);
+          this.summaryData = JSON.parse(sessionStorage.summaryData);
+          this.proposalId = this.summaryData.productlist.proposal_id;
+          this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
+          this.gstAmount=sessionStorage.gstAmount;
+          this.discountAmount=sessionStorage.discountAmount;
+          this.tp_premium=sessionStorage.tp_premium;
+          this.od_premium=sessionStorage.od_premium;
+          this.comphensivePreminium=sessionStorage.comphensivePreminium;
+          this.idv=sessionStorage.idv;
+          this.Electrical_accessories=sessionStorage.Electrical_accessories;
+          this.Nil_depreciation=sessionStorage.Nil_depreciation;
+          this.Non_electrical_accessories=sessionStorage.Non_electrical_accessories;
+          this.PA_to_named_passenger=sessionStorage.PA_to_named_passenger;
+          this.PA_to_owner_driver=sessionStorage.PA_to_owner_driver;
+          this.PA_to_unnamed_passenger=sessionStorage.PA_to_unnamed_passenger;
+          this.basic_od=sessionStorage.basic_od;
+          this.basic_liability=sessionStorage.basic_liability;
+          this.anti_theft_device=sessionStorage.anti_theft_device;
+          this.voluntary_deductibles=sessionStorage.voluntary_deductibles;
+          this.automobile_association_membership=sessionStorage.automobile_association_membership;
         }
       }
     });
-
+    this.currentStep = this.stepperindex;
+    this.nonElectricalSumAount=false
+    this.electricalSumAount=false
     let today = new Date();
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     this.settings = appsetting.settings;
@@ -262,8 +278,8 @@ export class RelianceMotorProposalComponent implements OnInit {
       AutomobileAssociationMember: [''],
       // InsurancePremium: [''],
       PAToOwnerDriverCoverd: [''],
-      NilDepreciationCoverage: [''],
-      nilDepApplyingFirstTime: 'No',
+      // NilDepreciationCoverage: [''],
+      // nilDepApplyingFirstTime: 'No',
       // TPPDCover: [''],
       // TPPDCoverSi: [''],
       BasicODCoverage: ['',Validators.required],
@@ -374,7 +390,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.getTppdSi();
     this.getFinancialType();
     this.getPaSi();
-    this.nilDepPolicy();
+    // this.nilDepPolicy();
     this.idvMinValue=this.buyBikeDetails.MinIDV;
     console.log( this.idvMinValue,' this.idvMinValue')
     this.idvMaxValue=this.buyBikeDetails.MaxIDV;
@@ -918,8 +934,8 @@ export class RelianceMotorProposalComponent implements OnInit {
           'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value ,
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
-          'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
-          'IsNilDepApplyingFirstTime':this.coverDetails.controls['nilDepApplyingFirstTime'].value,
+          'IsNilDepreciation':'false',
+          'IsNilDepApplyingFirstTime':'No',
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
           // 'IsTPPDCover': this.coverDetails.controls['isTPPDCover'].value ? 'true' : 'false',
@@ -984,8 +1000,8 @@ export class RelianceMotorProposalComponent implements OnInit {
 
           "NilDepreciationCoverage": {
             "NilDepreciationCoverage": {
-              "IsMandatory": this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
-              "IsChecked": this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+              "IsMandatory": 'false',
+              "IsChecked":  'false',
               "NoOfItems": "1",
               "PackageName": "",
               "PolicyCoverID": "",
@@ -1483,8 +1499,8 @@ export class RelianceMotorProposalComponent implements OnInit {
         // noOfIndemnityToHirerLiability: this.getStepper3.noOfIndemnityToHirerLiability,
         // speciallyDesigned: this.getStepper3.speciallyDesigned,
         // InsurancePremium: this.getStepper3.InsurancePremium,
-        NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
-        nilDepApplyingFirstTime: this.getStepper3.nilDepApplyingFirstTime,
+        // NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
+        // nilDepApplyingFirstTime: this.getStepper3.nilDepApplyingFirstTime,
         // TPPDCover: this.getStepper3.TPPDCover,
         // TPPDCoverSi: this.getStepper3.TPPDCoverSi,
         BasicODCoverage: this.getStepper3.BasicODCoverage,
@@ -1987,8 +2003,8 @@ export class RelianceMotorProposalComponent implements OnInit {
           'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value ,
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
-          'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
-          'IsNilDepApplyingFirstTime':this.coverDetails.controls['nilDepApplyingFirstTime'].value,
+          'IsNilDepreciation': 'false',
+          'IsNilDepApplyingFirstTime':'No',
           // 'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
           // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
 
@@ -2006,8 +2022,8 @@ export class RelianceMotorProposalComponent implements OnInit {
           // },
           "NilDepreciationCoverage": {
             "NilDepreciationCoverage": {
-              "IsMandatory":this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
-              "IsChecked": this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+              "IsMandatory": 'false',
+              "IsChecked":  'false',
               "NoOfItems": "1",
               "PackageName": "",
               "PolicyCoverID": "",
@@ -2230,23 +2246,42 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.proposalId = this.summaryData.productlist.proposal_id;
       sessionStorage.relianceTwowheelerproposalID = this.proposalId;
       this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
-      this.gstAmount=this.summaryData.productlist.gst;
-      console.log(this.gstAmount,'this.gstAmount..');
+      this.gstAmount=this.summaryData.productlist.gst.igst;
+      sessionStorage.gstAmount = this.gstAmount;
+
       this.discountAmount=this.summaryData.productlist.discount;
+      this.anti_theft_device=this.discountAmount.anti_theft_device;
+      this.voluntary_deductibles=this.discountAmount.voluntary_deductible;
+      this.automobile_association_membership=this.discountAmount.automobile_association_membership;
+      sessionStorage.anti_theft_device = this.anti_theft_device;
+      sessionStorage.voluntary_deductibles = this.voluntary_deductibles;
+      sessionStorage.automobile_association_membership = this.automobile_association_membership;
+
       console.log(this.discountAmount,'this.gstAmount..');
       this.proposerFormData = this.relianceProposal.value;
       this.previousFormData = this.previousInsurance.value;
-      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
-      // this.riskFormData = this.riskDetails.value;
-      // console.log(this.riskFormData,'RISKDATA')
       this.coverFormData = this.coverDetails.value;
       console.log(this.coverFormData,'coverformdata');
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
+      sessionStorage.coverFormData = JSON.stringify(this.coverFormData);
+      // this.riskFormData = this.riskDetails.value;
+      // console.log(this.riskFormData,'RISKDATA')
+
 
       console.log(this.previousFormData,'prevdata');
       this.tp_premium=this.summaryData.productlist.tp_premium;
+      sessionStorage.tp_premium=this.tp_premium;
+
       this.od_premium=this.summaryData.productlist.od_premium;
+      sessionStorage.od_premium=this.od_premium;
+
       this.comphensivePreminium=this.summaryData.productlist.comphensivePreminium;
+      sessionStorage.comphensivePreminium=this.comphensivePreminium;
+
       this.idv=this.summaryData.productlist.idv;
+      sessionStorage.idv=this.idv;
+
 
       this.coverageValue=this.summaryData.productlist.cover;
       this.Electrical_accessories=this.coverageValue.Electrical_accessories;
@@ -2273,6 +2308,12 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.basic_liability=this.coverageValue.basic_liability;
       sessionStorage.basic_liability=this.basic_liability;
 
+      this.gstAmount=sessionStorage.gstAmount;
+      this.discountAmount=sessionStorage.discountAmount;
+      this.tp_premium=sessionStorage.tp_premium;
+      this.od_premium=sessionStorage.od_premium;
+      this.comphensivePreminium=sessionStorage.comphensivePreminium;
+      this.idv=sessionStorage.idv;
       this.Electrical_accessories=sessionStorage.Electrical_accessories;
       this.Nil_depreciation=sessionStorage.Nil_depreciation;
       this.Non_electrical_accessories=sessionStorage.Non_electrical_accessories;
@@ -2974,34 +3015,34 @@ export class RelianceMotorProposalComponent implements OnInit {
   //   }
   //   this.coverDetails.controls['totalspeciallyDesigned'].updateValueAndValidity();
   // }
-  nilDepPolicy(){
-    this.preClaim=this.enquiryFormData.previous_claim_YN
-    if(this.preClaim == 0){
-      this.claimDetail=true;
-
-    }else  if(this.preClaim == 1){
-      this.claimDetail=false;
-      this.coverDetails.controls['NilDepreciationCoverage'].patchValue(false);
-    }
-  }
-
-  nilDepApplyingChange(){
-    if (this.coverDetails.controls.NilDepreciationCoverage.value == true) {
-
-      this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators([Validators.required]);
-      // this.coverDetails.controls['totalDepreciationPremium'].setValidators([Validators.required]);
-      // this.getCover();
-    } else {
-      this.coverDetails.controls['nilDepApplyingFirstTime'].patchValue('No');
-      // this.coverDetails.controls['totalDepreciationPremium'].patchValue('');
-
-      this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators(null);
-      // this.coverDetails.controls['totalDepreciationPremium'].setValidators(null);
-
-    }
-    this.coverDetails.controls['nilDepApplyingFirstTime'].updateValueAndValidity();
-    // this.coverDetails.controls['totalDepreciationPremium'].updateValueAndValidity();
-  }
+  // nilDepPolicy(){
+  //   this.preClaim=this.enquiryFormData.previous_claim_YN
+  //   if(this.preClaim == 0){
+  //     this.claimDetail=true;
+  //
+  //   }else  if(this.preClaim == 1){
+  //     this.claimDetail=false;
+  //     this.coverDetails.controls['NilDepreciationCoverage'].patchValue(false);
+  //   }
+  // }
+  //
+  // nilDepApplyingChange(){
+  //   if (this.coverDetails.controls.NilDepreciationCoverage.value == true) {
+  //
+  //     this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators([Validators.required]);
+  //     // this.coverDetails.controls['totalDepreciationPremium'].setValidators([Validators.required]);
+  //     // this.getCover();
+  //   } else {
+  //     this.coverDetails.controls['nilDepApplyingFirstTime'].patchValue('No');
+  //     // this.coverDetails.controls['totalDepreciationPremium'].patchValue('');
+  //
+  //     this.coverDetails.controls['nilDepApplyingFirstTime'].setValidators(null);
+  //     // this.coverDetails.controls['totalDepreciationPremium'].setValidators(null);
+  //
+  //   }
+  //   this.coverDetails.controls['nilDepApplyingFirstTime'].updateValueAndValidity();
+  //   // this.coverDetails.controls['totalDepreciationPremium'].updateValueAndValidity();
+  // }
 
   //
   // valueUnnamedPass(){
@@ -3328,11 +3369,11 @@ export class idvvalidatetwoWheeler {
                   <p ><span style="margin-left: 35px;color: blue"> Non Electrical Accessories :</span><span style="margin-left: 146px;">{{this.non_electrical_accessories}}</span> </p>
                 </div>
             </div>
-            <div class="row" *ngIf="this.nil_depreciation!=''&&this.nil_depreciation!=undefined">
-                <div class="col-md-12"  >
-                  <p ><span style="margin-left: 35px;color: blue"> Nil Depreciation :</span><span style="margin-left: 212px;">{{this.nil_depreciation}}</span> </p>
-                </div>
-            </div>
+            <!--<div class="row" *ngIf="this.nil_depreciation!=''&&this.nil_depreciation!=undefined">-->
+                <!--<div class="col-md-12"  >-->
+                  <!--<p ><span style="margin-left: 35px;color: blue"> Nil Depreciation :</span><span style="margin-left: 212px;">{{this.nil_depreciation}}</span> </p>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="row" *ngIf="this.automobile_association!=''&&this.automobile_association!=undefined">
                 <div class="col-md-12"  >
                   <p ><span style="margin-left: 35px;color: blue"> Automobile Association Membership :</span><span style="margin-left: 81px;">{{this.automobile_association}}</span> </p>

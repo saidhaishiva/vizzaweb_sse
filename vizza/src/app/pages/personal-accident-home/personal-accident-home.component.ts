@@ -328,6 +328,7 @@ export class PersonalaccidentComponent implements OnInit {
 
     // get annual professional list
     public professionalList(): void {
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -345,6 +346,7 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
     public getProfessionalSuccess(successData) {
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.professions = successData.ResponseObject;
         }

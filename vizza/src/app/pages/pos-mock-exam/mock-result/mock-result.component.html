@@ -1,0 +1,53 @@
+<div fxLayoutWrap fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="60" class="flex-p">
+    <mat-card class="list">
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-subtitle>
+          <img style="width: 150px" src="assets/img/result-logo.png" >
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-9">
+            <p  class="textColor">Total number of questions : <strong class="ml-2"> {{allQuestions}}</strong></p>
+            <p  class="textColor">Number of unanswered questions : <strong class="ml-2" style="color: red"> {{unAnsweredQuestions}}</strong></p>
+            <p  class="textColor">Number of answered questions : <strong class="ml-2" style="color: #2d64d2"> {{answeredQuestions}}</strong></p>
+            <p  class="textColor">Number of correct answer is : <strong class="ml-2" style="color: #007c3d"> {{correctAns}}</strong></p>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+
+        <div class="w-100"  fxLayoutAlign="center center">
+          <img *ngIf="examStatus == 2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPWSURBVFhHxVjbSxRhFN9eqofuf0NPQrTraoXlBSqkh0rqJQp6EbMgCgoK6qX/oNLqKbBoZ9ZbEBSSuDOjrppU6JpXvBBbYiWiGd4y9eucmbPurh51ZhzHH/xg2e+c8/34zpzzXTzrxaGqV7u8NaXpfk3KS1WlS0ivGjjr0+Q0HCMzFyHEFp8SyPIp8lNgd6oqizXYadgGstCXojiP/VVV23wh+apPlQcYEeaoyH2wwldSysu3Ulhn4A0FT/lUqZ+d1A4NobkU3j6ytZLtmB52EmdYjJmh6azhyPuyfRCgaUlAxwkLED4QlvbStOZwUCvZAymIcAE3hlLEX1O+m6ZfHUZapWY+0MYRVrLBVPFAlT7jArjEYpLBA6uVcXKV/pB8kuQkQ0+tk63ELhW5l001NmHWYTOoyAUki4Dblwurl1VfIW59qRcPuptFJvzmbHTCKiZti34tmMMaOsTs+kpREu0UU3P/RAxvhgZY20WGgpkkD9K7gbtFfkuN+DE9SbLi+DT6k7WPUyoieR5PqiJ18UbrY1F/RMwvLJCkOL5OjovLn6tZnzilDl0cntl4A/v0A19Eu0hOHP0Tv8XNtjp9nPNLoiItpGjlOzx42GQNEpiuBcXt9npR2Kqw44lMA9uKwT6SZADX8CUIPlxbyvqsTMmP398ZfjDOwLceYyaAMvxN5IQrWTtkxWAvWRqYnZ8XdzsaWNu16AtJp+H7C17kBhPZMjZM0xmITv0ReR/eLrMrGoiQhYGZ+TlxPaItszNN0GZK4I22Wn2yRIzP/tUrNGZzr7NRT2UMuHLXImpSHMtEgWZSjDzX/E70TYzR9Aam5+b0ajwPY/g7BhR6v7OJjWOFeorx9sUNcjxWVyEaRoYMFYTR2Rm9bSQCU835W2aoNNVym8EqVYe/k5TlqP4VZf0sM9ZmEFYbdUZdmWgfHyFJcQxNT+j7LedjndSoEXa2uuPh12J4ZoqkGbhjs51wBE2PSB4cVFUpmzNaiwUtIb1aEdiKTO0QJulXA0dJHgCONsZdlTdejRc+VunHJywgbtwWlx63EHAeLGSNN4FeNZBPsuLAYzYq5xzcJFzaela83UHl5HJOrhFai1eTTpAcHnAnfsI6u0CY+zHJWBn4VgIr2cgF2EhCDSimX73wGQJEuvf0ocitpp8+YsAHHWiWYTagk1TkWnwLommtwUi3XLwsqBOEgoC0PrT9/JYIfI5wsgVhK1mzWq2C+mTBuoSCLzZh08VgC7gtwqUaWwKeOFghSZQ6cOPX99al25cbyGh4vhNE+PWTOV4fgHgSxv8Wz3O24fH8B+r988tAkuwqAAAAAElFTkSuQmCC">
+          <img *ngIf="examStatus == 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPRSURBVFhHzVhJaxRBFG4v6sEl+lNcTuJyUFTMdI+a8ZAw3WPGcV9QL4LLQRFEMEbjDgreBRVEvQiCGhRBPUQTYzIzPSaakAQMmM2YlO/rrkx6pt8kNSt+8EHo+l7Vl35dr96UVizaN9UtSlVHViYMK5jUrTowHggbth5egTEpqxyEps2J6+YaMnI9aZitScMSMzFhmJ+hRQxi5TSlR/umQ/MSurU3oZudnBEV0lv+Zget3S2h0Fw5bWmQCJqbyVwHt2ghhNG4Ed4opy8cibXWfDeV/ELFkow2ITNyufyQqokuJXPN3MSlJGXmlb2ldolcVg30n1UldfMTN2FZSGt1hnYvlsvPDCethvXWN0mZSbv9tdLmobTe4CaoBPFNShs8sFu5wErSDkQ2SDuZQGpVSkn3gROir+G2SNXtZ8c5QtvXeMeJ5ca9pFS3s6lGEeYCvOyKHReTo2MCGO/uEd/DB1mdl9BACyC2a9cxVpdB3YpJWy5wBKm8vd5zDc5CUxj92iHs0C5WC2IMGi96z15itV7iLWYci/RxruOE2bRromIskZJLufj9slkkgxG/np5hzAvE2tujfi1D24islvacnat8WnyvPyr+9g/IJV38evDEp8MzLxCD2GxdLtKZf1Xacwx+4US5+OPIqfS3OIX+a/fS4/1Nd+VTF5MjI6L78MmMOWYjZbXFMYeejRPMxt7zjUJMTEgLZGJ8XPScvuAQf6dBGmi5OWYiGZzsDYUWaGg2OYEKB27ely5cTAwNO/QCGi5WhdSaLdds3dS5QVUOPn4urfgx+OgZG6NK2igB2sGRWm5QmVt3iuF3H6SlaeAZxtgYRcLb/2+w6BRTGnNh8OFTNkaVTorx64sbVGG5N0myOrKs9GXmzMWM506ZUTjespkuM0C+hRpFF8XXCxTnqXHuzRZcqIH/8qgzrEZpT9PiwfBaTpTNfJuFoeb3UuVirCMh7G31fi3HgLVK2pPtFv1WZYUesu0Wmea0oL0j5mu38I1yWi997RYQN8w9nNhLb8P6p/tn/g3ryKjoiiqlOSptTQNtNpwz4gy6Lf8tkardx45zdFp+ilFp+ZOG2Zbz1x2uI/igyhClheryemmHB73Fa1xwJUhrX5E2csO9xTLfcBOUk2TuhfKtF64hKnz18VH56mMKuNDBxQ47YSmpWy/p26uSy+YHJ92G1cROXCSxIejNXS74+s0LXEeolCB1mm2z7tZ8gQ+Y0hErxqiMjSpvhkKAIwg/qlESKE0t2SayCQ2xEWer7/iqBFr1+oX49YXOHC06iE4Yz9L9XMHQtH/PLw7ChMT5RAAAAABJRU5ErkJggg==">
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" class="muted-text">
+          <div *ngIf="examStatus == 2">
+            <h1 fxLayoutAlign="center center" style="color: rgba(48, 117, 40, 0.92) !important;">{{examPercentage}}%</h1>
+          </div>
+          <div *ngIf="examStatus == 1">
+            <h1 fxLayoutAlign="center center" style="color: rgba(228, 24, 71, 0.98) !important;">{{examPercentage}}%</h1>
+          </div>
+        </div>
+      </mat-card-content>
+<!--      <div class="col-md-12">-->
+<!--        <div class="proposal-buttom mb-3 text-center w-100">-->
+<!--          <button mat-raised-button color="primary" (click)="backtologin()"> Back to Login</button>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="col-md-12">
+        <div class="proposal-buttom mb-3 text-center w-100">
+          <button mat-raised-button color="primary" (click)="reExam()"> Re-exam </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<style>
+  .textColor {
+    color: rgba(148, 145, 145, 0.87) !important;
+  }
+</style>

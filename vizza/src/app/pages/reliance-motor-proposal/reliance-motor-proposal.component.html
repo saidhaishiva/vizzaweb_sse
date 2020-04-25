@@ -2,7 +2,7 @@
 <!--    apolloMunichProposal-->
   <div class="row apolloMunichProposal mb-4">
     <div class="col-md-12">
-      <mat-horizontal-stepper #stepper>
+      <mat-horizontal-stepper #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
@@ -913,26 +913,26 @@
 
 
 
-                            <div class="col-md-12 mt-2" *ngIf="claimDetail==true">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="nilDepApplyingChange()" >Nil Depreciation </mat-checkbox>
-                                    </div>
-                                    <div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">
-                                        <p>Is Nil Depreciation Applying First Time ?<span class="error">*</span></p>
-                                        <mat-radio-group formControlName="nilDepApplyingFirstTime"  (change)="nilDepApplyingChange()">
-                                            <mat-radio-button value="Yes" >Yes</mat-radio-button>
-                                            <mat-radio-button value="No">No</mat-radio-button>
-                                        </mat-radio-group>
-                                    </div>
-                                    <!--<div class="col-md-4 " *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">-->
-                                        <!--<mat-form-field class="w-100">-->
-                                            <!--<input matInput placeholder="Cover Premium"  formControlName="totalDepreciationPremium"  autocomplete="off" [required]="coverDetails.controls.NilDepreciationCoverage.value == true" readonly >-->
-                                            <!--&lt;!&ndash;<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>&ndash;&gt;-->
-                                        <!--</mat-form-field>-->
+                            <!--<div class="col-md-12 mt-2" *ngIf="claimDetail==true">-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-md-4">-->
+                                        <!--<mat-checkbox  formControlName="NilDepreciationCoverage" (change)="nilDepApplyingChange()" >Nil Depreciation </mat-checkbox>-->
                                     <!--</div>-->
-                                </div>
-                            </div>
+                                    <!--<div class="col-md-4" *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">-->
+                                        <!--<p>Is Nil Depreciation Applying First Time ?<span class="error">*</span></p>-->
+                                        <!--<mat-radio-group formControlName="nilDepApplyingFirstTime"  (change)="nilDepApplyingChange()">-->
+                                            <!--<mat-radio-button value="Yes" >Yes</mat-radio-button>-->
+                                            <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                                        <!--</mat-radio-group>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash;<div class="col-md-4 " *ngIf="coverDetails.controls.NilDepreciationCoverage.value == true">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<input matInput placeholder="Cover Premium"  formControlName="totalDepreciationPremium"  autocomplete="off" [required]="coverDetails.controls.NilDepreciationCoverage.value == true" readonly >&ndash;&gt;-->
+                                            <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="coverDetails.controls.totalPAToOwnerDriverPremium.errors?.required">No Of Passenegers is required</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                             <!--<div class="col-md-12 mt-2" >-->
                                 <!--<div class="row">-->
@@ -1119,8 +1119,8 @@
                                   <div class="col-md-12">
                                       <ul class="m-0 list-group">
                                           <li class="list-group-item"  *ngIf="PA_to_owner_driver != ''"><strong>PA to Owner Driver:</strong> {{PA_to_owner_driver}}</li>
-                                          <li class="list-group-item" ><strong>GST:</strong>{{gstAmount.igst}} </li>
-                                          <li class="list-group-item"  *ngIf="comphensivePreminium!=''"><strong>Comprehensive Premium:</strong> {{comphensivePreminium}}</li>
+                                          <li class="list-group-item" ><strong>GST:</strong>{{gstAmount}} </li>
+                                          <li class="list-group-item"  *ngIf="this.comphensivePreminium!=''"><strong>Comprehensive Premium:</strong> {{this.comphensivePreminium}}</li>
                                       </ul>
                                   </div>
                                   <!--</div>-->
@@ -1225,7 +1225,7 @@
                                       <li class="list-group-item"><strong>City:</strong> {{proposerFormData.rcity}}</li>
                                       <li class="list-group-item"><strong>State:</strong> {{proposerFormData.rstate}}</li>
                                       <li class="list-group-item"><strong>District:</strong> {{proposerFormData.rdistrict}}</li>
-                                      <li class="list-group-item" *ngIf="proposerFormData.landmark != ''"><strong>Landmark:</strong>{{proposerFormData.rlandmark}} </li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.rlandmark != ''"><strong>Landmark:</strong>{{proposerFormData.rlandmark}} </li>
                                   </ul>
 
                               <!--</div>-->
@@ -1375,7 +1375,7 @@
                               <!--</ul>-->
                           <!--</div>-->
 
-                          <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''&&coverFormData.PAToOwnerDriverCoverd == false">
+                          <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''&&(coverFormData.PAToOwnerDriverCoverd == false||coverFormData.PAToOwnerDriverCoverd == true)">
                               <h2 class="color-blue m-2">PA To Owner Driver</h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd == false"><strong>PA To Owner Driver:</strong><span *ngIf="coverFormData.PAToOwnerDriverCoverd == false">N/A</span> </li>
@@ -1388,7 +1388,7 @@
                           </div>
 
                           <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''&&coverFormData.PAToOwnerDriverCoverd == true">
-                              <h2 class="color-blue m-2">PA To Owner Driver</h2>
+                              <h2 class="color-blue m-2"></h2>
                               <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PAToOwnerDriverCoverd != false "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
                                   <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Other Relation:</strong> {{coverFormData.nOtherRelation}}</li>
@@ -1414,16 +1414,16 @@
                               <!--</ul>-->
                           <!--</div>-->
 
-                          <div class="col-md-6" *ngIf="coverFormData.NilDepreciationCoverage != ''||coverFormData.NilDepreciationCoverage == false||coverFormData.NilDepreciationCoverage == true">
-                              <h2 class="color-blue m-2">Nil Depreciation</h2>
-                              <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage == false"><strong>Nil Depreciation:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == false">N/A</span> </li>
-                                  <li class="list-group-item" *ngIf="coverFormData.nilDepApplyingFirstTime != '' && coverFormData.NilDepreciationCoverage ==true "><strong>Is Nil Depreciation Applying First Time ?:</strong> {{coverFormData.nilDepApplyingFirstTime}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage != false "><strong>Nil Depreciation Premium:</strong> {{this.Nil_depreciation}}</li>
-<!--                                  <li class="list-group-item" *ngIf="coverFormData.applicableRate != '' && coverFormData.NilDepreciationCoverage == true "><strong>Applicable Rate:</strong> {{coverFormData.applicableRate}}</li>-->
+                          <!--<div class="col-md-6" *ngIf="coverFormData.NilDepreciationCoverage != ''||coverFormData.NilDepreciationCoverage == false||coverFormData.NilDepreciationCoverage == true">-->
+                              <!--<h2 class="color-blue m-2">Nil Depreciation</h2>-->
+                              <!--<ul class="m-0 list-group">-->
+                                  <!--<li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage == false"><strong>Nil Depreciation:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == false">N/A</span> </li>-->
+                                  <!--<li class="list-group-item" *ngIf="coverFormData.nilDepApplyingFirstTime != '' && coverFormData.NilDepreciationCoverage ==true "><strong>Is Nil Depreciation Applying First Time ?:</strong> {{coverFormData.nilDepApplyingFirstTime}}</li>-->
+                                  <!--<li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage != false "><strong>Nil Depreciation Premium:</strong> {{this.Nil_depreciation}}</li>-->
+<!--&lt;!&ndash;                                  <li class="list-group-item" *ngIf="coverFormData.applicableRate != '' && coverFormData.NilDepreciationCoverage == true "><strong>Applicable Rate:</strong> {{coverFormData.applicableRate}}</li>&ndash;&gt;-->
 
-                              </ul>
-                          </div>
+                              <!--</ul>-->
+                          <!--</div>-->
 
 
 
@@ -1528,13 +1528,13 @@
                           <div class="col-md-6"  >
                               <h2 class="color-blue m-2">Discount</h2>
                               <ul class="m-0 list-group">
-                                  <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted == false"><strong>Anti-Theft Device :</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">N/A</span> </li>
-                                  <li class="list-group-item" *ngIf="discountAmount.anti_theft_device != ''&&coverFormData.AntiTheftDeviceFitted != false"><strong>Anti Theft Device Discount:</strong> {{discountAmount.anti_theft_device}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember == false"><strong>Automobile Association Membership:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == false">N/A</span> </li>
-                                  <li class="list-group-item" *ngIf="discountAmount.automobile_association_membership != ''&&coverFormData.AutomobileAssociationMember != false"><strong>Automobile Association Membership Discount:</strong> {{discountAmount.automobile_association_membership}}</li>
-                                  <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted == false"><strong>Voluntary Deductible:</strong><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == false">N/A</span> </li>
+                                  <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted == false||coverFormData.AntiTheftDeviceFitted == ''"><strong>Anti-Theft Device :</strong><span>N/A</span> </li>
+                                  <li class="list-group-item" *ngIf="anti_theft_device != ''&&coverFormData.AntiTheftDeviceFitted != false"><strong>Anti Theft Device Discount:</strong> {{anti_theft_device}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember == false||coverFormData.AutomobileAssociationMember == ''"><strong>Automobile Association Membership:</strong><span >N/A</span> </li>
+                                  <li class="list-group-item" *ngIf="automobile_association_membership != ''&&coverFormData.AutomobileAssociationMember != false"><strong>Automobile Association Membership Discount:</strong> {{automobile_association_membership}}</li>
+                                  <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted == false||coverFormData.IsVoluntaryDeductableOpted == ''"><strong>Voluntary Deductible:</strong><span >N/A</span> </li>
                                   <li class="list-group-item" *ngIf="(coverFormData.VoluntaryDeductableAmount != '' &&coverFormData.IsVoluntaryDeductableOpted != false) "><strong>Voluntary Deductible Sum Insured:</strong> {{coverFormData.VoluntaryDeductableAmount}}</li>
-                                  <li class="list-group-item" *ngIf="discountAmount.voluntary_deductible != ''&&coverFormData.IsVoluntaryDeductableOpted != false"><strong>Voluntary Deductible Discount:</strong> {{discountAmount.voluntary_deductible}}</li>
+                                  <li class="list-group-item" *ngIf="voluntary_deductibles != ''&&coverFormData.IsVoluntaryDeductableOpted != false"><strong>Voluntary Deductible Discount:</strong> {{voluntary_deductibles}}</li>
 
                               </ul>
                           </div>

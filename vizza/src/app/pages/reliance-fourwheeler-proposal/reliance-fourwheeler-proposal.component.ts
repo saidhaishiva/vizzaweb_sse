@@ -47,7 +47,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   riskDetails : FormGroup;
   public titleList: any;
   public proposerData: any;
-  public inspReadonly: any;
+  public Nil_Depreciation: any;
   public idvCaluculatedValue: any;
   public sicoverValue: any;
   public insuranceidvError: any;
@@ -1378,7 +1378,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
         }else if(this.coverDetails.controls['fuelType'].value != 5) {
             // alert('false')
-          this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+          // this.coverDetails.controls['IsBiFuelKit'].patchValue('');
+          // this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+          this.coverDetails.controls['IsBiFuelKit'].setValidators(null);
          this.updatenonBiFuelKit()
 
         }
@@ -1676,7 +1678,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
   dropdownFuelType(){
     if(this.bifuelType == '5'){
-    this.coverDetails['controls'].fuelType.patchValue('5');
+    // this.coverDetails['controls'].fuelType.patchValue('5');
       // this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
       this.bifuelCover=true;
     }else{
@@ -2427,8 +2429,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
   public unnamedSiSucccess(successData){
     this.unnamedList = successData.coverage[1].PA_to_Unnamed_Passenger;
+    this.Nil_Depreciation = successData.coverage.Nil_depreciation;
     console.log(successData,'success');
     console.log(successData.coverage[1],'this.unnamedList');
+    console.log(successData.coverage.Nil_depreciation,'this.unnamedList');
     // console.log(successData.coverage[9].PA_to_Unnamed_Passenger,'this.unnamedList');
     // console.log(this.unnamedList,'this.unnamedList');
     // let coverage = successData.coverage;
@@ -2617,6 +2621,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       "user_id":  this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "enquiry_id": this.bikeEnquiryId,
       "company_id": "3",
+      "fuel_type": this.coverDetails.controls['fuelType'].value,
       "coverdetails": {
         "Cover": {
           'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value ? 'true' : 'false',
@@ -2698,7 +2703,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
               "Fueltype": this.coverDetails.controls['bifueltype'].value ,
-              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value? 'true' : 'false' ,
+              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value=='Yes'? 'true' : 'false' ,
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
               "NoOfItems": "",
@@ -2772,7 +2777,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               'NoOfItems': '',
               'PackageName': '',
               'PolicyCoverID': '',
-              'ApplicableRate': '1.0',
+              'ApplicableRate': this.Nil_Depreciation,
             }
           }
         }
@@ -2899,6 +2904,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       'enquiry_id': this.bikeEnquiryId,
       'created_by': '',
+      "fuel_type": this.coverDetails.controls['fuelType'].value,
       'proposal_id': sessionStorage.relianceFourwheelerproposalID == '' || sessionStorage.relianceFourwheelerproposalID == undefined ? '' : sessionStorage.relianceFourwheelerproposalID,
       'motorproposalObj': {
         'CoverDetails': '',
@@ -3046,13 +3052,14 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               "PackageName": ""
             }
           },
+
           "BifuelKit": {
             "BifuelKit": {
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
               "Fueltype": this.coverDetails.controls['bifueltype'].value,
-              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ?'true' : 'false',
+              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value=='Yes' ?'true' : 'false',
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
               "NoOfItems": "",
@@ -3076,7 +3083,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               "NoOfItems": "",
               "PackageName": "",
               "PolicyCoverID": "",
-              "ApplicableRate": "1.0",
+              "ApplicableRate": this.Nil_Depreciation,
             }
           },
           "PACoverToOwner": {

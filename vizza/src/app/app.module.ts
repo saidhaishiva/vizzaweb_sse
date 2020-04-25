@@ -315,8 +315,8 @@ import { CarTataaigPaymentSuccessComponent } from './pages/car-tataaig-payment-s
 import { RelianceTwowheelerPaymentSuccessComponent } from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
 import { CarTataaigDownloadPolicyComponent } from './pages/car-tataaig-download-policy/car-tataaig-download-policy.component';
 import { NewContactComponent } from './pages/new-contact/new-contact.component';
-import { EdelweissTermLifeComponent } from './pages/edelweiss-term-life/edelweiss-term-life.component';
-import { EdelweissOpt } from './pages/edelweiss-term-life/edelweiss-term-life.component';
+import { EdelweissTermLifeComponent, EdelweissOpt, edelweissCover } from './pages/edelweiss-term-life/edelweiss-term-life.component';
+// import { EdelweissOpt } from './pages/edelweiss-term-life/edelweiss-term-life.component';
 import { BajajGoldSurakshaComponent } from './pages/bajaj-gold-suraksha/bajaj-gold-suraksha.component';
 import { BajajGoal} from './pages/bajaj-gold-suraksha/bajaj-gold-suraksha.component';
 import { SpecialContigencyPolicyComponent } from './pages/special-contigency-policy/special-contigency-policy.component';
@@ -369,6 +369,17 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import {FaqComponentComponent} from './pages/faq-component/faq-component.component';
 import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.service';
 import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insurance-dictionary.component';
+import { StarRenewalComponent } from './pages/star-renewal/star-renewal.component';
+import { StarhealthRenewelProposalComponent } from './pages/star-renewal/starhealth-renewel-proposal/starhealth-renewel-proposal.component';
+import {HealthLandingComponent} from './pages/health-landing/health-landing.component';
+import { TermLandingComponent } from './pages/term-landing/term-landing.component';
+import { PosTrainigComponent } from './pages/pos-trainig/pos-trainig.component';
+import { PosMockTestComponent } from './pages/pos-mock-test/pos-mock-test.component';
+import { PosMockExamComponent } from './pages/pos-mock-exam/pos-mock-exam.component';
+import { MockResultComponent } from './pages/pos-mock-exam/mock-result/mock-result.component';
+// import { StarCovidProposalComponent } from './pages/star-covid-proposal/star-covid-proposal.component';
+// import{ StarCovid19Component} from './pages/star-covid19/star-covid19.component';
+// import { StarCovid19ProductlistComponent } from './pages/star-covid19-productlist/star-covid19-productlist.component';
 // import {GoogleAnalyticsService} from './shared/services/google-analytics.service';
 // import {GtagModule} from 'angular-gtag';
 
@@ -625,6 +636,7 @@ import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insur
         DownloadMessageTravelBajaj,
         BajajLifeOpt,
         EdelweissOpt,
+        edelweissCover,
         reliance2WCover,
         reliance4WCover,
         rsfourwheelercover,
@@ -702,6 +714,19 @@ import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insur
         EdelweissposPaymnetSuccessComponent,
         FaqComponentComponent,
         InsuranceDictionaryComponent,
+        StarRenewalComponent,
+        StarhealthRenewelProposalComponent,
+        HealthLandingComponent,
+        // healthlandingPopup,
+        // termlandingPopup,
+        TermLandingComponent,
+        PosTrainigComponent,
+        PosMockTestComponent,
+        PosMockExamComponent,
+        MockResultComponent,
+        // StarCovidProposalComponent,
+        // StarCovid19Component,
+        // StarCovid19ProductlistComponent
     ],
 
     providers: [
@@ -761,7 +786,7 @@ import { InsuranceDictionaryComponent } from './pages/insurance-dictionary/insur
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,HealthInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,EdelweissOpt,reliance2WCover,reliance4WCover,shriram2WCover,shriram4WCover,rsfourwheelercover,tataigCarOpt,tataigBikeOpt,starhealthedit,BalajImageviewComponent,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,EdelweissOpt,edelweissCover,reliance2WCover,reliance4WCover,shriram2WCover,shriram4WCover,rsfourwheelercover,tataigCarOpt,tataigBikeOpt,starhealthedit,BalajImageviewComponent,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,
         // BikeShriramIDVComponent,
         // fourShriramIDVComponent,
         FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent, ViewKeyfeaturesComponent,BajajGoal,TermViewKeyfeaturesComponent,EdelweissposOpt,ViewdetailscomponentComponent

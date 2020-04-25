@@ -732,7 +732,7 @@ margin-top: -7px;
           position: relative;
           flex: auto;
           min-width: 0;
-          width: 105px !important;
+          width: 78px !important;
         }
         ::-webkit-scrollbar-thumb:vertical {
           background-color: #ce367c !important;
@@ -3272,6 +3272,16 @@ margin-top: -7px;
     width: 100%;
     padding-right: 30px;
   }
+@media (min-width: 320px) and (max-width: 767px){
+  #staticTime1 {
+    height: calc(100vh - 200px);
+    overflow-y: scroll;
+    width: 100%;
+    padding-right: 30px;
+  }
+}
+
+
   .listDisabled {
     pointer-events: none!important;
   }
@@ -5496,4 +5506,10 @@ margin-top: -7px;
     font-size: 10px;
     color: rgba(0, 0, 0, 0.64);
   }
-
+.aboutContent1{
+  position: absolute;
+  top:0px;
+  left:0px;
+  //padding: 10px 0px 0px 22px;
+  width:100%;
+}

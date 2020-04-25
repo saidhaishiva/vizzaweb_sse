@@ -26,10 +26,18 @@ export class RelianceTwowheelerPaymentSuccessComponent implements OnInit {
 
   constructor(@Inject(WINDOW) private window: Window, public config: ConfigurationService, public bikeInsurance: BikeInsuranceService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
+    // this.route.params.forEach((params) => {
+    //   console.log(params);
+    //   this.paymentStatus = params.status;
+    //   this.proposalId = params.proId;
+    // });
     this.route.params.forEach((params) => {
       console.log(params);
-      this.paymentStatus = params.status;
       this.proposalId = params.proId;
+      console.log(params.proId);
+      this.paymentStatus = params.status;
+      console.log(params.status);
+
     });
   }
   ngOnInit() {

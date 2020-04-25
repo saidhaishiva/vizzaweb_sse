@@ -2,7 +2,7 @@
 <!--<meta name="keywords" [content]=metaWorkman.keyword />-->
 <!--<meta name="description" [content]=metaWorkman.descrition />-->
 
-<div class="container dashboard h-100" fxLayoutAlign="start start">
+<div class="container dashboard h-100 d-none d-sm-none d-lg-block d-md-none d-xl-block" fxLayoutAlign="start start">
     <div class="row my-flex-card">
       <h2 class="w-100 text-center" style="color: #FFD400;"><img src="assets/img/workmen.svg" class="logo-size">&nbsp;Workmen Compensation</h2>
       <div class="col-md-6 col-sm-12 col-xs-12">
@@ -124,6 +124,157 @@
       </div>
 
       <section id="knowMoreShow">
+        <div class="col-12 mt-4 border border-dark p-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <h3 class="text-center" style="color: #FFD400; text-shadow: 0 0 3px #fff, 0 0 5px #FCC645;"><img src="assets/img/workmen.svg" class="logo-size"> About Workmen Compensation</h3>
+            </div>
+            <p>Workmen compensation insurance provides compensation as per WC act to injuries in the course of employment.  The insurance takes care of the liability of the employer as defined under the Workmen Compensation Act for injuries and death of the employee defined as a workman during the course of employment.</p>
+            <p>The WC policy can be taken by any employer as a principal or contractor for engaging workmen as defined in the WC Act to cover the liability of the employer under statute and as per common law. The option of covering employees who do not qualify as “ WORKMEN”  by the employer by a separate table is also available.</p>
+            <p>The WC policy provides indemnity to the insured as an employer to accidental injuries and fatal accidents sustained by the workmen whilst at work. There is an option to cover medical expenses for accidental employment injuries on payment of extra premium.</p>
+            <p>The Workmen compensation act 1923,provides for the payment of compensation by an Employer to his Employees (for their dependants in the event of fatal accidents) If personal injury is caused to them by accidents arising out of and in the course of their employment. There is an amendment to the act in 2000 and as per that amendment the maximum compensation payable for Fatal Injury is Rs 4,57,080, for Permanent Total Disablement it is Rs 5,48,496. For Permanent Partial Disablement it is according to the incapacity caused. In case of Temporary disablement it is Rs 2000 per month upto a period of 5 years.</p>
+            <p>TheINDIAN FATAL ACCIDENTS ACT, 1855 enables claims for damages upto an unlimited amount to be maintained against a person who by this wrongful act, neglect or default causes the death of another.</p>
+            <p>The Common law gives a person the right to claim from another damages upto an unlimited amount for injury or loss sustained on account of the negligence of such other person or of his servants acting in the scope of their Employment.</p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <br>
+            <br>
+
+            <p class="know-note-content"> NOTE: THE BRIEF WRITE UP YOU FIND IN THIS WEBSITE FOR VARIOUS POLICIES
+              IS ONLY A SYNOPSIS. THE DETAIL EXTENT OF COVERAGE WITH THE TERMS &
+              CONDITIONS WILL BE SENT BY US TO YOUR MAIL ID ON REQUEST TO US. PLEASE
+              MAIL TO CUSTOMERCARE@VIZZAFIN.COM</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+</div>
+<div class="container dashboard h-100 d-block d-sm-block d-lg-none d-md-block d-xl-none" fxLayoutAlign="start start">
+    <div class="row my-flex-card">
+      <h2 class="w-100 text-center" style="color: #FFD400;"><img src="assets/img/workmen.svg" class="logo-size">&nbsp;Workmen Compensation</h2>
+      <p class="w-100 text-center"><button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow1" style="color: #000000;">Know more</a></span></button></p>
+
+      <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+        <!--<div class="card">-->
+          <!--<div class="card-block">-->
+            <!--<div class="aboutImg">-->
+              <!--<img src="assets/img/Workmen-Compensation.jpg" class="w-100">-->
+              <!--<div class="aboutContent">-->
+                <!--<h4>About Workmen Compensation</h4>-->
+                <!--<p style="text-align: left;">We serve to protect your employees and your Business...… <button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow" style="color: #000000;">Know more</a></span></button></p>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="card-block">
+            <mat-card class="p-4" style="background: linear-gradient(to top, #FCC645 0%, #FFE70A 100%) !important;">
+              <h2 class="w-100 text-center" >Let us assist you</h2>
+              <form [formGroup]="workapp">
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-select  placeholder="Insurance Type" formControlName ="insurance" required>
+                        <mat-option value="shopkeepers">Shopkeepers</mat-option>
+                        <mat-option value="marine">Marine Cargo Policy</mat-option>
+                        <mat-option value="money">Money Insurance</mat-option>
+                        <mat-option value="fire">Fire Policy</mat-option>
+                        <mat-option value="burglary">Burglary Policy</mat-option>
+                        <mat-option value="machinery">Machinery Breakdown Policy</mat-option>
+                        <mat-option value="electronics">Electronics Equiptment Policy</mat-option>
+                        <mat-option value="contractors">Contractors All Risk Policy</mat-option>
+                        <mat-option value="house-holders">House Holders Policy</mat-option>
+                        <mat-option value="public-liability">Public Liability</mat-option>
+                        <mat-option value="professional">Professional Indemnity Policy</mat-option>
+                        <mat-option value="workmen-compensation">Workmen Compensation</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="workapp.controls.insurance.errors?.required">Insurance Type is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Company Name" formControlName="name" required>
+                      <mat-error *ngIf="workapp.controls.name.errors?.required">Name is required</mat-error>
+                      <mat-error *ngIf="workapp.controls.name.hasError('minlength')">Name isn't long enough, minimum of 3 characters</mat-error>
+
+                      <mat-icon matSuffix>person</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="data($event)" required>
+                      <mat-error *ngIf="workapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>
+                      <mat-error *ngIf="workapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>
+                      <mat-icon matSuffix>person</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Mobile" formControlName="mobile" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                      <mat-error *ngIf="workapp.controls.mobile.errors?.required">Mobile number is required</mat-error>
+                      <mat-error *ngIf="workapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
+                      <mat-error *ngIf="workapp.controls.mobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>
+
+                      <mat-icon matSuffix>call</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Email" formControlName="email" required>
+                      <mat-error *ngIf="workapp.controls.email.errors?.required">Email is required</mat-error>
+                      <mat-error *ngIf="workapp.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                      <mat-icon matSuffix>email</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="PinCode" formControlName="pincode"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off"  required>
+                      <mat-error *ngIf="workapp.controls.pincode.errors?.required">Pincode is required</mat-error>
+                      <mat-error *ngIf="workapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                      <mat-error *ngIf="workapp.controls.pincode.hasError('required')">Pincode required</mat-error>
+                      <mat-error *ngIf="workapp.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                      <mat-icon matSuffix>place</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
+                        <mat-option value="call">Call</mat-option>
+                        <mat-option value="meetinperson">Meet in Person</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="workapp.controls.appointmentwith.errors?.required">Appointment is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <input matInput [matDatepicker]="picker2" placeholder="Appointment Date(DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                      <mat-error *ngIf="workapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Appointment Time (HH:MM)" type="time" atp-time-picker  formControlName="apptime" required />
+                      <mat-error *ngIf="workapp.controls.apptime.errors?.required">Appointment Time is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12 text-center mt-3">
+                    <button mat-button type="submit" style="background: #fff; color: #000;"[disabled]="(!workapp.valid ) || (!pincodeErrors)" (click)="workKeeper(workapp.value)">Submit</button>
+                    <button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
+                  </div>
+                </div>
+              </form>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+
+      <section id="knowMoreShow1">
         <div class="col-12 mt-4 border border-dark p-4">
           <div class="row">
             <div class="col-sm-12">

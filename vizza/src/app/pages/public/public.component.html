@@ -2,7 +2,7 @@
 <!--<meta name="keywords" [content]=metaLiability.keyword />-->
 <!--<meta name="description" [content]=metaLiability.descrition />-->
 
-<div class="container dashboard h-100" fxLayoutAlign="start start">
+<div class="container dashboard h-100 d-none d-sm-none d-md-none d-lg-block d-xl-block" fxLayoutAlign="start start">
   <div class="row my-flex-card">
     <h2 class="w-100 text-center" style="color: #EF9A9A;"> Public Liability Policy</h2>
     <div class="col-md-6 col-sm-12 col-xs-12">
@@ -143,10 +143,182 @@
             BPOs, hotels, restaurants, clubs, and schools.</p>
           <p><b>Public Liability Act:</b>This is a compulsory policy to be taken by users and owners or
             transporters of dangerous substance as demarcated under Environment (Protection) Act 1986 in
-            surplus of the minimum quantity stated under the Public Liability Insurance Act 1991.
+            surplus of the minimum quantity stated under the Public Liability Insurance Act 1991.</p>
           <p>Public Liability Policy can be expanded to include legal expenses from</p>
+          <p style="margin-left: -410px"></p>
+
+          <ol class="mt-4" type="i">
+            <li>Act of god perils,</li>
+            <li>Benefit of retroactive date.</li>
+            <li>Carriage of treated effluents.</li>
+            <li>Coverage for defence cost incurred with prior consent</li>
+            <li>Sudden and accidental pollution.</li>
+            <li>Transportation.</li>
+          </ol>
           <p></p>
-          <ol class="pl-5" type="i">
+          <p></p>
+          <p></p>
+          <br>
+          <br>
+
+          <p class="know-note-content"> NOTE: THE BRIEF WRITE UP YOU FIND IN THIS WEBSITE FOR VARIOUS POLICIES
+            IS ONLY A SYNOPSIS. THE DETAIL EXTENT OF COVERAGE WITH THE TERMS &
+            CONDITIONS WILL BE SENT BY US TO YOUR MAIL ID ON REQUEST TO US. PLEASE
+            MAIL TO CUSTOMERCARE@VIZZAFIN.COM</p>
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+</div>
+<div class="container dashboard h-100 d-block d-sm-block d-md-block d-lg-none d-xl-none" fxLayoutAlign="start start">
+  <div class="row my-flex-card">
+    <h2 class="w-100 text-center" style="color: #EF9A9A;"> Public Liability Policy</h2>
+    <p class="w-100 text-center"><button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow1" style="color: #000000;">Know more</a></span></button></p>
+
+    <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+      <!--<div class="card">-->
+        <!--<div class="card-block">-->
+          <!--<div class="aboutImg">-->
+            <!--<img src="assets/img/Public-Liability-Policy.jpg" style="height:605px;" class="w-100">-->
+            <!--<div class="aboutContent">-->
+              <!--<h4 class="w-100 text-center">About Public Liability Policy</h4>-->
+              <!--&lt;!&ndash;<p class="text-justify">Public Liability Insurance Policy covers the insured.… <button mat-button color="accent"accent style="border: 1px solid #000;"><span><a scrollTo href="#knowMoreShow" style="color: #000000;">Know more</a></span></button></p>&ndash;&gt;-->
+              <!--<p style="text-align: left;">Public Liability Insurance Policy covers the insured...… <button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"><span><a scrollTo href="#knowMoreShow" style="color: #000000;">Know more</a></span></button></p>-->
+
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-block">
+          <mat-card style="background:#EF9A9A !important; color: #fff;">
+            <h2 class="w-100 text-center" >Let us assist you</h2>
+            <form [formGroup]="pubapp" (submit)="publicKeeper(pubapp.value)">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-select  placeholder="Insurance Type" formControlName ="insurance" required>
+                      <mat-option value="shopkeepers">Shopkeepers</mat-option>
+                      <mat-option value="marine">Marine Cargo Policy</mat-option>
+                      <mat-option value="money">Money Insurance</mat-option>
+                      <mat-option value="fire">Fire Policy</mat-option>
+                      <mat-option value="burglary">Burglary Policy</mat-option>
+                      <mat-option value="machinery">Machinery Breakdown Policy</mat-option>
+                      <mat-option value="electronics">Electronics Equiptment Policy</mat-option>
+                      <mat-option value="contractors">Contractors All Risk Policy</mat-option>
+                      <mat-option value="house-holders">House Holders Policy</mat-option>
+                      <mat-option value="public-liability">Public Liability</mat-option>
+                      <mat-option value="professional">Professional Indemnity Policy</mat-option>
+                      <mat-option value="workmen-compensation">Workmen Compensation</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="pubapp.controls.insurance.errors?.required">Insurance Type is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Company Name" formControlName="name" required>
+                    <mat-error *ngIf="pubapp.controls.name.errors?.required">Company Name is required</mat-error>
+                    <mat-error *ngIf="pubapp.controls.name.hasError('minlength')">Company Name isn't long enough, minimum of 3 characters</mat-error>
+
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="data($event)" required>
+                    <mat-error *ngIf="pubapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>
+                    <mat-error *ngIf="pubapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Mobile" formControlName="mobile" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                    <mat-error *ngIf="pubapp.controls.mobile.errors?.required">Mobile number is required</mat-error>
+                    <mat-error *ngIf="pubapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
+                    <mat-error *ngIf="pubapp.controls.mobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>
+
+                    <mat-icon matSuffix>call</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Email" formControlName="email" required>
+                    <mat-error *ngIf="pubapp.controls.email.errors?.required">Email is required</mat-error>
+                    <mat-error *ngIf="pubapp.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="PinCode"  pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off"  required>
+                    <mat-error *ngIf="pubapp.controls.pincode.errors?.required">Pincode is required</mat-error>
+                    <mat-error *ngIf="pubapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                    <mat-error *ngIf="pubapp.controls.pincode.hasError('required')">Pincode required</mat-error>
+                    <mat-error *ngIf="pubapp.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                    <mat-icon matSuffix>place</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
+                      <mat-option value="call">Call</mat-option>
+                      <mat-option value="meetinperson">Meet in Person</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="pubapp.controls.appointmentwith.errors?.required">Appointment is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker3" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" maxlength="10" minlength="10" required>
+                    <mat-error *ngIf="pubapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Appointment Time (HH:MM)" type="time" atp-time-picker  formControlName="apptime" required />
+                    <mat-error *ngIf="pubapp.controls.apptime.errors?.required">Appointment Time is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12 text-right mt-3">
+                  <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
+                  <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!pubapp.valid ) || (!pincodeErrors)" (click)="publicKeeper(pubapp.value)">Submit</button>
+                </div>
+              </div>
+            </form>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+    <section id="knowMoreShow1">
+      <div class="col-12 mt-4 border border-dark p-4">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3 class="text-center" style="color: #EF9A9A"> About Public Liability Policy</h3>
+          </div>
+          <p>The Public Liability Insurance Act Policy covers legal liability to indemnify the affected parties
+            with regard to an accident involving a sudden, unintentional, or fortuitous incidence when
+            handling any dangerous substance leading to intermittent, repeated, or continuous exposure to
+            death, or injury to any individual or damage to property. This policy encompasses the amount
+            that the insured is legally liable to pay as damages to 3 rd parties because of accidental death,
+            bodily injury, damage/loss to the property belonging to a 3 rd party. The types of public liability
+            insurance policies are</p>
+          <p><b>Public Liability Industrial Risks:</b>For manufacturing units, godowns and warehouses</p>
+          <p><b>Public Liability Non-Industrial Risks:</b>For non-manufacturing entities such as IT companies,
+            BPOs, hotels, restaurants, clubs, and schools.</p>
+          <p><b>Public Liability Act:</b>This is a compulsory policy to be taken by users and owners or
+            transporters of dangerous substance as demarcated under Environment (Protection) Act 1986 in
+            surplus of the minimum quantity stated under the Public Liability Insurance Act 1991.</p>
+          <p>Public Liability Policy can be expanded to include legal expenses from</p>
+          <p style="margin-left: -410px"></p>
+          <ol class="mt-4" type="i">
             <li>Act of god perils,</li>
             <li>Benefit of retroactive date.</li>
             <li>Carriage of treated effluents.</li>

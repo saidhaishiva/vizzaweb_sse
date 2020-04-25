@@ -7,11 +7,11 @@
         <p>Your Application Number {{applicationNo}}.</p>
 
         <!--<p>Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>-->
-        <button mat-raised-button color="primary" (click)="DownloadPdf('receipt')">Receipt</button>
-        <button mat-raised-button color="primary" (click)="DownloadPdf('pdf')">PDF</button>
-        <button mat-raised-button color="primary" (click)="DownloadPdf('proposl')">Proposal</button>
+        <button mat-raised-button color="primary" class="mr-2" (click)="DownloadPdf('receipt')">Receipt</button>
+        <button mat-raised-button color="primary" class="mr-2" (click)="DownloadPdf('pdf')">PDF</button>
+        <button mat-raised-button color="primary" class="mr-2" (click)="DownloadPdf('proposl')">Proposal</button>
 
-        <button mat-raised-button color="primary" routerLink="/home"> Done</button>
+        <button mat-raised-button color="primary" class="mr-2" routerLink="/home"> Done</button>
       </div>
       <div *ngIf="paymentStatus == 'failure'">
         <img src="assets/img/error-icon.png" alt="">

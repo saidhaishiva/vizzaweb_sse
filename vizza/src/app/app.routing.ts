@@ -190,17 +190,35 @@ import {EdelweissposPremiumListComponent} from './pages/edelweisspos-premium-lis
 import {EdelweissPosComponent} from './pages/edelweiss-pos/edelweiss-pos.component';
 import {EdelweissposPaymnetSuccessComponent} from './pages/edelweisspos-paymnet-success/edelweisspos-paymnet-success.component';
 import {IffcoDeactivatedGuardService} from './shared/iffco-deactivated-guard.service';
+import { StarRenewalComponent } from './pages/star-renewal/star-renewal.component';
+import { StarhealthRenewelProposalComponent } from './pages/star-renewal/starhealth-renewel-proposal/starhealth-renewel-proposal.component';
+import { HealthLandingComponent } from './pages/health-landing/health-landing.component';
+import { TermLandingComponent } from './pages/term-landing/term-landing.component';
+import {PosTrainigComponent} from './pages/pos-trainig/pos-trainig.component';
+import {PosMockTestComponent} from './pages/pos-mock-test/pos-mock-test.component';
+import {PosMockExamComponent} from './pages/pos-mock-exam/pos-mock-exam.component';
+import {MockResultComponent} from './pages/pos-mock-exam/mock-result/mock-result.component';
+// import {StarCovidProposalComponent} from './pages/star-covid-proposal/star-covid-proposal.component';
+// import { StarCovid19Component} from './pages/star-covid19/star-covid19.component';
+// import { StarCovid19ProductlistComponent} from './pages/star-covid19-productlist/star-covid19-productlist.component';
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'health-enquiry', component: HealthLandingComponent, data: { breadcrumb: 'Health landing'}},
+    { path: 'term-enquiry', component: TermLandingComponent, data: { breadcrumb: 'Term landing'}},
+
+
     {
         path: '',
         component: PagesComponent, children: [
+
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
             { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
             // { path: 'contact', component: ContactComponent, loadChildren: 'app/pages/contact/contact.module#ContactComponent', data: { breadcrumb: 'Contact us' } },
             { path: 'contacts', component: NewContactComponent, data: { breadcrumb: 'Contact us' } },
             { path: 'renewal-reminder', component: RenewalReminderComponent, data: { breadcrumb: 'Renewal Reminder' } },
+            { path: 'star-renewal', component: StarRenewalComponent, data: { breadcrumb: 'Renewal Star' } },
             { path: 'renew-existing-policy', component: RenewExistingPolicyComponent, data: { breadcrumb: 'Renew Existing Policy' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },
@@ -393,6 +411,14 @@ export const routes: Routes = [
             { path: 'edelweiss-premium-list', component: EdelweissposPremiumListComponent, data: { breadcrumb: 'Edelweiss Premium'} },
             { path: 'edelweiss-pos/:stepper', component: EdelweissPosComponent, data:{breadcrumb: 'Edelweiss pos Insurance'} },
             { path: 'edelweisspos-payment-success/:status/:proId', component: EdelweissposPaymnetSuccessComponent, data: { breadcrumb: 'Edelweisspos payment'}},
+            { path: 'starhealth-renewal-proposal', component: StarhealthRenewelProposalComponent, data: { breadcrumb: 'Starhealth proposal'}},
+            { path: 'POS-Training', component: PosTrainigComponent, data: { breadcrumb: 'Starhealth proposal'}},
+            { path: 'POS-Mock_Test', component: PosMockTestComponent, data: { breadcrumb: 'Starhealth proposal'}},
+            { path: 'POS-Mock-Exam/:custumerId', component: PosMockExamComponent, data: { breadcrumb: 'POS Mock Exam' }},
+            { path: 'mock-result', component: MockResultComponent, data: {breadcrumb: 'Mock Result' }}
+            // { path: 'star-covid-proposal', component: StarCovidProposalComponent, data: { breadcrumb: 'star-COVID-19'}},
+            // { path: 'star-covid19', component: StarCovid19Component, data: { breadcrumb: 'star-COVID-19home'}},
+            // { path: 'star-covid19-product', component: StarCovid19ProductlistComponent, data: { breadcrumb: 'star-COVID-product'}},
 
         ]
     },

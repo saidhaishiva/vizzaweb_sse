@@ -33,13 +33,16 @@
 <!--</div>div-->
 <div class="text-right mt-2">
     <!--<mat-card-header class="text-right">-->
-    <i class="material-icons mb-4" (click)="onNoClick()">
-        close
+    <i class="material-icons mb-4" (click)="onNoClick()" style="cursor: pointer">
+        cancel
     </i>
+    <!--<i class="material-icons mb-4" (click)="onNoClick()">-->
+        <!--close-->
+    <!--</i>-->
 
     <!--</mat-card-header>-->
 </div>
-    <mat-card class="mt-viwe-profile1" [style.overflow]="'auto'" [style.height.px]="'400'">
+    <mat-card class="mt-viwe-profile1" [style.overflow]="'scroll'" [style.height.px]="'400'">
         <mat-card-content fxLayoutAlign="space-between center" class="f-size">
         <div [innerHtml]="details.content">
         </div>

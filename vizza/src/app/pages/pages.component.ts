@@ -107,7 +107,8 @@ export class PagesComponent implements OnInit {
     });
 
     if(this.settings.menu == "horizantal")
-      this.menuService.expandActiveSubMenu(this.menuService.getHorizontalMenuItems());
+
+       this.menuService.expandActiveSubMenu(this.menuService.getHorizontalMenuItems());
   }
 
   public chooseMenu(){

@@ -11,7 +11,7 @@ export class AppSettings {
         true,       //sidenavIsPinned  
         false,       //sidenavUserBlock
         false,   // HomeSidenavUserBlock
-        'horizontal', //horizontal , vertical
+        'horizontal', //horizontal , verticalz
         'default',  //default, compact, mini
         'teal-light',   //indigo-light, teal-light, red-light, blue-dark, green-dark, pink-dark
         false ,

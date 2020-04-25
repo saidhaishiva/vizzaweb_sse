@@ -1,0 +1,84 @@
+<section class="d-none d-sm-none d-md-none d-lg-block d-xl-block">
+<div class="container">
+  <mat-card class="mt-5 w-50 mx-auto" style="background: aliceblue;">
+    <h2 class="text-center">Mock Test</h2>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <div class="mt-4">
+        <div class="col-md-12 mt-4">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Name" formControlName="name" (keypress)="nameValidate($event)" required maxlength="30">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
+          </mat-form-field >
+        </div>
+        <div class="col-md-12 mt-4">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Email" formControlName="email" required>
+            <mat-icon matSuffix>mail</mat-icon>
+            <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>
+            <mat-error *ngIf="form.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 mt-4">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Mobile" formControlName="mobile" (keypress)="numberValidate($event)" required minlength="10" maxlength="10">
+            <mat-icon matSuffix>local_phone</mat-icon>
+            <mat-error *ngIf="form.controls.mobile.errors?.required">Mobile Number is required</mat-error>
+            <mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-12 mt-4" fxLayoutAlign="center center">
+        <div class="col-md-6">
+          <button mat-raised-button color="primary" class="mat-elevation-z12 box-button w-100 mt-6" type="button" type="submit">Login</button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+</div>
+</section>
+
+<!--mobile view-->
+<section class="d-block d-sm-block d-md-block d-lg-none d-xl-none">
+  <div class="container">
+    <mat-card style="background: aliceblue;">
+      <h2 class="text-center">Mock Test</h2>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="login()">
+          <div class="mt-4">
+            <div class="col-12 mt-4">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Name" formControlName="name" (keypress)="nameValidate($event)" required maxlength="30">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
+              </mat-form-field >
+            </div>
+            <div class="col-12 mt-4">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Email" formControlName="email" required>
+                <mat-icon matSuffix>mail</mat-icon>
+                <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>
+                <mat-error *ngIf="form.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 mt-4">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Mobile" formControlName="mobile" (keypress)="numberValidate($event)" required minlength="10" maxlength="10">
+                <mat-icon matSuffix>local_phone</mat-icon>
+                <mat-error *ngIf="form.controls.mobile.errors?.required">Mobile Number is required</mat-error>
+                <mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 characters</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-12 mt-4" fxLayoutAlign="center center">
+            <div class="col-6">
+              <button mat-raised-button color="primary" class="mat-elevation-z12 box-button w-100 mt-6" type="button" type="submit">Login</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

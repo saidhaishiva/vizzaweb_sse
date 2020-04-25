@@ -93,6 +93,7 @@ export class GrouppersonalComponent implements OnInit {
   }
 
     public metaList() {
+        this.settings.loadingSpinner = true;
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -110,6 +111,7 @@ export class GrouppersonalComponent implements OnInit {
         );
     }
     public metaDetailSuccess(successData) {
+        this.settings.loadingSpinner = false;
         this.metaGroupPa = successData.ResponseObject[0];
         this.metaTitle = this.metaGroupPa.title;
         this.metaKeyword = this.metaGroupPa.keyword;

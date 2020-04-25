@@ -35,6 +35,7 @@ export const MY_FORMATS = {
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
+
 export class HdfcHealthInsuranceComponent implements OnInit {
     public hdfcPersonal: FormGroup;
     public hdfcInsureArray: FormGroup;
@@ -110,7 +111,41 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public hdfcMobileTrue2: boolean;
     public hdfcMobileTrue3: boolean;
     public panCardValue: boolean;
+    public submitPayLater: boolean;
     // public sumInsureValues: boolean;
+    public enquiryIdPl: any;
+    public groupNamePl: any;
+    public productIdPl: any;
+    public planNamePl: any;
+    public sumInsuredPl: any;
+    public basePremiumPl: any;
+    public serviceTaxPl: any;
+    public totalPremiumPl: any;
+    public proposalIdPl: any;
+    public tierIDPl: any;
+    public summaryDataPL: any;
+    public proposerDataPl: any;
+    public insuredDataPl: any;
+    public companyLogoPl: any;
+    public newProposalIdPl: any;
+    public nomineeDataPl: any;
+    public totalAmountPl: any;
+    public AdditionalInfo1Pl: any;
+    public AdditionalInfo2Pl: any;
+    public AdditionalInfo3Pl: any;
+    public paymentmodePl: any;
+    public fullNamePl: any;
+    public emailPl: any;
+    public productcodePl: any;
+    public ProductCdPl: any;
+    public ProposalNumberPl: any;
+    public PaymentActionUrlPl: any;
+    public changeSuninsuredAmount: any;
+    public suminsuredamount: any;
+    public prodName: any;
+    public suminsuredamountPl: any;
+    public sameAsInsValue: any;
+    public inputfieldshow: boolean;
 
 
     constructor(public proposalservice: HealthService, public validation: ValidationService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public router: Router,
@@ -120,8 +155,35 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 this.stepperindex = 3;
+
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.PaymentActionUrl = this.summaryData.PaymentActionUrl;
+                    console.log(this.PaymentActionUrl, 'this.PaymentActionUrl');
+
+                    this.ProposalNumber = this.summaryData.ProposalNumber;
+                    console.log(this.ProposalNumber, 'this.ProposalNumber');
+
+                    this.AdditionalInfo1 = this.summaryData.AdditionalInfo1;
+                    console.log(this.AdditionalInfo1, 'this.AdditionalInfo1');
+
+                    this.AdditionalInfo2 = this.summaryData.AdditionalInfo2;
+                    console.log(this.AdditionalInfo2, 'this.AdditionalInfo2');
+
+
+                    this.AdditionalInfo3 = this.summaryData.AdditionalInfo3;
+                    console.log(this.AdditionalInfo3, 'this.AdditionalInfo3');
+
+                    this.ProductCd = this.summaryData.ProductCd;
+                    console.log(this.ProductCd, 'this.ProductCd');
+
+                    this.productcode = this.summaryData.productcode;
+                    console.log(this.productcode, 'this.productcode');
+
+                    this.returnURL = this.summaryData.returnURL;
+                    this.basePremium = this.summaryData.basePremium;
+                    this.serviceTax = this.summaryData.serviceTax;
+                    this.totalPremium = this.summaryData.totalPremium;
                     this.personlData = JSON.parse(sessionStorage.personlData);
                     this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
                     this.nomineeFromData = JSON.parse(sessionStorage.nomineeFromData);
@@ -155,6 +217,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.sameAsinsure = false;
         this.pincodeValid = true;
         this.IsCustomerAccepted = false;
+        this.inputfieldshow = false;
         this.arr = [];
         this.webhost = this.config.getimgUrl();
         this.hdfc_health_proposal_id = 0;
@@ -185,7 +248,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             personalPan: [''],
             city: ['', Validators.required],
             state: ['', Validators.required],
-            email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\']+(\\.[^<>()[\\]\\\\.,;:\\s@\\\']+)*)|(\\\'.+\\\'))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             mobile: ['', Validators.required],
             paymentmode: ['', Validators.required]
 
@@ -202,15 +265,25 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     ngOnInit() {
         if (this.payLaterr == true) {
             this.stepperindex = 3;
+            this.step = 3;
+            this.hdfcMobileTrue0 = true;
+            this.hdfcMobileTrue1 = true;
+            this.hdfcMobileTrue2 = true;
+            this.hdfcMobileTrue3 = false;
+            // this.hdfcMobileTrue0 = false;
             console.log(this.payLaterr, 'this.payLaterrolll');
         } else {
             this.sameAsinsure = false;
             this.getHdfcHealthPremiumList = JSON.parse(sessionStorage.buyProductdetails);
             this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
             this.insurePersons = this.getFamilyDetails.family_members;
+            console.log(this.insurePersons, 'helloWorld');
+            console.log(this.insurePersons[0].type, 'helloWorld');
             this.hdfcInsureArray = this.fb.group({
                 items: this.fb.array([])
             });
+
+            this.inputfieldshow = false;
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.items = this.hdfcInsureArray.get('items') as FormArray;
                 this.items.push(this.initItemRows());
@@ -224,27 +297,12 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 }
 
             }
-            // for (let i = 0; i < this.items.length; i++) {
-            //
-            //     if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') {
-            //         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Mr');
-            //         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue('Male');
-            //     } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter') {
-            //         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Ms');
-            //         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].gender.patchValue('Female');
-            //     }
-            // }
-
-
             this.titleLists();
             this.getStateList();
             this.RelationShipListHdfc();
             this.nomineeRelationShipListHdfc();
             this.panValues();
-            // this.suminsuredValue();
-            // this.hdfcInsureArray['controls'].items['controls'][0]['controls'].sameasInsurer.patchValue(true);
             this.sessionData();
-
         }
     }
 
@@ -299,15 +357,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
             let dobAge = this.ageCalculate(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             console.log(dobAge,'dobAge');
-            // if ( (dobAge > 45)) {
-            //     this.IsCustomerAcceptedPPCPED = true;
-            // } else {
-            //     this.IsCustomerAcceptedPPCPED = false;
-            // }
-
-            // this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue('Self');
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.value]);
-
+                 this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.value]);
         } else if(this.sameAsinsure == 'false' || this.sameAsinsure == false) {
             this.ageValidationInsurer(0, 'Self');
             this.sameAsinsure = false;
@@ -325,9 +375,28 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             }
         }
         sessionStorage.sameAsinsure = this.sameAsinsure;
-
-
     }
+    sameasInsurerDetailsPL(event) {
+        if (this.sameAsinsure == 'true' || this.sameAsinsure == true) {
+            this.sameAsinsure = true;
+            console.log(this.hdfcPersonal.controls['gender'].value, 'another know value......')
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].title.patchValue(this.hdfcPersonal.controls['title'].value);
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].firstname.patchValue(this.hdfcPersonal.controls['firstname'].value);
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue(this.hdfcPersonal.controls['lastname'].value);
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value);
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
+        } else {
+            this.sameAsinsure =true;
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].title.patchValue('');
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].firstname.patchValue('');
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].lastname.patchValue('');
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue('');
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue('');
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('');
+        }
+    }
+
     topScroll() {
         document.getElementById('main-content').scrollTop = 0;
     }
@@ -346,10 +415,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     prevStep() {
         this.step--;
     }
-    // candeactivate(){
-    //     return sessionStorage.hdfc_health_proposal_id;
-    // }
-    // insure form group
+
     initItemRows() {
         return this.fb.group(
             {
@@ -366,7 +432,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 sameasInsurer: false,
                 type: '',
                 ins_age: '',
-                // accepted: '',
                 titleName:'',
                 relationshipName:'',
                 height:'',
@@ -455,15 +520,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         }
     }
 
-    // ageValidationInsurer(i, type) {
-    //     if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18) {
-    //         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Insured age should be 18 or above');
-    //     } else {
-    //         this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-    //     }
-    // }
-
-
      ageValidationInsurer(i, type) {
         if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 6574 && type == 'Self') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be 18 and above ');
@@ -484,28 +540,13 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 smallest = this.arr[i];
             }
         }
-        //  if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 9131 && type == 'Son')  {
-        //
-        //      // if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 9131 && type == 'Son') {
-        //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Son age should be above 91 days');
-        // } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 9131 && type == 'Son') {
-        //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        // }
-        // if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <  91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >  9131 && type == 'Daughter') {
-        //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Daughter age should be above 91 days');
-        // } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 91 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value  < 9131 && type == 'Daughter') {
-        //     this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        // }
-
-
-         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 90 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 9495 && type == 'Son')  {
+     if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 90 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 9495 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 9495 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
          }
-
          if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 90 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 9495 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Daughter')  {
@@ -513,8 +554,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 9495 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
          }
-
-
         if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 13149 && type == 'Mother') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Mother age should be 36 and above');
         } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 13149 && type == 'Mother') {
@@ -545,34 +584,19 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         } else if (this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 36 && type == ' Mother In Law') {
             this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-
-        // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
-        // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        // }
-        // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
-        // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        // }
-
-    }
+   }
     // title
     changeTitle(index){
         this.hdfcInsureArray['controls'].items['controls'][index]['controls'].titleName.patchValue(this.hdfcInsureArray['controls'].items['controls'][index]['controls'].title.value);
     }
-
     relationshipchange(index){
         this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationship.value]);
-
     }
     // nomineeRelationship
     nomineeRelationshipChange(){
         this.nomineeDetails.controls['nomineeRelationshipName'].patchValue(this.nomineeHdfcRelationList[(this.nomineeDetails.controls['nomineeRelationship'].value)]);
     }
      ageData(age, type) {
-
         if (age && type == 'personal') {
             sessionStorage.hdfcHealthProposerAge = age;
         } else {
@@ -585,33 +609,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         }
     }
 
-    // checkAccepted() {
-    //     console.log(this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value, 'ss');
-    //      if (this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value) {
-    //          // this.IsCustomerAcceptedPPCPED = true;
-    //         this.IsCustomerAccepted = false;
-    //         //   this.hdfcPersonal.controls['accepted'].patchValue(true);
-    //     } else {
-    //         this.IsCustomerAccepted = true;
-    //         // this.IsCustomerAcceptedPPCPED = false;
-    //         //  this.hdfcPersonal.controls['accepted'].patchValue(false);
-    //
-    //     }
-    //
-    // }
-
     // age calculation
     ageCalculate(dob) {
-        // let mdate = dob.toString();
-        // let yearThen = parseInt(mdate.substring(8, 10), 10);
-        // let monthThen = parseInt(mdate.substring(5, 7), 10);
-        // let dayThen = parseInt(mdate.substring(0, 4), 10);
-        // let todays = new Date();
-        // let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        // let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        // return year_age;
-
         let today = new Date();
         let birthDate = new Date(dob);
         let age = today.getFullYear() - birthDate.getFullYear();
@@ -621,40 +620,26 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             age = age-1;
         }
         return age;
-
-
     }
 
     DobDaysCalculate(dob) {
-        // let mdate = dob.toString();
-        // let yearThen = parseInt(mdate.substring(8, 10), 10);
-        // let monthThen = parseInt(mdate.substring(5, 7), 10);
-        // let dayThen = parseInt(mdate.substring(0, 4), 10);
-        // let todays = new Date();
-        // let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-        // return Bob_days;
         let a = moment(dob, 'DD/MM/YYYY');
         let b = moment(new Date(), 'DD/MM/YYYY');
         let days = b.diff(a, 'days');
         return days;
-
     }
 TierID
     // city lists
-    selectedSate(event, type, i) {
-        console.log(this.hdfcPersonal.controls['state'].value,'0000');
-        console.log(this.hdfcHealthStates[this.hdfcPersonal.controls['state'].value], 'lll');
-        this.hdfcPersonal.controls['stateName'].patchValue(this.hdfcHealthStates[this.hdfcPersonal.controls['state'].value]);
-
-        const data = {
+    selectedSate(event, type) {
+        console.log(event, 'event...')
+        console.log(type, 'type..')
+      const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId(),
             'State': '',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
-        }
+        };
         if (type == 'insurer') {
             data.State = event.state;
         } else {
@@ -669,17 +654,42 @@ TierID
             }
         );
     }
-
+    selectedSatePl(){
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId(),
+            'State': this.requestCustomerDetails.State,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+        };
+        this.proposalservice.getHdfcCityLists(data).subscribe(
+            (successData) => {
+                this.getCitySuccess(successData);
+            },
+            (error) => {
+                this.getCityFailure(error);
+            }
+        );
+    }
     public getCitySuccess(successData) {
         if (successData.IsSuccess) {
             this.hdfcHealthCitys = successData.ResponseObject;
             sessionStorage.hdfcHealthCitys = JSON.stringify(this.hdfcHealthCitys);
-
         }
     }
+    public getCityFailure(error) {}
 
-    public getCityFailure(error) {
+    changeCity() {
+        this.hdfcPersonal.controls['cityName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['city'].value]);
+        console.log(this.hdfcPersonal.controls['cityName'].value, 'cityName');
+        console.log(this.hdfcPersonal.controls['city'].value, 'cityId...');
     }
+    changeState() {
+        this.hdfcPersonal.controls['stateName'].patchValue(this.hdfcHealthStates[this.hdfcPersonal.controls['state'].value]);
+        console.log(this.hdfcPersonal.controls['stateName'].value, 'stateName');
+        console.log(this.hdfcPersonal.controls['state'].value, 'state...');
+    }
+
 
     // state lists
     getStateList() {
@@ -698,15 +708,12 @@ TierID
             }
         );
     }
-
     public getStateSuccess(successData) {
         if (successData.IsSuccess) {
             this.hdfcHealthStates = successData.ResponseObject;
         }
     }
-
-    public getStateFailure(error) {
-    }
+    public getStateFailure(error) {}
 
     // Title List
     titleLists() {
@@ -725,19 +732,15 @@ TierID
             }
         );
     }
-
     public titleListsSuccess(successData) {
         if (successData.IsSuccess) {
             this.titleList = successData.ResponseObject;
             for (let i = 0; i < this.titleList.length; i++) {
                 this.titleList[i].last = 'last';
-
             }
         }
     }
-
-    public titleListsFailure(error) {
-    }
+    public titleListsFailure(error) {}
 
 // RelationShip List
     RelationShipListHdfc() {
@@ -756,17 +759,13 @@ TierID
             }
         );
     }
-
     public relationShipSuccess(successData) {
         if (successData.IsSuccess) {
             this.insuredHdfcRelationList = successData.ResponseObject;
             console.log(this.insuredHdfcRelationList, 'this.insuredHdfcRelationList...///')
-
         }
     }
-
-    public relationShipFailure(error) {
-    }
+    public relationShipFailure(error) {}
 
     pincodevalidationHdfc(pin) {
         if (pin == '') {
@@ -795,12 +794,10 @@ TierID
         } else {
             this.pincodeValid = false;
             this.toastr.error(successData.ErrorObject);
-            // this.hdfcPersonal.controls['pincode'].setValue('');
         }
         sessionStorage.pincodeValid = this.pincodeValid;
     }
-    public pincodeFailure(successData) {
-    }
+    public pincodeFailure(successData) {}
 
     // Nominee RelationShip List
     nomineeRelationShipListHdfc() {
@@ -819,15 +816,12 @@ TierID
             }
         );
     }
-
     public hdfcNomineeRelationshipSuccess(successData) {
         if (successData.IsSuccess) {
             this.nomineeHdfcRelationList = successData.ResponseObject;
         }
     }
-
-    public hdfcNomineeRelationshipFailure(error) {
-    }
+    public hdfcNomineeRelationshipFailure(error) {}
 
     backAll(){
         this.topScroll();
@@ -844,7 +838,6 @@ TierID
         if (this.hdfcPersonal.valid) {
             if (sessionStorage.hdfcHealthProposerAge >= 18) {
                 if (this.pincodeValid) {
-                    // this.sameasInsurerDetails('event', '1');
                     stepper.next();
                     this.topScroll();
                     this.nextStep();
@@ -855,20 +848,33 @@ TierID
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
-
-        } else {
-
-        }
+        } else {}
     }
 
     // otp validate
     otpValidate(value) {
         this.mobileotpgenerate = value;
-
         const data = {
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'mobile': this.hdfcPersonal.controls['mobile'].value,
+        };
+        if (this.mobileotpgenerate.length == 10) {
+            this.proposalservice.mobileotp(data).subscribe(
+                (successData) => {
+                    this.mobileotpSuccess(successData);
+                },
+                (error) => {
+                    this.mobileotpFailure(error);
+                }
+            );
         }
+    }
+    otpValidatePL(value) {
+        this.mobileotpgenerate = value;
+        const data = {
+            'enquiry_id': this.enquiryIdPl,
+            'mobile': this.hdfcPersonal.controls['mobile'].value,
+        };
         if (this.mobileotpgenerate.length == 10) {
             this.proposalservice.mobileotp(data).subscribe(
                 (successData) => {
@@ -884,21 +890,34 @@ TierID
         if (successData.IsSuccess == true) {
             this.toastr.success(successData.ResponseObject);
             this.otpvalidation = successData.ResponseObject;
-
         }
-
     }
+    public mobileotpFailure(error) {}
 
-
-    public mobileotpFailure(error) {
-    }
 // check otp
     checkotpValidate(value) {
         this.checkotp = value;
         const data = {
             'enquiry_id': this.getFamilyDetails.enquiry_id,
             'otp': this.hdfcPersonal.controls['otp'].value,
+        };
+        if (this.checkotp.length == 6) {
+            this.proposalservice.checkotp(data).subscribe(
+                (successData) => {
+                    this.checkotpSuccess(successData);
+                },
+                (error) => {
+                    this.checkotpFailure(error);
+                }
+            );
         }
+    }
+    checkotpValidatePL(value) {
+        this.checkotp = value;
+        const data = {
+            'enquiry_id': this.enquiryIdPl,
+            'otp': this.hdfcPersonal.controls['otp'].value,
+        };
         if (this.checkotp.length == 6) {
             this.proposalservice.checkotp(data).subscribe(
                 (successData) => {
@@ -913,19 +932,11 @@ TierID
     public checkotpSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.checkotpvalidation = successData.ResponseObject;
-
         } else {
             this.toastr.error(successData.ErrorObject);
-
         }
-
     }
-
-
-    public checkotpFailure(error) {
-    }
-
-
+    public checkotpFailure(error) {}
 
     // insured page
     InsureDetails(stepper: MatStepper, value) {
@@ -938,26 +949,14 @@ TierID
                 this.insurerData.items[i].gender = 'M';
             } else if (this.insurerData.items[i].genderStatus == 'Female'){
                 this.insurerData.items[i].gender = 'F';
-
             }
         }
-
         let checkValid = false;
         if (this.hdfcInsureArray.valid) {
                 checkValid = true;
-
-            // if (!this.IsCustomerAcceptedPPCPED) {
-            //     checkValid = true;
-            // } else {
-            //     checkValid = false;
-            //     if(this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value) {
-            //         checkValid = true;
-            //     }
-            // }
         } else {
             this.toastr.error('Please fill in all required fields');
         }
-
         if(checkValid) {
             this.IsCustomerAccepted = false;
             let validData = false;
@@ -969,7 +968,6 @@ TierID
                     validData = true;
                 }
             }
-
             if (validData) {
                 stepper.next();
                 this.topScroll();
@@ -979,24 +977,22 @@ TierID
             } else {
                 //  this.toastr.error('Insured age should be 18 or above');
             }
-
         } else {
             this.IsCustomerAccepted = true;
         }
-
-
-
-
-
     }
     // Nominee Details
     addNomineeDetails(stepper: MatStepper, value) {
         sessionStorage.hdfcHealthNomineeDetails = '';
         sessionStorage.hdfcHealthNomineeDetails = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
-            this.createProposal(stepper);
+            // this.createProposal(stepper);
+            // this.changeCity();
+            // this.changeState();
+            this.suminsureddropdown(stepper);
         }
     }
+
 // star-health-proposal Creation
     createProposal(stepper){
         for(let i=0; i < this.insurerData.items.length; i++) {
@@ -1013,7 +1009,7 @@ TierID
                 'group_name': this.getFamilyDetails.name,
                 'product_id': this.getHdfcHealthPremiumList.product_id,
                 'plan_name': this.getHdfcHealthPremiumList.product_name,
-                'sum_insured_amount': this.getHdfcHealthPremiumList.suminsured_amount,
+                'sum_insured_amount': this.changeSuninsuredAmount != undefined ? this.changeSuninsuredAmount : this.getHdfcHealthPremiumList.suminsured_amount,
                 'proposal_id': sessionStorage.hdfc_health_proposal_id == '' || sessionStorage.hdfc_health_proposal_id == undefined ? '' : sessionStorage.hdfc_health_proposal_id,
                 'InsuranceDetails': {
                     'CustDetails': {
@@ -1037,7 +1033,7 @@ TierID
                         'PANCardNumber': this.hdfcpersonalValues.personalPan,
                     },
                     'PlanDetails': {
-                        'suminsured': this.getHdfcHealthPremiumList.suminsured_amount,
+                        'suminsured': this.changeSuninsuredAmount != undefined ? this.changeSuninsuredAmount : this.getHdfcHealthPremiumList.suminsured_amount,
                         'product_id': this.getHdfcHealthPremiumList.product_id,
                         'TierID':this.getHdfcHealthPremiumList.tier_zone
                     },
@@ -1048,7 +1044,6 @@ TierID
                         'InsuredDetails': this.insurerData.items
                     }
                 }
-
             }
             this.settings.loadingSpinner = true;
             this.proposalservice.createHdfcHealthProposal(data).subscribe(
@@ -1067,6 +1062,7 @@ TierID
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.personlData = this.hdfcPersonal.value;
+            console.log(this.personlData, 'staesdulll.......')
             this.insuredFormData = this.insurerData.items;
             this.nomineeFromData = this.nomineeDetails.value;
             this.PaymentActionUrl = this.summaryData.PaymentActionUrl;
@@ -1103,7 +1099,7 @@ TierID
             this.totalAmount = parseFloat(this.summaryData.totalPremium);
             this.paymentmode = this.personlData.paymentmode;
             this.pos_status = this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4';
-
+// this.suminsureddropdown(stepper);
             this.email = this.personlData.email;
             console.log(this.email, 'this.email');
             this.createdDate = new Date();
@@ -1116,9 +1112,7 @@ TierID
             this.toastr.error(successData.ErrorObject);
         }
     }
-    public proposalFailure(error) {
-
-    }
+    public proposalFailure(error) {}
 // sessionData
     sessionData() {
         if (sessionStorage.hdfcStep1 != '' && sessionStorage.hdfcStep1 != undefined) {
@@ -1264,13 +1258,15 @@ TierID
                     'State': this.hdfcpersonalValues.state,
                     'stateName': this.hdfcPersonal.controls['stateName'].value,
                     'City': this.hdfcpersonalValues.city,
+                    'cityName': this.hdfcPersonal.controls['cityName'].value,
                     'Pincode': this.hdfcpersonalValues.pincode,
                     'EmailId': this.hdfcpersonalValues.email,
                     'MobileNo': this.hdfcpersonalValues.mobile,
+                    'PANCardNumber': this.hdfcpersonalValues.personalPan,
                     // 'IsCustomerAcceptedPPCPED': this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value ? '1' : '',
                     'IsCustomerAcceptedPPCPED' : '',
                     'IsProposerSameAsInsured': this.sameAsinsure ? 'Y' : 'N' ,
-                    'UIDNo': this.hdfcpersonalValues.otp //OTP Value
+                    'UIDNo': this.hdfcpersonalValues.otp, //OTP Value
                 },
                 'PlanDetails': {
                     'suminsured': this.getHdfcHealthPremiumList.suminsured_amount,
@@ -1314,8 +1310,8 @@ TierID
     }
     saveEdit(){
         this.router.navigate(['/home']);
-
     }
+
     // get request
     getBackRequest() {
         const data = {
@@ -1333,15 +1329,36 @@ TierID
             }
         );
     }
-
     public getBackResSuccess(successData) {
         if (successData.IsSuccess) {
+            this.submitPayLater = false;
+            this.getStateList();
+            this.titleLists();
+            this.RelationShipListHdfc();
+            this.nomineeRelationShipListHdfc();
             this.requestDetails = successData.ResponseObject;
+            console.log(this.requestDetails, 'this.requestDetails...')
             this.pos_status = this.requestDetails.role_id;
             console.log(this.pos_status, 'this.pos_status');
             this.stepperindex = 3;
             this.requestCustomerDetails = this.requestDetails.InsuranceDetails.CustDetails;
             this.requestInsuredDetails = this.requestDetails.InsuranceDetails.Member.InsuredDetails;
+            this.sameAsInsValue = this.requestCustomerDetails.IsProposerSameAsInsured;
+            this.hdfcInsureArray = this.fb.group({
+                items: this.fb.array([])
+            });
+            for (let i = 0; i < this.requestInsuredDetails.length; i++) {
+                this.items = this.hdfcInsureArray.get('items') as FormArray;
+                this.items.push(this.initItemRows());
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].type.setValue(this.requestInsuredDetails[i].type);
+                if (this.requestInsuredDetails[i].type == 'Son') {
+                    this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Mr');
+                    this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue('Male');
+                } else if (this.requestInsuredDetails[i].type == 'Daughter') {
+                    this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue('Ms');
+                    this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue('Female');
+                }
+            }
             this.fullName = this.requestCustomerDetails.ApplFirstName +' '+ this.requestCustomerDetails.ApplLastName;
             this.totalAmount = parseFloat(this.requestDetails.sum_insured_amount);
             console.log(this.requestInsuredDetails, 'hgghjghjgjh');
@@ -1355,12 +1372,266 @@ TierID
             this.returnURL = this.requestDetails.returnURL;
             this.paymentmode = this.requestDetails.InsuranceDetails.PaymentDetails.PaymentMode;
             this.email = this.requestCustomerDetails.EmailId;
+            this.enquiryIdPl = this.requestDetails.enquiry_id;
+            this.groupNamePl = this.requestDetails.group_name;
+            this.productIdPl = this.requestDetails.product_id;
+            this.planNamePl = this.requestDetails.plan_name;
+            this.sumInsuredPl = this.requestDetails.sum_insured_amount;
+            this.companyLogoPl = this.requestDetails.company_logo;
+            // this.serviceTaxPl = this.requestDetails.serviceTax;
+            // this.totalPremiumPl = this.requestDetails.totalPremium;
+            this.proposalIdPl = this.requestDetails.proposal_id;
+            this.tierIDPl = this.requestDetails.InsuranceDetails.PlanDetails.TierID;
+            this.payLaterEdit();
             console.log(this.email, 'this.email');
             console.log(this.paymentmode, 'this.paymentmode');
         }
     }
-    public getBackResFailure(successData) {
+    public getBackResFailure(successData) {}
+
+    payLaterEdit() {
+        this.hdfcPersonal.controls['title'].patchValue(this.requestCustomerDetails.Title);
+        this.hdfcPersonal.controls['firstname'].patchValue(this.requestCustomerDetails.ApplFirstName);
+        this.hdfcPersonal.controls['lastname'].patchValue(this.requestCustomerDetails.ApplLastName);
+        this.hdfcPersonal.controls['gender'].patchValue(this.requestCustomerDetails.ApplGender);
+        this.hdfcPersonal.controls['dob'].patchValue(this.requestCustomerDetails.ApplDOB);
+        this.hdfcPersonal.controls['email'].patchValue(this.requestCustomerDetails.EmailId);
+        this.hdfcPersonal.controls['personalPan'].patchValue(this.requestCustomerDetails.PANCardNumber);
+        this.hdfcPersonal.controls['paymentmode'].patchValue(this.paymentmode);
+        this.hdfcPersonal.controls['address1'].patchValue(this.requestCustomerDetails.Address1);
+        this.hdfcPersonal.controls['address2'].patchValue(this.requestCustomerDetails.Address2);
+        this.hdfcPersonal.controls['address3'].patchValue(this.requestCustomerDetails.Address3);
+        this.hdfcPersonal.controls['pincode'].patchValue(this.requestCustomerDetails.Pincode);
+        this.pincodevalidationHdfc(this.requestCustomerDetails.Pincode);
+        this.hdfcPersonal.controls['state'].patchValue(this.requestCustomerDetails.State);
+        this.selectedSatePl();
+        this.hdfcPersonal.controls['city'].patchValue(this.requestCustomerDetails.City);
+        for (let i = 0; i < this.requestInsuredDetails.length; i++) {
+            console.log(this.sameAsInsValue, 'kmown valueeeeeee...........')
+            console.log(this.requestInsuredDetails[i].gender, 'kmown valueeeeeee.. ogof grender.........')
+            if(this.sameAsInsValue == 'Y') {
+                this.sameAsinsure = true;
+                // console.log()
+            } else {
+                this.sameAsinsure = false;
+            }
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].title.patchValue(this.requestInsuredDetails[i].title);
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].firstname.patchValue(this.requestInsuredDetails[i].firstname);
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].lastname.patchValue(this.requestInsuredDetails[i].lastname);
+            if(this.requestInsuredDetails[i].type == 'Son') {
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue(this.requestInsuredDetails[i].genderStatus);
+            } else if (this.requestInsuredDetails[i].type == 'Daughter') {
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue(this.requestInsuredDetails[i].genderStatus);
+            } else {
+                this.hdfcInsureArray['controls'].items['controls'][i]['controls'].genderStatus.patchValue(this.requestInsuredDetails[i].gender);
+            }
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].dob.patchValue(this.requestInsuredDetails[i].dob);
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].relationship.patchValue(this.requestInsuredDetails[i].relationship);
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].preexdisease.patchValue(this.requestInsuredDetails[i].preexdisease);
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].height.patchValue(this.requestInsuredDetails[i].height);
+            this.hdfcInsureArray['controls'].items['controls'][i]['controls'].weight.patchValue(this.requestInsuredDetails[i].weight);
+        }
+        this.nomineeDetails.controls['nomineeName'].patchValue(this.requestInsuredDetails[0].NomineeName);
+        this.nomineeDetails.controls['nomineeRelationship'].patchValue(this.requestInsuredDetails[0].NomineeRelationship);
     }
+
+    createProposalPayLater() {
+        console.log(this.sameAsinsure, 'trueOrFalse..')
+        console.log(this.hdfcInsureArray.value.items, 'pppppp')
+        this.nomineeRelationshipChange();
+        for(let i=0; i < this.hdfcInsureArray.value.items.length; i++) {
+            this.changeTitle(i);
+            this.relationshipchange(i);
+            this.hdfcInsureArray.value.items[i].NomineeName = this.nomineeDetails.controls['nomineeName'].value;
+            this.hdfcInsureArray.value.items[i].NomineeRelationship = this.nomineeDetails.controls['nomineeRelationship'].value;
+            this.hdfcInsureArray.value.items[i].nomineeRelationshipName = this.nomineeDetails.controls['nomineeRelationshipName'].value;
+            if(this.hdfcInsureArray.value.items[i].genderStatus == 'M'){
+                this.hdfcInsureArray.value.items[i].gender = 'M';
+                this.hdfcInsureArray.value.items[i].genderStatus = 'Male';
+            } else if (this.hdfcInsureArray.value.items[i].genderStatus == 'F'){
+                this.hdfcInsureArray.value.items[i].gender = 'F';
+                this.hdfcInsureArray.value.items[i].genderStatus = 'Female';
+            }
+        }
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'enquiry_id': this.enquiryIdPl,
+            'group_name': this.groupNamePl,
+            'product_id': this.productIdPl,
+            'plan_name': this.planNamePl,
+            'sum_insured_amount': this.changeSuninsuredAmount != undefined ? this.changeSuninsuredAmount : this.sumInsuredPl,
+            'proposal_id': this.newProposalIdPl != undefined ? this.newProposalIdPl : this.proposalIdPl,
+            'InsuranceDetails': {
+                'CustDetails': {
+                    'Title': this.hdfcPersonal.controls['title'].value,
+                    'ApplFirstName': this.hdfcPersonal.controls['firstname'].value,
+                    'ApplLastName': this.hdfcPersonal.controls['lastname'].value,
+                    'ApplDOB': this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'),
+                    'ApplGender': this.hdfcPersonal.controls['gender'].value,
+                    'Address1': this.hdfcPersonal.controls['address1'].value,
+                    'Address2': this.hdfcPersonal.controls['address2'].value,
+                    'Address3': this.hdfcPersonal.controls['address3'].value,
+                    'State': this.hdfcPersonal.controls['state'].value,
+                    'City': this.hdfcPersonal.controls['city'].value,
+                    'Pincode': this.hdfcPersonal.controls['pincode'].value,
+                    'EmailId': this.hdfcPersonal.controls['email'].value,
+                    'MobileNo': this.hdfcPersonal.controls['mobile'].value,
+                    'IsCustomerAcceptedPPCPED' : '',
+                    'IsProposerSameAsInsured': this.sameAsinsure ? 'Y' : 'N' ,
+                    'UIDNo': this.hdfcPersonal.controls['otp'].value, //OTP Value
+                    'PANCardNumber': this.hdfcPersonal.controls['personalPan'].value,
+                },
+                'PlanDetails': {
+                    'suminsured': this.changeSuninsuredAmount != undefined ? this.changeSuninsuredAmount : this.sumInsuredPl,
+                    'product_id': this.productIdPl,
+                    'TierID':this.tierIDPl
+                },
+                'PaymentDetails': {
+                    'PaymentMode': this.paymentmode,
+                },
+                'Member': {
+                    'InsuredDetails': this.hdfcInsureArray.value.items
+                }
+            }
+        }
+console.log(data, 'dataPayLater')
+        this.proposalservice.createHdfcHealthProposal(data).subscribe(
+            (successData) => {
+                this.proposalSuccessPL(successData);
+            },
+            (error) => {
+                this.proposalFailurePL(error);
+            }
+        );
+    }
+    public proposalSuccessPL(successData) {
+        // this.settings.loadingSpinner = false;
+        if (successData.IsSuccess == true) {
+            this.toastr.success('Proposal created successfully!!');
+            this.summaryDataPL = successData.ResponseObject;
+            this.trycondi();
+            this.proposerDataPl = this.hdfcPersonal.value;
+            this.insuredDataPl = this.hdfcInsureArray.value.items;
+            this.nomineeDataPl = this.nomineeDetails.value;
+            console.log(this.nomineeDataPl, 'this.nomineeDataPl');
+            console.log(this.proposerDataPl, 'this.proposerDataPl........////////////');
+            console.log( this.insuredDataPl, 'this.insuredDataPl');
+            this.paymentmodePl = this.proposerDataPl.paymentmode;
+            this.fullNamePl = this.proposerDataPl.firstname + ' ' + this.proposerDataPl.lastname;
+            this.emailPl = this.proposerDataPl.email;
+            this.basePremiumPl = this.summaryDataPL.basePremium;
+            this.serviceTaxPl = this.summaryDataPL.serviceTax;
+            this.totalPremiumPl = this.summaryDataPL.totalPremium;
+            this.newProposalIdPl = this.summaryDataPL.ProposalId;
+            this.ProposalNumberPl = this.summaryDataPL.ProposalNumber;
+            this.PaymentActionUrlPl = this.summaryDataPL.PaymentActionUrl;
+            this.totalAmountPl = parseFloat(this.summaryDataPL.totalPremium);
+            this.AdditionalInfo1Pl = this.summaryDataPL.AdditionalInfo1;
+            this.AdditionalInfo2Pl = this.summaryDataPL.AdditionalInfo2;
+            this.AdditionalInfo3Pl = this.summaryDataPL.AdditionalInfo3;
+            this.ProductCdPl = this.summaryDataPL.ProductCd;
+            this.productcodePl = this.summaryDataPL.productcode;
+
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    public proposalFailurePL(error) {}
+
+    trycondi() {
+        this.submitPayLater = true;
+    }
+
+    backPayLtr() {
+        this.submitPayLater = false;
+    }
+
+    showicon(){
+        this.inputfieldshow =true;
+    }
+
+    suminsureddropdown(stepper) {
+        if(this.getHdfcHealthPremiumList.product_name == 'my:health Suraksha - Silver Smart') {
+            this.prodName = 'SilverSmart';
+        } else if(this.getHdfcHealthPremiumList.product_name == 'my:health Suraksha - Gold Smart') {
+            this.prodName = 'GoldSmart';
+        } else if(this.getHdfcHealthPremiumList.product_name == 'my:health Suraksha - Platinum Smart') {
+            this.prodName = 'PlatinumSmart';
+        }
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'product_name': this.prodName
+        }
+        this.proposalservice.hdfcSumInsured(data).subscribe(
+            (successData) => {
+                this.hdfcSumInsuredSuccess(successData, stepper);
+            },
+            (error) => {
+                this.hdfcSumInsuredFailure(error);
+            }
+        );
+    }
+    public hdfcSumInsuredSuccess(successData, stepper) {
+        // this.settings.loadingSpinner = false;
+        if (successData.IsSuccess == true) {
+            // this.toastr.success('successfully!!');
+            this.suminsuredamount = successData.ResponseObject;
+            this.inputfieldshow = false;
+            console.log(successData.ResponseObject)
+            this.changeCity();
+            this.changeState();
+            this.createProposal(stepper);
+            console.log(this.changeSuninsuredAmount, 'sumIns...')
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    public hdfcSumInsuredFailure(error) {}
+
+    suminsureddropdownPl() {
+        console.log(this.planNamePl, 'ooooooooo')
+        if(this.planNamePl == 'my:health Suraksha - Silver Smart') {
+            this.prodName = 'SilverSmart';
+        } else if(this.planNamePl == 'my:health Suraksha - Gold Smart') {
+            this.prodName = 'GoldSmart';
+        } else if(this.planNamePl == 'my:health Suraksha - Platinum Smart') {
+            this.prodName = 'PlatinumSmart';
+        }
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'product_name': this.prodName
+        }
+        console.log(data, 'llllllllllll')
+        this.proposalservice.hdfcSumInsured(data).subscribe(
+            (successData) => {
+                this.hdfcSumInsuredSuccessPl(successData);
+            },
+            (error) => {
+                this.hdfcSumInsuredFailurePl(error);
+            }
+        );
+    }
+    public hdfcSumInsuredSuccessPl(successData) {
+        // this.settings.loadingSpinner = false;
+        if (successData.IsSuccess == true) {
+            // this.toastr.success('successfully!!');
+            this.suminsuredamountPl = successData.ResponseObject;
+            this.inputfieldshow = false;
+            console.log(successData.ResponseObject)
+            this.createProposalPayLater();
+            console.log(this.changeSuninsuredAmount, 'sumIns...')
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    public hdfcSumInsuredFailurePl(error) {}
 
 }
 

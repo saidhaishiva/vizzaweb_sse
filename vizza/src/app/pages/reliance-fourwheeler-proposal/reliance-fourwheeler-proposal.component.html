@@ -669,58 +669,66 @@
                       </div>
 
 
-                    <div class="row">
-                      <div class="col-md-12 mt-2">
-                      <h3 class="color-blue">IDV</h3>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                      <mat-form-field class="w-100">
-                        <input matInput placeholder="IDV"  formControlName="IDV"  autocomplete="off" required >
-                        <mat-error *ngIf="coverDetails.controls.IDV.errors?.required">IDV is required</mat-error>
-                      </mat-form-field>
-                    </div>
-                    </div>
-
-                    <!--<div class="row mt-3" >-->
-
-                      <!--<div class="col-md-12" class="color-blue ml-3" >-->
-                        <!--<p>Please choose IDV Between (min {{idvMinValue}} - max {{idvMaxValue}})</p>-->
-                      <!--</div>-->
-
-                      <!--<div class="col-md-12 mt-0" layout>-->
-                        <!--<mat-slider flex md-discrete [value]= "coverDetails.controls.IDV.value" formControlName="IDV"-->
-                                    <!--step = "{{idvMinValue}"-->
-                                    <!--min="{{idvMinValue}}"-->
-                                    <!--max="{{idvMaxValue}}">-->
-                        <!--</mat-slider>-->
-                        <!--<i style="font-size:14px; margin-left: 25px" class="fa fa-inr">&#xf156;</i>{{coverDetails.controls.IDV.value}}-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-12 mt-2">-->
+                      <!--<h3 class="color-blue">IDV</h3>-->
                       <!--</div>-->
                     <!--</div>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-4">-->
+                      <!--<mat-form-field class="w-100">-->
+                        <!--<input matInput placeholder="IDV"  formControlName="IDV"  autocomplete="off" required >-->
+                        <!--<mat-error *ngIf="coverDetails.controls.IDV.errors?.required">IDV is required</mat-error>-->
+                      <!--</mat-form-field>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="row mt-3" >
+
+                      <div class="col-md-12" class="color-blue ml-3" >
+                        <p>Please choose IDV Between (min {{idvMinValue}} - max {{idvMaxValue}})</p>
+                      </div>
+
+                      <div class="col-md-12 mt-0" layout>
+                        <mat-slider flex md-discrete [value]= "coverDetails.controls.IDV.value" formControlName="IDV"
+                                    step = "{{idvMinValue}"
+                                    min="{{idvMinValue}}"
+                                    max="{{idvMaxValue}}">
+                        </mat-slider>
+                        <i style="font-size:14px; margin-left: 25px" class="fa fa-inr">&#xf156;</i>{{coverDetails.controls.IDV.value}}
+                      </div>
+                    </div>
 
                     <div class="row">
                       <div class="col-md-12 mt-2">
                         <h3 class="color-blue" style="font-size: medium">Vehicle Details</h3>
                       </div>
-                      <div class="col-md-4 mt-0" *ngIf="bifuelCover == true">
-                        <mat-form-field class="w-100" [ngStyle]="{'pointer-events': bifuelCover == true||this.bifuelType == '5' ? 'none' : ''}">
-                        <!--<mat-form-field class="w-100" >-->
-                          <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == true"  [disabled]="bifuelCover == true" >
-                            <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]="type.key == '1'&&type.key =='2'&&type.key =='3'&&type.key =='4'&&type.key =='6'" > {{type.value}} </mat-option>
+                      <!--<div class="col-md-4 mt-0" *ngIf="bifuelCover == true">-->
+                        <!--<mat-form-field class="w-100" [ngStyle]="{'pointer-events': bifuelCover == true||this.bifuelType == '5' ? 'none' : ''}">-->
+                        <!--&lt;!&ndash;<mat-form-field class="w-100" >&ndash;&gt;-->
+                          <!--<mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == true"  [disabled]="bifuelCover == true" >-->
+                            <!--<mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]="type.key == '1'&&type.key =='2'&&type.key =='3'&&type.key =='4'&&type.key =='6'" > {{type.value}} </mat-option>-->
 
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4 mt-0" *ngIf="bifuelCover == false">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == false" >
-                            <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]="type.key == '5'"> {{type.value}} </mat-option>
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-4 mt-0" *ngIf="bifuelCover == false">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" [required]="bifuelCover == false" >-->
+                            <!--<mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" [hidden]="type.key == '5'"> {{type.value}} </mat-option>-->
 
-                          </mat-select>
-                          <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>
-                        </mat-form-field>
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                      <div class="col-md-4 mt-0" >
+                      <mat-form-field class="w-100">
+                      <mat-select placeholder="Fuel type" formControlName="fuelType" (selectionChange)="changeFuel()" required >
+                      <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">Fuel type  is required</mat-error>
+                      </mat-form-field>
                       </div>
                         <div class="col-md-4 mt-0" *ngIf="buyProduct.business_type ==6">
                           <mat-form-field class="w-100">
@@ -737,8 +745,9 @@
 
                       <div class="col-md-12 mt-2" >
                       <div class="row">
-                      <div class="col-md-4" *ngIf="coverDetails.controls['fuelType'].value == 5">
-                      <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit()" [required]="bifuelCover == true" >BiFuel Kit<span class="error" *ngIf="coverDetails.controls['fuelType'].value == 5">*</span></mat-checkbox>
+                      <!--<div class="col-md-4" *ngIf="coverDetails.controls['fuelType'].value == 5">-->
+                      <div class="col-md-4" >
+                      <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit()"  >BiFuel Kit<span class="error" *ngIf="coverDetails.controls['fuelType'].value == 5">*</span></mat-checkbox>
                       </div>
                       <!--</div>-->
                       <!--</div>-->
@@ -1373,7 +1382,7 @@
                   <div class="proposal-buttom mt-3 text-right w-100" >
                     <button mat-button matStepperPrevious color="primaryBlue" class="text-light" style="margin-right:17px" (click)="topScroll()">Back</button>
 
-                    <button mat-raised-button color="primaryBlue"  (click)="getCover(stepper,coverDetails.value,'stepper3')" >Next</button>
+                    <button mat-raised-button color="primaryBlue"  (click)="changeFuel();getCover(stepper,coverDetails.value,'stepper3')" >Next</button>
                   </div>
 
               </form>

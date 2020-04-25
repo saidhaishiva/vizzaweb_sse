@@ -191,6 +191,23 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
           this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
           this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
+          this.KEY_REPLACEMENT=sessionStorage.KEY_REPLACEMENT;
+          console.log(this.KEY_REPLACEMENT,'this.KEY_REPLACEMENT')
+          this.DEPRECIATION_WAIVER=sessionStorage.DEPRECIATION_WAIVER;
+          this.WIND_SHIELD_GLASS=sessionStorage.WIND_SHIELD_GLASS;
+          this.ENGINE_PROTECTOR=sessionStorage.ENGINE_PROTECTOR;
+          this.NCB_PROTECTOR=sessionStorage.NCB_PROTECTOR;
+          this.INVOICE_PRICE_INSURANCE=sessionStorage.INVOICE_PRICE_INSURANCE;
+          this.AUTOMOBILE_ASSOCIATION_DISCOUNT=sessionStorage.AUTOMOBILE_ASSOCIATION_DISCOUNT;
+          this.LOSS_OF_BAGGAGE=sessionStorage.LOSS_OF_BAGGAGE;
+          this.BI_FUEL_KIT=sessionStorage.BI_FUEL_KIT;
+          this.LIABILITY_TO_PAID_DRIVERS=sessionStorage.LIABILITY_TO_PAID_DRIVERS;
+          this.TO_EMPLOYEE=sessionStorage.TO_EMPLOYEE;
+          this.TOWING_CHARGE=sessionStorage.TOWING_CHARGE;
+          this.FIBER_GLASS_TANK=sessionStorage.FIBER_GLASS_TANK;
+          this.NON_ELECTRICAL_ACCESSORIES=sessionStorage.NON_ELECTRICAL_ACCESSORIES;
+          this.ELECTRICAL_ACCESSORIES=sessionStorage.ELECTRICAL_ACCESSORIES;
+          this.Comprehensivepremium=sessionStorage.Comprehensivepremium;
           this.previousFormData = JSON.parse(sessionStorage.previousFormData);
           this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
           this.ProposalId = this.summaryData.ProposalId;
@@ -272,24 +289,24 @@ export class RsFourwheelerProposalComponent implements OnInit {
       averageMonthlyMileageRun: '',
       accidentCoverForPaidDriver: '',
       // registrationchargesRoadtaxpremium: '',
-      ncbprotectorpremium: '',
+      // ncbprotectorpremium: '',
       companyName: '',
       gstIn: '',
-      invoicePricepremium: '',
-      automobileAssociationMembershippremium: '',
-      legalliabilityToPaidDriverpremium: '',
-      fibreGlasspremium: '',
-      bifuelpremium: '',
+      // invoicePricepremium: '',
+      // automobileAssociationMembershippremium: '',
+      // legalliabilityToPaidDriverpremium: '',
+      // fibreGlasspremium: '',
+      // bifuelpremium: '',
       // idv: '',
       isFourWheelerFinancedValue: '',
       valueOfLossOfBaggage: '',
       isBiFuelKitYes: '',
         // coverdriverpremium:'',
-      isCarOwnershipChangedpremium:'',
-      depreciationWaiverpremium:'',
-      windShieldGlasspremium:'',
-      engineprotectorpremium:'',
-      keyreplacementpremium:'',
+      // isCarOwnershipChangedpremium:'',
+      // depreciationWaiverpremium:'',
+      // windShieldGlasspremium:'',
+      // engineprotectorpremium:'',
+      // keyreplacementpremium:'',
         amountNonElectricalaccesss:'',
         amountElectricalaccesss:'',
       // quoteId: '',
@@ -316,7 +333,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       automobileAssociationMembership: 'No',
       legalliabilityToPaidDriver: 'No',
       toEmployee: 'No',
-      employeepremium: '',
+      // employeepremium: '',
       windShieldGlass: 'Off',
       keyreplacement: 'Off',
       depreciationWaiver: 'Off',
@@ -422,7 +439,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changeAddon();
     // this.getcity();
     this.getcityin();
-    this.coverPremium();
+    // this.coverPremium();
     this.idvValuess();
     this.idvValue();
     this.towingChargeSIValue();
@@ -497,6 +514,34 @@ export class RsFourwheelerProposalComponent implements OnInit {
         this.taxValue=false;
       }
       console.log(this.taxValue,'taxValue....')
+  }
+
+  coverTypee(){
+    if(this.vehical.controls['typeOfCover'].value != 'LiabilityOnly'){
+      this.vehical.controls['IDV'].setValidators([Validators.required]);
+
+    } else {
+      this.vehical.controls['IDV'].patchValue('');
+      this.vehical.controls['voluntary'].patchValue('');
+      this.vehical.controls['invoicePrice'].patchValue('');
+      this.vehical.controls['fibreGlass'].patchValue('');
+      this.vehical.controls['coverelectricalaccesss'].patchValue('');
+      this.vehical.controls['cover_non_elec_acc'].patchValue('');
+
+      this.vehical.controls['IDV'].setValidators(null);
+      this.vehical.controls['voluntary'].setValidators(null);
+      this.vehical.controls['invoicePrice'].setValidators(null);
+      this.vehical.controls['fibreGlass'].setValidators(null);
+      this.vehical.controls['coverelectricalaccesss'].setValidators(null);
+      this.vehical.controls['cover_non_elec_acc'].setValidators(null);
+
+      }
+      this.vehical.controls['IDV'].updateValueAndValidity();
+      this.vehical.controls['voluntary'].updateValueAndValidity();
+      this.vehical.controls['invoicePrice'].updateValueAndValidity();
+      this.vehical.controls['fibreGlass'].updateValueAndValidity();
+      this.vehical.controls['coverelectricalaccesss'].updateValueAndValidity();
+      this.vehical.controls['cover_non_elec_acc'].updateValueAndValidity();
   }
 
 
@@ -1065,6 +1110,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     // if (check.checked == true) {
 
       if ((this.vehical.valid) && (this.errorSpareLimit==false||this.errorSpareLimit=='')) {
+
           console.log(this.vehical.valid, ' Vecvalid');
       this.valueCalc = [];
       this.valueList =  this.vehical.value.electricalAccess;
@@ -1087,6 +1133,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     if (total <= 50000 || total == 'err') {
       if (subTotal <= 20000 || subTotal == 'err') {
+        this.settings.loadingSpinner = false;
         const dialogRef = this.dialog.open(rsfourwheelercover, {
           width: '650px',
           height: '400px'
@@ -1110,13 +1157,18 @@ export class RsFourwheelerProposalComponent implements OnInit {
         // stepper.next();
         // this.topScroll();
     } else {
+        this.settings.loadingSpinner = false;
       this.toastr.error('Non Electrical Accessories Values should be less than 20,000');
     }
       } else {
+      this.settings.loadingSpinner = false;
         this.toastr.error('Electrical Accessories Values should be less than 50,000');
       }
 
-    }
+    }else{
+        this.settings.loadingSpinner = false;
+        this.toastr.error('Please Fill the Mandatory Fields');
+      }
   }
   isFinaced(event: any) {
     if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
@@ -1141,7 +1193,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   addonlimit(event: any) {
     if (this.vehical.controls['addonValue'].value <= 100000) {
       this.vehical.controls['addonValue'].patchValue(this.vehical.controls['addonValue'].value);
-      this.coverPremium();
+      // this.coverPremium();
     } else {
       this.toastr.error('Addon Values should be less than 100000');
     }
@@ -1978,7 +2030,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
 
-  coverPremium() {
+  coverPremium(stepper) {
     const data = {
       "platform": "web",
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -2081,19 +2133,18 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
       }
     };
-    // this.settings.loadingSpinner = true;
+    this.settings.loadingSpinner = true;
 
     this.fourWheeler.calculatrepremiumrs(data).subscribe(
         (successData) => {
-          this.calculatrepremiumrsSuccess(successData);
+          this.calculatrepremiumrsSuccess(successData,stepper);
         },
         (error) => {
           this.calculatrepremiumrsFailure(error);
         }
     );
   }
-  public calculatrepremiumrsSuccess(successData) {
-    // this.settings.loadingSpinner = false;
+  public calculatrepremiumrsSuccess(successData,stepper) {
 
     if (successData.IsSuccess) {
       this.AddonList = successData.ResponseObject;
@@ -2146,6 +2197,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
         this.INVOICE_PRICE_INSURANCE=this.AddonList.INVOICE_PRICE_INSURANCE;
         sessionStorage.INVOICE_PRICE_INSURANCE=this.INVOICE_PRICE_INSURANCE
+
+        this.settings.loadingSpinner = false;
+        this.vehicalDetails(stepper,this.vehical.value)
 
         // this.premiumadd=this.AddonList.premium;
       // console.log(this.premiumadd,'gfhfhgfh')
@@ -2631,6 +2685,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
       this.VersionNo =  this.summaryData1.VersionNo;
       this.Comprehensivepremium =  this.summaryData1.Comprehensive_premium;
+      sessionStorage.Comprehensivepremium = this.Comprehensivepremium;
       this.proposerFormData = this.proposer.value;
 
 
@@ -2735,14 +2790,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['addonValue'].patchValue(this.getStepper2.addonValue);
       this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.isFourWheelerFinanced);
       // this.vehical.controls['coverdriverpremium'].patchValue(this.getStepper2.coverdriverpremium);
-      this.vehical.controls['keyreplacementpremium'].patchValue(this.getStepper2.keyreplacementpremium);
-      this.vehical.controls['depreciationWaiverpremium'].patchValue(this.getStepper2.depreciationWaiverpremium);
-      this.vehical.controls['windShieldGlasspremium'].patchValue(this.getStepper2.windShieldGlasspremium);
-      this.vehical.controls['engineprotectorpremium'].patchValue(this.getStepper2.engineprotectorpremium);
-      // this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue(this.getStepper2.registrationchargesRoadtaxpremium);
-      this.vehical.controls['ncbprotectorpremium'].patchValue(this.getStepper2.ncbprotectorpremium);
-      this.vehical.controls['invoicePricepremium'].patchValue(this.getStepper2.invoicePricepremium);
-      this.vehical.controls['automobileAssociationMembershippremium'].patchValue(this.getStepper2.automobileAssociationMembershippremium);
+      // this.vehical.controls['keyreplacementpremium'].patchValue(this.getStepper2.keyreplacementpremium);
+      // this.vehical.controls['depreciationWaiverpremium'].patchValue(this.getStepper2.depreciationWaiverpremium);
+      // this.vehical.controls['windShieldGlasspremium'].patchValue(this.getStepper2.windShieldGlasspremium);
+      // this.vehical.controls['engineprotectorpremium'].patchValue(this.getStepper2.engineprotectorpremium);
+      // // this.vehical.controls['registrationchargesRoadtaxpremium'].patchValue(this.getStepper2.registrationchargesRoadtaxpremium);
+      // this.vehical.controls['ncbprotectorpremium'].patchValue(this.getStepper2.ncbprotectorpremium);
+      // this.vehical.controls['invoicePricepremium'].patchValue(this.getStepper2.invoicePricepremium);
+      // this.vehical.controls['automobileAssociationMembershippremium'].patchValue(this.getStepper2.automobileAssociationMembershippremium);
       this.vehical.controls['amountLossOfBaggage'].patchValue(this.getStepper2.amountLossOfBaggage);
       this.vehical.controls['amountElectricalaccesss'].patchValue(this.getStepper2.amountElectricalaccesss);
       this.vehical.controls['amountNonElectricalaccesss'].patchValue(this.getStepper2.amountNonElectricalaccesss);
@@ -2774,7 +2829,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['isBiFuelKit'].patchValue(this.getStepper2.isBiFuelKit);
       this.vehical.controls['legalliabilityToPaidDriver'].patchValue(this.getStepper2.legalliabilityToPaidDriver);
       this.vehical.controls['toEmployee'].patchValue(this.getStepper2.toEmployee);
-      this.vehical.controls['employeepremium'].patchValue(this.getStepper2.employeepremium);
+      // this.vehical.controls['employeepremium'].patchValue(this.getStepper2.employeepremium);
       this.vehical.controls['total'].patchValue(this.getStepper2.total);
       this.vehical.controls['subTotal'].patchValue(this.getStepper2.subTotal);
 
@@ -3070,7 +3125,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           <p ><span style="margin-left: 35px">Cover Electrical Accessories:</span><span style="margin-left: 194px">{{this.ELECTRICAL_ACCESSORIES}} </span> </p>
         </div>
          <div class="col-md-12"  *ngIf="this.NON_ELECTRICAL_ACCESSORIES!=''&& this.NON_ELECTRICAL_ACCESSORIES!=undefined">
-          <p ><span style="margin-left: 35px">Cover Non Electrical Accessories:</span><span style="margin-left: 165px">{{this.NON_ELECTRICAL_ACCESSORIES}} </span> </p>
+          <p ><span style="margin-left: 35px"> Basic Premium And Non Electrical Accessories:</span><span style="margin-left: 77px">{{this.NON_ELECTRICAL_ACCESSORIES}} </span> </p>
         </div>
           <div mat-dialog-actions style="justify-content: center">
             <button mat-raised-button style="background-color: darkblue; color: white;" (click)="cancel()">Cancel</button>
